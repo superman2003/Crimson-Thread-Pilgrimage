@@ -456,6 +456,7 @@ def build_compat_platforms() -> list[dict[str, Any]]:
         platform("start_ground", 640, 840, 860, 40, moss, "moss_stone"),
         platform("starter_step", 1138, 780, 176, 24, moss_mid, "moss_stone"),
         platform("vista_bridge", 1360, 706, 320, 26, bronze, "bronze_bridge"),
+        platform("upper_gate_step", 1510, 638, 180, 24, moss_mid, "moss_stone"),
         platform("under_gate_lip", 1540, 560, 210, 28, moss_dark, "moss_stone"),
         platform("outer_drop", 1660, 640, 360, 34, "243a24", "moss_stone"),
         platform("outer_low_bridge", 2050, 580, 220, 28, "2b442d", "moss_stone"),

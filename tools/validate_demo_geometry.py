@@ -56,15 +56,25 @@ def main() -> None:
     max_jump_height = jump_velocity * jump_velocity / (2 * gravity)
     platforms = platform_map(config)
 
-    for required_id in ("start_ground", "starter_step", "vista_bridge", "under_gate_lip", "outer_drop", "gear_lift"):
+    for required_id in (
+        "start_ground",
+        "starter_step",
+        "vista_bridge",
+        "upper_gate_step",
+        "under_gate_lip",
+        "outer_drop",
+        "gear_lift",
+    ):
         if required_id not in platforms:
             raise AssertionError(f"missing platform: {required_id}")
 
     assert_step(platforms, "start_ground", "starter_step", max_jump_height)
     assert_step(platforms, "starter_step", "vista_bridge", max_jump_height)
+    assert_step(platforms, "vista_bridge", "upper_gate_step", max_jump_height)
+    assert_step(platforms, "upper_gate_step", "under_gate_lip", max_jump_height)
     assert_step(platforms, "outer_drop", "gear_lift", max_jump_height)
     assert_lower_detour_clear(config)
-    print(f"DEMO_GEOMETRY_PASS max_jump_height={max_jump_height:.1f}px first_steps=48px/62px")
+    print(f"DEMO_GEOMETRY_PASS max_jump_height={max_jump_height:.1f}px opening_steps=60px/74px/68px/78px")
 
 
 if __name__ == "__main__":
