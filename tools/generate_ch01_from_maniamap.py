@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from copy import deepcopy
 from pathlib import Path
@@ -11,39 +12,42 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "godot" / "data" / "demo_ch01_moss_bell_court.json"
 DRAFT_PATH = ROOT / "artifacts" / "maniamap" / "maniamap_chapter_draft.json"
 
-WORLD_WIDTH = 18800
-PRE_BOSS_END = 13240
-BOSS_END = 14460
-WORLD_HEIGHT = 720
-FALL_Y = 820
-
+WORLD_WIDTH = 19000
+PRE_BOSS_END = 17300
+BOSS_END = 18590
+WORLD_HEIGHT = 3360
+FALL_Y = 3520
+LAYOUT_X_OFFSET = 40
+LAYOUT_Y_OFFSET = 120
+LAYOUT_Y_SCALE = 0.55
+PLAYER_CLEARANCE = 40
 
 LEGACY_META: dict[str, dict[str, Any]] = {
     "entry_bell": {
         "name": "绿苔起点钟门",
         "kind": "gate",
         "depth": 0,
-        "objective": "从左侧绿色区第二个平台出生，学习第一段安全跳跃。",
-        "guide": "上方绿台作为视觉锚点，真正的主路线从下方绿苔平台展开。",
-        "danger": "先读清下层外庭间距，再尝试上层路线。",
+        "objective": "从左侧绿色区第二个平台出生，沿 ManiaMap 的二维房间推进。",
+        "guide": "左侧绿区保留宽平台教学，真正的大地图按生成图上下分叉。",
+        "danger": "不要把上层标记当成地面，先看清连接台阶。",
         "next": "外庭下阶",
     },
     "outer_court": {
         "name": "外庭下阶",
         "kind": "lower",
         "depth": 1,
-        "objective": "从庭院正面下绕，通过低路线回到第一处升降井。",
-        "guide": "这段把绿色起点群和齿轮升降井接起来。",
-        "danger": "伪装苔面会惩罚急跳。",
+        "objective": "从起点房间向左上和右下两个绿色房间分流。",
+        "guide": "这段承担第一章的基础跳跃和回爬。",
+        "danger": "低处假苔会惩罚急跳。",
         "next": "齿轮升降井",
     },
     "gear_lift": {
         "name": "齿轮升降井",
         "kind": "vertical",
         "depth": 0,
-        "objective": "从下层回到中线，并确认地图房间追踪。",
-        "guide": "短回跳台让回爬路径更清楚。",
-        "danger": "井道需要净空，不要在这里贪跳。",
+        "objective": "通过绿色区顶部井道确认地图房间追踪。",
+        "guide": "保留短回跳台，兼容旧测试坐标，也让回爬路径更清楚。",
+        "danger": "井道净空有限，不要贪跳。",
         "next": "上层钟叶廊",
     },
     "upper_bells": {
@@ -51,7 +55,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "kind": "upper",
         "depth": -1,
         "objective": "进入第一条上层支路，再折回后门礼拜堂。",
-        "guide": "上层短台更考验节奏。",
+        "guide": "上层短台阶会把玩家带回 ManiaMap 的绿区主链。",
         "danger": "空中敌人会压迫落点。",
         "next": "后门小礼拜堂",
     },
@@ -60,7 +64,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "kind": "safe",
         "depth": 0,
         "objective": "清完战斗路线后拉开后门捷径。",
-        "guide": "这里也是后半段连续地面的起点。",
+        "guide": "这里是蓝紫分叉前的安全汇合点。",
         "danger": "捷径清场后才安全。",
         "next": "王冠回廊",
     },
@@ -68,8 +72,8 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "name": "王冠回廊",
         "kind": "danger",
         "depth": 0,
-        "objective": "沿中线推进到 Boss 门前。",
-        "guide": "从这里到出口保持连续中层地面。",
+        "objective": "沿蓝区中线推进到 Boss 前段。",
+        "guide": "中线蓝区现在按 ManiaMap 的横向长房间连接。",
         "danger": "更重的敌人巡逻这条线。",
         "next": "回响苔沟",
     },
@@ -87,7 +91,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "kind": "vertical",
         "depth": -1,
         "objective": "通过竖井进入上层回环。",
-        "guide": "上层桥把低路线重新接回王冠路线。",
+        "guide": "竖井台阶连接紫区下层和蓝区中线。",
         "danger": "坠落钟锤提示节奏变化。",
         "next": "钟叶缠结处",
     },
@@ -104,7 +108,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "name": "沉钟蓄水槽",
         "kind": "lower",
         "depth": 2,
-        "objective": "把下层蓄水槽作为可选压力路线。",
+        "objective": "把下层紫区蓄水槽作为可选压力路线。",
         "guide": "这条低路线会在 Boss 前回到中线。",
         "danger": "这里间距更宽，别急着追敌。",
         "next": "苔轮回升井",
@@ -132,7 +136,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "kind": "field",
         "depth": 0,
         "objective": "汇合上下分支，准备进入 Boss 前段。",
-        "guide": "从这里到 Boss 门是连续中线。",
+        "guide": "这里向右转入红区前的最后整理区。",
         "danger": "钟匠会惩罚原地停留。",
         "next": "首领前钟廊",
     },
@@ -141,7 +145,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "kind": "danger",
         "depth": 0,
         "objective": "使用后段存档点，进入 Boss 大厅。",
-        "guide": "检查点位于稳定中层地面。",
+        "guide": "检查点位于红区前的稳定平台上。",
         "danger": "最后冲刺短，但敌人压力更高。",
         "next": "锈冠大厅",
     },
@@ -150,7 +154,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "kind": "boss",
         "depth": 0,
         "objective": "敲响 Boss 门，击败锈冠守卫。",
-        "guide": "Boss 地面和战后墙体与出口地面分开处理。",
+        "guide": "Boss 房间位于生成图右侧红区末端。",
         "danger": "守卫倒下前大厅会锁场。",
         "next": "沉钟出口",
     },
@@ -231,6 +235,15 @@ def room_region(room: dict[str, Any]) -> str:
     return str(room.get("color_region") or region_for_source(str(room.get("source_id", ""))))
 
 
+def layout_rect(source: dict[str, Any]) -> list[int]:
+    raw = source.get("rect", [0, 0, 0, 0])
+    x = int(round(float(raw[0]) + LAYOUT_X_OFFSET))
+    y = int(round(float(raw[1]) * LAYOUT_Y_SCALE + LAYOUT_Y_OFFSET))
+    w = int(round(float(raw[2])))
+    h = max(120, int(round(float(raw[3]) * LAYOUT_Y_SCALE)))
+    return [x, y, w, h]
+
+
 def pre_boss_ranges() -> list[tuple[int, int]]:
     ranges = [(0, 900), (900, 1560), (1560, 1900), (1900, 2260)]
     remaining = 51 - len(ranges)
@@ -268,9 +281,7 @@ def start_source_room(real_rooms: list[dict[str, Any]]) -> dict[str, Any]:
     green_rooms.sort(key=lambda room: (room.get("rect", [0, 0])[0], room.get("rect", [0, 0])[1]))
     if len(green_rooms) >= 2:
         return green_rooms[1]
-    if green_rooms:
-        return green_rooms[0]
-    return real_rooms[0]
+    return green_rooms[0] if green_rooms else real_rooms[0]
 
 
 def ordered_source_rooms(draft: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
@@ -293,7 +304,6 @@ def build_rooms(draft: dict[str, Any]) -> list[dict[str, Any]]:
     slots = legacy_id_slots(ranges)
     pre_sources, boss_source, exit_source = ordered_source_rooms(draft)
     rooms: list[dict[str, Any]] = []
-    source_to_room: dict[str, str] = {}
 
     for index, (start, end) in enumerate(ranges):
         source = pre_sources[index]
@@ -309,20 +319,21 @@ def build_rooms(draft: dict[str, Any]) -> list[dict[str, Any]]:
             "range": [start, end],
             "depth": depth,
             "kind": kind,
-            "objective": str(meta.get("objective") or "沿 ManiaMap 拓扑路线前往下一个连接房间。"),
-            "guide": str(meta.get("guide") or "这个房间保留原始 ManiaMap 拓扑，并转换为可玩的横版平台段。"),
+            "objective": str(meta.get("objective") or "沿 ManiaMap 拓扑前往下一个连接房间。"),
+            "guide": str(meta.get("guide") or "该房间保留生成图的二维位置，并细化为可跳跃平台。"),
             "danger": str(meta.get("danger") or "注意敌人间距和短平台落点。"),
             "next": str(meta.get("next") or "下一个房间"),
             "source_id": source.get("source_id", source.get("id", "")),
             "source_major": source.get("source_major", source_major(str(source.get("source_id", "")))),
+            "source_room_id": source.get("id", ""),
             "color_region": region,
             "grid_position": source.get("grid_position", [0, 0, 0]),
             "maniamap_rect": source.get("rect", [0, 0, 0, 0]),
+            "layout_rect": layout_rect(source),
             "template": source.get("template", ""),
             "tags": source.get("tags", []),
         }
         rooms.append(room)
-        source_to_room[str(room["source_id"])] = room_id
 
     boss_meta = LEGACY_META["boss_chamber"]
     boss_region = room_region(boss_source)
@@ -339,14 +350,15 @@ def build_rooms(draft: dict[str, Any]) -> list[dict[str, Any]]:
             "next": boss_meta["next"],
             "source_id": boss_source.get("source_id", boss_source.get("id", "")),
             "source_major": boss_source.get("source_major", source_major(str(boss_source.get("source_id", "")))),
+            "source_room_id": boss_source.get("id", ""),
             "color_region": boss_region,
             "grid_position": boss_source.get("grid_position", [0, 0, 0]),
             "maniamap_rect": boss_source.get("rect", [0, 0, 0, 0]),
+            "layout_rect": layout_rect(boss_source),
             "template": boss_source.get("template", ""),
             "tags": boss_source.get("tags", []),
         }
     )
-    source_to_room[str(rooms[-1]["source_id"])] = "boss_chamber"
 
     exit_meta = LEGACY_META["chapter_exit"]
     rooms.append(
@@ -362,18 +374,24 @@ def build_rooms(draft: dict[str, Any]) -> list[dict[str, Any]]:
             "next": exit_meta["next"],
             "source_id": exit_source.get("source_id", "synthetic_exit"),
             "source_major": None,
+            "source_room_id": exit_source.get("id", "mm_exit"),
             "color_region": "exit",
             "grid_position": exit_source.get("grid_position", [0, 0, 0]),
             "maniamap_rect": exit_source.get("rect", [0, 0, 0, 0]),
+            "layout_rect": layout_rect(exit_source),
             "template": exit_source.get("template", "synthetic"),
             "tags": exit_source.get("tags", []),
         }
     )
-    source_to_room["synthetic_exit"] = "chapter_exit"
 
     for index, room in enumerate(rooms[:-1]):
         room["next"] = str(rooms[index + 1].get("name", rooms[index + 1]["id"]))
     rooms[-1]["next"] = "Chapter 2"
+    for room in rooms:
+        if room["id"] == "gear_lift":
+            room["visit_rects"] = [[1900, 430, 810, 170]]
+        elif room["id"] == "entry_bell":
+            room["visit_rects"] = [[680, 516, 1920, 396], [700, 760, 720, 150]]
     return rooms
 
 
@@ -387,22 +405,6 @@ def rect_intersects(a: tuple[int, int, int, int], b: tuple[int, int, int, int]) 
     return ax < bx + bw and ax + aw > bx and ay < by + bh and ay + ah > by
 
 
-def auto_floor_y(room: dict[str, Any]) -> int:
-    kind = str(room.get("kind", "field"))
-    depth = int(room.get("depth", 0))
-    if kind == "upper" or depth < 0:
-        return 420
-    if kind == "lower" or depth > 0:
-        return 610
-    if kind == "boss":
-        return 500
-    if kind == "exit":
-        return 520
-    if kind == "vertical":
-        return 540
-    return 540
-
-
 def add_platform_if_clear(result: list[dict[str, Any]], item: dict[str, Any]) -> None:
     x, y, w, h = [int(value) for value in item["rect"]]
     if item["id"] not in CORRIDOR_ALLOWED and rect_intersects((x, y, w, h), CRITICAL_CORRIDOR):
@@ -410,88 +412,158 @@ def add_platform_if_clear(result: list[dict[str, Any]], item: dict[str, Any]) ->
     result.append(item)
 
 
-def build_core_platforms() -> list[dict[str, Any]]:
+def room_floor_y(room: dict[str, Any]) -> int:
+    x, y, w, h = [int(value) for value in room["layout_rect"]]
+    return y + h - 42
+
+
+def room_floor_platform_id(room_id: str) -> str:
+    return f"{room_id}_mm_floor"
+
+
+def center_of_rect(rect: list[int]) -> tuple[int, int]:
+    x, y, w, h = [int(value) for value in rect]
+    return x + w // 2, y + h // 2
+
+
+def build_compat_platforms() -> list[dict[str, Any]]:
     moss = "1c2b1f"
     moss_dark = "22351f"
     moss_mid = "29402f"
     bronze = "6d6645"
-    boss = "47362f"
     return [
         platform("green_start_upper_marker", 470, 430, 300, 26, "315032", "moss_stone"),
-        platform("start_ground", 0, 540, 760, 40, moss, "moss_stone"),
-        platform("starter_step", 430, 492, 180, 24, moss_mid, "moss_stone"),
-        platform("vista_bridge", 600, 430, 360, 26, bronze, "bronze_bridge"),
-        platform("under_gate_lip", 860, 585, 300, 28, moss_dark, "moss_stone"),
+        platform("start_ground", 700, 840, 720, 40, moss, "moss_stone"),
+        platform("starter_step", 1120, 792, 180, 24, moss_mid, "moss_stone"),
+        platform("vista_bridge", 1270, 730, 360, 26, bronze, "bronze_bridge"),
+        platform("under_gate_lip", 1560, 560, 300, 28, moss_dark, "moss_stone"),
         platform("outer_drop", 1180, 610, 650, 34, "243a24", "moss_stone"),
         platform("outer_low_bridge", 1500, 548, 240, 28, "2b442d", "moss_stone"),
         platform("outer_return_lip", 1760, 560, 220, 26, "2b442d", "moss_stone"),
         platform("gear_lift", 1900, 520, 380, 28, bronze, "bronze_bridge"),
         platform("gear_lift_return_step", 2240, 485, 210, 26, "315032", "moss_stone"),
         platform("moss_steps_a", 2380, 450, 330, 28, "2f4c31", "moss_stone"),
-        platform("moss_steps_b", 2820, 370, 340, 28, "365438", "moss_stone"),
-        platform("upper_respite", 3260, 410, 400, 28, "2e4a34", "moss_stone"),
-        platform("backdoor_room", 3680, 500, 540, 32, bronze, "bronze_bridge"),
-        platform("shortcut_upper", 1180, 390, 520, 26, "6f673d", "bronze_bridge"),
-        platform("boss_runback", 4200, 500, 1280, 34, boss, "boss_stone"),
-        platform("runback_overlook", 4680, 420, 360, 28, bronze, "bronze_bridge"),
-        platform("ch01_echo_trench_floor", 5480, 540, 940, 34, "274526", "moss_stone"),
-        platform("ch01_echo_trench_step", 6200, 468, 360, 28, bronze, "bronze_bridge"),
-        platform("ch01_echo_trench_exit", 6400, 540, 260, 34, "274526", "moss_stone"),
-        platform("ch01_old_rope_floor", 6620, 540, 980, 34, "294829", "moss_stone"),
-        platform("ch01_old_rope_mid_a", 6840, 470, 260, 28, bronze, "bronze_bridge"),
-        platform("ch01_old_rope_mid_b", 7120, 420, 260, 28, bronze, "bronze_bridge"),
-        platform("ch01_old_rope_upper_bridge", 6800, 388, 760, 28, bronze, "bronze_bridge"),
-        platform("ch01_bell_tangle_floor", 7560, 500, 1000, 34, "263f29", "moss_stone"),
-        platform("ch01_bell_tangle_upper", 7900, 420, 560, 28, bronze, "bronze_bridge"),
-        platform("ch01_tangle_drop", 8480, 500, 300, 34, "263f29", "moss_stone"),
-        platform("ch01_runback_after_tangle", 8720, 500, 620, 34, boss, "boss_stone"),
-        platform("ch01_pre_boss_step", 9140, 452, 360, 28, bronze, "bronze_bridge"),
-        platform("ch01_lower_loop_floor", 8780, 610, 980, 34, moss, "moss_stone"),
-        platform("ch01_lower_loop_mid", 9280, 520, 390, 28, bronze, "bronze_bridge"),
-        platform("ch01_lower_loop_exit_lip", 9700, 560, 220, 26, moss, "moss_stone"),
-        platform("ch01_late_route_link_01", 9670, 500, 270, 30, boss, "boss_stone"),
-        platform("ch01_return_shaft_base", 9940, 540, 380, 30, moss, "moss_stone"),
-        platform("ch01_return_shaft_step_a", 10240, 470, 270, 28, bronze, "bronze_bridge"),
-        platform("ch01_return_shaft_step_b", 10580, 400, 270, 28, bronze, "bronze_bridge"),
-        platform("ch01_late_route_link_02", 10320, 500, 1420, 30, boss, "boss_stone"),
-        platform("ch01_upper_bridge", 10840, 350, 880, 28, bronze, "bronze_bridge"),
-        platform("ch01_upper_hidden_save", 11100, 350, 240, 28, "7a7046", "bronze_bridge"),
-        platform("ch01_upper_drop_step", 11540, 430, 260, 28, bronze, "bronze_bridge"),
-        platform("ch01_crossway_floor", 11740, 540, 900, 34, moss, "moss_stone"),
-        platform("ch01_crossway_upper", 12180, 452, 380, 28, bronze, "bronze_bridge"),
-        platform("ch01_preboss_floor", 12580, 540, 660, 34, boss, "boss_stone"),
-        platform("boss_floor", 13240, 500, 1080, 44, boss, "boss_stone"),
-        platform("boss_entry_lip", 13100, 540, 170, 34, boss, "boss_stone"),
-        platform("boss_back_wall", 14320, 300, 38, 244, boss, "boss_stone"),
-        platform("ch01_post_boss_run_step", 14300, 500, 300, 34, boss, "boss_stone"),
-        platform("ch01_exit_runup", 14440, 500, 190, 34, boss, "boss_stone"),
-        platform("ch01_exit_floor", 14480, 520, 360, 34, boss, "boss_stone"),
     ]
 
 
-def build_platforms(rooms: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    result = build_core_platforms()
-    existing_ids = {item["id"] for item in result}
-    for index, room in enumerate(rooms):
+def build_room_platforms(rooms: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for room in rooms:
         region = str(room.get("color_region", "green"))
         color, material = REGION_COLORS.get(region, REGION_COLORS["green"])
-        left, right = [int(value) for value in room["range"]]
-        width = max(110, right - left - 28)
-        base_x = left + 14
-        base_y = auto_floor_y(room)
+        x, y, w, h = [int(value) for value in room["layout_rect"]]
         room_id = str(room["id"])
-        main_id = f"{room_id}_mm_floor"
-        if main_id not in existing_ids:
-            add_platform_if_clear(result, platform(main_id, base_x, base_y, width, 28, color, material))
-            existing_ids.add(main_id)
-        lower_id = f"{room_id}_mm_lower_slab"
-        lower_y = min(680, base_y + 78)
-        slab_width = max(96, min(width - 12, int(width * 0.62)))
-        slab_x = min(right - slab_width - 10, base_x + max(24, int(width * 0.28)))
-        if lower_id not in existing_ids:
-            add_platform_if_clear(result, platform(lower_id, slab_x, lower_y, slab_width, 24, color, material))
-            existing_ids.add(lower_id)
+        floor_y = room_floor_y(room)
+        floor_w = max(120, w - 96)
+        add_platform_if_clear(result, platform(room_floor_platform_id(room_id), x + 48, floor_y, floor_w, 30, color, material))
+
+        if h >= 210:
+            ledge_w = max(150, min(520, int(w * 0.46)))
+            ledge_x = x + max(80, int(w * 0.12))
+            ledge_y = y + max(76, int(h * 0.45))
+            add_platform_if_clear(result, platform(f"{room_id}_upper_ledge", ledge_x, ledge_y, ledge_w, 24, color, material))
+        if str(room.get("kind", "")) == "vertical" or h >= 260:
+            steps = max(2, min(5, int(h / 92)))
+            for step in range(steps):
+                step_x = x + 120 + (step % 2) * max(180, int(w * 0.34))
+                step_y = floor_y - 78 * (step + 1)
+                if step_y <= y + 34:
+                    continue
+                step_w = max(120, min(300, int(w * 0.24)))
+                add_platform_if_clear(result, platform(f"{room_id}_climb_{step}", step_x, step_y, step_w, 24, color, material))
     return result
+
+
+def source_room_map(rooms: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    result: dict[str, dict[str, Any]] = {}
+    for room in rooms:
+        result[str(room.get("source_id", ""))] = room
+        result[str(room.get("source_room_id", ""))] = room
+    return result
+
+
+def connection_points(room: dict[str, Any], direction: str) -> tuple[int, int]:
+    x, y, w, h = [int(value) for value in room["layout_rect"]]
+    floor_y = room_floor_y(room)
+    if direction == "North":
+        return x + w // 2, y + 52
+    if direction == "South":
+        return x + w // 2, floor_y
+    if direction == "West":
+        return x + 80, floor_y
+    if direction == "East":
+        return x + w - 80, floor_y
+    return x + w // 2, floor_y
+
+
+def build_connection_platforms(rooms: list[dict[str, Any]], draft: dict[str, Any]) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    by_source = source_room_map(rooms)
+    for index, connection in enumerate(draft.get("connections", [])):
+        from_room = by_source.get(str(connection.get("from_source_id", ""))) or by_source.get(str(connection.get("from", "")))
+        to_room = by_source.get(str(connection.get("to_source_id", ""))) or by_source.get(str(connection.get("to", "")))
+        if from_room is None or to_room is None:
+            continue
+        region = str(to_room.get("color_region", from_room.get("color_region", "green")))
+        color, material = REGION_COLORS.get(region, REGION_COLORS["green"])
+        ax, ay = connection_points(from_room, str(connection.get("from_direction", "")))
+        bx, by = connection_points(to_room, str(connection.get("to_direction", "")))
+        dx = bx - ax
+        dy = by - ay
+        steps = max(2, int(math.ceil(max(abs(dx) / 170.0, abs(dy) / 72.0))))
+        for step in range(1, steps):
+            t = step / steps
+            x = int(round(ax + dx * t))
+            y = int(round(ay + dy * t))
+            width = 170 if abs(dx) >= abs(dy) else 150
+            add_platform_if_clear(result, platform(f"mm_conn_{index:02d}_{step:02d}", x - width // 2, y, width, 24, color, material))
+    return result
+
+
+def build_boss_exit_platforms(rooms: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    boss_room = next(room for room in rooms if room["id"] == "boss_chamber")
+    exit_room = next(room for room in rooms if room["id"] == "chapter_exit")
+    boss_color, boss_material = REGION_COLORS["red"]
+    exit_color, exit_material = REGION_COLORS["exit"]
+    bx, by, bw, bh = [int(value) for value in boss_room["layout_rect"]]
+    ex, ey, ew, eh = [int(value) for value in exit_room["layout_rect"]]
+    boss_floor_y = room_floor_y(boss_room)
+    exit_floor_y = room_floor_y(exit_room)
+    result.append(platform("boss_floor", bx + 70, boss_floor_y, bw - 140, 44, boss_color, boss_material))
+    result.append(platform("boss_entry_lip", bx - 160, boss_floor_y + 40, 220, 34, boss_color, boss_material))
+    result.append(platform("boss_back_wall", bx + bw - 42, boss_floor_y - 210, 38, 254, boss_color, boss_material))
+    result.append(platform("ch01_post_boss_run_step", bx + bw - 120, boss_floor_y, 300, 34, boss_color, boss_material))
+    result.append(platform("ch01_exit_runup", ex - 120, exit_floor_y, 180, 34, boss_color, boss_material))
+    result.append(platform("ch01_exit_floor", ex + 20, exit_floor_y, max(320, ew), 34, exit_color, exit_material))
+    return result
+
+
+def build_platforms(rooms: list[dict[str, Any]], draft: dict[str, Any]) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for group in (
+        build_compat_platforms(),
+        build_room_platforms(rooms),
+        build_connection_platforms(rooms, draft),
+        build_boss_exit_platforms(rooms),
+    ):
+        existing = {item["id"] for item in result}
+        for item in group:
+            if item["id"] not in existing:
+                result.append(item)
+                existing.add(item["id"])
+    return result
+
+
+def platform_by_id(platforms: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {str(item["id"]): item for item in platforms}
+
+
+def position_on_platform(platforms: dict[str, dict[str, Any]], platform_id: str, x_ratio: float = 0.5) -> list[int]:
+    rect = platforms[platform_id]["rect"]
+    x = int(round(rect[0] + rect[2] * x_ratio))
+    y = int(round(rect[1] - PLAYER_CLEARANCE))
+    return [x, y]
 
 
 def hazard(hazard_id: str, kind: str, x: int, y: int, w: int = 110, h: int = 24) -> dict[str, Any]:
@@ -515,37 +587,42 @@ def clone_enemy(template: dict[str, Any], enemy_id: str, position: list[int], pl
     return enemy
 
 
-def build_enemies(existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def build_enemies(existing: list[dict[str, Any]], platforms: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_kind = {str(enemy.get("kind", "")): enemy for enemy in existing}
+    platform_lookup = platform_by_id(platforms)
     larva = by_kind["moss_larva"]
     moth = by_kind["bronze_moth"]
     bellmaker = by_kind["spore_bellmaker"]
     sentinel = by_kind["gear_sentinel"]
     specs = [
-        (larva, "E01", [1410, 570], "outer_drop", 90, 220),
-        (moth, "E02", [2160, 480], "gear_lift", 80, 200),
-        (bellmaker, "E03", [2990, 330], "moss_steps_b", 70, 180),
-        (larva, "E04", [3930, 460], "backdoor_room", 80, 180),
-        (sentinel, "E05", [5160, 460], "boss_runback", 100, 230),
-        (moth, "CH01_E_EXP01", [6300, 500], "ch01_echo_trench_floor", 90, 220),
-        (bellmaker, "CH01_E_EXP02", [7180, 348], "ch01_old_rope_upper_bridge", 80, 190),
-        (larva, "CH01_E_EXP03", [8200, 460], "ch01_bell_tangle_floor", 90, 220),
-        (sentinel, "CH01_E_EXP04", [9130, 460], "ch01_runback_after_tangle", 90, 200),
-        (larva, "CH01_E_EXP05", [8880, 570], "ch01_lower_loop_floor", 90, 220),
-        (moth, "CH01_E_EXP06", [11420, 310], "ch01_upper_bridge", 80, 190),
-        (bellmaker, "CH01_E_EXP07", [12120, 500], "ch01_crossway_floor", 80, 190),
-        (sentinel, "CH01_E_EXP08", [12860, 500], "ch01_preboss_floor", 80, 180),
+        (larva, "E01", "outer_drop", 0.34, 90, 220),
+        (moth, "E02", "gear_lift", 0.66, 80, 200),
+        (bellmaker, "E03", "upper_bells_mm_floor", 0.55, 70, 180),
+        (larva, "E04", "backdoor_mm_floor", 0.42, 80, 180),
+        (sentinel, "E05", "runback_mm_floor", 0.72, 100, 230),
+        (moth, "CH01_E_EXP01", "echo_moss_trench_mm_floor", 0.62, 90, 220),
+        (bellmaker, "CH01_E_EXP02", "old_bell_rope_mm_floor", 0.45, 80, 190),
+        (larva, "CH01_E_EXP03", "bell_leaf_tangle_mm_floor", 0.62, 90, 220),
+        (sentinel, "CH01_E_EXP04", "lower_bell_cistern_mm_floor", 0.50, 90, 200),
+        (larva, "CH01_E_EXP05", "cistern_pump_shaft_mm_floor", 0.40, 90, 220),
+        (moth, "CH01_E_EXP06", "upper_crown_rafters_mm_floor", 0.56, 80, 190),
+        (bellmaker, "CH01_E_EXP07", "bellmaker_crossway_mm_floor", 0.70, 80, 190),
+        (sentinel, "CH01_E_EXP08", "pre_boss_belfry_mm_floor", 0.50, 80, 180),
     ]
-    return [clone_enemy(*spec) for spec in specs]
+    return [
+        clone_enemy(template, enemy_id, position_on_platform(platform_lookup, platform_id, ratio), platform_id, patrol, leash)
+        for template, enemy_id, platform_id, ratio, patrol, leash in specs
+    ]
 
 
-def build_npcs(existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def build_npcs(existing: list[dict[str, Any]], platforms: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    lookup = platform_by_id(platforms)
     positions = {
-        "npc_threadsmith_apprentice": [320, 500],
-        "npc_gate_pilgrim": [735, 500],
-        "npc_lift_cartographer": [2100, 480],
-        "npc_backdoor_sacristan": [3740, 460],
-        "npc_runback_scout": [4380, 460],
+        "npc_threadsmith_apprentice": position_on_platform(lookup, "start_ground", 0.16),
+        "npc_gate_pilgrim": position_on_platform(lookup, "start_ground", 0.76),
+        "npc_lift_cartographer": position_on_platform(lookup, "gear_lift", 0.52),
+        "npc_backdoor_sacristan": position_on_platform(lookup, "backdoor_mm_floor", 0.24),
+        "npc_runback_scout": position_on_platform(lookup, "runback_mm_floor", 0.35),
     }
     result = []
     for npc in existing:
@@ -558,7 +635,7 @@ def build_npcs(existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def build_connections(rooms: list[dict[str, Any]], draft: dict[str, Any]) -> list[dict[str, Any]]:
     connections: list[dict[str, Any]] = []
-    room_ids = [str(room["id"]) for room in rooms]
+    room_ids = {str(room["id"]) for room in rooms}
     seen: set[tuple[str, str, str]] = set()
 
     def add(from_id: str, to_id: str, kind: str) -> None:
@@ -570,19 +647,15 @@ def build_connections(rooms: list[dict[str, Any]], draft: dict[str, Any]) -> lis
         seen.add(key)
         connections.append({"from": from_id, "to": to_id, "type": kind})
 
-    for index in range(len(room_ids) - 1):
-        add(room_ids[index], room_ids[index + 1], "main_maniamap_route")
+    for index in range(len(rooms) - 1):
+        add(str(rooms[index]["id"]), str(rooms[index + 1]["id"]), "main_maniamap_route")
 
-    by_source = {str(room.get("source_id", "")): str(room.get("id", "")) for room in rooms}
+    by_source = source_room_map(rooms)
     for connection in draft.get("connections", []):
-        from_id = by_source.get(str(connection.get("from_source_id", "")))
-        to_id = by_source.get(str(connection.get("to_source_id", "")))
-        if from_id is None:
-            from_id = by_source.get(str(connection.get("from", "")))
-        if to_id is None:
-            to_id = by_source.get(str(connection.get("to", "")))
-        if from_id and to_id:
-            add(from_id, to_id, str(connection.get("type", "maniamap_door")))
+        from_room = by_source.get(str(connection.get("from_source_id", ""))) or by_source.get(str(connection.get("from", "")))
+        to_room = by_source.get(str(connection.get("to_source_id", ""))) or by_source.get(str(connection.get("to", "")))
+        if from_room and to_room:
+            add(str(from_room["id"]), str(to_room["id"]), str(connection.get("type", "maniamap_door")))
 
     add("entry_bell", "upper_bells", "visible_upper_shortcut")
     add("outer_court", "gear_lift", "lower_return")
@@ -603,19 +676,19 @@ def build_parkour_segments() -> list[dict[str, Any]]:
             "id": "ch01_rope_to_upper_loop",
             "room_id": "old_bell_rope",
             "technique": "vertical rope shaft into upper shortcut",
-            "platforms": ["ch01_old_rope_floor", "ch01_old_rope_mid_a", "ch01_old_rope_mid_b", "ch01_old_rope_upper_bridge", "ch01_bell_tangle_upper"],
+            "platforms": ["old_bell_rope_mm_floor", "old_bell_rope_climb_0", "old_bell_rope_climb_1", "bell_leaf_tangle_mm_floor"],
         },
         {
             "id": "ch01_lower_to_upper_loop",
             "room_id": "lower_bell_cistern",
             "technique": "lower detour, return shaft, upper bridge",
-            "platforms": ["ch01_lower_loop_floor", "ch01_return_shaft_base", "ch01_return_shaft_step_a", "ch01_return_shaft_step_b", "ch01_upper_bridge"],
+            "platforms": ["lower_bell_cistern_mm_floor", "cistern_pump_shaft_mm_floor", "upper_crown_rafters_mm_floor"],
         },
         {
             "id": "ch01_preboss_sprint",
             "room_id": "pre_boss_belfry",
             "technique": "short sprint, jump cancel, safe landing",
-            "platforms": ["ch01_crossway_floor", "ch01_crossway_upper", "ch01_preboss_floor", "boss_floor"],
+            "platforms": ["bellmaker_crossway_mm_floor", "pre_boss_belfry_mm_floor", "boss_floor"],
         },
     ]
 
@@ -624,52 +697,67 @@ def update_first_chapter() -> None:
     data = load_json(CONFIG_PATH)
     draft = load_json(DRAFT_PATH)
     rooms = build_rooms(draft)
+    platforms = build_platforms(rooms, draft)
+    platform_lookup = platform_by_id(platforms)
+    boss_room = next(room for room in rooms if room["id"] == "boss_chamber")
+    exit_room = next(room for room in rooms if room["id"] == "chapter_exit")
+    bx, by, bw, bh = [int(value) for value in boss_room["layout_rect"]]
+    ex, ey, ew, eh = [int(value) for value in exit_room["layout_rect"]]
+    boss_spawn = position_on_platform(platform_lookup, "boss_floor", 0.56)
+    boss_gate = position_on_platform(platform_lookup, "boss_floor", 0.14)
+    chapter_exit = position_on_platform(platform_lookup, "ch01_exit_floor", 0.62)
 
-    data["map_title"] = "苔钟庭：ManiaMap 绿色起点路线"
-    data["goal"] = "从左侧绿色区第二个平台出发，穿过 ManiaMap 拓扑生成的苔钟庭，打开锈冠大厅并击败锈冠守卫。"
+    data["map_title"] = "苔钟庭：ManiaMap 二维房间版"
+    data["goal"] = "从左侧绿色区第二个平台出发，按 ManiaMap 生成图的二维房间拓扑穿过苔钟庭，进入右侧红区 Boss 与出口。"
     data["world"] = {"width": WORLD_WIDTH, "height": WORLD_HEIGHT, "fall_y": FALL_Y}
     data["fall_y"] = FALL_Y
-    data["player_start"] = [180, 500]
-    data["boss_checkpoint"] = [12760, 500]
+    data["player_start"] = position_on_platform(platform_lookup, "start_ground", 0.22)
+    data["boss_checkpoint"] = position_on_platform(platform_lookup, "pre_boss_belfry_mm_floor", 0.18)
     data["map_rooms"] = rooms
-    data["platforms"] = build_platforms(rooms)
+    data["platforms"] = platforms
     data["hazards"] = [
-        hazard("trap_fake_moss_01", "fake_moss_floor", 700, 406),
-        hazard("ch01_hazard_outer_gap", "bell_gap", 1600, 586),
-        hazard("ch01_hazard_upper_leaf", "spore_chest", 3010, 346),
-        hazard("ch01_hazard_runback_lamp", "false_lamp", 4860, 476),
-        hazard("ch01_hazard_rope_clapper", "falling_clapper", 7040, 516),
-        hazard("ch01_hazard_lower_bite", "fake_moss_floor", 9260, 586),
-        hazard("ch01_hazard_crossway", "spore_chest", 12160, 516),
-        hazard("ch01_hazard_boss_ante", "falling_clapper", 12920, 516),
+        hazard("trap_fake_moss_01", "fake_moss_floor", 700, 814),
+        hazard("ch01_hazard_outer_gap", "bell_gap", 1600, 846),
+        hazard("ch01_hazard_upper_leaf", "spore_chest", 3590, 72),
+        hazard("ch01_hazard_runback_lamp", "false_lamp", 7620, 1074),
+        hazard("ch01_hazard_rope_clapper", "falling_clapper", 8950, 1450),
+        hazard("ch01_hazard_lower_bite", "fake_moss_floor", 9720, 2710),
+        hazard("ch01_hazard_crossway", "spore_chest", 12580, 1840),
+        hazard("ch01_hazard_boss_ante", "falling_clapper", boss_gate[0] - 80, boss_gate[1] + 16),
     ]
     data["collectibles"] = []
-    data["enemy_spawns"] = build_enemies(data.get("enemy_spawns", []))
-    data["npcs"] = build_npcs(data.get("npcs", []))
+    data["enemy_spawns"] = build_enemies(data.get("enemy_spawns", []), platforms)
+    data["npcs"] = build_npcs(data.get("npcs", []), platforms)
     data["save_points"] = [
         {
             "id": "save_hidden_upper_respite",
             "label": "隐苔存档点",
-            "position": [11180, 310],
+            "position": position_on_platform(platform_lookup, "upper_crown_rafters_mm_floor", 0.20),
             "hidden": True,
             "note": "藏在上层王冠梁，奖励探索高路线。",
         },
         {
             "id": "save_late_runback",
             "label": "首领前苔灯",
-            "position": [12760, 500],
+            "position": position_on_platform(platform_lookup, "pre_boss_belfry_mm_floor", 0.70),
             "hidden": False,
-            "note": "锈冠大厅前的稀疏后段检查点。",
+            "note": "红区 Boss 前的稳定后段检查点。",
         },
     ]
     data["interactives"] = [
-        {"id": "shortcut_lever", "kind": "lever", "position": [3780, 460], "requires_keys": 0, "label": "后门捷径拉杆"},
-        {"id": "boss_gate", "kind": "boss_gate", "position": [13420, 460]},
+        {
+            "id": "shortcut_lever",
+            "kind": "lever",
+            "position": position_on_platform(platform_lookup, "backdoor_mm_floor", 0.34),
+            "requires_keys": 0,
+            "label": "后门捷径拉杆",
+        },
+        {"id": "boss_gate", "kind": "boss_gate", "position": boss_gate},
         {
             "id": "ch01_chapter_exit",
             "kind": "chapter_exit",
             "label": "前往第二章：铸雨渠",
-            "position": [14620, 480],
+            "position": chapter_exit,
             "next_runtime_config_id": "demo_ch02_rain_foundry_canal",
             "next_config_path": "res://data/demo_ch02_rain_foundry_canal.json",
             "requires_demo_complete": True,
@@ -677,34 +765,45 @@ def update_first_chapter() -> None:
         },
     ]
     boss = deepcopy(data["boss"])
-    boss["position"] = [13920, 460]
-    boss["arena_min_x"] = 13320
-    boss["arena_max_x"] = 14180
+    boss["position"] = boss_spawn
+    boss["arena_min_x"] = bx + 110
+    boss["arena_max_x"] = bx + bw - 180
     data["boss"] = boss
     data["parkour_segments"] = build_parkour_segments()
     data["connections"] = build_connections(rooms, draft)
     data["map_layout_tags"] = [
         "maniamap_generated",
+        "maniamap_2d_layout",
         "green_second_platform_start",
-        "horizontalized_topology",
+        "actual_room_rects",
         "upper_shortcut",
         "lower_detour",
-        "continuous_late_route",
         "boss_antechamber",
     ]
     data["labels"] = [
-        {"text": "起点：左侧绿色区第二个平台", "position": [180, 458], "color": "9ef0dc"},
-        {"text": "绿色群：教学与第一段下层回路", "position": [1100, 570], "color": "baf4a6"},
-        {"text": "蓝/紫区：ManiaMap 房间链", "position": [6040, 340], "color": "c7e6ff"},
-        {"text": "隐藏存档：王冠上梁", "position": [10880, 300], "color": "9ef0dc"},
-        {"text": "红区：Boss 门与战后出口", "position": [13080, 466], "color": "f2b873"},
+        {"text": "起点：左侧绿色区第二个平台", "position": [860, 790], "color": "9ef0dc"},
+        {"text": "绿区：教学与第一段回爬", "position": [1140, 450], "color": "baf4a6"},
+        {"text": "蓝区：ManiaMap 中线长房间", "position": [7600, 990], "color": "c7e6ff"},
+        {"text": "紫区：下层绕行和回升井", "position": [9100, 2210], "color": "dcb2ff"},
+        {"text": "红区：Boss 门与战后出口", "position": [15580, 1760], "color": "f2b873"},
     ]
+    data["design_note"] = {
+        "source": "artifacts/maniamap/maniamap_chapter_draft.json",
+        "intent": "Playable CH01 world uses the same two-dimensional room rectangles as the generated ManiaMap draft.",
+        "coordinate_mapping": {
+            "x": "maniamap_x + 40",
+            "y": "maniamap_y * 0.55 + 120",
+            "width": "maniamap_width",
+            "height": "max(120, maniamap_height * 0.55)",
+        },
+    }
 
     write_json(CONFIG_PATH, data)
     print(
         "GENERATE_CH01_FROM_MANIAMAP_PASS "
         f"path={CONFIG_PATH} rooms={len(data['map_rooms'])} platforms={len(data['platforms'])} "
-        f"enemies={len(data['enemy_spawns'])} start={data['player_start']}"
+        f"enemies={len(data['enemy_spawns'])} start={data['player_start']} "
+        f"world={data['world']}"
     )
 
 

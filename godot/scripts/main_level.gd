@@ -1008,7 +1008,7 @@ func _inventory_dict_list(items: Dictionary) -> String:
 func _update_room_visit() -> void:
     if player == null or not is_instance_valid(player):
         return
-    var room := _room_for_x(player.global_position.x)
+    var room := _room_for_position(player.global_position)
     if room.is_empty():
         return
     current_room_id = String(room.get("id", ""))
@@ -1029,6 +1029,43 @@ func _room_for_x(world_x: float) -> Dictionary:
         if world_x >= float(room_range[0]) and world_x <= float(room_range[1]):
             return room_data
     return {}
+
+
+func _room_for_position(world_position: Vector2) -> Dictionary:
+    for room in config.get("map_rooms", []):
+        if not (room is Dictionary):
+            continue
+        var room_data: Dictionary = room
+        if _room_contains_position(room_data, world_position):
+            return room_data
+    return _room_for_x(world_position.x)
+
+
+func _room_layout_rect(room_data: Dictionary) -> Rect2:
+    var rect_value: Variant = room_data.get("layout_rect", room_data.get("play_rect", []))
+    if typeof(rect_value) != TYPE_ARRAY or rect_value.size() < 4:
+        return Rect2()
+    return _rect2(rect_value)
+
+
+func _rect_contains_position(rect: Rect2, position_value: Vector2, padding: float = 0.0) -> bool:
+    return (
+        position_value.x >= rect.position.x - padding
+        and position_value.x <= rect.position.x + rect.size.x + padding
+        and position_value.y >= rect.position.y - padding
+        and position_value.y <= rect.position.y + rect.size.y + padding
+    )
+
+
+func _room_contains_position(room_data: Dictionary, world_position: Vector2) -> bool:
+    var layout := _room_layout_rect(room_data)
+    if layout.size.x > 0.0 and layout.size.y > 0.0 and _rect_contains_position(layout, world_position):
+        return true
+    for rect_value in room_data.get("visit_rects", []):
+        var rect := _rect2(rect_value)
+        if rect.size.x > 0.0 and rect.size.y > 0.0 and _rect_contains_position(rect, world_position):
+            return true
+    return false
 
 
 func _room_name(room_id: String) -> String:
@@ -1053,49 +1090,50 @@ func _refresh_map_overlay() -> void:
 
     var rooms: Array = config.get("map_rooms", [])
     var draw_width := 1040.0
+    var draw_size := Vector2(1040.0, 310.0)
     var base_y := 132.0
     var depth_step := 72.0
-    _add_map_route_line(rooms, draw_width, base_y, depth_step)
+    var layout_bounds := _map_layout_bounds(rooms)
+    var uses_layout := layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0
+    _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
         var room_id := String(room_data.get("id", ""))
-        var room_range: Array = room_data.get("range", [0.0, 0.0])
-        if room_range.size() < 2:
+        var overlay_rect := _map_room_overlay_rect(room_data, layout_bounds, draw_size, draw_width, base_y, depth_step)
+        if overlay_rect.size.x <= 0.0 or overlay_rect.size.y <= 0.0:
             continue
-        var start_x := float(room_range[0])
-        var end_x := float(room_range[1])
-        var x0 := start_x / world_width * draw_width
-        var x1 := end_x / world_width * draw_width
-        var y := base_y + float(int(room_data.get("depth", 0))) * depth_step
         var visited := _room_is_visited(room_id)
         var current := room_id == current_room_id
-        var room_size := Vector2(maxf(34.0, x1 - x0 - 6.0), 42.0)
+        var room_size := overlay_rect.size
         var fill := Color(0.035, 0.060, 0.052, 0.96) if visited else Color(0.012, 0.018, 0.018, 0.96)
         var border := Color(0.56, 1.0, 0.88, 1.0) if current else (Color(0.34, 0.70, 0.48, 0.86) if visited else Color(0.16, 0.22, 0.20, 0.86))
         var border_width := 4.0 if current else 2.0
-        _add_map_ui_rect("Room_" + room_id, Vector2(x0, y), room_size, fill, border, border_width)
-        _add_map_room_texture(Vector2(x0, y), room_size, visited, current)
-        _add_map_wall_caps(room_id, Vector2(x0, y), room_size, visited, current)
+        _add_map_ui_rect("Room_" + room_id, overlay_rect.position, room_size, fill, border, border_width)
+        _add_map_room_texture(overlay_rect.position, room_size, visited, current)
+        _add_map_wall_caps(room_id, overlay_rect.position, room_size, visited, current)
 
         var label := Label.new()
         label.text = _room_name(room_id)
-        label.position = Vector2(x0 + 6.0, y + 48.0)
-        label.size = Vector2(maxf(92.0, x1 - x0), 42.0)
+        label.position = overlay_rect.position + (Vector2(4.0, 4.0) if uses_layout else Vector2(6.0, 48.0))
+        label.size = Vector2(maxf(62.0, room_size.x - 4.0), 42.0)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.add_theme_font_size_override("font_size", 13 if current else 12)
+        label.add_theme_font_size_override("font_size", 11 if uses_layout and not current else (12 if uses_layout else (13 if current else 12)))
         label.add_theme_color_override("font_color", Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52)))
         map_draw_root.add_child(label)
 
-    _add_map_special_passage_markers(draw_width, base_y, depth_step)
-    _add_world_map_pins(draw_width, base_y, depth_step)
-    var player_x := 0.0
+    _add_map_special_passage_markers(draw_width, base_y, depth_step, layout_bounds, draw_size)
+    _add_world_map_pins(draw_width, base_y, depth_step, layout_bounds, draw_size)
     if player != null and is_instance_valid(player):
-        player_x = clampf(player.global_position.x / world_width * draw_width, 0.0, draw_width)
-    _add_map_ui_rect("PlayerMarker", Vector2(player_x - 7.0, base_y - 36.0), Vector2(14.0, 96.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
+        if uses_layout:
+            var player_pos := _map_world_to_overlay(player.global_position, layout_bounds, draw_size)
+            _add_map_ui_rect("PlayerMarker", player_pos - Vector2(7.0, 7.0), Vector2(14.0, 14.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
+        else:
+            var player_x := clampf(player.global_position.x / world_width * draw_width, 0.0, draw_width)
+            _add_map_ui_rect("PlayerMarker", Vector2(player_x - 7.0, base_y - 36.0), Vector2(14.0, 96.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
 
-    var current_room := _room_for_x(player.global_position.x) if player != null and is_instance_valid(player) else {}
+    var current_room := _room_for_position(player.global_position) if player != null and is_instance_valid(player) else {}
     var current_map_room_id := String(current_room.get("id", current_room_id))
     var objective := _room_map_copy(current_map_room_id, "objective", "Keep exploring toward the next bell.")
     var guide := _room_map_copy(current_map_room_id, "guide", "Use the map for route status and F for nearby interactions.")
@@ -1122,32 +1160,84 @@ func _refresh_map_overlay() -> void:
     ]
 
 
-func _add_world_map_pins(draw_width: float, base_y: float, depth_step: float) -> void:
+func _map_layout_bounds(rooms: Array) -> Rect2:
+    var has_layout := false
+    var min_x := INF
+    var min_y := INF
+    var max_x := -INF
+    var max_y := -INF
+    for room in rooms:
+        if not (room is Dictionary):
+            continue
+        var rect := _room_layout_rect(room)
+        if rect.size.x <= 0.0 or rect.size.y <= 0.0:
+            continue
+        has_layout = true
+        min_x = minf(min_x, rect.position.x)
+        min_y = minf(min_y, rect.position.y)
+        max_x = maxf(max_x, rect.position.x + rect.size.x)
+        max_y = maxf(max_y, rect.position.y + rect.size.y)
+    if not has_layout:
+        return Rect2()
+    return Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
+
+
+func _map_world_to_overlay(world_position: Vector2, layout_bounds: Rect2, draw_size: Vector2) -> Vector2:
+    if layout_bounds.size.x <= 0.0 or layout_bounds.size.y <= 0.0:
+        return Vector2.ZERO
+    var map_scale := minf(draw_size.x / layout_bounds.size.x, draw_size.y / layout_bounds.size.y)
+    var fitted_size := layout_bounds.size * map_scale
+    var offset := Vector2((draw_size.x - fitted_size.x) * 0.5, (draw_size.y - fitted_size.y) * 0.5)
+    return offset + (world_position - layout_bounds.position) * map_scale
+
+
+func _map_room_overlay_rect(room_data: Dictionary, layout_bounds: Rect2, draw_size: Vector2, draw_width: float, base_y: float, depth_step: float) -> Rect2:
+    var layout := _room_layout_rect(room_data)
+    if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0:
+        var top_left := _map_world_to_overlay(layout.position, layout_bounds, draw_size)
+        var bottom_right := _map_world_to_overlay(layout.position + layout.size, layout_bounds, draw_size)
+        return Rect2(top_left, Vector2(maxf(24.0, bottom_right.x - top_left.x), maxf(12.0, bottom_right.y - top_left.y)))
+    var room_range: Array = room_data.get("range", [0.0, 0.0])
+    if room_range.size() < 2:
+        return Rect2()
+    var start_x := float(room_range[0])
+    var end_x := float(room_range[1])
+    var x0 := start_x / world_width * draw_width
+    var x1 := end_x / world_width * draw_width
+    var y := base_y + float(int(room_data.get("depth", 0))) * depth_step
+    return Rect2(Vector2(x0, y), Vector2(maxf(34.0, x1 - x0 - 6.0), 42.0))
+
+
+func _add_world_map_pins(draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     for collectible in config.get("collectibles", []):
         if collectible is Dictionary:
             var data: Dictionary = collectible
-            _add_map_pin(_vec2(data.get("position", [0, 0])).x, draw_width, base_y, depth_step, Color(1.0, 0.74, 0.24, 0.95))
+            _add_map_pin(_vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(1.0, 0.74, 0.24, 0.95), Vector2(9, 9), layout_bounds, draw_size)
     for interactive in config.get("interactives", []):
         if interactive is Dictionary:
             var data: Dictionary = interactive
-            _add_map_pin(_vec2(data.get("position", [0, 0])).x, draw_width, base_y, depth_step, Color(0.94, 0.54, 0.22, 0.95))
+            _add_map_pin(_vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.94, 0.54, 0.22, 0.95), Vector2(9, 9), layout_bounds, draw_size)
     var boss_data: Dictionary = config.get("boss", {})
     if not boss_data.is_empty():
-        _add_map_pin(_vec2(boss_data.get("position", [0, 0])).x, draw_width, base_y, depth_step, Color(0.86, 0.18, 0.16, 0.95), Vector2(14, 14))
+        _add_map_pin(_vec2(boss_data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.86, 0.18, 0.16, 0.95), Vector2(14, 14), layout_bounds, draw_size)
 
 
-func _add_map_pin(world_x: float, draw_width: float, base_y: float, depth_step: float, color: Color, size_value: Vector2 = Vector2(9, 9)) -> void:
-    var room := _room_for_x(world_x)
+func _add_map_pin(world_position: Vector2, draw_width: float, base_y: float, depth_step: float, color: Color, size_value: Vector2 = Vector2(9, 9), layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
+    var room := _room_for_position(world_position)
     if not room.is_empty() and not _room_is_visited(String(room.get("id", ""))):
         return
-    var depth := 0
-    if not room.is_empty():
-        depth = int(room.get("depth", 0))
-    var pin_pos := Vector2(clampf(world_x / world_width * draw_width, 0.0, draw_width) - size_value.x * 0.5, base_y + float(depth) * depth_step - 18.0)
+    var pin_pos := Vector2.ZERO
+    if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+        pin_pos = _map_world_to_overlay(world_position, layout_bounds, draw_size) - size_value * 0.5
+    else:
+        var depth := 0
+        if not room.is_empty():
+            depth = int(room.get("depth", 0))
+        pin_pos = Vector2(clampf(world_position.x / world_width * draw_width, 0.0, draw_width) - size_value.x * 0.5, base_y + float(depth) * depth_step - 18.0)
     _add_map_ui_rect("MapPin", pin_pos, size_value + Vector2(5.0, 5.0), color, Color(1.0, 0.95, 0.72, 0.95), 2.0)
 
 
-func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_step: float) -> void:
+func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     var route := Line2D.new()
     route.name = "MapRouteLine"
     route.width = 4.0
@@ -1160,12 +1250,17 @@ func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_s
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
-        var room_range: Array = room_data.get("range", [0.0, 0.0])
-        if room_range.size() < 2:
-            continue
-        var center_x := ((float(room_range[0]) + float(room_range[1])) * 0.5) / world_width * draw_width
-        var y := base_y + float(int(room_data.get("depth", 0))) * depth_step + 21.0
-        var point := Vector2(center_x, y)
+        var point := Vector2.ZERO
+        var layout := _room_layout_rect(room_data)
+        if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+            point = _map_world_to_overlay(layout.position + layout.size * 0.5, layout_bounds, draw_size)
+        else:
+            var room_range: Array = room_data.get("range", [0.0, 0.0])
+            if room_range.size() < 2:
+                continue
+            var center_x := ((float(room_range[0]) + float(room_range[1])) * 0.5) / world_width * draw_width
+            var y := base_y + float(int(room_data.get("depth", 0))) * depth_step + 21.0
+            point = Vector2(center_x, y)
         if has_previous_point and not is_equal_approx(previous_point.y, point.y):
             points.append(Vector2(previous_point.x, point.y))
         points.append(point)
@@ -1185,7 +1280,7 @@ func _add_map_wall_caps(room_id: String, rect_position: Vector2, rect_size: Vect
     _add_map_ui_rect("MapWallR_" + room_id, Vector2(rect_position.x + rect_size.x - 3.0, y), cap_size, wall_fill, wall_edge, 1.0)
 
 
-func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_step: float) -> void:
+func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     for interactive in config.get("interactives", []):
         if not (interactive is Dictionary):
             continue
@@ -1193,14 +1288,18 @@ func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_st
         var interact_type := String(data.get("kind", data.get("type", "")))
         if interact_type != "boss_gate" and interact_type != "chapter_exit" and interact_type != "ending_exit":
             continue
-        var world_x := _vec2(data.get("position", [0, 0])).x
-        var room := _room_for_x(world_x)
+        var world_position := _vec2(data.get("position", [0, 0]))
+        var room := _room_for_position(world_position)
         if not room.is_empty() and not _room_is_visited(String(room.get("id", ""))):
             continue
-        var depth := int(room.get("depth", 0)) if not room.is_empty() else 0
-        var marker_x := clampf(world_x / world_width * draw_width, 0.0, draw_width)
+        var marker_position := Vector2.ZERO
+        if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+            marker_position = _map_world_to_overlay(world_position, layout_bounds, draw_size)
+        else:
+            var depth := int(room.get("depth", 0)) if not room.is_empty() else 0
+            marker_position = Vector2(clampf(world_position.x / world_width * draw_width, 0.0, draw_width), base_y + float(depth) * depth_step + 21.0)
         var marker_color := Color(1.0, 0.68, 0.24, 0.96) if interact_type == "boss_gate" else Color(0.45, 0.76, 1.0, 0.96)
-        _add_map_ui_rect("MetSysPassage_" + interact_type, Vector2(marker_x - 4.0, base_y + float(depth) * depth_step + 4.0), Vector2(8.0, 34.0), marker_color, Color(1.0, 0.95, 0.72, 0.94), 2.0)
+        _add_map_ui_rect("MetSysPassage_" + interact_type, marker_position - Vector2(4.0, 17.0), Vector2(8.0, 34.0), marker_color, Color(1.0, 0.95, 0.72, 0.94), 2.0)
 
 
 func _add_map_room_texture(rect_position: Vector2, rect_size: Vector2, visited: bool, current: bool) -> void:
@@ -2059,7 +2158,7 @@ func _collectible(data: Dictionary) -> void:
     area.body_entered.connect(_on_collectible_body_entered.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2086,7 +2185,7 @@ func _lever(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2112,7 +2211,7 @@ func _boss_door(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2164,7 +2263,7 @@ func _chapter_exit(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2222,7 +2321,7 @@ func _save_point(data: Dictionary) -> void:
     add_child(area)
     _animate_save_point(area, marker, ring)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2922,7 +3021,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         if metsys_bridge != null and boss_actor != null:
             if not boss_actor.has_meta("object_id"):
                 boss_actor.set_meta("object_id", "boss/" + spawn_id)
-                var boss_room := _room_for_x(boss_actor.global_position.x)
+                var boss_room := _room_for_position(boss_actor.global_position)
                 metsys_bridge.register_object(boss_actor, String(boss_actor.get_meta("object_id")), String(boss_room.get("id", "boss_chamber")))
             metsys_bridge.store_object(boss_actor)
         if player != null:

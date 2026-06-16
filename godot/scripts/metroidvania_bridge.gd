@@ -177,7 +177,7 @@ func _mark_special_passages(level_config: Dictionary) -> void:
             continue
         var data: Dictionary = interactive
         var interact_type := String(data.get("kind", data.get("type", "")))
-        var room_id := _room_id_for_world_x(level_config, _vec2(data.get("position", [0, 0])).x)
+        var room_id := _room_id_for_world_position(level_config, _vec2(data.get("position", [0, 0])))
         if room_id.is_empty():
             continue
         if interact_type == "boss_gate":
@@ -261,6 +261,20 @@ func _room_id_for_world_x(level_config: Dictionary, world_x: float) -> String:
         if world_x >= float(room_range[0]) and world_x <= float(room_range[1]):
             return String(room_data.get("id", ""))
     return ""
+
+
+func _room_id_for_world_position(level_config: Dictionary, world_position: Vector2) -> String:
+    for room in level_config.get("map_rooms", []):
+        if not (room is Dictionary):
+            continue
+        var room_data: Dictionary = room
+        var rect_value = room_data.get("layout_rect", room_data.get("play_rect", []))
+        if not (rect_value is Array) or rect_value.size() < 4:
+            continue
+        var rect := Rect2(float(rect_value[0]), float(rect_value[1]), float(rect_value[2]), float(rect_value[3]))
+        if world_position.x >= rect.position.x and world_position.x <= rect.position.x + rect.size.x and world_position.y >= rect.position.y and world_position.y <= rect.position.y + rect.size.y:
+            return String(room_data.get("id", ""))
+    return _room_id_for_world_x(level_config, world_position.x)
 
 
 func _vec2(value) -> Vector2:

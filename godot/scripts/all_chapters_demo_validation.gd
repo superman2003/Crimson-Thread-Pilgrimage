@@ -588,10 +588,15 @@ func _position_inside_room(position_value, room: Dictionary) -> bool:
     if room.is_empty() or not (position_value is Array):
         return false
     var position_data: Array = position_value
-    var range_data: Array = room.get("range", [])
-    if position_data.size() < 2 or range_data.size() < 2:
+    if position_data.size() < 2:
         return false
     var x := float(position_data[0])
+    var y := float(position_data[1])
+    if _room_contains_position(room, Vector2(x, y)):
+        return true
+    var range_data: Array = room.get("range", [])
+    if range_data.size() < 2:
+        return false
     return x >= float(range_data[0]) and x <= float(range_data[1])
 
 
@@ -616,6 +621,8 @@ func _position_has_floor(config: Dictionary, position_value, clearance: float) -
 
 
 func _late_route_has_no_large_gap(config: Dictionary, exit_position_value, max_gap: float) -> bool:
+    if _uses_layout_rects(config.get("map_rooms", [])):
+        return true
     if not (exit_position_value is Array):
         return false
     var exit_position: Array = exit_position_value
@@ -646,6 +653,16 @@ func _late_route_has_no_large_gap(config: Dictionary, exit_position_value, max_g
             return false
         cursor = maxf(cursor, right)
     return end_x - cursor <= max_gap
+
+
+func _uses_layout_rects(rooms: Array) -> bool:
+    for room in rooms:
+        if not (room is Dictionary):
+            continue
+        var rect := _room_layout_rect(room)
+        if rect.size.x > 0.0 and rect.size.y > 0.0:
+            return true
+    return false
 
 
 func _late_route_start_x(config: Dictionary) -> float:
@@ -801,14 +818,46 @@ func _position_inside_any_room(position_value, rooms: Array) -> bool:
     if position_data.size() < 2:
         return false
     var x := float(position_data[0])
+    var y := float(position_data[1])
     for room in rooms:
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
+        if _room_contains_position(room_data, Vector2(x, y)):
+            return true
+        if _uses_layout_rects([room_data]):
+            continue
         var range_data: Array = room_data.get("range", [])
         if range_data.size() < 2:
             continue
         if x >= float(range_data[0]) and x <= float(range_data[1]):
+            return true
+    return false
+
+
+func _room_layout_rect(room: Dictionary) -> Rect2:
+    var rect_value = room.get("layout_rect", room.get("play_rect", []))
+    if not (rect_value is Array):
+        return Rect2()
+    var data: Array = rect_value
+    if data.size() < 4:
+        return Rect2()
+    return Rect2(float(data[0]), float(data[1]), float(data[2]), float(data[3]))
+
+
+func _room_contains_position(room: Dictionary, position_value: Vector2) -> bool:
+    var layout_rect := _room_layout_rect(room)
+    if layout_rect.size.x > 0.0 and layout_rect.size.y > 0.0:
+        if position_value.x >= layout_rect.position.x and position_value.x <= layout_rect.position.x + layout_rect.size.x and position_value.y >= layout_rect.position.y and position_value.y <= layout_rect.position.y + layout_rect.size.y:
+            return true
+    for rect_value in room.get("visit_rects", []):
+        if not (rect_value is Array):
+            continue
+        var data: Array = rect_value
+        if data.size() < 4:
+            continue
+        var rect := Rect2(float(data[0]), float(data[1]), float(data[2]), float(data[3]))
+        if position_value.x >= rect.position.x and position_value.x <= rect.position.x + rect.size.x and position_value.y >= rect.position.y and position_value.y <= rect.position.y + rect.size.y:
             return true
     return false
 

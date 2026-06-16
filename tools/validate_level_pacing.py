@@ -34,8 +34,8 @@ def main() -> None:
     if len(enemies) < 12:
         raise AssertionError(f"not enough normal enemies for expanded map: {len(enemies)}")
 
-    positions = [(item["id"], float(item["position"][0])) for item in enemies]
-    min_spacing = min(abs(a[1] - b[1]) for a, b in combinations(positions, 2))
+    positions = [(item["id"], float(item["position"][0]), float(item["position"][1])) for item in enemies]
+    min_spacing = min(((a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2) ** 0.5 for a, b in combinations(positions, 2))
     if min_spacing < 250:
         raise AssertionError(f"enemy spacing too tight: {min_spacing:.1f}px")
 
