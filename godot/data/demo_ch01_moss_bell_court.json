@@ -4,18 +4,18 @@
   "world": {
     "width": 14800,
     "height": 720,
-    "fall_y": 790
+    "fall_y": 820
   },
   "player_start": [
     120,
     500
   ],
   "boss_checkpoint": [
-    12780,
+    12760,
     500
   ],
   "required_keys": 0,
-  "goal": "击败苔钟庭普通敌人，打开Boss路线，击败锈冠守卫。",
+  "goal": "穿过苔钟庭的外庭、下层蓄水槽与上层钟梁，清理巡礼路上的敌群，打开锈冠大厅并击败锈冠守卫。",
   "world_story": {
     "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
     "protagonist": {
@@ -89,220 +89,220 @@
       ],
       "depth": 0,
       "kind": "gate",
-      "objective": "苔钟入口：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "苔钟外庭下层"
+      "objective": "教学入口：NPC、基础跳跃和第一处可见上层路线。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "外庭下阶"
     },
     {
       "id": "outer_court",
-      "name": "苔钟外庭下层",
+      "name": "外庭下阶",
       "range": [
         900,
         1900
       ],
       "depth": 1,
       "kind": "lower",
-      "objective": "苔钟外庭下层：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "齿轮升降间"
+      "objective": "向下展开的第一处战斗庭院，教玩家用低路线绕过正门。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "齿轮升降井"
     },
     {
       "id": "gear_lift",
-      "name": "齿轮升降间",
+      "name": "齿轮升降井",
       "range": [
         1900,
-        2600
+        2650
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "齿轮升降间：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "上层钟叶"
+      "objective": "短竖井，把下层外庭送回中线并展示地图图例。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "上层钟叶廊"
     },
     {
       "id": "upper_bells",
-      "name": "上层钟叶",
+      "name": "上层钟叶廊",
       "range": [
-        2600,
-        3450
+        2650,
+        3520
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "上层钟叶：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "后门祭室"
+      "objective": "第一条上层支线，节奏为短跳、空中敌人和隐藏高台。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "后门小礼拜堂"
     },
     {
       "id": "backdoor",
-      "name": "后门祭室",
+      "name": "后门小礼拜堂",
       "range": [
-        3450,
-        4300
+        3520,
+        4320
       ],
       "depth": 0,
       "kind": "safe",
-      "objective": "后门祭室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "苔钟长回廊"
+      "objective": "安全房和捷径拉杆，连接 Boss 回廊的中线起点。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "王冠回廊"
     },
     {
       "id": "runback",
-      "name": "苔钟长回廊",
+      "name": "王冠回廊",
       "range": [
-        4300,
-        5600
+        4320,
+        5480
       ],
-      "depth": 1,
+      "depth": 0,
       "kind": "danger",
-      "objective": "苔钟长回廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "回响苔槽"
+      "objective": "中线战斗回廊，让玩家从安全房进入连续战斗。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "回响苔沟"
     },
     {
       "id": "echo_moss_trench",
-      "name": "回响苔槽",
+      "name": "回响苔沟",
       "range": [
-        5600,
-        6800
+        5480,
+        6620
       ],
       "depth": 2,
       "kind": "lower",
-      "objective": "回响苔槽：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "旧钟索井"
+      "objective": "下层苔沟，放置宽平台和低风险敌群。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "旧钟绳井"
     },
     {
       "id": "old_bell_rope",
-      "name": "旧钟索井",
+      "name": "旧钟绳井",
       "range": [
-        6800,
-        7800
+        6620,
+        7620
       ],
       "depth": -1,
       "kind": "vertical",
-      "objective": "旧钟索井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "第二个竖向枢纽，同时连接下层回环和上层捷径。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "钟叶缠结处"
     },
     {
       "id": "bell_leaf_tangle",
       "name": "钟叶缠结处",
       "range": [
-        7800,
-        8900
+        7620,
+        8780
       ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "钟叶缠结处：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "沉钟下水庭"
+      "depth": -1,
+      "kind": "upper",
+      "objective": "上层平台编织区，制造连续跳跃和视野奖励。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "沉钟蓄水槽"
     },
     {
       "id": "lower_bell_cistern",
-      "name": "沉钟下水庭",
+      "name": "沉钟蓄水槽",
       "range": [
-        8900,
-        9900
+        8780,
+        9800
       ],
       "depth": 2,
       "kind": "lower",
-      "objective": "沉钟下水庭：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "可选下层绕行，有陷阱、敌人和回升出口。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "苔轮回升井"
     },
     {
       "id": "cistern_pump_shaft",
       "name": "苔轮回升井",
       "range": [
-        9900,
-        10800
+        9800,
+        10720
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "苔轮回升井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "从蓄水槽回到主线，形成完整下层回环。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "王冠上梁"
     },
     {
       "id": "upper_crown_rafters",
       "name": "王冠上梁",
       "range": [
-        10800,
-        11800
+        10720,
+        11740
       ],
       "depth": -2,
       "kind": "upper",
-      "objective": "王冠上梁：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "隐藏存档和上层捷径，奖励探索。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "钟匠横桥"
     },
     {
       "id": "bellmaker_crossway",
       "name": "钟匠横桥",
       "range": [
-        11800,
-        12600
+        11740,
+        12580
       ],
       "depth": 0,
       "kind": "field",
-      "objective": "钟匠横桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "中线汇合点，衔接 Boss 前冲刺。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "首领前钟廊"
     },
     {
       "id": "pre_boss_belfry",
       "name": "首领前钟廊",
       "range": [
-        12600,
-        13200
+        12580,
+        13240
       ],
       "depth": 0,
       "kind": "danger",
-      "objective": "首领前钟廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "Boss 前缓冲、存档和最终提示。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "锈冠大厅"
     },
     {
       "id": "boss_chamber",
       "name": "锈冠大厅",
       "range": [
-        13200,
-        14450
+        13240,
+        14460
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "锈冠大厅：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "objective": "Boss 房，入口门、锁场墙和战后出口阻挡。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
       "next": "沉钟出口"
     },
     {
       "id": "chapter_exit",
       "name": "沉钟出口",
       "range": [
-        14450,
+        14460,
         14800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "沉钟出口：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "objective": "战后出口，通往第二章铸雨渠。",
+      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
+      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+      "next": "第二章入口"
     }
   ],
   "ai_profiles": {
@@ -896,7 +896,7 @@
       "rect": [
         0,
         540,
-        780,
+        760,
         40
       ],
       "color": "1c2b1f",
@@ -916,9 +916,9 @@
     {
       "id": "vista_bridge",
       "rect": [
-        560,
+        600,
         430,
-        380,
+        360,
         26
       ],
       "color": "6d6645",
@@ -927,7 +927,7 @@
     {
       "id": "under_gate_lip",
       "rect": [
-        850,
+        860,
         585,
         300,
         28
@@ -940,10 +940,21 @@
       "rect": [
         1180,
         610,
-        620,
+        650,
         34
       ],
       "color": "243a24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "outer_low_bridge",
+      "rect": [
+        1500,
+        548,
+        240,
+        28
+      ],
+      "color": "2b442d",
       "material": "moss_stone"
     },
     {
@@ -962,10 +973,10 @@
       "rect": [
         1900,
         520,
-        360,
+        380,
         28
       ],
-      "color": "76683f",
+      "color": "6d6645",
       "material": "bronze_bridge"
     },
     {
@@ -973,7 +984,7 @@
       "rect": [
         2240,
         485,
-        190,
+        210,
         26
       ],
       "color": "315032",
@@ -982,9 +993,9 @@
     {
       "id": "moss_steps_a",
       "rect": [
-        2360,
+        2380,
         450,
-        320,
+        330,
         28
       ],
       "color": "2f4c31",
@@ -993,9 +1004,9 @@
     {
       "id": "moss_steps_b",
       "rect": [
-        2800,
+        2820,
         370,
-        320,
+        340,
         28
       ],
       "color": "365438",
@@ -1006,7 +1017,7 @@
       "rect": [
         3260,
         410,
-        380,
+        400,
         28
       ],
       "color": "2e4a34",
@@ -1017,10 +1028,10 @@
       "rect": [
         3680,
         500,
-        500,
+        540,
         32
       ],
-      "color": "76613b",
+      "color": "6d6645",
       "material": "bronze_bridge"
     },
     {
@@ -1028,7 +1039,7 @@
       "rect": [
         1180,
         390,
-        500,
+        520,
         26
       ],
       "color": "6f673d",
@@ -1039,18 +1050,29 @@
       "rect": [
         4200,
         500,
-        1320,
+        1280,
         34
       ],
-      "color": "48372f",
+      "color": "47362f",
       "material": "boss_stone"
+    },
+    {
+      "id": "runback_overlook",
+      "rect": [
+        4680,
+        420,
+        360,
+        28
+      ],
+      "color": "6d6645",
+      "material": "bronze_bridge"
     },
     {
       "id": "ch01_echo_trench_floor",
       "rect": [
-        5520,
+        5480,
         540,
-        1120,
+        940,
         34
       ],
       "color": "274526",
@@ -1059,42 +1081,75 @@
     {
       "id": "ch01_echo_trench_step",
       "rect": [
-        6280,
+        6200,
         468,
         360,
         28
       ],
-      "color": "706544",
+      "color": "6d6645",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_old_rope_upper_bridge",
+      "id": "ch01_echo_trench_exit",
       "rect": [
-        6700,
-        388,
-        760,
-        28
+        6400,
+        540,
+        260,
+        34
       ],
-      "color": "746942",
-      "material": "bronze_bridge"
+      "color": "274526",
+      "material": "moss_stone"
     },
     {
       "id": "ch01_old_rope_floor",
       "rect": [
-        6640,
+        6620,
         540,
-        900,
+        980,
         34
       ],
       "color": "294829",
       "material": "moss_stone"
     },
     {
+      "id": "ch01_old_rope_mid_a",
+      "rect": [
+        6840,
+        470,
+        260,
+        28
+      ],
+      "color": "6d6645",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "ch01_old_rope_mid_b",
+      "rect": [
+        7120,
+        420,
+        260,
+        28
+      ],
+      "color": "6d6645",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "ch01_old_rope_upper_bridge",
+      "rect": [
+        6800,
+        388,
+        760,
+        28
+      ],
+      "color": "6d6645",
+      "material": "bronze_bridge"
+    },
+    {
       "id": "ch01_bell_tangle_floor",
       "rect": [
-        7540,
+        7560,
         500,
-        1060,
+        1000,
         34
       ],
       "color": "263f29",
@@ -1105,40 +1160,51 @@
       "rect": [
         7900,
         420,
-        520,
+        560,
         28
       ],
-      "color": "77683f",
+      "color": "6d6645",
       "material": "bronze_bridge"
+    },
+    {
+      "id": "ch01_tangle_drop",
+      "rect": [
+        8480,
+        500,
+        300,
+        34
+      ],
+      "color": "263f29",
+      "material": "moss_stone"
     },
     {
       "id": "ch01_runback_after_tangle",
       "rect": [
-        8600,
+        8720,
         500,
-        900,
+        620,
         34
       ],
-      "color": "45352f",
+      "color": "47362f",
       "material": "boss_stone"
     },
     {
       "id": "ch01_pre_boss_step",
       "rect": [
-        9100,
+        9140,
         452,
         360,
         28
       ],
-      "color": "77643d",
+      "color": "6d6645",
       "material": "bronze_bridge"
     },
     {
       "id": "ch01_lower_loop_floor",
       "rect": [
-        8940,
+        8780,
         610,
-        920,
+        980,
         34
       ],
       "color": "1c2b1f",
@@ -1147,9 +1213,9 @@
     {
       "id": "ch01_lower_loop_mid",
       "rect": [
-        9320,
+        9280,
         520,
-        360,
+        390,
         28
       ],
       "color": "6d6645",
@@ -1158,7 +1224,7 @@
     {
       "id": "ch01_lower_loop_exit_lip",
       "rect": [
-        9690,
+        9700,
         560,
         220,
         26
@@ -1169,9 +1235,9 @@
     {
       "id": "ch01_return_shaft_base",
       "rect": [
-        9960,
+        9940,
         540,
-        360,
+        380,
         30
       ],
       "color": "1c2b1f",
@@ -1180,9 +1246,9 @@
     {
       "id": "ch01_return_shaft_step_a",
       "rect": [
-        10260,
+        10240,
         470,
-        260,
+        270,
         28
       ],
       "color": "6d6645",
@@ -1191,9 +1257,9 @@
     {
       "id": "ch01_return_shaft_step_b",
       "rect": [
-        10590,
+        10580,
         400,
-        260,
+        270,
         28
       ],
       "color": "6d6645",
@@ -1202,18 +1268,29 @@
     {
       "id": "ch01_upper_bridge",
       "rect": [
-        10870,
+        10840,
         350,
-        860,
+        880,
         28
       ],
       "color": "6d6645",
       "material": "bronze_bridge"
     },
     {
+      "id": "ch01_upper_hidden_save",
+      "rect": [
+        11100,
+        350,
+        240,
+        28
+      ],
+      "color": "7a7046",
+      "material": "bronze_bridge"
+    },
+    {
       "id": "ch01_upper_drop_step",
       "rect": [
-        11520,
+        11540,
         430,
         260,
         28
@@ -1224,9 +1301,9 @@
     {
       "id": "ch01_crossway_floor",
       "rect": [
-        11820,
+        11740,
         540,
-        760,
+        900,
         34
       ],
       "color": "1c2b1f",
@@ -1235,7 +1312,7 @@
     {
       "id": "ch01_crossway_upper",
       "rect": [
-        12220,
+        12180,
         452,
         380,
         28
@@ -1246,9 +1323,9 @@
     {
       "id": "ch01_preboss_floor",
       "rect": [
-        12630,
+        12580,
         540,
-        540,
+        660,
         34
       ],
       "color": "47362f",
@@ -1257,10 +1334,21 @@
     {
       "id": "boss_floor",
       "rect": [
-        13200,
+        13240,
         500,
-        1110,
+        1080,
         44
+      ],
+      "color": "47362f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_entry_lip",
+      "rect": [
+        13100,
+        540,
+        170,
+        34
       ],
       "color": "47362f",
       "material": "boss_stone"
@@ -1268,7 +1356,7 @@
     {
       "id": "boss_back_wall",
       "rect": [
-        14310,
+        14320,
         300,
         38,
         244
@@ -1292,7 +1380,7 @@
       "rect": [
         14440,
         500,
-        180,
+        190,
         34
       ],
       "color": "47362f",
@@ -1312,9 +1400,9 @@
     {
       "id": "ch01_late_route_link_01",
       "rect": [
-        9680,
+        9340,
         500,
-        280,
+        360,
         30
       ],
       "color": "47362f",
@@ -1323,9 +1411,31 @@
     {
       "id": "ch01_late_route_link_02",
       "rect": [
-        10320,
+        9700,
         500,
         1500,
+        30
+      ],
+      "color": "47362f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "ch01_late_route_link_03",
+      "rect": [
+        11200,
+        500,
+        1540,
+        30
+      ],
+      "color": "47362f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "ch01_late_route_link_04",
+      "rect": [
+        12740,
+        500,
+        1880,
         30
       ],
       "color": "47362f",
@@ -1338,97 +1448,97 @@
       "id": "trap_fake_moss_01",
       "kind": "fake_moss_floor",
       "rect": [
-        695,
+        700,
         406,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
     },
     {
-      "id": "ch01_hazard_02",
+      "id": "ch01_hazard_outer_gap",
       "kind": "bell_gap",
       "rect": [
-        2905,
+        1600,
+        586,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+    },
+    {
+      "id": "ch01_hazard_upper_leaf",
+      "kind": "spore_chest",
+      "rect": [
+        3010,
         346,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
     },
     {
-      "id": "ch01_hazard_03",
-      "kind": "spore_chest",
-      "rect": [
-        4805,
-        476,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch01_hazard_04",
-      "kind": "falling_clapper",
-      "rect": [
-        7035,
-        516,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch01_hazard_05",
-      "kind": "shortcut_revenge",
-      "rect": [
-        9225,
-        428,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch01_hazard_06",
+      "id": "ch01_hazard_runback_lamp",
       "kind": "false_lamp",
       "rect": [
-        10335,
-        446,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch01_hazard_07",
-      "kind": "fake_moss_floor",
-      "rect": [
-        12145,
-        516,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch01_hazard_08",
-      "kind": "falling_clapper",
-      "rect": [
-        14395,
+        4860,
         476,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+    },
+    {
+      "id": "ch01_hazard_rope_clapper",
+      "kind": "falling_clapper",
+      "rect": [
+        7040,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+    },
+    {
+      "id": "ch01_hazard_lower_bite",
+      "kind": "fake_moss_floor",
+      "rect": [
+        9260,
+        586,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+    },
+    {
+      "id": "ch01_hazard_crossway",
+      "kind": "spore_chest",
+      "rect": [
+        12160,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+    },
+    {
+      "id": "ch01_hazard_boss_ante",
+      "kind": "falling_clapper",
+      "rect": [
+        12920,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
     }
   ],
   "collectibles": [],
@@ -1441,13 +1551,13 @@
         460
       ],
       "requires_keys": 0,
-      "label": "战斗门控制器"
+      "label": "后门捷径拉杆"
     },
     {
       "id": "boss_gate",
       "kind": "boss_gate",
       "position": [
-        13410,
+        13420,
         460
       ]
     },
@@ -1524,7 +1634,7 @@
       "id": "npc_backdoor_sacristan",
       "name": "后门司铃人",
       "position": [
-        3720,
+        3740,
         460
       ],
       "role": "sacristan",
@@ -1619,7 +1729,7 @@
           32
         ]
       },
-      "patrol": 80,
+      "patrol": 90,
       "leash_radius": 220
     },
     {
@@ -1685,13 +1795,13 @@
         ]
       },
       "patrol": 80,
-      "leash_radius": 220
+      "leash_radius": 200
     },
     {
       "id": "E03",
       "kind": "spore_bellmaker",
       "position": [
-        2960,
+        2990,
         330
       ],
       "platform_id": "moss_steps_b",
@@ -1749,8 +1859,8 @@
           66
         ]
       },
-      "patrol": 80,
-      "leash_radius": 220
+      "patrol": 70,
+      "leash_radius": 180
     },
     {
       "id": "E04",
@@ -1815,13 +1925,13 @@
         ]
       },
       "patrol": 80,
-      "leash_radius": 220
+      "leash_radius": 180
     },
     {
       "id": "E05",
       "kind": "gear_sentinel",
       "position": [
-        5220,
+        5160,
         460
       ],
       "platform_id": "boss_runback",
@@ -1879,8 +1989,8 @@
           72
         ]
       },
-      "patrol": 80,
-      "leash_radius": 220
+      "patrol": 100,
+      "leash_radius": 230
     },
     {
       "id": "CH01_E_EXP01",
@@ -1944,14 +2054,14 @@
           36
         ]
       },
-      "patrol": 80,
+      "patrol": 90,
       "leash_radius": 220
     },
     {
       "id": "CH01_E_EXP02",
       "kind": "spore_bellmaker",
       "position": [
-        7160,
+        7180,
         348
       ],
       "platform_id": "ch01_old_rope_upper_bridge",
@@ -2010,13 +2120,13 @@
         ]
       },
       "patrol": 80,
-      "leash_radius": 220
+      "leash_radius": 190
     },
     {
       "id": "CH01_E_EXP03",
       "kind": "moss_larva",
       "position": [
-        8190,
+        8200,
         460
       ],
       "platform_id": "ch01_bell_tangle_floor",
@@ -2074,7 +2184,7 @@
           32
         ]
       },
-      "patrol": 80,
+      "patrol": 90,
       "leash_radius": 220
     },
     {
@@ -2139,8 +2249,8 @@
           72
         ]
       },
-      "patrol": 80,
-      "leash_radius": 220
+      "patrol": 90,
+      "leash_radius": 200
     },
     {
       "id": "CH01_E_EXP05",
@@ -2204,7 +2314,7 @@
           32
         ]
       },
-      "patrol": 80,
+      "patrol": 90,
       "leash_radius": 220
     },
     {
@@ -2270,13 +2380,13 @@
         ]
       },
       "patrol": 80,
-      "leash_radius": 220
+      "leash_radius": 190
     },
     {
       "id": "CH01_E_EXP07",
       "kind": "spore_bellmaker",
       "position": [
-        12080,
+        12120,
         500
       ],
       "platform_id": "ch01_crossway_floor",
@@ -2335,7 +2445,72 @@
         ]
       },
       "patrol": 80,
-      "leash_radius": 220
+      "leash_radius": 190
+    },
+    {
+      "id": "CH01_E_EXP08",
+      "kind": "gear_sentinel",
+      "position": [
+        12860,
+        500
+      ],
+      "platform_id": "ch01_preboss_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "visual_scale": 0.82,
+      "visual_offset": [
+        0,
+        -7
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "walk": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "attack": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "hurt": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "death": [
+          0,
+          0,
+          64,
+          72
+        ]
+      },
+      "patrol": 80,
+      "leash_radius": 180
     }
   ],
   "boss": {
@@ -2417,48 +2592,48 @@
       ]
     },
     "arena_min_x": 13320,
-    "arena_max_x": 14190
+    "arena_max_x": 14180
   },
   "labels": [
     {
-      "text": "路线：踩起步台阶拿第一把战斗标记，再从锁门下方绕路。",
+      "text": "入口：先学跳跃、交互和第一条上层视线。",
       "position": [
-        430,
-        382
-      ],
-      "color": "e6d28c"
-    },
-    {
-      "text": "战斗：左键攻击，E技能，右键回血，F交互。",
-      "position": [
-        140,
+        180,
         458
       ],
       "color": "9ef0dc"
     },
     {
-      "text": "外庭：怪物更分散，只近战冲撞，打完就后撤补能量。",
+      "text": "外庭：下层绕行，敌群间距更宽。",
       "position": [
-        1540,
-        330
+        1320,
+        570
+      ],
+      "color": "e6d28c"
+    },
+    {
+      "text": "钟绳井：从下层回到上层，形成第一章核心回环。",
+      "position": [
+        6720,
+        340
+      ],
+      "color": "c7e6ff"
+    },
+    {
+      "text": "王冠上梁：隐藏存档，奖励探索。",
+      "position": [
+        10880,
+        300
       ],
       "color": "9ef0dc"
     },
     {
-      "text": "后门拉杆：带3把战斗标记按F，开捷径后直通首领回廊。",
+      "text": "首领前：存档、提示、短冲刺后进入锈冠大厅。",
       "position": [
-        3460,
-        448
+        12480,
+        466
       ],
       "color": "f2b873"
-    },
-    {
-      "text": "世界线：六座失声之城等待重鸣，苔钟庭只是第一枚印记。",
-      "position": [
-        4380,
-        420
-      ],
-      "color": "c7e6ff"
     }
   ],
   "completion_message": "DEMO COMPLETE: 锈冠守卫已被击败，王冠裂片已回收",
@@ -2473,17 +2648,17 @@
         310
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
+      "note": "藏在王冠上梁的稀疏存档点，奖励探索上层路线。"
     },
     {
       "id": "save_late_runback",
-      "label": "回响苔槽存档点",
+      "label": "首领前回响苔灯",
       "position": [
         12760,
         500
       ],
       "hidden": false,
-      "note": "扩写后Boss前中段存档点。"
+      "note": "Boss 前中段存档点，避免第一章后半段重复跑图过长。"
     }
   ],
   "fall_y": 820,
@@ -2495,7 +2670,7 @@
     "entry_hint": "锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。"
   },
   "art_theme": "moss_cavern",
-  "map_title": "Moss Bell Court Map",
+  "map_title": "苔钟庭：外庭下阶 / 旧钟绳井 / 王冠回廊",
   "progression_mode": "combat_clear",
   "asset_policy": {
     "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
@@ -2509,10 +2684,23 @@
       "technique": "drop recovery + short hop return route",
       "platforms": [
         "outer_drop",
+        "outer_low_bridge",
         "outer_return_lip",
         "gear_lift",
         "gear_lift_return_step",
         "moss_steps_a"
+      ]
+    },
+    {
+      "id": "ch01_rope_to_upper_loop",
+      "room_id": "old_bell_rope",
+      "technique": "vertical rope shaft into upper shortcut",
+      "platforms": [
+        "ch01_old_rope_floor",
+        "ch01_old_rope_mid_a",
+        "ch01_old_rope_mid_b",
+        "ch01_old_rope_upper_bridge",
+        "ch01_bell_tangle_upper"
       ]
     },
     {
@@ -2540,11 +2728,13 @@
     }
   ],
   "map_layout_tags": [
+    "from_scratch_ch01",
     "horizontal_mainline",
-    "upper_route",
-    "lower_route",
+    "upper_shortcut",
+    "lower_detour",
     "vertical_shaft",
-    "opened_shortcut"
+    "opened_shortcut",
+    "boss_antechamber"
   ],
   "connections": [
     {
@@ -2623,9 +2813,29 @@
       "type": "passage"
     },
     {
+      "from": "entry_bell",
+      "to": "upper_bells",
+      "type": "visible_shortcut"
+    },
+    {
+      "from": "outer_court",
+      "to": "gear_lift",
+      "type": "lower_return"
+    },
+    {
+      "from": "runback",
+      "to": "echo_moss_trench",
+      "type": "drop_route"
+    },
+    {
       "from": "lower_bell_cistern",
       "to": "cistern_pump_shaft",
       "type": "lower_return"
+    },
+    {
+      "from": "old_bell_rope",
+      "to": "upper_crown_rafters",
+      "type": "upper_shortcut"
     },
     {
       "from": "upper_crown_rafters",
