@@ -1,0 +1,264 @@
+{
+  "id": "crimson_thread_progression_v1",
+  "status": "planning_contract",
+  "target_scale": {
+    "chapters": 6,
+    "rooms_per_chapter": [
+      18,
+      22,
+      20,
+      24,
+      26,
+      16
+    ],
+    "total_rooms_estimate": 126,
+    "demo_current_rooms": 7,
+    "design_goal": "从当前试玩章扩展为能力门驱动的大地图。"
+  },
+  "abilities": [
+    {
+      "id": "thread_dash",
+      "name": "绯线冲刺",
+      "chapter": 1,
+      "input": "Shift",
+      "type": "movement",
+      "description": "短距离水平冲刺，可穿过窄刺阵与钟隙。",
+      "unlocks_gates": [
+        "dash_gap",
+        "fast_bell_door"
+      ]
+    },
+    {
+      "id": "silk_wall_grip",
+      "name": "丝壁攀附",
+      "chapter": 2,
+      "input": "贴墙 + 跳跃",
+      "type": "movement",
+      "description": "贴住特定墙面短暂停留并进行墙跳。",
+      "unlocks_gates": [
+        "wallshaft",
+        "high_side_exit"
+      ]
+    },
+    {
+      "id": "echo_hook",
+      "name": "回声钩索",
+      "chapter": 2,
+      "input": "K",
+      "type": "movement_combat",
+      "description": "钩住铃环或敌人外壳，拉近或越过深坑。",
+      "unlocks_gates": [
+        "hook_ring",
+        "swing_crossing"
+      ]
+    },
+    {
+      "id": "double_thread_jump",
+      "name": "双线跃",
+      "chapter": 3,
+      "input": "空中再次跳跃",
+      "type": "movement",
+      "description": "空中第二段跳跃，进入高层书库和温室上层。",
+      "unlocks_gates": [
+        "double_jump_height",
+        "upper_archive"
+      ]
+    },
+    {
+      "id": "bell_guard",
+      "name": "钟壳格挡",
+      "chapter": 3,
+      "input": "Q",
+      "type": "defense",
+      "description": "短时间格挡近战冲撞，完美格挡返还能量。",
+      "unlocks_gates": [
+        "guard_break_door",
+        "heavy_beast_lane"
+      ]
+    },
+    {
+      "id": "thorn_downstrike",
+      "name": "棘线下劈",
+      "chapter": 4,
+      "input": "空中 + 下 + 左键",
+      "type": "combat_movement",
+      "description": "向下劈击敌人或脆弱地面，可反弹并破坏棘藤封口。",
+      "unlocks_gates": [
+        "break_floor",
+        "thorn_bounce"
+      ]
+    },
+    {
+      "id": "lantern_phase",
+      "name": "灯影相位",
+      "chapter": 5,
+      "input": "E长按",
+      "type": "utility",
+      "description": "消耗能量短暂穿过黑曜影门，但不能穿敌人。",
+      "unlocks_gates": [
+        "shadow_gate",
+        "phase_window"
+      ]
+    },
+    {
+      "id": "crown_resonance",
+      "name": "王冠共鸣",
+      "chapter": 6,
+      "input": "R",
+      "type": "ultimate",
+      "description": "终章能力，重写部分钟门状态并进入真结局路线。",
+      "unlocks_gates": [
+        "silent_crown_gate",
+        "true_ending_route"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "bell_combat_mark",
+      "name": "战斗标记",
+      "kind": "combat_mark",
+      "stackable": true,
+      "scope": "chapter"
+    },
+    {
+      "id": "rosin_shards",
+      "name": "松脂碎片",
+      "kind": "currency",
+      "stackable": true,
+      "scope": "global"
+    },
+    {
+      "id": "moss_lens",
+      "name": "苔光镜",
+      "kind": "relic",
+      "effect": "显示已探索房间和当前目标"
+    },
+    {
+      "id": "map_fragment",
+      "name": "地图残页",
+      "kind": "map",
+      "effect": "预先揭示一个区域的房间轮廓"
+    },
+    {
+      "id": "needle_charm_slot",
+      "name": "针饰槽",
+      "kind": "upgrade",
+      "effect": "增加可装备护符数量"
+    },
+    {
+      "id": "heart_knot",
+      "name": "心结",
+      "kind": "upgrade",
+      "effect": "增加最大生命"
+    },
+    {
+      "id": "energy_spindle",
+      "name": "能量纺锤",
+      "kind": "upgrade",
+      "effect": "增加最大能量"
+    },
+    {
+      "id": "crown_splinter",
+      "name": "王冠裂片",
+      "kind": "material",
+      "scope": "boss"
+    }
+  ],
+  "charms": [
+    {
+      "id": "quick_mender",
+      "name": "快缝针",
+      "cost": 2,
+      "effect": "右键回血时间减少，但能量消耗不变。"
+    },
+    {
+      "id": "hunters_bell",
+      "name": "猎钟",
+      "cost": 1,
+      "effect": "击败近战怪额外获得少量能量。"
+    },
+    {
+      "id": "long_thread",
+      "name": "长线",
+      "cost": 2,
+      "effect": "普通攻击范围增加。"
+    },
+    {
+      "id": "quiet_sole",
+      "name": "静靴",
+      "cost": 1,
+      "effect": "陷阱触发判定略微缩小。"
+    },
+    {
+      "id": "rust_oath",
+      "name": "锈誓",
+      "cost": 3,
+      "effect": "生命低于2时攻击提高，但受到伤害也提高。"
+    }
+  ],
+  "gate_types": [
+    {
+      "id": "dash_gap",
+      "requires": [
+        "thread_dash"
+      ],
+      "description": "长水平缺口或钟隙。"
+    },
+    {
+      "id": "wallshaft",
+      "requires": [
+        "silk_wall_grip"
+      ],
+      "description": "竖井墙跳路线。"
+    },
+    {
+      "id": "hook_ring",
+      "requires": [
+        "echo_hook"
+      ],
+      "description": "悬挂铃环或远端锚点。"
+    },
+    {
+      "id": "double_jump_height",
+      "requires": [
+        "double_thread_jump"
+      ],
+      "description": "普通跳跃无法抵达的平台。"
+    },
+    {
+      "id": "guard_break_door",
+      "requires": [
+        "bell_guard"
+      ],
+      "description": "需要格挡反震打开的重门。"
+    },
+    {
+      "id": "break_floor",
+      "requires": [
+        "thorn_downstrike"
+      ],
+      "description": "脆弱地板和棘藤封口。"
+    },
+    {
+      "id": "shadow_gate",
+      "requires": [
+        "lantern_phase"
+      ],
+      "description": "短相位穿越的黑曜影门。"
+    },
+    {
+      "id": "silent_crown_gate",
+      "requires": [
+        "crown_resonance"
+      ],
+      "description": "终章王冠门。"
+    }
+  ],
+  "implementation_notes": [
+    "技能与道具先做数据表，再由 player_controller.gd 消费解锁状态。",
+    "地图房间从单场景桥接逐步迁移到 MetSys RoomInstance。",
+    "所有门禁在房间配置中声明 required_abilities，运行时统一判断。",
+    "美术素材只使用 CC0/Public Domain/自制；MIT 仓库只学习代码结构。"
+  ]
+}

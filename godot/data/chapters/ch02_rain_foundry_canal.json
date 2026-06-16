@@ -1,0 +1,337 @@
+{
+  "id": "ch02_rain_foundry_canal",
+  "name": "第二章：铸雨渠",
+  "main_goal": "沿雨渠进入旧铸坊，找到被水声藏起的铁匠印记，解锁墙面攀附与回声钩索。",
+  "story_beats": [
+    {
+      "id": "entry_rain_signal",
+      "summary": "第一章印记传出雨水敲铁的回声，主角从苔钟庭后门坠入一条一直下雨的地下水渠。",
+      "story_flag": "beat_ch02_entry"
+    },
+    {
+      "id": "foundry_truth",
+      "summary": "铸雨外渠的水轮仍按旧班表转动，NPC 说明旧王朝曾把人的名字和声音铸进钟壁。",
+      "story_flag": "beat_ch02_foundry_names"
+    },
+    {
+      "id": "smith_refusal",
+      "summary": "玩家在三岔泵井发现铁匠印记不是失踪，而是自愿沉在井底，防止黑潮沿水声回流。",
+      "story_flag": "beat_ch02_smith_refusal"
+    },
+    {
+      "id": "boss_after_oath",
+      "summary": "沉锤铁匠交出铁匠誓牌和回声钩索，要求主角去盐白书库寻找王冠契约原文。",
+      "story_flag": "beat_ch02_oath_plate"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "rain_canal_entry",
+      "name": "雨渠入口",
+      "kind": "entry",
+      "objective": "学习水流推力和低顶通道。",
+      "guide": "顺水跑，逆水用冲刺补位；水面有亮线时代表下一段推流即将增强。",
+      "danger": "水流会把玩家推入刺管。",
+      "next": "铸雨外渠"
+    },
+    {
+      "id": "foundry_drain",
+      "name": "铸雨外渠",
+      "kind": "field",
+      "objective": "找到第一座水轮升降机。",
+      "guide": "听水轮节拍再跳，停顿平台会在第三拍下沉。",
+      "danger": "冷却蒸汽间歇喷发。",
+      "next": "管工休息间"
+    },
+    {
+      "id": "pipewright_rest",
+      "name": "管工休息间",
+      "kind": "safe",
+      "objective": "和失聪铁匠柳、管渠童子对话，取得水轮阀记线索。",
+      "guide": "此处无敌人，可整理地图和支线。",
+      "danger": "假箱子会喷蒸汽，靠近前先观察阀门颜色。",
+      "next": "三岔泵井"
+    },
+    {
+      "id": "triple_pump_well",
+      "name": "三岔泵井",
+      "kind": "vertical",
+      "objective": "用丝壁攀附上行，打开中段捷径。",
+      "guide": "潮湿铜墙可短暂停留，攀附超过一秒会滑落。",
+      "danger": "落水后回到井底，且重置水轮节拍。",
+      "next": "回声索桥"
+    },
+    {
+      "id": "echo_hook_bridge",
+      "name": "回声索桥",
+      "kind": "ability_gate",
+      "objective": "用回声钩索越过断桥。",
+      "guide": "钩住铃环，不要太早钩飞行敌人。",
+      "danger": "悬挂铁钟会坠落，坠落前有低频晃动。",
+      "next": "沉炉大厅"
+    },
+    {
+      "id": "sunken_furnace",
+      "name": "沉炉大厅",
+      "kind": "danger",
+      "objective": "击败水轮守卫并打开 Boss 前路。",
+      "guide": "水轮背后有回到管工休息间的捷径门。",
+      "danger": "铁水浮渣会周期上升，站太久会被烫回平台边缘。",
+      "next": "泵王殿"
+    },
+    {
+      "id": "pump_king_hall",
+      "name": "泵王殿",
+      "kind": "boss",
+      "objective": "击败沉锤铁匠。",
+      "guide": "回声钩索可打断蓄力水锤，水阀亮起时优先拉断钩环。",
+      "danger": "水位上涨会压缩安全平台。",
+      "next": "盐白书库入口"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_rain_smith_liu",
+      "name": "失聪铁匠柳",
+      "role": "ability_teacher",
+      "position_hint": "管工休息间",
+      "dialogue": [
+        "你听见雨，说明你还没听见铁。",
+        "贴住青铜湿墙，线会替你抓住一瞬；别贪，湿墙也会甩开你。",
+        "若井底有人敲三下，不要回答第四下。那是黑潮在学人说话。"
+      ]
+    },
+    {
+      "id": "npc_canal_child",
+      "name": "管渠童子",
+      "role": "route_hint",
+      "position_hint": "铸雨外渠低桥",
+      "dialogue": [
+        "水往右走，人不一定。",
+        "红阀会让上面的水轮停一口气，够你跳过去。",
+        "我把水轮阀记留在不会下雨的房间，别问我为什么那里还会长青苔。"
+      ]
+    },
+    {
+      "id": "npc_sluice_nun",
+      "name": "锈泵修女",
+      "role": "story_vendor",
+      "position_hint": "三岔泵井安全台",
+      "dialogue": [
+        "铸钟时，工匠们把自己的名字留在水声里。",
+        "雨会偷走你的跳跃，买一枚防潮线结会轻松些。",
+        "盐白书库保存着第一份契约，可他们说纸早就结晶了。"
+      ]
+    },
+    {
+      "id": "npc_drowned_foreman",
+      "name": "半沉工头",
+      "role": "sidequest",
+      "position_hint": "沉炉大厅侧廊",
+      "dialogue": [
+        "把三枚工牌带回休息间，我就告诉你哪根管子通向 Boss 后门。",
+        "别相信干净的水，那里面没有活人的倒影。",
+        "铁匠印记在泵王心口，不在旧柜里。"
+      ]
+    }
+  ],
+  "enemy_points": [
+    {
+      "id": "C2_E01",
+      "room": "foundry_drain",
+      "spawn_mix": [
+        "drain_leech",
+        "drain_leech"
+      ],
+      "combat_role": "低身位贴地咬，逼玩家练习下斩和后撤。",
+      "story_use": "水渠生物啃食铸钟残渣，说明钟壁里混有活人名字。",
+      "asset_hint": "GothicVania Cemetery 本地公开素材敌人图，使用水渠色板变体；不使用 NPC 同族图。"
+    },
+    {
+      "id": "C2_E02",
+      "room": "foundry_drain",
+      "spawn_mix": [
+        "pipe_thrower"
+      ],
+      "combat_role": "远程弧线投掷，和蒸汽陷阱形成错位压迫。",
+      "story_use": "管工尸壳还在按旧班表巡逻。",
+      "asset_hint": "GothicVania 敌人 PNG 搭配 Kenney CC0 管件图标做投掷物。"
+    },
+    {
+      "id": "C2_E03",
+      "room": "triple_pump_well",
+      "spawn_mix": [
+        "rust_diver"
+      ],
+      "combat_role": "从水面突袭，测试墙面攀附的起跳时机。",
+      "story_use": "水下巡逻者守住上行井壁。",
+      "asset_hint": "GothicVania demo 敌人图或 OpenGameArt Public Domain 水生敌人候选。"
+    },
+    {
+      "id": "C2_E04",
+      "room": "echo_hook_bridge",
+      "spawn_mix": [
+        "bell_mote",
+        "bell_mote"
+      ],
+      "combat_role": "飞行干扰钩索时机，逼玩家先处理空中威胁。",
+      "story_use": "被水声困住的小钟魂围着断桥徘徊。",
+      "asset_hint": "GothicVania 飞行敌人本地素材缩小版本。"
+    },
+    {
+      "id": "C2_E05",
+      "room": "sunken_furnace",
+      "spawn_mix": [
+        "waterwheel_knight"
+      ],
+      "combat_role": "高血盾兵，钩索打断后露出硬直窗口。",
+      "story_use": "铸坊最后的水轮守卫守着沉炉大厅。",
+      "asset_hint": "GothicVania 哨兵素材与 Kenney CC0 水轮符号组合。"
+    }
+  ],
+  "boss": {
+    "id": "C2_B01",
+    "name": "沉锤铁匠",
+    "kind": "sunken_hammer_smith",
+    "arena": "泵王殿，左右各一组水阀，中间平台随水位上下浮动。",
+    "phase_1": "横锤、跳锤、水波震退。",
+    "phase_2": "水位升高，Boss 敲响三枚钩环；玩家用 echo_hook 拉断钩环使其硬直。",
+    "drop": [
+      "silent_mark_rainforge",
+      "echo_hook",
+      "smith_oath_plate"
+    ],
+    "story_after": "铁匠承认自己把一批活人名字铸进王冠，只有盐白书库保存谁下令的原文。",
+    "asset_hint": "GothicVania 大型敌人公开素材或 OpenGameArt Public Domain 机械/铁匠 Boss 候选。"
+  },
+  "gates": [
+    {
+      "id": "wet_wall_shaft",
+      "type": "wallshaft",
+      "requires": "silk_wall_grip",
+      "placement": "三岔泵井",
+      "unlock_logic": "失聪铁匠柳教学后开启首个墙面攀附井。"
+    },
+    {
+      "id": "hook_ring_bridge",
+      "type": "hook_ring",
+      "requires": "echo_hook",
+      "placement": "回声索桥",
+      "unlock_logic": "必经断桥，钩住铃环通过。"
+    },
+    {
+      "id": "swing_crossing_secret",
+      "type": "swing_crossing",
+      "requires": "echo_hook",
+      "placement": "沉炉大厅上层",
+      "unlock_logic": "返场宝箱和半沉工头支线收束。"
+    }
+  ],
+  "key_collectibles": [
+    {
+      "id": "pump_combat_mark",
+      "name": "水轮阀记",
+      "category": "chapter_combat_mark",
+      "use": "打开三岔泵井中层阀门。",
+      "story_flag": "item_ch02_pump_combat_mark"
+    },
+    {
+      "id": "lost_worker_badges",
+      "name": "失落工牌三枚",
+      "category": "sidequest",
+      "use": "交给半沉工头，换取 Boss 前捷径情报。",
+      "story_flag": "item_ch02_worker_badges"
+    },
+    {
+      "id": "smith_oath_plate",
+      "name": "铁匠誓牌",
+      "category": "ending_clue",
+      "use": "第三章书库识别契约页。",
+      "story_flag": "item_ch02_oath_plate"
+    },
+    {
+      "id": "silent_mark_rainforge",
+      "name": "雨铸失声印记",
+      "category": "main_progression",
+      "use": "证明第二章完成并解锁盐白书库入口。",
+      "story_flag": "mark_ch02_rainforge"
+    },
+    {
+      "id": "energy_spindle_fragment",
+      "name": "能量纺锭碎片",
+      "category": "upgrade",
+      "use": "扩展能量上限的章节支线奖励。",
+      "story_flag": "item_ch02_energy_fragment"
+    }
+  ],
+  "ending_clues": [
+    {
+      "route": "重鸣",
+      "clue": "铁匠说钟声本该把黑潮压回井底。",
+      "evidence_item": "silent_mark_rainforge"
+    },
+    {
+      "route": "断冠",
+      "clue": "铸钟材料包含活人名字，封印建立在牺牲上。",
+      "evidence_item": "lost_worker_badges"
+    },
+    {
+      "route": "真结局",
+      "clue": "铁匠誓牌记录第七个签署者的徽记，但名字被盐刮掉。",
+      "evidence_item": "smith_oath_plate"
+    }
+  ],
+  "open_assets": {
+    "environment": {
+      "source": "GothicVania demo redistributable CH01 art and GothicVania Cemetery local Public Domain style assets",
+      "path": "godot/assets/sprites/gothicvania/demo; godot/assets/sprites/gothicvania",
+      "license_basis": "本地已记录免费/开放候选"
+    },
+    "enemies": {
+      "source": "GothicVania Cemetery / Ansimuz public-domain-style local import; OpenGameArt Public Domain candidates",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选；敌人不引用 NPC 同族图"
+    },
+    "boss": {
+      "source": "GothicVania large enemy local import or OpenGameArt Public Domain mechanical boss candidate",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选"
+    },
+    "npc": {
+      "source": "GothicVania demo redistributable NPC art",
+      "path": "godot/assets/sprites/gothicvania/demo/*.png",
+      "license_basis": "仅友方 NPC 使用，带友方标识"
+    },
+    "ui_fx": {
+      "source": "Kenney Platformer Art Deluxe CC0 and Kenney Particle Pack CC0 candidates",
+      "path": "godot/assets/sprites/ui/kenney",
+      "license_basis": "CC0"
+    },
+    "audio": {
+      "source": "project local OGG audio and CC0 water/drop sound candidates",
+      "path": "godot/assets/audio/*.ogg",
+      "license_basis": "本地已记录或 CC0 候选"
+    }
+  },
+  "vfx_audio": [
+    {
+      "id": "wall_grip",
+      "visual": "墙面短暂亮起青铜湿光，角色脚下出现两段绯线拉痕。",
+      "audio": "低频吸附声加轻微水滴尾音。",
+      "asset_policy": "使用 Godot 内置线条/粒子和本地 OGG；新增音频必须为 CC0 候选。"
+    },
+    {
+      "id": "echo_hook",
+      "visual": "钩索击中铃环时出现淡蓝回声圈和短线残影。",
+      "audio": "钩环金属声后接一拍水声回响。",
+      "asset_policy": "使用本地已记录攻击音效和 Kenney CC0 小件图标。"
+    },
+    {
+      "id": "boss_water_hammer",
+      "visual": "水锤落点出现半圆水浪和地面抖动环。",
+      "audio": "heavy_hit 本地 OGG 与 CC0 水浪候选叠加。",
+      "asset_policy": "现有本地 OGG 优先；外部水浪只用 CC0。"
+    }
+  ]
+}
+

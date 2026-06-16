@@ -1,0 +1,11 @@
+{
+  "name": "crimson-thread-odyssey",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check src/main.js && node --check src/gameData.js && node --check server.js",
+    "test": "npm run check && node tests/game-data.test.mjs && node tests/static-smoke.test.mjs && node tests/runtime-smoke.test.mjs",
+    "test:browser": "node tests/browser-cdp-smoke.test.mjs"
+  }
+}

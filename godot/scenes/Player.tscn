@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://lumen_spoolwright_player"]
+
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(34, 84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(50, 34)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -50)
+scale = Vector2(0.66, 0.66)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -42)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(28, -36)
+monitoring = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -55)
+enabled = true
+zoom = Vector2(1.25, 1.25)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0

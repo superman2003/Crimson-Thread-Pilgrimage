@@ -1,0 +1,54 @@
+{
+  "source": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
+  "note": "Runtime keyframes cropped from open dark fantasy source sprites; no generated art.",
+  "cell_size": [
+    32,
+    48
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 7.0,
+      "loop": true,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_01.png"
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 7.0,
+      "loop": true,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_03.png"
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_04.png"
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_04.png"
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_05.png"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+# Local/editor state
+.codex/
+tmp/
+*.log
+Thumbs.db
+*.zip
+*.7z
+*.rar
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Node/build cache
+node_modules/
+dist/
+build/
+.cache/
+
+# Godot generated cache
+.godot/
+godot/.godot/
+
+# Large research/download artifacts
+artifacts/source_repos/
+artifacts/source_assets/
+artifacts/third_party/
+artifacts/debug/
+artifacts/*.log
+artifacts/browser-*.png
+artifacts/browser-cdp-*.png
+artifacts/server-smoke.*.log
+
+# Local-only restricted asset packs; documented in docs/decision.
+godot/assets/third_party/mossy_cavern/
+godot/assets/sprites/enemies/itch/
+godot/assets/sprites/player/abyss_hero/
+tools/import_mossy_cavern_assets.py
+tools/build_mossy_platform_runtime.py
+tools/build_itch_enemy_assets.py
+tools/build_itch_player_assets.py

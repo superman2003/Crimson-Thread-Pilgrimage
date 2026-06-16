@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>绯线远征</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main id="app" aria-label="绯线远征">
+      <canvas id="game" width="960" height="540"></canvas>
+
+      <section id="hud" class="hud" aria-live="polite">
+        <div class="hud__cluster">
+          <div class="mark" id="chapterMark">I</div>
+          <div>
+            <div id="chapterName" class="hud__title">绯线远征</div>
+            <div id="chapterObjective" class="hud__subtitle">等待启程</div>
+          </div>
+        </div>
+        <div class="meters" aria-hidden="true">
+          <div class="meter meter--hp"><span id="hpFill"></span></div>
+          <div class="meter meter--boss"><span id="bossFill"></span></div>
+        </div>
+        <div id="statusPill" class="status-pill">未开始</div>
+      </section>
+
+      <section id="menu" class="menu">
+        <div class="menu__inner">
+          <p class="eyebrow">原创角色 · 免费开放素材 · 六章动作平台</p>
+          <h1>绯线远征</h1>
+          <p class="menu__copy">在六座风格迥异的废墟中斩断回响，收集钟钥，打开捷径，击败每章守卫并点亮下一扇门。</p>
+          <div class="menu__actions">
+            <button id="startButton" class="primary">开始</button>
+            <button id="resetButton" class="ghost">重置进度</button>
+          </div>
+          <div id="chapterList" class="chapter-list" aria-label="章节选择"></div>
+        </div>
+      </section>
+
+      <div id="touchControls" class="touch-controls" aria-hidden="true">
+        <button data-key="left" title="left">&lt;</button>
+        <button data-key="right" title="right">&gt;</button>
+        <button data-key="jump" title="jump">^</button>
+        <button data-key="dash" title="dash">→|</button>
+        <button data-key="attack" title="attack">*</button>
+      </div>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

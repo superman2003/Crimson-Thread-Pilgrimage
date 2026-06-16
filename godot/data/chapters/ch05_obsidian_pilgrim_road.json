@@ -1,0 +1,339 @@
+{
+  "id": "ch05_obsidian_pilgrim_road",
+  "name": "第五章：黑曜巡礼道",
+  "main_goal": "回到旧王都外环，面对被静音的巡礼军，取得沉默军令并学会灯影相位。",
+  "story_beats": [
+    {
+      "id": "entry_silent_signal",
+      "summary": "断弦印记引来巡礼军号，但号声无声，只在地图和 UI 上震动。",
+      "story_flag": "beat_ch05_entry"
+    },
+    {
+      "id": "army_identity",
+      "summary": "玩家发现黑曜巡礼军并非怪物，而是前几代失败巡礼者被王冠重新编队。",
+      "story_flag": "beat_ch05_army_identity"
+    },
+    {
+      "id": "blind_knight_truth",
+      "summary": "盲钟骑士保留一小半自我，告诉主角每次重鸣失败都会多一支沉默小队。",
+      "story_flag": "beat_ch05_blind_knight"
+    },
+    {
+      "id": "boss_after_order",
+      "summary": "静音统帅交出沉默军令，说明王冠核心需要愿意拒绝命令的人才能进入。",
+      "story_flag": "beat_ch05_silent_order"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "obsidian_outpost",
+      "name": "黑曜哨站",
+      "kind": "entry",
+      "objective": "认识影门和巡礼军阵型。",
+      "guide": "影门只在灯亮时可相位，灯灭时停下等下一拍。",
+      "danger": "黑曜地刺无预警反光。",
+      "next": "破旗路"
+    },
+    {
+      "id": "broken_banner_road",
+      "name": "破旗路",
+      "kind": "field",
+      "objective": "穿过第一段枪兵阵。",
+      "guide": "等盾兵举枪后绕背，正面硬打会被枪阵顶回。",
+      "danger": "号令会强化周围敌人。",
+      "next": "盲钟营地"
+    },
+    {
+      "id": "blind_bell_camp",
+      "name": "盲钟营地",
+      "kind": "safe",
+      "objective": "与盲钟骑士对话，取得失败巡礼者证词。",
+      "guide": "营地安全，可补给和整理支线。",
+      "danger": "离营后进入锁门战。",
+      "next": "影门回廊"
+    },
+    {
+      "id": "shadow_gate_gallery",
+      "name": "影门回廊",
+      "kind": "ability_gate",
+      "objective": "学会灯影相位穿门。",
+      "guide": "长按 E 穿黑曜影门，能量不足时先等巡礼军收招。",
+      "danger": "相位耗能，能量空会跌出影门。",
+      "next": "巡礼军墓"
+    },
+    {
+      "id": "pilgrim_barracks",
+      "name": "巡礼军墓",
+      "kind": "danger",
+      "objective": "找齐沉默军令碎片。",
+      "guide": "击败号令兵再清小兵，优先烧掉复活旗。",
+      "danger": "复活旗会召回敌人。",
+      "next": "王都外环桥"
+    },
+    {
+      "id": "outer_crown_bridge",
+      "name": "王都外环桥",
+      "kind": "shortcut",
+      "objective": "打开 Boss 前大捷径。",
+      "guide": "桥下影门通回哨站，别错过灯影开窗。",
+      "danger": "弩手压制远端平台。",
+      "next": "静音校场"
+    },
+    {
+      "id": "silent_parade_ground",
+      "name": "静音校场",
+      "kind": "boss",
+      "objective": "击败静音巡礼统帅。",
+      "guide": "相位躲军令横扫，二阶段看旗帜方向判断军阵。",
+      "danger": "队列冲锋覆盖半场。",
+      "next": "无声王冠入口"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_obsidian_guide",
+      "name": "黑曜引路人",
+      "role": "route_hint",
+      "position_hint": "黑曜哨站",
+      "dialogue": [
+        "这里的路只给还会违抗命令的人走。",
+        "灯亮时穿门，灯灭时别把自己留在石头里。",
+        "巡礼军不会说话，但他们会执行你不想听见的命令。"
+      ]
+    },
+    {
+      "id": "npc_blind_bell_knight",
+      "name": "盲钟骑士",
+      "role": "combat_mark_witness",
+      "position_hint": "盲钟营地",
+      "dialogue": [
+        "我失败过，所以我听不见王冠命令的一小半。",
+        "如果你选择重鸣，我会再次成为军队。",
+        "如果你选择断冠，记得先告诉我们为什么死。"
+      ]
+    },
+    {
+      "id": "npc_lantern_sister",
+      "name": "灯影修女",
+      "role": "ability_teacher",
+      "position_hint": "影门回廊前",
+      "dialogue": [
+        "灯影相位不是隐身，是向命令请半秒假。",
+        "黑曜影门会吃能量，别空着心穿过去。",
+        "终章有一扇门只认沉默军令，但它也会认出拒绝命令的人。"
+      ]
+    },
+    {
+      "id": "npc_deserter_flagbearer",
+      "name": "逃旗手",
+      "role": "sidequest_moral_choice",
+      "position_hint": "巡礼军墓",
+      "dialogue": [
+        "我偷了一面不会响的旗，结果它每天晚上命令我回队。",
+        "帮我烧掉三面复活旗，我把军令碎片给你。",
+        "统帅不是坏人，他只是从没被允许停下。"
+      ]
+    }
+  ],
+  "enemy_points": [
+    {
+      "id": "C5_E01",
+      "room": "broken_banner_road",
+      "spawn_mix": [
+        "obsidian_spearman",
+        "obsidian_spearman"
+      ],
+      "combat_role": "长枪压制，要求绕背或相位前置。",
+      "story_use": "巡礼军基础阵型展示王冠命令。",
+      "asset_hint": "GothicVania 哨兵公开素材黑曜色板版本。"
+    },
+    {
+      "id": "C5_E02",
+      "room": "shadow_gate_gallery",
+      "spawn_mix": [
+        "phase_censor"
+      ],
+      "combat_role": "跟随玩家相位后追击，惩罚乱穿门。",
+      "story_use": "王冠监察相位能力的黑影。",
+      "asset_hint": "GothicVania 飞行/甲虫公开素材剪影版。"
+    },
+    {
+      "id": "C5_E03",
+      "room": "pilgrim_barracks",
+      "spawn_mix": [
+        "silent_bugbler",
+        "obsidian_spearman",
+        "obsidian_spearman"
+      ],
+      "combat_role": "号令强化敌人，先杀指挥单位。",
+      "story_use": "军号无声但会让敌人整队。",
+      "asset_hint": "GothicVania 施法敌人公开素材与 Kenney CC0 旗帜图标。"
+    },
+    {
+      "id": "C5_E04",
+      "room": "outer_crown_bridge",
+      "spawn_mix": [
+        "kneeling_crossbowman",
+        "kneeling_crossbowman"
+      ],
+      "combat_role": "远程压制移动平台。",
+      "story_use": "跪像弩手守桥，像还在等待最后一道命令。",
+      "asset_hint": "GothicVania/Ansimuz Public Domain 弓手候选；弩箭使用 Kenney CC0 小件。"
+    },
+    {
+      "id": "C5_E05",
+      "room": "silent_parade_ground",
+      "spawn_mix": [
+        "pilgrim_chariot"
+      ],
+      "combat_role": "横向冲锋精英，训练 Boss 前相位躲避。",
+      "story_use": "旧巡礼军攻城车残骸仍按命令冲锋。",
+      "asset_hint": "GothicVania 大型敌人公开素材或 OpenGameArt Public Domain 载具候选。"
+    }
+  ],
+  "boss": {
+    "id": "C5_B01",
+    "name": "静音巡礼统帅",
+    "kind": "silent_pilgrim_commander",
+    "arena": "静音校场，多层破旗平台，左右各有短时影门。",
+    "phase_1": "枪阵横扫、盾阵推进、军令定身圈。",
+    "phase_2": "召唤两列巡礼军冲锋，玩家需用 lantern_phase 穿过影门或军阵空隙。",
+    "drop": [
+      "silent_mark_obsidian",
+      "lantern_phase",
+      "silent_order"
+    ],
+    "story_after": "统帅短暂恢复自我，交出沉默军令，承认王冠核心会把所有失败者重新编入军队。",
+    "asset_hint": "GothicVania 大型骑士/哨兵公开素材或 OpenGameArt Public Domain 指挥官候选。"
+  },
+  "gates": [
+    {
+      "id": "shadow_gate_gallery",
+      "type": "shadow_gate",
+      "requires": "lantern_phase",
+      "placement": "影门回廊",
+      "unlock_logic": "灯影修女教学后首通。"
+    },
+    {
+      "id": "phase_window_bridge",
+      "type": "phase_window",
+      "requires": "lantern_phase",
+      "placement": "王都外环桥下",
+      "unlock_logic": "用相位打开 Boss 前大捷径。"
+    },
+    {
+      "id": "guard_break_barracks",
+      "type": "guard_break_door",
+      "requires": "bell_guard",
+      "placement": "巡礼军墓支线门",
+      "unlock_logic": "第三章能力返场奖励。"
+    }
+  ],
+  "key_collectibles": [
+    {
+      "id": "silent_order_fragments",
+      "name": "沉默军令碎片三枚",
+      "category": "chapter_combat_mark",
+      "use": "与逃旗手支线共同推进，拼成终章入口凭证。",
+      "story_flag": "item_ch05_silent_order_fragments"
+    },
+    {
+      "id": "burned_banner_ash",
+      "name": "焚旗灰",
+      "category": "sidequest",
+      "use": "烧掉复活旗得到的材料，可换护符拒令灰。",
+      "story_flag": "item_ch05_burned_banner_ash"
+    },
+    {
+      "id": "silent_order",
+      "name": "沉默军令",
+      "category": "ending_clue",
+      "use": "终章入口凭证，并提供拒令条款线索。",
+      "story_flag": "item_ch05_silent_order"
+    },
+    {
+      "id": "silent_mark_obsidian",
+      "name": "黑曜失声印记",
+      "category": "main_progression",
+      "use": "证明第五章完成并解锁无声王冠入口。",
+      "story_flag": "mark_ch05_obsidian"
+    },
+    {
+      "id": "heart_knot",
+      "name": "完整心结",
+      "category": "upgrade",
+      "use": "王都外环桥高危支线奖励。",
+      "story_flag": "item_ch05_heart_knot"
+    }
+  ],
+  "ending_clues": [
+    {
+      "route": "重鸣",
+      "clue": "盲钟骑士愿意让钟声恢复秩序，但担心自己再次失去自我。",
+      "evidence_item": "npc_blind_bell_knight"
+    },
+    {
+      "route": "断冠",
+      "clue": "失败巡礼者被强制编队，王冠会吞掉反抗者。",
+      "evidence_item": "silent_mark_obsidian"
+    },
+    {
+      "route": "真结局",
+      "clue": "沉默军令背面有拒令条款，终章可用王冠共鸣让巡礼军停战。",
+      "evidence_item": "silent_order"
+    }
+  ],
+  "open_assets": {
+    "environment": {
+      "source": "GothicVania Cemetery local Public Domain style stone/crypt assets and Kenney CC0 flags/UI symbols",
+      "path": "godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney",
+      "license_basis": "本地已记录免费/开放候选与 CC0"
+    },
+    "enemies": {
+      "source": "GothicVania Cemetery / Ansimuz public-domain-style local import; OpenGameArt Public Domain archer/commander candidates",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选；敌人不引用 NPC 同族图"
+    },
+    "boss": {
+      "source": "GothicVania large enemy local import or OpenGameArt Public Domain commander candidate",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选"
+    },
+    "npc": {
+      "source": "GothicVania demo redistributable NPC art",
+      "path": "godot/assets/sprites/gothicvania/demo/*.png",
+      "license_basis": "仅友方 NPC 使用，带友方标识"
+    },
+    "ui_fx": {
+      "source": "Kenney Platformer Art Deluxe CC0 and Kenney UI Pack CC0 candidates",
+      "path": "godot/assets/sprites/ui/kenney",
+      "license_basis": "CC0"
+    },
+    "audio": {
+      "source": "project local OGG audio and CC0 banner/low horn candidates",
+      "path": "godot/assets/audio/*.ogg",
+      "license_basis": "本地已记录或 CC0 候选"
+    }
+  },
+  "vfx_audio": [
+    {
+      "id": "lantern_phase",
+      "visual": "角色穿影门时身体短暂变成黑曜半透明轮廓，身后留下灯芯残线。",
+      "audio": "低频灯芯吸入声和短促相位噪音。",
+      "asset_policy": "视觉用 Godot 材质和本地角色帧；新增相位音只用 CC0 候选。"
+    },
+    {
+      "id": "silent_order",
+      "visual": "军令定身圈以黑紫圆环展开，边缘有白色命令字符。",
+      "audio": "无声前摇后接一次低频压缩声。",
+      "asset_policy": "符号使用 Kenney CC0 图标候选和本地 OGG。"
+    },
+    {
+      "id": "parade_charge",
+      "visual": "军阵冲锋前地面出现两排破旗影线。",
+      "audio": "低频步伐循环和旗杆震动声。",
+      "asset_policy": "旗帜和 UI 小件来自 Kenney CC0；外部步伐音只用 CC0。"
+    }
+  ]
+}
+

@@ -1,0 +1,215 @@
+{
+  "character": "kenney_p3_open_source_player",
+  "frame_size": [
+    128,
+    128
+  ],
+  "anchor": "bottom_center",
+  "source": "Kenney Platformer Art Deluxe / Base pack / Player / p3",
+  "origin_note": "Open-source CC0 replacement generated from Kenney Platformer Art Deluxe p3 player frames; action arcs are runtime-readable overlays composed for this prototype.",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 8,
+      "loop": true,
+      "frame_count": 6,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_idle_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/idle/idle_00.png",
+        "res://assets/sprites/lumen/frames/idle/idle_01.png",
+        "res://assets/sprites/lumen/frames/idle/idle_02.png",
+        "res://assets/sprites/lumen/frames/idle/idle_03.png",
+        "res://assets/sprites/lumen/frames/idle/idle_04.png",
+        "res://assets/sprites/lumen/frames/idle/idle_05.png"
+      ]
+    },
+    {
+      "name": "run",
+      "fps": 12,
+      "loop": true,
+      "frame_count": 8,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_run_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/run/run_00.png",
+        "res://assets/sprites/lumen/frames/run/run_01.png",
+        "res://assets/sprites/lumen/frames/run/run_02.png",
+        "res://assets/sprites/lumen/frames/run/run_03.png",
+        "res://assets/sprites/lumen/frames/run/run_04.png",
+        "res://assets/sprites/lumen/frames/run/run_05.png",
+        "res://assets/sprites/lumen/frames/run/run_06.png",
+        "res://assets/sprites/lumen/frames/run/run_07.png"
+      ]
+    },
+    {
+      "name": "jump_start",
+      "fps": 12,
+      "loop": false,
+      "frame_count": 4,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_jump_start_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/jump_start/jump_start_00.png",
+        "res://assets/sprites/lumen/frames/jump_start/jump_start_01.png",
+        "res://assets/sprites/lumen/frames/jump_start/jump_start_02.png",
+        "res://assets/sprites/lumen/frames/jump_start/jump_start_03.png"
+      ]
+    },
+    {
+      "name": "jump_loop",
+      "fps": 8,
+      "loop": true,
+      "frame_count": 3,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_jump_loop_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/jump_loop/jump_loop_00.png",
+        "res://assets/sprites/lumen/frames/jump_loop/jump_loop_01.png",
+        "res://assets/sprites/lumen/frames/jump_loop/jump_loop_02.png"
+      ]
+    },
+    {
+      "name": "fall",
+      "fps": 8,
+      "loop": true,
+      "frame_count": 4,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_fall_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/fall/fall_00.png",
+        "res://assets/sprites/lumen/frames/fall/fall_01.png",
+        "res://assets/sprites/lumen/frames/fall/fall_02.png",
+        "res://assets/sprites/lumen/frames/fall/fall_03.png"
+      ]
+    },
+    {
+      "name": "land",
+      "fps": 12,
+      "loop": false,
+      "frame_count": 4,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_land_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/land/land_00.png",
+        "res://assets/sprites/lumen/frames/land/land_01.png",
+        "res://assets/sprites/lumen/frames/land/land_02.png",
+        "res://assets/sprites/lumen/frames/land/land_03.png"
+      ]
+    },
+    {
+      "name": "dash",
+      "fps": 14,
+      "loop": false,
+      "frame_count": 6,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_dash_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/dash/dash_00.png",
+        "res://assets/sprites/lumen/frames/dash/dash_01.png",
+        "res://assets/sprites/lumen/frames/dash/dash_02.png",
+        "res://assets/sprites/lumen/frames/dash/dash_03.png",
+        "res://assets/sprites/lumen/frames/dash/dash_04.png",
+        "res://assets/sprites/lumen/frames/dash/dash_05.png"
+      ]
+    },
+    {
+      "name": "wall_slide",
+      "fps": 8,
+      "loop": true,
+      "frame_count": 4,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_wall_slide_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/wall_slide/wall_slide_00.png",
+        "res://assets/sprites/lumen/frames/wall_slide/wall_slide_01.png",
+        "res://assets/sprites/lumen/frames/wall_slide/wall_slide_02.png",
+        "res://assets/sprites/lumen/frames/wall_slide/wall_slide_03.png"
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frame_count": 4,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_hurt_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/hurt/hurt_00.png",
+        "res://assets/sprites/lumen/frames/hurt/hurt_01.png",
+        "res://assets/sprites/lumen/frames/hurt/hurt_02.png",
+        "res://assets/sprites/lumen/frames/hurt/hurt_03.png"
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 8,
+      "loop": false,
+      "frame_count": 8,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_death_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/death/death_00.png",
+        "res://assets/sprites/lumen/frames/death/death_01.png",
+        "res://assets/sprites/lumen/frames/death/death_02.png",
+        "res://assets/sprites/lumen/frames/death/death_03.png",
+        "res://assets/sprites/lumen/frames/death/death_04.png",
+        "res://assets/sprites/lumen/frames/death/death_05.png",
+        "res://assets/sprites/lumen/frames/death/death_06.png",
+        "res://assets/sprites/lumen/frames/death/death_07.png"
+      ]
+    },
+    {
+      "name": "attack_1",
+      "fps": 14,
+      "loop": false,
+      "frame_count": 6,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_attack_1_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/attack_1/attack_1_00.png",
+        "res://assets/sprites/lumen/frames/attack_1/attack_1_01.png",
+        "res://assets/sprites/lumen/frames/attack_1/attack_1_02.png",
+        "res://assets/sprites/lumen/frames/attack_1/attack_1_03.png",
+        "res://assets/sprites/lumen/frames/attack_1/attack_1_04.png",
+        "res://assets/sprites/lumen/frames/attack_1/attack_1_05.png"
+      ]
+    },
+    {
+      "name": "attack_2",
+      "fps": 14,
+      "loop": false,
+      "frame_count": 7,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_attack_2_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_00.png",
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_01.png",
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_02.png",
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_03.png",
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_04.png",
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_05.png",
+        "res://assets/sprites/lumen/frames/attack_2/attack_2_06.png"
+      ]
+    },
+    {
+      "name": "air_attack",
+      "fps": 14,
+      "loop": false,
+      "frame_count": 6,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_air_attack_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/air_attack/air_attack_00.png",
+        "res://assets/sprites/lumen/frames/air_attack/air_attack_01.png",
+        "res://assets/sprites/lumen/frames/air_attack/air_attack_02.png",
+        "res://assets/sprites/lumen/frames/air_attack/air_attack_03.png",
+        "res://assets/sprites/lumen/frames/air_attack/air_attack_04.png",
+        "res://assets/sprites/lumen/frames/air_attack/air_attack_05.png"
+      ]
+    },
+    {
+      "name": "hook_throw",
+      "fps": 12,
+      "loop": false,
+      "frame_count": 7,
+      "sheet": "res://assets/sprites/lumen/sheets/kenney_p3_hook_throw_sheet.png",
+      "frames": [
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_00.png",
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_01.png",
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_02.png",
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_03.png",
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_04.png",
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_05.png",
+        "res://assets/sprites/lumen/frames/hook_throw/hook_throw_06.png"
+      ]
+    }
+  ]
+}

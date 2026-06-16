@@ -1,0 +1,366 @@
+{
+  "id": "ch06_silent_crown_core",
+  "name": "第六章：无声王冠",
+  "main_goal": "集齐五枚失声印记与沉默军令后进入王冠核心，补全第六枚印记，决定钟声命运。",
+  "story_beats": [
+    {
+      "id": "entry_silent_shell",
+      "summary": "无声王冠不是城堡，而是倒扣在深井上的巨型钟体；五枚印记依次点亮终章门。",
+      "story_flag": "beat_ch06_entry"
+    },
+    {
+      "id": "echo_trials",
+      "summary": "五个回声室复考前五章能力，证明印记不是凭证，而是仍在跳动的守门者残心。",
+      "story_flag": "beat_ch06_echo_trials"
+    },
+    {
+      "id": "seventh_name",
+      "summary": "初代巡礼者回声揭示第七签署者就是第一位巡礼者，他把真名藏进绯线等待后来者拒令。",
+      "story_flag": "beat_ch06_seventh_name"
+    },
+    {
+      "id": "final_choice",
+      "summary": "击败无声王冠后，玩家按线索进入三结局：重铸钟声、切断王冠、或用第七真名改写契约。",
+      "story_flag": "beat_ch06_final_choice"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "silent_shell",
+      "name": "静默外壳",
+      "kind": "final_gate",
+      "objective": "使用沉默军令和五枚失声印记打开终章门。",
+      "guide": "五枚印记会在门上依次亮起，缺少任意主线印记会被门弹回。",
+      "danger": "未完成章节会触发门禁回声战。",
+      "next": "王冠前厅"
+    },
+    {
+      "id": "crown_hub",
+      "name": "王冠前厅",
+      "kind": "hub",
+      "objective": "选择五个回声室顺序。",
+      "guide": "每完成两个回声室打开一段环门，回到中心可存档。",
+      "danger": "回声室不可中途传送。",
+      "next": "五章回声室"
+    },
+    {
+      "id": "echo_moss_room",
+      "name": "钟庭回声室",
+      "kind": "trial",
+      "objective": "复考冲刺、钟隙和落钟。",
+      "guide": "用绯线冲刺穿钟隙，落钟前会有锈色闪光。",
+      "danger": "落钟节奏比第一章更快。",
+      "next": "铸雨回声室"
+    },
+    {
+      "id": "echo_rain_room",
+      "name": "铸雨回声室",
+      "kind": "trial",
+      "objective": "复考墙跳、钩索和水位。",
+      "guide": "先钩铃环再墙跳，水位涨到第二格后不要回头。",
+      "danger": "水位上涨会封路。",
+      "next": "盐白回声室"
+    },
+    {
+      "id": "echo_salt_room",
+      "name": "盐白回声室",
+      "kind": "trial",
+      "objective": "复考双线跃、钟壳格挡和迟影。",
+      "guide": "格挡钉兵开门，再利用迟影撞碎盐封。",
+      "danger": "迟影会复制攻击。",
+      "next": "断弦回声室"
+    },
+    {
+      "id": "echo_green_room",
+      "name": "断弦回声室",
+      "kind": "trial",
+      "objective": "复考棘线下劈和移动藤蔓。",
+      "guide": "下劈棘球续航，黑弦平台只踩一次。",
+      "danger": "藤蔓平台反相。",
+      "next": "黑曜回声室"
+    },
+    {
+      "id": "echo_obsidian_room",
+      "name": "黑曜回声室",
+      "kind": "trial",
+      "objective": "复考灯影相位和军阵。",
+      "guide": "灯亮穿门，灯灭等；军阵旗帜指向冲锋路线。",
+      "danger": "军阵冲锋覆盖半场。",
+      "next": "深井钟舌"
+    },
+    {
+      "id": "bell_tongue_well",
+      "name": "深井钟舌",
+      "kind": "ability",
+      "objective": "获得王冠共鸣并进入最终门。",
+      "guide": "王冠共鸣可改写一扇钟门状态，优先处理回声锁。",
+      "danger": "黑潮触碰即回检查点。",
+      "next": "王冠核心"
+    },
+    {
+      "id": "crown_core",
+      "name": "王冠核心",
+      "kind": "boss",
+      "objective": "击败无声王冠并选择结局。",
+      "guide": "按已收集证词判断三色门；证词不足时真结局门不会稳定。",
+      "danger": "终章 Boss 会复考前五章核心能力。",
+      "next": "结局"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_first_pilgrim_echo",
+      "name": "初代巡礼者回声",
+      "role": "true_ending_core",
+      "position_hint": "王冠前厅",
+      "dialogue": [
+        "我签下第七个名字，然后把名字藏进绯线。",
+        "重鸣会救城，断冠会救人，改写契约才会让他们都记得自己是谁。",
+        "你若没有带来六处证词，就只能做一个干净的错误选择。"
+      ]
+    },
+    {
+      "id": "npc_crown_tongue",
+      "name": "旧王钟舌",
+      "role": "world_warning",
+      "position_hint": "深井钟舌",
+      "dialogue": [
+        "我压住黑潮，也压住了每个求救声。",
+        "我不是王，我只是被王戴成王冠的钟。",
+        "敲响我，城市会醒；拔掉我，井也会醒。"
+      ]
+    },
+    {
+      "id": "npc_six_mark_keeper",
+      "name": "六印守望者",
+      "role": "ending_checker",
+      "position_hint": "王冠前厅安全台",
+      "dialogue": [
+        "苔、雨、盐、弦、曜，五枚已归，最后一枚在你要打碎的东西里。",
+        "若你缺少证词，我不会阻止你，但结局会少一种颜色。",
+        "把每枚印记放回心口前，先问它是否愿意。"
+      ]
+    },
+    {
+      "id": "npc_black_tide_child",
+      "name": "黑潮童声",
+      "role": "hidden_temptation",
+      "position_hint": "终章隐藏支线",
+      "dialogue": [
+        "他们说我是灾难，可我只是在井底学会了说话。",
+        "王冠吃掉声音，我吃掉沉默。你觉得谁更像怪物？",
+        "把钟舌拔下来，我给你一个没有命令的世界。"
+      ]
+    }
+  ],
+  "enemy_points": [
+    {
+      "id": "C6_E01",
+      "room": "echo_moss_room",
+      "spawn_mix": [
+        "echo_moss_larva",
+        "falling_clapper"
+      ],
+      "combat_role": "第一章节奏强化，冲刺和落钟组合。",
+      "story_use": "王冠复刻苔钟庭教学，证明回声室会读取记忆。",
+      "asset_hint": "GothicVania 幼虫公开素材红线描边版本。"
+    },
+    {
+      "id": "C6_E02",
+      "room": "echo_rain_room",
+      "spawn_mix": [
+        "echo_waterwheel_knight"
+      ],
+      "combat_role": "钩索打断和水位压迫复考。",
+      "story_use": "第二章守卫被王冠重新编译成回声。",
+      "asset_hint": "GothicVania 哨兵公开素材水轮色板版本。"
+    },
+    {
+      "id": "C6_E03",
+      "room": "echo_salt_room",
+      "spawn_mix": [
+        "echo_contract_scribe",
+        "delayed_shadow"
+      ],
+      "combat_role": "远程和影子混合，复考格挡和迟影。",
+      "story_use": "契约还在自动复写谎言。",
+      "asset_hint": "GothicVania 施法敌人公开素材红线描边版本。"
+    },
+    {
+      "id": "C6_E04",
+      "room": "echo_green_room",
+      "spawn_mix": [
+        "echo_thorn_sentinel"
+      ],
+      "combat_role": "下劈破甲复考。",
+      "story_use": "守门者心脏在藤壳里跳动。",
+      "asset_hint": "GothicVania 哨兵公开素材藤甲色板版本。"
+    },
+    {
+      "id": "C6_E05",
+      "room": "echo_obsidian_room",
+      "spawn_mix": [
+        "echo_pilgrim_commander_minor"
+      ],
+      "combat_role": "相位躲军阵，Boss 前终考。",
+      "story_use": "前代巡礼者的失败回声。",
+      "asset_hint": "GothicVania 大型敌人公开素材黑曜色板版本。"
+    },
+    {
+      "id": "C6_E06",
+      "room": "bell_tongue_well",
+      "spawn_mix": [
+        "isotope_lumen"
+      ],
+      "combat_role": "玩家镜像精英，测试全能力组合。",
+      "story_use": "初代巡礼者留下的同位体，警告真名代价。",
+      "asset_hint": "GothicVania hero 本地开放主角帧的半透明回声材质；只作镜像试炼，不作为普通敌人家族。"
+    }
+  ],
+  "boss": {
+    "id": "C6_B01",
+    "name": "无声王冠",
+    "kind": "silent_crown_core",
+    "arena": "王冠核心，中央钟舌、两侧黑潮井、上方五枚印记环。",
+    "phase_1": "复刻五章 Boss 的简化招式：冲撞、水锤、盐刃、藤鞭、军阵。",
+    "phase_2": "王冠命令玩家重鸣，场地出现可用 crown_resonance 改写的三扇门。",
+    "phase_3_true_route": "若收集五章证词，可输入第七真名，Boss 进入契约改写阶段。",
+    "drop": [
+      "silent_mark_crown",
+      "ending_state",
+      "redline_gate_token"
+    ],
+    "story_after": "根据选择进入重鸣、断冠或绯线真结局。",
+    "asset_hint": "GothicVania 石质/王冠公开素材、Kenney CC0 符号和前五章本地开放敌人回声版本。"
+  },
+  "gates": [
+    {
+      "id": "silent_crown_gate",
+      "type": "silent_crown_gate",
+      "requires": "five_silent_marks_and_silent_order",
+      "placement": "静默外壳",
+      "unlock_logic": "五枚失声印记和沉默军令全部满足后进入终章。"
+    },
+    {
+      "id": "crown_resonance_trial",
+      "type": "crown_resonance",
+      "requires": "crown_resonance",
+      "placement": "深井钟舌",
+      "unlock_logic": "终章中段获得，改写钟门状态。"
+    },
+    {
+      "id": "true_ending_route",
+      "type": "true_ending_route",
+      "requires": "crown_resonance_and_five_witness_clues",
+      "placement": "王冠核心三阶段",
+      "unlock_logic": "满足真结局证词才开放绯线改写阶段。"
+    }
+  ],
+  "key_collectibles": [
+    {
+      "id": "silent_mark_crown",
+      "name": "王冠失声印记",
+      "category": "main_progression",
+      "use": "第六枚失声印记，击败 Boss 后获得。",
+      "story_flag": "mark_ch06_crown"
+    },
+    {
+      "id": "seventh_name_parts",
+      "name": "第七真名五段",
+      "category": "true_ending",
+      "use": "五章线索拼出第七签署者真名。",
+      "story_flag": "item_ch06_seventh_name_parts"
+    },
+    {
+      "id": "crown_resonance",
+      "name": "王冠共鸣",
+      "category": "ability",
+      "use": "改写王冠门和结局分歧。",
+      "story_flag": "ability_ch06_crown_resonance"
+    },
+    {
+      "id": "redline_gate_token",
+      "name": "红线门权限",
+      "category": "postgame",
+      "use": "通关后开启二周目红线变体。",
+      "story_flag": "item_ch06_redline_gate_token"
+    },
+    {
+      "id": "final_charm_crimson_loop",
+      "name": "绯环护符",
+      "category": "true_ending_reward",
+      "use": "真结局路线奖励护符。",
+      "story_flag": "item_ch06_crimson_loop"
+    }
+  ],
+  "ending_clues": [
+    {
+      "route": "重鸣",
+      "clue": "敲响旧王钟舌，黑潮退回井底，城市恢复道路，但巡礼军和守门者继续被系统维持。",
+      "evidence_item": "npc_crown_tongue"
+    },
+    {
+      "route": "断冠",
+      "clue": "切断钟舌释放六枚印记，王冠封印崩塌，城市获得自由但黑潮涌出。",
+      "evidence_item": "silent_mark_crown"
+    },
+    {
+      "route": "真结局",
+      "clue": "集齐五章证词和第七真名后，用王冠共鸣改写契约，让钟声只封黑潮、不再吞人声。",
+      "evidence_item": "seventh_name_parts"
+    }
+  ],
+  "open_assets": {
+    "environment": {
+      "source": "GothicVania Cemetery local Public Domain style stone/crypt assets and Kenney CC0 symbols",
+      "path": "godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney",
+      "license_basis": "本地已记录免费/开放候选与 CC0"
+    },
+    "enemies": {
+      "source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary; godot/assets/sprites/gothicvania/player/manifest.json",
+      "license_basis": "免费开放候选；普通敌人与 Boss 不引用 NPC 同族图"
+    },
+    "boss": {
+      "source": "GothicVania local import, Kenney CC0 symbols, OpenGameArt Public Domain crown/core candidates",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary; godot/assets/sprites/ui/kenney",
+      "license_basis": "免费开放候选与 CC0"
+    },
+    "npc": {
+      "source": "GothicVania demo redistributable NPC art",
+      "path": "godot/assets/sprites/gothicvania/demo/*.png",
+      "license_basis": "仅友方 NPC 使用，带友方标识"
+    },
+    "ui_fx": {
+      "source": "Kenney Platformer Art Deluxe CC0 and Kenney Particle Pack CC0 candidates",
+      "path": "godot/assets/sprites/ui/kenney",
+      "license_basis": "CC0"
+    },
+    "audio": {
+      "source": "project local OGG audio, Bread Adventure recorded audio, and CC0 deep bell/pulse candidates",
+      "path": "godot/assets/audio/*.ogg",
+      "license_basis": "本地已记录、Apache-2.0 或 CC0 候选"
+    }
+  },
+  "vfx_audio": [
+    {
+      "id": "echo_room_open",
+      "visual": "五色线环依次展开，门面浮出对应章节印记。",
+      "audio": "低频钟声与章节主题音色短句。",
+      "asset_policy": "使用本地 OGG 和 Kenney CC0 符号；新增钟声只用 CC0 候选。"
+    },
+    {
+      "id": "crown_resonance",
+      "visual": "王冠共鸣时三条绯线从玩家、钟舌和门锁之间重接。",
+      "audio": "低频脉冲、线弦拨动声和短暂停顿。",
+      "asset_policy": "视觉用 Godot 线条/粒子和本地开放素材；新增脉冲音只用 CC0。"
+    },
+    {
+      "id": "ending_doors",
+      "visual": "三色门分别使用金、黑、绯的线框和图标区分。",
+      "audio": "重鸣为钟声，断冠为断弦，真结局为绯线和声。",
+      "asset_policy": "门图标来自 Kenney CC0；外部终局音效必须为 CC0 候选。"
+    }
+  ]
+}
+

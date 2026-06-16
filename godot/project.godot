@@ -1,0 +1,36 @@
+config_version=5
+
+[addons]
+
+metroidvania_system/settings_file="res://MetSysSettings.tres"
+
+[application]
+
+config/name="绯线巡礼 - Godot试玩版"
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+MetSys="*res://addons/MetroidvaniaSystem/Nodes/Singleton.tscn"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
+[physics]
+
+common/physics_ticks_per_second=60
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MetroidvaniaSystem/plugin.cfg", "res://addons/MetroidvaniaSystem/EditorExtension/plugin.cfg")

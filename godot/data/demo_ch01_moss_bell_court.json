@@ -1,0 +1,2127 @@
+{
+  "id": "demo_ch01_moss_bell_court",
+  "name": "苔钟庭试玩章",
+  "world": {
+    "width": 11200,
+    "height": 720,
+    "fall_y": 790
+  },
+  "player_start": [
+    120,
+    500
+  ],
+  "boss_checkpoint": [
+    6260,
+    500
+  ],
+  "required_keys": 0,
+  "goal": "击败苔钟庭普通敌人，打开Boss路线，击败锈冠守卫。",
+  "world_story": {
+    "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
+    "protagonist": {
+      "codename": "缄",
+      "identity": "第七签署者留下的绯线回响，能看见命线、契约线和被删掉的名字残痕。"
+    },
+    "core_conflict": "继续重鸣能保住城市秩序，却延续活人声音作为封印材料；切断王冠能归还声音，却可能放出黑潮。真结局需要集齐六处证词，用绯线改写契约。",
+    "truth_ladder": [
+      "王冠是一口倒扣巨钟。",
+      "钟壁铸入过活人名字。",
+      "盐白契约删掉第七签署者。",
+      "六枚印记曾是六位活人守门者心脏。",
+      "失败巡礼者被重编为静音军队。",
+      "第七签署者把改写契约的后门藏进绯线。"
+    ],
+    "endings": [
+      "重鸣：城市安全但名字仍在钟里。",
+      "断冠：声音归还但黑潮涌出。",
+      "绯线真结局：钟声只封黑潮，不再吞人声。"
+    ]
+  },
+  "inventory": {
+    "currency_name": "松脂碎片",
+    "starting_tools": [
+      "thread_burst",
+      "menders_right"
+    ],
+    "starting_relics": [
+      "moss_lens"
+    ],
+    "catalog": {
+      "bell_key": {
+        "name": "敌群",
+        "category": "Combat",
+        "description": "唤醒捷径钟门的锈蚀战斗标记。"
+      },
+      "thread_burst": {
+        "name": "绯线爆裂",
+        "category": "Tools",
+        "description": "消耗30点能量，打出一次重型线刃。"
+      },
+      "menders_right": {
+        "name": "缝补右手",
+        "category": "Tools",
+        "description": "鼠标右键消耗60点能量，恢复1点生命。"
+      },
+      "moss_lens": {
+        "name": "苔光镜",
+        "category": "Relics",
+        "description": "会记录已探索房间的破损镜片。"
+      },
+      "moss_chitin": {
+        "name": "苔壳",
+        "category": "Materials",
+        "description": "近战庭兽留下的硬壳。"
+      },
+      "crown_splinter": {
+        "name": "王冠裂片",
+        "category": "Materials",
+        "description": "锈冠守卫体内仍带余温的金属碎片。"
+      }
+    }
+  },
+  "map_rooms": [
+    {
+      "id": "entry_bell",
+      "name": "苔钟入口",
+      "range": [
+        0,
+        900
+      ],
+      "depth": 0,
+      "kind": "gate",
+      "objective": "从苔钟门厅取得第一枚敌群匙。",
+      "guide": "入口上方仍是教学平台，确认跳跃和冲刺节奏。",
+      "danger": "低门下沿会限制起跳，别在门口硬挤。",
+      "next": "穿过外庭。"
+    },
+    {
+      "id": "outer_court",
+      "name": "苔钟外庭",
+      "range": [
+        900,
+        1900
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "穿过第一段低洼苔地，练习下劈和后撤。",
+      "guide": "下方宽地面适合处理第一只地面敌人。",
+      "danger": "假苔地板会把你送回复活点。",
+      "next": "前往齿轮升降间。"
+    },
+    {
+      "id": "gear_lift",
+      "name": "齿轮升降间",
+      "range": [
+        1900,
+        2600
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "取得第二枚敌群匙并上到侧廊。",
+      "guide": "这里仍是早期纵向路线，不增加战斗标记数量。",
+      "danger": "钟口缺口会吃掉贪跳。",
+      "next": "进入上层钟叶。"
+    },
+    {
+      "id": "upper_bells",
+      "name": "上层钟叶",
+      "range": [
+        2600,
+        3450
+      ],
+      "depth": -1,
+      "kind": "upper",
+      "objective": "取得第三枚敌群匙，准备回拉杆房。",
+      "guide": "上层敌人给玩家练习空中攻击和落地补能量。",
+      "danger": "坠锤闪光后马上冲刺。",
+      "next": "回到后门祭室。"
+    },
+    {
+      "id": "backdoor",
+      "name": "后门祭室",
+      "range": [
+        3450,
+        4300
+      ],
+      "depth": 0,
+      "kind": "safe",
+      "objective": "清掉本段敌人后拉开捷径。",
+      "guide": "捷径开启后会保存首领前路线。",
+      "danger": "拉杆附近仍有反扑陷阱。",
+      "next": "进入长回廊。"
+    },
+    {
+      "id": "runback",
+      "name": "苔钟长回廊",
+      "range": [
+        4300,
+        5600
+      ],
+      "depth": 1,
+      "kind": "danger",
+      "objective": "穿过首领前第一段长回廊。",
+      "guide": "这里从原短跑段延长为真正的章节推进。",
+      "danger": "假灯不会存档。",
+      "next": "进入回响苔槽。"
+    },
+    {
+      "id": "echo_moss_trench",
+      "name": "回响苔槽",
+      "range": [
+        5600,
+        6800
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿低处苔槽继续推进，不再马上到Boss。",
+      "guide": "敌人和陷阱间隔更宽，留给下劈反弹空间。",
+      "danger": "低处苔槽容易误判地面边缘。",
+      "next": "向上找旧钟索。"
+    },
+    {
+      "id": "old_bell_rope",
+      "name": "旧钟索井",
+      "range": [
+        6800,
+        7800
+      ],
+      "depth": -1,
+      "kind": "vertical",
+      "objective": "通过上层桥面形成第二段回环。",
+      "guide": "这里让玩家重新练习冲刺接跳。",
+      "danger": "上层掉落会回到苔槽。",
+      "next": "进入钟叶缠结处。"
+    },
+    {
+      "id": "bell_leaf_tangle",
+      "name": "钟叶缠结处",
+      "range": [
+        7800,
+        8900
+      ],
+      "depth": 0,
+      "kind": "field",
+      "objective": "清掉Boss前最后一批普通敌人。",
+      "guide": "这里的宽平台可绕过敌人，不会被堵死。",
+      "danger": "不要在尖刺灯旁停留。",
+      "next": "抵达首领门前。"
+    },
+    {
+      "id": "pre_boss_belfry",
+      "name": "首领前钟廊",
+      "range": [
+        8900,
+        9400
+      ],
+      "depth": 0,
+      "kind": "danger",
+      "objective": "确认血量、能量和Boss门。",
+      "guide": "短台阶把玩家引到门口，而不是直接撞进Boss。",
+      "danger": "这里是最后一次调整节奏。",
+      "next": "挑战锈冠守卫。"
+    },
+    {
+      "id": "boss_chamber",
+      "name": "锈冠大厅",
+      "range": [
+        9400,
+        10650
+      ],
+      "depth": 0,
+      "kind": "boss",
+      "objective": "击败锈冠守卫并打开Boss后通路。",
+      "guide": "Boss房加宽，留出躲避冲撞和下劈反弹空间。",
+      "danger": "Boss后墙只有击败Boss才会打开。",
+      "next": "进入第二章出口。"
+    },
+    {
+      "id": "chapter_exit",
+      "name": "沉钟出口",
+      "range": [
+        10650,
+        11200
+      ],
+      "depth": 0,
+      "kind": "exit",
+      "objective": "从沉钟出口前往第二章铸雨渠。",
+      "guide": "出口放在Boss后，避免打完Boss传回起点的错觉。",
+      "danger": "确认提示后按F进入下一章。",
+      "next": "前往铸雨渠。"
+    }
+  ],
+  "ai_profiles": {
+    "moss_larva": {
+      "move_speed": 48,
+      "aggro_range": 210,
+      "preferred_range": 44,
+      "attacks": [
+        {
+          "id": "toothed_lunge",
+          "type": "lunge",
+          "range": 96,
+          "damage": 1,
+          "windup": 0.28,
+          "active": 0.2,
+          "recover": 0.5,
+          "cooldown": 1.25,
+          "lunge_speed": 275,
+          "hit_width": 88,
+          "hit_height": 58,
+          "offset": 48,
+          "telegraph": "bf6c3f",
+          "priority": 2
+        },
+        {
+          "id": "shell_bump",
+          "type": "melee",
+          "range": 66,
+          "damage": 1,
+          "windup": 0.22,
+          "active": 0.14,
+          "recover": 0.48,
+          "cooldown": 1.1,
+          "hit_width": 68,
+          "hit_height": 56,
+          "offset": 34,
+          "telegraph": "8fb35a",
+          "priority": 1.5
+        },
+        {
+          "id": "burrow_bite",
+          "type": "melee",
+          "range": 72,
+          "damage": 1,
+          "windup": 0.38,
+          "active": 0.16,
+          "recover": 0.64,
+          "cooldown": 1.7,
+          "hit_width": 74,
+          "hit_height": 66,
+          "offset": 38,
+          "telegraph": "c99a50",
+          "priority": 1.1
+        }
+      ]
+    },
+    "bronze_moth": {
+      "move_speed": 62,
+      "aggro_range": 250,
+      "preferred_range": 78,
+      "attacks": [
+        {
+          "id": "sickle_swoop",
+          "type": "lunge",
+          "range": 132,
+          "damage": 1,
+          "windup": 0.26,
+          "active": 0.24,
+          "recover": 0.48,
+          "cooldown": 1.45,
+          "lunge_speed": 335,
+          "hit_width": 98,
+          "hit_height": 76,
+          "offset": 58,
+          "telegraph": "d18b38",
+          "priority": 2.1
+        },
+        {
+          "id": "wing_body_check",
+          "type": "lunge",
+          "range": 104,
+          "damage": 1,
+          "windup": 0.34,
+          "active": 0.2,
+          "recover": 0.58,
+          "cooldown": 1.7,
+          "lunge_speed": 250,
+          "hit_width": 112,
+          "hit_height": 82,
+          "offset": 52,
+          "telegraph": "bfb46c",
+          "priority": 1.6
+        },
+        {
+          "id": "dust_tackle",
+          "type": "aoe",
+          "range": 92,
+          "damage": 1,
+          "windup": 0.44,
+          "active": 0.18,
+          "recover": 0.72,
+          "cooldown": 2.1,
+          "hit_width": 138,
+          "hit_height": 82,
+          "telegraph": "bfb46c",
+          "priority": 1.2
+        }
+      ]
+    },
+    "spore_bellmaker": {
+      "move_speed": 36,
+      "aggro_range": 235,
+      "preferred_range": 82,
+      "attacks": [
+        {
+          "id": "bell_ring_body",
+          "type": "aoe",
+          "range": 112,
+          "damage": 1,
+          "windup": 0.58,
+          "active": 0.24,
+          "recover": 0.82,
+          "cooldown": 2.35,
+          "hit_width": 166,
+          "hit_height": 94,
+          "telegraph": "d0a44e",
+          "priority": 1.9
+        },
+        {
+          "id": "root_shove",
+          "type": "melee",
+          "range": 86,
+          "damage": 1,
+          "windup": 0.32,
+          "active": 0.16,
+          "recover": 0.56,
+          "cooldown": 1.45,
+          "hit_width": 96,
+          "hit_height": 60,
+          "offset": 48,
+          "telegraph": "76a96a",
+          "priority": 1.5
+        },
+        {
+          "id": "spore_belly_bump",
+          "type": "lunge",
+          "range": 104,
+          "damage": 1,
+          "windup": 0.42,
+          "active": 0.22,
+          "recover": 0.72,
+          "cooldown": 2.05,
+          "lunge_speed": 210,
+          "hit_width": 104,
+          "hit_height": 80,
+          "offset": 54,
+          "telegraph": "75b468",
+          "priority": 1.2
+        }
+      ]
+    },
+    "gear_sentinel": {
+      "move_speed": 42,
+      "aggro_range": 245,
+      "preferred_range": 70,
+      "attacks": [
+        {
+          "id": "gear_charge",
+          "type": "lunge",
+          "range": 150,
+          "damage": 2,
+          "windup": 0.5,
+          "active": 0.28,
+          "recover": 0.9,
+          "cooldown": 2.45,
+          "lunge_speed": 315,
+          "hit_width": 108,
+          "hit_height": 78,
+          "offset": 58,
+          "telegraph": "b56d37",
+          "priority": 2
+        },
+        {
+          "id": "saw_arm",
+          "type": "melee",
+          "range": 92,
+          "damage": 1,
+          "windup": 0.24,
+          "active": 0.18,
+          "recover": 0.52,
+          "cooldown": 1.25,
+          "hit_width": 98,
+          "hit_height": 66,
+          "offset": 48,
+          "telegraph": "d2a246",
+          "priority": 1.7
+        },
+        {
+          "id": "stomp_shock",
+          "type": "aoe",
+          "range": 104,
+          "damage": 1,
+          "windup": 0.56,
+          "active": 0.22,
+          "recover": 0.82,
+          "cooldown": 2.35,
+          "hit_width": 154,
+          "hit_height": 84,
+          "telegraph": "c9913a",
+          "priority": 1.2
+        }
+      ]
+    },
+    "rust_crown_guardian": {
+      "move_speed": 58,
+      "aggro_range": 620,
+      "preferred_range": 118,
+      "attacks": [
+        {
+          "id": "crown_slam",
+          "type": "aoe",
+          "range": 138,
+          "damage": 2,
+          "windup": 0.5903999999999999,
+          "active": 0.26,
+          "recover": 0.9,
+          "cooldown": 2.2319999999999998,
+          "hit_width": 280,
+          "hit_height": 116,
+          "telegraph": "d07b36",
+          "priority": 2.95,
+          "pose_power": 1.38,
+          "windup_offset": [
+            0,
+            -14
+          ],
+          "windup_scale": [
+            1.13,
+            0.9
+          ],
+          "active_offset": [
+            0,
+            12
+          ],
+          "active_scale": [
+            1.22,
+            0.78
+          ],
+          "recover_scale": [
+            0.94,
+            1.08
+          ],
+          "mirror_pose_offset": false,
+          "recover_offset": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "rust_charge",
+          "type": "lunge",
+          "range": 190,
+          "damage": 2,
+          "windup": 0.4428,
+          "active": 0.36,
+          "recover": 0.95,
+          "cooldown": 2.052,
+          "lunge_speed": 370,
+          "hit_width": 132,
+          "hit_height": 100,
+          "offset": 72,
+          "telegraph": "b96032",
+          "priority": 2.6500000000000004,
+          "pose_power": 1.38,
+          "windup_offset": [
+            -18,
+            -8
+          ],
+          "windup_scale": [
+            1.09,
+            0.92
+          ],
+          "active_offset": [
+            34,
+            3
+          ],
+          "active_scale": [
+            1.22,
+            0.84
+          ],
+          "recover_offset": [
+            -12,
+            3
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        },
+        {
+          "id": "bell_body_crush",
+          "type": "lunge",
+          "range": 160,
+          "damage": 1,
+          "windup": 0.328,
+          "active": 0.24,
+          "recover": 0.62,
+          "cooldown": 1.26,
+          "lunge_speed": 360,
+          "hit_width": 150,
+          "hit_height": 108,
+          "offset": 76,
+          "telegraph": "e0a542",
+          "priority": 2.25,
+          "pose_power": 1.38,
+          "windup_offset": [
+            -18,
+            -8
+          ],
+          "windup_scale": [
+            1.09,
+            0.92
+          ],
+          "active_offset": [
+            34,
+            3
+          ],
+          "active_scale": [
+            1.22,
+            0.84
+          ],
+          "recover_offset": [
+            -12,
+            3
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        },
+        {
+          "id": "gear_knee",
+          "type": "melee",
+          "range": 108,
+          "damage": 1,
+          "windup": 0.26,
+          "active": 0.18,
+          "recover": 0.48,
+          "cooldown": 1.1,
+          "hit_width": 128,
+          "hit_height": 92,
+          "offset": 62,
+          "telegraph": "b78c4d",
+          "priority": 1.5,
+          "pose_power": 1.38,
+          "windup_offset": [
+            -18,
+            -8
+          ],
+          "windup_scale": [
+            1.09,
+            0.92
+          ],
+          "active_offset": [
+            34,
+            3
+          ],
+          "active_scale": [
+            1.22,
+            0.84
+          ],
+          "recover_offset": [
+            -12,
+            3
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        },
+        {
+          "id": "crown_backhand",
+          "type": "melee",
+          "range": 110,
+          "damage": 1,
+          "windup": 0.24,
+          "active": 0.16,
+          "recover": 0.46,
+          "cooldown": 1.05,
+          "hit_width": 126,
+          "hit_height": 94,
+          "offset": 64,
+          "telegraph": "d9b158",
+          "priority": 1.3,
+          "pose_power": 1.38,
+          "windup_offset": [
+            -18,
+            -8
+          ],
+          "windup_scale": [
+            1.09,
+            0.92
+          ],
+          "active_offset": [
+            34,
+            3
+          ],
+          "active_scale": [
+            1.22,
+            0.84
+          ],
+          "recover_offset": [
+            -12,
+            3
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        },
+        {
+          "id": "bellquake_stomp",
+          "type": "aoe",
+          "range": 184,
+          "damage": 1,
+          "windup": 0.738,
+          "active": 0.32,
+          "recover": 1,
+          "cooldown": 3.024,
+          "hit_width": 320,
+          "hit_height": 98,
+          "telegraph": "8ebf8b",
+          "priority": 1.55,
+          "pose_power": 1.38,
+          "windup_offset": [
+            0,
+            -14
+          ],
+          "windup_scale": [
+            1.13,
+            0.9
+          ],
+          "active_offset": [
+            0,
+            12
+          ],
+          "active_scale": [
+            1.22,
+            0.78
+          ],
+          "recover_scale": [
+            0.94,
+            1.08
+          ],
+          "mirror_pose_offset": false,
+          "recover_offset": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "crown_shockwave_chain",
+          "type": "shockwave",
+          "min_range": 90,
+          "range": 360,
+          "damage": 1,
+          "windup": 0.26,
+          "active": 0.22,
+          "recover": 0.44,
+          "cooldown": 1.9,
+          "hit_width": 250,
+          "hit_height": 48,
+          "offset": 136,
+          "telegraph": "f0c34f",
+          "priority": 3.25,
+          "start_cooldown": 0.5,
+          "pose_power": 1.38,
+          "windup_offset": [
+            -22,
+            -10
+          ],
+          "windup_scale": [
+            1.1,
+            0.92
+          ],
+          "active_offset": [
+            46,
+            -3
+          ],
+          "active_scale": [
+            1.24,
+            0.84
+          ],
+          "recover_offset": [
+            -14,
+            4
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        },
+        {
+          "id": "backstep_hook_cut",
+          "type": "retreat",
+          "range": 150,
+          "damage": 1,
+          "windup": 0.18,
+          "active": 0.26,
+          "recover": 0.35,
+          "cooldown": 1.55,
+          "retreat_speed": 225,
+          "hit_width": 130,
+          "hit_height": 72,
+          "offset": 70,
+          "telegraph": "7fd6ca",
+          "priority": 2.7,
+          "pose_power": 1.38,
+          "windup_offset": [
+            18,
+            -8
+          ],
+          "windup_scale": [
+            0.96,
+            1.08
+          ],
+          "active_offset": [
+            -38,
+            -8
+          ],
+          "active_scale": [
+            0.92,
+            1.14
+          ],
+          "recover_offset": [
+            12,
+            1
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        },
+        {
+          "id": "false_crown_feint",
+          "type": "feint",
+          "range": 132,
+          "damage": 1,
+          "windup": 0.12,
+          "active": 0.18,
+          "recover": 0.28,
+          "cooldown": 1.35,
+          "feint_sway": 120,
+          "hit_width": 112,
+          "hit_height": 80,
+          "offset": 58,
+          "telegraph": "d98ee8",
+          "priority": 2.45,
+          "pose_power": 1.38,
+          "windup_offset": [
+            -14,
+            -12
+          ],
+          "windup_scale": [
+            1.08,
+            0.93
+          ],
+          "active_offset": [
+            20,
+            -6
+          ],
+          "active_scale": [
+            1.12,
+            0.94
+          ],
+          "recover_offset": [
+            -10,
+            2
+          ],
+          "recover_scale": [
+            0.96,
+            1.04
+          ]
+        }
+      ]
+    }
+  },
+  "platforms": [
+    {
+      "id": "start_ground",
+      "rect": [
+        0,
+        540,
+        780,
+        40
+      ],
+      "color": "1c2b1f",
+      "material": "moss_stone"
+    },
+    {
+      "id": "starter_step",
+      "rect": [
+        430,
+        492,
+        180,
+        24
+      ],
+      "color": "29402f",
+      "material": "moss_stone"
+    },
+    {
+      "id": "vista_bridge",
+      "rect": [
+        560,
+        430,
+        380,
+        26
+      ],
+      "color": "6d6645",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "under_gate_lip",
+      "rect": [
+        850,
+        585,
+        300,
+        28
+      ],
+      "color": "22351f",
+      "material": "moss_stone"
+    },
+    {
+      "id": "outer_drop",
+      "rect": [
+        1180,
+        610,
+        620,
+        34
+      ],
+      "color": "243a24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "outer_return_lip",
+      "rect": [
+        1760,
+        560,
+        220,
+        26
+      ],
+      "color": "2b442d",
+      "material": "moss_stone"
+    },
+    {
+      "id": "gear_lift",
+      "rect": [
+        1900,
+        520,
+        360,
+        28
+      ],
+      "color": "76683f",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "gear_lift_return_step",
+      "rect": [
+        2240,
+        485,
+        190,
+        26
+      ],
+      "color": "315032",
+      "material": "moss_stone"
+    },
+    {
+      "id": "moss_steps_a",
+      "rect": [
+        2360,
+        450,
+        320,
+        28
+      ],
+      "color": "2f4c31",
+      "material": "moss_stone"
+    },
+    {
+      "id": "moss_steps_b",
+      "rect": [
+        2800,
+        370,
+        320,
+        28
+      ],
+      "color": "365438",
+      "material": "moss_stone"
+    },
+    {
+      "id": "upper_respite",
+      "rect": [
+        3260,
+        410,
+        380,
+        28
+      ],
+      "color": "2e4a34",
+      "material": "moss_stone"
+    },
+    {
+      "id": "backdoor_room",
+      "rect": [
+        3680,
+        500,
+        500,
+        32
+      ],
+      "color": "76613b",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "shortcut_upper",
+      "rect": [
+        1180,
+        390,
+        500,
+        26
+      ],
+      "color": "6f673d",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "boss_runback",
+      "rect": [
+        4200,
+        500,
+        1320,
+        34
+      ],
+      "color": "48372f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "ch01_echo_trench_floor",
+      "rect": [
+        5520,
+        540,
+        1120,
+        34
+      ],
+      "color": "274526",
+      "material": "moss_stone"
+    },
+    {
+      "id": "ch01_echo_trench_step",
+      "rect": [
+        6280,
+        468,
+        360,
+        28
+      ],
+      "color": "706544",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "ch01_old_rope_upper_bridge",
+      "rect": [
+        6700,
+        388,
+        760,
+        28
+      ],
+      "color": "746942",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "ch01_old_rope_floor",
+      "rect": [
+        6640,
+        540,
+        900,
+        34
+      ],
+      "color": "294829",
+      "material": "moss_stone"
+    },
+    {
+      "id": "ch01_bell_tangle_floor",
+      "rect": [
+        7540,
+        500,
+        1060,
+        34
+      ],
+      "color": "263f29",
+      "material": "moss_stone"
+    },
+    {
+      "id": "ch01_bell_tangle_upper",
+      "rect": [
+        7900,
+        420,
+        520,
+        28
+      ],
+      "color": "77683f",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "ch01_runback_after_tangle",
+      "rect": [
+        8600,
+        500,
+        900,
+        34
+      ],
+      "color": "45352f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "ch01_pre_boss_step",
+      "rect": [
+        9100,
+        452,
+        360,
+        28
+      ],
+      "color": "77643d",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "boss_floor",
+      "rect": [
+        9500,
+        500,
+        1180,
+        44
+      ],
+      "color": "47362f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_back_wall",
+      "rect": [
+        10680,
+        300,
+        38,
+        244
+      ],
+      "color": "33251f",
+      "material": "boss_stone"
+    },
+    {
+      "id": "ch01_exit_runup",
+      "rect": [
+        10720,
+        500,
+        560,
+        34
+      ],
+      "color": "40312a",
+      "material": "boss_stone"
+    },
+    {
+      "id": "ch01_exit_floor",
+      "rect": [
+        10880,
+        520,
+        320,
+        34
+      ],
+      "color": "46372f",
+      "material": "boss_stone"
+    }
+  ],
+  "locked_gates": [],
+  "hazards": [
+    {
+      "id": "trap_fake_moss_01",
+      "kind": "fake_moss_floor",
+      "rect": [
+        1320,
+        585,
+        130,
+        25
+      ],
+      "damage": 1,
+      "message": "假苔地板塌陷。"
+    },
+    {
+      "id": "trap_bell_gap_02",
+      "kind": "bell_gap",
+      "rect": [
+        2050,
+        494,
+        90,
+        26
+      ],
+      "damage": 1,
+      "message": "钟口缺口吞掉了落点。"
+    },
+    {
+      "id": "trap_spore_chest_03",
+      "kind": "spore_chest",
+      "rect": [
+        2480,
+        425,
+        92,
+        25
+      ],
+      "damage": 1,
+      "message": "孢囊爆开。"
+    },
+    {
+      "id": "trap_falling_clapper_04",
+      "kind": "falling_clapper",
+      "rect": [
+        2960,
+        346,
+        94,
+        24
+      ],
+      "damage": 1,
+      "message": "坠锤砸下。"
+    },
+    {
+      "id": "trap_shortcut_revenge_05",
+      "kind": "shortcut_revenge",
+      "rect": [
+        3920,
+        474,
+        80,
+        26
+      ],
+      "damage": 1,
+      "message": "捷径闸门反咬。"
+    },
+    {
+      "id": "trap_boss_lamp_fake_06",
+      "kind": "false_lamp",
+      "rect": [
+        4860,
+        474,
+        82,
+        26
+      ],
+      "damage": 1,
+      "message": "假灯没有提供庇护。"
+    },
+    {
+      "id": "ch01_expanded_hazard_01",
+      "kind": "fake_moss_floor",
+      "rect": [
+        6050,
+        516,
+        120,
+        24
+      ],
+      "damage": 1,
+      "message": "回响苔槽下陷。"
+    },
+    {
+      "id": "ch01_expanded_hazard_02",
+      "kind": "falling_clapper",
+      "rect": [
+        7820,
+        476,
+        118,
+        24
+      ],
+      "damage": 1,
+      "message": "钟叶间的坠锤落下。"
+    },
+    {
+      "id": "ch01_expanded_hazard_03",
+      "kind": "bell_gap",
+      "rect": [
+        9130,
+        428,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "首领前钟廊裂开。"
+    }
+  ],
+  "collectibles": [],
+  "interactives": [
+    {
+      "id": "shortcut_lever",
+      "kind": "lever",
+      "position": [
+        3780,
+        460
+      ],
+      "requires_keys": 0,
+      "label": "战斗门控制器"
+    },
+    {
+      "id": "boss_gate",
+      "kind": "boss_gate",
+      "position": [
+        9550,
+        460
+      ]
+    },
+    {
+      "id": "ch01_chapter_exit",
+      "kind": "chapter_exit",
+      "label": "前往第二章：铸雨渠",
+      "position": [
+        10920,
+        480
+      ],
+      "next_runtime_config_id": "demo_ch02_rain_foundry_canal",
+      "next_config_path": "res://data/demo_ch02_rain_foundry_canal.json",
+      "requires_demo_complete": true,
+      "interaction_size": [
+        240,
+        180
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_threadsmith_apprentice",
+      "name": "织线学徒",
+      "position": [
+        320,
+        500
+      ],
+      "role": "threadsmith",
+      "dialogue": [
+        "左键斩击，右键缝回一口气；绯线救命，也会把贪心的人勒住。",
+        "E 能让线猛地收紧，打出爆裂；F 能交谈、拉机关、敲醒旧钟门。",
+        "别把苔钟庭当终点，六座失声之城都在等你把名字听回来。"
+      ],
+      "identity": "年轻织线匠的残影，守在入庭钟门，确认新巡礼者是否还能感知绯线。",
+      "motive": "不想看见后来者在第一座庭院就被王冠消耗掉。",
+      "help": "教学：左键斩击、右键缝补、E绯线爆裂、F交互；说明六城巡礼目标。"
+    },
+    {
+      "id": "npc_gate_pilgrim",
+      "name": "守门朝圣者",
+      "position": [
+        735,
+        500
+      ],
+      "role": "pilgrim",
+      "dialogue": [
+        "正门被锈钟封死，别从正面硬闯；钟不怕勇敢，只怕战斗标记。",
+        "三处敌群分在起步桥、下层外庭和上层钟廊，拿齐再回来。",
+        "迷路就看苔光镜，亮起的房间会记住你的脚步。"
+      ],
+      "identity": "被困在正门前的老巡礼者，曾经试图硬闯锈钟门失败。",
+      "motive": "不想再看见后来者重复自己的错误。",
+      "help": "指明三处敌群目标；提示绕行路线和地图使用。"
+    },
+    {
+      "id": "npc_lift_cartographer",
+      "name": "升台绘图师",
+      "position": [
+        2100,
+        480
+      ],
+      "role": "cartographer",
+      "dialogue": [
+        "青色竖条是你，金色点是敌群，琥珀点是机关，红色门后有不讲理的东西。",
+        "地图不替你战斗，但它会告诉你哪里还没走过、哪里还能回来。",
+        "上层钟廊能绕回后门，别在下庭把自己绕成一团苔。"
+      ],
+      "identity": "维护旧庭院升台图例的绘图师，身体半嵌进齿轮升降机。",
+      "motive": "希望自己的最后一版地图不再白画。",
+      "help": "解释地图图例、战斗标记标记、机关标记和 Boss 门标记。"
+    },
+    {
+      "id": "npc_backdoor_sacristan",
+      "name": "后门司铃人",
+      "position": [
+        3720,
+        460
+      ],
+      "role": "sacristan",
+      "dialogue": [
+        "三处敌群齐了，就按 F 拉动我身后的拉杆；后门会记住你。",
+        "捷径一开，首领前的路会短一些，但存档要你自己去点亮。",
+        "记住，王冠不是戴在谁头上的金属，它是一口倒扣在城上的钟。"
+      ],
+      "identity": "后门小礼拜堂的司铃人，看守三战斗标记拉杆和 Boss 前捷径。",
+      "motive": "确认主角是否愿意走完整条巡礼路。",
+      "help": "说明三战斗标记拉杆、捷径和王冠本体线索。"
+    },
+    {
+      "id": "npc_runback_scout",
+      "name": "回廊斥候",
+      "position": [
+        4380,
+        460
+      ],
+      "role": "scout",
+      "dialogue": [
+        "前面那盏灯是假的，真正的安全在你身后的后门。",
+        "锈冠守卫没有法术，只有冲撞、钟舌和一顶太重的王冠。",
+        "留一口能量给缝补，贪刀的人会被震地接成一段旧传说。"
+      ],
+      "identity": "王冠回廊的前代斥候，生前记录锈冠守卫招式。",
+      "motive": "希望主角打赢首领，带走他没能带走的第一枚印记。",
+      "help": "Boss 前提示：假灯、冲撞、震地、保留回血能量。"
+    }
+  ],
+  "guides": [],
+  "enemy_spawns": [
+    {
+      "id": "E01",
+      "kind": "moss_larva",
+      "position": [
+        1400,
+        570
+      ],
+      "platform_id": "outer_drop",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "visual_scale": 1.55,
+      "visual_offset": [
+        0,
+        0
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      }
+    },
+    {
+      "id": "E02",
+      "kind": "bronze_moth",
+      "position": [
+        2220,
+        480
+      ],
+      "platform_id": "gear_lift",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        36,
+        36
+      ],
+      "visual_scale": 1.08,
+      "visual_offset": [
+        0,
+        -10
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        54,
+        36
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "walk": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "attack": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "hurt": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "death": [
+          0,
+          0,
+          36,
+          36
+        ]
+      }
+    },
+    {
+      "id": "E03",
+      "kind": "spore_bellmaker",
+      "position": [
+        2920,
+        330
+      ],
+      "platform_id": "moss_steps_b",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        45,
+        66
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -6
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        45,
+        66
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "walk": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "attack": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "hurt": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "death": [
+          0,
+          0,
+          45,
+          66
+        ]
+      }
+    },
+    {
+      "id": "E04",
+      "kind": "moss_larva",
+      "position": [
+        3860,
+        460
+      ],
+      "platform_id": "backdoor_room",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "visual_scale": 1.55,
+      "visual_offset": [
+        0,
+        0
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      }
+    },
+    {
+      "id": "E05",
+      "kind": "gear_sentinel",
+      "position": [
+        5260,
+        460
+      ],
+      "platform_id": "boss_runback",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "visual_scale": 0.82,
+      "visual_offset": [
+        0,
+        -7
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "walk": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "attack": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "hurt": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "death": [
+          0,
+          0,
+          64,
+          72
+        ]
+      }
+    },
+    {
+      "id": "CH01_E_EXP01",
+      "kind": "bronze_moth",
+      "position": [
+        6300,
+        500
+      ],
+      "platform_id": "ch01_echo_trench_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        36,
+        36
+      ],
+      "visual_scale": 1.08,
+      "visual_offset": [
+        0,
+        -10
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        54,
+        36
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "walk": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "attack": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "hurt": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "death": [
+          0,
+          0,
+          36,
+          36
+        ]
+      }
+    },
+    {
+      "id": "CH01_E_EXP02",
+      "kind": "spore_bellmaker",
+      "position": [
+        7160,
+        348
+      ],
+      "platform_id": "ch01_old_rope_upper_bridge",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        45,
+        66
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -6
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        45,
+        66
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "walk": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "attack": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "hurt": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "death": [
+          0,
+          0,
+          45,
+          66
+        ]
+      }
+    },
+    {
+      "id": "CH01_E_EXP03",
+      "kind": "moss_larva",
+      "position": [
+        8180,
+        460
+      ],
+      "platform_id": "ch01_bell_tangle_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "visual_scale": 1.55,
+      "visual_offset": [
+        0,
+        0
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      }
+    },
+    {
+      "id": "CH01_E_EXP04",
+      "kind": "gear_sentinel",
+      "position": [
+        9130,
+        412
+      ],
+      "platform_id": "ch01_pre_boss_step",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "visual_scale": 0.82,
+      "visual_offset": [
+        0,
+        -7
+      ],
+      "visual_modulate": "e2fff2",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "walk": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "attack": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "hurt": [
+          0,
+          0,
+          64,
+          72
+        ],
+        "death": [
+          0,
+          0,
+          64,
+          72
+        ]
+      }
+    }
+  ],
+  "boss": {
+    "name": "锈冠守卫",
+    "reward_item": "crown_splinter",
+    "id": "B01",
+    "kind": "rust_crown_guardian",
+    "position": [
+      10020,
+      460
+    ],
+    "hp": 22,
+    "damage": 1,
+    "patrol": 220,
+    "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/manifest.json",
+    "sprite_region": [
+      0,
+      0,
+      80,
+      80
+    ],
+    "visual_scale": 1.58,
+    "visual_offset": [
+      0,
+      -12
+    ],
+    "visual_modulate": "e2fff2",
+    "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+    "visual_role": "dark_fantasy_boss",
+    "body_size": [
+      148,
+      134
+    ],
+    "hurtbox_size": [
+      166,
+      156
+    ],
+    "hurtbox_offset": [
+      0,
+      -46
+    ],
+    "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
+    "source_sprite_region": [
+      0,
+      0,
+      80,
+      80
+    ],
+    "sprite_regions": {
+      "idle": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "walk": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "attack": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "hurt": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "death": [
+        0,
+        0,
+        80,
+        80
+      ]
+    }
+  },
+  "labels": [
+    {
+      "text": "路线：踩起步台阶拿第一把战斗标记，再从锁门下方绕路。",
+      "position": [
+        430,
+        382
+      ],
+      "color": "e6d28c"
+    },
+    {
+      "text": "战斗：左键攻击，E技能，右键回血，F交互。",
+      "position": [
+        140,
+        458
+      ],
+      "color": "9ef0dc"
+    },
+    {
+      "text": "外庭：怪物更分散，只近战冲撞，打完就后撤补能量。",
+      "position": [
+        1540,
+        330
+      ],
+      "color": "9ef0dc"
+    },
+    {
+      "text": "后门拉杆：带3把战斗标记按F，开捷径后直通首领回廊。",
+      "position": [
+        3460,
+        448
+      ],
+      "color": "f2b873"
+    },
+    {
+      "text": "世界线：六座失声之城等待重鸣，苔钟庭只是第一枚印记。",
+      "position": [
+        4380,
+        420
+      ],
+      "color": "c7e6ff"
+    }
+  ],
+  "completion_message": "DEMO COMPLETE: 锈冠守卫已被击败，王冠裂片已回收",
+  "completion_toast": "第一章闭环完成：苔钟庭清怪、Boss门和王冠裂片均已验证。",
+  "enemy_drop_item": "moss_chitin",
+  "save_points": [
+    {
+      "id": "save_hidden_upper_respite",
+      "label": "隐苔存档点",
+      "position": [
+        3375,
+        374
+      ],
+      "hidden": true,
+      "note": "藏在主线路线上方的稀疏存档点。"
+    },
+    {
+      "id": "save_late_runback",
+      "label": "回响苔槽存档点",
+      "position": [
+        6260,
+        500
+      ],
+      "hidden": false,
+      "note": "扩写后Boss前中段存档点。"
+    }
+  ],
+  "fall_y": 820,
+  "chapter_transition": {
+    "from_runtime_config_id": "demo_ch01_moss_bell_court",
+    "to_runtime_config_id": "demo_ch02_rain_foundry_canal",
+    "next_config_path": "res://data/demo_ch02_rain_foundry_canal.json",
+    "exit_interactive_id": "ch01_chapter_exit",
+    "entry_hint": "锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。"
+  },
+  "art_theme": "moss_cavern",
+  "map_title": "Moss Bell Court Map",
+  "progression_mode": "combat_clear",
+  "asset_policy": {
+    "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
+    "enemies": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary"
+  },
+  "parkour_segments": [
+    {
+      "id": "ch01_outer_court_return",
+      "room_id": "outer_court",
+      "technique": "drop recovery + short hop return route",
+      "platforms": [
+        "outer_drop",
+        "outer_return_lip",
+        "gear_lift",
+        "gear_lift_return_step",
+        "moss_steps_a"
+      ]
+    },
+    {
+      "id": "ch01_rope_dash",
+      "room_id": "old_bell_rope",
+      "technique": "dash jump + down slash bounce",
+      "platforms": [
+        "ch01_echo_trench_step",
+        "ch01_old_rope_upper_bridge",
+        "ch01_bell_tangle_upper"
+      ]
+    },
+    {
+      "id": "ch01_preboss_sprint",
+      "room_id": "pre_boss_belfry",
+      "technique": "short sprint, jump cancel, safe landing",
+      "platforms": [
+        "ch01_runback_after_tangle",
+        "ch01_pre_boss_step",
+        "boss_floor"
+      ]
+    }
+  ]
+}
+

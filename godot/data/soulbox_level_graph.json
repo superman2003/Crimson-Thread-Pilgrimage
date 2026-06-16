@@ -1,0 +1,102 @@
+{
+  "title": "绯线远征 Soulbox Level Graph",
+  "version": "20260615161637828",
+  "designPrinciples": [
+    "入口预告目标",
+    "正面阻断",
+    "绕路学习机制",
+    "背面打开捷径",
+    "回到熟悉空间"
+  ],
+  "chapters": [
+    {
+      "id": "ch01_moss_bell_court",
+      "name": "翠锈钟庭",
+      "mainPath": ["C1-S", "C1-BF1", "C1-V1", "C1-N1", "C1-N2", "C1-SH1", "C1-N3", "C1-SC1", "C1-E1", "C1-BF2", "C1-B", "C1-X"],
+      "shortcuts": [
+        {"id": "C1-SC1", "from": "C1-N3", "to": "C1-V1", "opensFrom": "back"},
+        {"id": "C1-SC2", "from": "C1-BF2", "to": "C1-V1", "opensFrom": "mechanism"}
+      ],
+      "branches": [
+        {"id": "C1-Sx1", "lock": "double_jump", "reward": "钟摆余响"},
+        {"id": "C1-Sx2", "lock": "rift_hook", "reward": "钩索素材"},
+        {"id": "C1-Sx3", "lock": "furnace_maul", "reward": "武器强化素材"}
+      ],
+      "traps": ["T1-01", "T1-02", "T1-03", "T1-04", "T1-05", "T1-06"]
+    },
+    {
+      "id": "ch02_glass_rain_archive",
+      "name": "镜雨档案馆",
+      "mainPath": ["C2-S", "C2-BF1", "C2-V1", "C2-G1", "C2-N1", "C2-N2", "C2-SH1", "C2-SC1", "C2-E1", "C2-BF2", "C2-B", "C2-X"],
+      "shortcuts": [
+        {"id": "C2-SC1", "from": "C2-SC1", "to": "C2-V1", "opensFrom": "back"}
+      ],
+      "branches": [
+        {"id": "C2-Sx1", "lock": "rift_hook", "reward": "镜片素材"},
+        {"id": "C2-Sx2", "lock": "diagonal_dash", "reward": "星核上限碎片"},
+        {"id": "C2-Sx3", "lock": "double_jump+rift_hook", "reward": "迟影书脊"}
+      ],
+      "traps": ["T2-01", "T2-02", "T2-03", "T2-04", "T2-05", "T2-06"]
+    },
+    {
+      "id": "ch03_ember_loom_furnace",
+      "name": "余烬织炉",
+      "mainPath": ["C3-S", "C3-BF1", "C3-V1", "C3-N1", "C3-SH1", "C3-N2", "C3-SC1", "C3-N3", "C3-E1", "C3-SH2", "C3-BF2", "C3-B", "C3-X"],
+      "shortcuts": [
+        {"id": "C3-SC1", "from": "C3-N2", "to": "C3-N1", "opensFrom": "back"},
+        {"id": "C3-SC2", "from": "C3-Sx2", "to": "C3-N3", "opensFrom": "furnace_maul"}
+      ],
+      "branches": [
+        {"id": "C3-Sx1", "lock": "double_jump", "reward": "火线素材"},
+        {"id": "C3-Sx2", "lock": "furnace_maul", "reward": "余温踏点"},
+        {"id": "C3-Sx3", "lock": "diagonal_dash", "reward": "武器强化矿"}
+      ],
+      "traps": ["T3-01", "T3-02", "T3-03", "T3-04", "T3-05", "T3-06"]
+    },
+    {
+      "id": "ch04_moon_salt_aqueduct",
+      "name": "盐月水渠",
+      "mainPath": ["C4-S", "C4-BF1", "C4-V1", "C4-N1", "C4-SH1", "C4-N2", "C4-SC1", "C4-E1", "C4-BF2", "C4-B", "C4-X"],
+      "shortcuts": [
+        {"id": "C4-SC1", "from": "C4-N2", "to": "C4-V1", "opensFrom": "back"},
+        {"id": "C4-SC2", "from": "C4-Sx3", "to": "C4-BF2", "opensFrom": "diagonal_dash"}
+      ],
+      "branches": [
+        {"id": "C4-Sx1", "lock": "none", "reward": "安全慢路"},
+        {"id": "C4-G1", "lock": "double_jump+downstrike", "reward": "危险快路"},
+        {"id": "C4-Sx3", "lock": "diagonal_dash", "reward": "潮汐素材"}
+      ],
+      "traps": ["T4-01", "T4-02", "T4-03", "T4-04", "T4-05", "T4-06"]
+    },
+    {
+      "id": "ch05_bone_branch_sky_orchard",
+      "name": "骨枝空园",
+      "mainPath": ["C5-S", "C5-BF1", "C5-V1", "C5-N1", "C5-SH1", "C5-N2", "C5-SC1", "C5-N3", "C5-SC2", "C5-E1", "C5-BF2", "C5-B", "C5-X"],
+      "shortcuts": [
+        {"id": "C5-SC1", "from": "C5-N2", "to": "C5-BF1", "opensFrom": "drop_gate"},
+        {"id": "C5-SC2", "from": "C5-N3", "to": "C5-BF1", "opensFrom": "drop_gate"}
+      ],
+      "branches": [
+        {"id": "C5-Sx1", "lock": "rift_hook+double_jump", "reward": "骨枝素材"},
+        {"id": "C5-Sx2", "lock": "diagonal_dash", "reward": "耐力碎片"},
+        {"id": "C5-Sx3", "lock": "perfect_flash", "reward": "空战护符"}
+      ],
+      "traps": ["T5-01", "T5-02", "T5-03", "T5-04", "T5-05", "T5-06"]
+    },
+    {
+      "id": "ch06_starless_spindle_core",
+      "name": "无星纺核",
+      "mainPath": ["C6-S", "C6-BF1", "C6-V1", "C6-HUB", "C6-R1", "C6-R2", "C6-R3", "C6-R4", "C6-R5", "C6-SC1B", "C6-N1", "C6-SH2", "C6-E1", "C6-BF2", "C6-B", "C6-X"],
+      "shortcuts": [
+        {"id": "C6-SC1A", "from": "C6-HUB", "to": "C6-HUB", "opensFrom": "any_two_echo_rooms"},
+        {"id": "C6-SC1B", "from": "C6-HUB", "to": "C6-N1", "opensFrom": "any_four_echo_rooms"}
+      ],
+      "branches": [
+        {"id": "C6-Sx1", "lock": "all_abilities", "reward": "五章印记门"},
+        {"id": "C6-Sx2", "lock": "perfect_flash+starline_arbalest", "reward": "倒悬观察台"},
+        {"id": "C6-Sx3", "lock": "ng_plus", "reward": "红线终局门"}
+      ],
+      "traps": ["T6-01", "T6-02", "T6-03", "T6-04", "T6-05", "T6-06"]
+    }
+  ]
+}

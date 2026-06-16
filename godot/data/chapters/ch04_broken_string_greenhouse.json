@@ -1,0 +1,338 @@
+{
+  "id": "ch04_broken_string_greenhouse",
+  "name": "第四章：断弦温室",
+  "main_goal": "穿越会移动的藤蔓温室，取得断弦印记，并确认六枚印记曾经都是活人守门者。",
+  "story_beats": [
+    {
+      "id": "entry_living_cover",
+      "summary": "契约碎页指向一座会呼吸的温室，盐白书库的活封面来自这里。",
+      "story_flag": "beat_ch04_entry"
+    },
+    {
+      "id": "moving_greenhouse",
+      "summary": "玩家学习弦桥和花粉风节奏，发现温室会根据声音移动房间。",
+      "story_flag": "beat_ch04_greenhouse_moves"
+    },
+    {
+      "id": "keeper_truth",
+      "summary": "断弦歌者承认六枚印记曾是守门者，她们被王冠变成维持封印的材料。",
+      "story_flag": "beat_ch04_keeper_truth"
+    },
+    {
+      "id": "boss_after_black_road",
+      "summary": "断弦园主战败后交出活封面根脉，黑曜巡礼军听见印记断裂并打开外环道路。",
+      "story_flag": "beat_ch04_black_road_open"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "greenhouse_foyer",
+      "name": "温室前厅",
+      "kind": "entry",
+      "objective": "确认移动藤蔓和花粉风的基础节奏。",
+      "guide": "藤蔓先颤再动，颤动两次后平台会位移。",
+      "danger": "花粉雾会遮挡下一段落点。",
+      "next": "弦桥苗圃"
+    },
+    {
+      "id": "string_bridge_nursery",
+      "name": "弦桥苗圃",
+      "kind": "platforming",
+      "objective": "通过断续弦桥并取得花粉过滤器。",
+      "guide": "白弦可站，黑弦会在踩下后断开。",
+      "danger": "弦桥断裂会把玩家送回前厅灯碑。",
+      "next": "蜂蜡小屋"
+    },
+    {
+      "id": "beeswax_hut",
+      "name": "蜂蜡小屋",
+      "kind": "safe",
+      "objective": "与蜂蜡商人交易并取得蜂巢支线。",
+      "guide": "花粉过滤器可减少雾遮挡，但不是主线必需。",
+      "danger": "屋外蜂群会跟随玩家进入短走廊。",
+      "next": "逆生竖井"
+    },
+    {
+      "id": "inverted_root_well",
+      "name": "逆生竖井",
+      "kind": "vertical",
+      "objective": "用下劈棘球反弹到高层。",
+      "guide": "下劈发亮棘球可刷新空中状态。",
+      "danger": "根笼猎手会短暂定身。",
+      "next": "断弦暖房"
+    },
+    {
+      "id": "broken_string_hothouse",
+      "name": "断弦暖房",
+      "kind": "story",
+      "objective": "与断弦歌者对话，确认守门者真相。",
+      "guide": "跟随歌声停顿前进，花粉风在副歌时转向。",
+      "danger": "远程音波会把玩家推离平台。",
+      "next": "棘藤礼拜堂"
+    },
+    {
+      "id": "thorn_chapel",
+      "name": "棘藤礼拜堂",
+      "kind": "combat_gate",
+      "objective": "破坏脆弱地板进入 Boss 前区域。",
+      "guide": "下劈棘藤盾兵破甲后可穿过地板裂缝。",
+      "danger": "棘墙会从左右推进。",
+      "next": "园主舞台"
+    },
+    {
+      "id": "gardener_stage",
+      "name": "园主舞台",
+      "kind": "boss",
+      "objective": "击败断弦园主。",
+      "guide": "利用棘球反弹躲过二阶段推进棘墙。",
+      "danger": "弦桥会在 Boss 拉弦后反相。",
+      "next": "黑曜巡礼道入口"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_old_gardener",
+      "name": "老园丁弦伯",
+      "role": "main_witness",
+      "position_hint": "温室前厅",
+      "dialogue": [
+        "书库的封面，是从我们这里剪走的活皮。",
+        "藤蔓先颤，再动。急着跳的人会被温室记住。",
+        "六枚印记曾经有名字，后来只剩用途。"
+      ]
+    },
+    {
+      "id": "npc_broken_singer",
+      "name": "断弦歌者",
+      "role": "keeper_truth",
+      "position_hint": "断弦暖房",
+      "dialogue": [
+        "我唱歌不是为了美，是为了让裂缝睡着。",
+        "你拿走印记，黑曜巡礼军就会听见你。",
+        "若终章让钟重鸣，请记得给我们一个不用继续守门的早晨。"
+      ]
+    },
+    {
+      "id": "npc_beeswax_vendor",
+      "name": "蜂蜡商人蜜岚",
+      "role": "vendor_sidequest",
+      "position_hint": "蜂蜡小屋",
+      "dialogue": [
+        "花粉过滤器便宜，死在花粉里很贵。",
+        "蜂巢里有一枚盐页，但我不建议你用脸去拿。",
+        "黑曜路上不卖东西，那里的人只收沉默。"
+      ]
+    },
+    {
+      "id": "npc_root_prisoner",
+      "name": "根笼囚徒",
+      "role": "gate_hint",
+      "position_hint": "逆生竖井",
+      "dialogue": [
+        "下劈棘球，你会被弹起来。下劈我，我会骂你。",
+        "根笼下方有一条回前厅的暗道。",
+        "园主害怕断掉的弦，因为那声音像旧王的命令。"
+      ]
+    }
+  ],
+  "enemy_points": [
+    {
+      "id": "C4_E01",
+      "room": "string_bridge_nursery",
+      "spawn_mix": [
+        "vine_crawler",
+        "vine_crawler"
+      ],
+      "combat_role": "爬行近战，配移动平台考验站位。",
+      "story_use": "基础藤壳寄生体展示温室失控。",
+      "asset_hint": "GothicVania 幼虫公开素材藤壳色板版本。"
+    },
+    {
+      "id": "C4_E02",
+      "room": "beeswax_hut",
+      "spawn_mix": [
+        "wax_bee",
+        "wax_bee",
+        "wax_bee"
+      ],
+      "combat_role": "小飞行群，逼玩家使用空中攻击。",
+      "story_use": "蜂蜡商人驱赶失败的蜂群。",
+      "asset_hint": "GothicVania 飞行敌人本地公开素材缩小黄黑版本。"
+    },
+    {
+      "id": "C4_E03",
+      "room": "inverted_root_well",
+      "spawn_mix": [
+        "root_cage_hunter"
+      ],
+      "combat_role": "抓取和定身，测试下劈逃脱。",
+      "story_use": "根笼猎手收集失败巡礼者。",
+      "asset_hint": "GothicVania 大型怪物公开素材加根须碰撞线。"
+    },
+    {
+      "id": "C4_E04",
+      "room": "broken_string_hothouse",
+      "spawn_mix": [
+        "pollen_lutist"
+      ],
+      "combat_role": "远程音波改变空中节奏。",
+      "story_use": "断弦歌者的失控伴奏者。",
+      "asset_hint": "GothicVania 施法敌人公开素材，弹体使用 Kenney CC0 符号。"
+    },
+    {
+      "id": "C4_E05",
+      "room": "thorn_chapel",
+      "spawn_mix": [
+        "thorn_sentinel"
+      ],
+      "combat_role": "重甲盾兵，必须下劈破甲。",
+      "story_use": "棘藤封口守门者。",
+      "asset_hint": "GothicVania 哨兵本地公开素材藤甲色板版本。"
+    }
+  ],
+  "boss": {
+    "id": "C4_B01",
+    "name": "断弦园主",
+    "kind": "broken_string_gardener",
+    "arena": "园主舞台，左右弦柱控制藤蔓墙，中间有可下劈反弹的棘球。",
+    "phase_1": "藤鞭横扫、花粉风、弦桥断续。",
+    "phase_2": "舞台两侧棘墙推进，玩家用 thorn_downstrike 下劈棘球反弹到安全层。",
+    "drop": [
+      "silent_mark_greenhouse",
+      "thorn_downstrike",
+      "living_cover_vein"
+    ],
+    "story_after": "活封面证词补全第七签署者名字第二段，黑曜巡礼道开放。",
+    "asset_hint": "GothicVania 大型植物/怪物公开素材或 OpenGameArt Public Domain 植物 Boss 候选。"
+  },
+  "gates": [
+    {
+      "id": "thorn_bounce_path",
+      "type": "thorn_bounce",
+      "requires": "thorn_downstrike",
+      "placement": "逆生竖井上层",
+      "unlock_logic": "下劈棘球反弹到高台。"
+    },
+    {
+      "id": "break_floor_chapel",
+      "type": "break_floor",
+      "requires": "thorn_downstrike",
+      "placement": "棘藤礼拜堂",
+      "unlock_logic": "破坏脆弱地板进入 Boss 前。"
+    },
+    {
+      "id": "double_jump_greenhouse",
+      "type": "double_jump_height",
+      "requires": "double_thread_jump",
+      "placement": "弦桥苗圃高层",
+      "unlock_logic": "第三章能力返场奖励。"
+    }
+  ],
+  "key_collectibles": [
+    {
+      "id": "pollen_filter",
+      "name": "花粉过滤器",
+      "category": "utility",
+      "use": "减少花粉雾遮挡，降低平台难度。",
+      "story_flag": "item_ch04_pollen_filter"
+    },
+    {
+      "id": "living_cover_vein",
+      "name": "活封面根脉",
+      "category": "ending_clue",
+      "use": "与盐白书库偏旁拼出第七签署者名的一半。",
+      "story_flag": "item_ch04_living_cover_vein"
+    },
+    {
+      "id": "greenhouse_song_page",
+      "name": "温室歌页",
+      "category": "sidequest",
+      "use": "补全断弦歌者支线。",
+      "story_flag": "item_ch04_song_page"
+    },
+    {
+      "id": "silent_mark_greenhouse",
+      "name": "断弦失声印记",
+      "category": "main_progression",
+      "use": "证明第四章完成并解锁黑曜巡礼道。",
+      "story_flag": "mark_ch04_greenhouse"
+    },
+    {
+      "id": "heart_knot_fragment",
+      "name": "心结碎片",
+      "category": "upgrade",
+      "use": "逆生竖井支线奖励，提高生命或能量成长。",
+      "story_flag": "item_ch04_heart_knot_fragment"
+    }
+  ],
+  "ending_clues": [
+    {
+      "route": "重鸣",
+      "clue": "断弦歌者仍相信钟声能让裂缝睡去。",
+      "evidence_item": "greenhouse_song_page"
+    },
+    {
+      "route": "断冠",
+      "clue": "六位守门者被当作材料继续生长，封印系统不可原样继承。",
+      "evidence_item": "silent_mark_greenhouse"
+    },
+    {
+      "route": "真结局",
+      "clue": "活封面根脉与盐白书库偏旁拼出第七签署者名的一半。",
+      "evidence_item": "living_cover_vein"
+    }
+  ],
+  "open_assets": {
+    "environment": {
+      "source": "GothicVania demo redistributable CH01 art, GothicVania Cemetery local Public Domain style assets, Kenney CC0 platform/UI pieces",
+      "path": "godot/assets/sprites/gothicvania/demo; godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney",
+      "license_basis": "本地已记录免费/开放候选与 CC0"
+    },
+    "enemies": {
+      "source": "GothicVania Cemetery / Ansimuz public-domain-style local import",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选；敌人不引用 NPC 同族图"
+    },
+    "boss": {
+      "source": "GothicVania large enemy local import or OpenGameArt Public Domain plant boss candidate",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选"
+    },
+    "npc": {
+      "source": "GothicVania demo redistributable NPC art",
+      "path": "godot/assets/sprites/gothicvania/demo/*.png",
+      "license_basis": "仅友方 NPC 使用，带友方标识"
+    },
+    "ui_fx": {
+      "source": "Kenney Platformer Art Deluxe CC0 and Kenney Particle Pack CC0 candidates",
+      "path": "godot/assets/sprites/ui/kenney",
+      "license_basis": "CC0"
+    },
+    "audio": {
+      "source": "project local OGG audio and CC0 wind/pollen/chime candidates",
+      "path": "godot/assets/audio/*.ogg",
+      "license_basis": "本地已记录或 CC0 候选"
+    }
+  },
+  "vfx_audio": [
+    {
+      "id": "thorn_downstrike",
+      "visual": "下劈命中棘球时出现垂直绯线和绿色碎叶冲击环。",
+      "audio": "短促木裂声加下劈重击本地 OGG。",
+      "asset_policy": "视觉使用 Godot 线条/粒子和本地开放素材；新增木裂音只用 CC0。"
+    },
+    {
+      "id": "pollen_wind",
+      "visual": "花粉风以半透明黄色带显示推力方向。",
+      "audio": "轻风声和蜂蜡颤音。",
+      "asset_policy": "风声使用本地 OGG 或 CC0 候选。"
+    },
+    {
+      "id": "string_bridge_break",
+      "visual": "黑弦平台断裂时绯线短暂弹回两端。",
+      "audio": "断弦拨片声和轻微石屑落地声。",
+      "asset_policy": "UI 符号使用 Kenney CC0；断弦音只用 CC0 候选。"
+    }
+  ]
+}
+

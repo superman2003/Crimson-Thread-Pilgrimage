@@ -1,0 +1,503 @@
+{
+  "game_title": "绯线巡礼",
+  "version": 1,
+  "asset_policy": {
+    "required": "只使用免费、开源或本地已记录为可商用友好的素材；付费素材不得作为必需项。",
+    "environment_primary": "Ansimuz GothicVania Cemetery / OpenGameArt public domain style",
+    "moss_environment": "GothicVania demo redistributable CH01 art",
+    "ui": "Kenney Platformer Art Deluxe CC0",
+    "audio": "当前本地 OGG 音频与可程序化参数音效，后续外部音频必须 CC0 或等价授权",
+    "npc_rule": "NPC 使用可再分发 GothicVania demo 静态图，并保留友方标识；敌人/Boss 使用 Dark Fantasy Bestiary。",
+    "enemy": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0。"
+  },
+  "global_story": {
+    "premise": "旧王冠把六座失声之城缝进沉默里。主角是能看见绯色命线的巡礼者，需要找回六枚失声印记，判断王冠到底是封印灾厄，还是吞掉了城市自己的声音。",
+    "main_mystery": "每章 Boss 守着一段被篡改的钟声记忆。玩家击败它们后得到能力，也得到一段互相矛盾的证词。",
+    "ending_seed": "第六章揭示旧王并非单独的反派，六座城市曾共同请求封印。玩家最终选择重铸钟声、切断王冠，或保留沉默进入二周目。"
+  },
+  "chapters": [
+    {
+      "index": 1,
+      "id": "ch01_moss_bell_court",
+      "runtime_config_id": "demo_ch01_moss_bell_court",
+      "name": "苔钟庭",
+      "biome": "苔藓地底庭院、旧钟、齿轮桥",
+      "core_loop": "教学跳跃、冲刺、近战、清怪开路、跑酷段、捷径和 Boss 门。",
+      "objective": "清完苔钟庭三处敌群，打开后门捷径，击败锈冠守卫。",
+      "reward": "裂隙钩索",
+      "open_assets": {
+        "map": "godot/assets/sprites/gothicvania/demo",
+        "enemy": "godot/assets/third_party/dark_fantasy_bestiary | OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0 | 敌人和 Boss 使用暗黑精灵表裁帧",
+        "npc": "godot/assets/sprites/gothicvania/demo/*.png 仅友方 NPC 使用",
+        "ui": "godot/assets/sprites/ui/kenney",
+        "audio": "godot/assets/audio"
+      },
+      "npcs": [
+        {
+          "role": "threadsmith",
+          "name": "织线学徒",
+          "place": "入口灯碑",
+          "purpose": "教学攻击、治疗和技能。",
+          "dialogue": [
+            "左键是斩击，右键用能量缝回一格命。",
+            "E 会把绯线拉紧，打出重击。别把能量全花在贪刀上。",
+            "苔钟庭只是第一枚失声印记，别被这座小庭院骗了。"
+          ]
+        },
+        {
+          "role": "pilgrim",
+          "name": "守门朝圣者",
+          "place": "旧锁门前",
+          "purpose": "提示绕路和清怪开路目标。",
+          "dialogue": [
+            "正门被锈钟封死，别从正面硬闯。",
+            "三处敌群分别盘踞在上桥、下庭和上层钟廊。",
+            "你打开后门以后，回 Boss 的路会短很多。"
+          ]
+        },
+        {
+          "role": "cartographer",
+          "name": "升台绘图师",
+          "place": "齿轮升台",
+          "purpose": "解释地图和房间目标。",
+          "dialogue": [
+            "按 M 看地图，亮起的房间就是你已经走过的路。",
+            "青色是你，金色改为战利品提示，琥珀色是机关，红色是首领。",
+            "别一直在下庭绕圈，上层钟廊会把你带回后门。"
+          ]
+        }
+      ],
+      "enemies": [
+        "苔壳爬行者",
+        "铜翼幽影",
+        "孢钟匠",
+        "齿轮哨兵",
+        "回廊重甲"
+      ],
+      "boss": {
+        "name": "锈冠守卫",
+        "pattern": "冲撞、身体碾压、震地，无远程法术。",
+        "story_drop": "王冠第一次被称作一口倒扣在城市上的钟。"
+      },
+      "vfx_audio": [
+        "普通斩击：短白弧光和金属轻响",
+        "钩索预告：青色线段闪烁",
+        "Boss 震地：低频重击和地面尘环"
+      ],
+      "aliases": [
+        "moss-bell-court"
+      ],
+      "chapter_file": "res://data/demo_ch01_moss_bell_court.json"
+    },
+    {
+      "index": 2,
+      "id": "ch02_rain_foundry_canal",
+      "chapter_file": "res://data/chapters/ch02_rain_foundry_canal.json",
+      "name": "铸雨渠",
+      "biome": "雨渠入口、铸雨外渠、管工休息间等区域",
+      "core_loop": "学习水流推力和低顶通道。 -> 找到第一座水轮升降机。",
+      "objective": "沿雨渠进入旧铸坊，找到被水声藏起的铁匠印记，解锁墙面攀附与回声钩索。",
+      "reward": "丝壁攀附与回声钩索",
+      "open_assets": {
+        "map": "godot/assets/sprites/gothicvania/demo; godot/assets/sprites/gothicvania | GothicVania demo redistributable CH01 art and GothicVania Cemetery local Public Domain style assets | 本地已记录免费/开放候选",
+        "enemy": "godot/assets/third_party/dark_fantasy_bestiary | OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0 | 敌人和 Boss 使用暗黑精灵表裁帧",
+        "npc": "godot/assets/sprites/gothicvania/demo/*.png | GothicVania demo redistributable NPC art | 友方 NPC 使用，带友方标识",
+        "ui": "godot/assets/sprites/ui/kenney | Kenney Platformer Art Deluxe CC0 and Kenney Particle Pack CC0 candidates | CC0",
+        "audio": "godot/assets/audio/*.ogg | project local OGG audio and CC0 water/drop sound candidates | 本地已记录或 CC0 候选"
+      },
+      "npcs": [
+        {
+          "role": "ability_teacher",
+          "name": "失聪铁匠柳",
+          "place": "管工休息间",
+          "purpose": "ability_teacher",
+          "dialogue": [
+            "你听见雨，说明你还没听见铁。",
+            "贴住青铜湿墙，线会替你抓住一瞬；别贪，湿墙也会甩开你。",
+            "若井底有人敲三下，不要回答第四下。那是黑潮在学人说话。"
+          ]
+        },
+        {
+          "role": "route_hint",
+          "name": "管渠童子",
+          "place": "铸雨外渠低桥",
+          "purpose": "route_hint",
+          "dialogue": [
+            "水往右走，人不一定。",
+            "红阀会让上面的水轮停一口气，够你跳过去。",
+            "我把水轮阀记留在不会下雨的房间，别问我为什么那里还会长青苔。"
+          ]
+        },
+        {
+          "role": "story_vendor",
+          "name": "锈泵修女",
+          "place": "三岔泵井安全台",
+          "purpose": "story_vendor",
+          "dialogue": [
+            "铸钟时，工匠们把自己的名字留在水声里。",
+            "雨会偷走你的跳跃，买一枚防潮线结会轻松些。",
+            "盐白书库保存着第一份契约，可他们说纸早就结晶了。"
+          ]
+        },
+        {
+          "role": "sidequest",
+          "name": "半沉工头",
+          "place": "沉炉大厅侧廊",
+          "purpose": "sidequest",
+          "dialogue": [
+            "把三枚工牌带回休息间，我就告诉你哪根管子通向 Boss 后门。",
+            "别相信干净的水，那里面没有活人的倒影。",
+            "铁匠印记在泵王心口，不在旧柜里。"
+          ]
+        }
+      ],
+      "enemies": [
+        "drain_leech",
+        "pipe_thrower",
+        "rust_diver",
+        "bell_mote",
+        "waterwheel_knight"
+      ],
+      "boss": {
+        "name": "沉锤铁匠",
+        "pattern": "横锤、跳锤、水波震退。；水位升高，Boss 敲响三枚钩环；玩家用 echo_hook 拉断钩环使其硬直。",
+        "story_drop": "铁匠承认自己把一批活人名字铸进王冠，只有盐白书库保存谁下令的原文。"
+      },
+      "vfx_audio": [
+        "wall_grip：墙面短暂亮起青铜湿光，角色脚下出现两段绯线拉痕。；低频吸附声加轻微水滴尾音。",
+        "echo_hook：钩索击中铃环时出现淡蓝回声圈和短线残影。；钩环金属声后接一拍水声回响。",
+        "boss_water_hammer：水锤落点出现半圆水浪和地面抖动环。；heavy_hit 本地 OGG 与 CC0 水浪候选叠加。"
+      ],
+      "runtime_config_id": "demo_ch02_rain_foundry_canal"
+    },
+    {
+      "index": 3,
+      "id": "ch03_saltwhite_archive",
+      "chapter_file": "res://data/chapters/ch03_saltwhite_archive.json",
+      "name": "盐白书库",
+      "biome": "盐晶门厅、反页阅览层、静音阅览井等区域",
+      "core_loop": "击败铸雨渠 Boss 后进入书库。 -> 认识迟影机关。",
+      "objective": "进入被盐晶封住的档案塔，找到王冠契约原本，确认沉默钟声的法律来源。",
+      "reward": "双线跳与钟壳格挡",
+      "open_assets": {
+        "map": "godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney | GothicVania Cemetery local Public Domain style stone/crypt tiles and Kenney CC0 UI symbols | 本地已记录免费/开放候选与 CC0",
+        "enemy": "godot/assets/third_party/dark_fantasy_bestiary | OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0 | 敌人和 Boss 使用暗黑精灵表裁帧",
+        "npc": "godot/assets/sprites/gothicvania/demo/*.png | GothicVania demo redistributable NPC art | 友方 NPC 使用，带友方标识",
+        "ui": "godot/assets/sprites/ui/kenney | Kenney Platformer Art Deluxe CC0 and Kenney UI Pack CC0 candidates | CC0",
+        "audio": "godot/assets/audio/*.ogg | project local OGG audio and CC0 glass/salt chime candidates | 本地已记录或 CC0 候选"
+      },
+      "npcs": [
+        {
+          "role": "unreliable_guide",
+          "name": "盐页管理员叶",
+          "place": "盐晶门厅",
+          "purpose": "unreliable_guide",
+          "dialogue": [
+            "书库只保存被允许保存的事。",
+            "别跑太直，迟影会记住你的直线。",
+            "若你带着铁匠誓牌，就别问我它为什么缺角。"
+          ]
+        },
+        {
+          "role": "mechanic_teacher",
+          "name": "沉默读者",
+          "place": "反页阅览层",
+          "purpose": "mechanic_teacher",
+          "dialogue": [
+            "我上次说话，影子替我说完了。",
+            "走一步，停半拍，再跳。让影子撞在你昨天的位置。",
+            "契约页藏在删名塔，不在索引室。索引只负责说谎。"
+          ]
+        },
+        {
+          "role": "true_ending_clue",
+          "name": "逃亡书记",
+          "place": "契约索引室暗格",
+          "purpose": "true_ending_clue",
+          "dialogue": [
+            "我偷走了第七签署者的姓，只偷到一个偏旁。",
+            "三张盐页换一段真名，少一张也能换一个更好听的谎。",
+            "王冠要的不是服从，是每个人自愿忘记自己曾经答应过什么。"
+          ]
+        },
+        {
+          "role": "vendor_guard_hint",
+          "name": "封蜡档案员",
+          "place": "白书脊回廊",
+          "purpose": "vendor_guard_hint",
+          "dialogue": [
+            "买一枚静靴吧，盐刺听得见鞋底。",
+            "钟壳格挡不是盾，是让敌人的誓言撞回自己身上。",
+            "断弦温室曾给书库送来活的封面，那里知道印记原本是谁。"
+          ]
+        }
+      ],
+      "enemies": [
+        "salt_bookmite",
+        "page_duelist",
+        "index_scribe",
+        "summoned_page",
+        "wax_lancer",
+        "erasure_bailiff"
+      ],
+      "boss": {
+        "name": "盐白契约官",
+        "pattern": "封蜡突刺、盐刃横扫、错页召唤。；迟影加入，复制玩家最近一次攻击；完美格挡可让迟影击中 Boss。",
+        "story_drop": "契约原本显示六枚印记曾是六位守门者心脏，第七签署者被系统删名。"
+      },
+      "vfx_audio": [
+        "delayed_shadow：迟影以半透明白盐轮廓复写玩家上一段动作。；玻璃摩擦声和低音翻页声。",
+        "bell_guard：格挡成功时出现白色钟壳半环，敌方封蜡裂开。；短促钟壳响和能量回流声。",
+        "contract_break：契约碎页从 Boss 身后散开，绯色线痕短暂显字。；纸页撕裂声与低频钟声。"
+      ],
+      "runtime_config_id": "demo_ch03_saltwhite_archive"
+    },
+    {
+      "index": 4,
+      "id": "ch04_broken_string_greenhouse",
+      "chapter_file": "res://data/chapters/ch04_broken_string_greenhouse.json",
+      "name": "断弦温室",
+      "biome": "温室前厅、弦桥苗圃、蜂蜡小屋等区域",
+      "core_loop": "确认移动藤蔓和花粉风的基础节奏。 -> 通过断续弦桥并取得花粉过滤器。",
+      "objective": "穿越会移动的藤蔓温室，取得断弦印记，并确认六枚印记曾经都是活人守门者。",
+      "reward": "棘线下劈",
+      "open_assets": {
+        "map": "godot/assets/sprites/gothicvania/demo; godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney | GothicVania demo redistributable CH01 art, GothicVania Cemetery local Public Domain style assets, Kenney CC0 platform/UI pieces | 本地已记录免费/开放候选与 CC0",
+        "enemy": "godot/assets/third_party/dark_fantasy_bestiary | OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0 | 敌人和 Boss 使用暗黑精灵表裁帧",
+        "npc": "godot/assets/sprites/gothicvania/demo/*.png | GothicVania demo redistributable NPC art | 友方 NPC 使用，带友方标识",
+        "ui": "godot/assets/sprites/ui/kenney | Kenney Platformer Art Deluxe CC0 and Kenney Particle Pack CC0 candidates | CC0",
+        "audio": "godot/assets/audio/*.ogg | project local OGG audio and CC0 wind/pollen/chime candidates | 本地已记录或 CC0 候选"
+      },
+      "npcs": [
+        {
+          "role": "main_witness",
+          "name": "老园丁弦伯",
+          "place": "温室前厅",
+          "purpose": "main_witness",
+          "dialogue": [
+            "书库的封面，是从我们这里剪走的活皮。",
+            "藤蔓先颤，再动。急着跳的人会被温室记住。",
+            "六枚印记曾经有名字，后来只剩用途。"
+          ]
+        },
+        {
+          "role": "keeper_truth",
+          "name": "断弦歌者",
+          "place": "断弦暖房",
+          "purpose": "keeper_truth",
+          "dialogue": [
+            "我唱歌不是为了美，是为了让裂缝睡着。",
+            "你拿走印记，黑曜巡礼军就会听见你。",
+            "若终章让钟重鸣，请记得给我们一个不用继续守门的早晨。"
+          ]
+        },
+        {
+          "role": "vendor_sidequest",
+          "name": "蜂蜡商人蜜岚",
+          "place": "蜂蜡小屋",
+          "purpose": "vendor_sidequest",
+          "dialogue": [
+            "花粉过滤器便宜，死在花粉里很贵。",
+            "蜂巢里有一枚盐页，但我不建议你用脸去拿。",
+            "黑曜路上不卖东西，那里的人只收沉默。"
+          ]
+        },
+        {
+          "role": "gate_hint",
+          "name": "根笼囚徒",
+          "place": "逆生竖井",
+          "purpose": "gate_hint",
+          "dialogue": [
+            "下劈棘球，你会被弹起来。下劈我，我会骂你。",
+            "根笼下方有一条回前厅的暗道。",
+            "园主害怕断掉的弦，因为那声音像旧王的命令。"
+          ]
+        }
+      ],
+      "enemies": [
+        "vine_crawler",
+        "wax_bee",
+        "root_cage_hunter",
+        "pollen_lutist",
+        "thorn_sentinel"
+      ],
+      "boss": {
+        "name": "断弦园主",
+        "pattern": "藤鞭横扫、花粉风、弦桥断续。；舞台两侧棘墙推进，玩家用 thorn_downstrike 下劈棘球反弹到安全层。",
+        "story_drop": "活封面证词补全第七签署者名字第二段，黑曜巡礼道开放。"
+      },
+      "vfx_audio": [
+        "thorn_downstrike：下劈命中棘球时出现垂直绯线和绿色碎叶冲击环。；短促木裂声加下劈重击本地 OGG。",
+        "pollen_wind：花粉风以半透明黄色带显示推力方向。；轻风声和蜂蜡颤音。",
+        "string_bridge_break：黑弦平台断裂时绯线短暂弹回两端。；断弦拨片声和轻微石屑落地声。"
+      ],
+      "runtime_config_id": "demo_ch04_broken_string_greenhouse"
+    },
+    {
+      "index": 5,
+      "id": "ch05_obsidian_pilgrim_road",
+      "chapter_file": "res://data/chapters/ch05_obsidian_pilgrim_road.json",
+      "name": "黑曜巡礼道",
+      "biome": "黑曜哨站、破旗路、盲钟营地等区域",
+      "core_loop": "认识影门和巡礼军阵型。 -> 穿过第一段枪兵阵。",
+      "objective": "回到旧王都外环，面对被静音的巡礼军，取得沉默军令并学会灯影相位。",
+      "reward": "灯影相位",
+      "open_assets": {
+        "map": "godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney | GothicVania Cemetery local Public Domain style stone/crypt assets and Kenney CC0 flags/UI symbols | 本地已记录免费/开放候选与 CC0",
+        "enemy": "godot/assets/third_party/dark_fantasy_bestiary | OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0 | 敌人和 Boss 使用暗黑精灵表裁帧",
+        "npc": "godot/assets/sprites/gothicvania/demo/*.png | GothicVania demo redistributable NPC art | 友方 NPC 使用，带友方标识",
+        "ui": "godot/assets/sprites/ui/kenney | Kenney Platformer Art Deluxe CC0 and Kenney UI Pack CC0 candidates | CC0",
+        "audio": "godot/assets/audio/*.ogg | project local OGG audio and CC0 banner/low horn candidates | 本地已记录或 CC0 候选"
+      },
+      "npcs": [
+        {
+          "role": "route_hint",
+          "name": "黑曜引路人",
+          "place": "黑曜哨站",
+          "purpose": "route_hint",
+          "dialogue": [
+            "这里的路只给还会违抗命令的人走。",
+            "灯亮时穿门，灯灭时别把自己留在石头里。",
+            "巡礼军不会说话，但他们会执行你不想听见的命令。"
+          ]
+        },
+        {
+          "role": "combat_mark_witness",
+          "name": "盲钟骑士",
+          "place": "盲钟营地",
+          "purpose": "combat_mark_witness",
+          "dialogue": [
+            "我失败过，所以我听不见王冠命令的一小半。",
+            "如果你选择重鸣，我会再次成为军队。",
+            "如果你选择断冠，记得先告诉我们为什么死。"
+          ]
+        },
+        {
+          "role": "ability_teacher",
+          "name": "灯影修女",
+          "place": "影门回廊前",
+          "purpose": "ability_teacher",
+          "dialogue": [
+            "灯影相位不是隐身，是向命令请半秒假。",
+            "黑曜影门会吃能量，别空着心穿过去。",
+            "终章有一扇门只认沉默军令，但它也会认出拒绝命令的人。"
+          ]
+        },
+        {
+          "role": "sidequest_moral_choice",
+          "name": "逃旗手",
+          "place": "巡礼军墓",
+          "purpose": "sidequest_moral_choice",
+          "dialogue": [
+            "我偷了一面不会响的旗，结果它每天晚上命令我回队。",
+            "帮我烧掉三面复活旗，我把军令碎片给你。",
+            "统帅不是坏人，他只是从没被允许停下。"
+          ]
+        }
+      ],
+      "enemies": [
+        "obsidian_spearman",
+        "phase_censor",
+        "silent_bugbler",
+        "kneeling_crossbowman",
+        "pilgrim_chariot"
+      ],
+      "boss": {
+        "name": "静音巡礼统帅",
+        "pattern": "枪阵横扫、盾阵推进、军令定身圈。；召唤两列巡礼军冲锋，玩家需用 lantern_phase 穿过影门或军阵空隙。",
+        "story_drop": "统帅短暂恢复自我，交出沉默军令，承认王冠核心会把所有失败者重新编入军队。"
+      },
+      "vfx_audio": [
+        "lantern_phase：角色穿影门时身体短暂变成黑曜半透明轮廓，身后留下灯芯残线。；低频灯芯吸入声和短促相位噪音。",
+        "silent_order：军令定身圈以黑紫圆环展开，边缘有白色命令字符。；无声前摇后接一次低频压缩声。",
+        "parade_charge：军阵冲锋前地面出现两排破旗影线。；低频步伐循环和旗杆震动声。"
+      ],
+      "runtime_config_id": "demo_ch05_obsidian_pilgrim_road"
+    },
+    {
+      "index": 6,
+      "id": "ch06_silent_crown_core",
+      "chapter_file": "res://data/chapters/ch06_silent_crown_core.json",
+      "name": "无声王冠",
+      "biome": "静默外壳、王冠前厅、钟庭回声室等区域",
+      "core_loop": "使用沉默军令和五枚失声印记打开终章门。 -> 选择五个回声室顺序。",
+      "objective": "集齐五枚失声印记与沉默军令后进入王冠核心，补全第六枚印记，决定钟声命运。",
+      "reward": "王冠共鸣与三结局",
+      "open_assets": {
+        "map": "godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney | GothicVania Cemetery local Public Domain style stone/crypt assets and Kenney CC0 symbols | 本地已记录免费/开放候选与 CC0",
+        "enemy": "godot/assets/third_party/dark_fantasy_bestiary | OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0 | 敌人和 Boss 使用暗黑精灵表裁帧",
+        "npc": "godot/assets/sprites/gothicvania/demo/*.png | GothicVania demo redistributable NPC art | 友方 NPC 使用，带友方标识",
+        "ui": "godot/assets/sprites/ui/kenney | Kenney Platformer Art Deluxe CC0 and Kenney Particle Pack CC0 candidates | CC0",
+        "audio": "godot/assets/audio/*.ogg | project local OGG audio, Bread Adventure recorded audio, and CC0 deep bell/pulse candidates | 本地已记录、Apache-2.0 或 CC0 候选"
+      },
+      "npcs": [
+        {
+          "role": "true_ending_core",
+          "name": "初代巡礼者回声",
+          "place": "王冠前厅",
+          "purpose": "true_ending_core",
+          "dialogue": [
+            "我签下第七个名字，然后把名字藏进绯线。",
+            "重鸣会救城，断冠会救人，改写契约才会让他们都记得自己是谁。",
+            "你若没有带来六处证词，就只能做一个干净的错误选择。"
+          ]
+        },
+        {
+          "role": "world_warning",
+          "name": "旧王钟舌",
+          "place": "深井钟舌",
+          "purpose": "world_warning",
+          "dialogue": [
+            "我压住黑潮，也压住了每个求救声。",
+            "我不是王，我只是被王戴成王冠的钟。",
+            "敲响我，城市会醒；拔掉我，井也会醒。"
+          ]
+        },
+        {
+          "role": "ending_checker",
+          "name": "六印守望者",
+          "place": "王冠前厅安全台",
+          "purpose": "ending_checker",
+          "dialogue": [
+            "苔、雨、盐、弦、曜，五枚已归，最后一枚在你要打碎的东西里。",
+            "若你缺少证词，我不会阻止你，但结局会少一种颜色。",
+            "把每枚印记放回心口前，先问它是否愿意。"
+          ]
+        },
+        {
+          "role": "hidden_temptation",
+          "name": "黑潮童声",
+          "place": "终章隐藏支线",
+          "purpose": "hidden_temptation",
+          "dialogue": [
+            "他们说我是灾难，可我只是在井底学会了说话。",
+            "王冠吃掉声音，我吃掉沉默。你觉得谁更像怪物？",
+            "把钟舌拔下来，我给你一个没有命令的世界。"
+          ]
+        }
+      ],
+      "enemies": [
+        "echo_moss_larva",
+        "falling_clapper",
+        "echo_waterwheel_knight",
+        "echo_contract_scribe",
+        "delayed_shadow",
+        "echo_thorn_sentinel",
+        "echo_pilgrim_commander_minor",
+        "isotope_lumen"
+      ],
+      "boss": {
+        "name": "无声王冠",
+        "pattern": "复刻五章 Boss 的简化招式：冲撞、水锤、盐刃、藤鞭、军阵。；王冠命令玩家重鸣，场地出现可用 crown_resonance 改写的三扇门。",
+        "story_drop": "根据选择进入重鸣、断冠或绯线真结局。"
+      },
+      "vfx_audio": [
+        "echo_room_open：五色线环依次展开，门面浮出对应章节印记。；低频钟声与章节主题音色短句。",
+        "crown_resonance：王冠共鸣时三条绯线从玩家、钟舌和门锁之间重接。；低频脉冲、线弦拨动声和短暂停顿。",
+        "ending_doors：三色门分别使用金、黑、绯的线框和图标区分。；重鸣为钟声，断冠为断弦，真结局为绯线和声。"
+      ],
+      "runtime_config_id": "demo_ch06_silent_crown_core"
+    }
+  ]
+}
+

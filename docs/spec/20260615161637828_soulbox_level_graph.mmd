@@ -1,0 +1,73 @@
+flowchart LR
+  subgraph C1["第1章 翠锈钟庭"]
+    C1S["S/BF1 入口灯碑"] --> C1V["V/D 正门可见但锁死"]
+    C1V --> C1N1["齿廊/竖井"]
+    C1N1 --> C1N3["外庭锁门房"]
+    C1N3 --> C1SC["SC1 背面开门"]
+    C1SC --> C1V
+    C1SC --> C1B["BF2 -> Boss"]
+  end
+
+  subgraph C2["第2章 镜雨档案馆"]
+    C2S["S/BF1 雨廊"] --> C2V["V/D 玻璃总目窗"]
+    C2V --> C2G["G1 钩索井"]
+    C2G --> C2N["真实书库 -> 镜中侧廊"]
+    C2N --> C2SC["SC1 镜柜背门"]
+    C2SC --> C2V
+    C2SC --> C2B["BF2 -> Boss"]
+  end
+
+  subgraph C3["第3章 余烬织炉"]
+    C3S["S/BF1 炉槽坠口"] --> C3V["V/D 炉芯桥被热浪封"]
+    C3V --> C3N["外炉环道"]
+    C3N --> C3SH["冷却安全格"]
+    C3SH --> C3SC["SC1 冷却闸门"]
+    C3SC --> C3V
+    C3SC --> C3B["BF2 -> Boss"]
+  end
+
+  subgraph C4["第4章 盐月水渠"]
+    C4S["S/BF1 水门入口"] --> C4V["V/D 月窗闸台"]
+    C4V --> C4A["上层安全慢路"]
+    C4V --> C4B1["下层危险快路"]
+    C4A --> C4N["分流阀厅"]
+    C4B1 --> C4N
+    C4N --> C4SC["SC1 月闸回廊"]
+    C4SC --> C4V
+    C4SC --> C4Boss["BF2 -> Boss"]
+  end
+
+  subgraph C5["第5章 骨枝空园"]
+    C5S["S/BF1 根部"] --> C5V["V/D 树冠可见断桥阻断"]
+    C5V --> C5N1["根桥下层"]
+    C5N1 --> C5N2["无根天井"]
+    C5N2 --> C5SC1["SC1 下落门A"]
+    C5SC1 --> C5S
+    C5N2 --> C5N3["枝冠回廊"]
+    C5N3 --> C5SC2["SC2 下落门B"]
+    C5SC2 --> C5S
+    C5N3 --> C5Boss["BF2 -> Boss"]
+  end
+
+  subgraph C6["第6章 无星纺核"]
+    C6S["S/BF1 前室"] --> C6V["V/D 中央核心可见"]
+    C6V --> C6H["HUB 五回声室"]
+    C6H --> R1["钟庭回声"]
+    C6H --> R2["镜雨回声"]
+    C6H --> R3["织炉回声"]
+    C6H --> R4["盐月回声"]
+    C6H --> R5["骨枝回声"]
+    R1 --> C6H
+    R2 --> C6H
+    R3 --> C6H
+    R4 --> C6H
+    R5 --> C6H
+    C6H --> C6SC["SC1B 环门"]
+    C6SC --> C6Boss["失重纺井 -> BF2 -> Boss"]
+  end
+
+  C1B --> C2S
+  C2B --> C3S
+  C3B --> C4S
+  C4Boss --> C5S
+  C5Boss --> C6S

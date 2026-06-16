@@ -1,0 +1,338 @@
+{
+  "id": "ch03_saltwhite_archive",
+  "name": "第三章：盐白书库",
+  "main_goal": "进入被盐晶封住的档案塔，找到王冠契约原本，确认沉默钟声的法律来源。",
+  "story_beats": [
+    {
+      "id": "entry_oath_plate",
+      "summary": "铁匠誓牌打开盐晶门厅，白色封蜡在门上拼出缺角的王冠徽记。",
+      "story_flag": "beat_ch03_entry"
+    },
+    {
+      "id": "delayed_shadow",
+      "summary": "玩家发现盐晶会复写最近一次动作，迟影机关让书库像在模仿活人。",
+      "story_flag": "beat_ch03_delay_shadow"
+    },
+    {
+      "id": "seventh_signature_missing",
+      "summary": "契约索引室所有目录都缺少第七签署者，空白页只留下绯色线痕。",
+      "story_flag": "beat_ch03_missing_seventh"
+    },
+    {
+      "id": "contract_reveal",
+      "summary": "盐白契约官战败后，契约原本显出一句话：六枚印记曾是六个守门者的心脏。",
+      "story_flag": "beat_ch03_contract_truth"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "salt_gate",
+      "name": "盐晶门厅",
+      "kind": "gate",
+      "objective": "击败铸雨渠 Boss 后进入书库。",
+      "guide": "白色封蜡门会响应铁匠誓牌，靠近后按交互确认。",
+      "danger": "盐晶尖刺会慢速生长，停留越久通路越窄。",
+      "next": "反页阅览层"
+    },
+    {
+      "id": "reverse_reading_floor",
+      "name": "反页阅览层",
+      "kind": "mechanic",
+      "objective": "认识迟影机关。",
+      "guide": "走一步，停半拍，再跳；让迟影撞在你昨天的位置。",
+      "danger": "迟影会复制上一段移动。",
+      "next": "静音阅览井"
+    },
+    {
+      "id": "silent_reading_well",
+      "name": "静音阅览井",
+      "kind": "vertical",
+      "objective": "纵向探索并找到地图残页。",
+      "guide": "双线跃可跨过盐雾，但落点要避开白刺。",
+      "danger": "下方盐雾持续扣血。",
+      "next": "契约索引室"
+    },
+    {
+      "id": "contract_index",
+      "name": "契约索引室",
+      "kind": "puzzle",
+      "objective": "解开三份索引页顺序。",
+      "guide": "按封蜡颜色排序：灰、白、绯。",
+      "danger": "错页会召出抄写手。",
+      "next": "白书脊回廊"
+    },
+    {
+      "id": "white_spine_corridor",
+      "name": "白书脊回廊",
+      "kind": "combat_gate",
+      "objective": "用钟壳格挡打开重门。",
+      "guide": "完美格挡封蜡枪兵的突刺可返还能量。",
+      "danger": "钉书兵会连段冲撞。",
+      "next": "删名塔"
+    },
+    {
+      "id": "erasure_tower",
+      "name": "删名塔",
+      "kind": "danger",
+      "objective": "击败删名执行者并取得契约碎页。",
+      "guide": "先清远程抄写手，再处理重甲执行者。",
+      "danger": "盐晶坠落会把玩家击回塔底。",
+      "next": "契约法庭"
+    },
+    {
+      "id": "contract_court",
+      "name": "契约法庭",
+      "kind": "boss",
+      "objective": "击败盐白契约官。",
+      "guide": "观察封蜡颜色读招，绯色封蜡表示会接迟影攻击。",
+      "danger": "迟影会在二阶段复制玩家攻击。",
+      "next": "断弦温室入口"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_salt_librarian_ye",
+      "name": "盐页管理员叶",
+      "role": "unreliable_guide",
+      "position_hint": "盐晶门厅",
+      "dialogue": [
+        "书库只保存被允许保存的事。",
+        "别跑太直，迟影会记住你的直线。",
+        "若你带着铁匠誓牌，就别问我它为什么缺角。"
+      ]
+    },
+    {
+      "id": "npc_quiet_reader",
+      "name": "沉默读者",
+      "role": "mechanic_teacher",
+      "position_hint": "反页阅览层",
+      "dialogue": [
+        "我上次说话，影子替我说完了。",
+        "走一步，停半拍，再跳。让影子撞在你昨天的位置。",
+        "契约页藏在删名塔，不在索引室。索引只负责说谎。"
+      ]
+    },
+    {
+      "id": "npc_fugitive_scribe",
+      "name": "逃亡书记",
+      "role": "true_ending_clue",
+      "position_hint": "契约索引室暗格",
+      "dialogue": [
+        "我偷走了第七签署者的姓，只偷到一个偏旁。",
+        "三张盐页换一段真名，少一张也能换一个更好听的谎。",
+        "王冠要的不是服从，是每个人自愿忘记自己曾经答应过什么。"
+      ]
+    },
+    {
+      "id": "npc_sealed_archivist",
+      "name": "封蜡档案员",
+      "role": "vendor_guard_hint",
+      "position_hint": "白书脊回廊",
+      "dialogue": [
+        "买一枚静靴吧，盐刺听得见鞋底。",
+        "钟壳格挡不是盾，是让敌人的誓言撞回自己身上。",
+        "断弦温室曾给书库送来活的封面，那里知道印记原本是谁。"
+      ]
+    }
+  ],
+  "enemy_points": [
+    {
+      "id": "C3_E01",
+      "room": "reverse_reading_floor",
+      "spawn_mix": [
+        "salt_bookmite",
+        "salt_bookmite"
+      ],
+      "combat_role": "小体型跳扑，配合迟影形成追击压力。",
+      "story_use": "书页虫吞掉目录边角，让第七签署者更难被找到。",
+      "asset_hint": "GothicVania 幼虫公开素材白晶色板版本。"
+    },
+    {
+      "id": "C3_E02",
+      "room": "silent_reading_well",
+      "spawn_mix": [
+        "page_duelist"
+      ],
+      "combat_role": "中速近战，考验二段跳后的落点。",
+      "story_use": "书页剑客守护竖井书梯。",
+      "asset_hint": "GothicVania 或 Ansimuz Public Domain 近战敌人候选。"
+    },
+    {
+      "id": "C3_E03",
+      "room": "contract_index",
+      "spawn_mix": [
+        "index_scribe",
+        "summoned_page"
+      ],
+      "combat_role": "远程墨弹和召唤页，惩罚错误解谜。",
+      "story_use": "抄写手不断补写假契约。",
+      "asset_hint": "GothicVania 施法敌人公开素材；弹体使用 Kenney CC0 小件。"
+    },
+    {
+      "id": "C3_E04",
+      "room": "white_spine_corridor",
+      "spawn_mix": [
+        "wax_lancer"
+      ],
+      "combat_role": "冲锋敌，要求钟壳格挡。",
+      "story_use": "封蜡枪兵验证玩家是否理解契约防御。",
+      "asset_hint": "GothicVania 哨兵素材白蜡色板版本。"
+    },
+    {
+      "id": "C3_E05",
+      "room": "erasure_tower",
+      "spawn_mix": [
+        "erasure_bailiff",
+        "index_scribe"
+      ],
+      "combat_role": "精英加远程组合战，压迫空间管理。",
+      "story_use": "删名执行者保护契约原本。",
+      "asset_hint": "GothicVania 大型敌人公开素材加盐晶粒子。"
+    }
+  ],
+  "boss": {
+    "id": "C3_B01",
+    "name": "盐白契约官",
+    "kind": "saltwhite_contract_judge",
+    "arena": "契约法庭，三色封蜡柱周期改变 Boss 招式和迟影速度。",
+    "phase_1": "封蜡突刺、盐刃横扫、错页召唤。",
+    "phase_2": "迟影加入，复制玩家最近一次攻击；完美格挡可让迟影击中 Boss。",
+    "drop": [
+      "silent_mark_saltwhite",
+      "contract_original_fragment",
+      "bell_guard"
+    ],
+    "story_after": "契约原本显示六枚印记曾是六位守门者心脏，第七签署者被系统删名。",
+    "asset_hint": "GothicVania 法师/大型敌人公开素材或 OpenGameArt Public Domain 契约官候选。"
+  },
+  "gates": [
+    {
+      "id": "double_thread_well",
+      "type": "double_jump_height",
+      "requires": "double_thread_jump",
+      "placement": "静音阅览井",
+      "unlock_logic": "进入竖井后用二段跳穿过盐雾窗口。"
+    },
+    {
+      "id": "guard_spine_gate",
+      "type": "guard_break_door",
+      "requires": "bell_guard",
+      "placement": "白书脊回廊",
+      "unlock_logic": "完美格挡枪兵突刺，反弹封蜡打开重门。"
+    },
+    {
+      "id": "oath_plate_archive",
+      "type": "chapter_item_gate",
+      "requires": "smith_oath_plate",
+      "placement": "盐晶门厅",
+      "unlock_logic": "第二章 Boss 掉落的铁匠誓牌作为进入书库的剧情凭证。"
+    }
+  ],
+  "key_collectibles": [
+    {
+      "id": "salt_page_1_3",
+      "name": "盐页三张",
+      "category": "sidequest",
+      "use": "交给逃亡书记，换取第七签署者偏旁线索。",
+      "story_flag": "item_ch03_salt_pages"
+    },
+    {
+      "id": "contract_original_fragment",
+      "name": "契约原本碎页",
+      "category": "ending_clue",
+      "use": "补全王冠契约原文。",
+      "story_flag": "item_ch03_contract_fragment"
+    },
+    {
+      "id": "bell_guard",
+      "name": "钟壳格挡",
+      "category": "ability",
+      "use": "短窗口防御并返还能量。",
+      "story_flag": "ability_ch03_bell_guard"
+    },
+    {
+      "id": "silent_mark_saltwhite",
+      "name": "盐白失声印记",
+      "category": "main_progression",
+      "use": "证明第三章完成并解锁断弦温室入口。",
+      "story_flag": "mark_ch03_saltwhite"
+    },
+    {
+      "id": "quiet_boot_thread",
+      "name": "静靴线结",
+      "category": "upgrade",
+      "use": "降低盐刺和迟影机关的容错压力。",
+      "story_flag": "item_ch03_quiet_boot"
+    }
+  ],
+  "ending_clues": [
+    {
+      "route": "重鸣",
+      "clue": "契约写明钟声一度压住黑潮，并非纯粹诅咒。",
+      "evidence_item": "contract_original_fragment"
+    },
+    {
+      "route": "断冠",
+      "clue": "六枚印记曾是活人心脏，王冠系统不可原样继承。",
+      "evidence_item": "silent_mark_saltwhite"
+    },
+    {
+      "route": "真结局",
+      "clue": "逃亡书记给出第七签署者真名的一段偏旁。",
+      "evidence_item": "salt_page_1_3"
+    }
+  ],
+  "open_assets": {
+    "environment": {
+      "source": "GothicVania Cemetery local Public Domain style stone/crypt tiles and Kenney CC0 UI symbols",
+      "path": "godot/assets/sprites/gothicvania; godot/assets/sprites/ui/kenney",
+      "license_basis": "本地已记录免费/开放候选与 CC0"
+    },
+    "enemies": {
+      "source": "GothicVania Cemetery / Ansimuz public-domain-style local import",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选；敌人不引用 NPC 同族图"
+    },
+    "boss": {
+      "source": "GothicVania large enemy local import or OpenGameArt Public Domain caster boss candidate",
+      "path": "godot/assets/third_party/dark_fantasy_bestiary",
+      "license_basis": "免费开放候选"
+    },
+    "npc": {
+      "source": "GothicVania demo redistributable NPC art",
+      "path": "godot/assets/sprites/gothicvania/demo/*.png",
+      "license_basis": "仅友方 NPC 使用，带友方标识"
+    },
+    "ui_fx": {
+      "source": "Kenney Platformer Art Deluxe CC0 and Kenney UI Pack CC0 candidates",
+      "path": "godot/assets/sprites/ui/kenney",
+      "license_basis": "CC0"
+    },
+    "audio": {
+      "source": "project local OGG audio and CC0 glass/salt chime candidates",
+      "path": "godot/assets/audio/*.ogg",
+      "license_basis": "本地已记录或 CC0 候选"
+    }
+  },
+  "vfx_audio": [
+    {
+      "id": "delayed_shadow",
+      "visual": "迟影以半透明白盐轮廓复写玩家上一段动作。",
+      "audio": "玻璃摩擦声和低音翻页声。",
+      "asset_policy": "视觉用 Godot 材质与本地角色帧；新增音频必须为 CC0 候选。"
+    },
+    {
+      "id": "bell_guard",
+      "visual": "格挡成功时出现白色钟壳半环，敌方封蜡裂开。",
+      "audio": "短促钟壳响和能量回流声。",
+      "asset_policy": "使用 Kenney CC0 图标、本地 OGG 与引擎特效。"
+    },
+    {
+      "id": "contract_break",
+      "visual": "契约碎页从 Boss 身后散开，绯色线痕短暂显字。",
+      "audio": "纸页撕裂声与低频钟声。",
+      "asset_policy": "纸页图标来自 Kenney CC0 候选，外部撕裂音只用 CC0。"
+    }
+  ]
+}
+
