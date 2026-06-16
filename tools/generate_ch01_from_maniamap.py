@@ -414,6 +414,10 @@ def platform(platform_id: str, x: int, y: int, w: int, h: int, color: str, mater
     return {"id": platform_id, "rect": [x, y, w, h], "color": color, "material": material}
 
 
+def env_block(block_id: str, x: int, y: int, w: int, h: int, color: str, z_index: int = -91) -> dict[str, Any]:
+    return {"id": block_id, "rect": [x, y, w, h], "color": color, "z_index": z_index}
+
+
 def rect_intersects(a: tuple[int, int, int, int], b: tuple[int, int, int, int]) -> bool:
     ax, ay, aw, ah = a
     bx, by, bw, bh = b
@@ -449,10 +453,10 @@ def build_compat_platforms() -> list[dict[str, Any]]:
     moss_mid = "29402f"
     bronze = "6d6645"
     return [
-        platform("start_ground", 700, 840, 720, 40, moss, "moss_stone"),
+        platform("start_ground", 640, 840, 860, 40, moss, "moss_stone"),
         platform("starter_step", 1138, 780, 176, 24, moss_mid, "moss_stone"),
         platform("vista_bridge", 1360, 706, 320, 26, bronze, "bronze_bridge"),
-        platform("under_gate_lip", 1540, 560, 200, 28, moss_dark, "moss_stone"),
+        platform("under_gate_lip", 1540, 560, 210, 28, moss_dark, "moss_stone"),
         platform("outer_drop", 1660, 640, 360, 34, "243a24", "moss_stone"),
         platform("outer_low_bridge", 2050, 580, 220, 28, "2b442d", "moss_stone"),
         platform("outer_return_lip", 2190, 570, 190, 26, "2b442d", "moss_stone"),
@@ -460,6 +464,22 @@ def build_compat_platforms() -> list[dict[str, Any]]:
         platform("gear_lift_return_step", 2910, 482, 180, 26, "315032", "moss_stone"),
         platform("moss_steps_a", 3130, 444, 280, 28, "2f4c31", "moss_stone"),
         platform("upper_route_preview", 3460, 392, 340, 26, "315032", "moss_stone"),
+    ]
+
+
+def build_environment_blocks() -> list[dict[str, Any]]:
+    return [
+        env_block("ch01_start_back_wall", 560, 500, 1080, 420, "130d1b", -93),
+        env_block("ch01_start_floor_mass", 580, 880, 980, 180, "07100f", -89),
+        env_block("ch01_start_left_pier", 560, 510, 84, 420, "1a1020", -88),
+        env_block("ch01_start_ceiling_band", 620, 500, 960, 38, "24152d", -87),
+        env_block("ch01_entry_arch_shadow", 1480, 548, 260, 328, "180f1d", -92),
+        env_block("ch01_mid_back_wall", 1540, 510, 900, 290, "120d18", -93),
+        env_block("ch01_mid_floor_mass", 1580, 674, 920, 190, "081111", -89),
+        env_block("ch01_lift_shaft_back", 2440, 356, 1040, 330, "10131c", -93),
+        env_block("ch01_lift_shaft_floor_mass", 2460, 548, 1080, 170, "07100f", -89),
+        env_block("ch01_lift_right_pier", 3380, 366, 90, 310, "1a1020", -88),
+        env_block("ch01_upper_preview_back", 3400, 250, 520, 210, "151020", -93),
     ]
 
 
@@ -734,6 +754,7 @@ def update_first_chapter() -> None:
     data["player_start"] = position_on_platform(platform_lookup, "start_ground", 0.22)
     data["boss_checkpoint"] = position_on_platform(platform_lookup, "pre_boss_belfry_mm_floor", 0.18)
     data["map_rooms"] = rooms
+    data["environment_blocks"] = build_environment_blocks()
     data["platforms"] = platforms
     data["hazards"] = [
         hazard("trap_fake_moss_01", "fake_moss_floor", 700, 814),

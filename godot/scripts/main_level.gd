@@ -1343,6 +1343,9 @@ func _add_map_ui_rect(node_name: String, rect_position: Vector2, rect_size: Vect
 
 func _build_world_from_config() -> void:
     _background()
+    for block in config.get("environment_blocks", []):
+        if block is Dictionary:
+            _environment_block(block)
     for platform in config.get("platforms", []):
         _platform(
             String(platform.get("id", "platform")),
@@ -1397,6 +1400,25 @@ func _build_world_from_config() -> void:
         boss_unlocked = true
 
     # World labels are intentionally suppressed so tutorial copy does not cover the level art.
+
+
+func _environment_block(data: Dictionary) -> void:
+    var rect := _rect2(data.get("rect", []))
+    if rect.size.x <= 0.0 or rect.size.y <= 0.0:
+        return
+    var block := Polygon2D.new()
+    block.name = String(data.get("id", "environment_block"))
+    block.position = rect.position + rect.size * 0.5
+    var half := rect.size * 0.5
+    block.polygon = PackedVector2Array([
+        Vector2(-half.x, -half.y),
+        Vector2(half.x, -half.y),
+        Vector2(half.x, half.y),
+        Vector2(-half.x, half.y)
+    ])
+    block.color = _color(data.get("color", "101816"))
+    block.z_index = int(data.get("z_index", -90))
+    add_child(block)
 
 
 func _spawn_player() -> void:

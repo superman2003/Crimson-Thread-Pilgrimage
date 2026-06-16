@@ -7,7 +7,7 @@
     "fall_y": 3520
   },
   "player_start": [
-    858,
+    829,
     800
   ],
   "boss_checkpoint": [
@@ -2655,9 +2655,9 @@
     {
       "id": "start_ground",
       "rect": [
-        700,
+        640,
         840,
-        720,
+        860,
         40
       ],
       "color": "1c2b1f",
@@ -2690,7 +2690,7 @@
       "rect": [
         1540,
         560,
-        200,
+        210,
         28
       ],
       "color": "22351f",
@@ -4740,7 +4740,7 @@
       "id": "npc_threadsmith_apprentice",
       "name": "织线学徒",
       "position": [
-        815,
+        778,
         800
       ],
       "role": "threadsmith",
@@ -4757,7 +4757,7 @@
       "id": "npc_gate_pilgrim",
       "name": "守门朝圣者",
       "position": [
-        1247,
+        1294,
         800
       ],
       "role": "pilgrim",
@@ -6455,5 +6455,128 @@
       "width": "maniamap_width",
       "height": "max(120, maniamap_height * 0.55)"
     }
-  }
+  },
+  "environment_blocks": [
+    {
+      "id": "ch01_start_back_wall",
+      "rect": [
+        560,
+        500,
+        1080,
+        420
+      ],
+      "color": "130d1b",
+      "z_index": -93
+    },
+    {
+      "id": "ch01_start_floor_mass",
+      "rect": [
+        580,
+        880,
+        980,
+        180
+      ],
+      "color": "07100f",
+      "z_index": -89
+    },
+    {
+      "id": "ch01_start_left_pier",
+      "rect": [
+        560,
+        510,
+        84,
+        420
+      ],
+      "color": "1a1020",
+      "z_index": -88
+    },
+    {
+      "id": "ch01_start_ceiling_band",
+      "rect": [
+        620,
+        500,
+        960,
+        38
+      ],
+      "color": "24152d",
+      "z_index": -87
+    },
+    {
+      "id": "ch01_entry_arch_shadow",
+      "rect": [
+        1480,
+        548,
+        260,
+        328
+      ],
+      "color": "180f1d",
+      "z_index": -92
+    },
+    {
+      "id": "ch01_mid_back_wall",
+      "rect": [
+        1540,
+        510,
+        900,
+        290
+      ],
+      "color": "120d18",
+      "z_index": -93
+    },
+    {
+      "id": "ch01_mid_floor_mass",
+      "rect": [
+        1580,
+        674,
+        920,
+        190
+      ],
+      "color": "081111",
+      "z_index": -89
+    },
+    {
+      "id": "ch01_lift_shaft_back",
+      "rect": [
+        2440,
+        356,
+        1040,
+        330
+      ],
+      "color": "10131c",
+      "z_index": -93
+    },
+    {
+      "id": "ch01_lift_shaft_floor_mass",
+      "rect": [
+        2460,
+        548,
+        1080,
+        170
+      ],
+      "color": "07100f",
+      "z_index": -89
+    },
+    {
+      "id": "ch01_lift_right_pier",
+      "rect": [
+        3380,
+        366,
+        90,
+        310
+      ],
+      "color": "1a1020",
+      "z_index": -88
+    },
+    {
+      "id": "ch01_upper_preview_back",
+      "rect": [
+        3400,
+        250,
+        520,
+        210
+      ],
+      "color": "151020",
+      "z_index": -93
+    }
+  ]
 }
