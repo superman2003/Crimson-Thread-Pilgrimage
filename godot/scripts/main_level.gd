@@ -1650,7 +1650,7 @@ func _platform(node_name: String, rect: Rect2, color: Color, material: String = 
     shape.shape = rectangle
     body.add_child(shape)
 
-    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), Color(0.0, 0.0, 0.0, 0.42), -6)
+    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -6)
     _add_platform_visual(body, rect.size, material)
     _decorate_platform(body, rect.size, material)
     add_child(body)
@@ -1670,6 +1670,14 @@ func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector
     plate.z_index = z_value
     parent.add_child(plate)
     return plate
+
+
+func _platform_shadow_color(material: String) -> Color:
+    if material == "salt_marble" or material == "vellum_bridge" or material == "archive_boss":
+        return Color(0.02, 0.018, 0.014, 0.22)
+    if material == "moss_stone" or material == "bronze_bridge" or material == "boss_stone":
+        return Color(0.0, 0.025, 0.016, 0.26)
+    return Color(0.0, 0.0, 0.0, 0.32)
 
 
 func _add_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
@@ -1787,7 +1795,8 @@ func _add_cemetery_platform_visual(parent: Node, size_value: Vector2, material: 
     var texture := _load_texture_resource(GOTHICVANIA_CEMETERY_ASSETS["tileset"])
     var tint := _platform_tint(material)
     var top_y := -size_value.y * 0.5
-    var visual_center_y := top_y + 46.0
+    var visual_center_y := top_y + 34.0
+    _add_cemetery_platform_fill(parent, size_value, material)
     if texture == null:
         _add_platform_plate(parent, Vector2(0, 8), size_value, Color(0.17, 0.14, 0.16, 0.94), -4)
         return
@@ -1796,7 +1805,6 @@ func _add_cemetery_platform_visual(parent: Node, size_value: Vector2, material: 
         return
     var left_region: Array = CEMETERY_PLATFORM_REGIONS["left"]
     var mid_region: Array = CEMETERY_PLATFORM_REGIONS["mid"]
-    var mid_alt_region: Array = CEMETERY_PLATFORM_REGIONS["mid_alt"]
     var right_region: Array = CEMETERY_PLATFORM_REGIONS["right"]
     var start_x := -size_value.x * 0.5
     var end_x := size_value.x * 0.5
@@ -1805,13 +1813,29 @@ func _add_cemetery_platform_visual(parent: Node, size_value: Vector2, material: 
     _add_platform_region_sprite(parent, "CemeteryPlatformLeft", texture, left_region, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
     _add_platform_region_sprite(parent, "CemeteryPlatformRight", texture, right_region, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
     var x := start_x + left_width
-    var index := 0
-    while x < end_x - right_width - 8.0:
-        var region: Array = mid_region if index % 2 == 0 else mid_alt_region
+    var tile_stride := 54.0
+    while x < end_x - right_width:
+        var region: Array = mid_region
         var tile_width := float(region[2])
-        _add_platform_region_sprite(parent, "CemeteryPlatformTile", texture, region, Vector2(x + tile_width * 0.5, visual_center_y), tint, -3)
-        x += tile_width - 6.0
-        index += 1
+        var draw_width := minf(tile_width, end_x - right_width - x)
+        if draw_width <= 0.0:
+            break
+        var tile := _add_platform_region_sprite(parent, "CemeteryPlatformTile", texture, region, Vector2(x + draw_width * 0.5, visual_center_y), tint, -3)
+        tile.region_rect = Rect2(float(region[0]), float(region[1]), draw_width, float(region[3]))
+        x += minf(tile_stride, draw_width)
+
+
+func _add_cemetery_platform_fill(parent: Node, size_value: Vector2, material: String) -> void:
+    var base := Color(0.30, 0.27, 0.22, 0.96)
+    var top := Color(0.63, 0.58, 0.40, 0.76)
+    if material == "vellum_bridge":
+        base = Color(0.38, 0.33, 0.22, 0.95)
+        top = Color(0.82, 0.70, 0.43, 0.76)
+    elif material == "archive_boss":
+        base = Color(0.35, 0.27, 0.20, 0.96)
+        top = Color(0.88, 0.65, 0.42, 0.78)
+    _add_platform_plate(parent, Vector2(0, 8), size_value, base, -5)
+    _add_platform_plate(parent, Vector2(0, -size_value.y * 0.5 + 5.0), Vector2(size_value.x, 10.0), top, -4)
 
 
 func _add_kenney_deluxe_platform_visual(parent: Node, size_value: Vector2, material: String, family: String) -> void:
@@ -2511,6 +2535,41 @@ func _platform_under_position(position_value: Vector2, clearance: float = 40.0) 
     return ""
 
 
+func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector2, data: Dictionary) -> Array:
+    if platform_id.is_empty():
+        return []
+    var floor_rect := Rect2()
+    for platform in config.get("platforms", []):
+        if not (platform is Dictionary):
+            continue
+        var platform_data: Dictionary = platform
+        if String(platform_data.get("id", "")) == platform_id:
+            floor_rect = _rect2(platform_data.get("rect", []))
+            break
+    if floor_rect.size.x <= 0.0:
+        return []
+
+    var half_width := float(data.get("spawn_half_width", 36.0))
+    var visual_height := float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data)))
+    var margin := maxf(half_width + 12.0, minf(54.0, floor_rect.size.x * 0.24))
+    var min_x := floor_rect.position.x + margin
+    var max_x := floor_rect.position.x + floor_rect.size.x - margin
+    if min_x >= max_x:
+        return []
+
+    var center_x := clampf(spawn_position.x, min_x, max_x)
+    var step := maxf(8.0, minf(18.0, half_width * 0.45))
+    var left := center_x
+    var right := center_x
+    while left - step >= min_x and _enemy_spawn_rect_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, platform_id):
+        left -= step
+    while right + step <= max_x and _enemy_spawn_rect_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, platform_id):
+        right += step
+    if right - left < half_width:
+        return [min_x, max_x]
+    return [left, right]
+
+
 func _spawn_normal_enemies() -> void:
     for spawn in config.get("enemy_spawns", []):
         if spawn is Dictionary:
@@ -2519,6 +2578,7 @@ func _spawn_normal_enemies() -> void:
 
 func _enemy(data: Dictionary) -> Area2D:
     var enemy := Area2D.new()
+    var clearance := float(data.get("clearance", 40.0))
     enemy.position = _resolve_enemy_spawn_position(data)
     enemy.set_script(ENEMY_ACTOR_SCRIPT)
     var kind := String(data.get("kind", "moss_larva"))
@@ -2527,9 +2587,12 @@ func _enemy(data: Dictionary) -> Area2D:
     if profile.is_empty():
         push_warning("Missing normal enemy AI profile: " + kind)
     enemy.configure(data, SPRITES.get(kind, SPRITES["moss_larva"]), false, profile)
+    var floor_platform_id := _platform_under_position(enemy.position, clearance)
+    var bounds := _enemy_platform_movement_bounds(floor_platform_id, enemy.position, data)
+    if bounds.size() >= 2 and enemy.has_method("set_platform_movement_bounds"):
+        enemy.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
     enemy.died.connect(_on_enemy_died)
-    var clearance := float(data.get("clearance", 40.0))
-    enemy.set_meta("platform_id", _platform_under_position(enemy.position, clearance))
+    enemy.set_meta("platform_id", floor_platform_id)
     enemy.set_meta("spawn_half_width", float(data.get("spawn_half_width", 36.0)))
     enemy.set_meta("spawn_visual_height", float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data))))
     add_child(enemy)

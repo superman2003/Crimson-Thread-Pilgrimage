@@ -40,6 +40,8 @@ var direction: int = 1
 var attack_direction: int = 1
 var arena_min_x := -INF
 var arena_max_x := INF
+var platform_min_x := -INF
+var platform_max_x := INF
 var flash_timer: float = 0.0
 var contact_timer: float = 0.0
 var state_timer: float = 0.0
@@ -188,10 +190,18 @@ func _clamp_to_arena() -> void:
 
 func _clamp_movement_bounds() -> void:
     _clamp_to_arena()
-    if is_boss or leash_radius <= 0.0:
+    if is_boss:
         return
-    var min_x := spawn_position.x - leash_radius
-    var max_x := spawn_position.x + leash_radius
+    var min_x := -INF
+    var max_x := INF
+    if leash_radius > 0.0:
+        min_x = spawn_position.x - leash_radius
+        max_x = spawn_position.x + leash_radius
+    if platform_min_x < platform_max_x:
+        min_x = maxf(min_x, platform_min_x)
+        max_x = minf(max_x, platform_max_x)
+    if min_x >= max_x:
+        return
     var clamped_x := clampf(global_position.x, min_x, max_x)
     if not is_equal_approx(clamped_x, global_position.x):
         var next_position := global_position
@@ -199,6 +209,11 @@ func _clamp_movement_bounds() -> void:
         global_position = next_position
         direction *= -1
         _set_sprite_flip(direction < 0)
+
+
+func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
+    platform_min_x = min_x
+    platform_max_x = max_x
 
 
 func reset_for_respawn() -> void:

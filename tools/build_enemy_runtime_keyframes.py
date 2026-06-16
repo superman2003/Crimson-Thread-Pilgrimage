@@ -22,7 +22,7 @@ GRID_OVERRIDES = {
     "calciumtrice-emceeflesher-worm-alpha.png": (32, 48),
     "redshrike-blatty-alpha-pal2.png": (64, 64),
     "redshrike-blatty-alpha.png": (64, 64),
-    "redshrike-bonio-alpha.png": (32, 64),
+    "redshrike-bonio-alpha.png": (32, 32),
     "redshrike-emceeflesher-eyewasp-alpha.png": (36, 36),
     "redshrike-emceeflesher-skullwasp-alpha.png": (36, 36),
     "redshrike-emceeflesher-wasp.png": (38, 36),
