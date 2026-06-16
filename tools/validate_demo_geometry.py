@@ -14,6 +14,15 @@ def rect_top(platform: dict) -> float:
     return float(platform["rect"][1])
 
 
+def rect_left(platform: dict) -> float:
+    return float(platform["rect"][0])
+
+
+def rect_right(platform: dict) -> float:
+    rect = platform["rect"]
+    return float(rect[0]) + float(rect[2])
+
+
 def platform_map(config: dict) -> dict[str, dict]:
     return {str(item["id"]): item for item in config["platforms"]}
 
@@ -31,6 +40,24 @@ def assert_step(platforms: dict[str, dict], from_id: str, to_id: str, max_jump_h
         raise AssertionError(
             f"{from_id}->{to_id} vertical step {delta:.1f}px exceeds safe jump {max_jump_height * 0.92:.1f}px"
         )
+
+
+def assert_reachable_step(
+    platforms: dict[str, dict],
+    from_id: str,
+    to_id: str,
+    max_jump_height: float,
+    max_horizontal_gap: float = 260.0,
+) -> None:
+    assert_step(platforms, from_id, to_id, max_jump_height)
+    gap = max(0.0, rect_left(platforms[to_id]) - rect_right(platforms[from_id]), rect_left(platforms[from_id]) - rect_right(platforms[to_id]))
+    if gap > max_horizontal_gap:
+        raise AssertionError(f"{from_id}->{to_id} horizontal gap {gap:.1f}px exceeds safe reach {max_horizontal_gap:.1f}px")
+
+
+def assert_climb_chain(platforms: dict[str, dict], chain: tuple[str, ...], max_jump_height: float) -> None:
+    for from_id, to_id in zip(chain, chain[1:]):
+        assert_reachable_step(platforms, from_id, to_id, max_jump_height)
 
 
 def assert_lower_detour_clear(config: dict) -> None:
@@ -64,6 +91,10 @@ def main() -> None:
         "under_gate_lip",
         "outer_drop",
         "gear_lift",
+        "mm_route_19_mm_floor",
+        "bell_leaf_tangle_mm_floor",
+        "bell_leaf_return_step_low",
+        "bell_leaf_return_step_high",
     ):
         if required_id not in platforms:
             raise AssertionError(f"missing platform: {required_id}")
@@ -73,8 +104,13 @@ def main() -> None:
     assert_step(platforms, "vista_bridge", "upper_gate_step", max_jump_height)
     assert_step(platforms, "upper_gate_step", "under_gate_lip", max_jump_height)
     assert_step(platforms, "outer_drop", "gear_lift", max_jump_height)
+    assert_climb_chain(
+        platforms,
+        ("bell_leaf_tangle_mm_floor", "bell_leaf_return_step_low", "bell_leaf_return_step_high", "mm_route_19_mm_floor"),
+        max_jump_height,
+    )
     assert_lower_detour_clear(config)
-    print(f"DEMO_GEOMETRY_PASS max_jump_height={max_jump_height:.1f}px opening_steps=60px/74px/68px/78px")
+    print(f"DEMO_GEOMETRY_PASS max_jump_height={max_jump_height:.1f}px opening_steps=60px/74px/68px/78px bell_leaf_return=true")
 
 
 if __name__ == "__main__":

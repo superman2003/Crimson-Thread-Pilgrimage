@@ -209,6 +209,7 @@ START_VIEW_ALLOWED = {
     "start_ground",
     "starter_step",
     "vista_bridge",
+    "upper_gate_step",
     "under_gate_lip",
     "outer_drop",
     "outer_low_bridge",
@@ -502,6 +503,15 @@ def build_room_platforms(rooms: list[dict[str, Any]]) -> list[dict[str, Any]]:
             ledge_x = x + max(80, int(w * 0.12))
             ledge_y = y + max(76, int(h * 0.45))
             add_platform_if_clear(result, platform(f"{room_id}_upper_ledge", ledge_x, ledge_y, ledge_w, 24, color, material))
+        if room_id == "bell_leaf_tangle":
+            add_platform_if_clear(
+                result,
+                platform("bell_leaf_return_step_low", x + 820, floor_y - 78, 260, 24, color, material),
+            )
+            add_platform_if_clear(
+                result,
+                platform("bell_leaf_return_step_high", x + 520, floor_y - 152, 260, 24, color, material),
+            )
         if str(room.get("kind", "")) == "vertical" or h >= 260:
             steps = max(2, min(5, int(h / 92)))
             for step in range(steps):
