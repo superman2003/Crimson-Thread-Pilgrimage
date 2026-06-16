@@ -203,6 +203,21 @@ REGION_NAMES = {
 
 CRITICAL_CORRIDOR = (1760, 380, 1000, 170)
 CORRIDOR_ALLOWED = {"outer_return_lip", "gear_lift", "gear_lift_return_step", "moss_steps_a"}
+HAND_DESIGNED_START_ROOMS = {"entry_bell", "outer_court", "gear_lift"}
+START_VIEW_CLEANUP_ZONE = (3180, 520, 980, 460)
+START_VIEW_ALLOWED = {
+    "start_ground",
+    "starter_step",
+    "vista_bridge",
+    "under_gate_lip",
+    "outer_drop",
+    "outer_low_bridge",
+    "outer_return_lip",
+    "gear_lift",
+    "gear_lift_return_step",
+    "moss_steps_a",
+    "upper_route_preview",
+}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -389,7 +404,7 @@ def build_rooms(draft: dict[str, Any]) -> list[dict[str, Any]]:
     rooms[-1]["next"] = "Chapter 2"
     for room in rooms:
         if room["id"] == "gear_lift":
-            room["visit_rects"] = [[1900, 430, 810, 170]]
+            room["visit_rects"] = [[1900, 430, 1220, 190]]
         elif room["id"] == "entry_bell":
             room["visit_rects"] = [[680, 516, 1920, 396], [700, 760, 720, 150]]
     return rooms
@@ -408,6 +423,8 @@ def rect_intersects(a: tuple[int, int, int, int], b: tuple[int, int, int, int]) 
 def add_platform_if_clear(result: list[dict[str, Any]], item: dict[str, Any]) -> None:
     x, y, w, h = [int(value) for value in item["rect"]]
     if item["id"] not in CORRIDOR_ALLOWED and rect_intersects((x, y, w, h), CRITICAL_CORRIDOR):
+        return
+    if item["id"] not in START_VIEW_ALLOWED and rect_intersects((x, y, w, h), START_VIEW_CLEANUP_ZONE):
         return
     result.append(item)
 
@@ -432,17 +449,17 @@ def build_compat_platforms() -> list[dict[str, Any]]:
     moss_mid = "29402f"
     bronze = "6d6645"
     return [
-        platform("green_start_upper_marker", 470, 430, 300, 26, "315032", "moss_stone"),
         platform("start_ground", 700, 840, 720, 40, moss, "moss_stone"),
-        platform("starter_step", 1120, 792, 180, 24, moss_mid, "moss_stone"),
-        platform("vista_bridge", 1270, 730, 360, 26, bronze, "bronze_bridge"),
-        platform("under_gate_lip", 1560, 560, 300, 28, moss_dark, "moss_stone"),
-        platform("outer_drop", 1180, 610, 650, 34, "243a24", "moss_stone"),
-        platform("outer_low_bridge", 1500, 548, 240, 28, "2b442d", "moss_stone"),
-        platform("outer_return_lip", 1760, 560, 220, 26, "2b442d", "moss_stone"),
-        platform("gear_lift", 1900, 520, 380, 28, bronze, "bronze_bridge"),
-        platform("gear_lift_return_step", 2240, 485, 210, 26, "315032", "moss_stone"),
-        platform("moss_steps_a", 2380, 450, 330, 28, "2f4c31", "moss_stone"),
+        platform("starter_step", 1138, 780, 176, 24, moss_mid, "moss_stone"),
+        platform("vista_bridge", 1360, 706, 320, 26, bronze, "bronze_bridge"),
+        platform("under_gate_lip", 1540, 560, 200, 28, moss_dark, "moss_stone"),
+        platform("outer_drop", 1660, 640, 360, 34, "243a24", "moss_stone"),
+        platform("outer_low_bridge", 2050, 580, 220, 28, "2b442d", "moss_stone"),
+        platform("outer_return_lip", 2190, 570, 190, 26, "2b442d", "moss_stone"),
+        platform("gear_lift", 2520, 520, 360, 28, bronze, "bronze_bridge"),
+        platform("gear_lift_return_step", 2910, 482, 180, 26, "315032", "moss_stone"),
+        platform("moss_steps_a", 3130, 444, 280, 28, "2f4c31", "moss_stone"),
+        platform("upper_route_preview", 3460, 392, 340, 26, "315032", "moss_stone"),
     ]
 
 
@@ -453,11 +470,13 @@ def build_room_platforms(rooms: list[dict[str, Any]]) -> list[dict[str, Any]]:
         color, material = REGION_COLORS.get(region, REGION_COLORS["green"])
         x, y, w, h = [int(value) for value in room["layout_rect"]]
         room_id = str(room["id"])
+        if room_id in HAND_DESIGNED_START_ROOMS:
+            continue
         floor_y = room_floor_y(room)
         floor_w = max(120, w - 96)
         add_platform_if_clear(result, platform(room_floor_platform_id(room_id), x + 48, floor_y, floor_w, 30, color, material))
 
-        if h >= 210:
+        if h >= 260 and str(room.get("kind", "")) in {"upper", "danger", "boss"}:
             ledge_w = max(150, min(520, int(w * 0.46)))
             ledge_x = x + max(80, int(w * 0.12))
             ledge_y = y + max(76, int(h * 0.45))
@@ -498,25 +517,26 @@ def connection_points(room: dict[str, Any], direction: str) -> tuple[int, int]:
 
 def build_connection_platforms(rooms: list[dict[str, Any]], draft: dict[str, Any]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
-    by_source = source_room_map(rooms)
-    for index, connection in enumerate(draft.get("connections", [])):
-        from_room = by_source.get(str(connection.get("from_source_id", ""))) or by_source.get(str(connection.get("from", "")))
-        to_room = by_source.get(str(connection.get("to_source_id", ""))) or by_source.get(str(connection.get("to", "")))
-        if from_room is None or to_room is None:
+    for index in range(len(rooms) - 1):
+        from_room = rooms[index]
+        to_room = rooms[index + 1]
+        if str(from_room.get("id", "")) in HAND_DESIGNED_START_ROOMS and str(to_room.get("id", "")) in HAND_DESIGNED_START_ROOMS:
             continue
         region = str(to_room.get("color_region", from_room.get("color_region", "green")))
         color, material = REGION_COLORS.get(region, REGION_COLORS["green"])
-        ax, ay = connection_points(from_room, str(connection.get("from_direction", "")))
-        bx, by = connection_points(to_room, str(connection.get("to_direction", "")))
+        ax, ay = connection_points(from_room, "East")
+        bx, by = connection_points(to_room, "West")
         dx = bx - ax
         dy = by - ay
-        steps = max(2, int(math.ceil(max(abs(dx) / 170.0, abs(dy) / 72.0))))
+        if abs(dx) > 980 or abs(dy) > 560:
+            continue
+        steps = max(2, min(5, int(math.ceil(max(abs(dx) / 220.0, abs(dy) / 88.0)))))
         for step in range(1, steps):
             t = step / steps
             x = int(round(ax + dx * t))
             y = int(round(ay + dy * t))
             width = 170 if abs(dx) >= abs(dy) else 150
-            add_platform_if_clear(result, platform(f"mm_conn_{index:02d}_{step:02d}", x - width // 2, y, width, 24, color, material))
+            add_platform_if_clear(result, platform(f"route_step_{index:02d}_{step:02d}", x - width // 2, y, width, 24, color, material))
     return result
 
 
