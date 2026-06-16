@@ -327,26 +327,24 @@ func _validate_chapter(config_path: String) -> void:
     var boss: Dictionary = config.get("boss", {})
     var interactives: Array = config.get("interactives", [])
     var save_points: Array = config.get("save_points", [])
-    var expected_min_width := 11200 if config_id.ends_with("silent_crown_core") else 9600
+    var expected_min_width := 14800 if config_id.ends_with("silent_crown_core") else 14800
     if config_id == "demo_ch01_moss_bell_court":
-        expected_min_width = 11200
+        expected_min_width = 14800
     elif config_id == "demo_ch02_rain_foundry_canal":
-        expected_min_width = 13600
+        expected_min_width = 20000
     elif config_id == "demo_ch03_saltwhite_archive":
-        expected_min_width = 13800
+        expected_min_width = 18800
     elif config_id == "demo_ch04_broken_string_greenhouse":
-        expected_min_width = 14600
+        expected_min_width = 18800
     elif config_id == "demo_ch05_obsidian_pilgrim_road":
-        expected_min_width = 15400
+        expected_min_width = 18800
     elif config_id == "demo_ch06_silent_crown_core":
-        expected_min_width = 16600
-    var expected_min_rooms := 12 if config_id.ends_with("silent_crown_core") else 10
+        expected_min_width = 18800
+    var expected_min_rooms := 18
     if config_id == "demo_ch01_moss_bell_court":
-        expected_min_rooms = 12
+        expected_min_rooms = 16
     elif config_id == "demo_ch02_rain_foundry_canal":
-        expected_min_rooms = 14
-    elif config_id in ["demo_ch03_saltwhite_archive", "demo_ch04_broken_string_greenhouse", "demo_ch05_obsidian_pilgrim_road", "demo_ch06_silent_crown_core"]:
-        expected_min_rooms = 13
+        expected_min_rooms = 24
     var boss_kind := String(boss.get("kind", ""))
     var boss_profile: Dictionary = config.get("ai_profiles", {}).get(boss_kind, {})
     var boss_attack_types := _attack_types(boss_profile)
@@ -362,6 +360,10 @@ func _validate_chapter(config_path: String) -> void:
     _assert(config.get("platforms", []).size() >= config.get("map_rooms", []).size() * 2, config_id + " platform count supports expanded rooms")
     _assert(config.get("parkour_segments", []).size() >= 1, config_id + " has configured parkour segment")
     _assert(_ranges_are_contiguous(config.get("map_rooms", []), int(config.get("world", {}).get("width", 0))), config_id + " room ranges cover expanded world")
+    _assert(_has_multilayer_room_kinds(config.get("map_rooms", [])), config_id + " has upper, lower, and vertical map rooms")
+    _assert(_has_multilevel_platforms(config.get("platforms", [])), config_id + " has playable upper and lower platform layers")
+    _assert(_connections_reference_rooms(config.get("connections", []), config.get("map_rooms", [])), config_id + " room connections reference existing rooms")
+    _assert(_positions_map_to_rooms(config, config_id), config_id + " all important positions map to expanded rooms")
     _assert(_exit_points_to_next(config, config_id), config_id + " chapter exit points to next chapter or ending")
     _assert(boss_profile.get("attacks", []).size() >= 9, config_id + " boss has expanded move list")
     _assert(boss_attack_types.has("shockwave") and boss_attack_types.has("retreat") and boss_attack_types.has("feint"), config_id + " boss has new action types")
@@ -715,6 +717,100 @@ func _ranges_are_contiguous(rooms: Array, world_width: int) -> bool:
             return false
         cursor = int(item[1])
     return cursor == world_width
+
+
+func _has_multilayer_room_kinds(rooms: Array) -> bool:
+    var kinds: Dictionary = {}
+    var min_depth := 999
+    var max_depth := -999
+    for room in rooms:
+        if not (room is Dictionary):
+            continue
+        var data: Dictionary = room
+        kinds[String(data.get("kind", ""))] = true
+        var depth := int(data.get("depth", 0))
+        min_depth = mini(min_depth, depth)
+        max_depth = maxi(max_depth, depth)
+    return kinds.has("upper") and kinds.has("lower") and kinds.has("vertical") and min_depth < 0 and max_depth > 0
+
+
+func _has_multilevel_platforms(platforms: Array) -> bool:
+    var has_upper := false
+    var has_lower := false
+    var has_mid := false
+    for platform in platforms:
+        if not (platform is Dictionary):
+            continue
+        var data: Dictionary = platform
+        var rect := _platform_rect(data.get("rect", []))
+        if not _playable_floor_allowed(data, rect):
+            continue
+        if rect.position.y <= 430.0:
+            has_upper = true
+        elif rect.position.y >= 600.0:
+            has_lower = true
+        elif rect.position.y >= 492.0 and rect.position.y <= 560.0:
+            has_mid = true
+    return has_upper and has_lower and has_mid
+
+
+func _connections_reference_rooms(connections: Array, rooms: Array) -> bool:
+    var ids: Dictionary = {}
+    for room in rooms:
+        if room is Dictionary:
+            ids[String((room as Dictionary).get("id", ""))] = true
+    if connections.is_empty():
+        return false
+    for connection in connections:
+        if not (connection is Dictionary):
+            return false
+        var data: Dictionary = connection
+        if not ids.has(String(data.get("from", ""))) or not ids.has(String(data.get("to", ""))):
+            return false
+    return true
+
+
+func _positions_map_to_rooms(config: Dictionary, config_id: String) -> bool:
+    var rooms: Array = config.get("map_rooms", [])
+    var positions: Array = [
+        config.get("player_start", []),
+        config.get("boss_checkpoint", []),
+        config.get("boss", {}).get("position", [])
+    ]
+    for enemy in config.get("enemy_spawns", []):
+        if enemy is Dictionary:
+            positions.append((enemy as Dictionary).get("position", []))
+    for save_point in config.get("save_points", []):
+        if save_point is Dictionary:
+            positions.append((save_point as Dictionary).get("position", []))
+    for npc in config.get("npcs", []):
+        if npc is Dictionary:
+            positions.append((npc as Dictionary).get("position", []))
+    for interactive in config.get("interactives", []):
+        if interactive is Dictionary:
+            positions.append((interactive as Dictionary).get("position", []))
+    for position_value in positions:
+        if not _position_inside_any_room(position_value, rooms):
+            print("POSITION_OUTSIDE_ROOM: %s %s" % [config_id, JSON.stringify(position_value)])
+            return false
+    return true
+func _position_inside_any_room(position_value, rooms: Array) -> bool:
+    if not (position_value is Array):
+        return false
+    var position_data: Array = position_value
+    if position_data.size() < 2:
+        return false
+    var x := float(position_data[0])
+    for room in rooms:
+        if not (room is Dictionary):
+            continue
+        var room_data: Dictionary = room
+        var range_data: Array = room_data.get("range", [])
+        if range_data.size() < 2:
+            continue
+        if x >= float(range_data[0]) and x <= float(range_data[1]):
+            return true
+    return false
 
 
 func _platform_materials(config: Dictionary) -> Array:

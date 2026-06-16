@@ -2,7 +2,7 @@
   "id": "demo_ch05_obsidian_pilgrim_road",
   "name": "黑曜巡礼道试玩章",
   "world": {
-    "width": 15400,
+    "width": 18800,
     "height": 720,
     "fall_y": 790
   },
@@ -11,7 +11,7 @@
     500
   ],
   "boss_checkpoint": [
-    12540,
+    15480,
     500
   ],
   "required_keys": 0,
@@ -110,11 +110,11 @@
         0,
         850
       ],
-      "depth": -2,
+      "depth": -1,
       "kind": "entry",
-      "objective": "黑曜前哨：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "黑曜前哨：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "断旗长路"
     },
     {
@@ -124,11 +124,11 @@
         850,
         1750
       ],
-      "depth": -1,
-      "kind": "field",
-      "objective": "断旗长路：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "depth": 1,
+      "kind": "lower",
+      "objective": "断旗长路：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "盲钟营地"
     },
     {
@@ -140,9 +140,9 @@
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "盲钟营地：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "盲钟营地：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "影门廊"
     },
     {
@@ -152,11 +152,11 @@
         2600,
         3500
       ],
-      "depth": 1,
+      "depth": -1,
       "kind": "upper",
-      "objective": "影门廊：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "影门廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "巡礼兵营"
     },
     {
@@ -166,11 +166,11 @@
         3500,
         4550
       ],
-      "depth": 2,
+      "depth": 0,
       "kind": "safe",
-      "objective": "巡礼兵营：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "巡礼兵营：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "王冠外桥"
     },
     {
@@ -180,11 +180,11 @@
         4550,
         5600
       ],
-      "depth": -2,
+      "depth": 1,
       "kind": "danger",
-      "objective": "王冠外桥：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "王冠外桥：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "黑曜跳台"
     },
     {
@@ -196,9 +196,9 @@
       ],
       "depth": -1,
       "kind": "parkour",
-      "objective": "黑曜跳台：清掉敌群并继续推进。",
-      "guide": "这里是跑酷段，利用小平台、冲刺和下劈反弹穿过。",
-      "danger": "跳台之间有陷阱，失败会扣血但不会传送回起点。",
+      "objective": "黑曜跳台：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "灯影相位跑酷"
     },
     {
@@ -209,10 +209,10 @@
         7800
       ],
       "depth": 0,
-      "kind": "parkour",
-      "objective": "灯影相位跑酷：清掉敌群并继续推进。",
-      "guide": "这里是跑酷段，利用小平台、冲刺和下劈反弹穿过。",
-      "danger": "跳台之间有陷阱，失败会扣血但不会传送回起点。",
+      "kind": "vertical",
+      "objective": "灯影相位跑酷：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "雾桥冲刺"
     },
     {
@@ -222,11 +222,11 @@
         7800,
         8950
       ],
-      "depth": 1,
+      "depth": -1,
       "kind": "upper",
-      "objective": "雾桥冲刺：清掉敌群并继续推进。",
-      "guide": "这里是跑酷段，利用小平台、冲刺和下劈反弹穿过。",
-      "danger": "跳台之间有陷阱，失败会扣血但不会传送回起点。",
+      "objective": "雾桥冲刺：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "统帅前阵"
     },
     {
@@ -234,56 +234,126 @@
       "name": "统帅前阵",
       "range": [
         8950,
-        10100
+        10050
       ],
-      "depth": 2,
+      "depth": 0,
       "kind": "field",
-      "objective": "统帅前阵：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "军令连战"
+      "objective": "统帅前阵：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "熄灯下层"
     },
     {
       "id": "ch05_room_11",
-      "name": "军令连战",
+      "name": "熄灯下层",
       "range": [
-        10100,
-        12900
+        10050,
+        11150
       ],
-      "depth": -2,
-      "kind": "danger",
-      "objective": "军令连战：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "静音阅兵场"
+      "depth": 2,
+      "kind": "lower",
+      "objective": "熄灯下层：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "军墓回环"
     },
     {
       "id": "ch05_room_12",
-      "name": "静音阅兵场",
+      "name": "军墓回环",
       "range": [
-        12900,
-        14700
+        11150,
+        12150
       ],
-      "depth": -1,
-      "kind": "boss",
-      "objective": "静音阅兵场：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "王冠门径"
+      "depth": 2,
+      "kind": "lower",
+      "objective": "军墓回环：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "旗影升降井"
     },
     {
       "id": "ch05_room_13",
+      "name": "旗影升降井",
+      "range": [
+        12150,
+        13050
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "旗影升降井：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "黑曜上桥"
+    },
+    {
+      "id": "ch05_room_14",
+      "name": "黑曜上桥",
+      "range": [
+        13050,
+        14100
+      ],
+      "depth": -2,
+      "kind": "upper",
+      "objective": "黑曜上桥：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "军令连战"
+    },
+    {
+      "id": "ch05_room_15",
+      "name": "军令连战",
+      "range": [
+        14100,
+        15300
+      ],
+      "depth": 0,
+      "kind": "danger",
+      "objective": "军令连战：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "阅兵门廊"
+    },
+    {
+      "id": "ch05_room_16",
+      "name": "阅兵门廊",
+      "range": [
+        15300,
+        16250
+      ],
+      "depth": 0,
+      "kind": "field",
+      "objective": "阅兵门廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "静音阅兵场"
+    },
+    {
+      "id": "ch05_room_17",
+      "name": "静音阅兵场",
+      "range": [
+        16250,
+        18050
+      ],
+      "depth": 0,
+      "kind": "boss",
+      "objective": "静音阅兵场：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "王冠门径"
+    },
+    {
+      "id": "ch05_room_18",
       "name": "王冠门径",
       "range": [
-        14700,
-        15400
+        18050,
+        18800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "王冠门径：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "Boss路线"
+      "objective": "王冠门径：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "章节出口"
     }
   ],
   "ai_profiles": {
@@ -1200,54 +1270,109 @@
       "material": "ember_bridge"
     },
     {
-      "id": "pre_boss_floor",
+      "id": "ch05_lower_loop_floor",
       "rect": [
-        12380,
-        540,
+        10090,
+        610,
+        1020,
+        34
+      ],
+      "color": "272734",
+      "material": "obsidian_basalt"
+    },
+    {
+      "id": "ch05_lower_loop_mid",
+      "rect": [
+        10470,
+        520,
+        360,
+        28
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "ch05_lower_loop_exit_lip",
+      "rect": [
+        10940,
         560,
+        220,
+        26
+      ],
+      "color": "272734",
+      "material": "obsidian_basalt"
+    },
+    {
+      "id": "ch05_return_shaft_base",
+      "rect": [
+        12210,
+        540,
+        360,
+        30
+      ],
+      "color": "272734",
+      "material": "obsidian_basalt"
+    },
+    {
+      "id": "ch05_return_shaft_step_a",
+      "rect": [
+        12510,
+        470,
+        260,
+        28
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "ch05_return_shaft_step_b",
+      "rect": [
+        12840,
+        400,
+        260,
+        28
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "ch05_upper_bridge",
+      "rect": [
+        13120,
+        350,
+        910,
+        28
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "ch05_upper_drop_step",
+      "rect": [
+        13820,
+        430,
+        260,
+        28
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "ch05_crossway_floor",
+      "rect": [
+        15320,
+        540,
+        910,
         34
       ],
-      "color": "79342e",
-      "material": "pilgrim_boss"
+      "color": "272734",
+      "material": "obsidian_basalt"
     },
     {
-      "id": "boss_floor",
+      "id": "ch05_crossway_upper",
       "rect": [
-        12900,
-        540,
-        1500,
-        44
-      ],
-      "color": "79342e",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "boss_back_wall",
-      "rect": [
-        14410,
-        315,
-        38,
-        270
-      ],
-      "color": "79342e",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "ch05_exit_floor",
-      "rect": [
-        14700,
-        540,
-        700,
-        34
-      ],
-      "color": "79342e",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "ch05_exit_upper",
-      "rect": [
-        14870,
-        420,
+        15720,
+        452,
         380,
         28
       ],
@@ -1255,64 +1380,92 @@
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_pre_boss_run_step_a",
+      "id": "ch05_preboss_floor",
       "rect": [
-        10900,
+        15330,
         540,
-        260,
+        890,
         34
       ],
-      "color": "79342e",
-      "material": "pilgrim_boss",
-      "guide": "Boss前后跑酷衔接平台，保留跳跃间隔但避免不可达断层。"
+      "color": "3b3032",
+      "material": "pilgrim_boss"
     },
     {
-      "id": "ch05_pre_boss_run_step_b",
+      "id": "boss_floor",
       "rect": [
-        11300,
+        16250,
         540,
-        260,
-        34
+        1660,
+        44
       ],
-      "color": "79342e",
-      "material": "pilgrim_boss",
-      "guide": "Boss前后跑酷衔接平台，保留跳跃间隔但避免不可达断层。"
+      "color": "3b3032",
+      "material": "pilgrim_boss"
     },
     {
-      "id": "ch05_pre_boss_run_step_c",
+      "id": "boss_back_wall",
       "rect": [
-        11700,
-        540,
-        260,
-        34
+        17910,
+        315,
+        38,
+        270
       ],
-      "color": "79342e",
-      "material": "pilgrim_boss",
-      "guide": "Boss前后跑酷衔接平台，保留跳跃间隔但避免不可达断层。"
-    },
-    {
-      "id": "ch05_pre_boss_run_step_d",
-      "rect": [
-        12100,
-        540,
-        260,
-        34
-      ],
-      "color": "79342e",
-      "material": "pilgrim_boss",
-      "guide": "Boss前后跑酷衔接平台，保留跳跃间隔但避免不可达断层。"
+      "color": "3b3032",
+      "material": "pilgrim_boss"
     },
     {
       "id": "ch05_post_boss_run_step",
       "rect": [
-        14460,
+        17900,
         540,
-        220,
+        300,
         34
       ],
-      "color": "79342e",
-      "material": "pilgrim_boss",
-      "guide": "Boss前后跑酷衔接平台，保留跳跃间隔但避免不可达断层。"
+      "color": "3b3032",
+      "material": "pilgrim_boss"
+    },
+    {
+      "id": "ch05_exit_runup",
+      "rect": [
+        18040,
+        540,
+        580,
+        34
+      ],
+      "color": "3b3032",
+      "material": "pilgrim_boss"
+    },
+    {
+      "id": "ch05_exit_floor",
+      "rect": [
+        18480,
+        540,
+        320,
+        34
+      ],
+      "color": "3b3032",
+      "material": "pilgrim_boss"
+    },
+    {
+      "id": "ch05_late_route_link_01",
+      "rect": [
+        10830,
+        540,
+        1380,
+        30
+      ],
+      "color": "3b3032",
+      "material": "pilgrim_boss"
+    },
+    {
+      "id": "ch05_late_route_link_02",
+      "rect": [
+        12570,
+        540,
+        2750,
+        30
+      ],
+      "color": "3b3032",
+      "material": "pilgrim_boss"
     }
   ],
   "locked_gates": [],
@@ -1321,85 +1474,121 @@
       "id": "ch05_hazard_01",
       "kind": "fake_moss_floor",
       "rect": [
-        1180,
-        585,
-        130,
-        25
+        715,
+        406,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "战斗门前地板下陷。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch05_hazard_02",
       "kind": "bell_gap",
       "rect": [
-        2050,
-        514,
-        100,
-        26
+        2275,
+        442,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "跑动缺口扣血。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch05_hazard_03",
       "kind": "spore_chest",
       "rect": [
-        5860,
-        442,
-        100,
+        3725,
+        516,
+        110,
         24
       ],
       "damage": 1,
-      "message": "跑酷段机关爆开。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch05_hazard_04",
       "kind": "falling_clapper",
       "rect": [
-        6250,
-        372,
+        5805,
+        442,
         110,
         24
       ],
       "damage": 1,
-      "message": "上层坠物砸下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch05_hazard_05",
       "kind": "bell_gap",
       "rect": [
-        7740,
-        516,
-        128,
+        7545,
+        336,
+        110,
         24
       ],
       "damage": 1,
-      "message": "冲刺落点断开。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch05_hazard_06",
       "kind": "falling_clapper",
       "rect": [
-        9320,
-        516,
-        130,
+        9235,
+        404,
+        110,
         24
       ],
       "damage": 1,
-      "message": "连战机关落下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch05_hazard_07",
       "kind": "spore_chest",
       "rect": [
-        12680,
-        516,
-        120,
+        10595,
+        496,
+        110,
         24
       ],
       "damage": 1,
-      "message": "Boss门前机关喷发。"
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch05_hazard_08",
+      "kind": "fake_moss_floor",
+      "rect": [
+        13520,
+        326,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch05_hazard_09",
+      "kind": "bell_gap",
+      "rect": [
+        15720,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch05_hazard_10",
+      "kind": "spore_chest",
+      "rect": [
+        18585,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
     }
   ],
   "collectibles": [],
@@ -1418,7 +1607,7 @@
       "id": "ch05_obsidian_pilgrim_road_boss_gate",
       "kind": "boss_gate",
       "position": [
-        13100,
+        16460,
         500
       ]
     },
@@ -1427,7 +1616,7 @@
       "kind": "chapter_exit",
       "label": "前往第六章：无声王冠",
       "position": [
-        15060,
+        18620,
         500
       ],
       "next_runtime_config_id": "demo_ch06_silent_crown_core",
@@ -1515,7 +1704,7 @@
       "id": "CH05_E01",
       "kind": "obsidian_spearman",
       "position": [
-        1160,
+        1120,
         570
       ],
       "platform_id": "outer_low_floor",
@@ -1527,7 +1716,7 @@
         0,
         0,
         32,
-        64
+        32
       ],
       "visual_scale": 0.96,
       "visual_offset": [
@@ -1549,39 +1738,40 @@
           0,
           0,
           32,
-          64
+          32
         ],
         "walk": [
           0,
           0,
           32,
-          64
+          32
         ],
         "attack": [
           0,
           0,
           32,
-          64
+          32
         ],
         "hurt": [
           0,
           0,
           32,
-          64
+          32
         ],
         "death": [
           0,
           0,
           32,
-          64
+          32
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E02",
       "kind": "phase_censor",
       "position": [
-        1960,
+        2110,
         500
       ],
       "platform_id": "lift_base",
@@ -1641,13 +1831,14 @@
           64,
           64
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E03",
       "kind": "silent_bugbler",
       "position": [
-        2820,
+        2780,
         348
       ],
       "platform_id": "upper_bridge_a",
@@ -1707,13 +1898,14 @@
           32,
           40
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E04",
       "kind": "kneeling_crossbowman",
       "position": [
-        4580,
+        4880,
         500
       ],
       "platform_id": "ch05_runback_floor",
@@ -1773,13 +1965,14 @@
           60,
           60
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E05",
       "kind": "pilgrim_chariot",
       "position": [
-        5860,
+        5720,
         500
       ],
       "platform_id": "ch05_parkour_floor_a",
@@ -1839,13 +2032,14 @@
           32,
           32
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E06",
       "kind": "obsidian_spearman",
       "position": [
-        6900,
+        7115,
         370
       ],
       "platform_id": "ch05_parkour_upper_a",
@@ -1857,7 +2051,7 @@
         0,
         0,
         32,
-        64
+        32
       ],
       "visual_scale": 0.96,
       "visual_offset": [
@@ -1879,45 +2073,46 @@
           0,
           0,
           32,
-          64
+          32
         ],
         "walk": [
           0,
           0,
           32,
-          64
+          32
         ],
         "attack": [
           0,
           0,
           32,
-          64
+          32
         ],
         "hurt": [
           0,
           0,
           32,
-          64
+          32
         ],
         "death": [
           0,
           0,
           32,
-          64
+          32
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E07",
       "kind": "phase_censor",
       "position": [
-        7500,
+        7480,
         320
       ],
       "platform_id": "ch05_parkour_upper_b",
       "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
       "sprite_region": [
         0,
@@ -1971,19 +2166,20 @@
           64,
           64
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E08",
       "kind": "silent_bugbler",
       "position": [
-        8050,
+        8180,
         500
       ],
       "platform_id": "ch05_sprint_floor",
       "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
       "sprite_region": [
         0,
@@ -2037,19 +2233,20 @@
           32,
           40
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E09",
       "kind": "kneeling_crossbowman",
       "position": [
-        9100,
+        9030,
         500
       ],
       "platform_id": "ch05_gauntlet_floor",
-      "hp": 3,
+      "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
       "sprite_region": [
         0,
@@ -2103,19 +2300,20 @@
           60,
           60
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH05_E10",
       "kind": "pilgrim_chariot",
       "position": [
-        10360,
+        10380,
         500
       ],
       "platform_id": "ch05_approach_floor",
-      "hp": 3,
+      "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
       "sprite_region": [
         0,
@@ -2169,7 +2367,276 @@
           32,
           32
         ]
-      }
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH05_E11",
+      "kind": "obsidian_spearman",
+      "position": [
+        10480,
+        570
+      ],
+      "platform_id": "ch05_lower_loop_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "visual_scale": 0.96,
+      "visual_offset": [
+        0,
+        -7
+      ],
+      "visual_modulate": "ddd8ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH05_E12",
+      "kind": "phase_censor",
+      "position": [
+        12510,
+        500
+      ],
+      "platform_id": "ch05_return_shaft_base",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -2
+      ],
+      "visual_modulate": "ddd8ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
+      "source_sprite_region": [
+        64,
+        0,
+        64,
+        64
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "walk": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "attack": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "hurt": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "death": [
+          0,
+          0,
+          64,
+          64
+        ]
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH05_E13",
+      "kind": "silent_bugbler",
+      "position": [
+        13455,
+        310
+      ],
+      "platform_id": "ch05_upper_bridge",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        40
+      ],
+      "visual_scale": 1.42,
+      "visual_offset": [
+        0,
+        -3
+      ],
+      "visual_modulate": "ddd8ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
+      "source_sprite_region": [
+        32,
+        0,
+        32,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          40
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          40
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          40
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          40
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          40
+        ]
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH05_E14",
+      "kind": "kneeling_crossbowman",
+      "position": [
+        15895,
+        500
+      ],
+      "platform_id": "ch05_preboss_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "visual_scale": 0.98,
+      "visual_offset": [
+        0,
+        -4
+      ],
+      "visual_modulate": "ddd8ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+      "source_sprite_region": [
+        60,
+        0,
+        60,
+        60
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "walk": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "attack": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "hurt": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "death": [
+          0,
+          0,
+          60,
+          60
+        ]
+      },
+      "leash_radius": 220
     }
   ],
   "boss": {
@@ -2177,12 +2644,12 @@
     "name": "静音巡礼统帅",
     "kind": "silent_pilgrim_commander",
     "position": [
-      13680,
+      16970,
       500
     ],
     "hp": 22,
     "damage": 1,
-    "patrol": 220,
+    "patrol": 260,
     "reward_item": "silent_mark_obsidian",
     "story_drop": "统帅短暂恢复自我，交出沉默军令，承认王冠核心会把所有失败者重新编入军队。",
     "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/manifest.json",
@@ -2250,7 +2717,9 @@
         60,
         60
       ]
-    }
+    },
+    "arena_min_x": 16370,
+    "arena_max_x": 17790
   },
   "labels": [
     {
@@ -2299,17 +2768,27 @@
       "id": "save_hidden_upper_respite",
       "label": "黑曜巡礼道隐藏存档点",
       "position": [
-        6900,
-        370
+        13455,
+        310
       ],
       "hidden": true,
       "note": "藏在主线路线上方的稀疏存档点。"
     },
     {
+      "id": "save_ch05_lower_loop",
+      "label": "第5章下层回环存档点",
+      "position": [
+        10760,
+        570
+      ],
+      "hidden": false,
+      "note": "扩建后下层回环的中段存档点。"
+    },
+    {
       "id": "save_late_runback",
       "label": "黑曜巡礼道Boss前存档点",
       "position": [
-        12540,
+        15635,
         500
       ],
       "hidden": false,
@@ -2353,8 +2832,139 @@
         "ch05_sprint_step",
         "ch05_gauntlet_upper"
       ]
+    },
+    {
+      "id": "ch05_lower_upper_return",
+      "room_id": "ch05_room_13",
+      "technique": "lower loop, return shaft, upper bridge",
+      "platforms": [
+        "ch05_lower_loop_floor",
+        "ch05_return_shaft_base",
+        "ch05_return_shaft_step_a",
+        "ch05_return_shaft_step_b",
+        "ch05_upper_bridge"
+      ]
+    },
+    {
+      "id": "ch05_preboss_crossway",
+      "room_id": "ch05_room_16",
+      "technique": "upper drop into final horizontal approach",
+      "platforms": [
+        "ch05_upper_drop_step",
+        "ch05_crossway_floor",
+        "ch05_preboss_floor",
+        "boss_floor"
+      ]
     }
   ],
-  "art_theme": "obsidian_pilgrim"
+  "art_theme": "obsidian_pilgrim",
+  "map_layout_tags": [
+    "horizontal_mainline",
+    "upper_route",
+    "lower_route",
+    "vertical_shaft",
+    "opened_shortcut"
+  ],
+  "connections": [
+    {
+      "from": "ch05_room_1",
+      "to": "ch05_room_2",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_2",
+      "to": "ch05_room_3",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_3",
+      "to": "ch05_room_4",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_4",
+      "to": "ch05_room_5",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_5",
+      "to": "ch05_room_6",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_6",
+      "to": "ch05_room_7",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_7",
+      "to": "ch05_room_8",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_8",
+      "to": "ch05_room_9",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_9",
+      "to": "ch05_room_10",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_10",
+      "to": "ch05_room_11",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_11",
+      "to": "ch05_room_12",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_12",
+      "to": "ch05_room_13",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_13",
+      "to": "ch05_room_14",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_14",
+      "to": "ch05_room_15",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_15",
+      "to": "ch05_room_16",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_16",
+      "to": "ch05_room_17",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_17",
+      "to": "ch05_room_18",
+      "type": "passage"
+    },
+    {
+      "from": "ch05_room_12",
+      "to": "ch05_room_13",
+      "type": "lower_return"
+    },
+    {
+      "from": "ch05_room_14",
+      "to": "ch05_room_15",
+      "type": "upper_shortcut"
+    },
+    {
+      "from": "ch05_room_5",
+      "to": "ch05_room_17",
+      "type": "opened_shortcut"
+    }
+  ]
 }
-

@@ -2,7 +2,7 @@
   "id": "demo_ch03_saltwhite_archive",
   "name": "盐白书库试玩章",
   "world": {
-    "width": 13800,
+    "width": 18800,
     "height": 720,
     "fall_y": 790
   },
@@ -11,7 +11,7 @@
     500
   ],
   "boss_checkpoint": [
-    10940,
+    15480,
     500
   ],
   "required_keys": 0,
@@ -110,11 +110,11 @@
         0,
         850
       ],
-      "depth": -2,
+      "depth": -1,
       "kind": "entry",
-      "objective": "盐封入口：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "盐封入口：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "逆读书廊"
     },
     {
@@ -124,11 +124,11 @@
         850,
         1750
       ],
-      "depth": -1,
-      "kind": "field",
-      "objective": "逆读书廊：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "depth": 1,
+      "kind": "lower",
+      "objective": "逆读书廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "静默阅读井"
     },
     {
@@ -140,9 +140,9 @@
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "静默阅读井：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "静默阅读井：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "契约索引台"
     },
     {
@@ -152,11 +152,11 @@
         2600,
         3500
       ],
-      "depth": 1,
+      "depth": -1,
       "kind": "upper",
-      "objective": "契约索引台：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "契约索引台：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "盐晶书脊"
     },
     {
@@ -166,11 +166,11 @@
         3500,
         4550
       ],
-      "depth": 2,
+      "depth": 0,
       "kind": "safe",
-      "objective": "盐晶书脊：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "盐晶书脊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "抹名塔"
     },
     {
@@ -180,11 +180,11 @@
         4550,
         5600
       ],
-      "depth": -2,
+      "depth": 1,
       "kind": "danger",
-      "objective": "抹名塔：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
+      "objective": "抹名塔：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "盐页跳台"
     },
     {
@@ -196,9 +196,9 @@
       ],
       "depth": -1,
       "kind": "parkour",
-      "objective": "盐页跳台：清掉敌群并继续推进。",
-      "guide": "这里是跑酷段，利用小平台、冲刺和下劈反弹穿过。",
-      "danger": "跳台之间有陷阱，失败会扣血但不会传送回起点。",
+      "objective": "盐页跳台：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "倒置书梯"
     },
     {
@@ -209,10 +209,10 @@
         7800
       ],
       "depth": 0,
-      "kind": "parkour",
-      "objective": "倒置书梯：清掉敌群并继续推进。",
-      "guide": "这里是跑酷段，利用小平台、冲刺和下劈反弹穿过。",
-      "danger": "跳台之间有陷阱，失败会扣血但不会传送回起点。",
+      "kind": "vertical",
+      "objective": "倒置书梯：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "玻璃书架跑酷"
     },
     {
@@ -222,11 +222,11 @@
         7800,
         8950
       ],
-      "depth": 1,
+      "depth": -1,
       "kind": "upper",
-      "objective": "玻璃书架跑酷：清掉敌群并继续推进。",
-      "guide": "这里是跑酷段，利用小平台、冲刺和下劈反弹穿过。",
-      "danger": "跳台之间有陷阱，失败会扣血但不会传送回起点。",
+      "objective": "玻璃书架跑酷：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "契约庭前廊"
     },
     {
@@ -234,56 +234,126 @@
       "name": "契约庭前廊",
       "range": [
         8950,
-        10100
+        10050
       ],
-      "depth": 2,
+      "depth": 0,
       "kind": "field",
-      "objective": "契约庭前廊：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "封页连战"
+      "objective": "契约庭前廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "删名下层"
     },
     {
       "id": "ch03_room_11",
-      "name": "封页连战",
+      "name": "删名下层",
       "range": [
-        10100,
-        11300
+        10050,
+        11150
       ],
-      "depth": -2,
-      "kind": "danger",
-      "objective": "封页连战：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "盐白契约庭"
+      "depth": 2,
+      "kind": "lower",
+      "objective": "删名下层：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "空白页回环"
     },
     {
       "id": "ch03_room_12",
-      "name": "盐白契约庭",
+      "name": "空白页回环",
       "range": [
-        11300,
-        13100
+        11150,
+        12150
       ],
-      "depth": -1,
-      "kind": "boss",
-      "objective": "盐白契约庭：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "盐页出口"
+      "depth": 2,
+      "kind": "lower",
+      "objective": "空白页回环：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "盐印升降井"
     },
     {
       "id": "ch03_room_13",
+      "name": "盐印升降井",
+      "range": [
+        12150,
+        13050
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "盐印升降井：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "高阁索桥"
+    },
+    {
+      "id": "ch03_room_14",
+      "name": "高阁索桥",
+      "range": [
+        13050,
+        14100
+      ],
+      "depth": -2,
+      "kind": "upper",
+      "objective": "高阁索桥：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "封页连战"
+    },
+    {
+      "id": "ch03_room_15",
+      "name": "封页连战",
+      "range": [
+        14100,
+        15300
+      ],
+      "depth": 0,
+      "kind": "danger",
+      "objective": "封页连战：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "契约庭门廊"
+    },
+    {
+      "id": "ch03_room_16",
+      "name": "契约庭门廊",
+      "range": [
+        15300,
+        16250
+      ],
+      "depth": 0,
+      "kind": "field",
+      "objective": "契约庭门廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "盐白契约庭"
+    },
+    {
+      "id": "ch03_room_17",
+      "name": "盐白契约庭",
+      "range": [
+        16250,
+        18050
+      ],
+      "depth": 0,
+      "kind": "boss",
+      "objective": "盐白契约庭：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "盐页出口"
+    },
+    {
+      "id": "ch03_room_18",
       "name": "盐页出口",
       "range": [
-        13100,
-        13800
+        18050,
+        18800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "盐页出口：清掉敌群并继续推进。",
-      "guide": "以清怪推进为主，打通 Boss 路线。",
-      "danger": "敌人清完后Boss路线会自动打开。",
-      "next": "Boss路线"
+      "objective": "盐页出口：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "章节出口"
     }
   ],
   "ai_profiles": {
@@ -1200,54 +1270,109 @@
       "material": "vellum_bridge"
     },
     {
-      "id": "pre_boss_floor",
+      "id": "ch03_lower_loop_floor",
       "rect": [
-        10780,
-        540,
+        10090,
+        610,
+        1020,
+        34
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "ch03_lower_loop_mid",
+      "rect": [
+        10470,
+        520,
+        360,
+        28
+      ],
+      "color": "73684a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ch03_lower_loop_exit_lip",
+      "rect": [
+        10940,
         560,
+        220,
+        26
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "ch03_return_shaft_base",
+      "rect": [
+        12210,
+        540,
+        360,
+        30
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "ch03_return_shaft_step_a",
+      "rect": [
+        12510,
+        470,
+        260,
+        28
+      ],
+      "color": "73684a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ch03_return_shaft_step_b",
+      "rect": [
+        12840,
+        400,
+        260,
+        28
+      ],
+      "color": "73684a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ch03_upper_bridge",
+      "rect": [
+        13120,
+        350,
+        910,
+        28
+      ],
+      "color": "73684a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ch03_upper_drop_step",
+      "rect": [
+        13820,
+        430,
+        260,
+        28
+      ],
+      "color": "73684a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ch03_crossway_floor",
+      "rect": [
+        15320,
+        540,
+        910,
         34
       ],
-      "color": "806245",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
     },
     {
-      "id": "boss_floor",
+      "id": "ch03_crossway_upper",
       "rect": [
-        11300,
-        540,
-        1500,
-        44
-      ],
-      "color": "806245",
-      "material": "archive_boss"
-    },
-    {
-      "id": "boss_back_wall",
-      "rect": [
-        12810,
-        315,
-        38,
-        270
-      ],
-      "color": "806245",
-      "material": "archive_boss"
-    },
-    {
-      "id": "ch03_exit_floor",
-      "rect": [
-        13100,
-        540,
-        700,
-        34
-      ],
-      "color": "806245",
-      "material": "archive_boss"
-    },
-    {
-      "id": "ch03_exit_upper",
-      "rect": [
-        13270,
-        420,
+        15720,
+        452,
         380,
         28
       ],
@@ -1255,16 +1380,92 @@
       "material": "vellum_bridge"
     },
     {
-      "id": "ch03_post_boss_run_step",
+      "id": "ch03_preboss_floor",
       "rect": [
-        12860,
+        15330,
         540,
-        220,
+        890,
         34
       ],
-      "color": "806245",
-      "material": "archive_boss",
-      "guide": "Boss前后跑酷衔接平台，保留跳跃间隔但避免不可达断层。"
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "boss_floor",
+      "rect": [
+        16250,
+        540,
+        1660,
+        44
+      ],
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "boss_back_wall",
+      "rect": [
+        17910,
+        315,
+        38,
+        270
+      ],
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "ch03_post_boss_run_step",
+      "rect": [
+        17900,
+        540,
+        300,
+        34
+      ],
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "ch03_exit_runup",
+      "rect": [
+        18040,
+        540,
+        580,
+        34
+      ],
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "ch03_exit_floor",
+      "rect": [
+        18480,
+        540,
+        320,
+        34
+      ],
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "ch03_late_route_link_01",
+      "rect": [
+        10830,
+        540,
+        1380,
+        30
+      ],
+      "color": "625644",
+      "material": "archive_boss"
+    },
+    {
+      "id": "ch03_late_route_link_02",
+      "rect": [
+        12570,
+        540,
+        2750,
+        30
+      ],
+      "color": "625644",
+      "material": "archive_boss"
     }
   ],
   "locked_gates": [],
@@ -1273,85 +1474,121 @@
       "id": "ch03_hazard_01",
       "kind": "fake_moss_floor",
       "rect": [
-        1180,
-        585,
-        130,
-        25
+        715,
+        406,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "战斗门前地板下陷。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch03_hazard_02",
       "kind": "bell_gap",
       "rect": [
-        2050,
-        514,
-        100,
-        26
+        2275,
+        442,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "跑动缺口扣血。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch03_hazard_03",
       "kind": "spore_chest",
       "rect": [
-        5860,
-        442,
-        100,
+        3725,
+        516,
+        110,
         24
       ],
       "damage": 1,
-      "message": "跑酷段机关爆开。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch03_hazard_04",
       "kind": "falling_clapper",
       "rect": [
-        6250,
-        372,
+        5805,
+        442,
         110,
         24
       ],
       "damage": 1,
-      "message": "上层坠物砸下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch03_hazard_05",
       "kind": "bell_gap",
       "rect": [
-        7740,
-        516,
-        128,
+        7545,
+        336,
+        110,
         24
       ],
       "damage": 1,
-      "message": "冲刺落点断开。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch03_hazard_06",
       "kind": "falling_clapper",
       "rect": [
-        9320,
-        516,
-        130,
+        9235,
+        404,
+        110,
         24
       ],
       "damage": 1,
-      "message": "连战机关落下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
       "id": "ch03_hazard_07",
       "kind": "spore_chest",
       "rect": [
-        11080,
-        516,
-        120,
+        10595,
+        496,
+        110,
         24
       ],
       "damage": 1,
-      "message": "Boss门前机关喷发。"
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch03_hazard_08",
+      "kind": "fake_moss_floor",
+      "rect": [
+        13520,
+        326,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch03_hazard_09",
+      "kind": "bell_gap",
+      "rect": [
+        15720,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch03_hazard_10",
+      "kind": "spore_chest",
+      "rect": [
+        18585,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
     }
   ],
   "collectibles": [],
@@ -1370,7 +1607,7 @@
       "id": "ch03_saltwhite_archive_boss_gate",
       "kind": "boss_gate",
       "position": [
-        11500,
+        16460,
         500
       ]
     },
@@ -1379,7 +1616,7 @@
       "kind": "chapter_exit",
       "label": "前往第四章：断弦温室",
       "position": [
-        13460,
+        18620,
         500
       ],
       "next_runtime_config_id": "demo_ch04_broken_string_greenhouse",
@@ -1467,7 +1704,7 @@
       "id": "CH03_E01",
       "kind": "salt_bookmite",
       "position": [
-        1160,
+        1120,
         570
       ],
       "platform_id": "outer_low_floor",
@@ -1527,13 +1764,14 @@
           32,
           32
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E02",
       "kind": "page_duelist",
       "position": [
-        1960,
+        2110,
         500
       ],
       "platform_id": "lift_base",
@@ -1593,13 +1831,14 @@
           64,
           64
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E03",
       "kind": "index_scribe",
       "position": [
-        2820,
+        2780,
         348
       ],
       "platform_id": "upper_bridge_a",
@@ -1659,13 +1898,14 @@
           57,
           88
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E04",
       "kind": "wax_lancer",
       "position": [
-        4580,
+        4880,
         500
       ],
       "platform_id": "ch03_runback_floor",
@@ -1725,13 +1965,14 @@
           45,
           66
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E05",
       "kind": "erasure_bailiff",
       "position": [
-        5860,
+        5720,
         500
       ],
       "platform_id": "ch03_parkour_floor_a",
@@ -1791,13 +2032,14 @@
           80,
           80
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E06",
       "kind": "salt_bookmite",
       "position": [
-        6900,
+        7115,
         370
       ],
       "platform_id": "ch03_parkour_upper_a",
@@ -1857,19 +2099,20 @@
           32,
           32
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E07",
       "kind": "page_duelist",
       "position": [
-        7500,
+        7480,
         320
       ],
       "platform_id": "ch03_parkour_upper_b",
       "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/manifest.json",
       "sprite_region": [
         0,
@@ -1923,19 +2166,20 @@
           64,
           64
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E08",
       "kind": "index_scribe",
       "position": [
-        8050,
+        8180,
         500
       ],
       "platform_id": "ch03_sprint_floor",
       "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/manifest.json",
       "sprite_region": [
         0,
@@ -1989,19 +2233,20 @@
           57,
           88
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E09",
       "kind": "wax_lancer",
       "position": [
-        9100,
+        9030,
         500
       ],
       "platform_id": "ch03_gauntlet_floor",
-      "hp": 3,
+      "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/manifest.json",
       "sprite_region": [
         0,
@@ -2055,19 +2300,20 @@
           45,
           66
         ]
-      }
+      },
+      "leash_radius": 220
     },
     {
       "id": "CH03_E10",
       "kind": "erasure_bailiff",
       "position": [
-        10360,
+        10380,
         500
       ],
       "platform_id": "ch03_approach_floor",
-      "hp": 3,
+      "hp": 2,
       "damage": 1,
-      "patrol": 120,
+      "patrol": 80,
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/manifest.json",
       "sprite_region": [
         0,
@@ -2121,7 +2367,276 @@
           80,
           80
         ]
-      }
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH03_E11",
+      "kind": "salt_bookmite",
+      "position": [
+        10480,
+        570
+      ],
+      "platform_id": "ch03_lower_loop_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "visual_scale": 1.45,
+      "visual_offset": [
+        0,
+        0
+      ],
+      "visual_modulate": "f0f0ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/sparky-surt-emceeflesher-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        16,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH03_E12",
+      "kind": "page_duelist",
+      "position": [
+        12510,
+        500
+      ],
+      "platform_id": "ch03_return_shaft_base",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -2
+      ],
+      "visual_modulate": "f0f0ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "walk": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "attack": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "hurt": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "death": [
+          0,
+          0,
+          64,
+          64
+        ]
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH03_E13",
+      "kind": "index_scribe",
+      "position": [
+        13455,
+        310
+      ],
+      "platform_id": "ch03_upper_bridge",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "visual_scale": 0.74,
+      "visual_offset": [
+        0,
+        -12
+      ],
+      "visual_modulate": "f0f0ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-andromalius-57x88-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        57,
+        88
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          57,
+          88
+        ],
+        "walk": [
+          0,
+          0,
+          57,
+          88
+        ],
+        "attack": [
+          0,
+          0,
+          57,
+          88
+        ],
+        "hurt": [
+          0,
+          0,
+          57,
+          88
+        ],
+        "death": [
+          0,
+          0,
+          57,
+          88
+        ]
+      },
+      "leash_radius": 220
+    },
+    {
+      "id": "CH03_E14",
+      "kind": "wax_lancer",
+      "position": [
+        15895,
+        500
+      ],
+      "platform_id": "ch03_preboss_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        45,
+        66
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -6
+      ],
+      "visual_modulate": "f0f0ff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
+      "source_sprite_region": [
+        45,
+        0,
+        45,
+        66
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "walk": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "attack": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "hurt": [
+          0,
+          0,
+          45,
+          66
+        ],
+        "death": [
+          0,
+          0,
+          45,
+          66
+        ]
+      },
+      "leash_radius": 220
     }
   ],
   "boss": {
@@ -2129,12 +2644,12 @@
     "name": "盐白契约官",
     "kind": "saltwhite_contract_judge",
     "position": [
-      12080,
+      16970,
       500
     ],
     "hp": 22,
     "damage": 1,
-    "patrol": 220,
+    "patrol": 260,
     "reward_item": "silent_mark_saltwhite",
     "story_drop": "契约原本显示六枚印记曾是六位守门者心脏，第七签署者被系统删名。",
     "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/manifest.json",
@@ -2202,7 +2717,9 @@
         57,
         88
       ]
-    }
+    },
+    "arena_min_x": 16370,
+    "arena_max_x": 17790
   },
   "labels": [
     {
@@ -2251,17 +2768,27 @@
       "id": "save_hidden_upper_respite",
       "label": "盐白书库隐藏存档点",
       "position": [
-        6900,
-        370
+        13455,
+        310
       ],
       "hidden": true,
       "note": "藏在主线路线上方的稀疏存档点。"
     },
     {
+      "id": "save_ch03_lower_loop",
+      "label": "第3章下层回环存档点",
+      "position": [
+        10760,
+        570
+      ],
+      "hidden": false,
+      "note": "扩建后下层回环的中段存档点。"
+    },
+    {
       "id": "save_late_runback",
       "label": "盐白书库Boss前存档点",
       "position": [
-        10940,
+        15635,
         500
       ],
       "hidden": false,
@@ -2305,8 +2832,139 @@
         "ch03_sprint_step",
         "ch03_gauntlet_upper"
       ]
+    },
+    {
+      "id": "ch03_lower_upper_return",
+      "room_id": "ch03_room_13",
+      "technique": "lower loop, return shaft, upper bridge",
+      "platforms": [
+        "ch03_lower_loop_floor",
+        "ch03_return_shaft_base",
+        "ch03_return_shaft_step_a",
+        "ch03_return_shaft_step_b",
+        "ch03_upper_bridge"
+      ]
+    },
+    {
+      "id": "ch03_preboss_crossway",
+      "room_id": "ch03_room_16",
+      "technique": "upper drop into final horizontal approach",
+      "platforms": [
+        "ch03_upper_drop_step",
+        "ch03_crossway_floor",
+        "ch03_preboss_floor",
+        "boss_floor"
+      ]
     }
   ],
-  "art_theme": "salt_archive"
+  "art_theme": "salt_archive",
+  "map_layout_tags": [
+    "horizontal_mainline",
+    "upper_route",
+    "lower_route",
+    "vertical_shaft",
+    "opened_shortcut"
+  ],
+  "connections": [
+    {
+      "from": "ch03_room_1",
+      "to": "ch03_room_2",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_2",
+      "to": "ch03_room_3",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_3",
+      "to": "ch03_room_4",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_4",
+      "to": "ch03_room_5",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_5",
+      "to": "ch03_room_6",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_6",
+      "to": "ch03_room_7",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_7",
+      "to": "ch03_room_8",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_8",
+      "to": "ch03_room_9",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_9",
+      "to": "ch03_room_10",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_10",
+      "to": "ch03_room_11",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_11",
+      "to": "ch03_room_12",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_12",
+      "to": "ch03_room_13",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_13",
+      "to": "ch03_room_14",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_14",
+      "to": "ch03_room_15",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_15",
+      "to": "ch03_room_16",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_16",
+      "to": "ch03_room_17",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_17",
+      "to": "ch03_room_18",
+      "type": "passage"
+    },
+    {
+      "from": "ch03_room_12",
+      "to": "ch03_room_13",
+      "type": "lower_return"
+    },
+    {
+      "from": "ch03_room_14",
+      "to": "ch03_room_15",
+      "type": "upper_shortcut"
+    },
+    {
+      "from": "ch03_room_5",
+      "to": "ch03_room_17",
+      "type": "opened_shortcut"
+    }
+  ]
 }
-

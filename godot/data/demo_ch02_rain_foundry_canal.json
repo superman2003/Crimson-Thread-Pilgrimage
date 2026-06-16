@@ -2,7 +2,7 @@
   "id": "demo_ch02_rain_foundry_canal",
   "name": "铸雨渠试玩章",
   "world": {
-    "width": 16800,
+    "width": 20000,
     "height": 720,
     "fall_y": 790
   },
@@ -11,7 +11,7 @@
     500
   ],
   "boss_checkpoint": [
-    13940,
+    17080,
     500
   ],
   "required_keys": 0,
@@ -121,10 +121,10 @@
       ],
       "depth": 0,
       "kind": "gate",
-      "objective": "从雨渠入口看见下层水流和第一段低顶跑。",
-      "guide": "顺水跑，逆水用冲刺补位。",
-      "danger": "湿金属板会滑开。",
-      "next": "进入外渠低桥。"
+      "objective": "雨渠入口：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "外渠低桥"
     },
     {
       "id": "low_bridge_canal",
@@ -134,11 +134,11 @@
         1750
       ],
       "depth": 1,
-      "kind": "field",
-      "objective": "在低桥下练习下劈越过低身位怪。",
-      "guide": "下劈命中后反弹，不要被怪堵死。",
-      "danger": "低顶会压缩跳跃高度。",
-      "next": "爬到泵轮升降机。"
+      "kind": "lower",
+      "objective": "外渠低桥：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "泵轮升降机"
     },
     {
       "id": "pump_lift",
@@ -149,10 +149,10 @@
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "用两段短平台理解雨渠的上下层切换。",
-      "guide": "先看平台边缘，再冲刺接跳。",
-      "danger": "泵轮缺口会吞掉落点。",
-      "next": "到管道屋顶。"
+      "objective": "泵轮升降机：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "管道屋顶"
     },
     {
       "id": "pipe_roof",
@@ -163,10 +163,10 @@
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "从上层管道绕过下方水渠。",
-      "guide": "上层宽桥适合空中攻击。",
-      "danger": "锈汽会从管缝爆开。",
-      "next": "进入管工休息间。"
+      "objective": "管道屋顶：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "管工休息间"
     },
     {
       "id": "pipewright_rest",
@@ -177,10 +177,10 @@
       ],
       "depth": 0,
       "kind": "safe",
-      "objective": "和铁匠柳整理路线，确认湿墙攀附规则。",
-      "guide": "这里无敌人，是中段节奏缓冲。",
-      "danger": "假箱子会喷蒸汽。",
-      "next": "进入泵井礼拜间。"
+      "objective": "管工休息间：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "泵井礼拜间"
     },
     {
       "id": "sluice_chapel",
@@ -191,10 +191,10 @@
       ],
       "depth": 0,
       "kind": "safe",
-      "objective": "清掉本段敌人后理解水轮捷径。",
-      "guide": "拉杆旁留安全台，避免交互时被围死。",
-      "danger": "水闸会在拉杆后反咬。",
-      "next": "进入三岔泵井。"
+      "objective": "泵井礼拜间：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "三岔泵井"
     },
     {
       "id": "triple_pump_well",
@@ -205,10 +205,10 @@
       ],
       "depth": 1,
       "kind": "vertical",
-      "objective": "三岔泵井第一次要求从下层爬回上层。",
-      "guide": "利用短台阶先上右侧，再转回左侧。",
-      "danger": "水闸反咬会打断贪刀。",
-      "next": "进入湿墙入口。"
+      "objective": "三岔泵井：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "湿墙入口"
     },
     {
       "id": "wet_wall_intro",
@@ -219,10 +219,10 @@
       ],
       "depth": 0,
       "kind": "skill_gate",
-      "objective": "先做短距离湿墙贴附，不要求长井。",
-      "guide": "贴墙后立刻短跳，别一直按住。",
-      "danger": "失手只掉回底部。",
-      "next": "进入湿墙竖井。"
+      "objective": "湿墙入口：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "湿墙竖井"
     },
     {
       "id": "wet_wall_shaft",
@@ -232,11 +232,11 @@
         6100
       ],
       "depth": -1,
-      "kind": "skill_gate",
-      "objective": "练习湿墙攀附三步：贴墙、短跳、横冲。",
-      "guide": "每次只要求短距离上行，不做长井折磨。",
-      "danger": "落下会回到底部平台。",
-      "next": "进入溢水池。"
+      "kind": "vertical",
+      "objective": "湿墙竖井：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "溢水池"
     },
     {
       "id": "overflow_basin",
@@ -246,11 +246,11 @@
         7000
       ],
       "depth": 2,
-      "kind": "field",
-      "objective": "低层水池给玩家绕怪空间。",
-      "guide": "敌人分散，留出下劈反弹余地。",
-      "danger": "格栅断口会吃掉冲刺。",
-      "next": "进入溢水下格栅。"
+      "kind": "lower",
+      "objective": "溢水池：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "溢水下格栅"
     },
     {
       "id": "overflow_lower_grate",
@@ -261,10 +261,10 @@
       ],
       "depth": 2,
       "kind": "danger",
-      "objective": "短下层路线展示风险更高的捷径。",
-      "guide": "这里少停留，利用冲刺通过。",
-      "danger": "下方格栅不是安全路线。",
-      "next": "爬上压力栈。"
+      "objective": "溢水下格栅：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "压力栈"
     },
     {
       "id": "pressure_stack",
@@ -275,10 +275,10 @@
       ],
       "depth": -1,
       "kind": "vertical",
-      "objective": "压力栈把路线从下层重新抬到高处。",
-      "guide": "先走左侧短台，再跳右侧高台。",
-      "danger": "掉下去会回到底廊。",
-      "next": "进入回声索桥。"
+      "objective": "压力栈：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "回声索桥"
     },
     {
       "id": "echo_hook_bridge",
@@ -289,10 +289,10 @@
       ],
       "depth": -2,
       "kind": "hook_bridge",
-      "objective": "用回声钩索越过断桥和飞行干扰怪。",
-      "guide": "钩环在高处，先清飞行怪再过桥。",
-      "danger": "悬挂铁钟会坠落。",
-      "next": "进入秘密横渡。"
+      "objective": "回声索桥：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "秘密横渡"
     },
     {
       "id": "swing_crossing_secret",
@@ -303,10 +303,10 @@
       ],
       "depth": -1,
       "kind": "secret",
-      "objective": "返场时可用钩索横渡拿补给。",
-      "guide": "主线可直接下落，支线给奖励和存档。",
-      "danger": "不要在半空追飞行怪。",
-      "next": "回到玻璃管廊。"
+      "objective": "秘密横渡：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "玻璃管廊"
     },
     {
       "id": "glass_pipe_gallery",
@@ -317,10 +317,10 @@
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "高处玻璃管廊形成可回望的支路。",
-      "guide": "上层长桥允许你绕过一部分地面威胁。",
-      "danger": "管廊下方有缺口。",
-      "next": "进入铸坊回廊。"
+      "objective": "玻璃管廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "铸坊回廊"
     },
     {
       "id": "foundry_runback",
@@ -331,10 +331,10 @@
       ],
       "depth": 0,
       "kind": "danger",
-      "objective": "进入Boss前第一段铸坊回廊。",
-      "guide": "警示条和工业灯提示这里已进入沉炉区域。",
-      "danger": "火锤机关会惩罚直线冲刺。",
-      "next": "穿过铸锤院。"
+      "objective": "铸坊回廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "铸锤院"
     },
     {
       "id": "hammer_yard",
@@ -345,10 +345,10 @@
       ],
       "depth": 1,
       "kind": "field",
-      "objective": "Boss前精英预考，练习绕过重甲敌人。",
-      "guide": "宽地面允许跳过盾兵，不要硬贴。",
-      "danger": "锤影下治疗会被打断。",
-      "next": "前往铁砧升降机。"
+      "objective": "铸锤院：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "铁砧升降机"
     },
     {
       "id": "anvil_lift",
@@ -358,39 +358,95 @@
         13950
       ],
       "depth": -1,
+      "kind": "vertical",
+      "objective": "铁砧升降机：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "排水下环"
+    },
+    {
+      "id": "drainage_underloop",
+      "name": "排水下环",
+      "range": [
+        13950,
+        15000
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "排水下环：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "蒸汽回升井"
+    },
+    {
+      "id": "steam_return_shaft",
+      "name": "蒸汽回升井",
+      "range": [
+        15000,
+        15900
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "蒸汽回升井：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "高压屋脊"
+    },
+    {
+      "id": "roof_pressure_bridge",
+      "name": "高压屋脊",
+      "range": [
+        15900,
+        16900
+      ],
+      "depth": -2,
       "kind": "upper",
-      "objective": "第二个上层回环，缩短Boss前回跑。",
-      "guide": "上层管道把视线压低，注意落点。",
-      "danger": "蒸汽从铁砧缝里喷出。",
-      "next": "进入泵王殿。"
+      "objective": "高压屋脊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "砧台前廊"
+    },
+    {
+      "id": "anvil_preboss",
+      "name": "砧台前廊",
+      "range": [
+        16900,
+        17550
+      ],
+      "depth": 0,
+      "kind": "danger",
+      "objective": "砧台前廊：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "泵王殿"
     },
     {
       "id": "pump_king_hall",
       "name": "泵王殿",
       "range": [
-        13950,
-        15850
+        17550,
+        19250
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "击败沉锤铁匠，打开Boss后铸铁墙。",
-      "guide": "左右水阀和三枚钩环提示Boss蓄力打断节奏。",
-      "danger": "二阶段水位会压缩站位。",
-      "next": "进入誓言排水口。"
+      "objective": "泵王殿：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "誓言排水口"
     },
     {
       "id": "oath_outlet",
       "name": "誓言排水口",
       "range": [
-        15850,
-        16800
+        19250,
+        20000
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "带着铁匠誓牌前往第三章盐白书库。",
-      "guide": "出口远离出生点，避免打完Boss像回到起点。",
-      "danger": "按F进入下一章。",
-      "next": "前往盐白书库。"
+      "objective": "誓言排水口：沿横向主线推进，并观察上层/下层回路。",
+      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "章节出口"
     }
   ],
   "ai_profiles": {
@@ -1232,17 +1288,6 @@
       "material": "rain_pipe"
     },
     {
-      "id": "wet_wall_shaft_exit",
-      "rect": [
-        5820,
-        350,
-        260,
-        28
-      ],
-      "color": "746943",
-      "material": "sluice_bridge"
-    },
-    {
       "id": "overflow_basin_floor",
       "rect": [
         6120,
@@ -1329,17 +1374,6 @@
       ],
       "color": "426c76",
       "material": "rain_pipe"
-    },
-    {
-      "id": "echo_hook_exit",
-      "rect": [
-        9320,
-        382,
-        300,
-        28
-      ],
-      "color": "746943",
-      "material": "sluice_bridge"
     },
     {
       "id": "glass_pipe_gallery",
@@ -1441,94 +1475,6 @@
       "material": "sluice_bridge"
     },
     {
-      "id": "pre_boss_floor",
-      "rect": [
-        13900,
-        540,
-        520,
-        34
-      ],
-      "color": "583b31",
-      "material": "foundry_boss"
-    },
-    {
-      "id": "boss_floor",
-      "rect": [
-        14160,
-        540,
-        1660,
-        44
-      ],
-      "color": "5f3f32",
-      "material": "foundry_boss"
-    },
-    {
-      "id": "boss_valve_left",
-      "rect": [
-        14240,
-        430,
-        260,
-        28
-      ],
-      "color": "426c76",
-      "material": "rain_pipe"
-    },
-    {
-      "id": "boss_center_float",
-      "rect": [
-        14820,
-        430,
-        300,
-        28
-      ],
-      "color": "796740",
-      "material": "sluice_bridge"
-    },
-    {
-      "id": "boss_valve_right",
-      "rect": [
-        15380,
-        430,
-        260,
-        28
-      ],
-      "color": "426c76",
-      "material": "rain_pipe"
-    },
-    {
-      "id": "boss_back_wall",
-      "rect": [
-        15835,
-        315,
-        38,
-        270
-      ],
-      "color": "3d2c29",
-      "material": "foundry_boss"
-    },
-    {
-      "id": "oath_outlet_floor",
-      "rect": [
-        15880,
-        540,
-        900,
-        34
-      ],
-      "color": "334449",
-      "material": "wet_metal"
-    },
-    {
-      "id": "oath_outlet_roof",
-      "rect": [
-        16100,
-        400,
-        520,
-        28
-      ],
-      "color": "426c76",
-      "material": "rain_pipe"
-    },
-    {
       "id": "wet_service_floor",
       "rect": [
         4560,
@@ -1549,165 +1495,395 @@
       ],
       "color": "2c3d42",
       "material": "wet_metal"
+    },
+    {
+      "id": "wet_wall_shaft_exit",
+      "rect": [
+        5820,
+        350,
+        260,
+        28
+      ],
+      "color": "746943",
+      "material": "sluice_bridge"
+    },
+    {
+      "id": "echo_hook_exit",
+      "rect": [
+        9320,
+        382,
+        300,
+        28
+      ],
+      "color": "746943",
+      "material": "sluice_bridge"
+    },
+    {
+      "id": "ch02_lower_loop_floor",
+      "rect": [
+        13990,
+        610,
+        970,
+        34
+      ],
+      "color": "344141",
+      "material": "wet_metal"
+    },
+    {
+      "id": "ch02_lower_loop_mid",
+      "rect": [
+        14370,
+        520,
+        360,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_lower_loop_exit_lip",
+      "rect": [
+        14790,
+        560,
+        220,
+        26
+      ],
+      "color": "344141",
+      "material": "wet_metal"
+    },
+    {
+      "id": "ch02_return_shaft_base",
+      "rect": [
+        15060,
+        540,
+        360,
+        30
+      ],
+      "color": "344141",
+      "material": "wet_metal"
+    },
+    {
+      "id": "ch02_return_shaft_step_a",
+      "rect": [
+        15360,
+        470,
+        260,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_return_shaft_step_b",
+      "rect": [
+        15690,
+        400,
+        260,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_upper_bridge",
+      "rect": [
+        15970,
+        350,
+        860,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_upper_drop_step",
+      "rect": [
+        16620,
+        430,
+        260,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_crossway_floor",
+      "rect": [
+        16920,
+        540,
+        610,
+        34
+      ],
+      "color": "344141",
+      "material": "wet_metal"
+    },
+    {
+      "id": "ch02_crossway_upper",
+      "rect": [
+        17320,
+        452,
+        380,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_preboss_floor",
+      "rect": [
+        16930,
+        540,
+        590,
+        34
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "boss_floor",
+      "rect": [
+        17550,
+        540,
+        1560,
+        44
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "boss_back_wall",
+      "rect": [
+        19110,
+        315,
+        38,
+        270
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "ch02_post_boss_run_step",
+      "rect": [
+        19100,
+        540,
+        300,
+        34
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "ch02_exit_runup",
+      "rect": [
+        19240,
+        540,
+        580,
+        34
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "ch02_exit_floor",
+      "rect": [
+        19680,
+        540,
+        320,
+        34
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "ch02_anvil_bridge_mid",
+      "rect": [
+        17420,
+        455,
+        360,
+        28
+      ],
+      "color": "3d5e66",
+      "material": "rain_pipe"
+    },
+    {
+      "id": "ch02_late_route_link_01",
+      "rect": [
+        13780,
+        540,
+        590,
+        30
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "ch02_late_route_link_02",
+      "rect": [
+        14730,
+        540,
+        330,
+        30
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
+    },
+    {
+      "id": "ch02_late_route_link_03",
+      "rect": [
+        15420,
+        540,
+        1500,
+        30
+      ],
+      "color": "524338",
+      "material": "foundry_boss"
     }
   ],
   "locked_gates": [],
   "hazards": [
     {
-      "id": "trap_slick_metal_01",
+      "id": "ch02_hazard_01",
       "kind": "fake_moss_floor",
       "rect": [
-        1160,
-        575,
-        140,
-        25
+        705,
+        406,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "湿金属板滑开。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "trap_pipe_gap_02",
+      "id": "ch02_hazard_02",
       "kind": "bell_gap",
       "rect": [
-        2050,
-        515,
-        96,
-        26
+        2245,
+        442,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "泵轮缺口吞掉落点。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "trap_rust_burst_03",
+      "id": "ch02_hazard_03",
       "kind": "spore_chest",
       "rect": [
-        2860,
-        362,
-        100,
+        3635,
+        396,
+        110,
         24
       ],
       "damage": 1,
-      "message": "锈汽爆开。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "trap_falling_hammer_04",
+      "id": "ch02_hazard_04",
       "kind": "falling_clapper",
       "rect": [
-        3900,
-        512,
-        104,
+        6605,
+        516,
+        110,
         24
       ],
       "damage": 1,
-      "message": "小锻锤落下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "trap_sluice_bite_05",
+      "id": "ch02_hazard_05",
       "kind": "shortcut_revenge",
       "rect": [
-        4760,
-        515,
-        88,
-        26
+        7705,
+        446,
+        110,
+        24
       ],
       "damage": 1,
-      "message": "水闸反咬。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "trap_wet_wall_drop_06",
+      "id": "ch02_hazard_06",
       "kind": "bell_gap",
       "rect": [
-        5600,
-        560,
-        132,
-        24
-      ],
-      "damage": 1,
-      "message": "湿墙没抓稳，滑回井底。"
-    },
-    {
-      "id": "ch02_overflow_gap_01",
-      "kind": "bell_gap",
-      "rect": [
-        6840,
-        516,
-        128,
-        24
-      ],
-      "damage": 1,
-      "message": "溢水池格栅断开。"
-    },
-    {
-      "id": "ch02_pressure_steam_02",
-      "kind": "spore_chest",
-      "rect": [
-        7740,
-        512,
-        118,
-        24
-      ],
-      "damage": 1,
-      "message": "压力栈蒸汽喷发。"
-    },
-    {
-      "id": "ch02_hook_bell_drop_03",
-      "kind": "falling_clapper",
-      "rect": [
-        9100,
-        405,
-        118,
-        24
-      ],
-      "damage": 1,
-      "message": "回声索桥的悬钟落下。"
-    },
-    {
-      "id": "ch02_glass_pipe_drop_04",
-      "kind": "falling_clapper",
-      "rect": [
-        10280,
+        10035,
         356,
-        118,
+        110,
         24
       ],
       "damage": 1,
-      "message": "玻璃管廊上方锤影落下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "ch02_hammer_shadow_05",
-      "kind": "falling_clapper",
+      "id": "ch02_hazard_07",
+      "kind": "bell_gap",
       "rect": [
-        12220,
+        12155,
         516,
-        130,
+        110,
         24
       ],
       "damage": 1,
-      "message": "铸锤院锤影砸下。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "ch02_preboss_steam_06",
+      "id": "ch02_hazard_08",
       "kind": "spore_chest",
       "rect": [
-        13860,
-        516,
-        120,
+        13635,
+        371,
+        110,
         24
       ],
       "damage": 1,
-      "message": "热蒸汽从铁砧缝里喷出。"
+      "message": "多层扩建路线上出现预警陷阱。"
     },
     {
-      "id": "ch02_boss_water_rise_07",
-      "kind": "shortcut_revenge",
+      "id": "ch02_hazard_09",
+      "kind": "falling_clapper",
       "rect": [
-        14900,
-        516,
-        160,
+        14420,
+        586,
+        110,
         24
       ],
       "damage": 1,
-      "message": "泵王殿水位突然抬升。"
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch02_hazard_10",
+      "kind": "falling_clapper",
+      "rect": [
+        15765,
+        376,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch02_hazard_11",
+      "kind": "falling_clapper",
+      "rect": [
+        17455,
+        428,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
+    },
+    {
+      "id": "ch02_hazard_12",
+      "kind": "spore_chest",
+      "rect": [
+        19475,
+        516,
+        110,
+        24
+      ],
+      "damage": 1,
+      "message": "多层扩建路线上出现预警陷阱。"
     }
   ],
   "collectibles": [],
@@ -1726,7 +1902,7 @@
       "id": "sunken_hammer_gate",
       "kind": "boss_gate",
       "position": [
-        14280,
+        17760,
         500
       ]
     },
@@ -1735,7 +1911,7 @@
       "kind": "chapter_exit",
       "label": "前往第三章：盐白书库",
       "position": [
-        16420,
+        19820,
         500
       ],
       "next_runtime_config_id": "demo_ch03_saltwhite_archive",
@@ -1823,7 +1999,7 @@
       "id": "C2_E01",
       "kind": "drain_leech",
       "position": [
-        1160,
+        1020,
         560
       ],
       "platform_id": "outer_low_floor",
@@ -1881,13 +2057,15 @@
         0,
         64,
         48
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     },
     {
       "id": "C2_E02",
       "kind": "pipe_thrower",
       "position": [
-        1960,
+        1980,
         500
       ],
       "platform_id": "pump_lift_base",
@@ -1945,13 +2123,15 @@
         0,
         60,
         60
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     },
     {
       "id": "C2_E03",
       "kind": "rust_diver",
       "position": [
-        2860,
+        2980,
         348
       ],
       "platform_id": "pipe_roof_bridge",
@@ -2009,16 +2189,18 @@
         0,
         64,
         32
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     },
     {
       "id": "C2_E04",
       "kind": "bell_mote",
       "position": [
-        4460,
+        11150,
         500
       ],
-      "platform_id": "triple_pump_floor",
+      "platform_id": "foundry_runback_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/manifest.json",
       "sprite_region": [
         0,
@@ -2073,269 +2255,15 @@
         0,
         54,
         36
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     },
     {
       "id": "C2_E05",
       "kind": "waterwheel_knight",
       "position": [
-        5360,
-        500
-      ],
-      "platform_id": "wet_service_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          80,
-          80
-        ],
-        "walk": [
-          0,
-          0,
-          80,
-          80
-        ],
-        "attack": [
-          0,
-          0,
-          80,
-          80
-        ],
-        "hurt": [
-          0,
-          0,
-          80,
-          80
-        ],
-        "death": [
-          0,
-          0,
-          80,
-          80
-        ]
-      },
-      "visual_scale": 1.05,
-      "visual_offset": [
-        0,
-        -12
-      ],
-      "visual_modulate": "cfe8ff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ]
-    },
-    {
-      "id": "C2_E06",
-      "kind": "drain_leech",
-      "position": [
-        6620,
-        500
-      ],
-      "platform_id": "overflow_basin_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          32,
-          48
-        ],
-        "walk": [
-          0,
-          0,
-          32,
-          48
-        ],
-        "attack": [
-          0,
-          0,
-          32,
-          48
-        ],
-        "hurt": [
-          0,
-          0,
-          32,
-          48
-        ],
-        "death": [
-          0,
-          0,
-          32,
-          48
-        ]
-      },
-      "visual_scale": 1.18,
-      "visual_offset": [
-        0,
-        -3
-      ],
-      "visual_modulate": "c8e5ff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        48
-      ]
-    },
-    {
-      "id": "C2_E07",
-      "kind": "pipe_thrower",
-      "position": [
-        8160,
-        360
-      ],
-      "platform_id": "pressure_stack_upper",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        60,
-        60
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "walk": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "attack": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "hurt": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "death": [
-          0,
-          0,
-          60,
-          60
-        ]
-      },
-      "visual_scale": 1.02,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "bfe7ff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        60
-      ]
-    },
-    {
-      "id": "C2_E08",
-      "kind": "bell_mote",
-      "position": [
-        9050,
-        390
-      ],
-      "platform_id": "echo_hook_mid_island",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          36,
-          36
-        ],
-        "walk": [
-          0,
-          0,
-          36,
-          36
-        ],
-        "attack": [
-          0,
-          0,
-          36,
-          36
-        ],
-        "hurt": [
-          0,
-          0,
-          36,
-          36
-        ],
-        "death": [
-          0,
-          0,
-          36,
-          36
-        ]
-      },
-      "visual_scale": 1.12,
-      "visual_offset": [
-        0,
-        -14
-      ],
-      "visual_modulate": "bfefff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        54,
-        36
-      ]
-    },
-    {
-      "id": "C2_E09",
-      "kind": "waterwheel_knight",
-      "position": [
-        12120,
+        12090,
         500
       ],
       "platform_id": "hammer_yard_floor",
@@ -2393,205 +2321,15 @@
         0,
         80,
         80
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     },
     {
-      "id": "C2_E10",
-      "kind": "rust_diver",
-      "position": [
-        13460,
-        500
-      ],
-      "platform_id": "anvil_lift_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "walk": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "attack": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "hurt": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "death": [
-          0,
-          0,
-          32,
-          32
-        ]
-      },
-      "visual_scale": 1.28,
-      "visual_offset": [
-        0,
-        0
-      ],
-      "visual_modulate": "d8f8ff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        32
-      ]
-    },
-    {
-      "id": "C2_E11",
-      "kind": "pipe_thrower",
-      "position": [
-        10180,
-        500
-      ],
-      "platform_id": "gallery_drop_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        60,
-        60
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "walk": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "attack": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "hurt": [
-          0,
-          0,
-          60,
-          60
-        ],
-        "death": [
-          0,
-          0,
-          60,
-          60
-        ]
-      },
-      "visual_scale": 1.02,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "bfe7ff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        60
-      ]
-    },
-    {
-      "id": "C2_E12",
-      "kind": "rust_diver",
-      "position": [
-        11320,
-        500
-      ],
-      "platform_id": "foundry_runback_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "walk": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "attack": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "hurt": [
-          0,
-          0,
-          32,
-          32
-        ],
-        "death": [
-          0,
-          0,
-          32,
-          32
-        ]
-      },
-      "visual_scale": 1.28,
-      "visual_offset": [
-        0,
-        0
-      ],
-      "visual_modulate": "d8f8ff",
-      "sprite_faces_left": true,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-      "visual_role": "dark_fantasy_enemy_ch02",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        32
-      ]
-    },
-    {
-      "id": "C2_E13",
+      "id": "C2_E06",
       "kind": "drain_leech",
       "position": [
-        13080,
+        13270,
         500
       ],
       "platform_id": "anvil_lift_floor",
@@ -2649,16 +2387,150 @@
         0,
         64,
         48
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     },
     {
-      "id": "C2_E14",
+      "id": "C2_E07",
+      "kind": "pipe_thrower",
+      "position": [
+        13690,
+        355
+      ],
+      "platform_id": "anvil_lift_upper",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "walk": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "attack": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "hurt": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "death": [
+          0,
+          0,
+          60,
+          60
+        ]
+      },
+      "visual_scale": 1.02,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "bfe7ff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E08",
+      "kind": "bell_mote",
+      "position": [
+        9080,
+        390
+      ],
+      "platform_id": "echo_hook_mid_island",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        36,
+        36
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "walk": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "attack": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "hurt": [
+          0,
+          0,
+          36,
+          36
+        ],
+        "death": [
+          0,
+          0,
+          36,
+          36
+        ]
+      },
+      "visual_scale": 1.12,
+      "visual_offset": [
+        0,
+        -14
+      ],
+      "visual_modulate": "bfefff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        54,
+        36
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E09",
       "kind": "waterwheel_knight",
       "position": [
-        14040,
+        12390,
         500
       ],
-      "platform_id": "pre_boss_floor",
+      "platform_id": "hammer_yard_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
       "sprite_region": [
         0,
@@ -2713,7 +2585,339 @@
         0,
         80,
         80
-      ]
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E10",
+      "kind": "rust_diver",
+      "position": [
+        13390,
+        500
+      ],
+      "platform_id": "anvil_lift_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      },
+      "visual_scale": 1.28,
+      "visual_offset": [
+        0,
+        0
+      ],
+      "visual_modulate": "d8f8ff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        32
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E11",
+      "kind": "pipe_thrower",
+      "position": [
+        14335,
+        570
+      ],
+      "platform_id": "ch02_lower_loop_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "walk": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "attack": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "hurt": [
+          0,
+          0,
+          60,
+          60
+        ],
+        "death": [
+          0,
+          0,
+          60,
+          60
+        ]
+      },
+      "visual_scale": 1.02,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "bfe7ff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E12",
+      "kind": "rust_diver",
+      "position": [
+        15320,
+        500
+      ],
+      "platform_id": "ch02_return_shaft_base",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          32
+        ]
+      },
+      "visual_scale": 1.28,
+      "visual_offset": [
+        0,
+        0
+      ],
+      "visual_modulate": "d8f8ff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        32
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E13",
+      "kind": "drain_leech",
+      "position": [
+        16580,
+        310
+      ],
+      "platform_id": "ch02_upper_bridge",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        32,
+        48
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          32,
+          48
+        ],
+        "walk": [
+          0,
+          0,
+          32,
+          48
+        ],
+        "attack": [
+          0,
+          0,
+          32,
+          48
+        ],
+        "hurt": [
+          0,
+          0,
+          32,
+          48
+        ],
+        "death": [
+          0,
+          0,
+          32,
+          48
+        ]
+      },
+      "visual_scale": 1.18,
+      "visual_offset": [
+        0,
+        -3
+      ],
+      "visual_modulate": "c8e5ff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        48
+      ],
+      "patrol": 80,
+      "leash_radius": 220
+    },
+    {
+      "id": "C2_E14",
+      "kind": "waterwheel_knight",
+      "position": [
+        17345,
+        500
+      ],
+      "platform_id": "ch02_preboss_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          80,
+          80
+        ],
+        "walk": [
+          0,
+          0,
+          80,
+          80
+        ],
+        "attack": [
+          0,
+          0,
+          80,
+          80
+        ],
+        "hurt": [
+          0,
+          0,
+          80,
+          80
+        ],
+        "death": [
+          0,
+          0,
+          80,
+          80
+        ]
+      },
+      "visual_scale": 1.05,
+      "visual_offset": [
+        0,
+        -12
+      ],
+      "visual_modulate": "cfe8ff",
+      "sprite_faces_left": true,
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_role": "dark_fantasy_enemy_ch02",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "patrol": 80,
+      "leash_radius": 220
     }
   ],
   "boss": {
@@ -2721,12 +2925,12 @@
     "name": "沉锤铁匠",
     "kind": "sunken_hammer_smith",
     "position": [
-      15080,
+      18270,
       500
     ],
     "hp": 26,
     "damage": 1,
-    "patrol": 300,
+    "patrol": 260,
     "reward_item": "smith_oath_plate",
     "story_drop": "铁匠承认自己把一批活人的名字铸进王冠，只有盐白书库保存谁下令的原文。",
     "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/manifest.json",
@@ -2777,8 +2981,8 @@
       ]
     },
     "sprite_faces_left": true,
-    "arena_min_x": 14220,
-    "arena_max_x": 15740,
+    "arena_min_x": 17670,
+    "arena_max_x": 18990,
     "body_size": [
       168,
       152
@@ -2846,30 +3050,30 @@
       "id": "save_hidden_upper_respite",
       "label": "管工休息点",
       "position": [
-        3560,
-        500
+        16280,
+        310
       ],
-      "hidden": false,
+      "hidden": true,
       "note": "藏在压力栈上层管道后的隐藏存档点。"
     },
     {
-      "id": "save_late_runback",
-      "label": "沉炉前存档点",
+      "id": "save_ch02_lower_loop",
+      "label": "第2章下层回环存档点",
       "position": [
-        13940,
+        14635,
+        570
+      ],
+      "hidden": false,
+      "note": "扩建后下层回环的中段存档点。"
+    },
+    {
+      "id": "save_late_runback",
+      "label": "回声索桥存档点",
+      "position": [
+        17085,
         500
       ],
       "hidden": false,
-      "note": "第二章扩写后Boss前存档点。"
-    },
-    {
-      "id": "save_echo_bridge_midpoint",
-      "label": "回声索桥存档点",
-      "position": [
-        9600,
-        500
-      ],
-      "hidden": true,
       "note": "藏在回声索桥秘密横渡后的支线存档点。"
     }
   ],
@@ -2949,6 +3153,29 @@
         "ch02_hammer_shadow_05",
         "ch02_preboss_steam_06"
       ]
+    },
+    {
+      "id": "ch02_lower_upper_return",
+      "room_id": "drainage_underloop",
+      "technique": "lower loop, return shaft, upper bridge",
+      "platforms": [
+        "ch02_lower_loop_floor",
+        "ch02_return_shaft_base",
+        "ch02_return_shaft_step_a",
+        "ch02_return_shaft_step_b",
+        "ch02_upper_bridge"
+      ]
+    },
+    {
+      "id": "ch02_preboss_crossway",
+      "room_id": "anvil_preboss",
+      "technique": "upper drop into final horizontal approach",
+      "platforms": [
+        "ch02_upper_drop_step",
+        "ch02_crossway_floor",
+        "ch02_preboss_floor",
+        "boss_floor"
+      ]
     }
   ],
   "connections": [
@@ -2985,14 +3212,12 @@
     {
       "from": "triple_pump_well",
       "to": "wet_wall_intro",
-      "type": "ability",
-      "requires": "silk_wall_grip"
+      "type": "passage"
     },
     {
       "from": "wet_wall_intro",
       "to": "wet_wall_shaft",
-      "type": "ability",
-      "requires": "silk_wall_grip"
+      "type": "passage"
     },
     {
       "from": "wet_wall_shaft",
@@ -3012,14 +3237,12 @@
     {
       "from": "pressure_stack",
       "to": "echo_hook_bridge",
-      "type": "ability",
-      "requires": "echo_hook"
+      "type": "passage"
     },
     {
       "from": "echo_hook_bridge",
       "to": "swing_crossing_secret",
-      "type": "ability",
-      "requires": "echo_hook"
+      "type": "passage"
     },
     {
       "from": "swing_crossing_secret",
@@ -3043,20 +3266,55 @@
     },
     {
       "from": "anvil_lift",
+      "to": "drainage_underloop",
+      "type": "passage"
+    },
+    {
+      "from": "drainage_underloop",
+      "to": "steam_return_shaft",
+      "type": "passage"
+    },
+    {
+      "from": "steam_return_shaft",
+      "to": "roof_pressure_bridge",
+      "type": "passage"
+    },
+    {
+      "from": "roof_pressure_bridge",
+      "to": "anvil_preboss",
+      "type": "passage"
+    },
+    {
+      "from": "anvil_preboss",
       "to": "pump_king_hall",
-      "type": "boss_gate"
+      "type": "passage"
     },
     {
       "from": "pump_king_hall",
       "to": "oath_outlet",
-      "type": "chapter_exit"
+      "type": "passage"
     },
     {
-      "from": "pipewright_rest",
-      "to": "foundry_runback",
-      "type": "shortcut",
-      "requires": "combat_clear"
+      "from": "drainage_underloop",
+      "to": "steam_return_shaft",
+      "type": "lower_return"
+    },
+    {
+      "from": "roof_pressure_bridge",
+      "to": "anvil_preboss",
+      "type": "upper_shortcut"
+    },
+    {
+      "from": "sluice_chapel",
+      "to": "pump_king_hall",
+      "type": "opened_shortcut"
     }
+  ],
+  "map_layout_tags": [
+    "horizontal_mainline",
+    "upper_route",
+    "lower_route",
+    "vertical_shaft",
+    "opened_shortcut"
   ]
 }
-

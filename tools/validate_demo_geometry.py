@@ -35,11 +35,17 @@ def assert_step(platforms: dict[str, dict], from_id: str, to_id: str, max_jump_h
 
 def assert_lower_detour_clear(config: dict) -> None:
     gates = {str(item["id"]): item for item in config["locked_gates"]}
-    gate = gates["front_gate_locked"]["rect"]
-    gate_bottom = float(gate[1]) + float(gate[3])
-    under_top = rect_top(platform_map(config)["under_gate_lip"])
-    if under_top - gate_bottom < 80:
-        raise AssertionError(f"under-gate detour clearance is only {under_top - gate_bottom:.1f}px")
+    platforms = platform_map(config)
+    under_top = rect_top(platforms["under_gate_lip"])
+    if "front_gate_locked" in gates:
+        gate = gates["front_gate_locked"]["rect"]
+        gate_bottom = float(gate[1]) + float(gate[3])
+        if under_top - gate_bottom < 80:
+            raise AssertionError(f"under-gate detour clearance is only {under_top - gate_bottom:.1f}px")
+        return
+    outer_top = rect_top(platforms["outer_drop"])
+    if outer_top - under_top < 20:
+        raise AssertionError(f"lower detour does not descend enough: {outer_top - under_top:.1f}px")
 
 
 def main() -> None:
