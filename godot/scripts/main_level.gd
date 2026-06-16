@@ -899,13 +899,13 @@ func _build_map_overlay() -> void:
 
     map_draw_root = Control.new()
     map_draw_root.name = "MapDrawRoot"
-    map_draw_root.position = Vector2(54, 92)
-    map_draw_root.size = Vector2(1070, 330)
+    map_draw_root.position = Vector2(34, 72)
+    map_draw_root.size = Vector2(1108, 430)
     map_panel.add_child(map_draw_root)
 
     map_text = Label.new()
-    map_text.position = Vector2(54, 426)
-    map_text.size = Vector2(1070, 186)
+    map_text.position = Vector2(34, 514)
+    map_text.size = Vector2(1108, 98)
     map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
     map_panel.add_child(map_text)
@@ -1089,13 +1089,14 @@ func _refresh_map_overlay() -> void:
         child.free()
 
     var rooms: Array = config.get("map_rooms", [])
-    var draw_width := 1040.0
-    var draw_size := Vector2(1040.0, 310.0)
+    var draw_width := 1108.0
+    var draw_size := Vector2(1108.0, 430.0)
     var base_y := 132.0
     var depth_step := 72.0
     var layout_bounds := _map_layout_bounds(rooms)
     var uses_layout := layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0
-    _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
+    if not uses_layout:
+        _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
         if not (room is Dictionary):
             continue
@@ -1107,13 +1108,17 @@ func _refresh_map_overlay() -> void:
         var visited := _room_is_visited(room_id)
         var current := room_id == current_room_id
         var room_size := overlay_rect.size
-        var fill := Color(0.035, 0.060, 0.052, 0.96) if visited else Color(0.012, 0.018, 0.018, 0.96)
-        var border := Color(0.56, 1.0, 0.88, 1.0) if current else (Color(0.34, 0.70, 0.48, 0.86) if visited else Color(0.16, 0.22, 0.20, 0.86))
+        var fill := Color(0.060, 0.115, 0.092, 0.98) if visited else Color(0.030, 0.038, 0.042, 0.98)
+        var border := Color(0.74, 1.0, 0.92, 1.0) if current else (Color(0.42, 0.78, 0.56, 0.90) if visited else Color(0.24, 0.30, 0.28, 0.92))
         var border_width := 4.0 if current else 2.0
         _add_map_ui_rect("Room_" + room_id, overlay_rect.position, room_size, fill, border, border_width)
         _add_map_room_texture(overlay_rect.position, room_size, visited, current)
         _add_map_wall_caps(room_id, overlay_rect.position, room_size, visited, current)
 
+        var room_kind := String(room_data.get("kind", ""))
+        var should_label := not uses_layout or current or room_kind == "boss" or room_kind == "exit" or room_id == "entry_bell"
+        if not should_label:
+            continue
         var label := Label.new()
         label.text = _room_name(room_id)
         label.position = overlay_rect.position + (Vector2(4.0, 4.0) if uses_layout else Vector2(6.0, 48.0))
@@ -1499,7 +1504,8 @@ func _background() -> void:
 
     var shade := Polygon2D.new()
     shade.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
-    shade.color = Color(0.0, 0.0, 0.0, 0.03) if _theme_uses_industrial_tiles() else Color(0.0, 0.0, 0.0, 0.08)
+    var shade_alpha := 0.035 if _art_theme_id() == "moss_cavern" else (0.03 if _theme_uses_industrial_tiles() else 0.08)
+    shade.color = Color(0.0, 0.0, 0.0, shade_alpha)
     shade.z_index = -94
     add_child(shade)
 
@@ -1515,10 +1521,16 @@ func _configure_player_camera() -> void:
 
 
 func _void_respawn() -> void:
-    if player.death_timer > 0.0:
+    if player == null or not is_instance_valid(player):
         return
-    player.take_damage(player.hp, player.global_position + Vector2(0, -120))
-    _toast("You fell. Returning to the active save point.")
+    if player.has_method("restore_at_save_point"):
+        player.restore_at_save_point()
+    if player.has_method("respawn_at"):
+        player.respawn_at(active_spawn)
+    else:
+        player.global_position = active_spawn
+    _toast("You fell. Back to the save point.")
+    _update_room_visit()
     _refresh_hud()
 
 
@@ -1749,11 +1761,42 @@ func _platform(node_name: String, rect: Rect2, color: Color, material: String = 
     shape.shape = rectangle
     body.add_child(shape)
 
-    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -6)
+    _add_platform_readability_base(body, rect.size, material, color)
+    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -7)
     _add_platform_visual(body, rect.size, material)
     _decorate_platform(body, rect.size, material)
     add_child(body)
     return body
+
+
+func _add_platform_readability_base(parent: Node, size_value: Vector2, material: String, fallback_color: Color) -> void:
+    var body_color := _platform_body_color(material, fallback_color)
+    var edge_color := _platform_edge_color(material)
+    _add_platform_plate(parent, Vector2(0, 6.0), size_value + Vector2(10.0, 18.0), body_color, -6)
+    _add_platform_plate(parent, Vector2(0, -size_value.y * 0.5 + 4.0), Vector2(size_value.x + 12.0, 8.0), edge_color, -2)
+    _add_platform_plate(parent, Vector2(0, size_value.y * 0.5 - 3.0), Vector2(size_value.x + 8.0, 5.0), Color(0.015, 0.026, 0.024, 0.82), -2)
+
+
+func _platform_body_color(material: String, fallback_color: Color) -> Color:
+    if material == "moss_stone":
+        return Color(0.105, 0.185, 0.145, 0.96)
+    if material == "bronze_bridge":
+        return Color(0.185, 0.160, 0.092, 0.95)
+    if material == "boss_stone":
+        return Color(0.180, 0.105, 0.095, 0.96)
+    if material.contains("wall") or material.contains("gate"):
+        return Color(0.145, 0.105, 0.092, 0.98)
+    return Color(fallback_color.r, fallback_color.g, fallback_color.b, maxf(fallback_color.a, 0.92))
+
+
+func _platform_edge_color(material: String) -> Color:
+    if material == "moss_stone":
+        return Color(0.42, 0.74, 0.47, 0.96)
+    if material == "bronze_bridge":
+        return Color(0.76, 0.63, 0.30, 0.94)
+    if material == "boss_stone":
+        return Color(0.76, 0.44, 0.36, 0.95)
+    return Color(0.50, 0.68, 0.55, 0.86)
 
 
 func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector2, plate_color: Color, z_value: int) -> Polygon2D:
@@ -2052,9 +2095,7 @@ func _decorate_platform(parent: Node, size_value: Vector2, material: String) -> 
     for index in range(segment_count):
         var t := float(index + 1) / float(segment_count + 1)
         var x := -width * 0.5 + width * t
-        if material == "moss_stone" and index % 2 == 0:
-            _add_vine(parent, Vector2(x + 16.0, top_y + 20.0))
-        elif material == "greenhouse_loam" and index % 2 == 0:
+        if material == "greenhouse_loam" and index % 2 == 0:
             _add_vine(parent, Vector2(x + 16.0, top_y + 18.0), Color(0.50, 0.95, 0.50, 0.88))
         elif material == "glassvine_bridge" and index % 3 == 1:
             _add_vine(parent, Vector2(x + 8.0, top_y + 18.0), Color(0.42, 1.0, 0.76, 0.74))
