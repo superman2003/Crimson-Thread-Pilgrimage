@@ -18,7 +18,7 @@ func _run() -> void:
         _assert(profiles.has(kind), "%s has an ai profile" % kind)
         var profile: Dictionary = profiles.get(kind, {})
         var count: int = profile.get("attacks", []).size()
-        _assert(count >= 2 and count <= 3, "%s has 2-3 unique attacks" % kind)
+        _assert(count == 1, "%s has exactly one attack" % kind)
         _assert(_profile_has_only_melee(profile), "%s has no projectile or spell attacks" % kind)
     _assert(profiles.get("rust_crown_guardian", {}).get("attacks", []).size() >= 5, "boss has expanded move list")
     _assert(_profile_has_only_melee(profiles.get("rust_crown_guardian", {})), "boss has no projectile or spell attacks")
@@ -138,7 +138,7 @@ func _run() -> void:
     await _frames(8)
     ai_debug = ai_enemy.get_ai_debug_state()
     _assert(String(ai_debug.get("last_player_command", "")) == "slash_forward", "enemy ai reads player slash command")
-    await _frames(120)
+    await _frames_until_enemy_damage(ai_player, 240)
     _assert(is_instance_valid(ai_enemy), "ai enemy remains active during combat validation")
     ai_debug = ai_enemy.get_ai_debug_state()
     _assert(not String(ai_debug.get("last_attack_id", "")).is_empty(), "enemy attack desire starts an active command")
@@ -179,6 +179,13 @@ func _add_floor(y: float) -> void:
 
 func _frames(count: int) -> void:
     for _i in range(count):
+        await process_frame
+
+
+func _frames_until_enemy_damage(target: CharacterBody2D, max_frames: int) -> void:
+    for _i in range(max_frames):
+        if target.hp < target.max_hp:
+            return
         await process_frame
 
 

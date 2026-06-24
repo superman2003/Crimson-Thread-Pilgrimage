@@ -28,8 +28,8 @@ func _run() -> void:
     _assert(config.get("connections", []).size() >= 15, "CH02 declares explicit MetSys room connections")
     _assert(config.get("save_points", []).size() >= 3, "CH02 has mid, hidden/route, and boss-run save points")
     _assert(config.get("boss", {}).get("id") == "C2_B01", "CH02 boss id is stable")
-    _assert(config.get("boss", {}).get("name") == "沉锤铁匠", "CH02 boss name is readable")
-    _assert(String(config.get("boss", {}).get("sprite", "")).contains("dark_fantasy_bestiary"), "CH02 boss uses dark fantasy sprite")
+    _assert(config.get("boss", {}).get("name") == "绯线执剪者", "CH02 boss name is readable")
+    _assert(String(config.get("boss", {}).get("sprite", "")).contains("boss_02_crimson_thread_scissor_apostle/manifest.json"), "CH02 boss uses high-fidelity boss_02 sprite")
     _assert(config.get("boss", {}).get("sprite_region", []).size() == 4, "CH02 boss has a cropped sprite region")
     _assert(config.get("boss", {}).get("sprite_regions", {}).has("attack"), "CH02 boss has attack sprite region")
     _assert(config.get("boss", {}).has("arena_min_x") and config.get("boss", {}).has("arena_max_x"), "CH02 boss has arena clamp")
@@ -110,7 +110,8 @@ func _run() -> void:
     _assert(scene.boss_actor.spawn_id == "C2_B01", "CH02 boss actor has stable spawn id")
     _assert(scene.boss_actor.kind == "sunken_hammer_smith", "CH02 boss actor uses CH02 kind")
     _assert(scene.boss_actor.get("arena_min_x") < scene.boss_actor.get("arena_max_x"), "CH02 boss runtime has arena bounds")
-    _assert(bool(scene.boss_actor.get("sprite_faces_left")), "CH02 boss sprite default facing is corrected")
+    _assert(not bool(scene.boss_actor.get("sprite_faces_left")), "CH02 boss source faces right")
+    _assert(String(scene.boss_actor.get("asset_path")).contains("boss_02_crimson_thread_scissor_apostle/manifest.json"), "CH02 boss runtime uses high-fidelity boss_02 manifest")
     scene.boss_actor.set("direction", 1)
     scene.boss_actor._begin_attack({
         "id": "validation_lock",
@@ -142,7 +143,7 @@ func _run() -> void:
     await process_frame
     await process_frame
     state = scene.get_demo_state()
-    _assert(state.get("boss_spawned") == false, "CH02 player death despawns active boss")
+    _assert(state.get("boss_spawned") == true, "CH02 player death restores active boss")
     _assert(state.get("boss_arena_locked") == false, "CH02 player death unlocks boss room")
     _assert(int(state.get("normal_enemy_defeated", -1)) == 0, "CH02 player death resets normal enemy defeat counter")
     _assert((state.get("enemy_positions", []) as Array).size() == config.get("enemy_spawns", []).size(), "CH02 player death respawns normal enemies")
@@ -163,7 +164,7 @@ func _run() -> void:
     _assert(state.get("demo_complete") == true, "CH02 demo can complete")
     _assert(state.get("boss_arena_locked") == false, "CH02 boss death unlocks boss room")
     _assert(scene.inventory_counts.has("smith_oath_plate"), "CH02 boss reward is granted")
-    _assert(String(scene.win_label.text).contains("沉锤铁匠"), "CH02 completion text is data-driven")
+    _assert(String(scene.win_label.text).contains("绯线执剪者"), "CH02 completion text is data-driven")
     var chapter_exit: Area2D = scene.get_node_or_null("ch02_chapter_exit")
     _assert(chapter_exit != null, "CH02 chapter exit exists")
     _assert(String(chapter_exit.get_meta("next_runtime_config_id", "")) == "demo_ch03_saltwhite_archive", "CH02 chapter exit points to CH03")

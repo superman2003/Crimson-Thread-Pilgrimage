@@ -4,6 +4,7 @@ const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_ACTOR_SCRIPT := preload("res://scripts/enemy_actor.gd")
 const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
 const DEFAULT_CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
+const BOSS_TRIAL_CONFIG_PATH := "res://data/demo_ch01_boss_trial.json"
 const CAMPAIGN_PATH := "res://data/campaign_chapters.json"
 const CHAPTER_DATA_DIR := "res://data/chapters"
 const AV_MANIFEST_PATH := "res://data/audio_visual_manifest.json"
@@ -122,33 +123,33 @@ const SPRITES := {
     "bronze_moth": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "spore_bellmaker": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "gear_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "rust_crown_guardian": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "rust_crown_guardian": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
     "drain_leech": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "pipe_thrower": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "rust_diver": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "bell_mote": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "waterwheel_knight": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "sunken_hammer_smith": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "sunken_hammer_smith": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
     "salt_bookmite": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "page_duelist": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "index_scribe": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "summoned_page": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "wax_lancer": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "erasure_bailiff": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "saltwhite_contract_judge": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "saltwhite_contract_judge": "res://assets/sprites/bosses/boss_03_ash_crowned_mantis_warlord/manifest.json",
     "vine_crawler": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "wax_bee": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "root_cage_hunter": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "pollen_lutist": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "thorn_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "broken_string_garden_lord": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "broken_string_gardener": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "broken_string_garden_lord": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
+    "broken_string_gardener": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
     "obsidian_spearman": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "phase_censor": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "silent_bugbler": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "kneeling_crossbowman": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "pilgrim_chariot": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "silent_pilgrim_commander": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "silent_pilgrim_commander": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
     "echo_moss_larva": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "echo_waterwheel_knight": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "echo_contract_scribe": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
@@ -156,7 +157,7 @@ const SPRITES := {
     "echo_thorn_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "echo_pilgrim_commander_minor": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "isotope_lumen": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "silent_crown_core": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "silent_crown_core": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
     "spikes": "res://assets/sprites/gothicvania/demo/hazard_spikes.png",
     "bell": "res://assets/sprites/gothicvania/demo/hazard_bell.png",
     "fake_moss_floor": "res://assets/sprites/gothicvania/demo/trap_fake_moss_floor.png",
@@ -320,6 +321,8 @@ var map_panel: ColorRect
 var map_text: Label
 var map_draw_root: Control
 var gate_body: StaticBody2D
+var locked_gate_bodies: Dictionary = {}
+var unlocked_abilities: Dictionary = {}
 var boss_actor: Area2D
 var boss_arena_lock_body: StaticBody2D
 var nearby_interactable: Area2D
@@ -327,6 +330,7 @@ var active_spawn := Vector2(120, 500)
 var bell_count := 0
 var max_bells := 3
 var shortcut_open := false
+var opened_shortcuts: Dictionary = {}
 var boss_unlocked := false
 var boss_spawned := false
 var demo_complete := false
@@ -347,6 +351,7 @@ var world_height := 720.0
 var fall_y := 790.0
 var active_overlay := ""
 var metsys_bridge: Node
+var boss_trial_mode := false
 var inventory_counts: Dictionary = {}
 var inventory_tools: Array = []
 var inventory_relics: Array = []
@@ -386,19 +391,28 @@ func _ready() -> void:
     _spawn_player()
     _build_hud()
     _show_chapter_entry_message()
+    if boss_trial_mode:
+        call_deferred("_start_boss_trial")
 
 
 func _apply_cmdline_config_override() -> void:
-    for arg in OS.get_cmdline_args():
+    var args := OS.get_cmdline_args()
+    args.append_array(OS.get_cmdline_user_args())
+    for arg in args:
         var text := String(arg)
         if text.begins_with("--demo-config="):
             config_path = text.get_slice("=", 1)
+        elif text == "--boss-trial" or text == "--ch01-boss-trial":
+            boss_trial_mode = true
+            config_path = BOSS_TRIAL_CONFIG_PATH
 
 
 func _process(_delta: float) -> void:
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         _spawn_normal_enemies()
+        if boss_unlocked and not demo_complete and not boss_spawned:
+            _spawn_boss()
         _refresh_hud()
     if Input.is_action_just_pressed("close_overlay"):
         _close_overlays()
@@ -600,12 +614,49 @@ func _combat_goal_met() -> bool:
     return enemy_total <= 0 or enemy_defeated >= enemy_total
 
 
+func _shortcut_ids() -> Array:
+    var ids: Array = []
+    for connection in config.get("connections", []):
+        if not (connection is Dictionary):
+            continue
+        if String(connection.get("type", "")) != "shortcut":
+            continue
+        var shortcut_id := String(connection.get("shortcut_id", ""))
+        if shortcut_id.is_empty() or ids.has(shortcut_id):
+            continue
+        ids.append(shortcut_id)
+    return ids
+
+
+func _shortcut_total() -> int:
+    return _shortcut_ids().size()
+
+
+func _opened_shortcut_total() -> int:
+    return opened_shortcuts.size()
+
+
+func _shortcut_id_for_area(area: Area2D) -> String:
+    if area == null:
+        return ""
+    return String(area.get_meta("shortcut_id", ""))
+
+
+func _is_shortcut_open(shortcut_id: String = "") -> bool:
+    if shortcut_id.is_empty():
+        return shortcut_open
+    return opened_shortcuts.has(shortcut_id)
+
+
 func _init_inventory_state() -> void:
     inventory_counts.clear()
     inventory_tools.clear()
     inventory_relics.clear()
     inventory_materials.clear()
     currency_count = 0
+    unlocked_abilities.clear()
+    opened_shortcuts.clear()
+    shortcut_open = false
     visited_rooms.clear()
     current_room_id = ""
     var inventory_config: Dictionary = config.get("inventory", {})
@@ -1144,15 +1195,29 @@ func _refresh_map_overlay() -> void:
     var guide := _room_map_copy(current_map_room_id, "guide", "Use the map for route status and F for nearby interactions.")
     var danger := _room_map_copy(current_map_room_id, "danger", "Watch traps and melee windups.")
     var next_step := _room_map_copy(current_map_room_id, "next", "Move forward.")
+    var archetype := _room_map_copy(current_map_room_id, "archetype", "unknown")
+    var traversal_focus := _room_map_copy(current_map_room_id, "traversal_focus", "unknown")
+    var reward_contract := _room_map_copy(current_map_room_id, "reward_contract", "unknown")
+    var pacing_role := _room_map_copy(current_map_room_id, "pacing_role", "unknown")
+    var setpiece := _room_map_copy(current_map_room_id, "setpiece", "")
+    var micro_objective := _room_map_copy(current_map_room_id, "micro_objective", "")
     var transition: Dictionary = config.get("chapter_transition", {})
     var transition_text := String(transition.get("entry_hint", "击败本章首领后进入下一章。"))
     var metsys_state: Dictionary = metsys_bridge.get_state() if metsys_bridge != null else {}
-    map_text.text = "Chapter: %s\nRoom: %s\nExplored: %d/%d\nObjective: %s\nRoute: %s\nHazard: %s\nNext: %s\nCampaign Next: %s\nLink: %s\nMetSys: walls %d / passages %d / locks %d / connectors %d\nLegend: cyan=you, teal=route, charcoal=wall, blue=exit, amber=gate, red=boss." % [
+    map_text.text = "Chapter: %s\nRoom: %s\nSetpiece: %s\nArchetype: %s / %s\nTraversal: %s\nReward: %s\nExplored: %d/%d\nShortcuts: %d/%d\nObjective: %s\nMicro: %s\nRoute: %s\nHazard: %s\nNext: %s\nCampaign Next: %s\nLink: %s\nMetSys: walls %d / passages %d / locks %d / connectors %d\nLegend: cyan=you, teal=route, charcoal=wall, blue=exit, amber=gate, red=boss." % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
+        setpiece if not setpiece.is_empty() else "generated",
+        archetype,
+        pacing_role,
+        traversal_focus,
+        reward_contract,
         visited_rooms.size(),
         rooms.size(),
+        _opened_shortcut_total(),
+        _shortcut_total(),
         objective,
+        micro_objective if not micro_objective.is_empty() else "generic room contract",
         guide,
         danger,
         next_step,
@@ -1354,13 +1419,17 @@ func _build_world_from_config() -> void:
             String(platform.get("material", "moss_stone"))
         )
 
+    locked_gate_bodies.clear()
     for gate in config.get("locked_gates", []):
-        gate_body = _platform(
+        var locked_gate := _platform(
             String(gate.get("id", "locked_gate")),
             _rect2(gate.get("rect", [])),
             _color(gate.get("color", "875f29")),
             String(gate.get("material", "bronze_bridge"))
         )
+        locked_gate.set_meta("required_ability", String(gate.get("required_ability", "")))
+        locked_gate.set_meta("required_ability_name", String(gate.get("required_ability_name", "")))
+        locked_gate_bodies[String(gate.get("id", "locked_gate"))] = locked_gate
 
     for hazard in config.get("hazards", []):
         _hazard(hazard)
@@ -1368,6 +1437,10 @@ func _build_world_from_config() -> void:
 
     if _combat_progression_enabled():
         collectible_total = 0
+        for collectible in config.get("collectibles", []):
+            if collectible is Dictionary and String(collectible.get("kind", "")) == "item":
+                _collectible(collectible)
+                collectible_total += 1
     else:
         for collectible in config.get("collectibles", []):
             _collectible(collectible)
@@ -1396,8 +1469,7 @@ func _build_world_from_config() -> void:
     _spawn_normal_enemies()
     enemy_total = config.get("enemy_spawns", []).size()
     if _combat_progression_enabled() and _combat_goal_met():
-        shortcut_open = true
-        boss_unlocked = true
+        _open_all_shortcuts(false)
 
     # World labels are intentionally suppressed so tutorial copy does not cover the level art.
 
@@ -2204,8 +2276,13 @@ func _collectible(data: Dictionary) -> void:
     var area := Area2D.new()
     area.name = String(data.get("id", "collectible"))
     area.position = _vec2(data.get("position", [0, 0]))
-    area.set_meta("message", "Bell key acquired.")
-    area.set_meta("kind", String(data.get("kind", "bell_key")))
+    var collectible_kind := String(data.get("kind", "bell_key"))
+    var item_id := String(data.get("item_id", collectible_kind))
+    area.set_meta("message", String(data.get("label", "Bell key acquired.")))
+    area.set_meta("kind", collectible_kind)
+    area.set_meta("item_id", item_id)
+    area.set_meta("amount", int(data.get("amount", 1)))
+    area.set_meta("ability_name", String(data.get("ability_name", data.get("label", ""))))
     area.set_meta("object_id", "collectible/" + area.name)
 
     var shape := CollisionShape2D.new()
@@ -2233,6 +2310,8 @@ func _lever(data: Dictionary) -> void:
     area.set_meta("label", String(data.get("label", "Boss Route Control" if _combat_progression_enabled() else "Shortcut Lever")))
     area.set_meta("object_id", "interactable/" + area.name)
     area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
+    area.set_meta("shortcut_id", String(data.get("shortcut_id", "")))
+    area.set_meta("opens_connection", data.get("opens_connection", {}))
 
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
@@ -2766,7 +2845,8 @@ func _spawn_boss() -> void:
         return
     var boss_data: Dictionary = config.get("boss", {})
     boss_actor = Area2D.new()
-    boss_actor.position = _vec2(boss_data.get("position", [3430, 470]))
+    var clearance := float(boss_data.get("clearance", 40.0))
+    boss_actor.position = _resolve_enemy_spawn_position(boss_data)
     boss_actor.set_script(ENEMY_ACTOR_SCRIPT)
     var kind := String(boss_data.get("kind", "rust_crown_guardian"))
     var profiles: Dictionary = config.get("ai_profiles", {})
@@ -2774,11 +2854,50 @@ func _spawn_boss() -> void:
     if profile.is_empty():
         push_warning("Missing boss AI profile: " + kind)
     boss_actor.configure(boss_data, SPRITES.get(kind, SPRITES["rust_crown_guardian"]), true, profile)
+    var floor_platform_id := _platform_under_position(boss_actor.position, clearance)
+    var bounds := _enemy_platform_movement_bounds(floor_platform_id, boss_actor.position, boss_data)
+    if bounds.size() >= 2 and boss_actor.has_method("set_platform_movement_bounds"):
+        boss_actor.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
     boss_actor.died.connect(_on_enemy_died)
+    boss_actor.set_meta("platform_id", floor_platform_id)
+    boss_actor.set_meta("spawn_half_width", float(boss_data.get("spawn_half_width", 84.0)))
+    boss_actor.set_meta("spawn_visual_height", float(boss_data.get("spawn_visual_height", _enemy_spawn_visual_height(boss_data))))
     add_child(boss_actor)
     boss_spawned = true
     _switch_bgm("bgm_boss")
     _toast("Boss awakened: " + _boss_display_name(boss_data) + ".")
+    _refresh_hud()
+
+
+func _start_boss_trial() -> void:
+    for enemy_node in get_tree().get_nodes_in_group("enemy"):
+        var enemy_area := enemy_node as Area2D
+        if enemy_area == null or not is_instance_valid(enemy_area):
+            continue
+        if bool(enemy_area.get("is_boss")):
+            continue
+        enemy_area.queue_free()
+    enemy_defeated = enemy_total
+    _open_all_shortcuts(false)
+    var boss_data: Dictionary = config.get("boss", {})
+    var boss_position := _vec2(boss_data.get("position", config.get("boss_checkpoint", active_spawn)))
+    var trial_spawn := _vec2(config.get("boss_checkpoint", boss_position + Vector2(-520.0, 0.0)))
+    if trial_spawn == Vector2.ZERO:
+        trial_spawn = boss_position + Vector2(-520.0, 0.0)
+    active_spawn = trial_spawn
+    active_save_point_id = "boss_trial"
+    if player != null and is_instance_valid(player):
+        player.global_position = trial_spawn
+        if player.has_method("set_spawn"):
+            player.set_spawn(trial_spawn)
+        if player.has_method("restore_at_save_point"):
+            player.restore_at_save_point()
+    _spawn_boss()
+    if boss_spawned and not demo_complete:
+        if boss_trial_mode or not config.get("interactives", []).is_empty():
+            _set_boss_arena_locked(true)
+    _update_room_visit()
+    _toast("Boss trial: Chapter 1 boss is awake. Fight starts now.")
     _refresh_hud()
 
 
@@ -2861,15 +2980,47 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
     if body != player:
         return
-    bell_count += 1
+    var collectible_kind := String(area.get_meta("kind", "bell_key"))
+    var item_id := String(area.get_meta("item_id", collectible_kind))
+    var amount := int(area.get_meta("amount", 1))
+    var ability_name := String(area.get_meta("ability_name", ""))
+    if collectible_kind == "currency":
+        _add_currency(amount)
+    else:
+        bell_count += 1
+        _add_inventory_item(item_id, amount, false)
+        if collectible_kind == "item":
+            unlocked_abilities[item_id] = ability_name if not ability_name.is_empty() else item_id
+            _refresh_ability_gates()
     _play_sfx("pickup")
-    _add_inventory_item(String(area.get_meta("kind", "bell_key")), 1, false)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
     _toast(String(area.get_meta("message", "Collected.")))
     _spawn_pickup_effect(area.global_position)
     area.queue_free()
     _refresh_hud()
+
+
+func _refresh_ability_gates() -> void:
+    for gate in config.get("locked_gates", []):
+        if not (gate is Dictionary):
+            continue
+        var gate_data: Dictionary = gate
+        var gate_id := String(gate_data.get("id", ""))
+        var required_ability := String(gate_data.get("required_ability", ""))
+        if gate_id.is_empty() or required_ability.is_empty():
+            continue
+        if inventory_counts.has(required_ability):
+            _unlock_ability_gate(gate_id)
+
+
+func _unlock_ability_gate(gate_id: String) -> void:
+    if not locked_gate_bodies.has(gate_id):
+        return
+    var body := locked_gate_bodies[gate_id] as StaticBody2D
+    if body != null and is_instance_valid(body):
+        body.queue_free()
+    locked_gate_bodies.erase(gate_id)
 
 
 func _on_interactable_entered(body: Node, area: Area2D) -> void:
@@ -2940,33 +3091,55 @@ func _nearest_interactable(radius: float) -> Area2D:
 
 
 func _activate_lever(area: Area2D) -> void:
-    if shortcut_open:
+    var shortcut_id := _shortcut_id_for_area(area)
+    if _is_shortcut_open(shortcut_id):
         _toast("Shortcut already open.")
         return
     if _combat_progression_enabled():
         if not _combat_goal_met():
             _toast("Defeat nearby enemies to open the boss route.")
             return
-        _open_shortcut()
+        _open_shortcut(shortcut_id)
         _play_sfx("lever")
         return
     var required_keys := int(area.get_meta("requires_keys", max_bells))
     if bell_count < required_keys:
         _toast("Shortcut needs %d route marks. You have %d." % [required_keys, bell_count])
         return
-    _open_shortcut()
+    _open_shortcut(shortcut_id)
     _play_sfx("lever")
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
 
 
-func _open_shortcut() -> void:
+func _open_shortcut(shortcut_id: String = "") -> void:
+    if shortcut_id.is_empty():
+        var ids := _shortcut_ids()
+        if not ids.is_empty():
+            shortcut_id = String(ids[0])
+    if not shortcut_id.is_empty():
+        opened_shortcuts[shortcut_id] = true
     shortcut_open = true
     boss_unlocked = true
-    if gate_body != null:
+    if gate_body != null and is_instance_valid(gate_body):
         gate_body.queue_free()
         gate_body = null
-    _toast("Boss route open. Find a save point before the boss run.")
+    var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
+    _toast("Shortcut open (%s). Find a save point before the boss run." % progress)
+    _refresh_hud()
+
+
+func _open_all_shortcuts(show_toast: bool = true) -> void:
+    var ids := _shortcut_ids()
+    for shortcut_id in ids:
+        opened_shortcuts[String(shortcut_id)] = true
+    shortcut_open = true
+    boss_unlocked = true
+    if gate_body != null and is_instance_valid(gate_body):
+        gate_body.queue_free()
+        gate_body = null
+    if show_toast:
+        _toast("All generated shortcuts open.")
     _refresh_hud()
 
 
@@ -3103,7 +3276,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             player.gain_energy(20)
         _toast("Enemy defeated: %s (%s)" % [spawn_id, kind])
         if _combat_progression_enabled() and _combat_goal_met():
-            _open_shortcut()
+            _open_all_shortcuts(false)
             _toast("All threats cleared. Boss route opened.")
     _refresh_hud()
 
@@ -3125,10 +3298,26 @@ func _reset_encounters_after_player_death() -> void:
     boss_actor = null
     boss_spawned = false
     enemy_defeated = 0
-    pending_enemy_respawn = true
-    _switch_bgm("bgm_ch01")
-    _toast("Death reset: enemies and boss restored.")
+    if boss_trial_mode:
+        _open_all_shortcuts(false)
+        pending_enemy_respawn = false
+        if player != null and is_instance_valid(player):
+            player.global_position = active_spawn
+            if player.has_method("restore_at_save_point"):
+                player.restore_at_save_point()
+        call_deferred("_respawn_boss_trial_boss")
+        _toast("Boss trial reset: boss restored.")
+    else:
+        pending_enemy_respawn = true
+        _switch_bgm("bgm_ch01")
+        _toast("Death reset: enemies and boss restored.")
     _refresh_hud()
+
+
+func _respawn_boss_trial_boss() -> void:
+    if demo_complete or not boss_trial_mode:
+        return
+    _spawn_boss()
 
 
 func _open_post_boss_route() -> void:
@@ -3192,7 +3381,9 @@ func _refresh_hud() -> void:
     var hp_text := str(player.hp) if player != null else "5"
     var energy_text := "%d/%d" % [player.energy, player.max_energy] if player != null else "0/100"
     var skill_text := "Ready" if player != null and player.skill_cooldown <= 0.0 and player.energy >= player.skill_energy_cost else "Charging"
-    var shortcut_text := "Open" if shortcut_open else "Closed"
+    var shortcut_total := _shortcut_total()
+    var opened_shortcut_count := _opened_shortcut_total()
+    var shortcut_text := ("%d/%d" % [opened_shortcut_count, shortcut_total]) if shortcut_total > 0 else ("Open" if shortcut_open else "Closed")
     var boss_text := "Awake" if boss_spawned else ("Ready" if boss_unlocked else "Locked")
     var save_text := active_save_point_id
     if _combat_progression_enabled():
@@ -3320,6 +3511,9 @@ func get_demo_state() -> Dictionary:
         "bell_count": bell_count,
         "required_keys": max_bells,
         "shortcut_open": shortcut_open,
+        "shortcut_total": _shortcut_total(),
+        "opened_shortcut_total": _opened_shortcut_total(),
+        "opened_shortcut_ids": opened_shortcuts.keys(),
         "boss_unlocked": boss_unlocked,
         "boss_spawned": boss_spawned,
         "boss_arena_locked": boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body),
@@ -3340,13 +3534,24 @@ func get_demo_state() -> Dictionary:
         "npc_total": config.get("npcs", []).size(),
         "currency_count": currency_count,
         "inventory_item_total": inventory_counts.size(),
+        "unlocked_ability_total": unlocked_abilities.size(),
+        "unlocked_ability_ids": unlocked_abilities.keys(),
+        "locked_gate_total": config.get("locked_gates", []).size(),
+        "locked_gate_remaining": locked_gate_bodies.size(),
         "visited_room_total": visited_rooms.size(),
         "current_room_id": current_room_id,
+        "current_room_archetype": _room_map_copy(current_room_id, "archetype", ""),
+        "current_room_pacing_role": _room_map_copy(current_room_id, "pacing_role", ""),
+        "current_room_traversal_focus": _room_map_copy(current_room_id, "traversal_focus", ""),
+        "current_room_reward_contract": _room_map_copy(current_room_id, "reward_contract", ""),
+        "current_room_setpiece": _room_map_copy(current_room_id, "setpiece", ""),
+        "current_room_micro_objective": _room_map_copy(current_room_id, "micro_objective", ""),
         "backpack_overlay_ready": backpack_panel != null,
         "map_overlay_ready": map_panel != null,
         "dialogue_overlay_ready": dialogue_panel != null,
         "guide_marker_total": config.get("guides", []).size(),
         "active_overlay": active_overlay,
+        "boss_trial_mode": boss_trial_mode,
         "chapter_exit_total": chapter_exit_total,
         "ending_exit_total": ending_exit_total,
         "chapter_transition_to": transition_state.get("to_runtime_config_id", ""),
@@ -3391,9 +3596,20 @@ func get_demo_state() -> Dictionary:
     if boss_actor != null and is_instance_valid(boss_actor):
         var boss_body_size: Vector2 = boss_actor.get("body_size")
         var boss_hurtbox_size: Vector2 = boss_actor.get("hurtbox_size")
+        state["boss_position"] = [boss_actor.global_position.x, boss_actor.global_position.y]
         state["boss_body_size"] = [boss_body_size.x, boss_body_size.y]
         state["boss_hurtbox_size"] = [boss_hurtbox_size.x, boss_hurtbox_size.y]
         state["boss_visual_scale"] = float(boss_actor.get("visual_scale"))
+        state["boss_asset_path"] = String(boss_actor.get("asset_path"))
+        if boss_actor.has_method("get_ai_debug_state"):
+            var boss_ai_debug: Dictionary = boss_actor.get_ai_debug_state()
+            state["boss_last_attack_id"] = String(boss_ai_debug.get("last_attack_id", ""))
+            state["boss_last_ai_decision"] = String(boss_ai_debug.get("last_ai_decision", ""))
+            state["boss_tactical_ai"] = bool(boss_ai_debug.get("tactical_ai", false))
+            state["boss_tactic"] = String(boss_ai_debug.get("boss_tactic", ""))
+            state["boss_tactic_timer"] = float(boss_ai_debug.get("boss_tactic_timer", 0.0))
+            state["boss_attack_desire"] = float(boss_ai_debug.get("attack_desire", 0.0))
+            state["boss_attack_desire_threshold"] = float(boss_ai_debug.get("attack_desire_threshold", 0.0))
     if not campaign.is_empty():
         state["campaign_chapter_total"] = campaign.get("chapters", []).size()
         state["campaign_current_chapter"] = current_campaign_chapter.get("name", "")
@@ -3413,16 +3629,35 @@ func _debug_collect_all_keys() -> void:
     _refresh_hud()
 
 
+func _debug_collect_all_abilities() -> void:
+    for collectible in config.get("collectibles", []):
+        if not (collectible is Dictionary):
+            continue
+        var data: Dictionary = collectible
+        if String(data.get("kind", "")) != "item":
+            continue
+        var item_id := String(data.get("item_id", ""))
+        if item_id.is_empty():
+            continue
+        _add_inventory_item(item_id, 1, false)
+        unlocked_abilities[item_id] = String(data.get("ability_name", data.get("label", item_id)))
+    _refresh_ability_gates()
+    _refresh_hud()
+
+
 func _debug_clear_combat_route() -> void:
     enemy_defeated = enemy_total
     if _combat_progression_enabled():
-        _open_shortcut()
+        _open_all_shortcuts(false)
     _refresh_hud()
 
 
 func _debug_open_shortcut() -> void:
-    if not shortcut_open:
-        _open_shortcut()
+    _open_all_shortcuts()
+
+
+func _debug_open_all_shortcuts() -> void:
+    _open_all_shortcuts()
 
 
 func _debug_start_boss() -> void:

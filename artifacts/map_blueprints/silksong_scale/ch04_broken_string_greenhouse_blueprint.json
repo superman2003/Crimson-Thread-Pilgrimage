@@ -1,0 +1,4821 @@
+{
+  "id": "ch04",
+  "slug": "broken_string_greenhouse",
+  "title": "第四章 断弦温室",
+  "theme": "荆棘温室、铜根礼拜堂、花粉机关、断弦升降台",
+  "target_scale": {
+    "rooms": 72,
+    "clusters": 11,
+    "main_route_rooms": 44,
+    "shortcuts": 9,
+    "ability_gates": 6,
+    "save_points": 7,
+    "npcs": 6,
+    "rewards": 9,
+    "minibosses": 2
+  },
+  "scale_intent": "不复刻商业地图，只采用大体量银河恶魔城的通用节奏：长主线、多支路、能力回访、捷径闭环、Boss 前短跑。",
+  "loop_note": "强调高低差与滑翔回环，温室外壳是大环，内部三条支线互相打通。",
+  "abilities": [
+    "荆刺攀附",
+    "花粉滑翔",
+    "根脉共鸣"
+  ],
+  "metroidvania_design_rules": {
+    "inspiration_boundary": "Use original map layouts only; borrow genre principles such as vertical hubs, gated return paths, and shortcut compression.",
+    "chapter_arc": [
+      "teach one safe landmark",
+      "show locked routes before the key ability",
+      "open optional branches with visible rewards",
+      "compress travel with far-side shortcuts",
+      "keep boss runback short after the final save"
+    ],
+    "required_room_archetypes": [
+      "ability_tutorial",
+      "boss_arena",
+      "entry_gate",
+      "hidden_reward",
+      "loop_gallery",
+      "main_spine",
+      "overlook_branch",
+      "preboss_run",
+      "region_hub",
+      "return_passage",
+      "reward_pocket",
+      "shortcut_lock",
+      "vertical_shaft"
+    ],
+    "cluster_macro_rules": {
+      "entry_spine": "early readable spine with a few visible branches",
+      "tall_shaft": "vertical memory anchor that later abilities compress",
+      "loop_gallery": "wide loop that returns to a known room",
+      "reward_cave": "optional pocket cluster with risk/reward exits",
+      "wide_canal": "horizontal travel band broken by vertical callbacks",
+      "boss_run": "late gauntlet with short save-to-boss runback"
+    }
+  },
+  "palette": {
+    "bg": "#f5f1e6",
+    "ink": "#20242b",
+    "muted": "#606775",
+    "grid": "#ded5c6",
+    "room": "#fff8e8",
+    "room_shadow": "#c8bba8",
+    "main": "#d23b3b",
+    "branch": "#5c6f99",
+    "shortcut": "#2f9d73",
+    "lock": "#8e54b7",
+    "hidden": "#7f6a3d",
+    "danger": "#d47a2a",
+    "save": "#2b8ac6",
+    "boss": "#9f2b2b",
+    "npc": "#477a48",
+    "reward": "#b78b16",
+    "exit": "#1a6566",
+    "white": "#ffffff"
+  },
+  "legend": {
+    "main_route": "红箭头：一周目主线推进",
+    "branch": "蓝线：支线、奖励房、区域内连接",
+    "shortcut": "绿虚箭：从背面开启的捷径",
+    "ability_gate": "紫虚箭：能力门或回访门，线中标注需求能力",
+    "save": "S：存档点或传送登记",
+    "npc": "N：剧情 NPC、商人、地图师或提示者",
+    "reward": "R：护符、货币、生命碎片或剧情道具",
+    "miniboss": "M：精英战或封门战",
+    "ability": "A：本章关键能力或钥记",
+    "boss": "BOSS：章节 Boss 战场"
+  },
+  "clusters": [
+    {
+      "id": "C01",
+      "name": "断弦门廊",
+      "room_count": 7,
+      "bounds": {
+        "x": 188,
+        "y": 1097,
+        "w": 1376,
+        "h": 977
+      },
+      "design_role": "入口教学"
+    },
+    {
+      "id": "C02",
+      "name": "铜根礼拜堂",
+      "room_count": 7,
+      "bounds": {
+        "x": 669,
+        "y": 772,
+        "w": 781,
+        "h": 1406
+      },
+      "design_role": "主线推进"
+    },
+    {
+      "id": "C03",
+      "name": "花粉玻璃房",
+      "room_count": 7,
+      "bounds": {
+        "x": 1225,
+        "y": 1096,
+        "w": 941,
+        "h": 1014
+      },
+      "design_role": "回访门"
+    },
+    {
+      "id": "C04",
+      "name": "荆刺回廊",
+      "room_count": 7,
+      "bounds": {
+        "x": 1726,
+        "y": 1280,
+        "w": 1238,
+        "h": 1002
+      },
+      "design_role": "资源支线"
+    },
+    {
+      "id": "C05",
+      "name": "菌灯深棚",
+      "room_count": 7,
+      "bounds": {
+        "x": 2250,
+        "y": 1135,
+        "w": 1616,
+        "h": 783
+      },
+      "design_role": "纵向井"
+    },
+    {
+      "id": "C06",
+      "name": "坠藤井",
+      "room_count": 7,
+      "bounds": {
+        "x": 2707,
+        "y": 1372,
+        "w": 1494,
+        "h": 544
+      },
+      "design_role": "Boss 前压强"
+    },
+    {
+      "id": "C07",
+      "name": "虫蜡育苗区",
+      "room_count": 6,
+      "bounds": {
+        "x": 3240,
+        "y": 1053,
+        "w": 1197,
+        "h": 1055
+      },
+      "design_role": "入口教学"
+    },
+    {
+      "id": "C08",
+      "name": "回声音乐台",
+      "room_count": 6,
+      "bounds": {
+        "x": 3647,
+        "y": 808,
+        "w": 725,
+        "h": 1149
+      },
+      "design_role": "主线推进"
+    },
+    {
+      "id": "C09",
+      "name": "王冠种子库",
+      "room_count": 6,
+      "bounds": {
+        "x": 4243,
+        "y": 1132,
+        "w": 1031,
+        "h": 971
+      },
+      "design_role": "回访门"
+    },
+    {
+      "id": "C10",
+      "name": "铜根主教席",
+      "room_count": 6,
+      "bounds": {
+        "x": 4704,
+        "y": 1250,
+        "w": 1069,
+        "h": 1002
+      },
+      "design_role": "资源支线"
+    },
+    {
+      "id": "C11",
+      "name": "沉睡根核",
+      "room_count": 6,
+      "bounds": {
+        "x": 5228,
+        "y": 1132,
+        "w": 1471,
+        "h": 730
+      },
+      "design_role": "纵向井"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "CH04-01",
+      "index": 1,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊1",
+      "rect": {
+        "x": 223,
+        "y": 1427,
+        "w": 230,
+        "h": 157
+      },
+      "kind": "start",
+      "role": "start",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "entry_gate",
+      "design_goal": "Teach the first landmark, safe footing, and the chapter visual language.",
+      "traversal_focus": "low-risk walk_jump",
+      "reward_contract": "orientation, map silhouette, first safe return point",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "入口",
+        "主线",
+        "exit"
+      ],
+      "exits": [
+        "CH04-02",
+        "CH04-03",
+        "CH04-04",
+        "CH04-05"
+      ],
+      "placements": [
+        "CH04-01-IN"
+      ]
+    },
+    {
+      "id": "CH04-02",
+      "index": 2,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊2",
+      "rect": {
+        "x": 430,
+        "y": 1515,
+        "w": 258,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-01",
+        "CH04-03",
+        "CH04-04"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-03",
+      "index": 3,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊3",
+      "rect": {
+        "x": 563,
+        "y": 1139,
+        "w": 286,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "overlook_branch",
+      "design_goal": "Let the player see a goal or route before they can reach it.",
+      "traversal_focus": "upper balcony and safe drop",
+      "reward_contract": "foreshadowed destination",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线",
+        "save"
+      ],
+      "exits": [
+        "CH04-01",
+        "CH04-02",
+        "CH04-04"
+      ],
+      "placements": [
+        "CH04-03-S1"
+      ]
+    },
+    {
+      "id": "CH04-04",
+      "index": 4,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊4",
+      "rect": {
+        "x": 770,
+        "y": 1480,
+        "w": 314,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-01",
+        "CH04-02",
+        "CH04-03",
+        "CH04-05",
+        "CH04-06"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-05",
+      "index": 5,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊5",
+      "rect": {
+        "x": 903,
+        "y": 1864,
+        "w": 230,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访",
+        "npc"
+      ],
+      "exits": [
+        "CH04-01",
+        "CH04-04",
+        "CH04-06"
+      ],
+      "placements": [
+        "CH04-05-N1"
+      ]
+    },
+    {
+      "id": "CH04-06",
+      "index": 6,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊6",
+      "rect": {
+        "x": 1110,
+        "y": 1366,
+        "w": 258,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-04",
+        "CH04-05",
+        "CH04-07"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-07",
+      "index": 7,
+      "chapter": "ch04",
+      "cluster": "断弦门廊",
+      "name": "断弦门廊7",
+      "rect": {
+        "x": 1243,
+        "y": 1411,
+        "w": 286,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "隐藏"
+      ],
+      "exits": [
+        "CH04-06",
+        "CH04-07",
+        "CH04-08"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-08",
+      "index": 8,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂1",
+      "rect": {
+        "x": 704,
+        "y": 814,
+        "w": 258,
+        "h": 185
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-07",
+        "CH04-09",
+        "CH04-10",
+        "CH04-11",
+        "CH04-12",
+        "CH04-13"
+      ],
+      "placements": [
+        "CH04-08-R1"
+      ]
+    },
+    {
+      "id": "CH04-09",
+      "index": 9,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂2",
+      "rect": {
+        "x": 896,
+        "y": 1033,
+        "w": 286,
+        "h": 134
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "teach_and_orient",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-08",
+        "CH04-10"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-10",
+      "index": 10,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂3",
+      "rect": {
+        "x": 1014,
+        "y": 1186,
+        "w": 314,
+        "h": 190
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-08",
+        "CH04-09",
+        "CH04-11",
+        "CH04-15"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-11",
+      "index": 11,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂4",
+      "rect": {
+        "x": 819,
+        "y": 1405,
+        "w": 230,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-08",
+        "CH04-10",
+        "CH04-12",
+        "CH04-14"
+      ],
+      "placements": [
+        "CH04-11-R2"
+      ]
+    },
+    {
+      "id": "CH04-12",
+      "index": 12,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂5",
+      "rect": {
+        "x": 937,
+        "y": 1558,
+        "w": 258,
+        "h": 134
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-08",
+        "CH04-11",
+        "CH04-13"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-13",
+      "index": 13,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂6",
+      "rect": {
+        "x": 1129,
+        "y": 1777,
+        "w": 286,
+        "h": 190
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访",
+        "save"
+      ],
+      "exits": [
+        "CH04-07",
+        "CH04-08",
+        "CH04-12",
+        "CH04-14"
+      ],
+      "placements": [
+        "CH04-13-S2"
+      ]
+    },
+    {
+      "id": "CH04-14",
+      "index": 14,
+      "chapter": "ch04",
+      "cluster": "铜根礼拜堂",
+      "name": "铜根礼拜堂7",
+      "rect": {
+        "x": 860,
+        "y": 1996,
+        "w": 314,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-11",
+        "CH04-13",
+        "CH04-15"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-15",
+      "index": 15,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房1",
+      "rect": {
+        "x": 1300,
+        "y": 1556,
+        "w": 286,
+        "h": 213
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线"
+      ],
+      "exits": [
+        "CH04-14",
+        "CH04-16",
+        "CH04-17",
+        "CH04-18",
+        "CH04-20"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-16",
+      "index": 16,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房2",
+      "rect": {
+        "x": 1413,
+        "y": 1225,
+        "w": 314,
+        "h": 162
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "ability_tutorial",
+      "design_goal": "Immediately prove the value of a new ability before using it as a gate.",
+      "traversal_focus": "single-mechanic teaching room",
+      "reward_contract": "new ability and one obvious use case",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线",
+        "ability"
+      ],
+      "exits": [
+        "CH04-15",
+        "CH04-17"
+      ],
+      "placements": [
+        "CH04-16-A1"
+      ]
+    },
+    {
+      "id": "CH04-17",
+      "index": 17,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房3",
+      "rect": {
+        "x": 1720,
+        "y": 1138,
+        "w": 230,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "npc"
+      ],
+      "exits": [
+        "CH04-15",
+        "CH04-16",
+        "CH04-18",
+        "CH04-19"
+      ],
+      "placements": [
+        "CH04-17-N2"
+      ]
+    },
+    {
+      "id": "CH04-18",
+      "index": 18,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房4",
+      "rect": {
+        "x": 1873,
+        "y": 1497,
+        "w": 258,
+        "h": 190
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-15",
+        "CH04-17",
+        "CH04-19"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-19",
+      "index": 19,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房5",
+      "rect": {
+        "x": 1820,
+        "y": 1840,
+        "w": 286,
+        "h": 185
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-17",
+        "CH04-18",
+        "CH04-20",
+        "CH04-21"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-20",
+      "index": 20,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房6",
+      "rect": {
+        "x": 1473,
+        "y": 1934,
+        "w": 314,
+        "h": 134
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-14",
+        "CH04-15",
+        "CH04-19",
+        "CH04-21"
+      ],
+      "placements": [
+        "CH04-20-R3"
+      ]
+    },
+    {
+      "id": "CH04-21",
+      "index": 21,
+      "chapter": "ch04",
+      "cluster": "花粉玻璃房",
+      "name": "花粉玻璃房7",
+      "rect": {
+        "x": 1260,
+        "y": 1652,
+        "w": 230,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "隐藏"
+      ],
+      "exits": [
+        "CH04-19",
+        "CH04-20",
+        "CH04-21",
+        "CH04-22",
+        "CH04-26"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-22",
+      "index": 22,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊1",
+      "rect": {
+        "x": 1761,
+        "y": 1638,
+        "w": 314,
+        "h": 157
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 3,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线",
+        "miniboss"
+      ],
+      "exits": [
+        "CH04-21",
+        "CH04-23",
+        "CH04-24",
+        "CH04-25",
+        "CH04-26",
+        "CH04-28"
+      ],
+      "placements": [
+        "CH04-22-M1"
+      ]
+    },
+    {
+      "id": "CH04-23",
+      "index": 23,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊2",
+      "rect": {
+        "x": 1914,
+        "y": 1951,
+        "w": 230,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-22",
+        "CH04-24"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-24",
+      "index": 24,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊3",
+      "rect": {
+        "x": 2191,
+        "y": 2100,
+        "w": 258,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访",
+        "save"
+      ],
+      "exits": [
+        "CH04-22",
+        "CH04-23",
+        "CH04-25"
+      ],
+      "placements": [
+        "CH04-24-S3"
+      ]
+    },
+    {
+      "id": "CH04-25",
+      "index": 25,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊4",
+      "rect": {
+        "x": 2374,
+        "y": 1673,
+        "w": 286,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-22",
+        "CH04-24",
+        "CH04-26",
+        "CH04-27"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-26",
+      "index": 26,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊5",
+      "rect": {
+        "x": 2241,
+        "y": 1322,
+        "w": 314,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-22",
+        "CH04-25",
+        "CH04-27"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-27",
+      "index": 27,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊6",
+      "rect": {
+        "x": 2474,
+        "y": 1481,
+        "w": 230,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-21",
+        "CH04-25",
+        "CH04-26",
+        "CH04-28"
+      ],
+      "placements": [
+        "CH04-27-R4"
+      ]
+    },
+    {
+      "id": "CH04-28",
+      "index": 28,
+      "chapter": "ch04",
+      "cluster": "荆刺回廊",
+      "name": "荆刺回廊7",
+      "rect": {
+        "x": 2671,
+        "y": 1784,
+        "w": 258,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-22",
+        "CH04-27",
+        "CH04-29"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-29",
+      "index": 29,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚1",
+      "rect": {
+        "x": 2285,
+        "y": 1297,
+        "w": 230,
+        "h": 185
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线",
+        "npc"
+      ],
+      "exits": [
+        "CH04-28",
+        "CH04-30",
+        "CH04-31",
+        "CH04-32",
+        "CH04-33"
+      ],
+      "placements": [
+        "CH04-29-N3"
+      ]
+    },
+    {
+      "id": "CH04-30",
+      "index": 30,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚2",
+      "rect": {
+        "x": 2532,
+        "y": 1321,
+        "w": 258,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-29",
+        "CH04-31",
+        "CH04-32"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-31",
+      "index": 31,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚3",
+      "rect": {
+        "x": 2705,
+        "y": 1708,
+        "w": 286,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "return_passage",
+      "design_goal": "Use lower routes as backflow after a branch, shortcut, or ability pickup.",
+      "traversal_focus": "downward path with recovery ledges",
+      "reward_contract": "backtracking relief and familiar exit",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-29",
+        "CH04-30",
+        "CH04-32"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-32",
+      "index": 32,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚4",
+      "rect": {
+        "x": 2952,
+        "y": 1484,
+        "w": 314,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-29",
+        "CH04-30",
+        "CH04-31",
+        "CH04-33",
+        "CH04-34",
+        "CH04-37"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-33",
+      "index": 33,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚5",
+      "rect": {
+        "x": 3125,
+        "y": 1177,
+        "w": 230,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "ability_tutorial",
+      "design_goal": "Immediately prove the value of a new ability before using it as a gate.",
+      "traversal_focus": "single-mechanic teaching room",
+      "reward_contract": "new ability and one obvious use case",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线",
+        "ability"
+      ],
+      "exits": [
+        "CH04-29",
+        "CH04-32",
+        "CH04-34"
+      ],
+      "placements": [
+        "CH04-33-A2"
+      ]
+    },
+    {
+      "id": "CH04-34",
+      "index": 34,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚6",
+      "rect": {
+        "x": 3372,
+        "y": 1289,
+        "w": 258,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-28",
+        "CH04-32",
+        "CH04-33",
+        "CH04-35"
+      ],
+      "placements": [
+        "CH04-34-R5"
+      ]
+    },
+    {
+      "id": "CH04-35",
+      "index": 35,
+      "chapter": "ch04",
+      "cluster": "菌灯深棚",
+      "name": "菌灯深棚7",
+      "rect": {
+        "x": 3545,
+        "y": 1368,
+        "w": 286,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "隐藏"
+      ],
+      "exits": [
+        "CH04-34",
+        "CH04-35",
+        "CH04-36"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-36",
+      "index": 36,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井1",
+      "rect": {
+        "x": 2742,
+        "y": 1661,
+        "w": 258,
+        "h": 213
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线",
+        "save"
+      ],
+      "exits": [
+        "CH04-35",
+        "CH04-37",
+        "CH04-38",
+        "CH04-40"
+      ],
+      "placements": [
+        "CH04-36-S4"
+      ]
+    },
+    {
+      "id": "CH04-37",
+      "index": 37,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井2",
+      "rect": {
+        "x": 2890,
+        "y": 1439,
+        "w": 286,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "overlook_branch",
+      "design_goal": "Let the player see a goal or route before they can reach it.",
+      "traversal_focus": "upper balcony and safe drop",
+      "reward_contract": "foreshadowed destination",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-36",
+        "CH04-38"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-38",
+      "index": 38,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井3",
+      "rect": {
+        "x": 3112,
+        "y": 1529,
+        "w": 314,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-36",
+        "CH04-37",
+        "CH04-39"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-39",
+      "index": 39,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井4",
+      "rect": {
+        "x": 3260,
+        "y": 1496,
+        "w": 230,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-38",
+        "CH04-40",
+        "CH04-41"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-40",
+      "index": 40,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井5",
+      "rect": {
+        "x": 3482,
+        "y": 1586,
+        "w": 258,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-36",
+        "CH04-39",
+        "CH04-41"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-41",
+      "index": 41,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井6",
+      "rect": {
+        "x": 3630,
+        "y": 1414,
+        "w": 286,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "npc"
+      ],
+      "exits": [
+        "CH04-35",
+        "CH04-39",
+        "CH04-40",
+        "CH04-42"
+      ],
+      "placements": [
+        "CH04-41-N4"
+      ]
+    },
+    {
+      "id": "CH04-42",
+      "index": 42,
+      "chapter": "ch04",
+      "cluster": "坠藤井",
+      "name": "坠藤井7",
+      "rect": {
+        "x": 3852,
+        "y": 1443,
+        "w": 314,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-41",
+        "CH04-43"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-43",
+      "index": 43,
+      "chapter": "ch04",
+      "cluster": "虫蜡育苗区",
+      "name": "虫蜡育苗区1",
+      "rect": {
+        "x": 3275,
+        "y": 1405,
+        "w": 286,
+        "h": 157
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线"
+      ],
+      "exits": [
+        "CH04-42",
+        "CH04-44",
+        "CH04-45",
+        "CH04-47",
+        "CH04-48"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-44",
+      "index": 44,
+      "chapter": "ch04",
+      "cluster": "虫蜡育苗区",
+      "name": "虫蜡育苗区2",
+      "rect": {
+        "x": 3408,
+        "y": 1493,
+        "w": 314,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-43",
+        "CH04-45",
+        "CH04-46"
+      ],
+      "placements": [
+        "CH04-44-R6"
+      ]
+    },
+    {
+      "id": "CH04-45",
+      "index": 45,
+      "chapter": "ch04",
+      "cluster": "虫蜡育苗区",
+      "name": "虫蜡育苗区3",
+      "rect": {
+        "x": 3615,
+        "y": 1095,
+        "w": 230,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-43",
+        "CH04-44",
+        "CH04-46"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-46",
+      "index": 46,
+      "chapter": "ch04",
+      "cluster": "虫蜡育苗区",
+      "name": "虫蜡育苗区4",
+      "rect": {
+        "x": 3748,
+        "y": 1557,
+        "w": 258,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-44",
+        "CH04-45",
+        "CH04-47",
+        "CH04-48"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-47",
+      "index": 47,
+      "chapter": "ch04",
+      "cluster": "虫蜡育苗区",
+      "name": "虫蜡育苗区5",
+      "rect": {
+        "x": 3955,
+        "y": 1898,
+        "w": 286,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 3,
+      "lane": "lower",
+      "archetype": "return_passage",
+      "design_goal": "Use lower routes as backflow after a branch, shortcut, or ability pickup.",
+      "traversal_focus": "downward path with recovery ledges",
+      "reward_contract": "backtracking relief and familiar exit",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访",
+        "miniboss"
+      ],
+      "exits": [
+        "CH04-43",
+        "CH04-46",
+        "CH04-48"
+      ],
+      "placements": [
+        "CH04-47-M2"
+      ]
+    },
+    {
+      "id": "CH04-48",
+      "index": 48,
+      "chapter": "ch04",
+      "cluster": "虫蜡育苗区",
+      "name": "虫蜡育苗区6",
+      "rect": {
+        "x": 4088,
+        "y": 1442,
+        "w": 314,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "隐藏"
+      ],
+      "exits": [
+        "CH04-42",
+        "CH04-43",
+        "CH04-46",
+        "CH04-47",
+        "CH04-48",
+        "CH04-49"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-49",
+      "index": 49,
+      "chapter": "ch04",
+      "cluster": "回声音乐台",
+      "name": "回声音乐台1",
+      "rect": {
+        "x": 3682,
+        "y": 850,
+        "w": 314,
+        "h": 185
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线",
+        "save"
+      ],
+      "exits": [
+        "CH04-48",
+        "CH04-50",
+        "CH04-51",
+        "CH04-52",
+        "CH04-53"
+      ],
+      "placements": [
+        "CH04-49-S5"
+      ]
+    },
+    {
+      "id": "CH04-50",
+      "index": 50,
+      "chapter": "ch04",
+      "cluster": "回声音乐台",
+      "name": "回声音乐台2",
+      "rect": {
+        "x": 3874,
+        "y": 1003,
+        "w": 230,
+        "h": 134
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-49",
+        "CH04-51"
+      ],
+      "placements": [
+        "CH04-50-R7"
+      ]
+    },
+    {
+      "id": "CH04-51",
+      "index": 51,
+      "chapter": "ch04",
+      "cluster": "回声音乐台",
+      "name": "回声音乐台3",
+      "rect": {
+        "x": 3992,
+        "y": 1222,
+        "w": 258,
+        "h": 190
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-49",
+        "CH04-50",
+        "CH04-52"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-52",
+      "index": 52,
+      "chapter": "ch04",
+      "cluster": "回声音乐台",
+      "name": "回声音乐台4",
+      "rect": {
+        "x": 3797,
+        "y": 1375,
+        "w": 286,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "ability_tutorial",
+      "design_goal": "Immediately prove the value of a new ability before using it as a gate.",
+      "traversal_focus": "single-mechanic teaching room",
+      "reward_contract": "new ability and one obvious use case",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "ability"
+      ],
+      "exits": [
+        "CH04-49",
+        "CH04-51",
+        "CH04-53",
+        "CH04-54"
+      ],
+      "placements": [
+        "CH04-52-A3"
+      ]
+    },
+    {
+      "id": "CH04-53",
+      "index": 53,
+      "chapter": "ch04",
+      "cluster": "回声音乐台",
+      "name": "回声音乐台5",
+      "rect": {
+        "x": 3915,
+        "y": 1594,
+        "w": 314,
+        "h": 134
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访",
+        "npc"
+      ],
+      "exits": [
+        "CH04-49",
+        "CH04-52",
+        "CH04-54"
+      ],
+      "placements": [
+        "CH04-53-N5"
+      ]
+    },
+    {
+      "id": "CH04-54",
+      "index": 54,
+      "chapter": "ch04",
+      "cluster": "回声音乐台",
+      "name": "回声音乐台6",
+      "rect": {
+        "x": 4107,
+        "y": 1747,
+        "w": 230,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "vertical_shaft",
+      "design_goal": "Make height change visible so later abilities recontextualize the room.",
+      "traversal_focus": "tiered platforms and fall-safe returns",
+      "reward_contract": "future gate sightline or upper route preview",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-52",
+        "CH04-53",
+        "CH04-55",
+        "CH04-59"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-55",
+      "index": 55,
+      "chapter": "ch04",
+      "cluster": "王冠种子库",
+      "name": "王冠种子库1",
+      "rect": {
+        "x": 4278,
+        "y": 1526,
+        "w": 230,
+        "h": 213
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线"
+      ],
+      "exits": [
+        "CH04-49",
+        "CH04-54",
+        "CH04-56",
+        "CH04-57",
+        "CH04-58",
+        "CH04-60"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-56",
+      "index": 56,
+      "chapter": "ch04",
+      "cluster": "王冠种子库",
+      "name": "王冠种子库2",
+      "rect": {
+        "x": 4465,
+        "y": 1195,
+        "w": 258,
+        "h": 162
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-55",
+        "CH04-57"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-57",
+      "index": 57,
+      "chapter": "ch04",
+      "cluster": "王冠种子库",
+      "name": "王冠种子库3",
+      "rect": {
+        "x": 4698,
+        "y": 1174,
+        "w": 286,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-55",
+        "CH04-56",
+        "CH04-58",
+        "CH04-59"
+      ],
+      "placements": [
+        "CH04-57-R8"
+      ]
+    },
+    {
+      "id": "CH04-58",
+      "index": 58,
+      "chapter": "ch04",
+      "cluster": "王冠种子库",
+      "name": "王冠种子库4",
+      "rect": {
+        "x": 4925,
+        "y": 1467,
+        "w": 314,
+        "h": 190
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-55",
+        "CH04-57",
+        "CH04-59"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-59",
+      "index": 59,
+      "chapter": "ch04",
+      "cluster": "王冠种子库",
+      "name": "王冠种子库5",
+      "rect": {
+        "x": 4798,
+        "y": 1876,
+        "w": 230,
+        "h": 185
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-57",
+        "CH04-58",
+        "CH04-60"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-60",
+      "index": 60,
+      "chapter": "ch04",
+      "cluster": "王冠种子库",
+      "name": "王冠种子库6",
+      "rect": {
+        "x": 4525,
+        "y": 1904,
+        "w": 258,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "loop_gallery",
+      "design_goal": "Wrap the player back near a known room after a longer detour.",
+      "traversal_focus": "two-level loop with bridge supports",
+      "reward_contract": "spatial memory and return-path compression",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "隐藏"
+      ],
+      "exits": [
+        "CH04-55",
+        "CH04-59",
+        "CH04-60",
+        "CH04-61"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-61",
+      "index": 61,
+      "chapter": "ch04",
+      "cluster": "铜根主教席",
+      "name": "铜根主教席1",
+      "rect": {
+        "x": 4739,
+        "y": 1608,
+        "w": 258,
+        "h": 157
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "expand_and_loop",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线"
+      ],
+      "exits": [
+        "CH04-60",
+        "CH04-62",
+        "CH04-63",
+        "CH04-64",
+        "CH04-65"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-62",
+      "index": 62,
+      "chapter": "ch04",
+      "cluster": "铜根主教席",
+      "name": "铜根主教席2",
+      "rect": {
+        "x": 4892,
+        "y": 1987,
+        "w": 286,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访",
+        "npc"
+      ],
+      "exits": [
+        "CH04-56",
+        "CH04-61",
+        "CH04-63"
+      ],
+      "placements": [
+        "CH04-62-N6"
+      ]
+    },
+    {
+      "id": "CH04-63",
+      "index": 63,
+      "chapter": "ch04",
+      "cluster": "铜根主教席",
+      "name": "铜根主教席3",
+      "rect": {
+        "x": 5169,
+        "y": 2070,
+        "w": 314,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "shortcut_lock",
+      "design_goal": "Show a closed return path first, then let the far side open it.",
+      "traversal_focus": "one_way_until_open",
+      "reward_contract": "shorter runback and stronger world memory",
+      "pacing_role": "unlock_and_return",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-61",
+        "CH04-62",
+        "CH04-64"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-64",
+      "index": 64,
+      "chapter": "ch04",
+      "cluster": "铜根主教席",
+      "name": "铜根主教席4",
+      "rect": {
+        "x": 5352,
+        "y": 1709,
+        "w": 230,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线"
+      ],
+      "exits": [
+        "CH04-61",
+        "CH04-63",
+        "CH04-65",
+        "CH04-66"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-65",
+      "index": 65,
+      "chapter": "ch04",
+      "cluster": "铜根主教席",
+      "name": "铜根主教席5",
+      "rect": {
+        "x": 5219,
+        "y": 1292,
+        "w": 258,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "optional_breath",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-61",
+        "CH04-64",
+        "CH04-66",
+        "CH04-70"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-66",
+      "index": 66,
+      "chapter": "ch04",
+      "cluster": "铜根主教席",
+      "name": "铜根主教席6",
+      "rect": {
+        "x": 5452,
+        "y": 1451,
+        "w": 286,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "reward_pocket",
+      "design_goal": "Offer optional risk with a clean exit back to the main route.",
+      "traversal_focus": "short side challenge",
+      "reward_contract": "currency, lore, health shard, or tool material",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "reward"
+      ],
+      "exits": [
+        "CH04-64",
+        "CH04-65",
+        "CH04-67"
+      ],
+      "placements": [
+        "CH04-66-R9"
+      ]
+    },
+    {
+      "id": "CH04-67",
+      "index": 67,
+      "chapter": "ch04",
+      "cluster": "沉睡根核",
+      "name": "沉睡根核1",
+      "rect": {
+        "x": 5263,
+        "y": 1353,
+        "w": 286,
+        "h": 185
+      },
+      "kind": "hub",
+      "role": "hub",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "region_hub",
+      "design_goal": "Create a memorable local hub that reconnects branches after exploration.",
+      "traversal_focus": "multi-exit loop reading",
+      "reward_contract": "route choice, NPC hint, shortcut awareness",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "区域入口",
+        "主线"
+      ],
+      "exits": [
+        "CH04-66",
+        "CH04-68",
+        "CH04-69",
+        "CH04-71",
+        "CH04-72"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-68",
+      "index": 68,
+      "chapter": "ch04",
+      "cluster": "沉睡根核",
+      "name": "沉睡根核2",
+      "rect": {
+        "x": 5510,
+        "y": 1278,
+        "w": 314,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "main_spine",
+      "design_goal": "Carry the upward pilgrimage through a readable critical path.",
+      "traversal_focus": "walk_jump_dash pacing",
+      "reward_contract": "forward progress and landmark reveal",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "save"
+      ],
+      "exits": [
+        "CH04-67",
+        "CH04-69",
+        "CH04-70"
+      ],
+      "placements": [
+        "CH04-68-S6"
+      ]
+    },
+    {
+      "id": "CH04-69",
+      "index": 69,
+      "chapter": "ch04",
+      "cluster": "沉睡根核",
+      "name": "沉睡根核3",
+      "rect": {
+        "x": 5683,
+        "y": 1652,
+        "w": 230,
+        "h": 168
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "lower",
+      "archetype": "return_passage",
+      "design_goal": "Use lower routes as backflow after a branch, shortcut, or ability pickup.",
+      "traversal_focus": "downward path with recovery ledges",
+      "reward_contract": "backtracking relief and familiar exit",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "下层回访"
+      ],
+      "exits": [
+        "CH04-63",
+        "CH04-67",
+        "CH04-68",
+        "CH04-70"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-70",
+      "index": 70,
+      "chapter": "ch04",
+      "cluster": "沉睡根核",
+      "name": "沉睡根核4",
+      "rect": {
+        "x": 5930,
+        "y": 1521,
+        "w": 258,
+        "h": 140
+      },
+      "kind": "room",
+      "role": "main_route",
+      "intensity": 2,
+      "lane": "main",
+      "archetype": "preboss_run",
+      "design_goal": "Keep the final approach tense but short after a save point.",
+      "traversal_focus": "compact gauntlet",
+      "reward_contract": "boss anticipation without long death runback",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "主线",
+        "save"
+      ],
+      "exits": [
+        "CH04-68",
+        "CH04-69",
+        "CH04-71",
+        "CH04-72"
+      ],
+      "placements": [
+        "CH04-70-S7"
+      ]
+    },
+    {
+      "id": "CH04-71",
+      "index": 71,
+      "chapter": "ch04",
+      "cluster": "沉睡根核",
+      "name": "沉睡根核5",
+      "rect": {
+        "x": 6103,
+        "y": 1174,
+        "w": 286,
+        "h": 112
+      },
+      "kind": "room",
+      "role": "side_branch",
+      "intensity": 1,
+      "lane": "upper",
+      "archetype": "preboss_run",
+      "design_goal": "Keep the final approach tense but short after a save point.",
+      "traversal_focus": "compact gauntlet",
+      "reward_contract": "boss anticipation without long death runback",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "上层支线"
+      ],
+      "exits": [
+        "CH04-67",
+        "CH04-70",
+        "CH04-72"
+      ],
+      "placements": []
+    },
+    {
+      "id": "CH04-72",
+      "index": 72,
+      "chapter": "ch04",
+      "cluster": "沉睡根核",
+      "name": "沉睡根核6",
+      "rect": {
+        "x": 6350,
+        "y": 1336,
+        "w": 314,
+        "h": 168
+      },
+      "kind": "boss",
+      "role": "boss",
+      "intensity": 4,
+      "lane": "main",
+      "archetype": "boss_arena",
+      "design_goal": "Provide a clear combat stage with readable edges and recovery space.",
+      "traversal_focus": "arena movement",
+      "reward_contract": "chapter boss clear and exit unlock",
+      "pacing_role": "boss_pressure",
+      "setpiece": "",
+      "micro_objective": "",
+      "landmark": "",
+      "mechanic_prompt": "",
+      "playtest_note": "",
+      "tags": [
+        "Boss",
+        "章节出口",
+        "主线",
+        "隐藏",
+        "boss",
+        "exit"
+      ],
+      "exits": [
+        "CH04-67",
+        "CH04-70",
+        "CH04-71",
+        "CH04-72"
+      ],
+      "placements": [
+        "CH04-72-BOSS",
+        "CH04-72-OUT"
+      ]
+    }
+  ],
+  "connections": {
+    "main_route": [
+      {
+        "from": "CH04-01",
+        "to": "CH04-02",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-02",
+        "to": "CH04-04",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-04",
+        "to": "CH04-06",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-06",
+        "to": "CH04-07",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-07",
+        "to": "CH04-08",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-11",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-11",
+        "to": "CH04-14",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-14",
+        "to": "CH04-15",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-15",
+        "to": "CH04-17",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-17",
+        "to": "CH04-19",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-19",
+        "to": "CH04-21",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-21",
+        "to": "CH04-22",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-25",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-25",
+        "to": "CH04-27",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-27",
+        "to": "CH04-28",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-28",
+        "to": "CH04-29",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-29",
+        "to": "CH04-30",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-30",
+        "to": "CH04-32",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-32",
+        "to": "CH04-34",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-34",
+        "to": "CH04-35",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-35",
+        "to": "CH04-36",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-36",
+        "to": "CH04-38",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-38",
+        "to": "CH04-39",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-39",
+        "to": "CH04-41",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-41",
+        "to": "CH04-42",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-42",
+        "to": "CH04-43",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-44",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-44",
+        "to": "CH04-46",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-46",
+        "to": "CH04-48",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-48",
+        "to": "CH04-49",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-52",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-52",
+        "to": "CH04-54",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-54",
+        "to": "CH04-55",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-57",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-57",
+        "to": "CH04-59",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-59",
+        "to": "CH04-60",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-60",
+        "to": "CH04-61",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-64",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-64",
+        "to": "CH04-66",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-66",
+        "to": "CH04-67",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-68",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-68",
+        "to": "CH04-70",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-70",
+        "to": "CH04-72",
+        "type": "main",
+        "note": "主线推进"
+      }
+    ],
+    "normal": [
+      {
+        "from": "CH04-01",
+        "to": "CH04-02",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-02",
+        "to": "CH04-04",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-04",
+        "to": "CH04-06",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-06",
+        "to": "CH04-07",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-07",
+        "to": "CH04-08",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-11",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-11",
+        "to": "CH04-14",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-14",
+        "to": "CH04-15",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-15",
+        "to": "CH04-17",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-17",
+        "to": "CH04-19",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-19",
+        "to": "CH04-21",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-21",
+        "to": "CH04-22",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-25",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-25",
+        "to": "CH04-27",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-27",
+        "to": "CH04-28",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-28",
+        "to": "CH04-29",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-29",
+        "to": "CH04-30",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-30",
+        "to": "CH04-32",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-32",
+        "to": "CH04-34",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-34",
+        "to": "CH04-35",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-35",
+        "to": "CH04-36",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-36",
+        "to": "CH04-38",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-38",
+        "to": "CH04-39",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-39",
+        "to": "CH04-41",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-41",
+        "to": "CH04-42",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-42",
+        "to": "CH04-43",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-44",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-44",
+        "to": "CH04-46",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-46",
+        "to": "CH04-48",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-48",
+        "to": "CH04-49",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-52",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-52",
+        "to": "CH04-54",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-54",
+        "to": "CH04-55",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-57",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-57",
+        "to": "CH04-59",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-59",
+        "to": "CH04-60",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-60",
+        "to": "CH04-61",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-64",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-64",
+        "to": "CH04-66",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-66",
+        "to": "CH04-67",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-68",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-68",
+        "to": "CH04-70",
+        "type": "main",
+        "note": "主线推进"
+      },
+      {
+        "from": "CH04-70",
+        "to": "CH04-72",
+        "type": "main",
+        "note": "主线推进"
+      }
+    ],
+    "branches": [
+      {
+        "from": "CH04-01",
+        "to": "CH04-02",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-02",
+        "to": "CH04-03",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-03",
+        "to": "CH04-04",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-04",
+        "to": "CH04-05",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-05",
+        "to": "CH04-06",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-06",
+        "to": "CH04-07",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-01",
+        "to": "CH04-03",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-01",
+        "to": "CH04-04",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-01",
+        "to": "CH04-05",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-09",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-09",
+        "to": "CH04-10",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-10",
+        "to": "CH04-11",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-11",
+        "to": "CH04-12",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-12",
+        "to": "CH04-13",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-13",
+        "to": "CH04-14",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-09",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-10",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-12",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-08",
+        "to": "CH04-13",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-15",
+        "to": "CH04-16",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-16",
+        "to": "CH04-17",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-17",
+        "to": "CH04-18",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-18",
+        "to": "CH04-19",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-19",
+        "to": "CH04-20",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-20",
+        "to": "CH04-21",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-15",
+        "to": "CH04-16",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-15",
+        "to": "CH04-18",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-15",
+        "to": "CH04-20",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-23",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-23",
+        "to": "CH04-24",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-24",
+        "to": "CH04-25",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-25",
+        "to": "CH04-26",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-26",
+        "to": "CH04-27",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-27",
+        "to": "CH04-28",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-23",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-24",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-26",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-22",
+        "to": "CH04-28",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-29",
+        "to": "CH04-30",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-30",
+        "to": "CH04-31",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-31",
+        "to": "CH04-32",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-32",
+        "to": "CH04-33",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-33",
+        "to": "CH04-34",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-34",
+        "to": "CH04-35",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-29",
+        "to": "CH04-31",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-29",
+        "to": "CH04-32",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-29",
+        "to": "CH04-33",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-36",
+        "to": "CH04-37",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-37",
+        "to": "CH04-38",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-38",
+        "to": "CH04-39",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-39",
+        "to": "CH04-40",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-40",
+        "to": "CH04-41",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-41",
+        "to": "CH04-42",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-36",
+        "to": "CH04-37",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-36",
+        "to": "CH04-40",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-44",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-44",
+        "to": "CH04-45",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-45",
+        "to": "CH04-46",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-46",
+        "to": "CH04-47",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-47",
+        "to": "CH04-48",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-44",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-45",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-47",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-48",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-50",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-50",
+        "to": "CH04-51",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-51",
+        "to": "CH04-52",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-52",
+        "to": "CH04-53",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-53",
+        "to": "CH04-54",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-50",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-51",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-52",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-49",
+        "to": "CH04-53",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-56",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-56",
+        "to": "CH04-57",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-57",
+        "to": "CH04-58",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-58",
+        "to": "CH04-59",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-59",
+        "to": "CH04-60",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-56",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-58",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-60",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-62",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-62",
+        "to": "CH04-63",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-63",
+        "to": "CH04-64",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-64",
+        "to": "CH04-65",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-65",
+        "to": "CH04-66",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-62",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-63",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-64",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-61",
+        "to": "CH04-65",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-68",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-68",
+        "to": "CH04-69",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-69",
+        "to": "CH04-70",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-70",
+        "to": "CH04-71",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-71",
+        "to": "CH04-72",
+        "type": "local_branch",
+        "note": "区域内部支路"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-68",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-69",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-71",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      },
+      {
+        "from": "CH04-67",
+        "to": "CH04-72",
+        "type": "side_room",
+        "note": "支线房/奖励房"
+      }
+    ],
+    "shortcuts": [
+      {
+        "from": "CH04-13",
+        "to": "CH04-07",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-20",
+        "to": "CH04-14",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-27",
+        "to": "CH04-21",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-34",
+        "to": "CH04-28",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-41",
+        "to": "CH04-35",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-48",
+        "to": "CH04-42",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-55",
+        "to": "CH04-49",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-62",
+        "to": "CH04-56",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      },
+      {
+        "from": "CH04-69",
+        "to": "CH04-63",
+        "type": "shortcut",
+        "note": "单向开启捷径"
+      }
+    ],
+    "ability_gates": [
+      {
+        "from": "CH04-10",
+        "to": "CH04-15",
+        "type": "ability_gate",
+        "ability": "荆刺攀附",
+        "note": "能力门/回访门"
+      },
+      {
+        "from": "CH04-21",
+        "to": "CH04-26",
+        "type": "ability_gate",
+        "ability": "花粉滑翔",
+        "note": "能力门/回访门"
+      },
+      {
+        "from": "CH04-32",
+        "to": "CH04-37",
+        "type": "ability_gate",
+        "ability": "根脉共鸣",
+        "note": "能力门/回访门"
+      },
+      {
+        "from": "CH04-43",
+        "to": "CH04-48",
+        "type": "ability_gate",
+        "ability": "荆刺攀附",
+        "note": "能力门/回访门"
+      },
+      {
+        "from": "CH04-54",
+        "to": "CH04-59",
+        "type": "ability_gate",
+        "ability": "花粉滑翔",
+        "note": "能力门/回访门"
+      },
+      {
+        "from": "CH04-65",
+        "to": "CH04-70",
+        "type": "ability_gate",
+        "ability": "根脉共鸣",
+        "note": "能力门/回访门"
+      }
+    ],
+    "hidden": [
+      {
+        "from": "CH04-07",
+        "to": "CH04-07",
+        "type": "hidden_hint",
+        "note": "隐藏墙/假地板提示"
+      },
+      {
+        "from": "CH04-21",
+        "to": "CH04-21",
+        "type": "hidden_hint",
+        "note": "隐藏墙/假地板提示"
+      },
+      {
+        "from": "CH04-35",
+        "to": "CH04-35",
+        "type": "hidden_hint",
+        "note": "隐藏墙/假地板提示"
+      },
+      {
+        "from": "CH04-48",
+        "to": "CH04-48",
+        "type": "hidden_hint",
+        "note": "隐藏墙/假地板提示"
+      },
+      {
+        "from": "CH04-60",
+        "to": "CH04-60",
+        "type": "hidden_hint",
+        "note": "隐藏墙/假地板提示"
+      },
+      {
+        "from": "CH04-72",
+        "to": "CH04-72",
+        "type": "hidden_hint",
+        "note": "隐藏墙/假地板提示"
+      }
+    ]
+  },
+  "points": {
+    "saves": [
+      {
+        "room": "CH04-03",
+        "kind": "save",
+        "label": "S1",
+        "note": "存档椅/传送登记",
+        "x": 706,
+        "y": 1209
+      },
+      {
+        "room": "CH04-13",
+        "kind": "save",
+        "label": "S2",
+        "note": "存档椅/传送登记",
+        "x": 1272,
+        "y": 1872
+      },
+      {
+        "room": "CH04-24",
+        "kind": "save",
+        "label": "S3",
+        "note": "存档椅/传送登记",
+        "x": 2320,
+        "y": 2170
+      },
+      {
+        "room": "CH04-36",
+        "kind": "save",
+        "label": "S4",
+        "note": "存档椅/传送登记",
+        "x": 2871,
+        "y": 1767
+      },
+      {
+        "room": "CH04-49",
+        "kind": "save",
+        "label": "S5",
+        "note": "存档椅/传送登记",
+        "x": 3839,
+        "y": 942
+      },
+      {
+        "room": "CH04-68",
+        "kind": "save",
+        "label": "S6",
+        "note": "存档椅/传送登记",
+        "x": 5667,
+        "y": 1334
+      },
+      {
+        "room": "CH04-70",
+        "kind": "save",
+        "label": "S7",
+        "note": "Boss 前短跑存档点",
+        "x": 6059,
+        "y": 1591
+      }
+    ],
+    "npcs": [
+      {
+        "room": "CH04-05",
+        "kind": "npc",
+        "label": "N1",
+        "note": "剧情 NPC / 商人 / 地图师",
+        "x": 1018,
+        "y": 1948
+      },
+      {
+        "room": "CH04-17",
+        "kind": "npc",
+        "label": "N2",
+        "note": "剧情 NPC / 商人 / 地图师",
+        "x": 1835,
+        "y": 1194
+      },
+      {
+        "room": "CH04-29",
+        "kind": "npc",
+        "label": "N3",
+        "note": "剧情 NPC / 商人 / 地图师",
+        "x": 2400,
+        "y": 1389
+      },
+      {
+        "room": "CH04-41",
+        "kind": "npc",
+        "label": "N4",
+        "note": "剧情 NPC / 商人 / 地图师",
+        "x": 3773,
+        "y": 1470
+      },
+      {
+        "room": "CH04-53",
+        "kind": "npc",
+        "label": "N5",
+        "note": "剧情 NPC / 商人 / 地图师",
+        "x": 4072,
+        "y": 1661
+      },
+      {
+        "room": "CH04-62",
+        "kind": "npc",
+        "label": "N6",
+        "note": "剧情 NPC / 商人 / 地图师",
+        "x": 5035,
+        "y": 2071
+      }
+    ],
+    "rewards": [
+      {
+        "room": "CH04-08",
+        "kind": "reward",
+        "label": "R1",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 833,
+        "y": 906
+      },
+      {
+        "room": "CH04-11",
+        "kind": "reward",
+        "label": "R2",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 934,
+        "y": 1475
+      },
+      {
+        "room": "CH04-20",
+        "kind": "reward",
+        "label": "R3",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 1630,
+        "y": 2001
+      },
+      {
+        "room": "CH04-27",
+        "kind": "reward",
+        "label": "R4",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 2589,
+        "y": 1551
+      },
+      {
+        "room": "CH04-34",
+        "kind": "reward",
+        "label": "R5",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 3501,
+        "y": 1373
+      },
+      {
+        "room": "CH04-44",
+        "kind": "reward",
+        "label": "R6",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 3565,
+        "y": 1577
+      },
+      {
+        "room": "CH04-50",
+        "kind": "reward",
+        "label": "R7",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 3989,
+        "y": 1070
+      },
+      {
+        "room": "CH04-57",
+        "kind": "reward",
+        "label": "R8",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 4841,
+        "y": 1230
+      },
+      {
+        "room": "CH04-66",
+        "kind": "reward",
+        "label": "R9",
+        "note": "护符/货币/生命碎片/剧情道具",
+        "x": 5595,
+        "y": 1521
+      }
+    ],
+    "minibosses": [
+      {
+        "room": "CH04-22",
+        "kind": "miniboss",
+        "label": "M1",
+        "note": "精英战/封门战",
+        "x": 1918,
+        "y": 1716
+      },
+      {
+        "room": "CH04-47",
+        "kind": "miniboss",
+        "label": "M2",
+        "note": "精英战/封门战",
+        "x": 4098,
+        "y": 1982
+      }
+    ],
+    "abilities": [
+      {
+        "room": "CH04-16",
+        "kind": "ability",
+        "label": "A1",
+        "note": "荆刺攀附",
+        "x": 1570,
+        "y": 1306
+      },
+      {
+        "room": "CH04-33",
+        "kind": "ability",
+        "label": "A2",
+        "note": "花粉滑翔",
+        "x": 3240,
+        "y": 1233
+      },
+      {
+        "room": "CH04-52",
+        "kind": "ability",
+        "label": "A3",
+        "note": "根脉共鸣",
+        "x": 3940,
+        "y": 1445
+      }
+    ],
+    "bosses": [
+      {
+        "room": "CH04-72",
+        "kind": "boss",
+        "label": "BOSS",
+        "note": "铜根主教",
+        "x": 6507,
+        "y": 1420
+      }
+    ],
+    "exits": [
+      {
+        "room": "CH04-01",
+        "kind": "exit",
+        "label": "IN",
+        "note": "章节入口",
+        "x": 338,
+        "y": 1505
+      },
+      {
+        "room": "CH04-72",
+        "kind": "exit",
+        "label": "OUT",
+        "note": "章节出口",
+        "x": 6507,
+        "y": 1420
+      }
+    ]
+  },
+  "placements": [
+    {
+      "id": "CH04-03-S1",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-03",
+      "x": 706,
+      "y": 1209,
+      "label": "S1",
+      "note": "存档椅/传送登记",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-13-S2",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-13",
+      "x": 1272,
+      "y": 1872,
+      "label": "S2",
+      "note": "存档椅/传送登记",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-24-S3",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-24",
+      "x": 2320,
+      "y": 2170,
+      "label": "S3",
+      "note": "存档椅/传送登记",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-36-S4",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-36",
+      "x": 2871,
+      "y": 1767,
+      "label": "S4",
+      "note": "存档椅/传送登记",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-49-S5",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-49",
+      "x": 3839,
+      "y": 942,
+      "label": "S5",
+      "note": "存档椅/传送登记",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-68-S6",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-68",
+      "x": 5667,
+      "y": 1334,
+      "label": "S6",
+      "note": "存档椅/传送登记",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-70-S7",
+      "type": "saves",
+      "kind": "save",
+      "room": "CH04-70",
+      "x": 6059,
+      "y": 1591,
+      "label": "S7",
+      "note": "Boss 前短跑存档点",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-05-N1",
+      "type": "npcs",
+      "kind": "npc",
+      "room": "CH04-05",
+      "x": 1018,
+      "y": 1948,
+      "label": "N1",
+      "note": "剧情 NPC / 商人 / 地图师",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-17-N2",
+      "type": "npcs",
+      "kind": "npc",
+      "room": "CH04-17",
+      "x": 1835,
+      "y": 1194,
+      "label": "N2",
+      "note": "剧情 NPC / 商人 / 地图师",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-29-N3",
+      "type": "npcs",
+      "kind": "npc",
+      "room": "CH04-29",
+      "x": 2400,
+      "y": 1389,
+      "label": "N3",
+      "note": "剧情 NPC / 商人 / 地图师",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-41-N4",
+      "type": "npcs",
+      "kind": "npc",
+      "room": "CH04-41",
+      "x": 3773,
+      "y": 1470,
+      "label": "N4",
+      "note": "剧情 NPC / 商人 / 地图师",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-53-N5",
+      "type": "npcs",
+      "kind": "npc",
+      "room": "CH04-53",
+      "x": 4072,
+      "y": 1661,
+      "label": "N5",
+      "note": "剧情 NPC / 商人 / 地图师",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-62-N6",
+      "type": "npcs",
+      "kind": "npc",
+      "room": "CH04-62",
+      "x": 5035,
+      "y": 2071,
+      "label": "N6",
+      "note": "剧情 NPC / 商人 / 地图师",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-08-R1",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-08",
+      "x": 833,
+      "y": 906,
+      "label": "R1",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-11-R2",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-11",
+      "x": 934,
+      "y": 1475,
+      "label": "R2",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-20-R3",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-20",
+      "x": 1630,
+      "y": 2001,
+      "label": "R3",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-27-R4",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-27",
+      "x": 2589,
+      "y": 1551,
+      "label": "R4",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-34-R5",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-34",
+      "x": 3501,
+      "y": 1373,
+      "label": "R5",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-44-R6",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-44",
+      "x": 3565,
+      "y": 1577,
+      "label": "R6",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-50-R7",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-50",
+      "x": 3989,
+      "y": 1070,
+      "label": "R7",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-57-R8",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-57",
+      "x": 4841,
+      "y": 1230,
+      "label": "R8",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-66-R9",
+      "type": "rewards",
+      "kind": "reward",
+      "room": "CH04-66",
+      "x": 5595,
+      "y": 1521,
+      "label": "R9",
+      "note": "护符/货币/生命碎片/剧情道具",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-22-M1",
+      "type": "minibosses",
+      "kind": "miniboss",
+      "room": "CH04-22",
+      "x": 1918,
+      "y": 1716,
+      "label": "M1",
+      "note": "精英战/封门战",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-47-M2",
+      "type": "minibosses",
+      "kind": "miniboss",
+      "room": "CH04-47",
+      "x": 4098,
+      "y": 1982,
+      "label": "M2",
+      "note": "精英战/封门战",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-16-A1",
+      "type": "abilities",
+      "kind": "ability",
+      "room": "CH04-16",
+      "x": 1570,
+      "y": 1306,
+      "label": "A1",
+      "note": "荆刺攀附",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-33-A2",
+      "type": "abilities",
+      "kind": "ability",
+      "room": "CH04-33",
+      "x": 3240,
+      "y": 1233,
+      "label": "A2",
+      "note": "花粉滑翔",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-52-A3",
+      "type": "abilities",
+      "kind": "ability",
+      "room": "CH04-52",
+      "x": 3940,
+      "y": 1445,
+      "label": "A3",
+      "note": "根脉共鸣",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-72-BOSS",
+      "type": "bosses",
+      "kind": "boss",
+      "room": "CH04-72",
+      "x": 6507,
+      "y": 1420,
+      "label": "BOSS",
+      "note": "铜根主教",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-01-IN",
+      "type": "exits",
+      "kind": "exit",
+      "room": "CH04-01",
+      "x": 338,
+      "y": 1505,
+      "label": "IN",
+      "note": "章节入口",
+      "visible_on_map": true
+    },
+    {
+      "id": "CH04-72-OUT",
+      "type": "exits",
+      "kind": "exit",
+      "room": "CH04-72",
+      "x": 6507,
+      "y": 1420,
+      "label": "OUT",
+      "note": "章节出口",
+      "visible_on_map": true
+    }
+  ],
+  "implementation_notes": [
+    "单张 PNG 是关卡设计用俯视拓扑图，不是最终游戏内小地图贴图。",
+    "房间矩形留有较大间距，便于在 Aseprite/Tiled/Godot 中拆成独立区域。",
+    "红线为一周目主线，蓝线为支线，绿线为已解锁捷径，紫线为能力门/回访门。",
+    "每章 Boss 前必须保留短路径存档点，避免玩家死亡后重复跑长线。"
+  ]
+}

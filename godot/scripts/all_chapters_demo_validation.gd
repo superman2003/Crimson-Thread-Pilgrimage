@@ -69,6 +69,7 @@ func _validate_chapter_visual_uniqueness() -> void:
         var boss: Dictionary = config.get("boss", {})
         var boss_signature := _visual_signature(boss)
         _assert(_uses_dark_fantasy_sprite(boss), String(config.get("id", "")) + " boss uses dark fantasy sprite")
+        _validate_high_fidelity_boss_manifest(config, boss)
         _assert(_visual_has_runtime_keyframes(boss), String(config.get("id", "")) + " boss has runtime keyframe manifest")
         _assert(not boss_signature.is_empty(), String(config.get("id", "")) + " boss has configured visual region")
         _assert(_array_min2(boss.get("body_size", []), Vector2(140.0, 128.0)), String(config.get("id", "")) + " boss body size is enlarged")
@@ -246,7 +247,9 @@ func _visual_signature(data: Dictionary) -> String:
 
 func _uses_dark_fantasy_sprite(data: Dictionary) -> bool:
     var sprite_path := String(data.get("sprite", ""))
-    return sprite_path.contains("dark_fantasy_bestiary") and not sprite_path.contains("kenney_monster_builder")
+    if sprite_path.contains("kenney_monster_builder"):
+        return false
+    return sprite_path.contains("dark_fantasy_bestiary") or sprite_path.contains("assets/sprites/bosses/")
 
 
 func _visual_has_runtime_keyframes(data: Dictionary) -> bool:
@@ -282,6 +285,68 @@ func _visual_has_runtime_keyframes(data: Dictionary) -> bool:
     return true
 
 
+func _validate_high_fidelity_boss_manifest(config: Dictionary, boss: Dictionary) -> void:
+    var config_id := String(config.get("id", ""))
+    var expected_by_config := {
+        "demo_ch01_moss_bell_court": "boss_01_moss_bell_matriarch/manifest.json",
+        "demo_ch02_rain_foundry_canal": "boss_02_crimson_thread_scissor_apostle/manifest.json",
+        "demo_ch03_saltwhite_archive": "boss_03_ash_crowned_mantis_warlord/manifest.json",
+        "demo_ch04_broken_string_greenhouse": "boss_04_copperroot_bishop/manifest.json",
+        "demo_ch05_obsidian_pilgrim_road": "boss_05_mirrorpool_bride/manifest.json",
+        "demo_ch06_silent_crown_core": "boss_06_hundred_key_gatekeeper/manifest.json"
+    }
+    if not expected_by_config.has(config_id):
+        return
+    var sprite_path := String(boss.get("sprite", ""))
+    _assert(sprite_path.begins_with("res://assets/sprites/bosses/"), config_id + " boss uses high-fidelity boss manifest path")
+    _assert(sprite_path.contains(String(expected_by_config[config_id])), config_id + " boss uses expected high-fidelity manifest")
+    _assert(not sprite_path.contains("third_party"), config_id + " boss does not use old third-party placeholder")
+    _assert(_text_has(boss, "High-fidelity Boss Concept Pack"), config_id + " boss visual source documents high-fidelity concept pack")
+    if config_id == "demo_ch02_rain_foundry_canal":
+        _assert(_manifest_has_directional_animation(sprite_path, "boss_02_atk_01_left"), "CH02 boss has directional attack keyframes")
+    elif config_id == "demo_ch03_saltwhite_archive":
+        _assert(_manifest_has_directional_animation(sprite_path, "boss_03_atk_01_left"), "CH03 boss has directional attack keyframes")
+    elif config_id == "demo_ch04_broken_string_greenhouse":
+        _assert(_manifest_has_directional_animation(sprite_path, "boss_04_atk_01_left"), "CH04 boss has directional attack keyframes")
+
+
+func _manifest_has_directional_animation(sprite_path: String, animation_name: String) -> bool:
+    var file := FileAccess.open(sprite_path, FileAccess.READ)
+    if file == null:
+        return false
+    var manifest = JSON.parse_string(file.get_as_text())
+    if typeof(manifest) != TYPE_DICTIONARY:
+        return false
+    for animation in manifest.get("animations", []):
+        if not (animation is Dictionary):
+            continue
+        var data_animation: Dictionary = animation
+        if String(data_animation.get("name", "")) != animation_name:
+            continue
+        return (data_animation.get("frames", []) as Array).size() >= 8
+    return false
+
+
+func _validate_runtime_boss_manifest(config_id: String, state: Dictionary) -> void:
+    var expected_by_config := {
+        "demo_ch01_moss_bell_court": "boss_01_moss_bell_matriarch/manifest.json",
+        "demo_ch02_rain_foundry_canal": "boss_02_crimson_thread_scissor_apostle/manifest.json",
+        "demo_ch03_saltwhite_archive": "boss_03_ash_crowned_mantis_warlord/manifest.json",
+        "demo_ch04_broken_string_greenhouse": "boss_04_copperroot_bishop/manifest.json",
+        "demo_ch05_obsidian_pilgrim_road": "boss_05_mirrorpool_bride/manifest.json",
+        "demo_ch06_silent_crown_core": "boss_06_hundred_key_gatekeeper/manifest.json"
+    }
+    if not expected_by_config.has(config_id):
+        return
+    var asset_path := String(state.get("boss_asset_path", ""))
+    _assert(asset_path.contains(String(expected_by_config[config_id])), config_id + " runtime boss uses expected high-fidelity manifest")
+    _assert(not asset_path.contains("third_party"), config_id + " runtime boss does not use old third-party placeholder")
+
+
+func _text_has(value, needle: String) -> bool:
+    return JSON.stringify(value).contains(needle)
+
+
 func _validate_ai_profiles(config: Dictionary, config_id: String) -> void:
     var profiles: Dictionary = config.get("ai_profiles", {})
     _assert(not profiles.is_empty(), config_id + " has ai profile table")
@@ -298,14 +363,47 @@ func _validate_ai_profiles(config: Dictionary, config_id: String) -> void:
         _assert(profiles.has(kind), config_id + " ai profile exists: " + String(kind))
         var profile: Dictionary = profiles.get(kind, {})
         var attacks: Array = profile.get("attacks", [])
-        _assert(attacks.size() >= 2, config_id + " ai profile has attack desire commands: " + String(kind))
+        if kind == boss_kind:
+            _assert(attacks.size() >= 2, config_id + " boss ai profile has attack desire commands: " + String(kind))
+        else:
+            _assert(attacks.size() == 1, config_id + " small enemy has exactly one attack command: " + String(kind))
         _assert(float(profile.get("aggro_range", 0.0)) >= float(profile.get("preferred_range", 0.0)), config_id + " ai profile can engage beyond preferred range: " + String(kind))
+        var boss_animation_mapped := 0
         for attack in attacks:
             _assert(attack is Dictionary, config_id + " ai attack is dictionary: " + String(kind))
             var attack_data: Dictionary = attack
             _assert(not String(attack_data.get("id", "")).is_empty(), config_id + " ai attack has id: " + String(kind))
             _assert(float(attack_data.get("range", 0.0)) >= 60.0, config_id + " ai attack has usable range: " + String(kind))
             _assert(float(attack_data.get("cooldown", 0.0)) > 0.0, config_id + " ai attack has cooldown: " + String(kind))
+            if kind == boss_kind:
+                boss_animation_mapped += _validate_boss_ai_animation(config_id, attack_data)
+        if kind == boss_kind:
+            var min_mapped := 0
+            if config_id == "demo_ch01_moss_bell_court" or config_id == "demo_ch02_rain_foundry_canal":
+                min_mapped = 3
+            elif config_id == "demo_ch03_saltwhite_archive" or config_id == "demo_ch04_broken_string_greenhouse":
+                min_mapped = 9
+            if min_mapped > 0:
+                _assert(boss_animation_mapped >= min_mapped, config_id + " boss ai has enough high-fidelity animation mappings")
+
+
+func _validate_boss_ai_animation(config_id: String, attack_data: Dictionary) -> int:
+    var expected_prefix := ""
+    if config_id == "demo_ch01_moss_bell_court":
+        expected_prefix = "boss_01_atk_"
+    elif config_id == "demo_ch02_rain_foundry_canal":
+        expected_prefix = "boss_02_atk_"
+    elif config_id == "demo_ch03_saltwhite_archive":
+        expected_prefix = "boss_03_atk_"
+    elif config_id == "demo_ch04_broken_string_greenhouse":
+        expected_prefix = "boss_04_atk_"
+    if expected_prefix.is_empty():
+        return 0
+    var animation_name := String(attack_data.get("animation", ""))
+    if animation_name.is_empty():
+        return 0
+    _assert(animation_name.begins_with(expected_prefix), config_id + " boss ai attack maps to expected high-fidelity animation")
+    return 1
 
 
 func _validate_chapter(config_path: String) -> void:
@@ -407,7 +505,7 @@ func _validate_chapter(config_path: String) -> void:
         var leash_radius := float(enemy_state.get("leash_radius", 0.0))
         _assert(leash_radius > 0.0 and leash_radius <= 280.0, config_id + " normal enemy has small leash radius: " + String(enemy_state.get("id", "")))
         _assert(bool(enemy_state.get("reads_player_commands", false)), config_id + " enemy reads player command state: " + String(enemy_state.get("id", "")))
-        _assert(int(enemy_state.get("ai_command_total", 0)) >= 2, config_id + " enemy has active attack commands: " + String(enemy_state.get("id", "")))
+        _assert(int(enemy_state.get("ai_command_total", 0)) == 1, config_id + " small enemy has exactly one active attack command: " + String(enemy_state.get("id", "")))
         _assert(float(enemy_state.get("attack_desire_threshold", 0.0)) > 0.0, config_id + " enemy exposes attack desire threshold: " + String(enemy_state.get("id", "")))
         _assert(float(enemy_state.get("max_attack_range", 0.0)) >= 60.0, config_id + " enemy can actively threaten range: " + String(enemy_state.get("id", "")))
 
@@ -448,6 +546,7 @@ func _validate_chapter(config_path: String) -> void:
     _assert(scene.boss_actor != null, config_id + " boss actor exists")
     _assert(scene.boss_actor.spawn_id == String(boss.get("id", "")), config_id + " boss spawn id matches")
     _assert(scene.boss_actor.kind == String(boss.get("kind", "")), config_id + " boss kind matches")
+    _validate_runtime_boss_manifest(config_id, state)
     _assert(_array_min2(state.get("boss_body_size", []), Vector2(140.0, 128.0)), config_id + " runtime boss body is enlarged")
     _assert(_array_min2(state.get("boss_hurtbox_size", []), Vector2(156.0, 150.0)), config_id + " runtime boss hurtbox is enlarged")
     _assert(int(state.get("boss_attack_total", 0)) >= 9, config_id + " runtime boss attack total expanded")

@@ -1,0 +1,523 @@
+{
+  "id": "boss_19",
+  "name_zh": "青焰墓钟",
+  "name_en": "Blueflame Grave Bell",
+  "source_concept": "artifacts/boss_concepts/images/boss_19_blueflame_grave_bell.png",
+  "source_generated_strip": "artifacts/boss_keyframes/boss_19_blueflame_grave_bell/source/generated_attack_strip_chroma.png",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor": "bottom-center",
+  "runtime_2d": {
+    "view": "locked side or three-quarter side view",
+    "anchor": "bottom-center",
+    "timing": [
+      "ready",
+      "anticipation",
+      "windup",
+      "active_hit",
+      "follow_through",
+      "recovery"
+    ],
+    "hit_frame_index": 3,
+    "horizontal_motion_only": true,
+    "keep_collision_box_stable": true
+  },
+  "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_08.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_12.png"
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_07.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_08.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_09.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_10.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_11.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_12.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_13.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_14.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_15.png"
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_05.png"
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 8.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_01",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_02",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_03",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "walk_left",
+      "fps": 9.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_07.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_08.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_09.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_10.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_11.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_12.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_13.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_14.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_left/attack_15.png"
+      ]
+    },
+    {
+      "name": "walk_right",
+      "fps": 9.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_07.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_08.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_09.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_10.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_11.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_12.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_13.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_14.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/walk_right/attack_15.png"
+      ]
+    },
+    {
+      "name": "attack_left",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_left/attack_07.png"
+      ]
+    },
+    {
+      "name": "attack_right",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/attack_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_01_left",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_01_right",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_02_left",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_02_right",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_03_left",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_07.png"
+      ]
+    },
+    {
+      "name": "boss_19_atk_03_right",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_07.png"
+      ]
+    }
+  ],
+  "attacks": [
+    {
+      "id": "boss_19_atk_01",
+      "name": "boss_19_atk_01",
+      "name_zh": "青焰丧鸣",
+      "name_en": "Blueflame Funeral Toll",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_07.png"
+      ],
+      "hit_frame_index": 3,
+      "hitbox": {
+        "shape": "rect",
+        "size": [
+          156,
+          96
+        ],
+        "offset": [
+          76,
+          -44
+        ]
+      },
+      "vfx": [
+        {
+          "key": "boss_19_atk_01_vfx",
+          "name_zh": "青蓝火环钟波",
+          "name_en": "Cyan-Blue Flame Toll Ring",
+          "trigger_frame": 3,
+          "color": "#1CCBE8"
+        }
+      ],
+      "source_generated_strip": "artifacts/boss_keyframes/boss_19_blueflame_grave_bell/source/boss_19_atk_01/generated_attack_strip_chroma.png",
+      "directional_frames": {
+        "left": [
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_00.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_01.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_02.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_03.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_04.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_05.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_06.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_left/attack_07.png"
+        ],
+        "right": [
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_00.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_01.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_02.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_03.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_04.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_05.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_06.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_01_right/attack_07.png"
+        ]
+      }
+    },
+    {
+      "id": "boss_19_atk_02",
+      "name": "boss_19_atk_02",
+      "name_zh": "墓灯垂链",
+      "name_en": "Grave-Lantern Chains",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_07.png"
+      ],
+      "hit_frame_index": 3,
+      "hitbox": {
+        "shape": "rect",
+        "size": [
+          156,
+          96
+        ],
+        "offset": [
+          76,
+          -44
+        ]
+      },
+      "vfx": [
+        {
+          "key": "boss_19_atk_02_vfx",
+          "name_zh": "青焰墓灯链痕",
+          "name_en": "Blueflame Lantern Chain Trails",
+          "trigger_frame": 3,
+          "color": "#23D0C6"
+        }
+      ],
+      "source_generated_strip": "artifacts/boss_keyframes/boss_19_blueflame_grave_bell/source/boss_19_atk_02/generated_attack_strip_chroma.png",
+      "directional_frames": {
+        "left": [
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_00.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_01.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_02.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_03.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_04.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_05.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_06.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_left/attack_07.png"
+        ],
+        "right": [
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_00.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_01.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_02.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_03.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_04.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_05.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_06.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_02_right/attack_07.png"
+        ]
+      }
+    },
+    {
+      "id": "boss_19_atk_03",
+      "name": "boss_19_atk_03",
+      "name_zh": "钟腹亡魂",
+      "name_en": "Souls Within the Bell",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_00.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_01.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_02.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_03.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_04.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_05.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_06.png",
+        "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_07.png"
+      ],
+      "hit_frame_index": 3,
+      "hitbox": {
+        "shape": "rect",
+        "size": [
+          156,
+          96
+        ],
+        "offset": [
+          76,
+          -44
+        ]
+      },
+      "vfx": [
+        {
+          "key": "boss_19_atk_03_vfx",
+          "name_zh": "青火魂影波弹",
+          "name_en": "Cyan-Flame Soulwave Projectiles",
+          "trigger_frame": 3,
+          "color": "#54E0FF"
+        }
+      ],
+      "source_generated_strip": "artifacts/boss_keyframes/boss_19_blueflame_grave_bell/source/boss_19_atk_03/generated_attack_strip_chroma.png",
+      "directional_frames": {
+        "left": [
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_00.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_01.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_02.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_03.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_04.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_05.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_06.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_left/attack_07.png"
+        ],
+        "right": [
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_00.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_01.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_02.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_03.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_04.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_05.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_06.png",
+          "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/frames/boss_19_atk_03_right/attack_07.png"
+        ]
+      }
+    }
+  ],
+  "directional_asset_pack": {
+    "source": "generated runtime frames derived from six-frame boss keyframes, boss_19_blueflame_grave_bell",
+    "source_facing": "right",
+    "walk_frames_per_direction": 16,
+    "attack_frames_per_direction": 8,
+    "directional_animations": [
+      "attack_left",
+      "attack_right",
+      "boss_19_atk_01_left",
+      "boss_19_atk_01_right",
+      "boss_19_atk_02_left",
+      "boss_19_atk_02_right",
+      "boss_19_atk_03_left",
+      "boss_19_atk_03_right",
+      "walk_left",
+      "walk_right"
+    ],
+    "alpha_bottom_target": 246,
+    "cutout_cleanup": "green spill removal plus small detached alpha component filtering",
+    "frame_file_prefix": "attack",
+    "preview_gap_px": 34,
+    "contact_sheet": "artifacts/boss_keyframes/boss_19_blueflame_grave_bell/boss_19_directional_contact.png",
+    "accent_rgba": [
+      28,
+      203,
+      232,
+      255
+    ]
+  }
+}

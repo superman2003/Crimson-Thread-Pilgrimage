@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Original Platformer Character Pack</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #2a2730;
+      --panel: #3a3340;
+      --ink: #f0e7d8;
+      --muted: #bda991;
+      --accent: #71ded4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      display: grid;
+      place-items: start center;
+      padding: 24px;
+    }
+    main { width: min(1120px, 100%); }
+    h1 { margin: 0 0 8px; font-size: 24px; letter-spacing: 0; }
+    p { margin: 0 0 18px; color: var(--muted); }
+    .preview {
+      image-rendering: pixelated;
+      width: 100%;
+      height: auto;
+      border: 1px solid #584f58;
+      background: #948371;
+      display: block;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .strip {
+      background: var(--panel);
+      border: 1px solid #574c58;
+      padding: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    h2 { margin: 0 0 8px; font-size: 14px; color: var(--accent); }
+    .strip img {
+      image-rendering: pixelated;
+      width: 100%;
+      height: auto;
+      background-image:
+        linear-gradient(45deg, #4b4450 25%, transparent 25%),
+        linear-gradient(-45deg, #4b4450 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #4b4450 75%),
+        linear-gradient(-45deg, transparent 75%, #4b4450 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Original Platformer Character Pack</h1>
+    <p>原创像素动作平台角色包预览：透明帧、横向 spritesheet、预览图，非付费素材复刻。</p>
+    <img class="preview" src="preview.png" alt="original pixel platformer character pack preview">
+    <div class="grid">
+      <section class="strip">
+          <h2>Idle</h2>
+          <img src="sheets/idle_sheet.png" alt="idle spritesheet">
+        </section>
+<section class="strip">
+          <h2>Walk</h2>
+          <img src="sheets/walk_sheet.png" alt="walk spritesheet">
+        </section>
+<section class="strip">
+          <h2>Run</h2>
+          <img src="sheets/run_sheet.png" alt="run spritesheet">
+        </section>
+<section class="strip">
+          <h2>Dash Slash</h2>
+          <img src="sheets/dash_slash_sheet.png" alt="dash_slash spritesheet">
+        </section>
+<section class="strip">
+          <h2>Combo</h2>
+          <img src="sheets/combo_sheet.png" alt="combo spritesheet">
+        </section>
+<section class="strip">
+          <h2>Jump</h2>
+          <img src="sheets/jump_sheet.png" alt="jump spritesheet">
+        </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -5,6 +5,13 @@
   "scripts": {
     "start": "node server.js",
     "check": "node --check src/main.js && node --check src/gameData.js && node --check server.js",
+    "test:enemy-runtime": "node tools/run_python_tool.mjs tools/validate_enemy_runtime_manifest_coverage.py --min-unique-enemies 40",
+    "build:boss-registry": "node tools/run_python_tool.mjs tools/build_boss_asset_registry.py",
+    "test:boss-assets": "node tools/run_python_tool.mjs tools/validate_boss01_directional_assets.py && node tools/run_python_tool.mjs tools/validate_boss_directional_assets.py && node tools/run_python_tool.mjs tools/validate_boss_keyframes.py && node tools/run_python_tool.mjs tools/validate_boss_special_attacks.py && node tools/run_python_tool.mjs tools/validate_boss_asset_registry.py",
+    "test:boss-keyframes": "node tools/run_python_tool.mjs tools/validate_boss_keyframes.py",
+    "test:boss-special": "node tools/run_python_tool.mjs tools/validate_boss_special_attacks.py",
+    "build:generated-maps": "node tools/run_python_tool.mjs tools/blueprint_to_godot_runtime.py && node tools/run_python_tool.mjs tools/render_generated_godot_runtime_preview.py && node tools/run_python_tool.mjs tools/render_ch01_setpiece_preview.py",
+    "test:generated-maps": "node tools/run_python_tool.mjs tools/validate_generated_godot_runtime.py && node tools/run_python_tool.mjs tools/probe_ch01_generated_route.py",
     "test": "npm run check && node tests/game-data.test.mjs && node tests/static-smoke.test.mjs && node tests/runtime-smoke.test.mjs",
     "test:browser": "node tests/browser-cdp-smoke.test.mjs"
   }

@@ -15,8 +15,8 @@
     500
   ],
   "required_keys": 0,
-  "goal": "击败巡礼军前哨，打开影门Boss路线，击败静音巡礼统帅。",
-  "completion_message": "DEMO COMPLETE: 静音巡礼统帅已被击败，黑曜失声印记已回收",
+  "goal": "击败巡礼军前哨，打开影门Boss路线，击败镜池新娘。",
+  "completion_message": "DEMO COMPLETE: 镜池新娘已被击败，黑曜失声印记已回收",
   "completion_toast": "黑曜巡礼道闭环完成：NPC、清怪、Boss门和章节奖励均已验证。",
   "enemy_drop_item": "obsidian_splinter",
   "asset_policy": {
@@ -88,17 +88,17 @@
       "silent_mark_obsidian": {
         "name": "黑曜失声印记",
         "category": "Quest",
-        "description": "静音巡礼统帅掉落的章节奖励。"
+        "description": "镜池新娘掉落的章节奖励。"
       },
       "lantern_phase": {
         "name": "灯影相位",
         "category": "Tools",
-        "description": "静音巡礼统帅掉落的章节奖励。"
+        "description": "镜池新娘掉落的章节奖励。"
       },
       "silent_order": {
         "name": "沉默军令",
         "category": "Tools",
-        "description": "静音巡礼统帅掉落的章节奖励。"
+        "description": "镜池新娘掉落的章节奖励。"
       }
     }
   },
@@ -359,265 +359,135 @@
   "ai_profiles": {
     "obsidian_spearman": {
       "move_speed": 42,
-      "aggro_range": 245,
-      "preferred_range": 70,
+      "aggro_range": 245.0,
+      "preferred_range": 70.0,
       "attacks": [
         {
-          "id": "gear_charge",
-          "type": "lunge",
-          "range": 150,
-          "damage": 2,
-          "windup": 0.5,
-          "active": 0.28,
-          "recover": 0.9,
-          "cooldown": 2.45,
-          "lunge_speed": 315,
-          "hit_width": 108,
-          "hit_height": 78,
-          "offset": 58,
-          "telegraph": "b56d37",
-          "priority": 2
-        },
-        {
-          "id": "saw_arm",
+          "id": "quick_cut",
           "type": "melee",
-          "range": 92,
+          "range": 88,
           "damage": 1,
-          "windup": 0.24,
-          "active": 0.18,
-          "recover": 0.52,
-          "cooldown": 1.25,
-          "hit_width": 98,
-          "hit_height": 66,
-          "offset": 48,
-          "telegraph": "d2a246",
-          "priority": 1.7
-        },
-        {
-          "id": "stomp_shock",
-          "type": "aoe",
-          "range": 104,
-          "damage": 1,
-          "windup": 0.56,
-          "active": 0.22,
-          "recover": 0.82,
-          "cooldown": 2.35,
-          "hit_width": 154,
-          "hit_height": 84,
-          "telegraph": "c9913a",
-          "priority": 1.2
+          "windup": 0.2,
+          "active": 0.16,
+          "recover": 0.42,
+          "cooldown": 1.08,
+          "hit_width": 82,
+          "hit_height": 72,
+          "offset": 42,
+          "telegraph": "e1b879",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "phase_censor": {
       "move_speed": 36,
-      "aggro_range": 235,
-      "preferred_range": 82,
+      "aggro_range": 235.0,
+      "preferred_range": 82.0,
       "attacks": [
         {
-          "id": "bell_ring_body",
+          "id": "sigil_burst",
           "type": "aoe",
-          "range": 112,
-          "damage": 1,
-          "windup": 0.58,
-          "active": 0.24,
-          "recover": 0.82,
-          "cooldown": 2.35,
-          "hit_width": 166,
-          "hit_height": 94,
-          "telegraph": "d0a44e",
-          "priority": 1.9
-        },
-        {
-          "id": "root_shove",
-          "type": "melee",
           "range": 86,
-          "damage": 1,
-          "windup": 0.32,
-          "active": 0.16,
-          "recover": 0.56,
-          "cooldown": 1.45,
-          "hit_width": 96,
-          "hit_height": 60,
-          "offset": 48,
-          "telegraph": "76a96a",
-          "priority": 1.5
-        },
-        {
-          "id": "spore_belly_bump",
-          "type": "lunge",
-          "range": 104,
-          "damage": 1,
-          "windup": 0.42,
-          "active": 0.22,
-          "recover": 0.72,
-          "cooldown": 2.05,
-          "lunge_speed": 210,
-          "hit_width": 104,
-          "hit_height": 80,
-          "offset": 54,
-          "telegraph": "75b468",
-          "priority": 1.2
-        }
-      ]
-    },
-    "silent_bugbler": {
-      "move_speed": 48,
-      "aggro_range": 210,
-      "preferred_range": 44,
-      "attacks": [
-        {
-          "id": "toothed_lunge",
-          "type": "lunge",
-          "range": 96,
-          "damage": 1,
-          "windup": 0.28,
-          "active": 0.2,
-          "recover": 0.5,
-          "cooldown": 1.25,
-          "lunge_speed": 275,
-          "hit_width": 88,
-          "hit_height": 58,
-          "offset": 48,
-          "telegraph": "bf6c3f",
-          "priority": 2
-        },
-        {
-          "id": "shell_bump",
-          "type": "melee",
-          "range": 66,
-          "damage": 1,
-          "windup": 0.22,
-          "active": 0.14,
-          "recover": 0.48,
-          "cooldown": 1.1,
-          "hit_width": 68,
-          "hit_height": 56,
-          "offset": 34,
-          "telegraph": "8fb35a",
-          "priority": 1.5
-        },
-        {
-          "id": "burrow_bite",
-          "type": "melee",
-          "range": 72,
           "damage": 1,
           "windup": 0.38,
           "active": 0.16,
-          "recover": 0.64,
-          "cooldown": 1.7,
-          "hit_width": 74,
-          "hit_height": 66,
-          "offset": 38,
-          "telegraph": "c99a50",
-          "priority": 1.1
+          "recover": 0.58,
+          "cooldown": 1.42,
+          "hit_width": 126,
+          "hit_height": 76,
+          "offset": 0,
+          "telegraph": "9bd7f0",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
+    },
+    "silent_bugbler": {
+      "move_speed": 48,
+      "aggro_range": 210.0,
+      "preferred_range": 44.0,
+      "attacks": [
+        {
+          "id": "bite_lunge",
+          "type": "lunge",
+          "range": 92,
+          "damage": 1,
+          "windup": 0.26,
+          "active": 0.18,
+          "recover": 0.46,
+          "cooldown": 1.18,
+          "lunge_speed": 250,
+          "hit_width": 82,
+          "hit_height": 54,
+          "offset": 44,
+          "telegraph": "bf6c3f",
+          "priority": 1.0,
+          "animation": "attack"
+        }
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "kneeling_crossbowman": {
       "move_speed": 62,
-      "aggro_range": 250,
-      "preferred_range": 78,
+      "aggro_range": 250.0,
+      "preferred_range": 78.0,
       "attacks": [
         {
-          "id": "sickle_swoop",
-          "type": "lunge",
-          "range": 132,
-          "damage": 1,
-          "windup": 0.26,
-          "active": 0.24,
-          "recover": 0.48,
-          "cooldown": 1.45,
-          "lunge_speed": 335,
-          "hit_width": 98,
-          "hit_height": 76,
-          "offset": 58,
-          "telegraph": "d18b38",
-          "priority": 2.1
-        },
-        {
-          "id": "wing_body_check",
-          "type": "lunge",
-          "range": 104,
+          "id": "body_cast",
+          "type": "melee",
+          "range": 96,
           "damage": 1,
           "windup": 0.34,
-          "active": 0.2,
-          "recover": 0.58,
-          "cooldown": 1.7,
-          "lunge_speed": 250,
-          "hit_width": 112,
-          "hit_height": 82,
-          "offset": 52,
-          "telegraph": "bfb46c",
-          "priority": 1.6
-        },
-        {
-          "id": "dust_tackle",
-          "type": "aoe",
-          "range": 92,
-          "damage": 1,
-          "windup": 0.44,
           "active": 0.18,
-          "recover": 0.72,
-          "cooldown": 2.1,
-          "hit_width": 138,
-          "hit_height": 82,
-          "telegraph": "bfb46c",
-          "priority": 1.2
+          "recover": 0.55,
+          "cooldown": 1.34,
+          "hit_width": 88,
+          "hit_height": 64,
+          "offset": 48,
+          "telegraph": "c99a50",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "pilgrim_chariot": {
       "move_speed": 42,
-      "aggro_range": 245,
-      "preferred_range": 70,
+      "aggro_range": 245.0,
+      "preferred_range": 70.0,
       "attacks": [
         {
-          "id": "gear_charge",
+          "id": "shield_rush",
           "type": "lunge",
-          "range": 150,
-          "damage": 2,
-          "windup": 0.5,
-          "active": 0.28,
-          "recover": 0.9,
-          "cooldown": 2.45,
-          "lunge_speed": 315,
-          "hit_width": 108,
-          "hit_height": 78,
-          "offset": 58,
-          "telegraph": "b56d37",
-          "priority": 2
-        },
-        {
-          "id": "saw_arm",
-          "type": "melee",
-          "range": 92,
+          "range": 118,
           "damage": 1,
-          "windup": 0.24,
-          "active": 0.18,
-          "recover": 0.52,
-          "cooldown": 1.25,
-          "hit_width": 98,
-          "hit_height": 66,
-          "offset": 48,
-          "telegraph": "d2a246",
-          "priority": 1.7
-        },
-        {
-          "id": "stomp_shock",
-          "type": "aoe",
-          "range": 104,
-          "damage": 1,
-          "windup": 0.56,
+          "windup": 0.3,
           "active": 0.22,
-          "recover": 0.82,
-          "cooldown": 2.35,
-          "hit_width": 154,
-          "hit_height": 84,
-          "telegraph": "c9913a",
-          "priority": 1.2
+          "recover": 0.54,
+          "cooldown": 1.36,
+          "lunge_speed": 310,
+          "hit_width": 100,
+          "hit_height": 68,
+          "offset": 56,
+          "telegraph": "d38c45",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "silent_pilgrim_commander": {
       "move_speed": 58,
@@ -989,6 +859,58 @@
             0.96,
             1.04
           ]
+        }
+      ]
+    },
+    "ash_banner_imp": {
+      "move_speed": 58,
+      "aggro_range": 220.0,
+      "preferred_range": 58.0,
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82,
+      "attacks": [
+        {
+          "id": "quick_cut",
+          "type": "melee",
+          "range": 88,
+          "damage": 1,
+          "windup": 0.2,
+          "active": 0.16,
+          "recover": 0.42,
+          "cooldown": 1.08,
+          "hit_width": 82,
+          "hit_height": 72,
+          "offset": 42,
+          "telegraph": "e1b879",
+          "priority": 1.0,
+          "animation": "attack"
+        }
+      ]
+    },
+    "obsidian_bellwheel": {
+      "move_speed": 42,
+      "aggro_range": 220.0,
+      "preferred_range": 58.0,
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82,
+      "attacks": [
+        {
+          "id": "heavy_body_check",
+          "type": "melee",
+          "range": 84,
+          "damage": 2,
+          "windup": 0.4,
+          "active": 0.2,
+          "recover": 0.66,
+          "cooldown": 1.55,
+          "hit_width": 104,
+          "hit_height": 74,
+          "offset": 48,
+          "telegraph": "c9764a",
+          "priority": 1.0,
+          "animation": "attack"
         }
       ]
     }
@@ -1715,57 +1637,84 @@
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 0.96,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
-        -7
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        64,
-        64
+        32,
+        32
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E02",
@@ -1782,20 +1731,20 @@
       "sprite_region": [
         0,
         0,
-        64,
-        64
+        128,
+        128
       ],
-      "visual_scale": 0.92,
+      "visual_scale": 0.86,
       "visual_offset": [
         0,
-        -2
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
       "source_sprite_region": [
-        64,
+        0,
         0,
         64,
         64
@@ -1804,35 +1753,62 @@
         "idle": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          64,
-          64
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          64,
-          64
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH05_E03",
@@ -1849,20 +1825,20 @@
       "sprite_region": [
         0,
         0,
-        32,
-        40
+        128,
+        128
       ],
-      "visual_scale": 1.42,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -3
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
       "source_sprite_region": [
-        32,
+        0,
         0,
         32,
         40
@@ -1871,35 +1847,62 @@
         "idle": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          40
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          40
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E04",
@@ -1916,57 +1919,84 @@
       "sprite_region": [
         0,
         0,
-        60,
-        60
+        128,
+        128
       ],
-      "visual_scale": 0.98,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -4
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
       "source_sprite_region": [
-        60,
+        0,
         0,
         60,
-        60
+        40
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          60,
-          60
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          60,
-          60
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E05",
@@ -1983,57 +2013,84 @@
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 0.94,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
         -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
       "source_sprite_region": [
         0,
         0,
-        80,
-        64
+        32,
+        32
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH05_E06",
@@ -2050,57 +2107,84 @@
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 0.96,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
-        -7
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        64,
-        64
+        32,
+        32
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E07",
@@ -2117,20 +2201,20 @@
       "sprite_region": [
         0,
         0,
-        64,
-        64
+        128,
+        128
       ],
-      "visual_scale": 0.92,
+      "visual_scale": 0.86,
       "visual_offset": [
         0,
-        -2
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
       "source_sprite_region": [
-        64,
+        0,
         0,
         64,
         64
@@ -2139,35 +2223,62 @@
         "idle": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          64,
-          64
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          64,
-          64
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH05_E08",
@@ -2184,20 +2295,20 @@
       "sprite_region": [
         0,
         0,
-        32,
-        40
+        128,
+        128
       ],
-      "visual_scale": 1.42,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -3
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
       "source_sprite_region": [
-        32,
+        0,
         0,
         32,
         40
@@ -2206,35 +2317,62 @@
         "idle": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          40
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          40
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E09",
@@ -2251,57 +2389,84 @@
       "sprite_region": [
         0,
         0,
-        60,
-        60
+        128,
+        128
       ],
-      "visual_scale": 0.98,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -4
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
       "source_sprite_region": [
-        60,
+        0,
         0,
         60,
-        60
+        40
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          60,
-          60
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          60,
-          60
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E10",
@@ -2318,57 +2483,84 @@
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 0.94,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
         -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
       "source_sprite_region": [
         0,
         0,
-        80,
-        64
+        32,
+        32
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH05_E11",
@@ -2385,57 +2577,84 @@
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 0.96,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
-        -7
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        64,
-        64
+        32,
+        32
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH05_E12",
@@ -2452,20 +2671,20 @@
       "sprite_region": [
         0,
         0,
-        64,
-        64
+        128,
+        128
       ],
-      "visual_scale": 0.92,
+      "visual_scale": 0.86,
       "visual_offset": [
         0,
-        -2
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
       "source_sprite_region": [
-        64,
+        0,
         0,
         64,
         64
@@ -2474,39 +2693,66 @@
         "idle": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          64,
-          64
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          64,
-          64
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          64,
-          64
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH05_E13",
-      "kind": "silent_bugbler",
+      "kind": "obsidian_bellwheel",
       "position": [
         13455,
         310
@@ -2515,65 +2761,92 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
       "sprite_region": [
         0,
         0,
-        32,
-        40
+        128,
+        128
       ],
-      "visual_scale": 1.42,
+      "visual_scale": 0.76,
       "visual_offset": [
         0,
-        -3
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
       "source_sprite_region": [
-        32,
         0,
-        32,
-        40
+        0,
+        64,
+        72
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          40
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          40
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          40
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH05_E14",
-      "kind": "kneeling_crossbowman",
+      "kind": "ash_banner_imp",
       "position": [
         15895,
         500
@@ -2582,66 +2855,93 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
       "sprite_region": [
         0,
         0,
-        60,
-        60
+        128,
+        128
       ],
-      "visual_scale": 0.98,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -4
+        -8
       ],
-      "visual_modulate": "ddd8ff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
       "source_sprite_region": [
-        60,
         0,
-        60,
-        60
+        0,
+        45,
+        66
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          60,
-          60
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          60,
-          60
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          60,
-          60
+          128,
+          128
         ]
       },
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     }
   ],
   "boss": {
     "id": "C5_B01",
-    "name": "静音巡礼统帅",
+    "name": "镜池新娘",
     "kind": "silent_pilgrim_commander",
     "position": [
       16970,
@@ -2652,21 +2952,21 @@
     "patrol": 260,
     "reward_item": "silent_mark_obsidian",
     "story_drop": "统帅短暂恢复自我，交出沉默军令，承认王冠核心会把所有失败者重新编入军队。",
-    "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/manifest.json",
+    "sprite": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
     "sprite_region": [
       0,
       0,
       60,
       60
     ],
-    "visual_scale": 1.8,
+    "visual_scale": 0.92,
     "visual_offset": [
       0,
-      -17
+      -38
     ],
     "visual_modulate": "ddd8ff",
-    "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-    "visual_role": "dark_fantasy_boss",
+    "visual_source": "High-fidelity Boss Concept Pack / boss_05_mirrorpool_bride",
+    "visual_role": "high_fidelity_boss_05_mirrorpool_bride",
     "body_size": [
       162,
       148
@@ -2679,7 +2979,7 @@
       0,
       -52
     ],
-    "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+    "source_sprite": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
     "source_sprite_region": [
       0,
       0,
@@ -2718,6 +3018,7 @@
         60
       ]
     },
+    "sprite_faces_left": false,
     "arena_min_x": 16370,
     "arena_max_x": 17790
   },
@@ -2801,7 +3102,7 @@
     "to_runtime_config_id": "demo_ch06_silent_crown_core",
     "next_config_path": "res://data/demo_ch06_silent_crown_core.json",
     "exit_interactive_id": "ch05_chapter_exit",
-    "entry_hint": "静音巡礼统帅的军令化作黑曜钥纹，王冠核心的无声门终于张开。"
+    "entry_hint": "镜池新娘的军令化作黑曜钥纹，王冠核心的无声门终于张开。"
   },
   "entry_from_previous": {
     "from_runtime_config_id": "demo_ch04_broken_string_greenhouse",
