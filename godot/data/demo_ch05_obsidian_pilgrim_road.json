@@ -3,16 +3,16 @@
   "name": "黑曜巡礼道试玩章",
   "world": {
     "width": 18800,
-    "height": 720,
-    "fall_y": 790
+    "height": 1900,
+    "fall_y": 2000
   },
   "player_start": [
     120,
-    500
+    1540
   ],
   "boss_checkpoint": [
-    15480,
-    500
+    14300,
+    1540
   ],
   "required_keys": 0,
   "goal": "击败巡礼军前哨，打开影门Boss路线，击败镜池新娘。",
@@ -105,255 +105,255 @@
   "map_rooms": [
     {
       "id": "ch05_room_1",
-      "name": "黑曜前哨",
+      "name": "朝圣起点",
       "range": [
         0,
-        850
+        1044
       ],
-      "depth": -1,
+      "depth": 1,
       "kind": "entry",
-      "objective": "黑曜前哨：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "朝圣起点：低路沟壑起步，可攀上高处山脊。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断旗长路"
+      "next": "初登山脊"
     },
     {
       "id": "ch05_room_2",
-      "name": "断旗长路",
+      "name": "初登山脊",
       "range": [
-        850,
-        1750
+        1044,
+        2088
       ],
-      "depth": 1,
-      "kind": "lower",
-      "objective": "断旗长路：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -2,
+      "kind": "vertical",
+      "objective": "初登山脊：爬上安全的高路。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "盲钟营地"
+      "next": "山脊西段"
     },
     {
       "id": "ch05_room_3",
-      "name": "盲钟营地",
+      "name": "山脊西段",
       "range": [
-        1750,
-        2600
+        2088,
+        3132
       ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "盲钟营地：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "山脊西段：安全但跳台间隙大。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "影门廊"
+      "next": "沟壑踏石·一"
     },
     {
       "id": "ch05_room_4",
-      "name": "影门廊",
+      "name": "沟壑踏石·一",
       "range": [
-        2600,
-        3500
+        3132,
+        4176
       ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "影门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沟壑踏石：低路险跨，脚下是熔渊。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "巡礼兵营"
+      "next": "分道口"
     },
     {
       "id": "ch05_room_5",
-      "name": "巡礼兵营",
+      "name": "分道口",
       "range": [
-        3500,
-        4550
+        4176,
+        5220
       ],
       "depth": 0,
-      "kind": "safe",
-      "objective": "巡礼兵营：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "kind": "vertical",
+      "objective": "分道口：高低两路在此交换。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "王冠外桥"
+      "next": "瞭望峰"
     },
     {
       "id": "ch05_room_6",
-      "name": "王冠外桥",
+      "name": "瞭望峰",
       "range": [
-        4550,
-        5600
+        5220,
+        6264
       ],
-      "depth": 1,
-      "kind": "danger",
-      "objective": "王冠外桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -3,
+      "kind": "upper",
+      "objective": "瞭望峰：钩到最高的瞭望点。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "黑曜跳台"
+      "next": "沟壑踏石·二"
     },
     {
       "id": "ch05_room_7",
-      "name": "黑曜跳台",
+      "name": "沟壑踏石·二",
       "range": [
-        5600,
-        6650
+        6264,
+        7308
       ],
-      "depth": -1,
-      "kind": "parkour",
-      "objective": "黑曜跳台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "第二处沟壑踏石。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "灯影相位跑酷"
+      "next": "山脊中段"
     },
     {
       "id": "ch05_room_8",
-      "name": "灯影相位跑酷",
+      "name": "山脊中段",
       "range": [
-        6650,
-        7800
-      ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "灯影相位跑酷：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "雾桥冲刺"
-    },
-    {
-      "id": "ch05_room_9",
-      "name": "雾桥冲刺",
-      "range": [
-        7800,
-        8950
+        7308,
+        8352
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "雾桥冲刺：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "山脊中段：继续高路推进。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "统帅前阵"
+      "next": "熔渊低道"
+    },
+    {
+      "id": "ch05_room_9",
+      "name": "熔渊低道",
+      "range": [
+        8352,
+        9396
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "熔渊低道：危险但有补给的低路。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "换道竖梯"
     },
     {
       "id": "ch05_room_10",
-      "name": "统帅前阵",
+      "name": "换道竖梯",
       "range": [
-        8950,
-        10050
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "统帅前阵：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "熄灯下层"
-    },
-    {
-      "id": "ch05_room_11",
-      "name": "熄灯下层",
-      "range": [
-        10050,
-        11150
-      ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "熄灯下层：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "军墓回环"
-    },
-    {
-      "id": "ch05_room_12",
-      "name": "军墓回环",
-      "range": [
-        11150,
-        12150
-      ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "军墓回环：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "旗影升降井"
-    },
-    {
-      "id": "ch05_room_13",
-      "name": "旗影升降井",
-      "range": [
-        12150,
-        13050
+        9396,
+        10440
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "旗影升降井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "换道竖梯：在高低路之间回环。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "黑曜上桥"
+      "next": "沟壑踏石·三"
     },
     {
-      "id": "ch05_room_14",
-      "name": "黑曜上桥",
+      "id": "ch05_room_11",
+      "name": "沟壑踏石·三",
       "range": [
-        13050,
-        14100
+        10440,
+        11484
       ],
-      "depth": -2,
+      "depth": 2,
+      "kind": "lower",
+      "objective": "第三处沟壑踏石。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "山脊东段"
+    },
+    {
+      "id": "ch05_room_12",
+      "name": "山脊东段",
+      "range": [
+        11484,
+        12528
+      ],
+      "depth": -1,
       "kind": "upper",
-      "objective": "黑曜上桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "山脊东段：高路接近尾声。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "军令连战"
+      "next": "会合台"
     },
     {
-      "id": "ch05_room_15",
-      "name": "军令连战",
+      "id": "ch05_room_13",
+      "name": "会合台",
       "range": [
-        14100,
-        15300
-      ],
-      "depth": 0,
-      "kind": "danger",
-      "objective": "军令连战：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "阅兵门廊"
-    },
-    {
-      "id": "ch05_room_16",
-      "name": "阅兵门廊",
-      "range": [
-        15300,
-        16250
+        12528,
+        13572
       ],
       "depth": 0,
       "kind": "field",
-      "objective": "阅兵门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "会合台：两路在此合流。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "静音阅兵场"
+      "next": "降脊阶"
     },
     {
-      "id": "ch05_room_17",
-      "name": "静音阅兵场",
+      "id": "ch05_room_14",
+      "name": "降脊阶",
       "range": [
-        16250,
-        18050
+        13572,
+        14616
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "降脊阶：从山脊下到 Boss 前广场。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "朝圣前庭"
+    },
+    {
+      "id": "ch05_room_15",
+      "name": "朝圣前庭",
+      "range": [
+        14616,
+        15660
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "朝圣前庭：Boss 前存档补给。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "黑曜祭坛"
+    },
+    {
+      "id": "ch05_room_16",
+      "name": "黑曜祭坛",
+      "range": [
+        15660,
+        16704
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "静音阅兵场：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "黑曜祭坛：与盲钟骑士决战。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "王冠门径"
+      "next": "余烬通道"
+    },
+    {
+      "id": "ch05_room_17",
+      "name": "余烬通道",
+      "range": [
+        16704,
+        17748
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "余烬通道：清场后通向出口。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "朝圣出口"
     },
     {
       "id": "ch05_room_18",
-      "name": "王冠门径",
+      "name": "朝圣出口",
       "range": [
-        18050,
+        17748,
         18800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "王冠门径：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "朝圣出口：通往第六章无星纺核。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "next": "—"
     }
   ],
   "ai_profiles": {
@@ -917,600 +917,1095 @@
   },
   "platforms": [
     {
-      "id": "start_ground",
+      "id": "c5_low0",
       "rect": [
         0,
-        540,
-        720,
+        1620,
+        2000,
         40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "starter_step",
+      "id": "c5_low1",
       "rect": [
-        420,
-        492,
-        220,
-        24
+        2600,
+        1620,
+        1800,
+        40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "vista_bridge",
+      "id": "c5_low2",
       "rect": [
-        600,
-        430,
-        340,
-        26
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "outer_low_floor",
-      "rect": [
-        880,
-        610,
-        720,
-        34
+        5000,
+        1620,
+        1800,
+        40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "outer_mid_bridge",
+      "id": "c5_low3",
       "rect": [
-        1320,
-        520,
-        360,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "lift_base",
-      "rect": [
-        1780,
-        540,
-        420,
-        30
+        7400,
+        1620,
+        1800,
+        40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "lift_step_a",
+      "id": "c5_low4",
       "rect": [
-        2180,
-        466,
-        300,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "upper_bridge_a",
-      "rect": [
-        2560,
-        388,
-        680,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "upper_drop",
-      "rect": [
-        3060,
-        464,
-        420,
-        28
+        9800,
+        1620,
+        1800,
+        40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "backdoor_room",
+      "id": "c5_low5",
       "rect": [
-        3600,
-        500,
-        540,
-        32
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "chapel_floor",
-      "rect": [
-        3300,
-        540,
-        960,
-        34
+        12200,
+        1620,
+        1800,
+        40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "ch05_runback_floor",
+      "id": "c5_stone0a",
       "rect": [
-        4200,
-        540,
-        1120,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_runback_step",
-      "rect": [
-        4750,
-        455,
-        360,
-        28
+        2080,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_parkour_floor_a",
+      "id": "c5_stone0b",
       "rect": [
-        5350,
-        540,
-        980,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_parkour_step_a",
-      "rect": [
-        5740,
-        466,
-        240,
-        28
+        2360,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_parkour_step_b",
+      "id": "c5_stone1a",
       "rect": [
-        6120,
-        396,
-        260,
-        28
+        4480,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_parkour_floor_b",
+      "id": "c5_stone1b",
       "rect": [
-        6400,
-        540,
-        1050,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_parkour_upper_a",
-      "rect": [
-        6780,
-        410,
-        430,
-        28
+        4760,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_parkour_upper_b",
+      "id": "c5_stone2a",
       "rect": [
-        7340,
-        360,
-        520,
-        28
+        6880,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_sprint_floor",
+      "id": "c5_stone2b",
       "rect": [
-        7500,
-        540,
-        1120,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_sprint_step",
-      "rect": [
-        8000,
-        452,
-        360,
-        28
+        7160,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_gauntlet_floor",
+      "id": "c5_stone3a",
       "rect": [
-        8600,
-        540,
-        1100,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_gauntlet_upper",
-      "rect": [
-        9020,
-        428,
-        540,
-        28
+        9280,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_approach_floor",
+      "id": "c5_stone3b",
       "rect": [
-        9700,
-        540,
-        1120,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_approach_step",
-      "rect": [
-        10200,
-        452,
-        420,
-        28
+        9560,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_lower_loop_floor",
+      "id": "c5_stone4a",
       "rect": [
-        10090,
-        610,
-        1020,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_lower_loop_mid",
-      "rect": [
-        10470,
-        520,
-        360,
-        28
+        11680,
+        1720,
+        180,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_lower_loop_exit_lip",
+      "id": "c5_stone4b",
       "rect": [
-        10940,
+        11960,
+        1720,
+        180,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge0",
+      "rect": [
+        1700,
         560,
-        220,
+        760,
         26
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_return_shaft_base",
-      "rect": [
-        12210,
-        540,
-        360,
-        30
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_return_shaft_step_a",
-      "rect": [
-        12510,
-        470,
-        260,
-        28
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_return_shaft_step_b",
+      "id": "c5_ridge1",
       "rect": [
-        12840,
+        2660,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge2",
+      "rect": [
+        3620,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge3",
+      "rect": [
+        4580,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge4",
+      "rect": [
+        5540,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge5",
+      "rect": [
+        6500,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge6",
+      "rect": [
+        7460,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge7",
+      "rect": [
+        8420,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge8",
+      "rect": [
+        9380,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge9",
+      "rect": [
+        10340,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge10",
+      "rect": [
+        11300,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge11",
+      "rect": [
+        12260,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_ridge12",
+      "rect": [
+        13220,
+        560,
+        760,
+        26
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_peak_step",
+      "rect": [
+        6480,
+        500,
+        260,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_peak",
+      "rect": [
+        6520,
         400,
         260,
-        28
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_upper_bridge",
+      "id": "c5_link0_0",
       "rect": [
-        13120,
-        350,
-        910,
-        28
+        1600,
+        1540,
+        160,
+        20
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_upper_drop_step",
+      "id": "c5_link0_1",
       "rect": [
-        13820,
-        430,
-        260,
-        28
+        1600,
+        1434,
+        160,
+        20
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_crossway_floor",
+      "id": "c5_link0_2",
       "rect": [
-        15320,
-        540,
-        910,
-        34
+        1600,
+        1329,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_3",
+      "rect": [
+        1600,
+        1223,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_4",
+      "rect": [
+        1600,
+        1118,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_5",
+      "rect": [
+        1600,
+        1012,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_6",
+      "rect": [
+        1600,
+        907,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_7",
+      "rect": [
+        1600,
+        801,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_8",
+      "rect": [
+        1600,
+        696,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link0_9",
+      "rect": [
+        1600,
+        590,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_1",
+      "rect": [
+        3200,
+        689,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_2",
+      "rect": [
+        3246,
+        778,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_3",
+      "rect": [
+        3292,
+        867,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_4",
+      "rect": [
+        3338,
+        956,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_5",
+      "rect": [
+        3384,
+        1045,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_6",
+      "rect": [
+        3430,
+        1135,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_7",
+      "rect": [
+        3476,
+        1224,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_8",
+      "rect": [
+        3522,
+        1313,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_9",
+      "rect": [
+        3568,
+        1402,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_10",
+      "rect": [
+        3614,
+        1491,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link1_11",
+      "rect": [
+        3660,
+        1580,
+        150,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_0",
+      "rect": [
+        6000,
+        1560,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_1",
+      "rect": [
+        6370,
+        1452,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_2",
+      "rect": [
+        6000,
+        1344,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_3",
+      "rect": [
+        6370,
+        1237,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_4",
+      "rect": [
+        6000,
+        1129,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_5",
+      "rect": [
+        6370,
+        1021,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_6",
+      "rect": [
+        6000,
+        913,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_7",
+      "rect": [
+        6370,
+        806,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_8",
+      "rect": [
+        6000,
+        698,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link2_9",
+      "rect": [
+        6370,
+        590,
+        170,
+        24
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_0",
+      "rect": [
+        10400,
+        1540,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_1",
+      "rect": [
+        10400,
+        1434,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_2",
+      "rect": [
+        10400,
+        1329,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_3",
+      "rect": [
+        10400,
+        1223,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_4",
+      "rect": [
+        10400,
+        1118,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_5",
+      "rect": [
+        10400,
+        1012,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_6",
+      "rect": [
+        10400,
+        907,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_7",
+      "rect": [
+        10400,
+        801,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_8",
+      "rect": [
+        10400,
+        696,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_link3_9",
+      "rect": [
+        10400,
+        590,
+        160,
+        20
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_preboss",
+      "rect": [
+        14000,
+        1620,
+        1800,
+        40
       ],
       "color": "272734",
       "material": "obsidian_basalt"
     },
     {
-      "id": "ch05_crossway_upper",
+      "id": "c5_desc_1",
       "rect": [
-        15720,
-        452,
-        380,
-        28
+        13950,
+        689,
+        160,
+        22
       ],
       "color": "6e3d32",
       "material": "ember_bridge"
     },
     {
-      "id": "ch05_preboss_floor",
+      "id": "c5_desc_2",
       "rect": [
-        15330,
-        540,
-        890,
-        34
+        13990,
+        778,
+        160,
+        22
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "6e3d32",
+      "material": "ember_bridge"
     },
     {
-      "id": "boss_floor",
+      "id": "c5_desc_3",
       "rect": [
-        16250,
-        540,
+        14030,
+        867,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_4",
+      "rect": [
+        14070,
+        956,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_5",
+      "rect": [
+        14110,
+        1045,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_6",
+      "rect": [
+        14150,
+        1135,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_7",
+      "rect": [
+        14190,
+        1224,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_8",
+      "rect": [
+        14230,
+        1313,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_9",
+      "rect": [
+        14270,
+        1402,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_10",
+      "rect": [
+        14310,
+        1491,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_desc_11",
+      "rect": [
+        14350,
+        1580,
+        160,
+        22
+      ],
+      "color": "6e3d32",
+      "material": "ember_bridge"
+    },
+    {
+      "id": "c5_boss_floor",
+      "rect": [
+        15800,
+        1620,
         1660,
         44
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "272734",
+      "material": "obsidian_basalt"
     },
     {
-      "id": "boss_back_wall",
+      "id": "c5_boss_back_wall",
       "rect": [
-        17910,
-        315,
+        17460,
+        1350,
         38,
         270
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "272734",
+      "material": "obsidian_basalt"
     },
     {
-      "id": "ch05_post_boss_run_step",
+      "id": "c5_exit_runup",
       "rect": [
-        17900,
-        540,
-        300,
-        34
+        17560,
+        1620,
+        560,
+        40
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "272734",
+      "material": "obsidian_basalt"
     },
     {
-      "id": "ch05_exit_runup",
+      "id": "c5_exit_floor",
       "rect": [
-        18040,
-        540,
-        580,
-        34
+        18120,
+        1620,
+        680,
+        40
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "ch05_exit_floor",
-      "rect": [
-        18480,
-        540,
-        320,
-        34
-      ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "ch05_late_route_link_01",
-      "rect": [
-        10830,
-        540,
-        1380,
-        30
-      ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "ch05_late_route_link_02",
-      "rect": [
-        12570,
-        540,
-        2750,
-        30
-      ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "272734",
+      "material": "obsidian_basalt"
     }
   ],
   "locked_gates": [],
   "hazards": [
     {
       "id": "ch05_hazard_01",
-      "kind": "fake_moss_floor",
+      "kind": "ember_vent",
       "rect": [
-        715,
-        406,
+        700,
+        1600,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_02",
-      "kind": "bell_gap",
+      "kind": "ash_gust",
       "rect": [
-        2275,
-        442,
+        2160,
+        460,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_03",
-      "kind": "spore_chest",
+      "kind": "ember_vent",
       "rect": [
-        3725,
-        516,
+        2760,
+        1760,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_04",
-      "kind": "falling_clapper",
+      "kind": "ash_gust",
       "rect": [
-        5805,
-        442,
+        5040,
+        460,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_05",
-      "kind": "bell_gap",
+      "kind": "ember_vent",
       "rect": [
-        7545,
-        336,
+        6560,
+        380,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_06",
-      "kind": "falling_clapper",
+      "kind": "ash_gust",
       "rect": [
-        9235,
-        404,
+        7160,
+        1760,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_07",
-      "kind": "spore_chest",
+      "kind": "ember_vent",
       "rect": [
-        10595,
-        496,
+        9800,
+        1600,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_08",
-      "kind": "fake_moss_floor",
+      "kind": "ash_gust",
       "rect": [
-        13520,
-        326,
+        11540,
+        460,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_09",
-      "kind": "bell_gap",
+      "kind": "ember_vent",
       "rect": [
-        15720,
-        516,
+        12140,
+        1760,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch05_hazard_10",
-      "kind": "spore_chest",
+      "kind": "ash_gust",
       "rect": [
-        18585,
-        516,
+        14500,
+        1600,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     }
   ],
   "collectibles": [],
@@ -1519,8 +2014,8 @@
       "id": "ch05_obsidian_pilgrim_road_shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        9000,
+        1540
       ],
       "requires_keys": 0,
       "label": "战斗门控制器"
@@ -1529,8 +2024,8 @@
       "id": "ch05_obsidian_pilgrim_road_boss_gate",
       "kind": "boss_gate",
       "position": [
-        16460,
-        500
+        16000,
+        1540
       ]
     },
     {
@@ -1538,8 +2033,8 @@
       "kind": "chapter_exit",
       "label": "前往第六章：无声王冠",
       "position": [
-        18620,
-        500
+        18450,
+        1550
       ],
       "next_runtime_config_id": "demo_ch06_silent_crown_core",
       "next_config_path": "res://data/demo_ch06_silent_crown_core.json",
@@ -1555,8 +2050,8 @@
       "id": "npc_obsidian_guide",
       "name": "黑曜引路人",
       "position": [
-        320,
-        500
+        400,
+        1550
       ],
       "role": "route_hint",
       "dialogue": [
@@ -1572,8 +2067,8 @@
       "id": "npc_blind_bell_knight",
       "name": "盲钟骑士",
       "position": [
-        1360,
-        570
+        9000,
+        1550
       ],
       "role": "combat_mark_witness",
       "dialogue": [
@@ -1589,8 +2084,8 @@
       "id": "npc_lantern_sister",
       "name": "灯影修女",
       "position": [
-        3680,
-        460
+        6560,
+        520
       ],
       "role": "ability_teacher",
       "dialogue": [
@@ -1606,8 +2101,8 @@
       "id": "npc_deserter_flagbearer",
       "name": "逃旗手",
       "position": [
-        11600,
-        500
+        5200,
+        1550
       ],
       "role": "sidequest_moral_choice",
       "dialogue": [
@@ -1626,10 +2121,10 @@
       "id": "CH05_E01",
       "kind": "obsidian_spearman",
       "position": [
-        1120,
-        570
+        1000,
+        1590
       ],
-      "platform_id": "outer_low_floor",
+      "platform_id": "c5_low0",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1720,10 +2215,10 @@
       "id": "CH05_E02",
       "kind": "phase_censor",
       "position": [
-        2110,
-        500
+        3040,
+        530
       ],
-      "platform_id": "lift_base",
+      "platform_id": "c5_ridge1",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1814,10 +2309,10 @@
       "id": "CH05_E03",
       "kind": "silent_bugbler",
       "position": [
-        2780,
-        348
+        2170,
+        1690
       ],
-      "platform_id": "upper_bridge_a",
+      "platform_id": "c5_stone0a",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1908,10 +2403,10 @@
       "id": "CH05_E04",
       "kind": "kneeling_crossbowman",
       "position": [
-        4880,
-        500
+        4960,
+        530
       ],
-      "platform_id": "ch05_runback_floor",
+      "platform_id": "c5_ridge3",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2002,10 +2497,10 @@
       "id": "CH05_E05",
       "kind": "pilgrim_chariot",
       "position": [
-        5720,
-        500
+        5900,
+        1590
       ],
-      "platform_id": "ch05_parkour_floor_a",
+      "platform_id": "c5_low2",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2096,10 +2591,10 @@
       "id": "CH05_E06",
       "kind": "obsidian_spearman",
       "position": [
-        7115,
+        6650,
         370
       ],
-      "platform_id": "ch05_parkour_upper_a",
+      "platform_id": "c5_peak",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2190,10 +2685,10 @@
       "id": "CH05_E07",
       "kind": "phase_censor",
       "position": [
-        7480,
-        320
+        7840,
+        530
       ],
-      "platform_id": "ch05_parkour_upper_b",
+      "platform_id": "c5_ridge6",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2284,10 +2779,10 @@
       "id": "CH05_E08",
       "kind": "silent_bugbler",
       "position": [
-        8180,
-        500
+        8300,
+        1590
       ],
-      "platform_id": "ch05_sprint_floor",
+      "platform_id": "c5_low3",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2378,10 +2873,10 @@
       "id": "CH05_E09",
       "kind": "kneeling_crossbowman",
       "position": [
-        9030,
-        500
+        9370,
+        1690
       ],
-      "platform_id": "ch05_gauntlet_floor",
+      "platform_id": "c5_stone3a",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2472,10 +2967,10 @@
       "id": "CH05_E10",
       "kind": "pilgrim_chariot",
       "position": [
-        10380,
-        500
+        10720,
+        530
       ],
-      "platform_id": "ch05_approach_floor",
+      "platform_id": "c5_ridge9",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2566,10 +3061,10 @@
       "id": "CH05_E11",
       "kind": "obsidian_spearman",
       "position": [
-        10480,
-        570
+        10700,
+        1590
       ],
-      "platform_id": "ch05_lower_loop_floor",
+      "platform_id": "c5_low4",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2660,10 +3155,10 @@
       "id": "CH05_E12",
       "kind": "phase_censor",
       "position": [
-        12510,
-        500
+        12640,
+        530
       ],
-      "platform_id": "ch05_return_shaft_base",
+      "platform_id": "c5_ridge11",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2754,10 +3249,10 @@
       "id": "CH05_E13",
       "kind": "obsidian_bellwheel",
       "position": [
-        13455,
-        310
+        13100,
+        1590
       ],
-      "platform_id": "ch05_upper_bridge",
+      "platform_id": "c5_low5",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2848,10 +3343,10 @@
       "id": "CH05_E14",
       "kind": "ash_banner_imp",
       "position": [
-        15895,
-        500
+        14900,
+        1590
       ],
-      "platform_id": "ch05_preboss_floor",
+      "platform_id": "c5_preboss",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2944,8 +3439,8 @@
     "name": "镜池新娘",
     "kind": "silent_pilgrim_commander",
     "position": [
-      16970,
-      500
+      16600,
+      1540
     ],
     "hp": 22,
     "damage": 1,
@@ -3066,34 +3561,34 @@
   ],
   "save_points": [
     {
-      "id": "save_hidden_upper_respite",
-      "label": "黑曜巡礼道隐藏存档点",
+      "id": "save_road_start",
+      "label": "朝圣起点存档点",
       "position": [
-        13455,
-        310
+        400,
+        1560
+      ],
+      "hidden": false,
+      "note": "起点低路存档点。"
+    },
+    {
+      "id": "save_hidden_peak",
+      "label": "黑曜朝圣路隐藏存档点",
+      "position": [
+        6560,
+        370
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
+      "note": "藏在瞭望峰上的稀疏存档点。"
     },
     {
-      "id": "save_ch05_lower_loop",
-      "label": "第5章下层回环存档点",
+      "id": "save_altar_runback",
+      "label": "黑曜朝圣路Boss前存档点",
       "position": [
-        10760,
-        570
+        14300,
+        1560
       ],
       "hidden": false,
-      "note": "扩建后下层回环的中段存档点。"
-    },
-    {
-      "id": "save_late_runback",
-      "label": "黑曜巡礼道Boss前存档点",
-      "position": [
-        15635,
-        500
-      ],
-      "hidden": false,
-      "note": "Boss跑图前的后段存档点。"
+      "note": "Boss 跑图前存档点。"
     }
   ],
   "fall_y": 820,
@@ -3116,45 +3611,46 @@
   "parkour_segments": [
     {
       "id": "ch05_parkour_climb",
-      "room_id": "ch05_room_7",
-      "technique": "dash jump + upward slash timing",
+      "room_id": "ch05_room_2",
+      "technique": "ravine-to-ridge ladder climb",
       "platforms": [
-        "ch05_parkour_step_a",
-        "ch05_parkour_step_b",
-        "ch05_parkour_upper_a"
+        "c5_link0_0",
+        "c5_link0_5",
+        "c5_link0_9",
+        "c5_ridge0"
       ]
     },
     {
       "id": "ch05_sprint_chain",
-      "room_id": "ch05_room_8",
-      "technique": "sprint, down slash bounce, safe landing",
+      "room_id": "ch05_room_3",
+      "technique": "ridge precision hop chain",
       "platforms": [
-        "ch05_parkour_upper_b",
-        "ch05_sprint_step",
-        "ch05_gauntlet_upper"
+        "c5_ridge2",
+        "c5_ridge3",
+        "c5_ridge4",
+        "c5_ridge5"
       ]
     },
     {
       "id": "ch05_lower_upper_return",
-      "room_id": "ch05_room_13",
-      "technique": "lower loop, return shaft, upper bridge",
+      "room_id": "ch05_room_5",
+      "technique": "switch ravine road to ridge and back",
       "platforms": [
-        "ch05_lower_loop_floor",
-        "ch05_return_shaft_base",
-        "ch05_return_shaft_step_a",
-        "ch05_return_shaft_step_b",
-        "ch05_upper_bridge"
+        "c5_low2",
+        "c5_link2_0",
+        "c5_link2_9",
+        "c5_ridge5"
       ]
     },
     {
       "id": "ch05_preboss_crossway",
-      "room_id": "ch05_room_16",
-      "technique": "upper drop into final horizontal approach",
+      "room_id": "ch05_room_14",
+      "technique": "ridge stair descent to the altar approach",
       "platforms": [
-        "ch05_upper_drop_step",
-        "ch05_crossway_floor",
-        "ch05_preboss_floor",
-        "boss_floor"
+        "c5_ridge12",
+        "c5_desc_1",
+        "c5_desc_11",
+        "c5_preboss"
       ]
     }
   ],
@@ -3253,19 +3749,31 @@
       "type": "passage"
     },
     {
-      "from": "ch05_room_12",
-      "to": "ch05_room_13",
-      "type": "lower_return"
+      "from": "ch05_room_3",
+      "to": "ch05_room_4",
+      "type": "branch"
     },
     {
-      "from": "ch05_room_14",
-      "to": "ch05_room_15",
-      "type": "upper_shortcut"
+      "from": "ch05_room_4",
+      "to": "ch05_room_5",
+      "type": "loop"
     },
     {
-      "from": "ch05_room_5",
-      "to": "ch05_room_17",
-      "type": "opened_shortcut"
+      "from": "ch05_room_8",
+      "to": "ch05_room_9",
+      "type": "branch"
+    },
+    {
+      "from": "ch05_room_10",
+      "to": "ch05_room_8",
+      "type": "shortcut",
+      "shortcut_id": "ch05_ridge_drop",
+      "opens_from": "lever"
+    },
+    {
+      "from": "ch05_room_9",
+      "to": "ch05_room_12",
+      "type": "loop"
     }
   ]
 }

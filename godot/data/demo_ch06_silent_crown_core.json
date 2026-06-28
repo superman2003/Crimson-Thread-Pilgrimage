@@ -3,16 +3,16 @@
   "name": "无声王冠试玩章",
   "world": {
     "width": 18800,
-    "height": 720,
-    "fall_y": 790
+    "height": 2800,
+    "fall_y": 2900
   },
   "player_start": [
     120,
-    500
+    1620
   ],
   "boss_checkpoint": [
-    15480,
-    500
+    14200,
+    1620
   ],
   "required_keys": 0,
   "goal": "击败回声守卫，打开王冠核心Boss路线，击败百钥守门人。",
@@ -105,255 +105,255 @@
   "map_rooms": [
     {
       "id": "ch06_room_1",
-      "name": "无声外壳",
+      "name": "纺核外缘",
       "range": [
         0,
-        850
+        1044
       ],
-      "depth": -1,
+      "depth": 1,
       "kind": "entry",
-      "objective": "无声外壳：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "纺核外缘：从外缘地面走向中央深井。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "王冠中枢"
+      "next": "观井塔"
     },
     {
       "id": "ch06_room_2",
-      "name": "王冠中枢",
+      "name": "观井塔",
       "range": [
-        850,
-        1750
+        1044,
+        2088
       ],
-      "depth": 1,
-      "kind": "lower",
-      "objective": "王冠中枢：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -3,
+      "kind": "upper",
+      "objective": "观井塔：登上高处俯瞰无星深井。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "苔钟回声室"
+      "next": "井缘西"
     },
     {
       "id": "ch06_room_3",
-      "name": "苔钟回声室",
+      "name": "井缘西",
       "range": [
-        1750,
-        2600
+        2088,
+        3132
       ],
       "depth": 0,
-      "kind": "vertical",
-      "objective": "苔钟回声室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "kind": "field",
+      "objective": "井缘西：深井左侧的入口缘地。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "铸雨回声室"
+      "next": "回声·首环"
     },
     {
       "id": "ch06_room_4",
-      "name": "铸雨回声室",
+      "name": "回声·首环",
       "range": [
-        2600,
-        3500
+        3132,
+        4176
       ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "铸雨回声室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "回声首环：沿井壁螺旋下潜。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "盐白回声室"
+      "next": "回声·二环"
     },
     {
       "id": "ch06_room_5",
-      "name": "盐白回声室",
+      "name": "回声·二环",
       "range": [
-        3500,
-        4550
+        4176,
+        5220
       ],
-      "depth": 0,
-      "kind": "safe",
-      "objective": "盐白回声室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 1,
+      "kind": "lower",
+      "objective": "回声二环：井壁中段的回声壁龛。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦回声室"
+      "next": "悬心桥"
     },
     {
       "id": "ch06_room_6",
-      "name": "断弦回声室",
+      "name": "悬心桥",
       "range": [
-        4550,
-        5600
+        5220,
+        6264
       ],
-      "depth": 1,
-      "kind": "danger",
-      "objective": "断弦回声室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "悬心桥：横跨深井虚空的悬桥。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "黑曜回声室"
+      "next": "回声·三环"
     },
     {
       "id": "ch06_room_7",
-      "name": "黑曜回声室",
+      "name": "回声·三环",
       "range": [
-        5600,
-        6650
+        6264,
+        7308
       ],
-      "depth": -1,
-      "kind": "parkour",
-      "objective": "黑曜回声室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "回声三环：更深一层的螺旋。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "钟舌井"
+      "next": "纺核底室"
     },
     {
       "id": "ch06_room_8",
-      "name": "钟舌井",
+      "name": "纺核底室",
       "range": [
-        6650,
-        7800
+        7308,
+        8352
       ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "钟舌井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "纺核底室：深井最底的核心之厅。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "回声跳台"
+      "next": "回响壁龛"
     },
     {
       "id": "ch06_room_9",
-      "name": "回声跳台",
+      "name": "回响壁龛",
       "range": [
-        7800,
-        8950
+        8352,
+        9396
       ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "回声跳台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 1,
+      "kind": "lower",
+      "objective": "回响壁龛：底室旁的支线壁龛。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "无声风道跑酷"
+      "next": "攀壁·首段"
     },
     {
       "id": "ch06_room_10",
-      "name": "无声风道跑酷",
+      "name": "攀壁·首段",
       "range": [
-        8950,
-        10050
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "无声风道跑酷：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "王冠下层回响"
-    },
-    {
-      "id": "ch06_room_11",
-      "name": "王冠下层回响",
-      "range": [
-        10050,
-        11150
-      ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "王冠下层回响：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "五城回环"
-    },
-    {
-      "id": "ch06_room_12",
-      "name": "五城回环",
-      "range": [
-        11150,
-        12150
-      ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "五城回环：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "第七升降井"
-    },
-    {
-      "id": "ch06_room_13",
-      "name": "第七升降井",
-      "range": [
-        12150,
-        13050
+        9396,
+        10440
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "第七升降井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "攀壁首段：从核心沿右壁向上攀。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "无星上桥"
+      "next": "攀壁·二段"
     },
     {
-      "id": "ch06_room_14",
-      "name": "无星上桥",
+      "id": "ch06_room_11",
+      "name": "攀壁·二段",
       "range": [
-        13050,
-        14100
+        10440,
+        11484
       ],
-      "depth": -2,
+      "depth": -1,
       "kind": "upper",
-      "objective": "无星上桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "攀壁二段：螺旋攀升接近井缘。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "第七绯线廊"
+      "next": "井缘东"
     },
     {
-      "id": "ch06_room_15",
-      "name": "第七绯线廊",
+      "id": "ch06_room_12",
+      "name": "井缘东",
       "range": [
-        14100,
-        15300
-      ],
-      "depth": 0,
-      "kind": "danger",
-      "objective": "第七绯线廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "核心前连战"
-    },
-    {
-      "id": "ch06_room_16",
-      "name": "核心前连战",
-      "range": [
-        15300,
-        16250
+        11484,
+        12528
       ],
       "depth": 0,
       "kind": "field",
-      "objective": "核心前连战：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "井缘东：深井右侧的出口缘地。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "百钥守门人"
+      "next": "外缘回廊"
     },
     {
-      "id": "ch06_room_17",
-      "name": "百钥守门人",
+      "id": "ch06_room_13",
+      "name": "外缘回廊",
       "range": [
-        16250,
-        18050
+        12528,
+        13572
+      ],
+      "depth": -1,
+      "kind": "upper",
+      "objective": "外缘回廊：井缘上的高处回廊。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "升核竖道"
+    },
+    {
+      "id": "ch06_room_14",
+      "name": "升核竖道",
+      "range": [
+        13572,
+        14616
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "升核竖道：通往 Boss 前广场。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "纺核前庭"
+    },
+    {
+      "id": "ch06_room_15",
+      "name": "纺核前庭",
+      "range": [
+        14616,
+        15660
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "纺核前庭：Boss 前存档补给。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "无星之冠"
+    },
+    {
+      "id": "ch06_room_16",
+      "name": "无星之冠",
+      "range": [
+        15660,
+        16704
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "百钥守门人：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "无星之冠：与缄冠之主决战。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "归线出口"
+      "next": "冠隙通道"
+    },
+    {
+      "id": "ch06_room_17",
+      "name": "冠隙通道",
+      "range": [
+        16704,
+        17748
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "冠隙通道：清场后通向终局之门。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "终局之门"
     },
     {
       "id": "ch06_room_18",
-      "name": "归线出口",
+      "name": "终局之门",
       "range": [
-        18050,
+        17748,
         18800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "归线出口：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "终局之门：朝圣的尽头。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "next": "—"
     }
   ],
   "ai_profiles": {
@@ -944,600 +944,589 @@
   },
   "platforms": [
     {
-      "id": "start_ground",
+      "id": "c6_g_left",
       "rect": [
         0,
-        540,
-        720,
+        1700,
+        6000,
         40
       ],
       "color": "3c4358",
       "material": "crown_bone"
     },
     {
-      "id": "starter_step",
+      "id": "c6_lookout_0",
       "rect": [
-        420,
-        492,
-        220,
+        1200,
+        1600,
+        170,
         24
       ],
-      "color": "3c4358",
-      "material": "crown_bone"
+      "color": "343a64",
+      "material": "void_bridge"
     },
     {
-      "id": "vista_bridge",
+      "id": "c6_lookout_1",
       "rect": [
-        600,
-        430,
-        340,
-        26
+        1590,
+        1491,
+        170,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "outer_low_floor",
+      "id": "c6_lookout_2",
       "rect": [
-        880,
-        610,
-        720,
-        34
+        1200,
+        1382,
+        170,
+        24
       ],
-      "color": "3c4358",
-      "material": "crown_bone"
+      "color": "343a64",
+      "material": "void_bridge"
     },
     {
-      "id": "outer_mid_bridge",
+      "id": "c6_lookout_3",
       "rect": [
-        1320,
-        520,
+        1590,
+        1273,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_4",
+      "rect": [
+        1200,
+        1164,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_5",
+      "rect": [
+        1590,
+        1055,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_6",
+      "rect": [
+        1200,
+        945,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_7",
+      "rect": [
+        1590,
+        836,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_8",
+      "rect": [
+        1200,
+        727,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_9",
+      "rect": [
+        1590,
+        618,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_10",
+      "rect": [
+        1200,
+        509,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_lookout_11",
+      "rect": [
+        1590,
+        400,
+        170,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_look_top",
+      "rect": [
+        1200,
+        400,
         360,
-        28
+        22
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "lift_base",
+      "id": "c6_leftwall_0",
       "rect": [
-        1780,
-        540,
-        420,
-        30
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "lift_step_a",
-      "rect": [
-        2180,
-        466,
-        300,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "upper_bridge_a",
-      "rect": [
+        6000,
         2560,
-        388,
-        680,
-        28
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "upper_drop",
-      "rect": [
-        3060,
-        464,
-        420,
-        28
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "backdoor_room",
-      "rect": [
-        3600,
-        500,
-        540,
-        32
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "chapel_floor",
-      "rect": [
-        3300,
-        540,
-        960,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_runback_floor",
-      "rect": [
-        4200,
-        540,
-        1120,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_runback_step",
-      "rect": [
-        4750,
-        455,
-        360,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_parkour_floor_a",
-      "rect": [
-        5350,
-        540,
-        980,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_parkour_step_a",
-      "rect": [
-        5740,
-        466,
-        240,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_parkour_step_b",
-      "rect": [
-        6120,
-        396,
-        260,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_parkour_floor_b",
+      "id": "c6_leftwall_1",
       "rect": [
         6400,
-        540,
-        1050,
-        34
+        2445,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_2",
+      "rect": [
+        6000,
+        2330,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_3",
+      "rect": [
+        6400,
+        2215,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_4",
+      "rect": [
+        6000,
+        2100,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_5",
+      "rect": [
+        6400,
+        1985,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_6",
+      "rect": [
+        6000,
+        1870,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_7",
+      "rect": [
+        6400,
+        1755,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_leftwall_8",
+      "rect": [
+        6000,
+        1640,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_core_bottom",
+      "rect": [
+        6000,
+        2600,
+        5900,
+        44
       ],
       "color": "3c4358",
       "material": "crown_bone"
     },
     {
-      "id": "ch06_parkour_upper_a",
+      "id": "c6_rightwall_0",
       "rect": [
-        6780,
-        410,
-        430,
-        28
+        11300,
+        2560,
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "ch06_parkour_upper_b",
+      "id": "c6_rightwall_1",
       "rect": [
-        7340,
-        360,
-        520,
-        28
+        11700,
+        2445,
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "ch06_sprint_floor",
+      "id": "c6_rightwall_2",
       "rect": [
-        7500,
-        540,
-        1120,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_sprint_step",
-      "rect": [
-        8000,
-        452,
-        360,
-        28
+        11300,
+        2330,
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "ch06_gauntlet_floor",
+      "id": "c6_rightwall_3",
       "rect": [
-        8600,
-        540,
-        1100,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_gauntlet_upper",
-      "rect": [
-        9020,
-        428,
-        540,
-        28
+        11700,
+        2215,
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "ch06_approach_floor",
+      "id": "c6_rightwall_4",
       "rect": [
-        9700,
-        540,
-        1120,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_approach_step",
-      "rect": [
-        10200,
-        452,
-        420,
-        28
+        11300,
+        2100,
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "ch06_lower_loop_floor",
+      "id": "c6_rightwall_5",
       "rect": [
-        10090,
-        610,
-        1020,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_lower_loop_mid",
-      "rect": [
-        10470,
-        520,
-        360,
-        28
+        11700,
+        1985,
+        200,
+        24
       ],
       "color": "343a64",
       "material": "void_bridge"
     },
     {
-      "id": "ch06_lower_loop_exit_lip",
+      "id": "c6_rightwall_6",
       "rect": [
-        10940,
-        560,
-        220,
+        11300,
+        1870,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_rightwall_7",
+      "rect": [
+        11700,
+        1755,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_rightwall_8",
+      "rect": [
+        11300,
+        1640,
+        200,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_right_rim",
+      "rect": [
+        11500,
+        1660,
+        700,
         26
       ],
-      "color": "3c4358",
-      "material": "crown_bone"
+      "color": "343a64",
+      "material": "void_bridge"
     },
     {
-      "id": "ch06_return_shaft_base",
+      "id": "c6_echo_a",
       "rect": [
-        12210,
-        540,
+        6650,
+        2150,
         360,
-        30
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_echo_b",
+      "rect": [
+        11050,
+        2150,
+        360,
+        24
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_core_span",
+      "rect": [
+        6500,
+        1900,
+        900,
+        22
+      ],
+      "color": "343a64",
+      "material": "void_bridge"
+    },
+    {
+      "id": "c6_g_right",
+      "rect": [
+        12000,
+        1700,
+        3800,
+        40
       ],
       "color": "3c4358",
       "material": "crown_bone"
     },
     {
-      "id": "ch06_return_shaft_step_a",
+      "id": "c6_boss_floor",
       "rect": [
-        12510,
-        470,
-        260,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_return_shaft_step_b",
-      "rect": [
-        12840,
-        400,
-        260,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_upper_bridge",
-      "rect": [
-        13120,
-        350,
-        910,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_upper_drop_step",
-      "rect": [
-        13820,
-        430,
-        260,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_crossway_floor",
-      "rect": [
-        15320,
-        540,
-        910,
-        34
-      ],
-      "color": "3c4358",
-      "material": "crown_bone"
-    },
-    {
-      "id": "ch06_crossway_upper",
-      "rect": [
-        15720,
-        452,
-        380,
-        28
-      ],
-      "color": "343a64",
-      "material": "void_bridge"
-    },
-    {
-      "id": "ch06_preboss_floor",
-      "rect": [
-        15330,
-        540,
-        890,
-        34
-      ],
-      "color": "3d4258",
-      "material": "core_boss"
-    },
-    {
-      "id": "boss_floor",
-      "rect": [
-        16250,
-        540,
+        15800,
+        1700,
         1660,
         44
       ],
-      "color": "3d4258",
-      "material": "core_boss"
+      "color": "3c4358",
+      "material": "crown_bone"
     },
     {
-      "id": "boss_back_wall",
+      "id": "c6_boss_back_wall",
       "rect": [
-        17910,
-        315,
+        17460,
+        1430,
         38,
         270
       ],
-      "color": "3d4258",
-      "material": "core_boss"
+      "color": "3c4358",
+      "material": "crown_bone"
     },
     {
-      "id": "ch06_post_boss_run_step",
+      "id": "c6_exit_runup",
       "rect": [
-        17900,
-        540,
-        300,
-        34
+        17560,
+        1700,
+        560,
+        40
       ],
-      "color": "3d4258",
-      "material": "core_boss"
+      "color": "3c4358",
+      "material": "crown_bone"
     },
     {
-      "id": "ch06_exit_runup",
+      "id": "c6_exit_floor",
       "rect": [
-        18040,
-        540,
-        580,
-        34
+        18120,
+        1700,
+        680,
+        40
       ],
-      "color": "3d4258",
-      "material": "core_boss"
-    },
-    {
-      "id": "ch06_exit_floor",
-      "rect": [
-        18480,
-        540,
-        320,
-        34
-      ],
-      "color": "3d4258",
-      "material": "core_boss"
-    },
-    {
-      "id": "ch06_late_route_link_01",
-      "rect": [
-        10830,
-        540,
-        1380,
-        30
-      ],
-      "color": "3d4258",
-      "material": "core_boss"
-    },
-    {
-      "id": "ch06_late_route_link_02",
-      "rect": [
-        12570,
-        540,
-        2750,
-        30
-      ],
-      "color": "3d4258",
-      "material": "core_boss"
+      "color": "3c4358",
+      "material": "crown_bone"
     }
   ],
   "locked_gates": [],
   "hazards": [
     {
       "id": "ch06_hazard_01",
-      "kind": "fake_moss_floor",
+      "kind": "void_pulse",
       "rect": [
-        715,
-        406,
+        700,
+        1680,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_02",
-      "kind": "bell_gap",
+      "kind": "echo_shard",
       "rect": [
-        2275,
-        442,
+        1300,
+        420,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_03",
-      "kind": "spore_chest",
+      "kind": "void_pulse",
       "rect": [
-        3725,
-        516,
+        6200,
+        2000,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_04",
-      "kind": "falling_clapper",
+      "kind": "echo_shard",
       "rect": [
-        5805,
-        442,
+        6900,
+        2100,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_05",
-      "kind": "bell_gap",
+      "kind": "void_pulse",
       "rect": [
-        7545,
-        336,
+        8400,
+        1880,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_06",
-      "kind": "falling_clapper",
+      "kind": "echo_shard",
       "rect": [
-        9235,
-        404,
+        6800,
+        1860,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_07",
-      "kind": "spore_chest",
+      "kind": "void_pulse",
       "rect": [
-        10595,
-        496,
+        10980,
+        2100,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_08",
-      "kind": "fake_moss_floor",
+      "kind": "echo_shard",
       "rect": [
-        13520,
-        326,
+        11400,
+        2000,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_09",
-      "kind": "bell_gap",
+      "kind": "void_pulse",
       "rect": [
-        15720,
-        516,
+        12500,
+        1680,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch06_hazard_10",
-      "kind": "spore_chest",
+      "kind": "echo_shard",
       "rect": [
-        18585,
-        516,
+        14600,
+        1680,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     }
   ],
   "collectibles": [],
@@ -1546,8 +1535,8 @@
       "id": "ch06_silent_crown_core_shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        8900,
+        2560
       ],
       "requires_keys": 0,
       "label": "战斗门控制器"
@@ -1556,8 +1545,8 @@
       "id": "ch06_silent_crown_core_boss_gate",
       "kind": "boss_gate",
       "position": [
-        16460,
-        500
+        16000,
+        1620
       ]
     },
     {
@@ -1565,8 +1554,8 @@
       "kind": "ending_exit",
       "label": "进入结局门",
       "position": [
-        18620,
-        500
+        18450,
+        1630
       ],
       "next_runtime_config_id": "ending",
       "next_config_path": "",
@@ -1582,8 +1571,8 @@
       "id": "npc_first_pilgrim_echo",
       "name": "初代巡礼者回声",
       "position": [
-        320,
-        500
+        400,
+        1630
       ],
       "role": "true_ending_core",
       "dialogue": [
@@ -1599,8 +1588,8 @@
       "id": "npc_crown_tongue",
       "name": "旧王钟舌",
       "position": [
-        1360,
-        570
+        13000,
+        1630
       ],
       "role": "world_warning",
       "dialogue": [
@@ -1616,8 +1605,8 @@
       "id": "npc_six_mark_keeper",
       "name": "六印守望者",
       "position": [
-        3680,
-        460
+        8900,
+        2560
       ],
       "role": "ending_checker",
       "dialogue": [
@@ -1633,8 +1622,8 @@
       "id": "npc_black_tide_child",
       "name": "黑潮童声",
       "position": [
-        12800,
-        500
+        6900,
+        2560
       ],
       "role": "hidden_temptation",
       "dialogue": [
@@ -1653,10 +1642,10 @@
       "id": "CH06_E01",
       "kind": "echo_moss_larva",
       "position": [
-        1120,
-        570
+        3000,
+        1670
       ],
-      "platform_id": "outer_low_floor",
+      "platform_id": "c6_g_left",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1747,10 +1736,10 @@
       "id": "CH06_E02",
       "kind": "echo_waterwheel_knight",
       "position": [
-        2110,
-        500
+        1380,
+        370
       ],
-      "platform_id": "lift_base",
+      "platform_id": "c6_look_top",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1841,10 +1830,10 @@
       "id": "CH06_E03",
       "kind": "echo_contract_scribe",
       "position": [
-        2780,
-        348
+        6100,
+        2300
       ],
-      "platform_id": "upper_bridge_a",
+      "platform_id": "c6_leftwall_2",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1935,10 +1924,10 @@
       "id": "CH06_E04",
       "kind": "echo_thorn_sentinel",
       "position": [
-        4880,
-        500
+        6830,
+        2120
       ],
-      "platform_id": "ch06_runback_floor",
+      "platform_id": "c6_echo_a",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2029,10 +2018,10 @@
       "id": "CH06_E05",
       "kind": "echo_pilgrim_commander_minor",
       "position": [
-        5720,
-        500
+        6500,
+        1955
       ],
-      "platform_id": "ch06_parkour_floor_a",
+      "platform_id": "c6_leftwall_5",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2123,10 +2112,10 @@
       "id": "CH06_E06",
       "kind": "isotope_lumen",
       "position": [
-        7115,
-        370
+        8950,
+        2570
       ],
-      "platform_id": "ch06_parkour_upper_a",
+      "platform_id": "c6_core_bottom",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2217,10 +2206,10 @@
       "id": "CH06_E07",
       "kind": "echo_moss_larva",
       "position": [
-        7480,
-        320
+        6950,
+        1870
       ],
-      "platform_id": "ch06_parkour_upper_b",
+      "platform_id": "c6_core_span",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2311,10 +2300,10 @@
       "id": "CH06_E08",
       "kind": "echo_waterwheel_knight",
       "position": [
-        8180,
-        500
+        11230,
+        2120
       ],
-      "platform_id": "ch06_sprint_floor",
+      "platform_id": "c6_echo_b",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2405,10 +2394,10 @@
       "id": "CH06_E09",
       "kind": "echo_contract_scribe",
       "position": [
-        9030,
-        500
+        11800,
+        1955
       ],
-      "platform_id": "ch06_gauntlet_floor",
+      "platform_id": "c6_rightwall_5",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2499,10 +2488,10 @@
       "id": "CH06_E10",
       "kind": "echo_thorn_sentinel",
       "position": [
-        10380,
-        500
+        11400,
+        2300
       ],
-      "platform_id": "ch06_approach_floor",
+      "platform_id": "c6_rightwall_2",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2593,10 +2582,10 @@
       "id": "CH06_E11",
       "kind": "echo_moss_larva",
       "position": [
-        10480,
-        570
+        13900,
+        1670
       ],
-      "platform_id": "ch06_lower_loop_floor",
+      "platform_id": "c6_g_right",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2687,10 +2676,10 @@
       "id": "CH06_E12",
       "kind": "echo_waterwheel_knight",
       "position": [
-        12510,
-        500
+        11850,
+        1630
       ],
-      "platform_id": "ch06_return_shaft_base",
+      "platform_id": "c6_right_rim",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2781,10 +2770,10 @@
       "id": "CH06_E13",
       "kind": "delayed_shadow",
       "position": [
-        13455,
-        310
+        6950,
+        1870
       ],
-      "platform_id": "ch06_upper_bridge",
+      "platform_id": "c6_core_span",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2875,10 +2864,10 @@
       "id": "CH06_E14",
       "kind": "falling_clapper",
       "position": [
-        15895,
-        500
+        6500,
+        1725
       ],
-      "platform_id": "ch06_preboss_floor",
+      "platform_id": "c6_leftwall_7",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2971,8 +2960,8 @@
     "name": "百钥守门人",
     "kind": "silent_crown_core",
     "position": [
-      16970,
-      500
+      16600,
+      1620
     ],
     "hp": 28,
     "damage": 1,
@@ -3093,34 +3082,34 @@
   ],
   "save_points": [
     {
-      "id": "save_hidden_upper_respite",
-      "label": "百钥守门人隐藏存档点",
+      "id": "save_rim_west",
+      "label": "纺核外缘存档点",
       "position": [
-        13455,
-        310
+        400,
+        1640
+      ],
+      "hidden": false,
+      "note": "外缘地面存档点。"
+    },
+    {
+      "id": "save_hidden_core",
+      "label": "无星纺核隐藏存档点",
+      "position": [
+        8900,
+        2560
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
+      "note": "藏在纺核底室的稀疏存档点。"
     },
     {
-      "id": "save_ch06_lower_loop",
-      "label": "第6章下层回环存档点",
+      "id": "save_rim_east",
+      "label": "无星纺核Boss前存档点",
       "position": [
-        10760,
-        570
+        14200,
+        1640
       ],
       "hidden": false,
-      "note": "扩建后下层回环的中段存档点。"
-    },
-    {
-      "id": "save_late_runback",
-      "label": "百钥守门人Boss前存档点",
-      "position": [
-        15635,
-        500
-      ],
-      "hidden": false,
-      "note": "Boss跑图前的后段存档点。"
+      "note": "Boss 跑图前存档点。"
     }
   ],
   "fall_y": 820,
@@ -3144,45 +3133,45 @@
   "parkour_segments": [
     {
       "id": "ch06_parkour_climb",
-      "room_id": "ch06_room_7",
-      "technique": "dash jump + upward slash timing",
+      "room_id": "ch06_room_2",
+      "technique": "lookout spire climb",
       "platforms": [
-        "ch06_parkour_step_a",
-        "ch06_parkour_step_b",
-        "ch06_parkour_upper_a"
+        "c6_lookout_0",
+        "c6_lookout_6",
+        "c6_lookout_11",
+        "c6_look_top"
       ]
     },
     {
       "id": "ch06_sprint_chain",
-      "room_id": "ch06_room_8",
-      "technique": "sprint, down slash bounce, safe landing",
+      "room_id": "ch06_room_4",
+      "technique": "spiral descent down the well wall",
       "platforms": [
-        "ch06_parkour_upper_b",
-        "ch06_sprint_step",
-        "ch06_gauntlet_upper"
+        "c6_leftwall_8",
+        "c6_leftwall_4",
+        "c6_leftwall_0",
+        "c6_core_bottom"
       ]
     },
     {
       "id": "ch06_lower_upper_return",
-      "room_id": "ch06_room_13",
-      "technique": "lower loop, return shaft, upper bridge",
+      "room_id": "ch06_room_10",
+      "technique": "climb the far well wall back to the rim",
       "platforms": [
-        "ch06_lower_loop_floor",
-        "ch06_return_shaft_base",
-        "ch06_return_shaft_step_a",
-        "ch06_return_shaft_step_b",
-        "ch06_upper_bridge"
+        "c6_core_bottom",
+        "c6_rightwall_0",
+        "c6_rightwall_4",
+        "c6_rightwall_8"
       ]
     },
     {
       "id": "ch06_preboss_crossway",
-      "room_id": "ch06_room_16",
-      "technique": "upper drop into final horizontal approach",
+      "room_id": "ch06_room_11",
+      "technique": "far-wall ascent over the rim to the arena approach",
       "platforms": [
-        "ch06_upper_drop_step",
-        "ch06_crossway_floor",
-        "ch06_preboss_floor",
-        "boss_floor"
+        "c6_rightwall_8",
+        "c6_right_rim",
+        "c6_g_right"
       ]
     }
   ],
@@ -3281,19 +3270,31 @@
       "type": "passage"
     },
     {
-      "from": "ch06_room_12",
-      "to": "ch06_room_13",
-      "type": "lower_return"
+      "from": "ch06_room_2",
+      "to": "ch06_room_3",
+      "type": "vertical"
     },
     {
-      "from": "ch06_room_14",
-      "to": "ch06_room_15",
-      "type": "upper_shortcut"
+      "from": "ch06_room_6",
+      "to": "ch06_room_8",
+      "type": "branch"
     },
     {
-      "from": "ch06_room_5",
-      "to": "ch06_room_17",
-      "type": "opened_shortcut"
+      "from": "ch06_room_8",
+      "to": "ch06_room_9",
+      "type": "loop"
+    },
+    {
+      "from": "ch06_room_11",
+      "to": "ch06_room_6",
+      "type": "shortcut",
+      "shortcut_id": "ch06_void_span",
+      "opens_from": "lever"
+    },
+    {
+      "from": "ch06_room_4",
+      "to": "ch06_room_10",
+      "type": "loop"
     }
   ]
 }
