@@ -1,0 +1,1407 @@
+{
+  "version": 1,
+  "count": 20,
+  "completed_boss_count": 20,
+  "frame_size": [
+    256,
+    256
+  ],
+  "manifest_root": "res://assets/sprites/bosses",
+  "note": "Full Godot boss asset registry. All 20 bosses have manifests, walk keyframes, attack keyframes, and three directional special attacks; godot_demo_refs lists playable chapter usage.",
+  "entries": [
+    {
+      "id": "boss_01",
+      "slug": "boss_01_moss_bell_matriarch",
+      "name_zh": "苔钟守母",
+      "name_en": "Moss Bell Matriarch",
+      "manifest": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_01_moss_bell_matriarch.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated attack keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_01_atk_01_left",
+        "boss_01_atk_01_right",
+        "boss_01_atk_02_left",
+        "boss_01_atk_02_right",
+        "boss_01_atk_03_left",
+        "boss_01_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_01_moss_bell_matriarch/boss01_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 127,
+      "attacks": [
+        {
+          "id": "boss_01_atk_01",
+          "name_zh": "苔钟摇祭",
+          "name_en": "Moss Bell Liturgy",
+          "animation": "boss_01_atk_01",
+          "left_animation": "boss_01_atk_01_left",
+          "right_animation": "boss_01_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_01_atk_02",
+          "name_zh": "苔根摇篮",
+          "name_en": "Cradle of Roots",
+          "animation": "boss_01_atk_02",
+          "left_animation": "boss_01_atk_02_left",
+          "right_animation": "boss_01_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_01_atk_03",
+          "name_zh": "守母垂铃雨",
+          "name_en": "Matriarch Chime Rain",
+          "animation": "boss_01_atk_03",
+          "left_animation": "boss_01_atk_03_left",
+          "right_animation": "boss_01_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": [
+        {
+          "config": "demo_ch01_boss_trial.json",
+          "json_path": "boss.sprite"
+        },
+        {
+          "config": "demo_ch01_moss_bell_court.json",
+          "json_path": "boss.sprite"
+        }
+      ]
+    },
+    {
+      "id": "boss_02",
+      "slug": "boss_02_crimson_thread_scissor_apostle",
+      "name_zh": "绯线执剪者",
+      "name_en": "Crimson Thread Scissor Apostle",
+      "manifest": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_02_crimson_thread_scissor_apostle.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_02_atk_01_left",
+        "boss_02_atk_01_right",
+        "boss_02_atk_02_left",
+        "boss_02_atk_02_right",
+        "boss_02_atk_03_left",
+        "boss_02_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_02_crimson_thread_scissor_apostle/boss_02_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_02_atk_01",
+          "name_zh": "双剪断誓",
+          "name_en": "Twin Shear Oathbreak",
+          "animation": "boss_02_atk_01",
+          "left_animation": "boss_02_atk_01_left",
+          "right_animation": "boss_02_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_02_atk_02",
+          "name_zh": "缝魂牵引",
+          "name_en": "Soul Stitch Pull",
+          "animation": "boss_02_atk_02",
+          "left_animation": "boss_02_atk_02_left",
+          "right_animation": "boss_02_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_02_atk_03",
+          "name_zh": "裁衣圣轮",
+          "name_en": "Tailor Saint Wheel",
+          "animation": "boss_02_atk_03",
+          "left_animation": "boss_02_atk_03_left",
+          "right_animation": "boss_02_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": [
+        {
+          "config": "demo_ch02_rain_foundry_canal.json",
+          "json_path": "boss.sprite"
+        }
+      ]
+    },
+    {
+      "id": "boss_03",
+      "slug": "boss_03_ash_crowned_mantis_warlord",
+      "name_zh": "灰冠螳将",
+      "name_en": "Ash-Crowned Mantis Warlord",
+      "manifest": "res://assets/sprites/bosses/boss_03_ash_crowned_mantis_warlord/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_03_ash_crowned_mantis_warlord.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_03_atk_01_left",
+        "boss_03_atk_01_right",
+        "boss_03_atk_02_left",
+        "boss_03_atk_02_right",
+        "boss_03_atk_03_left",
+        "boss_03_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_03_ash_crowned_mantis_warlord/boss_03_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_03_atk_01",
+          "name_zh": "灰冠交镰",
+          "name_en": "Ash-Crown Cross Scythe",
+          "animation": "boss_03_atk_01",
+          "left_animation": "boss_03_atk_01_left",
+          "right_animation": "boss_03_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_03_atk_02",
+          "name_zh": "战旗虫跃",
+          "name_en": "Banner Leaping Cleave",
+          "animation": "boss_03_atk_02",
+          "left_animation": "boss_03_atk_02_left",
+          "right_animation": "boss_03_atk_02_right",
+          "hit_frame_index": 4
+        },
+        {
+          "id": "boss_03_atk_03",
+          "name_zh": "败军镰阵",
+          "name_en": "Fallen Legion Blades",
+          "animation": "boss_03_atk_03",
+          "left_animation": "boss_03_atk_03_left",
+          "right_animation": "boss_03_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": [
+        {
+          "config": "demo_ch03_saltwhite_archive.json",
+          "json_path": "boss.sprite"
+        }
+      ]
+    },
+    {
+      "id": "boss_04",
+      "slug": "boss_04_copperroot_bishop",
+      "name_zh": "铜根主教",
+      "name_en": "Copperroot Bishop",
+      "manifest": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_04_copperroot_bishop.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_04_atk_01_left",
+        "boss_04_atk_01_right",
+        "boss_04_atk_02_left",
+        "boss_04_atk_02_right",
+        "boss_04_atk_03_left",
+        "boss_04_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_04_copperroot_bishop/boss_04_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_04_atk_01",
+          "name_zh": "铜根布道",
+          "name_en": "Copperroot Sermon",
+          "animation": "boss_04_atk_01",
+          "left_animation": "boss_04_atk_01_left",
+          "right_animation": "boss_04_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_04_atk_02",
+          "name_zh": "圣椅倾轧",
+          "name_en": "Throne Crush Benediction",
+          "animation": "boss_04_atk_02",
+          "left_animation": "boss_04_atk_02_left",
+          "right_animation": "boss_04_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_04_atk_03",
+          "name_zh": "烛冠审判",
+          "name_en": "Candle-Crown Judgment",
+          "animation": "boss_04_atk_03",
+          "left_animation": "boss_04_atk_03_left",
+          "right_animation": "boss_04_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": [
+        {
+          "config": "demo_ch04_broken_string_greenhouse.json",
+          "json_path": "boss.sprite"
+        }
+      ]
+    },
+    {
+      "id": "boss_05",
+      "slug": "boss_05_mirrorpool_bride",
+      "name_zh": "镜池新娘",
+      "name_en": "Mirrorpool Bride",
+      "manifest": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_05_mirrorpool_bride.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_05_atk_01_left",
+        "boss_05_atk_01_right",
+        "boss_05_atk_02_left",
+        "boss_05_atk_02_right",
+        "boss_05_atk_03_left",
+        "boss_05_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_05_mirrorpool_bride/boss_05_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_05_atk_01",
+          "name_zh": "镜纱回潮",
+          "name_en": "Veil Tide Reversal",
+          "animation": "boss_05_atk_01",
+          "left_animation": "boss_05_atk_01_left",
+          "right_animation": "boss_05_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_05_atk_02",
+          "name_zh": "倒影换步",
+          "name_en": "Reflection Step",
+          "animation": "boss_05_atk_02",
+          "left_animation": "boss_05_atk_02_left",
+          "right_animation": "boss_05_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_05_atk_03",
+          "name_zh": "破镜花嫁",
+          "name_en": "Shattered Bridal Glass",
+          "animation": "boss_05_atk_03",
+          "left_animation": "boss_05_atk_03_left",
+          "right_animation": "boss_05_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": [
+        {
+          "config": "demo_ch05_obsidian_pilgrim_road.json",
+          "json_path": "boss.sprite"
+        }
+      ]
+    },
+    {
+      "id": "boss_06",
+      "slug": "boss_06_hundred_key_gatekeeper",
+      "name_zh": "百钥看门人",
+      "name_en": "Hundred-Key Gatekeeper",
+      "manifest": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_06_hundred_key_gatekeeper.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_06_atk_01_left",
+        "boss_06_atk_01_right",
+        "boss_06_atk_02_left",
+        "boss_06_atk_02_right",
+        "boss_06_atk_03_left",
+        "boss_06_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_06_hundred_key_gatekeeper/boss_06_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_06_atk_01",
+          "name_zh": "百钥坠锁",
+          "name_en": "Hundred-Key Lockfall",
+          "animation": "boss_06_atk_01",
+          "left_animation": "boss_06_atk_01_left",
+          "right_animation": "boss_06_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_06_atk_02",
+          "name_zh": "门闩冲撞",
+          "name_en": "Deadbolt Charge",
+          "animation": "boss_06_atk_02",
+          "left_animation": "boss_06_atk_02_left",
+          "right_animation": "boss_06_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_06_atk_03",
+          "name_zh": "锁室改道",
+          "name_en": "Locked Room Repath",
+          "animation": "boss_06_atk_03",
+          "left_animation": "boss_06_atk_03_left",
+          "right_animation": "boss_06_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": [
+        {
+          "config": "demo_ch06_silent_crown_core.json",
+          "json_path": "boss.sprite"
+        }
+      ]
+    },
+    {
+      "id": "boss_07",
+      "slug": "boss_07_candle_spine_beast",
+      "name_zh": "烛脊兽",
+      "name_en": "Candle-Spine Beast",
+      "manifest": "res://assets/sprites/bosses/boss_07_candle_spine_beast/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_07_candle_spine_beast.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_07_atk_01_left",
+        "boss_07_atk_01_right",
+        "boss_07_atk_02_left",
+        "boss_07_atk_02_right",
+        "boss_07_atk_03_left",
+        "boss_07_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_07_candle_spine_beast/boss_07_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_07_atk_01",
+          "name_zh": "烛脊焰扑",
+          "name_en": "Candle-Spine Pounce",
+          "animation": "boss_07_atk_01",
+          "left_animation": "boss_07_atk_01_left",
+          "right_animation": "boss_07_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_07_atk_02",
+          "name_zh": "熔蜡坠牙",
+          "name_en": "Molten Wax Fangs",
+          "animation": "boss_07_atk_02",
+          "left_animation": "boss_07_atk_02_left",
+          "right_animation": "boss_07_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_07_atk_03",
+          "name_zh": "背烛殉爆",
+          "name_en": "Spine Candle Burst",
+          "animation": "boss_07_atk_03",
+          "left_animation": "boss_07_atk_03_left",
+          "right_animation": "boss_07_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_08",
+      "slug": "boss_08_faceless_bell_child",
+      "name_zh": "无面钟童",
+      "name_en": "Faceless Bell Child",
+      "manifest": "res://assets/sprites/bosses/boss_08_faceless_bell_child/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_08_faceless_bell_child.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_08_atk_01_left",
+        "boss_08_atk_01_right",
+        "boss_08_atk_02_left",
+        "boss_08_atk_02_right",
+        "boss_08_atk_03_left",
+        "boss_08_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_08_faceless_bell_child/boss_08_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_08_atk_01",
+          "name_zh": "无面敲钟",
+          "name_en": "Faceless Toll",
+          "animation": "boss_08_atk_01",
+          "left_animation": "boss_08_atk_01_left",
+          "right_animation": "boss_08_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_08_atk_02",
+          "name_zh": "钟影错步",
+          "name_en": "Bell-Shadow Misstep",
+          "animation": "boss_08_atk_02",
+          "left_animation": "boss_08_atk_02_left",
+          "right_animation": "boss_08_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_08_atk_03",
+          "name_zh": "空脸回声",
+          "name_en": "Hollow Face Echo",
+          "animation": "boss_08_atk_03",
+          "left_animation": "boss_08_atk_03_left",
+          "right_animation": "boss_08_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_09",
+      "slug": "boss_09_iron_rose_baroness",
+      "name_zh": "铁蔷薇女爵",
+      "name_en": "Iron Rose Baroness",
+      "manifest": "res://assets/sprites/bosses/boss_09_iron_rose_baroness/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_09_iron_rose_baroness.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_09_atk_01_left",
+        "boss_09_atk_01_right",
+        "boss_09_atk_02_left",
+        "boss_09_atk_02_right",
+        "boss_09_atk_03_left",
+        "boss_09_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_09_iron_rose_baroness/boss_09_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_09_atk_01",
+          "name_zh": "铁蔷薇穿刺",
+          "name_en": "Iron Rose Thrust",
+          "animation": "boss_09_atk_01",
+          "left_animation": "boss_09_atk_01_left",
+          "right_animation": "boss_09_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_09_atk_02",
+          "name_zh": "花冠断头舞",
+          "name_en": "Guillotine Rose Waltz",
+          "animation": "boss_09_atk_02",
+          "left_animation": "boss_09_atk_02_left",
+          "right_animation": "boss_09_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_09_atk_03",
+          "name_zh": "荆棘礼裙",
+          "name_en": "Thorned Court Gown",
+          "animation": "boss_09_atk_03",
+          "left_animation": "boss_09_atk_03_left",
+          "right_animation": "boss_09_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_10",
+      "slug": "boss_10_fungus_tomb_slab_bearer",
+      "name_zh": "菌墓驮碑者",
+      "name_en": "Fungus-Tomb Slab Bearer",
+      "manifest": "res://assets/sprites/bosses/boss_10_fungus_tomb_slab_bearer/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_10_fungus_tomb_slab_bearer.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_10_atk_01_left",
+        "boss_10_atk_01_right",
+        "boss_10_atk_02_left",
+        "boss_10_atk_02_right",
+        "boss_10_atk_03_left",
+        "boss_10_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_10_fungus_tomb_slab_bearer/boss_10_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_10_atk_01",
+          "name_zh": "墓碑横碾",
+          "name_en": "Tomb Slab Sweep",
+          "animation": "boss_10_atk_01",
+          "left_animation": "boss_10_atk_01_left",
+          "right_animation": "boss_10_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_10_atk_02",
+          "name_zh": "菌盖塌坟",
+          "name_en": "Fungal Grave Collapse",
+          "animation": "boss_10_atk_02",
+          "left_animation": "boss_10_atk_02_left",
+          "right_animation": "boss_10_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_10_atk_03",
+          "name_zh": "腐孢慢葬",
+          "name_en": "Rot-Spore Entomb",
+          "animation": "boss_10_atk_03",
+          "left_animation": "boss_10_atk_03_left",
+          "right_animation": "boss_10_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_11",
+      "slug": "boss_11_gilded_wing_coroner",
+      "name_zh": "金翅验尸官",
+      "name_en": "Gilded-Wing Coroner",
+      "manifest": "res://assets/sprites/bosses/boss_11_gilded_wing_coroner/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_11_gilded_wing_coroner.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_11_atk_01_left",
+        "boss_11_atk_01_right",
+        "boss_11_atk_02_left",
+        "boss_11_atk_02_right",
+        "boss_11_atk_03_left",
+        "boss_11_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_11_gilded_wing_coroner/boss_11_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_11_atk_01",
+          "name_zh": "金翅剖验",
+          "name_en": "Gilded Autopsy Sweep",
+          "animation": "boss_11_atk_01",
+          "left_animation": "boss_11_atk_01_left",
+          "right_animation": "boss_11_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_11_atk_02",
+          "name_zh": "死因标本针",
+          "name_en": "Cause-of-Death Pins",
+          "animation": "boss_11_atk_02",
+          "left_animation": "boss_11_atk_02_left",
+          "right_animation": "boss_11_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_11_atk_03",
+          "name_zh": "翼下尸单",
+          "name_en": "Shroud Under Wings",
+          "animation": "boss_11_atk_03",
+          "left_animation": "boss_11_atk_03_left",
+          "right_animation": "boss_11_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_12",
+      "slug": "boss_12_embroidered_bone_saint",
+      "name_zh": "绣骨圣徒",
+      "name_en": "Embroidered Bone Saint",
+      "manifest": "res://assets/sprites/bosses/boss_12_embroidered_bone_saint/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_12_embroidered_bone_saint.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_12_atk_01_left",
+        "boss_12_atk_01_right",
+        "boss_12_atk_02_left",
+        "boss_12_atk_02_right",
+        "boss_12_atk_03_left",
+        "boss_12_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_12_embroidered_bone_saint/boss_12_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_12_atk_01",
+          "name_zh": "绣骨牵线",
+          "name_en": "Embroidered Bone Marionette",
+          "animation": "boss_12_atk_01",
+          "left_animation": "boss_12_atk_01_left",
+          "right_animation": "boss_12_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_12_atk_02",
+          "name_zh": "圣骸帷幕",
+          "name_en": "Reliquary Veil",
+          "animation": "boss_12_atk_02",
+          "left_animation": "boss_12_atk_02_left",
+          "right_animation": "boss_12_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_12_atk_03",
+          "name_zh": "缝合祷告",
+          "name_en": "Stitching Prayer",
+          "animation": "boss_12_atk_03",
+          "left_animation": "boss_12_atk_03_left",
+          "right_animation": "boss_12_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_13",
+      "slug": "boss_13_black_bell_knight",
+      "name_zh": "黑钟骑士",
+      "name_en": "Black Bell Knight",
+      "manifest": "res://assets/sprites/bosses/boss_13_black_bell_knight/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_13_black_bell_knight.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_13_atk_01_left",
+        "boss_13_atk_01_right",
+        "boss_13_atk_02_left",
+        "boss_13_atk_02_right",
+        "boss_13_atk_03_left",
+        "boss_13_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_13_black_bell_knight/boss_13_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_13_atk_01",
+          "name_zh": "黑钟长枪",
+          "name_en": "Black Bell Lance",
+          "animation": "boss_13_atk_01",
+          "left_animation": "boss_13_atk_01_left",
+          "right_animation": "boss_13_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_13_atk_02",
+          "name_zh": "丧钟回旋",
+          "name_en": "Funeral Bell Reversal",
+          "animation": "boss_13_atk_02",
+          "left_animation": "boss_13_atk_02_left",
+          "right_animation": "boss_13_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_13_atk_03",
+          "name_zh": "甲胄鸣葬",
+          "name_en": "Armor Dirge",
+          "animation": "boss_13_atk_03",
+          "left_animation": "boss_13_atk_03_left",
+          "right_animation": "boss_13_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_14",
+      "slug": "boss_14_blind_musician_rain_corridor",
+      "name_zh": "雨廊盲乐师",
+      "name_en": "Blind Musician of the Rain Corridor",
+      "manifest": "res://assets/sprites/bosses/boss_14_blind_musician_rain_corridor/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_14_blind_musician_rain_corridor.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_14_atk_01_left",
+        "boss_14_atk_01_right",
+        "boss_14_atk_02_left",
+        "boss_14_atk_02_right",
+        "boss_14_atk_03_left",
+        "boss_14_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_14_blind_musician_rain_corridor/boss_14_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_14_atk_01",
+          "name_zh": "雨弦横切",
+          "name_en": "Rainstring Cut",
+          "animation": "boss_14_atk_01",
+          "left_animation": "boss_14_atk_01_left",
+          "right_animation": "boss_14_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_14_atk_02",
+          "name_zh": "回廊盲奏",
+          "name_en": "Corridor Blind Sonata",
+          "animation": "boss_14_atk_02",
+          "left_animation": "boss_14_atk_02_left",
+          "right_animation": "boss_14_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_14_atk_03",
+          "name_zh": "听雨换位",
+          "name_en": "Rain-Hearing Reposition",
+          "animation": "boss_14_atk_03",
+          "left_animation": "boss_14_atk_03_left",
+          "right_animation": "boss_14_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_15",
+      "slug": "boss_15_red_cocoon_midwife",
+      "name_zh": "赤茧产婆",
+      "name_en": "Red Cocoon Midwife",
+      "manifest": "res://assets/sprites/bosses/boss_15_red_cocoon_midwife/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_15_red_cocoon_midwife.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_15_atk_01_left",
+        "boss_15_atk_01_right",
+        "boss_15_atk_02_left",
+        "boss_15_atk_02_right",
+        "boss_15_atk_03_left",
+        "boss_15_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_15_red_cocoon_midwife/boss_15_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_15_atk_01",
+          "name_zh": "赤茧抱缚",
+          "name_en": "Red Cocoon Embrace",
+          "animation": "boss_15_atk_01",
+          "left_animation": "boss_15_atk_01_left",
+          "right_animation": "boss_15_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_15_atk_02",
+          "name_zh": "产房脉动",
+          "name_en": "Birthing Chamber Pulse",
+          "animation": "boss_15_atk_02",
+          "left_animation": "boss_15_atk_02_left",
+          "right_animation": "boss_15_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_15_atk_03",
+          "name_zh": "脐线牵回",
+          "name_en": "Umbilical Recall",
+          "animation": "boss_15_atk_03",
+          "left_animation": "boss_15_atk_03_left",
+          "right_animation": "boss_15_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_16",
+      "slug": "boss_16_broken_stair_pilgrim_king",
+      "name_zh": "断阶巡礼王",
+      "name_en": "Broken-Stair Pilgrim King",
+      "manifest": "res://assets/sprites/bosses/boss_16_broken_stair_pilgrim_king/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_16_broken_stair_pilgrim_king.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_16_atk_01_left",
+        "boss_16_atk_01_right",
+        "boss_16_atk_02_left",
+        "boss_16_atk_02_right",
+        "boss_16_atk_03_left",
+        "boss_16_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_16_broken_stair_pilgrim_king/boss_16_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_16_atk_01",
+          "name_zh": "断阶王杖",
+          "name_en": "Broken-Stair Scepter",
+          "animation": "boss_16_atk_01",
+          "left_animation": "boss_16_atk_01_left",
+          "right_animation": "boss_16_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_16_atk_02",
+          "name_zh": "朝圣压顶",
+          "name_en": "Pilgrim Overburden",
+          "animation": "boss_16_atk_02",
+          "left_animation": "boss_16_atk_02_left",
+          "right_animation": "boss_16_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_16_atk_03",
+          "name_zh": "断路赦令",
+          "name_en": "Edict of Broken Paths",
+          "animation": "boss_16_atk_03",
+          "left_animation": "boss_16_atk_03_left",
+          "right_animation": "boss_16_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_17",
+      "slug": "boss_17_silver_oak_stag_spirit",
+      "name_zh": "银槲鹿灵",
+      "name_en": "Silver Oak Stag Spirit",
+      "manifest": "res://assets/sprites/bosses/boss_17_silver_oak_stag_spirit/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_17_silver_oak_stag_spirit.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_17_atk_01_left",
+        "boss_17_atk_01_right",
+        "boss_17_atk_02_left",
+        "boss_17_atk_02_right",
+        "boss_17_atk_03_left",
+        "boss_17_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_17_silver_oak_stag_spirit/boss_17_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_17_atk_01",
+          "name_zh": "银枝奔踏",
+          "name_en": "Silver Bough Trample",
+          "animation": "boss_17_atk_01",
+          "left_animation": "boss_17_atk_01_left",
+          "right_animation": "boss_17_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_17_atk_02",
+          "name_zh": "槲冠星落",
+          "name_en": "Oak-Crown Starfall",
+          "animation": "boss_17_atk_02",
+          "left_animation": "boss_17_atk_02_left",
+          "right_animation": "boss_17_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_17_atk_03",
+          "name_zh": "根影穿林",
+          "name_en": "Rootshadow Grove",
+          "animation": "boss_17_atk_03",
+          "left_animation": "boss_17_atk_03_left",
+          "right_animation": "boss_17_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_18",
+      "slug": "boss_18_hourglass_nun",
+      "name_zh": "砂漏修女",
+      "name_en": "Hourglass Nun",
+      "manifest": "res://assets/sprites/bosses/boss_18_hourglass_nun/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_18_hourglass_nun.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_18_atk_01_left",
+        "boss_18_atk_01_right",
+        "boss_18_atk_02_left",
+        "boss_18_atk_02_right",
+        "boss_18_atk_03_left",
+        "boss_18_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_18_hourglass_nun/boss_18_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_18_atk_01",
+          "name_zh": "砂漏倒诵",
+          "name_en": "Hourglass Reverse Chant",
+          "animation": "boss_18_atk_01",
+          "left_animation": "boss_18_atk_01_left",
+          "right_animation": "boss_18_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_18_atk_02",
+          "name_zh": "迟滞圣带",
+          "name_en": "Lagging Sash",
+          "animation": "boss_18_atk_02",
+          "left_animation": "boss_18_atk_02_left",
+          "right_animation": "boss_18_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_18_atk_03",
+          "name_zh": "半刻静默",
+          "name_en": "Half-Minute Silence",
+          "animation": "boss_18_atk_03",
+          "left_animation": "boss_18_atk_03_left",
+          "right_animation": "boss_18_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_19",
+      "slug": "boss_19_blueflame_grave_bell",
+      "name_zh": "青焰墓钟",
+      "name_en": "Blueflame Grave Bell",
+      "manifest": "res://assets/sprites/bosses/boss_19_blueflame_grave_bell/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_19_blueflame_grave_bell.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_19_atk_01_left",
+        "boss_19_atk_01_right",
+        "boss_19_atk_02_left",
+        "boss_19_atk_02_right",
+        "boss_19_atk_03_left",
+        "boss_19_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_19_blueflame_grave_bell/boss_19_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_19_atk_01",
+          "name_zh": "青焰丧鸣",
+          "name_en": "Blueflame Funeral Toll",
+          "animation": "boss_19_atk_01",
+          "left_animation": "boss_19_atk_01_left",
+          "right_animation": "boss_19_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_19_atk_02",
+          "name_zh": "墓灯垂链",
+          "name_en": "Grave-Lantern Chains",
+          "animation": "boss_19_atk_02",
+          "left_animation": "boss_19_atk_02_left",
+          "right_animation": "boss_19_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_19_atk_03",
+          "name_zh": "钟腹亡魂",
+          "name_en": "Souls Within the Bell",
+          "animation": "boss_19_atk_03",
+          "left_animation": "boss_19_atk_03_left",
+          "right_animation": "boss_19_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    },
+    {
+      "id": "boss_20",
+      "slug": "boss_20_final_rite_officiant_crimson_court",
+      "name_zh": "绯庭终礼者",
+      "name_en": "Final Rite Officiant of the Crimson Court",
+      "manifest": "res://assets/sprites/bosses/boss_20_final_rite_officiant_crimson_court/manifest.json",
+      "source_concept": "artifacts/boss_concepts/images/boss_20_final_rite_officiant_crimson_court.png",
+      "style": "high quality dark fantasy non-pixel hand-painted generated directional keyframes",
+      "frame_size": [
+        256,
+        256
+      ],
+      "anchor": "bottom-center",
+      "runtime_animations": [
+        "idle",
+        "walk",
+        "attack",
+        "hurt",
+        "death"
+      ],
+      "required_directional_animations": [
+        "walk_left",
+        "walk_right",
+        "attack_left",
+        "attack_right",
+        "boss_20_atk_01_left",
+        "boss_20_atk_01_right",
+        "boss_20_atk_02_left",
+        "boss_20_atk_02_right",
+        "boss_20_atk_03_left",
+        "boss_20_atk_03_right"
+      ],
+      "walk_frames_per_direction": 16,
+      "attack_frames_per_direction": 8,
+      "contact_sheet": "artifacts/boss_keyframes/boss_20_final_rite_officiant_crimson_court/boss_20_directional_contact.png",
+      "animation_count": 18,
+      "total_frame_refs": 150,
+      "attacks": [
+        {
+          "id": "boss_20_atk_01",
+          "name_zh": "终礼绯幕",
+          "name_en": "Crimson Final Curtain",
+          "animation": "boss_20_atk_01",
+          "left_animation": "boss_20_atk_01_left",
+          "right_animation": "boss_20_atk_01_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_20_atk_02",
+          "name_zh": "庭审血线",
+          "name_en": "Court Verdict Bloodlines",
+          "animation": "boss_20_atk_02",
+          "left_animation": "boss_20_atk_02_left",
+          "right_animation": "boss_20_atk_02_right",
+          "hit_frame_index": 3
+        },
+        {
+          "id": "boss_20_atk_03",
+          "name_zh": "终宴献杯",
+          "name_en": "Chalice of the Last Banquet",
+          "animation": "boss_20_atk_03",
+          "left_animation": "boss_20_atk_03_left",
+          "right_animation": "boss_20_atk_03_right",
+          "hit_frame_index": 3
+        }
+      ],
+      "godot_demo_refs": []
+    }
+  ]
+}

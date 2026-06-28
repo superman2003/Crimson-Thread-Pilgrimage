@@ -2,20 +2,20 @@
   "id": "demo_ch01_moss_bell_court",
   "name": "苔钟庭试玩章",
   "world": {
-    "width": 14800,
-    "height": 720,
-    "fall_y": 820
+    "width": 19000,
+    "height": 3360,
+    "fall_y": 3520
   },
   "player_start": [
-    120,
-    500
+    829,
+    800
   ],
   "boss_checkpoint": [
-    12760,
-    500
+    11821,
+    1721
   ],
   "required_keys": 0,
-  "goal": "穿过苔钟庭的外庭、下层蓄水槽与上层钟梁，清理巡礼路上的敌群，打开锈冠大厅并击败锈冠守卫。",
+  "goal": "从左侧绿色区第二个平台出发，按 ManiaMap 生成图的二维房间拓扑穿过苔钟庭，进入右侧红区 Boss 与出口。",
   "world_story": {
     "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
     "protagonist": {
@@ -82,439 +82,2097 @@
   "map_rooms": [
     {
       "id": "entry_bell",
-      "name": "苔钟入口",
+      "name": "绿苔起点钟门",
       "range": [
         0,
         900
       ],
       "depth": 0,
       "kind": "gate",
-      "objective": "教学入口：NPC、基础跳跃和第一处可见上层路线。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "外庭下阶"
+      "objective": "从左侧绿色区第二个平台出生，沿 ManiaMap 的二维房间推进。",
+      "guide": "左侧绿区保留宽平台教学，真正的大地图按生成图上下分叉。",
+      "danger": "不要把上层标记当成地面，先看清连接台阶。",
+      "next": "外庭下阶",
+      "source_id": "Uid(13, 15, 1)",
+      "source_major": 13,
+      "source_room_id": "mm_room_01",
+      "color_region": "green",
+      "grid_position": [
+        -9,
+        -5,
+        0
+      ],
+      "maniamap_rect": [
+        640,
+        720,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        680,
+        516,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated270",
+      "tags": [],
+      "visit_rects": [
+        [
+          680,
+          516,
+          1920,
+          396
+        ],
+        [
+          700,
+          760,
+          720,
+          150
+        ]
+      ]
     },
     {
       "id": "outer_court",
       "name": "外庭下阶",
       "range": [
         900,
-        1900
+        1560
       ],
       "depth": 1,
       "kind": "lower",
-      "objective": "向下展开的第一处战斗庭院，教玩家用低路线绕过正门。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "齿轮升降井"
+      "objective": "从起点房间向左上和右下两个绿色房间分流。",
+      "guide": "这段承担第一章的基础跳跃和回爬。",
+      "danger": "低处假苔会惩罚急跳。",
+      "next": "绿区路线 02",
+      "source_id": "Uid(15, 0, 0)",
+      "source_major": 15,
+      "source_room_id": "mm_room_00",
+      "color_region": "green",
+      "grid_position": [
+        -10,
+        -8,
+        0
+      ],
+      "maniamap_rect": [
+        0,
+        180,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        40,
+        219,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": []
+    },
+    {
+      "id": "mm_route_02",
+      "name": "绿区路线 02",
+      "range": [
+        1560,
+        1900
+      ],
+      "depth": -1,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "齿轮升降井",
+      "source_id": "Uid(18, 0, 0)",
+      "source_major": 18,
+      "source_room_id": "mm_room_02",
+      "color_region": "green",
+      "grid_position": [
+        -6,
+        2,
+        0
+      ],
+      "maniamap_rect": [
+        2560,
+        1980,
+        1920,
+        540
+      ],
+      "layout_rect": [
+        2600,
+        1209,
+        1920,
+        297
+      ],
+      "template": "Square3x3",
+      "tags": []
     },
     {
       "id": "gear_lift",
       "name": "齿轮升降井",
       "range": [
         1900,
-        2650
+        2260
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "短竖井，把下层外庭送回中线并展示地图图例。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "上层钟叶廊"
+      "objective": "通过绿色区顶部井道确认地图房间追踪。",
+      "guide": "保留短回跳台，兼容旧测试坐标，也让回爬路径更清楚。",
+      "danger": "井道净空有限，不要贪跳。",
+      "next": "绿区路线 04",
+      "source_id": "Uid(16, 0, 0)",
+      "source_major": 16,
+      "source_room_id": "mm_room_03",
+      "color_region": "green",
+      "grid_position": [
+        -5,
+        -9,
+        0
+      ],
+      "maniamap_rect": [
+        3200,
+        0,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        3240,
+        120,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": [],
+      "visit_rects": [
+        [
+          1900,
+          430,
+          1220,
+          190
+        ]
+      ]
+    },
+    {
+      "id": "mm_route_04",
+      "name": "绿区路线 04",
+      "range": [
+        2260,
+        2580
+      ],
+      "depth": -3,
+      "kind": "upper",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "上层钟叶廊",
+      "source_id": "Uid(13, 0, 0)",
+      "source_major": 13,
+      "source_room_id": "mm_room_04",
+      "color_region": "green",
+      "grid_position": [
+        -5,
+        -6,
+        0
+      ],
+      "maniamap_rect": [
+        3200,
+        540,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        3240,
+        417,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
     },
     {
       "id": "upper_bells",
       "name": "上层钟叶廊",
       "range": [
-        2650,
-        3520
+        2580,
+        2900
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "第一条上层支线，节奏为短跳、空中敌人和隐藏高台。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "后门小礼拜堂"
+      "objective": "进入第一条上层支路，再折回后门礼拜堂。",
+      "guide": "上层短台阶会把玩家带回 ManiaMap 的绿区主链。",
+      "danger": "空中敌人会压迫落点。",
+      "next": "绿区路线 06",
+      "source_id": "Uid(12, 0, 0)",
+      "source_major": 12,
+      "source_room_id": "mm_room_05",
+      "color_region": "green",
+      "grid_position": [
+        -5,
+        -3,
+        0
+      ],
+      "maniamap_rect": [
+        3200,
+        1080,
+        1280,
+        720
+      ],
+      "layout_rect": [
+        3240,
+        714,
+        1280,
+        396
+      ],
+      "template": "Rectangle2x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_06",
+      "name": "绿区路线 06",
+      "range": [
+        2900,
+        3220
+      ],
+      "depth": -3,
+      "kind": "upper",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "绿区路线 07",
+      "source_id": "Uid(12, 13, 1)",
+      "source_major": 12,
+      "source_room_id": "mm_room_06",
+      "color_region": "green",
+      "grid_position": [
+        -4,
+        -4,
+        0
+      ],
+      "maniamap_rect": [
+        3840,
+        900,
+        640,
+        540
+      ],
+      "layout_rect": [
+        3880,
+        615,
+        640,
+        297
+      ],
+      "template": "Rectangle1x3::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_07",
+      "name": "绿区路线 07",
+      "range": [
+        3220,
+        3540
+      ],
+      "depth": -2,
+      "kind": "upper",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "后门小礼拜堂",
+      "source_id": "Uid(17, 0, 0)",
+      "source_major": 17,
+      "source_room_id": "mm_room_07",
+      "color_region": "green",
+      "grid_position": [
+        -4,
+        -1,
+        0
+      ],
+      "maniamap_rect": [
+        3840,
+        1440,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        3880,
+        912,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": []
     },
     {
       "id": "backdoor",
       "name": "后门小礼拜堂",
       "range": [
-        3520,
-        4320
+        3540,
+        3860
       ],
       "depth": 0,
       "kind": "safe",
-      "objective": "安全房和捷径拉杆，连接 Boss 回廊的中线起点。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "王冠回廊"
+      "objective": "清完战斗路线后拉开后门捷径。",
+      "guide": "这里是蓝紫分叉前的安全汇合点。",
+      "danger": "捷径清场后才安全。",
+      "next": "绿区路线 09",
+      "source_id": "Uid(24, 0, 0)",
+      "source_major": 24,
+      "source_room_id": "mm_room_08",
+      "color_region": "purple",
+      "grid_position": [
+        -4,
+        13,
+        0
+      ],
+      "maniamap_rect": [
+        3840,
+        3960,
+        1280,
+        540
+      ],
+      "layout_rect": [
+        3880,
+        2298,
+        1280,
+        297
+      ],
+      "template": "Rectangle2x3::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_09",
+      "name": "绿区路线 09",
+      "range": [
+        3860,
+        4180
+      ],
+      "depth": -3,
+      "kind": "upper",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "王冠回廊",
+      "source_id": "Uid(14, 0, 0)",
+      "source_major": 14,
+      "source_room_id": "mm_room_09",
+      "color_region": "green",
+      "grid_position": [
+        -3,
+        -6,
+        0
+      ],
+      "maniamap_rect": [
+        4480,
+        540,
+        1280,
+        540
+      ],
+      "layout_rect": [
+        4520,
+        417,
+        1280,
+        297
+      ],
+      "template": "Rectangle2x3::Rotated90",
+      "tags": []
     },
     {
       "id": "runback",
       "name": "王冠回廊",
       "range": [
-        4320,
-        5480
+        4180,
+        4500
       ],
       "depth": 0,
       "kind": "danger",
-      "objective": "中线战斗回廊，让玩家从安全房进入连续战斗。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "回响苔沟"
+      "objective": "沿蓝区中线推进到 Boss 前段。",
+      "guide": "中线蓝区现在按 ManiaMap 的横向长房间连接。",
+      "danger": "更重的敌人巡逻这条线。",
+      "next": "蓝区路线 11",
+      "source_id": "Uid(18, 19, 1)",
+      "source_major": 18,
+      "source_room_id": "mm_room_10",
+      "color_region": "green",
+      "grid_position": [
+        -3,
+        4,
+        0
+      ],
+      "maniamap_rect": [
+        4480,
+        2340,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        4520,
+        1407,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated270",
+      "tags": []
+    },
+    {
+      "id": "mm_route_11",
+      "name": "蓝区路线 11",
+      "range": [
+        4500,
+        4820
+      ],
+      "depth": -1,
+      "kind": "gate",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "紫区路线 12",
+      "source_id": "Uid(1, 0, 0)",
+      "source_major": 1,
+      "source_room_id": "mm_room_11",
+      "color_region": "blue",
+      "grid_position": [
+        -2,
+        0,
+        0
+      ],
+      "maniamap_rect": [
+        5120,
+        1620,
+        2560,
+        360
+      ],
+      "layout_rect": [
+        5160,
+        1011,
+        2560,
+        198
+      ],
+      "template": "Rectangle2x4",
+      "tags": [
+        "Origin"
+      ]
+    },
+    {
+      "id": "mm_route_12",
+      "name": "紫区路线 12",
+      "range": [
+        4820,
+        5140
+      ],
+      "depth": 1,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "紫区路线 13",
+      "source_id": "Uid(21, 24, 1)",
+      "source_major": 21,
+      "source_room_id": "mm_room_12",
+      "color_region": "purple",
+      "grid_position": [
+        -2,
+        10,
+        0
+      ],
+      "maniamap_rect": [
+        5120,
+        3420,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        5160,
+        2001,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_13",
+      "name": "紫区路线 13",
+      "range": [
+        5140,
+        5460
+      ],
+      "depth": 3,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "回响苔沟",
+      "source_id": "Uid(24, 25, 1)",
+      "source_major": 24,
+      "source_room_id": "mm_room_13",
+      "color_region": "purple",
+      "grid_position": [
+        -2,
+        15,
+        0
+      ],
+      "maniamap_rect": [
+        5120,
+        4320,
+        1280,
+        180
+      ],
+      "layout_rect": [
+        5160,
+        2496,
+        1280,
+        120
+      ],
+      "template": "Rectangle1x2",
+      "tags": []
     },
     {
       "id": "echo_moss_trench",
       "name": "回响苔沟",
       "range": [
-        5480,
-        6620
+        5460,
+        5780
       ],
       "depth": 2,
       "kind": "lower",
-      "objective": "下层苔沟，放置宽平台和低风险敌群。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "旧钟绳井"
+      "objective": "穿过下层紫区绕行线。",
+      "guide": "宽平台给地面战斗留出空间。",
+      "danger": "别被下层敌人逼进陷阱。",
+      "next": "绿区路线 15",
+      "source_id": "Uid(26, 0, 0)",
+      "source_major": 26,
+      "source_room_id": "mm_room_14",
+      "color_region": "purple",
+      "grid_position": [
+        -2,
+        18,
+        0
+      ],
+      "maniamap_rect": [
+        5120,
+        4860,
+        1280,
+        720
+      ],
+      "layout_rect": [
+        5160,
+        2793,
+        1280,
+        396
+      ],
+      "template": "Rectangle2x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_15",
+      "name": "绿区路线 15",
+      "range": [
+        5780,
+        6100
+      ],
+      "depth": -2,
+      "kind": "upper",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "紫区路线 16",
+      "source_id": "Uid(11, 0, 0)",
+      "source_major": 11,
+      "source_room_id": "mm_room_15",
+      "color_region": "green",
+      "grid_position": [
+        -1,
+        -2,
+        0
+      ],
+      "maniamap_rect": [
+        5760,
+        1260,
+        1280,
+        720
+      ],
+      "layout_rect": [
+        5800,
+        813,
+        1280,
+        396
+      ],
+      "template": "Rectangle2x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_16",
+      "name": "紫区路线 16",
+      "range": [
+        6100,
+        6420
+      ],
+      "depth": 3,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "旧钟绳井",
+      "source_id": "Uid(25, 0, 0)",
+      "source_major": 25,
+      "source_room_id": "mm_room_16",
+      "color_region": "purple",
+      "grid_position": [
+        -1,
+        16,
+        0
+      ],
+      "maniamap_rect": [
+        5760,
+        4500,
+        1280,
+        540
+      ],
+      "layout_rect": [
+        5800,
+        2595,
+        1280,
+        297
+      ],
+      "template": "Rectangle2x3::Rotated90",
+      "tags": []
     },
     {
       "id": "old_bell_rope",
       "name": "旧钟绳井",
       "range": [
-        6620,
-        7620
+        6420,
+        6740
       ],
       "depth": -1,
       "kind": "vertical",
-      "objective": "第二个竖向枢纽，同时连接下层回环和上层捷径。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "钟叶缠结处"
+      "objective": "通过竖井进入上层回环。",
+      "guide": "竖井台阶连接紫区下层和蓝区中线。",
+      "danger": "坠落钟锤提示节奏变化。",
+      "next": "蓝区路线 18",
+      "source_id": "Uid(10, 0, 0)",
+      "source_major": 10,
+      "source_room_id": "mm_room_17",
+      "color_region": "blue",
+      "grid_position": [
+        0,
+        0,
+        0
+      ],
+      "maniamap_rect": [
+        6400,
+        1620,
+        1280,
+        720
+      ],
+      "layout_rect": [
+        6440,
+        1011,
+        1280,
+        396
+      ],
+      "template": "Rectangle2x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_18",
+      "name": "蓝区路线 18",
+      "range": [
+        6740,
+        7060
+      ],
+      "depth": -1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 19",
+      "source_id": "Uid(1, 2, 1)",
+      "source_major": 1,
+      "source_room_id": "mm_room_18",
+      "color_region": "blue",
+      "grid_position": [
+        0,
+        2,
+        0
+      ],
+      "maniamap_rect": [
+        6400,
+        1980,
+        1280,
+        180
+      ],
+      "layout_rect": [
+        6440,
+        1209,
+        1280,
+        120
+      ],
+      "template": "Rectangle1x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_19",
+      "name": "蓝区路线 19",
+      "range": [
+        7060,
+        7380
+      ],
+      "depth": -1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "钟叶缠结处",
+      "source_id": "Uid(2, 0, 0)",
+      "source_major": 2,
+      "source_room_id": "mm_room_19",
+      "color_region": "blue",
+      "grid_position": [
+        1,
+        3,
+        0
+      ],
+      "maniamap_rect": [
+        7040,
+        2160,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        7080,
+        1308,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
     },
     {
       "id": "bell_leaf_tangle",
       "name": "钟叶缠结处",
       "range": [
-        7620,
-        8780
+        7380,
+        7700
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "上层平台编织区，制造连续跳跃和视野奖励。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "沉钟蓄水槽"
+      "objective": "穿过上层苔叶短平台。",
+      "guide": "短平台奖励稳跳。",
+      "danger": "地面敌人在下方卡落点。",
+      "next": "紫区路线 21",
+      "source_id": "Uid(19, 0, 0)",
+      "source_major": 19,
+      "source_room_id": "mm_room_20",
+      "color_region": "purple",
+      "grid_position": [
+        1,
+        5,
+        0
+      ],
+      "maniamap_rect": [
+        7040,
+        2520,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        7080,
+        1506,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": []
+    },
+    {
+      "id": "mm_route_21",
+      "name": "紫区路线 21",
+      "range": [
+        7700,
+        8020
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "紫区路线 22",
+      "source_id": "Uid(20, 0, 0)",
+      "source_major": 20,
+      "source_room_id": "mm_room_21",
+      "color_region": "purple",
+      "grid_position": [
+        1,
+        8,
+        0
+      ],
+      "maniamap_rect": [
+        7040,
+        3060,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        7080,
+        1803,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_22",
+      "name": "紫区路线 22",
+      "range": [
+        8020,
+        8340
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "紫区路线 23",
+      "source_id": "Uid(21, 0, 0)",
+      "source_major": 21,
+      "source_room_id": "mm_room_22",
+      "color_region": "purple",
+      "grid_position": [
+        1,
+        10,
+        0
+      ],
+      "maniamap_rect": [
+        7040,
+        3420,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        7080,
+        2001,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_23",
+      "name": "紫区路线 23",
+      "range": [
+        8340,
+        8660
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "沉钟蓄水槽",
+      "source_id": "Uid(22, 0, 0)",
+      "source_major": 22,
+      "source_room_id": "mm_room_23",
+      "color_region": "purple",
+      "grid_position": [
+        1,
+        13,
+        0
+      ],
+      "maniamap_rect": [
+        7040,
+        3960,
+        1280,
+        720
+      ],
+      "layout_rect": [
+        7080,
+        2298,
+        1280,
+        396
+      ],
+      "template": "Rectangle2x4::Rotated90",
+      "tags": []
     },
     {
       "id": "lower_bell_cistern",
       "name": "沉钟蓄水槽",
       "range": [
-        8780,
-        9800
+        8660,
+        8980
       ],
       "depth": 2,
       "kind": "lower",
-      "objective": "可选下层绕行，有陷阱、敌人和回升出口。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "苔轮回升井"
+      "objective": "把下层紫区蓄水槽作为可选压力路线。",
+      "guide": "这条低路线会在 Boss 前回到中线。",
+      "danger": "这里间距更宽，别急着追敌。",
+      "next": "蓝区路线 25",
+      "source_id": "Uid(21, 22, 1)",
+      "source_major": 21,
+      "source_room_id": "mm_room_24",
+      "color_region": "purple",
+      "grid_position": [
+        2,
+        9,
+        0
+      ],
+      "maniamap_rect": [
+        7680,
+        3240,
+        2560,
+        540
+      ],
+      "layout_rect": [
+        7720,
+        1902,
+        2560,
+        297
+      ],
+      "template": "Angle3x4::Rotated180",
+      "tags": []
+    },
+    {
+      "id": "mm_route_25",
+      "name": "蓝区路线 25",
+      "range": [
+        8980,
+        9300
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 26",
+      "source_id": "Uid(2, 3, 1)",
+      "source_major": 2,
+      "source_room_id": "mm_room_25",
+      "color_region": "blue",
+      "grid_position": [
+        3,
+        4,
+        0
+      ],
+      "maniamap_rect": [
+        8320,
+        2340,
+        2560,
+        540
+      ],
+      "layout_rect": [
+        8360,
+        1407,
+        2560,
+        297
+      ],
+      "template": "Angle3x4::MirroredHorizontally",
+      "tags": []
+    },
+    {
+      "id": "mm_route_26",
+      "name": "蓝区路线 26",
+      "range": [
+        9300,
+        9620
+      ],
+      "depth": -1,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 27",
+      "source_id": "Uid(9, 10, 1)",
+      "source_major": 9,
+      "source_room_id": "mm_room_26",
+      "color_region": "blue",
+      "grid_position": [
+        4,
+        0,
+        0
+      ],
+      "maniamap_rect": [
+        8960,
+        1620,
+        640,
+        720
+      ],
+      "layout_rect": [
+        9000,
+        1011,
+        640,
+        396
+      ],
+      "template": "Rectangle1x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_27",
+      "name": "蓝区路线 27",
+      "range": [
+        9620,
+        9940
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "苔轮回升井",
+      "source_id": "Uid(3, 0, 0)",
+      "source_major": 3,
+      "source_room_id": "mm_room_27",
+      "color_region": "blue",
+      "grid_position": [
+        5,
+        8,
+        0
+      ],
+      "maniamap_rect": [
+        9600,
+        3060,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        9640,
+        1803,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": []
     },
     {
       "id": "cistern_pump_shaft",
       "name": "苔轮回升井",
       "range": [
-        9800,
-        10720
+        9940,
+        10260
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "从蓄水槽回到主线，形成完整下层回环。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "王冠上梁"
+      "objective": "从蓄水槽爬回上层王冠桥。",
+      "guide": "回升井的台阶错落但安全。",
+      "danger": "失误会掉回低路线。",
+      "next": "蓝区路线 29",
+      "source_id": "Uid(22, 23, 1)",
+      "source_major": 22,
+      "source_room_id": "mm_room_28",
+      "color_region": "purple",
+      "grid_position": [
+        5,
+        14,
+        0
+      ],
+      "maniamap_rect": [
+        9600,
+        4140,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        9640,
+        2397,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_29",
+      "name": "蓝区路线 29",
+      "range": [
+        10260,
+        10580
+      ],
+      "depth": -1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "王冠上梁",
+      "source_id": "Uid(9, 0, 0)",
+      "source_major": 9,
+      "source_room_id": "mm_room_29",
+      "color_region": "blue",
+      "grid_position": [
+        6,
+        1,
+        0
+      ],
+      "maniamap_rect": [
+        10240,
+        1800,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        10280,
+        1110,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": []
     },
     {
       "id": "upper_crown_rafters",
       "name": "王冠上梁",
       "range": [
-        10720,
-        11740
+        10580,
+        10900
       ],
       "depth": -2,
       "kind": "upper",
-      "objective": "隐藏存档和上层捷径，奖励探索。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "钟匠横桥"
+      "objective": "在上层王冠梁找到隐藏存档点。",
+      "guide": "隐藏存档位于最终汇合前的高路线。",
+      "danger": "飞行敌人守住奖励线。",
+      "next": "红区路线 31",
+      "source_id": "Uid(5, 9, 1)",
+      "source_major": 5,
+      "source_room_id": "mm_room_30",
+      "color_region": "blue",
+      "grid_position": [
+        6,
+        4,
+        0
+      ],
+      "maniamap_rect": [
+        10240,
+        2340,
+        2560,
+        180
+      ],
+      "layout_rect": [
+        10280,
+        1407,
+        2560,
+        120
+      ],
+      "template": "Rectangle1x4",
+      "tags": []
+    },
+    {
+      "id": "mm_route_31",
+      "name": "红区路线 31",
+      "range": [
+        10900,
+        11220
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 32",
+      "source_id": "Uid(34, 0, 0)",
+      "source_major": 34,
+      "source_room_id": "mm_room_31",
+      "color_region": "red",
+      "grid_position": [
+        6,
+        11,
+        0
+      ],
+      "maniamap_rect": [
+        10240,
+        3600,
+        1920,
+        540
+      ],
+      "layout_rect": [
+        10280,
+        2100,
+        1920,
+        297
+      ],
+      "template": "Square3x3",
+      "tags": []
+    },
+    {
+      "id": "mm_route_32",
+      "name": "蓝区路线 32",
+      "range": [
+        11220,
+        11540
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "钟匠横桥",
+      "source_id": "Uid(5, 0, 0)",
+      "source_major": 5,
+      "source_room_id": "mm_room_32",
+      "color_region": "blue",
+      "grid_position": [
+        7,
+        7,
+        0
+      ],
+      "maniamap_rect": [
+        10880,
+        2880,
+        640,
+        180
+      ],
+      "layout_rect": [
+        10920,
+        1704,
+        640,
+        120
+      ],
+      "template": "Square1x1SavePoint",
+      "tags": []
     },
     {
       "id": "bellmaker_crossway",
       "name": "钟匠横桥",
       "range": [
-        11740,
-        12580
+        11540,
+        11860
       ],
       "depth": 0,
       "kind": "field",
-      "objective": "中线汇合点，衔接 Boss 前冲刺。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "首领前钟廊"
+      "objective": "汇合上下分支，准备进入 Boss 前段。",
+      "guide": "这里向右转入红区前的最后整理区。",
+      "danger": "钟匠会惩罚原地停留。",
+      "next": "紫区路线 34",
+      "source_id": "Uid(4, 0, 0)",
+      "source_major": 4,
+      "source_room_id": "mm_room_33",
+      "color_region": "blue",
+      "grid_position": [
+        7,
+        8,
+        0
+      ],
+      "maniamap_rect": [
+        10880,
+        3060,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        10920,
+        1803,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_34",
+      "name": "紫区路线 34",
+      "range": [
+        11860,
+        12180
+      ],
+      "depth": 3,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 35",
+      "source_id": "Uid(23, 0, 0)",
+      "source_major": 23,
+      "source_room_id": "mm_room_34",
+      "color_region": "purple",
+      "grid_position": [
+        7,
+        14,
+        0
+      ],
+      "maniamap_rect": [
+        10880,
+        4140,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        10920,
+        2397,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_35",
+      "name": "蓝区路线 35",
+      "range": [
+        12180,
+        12500
+      ],
+      "depth": -1,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "首领前钟廊",
+      "source_id": "Uid(9, 30, 1)",
+      "source_major": 9,
+      "source_room_id": "mm_room_35",
+      "color_region": "blue",
+      "grid_position": [
+        8,
+        3,
+        0
+      ],
+      "maniamap_rect": [
+        11520,
+        2160,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        11560,
+        1308,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated90",
+      "tags": []
     },
     {
       "id": "pre_boss_belfry",
       "name": "首领前钟廊",
       "range": [
-        12580,
-        13240
+        12500,
+        12820
       ],
       "depth": 0,
       "kind": "danger",
-      "objective": "Boss 前缓冲、存档和最终提示。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "锈冠大厅"
+      "objective": "使用后段存档点，进入 Boss 大厅。",
+      "guide": "检查点位于红区前的稳定平台上。",
+      "danger": "最后冲刺短，但敌人压力更高。",
+      "next": "蓝区路线 37",
+      "source_id": "Uid(6, 0, 0)",
+      "source_major": 6,
+      "source_room_id": "mm_room_36",
+      "color_region": "blue",
+      "grid_position": [
+        8,
+        6,
+        0
+      ],
+      "maniamap_rect": [
+        11520,
+        2700,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        11560,
+        1605,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_37",
+      "name": "蓝区路线 37",
+      "range": [
+        12820,
+        13140
+      ],
+      "depth": 1,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 38",
+      "source_id": "Uid(6, 7, 1)",
+      "source_major": 6,
+      "source_room_id": "mm_room_37",
+      "color_region": "blue",
+      "grid_position": [
+        9,
+        8,
+        0
+      ],
+      "maniamap_rect": [
+        12160,
+        3060,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        12200,
+        1803,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_38",
+      "name": "红区路线 38",
+      "range": [
+        13140,
+        13460
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "紫区路线 39",
+      "source_id": "Uid(34, 33, 1)",
+      "source_major": 34,
+      "source_room_id": "mm_room_38",
+      "color_region": "red",
+      "grid_position": [
+        9,
+        11,
+        0
+      ],
+      "maniamap_rect": [
+        12160,
+        3600,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        12200,
+        2100,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::MirroredHorizontally::Rotated270",
+      "tags": []
+    },
+    {
+      "id": "mm_route_39",
+      "name": "紫区路线 39",
+      "range": [
+        13460,
+        13780
+      ],
+      "depth": 3,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 40",
+      "source_id": "Uid(23, 29, 1)",
+      "source_major": 23,
+      "source_room_id": "mm_room_39",
+      "color_region": "purple",
+      "grid_position": [
+        9,
+        15,
+        0
+      ],
+      "maniamap_rect": [
+        12160,
+        4320,
+        1920,
+        720
+      ],
+      "layout_rect": [
+        12200,
+        2496,
+        1920,
+        396
+      ],
+      "template": "Angle3x4::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_40",
+      "name": "蓝区路线 40",
+      "range": [
+        13780,
+        14100
+      ],
+      "depth": 0,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "蓝区路线 41",
+      "source_id": "Uid(8, 0, 0)",
+      "source_major": 8,
+      "source_room_id": "mm_room_40",
+      "color_region": "blue",
+      "grid_position": [
+        10,
+        6,
+        0
+      ],
+      "maniamap_rect": [
+        12800,
+        2700,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        12840,
+        1605,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_41",
+      "name": "蓝区路线 41",
+      "range": [
+        14100,
+        14420
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 42",
+      "source_id": "Uid(7, 0, 0)",
+      "source_major": 7,
+      "source_room_id": "mm_room_41",
+      "color_region": "blue",
+      "grid_position": [
+        10,
+        8,
+        0
+      ],
+      "maniamap_rect": [
+        12800,
+        3060,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        12840,
+        1803,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_42",
+      "name": "红区路线 42",
+      "range": [
+        14420,
+        14740
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 43",
+      "source_id": "Uid(33, 0, 0)",
+      "source_major": 33,
+      "source_room_id": "mm_room_42",
+      "color_region": "red",
+      "grid_position": [
+        10,
+        13,
+        0
+      ],
+      "maniamap_rect": [
+        12800,
+        3960,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        12840,
+        2298,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_43",
+      "name": "红区路线 43",
+      "range": [
+        14740,
+        15060
+      ],
+      "depth": 3,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 44",
+      "source_id": "Uid(29, 0, 0)",
+      "source_major": 29,
+      "source_room_id": "mm_room_43",
+      "color_region": "red",
+      "grid_position": [
+        11,
+        15,
+        0
+      ],
+      "maniamap_rect": [
+        13440,
+        4320,
+        1280,
+        360
+      ],
+      "layout_rect": [
+        13480,
+        2496,
+        1280,
+        198
+      ],
+      "template": "Square2x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_44",
+      "name": "红区路线 44",
+      "range": [
+        15060,
+        15380
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 45",
+      "source_id": "Uid(30, 0, 0)",
+      "source_major": 30,
+      "source_room_id": "mm_room_44",
+      "color_region": "red",
+      "grid_position": [
+        12,
+        4,
+        0
+      ],
+      "maniamap_rect": [
+        14080,
+        2340,
+        1280,
+        540
+      ],
+      "layout_rect": [
+        14120,
+        1407,
+        1280,
+        297
+      ],
+      "template": "Rectangle2x3::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_45",
+      "name": "红区路线 45",
+      "range": [
+        15380,
+        15700
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 46",
+      "source_id": "Uid(31, 30, 1)",
+      "source_major": 31,
+      "source_room_id": "mm_room_45",
+      "color_region": "red",
+      "grid_position": [
+        12,
+        6,
+        0
+      ],
+      "maniamap_rect": [
+        14080,
+        2700,
+        640,
+        540
+      ],
+      "layout_rect": [
+        14120,
+        1605,
+        640,
+        297
+      ],
+      "template": "Rectangle1x3::Rotated90",
+      "tags": []
+    },
+    {
+      "id": "mm_route_46",
+      "name": "红区路线 46",
+      "range": [
+        15700,
+        16020
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 47",
+      "source_id": "Uid(33, 32, 1)",
+      "source_major": 33,
+      "source_room_id": "mm_room_46",
+      "color_region": "red",
+      "grid_position": [
+        12,
+        13,
+        0
+      ],
+      "maniamap_rect": [
+        14080,
+        3960,
+        1280,
+        180
+      ],
+      "layout_rect": [
+        14120,
+        2298,
+        1280,
+        120
+      ],
+      "template": "Rectangle1x2",
+      "tags": []
+    },
+    {
+      "id": "mm_route_47",
+      "name": "红区路线 47",
+      "range": [
+        16020,
+        16340
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 48",
+      "source_id": "Uid(31, 0, 0)",
+      "source_major": 31,
+      "source_room_id": "mm_room_47",
+      "color_region": "red",
+      "grid_position": [
+        13,
+        7,
+        0
+      ],
+      "maniamap_rect": [
+        14720,
+        2880,
+        2560,
+        360
+      ],
+      "layout_rect": [
+        14760,
+        1704,
+        2560,
+        198
+      ],
+      "template": "Rectangle2x4",
+      "tags": []
+    },
+    {
+      "id": "mm_route_48",
+      "name": "红区路线 48",
+      "range": [
+        16340,
+        16660
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 49",
+      "source_id": "Uid(32, 0, 0)",
+      "source_major": 32,
+      "source_room_id": "mm_room_48",
+      "color_region": "red",
+      "grid_position": [
+        13,
+        11,
+        0
+      ],
+      "maniamap_rect": [
+        14720,
+        3600,
+        2560,
+        360
+      ],
+      "layout_rect": [
+        14760,
+        2100,
+        2560,
+        198
+      ],
+      "template": "Rectangle2x4",
+      "tags": []
+    },
+    {
+      "id": "mm_route_49",
+      "name": "红区路线 49",
+      "range": [
+        16660,
+        16980
+      ],
+      "depth": 2,
+      "kind": "lower",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "红区路线 50",
+      "source_id": "Uid(29, 28, 1)",
+      "source_major": 29,
+      "source_room_id": "mm_room_49",
+      "color_region": "red",
+      "grid_position": [
+        13,
+        13,
+        0
+      ],
+      "maniamap_rect": [
+        14720,
+        3960,
+        2560,
+        540
+      ],
+      "layout_rect": [
+        14760,
+        2298,
+        2560,
+        297
+      ],
+      "template": "Angle3x4::Rotated180",
+      "tags": []
+    },
+    {
+      "id": "mm_route_50",
+      "name": "红区路线 50",
+      "range": [
+        16980,
+        17300
+      ],
+      "depth": 1,
+      "kind": "field",
+      "objective": "沿 ManiaMap 拓扑前往下一个连接房间。",
+      "guide": "该房间保留生成图的二维位置，并细化为可跳跃平台。",
+      "danger": "注意敌人间距和短平台落点。",
+      "next": "锈冠大厅",
+      "source_id": "Uid(28, 0, 0)",
+      "source_major": 28,
+      "source_room_id": "mm_room_50",
+      "color_region": "red",
+      "grid_position": [
+        15,
+        10,
+        0
+      ],
+      "maniamap_rect": [
+        16000,
+        3420,
+        1920,
+        360
+      ],
+      "layout_rect": [
+        16040,
+        2001,
+        1920,
+        198
+      ],
+      "template": "Rectangle2x3",
+      "tags": []
     },
     {
       "id": "boss_chamber",
       "name": "锈冠大厅",
       "range": [
-        13240,
-        14460
+        17300,
+        18590
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "Boss 房，入口门、锁场墙和战后出口阻挡。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "沉钟出口"
+      "objective": "敲响 Boss 门，击败锈冠守卫。",
+      "guide": "Boss 房间位于生成图右侧红区末端。",
+      "danger": "守卫倒下前大厅会锁场。",
+      "next": "沉钟出口",
+      "source_id": "Uid(27, 0, 0)",
+      "source_major": 27,
+      "source_room_id": "mm_room_51",
+      "color_region": "red",
+      "grid_position": [
+        17,
+        11,
+        0
+      ],
+      "maniamap_rect": [
+        17280,
+        3600,
+        1280,
+        720
+      ],
+      "layout_rect": [
+        17320,
+        2100,
+        1280,
+        396
+      ],
+      "template": "Rectangle2x4::Rotated90",
+      "tags": []
     },
     {
       "id": "chapter_exit",
       "name": "沉钟出口",
       "range": [
-        14460,
-        14800
+        18590,
+        19000
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "战后出口，通往第二章铸雨渠。",
-      "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-      "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
-      "next": "第二章入口"
+      "objective": "离开苔钟庭，进入第二章铸雨渠。",
+      "guide": "出口会在获得 Boss 奖励后激活。",
+      "danger": "战后墙体打开后无危险。",
+      "next": "Chapter 2",
+      "source_id": "synthetic_exit",
+      "source_major": null,
+      "source_room_id": "mm_exit",
+      "color_region": "exit",
+      "grid_position": [
+        0,
+        0,
+        0
+      ],
+      "maniamap_rect": [
+        18560,
+        3600,
+        360,
+        220
+      ],
+      "layout_rect": [
+        18600,
+        2100,
+        360,
+        121
+      ],
+      "template": "synthetic",
+      "tags": []
     }
   ],
   "ai_profiles": {
     "moss_larva": {
       "move_speed": 48,
-      "aggro_range": 210,
-      "preferred_range": 44,
+      "aggro_range": 210.0,
+      "preferred_range": 44.0,
       "attacks": [
         {
-          "id": "toothed_lunge",
+          "id": "bite_lunge",
           "type": "lunge",
-          "range": 96,
+          "range": 92,
           "damage": 1,
-          "windup": 0.28,
-          "active": 0.2,
-          "recover": 0.5,
-          "cooldown": 1.25,
-          "lunge_speed": 275,
-          "hit_width": 88,
-          "hit_height": 58,
-          "offset": 48,
+          "windup": 0.26,
+          "active": 0.18,
+          "recover": 0.46,
+          "cooldown": 1.18,
+          "lunge_speed": 250,
+          "hit_width": 82,
+          "hit_height": 54,
+          "offset": 44,
           "telegraph": "bf6c3f",
-          "priority": 2
-        },
-        {
-          "id": "shell_bump",
-          "type": "melee",
-          "range": 66,
-          "damage": 1,
-          "windup": 0.22,
-          "active": 0.14,
-          "recover": 0.48,
-          "cooldown": 1.1,
-          "hit_width": 68,
-          "hit_height": 56,
-          "offset": 34,
-          "telegraph": "8fb35a",
-          "priority": 1.5
-        },
-        {
-          "id": "burrow_bite",
-          "type": "melee",
-          "range": 72,
-          "damage": 1,
-          "windup": 0.38,
-          "active": 0.16,
-          "recover": 0.64,
-          "cooldown": 1.7,
-          "hit_width": 74,
-          "hit_height": 66,
-          "offset": 38,
-          "telegraph": "c99a50",
-          "priority": 1.1
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "bronze_moth": {
       "move_speed": 62,
-      "aggro_range": 250,
-      "preferred_range": 78,
+      "aggro_range": 250.0,
+      "preferred_range": 78.0,
       "attacks": [
         {
           "id": "sickle_swoop",
           "type": "lunge",
-          "range": 132,
+          "range": 112,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.24,
-          "recover": 0.48,
-          "cooldown": 1.45,
-          "lunge_speed": 335,
-          "hit_width": 98,
-          "hit_height": 76,
-          "offset": 58,
-          "telegraph": "d18b38",
-          "priority": 2.1
-        },
-        {
-          "id": "wing_body_check",
-          "type": "lunge",
-          "range": 104,
-          "damage": 1,
-          "windup": 0.34,
+          "windup": 0.22,
           "active": 0.2,
-          "recover": 0.58,
-          "cooldown": 1.7,
-          "lunge_speed": 250,
-          "hit_width": 112,
-          "hit_height": 82,
+          "recover": 0.44,
+          "cooldown": 1.16,
+          "lunge_speed": 285,
+          "hit_width": 92,
+          "hit_height": 58,
           "offset": 52,
-          "telegraph": "bfb46c",
-          "priority": 1.6
-        },
-        {
-          "id": "dust_tackle",
-          "type": "aoe",
-          "range": 92,
-          "damage": 1,
-          "windup": 0.44,
-          "active": 0.18,
-          "recover": 0.72,
-          "cooldown": 2.1,
-          "hit_width": 138,
-          "hit_height": 82,
-          "telegraph": "bfb46c",
-          "priority": 1.2
+          "telegraph": "d9b25f",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "spore_bellmaker": {
       "move_speed": 36,
-      "aggro_range": 235,
-      "preferred_range": 82,
+      "aggro_range": 235.0,
+      "preferred_range": 82.0,
       "attacks": [
         {
-          "id": "bell_ring_body",
-          "type": "aoe",
-          "range": 112,
-          "damage": 1,
-          "windup": 0.58,
-          "active": 0.24,
-          "recover": 0.82,
-          "cooldown": 2.35,
-          "hit_width": 166,
-          "hit_height": 94,
-          "telegraph": "d0a44e",
-          "priority": 1.9
-        },
-        {
-          "id": "root_shove",
+          "id": "body_cast",
           "type": "melee",
-          "range": 86,
+          "range": 96,
           "damage": 1,
-          "windup": 0.32,
-          "active": 0.16,
-          "recover": 0.56,
-          "cooldown": 1.45,
-          "hit_width": 96,
-          "hit_height": 60,
+          "windup": 0.34,
+          "active": 0.18,
+          "recover": 0.55,
+          "cooldown": 1.34,
+          "hit_width": 88,
+          "hit_height": 64,
           "offset": 48,
-          "telegraph": "76a96a",
-          "priority": 1.5
-        },
-        {
-          "id": "spore_belly_bump",
-          "type": "lunge",
-          "range": 104,
-          "damage": 1,
-          "windup": 0.42,
-          "active": 0.22,
-          "recover": 0.72,
-          "cooldown": 2.05,
-          "lunge_speed": 210,
-          "hit_width": 104,
-          "hit_height": 80,
-          "offset": 54,
-          "telegraph": "75b468",
-          "priority": 1.2
+          "telegraph": "c99a50",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "gear_sentinel": {
       "move_speed": 42,
-      "aggro_range": 245,
-      "preferred_range": 70,
+      "aggro_range": 245.0,
+      "preferred_range": 70.0,
       "attacks": [
         {
-          "id": "gear_charge",
+          "id": "shield_rush",
           "type": "lunge",
-          "range": 150,
-          "damage": 2,
-          "windup": 0.5,
-          "active": 0.28,
-          "recover": 0.9,
-          "cooldown": 2.45,
-          "lunge_speed": 315,
-          "hit_width": 108,
-          "hit_height": 78,
-          "offset": 58,
-          "telegraph": "b56d37",
-          "priority": 2
-        },
-        {
-          "id": "saw_arm",
-          "type": "melee",
-          "range": 92,
+          "range": 118,
           "damage": 1,
-          "windup": 0.24,
-          "active": 0.18,
-          "recover": 0.52,
-          "cooldown": 1.25,
-          "hit_width": 98,
-          "hit_height": 66,
-          "offset": 48,
-          "telegraph": "d2a246",
-          "priority": 1.7
-        },
-        {
-          "id": "stomp_shock",
-          "type": "aoe",
-          "range": 104,
-          "damage": 1,
-          "windup": 0.56,
+          "windup": 0.3,
           "active": 0.22,
-          "recover": 0.82,
-          "cooldown": 2.35,
-          "hit_width": 154,
-          "hit_height": 84,
-          "telegraph": "c9913a",
-          "priority": 1.2
+          "recover": 0.54,
+          "cooldown": 1.36,
+          "lunge_speed": 310,
+          "hit_width": 100,
+          "hit_height": 68,
+          "offset": 56,
+          "telegraph": "d38c45",
+          "priority": 1.0,
+          "animation": "attack"
         }
-      ]
+      ],
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82
     },
     "rust_crown_guardian": {
       "move_speed": 58,
@@ -522,17 +2180,17 @@
       "preferred_range": 118,
       "attacks": [
         {
-          "id": "crown_slam",
+          "id": "boss_01_atk_01",
           "type": "aoe",
-          "range": 138,
+          "range": 168,
           "damage": 2,
-          "windup": 0.5903999999999999,
-          "active": 0.26,
-          "recover": 0.9,
-          "cooldown": 2.2319999999999998,
-          "hit_width": 280,
-          "hit_height": 116,
-          "telegraph": "d07b36",
+          "windup": 0.52,
+          "active": 0.28,
+          "recover": 0.82,
+          "cooldown": 2.15,
+          "hit_width": 300,
+          "hit_height": 126,
+          "telegraph": "78c26d",
           "priority": 2.95,
           "pose_power": 1.38,
           "windup_offset": [
@@ -559,22 +2217,24 @@
           "recover_offset": [
             0,
             5
-          ]
+          ],
+          "label": "Moss Bell Liturgy",
+          "animation": "boss_01_atk_01"
         },
         {
-          "id": "rust_charge",
-          "type": "lunge",
-          "range": 190,
+          "id": "boss_01_atk_02",
+          "type": "shockwave",
+          "range": 265,
           "damage": 2,
-          "windup": 0.4428,
-          "active": 0.36,
-          "recover": 0.95,
-          "cooldown": 2.052,
+          "windup": 0.46,
+          "active": 0.34,
+          "recover": 0.9,
+          "cooldown": 2.05,
           "lunge_speed": 370,
-          "hit_width": 132,
-          "hit_height": 100,
-          "offset": 72,
-          "telegraph": "b96032",
+          "hit_width": 310,
+          "hit_height": 66,
+          "offset": 154,
+          "telegraph": "6fa85d",
           "priority": 2.6500000000000004,
           "pose_power": 1.38,
           "windup_offset": [
@@ -600,22 +2260,24 @@
           "recover_scale": [
             0.96,
             1.04
-          ]
+          ],
+          "label": "Cradle of Roots",
+          "animation": "boss_01_atk_02"
         },
         {
-          "id": "bell_body_crush",
+          "id": "boss_01_atk_03",
           "type": "lunge",
-          "range": 160,
+          "range": 188,
           "damage": 1,
-          "windup": 0.328,
-          "active": 0.24,
-          "recover": 0.62,
-          "cooldown": 1.26,
+          "windup": 0.34,
+          "active": 0.26,
+          "recover": 0.64,
+          "cooldown": 1.42,
           "lunge_speed": 360,
-          "hit_width": 150,
-          "hit_height": 108,
-          "offset": 76,
-          "telegraph": "e0a542",
+          "hit_width": 168,
+          "hit_height": 118,
+          "offset": 84,
+          "telegraph": "a7d66f",
           "priority": 2.25,
           "pose_power": 1.38,
           "windup_offset": [
@@ -641,7 +2303,9 @@
           "recover_scale": [
             0.96,
             1.04
-          ]
+          ],
+          "label": "Matriarch Chime Rain",
+          "animation": "boss_01_atk_03"
         },
         {
           "id": "gear_knee",
@@ -888,15 +2552,67 @@
           ]
         }
       ]
+    },
+    "corridor_heavy": {
+      "move_speed": 42,
+      "aggro_range": 220.0,
+      "preferred_range": 58.0,
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82,
+      "attacks": [
+        {
+          "id": "heavy_body_check",
+          "type": "melee",
+          "range": 84,
+          "damage": 2,
+          "windup": 0.4,
+          "active": 0.2,
+          "recover": 0.66,
+          "cooldown": 1.55,
+          "hit_width": 104,
+          "hit_height": 74,
+          "offset": 48,
+          "telegraph": "c9764a",
+          "priority": 1.0,
+          "animation": "attack"
+        }
+      ]
+    },
+    "bellroot_acolyte": {
+      "move_speed": 34,
+      "aggro_range": 235.0,
+      "preferred_range": 86.0,
+      "attack_desire_threshold": 0.62,
+      "attack_desire_gain": 1.05,
+      "attack_desire_decay": 0.82,
+      "attacks": [
+        {
+          "id": "sigil_burst",
+          "type": "aoe",
+          "range": 86,
+          "damage": 1,
+          "windup": 0.38,
+          "active": 0.16,
+          "recover": 0.58,
+          "cooldown": 1.42,
+          "hit_width": 126,
+          "hit_height": 76,
+          "offset": 0,
+          "telegraph": "9bd7f0",
+          "priority": 1.0,
+          "animation": "attack"
+        }
+      ]
     }
   },
   "platforms": [
     {
       "id": "start_ground",
       "rect": [
-        0,
-        540,
-        760,
+        640,
+        840,
+        860,
         40
       ],
       "color": "1c2b1f",
@@ -905,9 +2621,9 @@
     {
       "id": "starter_step",
       "rect": [
-        430,
-        492,
-        180,
+        1138,
+        780,
+        176,
         24
       ],
       "color": "29402f",
@@ -916,20 +2632,31 @@
     {
       "id": "vista_bridge",
       "rect": [
-        600,
-        430,
-        360,
+        1360,
+        706,
+        320,
         26
       ],
       "color": "6d6645",
       "material": "bronze_bridge"
     },
     {
+      "id": "upper_gate_step",
+      "rect": [
+        1510,
+        638,
+        180,
+        24
+      ],
+      "color": "29402f",
+      "material": "moss_stone"
+    },
+    {
       "id": "under_gate_lip",
       "rect": [
-        860,
-        585,
-        300,
+        1540,
+        560,
+        210,
         28
       ],
       "color": "22351f",
@@ -938,9 +2665,9 @@
     {
       "id": "outer_drop",
       "rect": [
-        1180,
-        610,
-        650,
+        1660,
+        640,
+        360,
         34
       ],
       "color": "243a24",
@@ -949,9 +2676,9 @@
     {
       "id": "outer_low_bridge",
       "rect": [
-        1500,
-        548,
-        240,
+        2050,
+        580,
+        220,
         28
       ],
       "color": "2b442d",
@@ -960,9 +2687,9 @@
     {
       "id": "outer_return_lip",
       "rect": [
-        1760,
-        560,
-        220,
+        2190,
+        570,
+        190,
         26
       ],
       "color": "2b442d",
@@ -971,9 +2698,9 @@
     {
       "id": "gear_lift",
       "rect": [
-        1900,
+        2520,
         520,
-        380,
+        360,
         28
       ],
       "color": "6d6645",
@@ -982,9 +2709,9 @@
     {
       "id": "gear_lift_return_step",
       "rect": [
-        2240,
-        485,
-        210,
+        2910,
+        482,
+        180,
         26
       ],
       "color": "315032",
@@ -993,452 +2720,1838 @@
     {
       "id": "moss_steps_a",
       "rect": [
-        2380,
-        450,
-        330,
+        3130,
+        444,
+        280,
         28
       ],
       "color": "2f4c31",
       "material": "moss_stone"
     },
     {
-      "id": "moss_steps_b",
+      "id": "upper_route_preview",
       "rect": [
-        2820,
-        370,
+        3460,
+        392,
         340,
-        28
-      ],
-      "color": "365438",
-      "material": "moss_stone"
-    },
-    {
-      "id": "upper_respite",
-      "rect": [
-        3260,
-        410,
-        400,
-        28
-      ],
-      "color": "2e4a34",
-      "material": "moss_stone"
-    },
-    {
-      "id": "backdoor_room",
-      "rect": [
-        3680,
-        500,
-        540,
-        32
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "shortcut_upper",
-      "rect": [
-        1180,
-        390,
-        520,
         26
       ],
-      "color": "6f673d",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "boss_runback",
-      "rect": [
-        4200,
-        500,
-        1280,
-        34
-      ],
-      "color": "47362f",
-      "material": "boss_stone"
-    },
-    {
-      "id": "runback_overlook",
-      "rect": [
-        4680,
-        420,
-        360,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_echo_trench_floor",
-      "rect": [
-        5480,
-        540,
-        940,
-        34
-      ],
-      "color": "274526",
+      "color": "315032",
       "material": "moss_stone"
     },
     {
-      "id": "ch01_echo_trench_step",
+      "id": "mm_route_02_mm_floor",
       "rect": [
-        6200,
-        468,
-        360,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_echo_trench_exit",
-      "rect": [
-        6400,
-        540,
-        260,
-        34
-      ],
-      "color": "274526",
-      "material": "moss_stone"
-    },
-    {
-      "id": "ch01_old_rope_floor",
-      "rect": [
-        6620,
-        540,
-        980,
-        34
-      ],
-      "color": "294829",
-      "material": "moss_stone"
-    },
-    {
-      "id": "ch01_old_rope_mid_a",
-      "rect": [
-        6840,
-        470,
-        260,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_old_rope_mid_b",
-      "rect": [
-        7120,
-        420,
-        260,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_old_rope_upper_bridge",
-      "rect": [
-        6800,
-        388,
-        760,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_bell_tangle_floor",
-      "rect": [
-        7560,
-        500,
-        1000,
-        34
-      ],
-      "color": "263f29",
-      "material": "moss_stone"
-    },
-    {
-      "id": "ch01_bell_tangle_upper",
-      "rect": [
-        7900,
-        420,
-        560,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_tangle_drop",
-      "rect": [
-        8480,
-        500,
-        300,
-        34
-      ],
-      "color": "263f29",
-      "material": "moss_stone"
-    },
-    {
-      "id": "ch01_runback_after_tangle",
-      "rect": [
-        8720,
-        500,
-        620,
-        34
-      ],
-      "color": "47362f",
-      "material": "boss_stone"
-    },
-    {
-      "id": "ch01_pre_boss_step",
-      "rect": [
-        9140,
-        452,
-        360,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_lower_loop_floor",
-      "rect": [
-        8780,
-        610,
-        980,
-        34
-      ],
-      "color": "1c2b1f",
-      "material": "moss_stone"
-    },
-    {
-      "id": "ch01_lower_loop_mid",
-      "rect": [
-        9280,
-        520,
-        390,
-        28
-      ],
-      "color": "6d6645",
-      "material": "bronze_bridge"
-    },
-    {
-      "id": "ch01_lower_loop_exit_lip",
-      "rect": [
-        9700,
-        560,
-        220,
-        26
-      ],
-      "color": "1c2b1f",
-      "material": "moss_stone"
-    },
-    {
-      "id": "ch01_return_shaft_base",
-      "rect": [
-        9940,
-        540,
-        380,
+        2648,
+        1464,
+        1824,
         30
       ],
-      "color": "1c2b1f",
+      "color": "1f3d24",
       "material": "moss_stone"
     },
     {
-      "id": "ch01_return_shaft_step_a",
+      "id": "mm_route_02_climb_0",
       "rect": [
-        10240,
-        470,
-        270,
-        28
+        2720,
+        1386,
+        300,
+        24
       ],
-      "color": "6d6645",
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_02_climb_1",
+      "rect": [
+        3372,
+        1308,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "upper_bells_mm_floor",
+      "rect": [
+        3288,
+        1068,
+        1184,
+        30
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "upper_bells_climb_0",
+      "rect": [
+        3360,
+        990,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_06_climb_1",
+      "rect": [
+        4217,
+        714,
+        153,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_07_mm_floor",
+      "rect": [
+        3928,
+        1068,
+        1824,
+        30
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "backdoor_mm_floor",
+      "rect": [
+        3928,
+        2553,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "backdoor_climb_0",
+      "rect": [
+        4000,
+        2475,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "backdoor_climb_1",
+      "rect": [
+        4435,
+        2397,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_09_mm_floor",
+      "rect": [
+        4568,
+        672,
+        1184,
+        30
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_09_upper_ledge",
+      "rect": [
+        4673,
+        550,
+        520,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_09_climb_0",
+      "rect": [
+        4640,
+        594,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_09_climb_1",
+      "rect": [
+        5075,
+        516,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "runback_mm_floor",
+      "rect": [
+        4568,
+        1761,
+        1824,
+        30
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "runback_upper_ledge",
+      "rect": [
+        4750,
+        1585,
+        520,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "runback_climb_0",
+      "rect": [
+        4640,
+        1683,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "runback_climb_1",
+      "rect": [
+        5292,
+        1605,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "runback_climb_2",
+      "rect": [
+        4640,
+        1527,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "runback_climb_3",
+      "rect": [
+        5292,
+        1449,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_11_mm_floor",
+      "rect": [
+        5208,
+        1167,
+        2464,
+        30
+      ],
+      "color": "315066",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_return_shaft_step_b",
+      "id": "mm_route_12_mm_floor",
       "rect": [
-        10580,
-        400,
-        270,
-        28
+        5208,
+        2355,
+        1824,
+        30
       ],
-      "color": "6d6645",
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_12_climb_0",
+      "rect": [
+        5280,
+        2277,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_12_climb_1",
+      "rect": [
+        5932,
+        2199,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_12_climb_2",
+      "rect": [
+        5280,
+        2121,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_12_climb_3",
+      "rect": [
+        5932,
+        2043,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_13_mm_floor",
+      "rect": [
+        5208,
+        2574,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "echo_moss_trench_mm_floor",
+      "rect": [
+        5208,
+        3147,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "echo_moss_trench_climb_0",
+      "rect": [
+        5280,
+        3069,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "echo_moss_trench_climb_1",
+      "rect": [
+        5715,
+        2991,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "echo_moss_trench_climb_2",
+      "rect": [
+        5280,
+        2913,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "echo_moss_trench_climb_3",
+      "rect": [
+        5715,
+        2835,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_15_mm_floor",
+      "rect": [
+        5848,
+        1167,
+        1184,
+        30
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_15_upper_ledge",
+      "rect": [
+        5953,
+        991,
+        520,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_15_climb_0",
+      "rect": [
+        5920,
+        1089,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_15_climb_1",
+      "rect": [
+        6355,
+        1011,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_15_climb_2",
+      "rect": [
+        5920,
+        933,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_15_climb_3",
+      "rect": [
+        6355,
+        855,
+        300,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "mm_route_16_mm_floor",
+      "rect": [
+        5848,
+        2850,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_16_climb_0",
+      "rect": [
+        5920,
+        2772,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_16_climb_1",
+      "rect": [
+        6355,
+        2694,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "old_bell_rope_mm_floor",
+      "rect": [
+        6488,
+        1365,
+        1184,
+        30
+      ],
+      "color": "315066",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_upper_bridge",
+      "id": "old_bell_rope_climb_0",
       "rect": [
-        10840,
-        350,
-        880,
-        28
+        6560,
+        1287,
+        300,
+        24
       ],
-      "color": "6d6645",
+      "color": "315066",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_upper_hidden_save",
+      "id": "old_bell_rope_climb_1",
       "rect": [
-        11100,
-        350,
-        240,
-        28
+        6995,
+        1209,
+        300,
+        24
       ],
-      "color": "7a7046",
+      "color": "315066",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_upper_drop_step",
+      "id": "old_bell_rope_climb_2",
       "rect": [
-        11540,
-        430,
+        6560,
+        1131,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "old_bell_rope_climb_3",
+      "rect": [
+        6995,
+        1053,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_18_mm_floor",
+      "rect": [
+        6488,
+        1287,
+        1184,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_19_mm_floor",
+      "rect": [
+        7128,
+        1464,
+        1184,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "bell_leaf_tangle_mm_floor",
+      "rect": [
+        7128,
+        1662,
+        1824,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "bell_leaf_return_step_low",
+      "rect": [
+        7900,
+        1584,
         260,
-        28
+        24
       ],
-      "color": "6d6645",
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "bell_leaf_return_step_high",
+      "rect": [
+        7600,
+        1510,
+        260,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_21_mm_floor",
+      "rect": [
+        7128,
+        1959,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_22_mm_floor",
+      "rect": [
+        7128,
+        2157,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_23_mm_floor",
+      "rect": [
+        7128,
+        2652,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_23_climb_0",
+      "rect": [
+        7200,
+        2574,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_23_climb_1",
+      "rect": [
+        7635,
+        2496,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_23_climb_2",
+      "rect": [
+        7200,
+        2418,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_23_climb_3",
+      "rect": [
+        7635,
+        2340,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "lower_bell_cistern_mm_floor",
+      "rect": [
+        7768,
+        2157,
+        2464,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "lower_bell_cistern_climb_0",
+      "rect": [
+        7840,
+        2079,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "lower_bell_cistern_climb_1",
+      "rect": [
+        8710,
+        2001,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_25_mm_floor",
+      "rect": [
+        8408,
+        1662,
+        2464,
+        30
+      ],
+      "color": "315066",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_crossway_floor",
+      "id": "mm_route_25_climb_0",
       "rect": [
-        11740,
-        540,
-        900,
-        34
+        8480,
+        1584,
+        300,
+        24
       ],
-      "color": "1c2b1f",
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_25_climb_1",
+      "rect": [
+        9350,
+        1506,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_26_mm_floor",
+      "rect": [
+        9048,
+        1365,
+        544,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_26_climb_0",
+      "rect": [
+        9120,
+        1287,
+        153,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_26_climb_1",
+      "rect": [
+        9337,
+        1209,
+        153,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_26_climb_2",
+      "rect": [
+        9120,
+        1131,
+        153,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_26_climb_3",
+      "rect": [
+        9337,
+        1053,
+        153,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_27_mm_floor",
+      "rect": [
+        9688,
+        1959,
+        1824,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "cistern_pump_shaft_mm_floor",
+      "rect": [
+        9688,
+        2751,
+        1824,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "cistern_pump_shaft_climb_0",
+      "rect": [
+        9760,
+        2673,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "cistern_pump_shaft_climb_1",
+      "rect": [
+        10412,
+        2595,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "cistern_pump_shaft_climb_2",
+      "rect": [
+        9760,
+        2517,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "cistern_pump_shaft_climb_3",
+      "rect": [
+        10412,
+        2439,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_29_mm_floor",
+      "rect": [
+        10328,
+        1266,
+        1824,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "upper_crown_rafters_mm_floor",
+      "rect": [
+        10328,
+        1485,
+        2464,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_31_mm_floor",
+      "rect": [
+        10328,
+        2355,
+        1824,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_31_climb_0",
+      "rect": [
+        10400,
+        2277,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_31_climb_1",
+      "rect": [
+        11052,
+        2199,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_32_mm_floor",
+      "rect": [
+        10968,
+        1782,
+        544,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "bellmaker_crossway_mm_floor",
+      "rect": [
+        10968,
+        1959,
+        1184,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_34_mm_floor",
+      "rect": [
+        10968,
+        2553,
+        1184,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_35_mm_floor",
+      "rect": [
+        11608,
+        1662,
+        1824,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_35_climb_0",
+      "rect": [
+        11680,
+        1584,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_35_climb_1",
+      "rect": [
+        12332,
+        1506,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_35_climb_2",
+      "rect": [
+        11680,
+        1428,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_35_climb_3",
+      "rect": [
+        12332,
+        1350,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "pre_boss_belfry_mm_floor",
+      "rect": [
+        11608,
+        1761,
+        1184,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_37_mm_floor",
+      "rect": [
+        12248,
+        2157,
+        1824,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_37_climb_0",
+      "rect": [
+        12320,
+        2079,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_37_climb_1",
+      "rect": [
+        12972,
+        2001,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_37_climb_2",
+      "rect": [
+        12320,
+        1923,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_37_climb_3",
+      "rect": [
+        12972,
+        1845,
+        300,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_38_mm_floor",
+      "rect": [
+        12248,
+        2454,
+        1824,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_38_climb_0",
+      "rect": [
+        12320,
+        2376,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_38_climb_1",
+      "rect": [
+        12972,
+        2298,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_38_climb_2",
+      "rect": [
+        12320,
+        2220,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_38_climb_3",
+      "rect": [
+        12972,
+        2142,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_39_mm_floor",
+      "rect": [
+        12248,
+        2850,
+        1824,
+        30
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_39_climb_0",
+      "rect": [
+        12320,
+        2772,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_39_climb_1",
+      "rect": [
+        12972,
+        2694,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_39_climb_2",
+      "rect": [
+        12320,
+        2616,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_39_climb_3",
+      "rect": [
+        12972,
+        2538,
+        300,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_40_mm_floor",
+      "rect": [
+        12888,
+        1761,
+        1184,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_41_mm_floor",
+      "rect": [
+        12888,
+        1959,
+        1184,
+        30
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "mm_route_42_mm_floor",
+      "rect": [
+        12888,
+        2454,
+        1184,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_43_mm_floor",
+      "rect": [
+        13528,
+        2652,
+        1184,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_44_mm_floor",
+      "rect": [
+        14168,
+        1662,
+        1184,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_44_climb_0",
+      "rect": [
+        14240,
+        1584,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_44_climb_1",
+      "rect": [
+        14675,
+        1506,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_45_mm_floor",
+      "rect": [
+        14168,
+        1860,
+        544,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_45_climb_0",
+      "rect": [
+        14240,
+        1782,
+        153,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_45_climb_1",
+      "rect": [
+        14457,
+        1704,
+        153,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_46_mm_floor",
+      "rect": [
+        14168,
+        2376,
+        1184,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_47_mm_floor",
+      "rect": [
+        14808,
+        1860,
+        2464,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_48_mm_floor",
+      "rect": [
+        14808,
+        2256,
+        2464,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_49_mm_floor",
+      "rect": [
+        14808,
+        2553,
+        2464,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_49_climb_0",
+      "rect": [
+        14880,
+        2475,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_49_climb_1",
+      "rect": [
+        15750,
+        2397,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "mm_route_50_mm_floor",
+      "rect": [
+        16088,
+        2157,
+        1824,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_chamber_mm_floor",
+      "rect": [
+        17368,
+        2454,
+        1184,
+        30
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_chamber_upper_ledge",
+      "rect": [
+        17473,
+        2278,
+        520,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_chamber_climb_0",
+      "rect": [
+        17440,
+        2376,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_chamber_climb_1",
+      "rect": [
+        17875,
+        2298,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_chamber_climb_2",
+      "rect": [
+        17440,
+        2220,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "boss_chamber_climb_3",
+      "rect": [
+        17875,
+        2142,
+        300,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "chapter_exit_mm_floor",
+      "rect": [
+        18648,
+        2179,
+        264,
+        30
+      ],
+      "color": "4b5960",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_05_01",
+      "rect": [
+        4195,
+        1002,
+        170,
+        24
+      ],
+      "color": "1f3d24",
       "material": "moss_stone"
     },
     {
-      "id": "ch01_crossway_upper",
+      "id": "route_step_06_01",
       "rect": [
-        12180,
-        452,
-        380,
-        28
+        4195,
+        936,
+        170,
+        24
       ],
-      "color": "6d6645",
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "route_step_06_02",
+      "rect": [
+        4035,
+        1002,
+        170,
+        24
+      ],
+      "color": "1f3d24",
+      "material": "moss_stone"
+    },
+    {
+      "id": "route_step_18_01",
+      "rect": [
+        7395,
+        1346,
+        170,
+        24
+      ],
+      "color": "315066",
       "material": "bronze_bridge"
     },
     {
-      "id": "ch01_preboss_floor",
+      "id": "route_step_18_02",
       "rect": [
-        12580,
-        540,
-        660,
-        34
+        7235,
+        1405,
+        170,
+        24
       ],
-      "color": "47362f",
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_23_01",
+      "rect": [
+        8109,
+        2553,
+        150,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_23_02",
+      "rect": [
+        8013,
+        2454,
+        150,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_23_03",
+      "rect": [
+        7917,
+        2355,
+        150,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_23_04",
+      "rect": [
+        7821,
+        2256,
+        150,
+        24
+      ],
+      "color": "47345e",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_32_01",
+      "rect": [
+        11235,
+        1841,
+        170,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_32_02",
+      "rect": [
+        11075,
+        1900,
+        170,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_36_01",
+      "rect": [
+        12579,
+        1840,
+        170,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_36_02",
+      "rect": [
+        12483,
+        1919,
+        170,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_36_03",
+      "rect": [
+        12387,
+        1999,
+        170,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_36_04",
+      "rect": [
+        12291,
+        2078,
+        170,
+        24
+      ],
+      "color": "315066",
+      "material": "bronze_bridge"
+    },
+    {
+      "id": "route_step_42_01",
+      "rect": [
+        13795,
+        2520,
+        170,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_42_02",
+      "rect": [
+        13635,
+        2586,
+        170,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_45_01",
+      "rect": [
+        14509,
+        1963,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_45_02",
+      "rect": [
+        14413,
+        2066,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_45_03",
+      "rect": [
+        14317,
+        2170,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_45_04",
+      "rect": [
+        14221,
+        2273,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_46_01",
+      "rect": [
+        15149,
+        2273,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_46_02",
+      "rect": [
+        15053,
+        2170,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_46_03",
+      "rect": [
+        14957,
+        2066,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_46_04",
+      "rect": [
+        14861,
+        1963,
+        150,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_50_01",
+      "rect": [
+        17675,
+        2231,
+        170,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_50_02",
+      "rect": [
+        17555,
+        2306,
+        170,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_50_03",
+      "rect": [
+        17435,
+        2380,
+        170,
+        24
+      ],
+      "color": "5a2d2d",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_51_01",
+      "rect": [
+        18485,
+        2385,
+        150,
+        24
+      ],
+      "color": "4b5960",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_51_02",
+      "rect": [
+        18525,
+        2316,
+        150,
+        24
+      ],
+      "color": "4b5960",
+      "material": "boss_stone"
+    },
+    {
+      "id": "route_step_51_03",
+      "rect": [
+        18565,
+        2248,
+        150,
+        24
+      ],
+      "color": "4b5960",
       "material": "boss_stone"
     },
     {
       "id": "boss_floor",
       "rect": [
-        13240,
-        500,
-        1080,
+        17390,
+        2454,
+        1140,
         44
       ],
-      "color": "47362f",
+      "color": "5a2d2d",
       "material": "boss_stone"
     },
     {
       "id": "boss_entry_lip",
       "rect": [
-        13100,
-        540,
-        170,
+        17160,
+        2494,
+        220,
         34
       ],
-      "color": "47362f",
+      "color": "5a2d2d",
       "material": "boss_stone"
     },
     {
       "id": "boss_back_wall",
       "rect": [
-        14320,
-        300,
+        18558,
+        2244,
         38,
-        244
+        254
       ],
-      "color": "47362f",
+      "color": "5a2d2d",
       "material": "boss_stone"
     },
     {
       "id": "ch01_post_boss_run_step",
       "rect": [
-        14300,
-        500,
+        18480,
+        2454,
         300,
         34
       ],
-      "color": "47362f",
+      "color": "5a2d2d",
       "material": "boss_stone"
     },
     {
       "id": "ch01_exit_runup",
       "rect": [
-        14440,
-        500,
-        190,
+        18480,
+        2179,
+        180,
         34
       ],
-      "color": "47362f",
+      "color": "5a2d2d",
       "material": "boss_stone"
     },
     {
       "id": "ch01_exit_floor",
       "rect": [
-        14480,
-        520,
-        320,
+        18620,
+        2179,
+        360,
         34
       ],
-      "color": "47362f",
-      "material": "boss_stone"
-    },
-    {
-      "id": "ch01_late_route_link_01",
-      "rect": [
-        9340,
-        500,
-        360,
-        30
-      ],
-      "color": "47362f",
-      "material": "boss_stone"
-    },
-    {
-      "id": "ch01_late_route_link_02",
-      "rect": [
-        9700,
-        500,
-        1500,
-        30
-      ],
-      "color": "47362f",
-      "material": "boss_stone"
-    },
-    {
-      "id": "ch01_late_route_link_03",
-      "rect": [
-        11200,
-        500,
-        1540,
-        30
-      ],
-      "color": "47362f",
-      "material": "boss_stone"
-    },
-    {
-      "id": "ch01_late_route_link_04",
-      "rect": [
-        12740,
-        500,
-        1880,
-        30
-      ],
-      "color": "47362f",
+      "color": "4b5960",
       "material": "boss_stone"
     }
   ],
@@ -1449,96 +4562,128 @@
       "kind": "fake_moss_floor",
       "rect": [
         700,
-        406,
+        814,
         110,
         24
       ],
+      "position": [
+        755,
+        826
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_outer_gap",
       "kind": "bell_gap",
       "rect": [
         1600,
-        586,
+        846,
         110,
         24
       ],
+      "position": [
+        1655,
+        858
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_upper_leaf",
       "kind": "spore_chest",
       "rect": [
-        3010,
-        346,
+        3590,
+        72,
         110,
         24
       ],
+      "position": [
+        3645,
+        84
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_runback_lamp",
       "kind": "false_lamp",
       "rect": [
-        4860,
-        476,
+        7620,
+        1074,
         110,
         24
       ],
+      "position": [
+        7675,
+        1086
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_rope_clapper",
       "kind": "falling_clapper",
       "rect": [
-        7040,
-        516,
+        8950,
+        1450,
         110,
         24
       ],
+      "position": [
+        9005,
+        1462
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_lower_bite",
       "kind": "fake_moss_floor",
       "rect": [
-        9260,
-        586,
+        9720,
+        2710,
         110,
         24
       ],
+      "position": [
+        9775,
+        2722
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_crossway",
       "kind": "spore_chest",
       "rect": [
-        12160,
-        516,
+        12580,
+        1840,
         110,
         24
       ],
+      "position": [
+        12635,
+        1852
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     },
     {
       "id": "ch01_hazard_boss_ante",
       "kind": "falling_clapper",
       "rect": [
-        12920,
-        516,
+        17470,
+        2430,
         110,
         24
       ],
+      "position": [
+        17525,
+        2442
+      ],
       "damage": 1,
-      "message": "旧苔钟机关被触发，巡礼者被迫后撤。"
+      "message": "Old moss machinery snaps shut."
     }
   ],
   "collectibles": [],
@@ -1547,8 +4692,8 @@
       "id": "shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        4331,
+        2513
       ],
       "requires_keys": 0,
       "label": "后门捷径拉杆"
@@ -1557,8 +4702,8 @@
       "id": "boss_gate",
       "kind": "boss_gate",
       "position": [
-        13420,
-        460
+        17550,
+        2414
       ]
     },
     {
@@ -1566,8 +4711,8 @@
       "kind": "chapter_exit",
       "label": "前往第二章：铸雨渠",
       "position": [
-        14620,
-        480
+        18843,
+        2139
       ],
       "next_runtime_config_id": "demo_ch02_rain_foundry_canal",
       "next_config_path": "res://data/demo_ch02_rain_foundry_canal.json",
@@ -1583,8 +4728,8 @@
       "id": "npc_threadsmith_apprentice",
       "name": "织线学徒",
       "position": [
-        320,
-        500
+        778,
+        800
       ],
       "role": "threadsmith",
       "dialogue": [
@@ -1600,8 +4745,8 @@
       "id": "npc_gate_pilgrim",
       "name": "守门朝圣者",
       "position": [
-        735,
-        500
+        1294,
+        800
       ],
       "role": "pilgrim",
       "dialogue": [
@@ -1617,7 +4762,7 @@
       "id": "npc_lift_cartographer",
       "name": "升台绘图师",
       "position": [
-        2100,
+        2707,
         480
       ],
       "role": "cartographer",
@@ -1634,8 +4779,8 @@
       "id": "npc_backdoor_sacristan",
       "name": "后门司铃人",
       "position": [
-        3740,
-        460
+        4212,
+        2513
       ],
       "role": "sacristan",
       "dialogue": [
@@ -1651,8 +4796,8 @@
       "id": "npc_runback_scout",
       "name": "回廊斥候",
       "position": [
-        4380,
-        460
+        5206,
+        1721
       ],
       "role": "scout",
       "dialogue": [
@@ -1671,24 +4816,24 @@
       "id": "E01",
       "kind": "moss_larva",
       "position": [
-        1410,
-        570
+        1782,
+        600
       ],
       "platform_id": "outer_drop",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 1.55,
+      "visual_scale": 0.82,
       "visual_offset": [
         0,
-        0
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
       "source_sprite_region": [
@@ -1701,42 +4846,69 @@
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
       "patrol": 90,
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "E02",
       "kind": "bronze_moth",
       "position": [
-        2160,
+        2758,
         480
       ],
       "platform_id": "gear_lift",
@@ -1744,81 +4916,108 @@
       "sprite_region": [
         0,
         0,
-        36,
-        36
+        128,
+        128
       ],
-      "visual_scale": 1.08,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
-        -10
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        54,
+        36,
         36
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          36,
-          36
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          36,
-          36
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ]
       },
       "patrol": 80,
-      "leash_radius": 200
+      "leash_radius": 200,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "E03",
       "kind": "spore_bellmaker",
       "position": [
-        2990,
-        330
+        3939,
+        1028
       ],
-      "platform_id": "moss_steps_b",
+      "platform_id": "upper_bells_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/manifest.json",
       "sprite_region": [
         0,
         0,
-        45,
-        66
+        128,
+        128
       ],
-      "visual_scale": 0.92,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -6
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
       "source_sprite_region": [
@@ -1831,59 +5030,86 @@
         "idle": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          45,
-          66
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          45,
-          66
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ]
       },
       "patrol": 70,
-      "leash_radius": 180
+      "leash_radius": 180,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "E04",
       "kind": "moss_larva",
       "position": [
-        3930,
-        460
+        4425,
+        2513
       ],
-      "platform_id": "backdoor_room",
+      "platform_id": "backdoor_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 1.55,
+      "visual_scale": 0.82,
       "visual_offset": [
         0,
-        0
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
       "source_sprite_region": [
@@ -1896,59 +5122,86 @@
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
       "patrol": 80,
-      "leash_radius": 180
+      "leash_radius": 180,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "E05",
       "kind": "gear_sentinel",
       "position": [
-        5160,
-        460
+        5881,
+        1721
       ],
-      "platform_id": "boss_runback",
+      "platform_id": "runback_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
       "sprite_region": [
         0,
         0,
-        64,
-        72
+        128,
+        128
       ],
-      "visual_scale": 0.82,
+      "visual_scale": 0.76,
       "visual_offset": [
         0,
-        -7
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
       "source_sprite_region": [
@@ -1961,124 +5214,178 @@
         "idle": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          64,
-          72
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          64,
-          72
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ]
       },
       "patrol": 100,
-      "leash_radius": 230
+      "leash_radius": 230,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH01_E_EXP01",
       "kind": "bronze_moth",
       "position": [
-        6300,
-        500
+        5942,
+        3107
       ],
-      "platform_id": "ch01_echo_trench_floor",
+      "platform_id": "echo_moss_trench_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/manifest.json",
       "sprite_region": [
         0,
         0,
-        36,
-        36
+        128,
+        128
       ],
-      "visual_scale": 1.08,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
-        -10
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        54,
+        36,
         36
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          36,
-          36
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          36,
-          36
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ]
       },
       "patrol": 90,
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH01_E_EXP02",
       "kind": "spore_bellmaker",
       "position": [
-        7180,
-        348
+        7021,
+        1325
       ],
-      "platform_id": "ch01_old_rope_upper_bridge",
+      "platform_id": "old_bell_rope_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/manifest.json",
       "sprite_region": [
         0,
         0,
-        45,
-        66
+        128,
+        128
       ],
-      "visual_scale": 0.92,
+      "visual_scale": 0.84,
       "visual_offset": [
         0,
-        -6
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
       "source_sprite_region": [
@@ -2091,59 +5398,86 @@
         "idle": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          45,
-          66
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          45,
-          66
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ]
       },
       "patrol": 80,
-      "leash_radius": 190
+      "leash_radius": 190,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH01_E_EXP03",
       "kind": "moss_larva",
       "position": [
-        8200,
-        460
+        8259,
+        1622
       ],
-      "platform_id": "ch01_bell_tangle_floor",
+      "platform_id": "bell_leaf_tangle_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 1.55,
+      "visual_scale": 0.82,
       "visual_offset": [
         0,
-        0
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
       "source_sprite_region": [
@@ -2156,59 +5490,86 @@
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
       "patrol": 90,
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH01_E_EXP04",
       "kind": "gear_sentinel",
       "position": [
-        9130,
-        460
+        9000,
+        2117
       ],
-      "platform_id": "ch01_runback_after_tangle",
+      "platform_id": "lower_bell_cistern_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
       "sprite_region": [
         0,
         0,
-        64,
-        72
+        128,
+        128
       ],
-      "visual_scale": 0.82,
+      "visual_scale": 0.76,
       "visual_offset": [
         0,
-        -7
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
       "source_sprite_region": [
@@ -2221,59 +5582,86 @@
         "idle": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          64,
-          72
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          64,
-          72
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ]
       },
       "patrol": 90,
-      "leash_radius": 200
+      "leash_radius": 200,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH01_E_EXP05",
       "kind": "moss_larva",
       "position": [
-        9580,
-        570
+        10418,
+        2711
       ],
-      "platform_id": "ch01_lower_loop_floor",
+      "platform_id": "cistern_pump_shaft_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
       "sprite_region": [
         0,
         0,
-        32,
-        32
+        128,
+        128
       ],
-      "visual_scale": 1.55,
+      "visual_scale": 0.82,
       "visual_offset": [
         0,
-        0
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png",
       "source_sprite_region": [
@@ -2286,382 +5674,449 @@
         "idle": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          32,
-          32
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          32,
-          32
+          128,
+          128
         ]
       },
       "patrol": 90,
-      "leash_radius": 220
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH01_E_EXP06",
       "kind": "bronze_moth",
       "position": [
-        11420,
-        310
+        11708,
+        1445
       ],
-      "platform_id": "ch01_upper_bridge",
+      "platform_id": "upper_crown_rafters_mm_floor",
       "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/manifest.json",
       "sprite_region": [
         0,
         0,
-        36,
-        36
+        128,
+        128
       ],
-      "visual_scale": 1.08,
+      "visual_scale": 0.92,
       "visual_offset": [
         0,
-        -10
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        54,
+        36,
         36
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          36,
-          36
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          36,
-          36
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          36,
-          36
+          128,
+          128
         ]
       },
       "patrol": 80,
-      "leash_radius": 190
+      "leash_radius": 190,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58
     },
     {
       "id": "CH01_E_EXP07",
-      "kind": "spore_bellmaker",
+      "kind": "bellroot_acolyte",
       "position": [
-        12120,
-        500
+        11797,
+        1919
       ],
-      "platform_id": "ch01_crossway_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/manifest.json",
+      "platform_id": "bellmaker_crossway_mm_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bellroot_acolyte/manifest.json",
       "sprite_region": [
         0,
         0,
-        45,
-        66
+        128,
+        128
       ],
-      "visual_scale": 0.92,
+      "visual_scale": 0.76,
       "visual_offset": [
         0,
-        -6
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-andromalius-57x88-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        45,
-        66
+        57,
+        88
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          45,
-          66
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          45,
-          66
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          45,
-          66
+          128,
+          128
         ]
       },
       "patrol": 80,
-      "leash_radius": 190
+      "leash_radius": 190,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72
     },
     {
       "id": "CH01_E_EXP08",
-      "kind": "gear_sentinel",
+      "kind": "corridor_heavy",
       "position": [
-        12860,
-        500
+        12200,
+        1721
       ],
-      "platform_id": "ch01_preboss_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
+      "platform_id": "pre_boss_belfry_mm_floor",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/corridor_heavy/manifest.json",
       "sprite_region": [
         0,
         0,
-        64,
-        72
+        128,
+        128
       ],
-      "visual_scale": 0.82,
+      "visual_scale": 0.78,
       "visual_offset": [
         0,
-        -7
+        -8
       ],
-      "visual_modulate": "e2fff2",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
       "source_sprite_region": [
         0,
         0,
-        64,
-        72
+        80,
+        80
       ],
       "sprite_regions": {
         "idle": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ],
         "walk": [
           0,
           0,
-          64,
-          72
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "attack": [
           0,
           0,
-          64,
-          72
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
         ],
         "hurt": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ],
         "death": [
           0,
           0,
-          64,
-          72
+          128,
+          128
         ]
       },
       "patrol": 80,
-      "leash_radius": 180
+      "leash_radius": 180,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72
     }
   ],
   "boss": {
-    "name": "锈冠守卫",
+    "name": "苔钟守母",
     "reward_item": "crown_splinter",
-    "id": "B01",
+    "id": "boss_01",
     "kind": "rust_crown_guardian",
     "position": [
-      13920,
-      460
+      18028,
+      2414
     ],
     "hp": 22,
     "damage": 1,
     "patrol": 260,
-    "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/manifest.json",
-    "sprite_region": [
-      0,
-      0,
-      80,
-      80
-    ],
-    "visual_scale": 1.58,
+    "sprite": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
+    "visual_scale": 0.92,
     "visual_offset": [
       0,
-      -12
+      -38
     ],
-    "visual_modulate": "e2fff2",
-    "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0",
-    "visual_role": "dark_fantasy_boss",
+    "platform_id": "boss_floor",
+    "clearance": 40,
+    "spawn_half_width": 98,
+    "spawn_visual_height": 210,
+    "visual_modulate": "ffffff",
+    "visual_source": "High-fidelity Boss Concept Pack / boss_01_moss_bell_matriarch",
+    "visual_role": "high_fidelity_boss_01_moss_bell_matriarch",
     "body_size": [
-      148,
-      134
+      164,
+      150
     ],
     "hurtbox_size": [
-      166,
-      156
+      178,
+      172
     ],
     "hurtbox_offset": [
       0,
-      -46
+      -58
     ],
-    "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-    "source_sprite_region": [
-      0,
-      0,
-      80,
-      80
-    ],
-    "sprite_regions": {
-      "idle": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "walk": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "attack": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "hurt": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "death": [
-        0,
-        0,
-        80,
-        80
-      ]
-    },
-    "arena_min_x": 13320,
-    "arena_max_x": 14180
+    "arena_min_x": 17430,
+    "arena_max_x": 18420
   },
   "labels": [
     {
-      "text": "入口：先学跳跃、交互和第一条上层视线。",
+      "text": "起点：左侧绿色区第二个平台",
       "position": [
-        180,
-        458
+        860,
+        790
       ],
       "color": "9ef0dc"
     },
     {
-      "text": "外庭：下层绕行，敌群间距更宽。",
+      "text": "绿区：教学与第一段回爬",
       "position": [
-        1320,
-        570
+        1140,
+        450
       ],
-      "color": "e6d28c"
+      "color": "baf4a6"
     },
     {
-      "text": "钟绳井：从下层回到上层，形成第一章核心回环。",
+      "text": "蓝区：ManiaMap 中线长房间",
       "position": [
-        6720,
-        340
+        7600,
+        990
       ],
       "color": "c7e6ff"
     },
     {
-      "text": "王冠上梁：隐藏存档，奖励探索。",
+      "text": "紫区：下层绕行和回升井",
       "position": [
-        10880,
-        300
+        9100,
+        2210
       ],
-      "color": "9ef0dc"
+      "color": "dcb2ff"
     },
     {
-      "text": "首领前：存档、提示、短冲刺后进入锈冠大厅。",
+      "text": "红区：Boss 门与战后出口",
       "position": [
-        12480,
-        466
+        15580,
+        1760
       ],
       "color": "f2b873"
     }
   ],
-  "completion_message": "DEMO COMPLETE: 锈冠守卫已被击败，王冠裂片已回收",
-  "completion_toast": "第一章闭环完成：苔钟庭清怪、Boss门和王冠裂片均已验证。",
+  "completion_message": "DEMO COMPLETE: 苔钟守母已被击败，王冠裂片已回收",
+  "completion_toast": "第一章闭环完成：苔钟庭清怪、Boss门和苔钟守母均已验证。",
   "enemy_drop_item": "moss_chitin",
   "save_points": [
     {
       "id": "save_hidden_upper_respite",
       "label": "隐苔存档点",
       "position": [
-        11180,
-        310
+        10821,
+        1445
       ],
       "hidden": true,
-      "note": "藏在王冠上梁的稀疏存档点，奖励探索上层路线。"
+      "note": "藏在上层王冠梁，奖励探索高路线。"
     },
     {
       "id": "save_late_runback",
-      "label": "首领前回响苔灯",
+      "label": "首领前苔灯",
       "position": [
-        12760,
-        500
+        12437,
+        1721
       ],
       "hidden": false,
-      "note": "Boss 前中段存档点，避免第一章后半段重复跑图过长。"
+      "note": "红区 Boss 前的稳定后段检查点。"
     }
   ],
-  "fall_y": 820,
+  "fall_y": 3520,
   "chapter_transition": {
     "from_runtime_config_id": "demo_ch01_moss_bell_court",
     "to_runtime_config_id": "demo_ch02_rain_foundry_canal",
@@ -2670,7 +6125,7 @@
     "entry_hint": "锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。"
   },
   "art_theme": "moss_cavern",
-  "map_title": "苔钟庭：外庭下阶 / 旧钟绳井 / 王冠回廊",
+  "map_title": "苔钟庭：ManiaMap 二维房间版",
   "progression_mode": "combat_clear",
   "asset_policy": {
     "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
@@ -2696,11 +6151,10 @@
       "room_id": "old_bell_rope",
       "technique": "vertical rope shaft into upper shortcut",
       "platforms": [
-        "ch01_old_rope_floor",
-        "ch01_old_rope_mid_a",
-        "ch01_old_rope_mid_b",
-        "ch01_old_rope_upper_bridge",
-        "ch01_bell_tangle_upper"
+        "old_bell_rope_mm_floor",
+        "old_bell_rope_climb_0",
+        "old_bell_rope_climb_1",
+        "bell_leaf_tangle_mm_floor"
       ]
     },
     {
@@ -2708,11 +6162,9 @@
       "room_id": "lower_bell_cistern",
       "technique": "lower detour, return shaft, upper bridge",
       "platforms": [
-        "ch01_lower_loop_floor",
-        "ch01_return_shaft_base",
-        "ch01_return_shaft_step_a",
-        "ch01_return_shaft_step_b",
-        "ch01_upper_bridge"
+        "lower_bell_cistern_mm_floor",
+        "cistern_pump_shaft_mm_floor",
+        "upper_crown_rafters_mm_floor"
       ]
     },
     {
@@ -2720,132 +6172,709 @@
       "room_id": "pre_boss_belfry",
       "technique": "short sprint, jump cancel, safe landing",
       "platforms": [
-        "ch01_crossway_floor",
-        "ch01_crossway_upper",
-        "ch01_preboss_floor",
+        "bellmaker_crossway_mm_floor",
+        "pre_boss_belfry_mm_floor",
         "boss_floor"
       ]
     }
   ],
   "map_layout_tags": [
-    "from_scratch_ch01",
-    "horizontal_mainline",
+    "maniamap_generated",
+    "maniamap_2d_layout",
+    "green_second_platform_start",
+    "actual_room_rects",
     "upper_shortcut",
     "lower_detour",
-    "vertical_shaft",
-    "opened_shortcut",
     "boss_antechamber"
   ],
   "connections": [
     {
       "from": "entry_bell",
       "to": "outer_court",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "outer_court",
+      "to": "mm_route_02",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_02",
       "to": "gear_lift",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "gear_lift",
+      "to": "mm_route_04",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_04",
       "to": "upper_bells",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "upper_bells",
+      "to": "mm_route_06",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_06",
+      "to": "mm_route_07",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_07",
       "to": "backdoor",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "backdoor",
+      "to": "mm_route_09",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_09",
       "to": "runback",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "runback",
+      "to": "mm_route_11",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_11",
+      "to": "mm_route_12",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_12",
+      "to": "mm_route_13",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_13",
       "to": "echo_moss_trench",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "echo_moss_trench",
+      "to": "mm_route_15",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_15",
+      "to": "mm_route_16",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_16",
       "to": "old_bell_rope",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "old_bell_rope",
+      "to": "mm_route_18",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_18",
+      "to": "mm_route_19",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_19",
       "to": "bell_leaf_tangle",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "bell_leaf_tangle",
+      "to": "mm_route_21",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_21",
+      "to": "mm_route_22",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_22",
+      "to": "mm_route_23",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_23",
       "to": "lower_bell_cistern",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "lower_bell_cistern",
+      "to": "mm_route_25",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_25",
+      "to": "mm_route_26",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_26",
+      "to": "mm_route_27",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_27",
       "to": "cistern_pump_shaft",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "cistern_pump_shaft",
+      "to": "mm_route_29",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_29",
       "to": "upper_crown_rafters",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "upper_crown_rafters",
+      "to": "mm_route_31",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_31",
+      "to": "mm_route_32",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_32",
       "to": "bellmaker_crossway",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "bellmaker_crossway",
+      "to": "mm_route_34",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_34",
+      "to": "mm_route_35",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_35",
       "to": "pre_boss_belfry",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "pre_boss_belfry",
+      "to": "mm_route_37",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_37",
+      "to": "mm_route_38",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_38",
+      "to": "mm_route_39",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_39",
+      "to": "mm_route_40",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_40",
+      "to": "mm_route_41",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_41",
+      "to": "mm_route_42",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_42",
+      "to": "mm_route_43",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_43",
+      "to": "mm_route_44",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_44",
+      "to": "mm_route_45",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_45",
+      "to": "mm_route_46",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_46",
+      "to": "mm_route_47",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_47",
+      "to": "mm_route_48",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_48",
+      "to": "mm_route_49",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_49",
+      "to": "mm_route_50",
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "mm_route_50",
       "to": "boss_chamber",
-      "type": "passage"
+      "type": "main_maniamap_route"
     },
     {
       "from": "boss_chamber",
       "to": "chapter_exit",
-      "type": "passage"
+      "type": "main_maniamap_route"
+    },
+    {
+      "from": "old_bell_rope",
+      "to": "mm_route_11",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_11",
+      "to": "mm_route_18",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_18",
+      "to": "mm_route_19",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_19",
+      "to": "mm_route_25",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_25",
+      "to": "mm_route_27",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_27",
+      "to": "bellmaker_crossway",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "bellmaker_crossway",
+      "to": "mm_route_32",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_32",
+      "to": "upper_crown_rafters",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "old_bell_rope",
+      "to": "mm_route_26",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "upper_crown_rafters",
+      "to": "mm_route_29",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_29",
+      "to": "mm_route_26",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_29",
+      "to": "mm_route_35",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_35",
+      "to": "mm_route_44",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_27",
+      "to": "mm_route_31",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_31",
+      "to": "mm_route_38",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_38",
+      "to": "mm_route_42",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_42",
+      "to": "mm_route_46",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_46",
+      "to": "mm_route_48",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_44",
+      "to": "mm_route_45",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_48",
+      "to": "mm_route_47",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_47",
+      "to": "mm_route_45",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "old_bell_rope",
+      "to": "mm_route_15",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_15",
+      "to": "upper_bells",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "upper_bells",
+      "to": "mm_route_07",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_07",
+      "to": "mm_route_02",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_02",
+      "to": "runback",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "runback",
+      "to": "bell_leaf_tangle",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "bell_leaf_tangle",
+      "to": "mm_route_21",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_21",
+      "to": "mm_route_22",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_22",
+      "to": "lower_bell_cistern",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "lower_bell_cistern",
+      "to": "mm_route_23",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_23",
+      "to": "cistern_pump_shaft",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "cistern_pump_shaft",
+      "to": "mm_route_34",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_34",
+      "to": "mm_route_39",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_39",
+      "to": "mm_route_43",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_43",
+      "to": "mm_route_49",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_49",
+      "to": "mm_route_50",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_50",
+      "to": "mm_route_47",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "bellmaker_crossway",
+      "to": "pre_boss_belfry",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "pre_boss_belfry",
+      "to": "mm_route_37",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_37",
+      "to": "mm_route_41",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_41",
+      "to": "mm_route_40",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "upper_bells",
+      "to": "mm_route_06",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_06",
+      "to": "mm_route_04",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_04",
+      "to": "mm_route_09",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_04",
+      "to": "entry_bell",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "entry_bell",
+      "to": "outer_court",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_04",
+      "to": "gear_lift",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_22",
+      "to": "mm_route_12",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_12",
+      "to": "backdoor",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "backdoor",
+      "to": "mm_route_13",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_13",
+      "to": "mm_route_16",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_16",
+      "to": "echo_moss_trench",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "mm_route_50",
+      "to": "boss_chamber",
+      "type": "maniamap_door"
+    },
+    {
+      "from": "boss_chamber",
+      "to": "chapter_exit",
+      "type": "post_boss_exit"
     },
     {
       "from": "entry_bell",
       "to": "upper_bells",
-      "type": "visible_shortcut"
+      "type": "visible_upper_shortcut"
     },
     {
       "from": "outer_court",
       "to": "gear_lift",
       "type": "lower_return"
-    },
-    {
-      "from": "runback",
-      "to": "echo_moss_trench",
-      "type": "drop_route"
-    },
-    {
-      "from": "lower_bell_cistern",
-      "to": "cistern_pump_shaft",
-      "type": "lower_return"
-    },
-    {
-      "from": "old_bell_rope",
-      "to": "upper_crown_rafters",
-      "type": "upper_shortcut"
-    },
-    {
-      "from": "upper_crown_rafters",
-      "to": "pre_boss_belfry",
-      "type": "upper_shortcut"
     },
     {
       "from": "backdoor",
       "to": "boss_chamber",
       "type": "opened_shortcut"
+    },
+    {
+      "from": "upper_crown_rafters",
+      "to": "pre_boss_belfry",
+      "type": "upper_reward_shortcut"
+    }
+  ],
+  "design_note": {
+    "source": "artifacts/maniamap/maniamap_chapter_draft.json",
+    "intent": "Playable CH01 world uses the same two-dimensional room rectangles as the generated ManiaMap draft.",
+    "coordinate_mapping": {
+      "x": "maniamap_x + 40",
+      "y": "maniamap_y * 0.55 + 120",
+      "width": "maniamap_width",
+      "height": "max(120, maniamap_height * 0.55)"
+    }
+  },
+  "environment_blocks": [
+    {
+      "id": "ch01_start_back_wall",
+      "rect": [
+        560,
+        500,
+        1080,
+        420
+      ],
+      "color": "130d1b",
+      "z_index": -93
+    },
+    {
+      "id": "ch01_start_floor_mass",
+      "rect": [
+        580,
+        880,
+        980,
+        180
+      ],
+      "color": "07100f",
+      "z_index": -89
+    },
+    {
+      "id": "ch01_start_left_pier",
+      "rect": [
+        560,
+        510,
+        84,
+        420
+      ],
+      "color": "1a1020",
+      "z_index": -88
+    },
+    {
+      "id": "ch01_start_ceiling_band",
+      "rect": [
+        620,
+        500,
+        960,
+        38
+      ],
+      "color": "24152d",
+      "z_index": -87
+    },
+    {
+      "id": "ch01_entry_arch_shadow",
+      "rect": [
+        1480,
+        548,
+        260,
+        328
+      ],
+      "color": "180f1d",
+      "z_index": -92
+    },
+    {
+      "id": "ch01_mid_back_wall",
+      "rect": [
+        1540,
+        510,
+        900,
+        290
+      ],
+      "color": "120d18",
+      "z_index": -93
+    },
+    {
+      "id": "ch01_mid_floor_mass",
+      "rect": [
+        1580,
+        674,
+        920,
+        190
+      ],
+      "color": "081111",
+      "z_index": -89
+    },
+    {
+      "id": "ch01_lift_shaft_back",
+      "rect": [
+        2440,
+        356,
+        1040,
+        330
+      ],
+      "color": "10131c",
+      "z_index": -93
+    },
+    {
+      "id": "ch01_lift_shaft_floor_mass",
+      "rect": [
+        2460,
+        548,
+        1080,
+        170
+      ],
+      "color": "07100f",
+      "z_index": -89
+    },
+    {
+      "id": "ch01_lift_right_pier",
+      "rect": [
+        3380,
+        366,
+        90,
+        310
+      ],
+      "color": "1a1020",
+      "z_index": -88
+    },
+    {
+      "id": "ch01_upper_preview_back",
+      "rect": [
+        3400,
+        250,
+        520,
+        210
+      ],
+      "color": "151020",
+      "z_index": -93
     }
   ]
 }

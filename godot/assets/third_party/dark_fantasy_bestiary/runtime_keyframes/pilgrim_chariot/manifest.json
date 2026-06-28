@@ -1,9 +1,73 @@
 {
   "source": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-  "note": "Runtime keyframes cropped from open dark fantasy source sprites; no generated art.",
-  "cell_size": [
+  "source_region": [
+    0,
+    0,
     32,
     32
+  ],
+  "note": "Small enemy runtime keyframes normalized from open dark fantasy source sprites. Each enemy has high-readability staged walk and one staged attack, 8-frame walk left/right, and 8-frame attack left/right.",
+  "quality_profile": "shape_aware_walk_attack_v19_no_line_attack_fx",
+  "kind": "pilgrim_chariot",
+  "chapter": 5,
+  "cell_size": [
+    128,
+    128
+  ],
+  "frame_spacing_px": 40,
+  "anchor": "bottom_center",
+  "locomotion_plan": "snail_slide",
+  "shape_constraints": {
+    "no_added_walk_limbs": true,
+    "no_generated_extra_feet_or_legs": true,
+    "no_detached_attack_effects": true,
+    "source_silhouette_driven": true
+  },
+  "walk_stages": [
+    "contact_a",
+    "down_a",
+    "passing_a",
+    "up_a",
+    "contact_b",
+    "down_b",
+    "passing_b",
+    "up_b"
+  ],
+  "attack_count": 1,
+  "attack_stages": [
+    "ready",
+    "anticipation",
+    "coil",
+    "release",
+    "impact",
+    "follow_through",
+    "recover",
+    "settle"
+  ],
+  "quality_gates": {
+    "walk_body_pose_changes": true,
+    "walk_source_silhouette_motion": true,
+    "walk_center_travel_px_min": 5,
+    "walk_alpha_area_delta_min": 80,
+    "attack_body_pose_changes": true,
+    "attack_has_anticipation_impact_recovery": true,
+    "attack_motion_extent_px_min": 20,
+    "attack_center_travel_px_min": 20,
+    "attack_alpha_area_delta_min": 180,
+    "strip_spacing_px_min": 24,
+    "no_added_feet_visual_audit": true
+  },
+  "attacks": [
+    {
+      "id": "shield_rush",
+      "style": "charger",
+      "readability": "anticipation -> release -> impact -> recovery",
+      "animations": {
+        "left": "attack_left",
+        "right": "attack_right"
+      },
+      "frames_per_direction": 8
+    }
   ],
   "animations": [
     {
@@ -11,8 +75,10 @@
       "fps": 7.0,
       "loop": true,
       "frames": [
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_00.png",
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_01.png"
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/idle/idle_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/idle/idle_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/idle/idle_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/idle/idle_03.png"
       ]
     },
     {
@@ -20,35 +86,110 @@
       "fps": 7.0,
       "loop": true,
       "frames": [
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_01.png",
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_02.png",
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_03.png"
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_04.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_05.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_06.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk/walk_07.png"
+      ]
+    },
+    {
+      "name": "walk_right",
+      "fps": 7.0,
+      "loop": true,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_04.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_05.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_06.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_right/walk_right_07.png"
+      ]
+    },
+    {
+      "name": "walk_left",
+      "fps": 7.0,
+      "loop": true,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_04.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_05.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_06.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/walk_left/walk_left_07.png"
       ]
     },
     {
       "name": "attack",
-      "fps": 10.0,
+      "fps": 12.0,
       "loop": false,
       "frames": [
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_03.png",
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_04.png"
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_04.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_05.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_06.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack/attack_07.png"
+      ]
+    },
+    {
+      "name": "attack_right",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_04.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_05.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_06.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_right/attack_right_07.png"
+      ]
+    },
+    {
+      "name": "attack_left",
+      "fps": 12.0,
+      "loop": false,
+      "frames": [
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_03.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_04.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_05.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_06.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/attack_left/attack_left_07.png"
       ]
     },
     {
       "name": "hurt",
-      "fps": 10.0,
+      "fps": 12.0,
       "loop": false,
       "frames": [
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_04.png"
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/hurt/hurt_00.png"
       ]
     },
     {
       "name": "death",
-      "fps": 10.0,
+      "fps": 12.0,
       "loop": false,
       "frames": [
-        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_05.png"
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/death/death_00.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/death/death_01.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/death/death_02.png",
+        "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frames/death/death_03.png"
       ]
     }
-  ]
+  ],
+  "preview": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/preview_contact_sheet.png"
 }

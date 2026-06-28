@@ -36,7 +36,25 @@ def ranges_are_contiguous(rooms: list[dict], width: int) -> bool:
     return cursor == width
 
 
-def room_for_x(rooms: list[dict], x: float) -> dict | None:
+def point_in_rect(position: list, rect: list) -> bool:
+    if len(position) < 2 or len(rect) < 4:
+        return False
+    x, y = float(position[0]), float(position[1])
+    left, top, width, height = [float(value) for value in rect[:4]]
+    return left <= x <= left + width and top <= y <= top + height
+
+
+def room_for_position(rooms: list[dict], position: list) -> dict | None:
+    for room in rooms:
+        rect = room.get("layout_rect") or room.get("play_rect")
+        if isinstance(rect, list) and point_in_rect(position, rect):
+            return room
+        for visit_rect in room.get("visit_rects", []):
+            if isinstance(visit_rect, list) and point_in_rect(position, visit_rect):
+                return room
+    if len(position) < 1:
+        return None
+    x = float(position[0])
     for room in rooms:
         start, end = room["range"]
         if start <= x <= end:
@@ -56,7 +74,7 @@ def validate_positions(config: dict, file_name: str) -> None:
             positions.append((f"{key}.{item.get('id', '')}", item.get("position", [])))
     for label, position in positions:
         assert_true(isinstance(position, list) and len(position) >= 2, f"{file_name}: {label} missing position")
-        assert_true(room_for_x(rooms, float(position[0])) is not None, f"{file_name}: {label} outside map rooms")
+        assert_true(room_for_position(rooms, position) is not None, f"{file_name}: {label} outside map rooms")
 
 
 def validate_refs(config: dict, file_name: str) -> None:

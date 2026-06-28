@@ -4,6 +4,7 @@ const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_ACTOR_SCRIPT := preload("res://scripts/enemy_actor.gd")
 const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
 const DEFAULT_CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
+const BOSS_TRIAL_CONFIG_PATH := "res://data/demo_ch01_boss_trial.json"
 const CAMPAIGN_PATH := "res://data/campaign_chapters.json"
 const CHAPTER_DATA_DIR := "res://data/chapters"
 const AV_MANIFEST_PATH := "res://data/audio_visual_manifest.json"
@@ -122,33 +123,33 @@ const SPRITES := {
     "bronze_moth": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "spore_bellmaker": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "gear_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "rust_crown_guardian": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "rust_crown_guardian": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
     "drain_leech": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "pipe_thrower": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "rust_diver": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "bell_mote": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "waterwheel_knight": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "sunken_hammer_smith": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "sunken_hammer_smith": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
     "salt_bookmite": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "page_duelist": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "index_scribe": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "summoned_page": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "wax_lancer": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "erasure_bailiff": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "saltwhite_contract_judge": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "saltwhite_contract_judge": "res://assets/sprites/bosses/boss_03_ash_crowned_mantis_warlord/manifest.json",
     "vine_crawler": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "wax_bee": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "root_cage_hunter": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "pollen_lutist": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "thorn_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "broken_string_garden_lord": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "broken_string_gardener": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "broken_string_garden_lord": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
+    "broken_string_gardener": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
     "obsidian_spearman": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "phase_censor": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
     "silent_bugbler": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "kneeling_crossbowman": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
     "pilgrim_chariot": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "silent_pilgrim_commander": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "silent_pilgrim_commander": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
     "echo_moss_larva": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
     "echo_waterwheel_knight": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "echo_contract_scribe": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
@@ -156,7 +157,7 @@ const SPRITES := {
     "echo_thorn_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "echo_pilgrim_commander_minor": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
     "isotope_lumen": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "silent_crown_core": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
+    "silent_crown_core": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
     "spikes": "res://assets/sprites/gothicvania/demo/hazard_spikes.png",
     "bell": "res://assets/sprites/gothicvania/demo/hazard_bell.png",
     "fake_moss_floor": "res://assets/sprites/gothicvania/demo/trap_fake_moss_floor.png",
@@ -320,6 +321,8 @@ var map_panel: ColorRect
 var map_text: Label
 var map_draw_root: Control
 var gate_body: StaticBody2D
+var locked_gate_bodies: Dictionary = {}
+var unlocked_abilities: Dictionary = {}
 var boss_actor: Area2D
 var boss_arena_lock_body: StaticBody2D
 var nearby_interactable: Area2D
@@ -327,6 +330,7 @@ var active_spawn := Vector2(120, 500)
 var bell_count := 0
 var max_bells := 3
 var shortcut_open := false
+var opened_shortcuts: Dictionary = {}
 var boss_unlocked := false
 var boss_spawned := false
 var demo_complete := false
@@ -347,6 +351,7 @@ var world_height := 720.0
 var fall_y := 790.0
 var active_overlay := ""
 var metsys_bridge: Node
+var boss_trial_mode := false
 var inventory_counts: Dictionary = {}
 var inventory_tools: Array = []
 var inventory_relics: Array = []
@@ -386,19 +391,28 @@ func _ready() -> void:
     _spawn_player()
     _build_hud()
     _show_chapter_entry_message()
+    if boss_trial_mode:
+        call_deferred("_start_boss_trial")
 
 
 func _apply_cmdline_config_override() -> void:
-    for arg in OS.get_cmdline_args():
+    var args := OS.get_cmdline_args()
+    args.append_array(OS.get_cmdline_user_args())
+    for arg in args:
         var text := String(arg)
         if text.begins_with("--demo-config="):
             config_path = text.get_slice("=", 1)
+        elif text == "--boss-trial" or text == "--ch01-boss-trial":
+            boss_trial_mode = true
+            config_path = BOSS_TRIAL_CONFIG_PATH
 
 
 func _process(_delta: float) -> void:
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         _spawn_normal_enemies()
+        if boss_unlocked and not demo_complete and not boss_spawned:
+            _spawn_boss()
         _refresh_hud()
     if Input.is_action_just_pressed("close_overlay"):
         _close_overlays()
@@ -600,12 +614,49 @@ func _combat_goal_met() -> bool:
     return enemy_total <= 0 or enemy_defeated >= enemy_total
 
 
+func _shortcut_ids() -> Array:
+    var ids: Array = []
+    for connection in config.get("connections", []):
+        if not (connection is Dictionary):
+            continue
+        if String(connection.get("type", "")) != "shortcut":
+            continue
+        var shortcut_id := String(connection.get("shortcut_id", ""))
+        if shortcut_id.is_empty() or ids.has(shortcut_id):
+            continue
+        ids.append(shortcut_id)
+    return ids
+
+
+func _shortcut_total() -> int:
+    return _shortcut_ids().size()
+
+
+func _opened_shortcut_total() -> int:
+    return opened_shortcuts.size()
+
+
+func _shortcut_id_for_area(area: Area2D) -> String:
+    if area == null:
+        return ""
+    return String(area.get_meta("shortcut_id", ""))
+
+
+func _is_shortcut_open(shortcut_id: String = "") -> bool:
+    if shortcut_id.is_empty():
+        return shortcut_open
+    return opened_shortcuts.has(shortcut_id)
+
+
 func _init_inventory_state() -> void:
     inventory_counts.clear()
     inventory_tools.clear()
     inventory_relics.clear()
     inventory_materials.clear()
     currency_count = 0
+    unlocked_abilities.clear()
+    opened_shortcuts.clear()
+    shortcut_open = false
     visited_rooms.clear()
     current_room_id = ""
     var inventory_config: Dictionary = config.get("inventory", {})
@@ -899,13 +950,13 @@ func _build_map_overlay() -> void:
 
     map_draw_root = Control.new()
     map_draw_root.name = "MapDrawRoot"
-    map_draw_root.position = Vector2(54, 92)
-    map_draw_root.size = Vector2(1070, 330)
+    map_draw_root.position = Vector2(34, 72)
+    map_draw_root.size = Vector2(1108, 430)
     map_panel.add_child(map_draw_root)
 
     map_text = Label.new()
-    map_text.position = Vector2(54, 426)
-    map_text.size = Vector2(1070, 186)
+    map_text.position = Vector2(34, 514)
+    map_text.size = Vector2(1108, 98)
     map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
     map_panel.add_child(map_text)
@@ -1008,7 +1059,7 @@ func _inventory_dict_list(items: Dictionary) -> String:
 func _update_room_visit() -> void:
     if player == null or not is_instance_valid(player):
         return
-    var room := _room_for_x(player.global_position.x)
+    var room := _room_for_position(player.global_position)
     if room.is_empty():
         return
     current_room_id = String(room.get("id", ""))
@@ -1029,6 +1080,43 @@ func _room_for_x(world_x: float) -> Dictionary:
         if world_x >= float(room_range[0]) and world_x <= float(room_range[1]):
             return room_data
     return {}
+
+
+func _room_for_position(world_position: Vector2) -> Dictionary:
+    for room in config.get("map_rooms", []):
+        if not (room is Dictionary):
+            continue
+        var room_data: Dictionary = room
+        if _room_contains_position(room_data, world_position):
+            return room_data
+    return _room_for_x(world_position.x)
+
+
+func _room_layout_rect(room_data: Dictionary) -> Rect2:
+    var rect_value: Variant = room_data.get("layout_rect", room_data.get("play_rect", []))
+    if typeof(rect_value) != TYPE_ARRAY or rect_value.size() < 4:
+        return Rect2()
+    return _rect2(rect_value)
+
+
+func _rect_contains_position(rect: Rect2, position_value: Vector2, padding: float = 0.0) -> bool:
+    return (
+        position_value.x >= rect.position.x - padding
+        and position_value.x <= rect.position.x + rect.size.x + padding
+        and position_value.y >= rect.position.y - padding
+        and position_value.y <= rect.position.y + rect.size.y + padding
+    )
+
+
+func _room_contains_position(room_data: Dictionary, world_position: Vector2) -> bool:
+    var layout := _room_layout_rect(room_data)
+    if layout.size.x > 0.0 and layout.size.y > 0.0 and _rect_contains_position(layout, world_position):
+        return true
+    for rect_value in room_data.get("visit_rects", []):
+        var rect := _rect2(rect_value)
+        if rect.size.x > 0.0 and rect.size.y > 0.0 and _rect_contains_position(rect, world_position):
+            return true
+    return false
 
 
 func _room_name(room_id: String) -> String:
@@ -1052,64 +1140,84 @@ func _refresh_map_overlay() -> void:
         child.free()
 
     var rooms: Array = config.get("map_rooms", [])
-    var draw_width := 1040.0
+    var draw_width := 1108.0
+    var draw_size := Vector2(1108.0, 430.0)
     var base_y := 132.0
     var depth_step := 72.0
-    _add_map_route_line(rooms, draw_width, base_y, depth_step)
+    var layout_bounds := _map_layout_bounds(rooms)
+    var uses_layout := layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0
+    if not uses_layout:
+        _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
         var room_id := String(room_data.get("id", ""))
-        var room_range: Array = room_data.get("range", [0.0, 0.0])
-        if room_range.size() < 2:
+        var overlay_rect := _map_room_overlay_rect(room_data, layout_bounds, draw_size, draw_width, base_y, depth_step)
+        if overlay_rect.size.x <= 0.0 or overlay_rect.size.y <= 0.0:
             continue
-        var start_x := float(room_range[0])
-        var end_x := float(room_range[1])
-        var x0 := start_x / world_width * draw_width
-        var x1 := end_x / world_width * draw_width
-        var y := base_y + float(int(room_data.get("depth", 0))) * depth_step
         var visited := _room_is_visited(room_id)
         var current := room_id == current_room_id
-        var room_size := Vector2(maxf(34.0, x1 - x0 - 6.0), 42.0)
-        var fill := Color(0.035, 0.060, 0.052, 0.96) if visited else Color(0.012, 0.018, 0.018, 0.96)
-        var border := Color(0.56, 1.0, 0.88, 1.0) if current else (Color(0.34, 0.70, 0.48, 0.86) if visited else Color(0.16, 0.22, 0.20, 0.86))
+        var room_size := overlay_rect.size
+        var fill := Color(0.060, 0.115, 0.092, 0.98) if visited else Color(0.030, 0.038, 0.042, 0.98)
+        var border := Color(0.74, 1.0, 0.92, 1.0) if current else (Color(0.42, 0.78, 0.56, 0.90) if visited else Color(0.24, 0.30, 0.28, 0.92))
         var border_width := 4.0 if current else 2.0
-        _add_map_ui_rect("Room_" + room_id, Vector2(x0, y), room_size, fill, border, border_width)
-        _add_map_room_texture(Vector2(x0, y), room_size, visited, current)
-        _add_map_wall_caps(room_id, Vector2(x0, y), room_size, visited, current)
+        _add_map_ui_rect("Room_" + room_id, overlay_rect.position, room_size, fill, border, border_width)
+        _add_map_room_texture(overlay_rect.position, room_size, visited, current)
+        _add_map_wall_caps(room_id, overlay_rect.position, room_size, visited, current)
 
+        var room_kind := String(room_data.get("kind", ""))
+        var should_label := not uses_layout or current or room_kind == "boss" or room_kind == "exit" or room_id == "entry_bell"
+        if not should_label:
+            continue
         var label := Label.new()
         label.text = _room_name(room_id)
-        label.position = Vector2(x0 + 6.0, y + 48.0)
-        label.size = Vector2(maxf(92.0, x1 - x0), 42.0)
+        label.position = overlay_rect.position + (Vector2(4.0, 4.0) if uses_layout else Vector2(6.0, 48.0))
+        label.size = Vector2(maxf(62.0, room_size.x - 4.0), 42.0)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.add_theme_font_size_override("font_size", 13 if current else 12)
+        label.add_theme_font_size_override("font_size", 11 if uses_layout and not current else (12 if uses_layout else (13 if current else 12)))
         label.add_theme_color_override("font_color", Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52)))
         map_draw_root.add_child(label)
 
-    _add_map_special_passage_markers(draw_width, base_y, depth_step)
-    _add_world_map_pins(draw_width, base_y, depth_step)
-    var player_x := 0.0
+    _add_map_special_passage_markers(draw_width, base_y, depth_step, layout_bounds, draw_size)
+    _add_world_map_pins(draw_width, base_y, depth_step, layout_bounds, draw_size)
     if player != null and is_instance_valid(player):
-        player_x = clampf(player.global_position.x / world_width * draw_width, 0.0, draw_width)
-    _add_map_ui_rect("PlayerMarker", Vector2(player_x - 7.0, base_y - 36.0), Vector2(14.0, 96.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
+        if uses_layout:
+            var player_pos := _map_world_to_overlay(player.global_position, layout_bounds, draw_size)
+            _add_map_ui_rect("PlayerMarker", player_pos - Vector2(7.0, 7.0), Vector2(14.0, 14.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
+        else:
+            var player_x := clampf(player.global_position.x / world_width * draw_width, 0.0, draw_width)
+            _add_map_ui_rect("PlayerMarker", Vector2(player_x - 7.0, base_y - 36.0), Vector2(14.0, 96.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
 
-    var current_room := _room_for_x(player.global_position.x) if player != null and is_instance_valid(player) else {}
+    var current_room := _room_for_position(player.global_position) if player != null and is_instance_valid(player) else {}
     var current_map_room_id := String(current_room.get("id", current_room_id))
     var objective := _room_map_copy(current_map_room_id, "objective", "Keep exploring toward the next bell.")
     var guide := _room_map_copy(current_map_room_id, "guide", "Use the map for route status and F for nearby interactions.")
     var danger := _room_map_copy(current_map_room_id, "danger", "Watch traps and melee windups.")
     var next_step := _room_map_copy(current_map_room_id, "next", "Move forward.")
+    var archetype := _room_map_copy(current_map_room_id, "archetype", "unknown")
+    var traversal_focus := _room_map_copy(current_map_room_id, "traversal_focus", "unknown")
+    var reward_contract := _room_map_copy(current_map_room_id, "reward_contract", "unknown")
+    var pacing_role := _room_map_copy(current_map_room_id, "pacing_role", "unknown")
+    var setpiece := _room_map_copy(current_map_room_id, "setpiece", "")
+    var micro_objective := _room_map_copy(current_map_room_id, "micro_objective", "")
     var transition: Dictionary = config.get("chapter_transition", {})
     var transition_text := String(transition.get("entry_hint", "击败本章首领后进入下一章。"))
     var metsys_state: Dictionary = metsys_bridge.get_state() if metsys_bridge != null else {}
-    map_text.text = "Chapter: %s\nRoom: %s\nExplored: %d/%d\nObjective: %s\nRoute: %s\nHazard: %s\nNext: %s\nCampaign Next: %s\nLink: %s\nMetSys: walls %d / passages %d / locks %d / connectors %d\nLegend: cyan=you, teal=route, charcoal=wall, blue=exit, amber=gate, red=boss." % [
+    map_text.text = "Chapter: %s\nRoom: %s\nSetpiece: %s\nArchetype: %s / %s\nTraversal: %s\nReward: %s\nExplored: %d/%d\nShortcuts: %d/%d\nObjective: %s\nMicro: %s\nRoute: %s\nHazard: %s\nNext: %s\nCampaign Next: %s\nLink: %s\nMetSys: walls %d / passages %d / locks %d / connectors %d\nLegend: cyan=you, teal=route, charcoal=wall, blue=exit, amber=gate, red=boss." % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
+        setpiece if not setpiece.is_empty() else "generated",
+        archetype,
+        pacing_role,
+        traversal_focus,
+        reward_contract,
         visited_rooms.size(),
         rooms.size(),
+        _opened_shortcut_total(),
+        _shortcut_total(),
         objective,
+        micro_objective if not micro_objective.is_empty() else "generic room contract",
         guide,
         danger,
         next_step,
@@ -1122,32 +1230,84 @@ func _refresh_map_overlay() -> void:
     ]
 
 
-func _add_world_map_pins(draw_width: float, base_y: float, depth_step: float) -> void:
+func _map_layout_bounds(rooms: Array) -> Rect2:
+    var has_layout := false
+    var min_x := INF
+    var min_y := INF
+    var max_x := -INF
+    var max_y := -INF
+    for room in rooms:
+        if not (room is Dictionary):
+            continue
+        var rect := _room_layout_rect(room)
+        if rect.size.x <= 0.0 or rect.size.y <= 0.0:
+            continue
+        has_layout = true
+        min_x = minf(min_x, rect.position.x)
+        min_y = minf(min_y, rect.position.y)
+        max_x = maxf(max_x, rect.position.x + rect.size.x)
+        max_y = maxf(max_y, rect.position.y + rect.size.y)
+    if not has_layout:
+        return Rect2()
+    return Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
+
+
+func _map_world_to_overlay(world_position: Vector2, layout_bounds: Rect2, draw_size: Vector2) -> Vector2:
+    if layout_bounds.size.x <= 0.0 or layout_bounds.size.y <= 0.0:
+        return Vector2.ZERO
+    var map_scale := minf(draw_size.x / layout_bounds.size.x, draw_size.y / layout_bounds.size.y)
+    var fitted_size := layout_bounds.size * map_scale
+    var offset := Vector2((draw_size.x - fitted_size.x) * 0.5, (draw_size.y - fitted_size.y) * 0.5)
+    return offset + (world_position - layout_bounds.position) * map_scale
+
+
+func _map_room_overlay_rect(room_data: Dictionary, layout_bounds: Rect2, draw_size: Vector2, draw_width: float, base_y: float, depth_step: float) -> Rect2:
+    var layout := _room_layout_rect(room_data)
+    if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0:
+        var top_left := _map_world_to_overlay(layout.position, layout_bounds, draw_size)
+        var bottom_right := _map_world_to_overlay(layout.position + layout.size, layout_bounds, draw_size)
+        return Rect2(top_left, Vector2(maxf(24.0, bottom_right.x - top_left.x), maxf(12.0, bottom_right.y - top_left.y)))
+    var room_range: Array = room_data.get("range", [0.0, 0.0])
+    if room_range.size() < 2:
+        return Rect2()
+    var start_x := float(room_range[0])
+    var end_x := float(room_range[1])
+    var x0 := start_x / world_width * draw_width
+    var x1 := end_x / world_width * draw_width
+    var y := base_y + float(int(room_data.get("depth", 0))) * depth_step
+    return Rect2(Vector2(x0, y), Vector2(maxf(34.0, x1 - x0 - 6.0), 42.0))
+
+
+func _add_world_map_pins(draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     for collectible in config.get("collectibles", []):
         if collectible is Dictionary:
             var data: Dictionary = collectible
-            _add_map_pin(_vec2(data.get("position", [0, 0])).x, draw_width, base_y, depth_step, Color(1.0, 0.74, 0.24, 0.95))
+            _add_map_pin(_vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(1.0, 0.74, 0.24, 0.95), Vector2(9, 9), layout_bounds, draw_size)
     for interactive in config.get("interactives", []):
         if interactive is Dictionary:
             var data: Dictionary = interactive
-            _add_map_pin(_vec2(data.get("position", [0, 0])).x, draw_width, base_y, depth_step, Color(0.94, 0.54, 0.22, 0.95))
+            _add_map_pin(_vec2(data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.94, 0.54, 0.22, 0.95), Vector2(9, 9), layout_bounds, draw_size)
     var boss_data: Dictionary = config.get("boss", {})
     if not boss_data.is_empty():
-        _add_map_pin(_vec2(boss_data.get("position", [0, 0])).x, draw_width, base_y, depth_step, Color(0.86, 0.18, 0.16, 0.95), Vector2(14, 14))
+        _add_map_pin(_vec2(boss_data.get("position", [0, 0])), draw_width, base_y, depth_step, Color(0.86, 0.18, 0.16, 0.95), Vector2(14, 14), layout_bounds, draw_size)
 
 
-func _add_map_pin(world_x: float, draw_width: float, base_y: float, depth_step: float, color: Color, size_value: Vector2 = Vector2(9, 9)) -> void:
-    var room := _room_for_x(world_x)
+func _add_map_pin(world_position: Vector2, draw_width: float, base_y: float, depth_step: float, color: Color, size_value: Vector2 = Vector2(9, 9), layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
+    var room := _room_for_position(world_position)
     if not room.is_empty() and not _room_is_visited(String(room.get("id", ""))):
         return
-    var depth := 0
-    if not room.is_empty():
-        depth = int(room.get("depth", 0))
-    var pin_pos := Vector2(clampf(world_x / world_width * draw_width, 0.0, draw_width) - size_value.x * 0.5, base_y + float(depth) * depth_step - 18.0)
+    var pin_pos := Vector2.ZERO
+    if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+        pin_pos = _map_world_to_overlay(world_position, layout_bounds, draw_size) - size_value * 0.5
+    else:
+        var depth := 0
+        if not room.is_empty():
+            depth = int(room.get("depth", 0))
+        pin_pos = Vector2(clampf(world_position.x / world_width * draw_width, 0.0, draw_width) - size_value.x * 0.5, base_y + float(depth) * depth_step - 18.0)
     _add_map_ui_rect("MapPin", pin_pos, size_value + Vector2(5.0, 5.0), color, Color(1.0, 0.95, 0.72, 0.95), 2.0)
 
 
-func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_step: float) -> void:
+func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     var route := Line2D.new()
     route.name = "MapRouteLine"
     route.width = 4.0
@@ -1160,12 +1320,17 @@ func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_s
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
-        var room_range: Array = room_data.get("range", [0.0, 0.0])
-        if room_range.size() < 2:
-            continue
-        var center_x := ((float(room_range[0]) + float(room_range[1])) * 0.5) / world_width * draw_width
-        var y := base_y + float(int(room_data.get("depth", 0))) * depth_step + 21.0
-        var point := Vector2(center_x, y)
+        var point := Vector2.ZERO
+        var layout := _room_layout_rect(room_data)
+        if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+            point = _map_world_to_overlay(layout.position + layout.size * 0.5, layout_bounds, draw_size)
+        else:
+            var room_range: Array = room_data.get("range", [0.0, 0.0])
+            if room_range.size() < 2:
+                continue
+            var center_x := ((float(room_range[0]) + float(room_range[1])) * 0.5) / world_width * draw_width
+            var y := base_y + float(int(room_data.get("depth", 0))) * depth_step + 21.0
+            point = Vector2(center_x, y)
         if has_previous_point and not is_equal_approx(previous_point.y, point.y):
             points.append(Vector2(previous_point.x, point.y))
         points.append(point)
@@ -1185,7 +1350,7 @@ func _add_map_wall_caps(room_id: String, rect_position: Vector2, rect_size: Vect
     _add_map_ui_rect("MapWallR_" + room_id, Vector2(rect_position.x + rect_size.x - 3.0, y), cap_size, wall_fill, wall_edge, 1.0)
 
 
-func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_step: float) -> void:
+func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
     for interactive in config.get("interactives", []):
         if not (interactive is Dictionary):
             continue
@@ -1193,14 +1358,18 @@ func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_st
         var interact_type := String(data.get("kind", data.get("type", "")))
         if interact_type != "boss_gate" and interact_type != "chapter_exit" and interact_type != "ending_exit":
             continue
-        var world_x := _vec2(data.get("position", [0, 0])).x
-        var room := _room_for_x(world_x)
+        var world_position := _vec2(data.get("position", [0, 0]))
+        var room := _room_for_position(world_position)
         if not room.is_empty() and not _room_is_visited(String(room.get("id", ""))):
             continue
-        var depth := int(room.get("depth", 0)) if not room.is_empty() else 0
-        var marker_x := clampf(world_x / world_width * draw_width, 0.0, draw_width)
+        var marker_position := Vector2.ZERO
+        if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+            marker_position = _map_world_to_overlay(world_position, layout_bounds, draw_size)
+        else:
+            var depth := int(room.get("depth", 0)) if not room.is_empty() else 0
+            marker_position = Vector2(clampf(world_position.x / world_width * draw_width, 0.0, draw_width), base_y + float(depth) * depth_step + 21.0)
         var marker_color := Color(1.0, 0.68, 0.24, 0.96) if interact_type == "boss_gate" else Color(0.45, 0.76, 1.0, 0.96)
-        _add_map_ui_rect("MetSysPassage_" + interact_type, Vector2(marker_x - 4.0, base_y + float(depth) * depth_step + 4.0), Vector2(8.0, 34.0), marker_color, Color(1.0, 0.95, 0.72, 0.94), 2.0)
+        _add_map_ui_rect("MetSysPassage_" + interact_type, marker_position - Vector2(4.0, 17.0), Vector2(8.0, 34.0), marker_color, Color(1.0, 0.95, 0.72, 0.94), 2.0)
 
 
 func _add_map_room_texture(rect_position: Vector2, rect_size: Vector2, visited: bool, current: bool) -> void:
@@ -1239,6 +1408,9 @@ func _add_map_ui_rect(node_name: String, rect_position: Vector2, rect_size: Vect
 
 func _build_world_from_config() -> void:
     _background()
+    for block in config.get("environment_blocks", []):
+        if block is Dictionary:
+            _environment_block(block)
     for platform in config.get("platforms", []):
         _platform(
             String(platform.get("id", "platform")),
@@ -1247,13 +1419,17 @@ func _build_world_from_config() -> void:
             String(platform.get("material", "moss_stone"))
         )
 
+    locked_gate_bodies.clear()
     for gate in config.get("locked_gates", []):
-        gate_body = _platform(
+        var locked_gate := _platform(
             String(gate.get("id", "locked_gate")),
             _rect2(gate.get("rect", [])),
             _color(gate.get("color", "875f29")),
             String(gate.get("material", "bronze_bridge"))
         )
+        locked_gate.set_meta("required_ability", String(gate.get("required_ability", "")))
+        locked_gate.set_meta("required_ability_name", String(gate.get("required_ability_name", "")))
+        locked_gate_bodies[String(gate.get("id", "locked_gate"))] = locked_gate
 
     for hazard in config.get("hazards", []):
         _hazard(hazard)
@@ -1261,6 +1437,10 @@ func _build_world_from_config() -> void:
 
     if _combat_progression_enabled():
         collectible_total = 0
+        for collectible in config.get("collectibles", []):
+            if collectible is Dictionary and String(collectible.get("kind", "")) == "item":
+                _collectible(collectible)
+                collectible_total += 1
     else:
         for collectible in config.get("collectibles", []):
             _collectible(collectible)
@@ -1289,10 +1469,28 @@ func _build_world_from_config() -> void:
     _spawn_normal_enemies()
     enemy_total = config.get("enemy_spawns", []).size()
     if _combat_progression_enabled() and _combat_goal_met():
-        shortcut_open = true
-        boss_unlocked = true
+        _open_all_shortcuts(false)
 
     # World labels are intentionally suppressed so tutorial copy does not cover the level art.
+
+
+func _environment_block(data: Dictionary) -> void:
+    var rect := _rect2(data.get("rect", []))
+    if rect.size.x <= 0.0 or rect.size.y <= 0.0:
+        return
+    var block := Polygon2D.new()
+    block.name = String(data.get("id", "environment_block"))
+    block.position = rect.position + rect.size * 0.5
+    var half := rect.size * 0.5
+    block.polygon = PackedVector2Array([
+        Vector2(-half.x, -half.y),
+        Vector2(half.x, -half.y),
+        Vector2(half.x, half.y),
+        Vector2(-half.x, half.y)
+    ])
+    block.color = _color(data.get("color", "101816"))
+    block.z_index = int(data.get("z_index", -90))
+    add_child(block)
 
 
 func _spawn_player() -> void:
@@ -1400,7 +1598,8 @@ func _background() -> void:
 
     var shade := Polygon2D.new()
     shade.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
-    shade.color = Color(0.0, 0.0, 0.0, 0.03) if _theme_uses_industrial_tiles() else Color(0.0, 0.0, 0.0, 0.08)
+    var shade_alpha := 0.035 if _art_theme_id() == "moss_cavern" else (0.03 if _theme_uses_industrial_tiles() else 0.08)
+    shade.color = Color(0.0, 0.0, 0.0, shade_alpha)
     shade.z_index = -94
     add_child(shade)
 
@@ -1416,10 +1615,16 @@ func _configure_player_camera() -> void:
 
 
 func _void_respawn() -> void:
-    if player.death_timer > 0.0:
+    if player == null or not is_instance_valid(player):
         return
-    player.take_damage(player.hp, player.global_position + Vector2(0, -120))
-    _toast("You fell. Returning to the active save point.")
+    if player.has_method("restore_at_save_point"):
+        player.restore_at_save_point()
+    if player.has_method("respawn_at"):
+        player.respawn_at(active_spawn)
+    else:
+        player.global_position = active_spawn
+    _toast("You fell. Back to the save point.")
+    _update_room_visit()
     _refresh_hud()
 
 
@@ -1650,11 +1855,42 @@ func _platform(node_name: String, rect: Rect2, color: Color, material: String = 
     shape.shape = rectangle
     body.add_child(shape)
 
-    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -6)
+    _add_platform_readability_base(body, rect.size, material, color)
+    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -7)
     _add_platform_visual(body, rect.size, material)
     _decorate_platform(body, rect.size, material)
     add_child(body)
     return body
+
+
+func _add_platform_readability_base(parent: Node, size_value: Vector2, material: String, fallback_color: Color) -> void:
+    var body_color := _platform_body_color(material, fallback_color)
+    var edge_color := _platform_edge_color(material)
+    _add_platform_plate(parent, Vector2(0, 6.0), size_value + Vector2(10.0, 18.0), body_color, -6)
+    _add_platform_plate(parent, Vector2(0, -size_value.y * 0.5 + 4.0), Vector2(size_value.x + 12.0, 8.0), edge_color, -2)
+    _add_platform_plate(parent, Vector2(0, size_value.y * 0.5 - 3.0), Vector2(size_value.x + 8.0, 5.0), Color(0.015, 0.026, 0.024, 0.82), -2)
+
+
+func _platform_body_color(material: String, fallback_color: Color) -> Color:
+    if material == "moss_stone":
+        return Color(0.105, 0.185, 0.145, 0.96)
+    if material == "bronze_bridge":
+        return Color(0.185, 0.160, 0.092, 0.95)
+    if material == "boss_stone":
+        return Color(0.180, 0.105, 0.095, 0.96)
+    if material.contains("wall") or material.contains("gate"):
+        return Color(0.145, 0.105, 0.092, 0.98)
+    return Color(fallback_color.r, fallback_color.g, fallback_color.b, maxf(fallback_color.a, 0.92))
+
+
+func _platform_edge_color(material: String) -> Color:
+    if material == "moss_stone":
+        return Color(0.42, 0.74, 0.47, 0.96)
+    if material == "bronze_bridge":
+        return Color(0.76, 0.63, 0.30, 0.94)
+    if material == "boss_stone":
+        return Color(0.76, 0.44, 0.36, 0.95)
+    return Color(0.50, 0.68, 0.55, 0.86)
 
 
 func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector2, plate_color: Color, z_value: int) -> Polygon2D:
@@ -1953,9 +2189,7 @@ func _decorate_platform(parent: Node, size_value: Vector2, material: String) -> 
     for index in range(segment_count):
         var t := float(index + 1) / float(segment_count + 1)
         var x := -width * 0.5 + width * t
-        if material == "moss_stone" and index % 2 == 0:
-            _add_vine(parent, Vector2(x + 16.0, top_y + 20.0))
-        elif material == "greenhouse_loam" and index % 2 == 0:
+        if material == "greenhouse_loam" and index % 2 == 0:
             _add_vine(parent, Vector2(x + 16.0, top_y + 18.0), Color(0.50, 0.95, 0.50, 0.88))
         elif material == "glassvine_bridge" and index % 3 == 1:
             _add_vine(parent, Vector2(x + 8.0, top_y + 18.0), Color(0.42, 1.0, 0.76, 0.74))
@@ -2042,8 +2276,13 @@ func _collectible(data: Dictionary) -> void:
     var area := Area2D.new()
     area.name = String(data.get("id", "collectible"))
     area.position = _vec2(data.get("position", [0, 0]))
-    area.set_meta("message", "Bell key acquired.")
-    area.set_meta("kind", String(data.get("kind", "bell_key")))
+    var collectible_kind := String(data.get("kind", "bell_key"))
+    var item_id := String(data.get("item_id", collectible_kind))
+    area.set_meta("message", String(data.get("label", "Bell key acquired.")))
+    area.set_meta("kind", collectible_kind)
+    area.set_meta("item_id", item_id)
+    area.set_meta("amount", int(data.get("amount", 1)))
+    area.set_meta("ability_name", String(data.get("ability_name", data.get("label", ""))))
     area.set_meta("object_id", "collectible/" + area.name)
 
     var shape := CollisionShape2D.new()
@@ -2059,7 +2298,7 @@ func _collectible(data: Dictionary) -> void:
     area.body_entered.connect(_on_collectible_body_entered.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2071,6 +2310,8 @@ func _lever(data: Dictionary) -> void:
     area.set_meta("label", String(data.get("label", "Boss Route Control" if _combat_progression_enabled() else "Shortcut Lever")))
     area.set_meta("object_id", "interactable/" + area.name)
     area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
+    area.set_meta("shortcut_id", String(data.get("shortcut_id", "")))
+    area.set_meta("opens_connection", data.get("opens_connection", {}))
 
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
@@ -2086,7 +2327,7 @@ func _lever(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2112,7 +2353,7 @@ func _boss_door(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2164,7 +2405,7 @@ func _chapter_exit(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2222,7 +2463,7 @@ func _save_point(data: Dictionary) -> void:
     add_child(area)
     _animate_save_point(area, marker, ring)
     if metsys_bridge != null:
-        var room := _room_for_x(area.global_position.x)
+        var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
@@ -2604,7 +2845,8 @@ func _spawn_boss() -> void:
         return
     var boss_data: Dictionary = config.get("boss", {})
     boss_actor = Area2D.new()
-    boss_actor.position = _vec2(boss_data.get("position", [3430, 470]))
+    var clearance := float(boss_data.get("clearance", 40.0))
+    boss_actor.position = _resolve_enemy_spawn_position(boss_data)
     boss_actor.set_script(ENEMY_ACTOR_SCRIPT)
     var kind := String(boss_data.get("kind", "rust_crown_guardian"))
     var profiles: Dictionary = config.get("ai_profiles", {})
@@ -2612,11 +2854,50 @@ func _spawn_boss() -> void:
     if profile.is_empty():
         push_warning("Missing boss AI profile: " + kind)
     boss_actor.configure(boss_data, SPRITES.get(kind, SPRITES["rust_crown_guardian"]), true, profile)
+    var floor_platform_id := _platform_under_position(boss_actor.position, clearance)
+    var bounds := _enemy_platform_movement_bounds(floor_platform_id, boss_actor.position, boss_data)
+    if bounds.size() >= 2 and boss_actor.has_method("set_platform_movement_bounds"):
+        boss_actor.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
     boss_actor.died.connect(_on_enemy_died)
+    boss_actor.set_meta("platform_id", floor_platform_id)
+    boss_actor.set_meta("spawn_half_width", float(boss_data.get("spawn_half_width", 84.0)))
+    boss_actor.set_meta("spawn_visual_height", float(boss_data.get("spawn_visual_height", _enemy_spawn_visual_height(boss_data))))
     add_child(boss_actor)
     boss_spawned = true
     _switch_bgm("bgm_boss")
     _toast("Boss awakened: " + _boss_display_name(boss_data) + ".")
+    _refresh_hud()
+
+
+func _start_boss_trial() -> void:
+    for enemy_node in get_tree().get_nodes_in_group("enemy"):
+        var enemy_area := enemy_node as Area2D
+        if enemy_area == null or not is_instance_valid(enemy_area):
+            continue
+        if bool(enemy_area.get("is_boss")):
+            continue
+        enemy_area.queue_free()
+    enemy_defeated = enemy_total
+    _open_all_shortcuts(false)
+    var boss_data: Dictionary = config.get("boss", {})
+    var boss_position := _vec2(boss_data.get("position", config.get("boss_checkpoint", active_spawn)))
+    var trial_spawn := _vec2(config.get("boss_checkpoint", boss_position + Vector2(-520.0, 0.0)))
+    if trial_spawn == Vector2.ZERO:
+        trial_spawn = boss_position + Vector2(-520.0, 0.0)
+    active_spawn = trial_spawn
+    active_save_point_id = "boss_trial"
+    if player != null and is_instance_valid(player):
+        player.global_position = trial_spawn
+        if player.has_method("set_spawn"):
+            player.set_spawn(trial_spawn)
+        if player.has_method("restore_at_save_point"):
+            player.restore_at_save_point()
+    _spawn_boss()
+    if boss_spawned and not demo_complete:
+        if boss_trial_mode or not config.get("interactives", []).is_empty():
+            _set_boss_arena_locked(true)
+    _update_room_visit()
+    _toast("Boss trial: Chapter 1 boss is awake. Fight starts now.")
     _refresh_hud()
 
 
@@ -2699,15 +2980,47 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
     if body != player:
         return
-    bell_count += 1
+    var collectible_kind := String(area.get_meta("kind", "bell_key"))
+    var item_id := String(area.get_meta("item_id", collectible_kind))
+    var amount := int(area.get_meta("amount", 1))
+    var ability_name := String(area.get_meta("ability_name", ""))
+    if collectible_kind == "currency":
+        _add_currency(amount)
+    else:
+        bell_count += 1
+        _add_inventory_item(item_id, amount, false)
+        if collectible_kind == "item":
+            unlocked_abilities[item_id] = ability_name if not ability_name.is_empty() else item_id
+            _refresh_ability_gates()
     _play_sfx("pickup")
-    _add_inventory_item(String(area.get_meta("kind", "bell_key")), 1, false)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
     _toast(String(area.get_meta("message", "Collected.")))
     _spawn_pickup_effect(area.global_position)
     area.queue_free()
     _refresh_hud()
+
+
+func _refresh_ability_gates() -> void:
+    for gate in config.get("locked_gates", []):
+        if not (gate is Dictionary):
+            continue
+        var gate_data: Dictionary = gate
+        var gate_id := String(gate_data.get("id", ""))
+        var required_ability := String(gate_data.get("required_ability", ""))
+        if gate_id.is_empty() or required_ability.is_empty():
+            continue
+        if inventory_counts.has(required_ability):
+            _unlock_ability_gate(gate_id)
+
+
+func _unlock_ability_gate(gate_id: String) -> void:
+    if not locked_gate_bodies.has(gate_id):
+        return
+    var body := locked_gate_bodies[gate_id] as StaticBody2D
+    if body != null and is_instance_valid(body):
+        body.queue_free()
+    locked_gate_bodies.erase(gate_id)
 
 
 func _on_interactable_entered(body: Node, area: Area2D) -> void:
@@ -2778,33 +3091,55 @@ func _nearest_interactable(radius: float) -> Area2D:
 
 
 func _activate_lever(area: Area2D) -> void:
-    if shortcut_open:
+    var shortcut_id := _shortcut_id_for_area(area)
+    if _is_shortcut_open(shortcut_id):
         _toast("Shortcut already open.")
         return
     if _combat_progression_enabled():
         if not _combat_goal_met():
             _toast("Defeat nearby enemies to open the boss route.")
             return
-        _open_shortcut()
+        _open_shortcut(shortcut_id)
         _play_sfx("lever")
         return
     var required_keys := int(area.get_meta("requires_keys", max_bells))
     if bell_count < required_keys:
         _toast("Shortcut needs %d route marks. You have %d." % [required_keys, bell_count])
         return
-    _open_shortcut()
+    _open_shortcut(shortcut_id)
     _play_sfx("lever")
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
 
 
-func _open_shortcut() -> void:
+func _open_shortcut(shortcut_id: String = "") -> void:
+    if shortcut_id.is_empty():
+        var ids := _shortcut_ids()
+        if not ids.is_empty():
+            shortcut_id = String(ids[0])
+    if not shortcut_id.is_empty():
+        opened_shortcuts[shortcut_id] = true
     shortcut_open = true
     boss_unlocked = true
-    if gate_body != null:
+    if gate_body != null and is_instance_valid(gate_body):
         gate_body.queue_free()
         gate_body = null
-    _toast("Boss route open. Find a save point before the boss run.")
+    var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
+    _toast("Shortcut open (%s). Find a save point before the boss run." % progress)
+    _refresh_hud()
+
+
+func _open_all_shortcuts(show_toast: bool = true) -> void:
+    var ids := _shortcut_ids()
+    for shortcut_id in ids:
+        opened_shortcuts[String(shortcut_id)] = true
+    shortcut_open = true
+    boss_unlocked = true
+    if gate_body != null and is_instance_valid(gate_body):
+        gate_body.queue_free()
+        gate_body = null
+    if show_toast:
+        _toast("All generated shortcuts open.")
     _refresh_hud()
 
 
@@ -2922,7 +3257,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         if metsys_bridge != null and boss_actor != null:
             if not boss_actor.has_meta("object_id"):
                 boss_actor.set_meta("object_id", "boss/" + spawn_id)
-                var boss_room := _room_for_x(boss_actor.global_position.x)
+                var boss_room := _room_for_position(boss_actor.global_position)
                 metsys_bridge.register_object(boss_actor, String(boss_actor.get_meta("object_id")), String(boss_room.get("id", "boss_chamber")))
             metsys_bridge.store_object(boss_actor)
         if player != null:
@@ -2941,7 +3276,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             player.gain_energy(20)
         _toast("Enemy defeated: %s (%s)" % [spawn_id, kind])
         if _combat_progression_enabled() and _combat_goal_met():
-            _open_shortcut()
+            _open_all_shortcuts(false)
             _toast("All threats cleared. Boss route opened.")
     _refresh_hud()
 
@@ -2963,10 +3298,26 @@ func _reset_encounters_after_player_death() -> void:
     boss_actor = null
     boss_spawned = false
     enemy_defeated = 0
-    pending_enemy_respawn = true
-    _switch_bgm("bgm_ch01")
-    _toast("Death reset: enemies and boss restored.")
+    if boss_trial_mode:
+        _open_all_shortcuts(false)
+        pending_enemy_respawn = false
+        if player != null and is_instance_valid(player):
+            player.global_position = active_spawn
+            if player.has_method("restore_at_save_point"):
+                player.restore_at_save_point()
+        call_deferred("_respawn_boss_trial_boss")
+        _toast("Boss trial reset: boss restored.")
+    else:
+        pending_enemy_respawn = true
+        _switch_bgm("bgm_ch01")
+        _toast("Death reset: enemies and boss restored.")
     _refresh_hud()
+
+
+func _respawn_boss_trial_boss() -> void:
+    if demo_complete or not boss_trial_mode:
+        return
+    _spawn_boss()
 
 
 func _open_post_boss_route() -> void:
@@ -3030,7 +3381,9 @@ func _refresh_hud() -> void:
     var hp_text := str(player.hp) if player != null else "5"
     var energy_text := "%d/%d" % [player.energy, player.max_energy] if player != null else "0/100"
     var skill_text := "Ready" if player != null and player.skill_cooldown <= 0.0 and player.energy >= player.skill_energy_cost else "Charging"
-    var shortcut_text := "Open" if shortcut_open else "Closed"
+    var shortcut_total := _shortcut_total()
+    var opened_shortcut_count := _opened_shortcut_total()
+    var shortcut_text := ("%d/%d" % [opened_shortcut_count, shortcut_total]) if shortcut_total > 0 else ("Open" if shortcut_open else "Closed")
     var boss_text := "Awake" if boss_spawned else ("Ready" if boss_unlocked else "Locked")
     var save_text := active_save_point_id
     if _combat_progression_enabled():
@@ -3158,6 +3511,9 @@ func get_demo_state() -> Dictionary:
         "bell_count": bell_count,
         "required_keys": max_bells,
         "shortcut_open": shortcut_open,
+        "shortcut_total": _shortcut_total(),
+        "opened_shortcut_total": _opened_shortcut_total(),
+        "opened_shortcut_ids": opened_shortcuts.keys(),
         "boss_unlocked": boss_unlocked,
         "boss_spawned": boss_spawned,
         "boss_arena_locked": boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body),
@@ -3178,13 +3534,24 @@ func get_demo_state() -> Dictionary:
         "npc_total": config.get("npcs", []).size(),
         "currency_count": currency_count,
         "inventory_item_total": inventory_counts.size(),
+        "unlocked_ability_total": unlocked_abilities.size(),
+        "unlocked_ability_ids": unlocked_abilities.keys(),
+        "locked_gate_total": config.get("locked_gates", []).size(),
+        "locked_gate_remaining": locked_gate_bodies.size(),
         "visited_room_total": visited_rooms.size(),
         "current_room_id": current_room_id,
+        "current_room_archetype": _room_map_copy(current_room_id, "archetype", ""),
+        "current_room_pacing_role": _room_map_copy(current_room_id, "pacing_role", ""),
+        "current_room_traversal_focus": _room_map_copy(current_room_id, "traversal_focus", ""),
+        "current_room_reward_contract": _room_map_copy(current_room_id, "reward_contract", ""),
+        "current_room_setpiece": _room_map_copy(current_room_id, "setpiece", ""),
+        "current_room_micro_objective": _room_map_copy(current_room_id, "micro_objective", ""),
         "backpack_overlay_ready": backpack_panel != null,
         "map_overlay_ready": map_panel != null,
         "dialogue_overlay_ready": dialogue_panel != null,
         "guide_marker_total": config.get("guides", []).size(),
         "active_overlay": active_overlay,
+        "boss_trial_mode": boss_trial_mode,
         "chapter_exit_total": chapter_exit_total,
         "ending_exit_total": ending_exit_total,
         "chapter_transition_to": transition_state.get("to_runtime_config_id", ""),
@@ -3229,9 +3596,20 @@ func get_demo_state() -> Dictionary:
     if boss_actor != null and is_instance_valid(boss_actor):
         var boss_body_size: Vector2 = boss_actor.get("body_size")
         var boss_hurtbox_size: Vector2 = boss_actor.get("hurtbox_size")
+        state["boss_position"] = [boss_actor.global_position.x, boss_actor.global_position.y]
         state["boss_body_size"] = [boss_body_size.x, boss_body_size.y]
         state["boss_hurtbox_size"] = [boss_hurtbox_size.x, boss_hurtbox_size.y]
         state["boss_visual_scale"] = float(boss_actor.get("visual_scale"))
+        state["boss_asset_path"] = String(boss_actor.get("asset_path"))
+        if boss_actor.has_method("get_ai_debug_state"):
+            var boss_ai_debug: Dictionary = boss_actor.get_ai_debug_state()
+            state["boss_last_attack_id"] = String(boss_ai_debug.get("last_attack_id", ""))
+            state["boss_last_ai_decision"] = String(boss_ai_debug.get("last_ai_decision", ""))
+            state["boss_tactical_ai"] = bool(boss_ai_debug.get("tactical_ai", false))
+            state["boss_tactic"] = String(boss_ai_debug.get("boss_tactic", ""))
+            state["boss_tactic_timer"] = float(boss_ai_debug.get("boss_tactic_timer", 0.0))
+            state["boss_attack_desire"] = float(boss_ai_debug.get("attack_desire", 0.0))
+            state["boss_attack_desire_threshold"] = float(boss_ai_debug.get("attack_desire_threshold", 0.0))
     if not campaign.is_empty():
         state["campaign_chapter_total"] = campaign.get("chapters", []).size()
         state["campaign_current_chapter"] = current_campaign_chapter.get("name", "")
@@ -3251,16 +3629,35 @@ func _debug_collect_all_keys() -> void:
     _refresh_hud()
 
 
+func _debug_collect_all_abilities() -> void:
+    for collectible in config.get("collectibles", []):
+        if not (collectible is Dictionary):
+            continue
+        var data: Dictionary = collectible
+        if String(data.get("kind", "")) != "item":
+            continue
+        var item_id := String(data.get("item_id", ""))
+        if item_id.is_empty():
+            continue
+        _add_inventory_item(item_id, 1, false)
+        unlocked_abilities[item_id] = String(data.get("ability_name", data.get("label", item_id)))
+    _refresh_ability_gates()
+    _refresh_hud()
+
+
 func _debug_clear_combat_route() -> void:
     enemy_defeated = enemy_total
     if _combat_progression_enabled():
-        _open_shortcut()
+        _open_all_shortcuts(false)
     _refresh_hud()
 
 
 func _debug_open_shortcut() -> void:
-    if not shortcut_open:
-        _open_shortcut()
+    _open_all_shortcuts()
+
+
+func _debug_open_all_shortcuts() -> void:
+    _open_all_shortcuts()
 
 
 func _debug_start_boss() -> void:

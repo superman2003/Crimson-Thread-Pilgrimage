@@ -56,9 +56,15 @@ var last_player_command := "none"
 var last_ai_decision := "patrol"
 var last_attack_id := ""
 var command_read_count := 0
+var boss_tactic := "observe"
+var boss_tactic_timer := 0.0
+var boss_press_timer := 0.0
+var boss_reposition_target_x := 0.0
 var sprite: Node2D
 var animated_sprite: AnimatedSprite2D
 var telegraph: Polygon2D
+var requested_sprite_flip := false
+var current_animation_has_explicit_direction := false
 
 
 func _ready() -> void:
@@ -134,6 +140,10 @@ func take_hit(amount: int, hit_direction: int) -> void:
     _clamp_movement_bounds()
     modulate = Color(1.0, 0.72, 0.55)
     flash_timer = 0.12
+    if _boss_tactical_enabled() and hp > 0:
+        boss_tactic = "evade"
+        boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
+        boss_press_timer = 0.0
     if not is_boss and hp > 0:
         state = "recover"
         state_timer = 0.16
@@ -164,7 +174,12 @@ func get_ai_debug_state() -> Dictionary:
         "command_read_count": command_read_count,
         "aggro_vertical_tolerance": float(ai_profile.get("aggro_vertical_tolerance", 190.0 if is_boss else 118.0)),
         "attack_vertical_tolerance": float(ai_profile.get("attack_vertical_tolerance", 132.0 if is_boss else 72.0)),
-        "max_attack_range": _max_attack_range(false)
+        "max_attack_range": _max_attack_range(false),
+        "tactical_ai": _boss_tactical_enabled(),
+        "boss_tactic": boss_tactic,
+        "boss_tactic_timer": boss_tactic_timer,
+        "boss_press_timer": boss_press_timer,
+        "boss_reposition_target_x": boss_reposition_target_x
     }
 
 
@@ -176,6 +191,8 @@ func _tick_timers(delta: float) -> void:
             modulate = Color.WHITE
     for key in cooldowns.keys():
         cooldowns[key] = maxf(0.0, float(cooldowns[key]) - delta)
+    if boss_tactic_timer > 0.0:
+        boss_tactic_timer = maxf(0.0, boss_tactic_timer - delta)
 
 
 func _is_attack_state() -> bool:
@@ -228,6 +245,10 @@ func reset_for_respawn() -> void:
     last_player_command = "none"
     last_ai_decision = "patrol"
     last_attack_id = ""
+    boss_tactic = "observe"
+    boss_tactic_timer = 0.0
+    boss_press_timer = 0.0
+    boss_reposition_target_x = spawn_position.x
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -279,6 +300,9 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
 
 
 func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
+    if _boss_tactical_enabled():
+        _move_boss_tactical(delta, target)
+        return
     var preferred := float(ai_profile.get("preferred_range", 54.0))
     var dx := target.global_position.x - global_position.x
     var distance := absf(dx)
@@ -290,22 +314,219 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
     if pressured and attack_range > 0.0:
         desired = minf(preferred, maxf(34.0, attack_range * 0.70))
     var chase_speed := speed * (float(ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
+    var movement_direction := 0.0
     if attack_range > 0.0 and distance > attack_range - 10.0:
-        position.x += signf(dx) * chase_speed * delta
+        movement_direction = signf(dx)
+        position.x += movement_direction * chase_speed * delta
         moved = true
         last_ai_decision = "press"
     elif distance > desired + 14.0:
-        position.x += signf(dx) * chase_speed * delta
+        movement_direction = signf(dx)
+        position.x += movement_direction * chase_speed * delta
         moved = true
         last_ai_decision = "advance"
     elif distance < desired - 18.0 and not pressured:
-        position.x -= signf(dx) * speed * 0.55 * delta
+        movement_direction = -signf(dx)
+        position.x += movement_direction * speed * 0.55 * delta
         moved = true
         last_ai_decision = "space"
     else:
         last_ai_decision = "threaten"
+    if moved and movement_direction != 0.0:
+        direction = -1 if movement_direction < 0.0 else 1
+        _set_sprite_flip(direction < 0)
+    elif target != null:
+        _face_target(target)
     _clamp_movement_bounds()
     _set_enemy_animation("walk" if moved else "idle")
+
+
+func _boss_tactical_enabled() -> bool:
+    return is_boss and bool(ai_profile.get("tactical_ai", true))
+
+
+func _move_boss_tactical(delta: float, target: CharacterBody2D) -> void:
+    var dx := target.global_position.x - global_position.x
+    var distance := absf(dx)
+    _prepare_boss_tactic(target, distance)
+    var moved := false
+    var movement_direction := 0.0
+    var move_multiplier := 1.0
+    match boss_tactic:
+        "press":
+            movement_direction = signf(dx)
+            move_multiplier = float(ai_profile.get("pressure_speed_multiplier", 1.08))
+            boss_press_timer += delta
+            last_ai_decision = "tactic:press"
+        "evade":
+            movement_direction = -signf(dx)
+            move_multiplier = float(ai_profile.get("evade_speed_multiplier", 1.18))
+            boss_press_timer = maxf(0.0, boss_press_timer - delta * 1.4)
+            last_ai_decision = "tactic:evade"
+        "reposition":
+            var reposition_dx := boss_reposition_target_x - global_position.x
+            if absf(reposition_dx) > 8.0:
+                movement_direction = signf(reposition_dx)
+                move_multiplier = float(ai_profile.get("reposition_speed_multiplier", 1.04))
+            last_ai_decision = "tactic:reposition"
+        "space":
+            movement_direction = _boss_spacing_direction(distance, dx)
+            move_multiplier = float(ai_profile.get("spacing_speed_multiplier", 0.72))
+            boss_press_timer = maxf(0.0, boss_press_timer - delta)
+            last_ai_decision = "tactic:space"
+        "guard":
+            boss_press_timer = maxf(0.0, boss_press_timer - delta * 0.55)
+            last_ai_decision = "tactic:guard"
+        _:
+            boss_press_timer = maxf(0.0, boss_press_timer - delta * 0.45)
+            last_ai_decision = "tactic:observe"
+    if movement_direction != 0.0:
+        position.x += movement_direction * speed * move_multiplier * delta
+        moved = true
+    _clamp_movement_bounds()
+    if moved:
+        direction = -1 if movement_direction < 0.0 else 1
+        _set_sprite_flip(direction < 0)
+    elif target != null:
+        _face_target(target)
+    _set_enemy_animation("walk" if moved else "idle")
+
+
+func _prepare_boss_tactic(target: CharacterBody2D, distance: float = -1.0) -> void:
+    if target == null:
+        boss_tactic = "observe"
+        boss_tactic_timer = 0.0
+        return
+    var measured_distance := distance
+    if measured_distance < 0.0:
+        measured_distance = absf(target.global_position.x - global_position.x)
+    if boss_tactic_timer <= 0.0 or _boss_tactic_finished(target, measured_distance):
+        _choose_boss_tactic(target, measured_distance)
+
+
+func _boss_tactic_finished(target: CharacterBody2D, distance: float) -> bool:
+    var preferred := float(ai_profile.get("preferred_range", 118.0))
+    var close_range := float(ai_profile.get("close_range", maxf(56.0, preferred * 0.62)))
+    if boss_tactic == "press":
+        return distance <= preferred * 0.92 or boss_press_timer >= float(ai_profile.get("max_press_time", 1.25))
+    if boss_tactic == "evade":
+        return distance >= preferred * 1.22 or _boss_at_arena_edge()
+    if boss_tactic == "reposition":
+        return absf(global_position.x - boss_reposition_target_x) <= 10.0
+    if boss_tactic == "space":
+        return distance >= close_range and distance <= preferred * 1.18
+    return false
+
+
+func _choose_boss_tactic(target: CharacterBody2D, distance: float) -> void:
+    var preferred := float(ai_profile.get("preferred_range", 118.0))
+    var attack_range := _max_attack_range(false)
+    var ready_range := _max_attack_range(true)
+    var close_range := float(ai_profile.get("close_range", maxf(56.0, preferred * 0.62)))
+    var pressure := _player_command_pressure(last_player_command)
+    var threshold := _attack_desire_threshold()
+    if distance <= close_range or _boss_should_evade_player_command(pressure):
+        _set_boss_tactic("evade", _boss_tactic_duration("evade", 0.42), target)
+        return
+    if last_player_command == "heal" or last_player_command == "run_away":
+        _set_boss_tactic("press", _boss_tactic_duration("press", 0.72), target)
+        return
+    if boss_press_timer >= float(ai_profile.get("max_press_time", 1.25)):
+        _set_boss_tactic("reposition", _boss_tactic_duration("reposition", 0.82), target)
+        return
+    if ready_range > 0.0 and distance > ready_range * 0.92:
+        _set_boss_tactic("press", _boss_tactic_duration("press", 0.86), target)
+        return
+    if attack_range > 0.0 and distance > attack_range * 0.82:
+        _set_boss_tactic("press", _boss_tactic_duration("press", 0.70), target)
+        return
+    if _boss_should_reposition(target, distance):
+        _set_boss_tactic("reposition", _boss_tactic_duration("reposition", 0.78), target)
+        return
+    if attack_desire < threshold * 0.66:
+        _set_boss_tactic("observe", _boss_tactic_duration("observe", 0.34), target)
+        return
+    if distance < preferred * 0.92 or distance > preferred * 1.22:
+        _set_boss_tactic("space", _boss_tactic_duration("space", 0.48), target)
+        return
+    _set_boss_tactic("guard", _boss_tactic_duration("guard", 0.36), target)
+
+
+func _set_boss_tactic(next_tactic: String, duration: float, target: CharacterBody2D) -> void:
+    boss_tactic = next_tactic
+    boss_tactic_timer = maxf(0.08, duration)
+    if boss_tactic == "reposition":
+        boss_reposition_target_x = _boss_reposition_x(target)
+
+
+func _boss_tactic_duration(tactic: String, fallback: float) -> float:
+    var durations: Dictionary = ai_profile.get("tactic_durations", {})
+    return float(durations.get(tactic, ai_profile.get(tactic + "_time", fallback)))
+
+
+func _boss_should_evade_player_command(pressure: float) -> bool:
+    if pressure < 1.0:
+        return false
+    return ["slash_forward", "slash_up", "slash_down", "dash_toward", "hook"].has(last_player_command)
+
+
+func _boss_should_reposition(target: CharacterBody2D, distance: float) -> bool:
+    if not _boss_has_arena_bounds():
+        return false
+    var edge_margin := float(ai_profile.get("arena_edge_margin", 150.0))
+    if global_position.x - _boss_min_x() < edge_margin or _boss_max_x() - global_position.x < edge_margin:
+        return true
+    var preferred := float(ai_profile.get("preferred_range", 118.0))
+    return distance < preferred * 1.05 and attack_desire >= _attack_desire_threshold() * 0.82 and boss_tactic == "guard"
+
+
+func _boss_spacing_direction(distance: float, dx: float) -> float:
+    var preferred := float(ai_profile.get("preferred_range", 118.0))
+    if distance < preferred * 0.92:
+        return -signf(dx)
+    if distance > preferred * 1.22:
+        return signf(dx)
+    return 0.0
+
+
+func _boss_reposition_x(target: CharacterBody2D) -> float:
+    var min_x := _boss_min_x()
+    var max_x := _boss_max_x()
+    var margin := float(ai_profile.get("arena_edge_margin", 150.0))
+    if min_x >= max_x:
+        return spawn_position.x
+    var midpoint := (min_x + max_x) * 0.5
+    var desired := max_x - margin if target.global_position.x < midpoint else min_x + margin
+    if absf(desired - global_position.x) < margin * 0.75:
+        desired = min_x + margin if desired > midpoint else max_x - margin
+    return clampf(desired, min_x + 36.0, max_x - 36.0)
+
+
+func _boss_has_arena_bounds() -> bool:
+    return _boss_min_x() < _boss_max_x()
+
+
+func _boss_min_x() -> float:
+    if arena_min_x < arena_max_x:
+        return arena_min_x
+    if platform_min_x < platform_max_x:
+        return platform_min_x
+    return spawn_position.x - 520.0
+
+
+func _boss_max_x() -> float:
+    if arena_min_x < arena_max_x:
+        return arena_max_x
+    if platform_min_x < platform_max_x:
+        return platform_max_x
+    return spawn_position.x + 520.0
+
+
+func _boss_at_arena_edge() -> bool:
+    if not _boss_has_arena_bounds():
+        return false
+    var edge_margin := float(ai_profile.get("arena_edge_margin", 150.0)) * 0.55
+    return global_position.x - _boss_min_x() <= edge_margin or _boss_max_x() - global_position.x <= edge_margin
 
 
 func _patrol(delta: float) -> void:
@@ -512,6 +733,14 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
     if ai_commands.is_empty():
         return false
     var desire_threshold := _attack_desire_threshold()
+    if _boss_tactical_enabled():
+        _prepare_boss_tactic(target)
+        if ["evade", "reposition", "observe"].has(boss_tactic):
+            last_ai_decision = "tactic:" + boss_tactic
+            return false
+        if boss_tactic == "space" and attack_desire < desire_threshold * 1.12:
+            last_ai_decision = "tactic:space"
+            return false
     if attack_desire < desire_threshold and _player_command_pressure(last_player_command) < 0.85:
         last_ai_decision = "build_desire"
         return false
@@ -523,6 +752,7 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
     if candidates.is_empty():
         return false
     candidates.sort_custom(func(a, b): return _attack_candidate_score(a, target) > _attack_candidate_score(b, target))
+    _face_target(target)
     _begin_attack(candidates[0])
     return true
 
@@ -533,11 +763,15 @@ func _begin_attack(command: Dictionary) -> void:
     attack_direction = direction
     last_attack_id = String(command.get("id", "attack"))
     last_ai_decision = "attack:" + last_attack_id
+    if _boss_tactical_enabled():
+        boss_tactic = "attack"
+        boss_tactic_timer = float(command.get("windup", 0.25)) + float(command.get("active", 0.16))
+        boss_press_timer = maxf(0.0, boss_press_timer - float(command.get("desire_cost", 0.72)) * 0.35)
     attack_desire = maxf(0.0, attack_desire - float(command.get("desire_cost", 0.72 if is_boss else 0.86)))
     state = "windup"
     state_timer = float(command.get("windup", 0.25))
     cooldowns[String(command.get("id", "attack"))] = float(command.get("cooldown", 1.2))
-    _set_enemy_animation("attack")
+    _set_enemy_animation(String(command.get("animation", "attack")))
     _pose_sprite("windup", command)
     _play_attack_sfx("windup")
     _spawn_windup_vfx(command)
@@ -580,6 +814,12 @@ func _update_recover(delta: float) -> void:
     if state_timer <= 0.0:
         active_attack = {}
         state = "patrol"
+        if _boss_tactical_enabled():
+            boss_tactic = "reposition" if boss_press_timer >= float(ai_profile.get("max_press_time", 1.25)) * 0.72 else "guard"
+            boss_tactic_timer = _boss_tactic_duration(boss_tactic, 0.34)
+            var target := _target_player()
+            if boss_tactic == "reposition" and target != null:
+                boss_reposition_target_x = _boss_reposition_x(target)
         _set_enemy_animation("idle")
         _pose_sprite("idle")
 
@@ -782,19 +1022,50 @@ func _load_texture_resource(path: String) -> Texture2D:
 
 
 func _set_sprite_flip(flip_value: bool) -> void:
-    if sprite != null:
-        sprite.set("flip_h", not flip_value if sprite_faces_left else flip_value)
+    requested_sprite_flip = flip_value
+    _apply_sprite_flip()
 
 
 func _set_enemy_animation(animation_name: String) -> void:
-    _apply_sprite_region(animation_name)
+    var next_animation := _resolve_directional_animation(animation_name)
+    if animated_sprite != null and animated_sprite.sprite_frames != null and not animated_sprite.sprite_frames.has_animation(next_animation):
+        next_animation = "idle"
+    current_animation_has_explicit_direction = _is_directional_animation_name(next_animation) and _has_enemy_animation(next_animation)
+    _apply_sprite_region(next_animation)
+    _apply_sprite_flip()
     if animated_sprite == null or animated_sprite.sprite_frames == null:
         return
-    var next_animation := animation_name
-    if not animated_sprite.sprite_frames.has_animation(next_animation):
-        next_animation = "idle"
     if animated_sprite.animation != next_animation:
         animated_sprite.play(next_animation)
+
+
+func _resolve_directional_animation(animation_name: String) -> String:
+    if _is_directional_animation_name(animation_name):
+        return animation_name
+    var direction_suffix := "_left" if (attack_direction if _is_attack_state() else direction) < 0 else "_right"
+    var directional_animation := animation_name + direction_suffix
+    if _has_enemy_animation(directional_animation):
+        return directional_animation
+    return animation_name
+
+
+func _has_enemy_animation(animation_name: String) -> bool:
+    if animated_sprite != null and animated_sprite.sprite_frames != null and animated_sprite.sprite_frames.has_animation(animation_name):
+        return true
+    return sprite_regions.has(animation_name)
+
+
+func _is_directional_animation_name(animation_name: String) -> bool:
+    return animation_name.ends_with("_left") or animation_name.ends_with("_right")
+
+
+func _apply_sprite_flip() -> void:
+    if sprite == null:
+        return
+    if current_animation_has_explicit_direction:
+        sprite.set("flip_h", false)
+        return
+    sprite.set("flip_h", not requested_sprite_flip if sprite_faces_left else requested_sprite_flip)
 
 
 func _apply_sprite_region(animation_name: String) -> void:

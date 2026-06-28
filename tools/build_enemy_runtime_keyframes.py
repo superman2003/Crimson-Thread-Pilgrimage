@@ -26,12 +26,17 @@ GRID_OVERRIDES = {
     "redshrike-emceeflesher-eyewasp-alpha.png": (36, 36),
     "redshrike-emceeflesher-skullwasp-alpha.png": (36, 36),
     "redshrike-emceeflesher-wasp.png": (38, 36),
-    "redshrike-evert-pufalotti-frogman-pal2-alpha.png": (60, 60),
-    "redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png": (60, 60),
+    "redshrike-evert-pufalotti-frogman-pal2-alpha.png": (60, 40),
+    "redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png": (60, 40),
     "redshrike-thompson-golem-pal2-alpha.png": (64, 72),
     "redshrike-wartaur-alpha.png": (80, 80),
     "sparky-surt-emceeflesher-alpha.png": (32, 32),
     "surt-emceeflesher-spitsnail-alpha_0.png": (32, 32),
+}
+
+CONNECTED_COMPONENT_SOURCES = {
+    "redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+    "redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
 }
 
 REQUIRED_ANIMS = ["idle", "walk", "attack", "hurt", "death"]
@@ -103,7 +108,7 @@ def build_manifest_for_actor(kind: str, source_path: Path, source_region: Any) -
     cell_w, cell_h = cell_size(source_path, source_region)
     out_dir = OUT_ROOT / sanitize(kind)
     out_dir.mkdir(parents=True, exist_ok=True)
-    frames = build_frames(image, cell_w, cell_h, start_index(source_region, cell_w, cell_h, image.width))
+    frames = build_frames(image, cell_w, cell_h, start_index(source_region, cell_w, cell_h, image.width), source_path.name)
     if not frames:
         raise RuntimeError(f"No usable frames for {kind}: {source_path}")
     frame_paths: list[Path] = []
@@ -154,7 +159,12 @@ def start_index(region: Any, cell_w: int, cell_h: int, image_width: int) -> int:
     return int(region[1]) // max(1, cell_h) * cols + int(region[0]) // max(1, cell_w)
 
 
-def build_frames(image: Image.Image, cell_w: int, cell_h: int, preferred_index: int) -> list[Image.Image]:
+def build_frames(image: Image.Image, cell_w: int, cell_h: int, preferred_index: int, source_name: str = "") -> list[Image.Image]:
+    if source_name in CONNECTED_COMPONENT_SOURCES:
+        frames = build_connected_component_frames(image)
+        while len(frames) < 6:
+            frames.extend(frame.copy() for frame in frames)
+        return frames[:8]
     tiles: list[tuple[int, Image.Image, int, tuple[int, int, int, int]]] = []
     tile_index = 0
     for y in range(0, image.height, cell_h):
@@ -178,6 +188,23 @@ def build_frames(image: Image.Image, cell_w: int, cell_h: int, preferred_index: 
     while len(ordered) < 6:
         ordered.extend(ordered)
     return ordered[:8]
+
+
+def build_connected_component_frames(image: Image.Image) -> list[Image.Image]:
+    components = connected_components(image)
+    frames: list[Image.Image] = []
+    for component in sorted(components, key=lambda item: (item["bbox"][1], item["bbox"][0])):
+        x0, y0, x1, y1 = component["bbox"]
+        pad = 4
+        crop_box = (max(0, x0 - pad), max(0, y0 - pad), min(image.width, x1 + pad), min(image.height, y1 + pad))
+        frame = Image.new("RGBA", (crop_box[2] - crop_box[0], crop_box[3] - crop_box[1]), (0, 0, 0, 0))
+        source = image.load()
+        target = frame.load()
+        for x, y in component["points"]:
+            if crop_box[0] <= x < crop_box[2] and crop_box[1] <= y < crop_box[3]:
+                target[x - crop_box[0], y - crop_box[1]] = source[x, y]
+        frames.append(frame)
+    return frames
 
 
 def filter_actor_tiles(tiles: list[tuple[int, Image.Image, int, tuple[int, int, int, int]]]) -> list[tuple[int, Image.Image, int, tuple[int, int, int, int]]]:

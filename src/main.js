@@ -89,6 +89,29 @@ const PLAYER_ANIMS = {
   attack: ["attack_00", "attack_01", "attack_02", "attack_03"]
 };
 
+const BOSS_SPECIALS_BY_CHAPTER = [
+  [
+    {
+      id: "boss_01_atk_01",
+      name: "Moss Bell Liturgy",
+      color: "#78c26d",
+      frames: makeBossSpecialFramePaths("boss_01_moss_bell_matriarch", "boss_01_atk_01")
+    },
+    {
+      id: "boss_01_atk_02",
+      name: "Cradle of Roots",
+      color: "#6fa85d",
+      frames: makeBossSpecialFramePaths("boss_01_moss_bell_matriarch", "boss_01_atk_02")
+    },
+    {
+      id: "boss_01_atk_03",
+      name: "Matriarch Chime Rain",
+      color: "#a7d66f",
+      frames: makeBossSpecialFramePaths("boss_01_moss_bell_matriarch", "boss_01_atk_03")
+    }
+  ]
+];
+
 const input = {
   left: false,
   right: false,
@@ -181,6 +204,13 @@ window.__crimsonThreadQA = {
     finishChapter();
     return snapshot();
   },
+  startBossTrial(index = 0) {
+    const safeIndex = clamp(Math.trunc(index), 0, CHAPTERS.length - 1);
+    state.unlocked = Math.max(state.unlocked, safeIndex + 1);
+    saveUnlocks();
+    startBossTrial(safeIndex, { silent: true });
+    return snapshot();
+  },
   collectAllKeys() {
     for (const key of state.keyPickups) key.taken = true;
     state.keys = state.keyPickups.length;
@@ -205,6 +235,13 @@ window.__crimsonThreadQA = {
   snapshot,
   visualMetrics
 };
+
+const bootParams = new URLSearchParams(window.location.search);
+if (bootParams.has("boss")) {
+  const requested = Number(bootParams.get("boss"));
+  const chapterIndex = Number.isFinite(requested) ? requested - 1 : 0;
+  startBossTrial(clamp(Math.trunc(chapterIndex), 0, CHAPTERS.length - 1), { silent: true });
+}
 
 function loop(now) {
   const dt = Math.min((now - (loop.last || now)) / 1000, 0.033);
@@ -282,6 +319,34 @@ function startChapter(index, options = {}) {
   menu.classList.add("is-hidden");
   if (!options.silent) playTone("start");
   updateHud();
+}
+
+function startBossTrial(index, options = {}) {
+  startChapter(index, options);
+  const chapter = CHAPTERS[state.chapterIndex];
+  state.enemies = [];
+  state.keyPickups = (chapter.keys || []).map((key, keyIndex) => ({ ...key, id: `k-${index}-${keyIndex}`, taken: true }));
+  state.keys = state.keyPickups.length;
+  state.shortcutOpen = true;
+  state.projectiles = [];
+  state.attacks = [];
+  state.particles = [];
+  state.player.x = Math.max(0, chapter.boss.x - 420);
+  state.player.y = 370;
+  state.player.vx = 0;
+  state.player.vy = 0;
+  state.player.face = 1;
+  state.player.health = state.player.maxHealth;
+  state.boss = createBoss(chapter.boss, state.chapterIndex);
+  state.boss.x = chapter.boss.x;
+  state.boss.y = chapter.boss.y;
+  state.boss.baseY = chapter.boss.y;
+  state.boss.dir = -1;
+  state.boss.attackTimer = 0.5;
+  state.cameraX = clamp(state.player.x - SETTINGS.width * 0.43, 0, WORLD_W - SETTINGS.width);
+  state.lastEvent = "Boss Trial";
+  updateHud();
+  if (!options.silent) playTone("start");
 }
 
 function resetProgress() {
@@ -372,6 +437,13 @@ function createBoss(entry, chapterIndex) {
     dir: -1,
     phase: chapterIndex,
     attackTimer: 1.1,
+    specialAttackIndex: 0,
+    specialAttack: "",
+    specialAttackName: "",
+    specialAttackColor: "",
+    attackAnimTimer: 0,
+    attackAnimTotal: 0,
+    attackVfxTimer: 0,
     alertTimer: 0,
     hitFlash: 0,
     dead: false
@@ -629,6 +701,8 @@ function updateBoss(dt) {
   const chapter = CHAPTERS[state.chapterIndex];
   const player = state.player;
   boss.hitFlash = Math.max(0, boss.hitFlash - dt);
+  boss.attackAnimTimer = Math.max(0, boss.attackAnimTimer - dt);
+  boss.attackVfxTimer = Math.max(0, boss.attackVfxTimer - dt);
   boss.attackTimer -= dt;
   boss.dir = player.x > boss.x ? 1 : -1;
 
@@ -650,11 +724,27 @@ function updateBoss(dt) {
 }
 
 function bossAttack(boss, player, chapter) {
-  const color = chapter.palette.danger;
+  const special = nextBossSpecial(boss);
+  const color = special?.color || chapter.palette.danger;
+  if (special) {
+    boss.specialAttack = special.id;
+    boss.specialAttackName = special.name;
+    boss.specialAttackColor = special.color;
+    boss.attackAnimTotal = 0.5;
+    boss.attackAnimTimer = boss.attackAnimTotal;
+    boss.attackVfxTimer = 0.42;
+    state.lastEvent = special.name;
+  }
   playTone("boss");
   if (boss.pattern === "bell") {
-    shoot(boss, player, color, 310, 2);
-    radialBurst(boss, color, 5, 180);
+    if (special?.id === "boss_01_atk_02") {
+      rootSpikeLine(boss, player, color);
+    } else if (special?.id === "boss_01_atk_03") {
+      chimeRain(boss, player, color);
+    } else {
+      shoot(boss, player, color, 310, 2);
+      radialBurst(boss, color, 5, 180);
+    }
   } else if (boss.pattern === "mirror") {
     for (const offset of [-36, 0, 36]) shoot({ ...boss, y: boss.y + offset }, player, color, 330, 1);
   } else if (boss.pattern === "ember") {
@@ -671,6 +761,14 @@ function bossAttack(boss, player, chapter) {
     shoot(boss, player, chapter.palette.accent, 410, 2);
   }
   spawnParticles(boss.x + boss.w / 2, boss.y + boss.h / 2, color, 16);
+}
+
+function nextBossSpecial(boss) {
+  const specials = BOSS_SPECIALS_BY_CHAPTER[state.chapterIndex] || [];
+  if (!specials.length) return null;
+  const special = specials[boss.specialAttackIndex % specials.length];
+  boss.specialAttackIndex = (boss.specialAttackIndex + 1) % specials.length;
+  return special;
 }
 
 function shoot(source, target, color, speed, damage) {
@@ -718,6 +816,40 @@ function dropProjectile(x, color) {
     damage: 1,
     life: 2.2
   });
+}
+
+function rootSpikeLine(source, target, color) {
+  const startX = source.x + source.w / 2;
+  const endX = target.x + target.w / 2;
+  const dir = Math.sign(endX - startX) || source.dir || -1;
+  for (let i = 0; i < 4; i += 1) {
+    state.projectiles.push({
+      x: startX + dir * (62 + i * 74),
+      y: FLOOR - 22,
+      r: 10,
+      vx: dir * 18,
+      vy: -70 - i * 8,
+      color,
+      damage: 1,
+      life: 1.25
+    });
+  }
+}
+
+function chimeRain(source, target, color) {
+  const center = target.x + target.w / 2;
+  for (let i = 0; i < 5; i += 1) {
+    state.projectiles.push({
+      x: center - 150 + i * 75,
+      y: 54 - i * 9,
+      r: 8,
+      vx: Math.sin(i) * 22,
+      vy: 300,
+      color,
+      damage: 1,
+      life: 1.65
+    });
+  }
 }
 
 function updateProjectiles(dt) {
@@ -1041,7 +1173,7 @@ function drawGuideArrow(chapter) {
 function drawEnemy(enemy, chapter) {
   if (enemy.dead) return;
   const asset = enemy.kind === "boss"
-    ? assets.chapters[state.chapterIndex].boss
+    ? selectBossSprite(enemy)
     : assets.chapters[state.chapterIndex].enemies[enemy.kind];
   const rect = visualRect(enemy, enemy.kind === "boss" ? "boss" : "enemy");
   ctx.save();
@@ -1052,12 +1184,70 @@ function drawEnemy(enemy, chapter) {
   if (enemy.alertTimer > 0) {
     drawEnemyTelegraph(enemy, rect, chapter);
   }
+  if (enemy.kind === "boss") {
+    drawBossSpecialVfx(enemy, rect, chapter);
+  }
   drawSprite(asset, rect.x, rect.y, rect.w, rect.h, enemy.dir < 0);
   if (enemy.kind === "boss") {
     ctx.fillStyle = "rgba(0,0,0,0.45)";
     ctx.fillRect(rect.x - 10, rect.y - 20, rect.w + 20, 6);
     ctx.fillStyle = chapter.palette.danger;
     ctx.fillRect(rect.x - 10, rect.y - 20, (rect.w + 20) * Math.max(0, enemy.hp / enemy.maxHp), 6);
+  }
+  ctx.restore();
+}
+
+function selectBossSprite(boss) {
+  const specials = assets.chapters[state.chapterIndex]?.bossSpecials || {};
+  const frames = specials[boss.specialAttack] || null;
+  if (frames && boss.attackAnimTimer > 0 && boss.attackAnimTotal > 0) {
+    const progress = 1 - clamp(boss.attackAnimTimer / boss.attackAnimTotal, 0, 1);
+    const frameIndex = clamp(Math.floor(progress * frames.length), 0, frames.length - 1);
+    return frames[frameIndex];
+  }
+  const idleFrames = specials.boss_01_atk_01;
+  if (state.chapterIndex === 0 && idleFrames?.length) {
+    return idleFrames[Math.floor(state.time * 6) % Math.min(2, idleFrames.length)];
+  }
+  return assets.chapters[state.chapterIndex].boss;
+}
+
+function drawBossSpecialVfx(boss, rect, chapter) {
+  if (boss.attackVfxTimer <= 0) return;
+  const progress = 1 - clamp(boss.attackVfxTimer / 0.42, 0, 1);
+  const color = boss.specialAttackColor || chapter.palette.danger;
+  ctx.save();
+  ctx.globalAlpha = 0.58 * (1 - progress);
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 18;
+  ctx.lineWidth = 4;
+  const cx = rect.x + rect.w / 2;
+  const cy = rect.y + rect.h * 0.58;
+  if (boss.specialAttack === "boss_01_atk_02") {
+    for (let i = 0; i < 4; i += 1) {
+      const x = boss.dir > 0 ? rect.x + rect.w + i * 34 : rect.x - i * 34;
+      ctx.beginPath();
+      ctx.moveTo(x, FLOOR - 6);
+      ctx.lineTo(x + boss.dir * 16, FLOOR - 58 - progress * 28);
+      ctx.lineTo(x + boss.dir * 34, FLOOR - 6);
+      ctx.stroke();
+      ctx.fill();
+    }
+  } else if (boss.specialAttack === "boss_01_atk_03") {
+    for (let i = 0; i < 5; i += 1) {
+      ctx.beginPath();
+      ctx.arc(cx - 92 + i * 46, cy - 80 + Math.sin(state.time * 8 + i) * 8, 9 + progress * 8, 0, TAU);
+      ctx.stroke();
+    }
+  } else {
+    ctx.beginPath();
+    ctx.arc(cx, cy, 42 + progress * 92, 0, TAU);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, 74 + progress * 126, 0, TAU);
+    ctx.stroke();
   }
   ctx.restore();
 }
@@ -1201,6 +1391,7 @@ function buildAssets() {
       lever: loadImage(ASSET_PATHS.lever, makeEnemySprite(chapter, index, "charger")),
       bossGate: loadImage(ASSET_PATHS.bossGate, makeEnemySprite(chapter, index, "boss")),
       boss: loadImage(ASSET_PATHS.boss, makeEnemySprite(chapter, index, "boss")),
+      bossSpecials: buildBossSpecialFrames(index, makeEnemySprite(chapter, index, "boss")),
       enemies: {
         crawler: loadImage(ASSET_PATHS.enemies.crawler, makeEnemySprite(chapter, index, "crawler")),
         flyer: loadImage(ASSET_PATHS.enemies.flyer, makeEnemySprite(chapter, index, "flyer")),
@@ -1209,6 +1400,20 @@ function buildAssets() {
       }
     }))
   };
+}
+
+function makeBossSpecialFramePaths(slug, attackId) {
+  return Array.from(
+    { length: 6 },
+    (_, index) => `godot/assets/sprites/bosses/${slug}/frames/${attackId}/attack_${String(index).padStart(2, "0")}.png`
+  );
+}
+
+function buildBossSpecialFrames(chapterIndex, fallback) {
+  const specials = BOSS_SPECIALS_BY_CHAPTER[chapterIndex] || [];
+  return Object.fromEntries(
+    specials.map((special) => [special.id, special.frames.map((path) => loadImage(path, fallback))])
+  );
 }
 
 function loadImage(src, fallback) {
@@ -1729,17 +1934,22 @@ function snapshot() {
     bossHp: state.boss?.hp ?? 0,
     playerHealth: state.player?.health ?? 0,
     playerX: state.player?.x ?? 0,
+    cameraX: state.cameraX,
     keys: state.keys,
     totalKeys: state.keyPickups.length,
     shortcutOpen: state.shortcutOpen,
     hitStop: state.hitStop,
-    lastEvent: state.lastEvent
+    lastEvent: state.lastEvent,
+    bossSpecialAttack: state.boss?.specialAttack || "",
+    bossSpecialAttackName: state.boss?.specialAttackName || ""
   };
 }
 
 function visualMetrics() {
   const player = state.player;
   const heroIdle = assets.playerFrames?.idle_00;
+  const bossSpecials = assets.chapters[state.chapterIndex]?.bossSpecials || {};
+  const bossSpecialFrames = Object.values(bossSpecials).flat();
   return {
     heroIdlePath: ASSET_PATHS.player,
     heroFrameSize: imageSize(heroIdle),
@@ -1750,6 +1960,10 @@ function visualMetrics() {
     bossVisual: { ...VISUAL_BOUNDS.boss },
     playerCollision: player ? { w: player.w, h: player.h } : null,
     playerRect: player ? visualRect(player, "player") : null,
+    bossSpecialAttackCount: Object.keys(bossSpecials).length,
+    loadedBossSpecialFrames: bossSpecialFrames.filter(isDrawable).length,
+    totalBossSpecialFrames: bossSpecialFrames.length,
+    bossSpecialFrameSize: imageSize(bossSpecialFrames[0]),
     tuning: { ...PLAYER_TUNING },
     shortcutPlatforms: getShortcutPlatforms(CHAPTERS[state.chapterIndex] || CHAPTERS[0]).length
   };

@@ -98,12 +98,19 @@ def render_chapter_map(chapter: dict[str, Any], chapter_index: int) -> Path:
     def sy(y: float) -> int:
         return int(top + y * scale_y)
 
+    uses_layout_rects = any(isinstance(room.get("layout_rect"), list) and len(room.get("layout_rect", [])) >= 4 for room in chapter.get("map_rooms", []))
     for room_index, room in enumerate(chapter.get("map_rooms", [])):
+        color = (80, 120, 125, 38) if room_index % 2 == 0 else (140, 110, 70, 34)
+        label = str(room.get("id", room_index))
+        layout_rect = room.get("layout_rect", [])
+        if uses_layout_rects and isinstance(layout_rect, list) and len(layout_rect) >= 4:
+            x, y, w, h = [float(v) for v in layout_rect[:4]]
+            draw.rectangle((sx(x), sy(y), sx(x + w), sy(y + h)), fill=color, outline=(180, 220, 210, 58), width=1)
+            draw.text((sx(x) + 4, sy(y) + 4), label[:16], fill=(170, 210, 204, 210), font=FONT_16)
+            continue
         left, right = room.get("range", [0, 0])[:2]
-        color = (80, 120, 125, 30) if room_index % 2 == 0 else (140, 110, 70, 24)
         draw.rectangle((sx(float(left)), top, sx(float(right)), height - bottom), fill=color)
         draw.line((sx(float(left)), top, sx(float(left)), height - bottom), fill=(180, 220, 210, 38), width=1)
-        label = str(room.get("id", room_index))
         draw.text((sx(float(left)) + 5, height - bottom + 12), label[:22], fill=(150, 180, 174, 210), font=FONT_16)
 
     for platform in chapter.get("platforms", []):
