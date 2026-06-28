@@ -109,6 +109,13 @@ class MapBuilder:
             ledges.append(self.floor(f"{prefix}_{i}", round(x), round(y), ledge_w, h, bridge=True))
         return ledges
 
+    def ladder(self, prefix, x, y_bottom, y_top, w=170, h=20, step=110):
+        """A straight vertical ladder: ledges stacked at one x, climbable up and
+        droppable down. Reads very differently from a zig-zag tower."""
+        n = max(1, int(round((y_bottom - y_top) / step)))
+        return [self.floor(f"{prefix}_{i}", x, round(y_bottom - (y_bottom - y_top) * i / n),
+                           w, h, bridge=True) for i in range(n + 1)]
+
     def junction(self, prefix, ground_y, x_up, x_down, bridge_y, span=600, ledge_w=200):
         """A forced-vertical crossing over a chasm: climb the left tower up to a
         bridge, walk across, descend the right tower to the next ground island.
@@ -215,39 +222,56 @@ def build_ch03():
 
     GROUND = 1980
 
-    # Ground is split into islands separated by chasms (death pits). The only
-    # way across each chasm is up a tower, across the bridge and down the next
-    # tower -> the X mainline is *forced* through ~1500px of vertical climb.
+    # Ground is split into islands by chasms; every crossing uses a DIFFERENT
+    # vertical mechanic so no two sections read alike.
     b.floor("g_entry", 0, GROUND, 2000, 40)
-    b.floor("g_well", 2520, GROUND, 2280, 40)
-    b.floor("g_stacks", 5320, GROUND, 2280, 40)
-    b.floor("g_hall", 8120, GROUND, 2480, 40)
-    b.floor("g_return", 11120, GROUND, 2480, 40)
-    b.floor("g_descent", 14120, GROUND, 1680, 40)
+    b.floor("g_well", 2520, GROUND, 2100, 40)        # 2520..4620
+    b.floor("g_stacks", 5200, GROUND, 2400, 40)      # 5200..7600
+    b.floor("g_hall", 8120, GROUND, 2480, 40)        # 8120..10600
+    b.floor("g_return", 11120, GROUND, 2480, 40)     # 11120..13600
+    b.floor("g_descent", 14120, GROUND, 1680, 40)    # 14120..15800
     boss_floor = b.floor("boss_floor", 15800, GROUND, 1660, 44)
     b.floor("boss_back_wall", 17460, GROUND - 270, 38, 270)
     b.floor("exit_runup", 17560, GROUND, 560, 40)
     exit_floor = b.floor("exit_floor", 18120, GROUND, 680, 40)
 
-    # forced-vertical crossings between islands (climb -> bridge -> descend)
-    j1 = b.junction("c3_j1", GROUND, 1380, 2540, 360)   # entry spire
-    j2 = b.junction("c3_j2", GROUND, 4180, 5340, 300)   # reading well
-    j3 = b.junction("c3_j3", GROUND, 6980, 8140, 440)   # book-spine span
-    j4 = b.junction("c3_j4", GROUND, 9980, 11140, 260)  # apex (highest)
-    j5 = b.junction("c3_j5", GROUND, 12980, 14140, 360) # descent to boss
+    # SECTION A (gap 2000..2520): zig-zag spire UP, long bridge, straight ladder DOWN
+    spireA = b.tower("c3_spireA", 1400, 560, 1880, 360, step_dy=120, ledge_w=180)
+    bridgeA = b.floor("c3_bridgeA", 1960, 360, 760, 26, bridge=True)
+    ladderA = b.ladder("c3_ladderA", 2580, 1880, 460, step=110)
 
-    # optional twin-tower loop on the stacks island (climb one side, cross, drop other)
-    loopA = b.tower("c3_loopA", 5600, 600, 1880, 520)
-    loopB = b.tower("c3_loopB", 6500, 600, 1880, 520)
-    loop_bridge = b.floor("c3_loop_bridge", 5600, 520, 1500, 26, bridge=True)
+    # SECTION B (gap 4620..5200): deep SUB-GROUND well — drop in, cross floor, climb out
+    pit_in = b.ladder("c3_pit_in", 4660, 2240, 1880, w=160, step=110)
+    pit_floor = b.floor("c3_pit_floor", 4620, 2320, 580, 40)
+    pit_out = b.ladder("c3_pit_out", 5040, 2240, 1880, w=160, step=110)
 
-    # rift_hook reward branch above the apex of the reading-well bridge
-    reward = b.floor("c3_reward", 4900, 180, 300, 22, bridge=True)
+    # SECTION C: twin-tower LOOP on the stacks island + a rift_hook reward overhead
+    loopA = b.tower("c3_loopA", 5500, 560, 1880, 540, ledge_w=180)
+    loopB = b.tower("c3_loopB", 6300, 560, 1880, 540, ledge_w=180)
+    loop_bridge = b.floor("c3_loop_bridge", 5500, 540, 1360, 26, bridge=True)
+    reward = b.floor("c3_reward", 6050, 420, 300, 22, bridge=True)
+
+    # SECTION C-cross (gap 7600..8120): a diagonal STAIRCASE pyramid up-over-down
+    su = b.stair("c3_su", 6950, 1990, 560, 13, dx=52, w=150)
+    mid_bridge = b.floor("c3_midbridge", 7560, 540, 720, 24, bridge=True)
+    sd = b.stair("c3_sd", 8160, 560, 1990, 13, dx=34, w=150)
+
+    # SECTION D (gap 10600..11120): a tight narrow CHIMNEY climb, then a ladder down
+    chimney = b.tower("c3_chimney", 9980, 360, 1880, 300, step_dy=100, ledge_w=150)
+    chimney_bridge = b.floor("c3_chimney_bridge", 9980, 300, 1340, 26, bridge=True)
+    chimney_ladder = b.ladder("c3_chim_ladder", 11140, 1880, 360, w=160, step=108)
+
+    # SECTION E (gap 13600..14120): the TALLEST climb to the apex, long stair DESCENT to boss
+    apex = b.tower("c3_apex", 12900, 600, 1880, 240, step_dy=115, ledge_w=180)
+    apex_bridge = b.floor("c3_apex_bridge", 12900, 240, 1340, 26, bridge=True)
+    descent_stair = b.stair("c3_desc", 14160, 240, 1990, 15, dx=30, w=160)
 
     b.assert_reachable("g_entry", [
         "g_well", "g_stacks", "g_hall", "g_return", "g_descent",
-        j1["bridge"].id, j2["bridge"].id, j3["bridge"].id, j4["bridge"].id, j5["bridge"].id,
-        j5["dn"][0].id, loopA[-1].id, loopB[-1].id, loop_bridge.id, reward.id,
+        bridgeA.id, ladderA[-1].id, pit_floor.id, pit_out[-1].id,
+        loopA[-1].id, loopB[-1].id, loop_bridge.id, reward.id,
+        mid_bridge.id, chimney[-1].id, chimney_bridge.id,
+        apex[-1].id, apex_bridge.id, descent_stair[-1].id,
         boss_floor.id, exit_floor.id,
     ])
 
@@ -291,30 +315,30 @@ def build_ch03():
     cfg["platforms"] = [p.dict() for p in b.platforms]
 
     cfg["locked_gates"] = [{
-        "id": "ch03_reward_gate", "rect": [4870, 70, 36, 120], "color": "6f5b9a",
+        "id": "ch03_reward_gate", "rect": [6030, 300, 36, 120], "color": "6f5b9a",
         "material": "rift_seal", "required_ability": "rift_hook",
         "required_ability_name": "裂隙钩索",
     }]
 
     cfg["parkour_segments"] = [
         {"id": "ch03_spire_climb", "room_id": "ch03_room_2",
-         "technique": "zig-zag tower climb to the crossing bridge",
-         "platforms": [j1["up"][0].id, j1["up"][len(j1["up"])//2].id, j1["up"][-1].id,
-                       j1["up_top"].id, j1["bridge"].id]},
+         "technique": "zig-zag spire climb, bridge, ladder descent",
+         "platforms": [spireA[0].id, spireA[len(spireA)//2].id, spireA[-1].id,
+                       bridgeA.id, ladderA[-1].id]},
         {"id": "ch03_well_loop", "room_id": "ch03_room_9",
          "technique": "twin-tower vertical loop over the stacks",
          "platforms": [loopA[0].id, loopA[-1].id, loop_bridge.id, loopB[-1].id, loopB[0].id]},
         {"id": "ch03_return_climb", "room_id": "ch03_room_14",
-         "technique": "tallest vertical climb to the apex bridge",
-         "platforms": [j4["up"][0].id, j4["up"][len(j4["up"])//2].id, j4["up"][-1].id, j4["bridge"].id]},
+         "technique": "tallest zig-zag climb to the apex bridge",
+         "platforms": [apex[0].id, apex[len(apex)//2].id, apex[-1].id, apex_bridge.id]},
         {"id": "ch03_preboss_drop", "room_id": "ch03_room_15",
-         "technique": "apex drop down the descent tower into the arena",
-         "platforms": [j5["bridge"].id, j5["dn_top"].id, j5["dn"][-1].id, j5["dn"][0].id]},
+         "technique": "long staircase descent from the apex into the arena",
+         "platforms": [apex_bridge.id, descent_stair[0].id, descent_stair[-1].id]},
     ]
 
     save_specs = [
         ("save_well_respite", "阅读井存档点", [700, GROUND - 60], False, "入口岛底的存档点。"),
-        ("save_hidden_upper_respite", "盐白书库隐藏存档点", [10860, 260], True, "藏在最高索桥上的稀疏存档点。"),
+        ("save_hidden_upper_respite", "盐白书库隐藏存档点", [13500, 240], True, "藏在最高索桥上的稀疏存档点。"),
         ("save_late_runback", "盐白书库Boss前存档点", [14600, GROUND - 60], False, "Boss 跑图前的后段存档点。"),
     ]
     cfg["save_points"] = [
@@ -346,22 +370,22 @@ def build_ch03():
             cfg["boss"]["arena"] = [15800, GROUND - 240, 1660, 260]
 
     enemy_platforms = [
-        "g_entry", j1["up"][3].id, j1["bridge"].id, "g_well", j2["up"][3].id,
-        j2["bridge"].id, loopA[3].id, "g_stacks", j3["bridge"].id, "g_hall",
-        j4["up"][3].id, j4["bridge"].id, "g_return", j5["bridge"].id,
+        "g_entry", spireA[4].id, bridgeA.id, "g_well", pit_floor.id,
+        loopA[3].id, loop_bridge.id, "g_stacks", su[6].id, "g_hall",
+        chimney[6].id, chimney_bridge.id, "g_return", apex[6].id,
     ]
     anchor_enemies(cfg, b, enemy_platforms)
 
     hazard_spots = [
         ("ch03_hazard_01", "fake_moss_floor", [1100, GROUND - 20]),
-        ("ch03_hazard_02", "bell_gap", [2200, 400]),
-        ("ch03_hazard_03", "spore_chest", [4900, 180]),
-        ("ch03_hazard_04", "falling_clapper", [5000, 400]),
-        ("ch03_hazard_05", "bell_gap", [6000, 520]),
-        ("ch03_hazard_06", "falling_clapper", [7800, 440]),
-        ("ch03_hazard_07", "spore_chest", [9000, GROUND - 20]),
-        ("ch03_hazard_08", "fake_moss_floor", [10860, 260]),
-        ("ch03_hazard_09", "bell_gap", [13800, 360]),
+        ("ch03_hazard_02", "bell_gap", [2580, 1000]),
+        ("ch03_hazard_03", "spore_chest", [4900, 2300]),
+        ("ch03_hazard_04", "falling_clapper", [5040, 2100]),
+        ("ch03_hazard_05", "bell_gap", [6050, 520]),
+        ("ch03_hazard_06", "falling_clapper", [7560, 540]),
+        ("ch03_hazard_07", "spore_chest", [10100, 1000]),
+        ("ch03_hazard_08", "fake_moss_floor", [12900, 900]),
+        ("ch03_hazard_09", "bell_gap", [14160, 700]),
         ("ch03_hazard_10", "spore_chest", [14800, GROUND - 20]),
     ]
     cfg["hazards"] = [
