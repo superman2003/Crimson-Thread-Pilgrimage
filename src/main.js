@@ -160,13 +160,13 @@ document.querySelectorAll("[data-key]").forEach((button) => {
   const key = button.dataset.key;
   button.addEventListener("pointerdown", (event) => {
     event.preventDefault();
-    setInput(key, true, true);
+    setInput(key, true);
   });
   button.addEventListener("pointerup", (event) => {
     event.preventDefault();
-    setInput(key, false, true);
+    setInput(key, false);
   });
-  button.addEventListener("pointercancel", () => setInput(key, false, true));
+  button.addEventListener("pointercancel", () => setInput(key, false));
 });
 
 window.__crimsonThreadQA = {
@@ -785,7 +785,8 @@ function applyChapterForces(player, chapter, dt) {
       player.vy -= 100 * dt;
     } else if (hazard.type === "geyser") {
       const active = Math.sin(state.time * 3.4 + hazard.phase) > 0.12;
-      if (active && intersects(player, rect)) hurtPlayer(1);
+      const activeRect = active ? { x: hazard.x, y: hazard.y - 70, w: hazard.w, h: hazard.h + 70 } : rect;
+      if (active && intersects(player, activeRect)) hurtPlayer(1);
     } else if (hazard.type === "void") {
       const active = Math.sin(state.time * 4.1 + hazard.phase) > -0.3;
       if (active && intersects(player, rect)) hurtPlayer(1);
