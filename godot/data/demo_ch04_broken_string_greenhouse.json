@@ -3,16 +3,16 @@
   "name": "断弦温室试玩章",
   "world": {
     "width": 18800,
-    "height": 720,
-    "fall_y": 790
+    "height": 2000,
+    "fall_y": 2100
   },
   "player_start": [
     120,
-    500
+    1620
   ],
   "boss_checkpoint": [
-    15480,
-    500
+    13400,
+    1620
   ],
   "required_keys": 0,
   "goal": "击败温室守卫，打开弦桥Boss路线，击败铜根主教。",
@@ -108,252 +108,252 @@
       "name": "温室门厅",
       "range": [
         0,
-        850
+        1044
       ],
-      "depth": -1,
+      "depth": 0,
       "kind": "entry",
-      "objective": "温室门厅：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "温室门厅：从苗圃地面攀上玻璃藤架进入树冠层。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "弦桥育苗室"
+      "next": "攀藤架"
     },
     {
       "id": "ch04_room_2",
-      "name": "弦桥育苗室",
+      "name": "攀藤架",
       "range": [
-        850,
-        1750
+        1044,
+        2088
       ],
-      "depth": 1,
-      "kind": "lower",
-      "objective": "弦桥育苗室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -2,
+      "kind": "vertical",
+      "objective": "攀藤架：之字攀上高处的树冠主线。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "蜂蜡小屋"
+      "next": "树冠西廊"
     },
     {
       "id": "ch04_room_3",
-      "name": "蜂蜡小屋",
+      "name": "树冠西廊",
       "range": [
-        1750,
-        2600
+        2088,
+        3132
       ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "蜂蜡小屋：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "树冠西廊：沿顶层连跳推进，脚下是悬空苗圃。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "倒根井"
+      "next": "垂藤·西袋"
     },
     {
       "id": "ch04_room_4",
-      "name": "倒根井",
+      "name": "垂藤·西袋",
       "range": [
-        2600,
-        3500
+        3132,
+        4176
       ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "倒根井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "西垂藤：藤蔓垂降到下层花袋，可回到树冠。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦热房"
+      "next": "树冠中廊"
     },
     {
       "id": "ch04_room_5",
-      "name": "断弦热房",
+      "name": "树冠中廊",
       "range": [
-        3500,
-        4550
+        4176,
+        5220
       ],
-      "depth": 0,
-      "kind": "safe",
-      "objective": "断弦热房：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "树冠中廊：连续跳台，注意花隙落差。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "荆棘礼拜堂"
+      "next": "高悬花台"
     },
     {
       "id": "ch04_room_6",
-      "name": "荆棘礼拜堂",
+      "name": "高悬花台",
       "range": [
-        4550,
-        5600
+        5220,
+        6264
       ],
-      "depth": 1,
-      "kind": "danger",
-      "objective": "荆棘礼拜堂：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -3,
+      "kind": "upper",
+      "objective": "高悬花台：钩到最高处的花台奖励。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "藤索跳台"
+      "next": "垂藤·中袋"
     },
     {
       "id": "ch04_room_7",
-      "name": "藤索跳台",
+      "name": "垂藤·中袋",
       "range": [
-        5600,
-        6650
+        6264,
+        7308
       ],
-      "depth": -1,
-      "kind": "parkour",
-      "objective": "藤索跳台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "中垂藤：下层花袋，回环重回树冠。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "花粉风道"
+      "next": "主干竖井"
     },
     {
       "id": "ch04_room_8",
-      "name": "花粉风道",
+      "name": "主干竖井",
       "range": [
-        6650,
-        7800
+        7308,
+        8352
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "花粉风道：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "主干竖井：沿温室主干上下，连通中层地面。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "玻璃花房跑酷"
+      "next": "中层苗圃"
     },
     {
       "id": "ch04_room_9",
-      "name": "玻璃花房跑酷",
+      "name": "中层苗圃",
       "range": [
-        7800,
-        8950
+        8352,
+        9396
       ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "玻璃花房跑酷：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 1,
+      "kind": "lower",
+      "objective": "中层苗圃：树冠下的地面绿洲。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "园主前庭"
+      "next": "树冠东廊"
     },
     {
       "id": "ch04_room_10",
-      "name": "园主前庭",
+      "name": "树冠东廊",
       "range": [
-        8950,
-        10050
+        9396,
+        10440
       ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "园主前庭：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "树冠东廊：继续顶层推进。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "逆根下层"
+      "next": "垂藤·东袋"
     },
     {
       "id": "ch04_room_11",
-      "name": "逆根下层",
+      "name": "垂藤·东袋",
       "range": [
-        10050,
-        11150
+        10440,
+        11484
       ],
       "depth": 2,
       "kind": "lower",
-      "objective": "逆根下层：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "东垂藤：最后一处下层花袋回环。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "蜂蜡回环"
+      "next": "断弦桥"
     },
     {
       "id": "ch04_room_12",
-      "name": "蜂蜡回环",
+      "name": "断弦桥",
       "range": [
-        11150,
-        12150
+        11484,
+        12528
       ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "蜂蜡回环：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "断弦桥：高处长桥跨越温室裂口。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "藤蔓升降井"
+      "next": "树冠尽廊"
     },
     {
       "id": "ch04_room_13",
-      "name": "藤蔓升降井",
+      "name": "树冠尽廊",
       "range": [
-        12150,
-        13050
+        12528,
+        13572
       ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "藤蔓升降井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "upper",
+      "objective": "树冠尽廊：树冠主线的终点。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "温室上梁"
+      "next": "垂降梯"
     },
     {
       "id": "ch04_room_14",
-      "name": "温室上梁",
+      "name": "垂降梯",
       "range": [
-        13050,
-        14100
+        13572,
+        14616
       ],
-      "depth": -2,
-      "kind": "upper",
-      "objective": "温室上梁：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "垂降梯：从树冠垂降回到根部地面。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "根笼连战"
+      "next": "根部前廊"
     },
     {
       "id": "ch04_room_15",
-      "name": "根笼连战",
+      "name": "根部前廊",
       "range": [
-        14100,
-        15300
+        14616,
+        15660
       ],
-      "depth": 0,
-      "kind": "danger",
-      "objective": "根笼连战：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 1,
+      "kind": "field",
+      "objective": "根部前廊：Boss 前的存档补给。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦门廊"
+      "next": "断弦根庭"
     },
     {
       "id": "ch04_room_16",
-      "name": "断弦门廊",
+      "name": "断弦根庭",
       "range": [
-        15300,
-        16250
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "断弦门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦舞台"
-    },
-    {
-      "id": "ch04_room_17",
-      "name": "断弦舞台",
-      "range": [
-        16250,
-        18050
+        15660,
+        16704
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "断弦舞台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "断弦根庭：与根缚之主决战。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "温室外墙"
+      "next": "根隙通道"
+    },
+    {
+      "id": "ch04_room_17",
+      "name": "根隙通道",
+      "range": [
+        16704,
+        17748
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "根隙通道：清理残余后通向出口。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "温室出口"
     },
     {
       "id": "ch04_room_18",
-      "name": "温室外墙",
+      "name": "温室出口",
       "range": [
-        18050,
+        17748,
         18800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "温室外墙：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "温室出口：通往第五章黑曜朝圣路。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "next": "—"
     }
   ],
   "ai_profiles": {
@@ -902,600 +902,985 @@
   },
   "platforms": [
     {
-      "id": "start_ground",
+      "id": "c4_g_start",
       "rect": [
         0,
-        540,
-        720,
+        1700,
+        1400,
         40
       ],
       "color": "29422d",
       "material": "greenhouse_loam"
     },
     {
-      "id": "starter_step",
+      "id": "c4_climb_0",
       "rect": [
-        420,
-        492,
-        220,
+        850,
+        1600,
+        170,
         24
       ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
+      "color": "426a4b",
+      "material": "glassvine_bridge"
     },
     {
-      "id": "vista_bridge",
+      "id": "c4_climb_1",
       "rect": [
-        600,
-        430,
-        340,
+        1220,
+        1482,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_2",
+      "rect": [
+        850,
+        1364,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_3",
+      "rect": [
+        1220,
+        1247,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_4",
+      "rect": [
+        850,
+        1129,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_5",
+      "rect": [
+        1220,
+        1011,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_6",
+      "rect": [
+        850,
+        893,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_7",
+      "rect": [
+        1220,
+        776,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_8",
+      "rect": [
+        850,
+        658,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_climb_9",
+      "rect": [
+        1220,
+        540,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_c0",
+      "rect": [
+        1400,
+        540,
+        760,
         26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "outer_low_floor",
+      "id": "c4_c1",
       "rect": [
-        880,
-        610,
-        720,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "outer_mid_bridge",
-      "rect": [
-        1320,
-        520,
-        360,
-        28
+        2300,
+        470,
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "lift_base",
+      "id": "c4_c2",
       "rect": [
-        1780,
-        540,
-        420,
-        30
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "lift_step_a",
-      "rect": [
-        2180,
-        466,
-        300,
-        28
+        3200,
+        600,
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "upper_bridge_a",
+      "id": "c4_c3",
       "rect": [
-        2560,
-        388,
-        680,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "upper_drop",
-      "rect": [
-        3060,
-        464,
-        420,
-        28
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "backdoor_room",
-      "rect": [
-        3600,
+        4100,
         500,
-        540,
-        32
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "chapel_floor",
+      "id": "c4_c4",
       "rect": [
-        3300,
-        540,
-        960,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_runback_floor",
-      "rect": [
-        4200,
-        540,
-        1120,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_runback_step",
-      "rect": [
-        4750,
-        455,
-        360,
-        28
+        5000,
+        560,
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_parkour_floor_a",
+      "id": "c4_c5",
       "rect": [
-        5350,
-        540,
-        980,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_parkour_step_a",
-      "rect": [
-        5740,
-        466,
-        240,
-        28
+        5900,
+        460,
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_parkour_step_b",
+      "id": "c4_c6",
       "rect": [
-        6120,
-        396,
-        260,
-        28
+        6800,
+        600,
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_parkour_floor_b",
+      "id": "c4_c7",
       "rect": [
-        6400,
-        540,
-        1050,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_parkour_upper_a",
-      "rect": [
-        6780,
-        410,
-        430,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_parkour_upper_b",
-      "rect": [
-        7340,
-        360,
+        7700,
         520,
-        28
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_sprint_floor",
-      "rect": [
-        7500,
-        540,
-        1120,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_sprint_step",
-      "rect": [
-        8000,
-        452,
-        360,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_gauntlet_floor",
+      "id": "c4_c8",
       "rect": [
         8600,
-        540,
-        1100,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_gauntlet_upper",
-      "rect": [
-        9020,
-        428,
-        540,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_approach_floor",
-      "rect": [
-        9700,
-        540,
-        1120,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_approach_step",
-      "rect": [
-        10200,
-        452,
-        420,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_lower_loop_floor",
-      "rect": [
-        10090,
-        610,
-        1020,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_lower_loop_mid",
-      "rect": [
-        10470,
-        520,
-        360,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_lower_loop_exit_lip",
-      "rect": [
-        10940,
         560,
-        220,
+        760,
         26
       ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
+      "color": "426a4b",
+      "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_return_shaft_base",
+      "id": "c4_c9",
       "rect": [
-        12210,
-        540,
-        360,
-        30
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_return_shaft_step_a",
-      "rect": [
-        12510,
-        470,
-        260,
-        28
+        9500,
+        480,
+        760,
+        26
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_return_shaft_step_b",
+      "id": "c4_c10",
       "rect": [
-        12840,
+        10400,
+        600,
+        760,
+        26
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_c11",
+      "rect": [
+        11300,
+        520,
+        760,
+        26
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_c12",
+      "rect": [
+        12200,
+        560,
+        760,
+        26
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_hi",
+      "rect": [
+        6000,
         400,
-        260,
-        28
+        320,
+        22
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_upper_bridge",
+      "id": "c4_vine2_0",
       "rect": [
-        13120,
-        350,
-        910,
-        28
+        3520,
+        1520,
+        160,
+        20
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_upper_drop_step",
+      "id": "c4_vine2_1",
       "rect": [
-        13820,
-        430,
-        260,
-        28
+        3520,
+        1406,
+        160,
+        20
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_crossway_floor",
+      "id": "c4_vine2_2",
       "rect": [
-        15320,
+        3520,
+        1291,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine2_3",
+      "rect": [
+        3520,
+        1177,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine2_4",
+      "rect": [
+        3520,
+        1063,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine2_5",
+      "rect": [
+        3520,
+        949,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine2_6",
+      "rect": [
+        3520,
+        834,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine2_7",
+      "rect": [
+        3520,
+        720,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_pocket2",
+      "rect": [
+        3260,
+        1560,
         540,
-        910,
         34
       ],
       "color": "29422d",
       "material": "greenhouse_loam"
     },
     {
-      "id": "ch04_crossway_upper",
+      "id": "c4_vine6_0",
       "rect": [
-        15720,
-        452,
-        380,
-        28
+        7120,
+        1520,
+        160,
+        20
       ],
       "color": "426a4b",
       "material": "glassvine_bridge"
     },
     {
-      "id": "ch04_preboss_floor",
+      "id": "c4_vine6_1",
       "rect": [
-        15330,
-        540,
-        890,
-        34
+        7120,
+        1406,
+        160,
+        20
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "426a4b",
+      "material": "glassvine_bridge"
     },
     {
-      "id": "boss_floor",
+      "id": "c4_vine6_2",
       "rect": [
-        16250,
+        7120,
+        1291,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine6_3",
+      "rect": [
+        7120,
+        1177,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine6_4",
+      "rect": [
+        7120,
+        1063,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine6_5",
+      "rect": [
+        7120,
+        949,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine6_6",
+      "rect": [
+        7120,
+        834,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine6_7",
+      "rect": [
+        7120,
+        720,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_pocket6",
+      "rect": [
+        6860,
+        1560,
         540,
+        34
+      ],
+      "color": "29422d",
+      "material": "greenhouse_loam"
+    },
+    {
+      "id": "c4_vine10_0",
+      "rect": [
+        10720,
+        1520,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_1",
+      "rect": [
+        10720,
+        1406,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_2",
+      "rect": [
+        10720,
+        1291,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_3",
+      "rect": [
+        10720,
+        1177,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_4",
+      "rect": [
+        10720,
+        1063,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_5",
+      "rect": [
+        10720,
+        949,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_6",
+      "rect": [
+        10720,
+        834,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_vine10_7",
+      "rect": [
+        10720,
+        720,
+        160,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_pocket10",
+      "rect": [
+        10460,
+        1560,
+        540,
+        34
+      ],
+      "color": "29422d",
+      "material": "greenhouse_loam"
+    },
+    {
+      "id": "c4_g_mid",
+      "rect": [
+        7600,
+        1700,
+        1200,
+        40
+      ],
+      "color": "29422d",
+      "material": "greenhouse_loam"
+    },
+    {
+      "id": "c4_trunk_0",
+      "rect": [
+        7900,
+        1600,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_1",
+      "rect": [
+        8270,
+        1484,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_2",
+      "rect": [
+        7900,
+        1369,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_3",
+      "rect": [
+        8270,
+        1253,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_4",
+      "rect": [
+        7900,
+        1138,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_5",
+      "rect": [
+        8270,
+        1022,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_6",
+      "rect": [
+        7900,
+        907,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_7",
+      "rect": [
+        8270,
+        791,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_8",
+      "rect": [
+        7900,
+        676,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_trunk_9",
+      "rect": [
+        8270,
+        560,
+        170,
+        24
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_g_preboss",
+      "rect": [
+        13000,
+        1700,
+        2800,
+        40
+      ],
+      "color": "29422d",
+      "material": "greenhouse_loam"
+    },
+    {
+      "id": "c4_desc_0",
+      "rect": [
+        13200,
+        1600,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_1",
+      "rect": [
+        13200,
+        1489,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_2",
+      "rect": [
+        13200,
+        1378,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_3",
+      "rect": [
+        13200,
+        1267,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_4",
+      "rect": [
+        13200,
+        1156,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_5",
+      "rect": [
+        13200,
+        1044,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_6",
+      "rect": [
+        13200,
+        933,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_7",
+      "rect": [
+        13200,
+        822,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_8",
+      "rect": [
+        13200,
+        711,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_desc_9",
+      "rect": [
+        13200,
+        600,
+        170,
+        20
+      ],
+      "color": "426a4b",
+      "material": "glassvine_bridge"
+    },
+    {
+      "id": "c4_boss_floor",
+      "rect": [
+        15800,
+        1700,
         1660,
         44
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "29422d",
+      "material": "greenhouse_loam"
     },
     {
-      "id": "boss_back_wall",
+      "id": "c4_boss_back_wall",
       "rect": [
-        17910,
-        315,
+        17460,
+        1430,
         38,
         270
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "29422d",
+      "material": "greenhouse_loam"
     },
     {
-      "id": "ch04_post_boss_run_step",
+      "id": "c4_exit_runup",
       "rect": [
-        17900,
-        540,
-        300,
-        34
+        17560,
+        1700,
+        560,
+        40
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "29422d",
+      "material": "greenhouse_loam"
     },
     {
-      "id": "ch04_exit_runup",
+      "id": "c4_exit_floor",
       "rect": [
-        18040,
-        540,
-        580,
-        34
+        18120,
+        1700,
+        680,
+        40
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
-    },
-    {
-      "id": "ch04_exit_floor",
-      "rect": [
-        18480,
-        540,
-        320,
-        34
-      ],
-      "color": "3b4d31",
-      "material": "root_boss"
-    },
-    {
-      "id": "ch04_late_route_link_01",
-      "rect": [
-        10830,
-        540,
-        1380,
-        30
-      ],
-      "color": "3b4d31",
-      "material": "root_boss"
-    },
-    {
-      "id": "ch04_late_route_link_02",
-      "rect": [
-        12570,
-        540,
-        2750,
-        30
-      ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "29422d",
+      "material": "greenhouse_loam"
     }
   ],
   "locked_gates": [],
   "hazards": [
     {
       "id": "ch04_hazard_01",
-      "kind": "fake_moss_floor",
+      "kind": "thorn_burst",
       "rect": [
-        715,
-        406,
+        700,
+        1680,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_02",
-      "kind": "bell_gap",
+      "kind": "pollen_cloud",
       "rect": [
-        2275,
-        442,
+        2160,
+        470,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_03",
-      "kind": "spore_chest",
+      "kind": "thorn_burst",
       "rect": [
-        3725,
-        516,
+        3500,
+        1540,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_04",
-      "kind": "falling_clapper",
+      "kind": "pollen_cloud",
       "rect": [
-        5805,
-        442,
+        5040,
+        500,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_05",
-      "kind": "bell_gap",
+      "kind": "thorn_burst",
       "rect": [
-        7545,
-        336,
+        6000,
+        380,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_06",
-      "kind": "falling_clapper",
+      "kind": "pollen_cloud",
       "rect": [
-        9235,
-        404,
+        7600,
+        1680,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_07",
-      "kind": "spore_chest",
+      "kind": "thorn_burst",
       "rect": [
-        10595,
-        496,
+        9740,
+        1540,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_08",
-      "kind": "fake_moss_floor",
+      "kind": "pollen_cloud",
       "rect": [
-        13520,
-        326,
+        11540,
+        520,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_09",
-      "kind": "bell_gap",
+      "kind": "thorn_burst",
       "rect": [
-        15720,
-        516,
+        12200,
+        520,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     },
     {
       "id": "ch04_hazard_10",
-      "kind": "spore_chest",
+      "kind": "pollen_cloud",
       "rect": [
-        18585,
-        516,
+        14500,
+        1680,
         110,
         24
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "纵向路线上的预警陷阱。"
     }
   ],
   "collectibles": [],
@@ -1504,8 +1889,8 @@
       "id": "ch04_broken_string_greenhouse_shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        8000,
+        1620
       ],
       "requires_keys": 0,
       "label": "战斗门控制器"
@@ -1514,8 +1899,8 @@
       "id": "ch04_broken_string_greenhouse_boss_gate",
       "kind": "boss_gate",
       "position": [
-        16460,
-        500
+        16000,
+        1620
       ]
     },
     {
@@ -1523,8 +1908,8 @@
       "kind": "chapter_exit",
       "label": "前往第五章：黑曜巡礼道",
       "position": [
-        18620,
-        500
+        18450,
+        1630
       ],
       "next_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
       "next_config_path": "res://data/demo_ch05_obsidian_pilgrim_road.json",
@@ -1540,8 +1925,8 @@
       "id": "npc_old_gardener",
       "name": "老园丁弦伯",
       "position": [
-        320,
-        500
+        400,
+        1630
       ],
       "role": "main_witness",
       "dialogue": [
@@ -1557,8 +1942,8 @@
       "id": "npc_broken_singer",
       "name": "断弦歌者",
       "position": [
-        1360,
-        570
+        3560,
+        1500
       ],
       "role": "keeper_truth",
       "dialogue": [
@@ -1574,8 +1959,8 @@
       "id": "npc_beeswax_vendor",
       "name": "蜂蜡商人蜜岚",
       "position": [
-        3680,
-        460
+        7800,
+        1630
       ],
       "role": "vendor_sidequest",
       "dialogue": [
@@ -1591,8 +1976,8 @@
       "id": "npc_root_prisoner",
       "name": "根笼囚徒",
       "position": [
-        11000,
-        500
+        10800,
+        1500
       ],
       "role": "gate_hint",
       "dialogue": [
@@ -1611,10 +1996,10 @@
       "id": "CH04_E01",
       "kind": "vine_crawler",
       "position": [
-        1120,
-        570
+        700,
+        1670
       ],
-      "platform_id": "outer_low_floor",
+      "platform_id": "c4_g_start",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1705,10 +2090,10 @@
       "id": "CH04_E02",
       "kind": "wax_bee",
       "position": [
-        2110,
-        500
+        2680,
+        440
       ],
-      "platform_id": "lift_base",
+      "platform_id": "c4_c1",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1799,10 +2184,10 @@
       "id": "CH04_E03",
       "kind": "root_cage_hunter",
       "position": [
-        2780,
-        348
+        3580,
+        570
       ],
-      "platform_id": "upper_bridge_a",
+      "platform_id": "c4_c2",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1893,10 +2278,10 @@
       "id": "CH04_E04",
       "kind": "pollen_lutist",
       "position": [
-        4880,
-        500
+        3530,
+        1530
       ],
-      "platform_id": "ch04_runback_floor",
+      "platform_id": "c4_pocket2",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1987,10 +2372,10 @@
       "id": "CH04_E05",
       "kind": "thorn_sentinel",
       "position": [
-        5720,
-        500
+        5380,
+        530
       ],
-      "platform_id": "ch04_parkour_floor_a",
+      "platform_id": "c4_c4",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2081,10 +2466,10 @@
       "id": "CH04_E06",
       "kind": "vine_crawler",
       "position": [
-        7115,
+        6160,
         370
       ],
-      "platform_id": "ch04_parkour_upper_a",
+      "platform_id": "c4_hi",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2175,10 +2560,10 @@
       "id": "CH04_E07",
       "kind": "wax_bee",
       "position": [
-        7480,
-        320
+        8200,
+        1670
       ],
-      "platform_id": "ch04_parkour_upper_b",
+      "platform_id": "c4_g_mid",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2269,10 +2654,10 @@
       "id": "CH04_E08",
       "kind": "root_cage_hunter",
       "position": [
-        8180,
-        500
+        8080,
+        490
       ],
-      "platform_id": "ch04_sprint_floor",
+      "platform_id": "c4_c7",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2363,10 +2748,10 @@
       "id": "CH04_E09",
       "kind": "pollen_lutist",
       "position": [
-        9030,
-        500
+        9880,
+        450
       ],
-      "platform_id": "ch04_gauntlet_floor",
+      "platform_id": "c4_c9",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2457,10 +2842,10 @@
       "id": "CH04_E10",
       "kind": "thorn_sentinel",
       "position": [
-        10380,
-        500
+        10730,
+        1530
       ],
-      "platform_id": "ch04_approach_floor",
+      "platform_id": "c4_pocket10",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2551,10 +2936,10 @@
       "id": "CH04_E11",
       "kind": "vine_crawler",
       "position": [
-        10480,
-        570
+        11680,
+        490
       ],
-      "platform_id": "ch04_lower_loop_floor",
+      "platform_id": "c4_c11",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2645,10 +3030,10 @@
       "id": "CH04_E12",
       "kind": "wax_bee",
       "position": [
-        12510,
-        500
+        12580,
+        530
       ],
-      "platform_id": "ch04_return_shaft_base",
+      "platform_id": "c4_c12",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2739,10 +3124,10 @@
       "id": "CH04_E13",
       "kind": "root_cage_hunter",
       "position": [
-        13455,
-        310
+        14400,
+        1670
       ],
-      "platform_id": "ch04_upper_bridge",
+      "platform_id": "c4_g_preboss",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2833,10 +3218,10 @@
       "id": "CH04_E14",
       "kind": "thorn_bloom_mote",
       "position": [
-        15895,
-        500
+        7130,
+        1530
       ],
-      "platform_id": "ch04_preboss_floor",
+      "platform_id": "c4_pocket6",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2929,8 +3314,8 @@
     "name": "铜根主教",
     "kind": "broken_string_gardener",
     "position": [
-      16970,
-      500
+      16600,
+      1620
     ],
     "hp": 22,
     "damage": 1,
@@ -3051,34 +3436,34 @@
   ],
   "save_points": [
     {
-      "id": "save_hidden_upper_respite",
+      "id": "save_canopy_foot",
+      "label": "温室门厅存档点",
+      "position": [
+        400,
+        1640
+      ],
+      "hidden": false,
+      "note": "入口苗圃存档点。"
+    },
+    {
+      "id": "save_hidden_flower",
       "label": "断弦温室隐藏存档点",
       "position": [
-        13455,
-        310
+        6050,
+        370
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
+      "note": "藏在高悬花台上的稀疏存档点。"
     },
     {
-      "id": "save_ch04_lower_loop",
-      "label": "第4章下层回环存档点",
-      "position": [
-        10760,
-        570
-      ],
-      "hidden": false,
-      "note": "扩建后下层回环的中段存档点。"
-    },
-    {
-      "id": "save_late_runback",
+      "id": "save_root_runback",
       "label": "断弦温室Boss前存档点",
       "position": [
-        15635,
-        500
+        13400,
+        1640
       ],
       "hidden": false,
-      "note": "Boss跑图前的后段存档点。"
+      "note": "Boss 跑图前存档点。"
     }
   ],
   "fall_y": 820,
@@ -3101,45 +3486,46 @@
   "parkour_segments": [
     {
       "id": "ch04_parkour_climb",
-      "room_id": "ch04_room_7",
-      "technique": "dash jump + upward slash timing",
+      "room_id": "ch04_room_2",
+      "technique": "vine-trellis climb to the canopy",
       "platforms": [
-        "ch04_parkour_step_a",
-        "ch04_parkour_step_b",
-        "ch04_parkour_upper_a"
+        "c4_climb_0",
+        "c4_climb_5",
+        "c4_climb_9",
+        "c4_c0"
       ]
     },
     {
       "id": "ch04_sprint_chain",
-      "room_id": "ch04_room_8",
-      "technique": "sprint, down slash bounce, safe landing",
+      "room_id": "ch04_room_5",
+      "technique": "canopy hop chain across the top",
       "platforms": [
-        "ch04_parkour_upper_b",
-        "ch04_sprint_step",
-        "ch04_gauntlet_upper"
+        "c4_c3",
+        "c4_c4",
+        "c4_c5",
+        "c4_c6"
       ]
     },
     {
       "id": "ch04_lower_upper_return",
-      "room_id": "ch04_room_13",
-      "technique": "lower loop, return shaft, upper bridge",
+      "room_id": "ch04_room_7",
+      "technique": "hanging-vine drop and climb back",
       "platforms": [
-        "ch04_lower_loop_floor",
-        "ch04_return_shaft_base",
-        "ch04_return_shaft_step_a",
-        "ch04_return_shaft_step_b",
-        "ch04_upper_bridge"
+        "c4_c6",
+        "c4_vine6_0",
+        "c4_pocket6",
+        "c4_vine6_7"
       ]
     },
     {
       "id": "ch04_preboss_crossway",
-      "room_id": "ch04_room_16",
-      "technique": "upper drop into final horizontal approach",
+      "room_id": "ch04_room_14",
+      "technique": "vine descent into the root arena",
       "platforms": [
-        "ch04_upper_drop_step",
-        "ch04_crossway_floor",
-        "ch04_preboss_floor",
-        "boss_floor"
+        "c4_c12",
+        "c4_desc_0",
+        "c4_desc_9",
+        "c4_g_preboss"
       ]
     }
   ],
@@ -3238,19 +3624,31 @@
       "type": "passage"
     },
     {
-      "from": "ch04_room_12",
-      "to": "ch04_room_13",
-      "type": "lower_return"
+      "from": "ch04_room_3",
+      "to": "ch04_room_4",
+      "type": "vertical"
     },
     {
-      "from": "ch04_room_14",
-      "to": "ch04_room_15",
-      "type": "upper_shortcut"
+      "from": "ch04_room_4",
+      "to": "ch04_room_5",
+      "type": "loop"
     },
     {
-      "from": "ch04_room_5",
-      "to": "ch04_room_17",
-      "type": "opened_shortcut"
+      "from": "ch04_room_8",
+      "to": "ch04_room_9",
+      "type": "vertical"
+    },
+    {
+      "from": "ch04_room_9",
+      "to": "ch04_room_8",
+      "type": "shortcut",
+      "shortcut_id": "ch04_trunk_drop",
+      "opens_from": "lever"
+    },
+    {
+      "from": "ch04_room_11",
+      "to": "ch04_room_10",
+      "type": "loop"
     }
   ]
 }
