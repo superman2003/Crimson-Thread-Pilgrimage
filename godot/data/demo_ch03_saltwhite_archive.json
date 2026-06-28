@@ -11,7 +11,7 @@
     500
   ],
   "boss_checkpoint": [
-    15480,
+    15000,
     500
   ],
   "required_keys": 0,
@@ -108,222 +108,222 @@
       "name": "盐封入口",
       "range": [
         0,
-        850
+        950
       ],
-      "depth": -1,
+      "depth": 0,
       "kind": "entry",
-      "objective": "盐封入口：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "盐封入口：先沿中层推进，左上书廊与右下书库各开一条岔路。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "逆读书廊"
+      "next": "上层书廊"
     },
     {
       "id": "ch03_room_2",
-      "name": "逆读书廊",
+      "name": "上层书廊",
       "range": [
-        850,
-        1750
-      ],
-      "depth": 1,
-      "kind": "lower",
-      "objective": "逆读书廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "静默阅读井"
-    },
-    {
-      "id": "ch03_room_3",
-      "name": "静默阅读井",
-      "range": [
-        1750,
-        2600
-      ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "静默阅读井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "契约索引台"
-    },
-    {
-      "id": "ch03_room_4",
-      "name": "契约索引台",
-      "range": [
-        2600,
-        3500
+        950,
+        1550
       ],
       "depth": -1,
       "kind": "upper",
-      "objective": "契约索引台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "上层书廊：窄跳安全路，俯瞰下层书库。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "盐晶书脊"
+      "next": "下层书库"
+    },
+    {
+      "id": "ch03_room_3",
+      "name": "下层书库",
+      "range": [
+        1550,
+        2250
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "下层书库：宽阔但陷阱多，可回到入口竖井。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "阅读井·井口"
+    },
+    {
+      "id": "ch03_room_4",
+      "name": "阅读井·井口",
+      "range": [
+        2250,
+        2850
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "objective": "阅读井井口：左右两道书梯环绕井体，构成回环。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "阅读井·回廊"
     },
     {
       "id": "ch03_room_5",
-      "name": "盐晶书脊",
+      "name": "阅读井·回廊",
       "range": [
-        3500,
-        4550
+        2850,
+        3550
       ],
-      "depth": 0,
-      "kind": "safe",
-      "objective": "盐晶书脊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -2,
+      "kind": "upper",
+      "objective": "上层回廊：钩索可达隐藏壁龛奖励。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "抹名塔"
+      "next": "阅读井·底库"
     },
     {
       "id": "ch03_room_6",
-      "name": "抹名塔",
+      "name": "阅读井·底库",
       "range": [
-        4550,
-        5600
+        3550,
+        4400
       ],
-      "depth": 1,
-      "kind": "danger",
-      "objective": "抹名塔：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 2,
+      "kind": "lower",
+      "objective": "井底书库：最深一层，绕行后从右梯回到回廊。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "盐页跳台"
+      "next": "井东连廊"
     },
     {
       "id": "ch03_room_7",
-      "name": "盐页跳台",
+      "name": "井东连廊",
       "range": [
-        5600,
-        6650
+        4400,
+        5400
+      ],
+      "depth": 0,
+      "kind": "field",
+      "objective": "井东连廊：清怪过渡到双层书架区。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "书架上层栈道"
+    },
+    {
+      "id": "ch03_room_8",
+      "name": "书架上层栈道",
+      "range": [
+        5400,
+        6300
       ],
       "depth": -1,
-      "kind": "parkour",
-      "objective": "盐页跳台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "kind": "upper",
+      "objective": "上层栈道：斜冲跨越书架缺口。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "书架下层走道"
+    },
+    {
+      "id": "ch03_room_9",
+      "name": "书架下层走道",
+      "range": [
+        6300,
+        7100
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "下层走道：与上层栈道由竖井相连成环。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "倒置书梯"
     },
     {
-      "id": "ch03_room_8",
+      "id": "ch03_room_10",
       "name": "倒置书梯",
       "range": [
-        6650,
-        7800
+        7100,
+        8000
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "倒置书梯：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "倒置书梯：上下层在此交汇。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "玻璃书架跑酷"
-    },
-    {
-      "id": "ch03_room_9",
-      "name": "玻璃书架跑酷",
-      "range": [
-        7800,
-        8950
-      ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "玻璃书架跑酷：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "契约庭前廊"
-    },
-    {
-      "id": "ch03_room_10",
-      "name": "契约庭前廊",
-      "range": [
-        8950,
-        10050
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "契约庭前廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "删名下层"
+      "next": "跑酷书脊"
     },
     {
       "id": "ch03_room_11",
-      "name": "删名下层",
+      "name": "跑酷书脊",
       "range": [
-        10050,
-        11150
+        8000,
+        8900
       ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "删名下层：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": -1,
+      "kind": "parkour",
+      "objective": "跑酷书脊：连续跳台抵达高处奖励。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "空白页回环"
+      "next": "汇流大厅"
     },
     {
       "id": "ch03_room_12",
-      "name": "空白页回环",
+      "name": "汇流大厅",
       "range": [
-        11150,
-        12150
+        8900,
+        10200
       ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "空白页回环：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "depth": 0,
+      "kind": "field",
+      "objective": "汇流大厅：上下两路在中层合流。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "盐印升降井"
+      "next": "背门拉杆台"
     },
     {
       "id": "ch03_room_13",
-      "name": "盐印升降井",
+      "name": "背门拉杆台",
       "range": [
-        12150,
-        13050
+        10200,
+        11600
+      ],
+      "depth": 1,
+      "kind": "lower",
+      "objective": "背门拉杆台：拉杆从背面打开回井口的捷径。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
+      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+      "next": "回归升降井"
+    },
+    {
+      "id": "ch03_room_14",
+      "name": "回归升降井",
+      "range": [
+        11600,
+        12900
       ],
       "depth": 0,
       "kind": "vertical",
-      "objective": "盐印升降井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "回归升降井：攀爬竖井登上高阁索桥。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "高阁索桥"
     },
     {
-      "id": "ch03_room_14",
+      "id": "ch03_room_15",
       "name": "高阁索桥",
       "range": [
-        13050,
-        14100
+        12900,
+        14300
       ],
       "depth": -2,
       "kind": "upper",
-      "objective": "高阁索桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "高阁索桥：全章最高点，俯冲进入终段。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "封页连战"
-    },
-    {
-      "id": "ch03_room_15",
-      "name": "封页连战",
-      "range": [
-        14100,
-        15300
-      ],
-      "depth": 0,
-      "kind": "danger",
-      "objective": "封页连战：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "契约庭门廊"
+      "next": "契约庭前廊"
     },
     {
       "id": "ch03_room_16",
-      "name": "契约庭门廊",
+      "name": "契约庭前廊",
       "range": [
-        15300,
-        16250
+        14300,
+        15400
       ],
       "depth": 0,
       "kind": "field",
-      "objective": "契约庭门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "契约庭前廊：Boss 前最后的存档与补给。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "盐白契约庭"
     },
@@ -331,13 +331,13 @@
       "id": "ch03_room_17",
       "name": "盐白契约庭",
       "range": [
-        16250,
-        18050
+        15400,
+        17250
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "盐白契约庭：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "盐白契约庭：与盐白契约判官决战。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
       "next": "盐页出口"
     },
@@ -345,15 +345,15 @@
       "id": "ch03_room_18",
       "name": "盐页出口",
       "range": [
-        18050,
+        17250,
         18800
       ],
       "depth": 0,
       "kind": "exit",
-      "objective": "盐页出口：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
+      "objective": "盐页出口：通往第四章断弦温室。",
+      "guide": "横向主线保持可读；竖井连接上下层，背面捷径回到熟悉区域。",
       "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "next": "—"
     }
   ],
   "ai_profiles": {
@@ -904,397 +904,419 @@
       "id": "start_ground",
       "rect": [
         0,
-        540,
-        720,
+        560,
+        900,
         40
       ],
       "color": "4b493c",
       "material": "salt_marble"
     },
     {
-      "id": "starter_step",
+      "id": "entry_step",
       "rect": [
-        420,
-        492,
-        220,
+        760,
+        470,
+        240,
         24
       ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "vista_bridge",
-      "rect": [
-        600,
-        430,
-        340,
-        26
-      ],
-      "color": "73684a",
+      "color": "b9a06a",
       "material": "vellum_bridge"
     },
     {
-      "id": "outer_low_floor",
+      "id": "entry_balcony",
       "rect": [
-        880,
-        610,
-        720,
-        34
+        1040,
+        392,
+        320,
+        24
       ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "outer_mid_bridge",
-      "rect": [
-        1320,
-        520,
-        360,
-        28
-      ],
-      "color": "73684a",
+      "color": "b9a06a",
       "material": "vellum_bridge"
     },
     {
-      "id": "lift_base",
+      "id": "entry_low_drop",
       "rect": [
-        1780,
-        540,
-        420,
-        30
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "lift_step_a",
-      "rect": [
-        2180,
-        466,
-        300,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "upper_bridge_a",
-      "rect": [
-        2560,
-        388,
-        680,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "upper_drop",
-      "rect": [
-        3060,
-        464,
-        420,
-        28
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "backdoor_room",
-      "rect": [
-        3600,
-        500,
-        540,
+        980,
+        624,
+        560,
         32
       ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "chapel_floor",
-      "rect": [
-        3300,
-        540,
-        960,
-        34
-      ],
       "color": "4b493c",
       "material": "salt_marble"
     },
     {
-      "id": "ch03_runback_floor",
+      "id": "entry_mid",
       "rect": [
-        4200,
+        1560,
         540,
-        1120,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_runback_step",
-      "rect": [
-        4750,
-        455,
-        360,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_parkour_floor_a",
-      "rect": [
-        5350,
-        540,
-        980,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_parkour_step_a",
-      "rect": [
-        5740,
-        466,
-        240,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_parkour_step_b",
-      "rect": [
-        6120,
-        396,
-        260,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_parkour_floor_b",
-      "rect": [
-        6400,
-        540,
-        1050,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_parkour_upper_a",
-      "rect": [
-        6780,
-        410,
-        430,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_parkour_upper_b",
-      "rect": [
-        7340,
-        360,
         520,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_sprint_floor",
-      "rect": [
-        7500,
-        540,
-        1120,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_sprint_step",
-      "rect": [
-        8000,
-        452,
-        360,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_gauntlet_floor",
-      "rect": [
-        8600,
-        540,
-        1100,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_gauntlet_upper",
-      "rect": [
-        9020,
-        428,
-        540,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_approach_floor",
-      "rect": [
-        9700,
-        540,
-        1120,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_approach_step",
-      "rect": [
-        10200,
-        452,
-        420,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_lower_loop_floor",
-      "rect": [
-        10090,
-        610,
-        1020,
-        34
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_lower_loop_mid",
-      "rect": [
-        10470,
-        520,
-        360,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_lower_loop_exit_lip",
-      "rect": [
-        10940,
-        560,
-        220,
-        26
-      ],
-      "color": "4b493c",
-      "material": "salt_marble"
-    },
-    {
-      "id": "ch03_return_shaft_base",
-      "rect": [
-        12210,
-        540,
-        360,
         30
       ],
       "color": "4b493c",
       "material": "salt_marble"
     },
     {
-      "id": "ch03_return_shaft_step_a",
+      "id": "well_lip_left",
       "rect": [
-        12510,
-        470,
-        260,
+        2080,
+        500,
+        360,
         28
       ],
-      "color": "73684a",
+      "color": "b9a06a",
       "material": "vellum_bridge"
     },
     {
-      "id": "ch03_return_shaft_step_b",
+      "id": "well_floor",
       "rect": [
-        12840,
-        400,
-        260,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_upper_bridge",
-      "rect": [
-        13120,
-        350,
-        910,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_upper_drop_step",
-      "rect": [
-        13820,
-        430,
-        260,
-        28
-      ],
-      "color": "73684a",
-      "material": "vellum_bridge"
-    },
-    {
-      "id": "ch03_crossway_floor",
-      "rect": [
-        15320,
-        540,
-        910,
+        2440,
+        640,
+        1560,
         34
       ],
       "color": "4b493c",
       "material": "salt_marble"
     },
     {
-      "id": "ch03_crossway_upper",
+      "id": "well_gallery",
       "rect": [
-        15720,
-        452,
-        380,
-        28
+        2520,
+        384,
+        1400,
+        26
       ],
-      "color": "73684a",
+      "color": "b9a06a",
       "material": "vellum_bridge"
     },
     {
-      "id": "ch03_preboss_floor",
+      "id": "well_lshaft_1",
       "rect": [
-        15330,
+        2500,
+        560,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "well_lshaft_2",
+      "rect": [
+        2540,
+        472,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "well_rshaft_1",
+      "rect": [
+        3760,
+        480,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "well_rshaft_2",
+      "rect": [
+        3700,
+        580,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "well_alcove",
+      "rect": [
+        2480,
+        282,
+        260,
+        22
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "well_exit_step",
+      "rect": [
+        4040,
         540,
-        890,
+        360,
+        28
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "well_exit_floor",
+      "rect": [
+        4400,
+        540,
+        1000,
         34
       ],
-      "color": "625644",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "stacks_lower",
+      "rect": [
+        5400,
+        624,
+        1500,
+        32
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "stacks_upper_a",
+      "rect": [
+        5500,
+        392,
+        700,
+        26
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "s_sh1_1",
+      "rect": [
+        5460,
+        540,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "s_sh1_2",
+      "rect": [
+        5480,
+        460,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "stacks_upper_b",
+      "rect": [
+        6360,
+        392,
+        640,
+        26
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "stacks_lower_b",
+      "rect": [
+        7000,
+        624,
+        1400,
+        32
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "s_sh2_1",
+      "rect": [
+        7060,
+        540,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "s_sh2_2",
+      "rect": [
+        7080,
+        460,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "stacks_upper_c",
+      "rect": [
+        7200,
+        360,
+        560,
+        24
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "stacks_exit_floor",
+      "rect": [
+        8400,
+        540,
+        900,
+        34
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "hall_floor",
+      "rect": [
+        9300,
+        540,
+        1500,
+        34
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "h_sh_1",
+      "rect": [
+        9360,
+        470,
+        160,
+        20
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "hall_upper",
+      "rect": [
+        9500,
+        400,
+        760,
+        26
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "lever_landing",
+      "rect": [
+        10800,
+        500,
+        360,
+        28
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "hall_exit_floor",
+      "rect": [
+        11160,
+        540,
+        600,
+        34
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "return_base",
+      "rect": [
+        11760,
+        560,
+        420,
+        30
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "ret_1",
+      "rect": [
+        12100,
+        472,
+        220,
+        22
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ret_2",
+      "rect": [
+        12380,
+        392,
+        240,
+        22
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "ret_3",
+      "rect": [
+        12660,
+        320,
+        260,
+        22
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "high_bridge",
+      "rect": [
+        12900,
+        300,
+        1300,
+        26
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "high_bridge_drop",
+      "rect": [
+        14260,
+        430,
+        320,
+        26
+      ],
+      "color": "b9a06a",
+      "material": "vellum_bridge"
+    },
+    {
+      "id": "approach_floor",
+      "rect": [
+        14640,
+        540,
+        760,
+        34
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
+    },
+    {
+      "id": "preboss_floor",
+      "rect": [
+        15400,
+        540,
+        850,
+        34
+      ],
+      "color": "4b493c",
+      "material": "salt_marble"
     },
     {
       "id": "boss_floor",
@@ -1304,8 +1326,8 @@
         1660,
         44
       ],
-      "color": "625644",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
     },
     {
       "id": "boss_back_wall",
@@ -1315,73 +1337,65 @@
         38,
         270
       ],
-      "color": "625644",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
     },
     {
-      "id": "ch03_post_boss_run_step",
+      "id": "post_boss_step",
       "rect": [
         17900,
         540,
         300,
         34
       ],
-      "color": "625644",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
     },
     {
-      "id": "ch03_exit_runup",
+      "id": "exit_runup",
       "rect": [
         18040,
         540,
-        580,
+        480,
         34
       ],
-      "color": "625644",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
     },
     {
-      "id": "ch03_exit_floor",
+      "id": "exit_floor",
       "rect": [
-        18480,
+        18420,
         540,
-        320,
+        380,
         34
       ],
-      "color": "625644",
-      "material": "archive_boss"
-    },
-    {
-      "id": "ch03_late_route_link_01",
-      "rect": [
-        10830,
-        540,
-        1380,
-        30
-      ],
-      "color": "625644",
-      "material": "archive_boss"
-    },
-    {
-      "id": "ch03_late_route_link_02",
-      "rect": [
-        12570,
-        540,
-        2750,
-        30
-      ],
-      "color": "625644",
-      "material": "archive_boss"
+      "color": "4b493c",
+      "material": "salt_marble"
     }
   ],
-  "locked_gates": [],
+  "locked_gates": [
+    {
+      "id": "ch03_alcove_gate",
+      "rect": [
+        2760,
+        300,
+        36,
+        110
+      ],
+      "color": "6f5b9a",
+      "material": "rift_seal",
+      "required_ability": "rift_hook",
+      "required_ability_name": "裂隙钩索"
+    }
+  ],
   "hazards": [
     {
       "id": "ch03_hazard_01",
       "kind": "fake_moss_floor",
       "rect": [
-        715,
-        406,
+        1320,
+        600,
         110,
         24
       ],
@@ -1392,8 +1406,8 @@
       "id": "ch03_hazard_02",
       "kind": "bell_gap",
       "rect": [
-        2275,
-        442,
+        2300,
+        360,
         110,
         24
       ],
@@ -1404,8 +1418,8 @@
       "id": "ch03_hazard_03",
       "kind": "spore_chest",
       "rect": [
-        3725,
-        516,
+        3300,
+        616,
         110,
         24
       ],
@@ -1416,8 +1430,8 @@
       "id": "ch03_hazard_04",
       "kind": "falling_clapper",
       "rect": [
-        5805,
-        442,
+        5900,
+        600,
         110,
         24
       ],
@@ -1428,8 +1442,8 @@
       "id": "ch03_hazard_05",
       "kind": "bell_gap",
       "rect": [
-        7545,
-        336,
+        6700,
+        368,
         110,
         24
       ],
@@ -1440,8 +1454,8 @@
       "id": "ch03_hazard_06",
       "kind": "falling_clapper",
       "rect": [
-        9235,
-        404,
+        7600,
+        600,
         110,
         24
       ],
@@ -1452,8 +1466,8 @@
       "id": "ch03_hazard_07",
       "kind": "spore_chest",
       "rect": [
-        10595,
-        496,
+        9900,
+        516,
         110,
         24
       ],
@@ -1464,8 +1478,8 @@
       "id": "ch03_hazard_08",
       "kind": "fake_moss_floor",
       "rect": [
-        13520,
-        326,
+        11000,
+        476,
         110,
         24
       ],
@@ -1476,8 +1490,8 @@
       "id": "ch03_hazard_09",
       "kind": "bell_gap",
       "rect": [
-        15720,
-        516,
+        13100,
+        276,
         110,
         24
       ],
@@ -1488,7 +1502,7 @@
       "id": "ch03_hazard_10",
       "kind": "spore_chest",
       "rect": [
-        18585,
+        14800,
         516,
         110,
         24
@@ -1503,8 +1517,8 @@
       "id": "ch03_saltwhite_archive_shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        10860,
+        470
       ],
       "requires_keys": 0,
       "label": "战斗门控制器"
@@ -1513,7 +1527,7 @@
       "id": "ch03_saltwhite_archive_boss_gate",
       "kind": "boss_gate",
       "position": [
-        16460,
+        16180,
         500
       ]
     },
@@ -1523,7 +1537,7 @@
       "label": "前往第四章：断弦温室",
       "position": [
         18620,
-        500
+        510
       ],
       "next_runtime_config_id": "demo_ch04_broken_string_greenhouse",
       "next_config_path": "res://data/demo_ch04_broken_string_greenhouse.json",
@@ -1610,10 +1624,10 @@
       "id": "CH03_E01",
       "kind": "salt_bookmite",
       "position": [
-        1120,
-        570
+        1260,
+        594
       ],
-      "platform_id": "outer_low_floor",
+      "platform_id": "entry_low_drop",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1704,10 +1718,10 @@
       "id": "CH03_E02",
       "kind": "page_duelist",
       "position": [
-        2110,
-        500
+        1820,
+        510
       ],
-      "platform_id": "lift_base",
+      "platform_id": "entry_mid",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1798,10 +1812,10 @@
       "id": "CH03_E03",
       "kind": "index_scribe",
       "position": [
-        2780,
-        348
+        1200,
+        362
       ],
-      "platform_id": "upper_bridge_a",
+      "platform_id": "entry_balcony",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1892,10 +1906,10 @@
       "id": "CH03_E04",
       "kind": "wax_lancer",
       "position": [
-        4880,
-        500
+        3220,
+        610
       ],
-      "platform_id": "ch03_runback_floor",
+      "platform_id": "well_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1986,10 +2000,10 @@
       "id": "CH03_E05",
       "kind": "erasure_bailiff",
       "position": [
-        5720,
-        500
+        3220,
+        354
       ],
-      "platform_id": "ch03_parkour_floor_a",
+      "platform_id": "well_gallery",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2080,10 +2094,10 @@
       "id": "CH03_E06",
       "kind": "salt_bookmite",
       "position": [
-        7115,
-        370
+        4900,
+        510
       ],
-      "platform_id": "ch03_parkour_upper_a",
+      "platform_id": "well_exit_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2174,10 +2188,10 @@
       "id": "CH03_E07",
       "kind": "page_duelist",
       "position": [
-        7480,
-        320
+        6150,
+        594
       ],
-      "platform_id": "ch03_parkour_upper_b",
+      "platform_id": "stacks_lower",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2268,10 +2282,10 @@
       "id": "CH03_E08",
       "kind": "index_scribe",
       "position": [
-        8180,
-        500
+        6680,
+        362
       ],
-      "platform_id": "ch03_sprint_floor",
+      "platform_id": "stacks_upper_b",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2362,10 +2376,10 @@
       "id": "CH03_E09",
       "kind": "wax_lancer",
       "position": [
-        9030,
-        500
+        7700,
+        594
       ],
-      "platform_id": "ch03_gauntlet_floor",
+      "platform_id": "stacks_lower_b",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2456,10 +2470,10 @@
       "id": "CH03_E10",
       "kind": "erasure_bailiff",
       "position": [
-        10380,
-        500
+        8850,
+        510
       ],
-      "platform_id": "ch03_approach_floor",
+      "platform_id": "stacks_exit_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2550,10 +2564,10 @@
       "id": "CH03_E11",
       "kind": "salt_bookmite",
       "position": [
-        10480,
-        570
+        10050,
+        510
       ],
-      "platform_id": "ch03_lower_loop_floor",
+      "platform_id": "hall_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2644,10 +2658,10 @@
       "id": "CH03_E12",
       "kind": "page_duelist",
       "position": [
-        12510,
-        500
+        9880,
+        370
       ],
-      "platform_id": "ch03_return_shaft_base",
+      "platform_id": "hall_upper",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2738,10 +2752,10 @@
       "id": "CH03_E13",
       "kind": "index_scribe",
       "position": [
-        13455,
-        310
+        13550,
+        270
       ],
-      "platform_id": "ch03_upper_bridge",
+      "platform_id": "high_bridge",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2832,10 +2846,10 @@
       "id": "CH03_E14",
       "kind": "summoned_page",
       "position": [
-        15895,
-        500
+        15825,
+        510
       ],
-      "platform_id": "ch03_preboss_floor",
+      "platform_id": "preboss_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2928,7 +2942,7 @@
     "name": "灰冠螳将",
     "kind": "saltwhite_contract_judge",
     "position": [
-      16970,
+      17050,
       500
     ],
     "hp": 22,
@@ -3050,34 +3064,34 @@
   ],
   "save_points": [
     {
+      "id": "save_well_respite",
+      "label": "阅读井存档点",
+      "position": [
+        1700,
+        510
+      ],
+      "hidden": false,
+      "note": "井口前的中层存档点。"
+    },
+    {
       "id": "save_hidden_upper_respite",
       "label": "盐白书库隐藏存档点",
       "position": [
-        13455,
-        310
+        13400,
+        290
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
-    },
-    {
-      "id": "save_ch03_lower_loop",
-      "label": "第3章下层回环存档点",
-      "position": [
-        10760,
-        570
-      ],
-      "hidden": false,
-      "note": "扩建后下层回环的中段存档点。"
+      "note": "藏在高阁索桥上的稀疏存档点。"
     },
     {
       "id": "save_late_runback",
       "label": "盐白书库Boss前存档点",
       "position": [
-        15635,
-        500
+        14900,
+        510
       ],
       "hidden": false,
-      "note": "Boss跑图前的后段存档点。"
+      "note": "Boss 跑图前的后段存档点。"
     }
   ],
   "fall_y": 820,
@@ -3099,45 +3113,46 @@
   "progression_mode": "combat_clear",
   "parkour_segments": [
     {
-      "id": "ch03_parkour_climb",
-      "room_id": "ch03_room_7",
-      "technique": "dash jump + upward slash timing",
+      "id": "ch03_well_loop",
+      "room_id": "ch03_room_4",
+      "technique": "left shaft climb into upper gallery",
       "platforms": [
-        "ch03_parkour_step_a",
-        "ch03_parkour_step_b",
-        "ch03_parkour_upper_a"
+        "well_lshaft_1",
+        "well_lshaft_2",
+        "well_gallery"
       ]
     },
     {
-      "id": "ch03_sprint_chain",
+      "id": "ch03_stack_shaft",
       "room_id": "ch03_room_8",
-      "technique": "sprint, down slash bounce, safe landing",
+      "technique": "shaft jump, dash gap to upper catwalk",
       "platforms": [
-        "ch03_parkour_upper_b",
-        "ch03_sprint_step",
-        "ch03_gauntlet_upper"
+        "s_sh1_1",
+        "s_sh1_2",
+        "stacks_upper_a",
+        "stacks_upper_b"
       ]
     },
     {
-      "id": "ch03_lower_upper_return",
-      "room_id": "ch03_room_13",
-      "technique": "lower loop, return shaft, upper bridge",
+      "id": "ch03_return_climb",
+      "room_id": "ch03_room_14",
+      "technique": "vertical shaft to high index bridge",
       "platforms": [
-        "ch03_lower_loop_floor",
-        "ch03_return_shaft_base",
-        "ch03_return_shaft_step_a",
-        "ch03_return_shaft_step_b",
-        "ch03_upper_bridge"
+        "return_base",
+        "ret_1",
+        "ret_2",
+        "ret_3",
+        "high_bridge"
       ]
     },
     {
-      "id": "ch03_preboss_crossway",
+      "id": "ch03_preboss_drop",
       "room_id": "ch03_room_16",
-      "technique": "upper drop into final horizontal approach",
+      "technique": "high bridge drop into final approach",
       "platforms": [
-        "ch03_upper_drop_step",
-        "ch03_crossway_floor",
-        "ch03_preboss_floor",
+        "high_bridge_drop",
+        "approach_floor",
+        "preboss_floor",
         "boss_floor"
       ]
     }
@@ -3237,19 +3252,41 @@
       "type": "passage"
     },
     {
-      "from": "ch03_room_12",
-      "to": "ch03_room_13",
-      "type": "lower_return"
-    },
-    {
-      "from": "ch03_room_14",
-      "to": "ch03_room_15",
+      "from": "ch03_room_2",
+      "to": "ch03_room_4",
       "type": "upper_shortcut"
     },
     {
-      "from": "ch03_room_5",
-      "to": "ch03_room_17",
-      "type": "opened_shortcut"
+      "from": "ch03_room_3",
+      "to": "ch03_room_4",
+      "type": "lower_return"
+    },
+    {
+      "from": "ch03_room_4",
+      "to": "ch03_room_5",
+      "type": "vertical"
+    },
+    {
+      "from": "ch03_room_6",
+      "to": "ch03_room_4",
+      "type": "loop"
+    },
+    {
+      "from": "ch03_room_9",
+      "to": "ch03_room_8",
+      "type": "loop"
+    },
+    {
+      "from": "ch03_room_13",
+      "to": "ch03_room_4",
+      "type": "shortcut",
+      "shortcut_id": "ch03_back_to_well",
+      "opens_from": "lever"
+    },
+    {
+      "from": "ch03_room_15",
+      "to": "ch03_room_16",
+      "type": "upper_shortcut"
     }
   ]
 }
