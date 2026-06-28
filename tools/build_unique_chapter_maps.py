@@ -94,6 +94,32 @@ class MapBuilder:
             ids.append(self.floor(f"{prefix}_{i+1}", round(x), round(y), w, h, bridge=True))
         return ids
 
+    def tower(self, prefix, x_left, span, y_bottom, y_top, step_dy=108, ledge_w=200, h=24):
+        """A zig-zag climbing tower: ledges alternate left/right side of the
+        tower footprint, stepping upward within jump reach. Returns the ledge
+        list ordered bottom -> top. span<=640 keeps the cross-jump <=240px."""
+        if span - 2 * ledge_w > SAFE_GAP:
+            raise SystemExit(f"{prefix}: tower cross gap {span - 2*ledge_w} > {SAFE_GAP}")
+        n = max(1, int(round((y_bottom - y_top) / step_dy)))
+        ledges = []
+        for i in range(n + 1):
+            y = y_bottom - (y_bottom - y_top) * i / n
+            on_left = (i % 2 == 0)
+            x = x_left if on_left else x_left + span - ledge_w
+            ledges.append(self.floor(f"{prefix}_{i}", round(x), round(y), ledge_w, h, bridge=True))
+        return ledges
+
+    def junction(self, prefix, ground_y, x_up, x_down, bridge_y, span=600, ledge_w=200):
+        """A forced-vertical crossing over a chasm: climb the left tower up to a
+        bridge, walk across, descend the right tower to the next ground island.
+        Returns dict with up/down ledge lists, the two top landings and bridge."""
+        up = self.tower(f"{prefix}_up", x_up, span, ground_y - 100, bridge_y, ledge_w=ledge_w)
+        up_top = self.floor(f"{prefix}_up_top", x_up + span - ledge_w, bridge_y, ledge_w, 24, bridge=True)
+        bridge = self.floor(f"{prefix}_bridge", x_up + span, bridge_y, x_down - (x_up + span), 26, bridge=True)
+        dn_top = self.floor(f"{prefix}_dn_top", x_down, bridge_y, ledge_w, 24, bridge=True)
+        dn = self.tower(f"{prefix}_dn", x_down, span, ground_y - 100, bridge_y, ledge_w=ledge_w)
+        return {"up": up, "up_top": up_top, "bridge": bridge, "dn_top": dn_top, "dn": dn}
+
     def get(self, pid):
         return self._by_id[pid]
 
@@ -187,81 +213,61 @@ def build_ch03():
     cfg = load(name)
     b = MapBuilder("salt_marble", "vellum_bridge", "4b493c", "b9a06a")
 
-    # --- S1 entry & fork (0–2250) ---
-    b.floor("start_ground", 0, 560, 900, 40)
-    b.floor("entry_step", 760, 470, 240, 24, bridge=True)
-    b.floor("entry_balcony", 1040, 392, 320, 24, bridge=True)        # upper fork
-    b.floor("entry_low_drop", 980, 624, 560, 32)                      # lower fork
-    b.floor("entry_mid", 1560, 540, 520, 30)
-    b.floor("well_lip_left", 2080, 500, 360, 28, bridge=True)
+    GROUND = 1980
 
-    # --- S2 reading-well loop (2250–4400) ---
-    b.floor("well_floor", 2440, 640, 1560, 34)                        # lower stacks
-    b.floor("well_gallery", 2520, 384, 1400, 26, bridge=True)         # upper gallery
-    b.floor("well_lshaft_1", 2500, 560, 160, 20, bridge=True)
-    b.floor("well_lshaft_2", 2540, 472, 160, 20, bridge=True)
-    b.floor("well_rshaft_1", 3760, 480, 160, 20, bridge=True)
-    b.floor("well_rshaft_2", 3700, 580, 160, 20, bridge=True)
-    b.floor("well_alcove", 2480, 282, 260, 22, bridge=True)           # rift_hook reward branch
-    b.floor("well_exit_step", 4040, 540, 360, 28, bridge=True)
-    b.floor("well_exit_floor", 4400, 540, 1000, 34)
+    # Ground is split into islands separated by chasms (death pits). The only
+    # way across each chasm is up a tower, across the bridge and down the next
+    # tower -> the X mainline is *forced* through ~1500px of vertical climb.
+    b.floor("g_entry", 0, GROUND, 2000, 40)
+    b.floor("g_well", 2520, GROUND, 2280, 40)
+    b.floor("g_stacks", 5320, GROUND, 2280, 40)
+    b.floor("g_hall", 8120, GROUND, 2480, 40)
+    b.floor("g_return", 11120, GROUND, 2480, 40)
+    b.floor("g_descent", 14120, GROUND, 1680, 40)
+    boss_floor = b.floor("boss_floor", 15800, GROUND, 1660, 44)
+    b.floor("boss_back_wall", 17460, GROUND - 270, 38, 270)
+    b.floor("exit_runup", 17560, GROUND, 560, 40)
+    exit_floor = b.floor("exit_floor", 18120, GROUND, 680, 40)
 
-    # --- S3 parallel stacks + loops + dash shortcut (5400–8400) ---
-    b.floor("stacks_lower", 5400, 624, 1500, 32)
-    b.floor("stacks_upper_a", 5500, 392, 700, 26, bridge=True)
-    b.floor("s_sh1_1", 5460, 540, 160, 20, bridge=True)
-    b.floor("s_sh1_2", 5480, 460, 160, 20, bridge=True)
-    b.floor("stacks_upper_b", 6360, 392, 640, 26, bridge=True)        # dash gap from upper_a
-    b.floor("stacks_lower_b", 7000, 624, 1400, 32)
-    b.floor("s_sh2_1", 7060, 540, 160, 20, bridge=True)
-    b.floor("s_sh2_2", 7080, 460, 160, 20, bridge=True)
-    b.floor("stacks_upper_c", 7200, 360, 560, 24, bridge=True)        # diagonal-dash reward branch
-    b.floor("stacks_exit_floor", 8400, 540, 900, 34)
+    # forced-vertical crossings between islands (climb -> bridge -> descend)
+    j1 = b.junction("c3_j1", GROUND, 1380, 2540, 360)   # entry spire
+    j2 = b.junction("c3_j2", GROUND, 4180, 5340, 300)   # reading well
+    j3 = b.junction("c3_j3", GROUND, 6980, 8140, 440)   # book-spine span
+    j4 = b.junction("c3_j4", GROUND, 9980, 11140, 260)  # apex (highest)
+    j5 = b.junction("c3_j5", GROUND, 12980, 14140, 360) # descent to boss
 
-    # --- S4 convergence hall + back lever shortcut (9300–11760) ---
-    b.floor("hall_floor", 9300, 540, 1500, 34)
-    b.floor("h_sh_1", 9360, 470, 160, 20, bridge=True)
-    b.floor("hall_upper", 9500, 400, 760, 26, bridge=True)
-    b.floor("lever_landing", 10800, 500, 360, 28, bridge=True)
-    b.floor("hall_exit_floor", 11160, 540, 600, 34)
+    # optional twin-tower loop on the stacks island (climb one side, cross, drop other)
+    loopA = b.tower("c3_loopA", 5600, 600, 1880, 520)
+    loopB = b.tower("c3_loopB", 6500, 600, 1880, 520)
+    loop_bridge = b.floor("c3_loop_bridge", 5600, 520, 1500, 26, bridge=True)
 
-    # --- S5 return climb + high bridge (11760–14640) ---
-    b.floor("return_base", 11760, 560, 420, 30)
-    b.floor("ret_1", 12100, 472, 220, 22, bridge=True)
-    b.floor("ret_2", 12380, 392, 240, 22, bridge=True)
-    b.floor("ret_3", 12660, 320, 260, 22, bridge=True)
-    b.floor("high_bridge", 12900, 300, 1300, 26, bridge=True)
-    b.floor("high_bridge_drop", 14260, 430, 320, 26, bridge=True)
-    b.floor("approach_floor", 14640, 540, 760, 34)
+    # rift_hook reward branch above the apex of the reading-well bridge
+    reward = b.floor("c3_reward", 4900, 180, 300, 22, bridge=True)
 
-    # --- S6 boss + exit (15400–18800) ---
-    b.floor("preboss_floor", 15400, 540, 850, 34)
-    b.floor("boss_floor", 16250, 540, 1660, 44)
-    b.floor("boss_back_wall", 17910, 315, 38, 270)
-    b.floor("post_boss_step", 17900, 540, 300, 34)
-    b.floor("exit_runup", 18040, 540, 480, 34)
-    b.floor("exit_floor", 18420, 540, 380, 34)
-
-    b.assert_reachable("start_ground", ["well_gallery", "well_alcove", "stacks_upper_c",
-                                        "high_bridge", "boss_floor", "exit_floor"])
+    b.assert_reachable("g_entry", [
+        "g_well", "g_stacks", "g_hall", "g_return", "g_descent",
+        j1["bridge"].id, j2["bridge"].id, j3["bridge"].id, j4["bridge"].id, j5["bridge"].id,
+        j5["dn"][0].id, loopA[-1].id, loopB[-1].id, loop_bridge.id, reward.id,
+        boss_floor.id, exit_floor.id,
+    ])
 
     width = cfg["world"]["width"]
     rooms = rooms_from_spec([
-        ("ch03_room_1", "盐封入口", 950, 0, "entry", "盐封入口：先沿中层推进，左上书廊与右下书库各开一条岔路。"),
-        ("ch03_room_2", "上层书廊", 600, -1, "upper", "上层书廊：窄跳安全路，俯瞰下层书库。"),
-        ("ch03_room_3", "下层书库", 700, 1, "lower", "下层书库：宽阔但陷阱多，可回到入口竖井。"),
-        ("ch03_room_4", "阅读井·井口", 600, 0, "vertical", "阅读井井口：左右两道书梯环绕井体，构成回环。"),
-        ("ch03_room_5", "阅读井·回廊", 700, -2, "upper", "上层回廊：钩索可达隐藏壁龛奖励。"),
-        ("ch03_room_6", "阅读井·底库", 850, 2, "lower", "井底书库：最深一层，绕行后从右梯回到回廊。"),
-        ("ch03_room_7", "井东连廊", 1000, 0, "field", "井东连廊：清怪过渡到双层书架区。"),
-        ("ch03_room_8", "书架上层栈道", 900, -1, "upper", "上层栈道：斜冲跨越书架缺口。"),
-        ("ch03_room_9", "书架下层走道", 800, 1, "lower", "下层走道：与上层栈道由竖井相连成环。"),
-        ("ch03_room_10", "倒置书梯", 900, 0, "vertical", "倒置书梯：上下层在此交汇。"),
-        ("ch03_room_11", "跑酷书脊", 900, -1, "parkour", "跑酷书脊：连续跳台抵达高处奖励。"),
-        ("ch03_room_12", "汇流大厅", 1300, 0, "field", "汇流大厅：上下两路在中层合流。"),
-        ("ch03_room_13", "背门拉杆台", 1400, 1, "lower", "背门拉杆台：拉杆从背面打开回井口的捷径。"),
-        ("ch03_room_14", "回归升降井", 1300, 0, "vertical", "回归升降井：攀爬竖井登上高阁索桥。"),
-        ("ch03_room_15", "高阁索桥", 1400, -2, "upper", "高阁索桥：全章最高点，俯冲进入终段。"),
+        ("ch03_room_1", "盐封入口", 950, 0, "entry", "盐封入口：从底层广场起步，正前方是直插书顶的入口尖塔。"),
+        ("ch03_room_2", "入口尖塔", 600, -2, "upper", "入口尖塔：之字攀爬约 1500px 登顶，塔顶钩索壁龛是奖励分支。"),
+        ("ch03_room_3", "塔顶索桥", 700, -1, "vertical", "塔顶索桥：从高处俯冲进入下一段阅读井。"),
+        ("ch03_room_4", "阅读双井·左", 600, 1, "lower", "阅读双井左塔：从井底向上攀爬。"),
+        ("ch03_room_5", "阅读双井·桥", 700, -2, "upper", "双井顶桥：左右两塔在顶部相连，构成纵向回环。"),
+        ("ch03_room_6", "阅读双井·右", 850, 1, "vertical", "阅读双井右塔：登顶后由顶桥折返，或继续向右。"),
+        ("ch03_room_7", "书脊连廊", 1000, 0, "field", "书脊连廊：底层清怪过渡。"),
+        ("ch03_room_8", "书架左塔", 900, 1, "lower", "书架左塔：攀爬进入双塔栈区。"),
+        ("ch03_room_9", "书架顶桥", 800, -2, "upper", "书架顶桥：连接左右双塔，斜冲奖励台高悬其上。"),
+        ("ch03_room_10", "书架右塔", 900, 1, "vertical", "书架右塔：纵向回环的另一侧。"),
+        ("ch03_room_11", "汇流竖井", 900, 0, "vertical", "汇流竖井：两道升降井通往上层环廊。"),
+        ("ch03_room_12", "上层环廊", 1300, -2, "upper", "上层环廊：拉杆在此从背面打开回井捷径。"),
+        ("ch03_room_13", "回归塔基", 1400, 1, "lower", "回归塔基：最高回归塔的底座。"),
+        ("ch03_room_14", "回归升降塔", 1300, -1, "vertical", "回归升降塔：全章最高的纵向攀爬。"),
+        ("ch03_room_15", "顶阁索桥", 1400, -3, "upper", "顶阁索桥：全章最高点，俯冲下降进入终段。"),
         ("ch03_room_16", "契约庭前廊", 1100, 0, "field", "契约庭前廊：Boss 前最后的存档与补给。"),
         ("ch03_room_17", "盐白契约庭", 1850, 0, "boss", "盐白契约庭：与盐白契约判官决战。"),
         ("ch03_room_18", "盐页出口", 1550, 0, "exit", "盐页出口：通往第四章断弦温室。"),
@@ -269,14 +275,15 @@ def build_ch03():
 
     connections = [{"from": f"ch03_room_{i}", "to": f"ch03_room_{i+1}", "type": "passage"} for i in range(1, 18)]
     connections += [
-        {"from": "ch03_room_2", "to": "ch03_room_4", "type": "upper_shortcut"},
-        {"from": "ch03_room_3", "to": "ch03_room_4", "type": "lower_return"},
+        {"from": "ch03_room_2", "to": "ch03_room_3", "type": "vertical"},
         {"from": "ch03_room_4", "to": "ch03_room_5", "type": "vertical"},
-        {"from": "ch03_room_6", "to": "ch03_room_4", "type": "loop"},
-        {"from": "ch03_room_9", "to": "ch03_room_8", "type": "loop"},
-        {"from": "ch03_room_13", "to": "ch03_room_4", "type": "shortcut",
-         "shortcut_id": "ch03_back_to_well", "opens_from": "lever"},
-        {"from": "ch03_room_15", "to": "ch03_room_16", "type": "upper_shortcut"},
+        {"from": "ch03_room_6", "to": "ch03_room_5", "type": "loop"},
+        {"from": "ch03_room_8", "to": "ch03_room_9", "type": "vertical"},
+        {"from": "ch03_room_10", "to": "ch03_room_9", "type": "loop"},
+        {"from": "ch03_room_11", "to": "ch03_room_12", "type": "vertical"},
+        {"from": "ch03_room_12", "to": "ch03_room_11", "type": "shortcut",
+         "shortcut_id": "ch03_back_drop", "opens_from": "lever"},
+        {"from": "ch03_room_14", "to": "ch03_room_15", "type": "vertical"},
     ]
 
     cfg["map_rooms"] = rooms
@@ -284,30 +291,31 @@ def build_ch03():
     cfg["platforms"] = [p.dict() for p in b.platforms]
 
     cfg["locked_gates"] = [{
-        "id": "ch03_alcove_gate", "rect": [2760, 300, 36, 110], "color": "6f5b9a",
+        "id": "ch03_reward_gate", "rect": [4870, 70, 36, 120], "color": "6f5b9a",
         "material": "rift_seal", "required_ability": "rift_hook",
         "required_ability_name": "裂隙钩索",
     }]
 
     cfg["parkour_segments"] = [
-        {"id": "ch03_well_loop", "room_id": "ch03_room_4",
-         "technique": "left shaft climb into upper gallery",
-         "platforms": ["well_lshaft_1", "well_lshaft_2", "well_gallery"]},
-        {"id": "ch03_stack_shaft", "room_id": "ch03_room_8",
-         "technique": "shaft jump, dash gap to upper catwalk",
-         "platforms": ["s_sh1_1", "s_sh1_2", "stacks_upper_a", "stacks_upper_b"]},
+        {"id": "ch03_spire_climb", "room_id": "ch03_room_2",
+         "technique": "zig-zag tower climb to the crossing bridge",
+         "platforms": [j1["up"][0].id, j1["up"][len(j1["up"])//2].id, j1["up"][-1].id,
+                       j1["up_top"].id, j1["bridge"].id]},
+        {"id": "ch03_well_loop", "room_id": "ch03_room_9",
+         "technique": "twin-tower vertical loop over the stacks",
+         "platforms": [loopA[0].id, loopA[-1].id, loop_bridge.id, loopB[-1].id, loopB[0].id]},
         {"id": "ch03_return_climb", "room_id": "ch03_room_14",
-         "technique": "vertical shaft to high index bridge",
-         "platforms": ["return_base", "ret_1", "ret_2", "ret_3", "high_bridge"]},
-        {"id": "ch03_preboss_drop", "room_id": "ch03_room_16",
-         "technique": "high bridge drop into final approach",
-         "platforms": ["high_bridge_drop", "approach_floor", "preboss_floor", "boss_floor"]},
+         "technique": "tallest vertical climb to the apex bridge",
+         "platforms": [j4["up"][0].id, j4["up"][len(j4["up"])//2].id, j4["up"][-1].id, j4["bridge"].id]},
+        {"id": "ch03_preboss_drop", "room_id": "ch03_room_15",
+         "technique": "apex drop down the descent tower into the arena",
+         "platforms": [j5["bridge"].id, j5["dn_top"].id, j5["dn"][-1].id, j5["dn"][0].id]},
     ]
 
     save_specs = [
-        ("save_well_respite", "阅读井存档点", [1700, 510], False, "井口前的中层存档点。"),
-        ("save_hidden_upper_respite", "盐白书库隐藏存档点", [13400, 290], True, "藏在高阁索桥上的稀疏存档点。"),
-        ("save_late_runback", "盐白书库Boss前存档点", [14900, 510], False, "Boss 跑图前的后段存档点。"),
+        ("save_well_respite", "阅读井存档点", [700, GROUND - 60], False, "入口岛底的存档点。"),
+        ("save_hidden_upper_respite", "盐白书库隐藏存档点", [10860, 260], True, "藏在最高索桥上的稀疏存档点。"),
+        ("save_late_runback", "盐白书库Boss前存档点", [14600, GROUND - 60], False, "Boss 跑图前的后段存档点。"),
     ]
     cfg["save_points"] = [
         {"id": sid, "label": label, "position": pos, "hidden": hidden, "note": note}
@@ -316,43 +324,54 @@ def build_ch03():
 
     for inter in cfg["interactives"]:
         if inter.get("kind") == "lever":
-            inter["position"] = [10860, 470]
+            inter["position"] = [9000, GROUND - 80]
         elif inter.get("kind") == "boss_gate":
-            inter["position"] = [16180, 500]
+            inter["position"] = [16100, GROUND - 80]
         elif inter.get("kind") in ("chapter_exit", "ending_exit"):
-            inter["position"] = [18620, 510]
+            inter["position"] = [18500, GROUND - 70]
 
-    cfg["player_start"] = [120, 500]
-    cfg["boss_checkpoint"] = [15000, 500]
+    npc_x = {
+        "npc_salt_librarian_ye": 360, "npc_quiet_reader": 1200,
+        "npc_fugitive_scribe": 3600, "npc_sealed_archivist": 9000,
+    }
+    for i, npc in enumerate(cfg.get("npcs", [])):
+        x = npc_x.get(npc.get("id"), 600 + i * 800)
+        npc["position"] = [x, GROUND - 70]
+
+    cfg["player_start"] = [120, GROUND - 80]
+    cfg["boss_checkpoint"] = [14600, GROUND - 80]
     if isinstance(cfg.get("boss"), dict):
-        cfg["boss"]["position"] = [17050, 500]
+        cfg["boss"]["position"] = [16600, GROUND - 80]
         if isinstance(cfg["boss"].get("arena"), list) and len(cfg["boss"]["arena"]) >= 4:
-            cfg["boss"]["arena"] = [16250, 360, 1660, 220]
+            cfg["boss"]["arena"] = [15800, GROUND - 240, 1660, 260]
 
     enemy_platforms = [
-        "entry_low_drop", "entry_mid", "entry_balcony", "well_floor", "well_gallery",
-        "well_exit_floor", "stacks_lower", "stacks_upper_b", "stacks_lower_b",
-        "stacks_exit_floor", "hall_floor", "hall_upper", "high_bridge", "preboss_floor",
+        "g_entry", j1["up"][3].id, j1["bridge"].id, "g_well", j2["up"][3].id,
+        j2["bridge"].id, loopA[3].id, "g_stacks", j3["bridge"].id, "g_hall",
+        j4["up"][3].id, j4["bridge"].id, "g_return", j5["bridge"].id,
     ]
     anchor_enemies(cfg, b, enemy_platforms)
 
     hazard_spots = [
-        ("ch03_hazard_01", "fake_moss_floor", [1320, 600]),
-        ("ch03_hazard_02", "bell_gap", [2300, 360]),
-        ("ch03_hazard_03", "spore_chest", [3300, 616]),
-        ("ch03_hazard_04", "falling_clapper", [5900, 600]),
-        ("ch03_hazard_05", "bell_gap", [6700, 368]),
-        ("ch03_hazard_06", "falling_clapper", [7600, 600]),
-        ("ch03_hazard_07", "spore_chest", [9900, 516]),
-        ("ch03_hazard_08", "fake_moss_floor", [11000, 476]),
-        ("ch03_hazard_09", "bell_gap", [13100, 276]),
-        ("ch03_hazard_10", "spore_chest", [14800, 516]),
+        ("ch03_hazard_01", "fake_moss_floor", [1100, GROUND - 20]),
+        ("ch03_hazard_02", "bell_gap", [2200, 400]),
+        ("ch03_hazard_03", "spore_chest", [4900, 180]),
+        ("ch03_hazard_04", "falling_clapper", [5000, 400]),
+        ("ch03_hazard_05", "bell_gap", [6000, 520]),
+        ("ch03_hazard_06", "falling_clapper", [7800, 440]),
+        ("ch03_hazard_07", "spore_chest", [9000, GROUND - 20]),
+        ("ch03_hazard_08", "fake_moss_floor", [10860, 260]),
+        ("ch03_hazard_09", "bell_gap", [13800, 360]),
+        ("ch03_hazard_10", "spore_chest", [14800, GROUND - 20]),
     ]
     cfg["hazards"] = [
         {"id": hid, "kind": kind, "rect": [pos[0], pos[1], 110, 24], "damage": 1,
-         "message": "多层扩建路线上出现预警陷阱。"}
+         "message": "纵向扩建路线上出现预警陷阱。"}
         for hid, kind, pos in hazard_spots
     ]
+
+    cfg["world"]["height"] = 2400
+    cfg["world"]["fall_y"] = 2520
 
     write_config(name, cfg)
 
