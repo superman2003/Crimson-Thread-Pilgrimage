@@ -404,7 +404,74 @@ const AUDIO := {
     "bgm_boss": "res://assets/audio/bgm/boss_rust_crown_loop.ogg",
     "pickup": "res://assets/audio/sfx/pickup.ogg",
     "lever": "res://assets/audio/sfx/lever.ogg",
-    "interact": "res://assets/audio/sfx/interact.ogg"
+    "interact": "res://assets/audio/sfx/interact.ogg",
+    # 自产 SFX 包（tools/generate_sfx_pack.py，project-generated CC0，音频规格 §4.5/§4.6）。
+    "shrine_wrap": "res://assets/audio/sfx/generated/env_shrine_wrap.wav",
+    "shrine_rest_ch01": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.wav",
+    "shrine_rest_ch02": "res://assets/audio/sfx/generated/env_shrine_rest_ch02.wav",
+    "shrine_rest_ch03": "res://assets/audio/sfx/generated/env_shrine_rest_ch03.wav",
+    "shrine_rest_ch04": "res://assets/audio/sfx/generated/env_shrine_rest_ch04.wav",
+    "shrine_rest_ch05": "res://assets/audio/sfx/generated/env_shrine_rest_ch05.wav",
+    "shrine_rest_ch06": "res://assets/audio/sfx/generated/env_shrine_rest_ch06.wav",
+    "gate_dash": "res://assets/audio/sfx/generated/env_gate_dash.wav",
+    "gate_wallshaft": "res://assets/audio/sfx/generated/env_gate_wallshaft.wav",
+    "gate_hookring": "res://assets/audio/sfx/generated/env_gate_hookring.wav",
+    "gate_doublejump": "res://assets/audio/sfx/generated/env_gate_doublejump.wav",
+    "gate_guardbreak": "res://assets/audio/sfx/generated/env_gate_guardbreak.wav",
+    "gate_shadow": "res://assets/audio/sfx/generated/env_gate_shadow.wav",
+    "gate_crown": "res://assets/audio/sfx/generated/env_gate_crown.wav",
+    "gate_downstrike": "res://assets/audio/sfx/generated/player_downstrike_break.wav",
+    "chapter_transition": "res://assets/audio/sfx/generated/env_chapter_transition.wav",
+    "low_hp_heartbeat": "res://assets/audio/sfx/generated/player_low_hp_heartbeat.wav",
+    # 三结局 stinger（自产 CC0，结局门文案显示同时播放，挂 root 防截断）。
+    "ending_a_stinger": "res://assets/audio/sfx/generated/story_ending_a_rebell.wav",
+    "ending_b_stinger": "res://assets/audio/sfx/generated/story_ending_b_severance.wav",
+    "ending_c_stinger": "res://assets/audio/sfx/generated/story_ending_c_reweave.wav",
+    # Kenney CC0 三包（Interface Sounds / RPG Audio；音频规格 §4.5 UI 与系统）。
+    "ui_inventory_open": "res://assets/audio/sfx/kenney/interface/open_001.ogg",
+    "ui_inventory_close": "res://assets/audio/sfx/kenney/interface/close_001.ogg",
+    "ui_map_open": "res://assets/audio/sfx/kenney/interface/maximize_001.ogg",
+    "ui_map_close": "res://assets/audio/sfx/kenney/interface/minimize_001.ogg",
+    "ui_dialogue_close": "res://assets/audio/sfx/kenney/interface/back_002.ogg",
+    "ui_menu_move_1": "res://assets/audio/sfx/kenney/interface/tick_001.ogg",
+    "ui_menu_move_2": "res://assets/audio/sfx/kenney/interface/tick_002.ogg",
+    "ui_toast": "res://assets/audio/sfx/kenney/interface/pluck_001.ogg",
+    "ui_menu_confirm": "res://assets/audio/sfx/kenney/interface/confirmation_001.ogg",
+    "ui_menu_cancel": "res://assets/audio/sfx/kenney/interface/error_004.ogg",
+    "lever_latch": "res://assets/audio/sfx/kenney/rpg/metalLatch.ogg",
+    "door_open": "res://assets/audio/sfx/kenney/rpg/doorOpen_1.ogg",
+    "pickup_coins_1": "res://assets/audio/sfx/kenney/rpg/handleCoins.ogg",
+    "pickup_coins_2": "res://assets/audio/sfx/kenney/rpg/handleCoins2.ogg",
+    "pickup_cloth": "res://assets/audio/sfx/kenney/rpg/cloth1.ogg"
+}
+
+## 章节 art theme → 玩家脚步材质组（音频规格 §4.2 材质化脚步）。
+const FOOTSTEP_MATERIAL_BY_THEME := {
+    "moss_cavern": "moss",
+    "rain_foundry": "copper",
+    "salt_archive": "salt",
+    "string_greenhouse": "fiber",
+    "obsidian_pilgrim": "obsidian",
+    "silent_crown": "obsidian"
+}
+
+## 结局 → 终止式 stinger（音频规格 §3.8）。
+const ENDING_STINGER_SFX := {
+    "ending_a": "ending_a_stinger",
+    "ending_b": "ending_b_stinger",
+    "ending_c": "ending_c_stinger"
+}
+
+## 能力门族提示音映射（音频规格 §4.5 ui_gate_unlock：对应能力家族音）。
+const GATE_UNLOCK_SFX := {
+    "thread_dash": "gate_dash",
+    "silk_wall_grip": "gate_wallshaft",
+    "echo_hook": "gate_hookring",
+    "double_thread_jump": "gate_doublejump",
+    "bell_guard": "gate_guardbreak",
+    "lantern_phase": "gate_shadow",
+    "crown_resonance": "gate_crown",
+    "thorn_downstrike": "gate_downstrike"
 }
 
 ## P0 音频总线基建（音效与音乐设计规格 20260726160400000 §5.1 / §6.3 第 0 期）。
@@ -517,6 +584,8 @@ var active_save_point_id := "start"
 var bgm_player: AudioStreamPlayer
 var bgm_duck_tween: Tween
 var low_hp_audio_active := false
+var low_hp_heartbeat_player: AudioStreamPlayer
+var last_toast_sfx_ms := 0
 var pending_enemy_respawn := false
 # Story flags (npc_met_*, boss_down_*, whisper_*, quest flags ...). Part of the
 # carried save state; missing keys always default to false for old saves.
@@ -645,6 +714,38 @@ func _art_theme_id() -> String:
     if config_id.contains("silent_crown") or config_id.contains("ch06"):
         return "silent_crown"
     return "moss_cavern"
+
+
+## 钟龛 rest 音六区变体（音频规格 §2.1 摇篮曲/§4.5 ui_shrine_rest）。
+func _shrine_rest_audio_key() -> String:
+    var theme := _art_theme_id()
+    if theme == "rain_foundry":
+        return "shrine_rest_ch02"
+    if theme == "salt_archive":
+        return "shrine_rest_ch03"
+    if theme == "string_greenhouse":
+        return "shrine_rest_ch04"
+    if theme == "obsidian_pilgrim":
+        return "shrine_rest_ch05"
+    if theme == "silent_crown":
+        return "shrine_rest_ch06"
+    return "shrine_rest_ch01"
+
+
+## 敌人死亡材质音（音频规格 §4.3 六材质）：按章节 art theme 选择。
+func _enemy_death_sfx_key() -> String:
+    var theme := _art_theme_id()
+    if theme == "rain_foundry":
+        return "death_copper"
+    if theme == "salt_archive":
+        return "death_salt"
+    if theme == "string_greenhouse":
+        return "death_fiber"
+    if theme == "obsidian_pilgrim":
+        return "death_obsidian"
+    if theme == "silent_crown":
+        return "death_silent"
+    return "death_moss"
 
 
 func _original_map_art() -> Dictionary:
@@ -1081,13 +1182,16 @@ func _set_bgm_bus_volume_db(value: float) -> void:
         AudioServer.set_bus_volume_db(bus_index, value)
 
 
-## 濒死混音态（规格 §5.5）：HP==1 时 BGM 总线挂 800Hz 低通，HP 回升/死亡移除。
-## 心跳循环素材尚未入库（sfx 目录无候选），manifest sfx_catalog 中
-## player_low_hp_heartbeat 已登记为 future_free_candidate，先只做低通。
+## 濒死混音态（规格 §5.5）：HP==1 时 BGM 总线挂 800Hz 低通 + 55-60 BPM 心跳
+## 循环（自产 player_low_hp_heartbeat.wav，不与音乐 BPM 同步）；HP 回升/死亡移除。
 func _set_low_hp_audio(active: bool) -> void:
     if active == low_hp_audio_active:
         return
     low_hp_audio_active = active
+    if active:
+        _start_low_hp_heartbeat()
+    else:
+        _stop_low_hp_heartbeat()
     var bus_index := AudioServer.get_bus_index("BGM")
     if bus_index == -1:
         return
@@ -1098,6 +1202,33 @@ func _set_low_hp_audio(active: bool) -> void:
         AudioServer.add_bus_effect(bus_index, lowpass)
     elif not active and effect_index != -1:
         AudioServer.remove_bus_effect(bus_index, effect_index)
+
+
+func _start_low_hp_heartbeat() -> void:
+    if not _should_autoplay_audio():
+        return
+    if low_hp_heartbeat_player == null or not is_instance_valid(low_hp_heartbeat_player):
+        var stream := _load_audio_stream("low_hp_heartbeat")
+        if stream == null:
+            return
+        var wav := stream as AudioStreamWAV
+        if wav != null:
+            wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+            wav.loop_begin = 0
+            wav.loop_end = wav.data.size() / 2
+        low_hp_heartbeat_player = AudioStreamPlayer.new()
+        low_hp_heartbeat_player.name = "LowHpHeartbeat"
+        low_hp_heartbeat_player.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+        low_hp_heartbeat_player.stream = stream
+        low_hp_heartbeat_player.volume_db = -10.0
+        add_child(low_hp_heartbeat_player)
+    if not low_hp_heartbeat_player.playing:
+        low_hp_heartbeat_player.play()
+
+
+func _stop_low_hp_heartbeat() -> void:
+    if low_hp_heartbeat_player != null and is_instance_valid(low_hp_heartbeat_player) and low_hp_heartbeat_player.playing:
+        low_hp_heartbeat_player.stop()
 
 
 func _should_autoplay_audio() -> bool:
@@ -1153,7 +1284,34 @@ func _load_audio_stream(audio_key: String) -> AudioStream:
         return null
     if path.ends_with(".ogg"):
         return AudioStreamOggVorbis.load_from_file(path)
+    if path.ends_with(".wav"):
+        # 自产 SFX 包走 WAV 直读（Godot 4.6 headless 安全，无需 import 资源）。
+        return AudioStreamWAV.load_from_file(path)
     return load(path) as AudioStream
+
+
+## 场景切换不截断的一次性音（章节切换线音）：播放器挂 tree root，播完自毁。
+func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
+    if not _should_autoplay_audio():
+        return
+    var stream := _load_audio_stream(audio_key)
+    if stream == null or not is_inside_tree():
+        return
+    var player_node := AudioStreamPlayer.new()
+    player_node.name = "PersistentSfx_" + audio_key
+    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    player_node.stream = stream
+    player_node.volume_db = volume_db
+    get_tree().root.add_child(player_node)
+    player_node.finished.connect(Callable(player_node, "queue_free"))
+    player_node.play()
+
+
+## 同事件多变体随机轮播（Kenney 变体组用）。
+func _play_sfx_random(audio_keys: Array, volume_db: float = -7.0) -> void:
+    if audio_keys.is_empty():
+        return
+    _play_sfx(String(audio_keys[randi() % audio_keys.size()]), volume_db)
 
 
 func _load_texture_resource(path: String) -> Texture2D:
@@ -1341,6 +1499,7 @@ func _toggle_backpack() -> void:
     if active_overlay == "backpack":
         _close_overlays()
         return
+    _play_sfx("ui_inventory_open", -12.0)
     active_overlay = "backpack"
     if map_panel != null:
         map_panel.visible = false
@@ -1355,6 +1514,7 @@ func _toggle_map() -> void:
     if active_overlay == "map":
         _close_overlays()
         return
+    _play_sfx("ui_map_open", -12.0)
     active_overlay = "map"
     if backpack_panel != null:
         backpack_panel.visible = false
@@ -1367,6 +1527,13 @@ func _toggle_map() -> void:
 
 
 func _close_overlays() -> void:
+    # UI 关闭音（音频规格 §4.5）：按正在关的 overlay 选音，空关不发声。
+    if active_overlay == "backpack":
+        _play_sfx("ui_inventory_close", -13.0)
+    elif active_overlay == "map":
+        _play_sfx("ui_map_close", -13.0)
+    elif active_overlay == "dialogue":
+        _play_sfx("ui_dialogue_close", -14.0)
     active_overlay = ""
     if backpack_panel != null:
         backpack_panel.visible = false
@@ -1439,6 +1606,7 @@ func _backpack_selection_clamped() -> int:
 func _move_backpack_selection(delta: int) -> void:
     if backpack_entry_ids.is_empty():
         return
+    _play_sfx_random(["ui_menu_move_1", "ui_menu_move_2"], -15.0)
     backpack_selection = wrapi(_backpack_selection_clamped() + delta, 0, backpack_entry_ids.size())
     _refresh_backpack_overlay()
 
@@ -2004,6 +2172,8 @@ func _spawn_player() -> void:
     player.hp_changed.connect(_on_hp_changed)
     player.energy_changed.connect(_on_energy_changed)
     player.player_respawned.connect(_on_player_respawned)
+    # 材质化脚步（音频规格 §4.2）：按章节 art theme 指定脚步材质组。
+    player.set("footstep_material", String(FOOTSTEP_MATERIAL_BY_THEME.get(_art_theme_id(), "moss")))
     _configure_player_camera()
     _refresh_ability_gates()
 
@@ -3470,6 +3640,7 @@ func _enemy(data: Dictionary) -> Area2D:
     if profile.is_empty():
         push_warning("Missing normal enemy AI profile: " + kind)
     enemy.configure(data, SPRITES.get(kind, SPRITES["moss_larva"]), false, profile)
+    enemy.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(enemy.position, clearance)
     var bounds := _enemy_platform_movement_bounds(floor_platform_id, enemy.position, data)
     if bounds.size() >= 2 and enemy.has_method("set_platform_movement_bounds"):
@@ -3496,6 +3667,7 @@ func _spawn_boss() -> void:
     if profile.is_empty():
         push_warning("Missing boss AI profile: " + kind)
     boss_actor.configure(boss_data, SPRITES.get(kind, SPRITES["rust_crown_guardian"]), true, profile)
+    boss_actor.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(boss_actor.position, clearance)
     var bounds := _enemy_platform_movement_bounds(floor_platform_id, boss_actor.position, boss_data)
     if bounds.size() >= 2 and boss_actor.has_method("set_platform_movement_bounds"):
@@ -3631,14 +3803,18 @@ func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
     var ability_name := String(area.get_meta("ability_name", ""))
     if collectible_kind == "currency":
         _add_currency(amount)
+        # 松脂碎钱质感层（音频规格 §4.5 ui_pickup_resin，Kenney RPG handleCoins ×2 随机）。
+        _play_sfx_random(["pickup_coins_1", "pickup_coins_2"], -10.0)
     else:
         bell_count += 1
         _add_inventory_item(item_id, amount, false)
         if collectible_kind == "item":
             unlocked_abilities[item_id] = ability_name if not ability_name.is_empty() else item_id
-            _refresh_ability_gates()
+            _refresh_ability_gates(true)
         _trigger_whispers("pickup_item", item_id)
         _announce_lore_pickup(item_id)
+        # 收进布包质感层（Kenney RPG cloth1，与 pickup.ogg 叠放）。
+        _play_sfx("pickup_cloth", -12.0)
     _play_sfx("pickup")
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
@@ -3648,7 +3824,9 @@ func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
     _refresh_hud()
 
 
-func _refresh_ability_gates() -> void:
+## play_unlock_sfx 仅在"拾取能力当场开门"时为 true；章节加载/调试同步保持静音，
+## 避免开场把已解锁门的开门音一次性齐鸣。
+func _refresh_ability_gates(play_unlock_sfx: bool = false) -> void:
     for gate in config.get("locked_gates", []):
         if not (gate is Dictionary):
             continue
@@ -3658,7 +3836,8 @@ func _refresh_ability_gates() -> void:
         if gate_id.is_empty() or required_ability.is_empty():
             continue
         if inventory_counts.has(required_ability):
-            _unlock_ability_gate(gate_id)
+            var unlock_sfx := String(GATE_UNLOCK_SFX.get(required_ability, "gate_dash")) if play_unlock_sfx else ""
+            _unlock_ability_gate(gate_id, unlock_sfx)
     _sync_player_abilities()
 
 
@@ -3670,13 +3849,16 @@ func _sync_player_abilities() -> void:
     player.wall_grip_unlocked = (not gated_start) or inventory_counts.has("silk_wall_grip")
 
 
-func _unlock_ability_gate(gate_id: String) -> void:
+func _unlock_ability_gate(gate_id: String, unlock_sfx_key: String = "") -> void:
     if not locked_gate_bodies.has(gate_id):
         return
     var body := locked_gate_bodies[gate_id] as StaticBody2D
     if body != null and is_instance_valid(body):
         body.queue_free()
     locked_gate_bodies.erase(gate_id)
+    # 能力门开启音（音频规格 §4.5 ui_gate_unlock）：按门族播对应家族音。
+    if not unlock_sfx_key.is_empty():
+        _play_sfx(unlock_sfx_key, -7.0)
 
 
 func _on_interactable_entered(body: Node, area: Area2D) -> void:
@@ -3759,6 +3941,7 @@ func _activate_lever(area: Area2D) -> void:
             return
         _open_shortcut(shortcut_id)
         _play_sfx("lever")
+        _play_sfx("lever_latch", -10.0)
         return
     var required_keys := int(area.get_meta("requires_keys", max_bells))
     if bell_count < required_keys:
@@ -3766,6 +3949,8 @@ func _activate_lever(area: Area2D) -> void:
         return
     _open_shortcut(shortcut_id)
     _play_sfx("lever")
+    # 拉杆金属锁舌质感层（Kenney RPG Audio，与 Bread Adventure lever.ogg 叠放）。
+    _play_sfx("lever_latch", -10.0)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
 
@@ -3782,6 +3967,8 @@ func _open_shortcut(shortcut_id: String = "") -> void:
     if gate_body != null and is_instance_valid(gate_body):
         gate_body.queue_free()
         gate_body = null
+    # 捷径门接通（音频规格 §4.5 ui_door_open）："绕回来了"的木门吱呀。
+    _play_sfx("door_open", -9.0)
     var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
     _toast("Shortcut open (%s). Find a save point before the boss run." % progress)
     _refresh_hud()
@@ -3807,7 +3994,10 @@ func _activate_save_point(area: Area2D) -> void:
     player.set_spawn(active_spawn)
     if player.has_method("restore_at_save_point"):
         player.restore_at_save_point()
-    _play_sfx("interact", -9.0)
+    # 钟龛安坐（音频规格 §4.5 env_shrine_wrap/env_shrine_rest）：
+    # 缠线窸窣 + 龛铃"龛中眠"动机（D-A-B），六区各自音色滤波变体。
+    _play_sfx("shrine_wrap", -9.0)
+    _play_sfx(_shrine_rest_audio_key(), -6.0)
     _play_save_point_activation(area)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
@@ -3832,6 +4022,8 @@ func _activate_chapter_exit(area: Area2D) -> void:
         _toast("Next chapter path missing.")
         return
     chapter_transitioning = true
+    # 章节切换线音（音频规格 §4.5 env_chapter_transition）：挂 root 不被换场截断。
+    _play_sfx_persistent("chapter_transition", -7.0)
     _toast("Entering " + String(area.get_meta("next_runtime_config_id", "next chapter")) + ".")
     call_deferred("_transition_to_next_chapter", next_config_path)
 
@@ -3975,11 +4167,16 @@ func _activate_ending_gate(area: Area2D) -> void:
         var reject := String(area.get_meta("reject_message", ""))
         if reject.is_empty():
             reject = "此门未应：缺少 " + "、".join(missing)
+        # 门拒绝=取消音（音频规格 §4.5 ui_menu_cancel，Kenney Interface）。
+        _play_sfx("ui_menu_cancel", -14.0)
         _toast(reject)
         return
     story_flags["ending_chosen"] = ending
     _set_story_flag("%s_done" % ending)
     _play_sfx("interact", -6.0)
+    # 结局确认音 + 终止式 stinger（音频规格 §3.8）：stinger 挂 root 防演出切场截断。
+    _play_sfx("ui_menu_confirm", -10.0)
+    _play_sfx_persistent(String(ENDING_STINGER_SFX.get(ending, "ending_a_stinger")), -5.0)
     if win_label != null:
         win_label.text = String(area.get_meta("message", "ENDING: " + ending))
         win_label.visible = true
@@ -4168,6 +4365,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         _toast("Enemy defeated: %s (%s)" % [spawn_id, kind])
         if _combat_progression_enabled() and _combat_goal_met():
             _open_all_shortcuts(false)
+            _play_sfx("door_open", -9.0)
             _toast("All threats cleared. Boss route opened.")
     _refresh_hud()
 
@@ -4311,6 +4509,11 @@ func _refresh_hud() -> void:
 func _toast(text: String) -> void:
     if toast_label != null:
         toast_label.text = text
+    # toast 提示微音（音频规格 §4.5 ui_toast）：900ms 冷却防连发刷屏音。
+    var now := Time.get_ticks_msec()
+    if now - last_toast_sfx_ms >= 900:
+        last_toast_sfx_ms = now
+        _play_sfx("ui_toast", -16.0)
     print(text)
 
 

@@ -12,16 +12,89 @@
     "runtime_note": "Character and enemy visuals stay on local recorded open/free sources; VFX in this file are Godot shapes, tweens, particles, and color parameters."
   },
   "buses": {
-    "layout": ["Master", "BGM", "SFX", "Ambience", "UI"],
+    "layout": [
+      "Master",
+      "BGM",
+      "SFX",
+      "Ambience",
+      "UI"
+    ],
     "layout_resource": "res://default_bus_layout.tres",
     "runtime_guard": "res://scripts/main_level.gd::_ensure_audio_buses",
-    "default_volumes_db": {"BGM": 0, "SFX": 0, "Ambience": -14, "UI": -10},
-    "spec_target_volumes_db": {"Music": -16, "SFX": -8, "Ambience": -14, "UI": -10},
+    "default_volumes_db": {
+      "BGM": 0,
+      "SFX": 0,
+      "Ambience": -14,
+      "UI": -10
+    },
+    "spec_target_volumes_db": {
+      "Music": -16,
+      "SFX": -8,
+      "Ambience": -14,
+      "UI": -10
+    },
     "note": "Phase 0 keeps BGM/SFX bus gain at 0 dB so the existing per-node volume_db mix does not regress; spec_target_volumes_db applies once per-node gains migrate onto buses. Sub-buses (MusicExplore/MusicCombat/MusicStinger, SFXPlayer/SFXEnemy/SFXWorld, ReverbZone) arrive with audio_director in phase 1 (spec 20260726160400000 section 5.1/6.3)."
   },
   "sfx_catalog": {
-    "catalog_note": "Event keys follow the naming contract in spec 20260726160500000 section 6.8. Entries with status local_audio are wired today (implemented_in points at the runtime function; runtime_key is the legacy key inside that script's SFX/AUDIO table). Entries with status future_free_candidate are contract slots awaiting free-license assets.",
-    "defaults": {"bus": "SFX", "min_interval_ms": 40, "max_voices": 3},
+    "catalog_note": "Event keys follow the naming contract in spec 20260726160500000 section 6.8. Entries with status local_audio are wired today (implemented_in points at the runtime function; runtime_key is the legacy key inside that script's SFX/AUDIO table). Entries with status future_free_candidate are contract slots awaiting free-license assets. Statuses wired/asset_ready mark project-synthesized CC0 WAVs from tools/generate_sfx_pack.py: wired entries are hooked to runtime triggers (implemented_in), asset_ready entries wait for their mechanic.",
+    "defaults": {
+      "bus": "SFX",
+      "min_interval_ms": 40,
+      "max_voices": 3
+    },
+    "generated_summary": {
+      "generator": "tools/generate_sfx_pack.py",
+      "license": "project-generated (CC0)",
+      "format": "16-bit 44.1 kHz mono WAV, peak-normalized ~0.7, 5 ms edge fades; loops use crossfaded seams",
+      "wav_files": 47,
+      "runtime_loader": ".wav branch via AudioStreamWAV.load_from_file in player_controller/enemy_actor/main_level _load_sfx_stream//_load_audio_stream",
+      "wired_events": [
+        "boss_death_slowmo",
+        "enemy_death_copper",
+        "enemy_death_fiber",
+        "enemy_death_moss",
+        "enemy_death_obsidian",
+        "enemy_death_salt",
+        "enemy_death_silent",
+        "env_chapter_transition",
+        "env_gate_crown",
+        "env_gate_dash",
+        "env_gate_doublejump",
+        "env_gate_hookring",
+        "env_gate_shadow",
+        "env_gate_wallshaft",
+        "env_shrine_rest",
+        "env_shrine_wrap",
+        "player_attack_hit_heavy",
+        "player_attack_hit_light",
+        "player_attack_kill",
+        "player_death_cocoon",
+        "player_downstrike_break",
+        "player_low_hp_heartbeat",
+        "player_pogo_bounce",
+        "player_respawn_weave",
+        "player_wall_grip_attach",
+        "player_wall_slide_loop",
+        "story_ending_a_rebell",
+        "story_ending_b_severance",
+        "story_ending_c_reweave"
+      ],
+      "asset_ready_events": [
+        "boss_windup_lethal",
+        "boss_windup_light",
+        "elite_ritual_start",
+        "env_gate_guardbreak",
+        "player_bind_channel",
+        "player_bind_interrupt",
+        "player_bind_tighten",
+        "player_double_jump_wings",
+        "player_downstrike_crack",
+        "player_guard_block",
+        "player_guard_perfect",
+        "player_hook_latch",
+        "player_hook_reel"
+      ]
+    },
     "player_attack_swing": {
       "key": "player_attack_swing",
       "family": "thread",
@@ -39,33 +112,40 @@
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "local_audio",
-      "path": "res://assets/audio/sfx/enemy_hit.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_attack_hit_light.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/enemy_actor.gd::take_hit",
-      "runtime_key": "enemy_hit"
+      "runtime_key": "hit_light",
+      "note": "dedicated light hit-confirm replacing the Bread Adventure enemy_hit.ogg reuse"
     },
     "player_attack_hit_heavy": {
       "key": "player_attack_hit_heavy",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "local_audio",
-      "path": "res://assets/audio/sfx/heavy_hit.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_attack_hit_heavy.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/enemy_actor.gd::take_hit",
-      "runtime_key": "heavy_hit"
+      "runtime_key": "hit_heavy",
+      "note": "dedicated heavy hit-confirm replacing the Bread Adventure heavy_hit.ogg reuse"
     },
     "player_attack_kill": {
       "key": "player_attack_kill",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_attack_kill.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "kill-blow confirm layer on top of hit_heavy",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::take_hit",
+      "runtime_key": "hit_kill",
+      "note": "kill-blow tier: heavy confirm plus A5 bell glint and sub punch"
     },
     "player_jump": {
       "key": "player_jump",
@@ -97,13 +177,13 @@
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "local_audio",
-      "path": "res://assets/audio/sfx/player_jump.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_pogo_bounce.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_apply_downslash_bounce",
-      "runtime_key": "jump",
-      "note": "placeholder pitch-ramped jump; spec wants a small bronze bell strike at D5 so pogo chains read as bell-playing"
+      "runtime_key": "pogo",
+      "note": "D5 (587.33 Hz) small bronze bell strike; pogo chains keep the semitone pitch ramp so chained bounces read as bell-playing"
     },
     "player_dash_start": {
       "key": "player_dash_start",
@@ -146,99 +226,140 @@
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_hook_latch.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "hook latching a bell ring: bright E5 ring plus thread tension",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "hook-latch bell-ring mechanic not implemented yet"
     },
     "player_hook_reel": {
       "key": "player_hook_reel",
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_hook_reel.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "fast reel-in friction with rising pitch",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "hook reel-in mechanic not implemented yet"
     },
     "player_double_jump_wings": {
       "key": "player_double_jump_wings",
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_double_jump_wings.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "second thread-jump: twin silk snap-taut ping, brighter than first jump",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "double_thread_jump movement ability not implemented yet"
     },
     "player_wall_grip_attach": {
       "key": "player_wall_grip_attach",
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_wall_grip_attach.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "wet low-frequency suction with light water-drop tail (ch02 beat wall_grip)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/player_controller.gd::_update_wall_slide_audio",
+      "runtime_key": "wall_grip_attach",
+      "note": "plays once on wall-slide attach edge (ch02 beat wall_grip contract)"
     },
     "player_wall_slide_loop": {
       "key": "player_wall_slide_loop",
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_wall_slide_loop.wav",
+      "loop": true,
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "wall slide friction loop, speed mapped to pitch",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/player_controller.gd::_start_wall_slide_loop",
+      "runtime_key": "wall_slide_loop",
+      "note": "seamless crossfaded loop on AudioStreamPlayer2D; slide speed maps to pitch_scale, stops on wall exit/death"
     },
     "player_guard_block": {
       "key": "player_guard_block",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_guard_block.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "bell-shell guard close: muted bronze clamp",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "bell_guard mechanic not implemented yet"
     },
     "player_guard_perfect": {
       "key": "player_guard_perfect",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_guard_perfect.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "perfect guard: half-shell bronze bell true strike at A4 with energy backflow (ch03 beat bell_guard)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "bell_guard perfect-parry mechanic not implemented yet (A4 strike with strong A5 fifth overtone)"
     },
     "player_downstrike_crack": {
       "key": "player_downstrike_crack",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_downstrike_crack.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "downstrike cracking a breakable: short wood/shell split",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "breakable-crack stage not implemented yet"
     },
     "player_downstrike_break": {
       "key": "player_downstrike_break",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_downstrike_break.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "breakable floor giving way; also reused by break_floor gates",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX thorn_downstrike)",
+      "runtime_key": "gate_downstrike",
+      "note": "downstrike-breakable mechanic itself is not implemented yet; the wav currently voices thorn_downstrike ability gates"
     },
     "player_bind_channel": {
       "key": "player_bind_channel",
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_bind_channel.wav",
+      "loop": true,
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "heal channel spinning-wheel loop with slow pitch rise",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "four-stage bind heal channel not implemented yet (seamless loop)"
     },
     "player_bind_tighten": {
       "key": "player_bind_tighten",
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_bind_tighten.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "bind threads pulling tight near completion",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "four-stage bind heal channel not implemented yet"
     },
     "player_bind_complete": {
       "key": "player_bind_complete",
@@ -257,9 +378,12 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_bind_interrupt.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "heal interrupted: single thread snapping",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "four-stage bind heal channel not implemented yet"
     },
     "player_hurt_snap": {
       "key": "player_hurt_snap",
@@ -278,27 +402,41 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_death_cocoon.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "all crimson threads loosening and scattering with one long exhale, no scream",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/player_controller.gd::take_damage (death branch)",
+      "runtime_key": "death_cocoon"
     },
     "player_respawn_weave": {
       "key": "player_respawn_weave",
       "family": "bell",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_respawn_weave.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "shrine rebirth: three rising shrine-bell notes plus inhale",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/player_controller.gd::_hard_respawn",
+      "runtime_key": "respawn_weave"
     },
     "player_low_hp_heartbeat": {
       "key": "player_low_hp_heartbeat",
       "family": "tide",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_low_hp_heartbeat.wav",
+      "loop": true,
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "55-60 BPM low heartbeat loop for the low-hp mix state; until sourced the state runs lowpass-only (main_level.gd::_set_low_hp_audio)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_set_low_hp_audio/_start_low_hp_heartbeat",
+      "runtime_key": "low_hp_heartbeat",
+      "note": "57 BPM loop layered under the existing BGM lowpass state"
     },
     "enemy_windup_light": {
       "key": "enemy_windup_light",
@@ -331,72 +469,108 @@
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_death_moss.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "soft-body deflation with damp squelch (ch01 material)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "death_moss",
+      "note": "material chosen per chapter art theme by main_level.gd::_enemy_death_sfx_key"
     },
     "enemy_death_copper": {
       "key": "enemy_death_copper",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_death_copper.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "thin metal shell collapse with bronze rattle (ch02 material)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "death_copper",
+      "note": "material chosen per chapter art theme by main_level.gd::_enemy_death_sfx_key"
     },
     "enemy_death_salt": {
       "key": "enemy_death_salt",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_death_salt.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "crystalline crumble into dry grains (ch03 material)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "death_salt",
+      "note": "material chosen per chapter art theme by main_level.gd::_enemy_death_sfx_key"
     },
     "enemy_death_fiber": {
       "key": "enemy_death_fiber",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_death_fiber.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "vine fibers tearing and unwinding (ch04 material)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "death_fiber",
+      "note": "material chosen per chapter art theme by main_level.gd::_enemy_death_sfx_key"
     },
     "enemy_death_obsidian": {
       "key": "enemy_death_obsidian",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_death_obsidian.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "dense stone shatter, almost no tail (ch05 material)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "death_obsidian",
+      "note": "material chosen per chapter art theme by main_level.gd::_enemy_death_sfx_key"
     },
     "enemy_death_silent": {
       "key": "enemy_death_silent",
       "family": "tide",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_death_silent.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "ch06 kill: mix-duck event, sound is removed instead of added",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "death_silent",
+      "note": "deliberately near-silent (peak 0.12): ch06 kill removes sound instead of adding it"
     },
     "elite_ritual_start": {
       "key": "elite_ritual_start",
       "family": "bell",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/elite_ritual_start.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "elite intro roar layered with one strike of the chapter's lead instrument (six regional variants)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "elite intro roar trigger not implemented yet"
     },
     "boss_windup_light": {
       "key": "boss_windup_light",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/boss_windup_light.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "boss light-attack telegraph (contract says temporary player_hook reuse is acceptable)",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "boss windup tiers not split at runtime yet (single boss_windup key)"
     },
     "boss_windup_heavy": {
       "key": "boss_windup_heavy",
@@ -416,18 +590,26 @@
       "family": "tide",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/boss_windup_lethal.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "lethal-tier telegraph: darker sub-drop preceding red telegraph flash",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "boss lethal-tier telegraph not implemented yet"
     },
     "boss_death_slowmo": {
       "key": "boss_death_slowmo",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_death_slowmo.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "boss kill hard-stop tail: single wet bell strike into silence",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve",
+      "runtime_key": "boss_death",
+      "note": "detached-host playback so the dissolve queue_free cannot truncate the bell tail"
     },
     "ui_pickup": {
       "key": "ui_pickup",
@@ -439,7 +621,19 @@
       "recorded_source": "Bread Adventure",
       "license": "Apache-2.0",
       "implemented_in": "res://scripts/main_level.gd::_on_collectible_body_entered",
-      "runtime_key": "pickup"
+      "runtime_key": "pickup",
+      "layers": [
+        {
+          "key": "ui_pickup_cloth",
+          "mode": "layered",
+          "path": "res://assets/audio/sfx/kenney/rpg/cloth1.ogg",
+          "recorded_source": "Kenney RPG Audio (kenney.nl, CC0, downloaded 2026-07-26)",
+          "license": "CC0 (Kenney)",
+          "implemented_in": "res://scripts/main_level.gd::_on_collectible_body_entered (item branch)",
+          "runtime_key": "pickup_cloth"
+        }
+      ],
+      "note": "pickup.ogg kept for every pickup; cloth layer on items, handleCoins layer on currency (see ui_pickup_resin)"
     },
     "ui_lever": {
       "key": "ui_lever",
@@ -451,7 +645,19 @@
       "recorded_source": "Bread Adventure",
       "license": "Apache-2.0",
       "implemented_in": "res://scripts/main_level.gd::_activate_lever",
-      "runtime_key": "lever"
+      "runtime_key": "lever",
+      "layers": [
+        {
+          "key": "ui_lever_latch",
+          "mode": "layered",
+          "path": "res://assets/audio/sfx/kenney/rpg/metalLatch.ogg",
+          "recorded_source": "Kenney RPG Audio (kenney.nl, CC0, downloaded 2026-07-26)",
+          "license": "CC0 (Kenney)",
+          "implemented_in": "res://scripts/main_level.gd::_activate_lever",
+          "runtime_key": "lever_latch"
+        }
+      ],
+      "note": "Bread Adventure lever.ogg kept; Kenney metal latch layered on top (mode layered, not replaced)"
     },
     "ui_dialogue_next": {
       "key": "ui_dialogue_next",
@@ -465,126 +671,406 @@
       "implemented_in": "res://scripts/main_level.gd::_talk_to_npc",
       "runtime_key": "interact"
     },
+    "player_step": {
+      "key": "player_step",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/impact/footstep_grass_000.ogg",
+      "recorded_source": "Kenney Impact Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/player_controller.gd::_update_footsteps/_play_footstep",
+      "runtime_key": "footstep (distance-integrated stride, 5 random variants, +-4% pitch)",
+      "note": "volume -14 dB under action sounds; obsidian reuses the concrete set at base pitch 0.82 for a dense stone read; material set per chapter by main_level FOOTSTEP_MATERIAL_BY_THEME",
+      "surface_variants": {
+        "moss": [
+          "res://assets/audio/sfx/kenney/impact/footstep_grass_000.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_grass_001.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_grass_002.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_grass_003.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_grass_004.ogg"
+        ],
+        "copper": [
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_000.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_001.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_002.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_003.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_004.ogg"
+        ],
+        "salt": [
+          "res://assets/audio/sfx/kenney/impact/footstep_snow_000.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_snow_001.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_snow_002.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_snow_003.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_snow_004.ogg"
+        ],
+        "fiber": [
+          "res://assets/audio/sfx/kenney/impact/footstep_wood_000.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_wood_001.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_wood_002.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_wood_003.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_wood_004.ogg"
+        ],
+        "obsidian": [
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_000.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_001.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_002.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_003.ogg",
+          "res://assets/audio/sfx/kenney/impact/footstep_concrete_004.ogg"
+        ]
+      }
+    },
+    "ui_inventory_open": {
+      "key": "ui_inventory_open",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/open_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_toggle_backpack",
+      "runtime_key": "ui_inventory_open"
+    },
+    "ui_inventory_close": {
+      "key": "ui_inventory_close",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/close_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_close_overlays",
+      "runtime_key": "ui_inventory_close"
+    },
+    "ui_map_open": {
+      "key": "ui_map_open",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/maximize_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_toggle_map",
+      "runtime_key": "ui_map_open"
+    },
+    "ui_map_close": {
+      "key": "ui_map_close",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/minimize_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_close_overlays",
+      "runtime_key": "ui_map_close"
+    },
+    "ui_dialogue_close": {
+      "key": "ui_dialogue_close",
+      "family": "thread",
+      "bus": "SFX",
+      "priority": "P2",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/back_002.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_close_overlays",
+      "runtime_key": "ui_dialogue_close"
+    },
+    "ui_menu_move": {
+      "key": "ui_menu_move",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P2",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/tick_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_move_backpack_selection",
+      "runtime_key": "ui_menu_move_1/ui_menu_move_2",
+      "variants": [
+        "res://assets/audio/sfx/kenney/interface/tick_001.ogg",
+        "res://assets/audio/sfx/kenney/interface/tick_002.ogg"
+      ]
+    },
+    "ui_menu_confirm": {
+      "key": "ui_menu_confirm",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P2",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/confirmation_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_activate_ending_gate (choice accepted)",
+      "runtime_key": "ui_menu_confirm"
+    },
+    "ui_menu_cancel": {
+      "key": "ui_menu_cancel",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P2",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/error_004.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_activate_ending_gate (requirements missing)",
+      "runtime_key": "ui_menu_cancel"
+    },
+    "ui_toast": {
+      "key": "ui_toast",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/interface/pluck_001.ogg",
+      "recorded_source": "Kenney Interface Sounds (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_toast",
+      "runtime_key": "ui_toast",
+      "note": "-16 dB with a 900 ms cooldown so toast bursts stay quiet"
+    },
+    "ui_door_open": {
+      "key": "ui_door_open",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/rpg/doorOpen_1.ogg",
+      "recorded_source": "Kenney RPG Audio (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_open_shortcut and combat-clear branch of _on_enemy_died",
+      "runtime_key": "door_open"
+    },
+    "ui_pickup_resin": {
+      "key": "ui_pickup_resin",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "local_audio",
+      "path": "res://assets/audio/sfx/kenney/rpg/handleCoins.ogg",
+      "recorded_source": "Kenney RPG Audio (kenney.nl, CC0, downloaded 2026-07-26)",
+      "license": "CC0 (Kenney)",
+      "implemented_in": "res://scripts/main_level.gd::_on_collectible_body_entered (currency branch)",
+      "runtime_key": "pickup_coins_1/pickup_coins_2",
+      "note": "layered on top of the existing pickup.ogg for currency",
+      "variants": [
+        "res://assets/audio/sfx/kenney/rpg/handleCoins.ogg",
+        "res://assets/audio/sfx/kenney/rpg/handleCoins2.ogg"
+      ]
+    },
     "env_shrine_rest": {
       "key": "env_shrine_rest",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "local_audio",
-      "path": "res://assets/audio/sfx/interact.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
-      "implemented_in": "res://scripts/main_level.gd::_activate_save_point",
-      "runtime_key": "interact",
-      "note": "placeholder interact chime; spec wants shrine bell strike plus lullaby takeover (six regional variants)"
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "implemented_in": "res://scripts/main_level.gd::_activate_save_point/_shrine_rest_audio_key",
+      "runtime_key": "shrine_rest_ch01..ch06",
+      "note": "lullaby motif D-A-B(natural) in six regional timbre/filter variants, chosen per chapter art theme",
+      "chapter_variants": {
+        "ch01": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.wav",
+        "ch02": "res://assets/audio/sfx/generated/env_shrine_rest_ch02.wav",
+        "ch03": "res://assets/audio/sfx/generated/env_shrine_rest_ch03.wav",
+        "ch04": "res://assets/audio/sfx/generated/env_shrine_rest_ch04.wav",
+        "ch05": "res://assets/audio/sfx/generated/env_shrine_rest_ch05.wav",
+        "ch06": "res://assets/audio/sfx/generated/env_shrine_rest_ch06.wav"
+      }
     },
     "env_shrine_wrap": {
       "key": "env_shrine_wrap",
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_shrine_wrap.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "shrine sit-down thread-wrap rustle before the lullaby",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_activate_save_point",
+      "runtime_key": "shrine_wrap"
     },
     "env_gate_dash": {
       "key": "env_gate_dash",
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_gate_dash.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "dash-gate release: thread hiss plus stone slide",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX thread_dash)",
+      "runtime_key": "gate_dash"
     },
     "env_gate_wallshaft": {
       "key": "env_gate_wallshaft",
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_gate_wallshaft.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "wall-grip shaft gate opening: wet suction release",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX silk_wall_grip)",
+      "runtime_key": "gate_wallshaft"
     },
     "env_gate_hookring": {
       "key": "env_gate_hookring",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_gate_hookring.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "hook-ring gate: bell ring resolve plus chain drop",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX echo_hook)",
+      "runtime_key": "gate_hookring"
     },
     "env_gate_doublejump": {
       "key": "env_gate_doublejump",
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_gate_doublejump.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "double-jump gate: twin thread ping plus lattice opening",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX double_thread_jump)",
+      "runtime_key": "gate_doublejump"
     },
     "env_gate_guardbreak": {
       "key": "env_gate_guardbreak",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/env_gate_guardbreak.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "guard-break gate: bell shell crack plus wax seal split",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "wiring_note": "mapped in GATE_UNLOCK_SFX (bell_guard) but no chapter data declares bell_guard gates yet"
     },
     "env_gate_shadow": {
       "key": "env_gate_shadow",
       "family": "tide",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_gate_shadow.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "lantern-phase shadow gate: wick intake plus phase noise flip",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX lantern_phase)",
+      "runtime_key": "gate_shadow"
     },
     "env_gate_crown": {
       "key": "env_gate_crown",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_gate_crown.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "crown-resonance gate: three thread notes D-A-Bb plus one beat of silence",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate (GATE_UNLOCK_SFX crown_resonance)",
+      "runtime_key": "gate_crown"
     },
     "env_chapter_transition": {
       "key": "env_chapter_transition",
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/env_chapter_transition.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "chapter exit thread-reel transition swell",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_activate_chapter_exit/_play_sfx_persistent",
+      "runtime_key": "chapter_transition",
+      "note": "played on a root-attached player so the scene swap cannot truncate it"
     },
     "story_ending_a_rebell": {
       "key": "story_ending_a_rebell",
       "family": "bell",
       "bus": "SFX",
       "priority": "P2",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/story_ending_a_rebell.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "ending A: full bell chorus, first full motif resolution",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_activate_ending_gate/_play_sfx_persistent",
+      "runtime_key": "ending_a_stinger",
+      "note": "plays on a root-attached player alongside the ending message so scene teardown cannot truncate it"
     },
     "story_ending_b_severance": {
       "key": "story_ending_b_severance",
       "family": "tide",
       "bus": "SFX",
       "priority": "P2",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/story_ending_b_severance.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "ending B: string severance snap into black-tide surge",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_activate_ending_gate/_play_sfx_persistent",
+      "runtime_key": "ending_b_stinger",
+      "note": "plays on a root-attached player alongside the ending message so scene teardown cannot truncate it"
     },
     "story_ending_c_reweave": {
       "key": "story_ending_c_reweave",
       "family": "thread",
       "bus": "SFX",
       "priority": "P2",
-      "status": "future_free_candidate",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/story_ending_c_reweave.wav",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "description": "ending C: bell motif and thread theme in duet, Picardy close",
-      "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+      "implemented_in": "res://scripts/main_level.gd::_activate_ending_gate/_play_sfx_persistent",
+      "runtime_key": "ending_c_stinger",
+      "note": "plays on a root-attached player alongside the ending message so scene teardown cannot truncate it"
+    },
+    "kenney_summary": {
+      "packs": [
+        {
+          "name": "Kenney Impact Sounds",
+          "url": "https://kenney.nl/assets/impact-sounds",
+          "local_path": "res://assets/audio/sfx/kenney/impact",
+          "files_used": 20,
+          "license": "CC0 (Kenney)",
+          "downloaded": "2026-07-26"
+        },
+        {
+          "name": "Kenney Interface Sounds",
+          "url": "https://kenney.nl/assets/interface-sounds",
+          "local_path": "res://assets/audio/sfx/kenney/interface",
+          "files_used": 10,
+          "license": "CC0 (Kenney)",
+          "downloaded": "2026-07-26"
+        },
+        {
+          "name": "Kenney RPG Audio",
+          "url": "https://kenney.nl/assets/rpg-audio",
+          "local_path": "res://assets/audio/sfx/kenney/rpg",
+          "files_used": 5,
+          "license": "CC0 (Kenney)",
+          "downloaded": "2026-07-26"
+        }
+      ],
+      "note": "only the selected files are vendored, each pack directory carries its original License.txt"
     }
   },
   "ambience_zones": {
@@ -604,7 +1090,10 @@
       "bed": {
         "key": "amb_ch02_bed",
         "status": "future_free_candidate",
-        "layers": ["rain_near", "rain_far"],
+        "layers": [
+          "rain_near",
+          "rain_far"
+        ],
         "indoor_switch": "rain_far",
         "description": "double rain loop; interiors switch to the far layer",
         "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
@@ -613,7 +1102,10 @@
         {
           "key": "amb_ch02_anvil_far",
           "status": "future_free_candidate",
-          "interval_sec": [8, 25],
+          "interval_sec": [
+            8,
+            25
+          ],
           "pan_spread": 0.6,
           "description": "distant anvil work strike",
           "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
@@ -662,16 +1154,56 @@
     }
   },
   "reverb_zones": {
-    "applied_to_buses": ["SFX", "Ambience"],
+    "applied_to_buses": [
+      "SFX",
+      "Ambience"
+    ],
     "implemented_in": "res://scripts/main_level.gd::_apply_chapter_reverb",
     "tiers": {
-      "L+3": {"room_size": 0.95, "damping": 0.1, "wet": 0.5, "predelay_msec": 40},
-      "L+2_salt": {"room_size": 0.7, "damping": 0.25, "wet": 0.3, "predelay_msec": 25},
-      "L+2_glass": {"room_size": 0.55, "damping": 0.3, "wet": 0.28, "predelay_msec": 15},
-      "L+1": {"room_size": 0.6, "damping": 0.65, "wet": 0.25, "predelay_msec": 18},
-      "L0": {"room_size": 0.5, "damping": 0.4, "wet": 0.35, "predelay_msec": 30, "predelay_feedback": 0.3},
-      "L-1": {"room_size": 0.3, "damping": 0.2, "wet": 0.15, "predelay_msec": 60},
-      "L-2": {"room_size": 0.85, "damping": 0.9, "wet": 0.6, "predelay_msec": 10, "global_lowpass_hz": 900}
+      "L+3": {
+        "room_size": 0.95,
+        "damping": 0.1,
+        "wet": 0.5,
+        "predelay_msec": 40
+      },
+      "L+2_salt": {
+        "room_size": 0.7,
+        "damping": 0.25,
+        "wet": 0.3,
+        "predelay_msec": 25
+      },
+      "L+2_glass": {
+        "room_size": 0.55,
+        "damping": 0.3,
+        "wet": 0.28,
+        "predelay_msec": 15
+      },
+      "L+1": {
+        "room_size": 0.6,
+        "damping": 0.65,
+        "wet": 0.25,
+        "predelay_msec": 18
+      },
+      "L0": {
+        "room_size": 0.5,
+        "damping": 0.4,
+        "wet": 0.35,
+        "predelay_msec": 30,
+        "predelay_feedback": 0.3
+      },
+      "L-1": {
+        "room_size": 0.3,
+        "damping": 0.2,
+        "wet": 0.15,
+        "predelay_msec": 60
+      },
+      "L-2": {
+        "room_size": 0.85,
+        "damping": 0.9,
+        "wet": 0.6,
+        "predelay_msec": 10,
+        "global_lowpass_hz": 900
+      }
     },
     "chapter_tier_map": {
       "demo_ch01_moss_bell_court": "L+1",
@@ -692,7 +1224,10 @@
     },
     "boss": {
       "Ambience": -12,
-      "duck_bgm": {"db": -6, "seconds": 1.5},
+      "duck_bgm": {
+        "db": -6,
+        "seconds": 1.5
+      },
       "implemented_in": "res://scripts/main_level.gd::_spawn_boss"
     },
     "dialogue": {
@@ -706,13 +1241,16 @@
       "status_note": "future - lullaby assets pending"
     },
     "player_death": {
-      "duck_bgm": {"db": -10, "seconds": 1.2},
+      "duck_bgm": {
+        "db": -10,
+        "seconds": 1.2
+      },
       "implemented_in": "res://scripts/main_level.gd::_on_hp_changed"
     },
     "low_hp": {
       "bgm_lowpass_hz": 800,
       "heartbeat": "player_low_hp_heartbeat",
-      "heartbeat_note": "heartbeat loop pending sourcing; state currently runs lowpass-only",
+      "heartbeat_note": "player_low_hp_heartbeat.wav (project-synthesized, 57 BPM loop) now starts/stops with the lowpass state",
       "implemented_in": "res://scripts/main_level.gd::_set_low_hp_audio"
     }
   },

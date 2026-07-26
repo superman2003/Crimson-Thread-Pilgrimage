@@ -8,7 +8,18 @@ const SFX := {
     "enemy_windup": "res://assets/audio/sfx/player_hook.ogg",
     "enemy_attack": "res://assets/audio/sfx/enemy_hit.ogg",
     "boss_windup": "res://assets/audio/sfx/heavy_hit.ogg",
-    "boss_attack": "res://assets/audio/sfx/player_attack.ogg"
+    "boss_attack": "res://assets/audio/sfx/player_attack.ogg",
+    # 自产 SFX 包（tools/generate_sfx_pack.py，project-generated CC0，音频规格 §4.3）。
+    "hit_light": "res://assets/audio/sfx/generated/player_attack_hit_light.wav",
+    "hit_heavy": "res://assets/audio/sfx/generated/player_attack_hit_heavy.wav",
+    "hit_kill": "res://assets/audio/sfx/generated/player_attack_kill.wav",
+    "death_moss": "res://assets/audio/sfx/generated/enemy_death_moss.wav",
+    "death_copper": "res://assets/audio/sfx/generated/enemy_death_copper.wav",
+    "death_salt": "res://assets/audio/sfx/generated/enemy_death_salt.wav",
+    "death_fiber": "res://assets/audio/sfx/generated/enemy_death_fiber.wav",
+    "death_obsidian": "res://assets/audio/sfx/generated/enemy_death_obsidian.wav",
+    "death_silent": "res://assets/audio/sfx/generated/enemy_death_silent.wav",
+    "boss_death": "res://assets/audio/sfx/generated/boss_death_slowmo.wav"
 }
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 ## 白闪曲线（规格 §3.1）：3 帧纯白 → 2 帧半白，共 ≈83ms。
@@ -26,6 +37,9 @@ const KNOCKBACK_TAU := 0.06
 @export var is_boss: bool = false
 @export var asset_path: String = ""
 @export var leash_radius: float = 240.0
+## 死亡材质音（音频规格 §4.3 六材质）：main_level 按章节 art theme 写入
+## death_moss/copper/salt/fiber/obsidian/silent 之一。
+@export var death_sfx_key: String = "death_moss"
 var sprite_parts: Array = []
 var sprite_region: Array = []
 var sprite_regions: Dictionary = {}
@@ -144,7 +158,13 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
 func take_hit(amount: int, hit_direction: int) -> void:
     if dying:
         return
-    _play_sfx("heavy_hit" if amount >= 2 or is_boss else "enemy_hit", -6.0)
+    # 专属命中三连音（音频规格 §4.2）：轻击/重击/致命一击分档，自产音源。
+    if hp - amount <= 0:
+        _play_sfx("hit_kill", -5.0)
+    elif amount >= 2 or is_boss:
+        _play_sfx("hit_heavy", -6.0)
+    else:
+        _play_sfx("hit_light", -6.0)
     _spawn_hit_spark(hit_direction)
     _set_enemy_animation("hurt")
     _pose_sprite("hurt")
@@ -173,6 +193,8 @@ func _begin_death_dissolve() -> void:
     monitorable = false
     remove_from_group("enemy")
     knockback_velocity = 0.0
+    # 材质化死亡音（音频规格 §4.3）：挂到父节点播放，避免溶解 queue_free 截断尾音。
+    _play_detached_sfx("boss_death" if is_boss else death_sfx_key, -4.0 if is_boss else -6.0)
     _set_enemy_animation("death")
     _pose_sprite("death")
     _clear_telegraph()
@@ -1253,6 +1275,29 @@ func _play_attack_sfx(phase: String) -> void:
         _play_sfx("boss_attack" if is_boss else "enemy_attack", -8.0 if is_boss else -10.0)
 
 
+## 独立宿主播放（死亡音专用）：播放器父挂 enemy 的父节点并定位到当前位置，
+## 敌人节点溶解释放后尾音仍完整，播完自毁不泄漏。
+func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
+    if not _should_play_sfx():
+        return
+    var stream := _load_sfx_stream(audio_key)
+    if stream == null:
+        return
+    var host := get_parent()
+    if host == null:
+        return
+    var player_node := AudioStreamPlayer2D.new()
+    player_node.name = "Sfx_" + audio_key
+    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    player_node.stream = stream
+    player_node.volume_db = volume_db
+    player_node.max_distance = 900.0
+    host.add_child(player_node)
+    player_node.global_position = global_position
+    player_node.finished.connect(Callable(player_node, "queue_free"))
+    player_node.play()
+
+
 func _spawn_windup_vfx(command: Dictionary) -> void:
     var warning := Line2D.new()
     warning.name = "EnemyWindupVfx"
@@ -1376,6 +1421,9 @@ func _load_sfx_stream(audio_key: String) -> AudioStream:
         return null
     if path.ends_with(".ogg"):
         return AudioStreamOggVorbis.load_from_file(path)
+    if path.ends_with(".wav"):
+        # 自产 SFX 包走 WAV 直读（Godot 4.6 headless 安全，无需 import 资源）。
+        return AudioStreamWAV.load_from_file(path)
     return load(path) as AudioStream
 
 
