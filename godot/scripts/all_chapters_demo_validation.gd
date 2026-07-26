@@ -39,7 +39,11 @@ func _validate_ch01_ch02_differ(ch01_config: Dictionary, ch02_config: Dictionary
     _assert(String(ch01_config.get("map_title", "")) != String(ch02_config.get("map_title", "")), "CH01 and CH02 map titles differ")
     _assert(_world_is_expanded_2d(ch01_config.get("world", {})), "CH01 is expanded beyond the original short map")
     _assert(_world_is_expanded_2d(ch02_config.get("world", {})), "CH02 is expanded beyond the original copied map")
-    _assert(_world_area(ch02_config) > _world_area(ch01_config), "CH02 is larger than CH01")
+    # CH02 boxgarden rebuild: density-first vertical world, so require it to stay in
+    # the CH01 scale band and be a boxgarden (aspect <= 1.7) instead of "bigger ribbon".
+    _assert(_world_area(ch02_config) >= _world_area(ch01_config) * 0.6, "CH02 boxgarden area is within the CH01 scale band")
+    var ch02_world: Dictionary = ch02_config.get("world", {})
+    _assert(float(ch02_world.get("width", 0)) <= float(ch02_world.get("height", 1)) * 1.7, "CH02 is a vertical boxgarden, not a horizontal ribbon")
     _assert(ch01_config.get("map_rooms", []).size() >= 12, "CH01 has added rooms")
     _assert(ch02_config.get("map_rooms", []).size() >= 14, "CH02 has a larger room chain")
     _assert(_normalized_route_signature(ch01_config) != _normalized_route_signature(ch02_config), "CH02 normalized route rhythm is not a copy of CH01")
