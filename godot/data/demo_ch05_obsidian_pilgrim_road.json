@@ -2,20 +2,20 @@
   "id": "demo_ch05_obsidian_pilgrim_road",
   "name": "黑曜巡礼道试玩章",
   "world": {
-    "width": 18800,
-    "height": 720,
-    "fall_y": 790
+    "width": 7150,
+    "height": 3262,
+    "fall_y": 3200
   },
   "player_start": [
-    120,
-    500
+    300,
+    2720
   ],
   "boss_checkpoint": [
-    15480,
-    500
+    4490,
+    616
   ],
   "required_keys": 0,
-  "goal": "击败巡礼军前哨，打开影门Boss路线，击败镜池新娘。",
+  "goal": "从黑曜哨站沿山根古道向东，借下段砌道之字爬回西侧的巡礼营地；再走上段砌道与瞭望塔登顶，沿旗桥反向横越俯瞰来路，在镜池击败镜池新娘后顺缆降索道坠回山根；灰烬坑的缆车拉杆负责打通山根直达营地的回环。",
   "completion_message": "DEMO COMPLETE: 镜池新娘已被击败，黑曜失声印记已回收",
   "completion_toast": "黑曜巡礼道闭环完成：NPC、清怪、Boss门和章节奖励均已验证。",
   "enemy_drop_item": "obsidian_splinter",
@@ -26,7 +26,12 @@
     "ui_fx": "Kenney CC0 UI 与程序化 VFX 节点",
     "audio": "godot/assets/audio 本地 OGG 与后续 CC0 候选",
     "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
-    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary"
+    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "environment": "Crimson Thread original map art",
+    "platform_tiles": "godot/assets/sprites/original_map/obsidian_pilgrim/platform_*.png",
+    "background_layers": "godot/assets/sprites/original_map/obsidian_pilgrim/sky.png, far.png, mid.png, near.png",
+    "map_art_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+    "map_art_ownership": "project-owned"
   },
   "world_story": {
     "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
@@ -99,268 +104,553 @@
         "name": "沉默军令",
         "category": "Tools",
         "description": "镜池新娘掉落的章节奖励。"
+      },
+      "testimony_05": {
+        "name": "证词·其五",
+        "category": "Relics",
+        "description": "六份证词之五：朝圣者冢碑背拼合的拒令条款全文。"
       }
     }
   },
   "map_rooms": [
     {
-      "id": "ch05_room_1",
-      "name": "黑曜前哨",
+      "id": "ravine_gate",
+      "name": "黑曜哨站",
+      "range": [
+        160,
+        860
+      ],
+      "depth": 5,
+      "kind": "entry",
+      "archetype": "entry",
+      "layout_rect": [
+        160,
+        2562,
+        700,
+        302
+      ],
+      "map_rect": [
+        0,
+        1050,
+        236,
+        168
+      ],
+      "objective": "从哨站出发，沿山根古道向东。",
+      "guide": "这里的路只给还会违抗命令的人走。",
+      "danger": "落点干净，但号角一响枪兵就列阵。",
+      "next": "山根古道",
+      "setpiece": "黑曜哨站",
+      "traversal_focus": "安全试跳",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          160,
+          2562,
+          700,
+          302
+        ]
+      ]
+    },
+    {
+      "id": "base_road",
+      "name": "山根古道",
+      "range": [
+        880,
+        2950
+      ],
+      "depth": 5,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        880,
+        2558,
+        2070,
+        312
+      ],
+      "map_rect": [
+        280,
+        1050,
+        236,
+        168
+      ],
+      "objective": "穿过山根古道，找到之字砌道的登口。",
+      "guide": "路边的破旗记得每一次巡礼。",
+      "danger": "巡礼战车沿古道往返。",
+      "next": "下段砌道",
+      "setpiece": "破旗山根道",
+      "traversal_focus": "地面横越",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          880,
+          2558,
+          2070,
+          312
+        ]
+      ]
+    },
+    {
+      "id": "ash_pit",
+      "name": "灰烬坑",
+      "range": [
+        2990,
+        3730
+      ],
+      "depth": 5,
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        2990,
+        2680,
+        740,
+        320
+      ],
+      "map_rect": [
+        840,
+        1050,
+        236,
+        168
+      ],
+      "objective": "拉下缆车拉杆：清怪后缆车井恢复运转，直通营地并解锁首领之路。",
+      "guide": "从背面打开的捷径会长期有效。",
+      "danger": "坑底灰烬没过脚踝，退路要数好。",
+      "next": "缆车井",
+      "setpiece": "灰烬缆车绞盘",
+      "traversal_focus": "捷径解锁",
+      "pacing_role": "reward",
+      "visit_rects": [
+        [
+          2990,
+          2680,
+          740,
+          320
+        ]
+      ]
+    },
+    {
+      "id": "funicular_shaft",
+      "name": "缆车井",
+      "range": [
+        2660,
+        3595
+      ],
+      "depth": 4,
+      "kind": "loop",
+      "archetype": "loop",
+      "layout_rect": [
+        2660,
+        1718,
+        935,
+        1124
+      ],
+      "map_rect": [
+        840,
+        840,
+        236,
+        168
+      ],
+      "objective": "顺缆车枕木一路向上，爬回巡礼营地。",
+      "guide": "枕木是单向的，可以从下方穿过。",
+      "danger": "枕木间距不一，看准再跳。",
+      "next": "巡礼营地",
+      "setpiece": "斜拉缆车井",
+      "traversal_focus": "纵向回环",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2660,
+          1718,
+          935,
+          1124
+        ]
+      ]
+    },
+    {
+      "id": "lower_switchback",
+      "name": "下段砌道",
+      "range": [
+        520,
+        2670
+      ],
+      "depth": 4,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        520,
+        1828,
+        2150,
+        868
+      ],
+      "map_rect": [
+        280,
+        840,
+        236,
+        168
+      ],
+      "objective": "沿下段砌道向西之字爬升。",
+      "guide": "砌道外沿有旧旗杆能落脚。",
+      "danger": "相位审查者守着转角。",
+      "next": "巡礼营地",
+      "setpiece": "下段之字砌道",
+      "traversal_focus": "斜向爬升",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          520,
+          1828,
+          2150,
+          868
+        ]
+      ]
+    },
+    {
+      "id": "pilgrim_camp",
+      "name": "巡礼营地",
+      "range": [
+        80,
+        1060
+      ],
+      "depth": 3,
+      "kind": "hub",
+      "archetype": "hub",
+      "layout_rect": [
+        80,
+        1728,
+        980,
+        288
+      ],
+      "map_rect": [
+        0,
+        630,
+        236,
+        168
+      ],
+      "objective": "以营地为枢纽：东上段砌道通山顶，东侧缆车井connects山根，头顶是旗桥。",
+      "guide": "盲钟骑士守着营火，听他讲完再走。",
+      "danger": "营地开阔，军阵合围也快。",
+      "next": "上段砌道",
+      "setpiece": "盲钟营地",
+      "traversal_focus": "枢纽分流",
+      "pacing_role": "hub",
+      "visit_rects": [
+        [
+          80,
+          1728,
+          980,
+          288
+        ]
+      ]
+    },
+    {
+      "id": "upper_switchback",
+      "name": "上段砌道",
+      "range": [
+        1040,
+        2900
+      ],
+      "depth": 2,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        1040,
+        1134,
+        1860,
+        750
+      ],
+      "map_rect": [
+        280,
+        420,
+        236,
+        168
+      ],
+      "objective": "沿上段砌道向东爬向瞭望塔。",
+      "guide": "越靠近山顶，风越接近命令。",
+      "danger": "跪射手的弩线贴着砌道。",
+      "next": "瞭望塔",
+      "setpiece": "上段之字砌道",
+      "traversal_focus": "斜向爬升",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          1040,
+          1134,
+          1860,
+          750
+        ]
+      ]
+    },
+    {
+      "id": "watch_tower",
+      "name": "瞭望塔",
+      "range": [
+        2910,
+        3570
+      ],
+      "depth": 1,
+      "kind": "vertical",
+      "archetype": "vertical",
+      "layout_rect": [
+        2910,
+        540,
+        660,
+        776
+      ],
+      "map_rect": [
+        840,
+        210,
+        236,
+        168
+      ],
+      "objective": "攀上瞭望塔顶，接上旗桥与山顶。",
+      "guide": "塔梯是单向的，可以从下方穿过。",
+      "danger": "塔顶风口没有护栏。",
+      "next": "旗桥 / 镜池前庭",
+      "setpiece": "黑曜瞭望塔",
+      "traversal_focus": "纵向攀爬",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2910,
+          540,
+          660,
+          776
+        ]
+      ]
+    },
+    {
+      "id": "banner_bridge",
+      "name": "旗桥",
+      "range": [
+        340,
+        3240
+      ],
+      "depth": 1,
+      "kind": "overlook",
+      "archetype": "overlook",
+      "layout_rect": [
+        340,
+        576,
+        2900,
+        1112
+      ],
+      "map_rect": [
+        280,
+        210,
+        236,
+        168
+      ],
+      "objective": "沿旗桥向西横越，俯瞰营地与来路。",
+      "guide": "从这里能看清你爬过的每一段砌道。",
+      "danger": "旗桥尽头是断口，坠回营地。",
+      "next": "巡礼营地（跃下）",
+      "setpiece": "横贯旗桥",
+      "traversal_focus": "见而未达",
+      "pacing_role": "respite",
+      "visit_rects": [
+        [
+          340,
+          576,
+          2900,
+          1112
+        ]
+      ]
+    },
+    {
+      "id": "war_graves",
+      "name": "巡礼军墓",
       "range": [
         0,
-        850
-      ],
-      "depth": -1,
-      "kind": "entry",
-      "objective": "黑曜前哨：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断旗长路"
-    },
-    {
-      "id": "ch05_room_2",
-      "name": "断旗长路",
-      "range": [
-        850,
-        1750
-      ],
-      "depth": 1,
-      "kind": "lower",
-      "objective": "断旗长路：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "盲钟营地"
-    },
-    {
-      "id": "ch05_room_3",
-      "name": "盲钟营地",
-      "range": [
-        1750,
-        2600
-      ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "盲钟营地：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "影门廊"
-    },
-    {
-      "id": "ch05_room_4",
-      "name": "影门廊",
-      "range": [
-        2600,
-        3500
-      ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "影门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "巡礼兵营"
-    },
-    {
-      "id": "ch05_room_5",
-      "name": "巡礼兵营",
-      "range": [
-        3500,
-        4550
-      ],
-      "depth": 0,
-      "kind": "safe",
-      "objective": "巡礼兵营：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "王冠外桥"
-    },
-    {
-      "id": "ch05_room_6",
-      "name": "王冠外桥",
-      "range": [
-        4550,
-        5600
-      ],
-      "depth": 1,
-      "kind": "danger",
-      "objective": "王冠外桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "黑曜跳台"
-    },
-    {
-      "id": "ch05_room_7",
-      "name": "黑曜跳台",
-      "range": [
-        5600,
-        6650
-      ],
-      "depth": -1,
-      "kind": "parkour",
-      "objective": "黑曜跳台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "灯影相位跑酷"
-    },
-    {
-      "id": "ch05_room_8",
-      "name": "灯影相位跑酷",
-      "range": [
-        6650,
-        7800
-      ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "灯影相位跑酷：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "雾桥冲刺"
-    },
-    {
-      "id": "ch05_room_9",
-      "name": "雾桥冲刺",
-      "range": [
-        7800,
-        8950
-      ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "雾桥冲刺：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "统帅前阵"
-    },
-    {
-      "id": "ch05_room_10",
-      "name": "统帅前阵",
-      "range": [
-        8950,
-        10050
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "统帅前阵：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "熄灯下层"
-    },
-    {
-      "id": "ch05_room_11",
-      "name": "熄灯下层",
-      "range": [
-        10050,
-        11150
+        390
       ],
       "depth": 2,
-      "kind": "lower",
-      "objective": "熄灯下层：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "军墓回环"
-    },
-    {
-      "id": "ch05_room_12",
-      "name": "军墓回环",
-      "range": [
-        11150,
-        12150
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        0,
+        1242,
+        390,
+        340
       ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "军墓回环：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "旗影升降井"
-    },
-    {
-      "id": "ch05_room_13",
-      "name": "旗影升降井",
-      "range": [
-        12150,
-        13050
+      "map_rect": [
+        0,
+        420,
+        236,
+        168
       ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "旗影升降井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "黑曜上桥"
+      "objective": "在军墓里找到逃旗手与隐藏灯位。",
+      "guide": "隐藏存档点藏在墓碑后。",
+      "danger": "军墓安静得能听见旗子自己动。",
+      "next": "回到旗桥",
+      "setpiece": "复活旗军墓",
+      "traversal_focus": "隐藏支线",
+      "pacing_role": "respite",
+      "visit_rects": [
+        [
+          0,
+          1242,
+          390,
+          340
+        ]
+      ]
     },
     {
-      "id": "ch05_room_14",
-      "name": "黑曜上桥",
+      "id": "mirror_approach",
+      "name": "镜池前庭",
       "range": [
-        13050,
-        14100
-      ],
-      "depth": -2,
-      "kind": "upper",
-      "objective": "黑曜上桥：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "军令连战"
-    },
-    {
-      "id": "ch05_room_15",
-      "name": "军令连战",
-      "range": [
-        14100,
-        15300
+        3580,
+        4640
       ],
       "depth": 0,
-      "kind": "danger",
-      "objective": "军令连战：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "阅兵门廊"
-    },
-    {
-      "id": "ch05_room_16",
-      "name": "阅兵门廊",
-      "range": [
-        15300,
-        16250
+      "kind": "preboss",
+      "archetype": "preboss",
+      "layout_rect": [
+        3580,
+        468,
+        1060,
+        284
       ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "阅兵门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "静音阅兵场"
+      "map_rect": [
+        1120,
+        0,
+        236,
+        168
+      ],
+      "objective": "穿过前庭直达镜池，死亡回跑很短。",
+      "guide": "前庭中段有灯影存档点。",
+      "danger": "前庭军阵密集，冲刺保命。",
+      "next": "镜池",
+      "setpiece": "镜池前庭",
+      "traversal_focus": "短促冲刺",
+      "pacing_role": "tension",
+      "visit_rects": [
+        [
+          3580,
+          468,
+          1060,
+          284
+        ]
+      ]
     },
     {
-      "id": "ch05_room_17",
-      "name": "静音阅兵场",
+      "id": "mirror_pool",
+      "name": "镜池",
       "range": [
-        16250,
-        18050
+        4680,
+        5400
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "静音阅兵场：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "王冠门径"
+      "archetype": "boss",
+      "layout_rect": [
+        4680,
+        550,
+        720,
+        262
+      ],
+      "map_rect": [
+        1400,
+        0,
+        236,
+        168
+      ],
+      "objective": "击败镜池新娘，取回沉默军令，打开缆降索道。",
+      "guide": "入口会在战斗时封闭。",
+      "danger": "新娘的枪阵与军令定身圈覆盖全场。",
+      "next": "缆降索道",
+      "setpiece": "山顶镜池",
+      "traversal_focus": "首领战",
+      "pacing_role": "boss",
+      "visit_rects": [
+        [
+          4680,
+          550,
+          720,
+          262
+        ]
+      ]
     },
     {
-      "id": "ch05_room_18",
-      "name": "王冠门径",
+      "id": "cable_descent",
+      "name": "缆降索道",
       "range": [
-        18050,
-        18800
+        5420,
+        5980
       ],
-      "depth": 0,
+      "depth": 2,
+      "kind": "vertical",
+      "archetype": "vertical",
+      "layout_rect": [
+        5420,
+        700,
+        560,
+        2046
+      ],
+      "map_rect": [
+        1680,
+        420,
+        236,
+        168
+      ],
+      "objective": "顺缆降索道逐级坠回山根。",
+      "guide": "索台是单向的，只能向下。",
+      "danger": "坠得很深，逐台落稳。",
+      "next": "无声门",
+      "setpiece": "缆降索道",
+      "traversal_focus": "受控坠落",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          5420,
+          700,
+          560,
+          2046
+        ]
+      ]
+    },
+    {
+      "id": "silent_gate",
+      "name": "无声门",
+      "range": [
+        5840,
+        6830
+      ],
+      "depth": 5,
       "kind": "exit",
-      "objective": "王冠门径：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "archetype": "exit",
+      "layout_rect": [
+        5840,
+        2530,
+        990,
+        288
+      ],
+      "map_rect": [
+        1680,
+        1050,
+        236,
+        168
+      ],
+      "objective": "穿过无声门离开巡礼道。",
+      "guide": "出口通往第六章：无声王冠。",
+      "danger": "战后军阵散去，门后只有风。",
+      "next": "第六章：无声王冠",
+      "setpiece": "无声门",
+      "traversal_focus": "战后收束",
+      "pacing_role": "denouement",
+      "visit_rects": [
+        [
+          5840,
+          2530,
+          990,
+          288
+        ]
+      ]
     }
   ],
   "ai_profiles": {
     "obsidian_spearman": {
       "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
+      "aggro_range": 245,
+      "preferred_range": 70,
       "attacks": [
         {
           "id": "quick_cut",
@@ -375,7 +665,7 @@
           "hit_height": 72,
           "offset": 42,
           "telegraph": "e1b879",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -385,8 +675,8 @@
     },
     "phase_censor": {
       "move_speed": 36,
-      "aggro_range": 235.0,
-      "preferred_range": 82.0,
+      "aggro_range": 235,
+      "preferred_range": 82,
       "attacks": [
         {
           "id": "sigil_burst",
@@ -401,7 +691,7 @@
           "hit_height": 76,
           "offset": 0,
           "telegraph": "9bd7f0",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -411,8 +701,8 @@
     },
     "silent_bugbler": {
       "move_speed": 48,
-      "aggro_range": 210.0,
-      "preferred_range": 44.0,
+      "aggro_range": 210,
+      "preferred_range": 44,
       "attacks": [
         {
           "id": "bite_lunge",
@@ -428,7 +718,7 @@
           "hit_height": 54,
           "offset": 44,
           "telegraph": "bf6c3f",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -438,8 +728,8 @@
     },
     "kneeling_crossbowman": {
       "move_speed": 62,
-      "aggro_range": 250.0,
-      "preferred_range": 78.0,
+      "aggro_range": 250,
+      "preferred_range": 78,
       "attacks": [
         {
           "id": "body_cast",
@@ -454,7 +744,7 @@
           "hit_height": 64,
           "offset": 48,
           "telegraph": "c99a50",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -464,8 +754,8 @@
     },
     "pilgrim_chariot": {
       "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
+      "aggro_range": 245,
+      "preferred_range": 70,
       "attacks": [
         {
           "id": "shield_rush",
@@ -481,7 +771,7 @@
           "hit_height": 68,
           "offset": 56,
           "telegraph": "d38c45",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -864,8 +1154,8 @@
     },
     "ash_banner_imp": {
       "move_speed": 58,
-      "aggro_range": 220.0,
-      "preferred_range": 58.0,
+      "aggro_range": 220,
+      "preferred_range": 58,
       "attack_desire_threshold": 0.62,
       "attack_desire_gain": 1.05,
       "attack_desire_decay": 0.82,
@@ -883,15 +1173,15 @@
           "hit_height": 72,
           "offset": 42,
           "telegraph": "e1b879",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ]
     },
     "obsidian_bellwheel": {
       "move_speed": 42,
-      "aggro_range": 220.0,
-      "preferred_range": 58.0,
+      "aggro_range": 220,
+      "preferred_range": 58,
       "attack_desire_threshold": 0.62,
       "attack_desire_gain": 1.05,
       "attack_desire_decay": 0.82,
@@ -909,7 +1199,7 @@
           "hit_height": 74,
           "offset": 48,
           "telegraph": "c9764a",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ]
@@ -917,620 +1207,1084 @@
   },
   "platforms": [
     {
-      "id": "start_ground",
+      "id": "gate_floor",
       "rect": [
-        0,
-        540,
-        720,
-        40
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "starter_step",
-      "rect": [
-        420,
-        492,
-        220,
-        24
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "vista_bridge",
-      "rect": [
-        600,
-        430,
+        200,
+        2760,
         340,
-        26
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "outer_low_floor",
-      "rect": [
-        880,
-        610,
-        720,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "outer_mid_bridge",
-      "rect": [
-        1320,
-        520,
-        360,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "lift_base",
-      "rect": [
-        1780,
-        540,
-        420,
-        30
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "lift_step_a",
-      "rect": [
-        2180,
-        466,
-        300,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "upper_bridge_a",
-      "rect": [
-        2560,
-        388,
-        680,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "upper_drop",
-      "rect": [
-        3060,
-        464,
-        420,
-        28
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "backdoor_room",
-      "rect": [
-        3600,
-        500,
-        540,
-        32
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "chapel_floor",
-      "rect": [
-        3300,
-        540,
-        960,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_runback_floor",
-      "rect": [
-        4200,
-        540,
-        1120,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_runback_step",
-      "rect": [
-        4750,
-        455,
-        360,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_parkour_floor_a",
-      "rect": [
-        5350,
-        540,
-        980,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_parkour_step_a",
-      "rect": [
-        5740,
-        466,
-        240,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_parkour_step_b",
-      "rect": [
-        6120,
-        396,
-        260,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_parkour_floor_b",
-      "rect": [
-        6400,
-        540,
-        1050,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_parkour_upper_a",
-      "rect": [
-        6780,
-        410,
-        430,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_parkour_upper_b",
-      "rect": [
-        7340,
-        360,
-        520,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_sprint_floor",
-      "rect": [
-        7500,
-        540,
-        1120,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_sprint_step",
-      "rect": [
-        8000,
-        452,
-        360,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_gauntlet_floor",
-      "rect": [
-        8600,
-        540,
-        1100,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_gauntlet_upper",
-      "rect": [
-        9020,
-        428,
-        540,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_approach_floor",
-      "rect": [
-        9700,
-        540,
-        1120,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_approach_step",
-      "rect": [
-        10200,
-        452,
-        420,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_lower_loop_floor",
-      "rect": [
-        10090,
-        610,
-        1020,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_lower_loop_mid",
-      "rect": [
-        10470,
-        520,
-        360,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_lower_loop_exit_lip",
-      "rect": [
-        10940,
-        560,
-        220,
-        26
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_return_shaft_base",
-      "rect": [
-        12210,
-        540,
-        360,
-        30
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_return_shaft_step_a",
-      "rect": [
-        12510,
-        470,
-        260,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_return_shaft_step_b",
-      "rect": [
-        12840,
-        400,
-        260,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_upper_bridge",
-      "rect": [
-        13120,
-        350,
-        910,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_upper_drop_step",
-      "rect": [
-        13820,
-        430,
-        260,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_crossway_floor",
-      "rect": [
-        15320,
-        540,
-        910,
-        34
-      ],
-      "color": "272734",
-      "material": "obsidian_basalt"
-    },
-    {
-      "id": "ch05_crossway_upper",
-      "rect": [
-        15720,
-        452,
-        380,
-        28
-      ],
-      "color": "6e3d32",
-      "material": "ember_bridge"
-    },
-    {
-      "id": "ch05_preboss_floor",
-      "rect": [
-        15330,
-        540,
-        890,
-        34
-      ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
-    },
-    {
-      "id": "boss_floor",
-      "rect": [
-        16250,
-        540,
-        1660,
         44
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 0,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "boss_back_wall",
+      "id": "gate_flag_step",
       "rect": [
-        17910,
-        315,
-        38,
-        270
+        650,
+        2712,
+        170,
+        26
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 1,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch05_post_boss_run_step",
+      "id": "base_run_a",
       "rect": [
-        17900,
-        540,
-        300,
-        34
+        920,
+        2764,
+        420,
+        40
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 2,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch05_exit_runup",
+      "id": "base_cart_stand",
       "rect": [
-        18040,
-        540,
-        580,
-        34
+        1450,
+        2708,
+        240,
+        30
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 3,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch05_exit_floor",
+      "id": "base_run_b",
       "rect": [
-        18480,
-        540,
+        1800,
+        2772,
+        380,
+        38
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 4,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "base_shrine_step",
+      "rect": [
+        2290,
+        2716,
+        190,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 5,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "base_run_c",
+      "rect": [
+        2590,
+        2768,
         320,
+        36
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 6,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "ash_slope",
+      "rect": [
+        3030,
+        2830,
+        220,
+        32
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 7,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "ash_floor",
+      "rect": [
+        3330,
+        2896,
+        360,
+        44
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 8,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "shaft_bridge_f1",
+      "rect": [
+        3280,
+        2760,
+        150,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f2",
+      "rect": [
+        3420,
+        2652,
+        135,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f3",
+      "rect": [
+        3265,
+        2544,
+        150,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f4",
+      "rect": [
+        3410,
+        2436,
+        140,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f5",
+      "rect": [
+        3255,
+        2328,
+        155,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f6",
+      "rect": [
+        3400,
+        2220,
+        130,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f7",
+      "rect": [
+        3245,
+        2112,
+        150,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_f8",
+      "rect": [
+        3390,
+        2004,
+        145,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "funicular_dock",
+      "rect": [
+        3130,
+        1896,
+        220,
+        30
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "shaft_bridge_fgang",
+      "rect": [
+        2700,
+        1868,
+        260,
+        24
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "lsw_rise_a",
+      "rect": [
+        2430,
+        2608,
+        200,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 9,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "lsw_rise_b",
+      "rect": [
+        2050,
+        2496,
+        160,
+        24
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 10,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "lsw_flag_c",
+      "rect": [
+        1760,
+        2390,
+        220,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 11,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "lsw_rise_d",
+      "rect": [
+        1430,
+        2286,
+        150,
+        24
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 12,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "lsw_rise_e",
+      "rect": [
+        1140,
+        2178,
+        190,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 13,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "lsw_out_f",
+      "rect": [
+        820,
+        2072,
+        165,
+        24
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 14,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "lsw_camp_step",
+      "rect": [
+        560,
+        1978,
+        170,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 15,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "camp_floor",
+      "rect": [
+        120,
+        1910,
+        460,
+        46
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 16,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "camp_east_dock",
+      "rect": [
+        820,
+        1878,
+        200,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 17,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "usw_rise_a",
+      "rect": [
+        1080,
+        1798,
+        175,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 18,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "usw_rise_b",
+      "rect": [
+        1400,
+        1682,
+        145,
+        24
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 19,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "usw_flag_c",
+      "rect": [
+        1690,
+        1596,
+        230,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 20,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "usw_rise_d",
+      "rect": [
+        2090,
+        1482,
+        150,
+        24
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 21,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "usw_rise_e",
+      "rect": [
+        2350,
+        1398,
+        185,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 22,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "usw_out_f",
+      "rect": [
+        2700,
+        1284,
+        160,
+        24
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 23,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "tower_base",
+      "rect": [
+        2950,
+        1224,
+        260,
+        32
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 24,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "step_t1",
+      "rect": [
+        3280,
+        1122,
+        140,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 25,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "step_t2",
+      "rect": [
+        3130,
+        1014,
+        125,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 26,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "step_t3",
+      "rect": [
+        3300,
+        906,
+        150,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 27,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "step_t4",
+      "rect": [
+        3140,
+        798,
+        130,
+        22
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 28,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "tower_top",
+      "rect": [
+        3290,
+        690,
+        240,
+        30
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 29,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "banner_run_a",
+      "rect": [
+        2880,
+        730,
+        320,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_run_b",
+      "rect": [
+        2430,
+        762,
+        290,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_run_c",
+      "rect": [
+        2020,
+        726,
+        260,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_break_d",
+      "rect": [
+        1620,
+        768,
+        230,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_end_e",
+      "rect": [
+        1250,
+        812,
+        200,
+        26
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_drop_ledge",
+      "rect": [
+        900,
+        1010,
+        170,
+        24
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_drop_low",
+      "rect": [
+        620,
+        1300,
+        190,
+        26
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "banner_drop_out",
+      "rect": [
+        380,
+        1600,
+        210,
+        28
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "graves_rise",
+      "rect": [
+        200,
+        1498,
+        150,
+        24
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "graves_floor",
+      "rect": [
+        40,
+        1392,
+        260,
+        30
+      ],
+      "color": "2a2430",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "mirror_walk_a",
+      "rect": [
+        3620,
+        662,
+        300,
+        30
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 30,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "mirror_rest_b",
+      "rect": [
+        4020,
+        618,
+        260,
+        28
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 31,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "boss_threshold",
+      "rect": [
+        4380,
+        656,
+        220,
+        30
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 32,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "mirror_floor",
+      "rect": [
+        4720,
+        700,
+        640,
+        52
+      ],
+      "color": "231b22",
+      "material": "pilgrim_boss",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 33,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_c1",
+      "rect": [
+        5480,
+        850,
+        190,
+        26
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 34,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_c2",
+      "rect": [
+        5680,
+        1140,
+        210,
+        28
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 35,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_c3",
+      "rect": [
+        5470,
+        1440,
+        230,
+        30
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 36,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_c4",
+      "rect": [
+        5690,
+        1745,
+        250,
+        30
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 37,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_c5",
+      "rect": [
+        5480,
+        2050,
+        270,
+        32
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 38,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_c6",
+      "rect": [
+        5700,
+        2355,
+        240,
+        32
+      ],
+      "color": "5c3a30",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 39,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "cable_base",
+      "rect": [
+        5460,
+        2650,
+        300,
+        36
+      ],
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 40,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "sg_walk",
+      "rect": [
+        5880,
+        2724,
+        260,
         34
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 41,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch05_late_route_link_01",
+      "id": "sg_step",
       "rect": [
-        10830,
-        540,
-        1380,
-        30
+        6240,
+        2680,
+        180,
+        28
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 42,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch05_late_route_link_02",
+      "id": "exit_dock",
       "rect": [
-        12570,
-        540,
-        2750,
-        30
+        6520,
+        2722,
+        270,
+        36
       ],
-      "color": "3b3032",
-      "material": "pilgrim_boss"
+      "color": "241f26",
+      "material": "obsidian_basalt",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 43,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     }
   ],
   "locked_gates": [],
   "hazards": [
     {
-      "id": "ch05_hazard_01",
-      "kind": "fake_moss_floor",
-      "rect": [
-        715,
-        406,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch05_hazard_02",
-      "kind": "bell_gap",
-      "rect": [
-        2275,
-        442,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch05_hazard_03",
-      "kind": "spore_chest",
-      "rect": [
-        3725,
-        516,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch05_hazard_04",
+      "id": "ch05_hazard_base_clapper",
       "kind": "falling_clapper",
       "rect": [
-        5805,
-        442,
-        110,
-        24
+        1200,
+        2758,
+        120,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "破旗杆上的号钟砸落。",
+      "platform_id": "base_run_a"
     },
     {
-      "id": "ch05_hazard_05",
-      "kind": "bell_gap",
-      "rect": [
-        7545,
-        336,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch05_hazard_06",
-      "kind": "falling_clapper",
-      "rect": [
-        9235,
-        404,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch05_hazard_07",
+      "id": "ch05_hazard_base_chest",
       "kind": "spore_chest",
       "rect": [
-        10595,
-        496,
+        1825,
+        2766,
         110,
-        24
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "路旁的军械箱被封了火漆。",
+      "platform_id": "base_run_b"
     },
     {
-      "id": "ch05_hazard_08",
+      "id": "ch05_hazard_lsw_edge",
+      "kind": "bell_gap",
+      "rect": [
+        1900,
+        2384,
+        100,
+        22
+      ],
+      "damage": 1,
+      "message": "砌道转角外就是深谷。",
+      "platform_id": "lsw_flag_c"
+    },
+    {
+      "id": "ch05_hazard_usw_plate",
       "kind": "fake_moss_floor",
       "rect": [
-        13520,
-        326,
-        110,
-        24
+        1675,
+        1590,
+        120,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "上段砌道的浮板一踩就翻。",
+      "platform_id": "usw_flag_c"
     },
     {
-      "id": "ch05_hazard_09",
+      "id": "ch05_hazard_banner_break",
+      "kind": "fake_moss_floor",
+      "rect": [
+        1675,
+        762,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "旗桥朽板突然塌断。",
+      "platform_id": "banner_break_d"
+    },
+    {
+      "id": "ch05_hazard_mirror_gap",
       "kind": "bell_gap",
       "rect": [
-        15720,
-        516,
-        110,
-        24
+        3830,
+        656,
+        100,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch05_hazard_10",
-      "kind": "spore_chest",
-      "rect": [
-        18585,
-        516,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "镜池前庭的裂口映不出倒影。",
+      "platform_id": "mirror_walk_a"
     }
   ],
-  "collectibles": [],
+  "collectibles": [
+    {
+      "id": "col_testimony_05",
+      "kind": "item",
+      "room_id": "war_graves",
+      "item_id": "testimony_05",
+      "position": [
+        275,
+        1458
+      ],
+      "ability_name": "证词其五",
+      "label": "证词·其五",
+      "note": "朝圣者冢碑列高台，真结局收集品；地图重做后迁至 lantern_phase 影门后。"
+    }
+  ],
   "interactives": [
     {
       "id": "ch05_obsidian_pilgrim_road_shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        3610,
+        2856
       ],
       "requires_keys": 0,
-      "label": "战斗门控制器"
+      "label": "战斗门控制器",
+      "shortcut_id": "ch05_funicular_shortcut"
     },
     {
       "id": "ch05_obsidian_pilgrim_road_boss_gate",
       "kind": "boss_gate",
       "position": [
-        16460,
-        500
+        4790,
+        660
       ]
     },
     {
@@ -1538,8 +2292,8 @@
       "kind": "chapter_exit",
       "label": "前往第六章：无声王冠",
       "position": [
-        18620,
-        500
+        6675,
+        2682
       ],
       "next_runtime_config_id": "demo_ch06_silent_crown_core",
       "next_config_path": "res://data/demo_ch06_silent_crown_core.json",
@@ -1555,8 +2309,8 @@
       "id": "npc_obsidian_guide",
       "name": "黑曜引路人",
       "position": [
-        320,
-        500
+        460,
+        2720
       ],
       "role": "route_hint",
       "dialogue": [
@@ -1566,14 +2320,48 @@
       ],
       "identity": "黑曜哨站的匿名向导，可能是未完全编队的前代巡礼者。",
       "motive": "想让主角保持违抗能力。",
-      "help": "解释影门灯亮/灯灭规则；提示巡礼军是命令执行体。"
+      "help": "解释影门灯亮/灯灭规则；提示巡礼军是命令执行体。",
+      "story_dialogue": {
+        "first_meet": [
+          "这里的路只给还会违抗命令的人走；太听话的人会被铺成路面。",
+          "灯亮时穿门，灯灭时停下；别把自己的一半留在黑曜石里。",
+          "巡礼军不会说话，但他们会执行你不想听见的命令。"
+        ],
+        "repeat": [
+          "站住。——看，你没站；很好，这条路就要这样的人。",
+          "我的名字编在军册第几页，我自己都忘了；忘得好，页码就是链子。",
+          "跟紧。——不，别跟紧；跟得太紧的人，最后都走成了队列。"
+        ],
+        "after_ability": [
+          "学会向命令请假了？半秒钟的自由，省着花；这条路上，自由是按秒计价的。",
+          "穿影门时别回头。——这一句是命令，也请你听；有些东西只在你回头时存在。"
+        ],
+        "after_boss": [
+          "统帅停下了。全军第一次原地立正，不是听令，是送行。",
+          "他倒下前看了旗一眼；那一眼里没有命令——二十年了，头一回。"
+        ],
+        "late_game": [
+          "战冢的名册你读了。第三排第七个，念到时你停了半拍——那就是我。谢谢你的半拍。",
+          "有名字的人不当引路人。从今晚起，路口的灯换你们自己点。"
+        ],
+        "true_ending_branch": [
+          "改契约的时候加一条军规：任何命令，先过人的耳朵，再过人的心；两关缺一，作废。",
+          "我要用回我的名字了。别问是什么——下次见面，我自己说。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "lantern_phase",
+        "testimony_ref": "testimony_05",
+        "quest_flag": "",
+        "leave": null
+      }
     },
     {
       "id": "npc_blind_bell_knight",
       "name": "盲钟骑士",
       "position": [
-        1360,
-        570
+        510,
+        1870
       ],
       "role": "combat_mark_witness",
       "dialogue": [
@@ -1583,14 +2371,51 @@
       ],
       "identity": "失败的前代巡礼者，成为巡礼军后仍保留少量自我。",
       "motive": "想知道主角会恢复秩序，还是释放被秩序吞掉的人。",
-      "help": "关键证词；解释重鸣代价；提供终章道德压力。"
+      "help": "关键证词；解释重鸣代价；提供终章道德压力。",
+      "story_dialogue": {
+        "first_meet": [
+          "我失败过，所以我听不见王冠命令的一小半；那一小半每天都在疼。",
+          "如果你选择重鸣，我会再次成为军队；如果你看见我举枪，别犹豫。",
+          "如果你选择断冠，记得先告诉我们为什么死；沉默里死太久，会忘记理由。"
+        ],
+        "repeat": [
+          "你的脚步声今天重了三成；是行囊沉了，还是心事沉了？",
+          "疼有十七种，我数过；最疼的一种，是听见军令响起时，自己的脚自己往前走。",
+          "站近些说话。看不见的人，靠声音的距离判断谁值得信。"
+        ],
+        "after_ability": [
+          "你格挡的声音很正，像一口没锈的钟；拿它去接统帅的第三段突刺——只有那一段是他自己的杀意。",
+          "挡下命令的声音，比挡下枪难；你两样都练练。"
+        ],
+        "after_boss": [
+          "统帅静下来的那一刻，我耳朵里空了一块；空得疼——原来他的军令声，也替我挡了些别的什么。",
+          "军队散了一半，另一半在等新的声音；等，是我们这种人最擅长也最可悲的本事。"
+        ],
+        "late_game": [
+          "战冢的名册……请把我那页撕下来带走；名字放在坟里叫结案，放在活人手里叫证词。",
+          "我数到第十八种疼了：知道真相，却还得等你去改它。"
+        ],
+        "true_ending_branch": [
+          "若契约真能改写，我第一个请求解甲；铠脱下来那声响，我在梦里听了二十年。",
+          "到那天，请站在我面前跺一次脚；我要用我自己的耳朵，替自由录一个音。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "bell_guard",
+        "testimony_ref": "testimony_05",
+        "quest_flag": "",
+        "leave": {
+          "condition": "ending_a_done",
+          "effect": "重新入队；若玩家在终局区域遭遇，须践约将其击败——掉落「未锈的钟壳」（纪念物）"
+        }
+      }
     },
     {
       "id": "npc_lantern_sister",
       "name": "灯影修女",
       "position": [
-        3680,
-        460
+        3350,
+        650
       ],
       "role": "ability_teacher",
       "dialogue": [
@@ -1600,14 +2425,47 @@
       ],
       "identity": "影门回廊前的修女，守着灯影相位仪式。",
       "motive": "想把短暂拒令的技巧传给主角。",
-      "help": "教授灯影相位；说明影门耗能；提示终章沉默军令门。"
+      "help": "教授灯影相位；说明影门耗能；提示终章沉默军令门。",
+      "story_dialogue": {
+        "first_meet": [
+          "灯影相位不是隐身，是向命令请半秒假；半秒够你活，也够你选择。",
+          "黑曜影门会吃能量，别空着心穿过去，空心的人最容易被命令填满。",
+          "终章有一扇门只认沉默军令，但它也会认出拒绝命令的人。"
+        ],
+        "repeat": [
+          "半盏灯的工夫你就回来了；巡礼这条路，勤快得让灯心疼。",
+          "我守的不是灯，是灯灭与灯亮之间那一线；人心的余地，也就这么宽。——灯替你记着。"
+        ],
+        "after_ability": [
+          "相位入了门就别贪；半秒是药，一秒是瘾，命令的缝隙里住不了人。",
+          "每次穿过影门，替自己留一句话在灯下；万一哪次没穿过来，灯替你记着。"
+        ],
+        "after_boss": [
+          "统帅熄了。为他添一盏吧——不为军功，为他终于可以不前进。",
+          "军令声停了以后，这条路上第一次听得见灯花爆的轻响；小声，但都是活气。"
+        ],
+        "late_game": [
+          "战冢的灯我点了十九年，一直不敢念名字；你带走名册的今晚，我头一回念完了整排。",
+          "拒令条款你也拿到了？好；把「可以说不」三个字，供在你心里最亮的那一格。"
+        ],
+        "true_ending_branch": [
+          "改契约那夜，全路的灯我来点；一步一盏，从钟口点到冠顶——让第七个名字落笔时不缺光。",
+          "事成之后，把你那盏也吹熄吧；不需要相位的世界，才是灯真正想照亮的。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "lantern_phase",
+        "testimony_ref": "testimony_05",
+        "quest_flag": "",
+        "leave": null
+      }
     },
     {
       "id": "npc_deserter_flagbearer",
       "name": "逃旗手",
       "position": [
-        11600,
-        500
+        230,
+        1352
       ],
       "role": "sidequest_moral_choice",
       "dialogue": [
@@ -1617,19 +2475,60 @@
       ],
       "identity": "携带复活旗逃离队列的旗手，仍被旗帜夜间召回。",
       "motive": "想烧掉复活旗，让自己和队友不再被无限召回。",
-      "help": "支线道德选择；烧旗后给军令碎片；解释统帅不是纯粹反派。"
+      "help": "支线道德选择；烧旗后给军令碎片；解释统帅不是纯粹反派。",
+      "story_dialogue": {
+        "first_meet": [
+          "我偷了一面不会响的旗，结果它每天晚上命令我回队；旗比人更会认路。",
+          "帮我烧掉三面复活旗，我把军令碎片给你；别问旗里的名字会不会疼。",
+          "统帅不是坏人，他只是从没被允许停下；一直前进也能变成一种囚禁。"
+        ],
+        "repeat": [
+          "昨晚它又拽我，拽到营门口才松手；我骂了它一整夜，它就晾着我——旗最会晾人。",
+          "你看它现在装死；一到夜里，它比谁都精神。"
+        ],
+        "after_ability": [
+          "你能穿影门了？帮我个忙——别用它躲旗；躲得掉召回，躲不掉惦记。",
+          "修女教你的半秒拿去烧旗正好：火折子一亮一灭之间，旗来不及哭。"
+        ],
+        "after_boss": [
+          "统帅倒了，旗杆全弯了腰；原来它们也在等这一天——旗比人诚实，只是从来没人问。",
+          "统帅一死，召回令会找新主人；今晚要么烧旗，要么给我收尸，你挑一样。"
+        ],
+        "sidequest_done": [
+          "烧完了……它不动了。喂，动一下啊。——算了，别动了；军令碎片给你，这是它肚子里最后的话。",
+          "旗里那些名字升上去的时候，我听见有人说「散队」；二十年了，最好听的两个字。",
+          "我自由了，可我居然想给它收尸；相处久了，锁链也算个熟人。"
+        ],
+        "late_game": [
+          "战冢名册里没有旗手——我们连失败的资格都被归进了装备栏；所以你那份证词，替我多念一遍。",
+          "我把烧剩的旗灰装了一小袋；改契约那天拿它当墨掺一点——让军旗也签个字。"
+        ],
+        "true_ending_branch": [
+          "新世界要是还需要旗，让它只在风来的时候展开；风的命令，我们服。",
+          "我想通了，往后我扛铃铛不扛旗；铃铛响是提醒，旗响是命令——我这辈子听够命令了。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "lantern_phase",
+        "testimony_ref": "testimony_05",
+        "quest_flag": "item_ch05_burned_banner_ash",
+        "leave": {
+          "condition": "boss_down_ch05 且 quest_flag 未置位",
+          "effect": "当夜被旗召回：原位只余一角焦布（拾取）＋绯线低语（见 13.5）；烧旗完成则迁至 pilgrim_camp 自由活动"
+        }
+      }
     }
   ],
   "guides": [],
   "enemy_spawns": [
     {
-      "id": "CH05_E01",
+      "id": "E01",
       "kind": "obsidian_spearman",
       "position": [
-        1120,
-        570
+        1240,
+        2724
       ],
-      "platform_id": "outer_low_floor",
+      "platform_id": "base_run_a",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1714,298 +2613,17 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_visual_height": 58,
+      "clearance": 40
     },
     {
-      "id": "CH05_E02",
-      "kind": "phase_censor",
-      "position": [
-        2110,
-        500
-      ],
-      "platform_id": "lift_base",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH05_E03",
-      "kind": "silent_bugbler",
-      "position": [
-        2780,
-        348
-      ],
-      "platform_id": "upper_bridge_a",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH05_E04",
-      "kind": "kneeling_crossbowman",
-      "position": [
-        4880,
-        500
-      ],
-      "platform_id": "ch05_runback_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH05_E05",
+      "id": "E02",
       "kind": "pilgrim_chariot",
       "position": [
-        5720,
-        500
+        1990,
+        2732
       ],
-      "platform_id": "ch05_parkour_floor_a",
+      "platform_id": "base_run_b",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2090,204 +2708,17 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_visual_height": 72,
+      "clearance": 40
     },
     {
-      "id": "CH05_E06",
-      "kind": "obsidian_spearman",
-      "position": [
-        7115,
-        370
-      ],
-      "platform_id": "ch05_parkour_upper_a",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH05_E07",
-      "kind": "phase_censor",
-      "position": [
-        7480,
-        320
-      ],
-      "platform_id": "ch05_parkour_upper_b",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH05_E08",
+      "id": "E03",
       "kind": "silent_bugbler",
       "position": [
-        8180,
-        500
+        2690,
+        2728
       ],
-      "platform_id": "ch05_sprint_floor",
+      "platform_id": "base_run_c",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2372,486 +2803,17 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_visual_height": 58,
+      "clearance": 40
     },
     {
-      "id": "CH05_E09",
-      "kind": "kneeling_crossbowman",
-      "position": [
-        9030,
-        500
-      ],
-      "platform_id": "ch05_gauntlet_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH05_E10",
-      "kind": "pilgrim_chariot",
-      "position": [
-        10380,
-        500
-      ],
-      "platform_id": "ch05_approach_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH05_E11",
-      "kind": "obsidian_spearman",
-      "position": [
-        10480,
-        570
-      ],
-      "platform_id": "ch05_lower_loop_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH05_E12",
-      "kind": "phase_censor",
-      "position": [
-        12510,
-        500
-      ],
-      "platform_id": "ch05_return_shaft_base",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH05_E13",
-      "kind": "obsidian_bellwheel",
-      "position": [
-        13455,
-        310
-      ],
-      "platform_id": "ch05_upper_bridge",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH05_E14",
+      "id": "E04",
       "kind": "ash_banner_imp",
       "position": [
-        15895,
-        500
+        3420,
+        2856
       ],
-      "platform_id": "ch05_preboss_floor",
+      "platform_id": "ash_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2936,7 +2898,958 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E05",
+      "kind": "phase_censor",
+      "position": [
+        1870,
+        2350
+      ],
+      "platform_id": "lsw_flag_c",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.86,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72,
+      "clearance": 40
+    },
+    {
+      "id": "E06",
+      "kind": "obsidian_spearman",
+      "position": [
+        1235,
+        2138
+      ],
+      "platform_id": "lsw_rise_e",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E07",
+      "kind": "obsidian_bellwheel",
+      "position": [
+        470,
+        1870
+      ],
+      "platform_id": "camp_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.76,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        72
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72,
+      "clearance": 40
+    },
+    {
+      "id": "E08",
+      "kind": "kneeling_crossbowman",
+      "position": [
+        1805,
+        1556
+      ],
+      "platform_id": "usw_flag_c",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        60,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E09",
+      "kind": "phase_censor",
+      "position": [
+        2443,
+        1358
+      ],
+      "platform_id": "usw_rise_e",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.86,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72,
+      "clearance": 40
+    },
+    {
+      "id": "E10",
+      "kind": "silent_bugbler",
+      "position": [
+        3020,
+        1184
+      ],
+      "platform_id": "tower_base",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E11",
+      "kind": "kneeling_crossbowman",
+      "position": [
+        2575,
+        722
+      ],
+      "platform_id": "banner_run_b",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        60,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E12",
+      "kind": "obsidian_spearman",
+      "position": [
+        2110,
+        686
+      ],
+      "platform_id": "banner_run_c",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E13",
+      "kind": "pilgrim_chariot",
+      "position": [
+        3770,
+        622
+      ],
+      "platform_id": "mirror_walk_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.92,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72,
+      "clearance": 40
+    },
+    {
+      "id": "E14",
+      "kind": "phase_censor",
+      "position": [
+        5610,
+        2610
+      ],
+      "platform_id": "cable_base",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.86,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
+      "source_sprite_region": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 72,
+      "clearance": 40
     }
   ],
   "boss": {
@@ -2944,8 +3857,8 @@
     "name": "镜池新娘",
     "kind": "silent_pilgrim_commander",
     "position": [
-      16970,
-      500
+      5150,
+      660
     ],
     "hp": 22,
     "damage": 1,
@@ -3019,253 +3932,928 @@
       ]
     },
     "sprite_faces_left": false,
-    "arena_min_x": 16370,
-    "arena_max_x": 17790
+    "arena_min_x": 4750,
+    "arena_max_x": 5330,
+    "lock_x": 4672,
+    "lock_height": 560,
+    "lock_width": 42,
+    "platform_id": "mirror_floor"
   },
   "labels": [
     {
-      "text": "路线：收集3枚黑曜旗印，打开影门回廊捷径。",
+      "text": "黑曜哨站：安全试跳",
       "position": [
-        430,
-        382
+        370,
+        2690
       ],
-      "color": "e6d28c"
+      "color": "d8cce8"
     },
     {
-      "text": "敌我区分：敌人只用 OpenGameArt 暗黑素材，旧同族图只作友方 NPC。",
+      "text": "山根古道 →",
       "position": [
-        140,
-        458
+        1130,
+        2688
       ],
-      "color": "9ef0dc"
+      "color": "cbbfd8"
     },
     {
-      "text": "黑曜巡礼道：本章 NPC、敌人、Boss 和奖励均来自章节策划数据。",
+      "text": "灰烬坑：缆车拉杆",
       "position": [
-        1540,
-        330
+        3510,
+        2826
       ],
-      "color": "9ef0dc"
+      "color": "f2c66b"
     },
     {
-      "text": "捷径拉杆：带3枚黑曜旗印按F，开捷径后直通首领回廊。",
+      "text": "下段砌道 ↖",
       "position": [
-        3460,
-        448
+        1870,
+        2330
+      ],
+      "color": "b8a8cc"
+    },
+    {
+      "text": "巡礼营地：上砌道 · 缆车 · 旗桥",
+      "position": [
+        350,
+        1814
+      ],
+      "color": "d0c4e4"
+    },
+    {
+      "text": "瞭望塔 ↑ 旗桥 ←",
+      "position": [
+        3080,
+        1144
+      ],
+      "color": "c4b4dc"
+    },
+    {
+      "text": "镜池前庭 →",
+      "position": [
+        4150,
+        538
       ],
       "color": "f2b873"
-    },
-    {
-      "text": "世界线：回到旧王都外环，面对被静音的巡礼军，取得沉默军令并学会灯影相位。",
-      "position": [
-        4380,
-        420
-      ],
-      "color": "c7e6ff"
     }
   ],
   "save_points": [
     {
       "id": "save_hidden_upper_respite",
-      "label": "黑曜巡礼道隐藏存档点",
+      "label": "军墓暗灯",
       "position": [
-        13455,
-        310
+        120,
+        1352
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
+      "note": "藏在巡礼军墓碑后，奖励旗桥探索。"
     },
     {
       "id": "save_ch05_lower_loop",
-      "label": "第5章下层回环存档点",
+      "label": "营地灯影",
       "position": [
-        10760,
-        570
+        190,
+        1870
       ],
       "hidden": false,
-      "note": "扩建后下层回环的中段存档点。"
+      "note": "巡礼营地的常明灯，稳住山腰节奏。"
     },
     {
       "id": "save_late_runback",
-      "label": "黑曜巡礼道Boss前存档点",
+      "label": "镜池前灯影",
       "position": [
-        15635,
-        500
+        4150,
+        578
       ],
       "hidden": false,
-      "note": "Boss跑图前的后段存档点。"
+      "note": "镜池门前的检查点，死亡回跑很短。"
     }
   ],
-  "fall_y": 820,
+  "fall_y": 3200,
   "chapter_transition": {
     "from_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
     "to_runtime_config_id": "demo_ch06_silent_crown_core",
     "next_config_path": "res://data/demo_ch06_silent_crown_core.json",
     "exit_interactive_id": "ch05_chapter_exit",
-    "entry_hint": "镜池新娘的军令化作黑曜钥纹，王冠核心的无声门终于张开。"
+    "entry_hint": "镜池新娘的军令化作黑曜钥纹，王冠核心的无声门终于张开。",
+    "entry_spawn": [
+      300,
+      2720
+    ]
   },
   "entry_from_previous": {
     "from_runtime_config_id": "demo_ch04_broken_string_greenhouse",
     "position": [
-      520,
-      500
+      300,
+      2720
     ],
     "message": "第5章：黑曜巡礼道。温室外墙裂开，旧王都外环的号角在雾里回响。"
   },
   "progression_mode": "combat_clear",
   "parkour_segments": [
     {
-      "id": "ch05_parkour_climb",
-      "room_id": "ch05_room_7",
-      "technique": "dash jump + upward slash timing",
+      "id": "ch05_lower_switchback",
+      "room_id": "lower_switchback",
+      "technique": "westward zigzag ascent",
       "platforms": [
-        "ch05_parkour_step_a",
-        "ch05_parkour_step_b",
-        "ch05_parkour_upper_a"
-      ]
+        "base_shrine_step",
+        "lsw_rise_a",
+        "lsw_rise_b",
+        "lsw_flag_c",
+        "lsw_rise_d",
+        "lsw_rise_e",
+        "lsw_out_f",
+        "camp_east_dock"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 116,
+        "minimum_full_jump_clearance": 232
+      }
     },
     {
-      "id": "ch05_sprint_chain",
-      "room_id": "ch05_room_8",
-      "technique": "sprint, down slash bounce, safe landing",
+      "id": "ch05_funicular_climb",
+      "room_id": "funicular_shaft",
+      "technique": "one-way sleeper ascent",
       "platforms": [
-        "ch05_parkour_upper_b",
-        "ch05_sprint_step",
-        "ch05_gauntlet_upper"
-      ]
+        "ash_floor",
+        "shaft_bridge_f1",
+        "shaft_bridge_f2",
+        "shaft_bridge_f3",
+        "shaft_bridge_f4",
+        "shaft_bridge_f5",
+        "shaft_bridge_f6",
+        "shaft_bridge_f7",
+        "shaft_bridge_f8",
+        "funicular_dock",
+        "shaft_bridge_fgang",
+        "camp_east_dock"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 112,
+        "minimum_full_jump_clearance": 232
+      }
     },
     {
-      "id": "ch05_lower_upper_return",
-      "room_id": "ch05_room_13",
-      "technique": "lower loop, return shaft, upper bridge",
+      "id": "ch05_cable_drop",
+      "room_id": "cable_descent",
+      "technique": "controlled one-way descent",
       "platforms": [
-        "ch05_lower_loop_floor",
-        "ch05_return_shaft_base",
-        "ch05_return_shaft_step_a",
-        "ch05_return_shaft_step_b",
-        "ch05_upper_bridge"
-      ]
-    },
-    {
-      "id": "ch05_preboss_crossway",
-      "room_id": "ch05_room_16",
-      "technique": "upper drop into final horizontal approach",
-      "platforms": [
-        "ch05_upper_drop_step",
-        "ch05_crossway_floor",
-        "ch05_preboss_floor",
-        "boss_floor"
-      ]
+        "mirror_floor",
+        "cable_c1",
+        "cable_c2",
+        "cable_c3",
+        "cable_c4",
+        "cable_c5",
+        "cable_c6",
+        "cable_base"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 0,
+        "minimum_full_jump_clearance": 232
+      }
     }
   ],
   "art_theme": "obsidian_pilgrim",
   "map_layout_tags": [
-    "horizontal_mainline",
-    "upper_route",
-    "lower_route",
-    "vertical_shaft",
-    "opened_shortcut"
+    "handcrafted",
+    "true_2d",
+    "switchback_mountain",
+    "banner_bridge_overlook",
+    "funicular_shortcut",
+    "see_then_return",
+    "hidden_graves_bench",
+    "back_door_shortcut",
+    "short_boss_run",
+    "obsidian_pilgrim"
   ],
   "connections": [
     {
-      "from": "ch05_room_1",
-      "to": "ch05_room_2",
-      "type": "passage"
+      "from": "ravine_gate",
+      "to": "base_road",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_2",
-      "to": "ch05_room_3",
-      "type": "passage"
+      "from": "base_road",
+      "to": "ash_pit",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_3",
-      "to": "ch05_room_4",
-      "type": "passage"
+      "from": "ash_pit",
+      "to": "funicular_shaft",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_4",
-      "to": "ch05_room_5",
-      "type": "passage"
+      "from": "funicular_shaft",
+      "to": "pilgrim_camp",
+      "type": "shortcut",
+      "edge_kind": "unlock_shortcut",
+      "bidirectional": true,
+      "action": "unlock_shortcut",
+      "shortcut_id": "ch05_funicular_shortcut"
     },
     {
-      "from": "ch05_room_5",
-      "to": "ch05_room_6",
-      "type": "passage"
+      "from": "base_road",
+      "to": "lower_switchback",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_6",
-      "to": "ch05_room_7",
-      "type": "passage"
+      "from": "lower_switchback",
+      "to": "pilgrim_camp",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_7",
-      "to": "ch05_room_8",
-      "type": "passage"
+      "from": "pilgrim_camp",
+      "to": "upper_switchback",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_8",
-      "to": "ch05_room_9",
-      "type": "passage"
+      "from": "upper_switchback",
+      "to": "watch_tower",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_9",
-      "to": "ch05_room_10",
-      "type": "passage"
+      "from": "watch_tower",
+      "to": "banner_bridge",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_10",
-      "to": "ch05_room_11",
-      "type": "passage"
+      "from": "banner_bridge",
+      "to": "pilgrim_camp",
+      "type": "one_way_drop",
+      "edge_kind": "one_way_drop",
+      "bidirectional": false,
+      "action": "one_way_drop",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_11",
-      "to": "ch05_room_12",
-      "type": "passage"
+      "from": "banner_bridge",
+      "to": "war_graves",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_12",
-      "to": "ch05_room_13",
-      "type": "passage"
+      "from": "watch_tower",
+      "to": "mirror_approach",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_13",
-      "to": "ch05_room_14",
-      "type": "passage"
+      "from": "mirror_approach",
+      "to": "mirror_pool",
+      "type": "boss_gate",
+      "edge_kind": "boss_gate",
+      "bidirectional": true,
+      "action": "boss_gate",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_14",
-      "to": "ch05_room_15",
-      "type": "passage"
+      "from": "mirror_pool",
+      "to": "cable_descent",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch05_room_15",
-      "to": "ch05_room_16",
-      "type": "passage"
-    },
-    {
-      "from": "ch05_room_16",
-      "to": "ch05_room_17",
-      "type": "passage"
-    },
-    {
-      "from": "ch05_room_17",
-      "to": "ch05_room_18",
-      "type": "passage"
-    },
-    {
-      "from": "ch05_room_12",
-      "to": "ch05_room_13",
-      "type": "lower_return"
-    },
-    {
-      "from": "ch05_room_14",
-      "to": "ch05_room_15",
-      "type": "upper_shortcut"
-    },
-    {
-      "from": "ch05_room_5",
-      "to": "ch05_room_17",
-      "type": "opened_shortcut"
+      "from": "cable_descent",
+      "to": "silent_gate",
+      "type": "one_way_drop",
+      "edge_kind": "one_way_drop",
+      "bidirectional": false,
+      "action": "one_way_drop",
+      "shortcut_id": ""
     }
-  ]
+  ],
+  "runtime_geometry": {
+    "schema_version": 3,
+    "migration": "tools/handcraft_2d_lib.mjs",
+    "spatial_grammar": "obsidian_switchback_mountain_2d",
+    "player_body": [
+      34,
+      84
+    ],
+    "physics": {
+      "jump_velocity": -710,
+      "gravity": 1850,
+      "dash_speed": 780,
+      "dash_time": 0.16
+    },
+    "safety": {
+      "main_max_gap": 176,
+      "main_max_rise": 110,
+      "minimum_corridor_clearance": 112,
+      "minimum_full_jump_clearance": 232,
+      "recovery_drop": 300,
+      "minimum_recovery_landing": 320
+    },
+    "critical_route": [
+      "gate_floor",
+      "gate_flag_step",
+      "base_run_a",
+      "base_cart_stand",
+      "base_run_b",
+      "base_shrine_step",
+      "base_run_c",
+      "ash_slope",
+      "ash_floor",
+      "lsw_rise_a",
+      "lsw_rise_b",
+      "lsw_flag_c",
+      "lsw_rise_d",
+      "lsw_rise_e",
+      "lsw_out_f",
+      "lsw_camp_step",
+      "camp_floor",
+      "camp_east_dock",
+      "usw_rise_a",
+      "usw_rise_b",
+      "usw_flag_c",
+      "usw_rise_d",
+      "usw_rise_e",
+      "usw_out_f",
+      "tower_base",
+      "step_t1",
+      "step_t2",
+      "step_t3",
+      "step_t4",
+      "tower_top",
+      "mirror_walk_a",
+      "mirror_rest_b",
+      "boss_threshold",
+      "mirror_floor",
+      "cable_c1",
+      "cable_c2",
+      "cable_c3",
+      "cable_c4",
+      "cable_c5",
+      "cable_c6",
+      "cable_base",
+      "sg_walk",
+      "sg_step",
+      "exit_dock"
+    ],
+    "upper_loop": [
+      "usw_rise_a",
+      "usw_rise_b",
+      "usw_flag_c",
+      "usw_rise_d",
+      "usw_rise_e",
+      "usw_out_f",
+      "tower_base",
+      "step_t1",
+      "step_t2",
+      "step_t3",
+      "step_t4",
+      "tower_top",
+      "banner_run_a",
+      "banner_run_b",
+      "banner_run_c",
+      "banner_break_d",
+      "banner_end_e",
+      "banner_drop_ledge",
+      "banner_drop_low",
+      "banner_drop_out",
+      "graves_rise",
+      "graves_floor",
+      "mirror_walk_a",
+      "mirror_rest_b",
+      "boss_threshold"
+    ],
+    "recovery_loop": [
+      "ash_slope",
+      "ash_floor",
+      "shaft_bridge_f1",
+      "shaft_bridge_f2",
+      "shaft_bridge_f3",
+      "shaft_bridge_f4",
+      "shaft_bridge_f5",
+      "shaft_bridge_f6",
+      "shaft_bridge_f7",
+      "shaft_bridge_f8",
+      "funicular_dock",
+      "shaft_bridge_fgang",
+      "cable_c1",
+      "cable_c2",
+      "cable_c3",
+      "cable_c4",
+      "cable_c5",
+      "cable_c6",
+      "cable_base"
+    ],
+    "branch_programs": [
+      "switchback_ascent",
+      "banner_bridge_return",
+      "funicular_shortcut",
+      "cable_drop_exit"
+    ],
+    "route_tags": [
+      "switchback_mountain",
+      "banner_bridge_overlook",
+      "funicular_return_loop",
+      "cable_drop_exit",
+      "handcrafted_2d"
+    ],
+    "main_route_orders": 44,
+    "map_art": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    }
+  },
+  "open_assets": {
+    "environment": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    }
+  },
+  "map_topology": {
+    "topology_id": "obsidian_switchback_mountain_2d",
+    "nodes": [
+      {
+        "id": "ravine_gate",
+        "room_type": "E",
+        "layer": 5,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          1050,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "base_road",
+        "room_type": "T",
+        "layer": 5,
+        "span_u": 9,
+        "map_rect": [
+          280,
+          1050,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "ash_pit",
+        "room_type": "R",
+        "layer": 5,
+        "span_u": 4,
+        "map_rect": [
+          840,
+          1050,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "funicular_shaft",
+        "room_type": "L",
+        "layer": 4,
+        "span_u": 4,
+        "map_rect": [
+          840,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "lower_switchback",
+        "room_type": "T",
+        "layer": 4,
+        "span_u": 10,
+        "map_rect": [
+          280,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "pilgrim_camp",
+        "room_type": "H",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "upper_switchback",
+        "room_type": "T",
+        "layer": 2,
+        "span_u": 8,
+        "map_rect": [
+          280,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "watch_tower",
+        "room_type": "V",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          840,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "banner_bridge",
+        "room_type": "O",
+        "layer": 1,
+        "span_u": 13,
+        "map_rect": [
+          280,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "war_graves",
+        "room_type": "R",
+        "layer": 2,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "mirror_approach",
+        "room_type": "P",
+        "layer": 0,
+        "span_u": 5,
+        "map_rect": [
+          1120,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "mirror_pool",
+        "room_type": "B",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "cable_descent",
+        "room_type": "V",
+        "layer": 2,
+        "span_u": 4,
+        "map_rect": [
+          1680,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "silent_gate",
+        "room_type": "E",
+        "layer": 5,
+        "span_u": 5,
+        "map_rect": [
+          1680,
+          1050,
+          236,
+          168
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "ravine_gate",
+        "to": "base_road",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "base_road",
+        "to": "ash_pit",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "ash_pit",
+        "to": "funicular_shaft",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "funicular_shaft",
+        "to": "pilgrim_camp",
+        "type": "shortcut",
+        "edge_kind": "unlock_shortcut",
+        "bidirectional": true,
+        "action": "unlock_shortcut",
+        "shortcut_id": "ch05_funicular_shortcut"
+      },
+      {
+        "from": "base_road",
+        "to": "lower_switchback",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "lower_switchback",
+        "to": "pilgrim_camp",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "pilgrim_camp",
+        "to": "upper_switchback",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "upper_switchback",
+        "to": "watch_tower",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "watch_tower",
+        "to": "banner_bridge",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "banner_bridge",
+        "to": "pilgrim_camp",
+        "type": "one_way_drop",
+        "edge_kind": "one_way_drop",
+        "bidirectional": false,
+        "action": "one_way_drop",
+        "shortcut_id": ""
+      },
+      {
+        "from": "banner_bridge",
+        "to": "war_graves",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "watch_tower",
+        "to": "mirror_approach",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "mirror_approach",
+        "to": "mirror_pool",
+        "type": "boss_gate",
+        "edge_kind": "boss_gate",
+        "bidirectional": true,
+        "action": "boss_gate",
+        "shortcut_id": ""
+      },
+      {
+        "from": "mirror_pool",
+        "to": "cable_descent",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "cable_descent",
+        "to": "silent_gate",
+        "type": "one_way_drop",
+        "edge_kind": "one_way_drop",
+        "bidirectional": false,
+        "action": "one_way_drop",
+        "shortcut_id": ""
+      }
+    ],
+    "main_visit_order": [
+      "ravine_gate",
+      "base_road",
+      "ash_pit",
+      "base_road",
+      "lower_switchback",
+      "pilgrim_camp",
+      "upper_switchback",
+      "watch_tower",
+      "banner_bridge",
+      "pilgrim_camp",
+      "watch_tower",
+      "mirror_approach",
+      "mirror_pool",
+      "cable_descent",
+      "silent_gate"
+    ],
+    "graph_fingerprint": {
+      "vertices": 14,
+      "edges": 15,
+      "cycle_rank": 2,
+      "maximum_degree": 4,
+      "degree_sequence": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        4
+      ]
+    },
+    "forbidden_motifs": [
+      "horizontal_36_platform_chain",
+      "shared_upper_loop_recovery_loop"
+    ]
+  },
+  "map_title": "黑曜巡礼道：之字登山版",
+  "environment_blocks": [
+    {
+      "id": "ch05_back_wall",
+      "rect": [
+        0,
+        198,
+        7150,
+        3262
+      ],
+      "color": "120f16",
+      "z_index": -95,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch05_mountain_mass_low",
+      "rect": [
+        700,
+        2380,
+        2400,
+        620
+      ],
+      "color": "18141d",
+      "z_index": -91,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch05_mountain_mass_mid",
+      "rect": [
+        1000,
+        1700,
+        2200,
+        560
+      ],
+      "color": "1b1722",
+      "z_index": -92,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch05_summit_mass",
+      "rect": [
+        3300,
+        760,
+        2200,
+        420
+      ],
+      "color": "201a28",
+      "z_index": -93,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch05_banner_shadow",
+      "rect": [
+        1200,
+        640,
+        2100,
+        200
+      ],
+      "color": "16121c",
+      "z_index": -90,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch05_arena_floor_mass",
+      "rect": [
+        4680,
+        752,
+        720,
+        300
+      ],
+      "color": "0f0c13",
+      "z_index": -88,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/obsidian_pilgrim",
+      "ownership": "project-owned"
+    }
+  ],
+  "design_note": {
+    "source": "hand-authored (tools/handcraft_ch05_2d.mjs)",
+    "intent": "True-2D obsidian mountain: two opposing switchbacks stacked above a base road, a mid-mountain camp hub, a watch tower to the summit, a banner bridge that walks back west above everything you climbed (with a one-way drop into the camp), a funicular shortcut from the ash pit lever, and a post-boss cable descent that rings the exit back to the base.",
+    "coordinate_mapping": {
+      "note": "explicit 2D world coordinates, rooms stacked vertically and horizontally"
+    }
+  }
 }

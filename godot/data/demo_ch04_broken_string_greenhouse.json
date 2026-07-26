@@ -2,20 +2,20 @@
   "id": "demo_ch04_broken_string_greenhouse",
   "name": "断弦温室试玩章",
   "world": {
-    "width": 18800,
-    "height": 720,
-    "fall_y": 790
+    "width": 7610,
+    "height": 2718,
+    "fall_y": 2782
   },
   "player_start": [
-    120,
-    500
+    330,
+    1740
   ],
   "boss_checkpoint": [
-    15480,
-    500
+    5430,
+    754
   ],
   "required_keys": 0,
-  "goal": "击败温室守卫，打开弦桥Boss路线，击败铜根主教。",
+  "goal": "从温室西门沿西阶降到根须南廊，一路向东经蜂蜡暗屋攀上东藤壁，从棚架东角踏上树冠步道向西横越，到西眺台隔玻璃望见裂纹穹顶后跃入树心；拉下根库拉杆接通断弦辐桥回环，再沿树心枝桠爬回树冠，登穹顶前廊击败铜根主教。",
   "completion_message": "DEMO COMPLETE: 铜根主教已被击败，断弦失声印记已回收",
   "completion_toast": "断弦温室闭环完成：NPC、清怪、Boss门和章节奖励均已验证。",
   "enemy_drop_item": "pollen_wax",
@@ -26,7 +26,12 @@
     "ui_fx": "Kenney CC0 UI 与程序化 VFX 节点",
     "audio": "godot/assets/audio 本地 OGG 与后续 CC0 候选",
     "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
-    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary"
+    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "environment": "Crimson Thread original map art",
+    "platform_tiles": "godot/assets/sprites/original_map/string_greenhouse/platform_*.png",
+    "background_layers": "godot/assets/sprites/original_map/string_greenhouse/sky.png, far.png, mid.png, near.png",
+    "map_art_root": "godot/assets/sprites/original_map/string_greenhouse",
+    "map_art_ownership": "project-owned"
   },
   "world_story": {
     "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
@@ -99,268 +104,629 @@
         "name": "活封面脉络",
         "category": "Tools",
         "description": "铜根主教掉落的章节奖励。"
+      },
+      "testimony_04": {
+        "name": "证词·其四",
+        "category": "Relics",
+        "description": "六份证词之四：枯萎母株的最后一段歌，第四守门者的遗音。"
       }
     }
   },
   "map_rooms": [
     {
-      "id": "ch04_room_1",
-      "name": "温室门厅",
+      "id": "west_gate",
+      "name": "温室西门",
       "range": [
-        0,
-        850
+        200,
+        600
       ],
-      "depth": -1,
+      "depth": 3,
       "kind": "entry",
-      "objective": "温室门厅：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "弦桥育苗室"
+      "archetype": "entry",
+      "layout_rect": [
+        200,
+        1418,
+        400,
+        466
+      ],
+      "map_rect": [
+        0,
+        630,
+        236,
+        168
+      ],
+      "objective": "从西门读懂温室的呼吸，向下进入根须南廊。",
+      "guide": "藤蔓先颤，再动；急着跳的人会被温室记住。",
+      "danger": "落点干净，但花粉会盖住藤蔓的前摇。",
+      "next": "西阶下行",
+      "setpiece": "碎玻璃西门",
+      "traversal_focus": "安全试跳",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          200,
+          1418,
+          400,
+          466
+        ]
+      ]
     },
     {
-      "id": "ch04_room_2",
-      "name": "弦桥育苗室",
+      "id": "gate_descent",
+      "name": "西阶下行",
       "range": [
-        850,
-        1750
+        480,
+        930
       ],
-      "depth": 1,
-      "kind": "lower",
-      "objective": "弦桥育苗室：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "蜂蜡小屋"
+      "depth": 4,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        480,
+        1746,
+        450,
+        604
+      ],
+      "map_rect": [
+        0,
+        840,
+        236,
+        168
+      ],
+      "objective": "沿西阶之字下到温室底层。",
+      "guide": "左右交替落点，湿土会滑。",
+      "danger": "台阶间落差大，别贪跳。",
+      "next": "根须南廊",
+      "setpiece": "苔垫西阶",
+      "traversal_focus": "纵向下探",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          480,
+          1746,
+          450,
+          604
+        ]
+      ]
     },
     {
-      "id": "ch04_room_3",
-      "name": "蜂蜡小屋",
+      "id": "south_rootrun",
+      "name": "根须南廊",
       "range": [
-        1750,
-        2600
+        820,
+        4600
       ],
-      "depth": 0,
+      "depth": 5,
+      "kind": "combat",
+      "archetype": "combat",
+      "layout_rect": [
+        820,
+        2262,
+        3780,
+        320
+      ],
+      "map_rect": [
+        560,
+        1050,
+        236,
+        168
+      ],
+      "objective": "沿南廊向东穿过根须与苗床，直到蜂蜡暗屋。",
+      "guide": "大树的根就在你头顶，记住它的位置。",
+      "danger": "根笼猎手在苗床间巡行。",
+      "next": "蜂蜡暗屋",
+      "setpiece": "根须苗床长廊",
+      "traversal_focus": "地面战斗",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          820,
+          2262,
+          3780,
+          320
+        ]
+      ]
+    },
+    {
+      "id": "beeswax_nook",
+      "name": "蜂蜡暗屋",
+      "range": [
+        4620,
+        5200
+      ],
+      "depth": 4,
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        4620,
+        2150,
+        580,
+        288
+      ],
+      "map_rect": [
+        1120,
+        840,
+        236,
+        168
+      ],
+      "objective": "在蜂蜡暗屋补给，找到藏在蜡壁后的暗灯。",
+      "guide": "隐藏存档点藏在蜡壁后。",
+      "danger": "蜂蜡地板黏脚，撤退要提前。",
+      "next": "东藤壁",
+      "setpiece": "蜂蜡商屋",
+      "traversal_focus": "补给暗室",
+      "pacing_role": "respite",
+      "visit_rects": [
+        [
+          4620,
+          2150,
+          580,
+          288
+        ]
+      ]
+    },
+    {
+      "id": "vine_ascent",
+      "name": "东藤壁",
+      "range": [
+        5190,
+        5700
+      ],
+      "depth": 3,
       "kind": "vertical",
-      "objective": "蜂蜡小屋：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "倒根井"
-    },
-    {
-      "id": "ch04_room_4",
-      "name": "倒根井",
-      "range": [
-        2600,
-        3500
+      "archetype": "vertical",
+      "layout_rect": [
+        5190,
+        1102,
+        510,
+        1302
       ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "倒根井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦热房"
-    },
-    {
-      "id": "ch04_room_5",
-      "name": "断弦热房",
-      "range": [
-        3500,
-        4550
+      "map_rect": [
+        1400,
+        630,
+        236,
+        168
       ],
-      "depth": 0,
-      "kind": "safe",
-      "objective": "断弦热房：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "荆棘礼拜堂"
+      "objective": "沿东墙藤蔓一路向上。",
+      "guide": "藤台是单向的，可以从下方穿过。",
+      "danger": "蜂蜡蛾贴着墙面俯冲。",
+      "next": "棚架东角",
+      "setpiece": "东墙大藤",
+      "traversal_focus": "纵向攀爬",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          5190,
+          1102,
+          510,
+          1302
+        ]
+      ]
     },
     {
-      "id": "ch04_room_6",
-      "name": "荆棘礼拜堂",
+      "id": "trellis_corner",
+      "name": "棚架东角",
       "range": [
-        4550,
-        5600
+        4680,
+        5510
       ],
       "depth": 1,
-      "kind": "danger",
-      "objective": "荆棘礼拜堂：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "藤索跳台"
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        4680,
+        856,
+        830,
+        420
+      ],
+      "map_rect": [
+        1400,
+        210,
+        236,
+        168
+      ],
+      "objective": "从棚架东角登上树冠步道。",
+      "guide": "棚架横木承得住你，但承不住犹豫。",
+      "danger": "花粉琴师在棚架上布风。",
+      "next": "树冠步道",
+      "setpiece": "东角棚架",
+      "traversal_focus": "斜向爬升",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          4680,
+          856,
+          830,
+          420
+        ]
+      ]
     },
     {
-      "id": "ch04_room_7",
-      "name": "藤索跳台",
+      "id": "canopy_east",
+      "name": "树冠东道",
+      "range": [
+        3600,
+        4790
+      ],
+      "depth": 0,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        3600,
+        732,
+        1190,
+        288
+      ],
+      "map_rect": [
+        1120,
+        0,
+        236,
+        168
+      ],
+      "objective": "沿树冠步道向西横越温室顶层。",
+      "guide": "玻璃穹顶漏下的光会指路。",
+      "danger": "断弦平台会突然塌断。",
+      "next": "树冠西道",
+      "setpiece": "树冠玻璃光带",
+      "traversal_focus": "高层横越",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          3600,
+          732,
+          1190,
+          288
+        ]
+      ]
+    },
+    {
+      "id": "canopy_west",
+      "name": "树冠西道",
+      "range": [
+        2500,
+        3600
+      ],
+      "depth": 0,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        2500,
+        724,
+        1100,
+        288
+      ],
+      "map_rect": [
+        560,
+        0,
+        236,
+        168
+      ],
+      "objective": "继续向西，直到西眺台。",
+      "guide": "树冠正下方就是大树的心。",
+      "danger": "高处风大，花粉成浪。",
+      "next": "西眺台",
+      "setpiece": "树冠西光带",
+      "traversal_focus": "高层横越",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2500,
+          724,
+          1100,
+          288
+        ]
+      ]
+    },
+    {
+      "id": "canopy_overlook",
+      "name": "西眺台",
+      "range": [
+        1810,
+        2440
+      ],
+      "depth": 0,
+      "kind": "overlook",
+      "archetype": "overlook",
+      "layout_rect": [
+        1810,
+        726,
+        630,
+        278
+      ],
+      "map_rect": [
+        0,
+        0,
+        236,
+        168
+      ],
+      "objective": "站上西眺台，隔着玻璃看清东北的裂纹穹顶。",
+      "guide": "从这里能看见首领穹顶的裂缝。",
+      "danger": "眺台边缘只有半块玻璃。",
+      "next": "树冠（跃入树心）",
+      "setpiece": "西眺玻璃台",
+      "traversal_focus": "见而未达",
+      "pacing_role": "respite",
+      "visit_rects": [
+        [
+          1810,
+          726,
+          630,
+          278
+        ]
+      ]
+    },
+    {
+      "id": "tree_crown",
+      "name": "树冠之心",
+      "range": [
+        2920,
+        3890
+      ],
+      "depth": 1,
+      "kind": "loop",
+      "archetype": "loop",
+      "layout_rect": [
+        2920,
+        798,
+        970,
+        778
+      ],
+      "map_rect": [
+        560,
+        210,
+        236,
+        168
+      ],
+      "objective": "从树冠跃入大树内部。",
+      "guide": "树心的枝桠是单向的，可以再爬回树冠。",
+      "danger": "跃入时留意断枝。",
+      "next": "大树之心",
+      "setpiece": "空心树冠",
+      "traversal_focus": "受控坠落",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2920,
+          798,
+          970,
+          778
+        ]
+      ]
+    },
+    {
+      "id": "tree_heart",
+      "name": "大树之心",
+      "range": [
+        2640,
+        3240
+      ],
+      "depth": 2,
+      "kind": "hub",
+      "archetype": "hub",
+      "layout_rect": [
+        2640,
+        1452,
+        600,
+        256
+      ],
+      "map_rect": [
+        560,
+        420,
+        236,
+        168
+      ],
+      "objective": "以大树之心为枢纽：下有根库拉杆，西有断弦辐桥，上可回树冠。",
+      "guide": "断弦歌者守在树心，听她唱完再走。",
+      "danger": "树心开阔，也开阔给敌人。",
+      "next": "根库 / 断弦辐桥",
+      "setpiece": "大树之心",
+      "traversal_focus": "枢纽分流",
+      "pacing_role": "hub",
+      "visit_rects": [
+        [
+          2640,
+          1452,
+          600,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "root_vault",
+      "name": "根库",
+      "range": [
+        2320,
+        2850
+      ],
+      "depth": 3,
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        2320,
+        1582,
+        530,
+        504
+      ],
+      "map_rect": [
+        560,
+        840,
+        236,
+        168
+      ],
+      "objective": "拉下根库拉杆：清怪后西辐桥接通，首领之路解锁。",
+      "guide": "从背面打开的捷径会长期有效。",
+      "danger": "库房狭窄，根笼囚徒的话别全信。",
+      "next": "断弦辐桥",
+      "setpiece": "根库绞盘",
+      "traversal_focus": "捷径解锁",
+      "pacing_role": "reward",
+      "visit_rects": [
+        [
+          2320,
+          1582,
+          530,
+          504
+        ]
+      ]
+    },
+    {
+      "id": "west_spoke",
+      "name": "断弦辐桥",
+      "range": [
+        600,
+        2320
+      ],
+      "depth": 2,
+      "kind": "loop",
+      "archetype": "loop",
+      "layout_rect": [
+        600,
+        1370,
+        1720,
+        576
+      ],
+      "map_rect": [
+        280,
+        420,
+        236,
+        168
+      ],
+      "objective": "沿断弦辐桥向西，直通温室西门上层。",
+      "guide": "这条辐桥是打通后最快的回环。",
+      "danger": "桥板半朽，别停在中段。",
+      "next": "温室西门",
+      "setpiece": "断弦辐桥",
+      "traversal_focus": "高层回环",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          600,
+          1370,
+          1720,
+          576
+        ]
+      ]
+    },
+    {
+      "id": "dome_approach",
+      "name": "穹顶前廊",
+      "range": [
+        4720,
+        5570
+      ],
+      "depth": 0,
+      "kind": "preboss",
+      "archetype": "preboss",
+      "layout_rect": [
+        4720,
+        612,
+        850,
+        278
+      ],
+      "map_rect": [
+        1400,
+        0,
+        236,
+        168
+      ],
+      "objective": "登上穹顶前廊直达裂纹穹顶，死亡回跑很短。",
+      "guide": "前廊有暖灯存档点。",
+      "danger": "前廊风口敌人密集。",
+      "next": "裂纹穹顶",
+      "setpiece": "穹顶前廊",
+      "traversal_focus": "短促冲刺",
+      "pacing_role": "tension",
+      "visit_rects": [
+        [
+          4720,
+          612,
+          850,
+          278
+        ]
+      ]
+    },
+    {
+      "id": "fracture_dome",
+      "name": "裂纹穹顶",
       "range": [
         5600,
-        6650
-      ],
-      "depth": -1,
-      "kind": "parkour",
-      "objective": "藤索跳台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "花粉风道"
-    },
-    {
-      "id": "ch04_room_8",
-      "name": "花粉风道",
-      "range": [
-        6650,
-        7800
-      ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "花粉风道：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "玻璃花房跑酷"
-    },
-    {
-      "id": "ch04_room_9",
-      "name": "玻璃花房跑酷",
-      "range": [
-        7800,
-        8950
-      ],
-      "depth": -1,
-      "kind": "upper",
-      "objective": "玻璃花房跑酷：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "园主前庭"
-    },
-    {
-      "id": "ch04_room_10",
-      "name": "园主前庭",
-      "range": [
-        8950,
-        10050
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "园主前庭：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "逆根下层"
-    },
-    {
-      "id": "ch04_room_11",
-      "name": "逆根下层",
-      "range": [
-        10050,
-        11150
-      ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "逆根下层：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "蜂蜡回环"
-    },
-    {
-      "id": "ch04_room_12",
-      "name": "蜂蜡回环",
-      "range": [
-        11150,
-        12150
-      ],
-      "depth": 2,
-      "kind": "lower",
-      "objective": "蜂蜡回环：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "藤蔓升降井"
-    },
-    {
-      "id": "ch04_room_13",
-      "name": "藤蔓升降井",
-      "range": [
-        12150,
-        13050
-      ],
-      "depth": 0,
-      "kind": "vertical",
-      "objective": "藤蔓升降井：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "温室上梁"
-    },
-    {
-      "id": "ch04_room_14",
-      "name": "温室上梁",
-      "range": [
-        13050,
-        14100
-      ],
-      "depth": -2,
-      "kind": "upper",
-      "objective": "温室上梁：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "根笼连战"
-    },
-    {
-      "id": "ch04_room_15",
-      "name": "根笼连战",
-      "range": [
-        14100,
-        15300
-      ],
-      "depth": 0,
-      "kind": "danger",
-      "objective": "根笼连战：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦门廊"
-    },
-    {
-      "id": "ch04_room_16",
-      "name": "断弦门廊",
-      "range": [
-        15300,
-        16250
-      ],
-      "depth": 0,
-      "kind": "field",
-      "objective": "断弦门廊：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "断弦舞台"
-    },
-    {
-      "id": "ch04_room_17",
-      "name": "断弦舞台",
-      "range": [
-        16250,
-        18050
+        6320
       ],
       "depth": 0,
       "kind": "boss",
-      "objective": "断弦舞台：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "温室外墙"
+      "archetype": "boss",
+      "layout_rect": [
+        5600,
+        682,
+        720,
+        262
+      ],
+      "map_rect": [
+        1680,
+        0,
+        236,
+        168
+      ],
+      "objective": "击败铜根主教，取回断弦印记，打开东琉璃台的出口。",
+      "guide": "入口会在战斗时封闭。",
+      "danger": "主教的藤鞭与花粉风覆盖全场。",
+      "next": "东琉璃台",
+      "setpiece": "裂纹穹顶",
+      "traversal_focus": "首领战",
+      "pacing_role": "boss",
+      "visit_rects": [
+        [
+          5600,
+          682,
+          720,
+          262
+        ]
+      ]
     },
     {
-      "id": "ch04_room_18",
-      "name": "温室外墙",
+      "id": "victory_terrace",
+      "name": "东琉璃台",
       "range": [
-        18050,
-        18800
+        6350,
+        7290
       ],
-      "depth": 0,
+      "depth": 1,
       "kind": "exit",
-      "objective": "温室外墙：沿横向主线推进，并观察上层/下层回路。",
-      "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-      "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
-      "next": "章节出口"
+      "archetype": "exit",
+      "layout_rect": [
+        6350,
+        594,
+        940,
+        294
+      ],
+      "map_rect": [
+        1960,
+        210,
+        236,
+        168
+      ],
+      "objective": "沿东琉璃台离开温室。",
+      "guide": "出口通往第五章：黑曜巡礼道。",
+      "danger": "战后玻璃仍在剥落。",
+      "next": "第五章：黑曜巡礼道",
+      "setpiece": "东琉璃台",
+      "traversal_focus": "战后收束",
+      "pacing_role": "denouement",
+      "visit_rects": [
+        [
+          6350,
+          594,
+          940,
+          294
+        ]
+      ]
     }
   ],
   "ai_profiles": {
     "vine_crawler": {
       "move_speed": 48,
-      "aggro_range": 210.0,
-      "preferred_range": 44.0,
+      "aggro_range": 210,
+      "preferred_range": 44,
       "attacks": [
         {
           "id": "bite_lunge",
@@ -376,7 +742,7 @@
           "hit_height": 54,
           "offset": 44,
           "telegraph": "bf6c3f",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -386,8 +752,8 @@
     },
     "wax_bee": {
       "move_speed": 62,
-      "aggro_range": 250.0,
-      "preferred_range": 78.0,
+      "aggro_range": 250,
+      "preferred_range": 78,
       "attacks": [
         {
           "id": "sickle_swoop",
@@ -403,7 +769,7 @@
           "hit_height": 58,
           "offset": 52,
           "telegraph": "d9b25f",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -413,8 +779,8 @@
     },
     "root_cage_hunter": {
       "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
+      "aggro_range": 245,
+      "preferred_range": 70,
       "attacks": [
         {
           "id": "shield_rush",
@@ -430,7 +796,7 @@
           "hit_height": 68,
           "offset": 56,
           "telegraph": "d38c45",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -440,8 +806,8 @@
     },
     "pollen_lutist": {
       "move_speed": 36,
-      "aggro_range": 235.0,
-      "preferred_range": 82.0,
+      "aggro_range": 235,
+      "preferred_range": 82,
       "attacks": [
         {
           "id": "body_cast",
@@ -456,7 +822,7 @@
           "hit_height": 64,
           "offset": 48,
           "telegraph": "c99a50",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -466,8 +832,8 @@
     },
     "thorn_sentinel": {
       "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
+      "aggro_range": 245,
+      "preferred_range": 70,
       "attacks": [
         {
           "id": "heavy_body_check",
@@ -482,7 +848,7 @@
           "hit_height": 74,
           "offset": 48,
           "telegraph": "c9764a",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ],
@@ -874,8 +1240,8 @@
     },
     "thorn_bloom_mote": {
       "move_speed": 66,
-      "aggro_range": 235.0,
-      "preferred_range": 86.0,
+      "aggro_range": 235,
+      "preferred_range": 86,
       "attack_desire_threshold": 0.62,
       "attack_desire_gain": 1.05,
       "attack_desire_decay": 0.82,
@@ -894,7 +1260,7 @@
           "hit_height": 58,
           "offset": 52,
           "telegraph": "d9b25f",
-          "priority": 1.0,
+          "priority": 1,
           "animation": "attack"
         }
       ]
@@ -902,620 +1268,1118 @@
   },
   "platforms": [
     {
-      "id": "start_ground",
+      "id": "gate_floor",
       "rect": [
-        0,
-        540,
-        720,
-        40
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "starter_step",
-      "rect": [
-        420,
-        492,
-        220,
-        24
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "vista_bridge",
-      "rect": [
-        600,
-        430,
-        340,
-        26
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "outer_low_floor",
-      "rect": [
-        880,
-        610,
-        720,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "outer_mid_bridge",
-      "rect": [
-        1320,
-        520,
-        360,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "lift_base",
-      "rect": [
+        240,
         1780,
-        540,
-        420,
-        30
+        320,
+        44
       ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 0,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "lift_step_a",
+      "id": "gate_upper_landing",
       "rect": [
-        2180,
-        466,
         300,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "upper_bridge_a",
-      "rect": [
-        2560,
-        388,
-        680,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "upper_drop",
-      "rect": [
-        3060,
-        464,
-        420,
-        28
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "backdoor_room",
-      "rect": [
-        3600,
-        500,
-        540,
-        32
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "chapel_floor",
-      "rect": [
-        3300,
-        540,
-        960,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_runback_floor",
-      "rect": [
-        4200,
-        540,
-        1120,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_runback_step",
-      "rect": [
-        4750,
-        455,
-        360,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_parkour_floor_a",
-      "rect": [
-        5350,
-        540,
-        980,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_parkour_step_a",
-      "rect": [
-        5740,
-        466,
+        1568,
         240,
         28
       ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch"
     },
     {
-      "id": "ch04_parkour_step_b",
+      "id": "wd_step_a",
       "rect": [
-        6120,
-        396,
-        260,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_parkour_floor_b",
-      "rect": [
-        6400,
-        540,
-        1050,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_parkour_upper_a",
-      "rect": [
-        6780,
-        410,
-        430,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_parkour_upper_b",
-      "rect": [
-        7340,
-        360,
-        520,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_sprint_floor",
-      "rect": [
-        7500,
-        540,
-        1120,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_sprint_step",
-      "rect": [
-        8000,
-        452,
-        360,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_gauntlet_floor",
-      "rect": [
-        8600,
-        540,
-        1100,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_gauntlet_upper",
-      "rect": [
-        9020,
-        428,
-        540,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_approach_floor",
-      "rect": [
-        9700,
-        540,
-        1120,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_approach_step",
-      "rect": [
-        10200,
-        452,
-        420,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_lower_loop_floor",
-      "rect": [
-        10090,
-        610,
-        1020,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_lower_loop_mid",
-      "rect": [
-        10470,
-        520,
-        360,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_lower_loop_exit_lip",
-      "rect": [
-        10940,
-        560,
-        220,
+        680,
+        1896,
+        190,
         26
       ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 1,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_return_shaft_base",
+      "id": "wd_step_b",
       "rect": [
-        12210,
+        520,
+        2018,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 2,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "wd_step_c",
+      "rect": [
+        720,
+        2140,
+        170,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 3,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "wd_step_d",
+      "rect": [
         540,
-        360,
-        30
+        2266,
+        160,
+        24
       ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 4,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_return_shaft_step_a",
+      "id": "south_run_a",
       "rect": [
-        12510,
-        470,
-        260,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_return_shaft_step_b",
-      "rect": [
-        12840,
-        400,
-        260,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_upper_bridge",
-      "rect": [
-        13120,
-        350,
-        910,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_upper_drop_step",
-      "rect": [
-        13820,
-        430,
-        260,
-        28
-      ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
-    },
-    {
-      "id": "ch04_crossway_floor",
-      "rect": [
-        15320,
-        540,
-        910,
-        34
-      ],
-      "color": "29422d",
-      "material": "greenhouse_loam"
-    },
-    {
-      "id": "ch04_crossway_upper",
-      "rect": [
-        15720,
-        452,
+        860,
+        2420,
         380,
-        28
+        40
       ],
-      "color": "426a4b",
-      "material": "glassvine_bridge"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 5,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_preboss_floor",
+      "id": "south_bed_b",
       "rect": [
-        15330,
-        540,
-        890,
-        34
-      ],
-      "color": "3b4d31",
-      "material": "root_boss"
-    },
-    {
-      "id": "boss_floor",
-      "rect": [
-        16250,
-        540,
-        1660,
-        44
-      ],
-      "color": "3b4d31",
-      "material": "root_boss"
-    },
-    {
-      "id": "boss_back_wall",
-      "rect": [
-        17910,
-        315,
-        38,
-        270
-      ],
-      "color": "3b4d31",
-      "material": "root_boss"
-    },
-    {
-      "id": "ch04_post_boss_run_step",
-      "rect": [
-        17900,
-        540,
+        1340,
+        2474,
         300,
         34
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 6,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_exit_runup",
+      "id": "south_run_c",
       "rect": [
-        18040,
-        540,
-        580,
+        1750,
+        2412,
+        260,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 7,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "south_bed_d",
+      "rect": [
+        2120,
+        2478,
+        340,
+        36
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 8,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "south_run_e",
+      "rect": [
+        2570,
+        2422,
+        300,
         34
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 9,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_exit_floor",
+      "id": "south_bed_f",
       "rect": [
-        18480,
-        540,
+        2990,
+        2484,
+        360,
+        38
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 10,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "south_run_g",
+      "rect": [
+        3470,
+        2428,
+        280,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 11,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "south_bed_h",
+      "rect": [
+        3870,
+        2486,
         320,
+        36
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 12,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "south_run_i",
+      "rect": [
+        4300,
+        2432,
+        260,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 13,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "bw_step",
+      "rect": [
+        4660,
+        2354,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 14,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "bw_floor",
+      "rect": [
+        4880,
+        2300,
+        280,
         34
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 15,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_late_route_link_01",
+      "id": "vine_v1",
       "rect": [
-        10830,
-        540,
-        1380,
-        30
+        5230,
+        2322,
+        150,
+        22
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 16,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     },
     {
-      "id": "ch04_late_route_link_02",
+      "id": "vine_v2",
       "rect": [
-        12570,
-        540,
-        2750,
+        5415,
+        2210,
+        120,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 17,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v3",
+      "rect": [
+        5235,
+        2098,
+        175,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 18,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_rest",
+      "rect": [
+        5450,
+        2000,
+        210,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 19,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v4",
+      "rect": [
+        5245,
+        1900,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 20,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v5",
+      "rect": [
+        5445,
+        1795,
+        150,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 21,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v6",
+      "rect": [
+        5240,
+        1678,
+        115,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 22,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v7",
+      "rect": [
+        5455,
+        1570,
+        185,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 23,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v8",
+      "rect": [
+        5250,
+        1462,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 24,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v9",
+      "rect": [
+        5460,
+        1360,
+        195,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 25,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vine_v10",
+      "rect": [
+        5255,
+        1252,
+        125,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 26,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "trellis_a",
+      "rect": [
+        5230,
+        1186,
+        240,
         30
       ],
-      "color": "3b4d31",
-      "material": "root_boss"
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 27,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "trellis_b",
+      "rect": [
+        4950,
+        1120,
+        200,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 28,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "trellis_rise",
+      "rect": [
+        4720,
+        1006,
+        150,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 29,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "canopy_e_a",
+      "rect": [
+        4420,
+        892,
+        330,
+        34
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 30,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "canopy_e_b",
+      "rect": [
+        4010,
+        928,
+        290,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 31,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "canopy_e_c",
+      "rect": [
+        3640,
+        882,
+        250,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 32,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "canopy_w_a",
+      "rect": [
+        3250,
+        920,
+        310,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 33,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "canopy_w_b",
+      "rect": [
+        2880,
+        874,
+        240,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 34,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "canopy_w_c",
+      "rect": [
+        2540,
+        918,
+        280,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 35,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "overlook_walk",
+      "rect": [
+        2170,
+        876,
+        230,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 36,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "overlook_deck",
+      "rect": [
+        1850,
+        912,
+        260,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 37,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "crown_top",
+      "rect": [
+        2960,
+        1162,
+        220,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 38,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "crown_mid",
+      "rect": [
+        3200,
+        1292,
+        180,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 39,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "crown_up_a",
+      "rect": [
+        3500,
+        1494,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "crown_up_b",
+      "rect": [
+        3680,
+        1384,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "crown_up_c",
+      "rect": [
+        3510,
+        1274,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "crown_up_d",
+      "rect": [
+        3700,
+        1164,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "crown_up_e",
+      "rect": [
+        3530,
+        1054,
+        150,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "crown_up_f",
+      "rect": [
+        3720,
+        948,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "heart_floor",
+      "rect": [
+        2680,
+        1602,
+        520,
+        46
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 40,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "rv_step_a",
+      "rect": [
+        2480,
+        1732,
+        170,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 41,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "rv_step_b",
+      "rect": [
+        2660,
+        1856,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 42,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vault_floor",
+      "rect": [
+        2360,
+        1982,
+        340,
+        44
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 43,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "spoke_lift_a",
+      "rect": [
+        2140,
+        1864,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "spoke_lift_b",
+      "rect": [
+        1980,
+        1756,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "spoke_lift_c",
+      "rect": [
+        2150,
+        1650,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    },
+    {
+      "id": "spoke_run_a",
+      "rect": [
+        1730,
+        1562,
+        300,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "spoke_run_b",
+      "rect": [
+        1310,
+        1604,
+        280,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "spoke_gap_c",
+      "rect": [
+        950,
+        1556,
+        220,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "spoke_gap_d",
+      "rect": [
+        640,
+        1520,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "dome_rise",
+      "rect": [
+        4760,
+        806,
+        150,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 44,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "dome_deck",
+      "rect": [
+        4980,
+        762,
+        260,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 45,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "boss_threshold",
+      "rect": [
+        5330,
+        794,
+        200,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 46,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "dome_floor",
+      "rect": [
+        5640,
+        832,
+        640,
+        52
+      ],
+      "color": "22301a",
+      "material": "root_boss",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 47,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vt_walk",
+      "rect": [
+        6390,
+        788,
+        220,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 48,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "vt_step",
+      "rect": [
+        6720,
+        744,
+        170,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 49,
+      "safe_landing": true,
+      "gameplay_clearance": 232
+    },
+    {
+      "id": "exit_dock",
+      "rect": [
+        6990,
+        792,
+        260,
+        36
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 50,
+      "safe_landing": true,
+      "gameplay_clearance": 232
     }
   ],
   "locked_gates": [],
   "hazards": [
     {
-      "id": "ch04_hazard_01",
+      "id": "ch04_hazard_south_bed",
       "kind": "fake_moss_floor",
       "rect": [
-        715,
-        406,
-        110,
-        24
+        1490,
+        2468,
+        120,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "苗床的腐叶层一踩就陷。",
+      "platform_id": "south_bed_b"
     },
     {
-      "id": "ch04_hazard_02",
-      "kind": "bell_gap",
-      "rect": [
-        2275,
-        442,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch04_hazard_03",
+      "id": "ch04_hazard_south_root",
       "kind": "spore_chest",
       "rect": [
-        3725,
-        516,
+        3225,
+        2478,
         110,
-        24
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "根须间的孢囊猛然炸开。",
+      "platform_id": "south_bed_f"
     },
     {
-      "id": "ch04_hazard_04",
-      "kind": "falling_clapper",
-      "rect": [
-        5805,
-        442,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch04_hazard_05",
-      "kind": "bell_gap",
-      "rect": [
-        7545,
-        336,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch04_hazard_06",
-      "kind": "falling_clapper",
-      "rect": [
-        9235,
-        404,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch04_hazard_07",
-      "kind": "spore_chest",
-      "rect": [
-        10595,
-        496,
-        110,
-        24
-      ],
-      "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
-    },
-    {
-      "id": "ch04_hazard_08",
+      "id": "ch04_hazard_canopy_string",
       "kind": "fake_moss_floor",
       "rect": [
-        13520,
-        326,
-        110,
-        24
+        4420,
+        886,
+        130,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "断弦平台突然塌断。",
+      "platform_id": "canopy_e_a"
     },
     {
-      "id": "ch04_hazard_09",
+      "id": "ch04_hazard_canopy_clapper",
+      "kind": "falling_clapper",
+      "rect": [
+        2680,
+        912,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "玻璃穹顶的挂铃砸落。",
+      "platform_id": "canopy_w_c"
+    },
+    {
+      "id": "ch04_hazard_crown_gap",
       "kind": "bell_gap",
       "rect": [
-        15720,
-        516,
-        110,
-        24
+        3300,
+        1286,
+        100,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "树心裂口深不见底。",
+      "platform_id": "crown_mid"
     },
     {
-      "id": "ch04_hazard_10",
-      "kind": "spore_chest",
+      "id": "ch04_hazard_spoke_plank",
+      "kind": "fake_moss_floor",
       "rect": [
-        18585,
-        516,
-        110,
-        24
+        1740,
+        1556,
+        120,
+        22
       ],
       "damage": 1,
-      "message": "多层扩建路线上出现预警陷阱。"
+      "message": "辐桥朽板一踩就断。",
+      "platform_id": "spoke_run_a"
     }
   ],
-  "collectibles": [],
+  "collectibles": [
+    {
+      "id": "col_testimony_04",
+      "kind": "item",
+      "room_id": "tree_heart",
+      "item_id": "testimony_04",
+      "position": [
+        2760,
+        1562
+      ],
+      "ability_name": "证词其四",
+      "label": "证词·其四",
+      "note": "大树之心母株脚下（枯萎母株口径），真结局收集品；地图重做后迁至 thorn_downstrike 门后。"
+    }
+  ],
   "interactives": [
     {
       "id": "ch04_broken_string_greenhouse_shortcut_lever",
       "kind": "lever",
       "position": [
-        3780,
-        460
+        2620,
+        1942
       ],
       "requires_keys": 0,
-      "label": "战斗门控制器"
+      "label": "战斗门控制器",
+      "shortcut_id": "ch04_west_spoke_shortcut"
     },
     {
       "id": "ch04_broken_string_greenhouse_boss_gate",
       "kind": "boss_gate",
       "position": [
-        16460,
-        500
+        5710,
+        792
       ]
     },
     {
@@ -1523,8 +2387,8 @@
       "kind": "chapter_exit",
       "label": "前往第五章：黑曜巡礼道",
       "position": [
-        18620,
-        500
+        7140,
+        752
       ],
       "next_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
       "next_config_path": "res://data/demo_ch05_obsidian_pilgrim_road.json",
@@ -1540,8 +2404,8 @@
       "id": "npc_old_gardener",
       "name": "老园丁弦伯",
       "position": [
-        320,
-        500
+        490,
+        1740
       ],
       "role": "main_witness",
       "dialogue": [
@@ -1551,14 +2415,98 @@
       ],
       "identity": "温室前厅的老园丁，曾修剪活封面和守门者根系。",
       "motive": "想让主角知道温室不是花园，而是六位守门者的病房。",
-      "help": "说明藤蔓预兆；交代书库活封面来源；点明印记曾有名字。"
+      "help": "说明藤蔓预兆；交代书库活封面来源；点明印记曾有名字。",
+      "story_dialogue": {
+        "first_meet": [
+          "书库的封面，是从我们这里剪走的活皮；他们叫它档案，我们叫它伤口。",
+          "藤蔓先颤，再动；急着跳的人，会被温室记住很久。",
+          "六枚印记曾经有名字，后来只剩用途；用途最会吃掉名字。"
+        ],
+        "repeat": [
+          "我修剪了一辈子，最后发现最该剪的，是「必须有人守门」这条老根。",
+          "花粉大的日子少说话；温室里连喷嚏都会被藤记住。——草木记性长。",
+          "别踩新芽。它们是守门者指尖长出来的，认得巡礼者的鞋底。"
+        ],
+        "after_ability": [
+          "学会下劈了？记着：对棘球用力，对活的东西用心；这两样别弄反。",
+          "棘线下劈是园主的手艺，被你抢来了——好；工具落在善人手里，才配叫农具。"
+        ],
+        "after_boss": [
+          "园主死了。他不是坏在种花，是坏在把人也当花种。——草木记性长，人也该长点。",
+          "穹顶的封藤破了，天光进来了；温室里的病人们，头一回晒到不用配给的太阳。"
+        ],
+        "late_game": [
+          "枯萎母株的证词你听了？那株母藤是第一位守门者的脊梁；她枯了，根还在给全温室输水。",
+          "我在她脚下埋了六块名牌；名牌上没字——字，等你从契约里讨回来。"
+        ],
+        "true_ending_branch": [
+          "改完契约，把温室还给草木吧；病房改花房，只隔一场认错。",
+          "我留了六粒种子，一城一粒；等钟声不吃人了，替我沿路种下去。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": null
+      }
+    },
+    {
+      "id": "npc_beeswax_vendor",
+      "name": "蜂蜡商人蜜岚",
+      "position": [
+        4950,
+        2260
+      ],
+      "role": "vendor_sidequest",
+      "dialogue": [
+        "花粉过滤器便宜，死在花粉里很贵；我这里不赊账，也不赊命。",
+        "蜂巢里卡着一枚盐页，但别用脸去拿；脸是谈价的本钱，不是工具。",
+        "黑曜路上不卖东西，那里的人只收沉默；你最好在我这儿学会吝啬。"
+      ],
+      "identity": "蜂蜡小屋商人，靠收集花粉过滤器、盐页和蜡封护符生存。",
+      "motive": "想赚钱，也想把温室里还能被带走的证据交给真正会用的人。",
+      "help": "出售花粉过滤器；提示蜂巢盐页；预告黑曜巡礼道资源稀缺。",
+      "story_dialogue": {
+        "first_meet": [
+          "花粉过滤器便宜，死在花粉里很贵；我这里不赊账，也不赊命。",
+          "蜂巢里卡着一枚盐页，但别用脸去拿；脸是谈价的本钱，不是工具。",
+          "黑曜路上不卖东西，那里的人只收沉默；你最好在我这儿学会吝啬。"
+        ],
+        "repeat": [
+          "蜂蜡的行情看天，天的行情看钟；钟哑了这么多年，我全靠嗅觉活着。",
+          "你身上有六个区的尘土味——好客人；跑得远的人，钱包和见识至少有一样是满的。"
+        ],
+        "after_ability": [
+          "会下劈了？高处蜂巢随你敲，蜡掉下来我五五分——我出蜂，你出命，很公道。",
+          "下劈之前看看落点；蜡池软，账本硬，砸坏哪个你都赔不起。"
+        ],
+        "after_boss": [
+          "园主一死，温室的地价就归零了；我不走——废墟里的生意，才是没有对手的生意。",
+          "你打赢的消息我卖了三份，都说是独家；商道第一课：真话也能当货，只要新鲜。"
+        ],
+        "late_game": [
+          "母株的证词？那东西我可不收——有些货一上秤，秤会哭。",
+          "替枯萎的老太太捎句话：她当年赊我的那罐蜜我记着；等世道改了，我上门收账，顺便还她一座花园。"
+        ],
+        "true_ending_branch": [
+          "契约改了以后，麻烦把「商路安全」也写进去；自由这种东西，得有人送货才算数。",
+          "到时候我在六城各开一间分号，招牌就叫「不赊命」；你持这枚蜡牌，终身九折。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": null
+      }
     },
     {
       "id": "npc_broken_singer",
       "name": "断弦歌者",
       "position": [
-        1360,
-        570
+        3090,
+        1562
       ],
       "role": "keeper_truth",
       "dialogue": [
@@ -1568,31 +2516,51 @@
       ],
       "identity": "第四位守门者残留人格，歌声维持温室上方裂缝沉睡。",
       "motive": "不想再被当作材料，但仍害怕主角拿走印记后裂缝醒来。",
-      "help": "关键证词；解释守门者牺牲；给出终章重鸣与真结局伦理提示。"
-    },
-    {
-      "id": "npc_beeswax_vendor",
-      "name": "蜂蜡商人蜜岚",
-      "position": [
-        3680,
-        460
-      ],
-      "role": "vendor_sidequest",
-      "dialogue": [
-        "花粉过滤器便宜，死在花粉里很贵；我这里不赊账，也不赊命。",
-        "蜂巢里有一枚盐页，但我不建议你用脸去拿，脸通常不是战斗标记。",
-        "黑曜路上不卖东西，那里的人只收沉默；你最好在我这儿学会吝啬。"
-      ],
-      "identity": "蜂蜡小屋商人，靠收集花粉过滤器、盐页和蜡封护符生存。",
-      "motive": "想赚钱，也想把温室里还能被带走的证据交给真正会用的人。",
-      "help": "出售花粉过滤器；提示蜂巢盐页；预告黑曜巡礼道资源稀缺。"
+      "help": "关键证词；解释守门者牺牲；给出终章重鸣与真结局伦理提示。",
+      "story_dialogue": {
+        "first_meet": [
+          "我唱歌不是为了美，是为了让裂缝睡着；美只是没人死时顺手发生的事。",
+          "你拿走印记，黑曜巡礼军就会听见你；他们听不见自己，只听得见命令。",
+          "若终章让钟重鸣，请记得给我们一个不用继续守门的早晨。"
+        ],
+        "repeat": [
+          "啦——啦、啦……抱歉，唱到第三个音就会断；断的地方，正好是我心脏原来的位置。",
+          "别用可怜的眼神听歌；守门是我答应过的事，只是没人说过「答应」没有期限。",
+          "裂缝今晚很安静；安静得让我想唱一支不为止痛的歌——想想而已。"
+        ],
+        "after_ability": [
+          "你从穹顶下劈进来的那一声，像极了弦断的音；温室里所有藤，都替我抖了一下。",
+          "拿了下劈就去吧；园主的封藤破得掉，我的歌破不掉——除非你把印记也带走。"
+        ],
+        "after_boss": [
+          "园主死了，我的歌却还得唱；原来锁着我的从来不是他，是裂缝，和「万一」两个字。",
+          "你要来拿印记了吧。来吧——只是拿的时候，接住我最后一个音，别让它摔在地上。"
+        ],
+        "late_game": [
+          "印记走了，歌轻了；裂缝还睡着——原来没有我，它也睡得着。这算安慰，还是算……啦——",
+          "母株的证词替我说了我不敢说的：我们不是自愿的，我们只是被感谢得太大声。"
+        ],
+        "true_ending_branch": [
+          "契约若重写，帮我改一个字就好：把「守门者」的「守」，改成「曾」。",
+          "那天早晨来的时候，我想唱一支只为好听的歌；你要来听——你欠我一个不含代价的听众。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": {
+          "condition": "ending_a_done",
+          "effect": "重新成为印记；消失前播告别句：「钟重鸣了；我回去了。别道歉——只是下次路过温室，别停下来。」原位余一根不再颤动的弦（拾取）"
+        }
+      }
     },
     {
       "id": "npc_root_prisoner",
       "name": "根笼囚徒",
       "position": [
-        11000,
-        500
+        2440,
+        1942
       ],
       "role": "gate_hint",
       "dialogue": [
@@ -1602,19 +2570,55 @@
       ],
       "identity": "被根笼困住的失败采集者，身体被温室当成警示。",
       "motive": "想被释放，或至少让主角替他证明根笼下方有暗道。",
-      "help": "提示棘线下劈反弹；说明暗道；揭示园主害怕断弦声。"
+      "help": "提示棘线下劈反弹；说明暗道；揭示园主害怕断弦声。",
+      "story_dialogue": {
+        "first_meet": [
+          "下劈棘球，你会被弹起来；下劈我，我会骂你，虽然也许骂得不响。",
+          "根笼下方有一条回前厅的暗道，我掉进去三次才变得这么确定。",
+          "园主害怕断掉的弦，因为那声音像旧王的命令，又像有人终于拒绝。"
+        ],
+        "repeat": [
+          "我数过了，从根笼到地面一共四尺；四尺，困住一个成年人整整三年——别笑，你也有你的四尺。",
+          "温室拿我当警示牌，其实我更想当路标；警示牌只会说「别」，路标至少说「往哪」。"
+        ],
+        "after_ability": [
+          "劈这里！对，第三根主根——哈，我自由了！摔了三年，原来出口一直在头顶。",
+          "我去西门口坐着晒太阳，顺便给新来的指路；三年攒的路况，够我吹十年。"
+        ],
+        "after_boss": [
+          "园主死了？我在他手下当了三年「展品」，现在我要在温室门口活成告示：此路已通。",
+          "你进来时我就说这人能行——好吧，我没说过，但我摔下去的第三次确实这么想过。"
+        ],
+        "late_game": [
+          "母株的证词让我睡不着；我被困三年就怨成这样，她们守了一整个王朝。",
+          "从今天起我改行当门房，专门替温室记住谁来过；草木记性长，我得比它更长。"
+        ],
+        "true_ending_branch": [
+          "契约改成那天，我要在根笼原址种一架葡萄；让「困住人」的地方，学会挂果。",
+          "替我谢谢那位第七签署者——第一个想到「还有别的写法」的人，都值得一串葡萄。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": {
+          "condition": "after_ability 播毕（获救）",
+          "effect": "迁至 west_gate 门口；after_boss 起在新位置播放"
+        }
+      }
     }
   ],
   "guides": [],
   "enemy_spawns": [
     {
-      "id": "CH04_E01",
+      "id": "E01",
       "kind": "vine_crawler",
       "position": [
-        1120,
-        570
+        1150,
+        2380
       ],
-      "platform_id": "outer_low_floor",
+      "platform_id": "south_run_a",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1699,110 +2703,17 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_visual_height": 58,
+      "clearance": 40
     },
     {
-      "id": "CH04_E02",
-      "kind": "wax_bee",
-      "position": [
-        2110,
-        500
-      ],
-      "platform_id": "lift_base",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.9,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
-      "source_sprite_region": [
-        0,
-        0,
-        38,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH04_E03",
+      "id": "E02",
       "kind": "root_cage_hunter",
       "position": [
-        2780,
-        348
+        2290,
+        2438
       ],
-      "platform_id": "upper_bridge_a",
+      "platform_id": "south_bed_d",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -1887,20 +2798,21 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_visual_height": 72,
+      "clearance": 40
     },
     {
-      "id": "CH04_E04",
-      "kind": "pollen_lutist",
+      "id": "E03",
+      "kind": "vine_crawler",
       "position": [
-        4880,
-        500
+        3090,
+        2444
       ],
-      "platform_id": "ch04_runback_floor",
+      "platform_id": "south_bed_f",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
       "sprite_region": [
         0,
         0,
@@ -1915,12 +2827,12 @@
       "visual_modulate": "ffffff",
       "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
       "source_sprite_region": [
         0,
         0,
-        60,
-        40
+        32,
+        32
       ],
       "sprite_regions": {
         "idle": [
@@ -1981,16 +2893,17 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_visual_height": 58,
+      "clearance": 40
     },
     {
-      "id": "CH04_E05",
+      "id": "E04",
       "kind": "thorn_sentinel",
       "position": [
-        5720,
-        500
+        4030,
+        2446
       ],
-      "platform_id": "ch04_parkour_floor_a",
+      "platform_id": "south_bed_h",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2075,768 +2988,17 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_visual_height": 72,
+      "clearance": 40
     },
     {
-      "id": "CH04_E06",
-      "kind": "vine_crawler",
-      "position": [
-        7115,
-        370
-      ],
-      "platform_id": "ch04_parkour_upper_a",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH04_E07",
-      "kind": "wax_bee",
-      "position": [
-        7480,
-        320
-      ],
-      "platform_id": "ch04_parkour_upper_b",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.9,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
-      "source_sprite_region": [
-        0,
-        0,
-        38,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH04_E08",
-      "kind": "root_cage_hunter",
-      "position": [
-        8180,
-        500
-      ],
-      "platform_id": "ch04_sprint_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH04_E09",
-      "kind": "pollen_lutist",
-      "position": [
-        9030,
-        500
-      ],
-      "platform_id": "ch04_gauntlet_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH04_E10",
-      "kind": "thorn_sentinel",
-      "position": [
-        10380,
-        500
-      ],
-      "platform_id": "ch04_approach_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.78,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH04_E11",
-      "kind": "vine_crawler",
-      "position": [
-        10480,
-        570
-      ],
-      "platform_id": "ch04_lower_loop_floor",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH04_E12",
-      "kind": "wax_bee",
-      "position": [
-        12510,
-        500
-      ],
-      "platform_id": "ch04_return_shaft_base",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.9,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
-      "source_sprite_region": [
-        0,
-        0,
-        38,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
-    },
-    {
-      "id": "CH04_E13",
-      "kind": "root_cage_hunter",
-      "position": [
-        13455,
-        310
-      ],
-      "platform_id": "ch04_upper_bridge",
-      "hp": 2,
-      "damage": 1,
-      "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
-      "visual_offset": [
-        0,
-        -8
-      ],
-      "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
-      "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "leash_radius": 220,
-      "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
-    },
-    {
-      "id": "CH04_E14",
+      "id": "E05",
       "kind": "thorn_bloom_mote",
       "position": [
-        15895,
-        500
+        5020,
+        2260
       ],
-      "platform_id": "ch04_preboss_floor",
+      "platform_id": "bw_floor",
       "hp": 2,
       "damage": 1,
       "patrol": 80,
@@ -2921,7 +3083,863 @@
       "leash_radius": 220,
       "sprite_faces_left": false,
       "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E06",
+      "kind": "wax_bee",
+      "position": [
+        5555,
+        1960
+      ],
+      "platform_id": "vine_rest",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.9,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
+      "source_sprite_region": [
+        0,
+        0,
+        38,
+        36
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E07",
+      "kind": "pollen_lutist",
+      "position": [
+        5350,
+        1146
+      ],
+      "platform_id": "trellis_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        60,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E08",
+      "kind": "wax_bee",
+      "position": [
+        4215,
+        888
+      ],
+      "platform_id": "canopy_e_b",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.9,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
+      "source_sprite_region": [
+        0,
+        0,
+        38,
+        36
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E09",
+      "kind": "vine_crawler",
+      "position": [
+        3345,
+        880
+      ],
+      "platform_id": "canopy_w_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E10",
+      "kind": "wax_bee",
+      "position": [
+        2285,
+        836
+      ],
+      "platform_id": "overlook_walk",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.9,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
+      "source_sprite_region": [
+        0,
+        0,
+        38,
+        36
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E11",
+      "kind": "root_cage_hunter",
+      "position": [
+        3000,
+        1562
+      ],
+      "platform_id": "heart_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72,
+      "clearance": 40
+    },
+    {
+      "id": "E12",
+      "kind": "root_cage_hunter",
+      "position": [
+        2620,
+        1942
+      ],
+      "platform_id": "vault_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
+      "source_sprite_region": [
+        0,
+        0,
+        32,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72,
+      "clearance": 40
+    },
+    {
+      "id": "E13",
+      "kind": "pollen_lutist",
+      "position": [
+        1450,
+        1564
+      ],
+      "platform_id": "spoke_run_b",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.84,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        60,
+        40
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 36,
+      "spawn_visual_height": 58,
+      "clearance": 40
+    },
+    {
+      "id": "E14",
+      "kind": "thorn_sentinel",
+      "position": [
+        5050,
+        722
+      ],
+      "platform_id": "dome_deck",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
+      "sprite_region": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "visual_scale": 0.78,
+      "visual_offset": [
+        0,
+        -8
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
+      "source_sprite_region": [
+        0,
+        0,
+        80,
+        80
+      ],
+      "sprite_regions": {
+        "idle": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "walk_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_left": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "attack_right": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "hurt": [
+          0,
+          0,
+          128,
+          128
+        ],
+        "death": [
+          0,
+          0,
+          128,
+          128
+        ]
+      },
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 42,
+      "spawn_visual_height": 72,
+      "clearance": 40
     }
   ],
   "boss": {
@@ -2929,8 +3947,8 @@
     "name": "铜根主教",
     "kind": "broken_string_gardener",
     "position": [
-      16970,
-      500
+      6070,
+      792
     ],
     "hp": 22,
     "damage": 1,
@@ -3004,253 +4022,994 @@
       ]
     },
     "sprite_faces_left": false,
-    "arena_min_x": 16370,
-    "arena_max_x": 17790
+    "arena_min_x": 5670,
+    "arena_max_x": 6250,
+    "lock_x": 5592,
+    "lock_height": 560,
+    "lock_width": 42,
+    "platform_id": "dome_floor"
   },
   "labels": [
     {
-      "text": "路线：收集3枚藤桥种钥，打开弦桥温室捷径。",
+      "text": "温室西门：安全试跳",
       "position": [
-        430,
-        382
+        400,
+        1710
       ],
-      "color": "e6d28c"
+      "color": "cdeec0"
     },
     {
-      "text": "敌我区分：敌人只用 OpenGameArt 暗黑素材，旧同族图只作友方 NPC。",
+      "text": "根须南廊 →",
       "position": [
-        140,
-        458
+        1050,
+        2344
       ],
-      "color": "9ef0dc"
+      "color": "b8e0a8"
     },
     {
-      "text": "断弦温室：本章 NPC、敌人、Boss 和奖励均来自章节策划数据。",
+      "text": "蜂蜡暗屋",
       "position": [
-        1540,
-        330
+        5020,
+        2230
       ],
-      "color": "9ef0dc"
+      "color": "f0d9a0"
     },
     {
-      "text": "捷径拉杆：带3枚藤桥种钥按F，开捷径后直通首领回廊。",
+      "text": "东藤壁 ↑",
       "position": [
-        3460,
-        448
+        5475,
+        2154
+      ],
+      "color": "a8d8b0"
+    },
+    {
+      "text": "树冠步道 ← 西眺台",
+      "position": [
+        4155,
+        848
+      ],
+      "color": "d8f0c0"
+    },
+    {
+      "text": "大树之心：下库 · 西桥 · 上冠",
+      "position": [
+        2940,
+        1506
+      ],
+      "color": "c0e8a8"
+    },
+    {
+      "text": "穹顶前廊 →",
+      "position": [
+        5110,
+        682
       ],
       "color": "f2b873"
-    },
-    {
-      "text": "世界线：穿越会移动的藤蔓温室，取得断弦印记，并确认六枚印记曾经都是活人守门者。",
-      "position": [
-        4380,
-        420
-      ],
-      "color": "c7e6ff"
     }
   ],
   "save_points": [
     {
       "id": "save_hidden_upper_respite",
-      "label": "断弦温室隐藏存档点",
+      "label": "蜂蜡暗灯",
       "position": [
-        13455,
-        310
+        5100,
+        2260
       ],
       "hidden": true,
-      "note": "藏在主线路线上方的稀疏存档点。"
+      "note": "藏在蜂蜡暗屋蜡壁后，奖励下环探索。"
     },
     {
       "id": "save_ch04_lower_loop",
-      "label": "第4章下层回环存档点",
+      "label": "树心暖灯",
       "position": [
-        10760,
-        570
+        2750,
+        1562
       ],
       "hidden": false,
-      "note": "扩建后下层回环的中段存档点。"
+      "note": "大树之心的常明灯，稳住中环节奏。"
     },
     {
       "id": "save_late_runback",
-      "label": "断弦温室Boss前存档点",
+      "label": "穹顶前暖灯",
       "position": [
-        15635,
-        500
+        5110,
+        722
       ],
       "hidden": false,
-      "note": "Boss跑图前的后段存档点。"
+      "note": "裂纹穹顶门前的检查点，死亡回跑很短。"
     }
   ],
-  "fall_y": 820,
+  "fall_y": 2782,
   "chapter_transition": {
     "from_runtime_config_id": "demo_ch04_broken_string_greenhouse",
     "to_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
     "next_config_path": "res://data/demo_ch05_obsidian_pilgrim_road.json",
     "exit_interactive_id": "ch04_chapter_exit",
-    "entry_hint": "铜根主教沉入根井后，温室外墙裂开，黑曜巡礼道的号角从雾里传来。"
+    "entry_hint": "铜根主教沉入根井后，温室外墙裂开，黑曜巡礼道的号角从雾里传来。",
+    "entry_spawn": [
+      330,
+      1740
+    ]
   },
   "entry_from_previous": {
     "from_runtime_config_id": "demo_ch03_saltwhite_archive",
     "position": [
-      520,
-      500
+      330,
+      1740
     ],
     "message": "第4章：断弦温室。书库后门之后，是被藤蔓吞没的温室栈道。"
   },
   "progression_mode": "combat_clear",
   "parkour_segments": [
     {
-      "id": "ch04_parkour_climb",
-      "room_id": "ch04_room_7",
-      "technique": "dash jump + upward slash timing",
+      "id": "ch04_vine_wall_climb",
+      "room_id": "vine_ascent",
+      "technique": "one-way vine ascent",
       "platforms": [
-        "ch04_parkour_step_a",
-        "ch04_parkour_step_b",
-        "ch04_parkour_upper_a"
-      ]
+        "bw_floor",
+        "vine_v1",
+        "vine_v2",
+        "vine_v3",
+        "vine_rest",
+        "vine_v4",
+        "vine_v5",
+        "vine_v6",
+        "vine_v7",
+        "vine_v8",
+        "vine_v9",
+        "vine_v10",
+        "trellis_a"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 118,
+        "minimum_full_jump_clearance": 232
+      }
     },
     {
-      "id": "ch04_sprint_chain",
-      "room_id": "ch04_room_8",
-      "technique": "sprint, down slash bounce, safe landing",
+      "id": "ch04_crown_drop",
+      "room_id": "tree_crown",
+      "technique": "controlled canopy drop",
       "platforms": [
-        "ch04_parkour_upper_b",
-        "ch04_sprint_step",
-        "ch04_gauntlet_upper"
-      ]
+        "canopy_w_b",
+        "crown_top",
+        "crown_mid",
+        "heart_floor"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 0,
+        "minimum_full_jump_clearance": 232
+      }
     },
     {
-      "id": "ch04_lower_upper_return",
-      "room_id": "ch04_room_13",
-      "technique": "lower loop, return shaft, upper bridge",
+      "id": "ch04_crown_return",
+      "room_id": "tree_crown",
+      "technique": "one-way branch ascent",
       "platforms": [
-        "ch04_lower_loop_floor",
-        "ch04_return_shaft_base",
-        "ch04_return_shaft_step_a",
-        "ch04_return_shaft_step_b",
-        "ch04_upper_bridge"
-      ]
-    },
-    {
-      "id": "ch04_preboss_crossway",
-      "room_id": "ch04_room_16",
-      "technique": "upper drop into final horizontal approach",
-      "platforms": [
-        "ch04_upper_drop_step",
-        "ch04_crossway_floor",
-        "ch04_preboss_floor",
-        "boss_floor"
-      ]
+        "heart_floor",
+        "crown_up_a",
+        "crown_up_b",
+        "crown_up_c",
+        "crown_up_d",
+        "crown_up_e",
+        "crown_up_f",
+        "canopy_e_c"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 112,
+        "minimum_full_jump_clearance": 232
+      }
     }
   ],
   "art_theme": "string_greenhouse",
   "map_layout_tags": [
-    "horizontal_mainline",
-    "upper_route",
-    "lower_route",
-    "vertical_shaft",
-    "opened_shortcut"
+    "handcrafted",
+    "true_2d",
+    "glass_ring",
+    "central_tree_hub",
+    "canopy_crown_loop",
+    "see_then_return",
+    "hidden_beeswax_bench",
+    "back_door_shortcut",
+    "short_boss_run",
+    "string_greenhouse"
   ],
   "connections": [
     {
-      "from": "ch04_room_1",
-      "to": "ch04_room_2",
-      "type": "passage"
+      "from": "west_gate",
+      "to": "gate_descent",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_2",
-      "to": "ch04_room_3",
-      "type": "passage"
+      "from": "gate_descent",
+      "to": "south_rootrun",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_3",
-      "to": "ch04_room_4",
-      "type": "passage"
+      "from": "south_rootrun",
+      "to": "beeswax_nook",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_4",
-      "to": "ch04_room_5",
-      "type": "passage"
+      "from": "beeswax_nook",
+      "to": "vine_ascent",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_5",
-      "to": "ch04_room_6",
-      "type": "passage"
+      "from": "vine_ascent",
+      "to": "trellis_corner",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_6",
-      "to": "ch04_room_7",
-      "type": "passage"
+      "from": "trellis_corner",
+      "to": "canopy_east",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_7",
-      "to": "ch04_room_8",
-      "type": "passage"
+      "from": "canopy_east",
+      "to": "canopy_west",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_8",
-      "to": "ch04_room_9",
-      "type": "passage"
+      "from": "canopy_west",
+      "to": "canopy_overlook",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_9",
-      "to": "ch04_room_10",
-      "type": "passage"
+      "from": "canopy_west",
+      "to": "tree_crown",
+      "type": "one_way_drop",
+      "edge_kind": "one_way_drop",
+      "bidirectional": false,
+      "action": "one_way_drop",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_10",
-      "to": "ch04_room_11",
-      "type": "passage"
+      "from": "tree_crown",
+      "to": "tree_heart",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_11",
-      "to": "ch04_room_12",
-      "type": "passage"
+      "from": "tree_crown",
+      "to": "canopy_east",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_12",
-      "to": "ch04_room_13",
-      "type": "passage"
+      "from": "tree_heart",
+      "to": "root_vault",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_13",
-      "to": "ch04_room_14",
-      "type": "passage"
+      "from": "root_vault",
+      "to": "west_spoke",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_14",
-      "to": "ch04_room_15",
-      "type": "passage"
+      "from": "west_spoke",
+      "to": "west_gate",
+      "type": "shortcut",
+      "edge_kind": "unlock_shortcut",
+      "bidirectional": true,
+      "action": "unlock_shortcut",
+      "shortcut_id": "ch04_west_spoke_shortcut"
     },
     {
-      "from": "ch04_room_15",
-      "to": "ch04_room_16",
-      "type": "passage"
+      "from": "canopy_east",
+      "to": "dome_approach",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_16",
-      "to": "ch04_room_17",
-      "type": "passage"
+      "from": "dome_approach",
+      "to": "fracture_dome",
+      "type": "boss_gate",
+      "edge_kind": "boss_gate",
+      "bidirectional": true,
+      "action": "boss_gate",
+      "shortcut_id": ""
     },
     {
-      "from": "ch04_room_17",
-      "to": "ch04_room_18",
-      "type": "passage"
-    },
-    {
-      "from": "ch04_room_12",
-      "to": "ch04_room_13",
-      "type": "lower_return"
-    },
-    {
-      "from": "ch04_room_14",
-      "to": "ch04_room_15",
-      "type": "upper_shortcut"
-    },
-    {
-      "from": "ch04_room_5",
-      "to": "ch04_room_17",
-      "type": "opened_shortcut"
+      "from": "fracture_dome",
+      "to": "victory_terrace",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
     }
-  ]
+  ],
+  "runtime_geometry": {
+    "schema_version": 3,
+    "migration": "tools/handcraft_2d_lib.mjs",
+    "spatial_grammar": "greenhouse_glass_ring_2d",
+    "player_body": [
+      34,
+      84
+    ],
+    "physics": {
+      "jump_velocity": -710,
+      "gravity": 1850,
+      "dash_speed": 780,
+      "dash_time": 0.16
+    },
+    "safety": {
+      "main_max_gap": 176,
+      "main_max_rise": 110,
+      "minimum_corridor_clearance": 112,
+      "minimum_full_jump_clearance": 232,
+      "recovery_drop": 300,
+      "minimum_recovery_landing": 320
+    },
+    "critical_route": [
+      "gate_floor",
+      "wd_step_a",
+      "wd_step_b",
+      "wd_step_c",
+      "wd_step_d",
+      "south_run_a",
+      "south_bed_b",
+      "south_run_c",
+      "south_bed_d",
+      "south_run_e",
+      "south_bed_f",
+      "south_run_g",
+      "south_bed_h",
+      "south_run_i",
+      "bw_step",
+      "bw_floor",
+      "vine_v1",
+      "vine_v2",
+      "vine_v3",
+      "vine_rest",
+      "vine_v4",
+      "vine_v5",
+      "vine_v6",
+      "vine_v7",
+      "vine_v8",
+      "vine_v9",
+      "vine_v10",
+      "trellis_a",
+      "trellis_b",
+      "trellis_rise",
+      "canopy_e_a",
+      "canopy_e_b",
+      "canopy_e_c",
+      "canopy_w_a",
+      "canopy_w_b",
+      "canopy_w_c",
+      "overlook_walk",
+      "overlook_deck",
+      "crown_top",
+      "crown_mid",
+      "heart_floor",
+      "rv_step_a",
+      "rv_step_b",
+      "vault_floor",
+      "dome_rise",
+      "dome_deck",
+      "boss_threshold",
+      "dome_floor",
+      "vt_walk",
+      "vt_step",
+      "exit_dock"
+    ],
+    "upper_loop": [
+      "canopy_e_a",
+      "canopy_e_b",
+      "canopy_e_c",
+      "canopy_w_a",
+      "canopy_w_b",
+      "canopy_w_c",
+      "overlook_walk",
+      "overlook_deck",
+      "crown_top",
+      "crown_mid",
+      "crown_up_a",
+      "crown_up_b",
+      "crown_up_c",
+      "crown_up_d",
+      "crown_up_e",
+      "crown_up_f",
+      "dome_rise",
+      "dome_deck",
+      "boss_threshold"
+    ],
+    "recovery_loop": [
+      "south_run_a",
+      "south_bed_b",
+      "south_run_c",
+      "south_bed_d",
+      "south_run_e",
+      "south_bed_f",
+      "south_run_g",
+      "south_bed_h",
+      "south_run_i",
+      "bw_step",
+      "bw_floor",
+      "rv_step_a",
+      "rv_step_b",
+      "vault_floor",
+      "spoke_lift_a",
+      "spoke_lift_b",
+      "spoke_lift_c",
+      "spoke_run_a",
+      "spoke_run_b",
+      "spoke_gap_c",
+      "spoke_gap_d"
+    ],
+    "branch_programs": [
+      "glass_ring_walk",
+      "crown_drop_return",
+      "west_spoke_shortcut"
+    ],
+    "route_tags": [
+      "glass_ring",
+      "central_tree_hub",
+      "canopy_crown_loop",
+      "west_spoke_return",
+      "handcrafted_2d"
+    ],
+    "main_route_orders": 51,
+    "map_art": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    }
+  },
+  "open_assets": {
+    "environment": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    }
+  },
+  "map_topology": {
+    "topology_id": "greenhouse_glass_ring_2d",
+    "nodes": [
+      {
+        "id": "west_gate",
+        "room_type": "E",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "gate_descent",
+        "room_type": "T",
+        "layer": 4,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "south_rootrun",
+        "room_type": "C",
+        "layer": 5,
+        "span_u": 17,
+        "map_rect": [
+          560,
+          1050,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "beeswax_nook",
+        "room_type": "R",
+        "layer": 4,
+        "span_u": 4,
+        "map_rect": [
+          1120,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "vine_ascent",
+        "room_type": "V",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "trellis_corner",
+        "room_type": "T",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "canopy_east",
+        "room_type": "T",
+        "layer": 0,
+        "span_u": 5,
+        "map_rect": [
+          1120,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "canopy_west",
+        "room_type": "T",
+        "layer": 0,
+        "span_u": 5,
+        "map_rect": [
+          560,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "canopy_overlook",
+        "room_type": "O",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "tree_crown",
+        "room_type": "L",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "tree_heart",
+        "room_type": "H",
+        "layer": 2,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "root_vault",
+        "room_type": "R",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "west_spoke",
+        "room_type": "L",
+        "layer": 2,
+        "span_u": 8,
+        "map_rect": [
+          280,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "dome_approach",
+        "room_type": "P",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "fracture_dome",
+        "room_type": "B",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          1680,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "victory_terrace",
+        "room_type": "E",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          1960,
+          210,
+          236,
+          168
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "west_gate",
+        "to": "gate_descent",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "gate_descent",
+        "to": "south_rootrun",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "south_rootrun",
+        "to": "beeswax_nook",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "beeswax_nook",
+        "to": "vine_ascent",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "vine_ascent",
+        "to": "trellis_corner",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "trellis_corner",
+        "to": "canopy_east",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "canopy_east",
+        "to": "canopy_west",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "canopy_west",
+        "to": "canopy_overlook",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "canopy_west",
+        "to": "tree_crown",
+        "type": "one_way_drop",
+        "edge_kind": "one_way_drop",
+        "bidirectional": false,
+        "action": "one_way_drop",
+        "shortcut_id": ""
+      },
+      {
+        "from": "tree_crown",
+        "to": "tree_heart",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "tree_crown",
+        "to": "canopy_east",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "tree_heart",
+        "to": "root_vault",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "root_vault",
+        "to": "west_spoke",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "west_spoke",
+        "to": "west_gate",
+        "type": "shortcut",
+        "edge_kind": "unlock_shortcut",
+        "bidirectional": true,
+        "action": "unlock_shortcut",
+        "shortcut_id": "ch04_west_spoke_shortcut"
+      },
+      {
+        "from": "canopy_east",
+        "to": "dome_approach",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "dome_approach",
+        "to": "fracture_dome",
+        "type": "boss_gate",
+        "edge_kind": "boss_gate",
+        "bidirectional": true,
+        "action": "boss_gate",
+        "shortcut_id": ""
+      },
+      {
+        "from": "fracture_dome",
+        "to": "victory_terrace",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      }
+    ],
+    "main_visit_order": [
+      "west_gate",
+      "gate_descent",
+      "south_rootrun",
+      "beeswax_nook",
+      "vine_ascent",
+      "trellis_corner",
+      "canopy_east",
+      "canopy_west",
+      "canopy_overlook",
+      "tree_crown",
+      "tree_heart",
+      "root_vault",
+      "west_spoke",
+      "west_gate",
+      "tree_heart",
+      "tree_crown",
+      "canopy_east",
+      "dome_approach",
+      "fracture_dome",
+      "victory_terrace"
+    ],
+    "graph_fingerprint": {
+      "vertices": 16,
+      "edges": 17,
+      "cycle_rank": 2,
+      "maximum_degree": 4,
+      "degree_sequence": [
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        4
+      ]
+    },
+    "forbidden_motifs": [
+      "horizontal_36_platform_chain",
+      "shared_upper_loop_recovery_loop"
+    ]
+  },
+  "map_title": "断弦温室：环廊大树版",
+  "environment_blocks": [
+    {
+      "id": "ch04_back_wall",
+      "rect": [
+        0,
+        324,
+        7610,
+        2718
+      ],
+      "color": "101a10",
+      "z_index": -95,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_tree_trunk",
+      "rect": [
+        2620,
+        1150,
+        900,
+        1360
+      ],
+      "color": "16240f",
+      "z_index": -91,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_glass_dome_glow",
+      "rect": [
+        5520,
+        700,
+        900,
+        300
+      ],
+      "color": "27331b",
+      "z_index": -92,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_canopy_band",
+      "rect": [
+        1800,
+        960,
+        3100,
+        220
+      ],
+      "color": "142010",
+      "z_index": -90,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_south_soil_mass",
+      "rect": [
+        820,
+        2520,
+        3800,
+        300
+      ],
+      "color": "0d160b",
+      "z_index": -88,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_arena_floor_mass",
+      "rect": [
+        5600,
+        884,
+        720,
+        300
+      ],
+      "color": "0e1509",
+      "z_index": -88,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    }
+  ],
+  "design_note": {
+    "source": "hand-authored (tools/handcraft_ch04_2d.mjs)",
+    "intent": "True-2D greenhouse: a full glass ring (west gate, south root run, east vine wall, top canopy) wrapped around a hollow tree hub; the canopy drops into the crown, the root vault lever opens a west spoke shortcut back to the gate, and crown branches climb one-way back to the canopy for a short dome runback.",
+    "coordinate_mapping": {
+      "note": "explicit 2D world coordinates, rooms stacked vertically and horizontally"
+    }
+  }
 }
