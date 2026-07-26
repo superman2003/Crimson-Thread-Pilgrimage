@@ -3,24 +3,55 @@ extends Area2D
 signal died(spawn_id: String, is_boss: bool, kind: String)
 
 const SFX := {
-    "enemy_hit": "res://assets/audio/sfx/enemy_hit.ogg",
-    "heavy_hit": "res://assets/audio/sfx/heavy_hit.ogg",
-    "enemy_windup": "res://assets/audio/sfx/player_hook.ogg",
+    # 普通敌前摇弃用 player_hook.ogg 复用，改走合成包 windup_light 低配版（升调压量播放）。
+    "enemy_windup": "res://assets/audio/sfx/generated/boss_windup_light.ogg",
     "enemy_attack": "res://assets/audio/sfx/enemy_hit.ogg",
-    "boss_windup": "res://assets/audio/sfx/heavy_hit.ogg",
-    "boss_attack": "res://assets/audio/sfx/player_attack.ogg",
     # 自产 SFX 包（tools/generate_sfx_pack.py，project-generated CC0，音频规格 §4.3）。
-    "hit_light": "res://assets/audio/sfx/generated/player_attack_hit_light.wav",
-    "hit_heavy": "res://assets/audio/sfx/generated/player_attack_hit_heavy.wav",
-    "hit_kill": "res://assets/audio/sfx/generated/player_attack_kill.wav",
-    "death_moss": "res://assets/audio/sfx/generated/enemy_death_moss.wav",
-    "death_copper": "res://assets/audio/sfx/generated/enemy_death_copper.wav",
-    "death_salt": "res://assets/audio/sfx/generated/enemy_death_salt.wav",
-    "death_fiber": "res://assets/audio/sfx/generated/enemy_death_fiber.wav",
-    "death_obsidian": "res://assets/audio/sfx/generated/enemy_death_obsidian.wav",
-    "death_silent": "res://assets/audio/sfx/generated/enemy_death_silent.wav",
-    "boss_death": "res://assets/audio/sfx/generated/boss_death_slowmo.wav"
+    "hit_kill": "res://assets/audio/sfx/generated/player_attack_kill.ogg",
+    # 受击材质三档（soft/shell/armor）：按敌人死亡材质族分派，替换旧 轻/重 两档。
+    "hit_soft": "res://assets/audio/sfx/generated/enemy_hit_soft.ogg",
+    "hit_shell": "res://assets/audio/sfx/generated/enemy_hit_shell.ogg",
+    "hit_armor": "res://assets/audio/sfx/generated/enemy_hit_armor.ogg",
+    "death_moss": "res://assets/audio/sfx/generated/enemy_death_moss.ogg",
+    "death_copper": "res://assets/audio/sfx/generated/enemy_death_copper.ogg",
+    "death_salt": "res://assets/audio/sfx/generated/enemy_death_salt.ogg",
+    "death_fiber": "res://assets/audio/sfx/generated/enemy_death_fiber.ogg",
+    "death_obsidian": "res://assets/audio/sfx/generated/enemy_death_obsidian.ogg",
+    "death_silent": "res://assets/audio/sfx/generated/enemy_death_silent.ogg",
+    "boss_death": "res://assets/audio/sfx/generated/boss_death_slowmo.ogg",
+    # Boss 前摇分档（asset_ready 接线）：damage>=2 大招走 lethal 档。
+    "boss_windup_light": "res://assets/audio/sfx/generated/boss_windup_light.ogg",
+    "boss_windup_lethal": "res://assets/audio/sfx/generated/boss_windup_lethal.ogg",
+    # 精英遭遇仪式起手（encounter_role 含 elite 的敌人首次进战）。
+    "elite_ritual_start": "res://assets/audio/sfx/generated/elite_ritual_start.ogg",
+    # 章节 beat 叠层（audio_visual_manifest chapter beats）：章节条件按敌人材质
+    # （death_sfx_key，main_level 按章节 art theme 写入）或 boss kind 判定。
+    "ch02_beat_water_hammer": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg",
+    "ch03_beat_contract_break": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg",
+    "ch05_beat_silent_order": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg",
+    "ch06_beat_crown_resonance": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg"
 }
+## Boss 四件套（roar/phase_shift/atk_light/atk_heavy）按 boss kind → 章节短号取合成包音源。
+const BOSS_SFX_CHAPTER := {
+    "rust_crown_guardian": "ch01",
+    "sunken_hammer_smith": "ch02",
+    "saltwhite_contract_judge": "ch03",
+    "broken_string_gardener": "ch04",
+    "silent_pilgrim_commander": "ch05",
+    "silent_crown_core": "ch06"
+}
+## 材质族 → 受击档（音频规格 §4.3）：苔/藤=软质、盐/寂=甲壳、铜/曜=重甲。
+const HIT_TIER_BY_MATERIAL := {
+    "death_moss": "hit_soft",
+    "death_fiber": "hit_soft",
+    "death_salt": "hit_shell",
+    "death_silent": "hit_shell",
+    "death_copper": "hit_armor",
+    "death_obsidian": "hit_armor"
+}
+## AudioDirector 声部契约（并行实现于 scripts/audio_director.gd）：脚本缺席时放行。
+const AUDIO_DIRECTOR_PATH := "res://scripts/audio_director.gd"
+static var audio_director_script: GDScript = null
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 ## 白闪曲线（规格 §3.1）：3 帧纯白 → 2 帧半白，共 ≈83ms。
 const FLASH_TOTAL_TIME := 0.083
@@ -88,6 +119,13 @@ var current_animation_has_explicit_direction := false
 var flash_materials: Array = []
 var knockback_velocity := 0.0
 var dying := false
+## 遭遇编制角色（generated 章节配置 enemy_spawns.encounter_role，如 elite_duo/preboss_elite；
+## 手工章节无此字段 → 空串天然静默）。
+var encounter_role := ""
+## 首次进战宣告一次性标记（Boss 开场吼 / 精英仪式起手）。
+var engage_announced := false
+## Boss 半血相变音一次性标记（纯音频钩子，无 HP 阶段行为机）。
+var boss_phase_shift_played := false
 
 
 func _ready() -> void:
@@ -131,6 +169,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     damage = int(data.get("damage", 1))
     patrol_distance = float(data.get("patrol", 80.0))
     is_boss = boss_flag
+    encounter_role = String(data.get("encounter_role", ""))
     speed = float(profile.get("move_speed", 34.0 if is_boss else 42.0))
     leash_radius = float(data.get("leash_radius", profile.get("leash_radius", 9999.0 if is_boss else 240.0)))
     asset_path = String(data.get("sprite", sprite_path))
@@ -158,17 +197,24 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
 func take_hit(amount: int, hit_direction: int) -> void:
     if dying:
         return
-    # 专属命中三连音（音频规格 §4.2）：轻击/重击/致命一击分档，自产音源。
+    # 受击分档（音频规格 §4.3）：致命一击独立，其余按敌人材质族走 soft/shell/armor 三档。
     if hp - amount <= 0:
-        _play_sfx("hit_kill", -5.0)
-    elif amount >= 2 or is_boss:
-        _play_sfx("hit_heavy", -6.0)
+        _play_sfx("hit_kill", -5.0, 1.0, 0)
     else:
-        _play_sfx("hit_light", -6.0)
+        _play_sfx(_hit_tier_key(), -6.0)
     _spawn_hit_spark(hit_direction)
     _set_enemy_animation("hurt")
     _pose_sprite("hurt")
     hp -= amount
+    if is_boss and not boss_phase_shift_played and hp > 0 and hp * 2 <= max_hp:
+        # Boss 半血相变音（音频规格 §4.4）：纯音频钩子，不改战术行为机；
+        # 正式 HP 阶段系统落地后迁移到相变处（终 Boss 走 director 三乐章）。
+        boss_phase_shift_played = true
+        _play_sfx(_boss_sfx_key("phase_shift"), -5.0, 1.0, 0)
+        # ch6 beat `crown_resonance`（manifest ch06_beat_02）：线之冠核心相变时
+        # 三线绷响+低频脉冲叠层（D–A–B♭ 动机）。
+        if kind == "silent_crown_core":
+            _play_sfx("ch06_beat_crown_resonance", -7.0)
     var base_speed := 140.0 if is_boss else (460.0 if amount >= 2 else 320.0)
     knockback_velocity = float(hit_direction) * base_speed * (1.4 if hp <= 0 else 1.0)
     _set_flash_amount(1.0)
@@ -195,6 +241,10 @@ func _begin_death_dissolve() -> void:
     knockback_velocity = 0.0
     # 材质化死亡音（音频规格 §4.3）：挂到父节点播放，避免溶解 queue_free 截断尾音。
     _play_detached_sfx("boss_death" if is_boss else death_sfx_key, -4.0 if is_boss else -6.0)
+    # ch3 beat `contract_break`（manifest ch03_beat_03）：盐白契约判官死亡时
+    # 契约碎页散开——纸页撕裂与低频钟声叠层（同走独立宿主避免截断）。
+    if is_boss and kind == "saltwhite_contract_judge":
+        _play_detached_sfx("ch03_beat_contract_break", -8.0)
     _set_enemy_animation("death")
     _pose_sprite("death")
     _clear_telegraph()
@@ -324,6 +374,8 @@ func reset_for_respawn() -> void:
     boss_tactic_timer = 0.0
     boss_press_timer = 0.0
     boss_reposition_target_x = spawn_position.x
+    engage_announced = false
+    boss_phase_shift_played = false
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -360,6 +412,8 @@ func _face_target(target: Node2D) -> void:
 func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
     var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
     var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range)
+    if engaged and not engage_announced:
+        _announce_engagement()
     _update_attack_desire(delta, target, engaged)
     if _should_return_to_spawn(target, aggro_range):
         last_ai_decision = "return"
@@ -1250,18 +1304,24 @@ func _pose_scale(command: Dictionary, key: String, fallback: Vector2) -> Vector2
     return Vector2(float(value[0]), float(value[1]))
 
 
-func _play_sfx(audio_key: String, volume_db: float = -6.0) -> void:
+func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 1.0, voice_priority: int = 1) -> void:
     if not _should_play_sfx():
+        return
+    # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
+    if not _request_voice("enemy_" + audio_key, voice_priority):
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
+        # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
+        _release_voice("enemy_" + audio_key)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
-    # P0 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFX 总线，吃区域混响。
-    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    # 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFXEnemy 子总线，缺席时回落 SFX/Master。
+    player_node.bus = _sfx_bus_name()
     player_node.stream = stream
     player_node.volume_db = volume_db
+    player_node.pitch_scale = pitch_scale
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
@@ -1270,9 +1330,84 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0) -> void:
 
 func _play_attack_sfx(phase: String) -> void:
     if phase == "windup":
-        _play_sfx("boss_windup" if is_boss else "enemy_windup", -9.0 if is_boss else -11.0)
+        if is_boss:
+            # Boss 前摇分档（音频规格 §4.4）：damage>=2（各 Boss aoe/shockwave 大招）走 lethal 档。
+            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0)
+        else:
+            # 普通敌前摇=windup_light 低配版：升调 + 压量，与 Boss 档拉开距离。
+            _play_sfx("enemy_windup", -13.0, 1.22)
+        # ch5 beat `silent_order`（manifest ch05_beat_02）：黑曜巡礼道（obsidian 材质族）
+        # 敌方前摇附一段低频压迫声（军令低鸣叠层）。
+        if death_sfx_key == "death_obsidian":
+            _play_sfx("ch05_beat_silent_order", -12.0)
+    elif is_boss:
+        # Boss 出招按档走本章四件套 atk_light/atk_heavy（替换 player_attack.ogg 复用）。
+        _play_sfx(_boss_sfx_key("atk_heavy" if _active_attack_is_heavy() else "atk_light"), -7.0)
+        # ch2 beat `boss_water_hammer`（manifest ch02_beat_03）：沉锤匠水锤大招落点
+        # 叠半圆水浪声层。
+        if kind == "sunken_hammer_smith" and _active_attack_is_heavy():
+            _play_sfx("ch02_beat_water_hammer", -8.0)
     else:
-        _play_sfx("boss_attack" if is_boss else "enemy_attack", -8.0 if is_boss else -10.0)
+        _play_sfx("enemy_attack", -10.0)
+
+
+## 招式分档：优先读攻击条目 telegraph_tier（lethal/heavy 即重档），否则按 damage>=2 判定
+## （全六章 Boss 攻击表 damage 恰分 1/2 两档）。
+func _active_attack_is_heavy() -> bool:
+    var tier := String(active_attack.get("telegraph_tier", ""))
+    if not tier.is_empty():
+        return tier == "lethal" or tier == "heavy"
+    return int(active_attack.get("damage", damage)) >= 2
+
+
+## Boss 四件套键名：boss kind → 章节短号 → boss_chNN_<piece>。
+func _boss_sfx_key(piece: String) -> String:
+    return "boss_%s_%s" % [String(BOSS_SFX_CHAPTER.get(kind, "ch01")), piece]
+
+
+## 受击材质档：Boss 一律重甲；普通敌按死亡材质族映射，未知材质回落软质。
+func _hit_tier_key() -> String:
+    if is_boss:
+        return "hit_armor"
+    return String(HIT_TIER_BY_MATERIAL.get(death_sfx_key, "hit_soft"))
+
+
+## 首次进战宣告：Boss 开场吼 / 精英（encounter_role 含 elite）仪式起手；
+## 手工章节 enemy_spawns 无 encounter_role → 空串静默，仅普通巡逻音。
+func _announce_engagement() -> void:
+    engage_announced = true
+    if is_boss:
+        _play_sfx(_boss_sfx_key("roar"), -4.0, 1.0, 0)
+    elif encounter_role.contains("elite"):
+        _play_sfx("elite_ritual_start", -6.0)
+
+
+## 敌方音源总线：SFXEnemy（AudioDirector 子总线，send→SFX）→ SFX → Master 逐级回落。
+func _sfx_bus_name() -> String:
+    if AudioServer.get_bus_index("SFXEnemy") != -1:
+        return "SFXEnemy"
+    return "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+
+
+## AudioDirector 脚本懒加载（headless 局部验证时脚本可缺席）。
+static func _ensure_audio_director() -> bool:
+    if audio_director_script == null and ResourceLoader.exists(AUDIO_DIRECTOR_PATH):
+        audio_director_script = load(AUDIO_DIRECTOR_PATH)
+    return audio_director_script != null
+
+
+## AudioDirector.request_voice 静态转调：脚本尚未落盘（headless 局部验证）时放行，
+## 返回 false 表示本次不播。
+static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+    if not _ensure_audio_director():
+        return true
+    return bool(audio_director_script.request_voice(key, priority, min_interval_ms, max_voices))
+
+
+## AudioDirector.release_voice 静态转调（声部回滚契约）：拿不到流时释放已批准的声部。
+static func _release_voice(key: String) -> void:
+    if _ensure_audio_director() and audio_director_script.has_method("release_voice"):
+        audio_director_script.release_voice(key)
 
 
 ## 独立宿主播放（死亡音专用）：播放器父挂 enemy 的父节点并定位到当前位置，
@@ -1280,15 +1415,20 @@ func _play_attack_sfx(phase: String) -> void:
 func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     if not _should_play_sfx():
         return
+    # 死亡音属 P0：声部抢占最高优先级。
+    if not _request_voice("enemy_" + audio_key, 0):
+        return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
+        # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
+        _release_voice("enemy_" + audio_key)
         return
     var host := get_parent()
     if host == null:
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
-    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    player_node.bus = _sfx_bus_name()
     player_node.stream = stream
     player_node.volume_db = volume_db
     player_node.max_distance = 900.0
@@ -1417,13 +1557,39 @@ func _should_play_sfx() -> bool:
 
 func _load_sfx_stream(audio_key: String) -> AudioStream:
     var path := String(SFX.get(audio_key, ""))
-    if path.is_empty() or not FileAccess.file_exists(path):
+    if path.is_empty() and audio_key.begins_with("boss_ch"):
+        # Boss 四件套（roar/phase_shift/atk_light/atk_heavy × 六章）按键名直取合成包文件。
+        path = "res://assets/audio/sfx/generated/%s.ogg" % audio_key
+    return _load_stream_for_path(path)
+
+
+## 流缓存（AudioDirector 契约）：全部音频加载改走静态缓存 load_cached（键 path|looped，
+## 含负缓存）；脚本缺席或方法未落地时回退旧直读，保证 headless 局部验证可跑。
+static func _load_stream_for_path(path: String, looped: bool = false) -> AudioStream:
+    if path.is_empty():
+        return null
+    if _ensure_audio_director() and audio_director_script.has_method("load_cached"):
+        return audio_director_script.load_cached(path, looped)
+    return _load_stream_direct(path, looped)
+
+
+static func _load_stream_direct(path: String, looped: bool = false) -> AudioStream:
+    if not FileAccess.file_exists(path):
         return null
     if path.ends_with(".ogg"):
-        return AudioStreamOggVorbis.load_from_file(path)
+        var ogg := AudioStreamOggVorbis.load_from_file(path)
+        if ogg != null and looped:
+            ogg.loop = true
+        return ogg
     if path.ends_with(".wav"):
         # 自产 SFX 包走 WAV 直读（Godot 4.6 headless 安全，无需 import 资源）。
-        return AudioStreamWAV.load_from_file(path)
+        var wav := AudioStreamWAV.load_from_file(path)
+        if wav != null and looped:
+            wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+            wav.loop_begin = 0
+            # 16bit 帧数按实际声道数折算，避免立体声 loop_end 超界一倍。
+            wav.loop_end = wav.data.size() / (4 if wav.stereo else 2)
+        return wav
     return load(path) as AudioStream
 
 

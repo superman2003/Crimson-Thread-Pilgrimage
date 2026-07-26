@@ -12,6 +12,15 @@ This project uses third-party assets and plugins under their own licenses. The g
 | Godot Platformer 2D | `godot/assets/third_party/godot_platformer_2d` | MIT | Chapter 6 background elements |
 | Metroidvania System | `godot/addons/MetroidvaniaSystem` | MIT | Map/metroidvania plugin |
 
+## Project-generated audio (not third-party)
+
+The following audio packs are synthesized offline by project-owned tools with no third-party recordings or samples as input, and are released as project-generated CC0 alongside the MIT game code:
+
+| Pack | Local path | Builder | License |
+|---|---|---|---|
+| Crimson Thread Synthesized Music Pack | `godot/assets/audio/bgm/generated` | `tools/generate_music_pack.py` (`npm run build:audio-music`) | CC0 (project-generated) |
+| Crimson Thread Synthesized Ambience & Combat Pack | `godot/assets/audio/ambience`, `godot/assets/audio/sfx/generated`, `godot/assets/audio/sfx/generated_footsteps` | `tools/generate_ambience_pack.py` (`npm run build:audio-ambience`) | CC0 (project-generated) |
+
 ## Restricted local-only assets
 
 The following packs may exist in local development caches but are not part of the public release payload and are excluded by `.gitignore`:

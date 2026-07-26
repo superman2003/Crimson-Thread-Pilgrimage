@@ -1,6 +1,11 @@
 extends SceneTree
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
+const AUDIO_DIRECTOR_PATH := "res://scripts/audio_director.gd"
+## 音频规格 §5.1/§6：AudioDirector 幂等补建的七条子总线（default_bus_layout.tres 同步落盘）。
+const SUB_BUSES := ["MusicExplore", "MusicCombat", "MusicStinger", "SFXPlayer", "SFXEnemy", "SFXWorld", "ReverbZone"]
+## 清单中这三种状态的条目必须有可加载的本地音频文件。
+const LANDED_STATUSES := ["wired", "local_audio", "asset_ready"]
 var failures := 0
 const AUDIO_PATHS := [
     "res://assets/audio/bgm/ch01_cave_loop.ogg",
@@ -62,10 +67,75 @@ func _run() -> void:
     scene._set_low_hp_audio(false)
     _assert(not _bus_has_effect(bgm_bus_index, "AudioEffectLowPassFilter"), "low hp lowpass releases on BGM bus")
 
+    # 子总线契约（规格 §5.1）：main_level._build_audio -> AudioDirector.ensure_sub_buses 幂等补建。
+    for sub_bus_name in SUB_BUSES:
+        _assert(AudioServer.get_bus_index(String(sub_bus_name)) != -1, "audio sub-bus exists: " + String(sub_bus_name))
+    _assert(_bus_has_effect(AudioServer.get_bus_index("ReverbZone"), "AudioEffectReverb"), "ReverbZone bus carries reverb effect")
+    # UI 总线干声（规格 §5.2）：不得挂混响效果器。
+    var ui_bus_index := AudioServer.get_bus_index("UI")
+    _assert(ui_bus_index != -1 and not _bus_has_effect(ui_bus_index, "AudioEffectReverb"), "UI bus stays dry (no reverb effect)")
+
+    # 声部管理最小语义（规格 §5.4）：静态 request_voice 同 key 限流。
+    var director_script: GDScript = load(AUDIO_DIRECTOR_PATH)
+    _assert(director_script != null, "audio_director script loads")
+    if director_script != null:
+        var burst_ok := true
+        for burst_index in 3:
+            burst_ok = burst_ok and bool(director_script.request_voice("validation_burst_key", 1, 0, 3))
+        _assert(burst_ok, "request_voice grants 3 concurrent voices for same key")
+        _assert(not bool(director_script.request_voice("validation_burst_key", 1, 0, 3)), "request_voice rejects 4th rapid same-key voice")
+        _assert(bool(director_script.request_voice("validation_interval_key", 1, 40, 8)), "request_voice first call passes min-interval gate")
+        _assert(not bool(director_script.request_voice("validation_interval_key", 1, 40, 8)), "request_voice blocks same-key retrigger inside min interval")
+
+    # BGM 无缝循环（规格 §2.1）：流本体 loop 标记为真，不依赖 finished 手动重播。
+    _assert(bgm != null and _stream_loops(bgm.stream), "bgm stream carries seamless loop flag")
+
     var manifest := _load_manifest()
     _assert(int(manifest.get("version", 1)) >= 2, "AV manifest upgraded to v2")
     for block in ["buses", "sfx_catalog", "ambience_zones", "reverb_zones", "mix_states"]:
         _assert(manifest.has(block), "AV manifest v2 block present: " + block)
+
+    # v2 清单全量音频覆盖：所有 wired/local_audio/asset_ready 条目的 path 逐一存在且可按扩展名加载。
+    var manifest_entries: Array = []
+    _collect_status_entries(manifest, manifest_entries)
+    var unique_audio_paths := {}
+    var p0_variant_paths := {}
+    var landed_entry_count := 0
+    for entry_variant in manifest_entries:
+        var entry: Dictionary = entry_variant
+        var status := String(entry.get("status", ""))
+        if not LANDED_STATUSES.has(status):
+            continue
+        landed_entry_count += 1
+        var entry_path := String(entry.get("path", ""))
+        _assert(not entry_path.is_empty(), "manifest %s entry declares path: %s" % [status, String(entry.get("key", "?"))])
+        if not entry_path.is_empty():
+            unique_audio_paths[entry_path] = true
+        if String(entry.get("priority", "")) == "P0":
+            var p0_key := String(entry.get("key", entry_path))
+            var variants: Array = p0_variant_paths.get(p0_key, [])
+            variants.append(entry_path)
+            p0_variant_paths[p0_key] = variants
+    _assert(landed_entry_count >= 150, "manifest landed audio entry count sane (%d)" % landed_entry_count)
+    var sorted_audio_paths := unique_audio_paths.keys()
+    sorted_audio_paths.sort()
+    for path_variant in sorted_audio_paths:
+        var audio_path := String(path_variant)
+        _assert(FileAccess.file_exists(audio_path), "manifest audio file exists: " + audio_path)
+        _assert(_load_audio_stream_by_ext(audio_path) != null, "manifest audio stream loads: " + audio_path)
+
+    # P0 键位（规格 §4）：每个 P0 键至少 1 个变体文件已落地。
+    var p0_missing := 0
+    for p0_key_variant in p0_variant_paths.keys():
+        var landed := false
+        for variant_path in p0_variant_paths[p0_key_variant]:
+            if FileAccess.file_exists(String(variant_path)):
+                landed = true
+                break
+        if not landed:
+            push_error("FAIL detail: P0 key has no landed variant: " + String(p0_key_variant))
+            p0_missing += 1
+    _assert(p0_variant_paths.size() >= 40 and p0_missing == 0, "all %d P0 keys have at least one landed variant" % p0_variant_paths.size())
 
     var start_ground := scene.get_node_or_null("start_ground")
     _assert(start_ground != null, "start platform exists")
@@ -92,7 +162,7 @@ func _run() -> void:
 
     scene.player._start_attack(&"attack_1")
     _assert(_has_named_child(scene.player, "AttackSlashVfx"), "normal attack slash vfx spawns")
-    _assert(_audio_children_on_bus(scene.player, "SFX"), "player sfx players routed to SFX bus")
+    _assert(_audio_children_on_bus(scene.player, "SFXPlayer"), "player sfx players routed to SFXPlayer sub-bus")
     scene.player.attack_timer = 0.0
     scene.player._start_attack(&"hook_throw")
     _assert(_has_named_child(scene.player, "HookTrailVfx"), "hook trail vfx spawns")
@@ -129,11 +199,49 @@ func _run() -> void:
     await process_frame
     await process_frame
     if failures == 0:
-        print("AUDIO_VISUAL_VALIDATION_PASS audio=%d heal_effect=true hit_spark=true platform_art=true" % AUDIO_PATHS.size())
+        print("AUDIO_VISUAL_VALIDATION_PASS audio=%d manifest_audio_files=%d p0_keys=%d sub_buses=%d heal_effect=true hit_spark=true platform_art=true" % [
+            AUDIO_PATHS.size(), sorted_audio_paths.size(), p0_variant_paths.size(), SUB_BUSES.size()
+        ])
         quit(0)
     else:
         push_error("AUDIO_VISUAL_VALIDATION_FAIL failures=%d" % failures)
         quit(1)
+
+
+## 递归收集清单中所有带 status 字段的字典条目（sfx_catalog/ambience_zones/chapter_audio_visual/
+## global_music/runtime_events 全覆盖）。
+func _collect_status_entries(value: Variant, out_entries: Array) -> void:
+    if typeof(value) == TYPE_DICTIONARY:
+        var dict: Dictionary = value
+        if dict.has("status"):
+            out_entries.append(dict)
+        for child_key in dict.keys():
+            _collect_status_entries(dict[child_key], out_entries)
+    elif typeof(value) == TYPE_ARRAY:
+        for child in value:
+            _collect_status_entries(child, out_entries)
+
+
+## 按扩展名直读音频（项目惯例：无 .import，AudioStreamWAV/AudioStreamOggVorbis.load_from_file）。
+func _load_audio_stream_by_ext(path: String) -> AudioStream:
+    if not FileAccess.file_exists(path):
+        return null
+    if path.ends_with(".ogg"):
+        return AudioStreamOggVorbis.load_from_file(path)
+    if path.ends_with(".wav"):
+        return AudioStreamWAV.load_from_file(path)
+    return null
+
+
+## BGM 流循环标记：ogg 用 loop，wav 用 loop_mode=LOOP_FORWARD。
+func _stream_loops(stream: AudioStream) -> bool:
+    var ogg := stream as AudioStreamOggVorbis
+    if ogg != null:
+        return ogg.loop
+    var wav := stream as AudioStreamWAV
+    if wav != null:
+        return wav.loop_mode == AudioStreamWAV.LOOP_FORWARD
+    return false
 
 
 func _bus_has_effect(bus_index: int, effect_class: String) -> bool:

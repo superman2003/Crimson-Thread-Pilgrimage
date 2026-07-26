@@ -48,15 +48,41 @@ def res_to_path(path: str) -> Path:
 
 
 def walk_audio_entries(value: Any, pointer: str = "$") -> Iterable[tuple[str, dict[str, Any]]]:
+    """遍历清单中所有带 status 的音频条目：wired/asset_ready/local_audio 均需校验落地 path，
+    future_free_candidate 仍允许无 path。"""
     if isinstance(value, dict):
         status = value.get("status")
-        if status in {"local_audio", "future_free_candidate"}:
+        if status in {"wired", "asset_ready", "local_audio", "future_free_candidate"}:
             yield pointer, value
         for key, child in value.items():
             yield from walk_audio_entries(child, f"{pointer}.{key}")
     elif isinstance(value, list):
         for index, child in enumerate(value):
             yield from walk_audio_entries(child, f"{pointer}[{index}]")
+
+
+def walk_implemented_in(value: Any, pointer: str = "$") -> Iterable[tuple[str, str]]:
+    if isinstance(value, dict):
+        if "implemented_in" in value:
+            yield pointer, str(value["implemented_in"])
+        for key, child in value.items():
+            yield from walk_implemented_in(child, f"{pointer}.{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            yield from walk_implemented_in(child, f"{pointer}[{index}]")
+
+
+def validate_implemented_in(pointer: str, implemented_in: str) -> None:
+    """implemented_in 约定形如 "res://scripts/xxx.gd::func (note)"，脚本文件必须存在。"""
+    assert_true(
+        implemented_in.startswith("res://"),
+        f"{pointer} implemented_in must start with res://: {implemented_in}",
+    )
+    script_ref = implemented_in.split("::", 1)[0]
+    assert_true(
+        res_to_path(script_ref).exists(),
+        f"{pointer} implemented_in script missing: {script_ref}",
+    )
 
 
 def validate_audio_entry(pointer: str, entry: dict[str, Any]) -> str:
@@ -70,6 +96,14 @@ def validate_audio_entry(pointer: str, entry: dict[str, Any]) -> str:
         assert_true(bool(entry.get("recorded_source")), f"{pointer} local audio missing recorded_source")
         assert_true(bool(entry.get("license")), f"{pointer} local audio missing license")
         return "local"
+    if status in {"wired", "asset_ready"}:
+        path = str(entry.get("path", ""))
+        assert_true(
+            path.endswith(".ogg") or path.endswith(".wav"),
+            f"{pointer} {status} audio must be ogg/wav: {path}",
+        )
+        assert_true(res_to_path(path).exists(), f"{pointer} {status} audio missing: {path}")
+        return "wired" if status == "wired" else "asset_ready"
     if status == "future_free_candidate":
         assert_true("path" not in entry, f"{pointer} future candidate must not point to a missing local file")
         policy = str(entry.get("free_policy", ""))
@@ -135,20 +169,23 @@ def main() -> None:
     validate_runtime_events(manifest)
     validate_chapter_beats(manifest, campaign)
 
-    local_count = 0
-    future_count = 0
+    counts = {"local": 0, "wired": 0, "asset_ready": 0, "future": 0}
     for pointer, entry in walk_audio_entries(manifest):
-        result = validate_audio_entry(pointer, entry)
-        if result == "local":
-            local_count += 1
-        elif result == "future":
-            future_count += 1
+        counts[validate_audio_entry(pointer, entry)] += 1
 
-    assert_true(local_count >= 8, "manifest should include existing local runtime audio references")
-    assert_true(future_count >= 12, "manifest should mark later chapter ambience/audio as future_free_candidate")
+    implemented_count = 0
+    for pointer, implemented_in in walk_implemented_in(manifest):
+        validate_implemented_in(pointer, implemented_in)
+        implemented_count += 1
+
+    assert_true(counts["local"] >= 8, "manifest should include existing local runtime audio references")
+    assert_true(counts["wired"] >= 100, "manifest should keep the wired sfx/music catalog referenced")
+    assert_true(implemented_count >= 100, "manifest should document implemented_in wiring for wired entries")
     print(
         "AUDIO_VISUAL_MANIFEST_VALIDATION_PASS "
-        f"runtime_keys={len(REQUIRED_RUNTIME_KEYS)} chapters=6 local_audio={local_count} future_free_candidate={future_count}"
+        f"runtime_keys={len(REQUIRED_RUNTIME_KEYS)} chapters=6 "
+        f"wired={counts['wired']} asset_ready={counts['asset_ready']} local_audio={counts['local']} "
+        f"future_free_candidate={counts['future']} implemented_in={implemented_count}"
     )
 
 

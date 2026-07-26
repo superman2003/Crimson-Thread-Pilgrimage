@@ -17,10 +17,17 @@
       "BGM",
       "SFX",
       "Ambience",
-      "UI"
+      "UI",
+      "MusicExplore",
+      "MusicCombat",
+      "MusicStinger",
+      "SFXEnemy",
+      "SFXWorld",
+      "ReverbZone",
+      "SFXPlayer"
     ],
     "layout_resource": "res://default_bus_layout.tres",
-    "runtime_guard": "res://scripts/main_level.gd::_ensure_audio_buses",
+    "runtime_guard": "res://scripts/main_level.gd::_ensure_audio_buses -> res://scripts/audio_director.gd::ensure_sub_buses (idempotent rebuild)",
     "default_volumes_db": {
       "BGM": 0,
       "SFX": 0,
@@ -33,10 +40,52 @@
       "Ambience": -14,
       "UI": -10
     },
-    "note": "Phase 0 keeps BGM/SFX bus gain at 0 dB so the existing per-node volume_db mix does not regress; spec_target_volumes_db applies once per-node gains migrate onto buses. Sub-buses (MusicExplore/MusicCombat/MusicStinger, SFXPlayer/SFXEnemy/SFXWorld, ReverbZone) arrive with audio_director in phase 1 (spec 20260726160400000 section 5.1/6.3)."
+    "note": "default_bus_layout.tres now ships all twelve buses above, including SFXPlayer (bus/11, send SFX). The former headless exception is gone: audio_visual_validation.gd accepts player SFX nodes on SFXPlayer, so ensure_sub_buses rebuilds the full sub-bus set in every environment. BGM/SFX bus gain stays 0 dB so per-node volume_db mixes do not regress; spec_target_volumes_db still applies once per-node gains migrate onto buses (spec 20260726160400000 section 5.1/6.3).",
+    "sub_buses": {
+      "MusicExplore": {
+        "send": "BGM",
+        "role": "reserved explore-stem bus (explore loop currently rides BGM directly so the validation node-name/bus assertions hold)"
+      },
+      "MusicCombat": {
+        "send": "BGM",
+        "role": "combat layer stem, faded in/out by AudioDirector.enter_combat/exit_combat (0.8 s in / 2.5 s out)"
+      },
+      "MusicStinger": {
+        "send": "BGM",
+        "role": "bellway/ending stingers via AudioDirector.play_stinger"
+      },
+      "SFXPlayer": {
+        "send": "SFX",
+        "role": "player voices (player_controller.gd::_sfx_bus_name); shipped in default_bus_layout.tres and rebuilt idempotently by ensure_sub_buses in all environments including headless"
+      },
+      "SFXEnemy": {
+        "send": "SFX",
+        "role": "enemy_actor voices (enemy_actor.gd::_sfx_bus_name)"
+      },
+      "SFXWorld": {
+        "send": "SFX",
+        "role": "main_level world SFX; ui_* keys route to the dry UI bus instead (main_level.gd::_sfx_bus_for_key)"
+      },
+      "ReverbZone": {
+        "send": "Master",
+        "effects": [
+          "Reverb"
+        ],
+        "role": "reverb return bus reserved for positional zones"
+      }
+    },
+    "audio_director": {
+      "script": "res://scripts/audio_director.gd",
+      "class_name": "AudioDirector",
+      "instantiated_by": "res://scripts/main_level.gd::_build_audio (child node \"AudioDirector\", not an autoload; static instance set in _ready)",
+      "static_api": "request_voice (per-key rate/voice caps + 24-voice global pool, P0>P1>P2 preemption), ensure_sub_buses",
+      "instance_api": "set_chapter, enter_combat/exit_combat, start_boss_music/set_boss_phase/stop_boss_music, start_lullaby/stop_lullaby, play_stinger, duck, on_dialogue, on_key_item_pickup, on_room_changed, set_low_hp, on_player_death, set_user_volume/get_user_volume",
+      "user_volumes": "master/music/sfx/ambience sliders persisted to user://audio_settings.cfg; settings overlay on V (main_level.gd::_toggle_audio_settings)",
+      "autoplay_guard": "autoplay_enabled=false (headless validation) turns every playback path into a no-op"
+    }
   },
   "sfx_catalog": {
-    "catalog_note": "Event keys follow the naming contract in spec 20260726160500000 section 6.8. Entries with status local_audio are wired today (implemented_in points at the runtime function; runtime_key is the legacy key inside that script's SFX/AUDIO table). Entries with status future_free_candidate are contract slots awaiting free-license assets. Statuses wired/asset_ready mark project-synthesized CC0 WAVs from tools/generate_sfx_pack.py: wired entries are hooked to runtime triggers (implemented_in), asset_ready entries wait for their mechanic.",
+    "catalog_note": "Event keys follow the naming contract in spec 20260726160500000 section 6.8. Statuses: local_audio = wired to a local recorded free asset; wired = project-synthesized CC0 asset hooked to a runtime trigger (implemented_in); asset_ready = synthesized asset on disk waiting for its mechanic (wiring_note explains); future_free_candidate = contract slot with no asset yet. Synthesized sources: tools/generate_sfx_pack.py (47 gameplay WAVs), tools/generate_ambience_pack.py (chapter beds/one-shots, chapter beats, combat completion, boss kits, UI jingles, glass/wet footsteps), tools/generate_music_pack.py (BGM, see chapter_audio_visual/global_music). All SFX playback is gated through AudioDirector.request_voice (voice caps + priority preemption).",
     "defaults": {
       "bus": "SFX",
       "min_interval_ms": 40,
@@ -45,11 +94,14 @@
     "generated_summary": {
       "generator": "tools/generate_sfx_pack.py",
       "license": "project-generated (CC0)",
-      "format": "16-bit 44.1 kHz mono WAV, peak-normalized ~0.7, 5 ms edge fades; loops use crossfaded seams",
+      "format": "OGG Vorbis 44.1 kHz mono (migrated from 16-bit WAV 2026-07-26 for repo size), peak-normalized, 5 ms edge fades; loops use crossfaded seams",
       "wav_files": 47,
-      "runtime_loader": ".wav branch via AudioStreamWAV.load_from_file in player_controller/enemy_actor/main_level _load_sfx_stream//_load_audio_stream",
+      "runtime_loader": ".ogg via AudioStreamOggVorbis through AudioDirector.load_cached (static stream cache) with legacy per-script fallback",
       "wired_events": [
         "boss_death_slowmo",
+        "boss_windup_lethal",
+        "boss_windup_light",
+        "elite_ritual_start",
         "enemy_death_copper",
         "enemy_death_fiber",
         "enemy_death_moss",
@@ -65,11 +117,11 @@
         "env_gate_wallshaft",
         "env_shrine_rest",
         "env_shrine_wrap",
-        "player_attack_hit_heavy",
-        "player_attack_hit_light",
         "player_attack_kill",
         "player_death_cocoon",
         "player_downstrike_break",
+        "player_hook_latch",
+        "player_hook_reel",
         "player_low_hp_heartbeat",
         "player_pogo_bounce",
         "player_respawn_weave",
@@ -80,9 +132,6 @@
         "story_ending_c_reweave"
       ],
       "asset_ready_events": [
-        "boss_windup_lethal",
-        "boss_windup_light",
-        "elite_ritual_start",
         "env_gate_guardbreak",
         "player_bind_channel",
         "player_bind_interrupt",
@@ -90,9 +139,37 @@
         "player_double_jump_wings",
         "player_downstrike_crack",
         "player_guard_block",
-        "player_guard_perfect",
-        "player_hook_latch",
-        "player_hook_reel"
+        "player_guard_perfect"
+      ],
+      "superseded_events": [
+        "player_attack_hit_light",
+        "player_attack_hit_heavy"
+      ],
+      "superseded_note": "non-kill hit confirms moved to the enemy_hit_soft/shell/armor material tiers (2026-07-26); the two WAVs stay in the enemy_actor SFX table but no code path triggers them"
+    },
+    "ambience_pack_summary": {
+      "generator": "tools/generate_ambience_pack.py",
+      "license": "project-generated (CC0)",
+      "format": "deterministic per-file seeded synthesis; OGG beds/one-shots/footsteps + 16-bit 44.1 kHz mono WAV beats/combat/UI; idempotent reruns",
+      "wired_events": [
+        "amb_ch01_bed..amb_ch06_bed (6 chapter bed loops)",
+        "amb_chNN_os_1..8 (48 sparse one-shots, 45-120 s at -6 dB)",
+        "amb_ch02_anvil_far (30-75 s at -8 dB)",
+        "player_attack_01/02/03 (swing rotation)",
+        "player_land_soft",
+        "player_land_hard",
+        "enemy_hit_soft",
+        "enemy_hit_shell",
+        "enemy_hit_armor",
+        "boss_chNN_roar/phase_shift/atk_light/atk_heavy (24 files, ch01-ch06 kits)",
+        "footstep_glass_000..004",
+        "footstep_wet_000..004"
+      ],
+      "asset_ready_events": [
+        "chNN_<slug>_beat_01..03_audio (15 chapter beats, ch02-ch06; see chapter_audio_visual)",
+        "ui_ability_unlock",
+        "ui_pickup_key_item",
+        "ui_testimony_complete"
       ]
     },
     "player_attack_swing": {
@@ -100,38 +177,42 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "local_audio",
-      "path": "res://assets/audio/sfx/player_attack.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
-      "implemented_in": "res://scripts/player_controller.gd::_start_attack",
-      "runtime_key": "attack"
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_attack_01.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "implemented_in": "res://scripts/player_controller.gd::_play_attack_swing_sfx (called from _start_attack)",
+      "runtime_key": "attack_01/attack_02/attack_03 (sequential rotation, +-4% pitch)",
+      "variants": [
+        "res://assets/audio/sfx/generated/player_attack_01.ogg",
+        "res://assets/audio/sfx/generated/player_attack_02.ogg",
+        "res://assets/audio/sfx/generated/player_attack_03.ogg"
+      ],
+      "note": "three-sample swing rotation from the ambience & combat pack; falls back to the Bread Adventure attack.ogg (runtime_key attack) when the synthesized pack is missing"
     },
     "player_attack_hit_light": {
       "key": "player_attack_hit_light",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_attack_hit_light.wav",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_attack_hit_light.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
-      "implemented_in": "res://scripts/enemy_actor.gd::take_hit",
       "runtime_key": "hit_light",
-      "note": "dedicated light hit-confirm replacing the Bread Adventure enemy_hit.ogg reuse"
+      "wiring_note": "superseded 2026-07-26: non-kill hit confirms now route through enemy hit material tiers (enemy_hit_soft/shell/armor via enemy_actor.gd::_hit_tier_key); WAV remains loaded in the enemy_actor SFX table but has no trigger path"
     },
     "player_attack_hit_heavy": {
       "key": "player_attack_hit_heavy",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_attack_hit_heavy.wav",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/player_attack_hit_heavy.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
-      "implemented_in": "res://scripts/enemy_actor.gd::take_hit",
       "runtime_key": "hit_heavy",
-      "note": "dedicated heavy hit-confirm replacing the Bread Adventure heavy_hit.ogg reuse"
+      "wiring_note": "superseded 2026-07-26: non-kill hit confirms now route through enemy hit material tiers (enemy_hit_soft/shell/armor via enemy_actor.gd::_hit_tier_key); WAV remains loaded in the enemy_actor SFX table but has no trigger path"
     },
     "player_attack_kill": {
       "key": "player_attack_kill",
@@ -139,13 +220,55 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_attack_kill.wav",
+      "path": "res://assets/audio/sfx/generated/player_attack_kill.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "kill-blow confirm layer on top of hit_heavy",
       "implemented_in": "res://scripts/enemy_actor.gd::take_hit",
       "runtime_key": "hit_kill",
       "note": "kill-blow tier: heavy confirm plus A5 bell glint and sub punch"
+    },
+    "enemy_hit_soft": {
+      "key": "enemy_hit_soft",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_hit_soft.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "hit confirm on soft/damp bodies (moss, fiber)",
+      "implemented_in": "res://scripts/enemy_actor.gd::take_hit/_hit_tier_key",
+      "runtime_key": "hit_soft",
+      "note": "material tiers: moss/fiber->soft, salt/silent->shell, copper/obsidian->armor, bosses always armor; kill blows keep the separate hit_kill tier"
+    },
+    "enemy_hit_shell": {
+      "key": "enemy_hit_shell",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_hit_shell.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "hit confirm on brittle shells (salt, silent)",
+      "implemented_in": "res://scripts/enemy_actor.gd::take_hit/_hit_tier_key",
+      "runtime_key": "hit_shell",
+      "note": "material tiers: moss/fiber->soft, salt/silent->shell, copper/obsidian->armor, bosses always armor; kill blows keep the separate hit_kill tier"
+    },
+    "enemy_hit_armor": {
+      "key": "enemy_hit_armor",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/enemy_hit_armor.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "hit confirm on armored bodies (copper, obsidian, all bosses)",
+      "implemented_in": "res://scripts/enemy_actor.gd::take_hit/_hit_tier_key",
+      "runtime_key": "hit_armor",
+      "note": "material tiers: moss/fiber->soft, salt/silent->shell, copper/obsidian->armor, bosses always armor; kill blows keep the separate hit_kill tier"
     },
     "player_jump": {
       "key": "player_jump",
@@ -154,8 +277,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/player_jump.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_physics_process (jump buffer branch)",
       "runtime_key": "jump"
     },
@@ -166,11 +289,39 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/player_jump.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_physics_process (wall jump branch)",
       "runtime_key": "jump",
       "note": "placeholder reuse of player_jump; dedicated wall-kick material accent planned"
+    },
+    "player_land_soft": {
+      "key": "player_land_soft",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_land_soft.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "soft landing thud for normal falls",
+      "implemented_in": "res://scripts/player_controller.gd::_play_land_sfx (landing edge in _physics_process)",
+      "runtime_key": "land_soft",
+      "note": "landing edge below the hard-fall threshold"
+    },
+    "player_land_hard": {
+      "key": "player_land_hard",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P1",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_land_hard.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "hard landing slam with dust weight",
+      "implemented_in": "res://scripts/player_controller.gd::_play_land_sfx (landing edge in _physics_process)",
+      "runtime_key": "land_hard",
+      "note": "pre-touch frame velocity.y>=620 selects the hard variant"
     },
     "player_pogo_bounce": {
       "key": "player_pogo_bounce",
@@ -178,7 +329,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_pogo_bounce.wav",
+      "path": "res://assets/audio/sfx/generated/player_pogo_bounce.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_apply_downslash_bounce",
@@ -192,8 +343,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/player_dash.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_physics_process (dash branch)",
       "runtime_key": "dash"
     },
@@ -204,8 +355,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/heavy_hit.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_try_skill_burst/_start_attack",
       "runtime_key": "skill"
     },
@@ -216,8 +367,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/player_hook.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_start_attack",
       "runtime_key": "hook"
     },
@@ -226,24 +377,28 @@
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_hook_latch.wav",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_hook_latch.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "hook latching a bell ring: bright E5 ring plus thread tension",
-      "wiring_note": "hook-latch bell-ring mechanic not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::_apply_attack_hits (hook_throw hit confirm)",
+      "runtime_key": "hook_latch",
+      "note": "-6 dB, once per hook swing on hit confirm, same beat as hitstop"
     },
     "player_hook_reel": {
       "key": "player_hook_reel",
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_hook_reel.wav",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/player_hook_reel.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "fast reel-in friction with rising pitch",
-      "wiring_note": "hook reel-in mechanic not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::_update_attack (0.36 s hit-window close)",
+      "runtime_key": "hook_reel",
+      "note": "-8 dB, fires once as the hook hit window closes; one-shot flag reset in _start_attack"
     },
     "player_double_jump_wings": {
       "key": "player_double_jump_wings",
@@ -251,7 +406,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_double_jump_wings.wav",
+      "path": "res://assets/audio/sfx/generated/player_double_jump_wings.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "second thread-jump: twin silk snap-taut ping, brighter than first jump",
@@ -263,7 +418,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_wall_grip_attach.wav",
+      "path": "res://assets/audio/sfx/generated/player_wall_grip_attach.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "wet low-frequency suction with light water-drop tail (ch02 beat wall_grip)",
@@ -277,7 +432,7 @@
       "bus": "SFX",
       "priority": "P1",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_wall_slide_loop.wav",
+      "path": "res://assets/audio/sfx/generated/player_wall_slide_loop.ogg",
       "loop": true,
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
@@ -292,7 +447,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_guard_block.wav",
+      "path": "res://assets/audio/sfx/generated/player_guard_block.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "bell-shell guard close: muted bronze clamp",
@@ -304,7 +459,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_guard_perfect.wav",
+      "path": "res://assets/audio/sfx/generated/player_guard_perfect.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "perfect guard: half-shell bronze bell true strike at A4 with energy backflow (ch03 beat bell_guard)",
@@ -316,7 +471,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_downstrike_crack.wav",
+      "path": "res://assets/audio/sfx/generated/player_downstrike_crack.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "downstrike cracking a breakable: short wood/shell split",
@@ -328,7 +483,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_downstrike_break.wav",
+      "path": "res://assets/audio/sfx/generated/player_downstrike_break.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "breakable floor giving way; also reused by break_floor gates",
@@ -342,7 +497,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_bind_channel.wav",
+      "path": "res://assets/audio/sfx/generated/player_bind_channel.ogg",
       "loop": true,
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
@@ -355,7 +510,7 @@
       "bus": "SFX",
       "priority": "P1",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_bind_tighten.wav",
+      "path": "res://assets/audio/sfx/generated/player_bind_tighten.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "bind threads pulling tight near completion",
@@ -368,8 +523,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/player_heal.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::_try_heal",
       "runtime_key": "heal"
     },
@@ -379,7 +534,7 @@
       "bus": "SFX",
       "priority": "P1",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/player_bind_interrupt.wav",
+      "path": "res://assets/audio/sfx/generated/player_bind_interrupt.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "heal interrupted: single thread snapping",
@@ -392,8 +547,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/player_hurt.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/player_controller.gd::take_damage",
       "runtime_key": "hurt"
     },
@@ -403,7 +558,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_death_cocoon.wav",
+      "path": "res://assets/audio/sfx/generated/player_death_cocoon.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "all crimson threads loosening and scattering with one long exhale, no scream",
@@ -416,7 +571,7 @@
       "bus": "SFX",
       "priority": "P1",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_respawn_weave.wav",
+      "path": "res://assets/audio/sfx/generated/player_respawn_weave.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "shrine rebirth: three rising shrine-bell notes plus inhale",
@@ -429,7 +584,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/player_low_hp_heartbeat.wav",
+      "path": "res://assets/audio/sfx/generated/player_low_hp_heartbeat.ogg",
       "loop": true,
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
@@ -443,13 +598,13 @@
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "local_audio",
-      "path": "res://assets/audio/sfx/player_hook.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_windup_light.ogg",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx",
       "runtime_key": "enemy_windup",
-      "note": "placeholder hook whoosh; spec replaces with stretch-creak plus rising breath synced to amber telegraph"
+      "note": "low-tier variant of boss_windup_light at -13 dB / pitch 1.22, replacing the old player_hook.ogg whoosh reuse"
     },
     "enemy_attack_impact": {
       "key": "enemy_attack_impact",
@@ -458,11 +613,11 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/enemy_hit.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx",
       "runtime_key": "enemy_attack",
-      "note": "boss active frames currently reuse player_attack.ogg (runtime_key boss_attack) until boss_XX_atk_YY_sfx assets land"
+      "note": "boss active frames no longer reuse player_attack.ogg; bosses now voice per-chapter boss_chNN_atk_light/atk_heavy kits (see boss_atk_light/boss_atk_heavy entries)"
     },
     "enemy_death_moss": {
       "key": "enemy_death_moss",
@@ -470,7 +625,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/enemy_death_moss.wav",
+      "path": "res://assets/audio/sfx/generated/enemy_death_moss.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "soft-body deflation with damp squelch (ch01 material)",
@@ -484,7 +639,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/enemy_death_copper.wav",
+      "path": "res://assets/audio/sfx/generated/enemy_death_copper.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "thin metal shell collapse with bronze rattle (ch02 material)",
@@ -498,7 +653,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/enemy_death_salt.wav",
+      "path": "res://assets/audio/sfx/generated/enemy_death_salt.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "crystalline crumble into dry grains (ch03 material)",
@@ -512,7 +667,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/enemy_death_fiber.wav",
+      "path": "res://assets/audio/sfx/generated/enemy_death_fiber.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "vine fibers tearing and unwinding (ch04 material)",
@@ -526,7 +681,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/enemy_death_obsidian.wav",
+      "path": "res://assets/audio/sfx/generated/enemy_death_obsidian.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "dense stone shatter, almost no tail (ch05 material)",
@@ -540,7 +695,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/enemy_death_silent.wav",
+      "path": "res://assets/audio/sfx/generated/enemy_death_silent.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "ch06 kill: mix-duck event, sound is removed instead of added",
@@ -553,24 +708,28 @@
       "family": "bell",
       "bus": "SFX",
       "priority": "P1",
-      "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/elite_ritual_start.wav",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/elite_ritual_start.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "elite intro roar layered with one strike of the chapter's lead instrument (six regional variants)",
-      "wiring_note": "elite intro roar trigger not implemented yet"
+      "implemented_in": "res://scripts/enemy_actor.gd::_announce_engagement (encounter_role contains \"elite\")",
+      "runtime_key": "elite_ritual_start",
+      "note": "fires on first engagement for elites; live in generated ch03-ch06 chapters (elite_duo/preboss_elite); manual demo chapters need an encounter_role field in enemy_spawns data"
     },
     "boss_windup_light": {
       "key": "boss_windup_light",
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/boss_windup_light.wav",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_windup_light.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "boss light-attack telegraph (contract says temporary player_hook reuse is acceptable)",
-      "wiring_note": "boss windup tiers not split at runtime yet (single boss_windup key)"
+      "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx (boss windup, light tier)",
+      "runtime_key": "boss_windup_light",
+      "note": "windup tier from ai_profiles telegraph_tier override or damage>=2 heuristic (enemy_actor.gd::_active_attack_is_heavy); also serves normal-enemy windup as a -13 dB / pitch 1.22 variant"
     },
     "boss_windup_heavy": {
       "key": "boss_windup_heavy",
@@ -579,23 +738,113 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/heavy_hit.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx",
       "runtime_key": "boss_windup",
-      "note": "placeholder heavy hit; spec wants low charge rumble with metal stress groan"
+      "note": "legacy Bread Adventure placeholder; boss windup now splits to boss_windup_light/boss_windup_lethal, so runtime_key boss_windup is no longer triggered (kept only as a table fallback)"
     },
     "boss_windup_lethal": {
       "key": "boss_windup_lethal",
       "family": "tide",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/boss_windup_lethal.wav",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_windup_lethal.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "lethal-tier telegraph: darker sub-drop preceding red telegraph flash",
-      "wiring_note": "boss lethal-tier telegraph not implemented yet"
+      "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx/_active_attack_is_heavy (boss windup, heavy/lethal tier)",
+      "runtime_key": "boss_windup_lethal",
+      "note": "replaces the boss_windup heavy_hit.ogg reuse; tier can be forced per attack via ai_profiles \"telegraph_tier\""
+    },
+    "boss_roar": {
+      "key": "boss_roar",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_ch01_roar.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "boss first-engagement roar, voiced per chapter material",
+      "implemented_in": "res://scripts/enemy_actor.gd::_announce_engagement (first engaged, reset by reset_for_respawn)",
+      "runtime_key": "boss_ch01_roar..boss_ch06_roar (kind->chapter via enemy_actor BOSS_SFX_CHAPTER)",
+      "note": "one-shot P0 on first aggro per boss life",
+      "chapter_variants": {
+        "ch01": "res://assets/audio/sfx/generated/boss_ch01_roar.ogg",
+        "ch02": "res://assets/audio/sfx/generated/boss_ch02_roar.ogg",
+        "ch03": "res://assets/audio/sfx/generated/boss_ch03_roar.ogg",
+        "ch04": "res://assets/audio/sfx/generated/boss_ch04_roar.ogg",
+        "ch05": "res://assets/audio/sfx/generated/boss_ch05_roar.ogg",
+        "ch06": "res://assets/audio/sfx/generated/boss_ch06_roar.ogg"
+      }
+    },
+    "boss_phase_shift": {
+      "key": "boss_phase_shift",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_ch01_phase_shift.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "boss half-HP phase-shift sting, voiced per chapter material",
+      "implemented_in": "res://scripts/enemy_actor.gd::take_hit (hp*2<=max_hp, once)",
+      "runtime_key": "boss_ch01_phase_shift..boss_ch06_phase_shift (kind->chapter via enemy_actor BOSS_SFX_CHAPTER)",
+      "note": "pure audio hook, no behavior change; the final boss additionally drives AudioDirector.set_boss_phase three-movement music",
+      "chapter_variants": {
+        "ch01": "res://assets/audio/sfx/generated/boss_ch01_phase_shift.ogg",
+        "ch02": "res://assets/audio/sfx/generated/boss_ch02_phase_shift.ogg",
+        "ch03": "res://assets/audio/sfx/generated/boss_ch03_phase_shift.ogg",
+        "ch04": "res://assets/audio/sfx/generated/boss_ch04_phase_shift.ogg",
+        "ch05": "res://assets/audio/sfx/generated/boss_ch05_phase_shift.ogg",
+        "ch06": "res://assets/audio/sfx/generated/boss_ch06_phase_shift.ogg"
+      }
+    },
+    "boss_atk_light": {
+      "key": "boss_atk_light",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_ch01_atk_light.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "boss light-attack active frames, per-chapter kit",
+      "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx/_boss_sfx_key (active phase, light tier)",
+      "runtime_key": "boss_ch01_atk_light..boss_ch06_atk_light (kind->chapter via enemy_actor BOSS_SFX_CHAPTER)",
+      "note": "replaces the boss_attack player_attack.ogg reuse",
+      "chapter_variants": {
+        "ch01": "res://assets/audio/sfx/generated/boss_ch01_atk_light.ogg",
+        "ch02": "res://assets/audio/sfx/generated/boss_ch02_atk_light.ogg",
+        "ch03": "res://assets/audio/sfx/generated/boss_ch03_atk_light.ogg",
+        "ch04": "res://assets/audio/sfx/generated/boss_ch04_atk_light.ogg",
+        "ch05": "res://assets/audio/sfx/generated/boss_ch05_atk_light.ogg",
+        "ch06": "res://assets/audio/sfx/generated/boss_ch06_atk_light.ogg"
+      }
+    },
+    "boss_atk_heavy": {
+      "key": "boss_atk_heavy",
+      "family": "neutral",
+      "bus": "SFX",
+      "priority": "P0",
+      "status": "wired",
+      "path": "res://assets/audio/sfx/generated/boss_ch01_atk_heavy.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "boss heavy-attack active frames, per-chapter kit",
+      "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx/_boss_sfx_key (active phase, heavy tier)",
+      "runtime_key": "boss_ch01_atk_heavy..boss_ch06_atk_heavy (kind->chapter via enemy_actor BOSS_SFX_CHAPTER)",
+      "note": "tier follows the same telegraph_tier/damage>=2 split as the windup pair",
+      "chapter_variants": {
+        "ch01": "res://assets/audio/sfx/generated/boss_ch01_atk_heavy.ogg",
+        "ch02": "res://assets/audio/sfx/generated/boss_ch02_atk_heavy.ogg",
+        "ch03": "res://assets/audio/sfx/generated/boss_ch03_atk_heavy.ogg",
+        "ch04": "res://assets/audio/sfx/generated/boss_ch04_atk_heavy.ogg",
+        "ch05": "res://assets/audio/sfx/generated/boss_ch05_atk_heavy.ogg",
+        "ch06": "res://assets/audio/sfx/generated/boss_ch06_atk_heavy.ogg"
+      }
     },
     "boss_death_slowmo": {
       "key": "boss_death_slowmo",
@@ -603,7 +852,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/boss_death_slowmo.wav",
+      "path": "res://assets/audio/sfx/generated/boss_death_slowmo.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "boss kill hard-stop tail: single wet bell strike into silence",
@@ -618,8 +867,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/pickup.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/main_level.gd::_on_collectible_body_entered",
       "runtime_key": "pickup",
       "layers": [
@@ -642,8 +891,8 @@
       "priority": "P0",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/lever.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/main_level.gd::_activate_lever",
       "runtime_key": "lever",
       "layers": [
@@ -666,8 +915,8 @@
       "priority": "P1",
       "status": "local_audio",
       "path": "res://assets/audio/sfx/interact.ogg",
-      "recorded_source": "Bread Adventure",
-      "license": "Apache-2.0",
+      "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+      "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/main_level.gd::_talk_to_npc",
       "runtime_key": "interact"
     },
@@ -682,7 +931,7 @@
       "license": "CC0 (Kenney)",
       "implemented_in": "res://scripts/player_controller.gd::_update_footsteps/_play_footstep",
       "runtime_key": "footstep (distance-integrated stride, 5 random variants, +-4% pitch)",
-      "note": "volume -14 dB under action sounds; obsidian reuses the concrete set at base pitch 0.82 for a dense stone read; material set per chapter by main_level FOOTSTEP_MATERIAL_BY_THEME",
+      "note": "volume -14 dB under action sounds; obsidian reuses the concrete set at base pitch 0.82 for a dense stone read; material set per chapter by main_level FOOTSTEP_MATERIAL_BY_THEME, then remapped at playback by player_controller FOOTSTEP_MATERIAL_REMAP (fiber->glass for ch04 greenhouse, copper->wet for ch02 rain foundry). glass/wet families are project-generated CC0 (tools/generate_ambience_pack.py), calibrated to the Kenney one-shots",
       "surface_variants": {
         "moss": [
           "res://assets/audio/sfx/kenney/impact/footstep_grass_000.ogg",
@@ -718,6 +967,20 @@
           "res://assets/audio/sfx/kenney/impact/footstep_concrete_002.ogg",
           "res://assets/audio/sfx/kenney/impact/footstep_concrete_003.ogg",
           "res://assets/audio/sfx/kenney/impact/footstep_concrete_004.ogg"
+        ],
+        "glass": [
+          "res://assets/audio/sfx/generated_footsteps/footstep_glass_000.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_glass_001.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_glass_002.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_glass_003.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_glass_004.ogg"
+        ],
+        "wet": [
+          "res://assets/audio/sfx/generated_footsteps/footstep_wet_000.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_wet_001.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_wet_002.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_wet_003.ogg",
+          "res://assets/audio/sfx/generated_footsteps/footstep_wet_004.ogg"
         ]
       }
     },
@@ -834,6 +1097,42 @@
       "runtime_key": "ui_toast",
       "note": "-16 dB with a 900 ms cooldown so toast bursts stay quiet"
     },
+    "ui_ability_unlock": {
+      "key": "ui_ability_unlock",
+      "family": "bell",
+      "bus": "UI",
+      "priority": "P1",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/ui_ability_unlock.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "ability-unlock jingle on the D-A-B(b) crimson-thread motif",
+      "wiring_note": "no runtime trigger yet: ability-gate unlocks currently voice the env_gate_* family (main_level.gd::_unlock_ability_gate)"
+    },
+    "ui_pickup_key_item": {
+      "key": "ui_pickup_key_item",
+      "family": "bell",
+      "bus": "UI",
+      "priority": "P1",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/ui_pickup_key_item.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "key-item pickup jingle",
+      "wiring_note": "no runtime trigger yet: key-item pickups currently use ui_pickup layers plus AudioDirector.on_key_item_pickup music duck"
+    },
+    "ui_testimony_complete": {
+      "key": "ui_testimony_complete",
+      "family": "bell",
+      "bus": "UI",
+      "priority": "P1",
+      "status": "asset_ready",
+      "path": "res://assets/audio/sfx/generated/ui_testimony_complete.ogg",
+      "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+      "license": "project-generated (CC0)",
+      "description": "testimony-chain completion jingle",
+      "wiring_note": "no runtime trigger yet: testimony completion has no dedicated audio hook in main_level"
+    },
     "ui_door_open": {
       "key": "ui_door_open",
       "family": "neutral",
@@ -869,19 +1168,19 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.wav",
+      "path": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "implemented_in": "res://scripts/main_level.gd::_activate_save_point/_shrine_rest_audio_key",
       "runtime_key": "shrine_rest_ch01..ch06",
       "note": "lullaby motif D-A-B(natural) in six regional timbre/filter variants, chosen per chapter art theme",
       "chapter_variants": {
-        "ch01": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.wav",
-        "ch02": "res://assets/audio/sfx/generated/env_shrine_rest_ch02.wav",
-        "ch03": "res://assets/audio/sfx/generated/env_shrine_rest_ch03.wav",
-        "ch04": "res://assets/audio/sfx/generated/env_shrine_rest_ch04.wav",
-        "ch05": "res://assets/audio/sfx/generated/env_shrine_rest_ch05.wav",
-        "ch06": "res://assets/audio/sfx/generated/env_shrine_rest_ch06.wav"
+        "ch01": "res://assets/audio/sfx/generated/env_shrine_rest_ch01.ogg",
+        "ch02": "res://assets/audio/sfx/generated/env_shrine_rest_ch02.ogg",
+        "ch03": "res://assets/audio/sfx/generated/env_shrine_rest_ch03.ogg",
+        "ch04": "res://assets/audio/sfx/generated/env_shrine_rest_ch04.ogg",
+        "ch05": "res://assets/audio/sfx/generated/env_shrine_rest_ch05.ogg",
+        "ch06": "res://assets/audio/sfx/generated/env_shrine_rest_ch06.ogg"
       }
     },
     "env_shrine_wrap": {
@@ -890,7 +1189,7 @@
       "bus": "SFX",
       "priority": "P1",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_shrine_wrap.wav",
+      "path": "res://assets/audio/sfx/generated/env_shrine_wrap.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "shrine sit-down thread-wrap rustle before the lullaby",
@@ -903,7 +1202,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_gate_dash.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_dash.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "dash-gate release: thread hiss plus stone slide",
@@ -916,7 +1215,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_gate_wallshaft.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_wallshaft.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "wall-grip shaft gate opening: wet suction release",
@@ -929,7 +1228,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_gate_hookring.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_hookring.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "hook-ring gate: bell ring resolve plus chain drop",
@@ -942,7 +1241,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_gate_doublejump.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_doublejump.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "double-jump gate: twin thread ping plus lattice opening",
@@ -955,7 +1254,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "asset_ready",
-      "path": "res://assets/audio/sfx/generated/env_gate_guardbreak.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_guardbreak.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "guard-break gate: bell shell crack plus wax seal split",
@@ -967,7 +1266,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_gate_shadow.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_shadow.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "lantern-phase shadow gate: wick intake plus phase noise flip",
@@ -980,7 +1279,7 @@
       "bus": "SFX",
       "priority": "P0",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_gate_crown.wav",
+      "path": "res://assets/audio/sfx/generated/env_gate_crown.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "crown-resonance gate: three thread notes D-A-Bb plus one beat of silence",
@@ -993,7 +1292,7 @@
       "bus": "SFX",
       "priority": "P1",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/env_chapter_transition.wav",
+      "path": "res://assets/audio/sfx/generated/env_chapter_transition.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "chapter exit thread-reel transition swell",
@@ -1007,7 +1306,7 @@
       "bus": "SFX",
       "priority": "P2",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/story_ending_a_rebell.wav",
+      "path": "res://assets/audio/sfx/generated/story_ending_a_rebell.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "ending A: full bell chorus, first full motif resolution",
@@ -1021,7 +1320,7 @@
       "bus": "SFX",
       "priority": "P2",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/story_ending_b_severance.wav",
+      "path": "res://assets/audio/sfx/generated/story_ending_b_severance.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "ending B: string severance snap into black-tide surge",
@@ -1035,7 +1334,7 @@
       "bus": "SFX",
       "priority": "P2",
       "status": "wired",
-      "path": "res://assets/audio/sfx/generated/story_ending_c_reweave.wav",
+      "path": "res://assets/audio/sfx/generated/story_ending_c_reweave.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "ending C: bell motif and thread theme in duet, Picardy close",
@@ -1071,44 +1370,267 @@
         }
       ],
       "note": "only the selected files are vendored, each pack directory carries its original License.txt"
-    }
+    },
+    "voice_manager": "res://scripts/audio_director.gd::request_voice (static; same-key min-interval/max-voices plus 24-voice global pool, P0(0)>P1(1)>P2(2) preemption; player/enemy scripts lazy-load it and fail open when absent)"
   },
   "ambience_zones": {
-    "zones_note": "One bed loop per chapter on the Ambience bus plus randomized one-shots (interval 8-25 s, panned). All beds pending free-license sourcing; ch02 double rain bed is the top ambience priority (spec 20260726160400000 section 4.6).",
+    "zones_note": "One synthesized bed loop per chapter on the Ambience bus plus sparse randomized one-shots. All beds and one-shots are project-generated CC0 (tools/generate_ambience_pack.py) and wired: AudioDirector.set_chapter starts the chapter bed and schedules amb_chNN_os_1..8 every 45-120 s at -6 dB (audio_director.gd::_start_ambience/_on_oneshot_timer); ch02 additionally schedules amb_ch02_anvil_far every 30-75 s at -8 dB (_on_anvil_timer). Spec one-shot interval 8-25 s was widened to 45-120 s to keep the beds sparse under the current mix.",
     "ch01_moss_bell_court": {
       "bus": "Ambience",
       "bed": {
         "key": "amb_ch01_bed",
-        "status": "future_free_candidate",
+        "status": "wired",
         "description": "low cavern-court wind with distant bell-chamber resonance",
-        "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+        "path": "res://assets/audio/ambience/amb_ch01_bed.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+        "license": "project-generated (CC0)",
+        "implemented_in": "res://scripts/audio_director.gd::_start_ambience (started by set_chapter)"
       },
-      "oneshots": []
+      "oneshots": [
+        {
+          "key": "amb_ch01_os_1",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_1.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_2",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_2.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_3",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_3.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_4",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_4.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_5",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_5.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_6",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_6.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_7",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_7.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch01_os_8",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch01_os_8.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        }
+      ]
     },
     "ch02_rain_foundry_canal": {
       "bus": "Ambience",
       "bed": {
         "key": "amb_ch02_bed",
-        "status": "future_free_candidate",
+        "status": "wired",
         "layers": [
           "rain_near",
           "rain_far"
         ],
         "indoor_switch": "rain_far",
         "description": "double rain loop; interiors switch to the far layer",
-        "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+        "path": "res://assets/audio/ambience/amb_ch02_bed.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+        "license": "project-generated (CC0)",
+        "implemented_in": "res://scripts/audio_director.gd::_start_ambience (started by set_chapter)",
+        "note": "double rain + far thunder baked into a single bed loop; the interior rain_far-only switch has no runtime trigger yet"
       },
       "oneshots": [
         {
           "key": "amb_ch02_anvil_far",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_anvil_far.ogg",
           "interval_sec": [
-            8,
-            25
+            30,
+            75
           ],
+          "volume_db": -8,
           "pan_spread": 0.6,
           "description": "distant anvil work strike",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_anvil_timer"
+        },
+        {
+          "key": "amb_ch02_os_1",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_1.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_2",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_2.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_3",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_3.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_4",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_4.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_5",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_5.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_6",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_6.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_7",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_7.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch02_os_8",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch02_os_8.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
         }
       ]
     },
@@ -1116,41 +1638,477 @@
       "bus": "Ambience",
       "bed": {
         "key": "amb_ch03_bed",
-        "status": "future_free_candidate",
+        "status": "wired",
         "description": "paper static plus micro salt-crystal growth cracks",
-        "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+        "path": "res://assets/audio/ambience/amb_ch03_bed.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+        "license": "project-generated (CC0)",
+        "implemented_in": "res://scripts/audio_director.gd::_start_ambience (started by set_chapter)"
       },
-      "oneshots": []
+      "oneshots": [
+        {
+          "key": "amb_ch03_os_1",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_1.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_2",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_2.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_3",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_3.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_4",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_4.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_5",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_5.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_6",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_6.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_7",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_7.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch03_os_8",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch03_os_8.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        }
+      ]
     },
     "ch04_broken_string_greenhouse": {
       "bus": "Ambience",
       "bed": {
         "key": "amb_ch04_bed",
-        "status": "future_free_candidate",
+        "status": "wired",
         "description": "muffled greenhouse wind with leaf-face rustle",
-        "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+        "path": "res://assets/audio/ambience/amb_ch04_bed.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+        "license": "project-generated (CC0)",
+        "implemented_in": "res://scripts/audio_director.gd::_start_ambience (started by set_chapter)"
       },
-      "oneshots": []
+      "oneshots": [
+        {
+          "key": "amb_ch04_os_1",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_1.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_2",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_2.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_3",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_3.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_4",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_4.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_5",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_5.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_6",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_6.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_7",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_7.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch04_os_8",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch04_os_8.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        }
+      ]
     },
     "ch05_obsidian_pilgrim_road": {
       "bus": "Ambience",
       "bed": {
         "key": "amb_ch05_bed",
-        "status": "future_free_candidate",
+        "status": "wired",
         "description": "plateau night wind with torch-cluster crackle",
-        "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+        "path": "res://assets/audio/ambience/amb_ch05_bed.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+        "license": "project-generated (CC0)",
+        "implemented_in": "res://scripts/audio_director.gd::_start_ambience (started by set_chapter)"
       },
-      "oneshots": []
+      "oneshots": [
+        {
+          "key": "amb_ch05_os_1",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_1.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_2",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_2.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_3",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_3.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_4",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_4.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_5",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_5.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_6",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_6.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_7",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_7.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch05_os_8",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch05_os_8.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        }
+      ]
     },
     "ch06_silent_crown_core": {
       "bus": "Ambience",
       "bed": {
         "key": "amb_ch06_bed",
-        "status": "future_free_candidate",
+        "status": "wired",
         "description": "organized silence: air-pressure hiss plus faint single-tone tinnitus",
-        "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+        "path": "res://assets/audio/ambience/amb_ch06_bed.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+        "license": "project-generated (CC0)",
+        "implemented_in": "res://scripts/audio_director.gd::_start_ambience (started by set_chapter)"
       },
-      "oneshots": []
+      "oneshots": [
+        {
+          "key": "amb_ch06_os_1",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_1.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_2",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_2.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_3",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_3.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_4",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_4.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_5",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_5.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_6",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_6.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_7",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_7.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        },
+        {
+          "key": "amb_ch06_os_8",
+          "status": "wired",
+          "path": "res://assets/audio/ambience/amb_ch06_os_8.ogg",
+          "interval_sec": [
+            45,
+            120
+          ],
+          "volume_db": -6,
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "implemented_in": "res://scripts/audio_director.gd::_on_oneshot_timer"
+        }
+      ]
     }
   },
   "reverb_zones": {
@@ -1219,8 +2177,10 @@
   },
   "mix_states": {
     "combat": {
+      "combat_layer": "chNN_<slug>_combat_layer.ogg stacked on the MusicCombat bus, 0.8 s in / 2.5 s out, suppressed during boss fights",
       "Ambience": -6,
-      "status_note": "future - engages when the dual-stem explore/combat bgm lands (phase 1)"
+      "ambience_note": "spec target; the current implementation stacks the combat stem only, the -6 dB ambience offset is not applied yet",
+      "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (0.25 s enemy-AI poll in main_level.gd::_update_audio_director_state, 2 s cooldown)"
     },
     "boss": {
       "Ambience": -12,
@@ -1228,30 +2188,184 @@
         "db": -6,
         "seconds": 1.5
       },
-      "implemented_in": "res://scripts/main_level.gd::_spawn_boss"
+      "implemented_in": "res://scripts/main_level.gd::_spawn_boss (boss music via res://scripts/audio_director.gd::start_boss_music; stop/restore in _on_enemy_died/_reset_encounters_after_player_death)"
     },
     "dialogue": {
       "BGM": -4,
       "Ambience": -6,
-      "status_note": "future - wired when dialogue-panel ducking lands"
+      "implemented_in": "res://scripts/audio_director.gd::on_dialogue (open: main_level.gd::_show_dialogue; close: _notify_dialogue_closed shared by Esc/walk-away/overlay switch)"
+    },
+    "key_item_pickup": {
+      "duck_bgm": {
+        "db": -6,
+        "seconds": 1.4
+      },
+      "implemented_in": "res://scripts/audio_director.gd::on_key_item_pickup (from main_level.gd::_announce_lore_pickup)"
+    },
+    "room_reverb_offset": {
+      "hub_vista_wet": 0.1,
+      "corridor_secret_wet": -0.08,
+      "implemented_in": "res://scripts/audio_director.gd::on_room_changed (from main_level.gd::_update_room_visit; 0.6 s tween off the set_chapter wet baseline)"
     },
     "shrine": {
       "BGM_switch": "shrine_lullaby",
       "Ambience": -8,
-      "status_note": "future - lullaby assets pending"
+      "ambience_note": "spec target; the lullaby swap is live (explore loop stream_paused), the -8 dB ambience offset is not applied yet",
+      "implemented_in": "res://scripts/audio_director.gd::start_lullaby/stop_lullaby (sit: main_level.gd::_activate_save_point; auto-stop >150 px in _update_audio_director_state)"
     },
     "player_death": {
       "duck_bgm": {
         "db": -10,
         "seconds": 1.2
       },
-      "implemented_in": "res://scripts/main_level.gd::_on_hp_changed"
+      "implemented_in": "res://scripts/audio_director.gd::on_player_death (from main_level.gd::_on_hp_changed; Master 300 Hz lowpass + duck, 1.6 s self-clearing)",
+      "master_lowpass_hz": 300
     },
     "low_hp": {
       "bgm_lowpass_hz": 800,
       "heartbeat": "player_low_hp_heartbeat",
-      "heartbeat_note": "player_low_hp_heartbeat.wav (project-synthesized, 57 BPM loop) now starts/stops with the lowpass state",
-      "implemented_in": "res://scripts/main_level.gd::_set_low_hp_audio"
+      "heartbeat_note": "player_low_hp_heartbeat.ogg (project-synthesized 57 BPM loop) starts/stops with the state in main_level; lowpass release is instant (validation asserts removal on the same frame), reverse sweep deferred",
+      "implemented_in": "res://scripts/audio_director.gd::set_low_hp (via main_level.gd::_set_low_hp_audio; BGM lowpass 2 kHz->800 Hz over 2 s)"
+    }
+  },
+  "global_music": {
+    "note": "cross-chapter music from tools/generate_music_pack.py; wired entries run through AudioDirector, asset_ready entries have reserved play_stinger keys or pending mechanics",
+    "music_pack_summary": {
+      "generator": "tools/generate_music_pack.py",
+      "license": "project-generated (CC0)",
+      "format": "44.1 kHz mono synthesis -> OGG (ffmpeg -q:a 5); loops on integer-bar grids with equal-power crossfaded seams; deterministic per-file seeds, idempotent",
+      "wired_events": [
+        "ch02..ch06_<slug>_explore_loop (5, AudioDirector.set_chapter; ch01 keeps the Bread Adventure cave loop)",
+        "ch01..ch06_<slug>_combat_layer (6, enter_combat/exit_combat)",
+        "ch02..ch06_<slug>_boss_loop (5, start_boss_music; ch01 rust_crown_guardian keeps boss_rust_crown_loop.ogg)",
+        "boss_final_silent_crown_mvt1/2/3 (set_boss_phase)",
+        "ch01..ch06_<slug>_shrine_lullaby (6, start_lullaby/stop_lullaby)"
+      ],
+      "asset_ready_events": [
+        "ending_a_rebell",
+        "ending_b_severance",
+        "ending_c_reweave",
+        "bellway_transit_loop",
+        "bellway_depart_jingle",
+        "bellway_arrive_jingle",
+        "hidden_black_tide_drone"
+      ]
+    },
+    "boss_final_silent_crown": {
+      "implemented_in": "res://scripts/audio_director.gd::set_boss_phase (hp thresholds 2/3 and 1/3 polled by main_level.gd::_update_boss_music_phase)",
+      "movements": [
+        {
+          "key": "boss_final_silent_crown_mvt1",
+          "kind": "boss_final_movement",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt1.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "final boss movement 1"
+        },
+        {
+          "key": "boss_final_silent_crown_mvt2",
+          "kind": "boss_final_movement",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt2.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "final boss movement 2"
+        },
+        {
+          "key": "boss_final_silent_crown_mvt3",
+          "kind": "boss_final_movement",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt3.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "final boss movement 3"
+        }
+      ]
+    },
+    "endings": [
+      {
+        "key": "ending_a_rebell",
+        "kind": "ending_full_track",
+        "status": "asset_ready",
+        "path": "res://assets/audio/bgm/generated/ending_a_rebell.ogg",
+        "loop": false,
+        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+        "license": "project-generated (CC0)",
+        "description": "ending A full cadence track (~50 s)",
+        "wiring_note": "play_stinger(\"ending_a\") key reserved in AudioDirector; the ending gate still plays the story_ending_a_rebell.ogg stinger, no caller for the full track yet"
+      },
+      {
+        "key": "ending_b_severance",
+        "kind": "ending_full_track",
+        "status": "asset_ready",
+        "path": "res://assets/audio/bgm/generated/ending_b_severance.ogg",
+        "loop": false,
+        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+        "license": "project-generated (CC0)",
+        "description": "ending B full cadence track (~48 s)",
+        "wiring_note": "play_stinger(\"ending_b\") key reserved; no runtime caller yet"
+      },
+      {
+        "key": "ending_c_reweave",
+        "kind": "ending_full_track",
+        "status": "asset_ready",
+        "path": "res://assets/audio/bgm/generated/ending_c_reweave.ogg",
+        "loop": false,
+        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+        "license": "project-generated (CC0)",
+        "description": "ending C full cadence track (~58 s)",
+        "wiring_note": "play_stinger(\"ending_c\") key reserved; no runtime caller yet"
+      }
+    ],
+    "bellway": [
+      {
+        "key": "bellway_transit_loop",
+        "kind": "bellway_loop",
+        "status": "asset_ready",
+        "path": "res://assets/audio/bgm/generated/bellway_transit_loop.ogg",
+        "loop": true,
+        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+        "license": "project-generated (CC0)",
+        "description": "bellway transit 3/8 allegro loop",
+        "wiring_note": "bellway transit ride sequence not implemented; no runtime caller yet"
+      },
+      {
+        "key": "bellway_depart_jingle",
+        "kind": "bellway_jingle",
+        "status": "asset_ready",
+        "path": "res://assets/audio/bgm/generated/bellway_depart_jingle.ogg",
+        "loop": false,
+        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+        "license": "project-generated (CC0)",
+        "description": "bellway departure jingle (2.8 s)",
+        "wiring_note": "play_stinger(\"bellway_depart\") key reserved; bellway travel flow not implemented yet"
+      },
+      {
+        "key": "bellway_arrive_jingle",
+        "kind": "bellway_jingle",
+        "status": "asset_ready",
+        "path": "res://assets/audio/bgm/generated/bellway_arrive_jingle.ogg",
+        "loop": false,
+        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+        "license": "project-generated (CC0)",
+        "description": "bellway arrival jingle (2.8 s)",
+        "wiring_note": "play_stinger(\"bellway_arrive\") key reserved; bellway travel flow not implemented yet"
+      }
+    ],
+    "hidden_black_tide_drone": {
+      "key": "hidden_black_tide_drone",
+      "kind": "drone_loop",
+      "status": "asset_ready",
+      "path": "res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg",
+      "loop": true,
+      "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+      "license": "project-generated (CC0)",
+      "description": "hidden black-tide generative low drone",
+      "wiring_note": "hidden zone ambience switch not implemented; no runtime caller yet"
     }
   },
   "runtime_events": {
@@ -1273,11 +2387,12 @@
       ],
       "audio": [
         {
-          "key": "player_attack",
-          "status": "local_audio",
-          "path": "res://assets/audio/sfx/player_attack.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "key": "player_attack_swing",
+          "status": "wired",
+          "path": "res://assets/audio/sfx/generated/player_attack_01.ogg",
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "note": "three-sample rotation (player_attack_01/02/03, +-4% pitch); Bread Adventure attack.ogg kept as fallback"
         }
       ]
     },
@@ -1302,8 +2417,8 @@
           "key": "player_hook",
           "status": "local_audio",
           "path": "res://assets/audio/sfx/player_hook.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+          "license": "project-generated (CC0)"
         }
       ]
     },
@@ -1328,8 +2443,8 @@
           "key": "player_skill",
           "status": "local_audio",
           "path": "res://assets/audio/sfx/heavy_hit.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+          "license": "project-generated (CC0)"
         }
       ]
     },
@@ -1354,8 +2469,8 @@
           "key": "player_heal",
           "status": "local_audio",
           "path": "res://assets/audio/sfx/player_heal.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+          "license": "project-generated (CC0)"
         }
       ]
     },
@@ -1378,10 +2493,11 @@
       "audio": [
         {
           "key": "enemy_windup",
-          "status": "local_audio",
-          "path": "res://assets/audio/sfx/player_hook.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "status": "wired",
+          "path": "res://assets/audio/sfx/generated/boss_windup_light.ogg",
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "note": "-13 dB / pitch 1.22 low-tier variant; replaces the player_hook.ogg whoosh reuse"
         }
       ]
     },
@@ -1400,8 +2516,8 @@
           "key": "enemy_attack",
           "status": "local_audio",
           "path": "res://assets/audio/sfx/enemy_hit.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+          "license": "project-generated (CC0)"
         }
       ]
     },
@@ -1417,11 +2533,19 @@
       ],
       "audio": [
         {
-          "key": "boss_windup",
-          "status": "local_audio",
-          "path": "res://assets/audio/sfx/heavy_hit.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "key": "boss_windup_light",
+          "status": "wired",
+          "path": "res://assets/audio/sfx/generated/boss_windup_light.ogg",
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)"
+        },
+        {
+          "key": "boss_windup_lethal",
+          "status": "wired",
+          "path": "res://assets/audio/sfx/generated/boss_windup_lethal.ogg",
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "note": "tier from ai_profiles telegraph_tier or damage>=2; replaces the heavy_hit.ogg reuse"
         }
       ]
     },
@@ -1437,11 +2561,12 @@
       ],
       "audio": [
         {
-          "key": "boss_attack",
-          "status": "local_audio",
-          "path": "res://assets/audio/sfx/player_attack.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "key": "boss_atk_light/boss_atk_heavy",
+          "status": "wired",
+          "path": "res://assets/audio/sfx/generated/boss_ch01_atk_light.ogg",
+          "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+          "license": "project-generated (CC0)",
+          "note": "per-chapter kits boss_chNN_atk_light/atk_heavy (kind->chapter via enemy_actor BOSS_SFX_CHAPTER); replaces the player_attack.ogg reuse"
         }
       ]
     },
@@ -1466,8 +2591,8 @@
           "key": "pickup",
           "status": "local_audio",
           "path": "res://assets/audio/sfx/pickup.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+          "license": "project-generated (CC0)"
         }
       ]
     }
@@ -1483,14 +2608,36 @@
           "status": "local_audio",
           "path": "res://assets/audio/bgm/ch01_cave_loop.ogg",
           "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "license": "Apache-2.0",
+          "note": "ch01 keeps the Bread Adventure cave loop by design (AudioDirector.set_chapter ch01 branch); loop now via stream.loop, manual finished-replay removed"
         },
         {
           "key": "ch01_boss_loop",
           "status": "local_audio",
           "path": "res://assets/audio/bgm/boss_rust_crown_loop.ogg",
           "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0"
+          "license": "Apache-2.0",
+          "note": "rust_crown_guardian keeps boss_rust_crown_loop.ogg in AudioDirector.start_boss_music"
+        },
+        {
+          "key": "ch01_moss_bell_court_combat_layer",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch01_moss_bell_court_combat_layer.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "苔钟庭 combat layer stem (same tempo as explore loop)",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+        },
+        {
+          "key": "ch01_moss_bell_court_shrine_lullaby",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch01_moss_bell_court_shrine_lullaby.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "苔钟庭 shrine lullaby (D-A-B natural motif)",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
         }
       ],
       "beats": [
@@ -1508,8 +2655,8 @@
               "key": "player_attack",
               "status": "local_audio",
               "path": "res://assets/audio/sfx/player_attack.ogg",
-              "recorded_source": "Bread Adventure",
-              "license": "Apache-2.0"
+              "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+              "license": "project-generated (CC0)"
             }
           ]
         },
@@ -1527,8 +2674,8 @@
               "key": "player_hook",
               "status": "local_audio",
               "path": "res://assets/audio/sfx/player_hook.ogg",
-              "recorded_source": "Bread Adventure",
-              "license": "Apache-2.0"
+              "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+              "license": "project-generated (CC0)"
             }
           ]
         },
@@ -1546,8 +2693,8 @@
               "key": "heavy_hit",
               "status": "local_audio",
               "path": "res://assets/audio/sfx/heavy_hit.ogg",
-              "recorded_source": "Bread Adventure",
-              "license": "Apache-2.0"
+              "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py core-action recipes; replaced silent Bread Adventure placeholder 2026-07-26)",
+              "license": "project-generated (CC0)"
             }
           ]
         }
@@ -1560,15 +2707,43 @@
       "music": [
         {
           "key": "ch02_rain_foundry_canal_explore_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_explore_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "铸雨渠 exploration ambience",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+        },
+        {
+          "key": "ch02_rain_foundry_canal_combat_layer",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_combat_layer.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "铸雨渠 combat layer stem (same tempo as explore loop)",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
         },
         {
           "key": "ch02_rain_foundry_canal_boss_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_boss_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "铸雨渠 boss loop",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+        },
+        {
+          "key": "ch02_rain_foundry_canal_shrine_lullaby",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_shrine_lullaby.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "铸雨渠 shrine lullaby (D-A-B natural motif)",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
         }
       ],
       "beats": [
@@ -1584,9 +2759,12 @@
           "audio": [
             {
               "key": "ch02_rain_foundry_canal_beat_01_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "低频吸附声加轻微水滴尾音。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet; the wall_grip attach moment is already voiced by player_wall_grip_attach"
             }
           ]
         },
@@ -1602,9 +2780,12 @@
           "audio": [
             {
               "key": "ch02_rain_foundry_canal_beat_02_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "钩环金属声后接一拍水声回响。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_02_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1620,9 +2801,12 @@
           "audio": [
             {
               "key": "ch02_rain_foundry_canal_beat_03_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "heavy_hit 本地 OGG 与 CC0 水浪候选叠加。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         }
@@ -1635,15 +2819,43 @@
       "music": [
         {
           "key": "ch03_saltwhite_archive_explore_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_explore_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "盐白书库 exploration ambience",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+        },
+        {
+          "key": "ch03_saltwhite_archive_combat_layer",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_combat_layer.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "盐白书库 combat layer stem (same tempo as explore loop)",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
         },
         {
           "key": "ch03_saltwhite_archive_boss_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_boss_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "盐白书库 boss loop",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+        },
+        {
+          "key": "ch03_saltwhite_archive_shrine_lullaby",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_shrine_lullaby.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "盐白书库 shrine lullaby (D-A-B natural motif)",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
         }
       ],
       "beats": [
@@ -1659,9 +2871,12 @@
           "audio": [
             {
               "key": "ch03_saltwhite_archive_beat_01_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "玻璃摩擦声和低音翻页声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1677,9 +2892,12 @@
           "audio": [
             {
               "key": "ch03_saltwhite_archive_beat_02_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "短促钟壳响和能量回流声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_02_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1695,9 +2913,12 @@
           "audio": [
             {
               "key": "ch03_saltwhite_archive_beat_03_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "纸页撕裂声与低频钟声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         }
@@ -1710,15 +2931,43 @@
       "music": [
         {
           "key": "ch04_broken_string_greenhouse_explore_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_explore_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "断弦温室 exploration ambience",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+        },
+        {
+          "key": "ch04_broken_string_greenhouse_combat_layer",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_combat_layer.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "断弦温室 combat layer stem (same tempo as explore loop)",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
         },
         {
           "key": "ch04_broken_string_greenhouse_boss_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_boss_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "断弦温室 boss loop",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+        },
+        {
+          "key": "ch04_broken_string_greenhouse_shrine_lullaby",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_shrine_lullaby.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "断弦温室 shrine lullaby (D-A-B natural motif)",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
         }
       ],
       "beats": [
@@ -1734,9 +2983,12 @@
           "audio": [
             {
               "key": "ch04_broken_string_greenhouse_beat_01_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "短促木裂声加下劈重击本地 OGG。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1752,9 +3004,12 @@
           "audio": [
             {
               "key": "ch04_broken_string_greenhouse_beat_02_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "轻风声和蜂蜡颤音。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_02_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1770,9 +3025,12 @@
           "audio": [
             {
               "key": "ch04_broken_string_greenhouse_beat_03_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "断弦拨片声和轻微石屑落地声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_03_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         }
@@ -1785,15 +3043,43 @@
       "music": [
         {
           "key": "ch05_obsidian_pilgrim_road_explore_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_explore_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "黑曜巡礼道 exploration ambience",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+        },
+        {
+          "key": "ch05_obsidian_pilgrim_road_combat_layer",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_combat_layer.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "黑曜巡礼道 combat layer stem (same tempo as explore loop)",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
         },
         {
           "key": "ch05_obsidian_pilgrim_road_boss_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_boss_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "黑曜巡礼道 boss loop",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+        },
+        {
+          "key": "ch05_obsidian_pilgrim_road_shrine_lullaby",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_shrine_lullaby.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "黑曜巡礼道 shrine lullaby (D-A-B natural motif)",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
         }
       ],
       "beats": [
@@ -1809,9 +3095,12 @@
           "audio": [
             {
               "key": "ch05_obsidian_pilgrim_road_beat_01_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "低频灯芯吸入声和短促相位噪音。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_01_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1827,9 +3116,12 @@
           "audio": [
             {
               "key": "ch05_obsidian_pilgrim_road_beat_02_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "无声前摇后接一次低频压缩声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1845,9 +3137,13 @@
           "audio": [
             {
               "key": "ch05_obsidian_pilgrim_road_beat_03_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "低频步伐循环和旗杆震动声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_03_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "loop": true,
+              "wiring_note": "synthesized loop-capable beat layer (parade footfalls), no runtime trigger yet"
             }
           ]
         }
@@ -1860,15 +3156,44 @@
       "music": [
         {
           "key": "ch06_silent_crown_core_explore_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_explore_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "无声王冠 exploration ambience",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+        },
+        {
+          "key": "ch06_silent_crown_core_combat_layer",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_combat_layer.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "无声王冠 combat layer stem (same tempo as explore loop)",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
         },
         {
           "key": "ch06_silent_crown_core_boss_loop",
-          "status": "future_free_candidate",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_boss_loop.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
           "description": "无声王冠 boss loop",
-          "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)",
+          "note": "regular ch06 boss loop; the final boss silent_crown_core uses the three-movement set in global_music.boss_final_silent_crown instead"
+        },
+        {
+          "key": "ch06_silent_crown_core_shrine_lullaby",
+          "status": "wired",
+          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_shrine_lullaby.ogg",
+          "loop": true,
+          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
+          "license": "project-generated (CC0)",
+          "description": "无声王冠 shrine lullaby (D-A-B natural motif)",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
         }
       ],
       "beats": [
@@ -1884,9 +3209,12 @@
           "audio": [
             {
               "key": "ch06_silent_crown_core_beat_01_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "低频钟声与章节主题音色短句。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_01_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1902,9 +3230,12 @@
           "audio": [
             {
               "key": "ch06_silent_crown_core_beat_02_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "低频脉冲、线弦拨动声和短暂停顿。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         },
@@ -1920,9 +3251,12 @@
           "audio": [
             {
               "key": "ch06_silent_crown_core_beat_03_audio",
-              "status": "future_free_candidate",
+              "status": "asset_ready",
               "description": "重鸣为钟声，断冠为断弦，真结局为绯线和声。",
-              "free_policy": "CC0, Public Domain, Apache-2.0 compatible, or equivalent free commercial-use audio only"
+              "path": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_03_audio.ogg",
+              "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
+              "license": "project-generated (CC0)",
+              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
             }
           ]
         }

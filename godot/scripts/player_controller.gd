@@ -13,12 +13,32 @@ const SFX := {
     "heal": "res://assets/audio/sfx/player_heal.ogg",
     "hurt": "res://assets/audio/sfx/player_hurt.ogg",
     # 自产 SFX 包（tools/generate_sfx_pack.py，project-generated CC0，音频规格 §4）。
-    "pogo": "res://assets/audio/sfx/generated/player_pogo_bounce.wav",
-    "wall_grip_attach": "res://assets/audio/sfx/generated/player_wall_grip_attach.wav",
-    "wall_slide_loop": "res://assets/audio/sfx/generated/player_wall_slide_loop.wav",
-    "death_cocoon": "res://assets/audio/sfx/generated/player_death_cocoon.wav",
-    "respawn_weave": "res://assets/audio/sfx/generated/player_respawn_weave.wav"
+    "pogo": "res://assets/audio/sfx/generated/player_pogo_bounce.ogg",
+    "wall_grip_attach": "res://assets/audio/sfx/generated/player_wall_grip_attach.ogg",
+    "wall_slide_loop": "res://assets/audio/sfx/generated/player_wall_slide_loop.ogg",
+    "death_cocoon": "res://assets/audio/sfx/generated/player_death_cocoon.ogg",
+    "respawn_weave": "res://assets/audio/sfx/generated/player_respawn_weave.ogg",
+    # 普攻三采样轮换（音频规格 §4.1）；旧 attack.ogg 保留为兜底。
+    "attack_v1": "res://assets/audio/sfx/generated/player_attack_01.ogg",
+    "attack_v2": "res://assets/audio/sfx/generated/player_attack_02.ogg",
+    "attack_v3": "res://assets/audio/sfx/generated/player_attack_03.ogg",
+    # 钩索挂住/收线（asset_ready 接线）：挂住=钩击命中确认，收线=命中窗关闭回收。
+    "hook_latch": "res://assets/audio/sfx/generated/player_hook_latch.ogg",
+    "hook_reel": "res://assets/audio/sfx/generated/player_hook_reel.ogg",
+    # 落地分档（音频规格 §4.1）：按触地前下落速度选软/硬采样。
+    "land_soft": "res://assets/audio/sfx/generated/player_land_soft.ogg",
+    "land_hard": "res://assets/audio/sfx/generated/player_land_hard.ogg",
+    # 章节 beat 叠层（audio_visual_manifest chapter beats，ch2 雨铸运河 / ch4 断弦温室）：
+    # 材质条件由 main_level 写入的 footstep_material 判定（copper=ch2、fiber=ch4）。
+    "ch02_beat_wall_grip_drip": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
+    "ch02_beat_echo_hook": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_02_audio.ogg",
+    "ch04_beat_thorn_downstrike": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg"
 }
+
+## AudioDirector 声部契约（并行实现于 scripts/audio_director.gd）：脚本缺席时放行，
+## 存在时每次播放前先过静态 request_voice（同 key 最小间隔/并发上限/全局声部抢占）。
+const AUDIO_DIRECTOR_PATH := "res://scripts/audio_director.gd"
+static var audio_director_script: GDScript = null
 
 ## 材质化脚步（音频规格 §4.2；Kenney Impact Sounds，CC0）：
 ## 苔=grass、铜=concrete、盐=snow、藤=wood、曜=concrete 变体（运行时降 pitch 0.82
@@ -58,9 +78,28 @@ const FOOTSTEP_VARIANTS := {
         "res://assets/audio/sfx/kenney/impact/footstep_concrete_002.ogg",
         "res://assets/audio/sfx/kenney/impact/footstep_concrete_003.ogg",
         "res://assets/audio/sfx/kenney/impact/footstep_concrete_004.ogg"
+    ],
+    # 自产脚步扩充（tools 合成管线，CC0）：玻璃=温室碎晶面、wet=雨铸运河积水面。
+    "glass": [
+        "res://assets/audio/sfx/generated_footsteps/footstep_glass_000.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_glass_001.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_glass_002.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_glass_003.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_glass_004.ogg"
+    ],
+    "wet": [
+        "res://assets/audio/sfx/generated_footsteps/footstep_wet_000.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_wet_001.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_wet_002.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_wet_003.ogg",
+        "res://assets/audio/sfx/generated_footsteps/footstep_wet_004.ogg"
     ]
 }
 const FOOTSTEP_BASE_PITCH := {"obsidian": 0.82}
+## 静态材质重映射：工程无逐 tile surface_tag，脚步材质由 main_level 按章节主题一刀切
+## 写入 footstep_material；播放端把 ch04 温室（fiber 主题）重定向到 glass、
+## ch02 雨铸运河（copper 主题）重定向到 wet，主题映射表本身不动。
+const FOOTSTEP_MATERIAL_REMAP := {"fiber": "glass", "copper": "wet"}
 ## 脚步压低音量（规格要求约 -14dB），避免盖过攻击/能力等动作音。
 const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
@@ -145,6 +184,15 @@ var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
 var footstep_material: String = "moss"
 var footstep_distance: float = 0.0
+## 普攻三采样顺序轮换游标。
+var attack_sample_index: int = 0
+## 钩索挂住/收线一次性标记（每次挥钩在 _start_attack 重置）。
+var hook_latch_played: bool = false
+var hook_reel_played: bool = false
+## UI 输入闸（共享契约）：main_level 在任一 overlay（背包/地图/对话/设置）开合时
+## 用 player.set("ui_input_locked", opened) 同步；为 true 时忽略 move_left/right
+## 与 aim_up/down，不影响 Esc/UI 键与既有暂停逻辑。
+var ui_input_locked: bool = false
 
 
 func _ready() -> void:
@@ -198,7 +246,7 @@ func _physics_process(delta: float) -> void:
     skill_cooldown = maxf(0.0, skill_cooldown - delta)
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
-    var input_axis := Input.get_axis("move_left", "move_right")
+    var input_axis := _move_axis()
 
     if input_axis != 0.0:
         facing = signi(input_axis)
@@ -273,10 +321,12 @@ func _physics_process(delta: float) -> void:
         velocity.x = move_toward(velocity.x, input_axis * speed * 0.45, speed * 5.0 * delta)
 
     _update_attack(delta)
+    var fall_speed := velocity.y
     move_and_slide()
     if not was_on_floor and is_on_floor():
         land_timer = 0.14
         pogo_chain = 0
+        _play_land_sfx(fall_speed)
         _spawn_land_vfx()
     _update_wall_slide_audio()
     _update_footsteps(delta)
@@ -313,6 +363,8 @@ func _start_attack(animation: StringName) -> void:
     attack_timer = attack_duration
     enemy_contact_guard_timer = maxf(enemy_contact_guard_timer, enemy_contact_guard_time)
     hit_targets.clear()
+    hook_latch_played = false
+    hook_reel_played = false
     _sync_attack_hitbox()
     _play(animation)
     if animation == &"hook_throw":
@@ -320,8 +372,19 @@ func _start_attack(animation: StringName) -> void:
     elif animation == &"attack_2":
         _play_sfx("skill", -7.0)
     else:
-        _play_sfx("attack", -5.0)
+        _play_attack_swing_sfx()
     _spawn_attack_vfx(animation)
+
+
+## 普攻三采样顺序轮换 + 每次 ±4% 随机变调（音频规格 §4.1）；
+## 合成包缺失时回落旧 player_attack.ogg。
+func _play_attack_swing_sfx() -> void:
+    var variant_keys := ["attack_v1", "attack_v2", "attack_v3"]
+    var key: String = variant_keys[attack_sample_index % variant_keys.size()]
+    attack_sample_index = (attack_sample_index + 1) % variant_keys.size()
+    if not FileAccess.file_exists(String(SFX.get(key, ""))):
+        key = "attack"
+    _play_sfx(key, -5.0, randf_range(0.96, 1.04), "player_attack")
 
 
 func _try_skill_burst() -> void:
@@ -356,6 +419,11 @@ func _update_attack(delta: float) -> void:
     var active := false
     if current_attack == &"hook_throw":
         active = elapsed >= 0.08 and elapsed <= 0.36
+        if elapsed > 0.36 and not hook_reel_played:
+            # 收线音对齐 0.22s 钩索回收淡出（命中窗关闭点）；待真正钩环抓取
+            # 位移机制落地后，此音迁移到位移开始点。
+            hook_reel_played = true
+            _play_sfx("hook_reel", -8.0)
     elif current_attack == &"attack_2":
         active = elapsed >= 0.07 and elapsed <= 0.34
     else:
@@ -382,6 +450,14 @@ func _apply_attack_hits() -> void:
         if attack_rect.intersects(hurtbox):
             hit_targets[id] = true
             node.take_hit(attack_damage, _attack_hit_direction())
+            if current_attack == &"hook_throw" and not hook_latch_played:
+                # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
+                hook_latch_played = true
+                _play_sfx("hook_latch", -6.0)
+                # ch2 beat `echo_hook`（manifest ch02_beat_02）：雨铸运河钩击命中后
+                # 叠一拍水声回响（金属声后接水面回声，采样内已含节拍延迟）。
+                if footstep_material == "copper":
+                    _play_sfx("ch02_beat_echo_hook", -10.0)
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
             gain_energy(energy_per_hit)
             _apply_downslash_bounce(node.global_position)
@@ -421,14 +497,21 @@ func _sync_attack_hitbox() -> void:
 
 
 func _read_attack_direction() -> Vector2:
-    if Input.is_action_pressed("aim_down"):
+    if not ui_input_locked and Input.is_action_pressed("aim_down"):
         return Vector2.DOWN
-    if Input.is_action_pressed("aim_up"):
+    if not ui_input_locked and Input.is_action_pressed("aim_up"):
         return Vector2.UP
-    var input_axis := Input.get_axis("move_left", "move_right")
+    var input_axis := _move_axis()
     if absf(input_axis) > 0.1:
         return Vector2(signf(input_axis), 0.0)
     return Vector2(float(facing), 0.0)
+
+
+## UI 输入闸（共享契约）：overlay 打开时移动/瞄准输入归零。
+func _move_axis() -> float:
+    if ui_input_locked:
+        return 0.0
+    return Input.get_axis("move_left", "move_right")
 
 
 func _attack_size() -> Vector2:
@@ -466,6 +549,10 @@ func _apply_downslash_bounce(_target_position: Vector2) -> void:
     pogo_chain = mini(pogo_chain + 1, 4)
     # pogo=敲钟（音频规格 §4.2）：D5 小铜铃自产音源，连击保留半音阶 pitch 爬升。
     _play_sfx("pogo", -6.0, pow(2.0, float(pogo_chain) / 12.0))
+    # ch4 beat `thorn_downstrike`（manifest ch04_beat_01）：断弦温室（fiber 主题）
+    # 下劈命中反弹时叠短促木质裂声。
+    if footstep_material == "fiber":
+        _play_sfx("ch04_beat_thorn_downstrike", -11.0)
 
 
 ## pogo 压缩–弹射形变（规格 §2.2）：压缩 → 拉伸 → 弹性回正。
@@ -512,16 +599,22 @@ func _play(name: StringName) -> void:
         sprite.play(name)
 
 
-func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0) -> void:
+func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0, voice_key: String = "", voice_priority: int = 1) -> void:
     if not _should_play_sfx():
+        return
+    # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
+    var resolved_voice_key := voice_key if not voice_key.is_empty() else "player_" + audio_key
+    if not _request_voice(resolved_voice_key, voice_priority):
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
+        # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
+        _release_voice(resolved_voice_key)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
-    # P0 总线归位（音频规格 §5.1）：玩家动作音走 SFX 总线，吃区域混响。
-    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    # 总线归位（音频规格 §5.1）：玩家动作音走 SFXPlayer 子总线，缺席时回落 SFX/Master。
+    player_node.bus = _sfx_bus_name()
     player_node.stream = stream
     player_node.volume_db = volume_db
     player_node.pitch_scale = pitch_scale
@@ -529,6 +622,42 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
     player_node.play()
+
+
+## 落地分档（音频规格 §4.1）：按触地前一帧的下落速度选软/硬落地采样。
+func _play_land_sfx(fall_speed: float) -> void:
+    if fall_speed >= 620.0:
+        _play_sfx("land_hard", -8.0, 1.0, "player_land")
+    else:
+        _play_sfx("land_soft", -10.0, 1.0, "player_land")
+
+
+## 玩家音源总线：SFXPlayer（AudioDirector 子总线，send→SFX）→ SFX → Master 逐级回落。
+func _sfx_bus_name() -> String:
+    if AudioServer.get_bus_index("SFXPlayer") != -1:
+        return "SFXPlayer"
+    return "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+
+
+## AudioDirector 脚本懒加载（headless 局部验证时脚本可缺席）。
+static func _ensure_audio_director() -> bool:
+    if audio_director_script == null and ResourceLoader.exists(AUDIO_DIRECTOR_PATH):
+        audio_director_script = load(AUDIO_DIRECTOR_PATH)
+    return audio_director_script != null
+
+
+## AudioDirector.request_voice 静态转调：脚本尚未落盘（headless 局部验证）时放行，
+## 返回 false 表示本次不播。
+static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+    if not _ensure_audio_director():
+        return true
+    return bool(audio_director_script.request_voice(key, priority, min_interval_ms, max_voices))
+
+
+## AudioDirector.release_voice 静态转调（声部回滚契约）：拿不到流时释放已批准的声部。
+static func _release_voice(key: String) -> void:
+    if _ensure_audio_director() and audio_director_script.has_method("release_voice"):
+        audio_director_script.release_voice(key)
 
 
 ## 冲刺残影（规格 §2.3）：每 2 物理帧留 1 影，绯红加法混合，前重后轻褪色。
@@ -604,15 +733,37 @@ func _should_play_sfx() -> bool:
     return false
 
 
-func _load_sfx_stream(audio_key: String) -> AudioStream:
-    var path := String(SFX.get(audio_key, ""))
-    if path.is_empty() or not FileAccess.file_exists(path):
+func _load_sfx_stream(audio_key: String, looped: bool = false) -> AudioStream:
+    return _load_stream_for_path(String(SFX.get(audio_key, "")), looped)
+
+
+## 流缓存（AudioDirector 契约）：全部音频加载改走静态缓存 load_cached（键 path|looped，
+## 含负缓存）；脚本缺席或方法未落地时回退旧直读，保证 headless 局部验证可跑。
+static func _load_stream_for_path(path: String, looped: bool = false) -> AudioStream:
+    if path.is_empty():
+        return null
+    if _ensure_audio_director() and audio_director_script.has_method("load_cached"):
+        return audio_director_script.load_cached(path, looped)
+    return _load_stream_direct(path, looped)
+
+
+static func _load_stream_direct(path: String, looped: bool = false) -> AudioStream:
+    if not FileAccess.file_exists(path):
         return null
     if path.ends_with(".ogg"):
-        return AudioStreamOggVorbis.load_from_file(path)
+        var ogg := AudioStreamOggVorbis.load_from_file(path)
+        if ogg != null and looped:
+            ogg.loop = true
+        return ogg
     if path.ends_with(".wav"):
         # 自产 SFX 包走 WAV 直读（Godot 4.6 headless 安全，无需 import 资源）。
-        return AudioStreamWAV.load_from_file(path)
+        var wav := AudioStreamWAV.load_from_file(path)
+        if wav != null and looped:
+            wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+            wav.loop_begin = 0
+            # 16bit 帧数按实际声道数折算，避免立体声 loop_end 超界一倍。
+            wav.loop_end = wav.data.size() / (4 if wav.stereo else 2)
+        return wav
     return load(path) as AudioStream
 
 
@@ -622,6 +773,12 @@ func _load_sfx_stream(audio_key: String) -> AudioStream:
 func _update_wall_slide_audio() -> void:
     if wall_sliding and not was_wall_sliding:
         _play_sfx("wall_grip_attach", -7.0)
+        # ch2 beat `wall_grip`（manifest ch02_beat_01）：雨铸运河（copper 主题）贴墙时
+        # 吸附音 0.15s 后叠一层水滴尾音。
+        if footstep_material == "copper":
+            get_tree().create_timer(0.15).timeout.connect(func() -> void:
+                if is_instance_valid(self):
+                    _play_sfx("ch02_beat_wall_grip_drip", -12.0))
         _start_wall_slide_loop()
     elif not wall_sliding and was_wall_sliding:
         _stop_wall_slide_loop()
@@ -633,18 +790,17 @@ func _update_wall_slide_audio() -> void:
 func _start_wall_slide_loop() -> void:
     if not _should_play_sfx():
         return
+    if not _request_voice("player_wall_slide_loop", 1, 40, 1):
+        return
     if wall_slide_audio == null or not is_instance_valid(wall_slide_audio):
-        var stream := _load_sfx_stream("wall_slide_loop")
+        # looped=true 走独立缓存键（AudioDirector 契约）：不原地改缓存流的 loop 标记。
+        var stream := _load_sfx_stream("wall_slide_loop", true)
         if stream == null:
+            _release_voice("player_wall_slide_loop")
             return
-        var wav := stream as AudioStreamWAV
-        if wav != null:
-            wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
-            wav.loop_begin = 0
-            wav.loop_end = wav.data.size() / 2
         wall_slide_audio = AudioStreamPlayer2D.new()
         wall_slide_audio.name = "SfxLoop_wall_slide"
-        wall_slide_audio.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+        wall_slide_audio.bus = _sfx_bus_name()
         wall_slide_audio.stream = stream
         wall_slide_audio.volume_db = -13.0
         wall_slide_audio.max_distance = 900.0
@@ -674,22 +830,24 @@ func _update_footsteps(delta: float) -> void:
 func _play_footstep() -> void:
     if not _should_play_sfx():
         return
-    var variants: Array = FOOTSTEP_VARIANTS.get(footstep_material, FOOTSTEP_VARIANTS["moss"])
+    if not _request_voice("player_footstep", 2, 90, 2):
+        return
+    var material_key := String(FOOTSTEP_MATERIAL_REMAP.get(footstep_material, footstep_material))
+    var variants: Array = FOOTSTEP_VARIANTS.get(material_key, FOOTSTEP_VARIANTS["moss"])
     if variants.is_empty():
         return
     var path := String(variants[randi() % variants.size()])
-    if not FileAccess.file_exists(path):
-        return
-    var stream := AudioStreamOggVorbis.load_from_file(path)
+    var stream := _load_stream_for_path(path)
     if stream == null:
+        _release_voice("player_footstep")
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "SfxStep"
-    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
+    player_node.bus = _sfx_bus_name()
     player_node.stream = stream
     player_node.volume_db = FOOTSTEP_VOLUME_DB
     # 变体随机轮播 + ±4% 随机变调（丝之歌式"连打不重样"的最低成本实现）。
-    player_node.pitch_scale = float(FOOTSTEP_BASE_PITCH.get(footstep_material, 1.0)) * randf_range(0.96, 1.04)
+    player_node.pitch_scale = float(FOOTSTEP_BASE_PITCH.get(material_key, 1.0)) * randf_range(0.96, 1.04)
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
@@ -919,14 +1077,15 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
         return
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
-    _play_sfx("hurt", -6.0)
+    # P0 生死攸关音：声部抢占最高优先级。
+    _play_sfx("hurt", -6.0, 1.0, "", 0)
     _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
         death_timer = 0.9
         velocity = Vector2.ZERO
         _stop_wall_slide_loop()
         # 死亡=绯线松脱（音频规格 §4.2 player_death）：无惨叫，只有线散与长呼气。
-        _play_sfx("death_cocoon", -5.0)
+        _play_sfx("death_cocoon", -5.0, 1.0, "", 0)
         if feel != null:
             feel.hitstop(200.0)
             feel.add_trauma(0.60)
@@ -1001,7 +1160,7 @@ func _hard_respawn() -> void:
     energy_changed.emit(energy, max_energy)
     respawn_at(spawn_position)
     # 钟龛复活（音频规格 §4.2 player_respawn）：龛铃三音上行 + 吸气。
-    _play_sfx("respawn_weave", -7.0)
+    _play_sfx("respawn_weave", -7.0, 1.0, "", 0)
     _play(&"idle")
 
 
