@@ -14,6 +14,15 @@ const SFX := {
     "hurt": "res://assets/audio/sfx/player_hurt.ogg"
 }
 const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v2/manifest.json"
+const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+
+## 绯线视觉语言色值（docs/spec/20260726160500000 §1.2）
+const THREAD_T1_CORE := Color(1.0, 0.957, 0.902, 0.92)
+const THREAD_T1_GLOW := Color(0.902, 0.224, 0.314, 0.55)
+const THREAD_T2_CORE := Color(0.902, 0.224, 0.314, 0.88)
+const THREAD_T2_GLOW := Color(1.0, 0.549, 0.478, 0.30)
+const THREAD_T3_CORE := Color(0.949, 0.757, 0.306, 0.92)
+const THREAD_T3_GLOW := Color(0.902, 0.224, 0.314, 0.35)
 
 @export var speed: float = 285.0
 @export var jump_velocity: float = -710.0
@@ -27,6 +36,12 @@ const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v2/manifest
 ## When false the dash input is ignored; unlocked by the thread_dash pickup
 ## in ability-gated chapters (main_level syncs this from inventory state).
 @export var dash_unlocked: bool = true
+## When false wall-grip is inert (behaviour identical to pre-ch2 builds);
+## unlocked by the silk_wall_grip pickup (main_level syncs from inventory).
+@export var wall_grip_unlocked: bool = false
+@export var wall_slide_max_speed: float = 90.0
+@export var wall_jump_horizontal: float = 420.0
+@export var wall_jump_vertical: float = -640.0
 @export var attack_lunge: float = 92.0
 @export var downslash_bounce_velocity: float = -620.0
 @export var enemy_contact_guard_time: float = 0.22
@@ -64,6 +79,15 @@ var attack_forward_offset: float = 48.0
 var current_attack_direction: Vector2 = Vector2.RIGHT
 var enemy_contact_guard_timer: float = 0.0
 var hit_targets: Dictionary = {}
+var feel: Node = null
+var flash_material: ShaderMaterial = null
+var self_flash_timer: float = 0.0
+var sprite_base_scale: Vector2 = Vector2.ONE
+var pogo_chain: int = 0
+var dash_ghost_tick: int = 0
+var dash_start_position: Vector2 = Vector2.ZERO
+var was_dashing: bool = false
+var wall_sliding: bool = false
 
 
 func _ready() -> void:
@@ -73,6 +97,11 @@ func _ready() -> void:
     _load_sprite_frames()
     attack_shape.disabled = true
     _sync_attack_hitbox()
+    feel = get_node_or_null("/root/FeelKit")
+    sprite_base_scale = sprite.scale
+    flash_material = ShaderMaterial.new()
+    flash_material.shader = HIT_FLASH_SHADER
+    sprite.material = flash_material
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 
@@ -87,6 +116,11 @@ func _physics_process(delta: float) -> void:
 
     if hurt_timer > 0.0:
         hurt_timer -= delta
+
+    if self_flash_timer > 0.0:
+        self_flash_timer -= delta
+        if flash_material != null:
+            flash_material.set_shader_parameter("flash_amount", 1.0 if self_flash_timer > 0.017 else 0.0)
 
     var was_on_floor := is_on_floor()
     if Input.is_action_just_pressed("jump"):
@@ -112,11 +146,32 @@ func _physics_process(delta: float) -> void:
         sprite.flip_h = facing < 0
         _sync_attack_hitbox()
 
+    # silk_wall_grip (ch2 能力)：解锁后贴墙减速下滑；未解锁时行为与旧版完全一致。
+    wall_sliding = false
+    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and dash_timer <= 0.0 and velocity.y > 0.0:
+        var slide_wall_dir := signi(-get_wall_normal().x)
+        if input_axis != 0.0 and signi(input_axis) == slide_wall_dir:
+            wall_sliding = true
+            velocity.y = minf(velocity.y, wall_slide_max_speed)
+
     if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0:
         velocity.y = jump_velocity
         coyote_timer = 0.0
         jump_buffer_timer = 0.0
         _play(&"jump_start")
+        _play_sfx("jump", -6.0)
+    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall():
+        # 蹬墙跳：离墙水平 420 / 垂直 -640，播 wall_slide 帧。
+        var jump_wall_dir := signi(-get_wall_normal().x)
+        velocity.x = -float(jump_wall_dir) * wall_jump_horizontal
+        velocity.y = wall_jump_vertical
+        facing = -jump_wall_dir
+        sprite.flip_h = facing < 0
+        _sync_attack_hitbox()
+        jump_buffer_timer = 0.0
+        coyote_timer = 0.0
+        wall_sliding = false
+        _play(&"wall_slide")
         _play_sfx("jump", -6.0)
 
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
@@ -127,6 +182,10 @@ func _physics_process(delta: float) -> void:
         dash_cooldown = dash_cooldown_time
         velocity.y = 0.0
         velocity.x = dash_speed * facing
+        dash_ghost_tick = 0
+        dash_start_position = global_position
+        if feel != null:
+            feel.add_trauma(0.08)
         _play(&"dash")
         _play_sfx("dash", -7.0)
 
@@ -144,6 +203,11 @@ func _physics_process(delta: float) -> void:
         dash_timer -= delta
         velocity.x = dash_speed * facing
         velocity.y = 0.0
+        if dash_ghost_tick % 2 == 0:
+            _spawn_dash_ghost()
+        dash_ghost_tick += 1
+        if dash_timer <= 0.0:
+            _spawn_dash_trail()
     elif attack_timer <= 0.0:
         velocity.x = move_toward(velocity.x, input_axis * speed, speed * 9.5 * delta)
     else:
@@ -153,6 +217,7 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
     if not was_on_floor and is_on_floor():
         land_timer = 0.14
+        pogo_chain = 0
         _spawn_land_vfx()
     _update_animation(input_axis)
 
@@ -256,9 +321,35 @@ func _apply_attack_hits() -> void:
         if attack_rect.intersects(hurtbox):
             hit_targets[id] = true
             node.take_hit(attack_damage, _attack_hit_direction())
+            var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
             gain_energy(energy_per_hit)
             _apply_downslash_bounce(node.global_position)
+            _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack)
+
+
+## 命中反馈分档（规格 §2.1/§2.2）：hitstop + trauma + 击杀闪帧。
+func _trigger_hit_feedback(killed: bool) -> void:
+    if feel == null:
+        return
+    var is_downslash := current_attack != &"hook_throw" and current_attack_direction.y > 0.5
+    var stop_ms := 45.0
+    var trauma := 0.16
+    if current_attack == &"attack_2":
+        stop_ms = 120.0 if killed else 75.0
+        trauma = 0.30
+    elif is_downslash:
+        stop_ms = 50.0 if killed else 40.0
+        trauma = 0.12
+    elif current_attack == &"hook_throw":
+        stop_ms = 50.0
+        trauma = 0.14
+    elif killed:
+        stop_ms = 90.0
+    feel.hitstop(stop_ms)
+    feel.add_trauma(trauma)
+    if killed:
+        feel.flash_screen(Color.WHITE, 0.08, 1)
 
 
 func _sync_attack_hitbox() -> void:
@@ -310,6 +401,20 @@ func _apply_downslash_bounce(_target_position: Vector2) -> void:
     coyote_timer = 0.0
     jump_buffer_timer = 0.0
     enemy_contact_guard_timer = maxf(enemy_contact_guard_timer, enemy_contact_guard_time)
+    _play_pogo_squash()
+    pogo_chain = mini(pogo_chain + 1, 4)
+    _play_sfx("jump", -8.0, pow(2.0, float(pogo_chain) / 12.0))
+
+
+## pogo 压缩–弹射形变（规格 §2.2）：压缩 → 拉伸 → 弹性回正。
+func _play_pogo_squash() -> void:
+    if sprite == null:
+        return
+    sprite.scale = sprite_base_scale * Vector2(0.86, 1.14)
+    var tween := create_tween()
+    tween.tween_interval(0.033)
+    tween.tween_property(sprite, "scale", sprite_base_scale * Vector2(1.12, 0.84), 0.033)
+    tween.tween_property(sprite, "scale", sprite_base_scale, 0.10).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 
 
 func gain_energy(amount: int) -> void:
@@ -326,6 +431,8 @@ func _update_animation(input_axis: float) -> void:
         _play(current_attack)
     elif dash_timer > 0.0:
         _play(&"dash")
+    elif wall_sliding and not is_on_floor():
+        _play(&"wall_slide")
     elif not is_on_floor():
         _play(&"jump_loop" if velocity.y < 0.0 else &"fall")
     elif land_timer > 0.0:
@@ -343,7 +450,7 @@ func _play(name: StringName) -> void:
         sprite.play(name)
 
 
-func _play_sfx(audio_key: String, volume_db: float = -5.0) -> void:
+func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0) -> void:
     if not _should_play_sfx():
         return
     var stream := _load_sfx_stream(audio_key)
@@ -351,12 +458,79 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0) -> void:
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
+    # P0 总线归位（音频规格 §5.1）：玩家动作音走 SFX 总线，吃区域混响。
+    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
     player_node.stream = stream
     player_node.volume_db = volume_db
+    player_node.pitch_scale = pitch_scale
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
     player_node.play()
+
+
+## 冲刺残影（规格 §2.3）：每 2 物理帧留 1 影，绯红加法混合，前重后轻褪色。
+func _spawn_dash_ghost() -> void:
+    var parent_node := get_parent()
+    if parent_node == null or sprite == null or sprite.sprite_frames == null:
+        return
+    var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+    if texture == null:
+        return
+    var ghost := Sprite2D.new()
+    ghost.name = "DashGhost"
+    ghost.texture = texture
+    ghost.flip_h = sprite.flip_h
+    ghost.offset = sprite.offset
+    ghost.self_modulate = Color(THREAD_T2_CORE.r, THREAD_T2_CORE.g, THREAD_T2_CORE.b, 0.55)
+    ghost.z_index = 55
+    var ghost_material := CanvasItemMaterial.new()
+    ghost_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    ghost.material = ghost_material
+    parent_node.add_child(ghost)
+    ghost.global_transform = sprite.global_transform
+    var tween := ghost.create_tween()
+    tween.tween_property(ghost, "self_modulate:a", 0.0, 0.24).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+    tween.parallel().tween_property(ghost, "scale", ghost.scale * 0.94, 0.24)
+    tween.finished.connect(Callable(ghost, "queue_free"))
+
+
+## 冲刺线迹（规格 §2.3）：起点→终点一条 T2 主线，结束后从尾端收回（收线律）。
+func _spawn_dash_trail() -> void:
+    var parent_node := get_parent()
+    if parent_node == null:
+        return
+    var from := dash_start_position + Vector2(0.0, -34.0)
+    var to := global_position + Vector2(0.0, -34.0)
+    if from.distance_to(to) < 24.0:
+        return
+    var trail := Line2D.new()
+    trail.name = "DashTrailVfx"
+    trail.width = 3.0
+    trail.default_color = THREAD_T2_CORE
+    trail.z_index = 56
+    trail.points = PackedVector2Array([from, to])
+    parent_node.add_child(trail)
+    var glow := Line2D.new()
+    glow.name = "DashTrailGlow"
+    glow.width = 3.0 * 2.6
+    glow.default_color = THREAD_T2_GLOW
+    glow.z_index = 55
+    glow.points = PackedVector2Array([from, to])
+    var glow_material := CanvasItemMaterial.new()
+    glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    glow.material = glow_material
+    parent_node.add_child(glow)
+    var tween := trail.create_tween()
+    tween.tween_method(func(t: float) -> void:
+        var retracted := PackedVector2Array([from.lerp(to, t), to])
+        if is_instance_valid(trail):
+            trail.points = retracted
+        if is_instance_valid(glow):
+            glow.points = retracted
+    , 0.0, 1.0, 0.20)
+    tween.finished.connect(Callable(trail, "queue_free"))
+    tween.finished.connect(Callable(glow, "queue_free"))
 
 
 func _should_play_sfx() -> bool:
@@ -386,7 +560,7 @@ func _spawn_heal_effect() -> void:
         var x := -34.0 + float(index) * 9.7
         thread.points = PackedVector2Array([Vector2(x, -18.0), Vector2(x + 4.0, -76.0)])
         thread.width = 2.0
-        thread.default_color = Color(0.56, 1.0, 0.70, 0.82)
+        thread.default_color = Color(THREAD_T3_CORE.r, THREAD_T3_CORE.g, THREAD_T3_CORE.b, 0.82)
         thread.z_index = 44
         add_child(thread)
         var tween := create_tween()
@@ -405,7 +579,7 @@ func _add_heal_ring(radius: float, delay: float) -> void:
     ring.points = points
     ring.closed = true
     ring.width = 3.0
-    ring.default_color = Color(0.74, 1.0, 0.58, 0.92)
+    ring.default_color = THREAD_T3_CORE
     ring.z_index = 45
     add_child(ring)
     ring.scale = Vector2(0.38, 0.38)
@@ -429,7 +603,7 @@ func _spawn_slash_vfx() -> void:
     var slash := Line2D.new()
     slash.name = "AttackSlashVfx"
     slash.width = 5.0
-    slash.default_color = Color(1.0, 0.92, 0.58, 0.90)
+    slash.default_color = THREAD_T1_CORE
     slash.z_index = 60
     var points := PackedVector2Array()
     var center := _attack_center_offset()
@@ -446,11 +620,30 @@ func _spawn_slash_vfx() -> void:
             var angle := lerpf(-0.95, 0.95, float(step) / 9.0)
             points.append(center + Vector2(cos(angle) * 45.0 * facing, sin(angle) * 28.0))
     slash.points = points
+    var glow := _make_glow_twin(slash, 2.2, THREAD_T1_GLOW)
+    add_child(glow)
     add_child(slash)
     var tween := create_tween()
     tween.tween_property(slash, "scale", Vector2(1.28, 1.28), 0.15)
     tween.parallel().tween_property(slash, "modulate:a", 0.0, 0.15)
+    tween.parallel().tween_property(glow, "scale", Vector2(1.28, 1.28), 0.15)
+    tween.parallel().tween_property(glow, "modulate:a", 0.0, 0.15)
     tween.finished.connect(Callable(slash, "queue_free"))
+    tween.finished.connect(Callable(glow, "queue_free"))
+
+
+## 辉光复线（规格 §1.2）：同路径宽复线 + 加法混合，构成廉价 2D 辉光。
+func _make_glow_twin(line: Line2D, width_ratio: float, glow_color: Color) -> Line2D:
+    var glow := Line2D.new()
+    glow.name = String(line.name) + "Glow"
+    glow.points = line.points
+    glow.width = line.width * width_ratio
+    glow.default_color = glow_color
+    glow.z_index = line.z_index - 1
+    var glow_material := CanvasItemMaterial.new()
+    glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    glow.material = glow_material
+    return glow
 
 
 func _spawn_hook_trail_vfx() -> void:
@@ -540,8 +733,9 @@ func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName) -> v
     spark.name = "HitConfirmVfx"
     spark.global_position = world_position + Vector2(0.0, -28.0)
     spark.width = 4.0 if animation == &"attack_2" else 3.0
-    spark.default_color = Color(1.0, 0.82, 0.26, 0.95)
+    spark.default_color = THREAD_T1_CORE
     spark.z_index = 80
+    spark.modulate = Color(1.0, 1.0, 1.0, 1.0).lerp(Color(THREAD_T1_GLOW.r, THREAD_T1_GLOW.g, THREAD_T1_GLOW.b, 1.0), 0.25)
     spark.points = PackedVector2Array([
         Vector2(-18.0, -6.0),
         Vector2(0.0, 0.0),
@@ -581,11 +775,23 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
     _play_sfx("hurt", -6.0)
+    _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
         death_timer = 0.9
         velocity = Vector2.ZERO
+        if feel != null:
+            feel.hitstop(200.0)
+            feel.add_trauma(0.60)
+            feel.black_frame(global_position, 3)
         _play(&"death")
         return
+    if feel != null:
+        feel.hitstop(110.0)
+        feel.add_trauma(0.45)
+        feel.black_frame(global_position, 2)
+    self_flash_timer = 0.05
+    if flash_material != null:
+        flash_material.set_shader_parameter("flash_amount", 1.0)
     gain_energy(energy_on_damage)
     hurt_timer = 0.35
     var knockback_dir := signf(global_position.x - source_position.x)
@@ -593,6 +799,33 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
         knockback_dir = -facing
     velocity = Vector2(knockback_dir * 260.0, -170.0)
     _play(&"hurt")
+
+
+## 受伤丝线崩断（规格 §2.10）：从受击点向外 5 条绯线绷断飞散。
+func _spawn_thread_snap_vfx(source_position: Vector2) -> void:
+    var parent_node := get_parent()
+    if parent_node == null:
+        return
+    var origin := global_position + Vector2(0.0, -34.0)
+    var away := signf(global_position.x - source_position.x)
+    if away == 0.0:
+        away = -float(facing)
+    for index in range(5):
+        var thread := Line2D.new()
+        thread.name = "ThreadSnapVfx"
+        var angle := -PI * 0.5 + (float(index) - 2.0) * 0.42 + away * 0.3
+        var length := 20.0 + float(index % 3) * 7.0
+        var tip := Vector2(cos(angle), sin(angle)) * length
+        thread.points = PackedVector2Array([Vector2.ZERO, tip])
+        thread.width = 3.0
+        thread.default_color = THREAD_T2_CORE
+        thread.z_index = 80
+        thread.position = origin
+        parent_node.add_child(thread)
+        var tween := thread.create_tween()
+        tween.tween_property(thread, "position", origin + tip * 0.8, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+        tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.25)
+        tween.finished.connect(Callable(thread, "queue_free"))
 
 
 func can_ignore_enemy_contact(_source_position: Vector2) -> bool:

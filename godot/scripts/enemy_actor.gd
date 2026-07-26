@@ -10,6 +10,12 @@ const SFX := {
     "boss_windup": "res://assets/audio/sfx/heavy_hit.ogg",
     "boss_attack": "res://assets/audio/sfx/player_attack.ogg"
 }
+const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+## 白闪曲线（规格 §3.1）：3 帧纯白 → 2 帧半白，共 ≈83ms。
+const FLASH_TOTAL_TIME := 0.083
+const FLASH_HALF_TIME := 0.033
+## 击退指数衰减时间常数（规格 §3.2）。
+const KNOCKBACK_TAU := 0.06
 
 @export var spawn_id: String = ""
 @export var kind: String = "moss_larva"
@@ -65,6 +71,9 @@ var animated_sprite: AnimatedSprite2D
 var telegraph: Polygon2D
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
+var flash_materials: Array = []
+var knockback_velocity := 0.0
+var dying := false
 
 
 func _ready() -> void:
@@ -79,6 +88,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    if dying:
+        return
     _tick_timers(delta)
     var target := _target_player()
     if target != null and not _is_attack_state():
@@ -131,15 +142,17 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
+    if dying:
+        return
     _play_sfx("heavy_hit" if amount >= 2 or is_boss else "enemy_hit", -6.0)
     _spawn_hit_spark(hit_direction)
     _set_enemy_animation("hurt")
     _pose_sprite("hurt")
     hp -= amount
-    position.x += hit_direction * (9.0 if is_boss else 14.0)
-    _clamp_movement_bounds()
-    modulate = Color(1.0, 0.72, 0.55)
-    flash_timer = 0.12
+    var base_speed := 140.0 if is_boss else (460.0 if amount >= 2 else 320.0)
+    knockback_velocity = float(hit_direction) * base_speed * (1.4 if hp <= 0 else 1.0)
+    _set_flash_amount(1.0)
+    flash_timer = FLASH_TOTAL_TIME
     if _boss_tactical_enabled() and hp > 0:
         boss_tactic = "evade"
         boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
@@ -149,11 +162,32 @@ func take_hit(amount: int, hit_direction: int) -> void:
         state_timer = 0.16
         _clear_telegraph()
     if hp <= 0:
-        _set_enemy_animation("death")
-        _pose_sprite("death")
-        _clear_telegraph()
-        died.emit(spawn_id, is_boss, kind)
+        _begin_death_dissolve()
+
+
+## 死亡溶解（规格 §3.4 简化通用版）：died 当帧发出、立即离开 enemy 组，
+## 之后表现层溶解 0.45s（Boss 0.9s）再 queue_free——计数/掉落逻辑不受影响。
+func _begin_death_dissolve() -> void:
+    dying = true
+    monitoring = false
+    monitorable = false
+    remove_from_group("enemy")
+    knockback_velocity = 0.0
+    _set_enemy_animation("death")
+    _pose_sprite("death")
+    _clear_telegraph()
+    died.emit(spawn_id, is_boss, kind)
+    if sprite == null or not is_instance_valid(sprite):
         queue_free()
+        return
+    var duration := 0.9 if is_boss else 0.45
+    var tween := create_tween()
+    tween.tween_interval(0.05)
+    tween.tween_callback(func() -> void: _set_flash_amount(0.0))
+    tween.tween_property(sprite, "modulate:a", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+    tween.parallel().tween_property(sprite, "position:y", sprite.position.y + 14.0, duration)
+    tween.parallel().tween_property(sprite, "scale", sprite.scale * 0.90, duration)
+    tween.finished.connect(Callable(self, "queue_free"))
 
 
 func get_hurtbox_rect() -> Rect2:
@@ -188,11 +222,26 @@ func _tick_timers(delta: float) -> void:
     if flash_timer > 0.0:
         flash_timer -= delta
         if flash_timer <= 0.0:
-            modulate = Color.WHITE
+            _set_flash_amount(0.0)
+        else:
+            _set_flash_amount(1.0 if flash_timer > FLASH_HALF_TIME else 0.5)
+    if absf(knockback_velocity) > 0.0:
+        position.x += knockback_velocity * delta
+        knockback_velocity *= exp(-delta / KNOCKBACK_TAU)
+        if absf(knockback_velocity) < 8.0:
+            knockback_velocity = 0.0
+        _clamp_movement_bounds()
     for key in cooldowns.keys():
         cooldowns[key] = maxf(0.0, float(cooldowns[key]) - delta)
     if boss_tactic_timer > 0.0:
         boss_tactic_timer = maxf(0.0, boss_tactic_timer - delta)
+
+
+func _set_flash_amount(amount: float) -> void:
+    for material_value in flash_materials:
+        var material := material_value as ShaderMaterial
+        if material != null:
+            material.set_shader_parameter("flash_amount", amount)
 
 
 func _is_attack_state() -> bool:
@@ -234,7 +283,11 @@ func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
 
 
 func reset_for_respawn() -> void:
+    if dying:
+        return
     hp = max_hp
+    knockback_velocity = 0.0
+    _set_flash_amount(0.0)
     global_position = spawn_position
     direction = 1
     attack_direction = 1
@@ -945,6 +998,26 @@ func _build_sprite() -> void:
     sprite_base_scale = sprite.scale
     _apply_sprite_region("idle")
     add_child(sprite)
+    _attach_flash_materials()
+
+
+## 受击白闪 Shader（规格 §3.1）：每个可见 sprite 挂一份独立 ShaderMaterial，
+## modulate 乘法调制无法“变白”，必须走 shader mix。
+func _attach_flash_materials() -> void:
+    flash_materials.clear()
+    var targets: Array = []
+    if sprite is Sprite2D or sprite is AnimatedSprite2D:
+        targets.append(sprite)
+    else:
+        for child in sprite.get_children():
+            if child is Sprite2D or child is AnimatedSprite2D:
+                targets.append(child)
+    for target_value in targets:
+        var target := target_value as CanvasItem
+        var material := ShaderMaterial.new()
+        material.shader = HIT_FLASH_SHADER
+        target.material = material
+        flash_materials.append(material)
 
 
 func _build_part_sprite() -> Node2D:
@@ -1163,6 +1236,8 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0) -> void:
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
+    # P0 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFX 总线，吃区域混响。
+    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
     player_node.stream = stream
     player_node.volume_db = volume_db
     player_node.max_distance = 900.0
@@ -1308,7 +1383,7 @@ func _spawn_hit_spark(hit_direction: int) -> void:
     var spark := Line2D.new()
     spark.name = "HitSpark"
     spark.width = 4.0 if is_boss else 3.0
-    spark.default_color = Color(1.0, 0.82, 0.38, 0.95)
+    spark.default_color = Color(1.0, 0.957, 0.902, 0.95)
     spark.z_index = 40
     var x := 24.0 * -hit_direction
     spark.points = PackedVector2Array([
