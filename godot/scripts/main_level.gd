@@ -119,44 +119,51 @@ const SPRITES := {
     "moss_stone": "res://assets/sprites/gothicvania/demo/platform_moss_stone.png",
     "bronze_bridge": "res://assets/sprites/gothicvania/demo/platform_bronze_bridge.png",
     "boss_stone": "res://assets/sprites/gothicvania/demo/platform_boss_stone.png",
-    "moss_larva": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "bronze_moth": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "spore_bellmaker": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "gear_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
+    "moss_larva": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/manifest.json",
+    "bronze_moth": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/manifest.json",
+    "spore_bellmaker": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/manifest.json",
+    "gear_sentinel": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/manifest.json",
+    "corridor_heavy": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/corridor_heavy/manifest.json",
+    "bellroot_acolyte": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bellroot_acolyte/manifest.json",
     "rust_crown_guardian": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
-    "drain_leech": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "pipe_thrower": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "rust_diver": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "bell_mote": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "waterwheel_knight": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
+    "drain_leech": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
+    "pipe_thrower": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
+    "rust_diver": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
+    "bell_mote": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/manifest.json",
+    "valve_crawler": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/valve_crawler/manifest.json",
+    "rain_censer_mote": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rain_censer_mote/manifest.json",
+    "waterwheel_knight": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
     "sunken_hammer_smith": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
-    "salt_bookmite": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "page_duelist": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "index_scribe": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "summoned_page": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "wax_lancer": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "erasure_bailiff": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
+    "salt_bookmite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/manifest.json",
+    "page_duelist": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/manifest.json",
+    "index_scribe": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/manifest.json",
+    "summoned_page": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/summoned_page/manifest.json",
+    "wax_lancer": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/manifest.json",
+    "erasure_bailiff": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/manifest.json",
     "saltwhite_contract_judge": "res://assets/sprites/bosses/boss_03_ash_crowned_mantis_warlord/manifest.json",
-    "vine_crawler": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "wax_bee": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "root_cage_hunter": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "pollen_lutist": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "thorn_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
+    "vine_crawler": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
+    "wax_bee": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
+    "root_cage_hunter": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
+    "pollen_lutist": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
+    "thorn_sentinel": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
+    "thorn_bloom_mote": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
     "broken_string_garden_lord": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
     "broken_string_gardener": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
-    "obsidian_spearman": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "phase_censor": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "silent_bugbler": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "kneeling_crossbowman": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "pilgrim_chariot": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
+    "obsidian_spearman": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
+    "obsidian_bellwheel": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
+    "phase_censor": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
+    "silent_bugbler": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
+    "kneeling_crossbowman": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
+    "pilgrim_chariot": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
+    "ash_banner_imp": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
     "silent_pilgrim_commander": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
-    "echo_moss_larva": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "echo_waterwheel_knight": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "echo_contract_scribe": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "delayed_shadow": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "echo_thorn_sentinel": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "echo_pilgrim_commander_minor": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "isotope_lumen": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
+    "echo_moss_larva": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/manifest.json",
+    "echo_waterwheel_knight": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/manifest.json",
+    "echo_contract_scribe": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/manifest.json",
+    "delayed_shadow": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/delayed_shadow/manifest.json",
+    "echo_thorn_sentinel": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/manifest.json",
+    "echo_pilgrim_commander_minor": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/manifest.json",
+    "isotope_lumen": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/manifest.json",
     "silent_crown_core": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
     "spikes": "res://assets/sprites/gothicvania/demo/hazard_spikes.png",
     "bell": "res://assets/sprites/gothicvania/demo/hazard_bell.png",
@@ -177,32 +184,34 @@ const SPRITES := {
     "hud_coin": "res://assets/sprites/ui/kenney/hud_coins.png"
 }
 
+# Each NPC role gets a distinct idle portrait from the shared bestiary set so
+# friendly characters no longer recycle the four CH01 enemy placeholder sheets.
 const NPC_SPRITES := {
-    "threadsmith": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "pilgrim": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "cartographer": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "sacristan": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "scout": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "rain_smith": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "canal_child": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "sluice_nun": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "half_drowned_foreman": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "unreliable_guide": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "mechanic_teacher": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "true_ending_clue": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "vendor_guard_hint": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "main_witness": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "keeper_truth": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "vendor_sidequest": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "gate_hint": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "route_hint": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png",
-    "key_witness": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "ability_teacher": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "sidequest_moral_choice": "res://assets/sprites/gothicvania/demo/enemy_bronze_moth.png",
-    "true_ending_core": "res://assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png",
-    "world_warning": "res://assets/sprites/gothicvania/demo/enemy_gear_sentinel.png",
-    "ending_checker": "res://assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png",
-    "hidden_temptation": "res://assets/sprites/gothicvania/demo/enemy_moss_larva.png"
+    "threadsmith": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frames/idle/idle_00.png",
+    "pilgrim": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frames/idle/idle_00.png",
+    "cartographer": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frames/idle/idle_00.png",
+    "sacristan": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frames/idle/idle_00.png",
+    "scout": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frames/idle/idle_00.png",
+    "rain_smith": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frames/idle/idle_00.png",
+    "canal_child": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frames/idle/idle_00.png",
+    "sluice_nun": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rain_censer_mote/frames/idle/idle_00.png",
+    "half_drowned_foreman": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frames/idle/idle_00.png",
+    "unreliable_guide": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/summoned_page/frames/idle/idle_00.png",
+    "mechanic_teacher": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frames/idle/idle_00.png",
+    "true_ending_clue": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frames/idle/idle_00.png",
+    "vendor_guard_hint": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frames/idle/idle_00.png",
+    "main_witness": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frames/idle/idle_00.png",
+    "keeper_truth": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frames/idle/idle_00.png",
+    "vendor_sidequest": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frames/idle/idle_00.png",
+    "gate_hint": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bellroot_acolyte/frames/idle/idle_00.png",
+    "route_hint": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frames/idle/idle_00.png",
+    "key_witness": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/delayed_shadow/frames/idle/idle_00.png",
+    "ability_teacher": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frames/idle/idle_00.png",
+    "sidequest_moral_choice": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frames/idle/idle_00.png",
+    "true_ending_core": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frames/idle/idle_00.png",
+    "world_warning": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/frames/idle/idle_00.png",
+    "ending_checker": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frames/idle/idle_00.png",
+    "hidden_temptation": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/frames/idle/idle_00.png"
 }
 
 const MOSSY_PLATFORM_TILES := {
@@ -252,6 +261,87 @@ const KENNEY_DELUXE_ASSETS := {
 const GODOT_PLATFORMER_2D_ASSETS := {
     "sky": "res://assets/third_party/godot_platformer_2d/sky.png",
     "mountains": "res://assets/third_party/godot_platformer_2d/mountains.png"
+}
+
+const ORIGINAL_MAP_ART := {
+    "moss_cavern": {
+        "sky": "res://assets/sprites/original_map/moss_cavern/sky.png",
+        "far": "res://assets/sprites/original_map/moss_cavern/far.png",
+        "mid": "res://assets/sprites/original_map/moss_cavern/mid.png",
+        "near": "res://assets/sprites/original_map/moss_cavern/near.png",
+        "map": "res://assets/sprites/original_map/moss_cavern/map.png",
+        "left": "res://assets/sprites/original_map/moss_cavern/platform_left.png",
+        "mid_tile": "res://assets/sprites/original_map/moss_cavern/platform_mid.png",
+        "mid_alt": "res://assets/sprites/original_map/moss_cavern/platform_mid_alt.png",
+        "right": "res://assets/sprites/original_map/moss_cavern/platform_right.png",
+        "cap_small": "res://assets/sprites/original_map/moss_cavern/platform_cap_small.png",
+        "wall": "res://assets/sprites/original_map/moss_cavern/wall.png"
+    },
+    "rain_foundry": {
+        "sky": "res://assets/sprites/original_map/rain_foundry/sky.png",
+        "far": "res://assets/sprites/original_map/rain_foundry/far.png",
+        "mid": "res://assets/sprites/original_map/rain_foundry/mid.png",
+        "near": "res://assets/sprites/original_map/rain_foundry/near.png",
+        "map": "res://assets/sprites/original_map/rain_foundry/map.png",
+        "left": "res://assets/sprites/original_map/rain_foundry/platform_left.png",
+        "mid_tile": "res://assets/sprites/original_map/rain_foundry/platform_mid.png",
+        "mid_alt": "res://assets/sprites/original_map/rain_foundry/platform_mid_alt.png",
+        "right": "res://assets/sprites/original_map/rain_foundry/platform_right.png",
+        "cap_small": "res://assets/sprites/original_map/rain_foundry/platform_cap_small.png",
+        "wall": "res://assets/sprites/original_map/rain_foundry/wall.png"
+    },
+    "salt_archive": {
+        "sky": "res://assets/sprites/original_map/salt_archive/sky.png",
+        "far": "res://assets/sprites/original_map/salt_archive/far.png",
+        "mid": "res://assets/sprites/original_map/salt_archive/mid.png",
+        "near": "res://assets/sprites/original_map/salt_archive/near.png",
+        "map": "res://assets/sprites/original_map/salt_archive/map.png",
+        "left": "res://assets/sprites/original_map/salt_archive/platform_left.png",
+        "mid_tile": "res://assets/sprites/original_map/salt_archive/platform_mid.png",
+        "mid_alt": "res://assets/sprites/original_map/salt_archive/platform_mid_alt.png",
+        "right": "res://assets/sprites/original_map/salt_archive/platform_right.png",
+        "cap_small": "res://assets/sprites/original_map/salt_archive/platform_cap_small.png",
+        "wall": "res://assets/sprites/original_map/salt_archive/wall.png"
+    },
+    "string_greenhouse": {
+        "sky": "res://assets/sprites/original_map/string_greenhouse/sky.png",
+        "far": "res://assets/sprites/original_map/string_greenhouse/far.png",
+        "mid": "res://assets/sprites/original_map/string_greenhouse/mid.png",
+        "near": "res://assets/sprites/original_map/string_greenhouse/near.png",
+        "map": "res://assets/sprites/original_map/string_greenhouse/map.png",
+        "left": "res://assets/sprites/original_map/string_greenhouse/platform_left.png",
+        "mid_tile": "res://assets/sprites/original_map/string_greenhouse/platform_mid.png",
+        "mid_alt": "res://assets/sprites/original_map/string_greenhouse/platform_mid_alt.png",
+        "right": "res://assets/sprites/original_map/string_greenhouse/platform_right.png",
+        "cap_small": "res://assets/sprites/original_map/string_greenhouse/platform_cap_small.png",
+        "wall": "res://assets/sprites/original_map/string_greenhouse/wall.png"
+    },
+    "obsidian_pilgrim": {
+        "sky": "res://assets/sprites/original_map/obsidian_pilgrim/sky.png",
+        "far": "res://assets/sprites/original_map/obsidian_pilgrim/far.png",
+        "mid": "res://assets/sprites/original_map/obsidian_pilgrim/mid.png",
+        "near": "res://assets/sprites/original_map/obsidian_pilgrim/near.png",
+        "map": "res://assets/sprites/original_map/obsidian_pilgrim/map.png",
+        "left": "res://assets/sprites/original_map/obsidian_pilgrim/platform_left.png",
+        "mid_tile": "res://assets/sprites/original_map/obsidian_pilgrim/platform_mid.png",
+        "mid_alt": "res://assets/sprites/original_map/obsidian_pilgrim/platform_mid_alt.png",
+        "right": "res://assets/sprites/original_map/obsidian_pilgrim/platform_right.png",
+        "cap_small": "res://assets/sprites/original_map/obsidian_pilgrim/platform_cap_small.png",
+        "wall": "res://assets/sprites/original_map/obsidian_pilgrim/wall.png"
+    },
+    "silent_crown": {
+        "sky": "res://assets/sprites/original_map/silent_crown/sky.png",
+        "far": "res://assets/sprites/original_map/silent_crown/far.png",
+        "mid": "res://assets/sprites/original_map/silent_crown/mid.png",
+        "near": "res://assets/sprites/original_map/silent_crown/near.png",
+        "map": "res://assets/sprites/original_map/silent_crown/map.png",
+        "left": "res://assets/sprites/original_map/silent_crown/platform_left.png",
+        "mid_tile": "res://assets/sprites/original_map/silent_crown/platform_mid.png",
+        "mid_alt": "res://assets/sprites/original_map/silent_crown/platform_mid_alt.png",
+        "right": "res://assets/sprites/original_map/silent_crown/platform_right.png",
+        "cap_small": "res://assets/sprites/original_map/silent_crown/platform_cap_small.png",
+        "wall": "res://assets/sprites/original_map/silent_crown/wall.png"
+    }
 }
 
 const KENNEY_DELUXE_TILE_FAMILIES := {
@@ -447,6 +537,8 @@ func _load_json(path: String) -> Dictionary:
 func _art_theme_id() -> String:
     var theme_id := String(config.get("art_theme", ""))
     if not theme_id.is_empty():
+        if theme_id == "moss_bell":
+            return "moss_cavern"
         return theme_id
     var config_id := String(config.get("id", ""))
     if config_id.contains("rain_foundry") or config_id.contains("ch02"):
@@ -460,6 +552,10 @@ func _art_theme_id() -> String:
     if config_id.contains("silent_crown") or config_id.contains("ch06"):
         return "silent_crown"
     return "moss_cavern"
+
+
+func _original_map_art() -> Dictionary:
+    return ORIGINAL_MAP_ART.get(_art_theme_id(), ORIGINAL_MAP_ART["moss_cavern"]) as Dictionary
 
 
 func _is_rain_foundry_theme() -> bool:
@@ -485,42 +581,26 @@ func _theme_map_title() -> String:
 
 
 func _theme_map_background_texture() -> String:
-    if _art_theme_id() == "salt_archive":
-        return GOTHICVANIA_CEMETERY_ASSETS["graveyard"]
-    if _art_theme_id() == "silent_crown":
-        return GODOT_PLATFORMER_2D_ASSETS["mountains"]
-    if _theme_uses_kenney_deluxe():
-        return KENNEY_DELUXE_ASSETS["bg_castle"]
-    if _theme_uses_industrial_tiles():
-        return INDUSTRIAL_PLATFORM_TILES["panel_alt"]
-    return SPRITES["map_background"]
+    return String(_original_map_art().get("map", ""))
 
 
 func _theme_map_art_modulate() -> Color:
     var theme := _art_theme_id()
     if theme == "rain_foundry":
-        return Color(0.62, 0.88, 0.96, 0.16)
+        return Color(0.72, 0.90, 0.96, 0.48)
     if theme == "salt_archive":
-        return Color(0.88, 0.86, 0.72, 0.17)
+        return Color(0.92, 0.86, 0.70, 0.48)
     if theme == "string_greenhouse":
-        return Color(0.58, 0.86, 0.62, 0.18)
+        return Color(0.62, 0.88, 0.66, 0.48)
     if theme == "obsidian_pilgrim":
-        return Color(0.88, 0.46, 0.32, 0.16)
+        return Color(0.92, 0.56, 0.40, 0.46)
     if theme == "silent_crown":
-        return Color(0.74, 0.78, 1.0, 0.15)
-    return Color(0.62, 0.78, 0.70, 0.18)
+        return Color(0.76, 0.80, 1.0, 0.46)
+    return Color(0.66, 0.82, 0.72, 0.48)
 
 
 func _theme_asset_source() -> String:
-    if _art_theme_id() == "salt_archive":
-        return "GothicVania Cemetery by Ansimuz, Public Domain"
-    if _art_theme_id() == "silent_crown":
-        return "Godot Platformer 2D MIT + Kenney Platformer Art Deluxe CC0"
-    if _theme_uses_kenney_deluxe():
-        return "Kenney Platformer Art Deluxe CC0"
-    if _theme_uses_industrial_tiles():
-        return "Kenney Platformer Pack Industrial CC0"
-    return "GothicVania demo public-domain-style assets"
+    return "Crimson Thread original map art (project-owned, deterministic build)"
 
 
 func _theme_uses_industrial_tiles() -> bool:
@@ -533,33 +613,12 @@ func _theme_uses_kenney_deluxe() -> bool:
 
 
 func _background_visual_asset_paths() -> Array:
-    var theme := _art_theme_id()
-    if theme == "rain_foundry":
-        return [
-            INDUSTRIAL_PLATFORM_TILES["panel"],
-            INDUSTRIAL_PLATFORM_TILES["pipe"],
-            INDUSTRIAL_PLATFORM_TILES["gear"],
-            INDUSTRIAL_PLATFORM_TILES["light_blue"]
-        ]
-    if theme == "salt_archive":
-        return [
-            GOTHICVANIA_CEMETERY_ASSETS["background"],
-            GOTHICVANIA_CEMETERY_ASSETS["mountains"],
-            GOTHICVANIA_CEMETERY_ASSETS["graveyard"]
-        ]
-    if theme == "string_greenhouse":
-        return [KENNEY_DELUXE_ASSETS["bg"]]
-    if theme == "obsidian_pilgrim":
-        return [KENNEY_DELUXE_ASSETS["bg_castle"]]
-    if theme == "silent_crown":
-        return [
-            GODOT_PLATFORMER_2D_ASSETS["sky"],
-            GODOT_PLATFORMER_2D_ASSETS["mountains"]
-        ]
+    var art := _original_map_art()
     return [
-        SPRITES["bg_sky"],
-        SPRITES["bg_fog"],
-        SPRITES["bg_near"]
+        String(art.get("sky", "")),
+        String(art.get("far", "")),
+        String(art.get("mid", "")),
+        String(art.get("near", ""))
     ]
 
 
@@ -579,30 +638,13 @@ func _theme_boss_material() -> String:
 
 
 func _platform_visual_asset_paths_for_material(material: String) -> Array:
-    if _is_cemetery_material(material):
-        return [GOTHICVANIA_CEMETERY_ASSETS["tileset"]]
-    var kenney_family := _kenney_deluxe_family(material)
-    if not kenney_family.is_empty():
-        var family_tiles: Dictionary = KENNEY_DELUXE_TILE_FAMILIES.get(kenney_family, {})
-        return [
-            String(family_tiles.get("left", "")),
-            String(family_tiles.get("mid", "")),
-            String(family_tiles.get("right", ""))
-        ]
-    if _is_industrial_material(material):
-        return [
-            INDUSTRIAL_PLATFORM_TILES["left"],
-            INDUSTRIAL_PLATFORM_TILES["mid"],
-            INDUSTRIAL_PLATFORM_TILES["mid_alt"],
-            INDUSTRIAL_PLATFORM_TILES["right"],
-            INDUSTRIAL_PLATFORM_TILES["cap_small"]
-        ]
+    var art := _original_map_art()
     return [
-        MOSSY_PLATFORM_TILES["left"],
-        MOSSY_PLATFORM_TILES["mid"],
-        MOSSY_PLATFORM_TILES["mid_alt"],
-        MOSSY_PLATFORM_TILES["right"],
-        MOSSY_PLATFORM_TILES["cap_small"]
+        String(art.get("left", "")),
+        String(art.get("mid_tile", "")),
+        String(art.get("mid_alt", "")),
+        String(art.get("right", "")),
+        String(art.get("cap_small", ""))
     ]
 
 
@@ -956,8 +998,9 @@ func _build_map_overlay() -> void:
 
     map_text = Label.new()
     map_text.position = Vector2(34, 514)
-    map_text.size = Vector2(1108, 98)
+    map_text.size = Vector2(1108, 110)
     map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    map_text.add_theme_font_size_override("font_size", 14)
     map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
     map_panel.add_child(map_text)
     _refresh_map_overlay()
@@ -1099,6 +1142,20 @@ func _room_layout_rect(room_data: Dictionary) -> Rect2:
     return _rect2(rect_value)
 
 
+func _room_map_rect(room_data: Dictionary) -> Rect2:
+    var rect_value: Variant = room_data.get("map_rect", [])
+    if typeof(rect_value) == TYPE_ARRAY and rect_value.size() >= 4:
+        return _rect2(rect_value)
+    return _room_layout_rect(room_data)
+
+
+func _map_room_by_id(room_id: String) -> Dictionary:
+    for room_value in config.get("map_rooms", []):
+        if room_value is Dictionary and String(room_value.get("id", "")) == room_id:
+            return room_value
+    return {}
+
+
 func _rect_contains_position(rect: Rect2, position_value: Vector2, padding: float = 0.0) -> bool:
     return (
         position_value.x >= rect.position.x - padding
@@ -1146,8 +1203,7 @@ func _refresh_map_overlay() -> void:
     var depth_step := 72.0
     var layout_bounds := _map_layout_bounds(rooms)
     var uses_layout := layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0
-    if not uses_layout:
-        _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
+    _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
         if not (room is Dictionary):
             continue
@@ -1183,7 +1239,8 @@ func _refresh_map_overlay() -> void:
     _add_world_map_pins(draw_width, base_y, depth_step, layout_bounds, draw_size)
     if player != null and is_instance_valid(player):
         if uses_layout:
-            var player_pos := _map_world_to_overlay(player.global_position, layout_bounds, draw_size)
+            var player_room := _room_for_position(player.global_position)
+            var player_pos := _map_room_world_position_to_overlay(player_room, player.global_position, layout_bounds, draw_size)
             _add_map_ui_rect("PlayerMarker", player_pos - Vector2(7.0, 7.0), Vector2(14.0, 14.0), Color(0.21, 0.92, 1.0, 0.98), Color(0.86, 1.0, 1.0, 1.0), 3.0)
         else:
             var player_x := clampf(player.global_position.x / world_width * draw_width, 0.0, draw_width)
@@ -1197,32 +1254,23 @@ func _refresh_map_overlay() -> void:
     var next_step := _room_map_copy(current_map_room_id, "next", "Move forward.")
     var archetype := _room_map_copy(current_map_room_id, "archetype", "unknown")
     var traversal_focus := _room_map_copy(current_map_room_id, "traversal_focus", "unknown")
-    var reward_contract := _room_map_copy(current_map_room_id, "reward_contract", "unknown")
     var pacing_role := _room_map_copy(current_map_room_id, "pacing_role", "unknown")
     var setpiece := _room_map_copy(current_map_room_id, "setpiece", "")
-    var micro_objective := _room_map_copy(current_map_room_id, "micro_objective", "")
-    var transition: Dictionary = config.get("chapter_transition", {})
-    var transition_text := String(transition.get("entry_hint", "击败本章首领后进入下一章。"))
     var metsys_state: Dictionary = metsys_bridge.get_state() if metsys_bridge != null else {}
-    map_text.text = "Chapter: %s\nRoom: %s\nSetpiece: %s\nArchetype: %s / %s\nTraversal: %s\nReward: %s\nExplored: %d/%d\nShortcuts: %d/%d\nObjective: %s\nMicro: %s\nRoute: %s\nHazard: %s\nNext: %s\nCampaign Next: %s\nLink: %s\nMetSys: walls %d / passages %d / locks %d / connectors %d\nLegend: cyan=you, teal=route, charcoal=wall, blue=exit, amber=gate, red=boss." % [
+    map_text.text = "%s  |  %s  |  探索 %d/%d  |  捷径 %d/%d\n%s  ·  %s  ·  %s\n目标  %s\n路线  %s  ->  %s\n危险  %s  |  边界 %d  通路 %d  锁 %d  连接 %d" % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
-        setpiece if not setpiece.is_empty() else "generated",
-        archetype,
-        pacing_role,
-        traversal_focus,
-        reward_contract,
         visited_rooms.size(),
         rooms.size(),
         _opened_shortcut_total(),
         _shortcut_total(),
+        setpiece if not setpiece.is_empty() else archetype,
+        pacing_role,
+        traversal_focus,
         objective,
-        micro_objective if not micro_objective.is_empty() else "generic room contract",
         guide,
-        danger,
         next_step,
-        _next_campaign_chapter_name(),
-        transition_text,
+        danger,
         int(metsys_state.get("metsys_wall_borders", 0)),
         int(metsys_state.get("metsys_passage_borders", 0)),
         int(metsys_state.get("metsys_locked_edges", 0)),
@@ -1239,7 +1287,7 @@ func _map_layout_bounds(rooms: Array) -> Rect2:
     for room in rooms:
         if not (room is Dictionary):
             continue
-        var rect := _room_layout_rect(room)
+        var rect := _room_map_rect(room)
         if rect.size.x <= 0.0 or rect.size.y <= 0.0:
             continue
         has_layout = true
@@ -1261,8 +1309,22 @@ func _map_world_to_overlay(world_position: Vector2, layout_bounds: Rect2, draw_s
     return offset + (world_position - layout_bounds.position) * map_scale
 
 
+func _map_room_world_position_to_overlay(room: Dictionary, world_position: Vector2, layout_bounds: Rect2, draw_size: Vector2) -> Vector2:
+    if room.is_empty():
+        return _map_world_to_overlay(world_position, layout_bounds, draw_size)
+    var map_rect := _room_map_rect(room)
+    var physical_rect := _room_layout_rect(room)
+    if map_rect.size.x <= 0.0 or map_rect.size.y <= 0.0:
+        return _map_world_to_overlay(world_position, layout_bounds, draw_size)
+    var normalized := Vector2(0.5, 0.5)
+    if physical_rect.size.x > 0.0 and physical_rect.size.y > 0.0:
+        normalized.x = clampf((world_position.x - physical_rect.position.x) / physical_rect.size.x, 0.16, 0.84)
+        normalized.y = clampf((world_position.y - physical_rect.position.y) / physical_rect.size.y, 0.20, 0.80)
+    return _map_world_to_overlay(map_rect.position + map_rect.size * normalized, layout_bounds, draw_size)
+
+
 func _map_room_overlay_rect(room_data: Dictionary, layout_bounds: Rect2, draw_size: Vector2, draw_width: float, base_y: float, depth_step: float) -> Rect2:
-    var layout := _room_layout_rect(room_data)
+    var layout := _room_map_rect(room_data)
     if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0:
         var top_left := _map_world_to_overlay(layout.position, layout_bounds, draw_size)
         var bottom_right := _map_world_to_overlay(layout.position + layout.size, layout_bounds, draw_size)
@@ -1298,7 +1360,7 @@ func _add_map_pin(world_position: Vector2, draw_width: float, base_y: float, dep
         return
     var pin_pos := Vector2.ZERO
     if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
-        pin_pos = _map_world_to_overlay(world_position, layout_bounds, draw_size) - size_value * 0.5
+        pin_pos = _map_room_world_position_to_overlay(room, world_position, layout_bounds, draw_size) - size_value * 0.5
     else:
         var depth := 0
         if not room.is_empty():
@@ -1308,6 +1370,34 @@ func _add_map_pin(world_position: Vector2, draw_width: float, base_y: float, dep
 
 
 func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
+    if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
+        var drew_connection := false
+        for connection_value in config.get("connections", []):
+            if not (connection_value is Dictionary):
+                continue
+            var connection: Dictionary = connection_value
+            var from_room := _map_room_by_id(String(connection.get("from", "")))
+            var to_room := _map_room_by_id(String(connection.get("to", "")))
+            if from_room.is_empty() or to_room.is_empty():
+                continue
+            var from_rect := _room_map_rect(from_room)
+            var to_rect := _room_map_rect(to_room)
+            if from_rect.size.x <= 0.0 or to_rect.size.x <= 0.0:
+                continue
+            var edge := Line2D.new()
+            var edge_kind := String(connection.get("edge_kind", connection.get("type", "passage")))
+            edge.name = "MapEdge_" + String(connection.get("from", "")) + "_" + String(connection.get("to", ""))
+            edge.width = 5.0 if edge_kind in ["unlock_shortcut", "ability_gate"] else 3.0
+            edge.default_color = Color(0.91, 0.68, 0.28, 0.86) if edge_kind in ["unlock_shortcut", "ability_gate"] else (Color(0.38, 0.76, 0.96, 0.78) if edge_kind == "one_way_drop" else Color(0.33, 0.72, 0.58, 0.70))
+            edge.z_index = 1
+            edge.points = PackedVector2Array([
+                _map_world_to_overlay(from_rect.position + from_rect.size * 0.5, layout_bounds, draw_size),
+                _map_world_to_overlay(to_rect.position + to_rect.size * 0.5, layout_bounds, draw_size)
+            ])
+            map_draw_root.add_child(edge)
+            drew_connection = true
+        if drew_connection:
+            return
     var route := Line2D.new()
     route.name = "MapRouteLine"
     route.width = 4.0
@@ -1321,7 +1411,7 @@ func _add_map_route_line(rooms: Array, draw_width: float, base_y: float, depth_s
             continue
         var room_data: Dictionary = room
         var point := Vector2.ZERO
-        var layout := _room_layout_rect(room_data)
+        var layout := _room_map_rect(room_data)
         if layout.size.x > 0.0 and layout.size.y > 0.0 and layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
             point = _map_world_to_overlay(layout.position + layout.size * 0.5, layout_bounds, draw_size)
         else:
@@ -1364,7 +1454,7 @@ func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_st
             continue
         var marker_position := Vector2.ZERO
         if layout_bounds.size.x > 0.0 and layout_bounds.size.y > 0.0 and draw_size != Vector2.ZERO:
-            marker_position = _map_world_to_overlay(world_position, layout_bounds, draw_size)
+            marker_position = _map_room_world_position_to_overlay(room, world_position, layout_bounds, draw_size)
         else:
             var depth := int(room.get("depth", 0)) if not room.is_empty() else 0
             marker_position = Vector2(clampf(world_position.x / world_width * draw_width, 0.0, draw_width), base_y + float(depth) * depth_step + 21.0)
@@ -1374,8 +1464,8 @@ func _add_map_special_passage_markers(draw_width: float, base_y: float, depth_st
 
 func _add_map_room_texture(rect_position: Vector2, rect_size: Vector2, visited: bool, current: bool) -> void:
     var texture := TextureRect.new()
-    texture.name = "RoomMossTexture"
-    texture.texture = _load_texture_resource(INDUSTRIAL_PLATFORM_TILES["mid"] if _theme_uses_industrial_tiles() else MOSSY_PLATFORM_TILES["mid"])
+    texture.name = "RoomOriginalTexture"
+    texture.texture = _load_texture_resource(String(_original_map_art().get("mid_tile", "")))
     texture.position = rect_position + Vector2(3.0, 3.0)
     texture.size = rect_size - Vector2(6.0, 6.0)
     texture.stretch_mode = TextureRect.STRETCH_SCALE
@@ -1416,7 +1506,8 @@ func _build_world_from_config() -> void:
             String(platform.get("id", "platform")),
             _rect2(platform.get("rect", [])),
             _color(platform.get("color", "333333")),
-            String(platform.get("material", "moss_stone"))
+            String(platform.get("material", "moss_stone")),
+            String(platform.get("collision_role", ""))
         )
 
     locked_gate_bodies.clear()
@@ -1488,9 +1579,42 @@ func _environment_block(data: Dictionary) -> void:
         Vector2(half.x, half.y),
         Vector2(-half.x, half.y)
     ])
-    block.color = _color(data.get("color", "101816"))
+    var block_id := String(data.get("id", "environment_block"))
+    var base_color := _platform_body_color("wall", _color(data.get("color", "101816")))
+    var block_alpha := 0.62
+    if block_id.contains("floor_mass"):
+        base_color = base_color.darkened(0.28)
+        block_alpha = 0.96
+    elif block_id.contains("pier") or block_id.contains("band"):
+        base_color = base_color.lightened(0.05)
+        block_alpha = 0.90
+    elif block_id.contains("shadow") or block_id.contains("back"):
+        base_color = base_color.darkened(0.12)
+        block_alpha = 0.38
+    base_color.a = block_alpha
+    block.color = base_color
     block.z_index = int(data.get("z_index", -90))
     add_child(block)
+    _add_environment_block_texture(block_id, rect, block.z_index + 1, block_alpha)
+
+
+func _add_environment_block_texture(block_id: String, rect: Rect2, z_value: int, block_alpha: float) -> void:
+    var art := _original_map_art()
+    var texture_path := String(art.get("wall", ""))
+    var texture := _load_texture_resource(texture_path)
+    if texture == null:
+        return
+    var panel := Sprite2D.new()
+    panel.name = block_id + "Texture"
+    panel.texture = texture
+    panel.centered = true
+    panel.position = rect.position + rect.size * 0.5
+    panel.scale = Vector2(rect.size.x / float(texture.get_width()), rect.size.y / float(texture.get_height()))
+    panel.flip_h = block_id.hash() % 2 == 1
+    panel.modulate = Color(0.88, 0.92, 0.90, 0.34 if block_alpha < 0.80 else 0.58)
+    panel.z_index = z_value
+    panel.set_meta("original_map_asset", texture_path)
+    add_child(panel)
 
 
 func _spawn_player() -> void:
@@ -1502,6 +1626,7 @@ func _spawn_player() -> void:
     player.energy_changed.connect(_on_energy_changed)
     player.player_respawned.connect(_on_player_respawned)
     _configure_player_camera()
+    _refresh_ability_gates()
 
 
 func _build_hud() -> void:
@@ -1581,24 +1706,11 @@ func _background() -> void:
     bg.z_index = -120
     add_child(bg)
 
-    if _art_theme_id() == "salt_archive":
-        _cemetery_background_layers()
-    elif _art_theme_id() == "silent_crown":
-        _godot_platformer_background_layers(_theme_background_tint())
-    elif _theme_uses_kenney_deluxe():
-        _kenney_deluxe_background_layers(_theme_background_tint())
-    elif _theme_uses_industrial_tiles():
-        _industrial_background_layers(_theme_background_tint())
-    else:
-        _background_layer("BgSkyCh01", "bg_sky", -118, _theme_background_tint())
-        _background_layer("BgFarBellCourt", "bg_far", -114, _theme_background_tint())
-        _background_layer("BgMidBellCourt", "bg_mid", -108, _theme_background_tint())
-        _background_layer("BgFogCh01", "bg_fog", -102, _theme_background_tint())
-        _background_layer("BgNearVinesCh01", "bg_near", -96, _theme_background_tint())
+    _original_background_layers()
 
     var shade := Polygon2D.new()
     shade.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
-    var shade_alpha := 0.035 if _art_theme_id() == "moss_cavern" else (0.03 if _theme_uses_industrial_tiles() else 0.08)
+    var shade_alpha := 0.025
     shade.color = Color(0.0, 0.0, 0.0, shade_alpha)
     shade.z_index = -94
     add_child(shade)
@@ -1656,6 +1768,74 @@ func _theme_background_tint() -> Color:
     if theme == "silent_crown":
         return Color(0.72, 0.78, 1.0, 1.0)
     return Color(1.0, 1.0, 1.0, 1.0)
+
+
+func _original_background_layers() -> void:
+    var art := _original_map_art()
+    _add_original_parallax_layer(
+        "OriginalSky",
+        String(art.get("sky", "")),
+        Vector2(0.04, 0.05),
+        -118,
+        1.14,
+        Vector2(0, -170),
+        Color(0.90, 0.94, 0.94, 1.0)
+    )
+    _add_original_parallax_layer(
+        "OriginalFar",
+        String(art.get("far", "")),
+        Vector2(0.12, 0.10),
+        -113,
+        1.10,
+        Vector2(0, -130),
+        Color(0.86, 0.91, 0.90, 0.94)
+    )
+    _add_original_parallax_layer(
+        "OriginalMid",
+        String(art.get("mid", "")),
+        Vector2(0.28, 0.18),
+        -106,
+        1.08,
+        Vector2(0, -110),
+        Color(0.92, 0.96, 0.94, 0.96)
+    )
+    _add_original_parallax_layer(
+        "OriginalNear",
+        String(art.get("near", "")),
+        Vector2(0.62, 0.34),
+        -97,
+        1.08,
+        Vector2(0, -100),
+        Color(0.90, 0.94, 0.92, 0.90)
+    )
+    if _art_theme_id() == "rain_foundry":
+        _background_rain_streaks()
+
+
+func _add_original_parallax_layer(node_name: String, texture_path: String, scroll_scale_value: Vector2, z_value: int, scale_value: float, offset: Vector2, tint: Color) -> void:
+    var texture := _load_texture_resource(texture_path)
+    if texture == null:
+        return
+    var parallax := Parallax2D.new()
+    parallax.name = node_name
+    parallax.scroll_scale = scroll_scale_value
+    parallax.z_index = z_value
+    var tile_width := float(texture.get_width()) * scale_value
+    var x := offset.x - tile_width
+    var index := 0
+    while x < world_width + tile_width * 2.0:
+        var sprite := Sprite2D.new()
+        sprite.name = "%sTexture%02d" % [node_name, index]
+        sprite.texture = texture
+        sprite.centered = false
+        sprite.position = Vector2(x, offset.y)
+        sprite.scale = Vector2(scale_value, scale_value)
+        sprite.flip_h = index % 2 == 1
+        sprite.modulate = tint
+        parallax.add_child(sprite)
+        x += tile_width
+        index += 1
+    add_child(parallax)
 
 
 func _background_layer(node_name: String, sprite_key: String, z_value: int, tint: Color = Color.WHITE) -> void:
@@ -1845,20 +2025,26 @@ func _background_rain_streaks() -> void:
         index += 1
 
 
-func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone") -> StaticBody2D:
+func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "") -> StaticBody2D:
     var body := StaticBody2D.new()
     body.name = node_name
     body.position = rect.position + rect.size * 0.5
-    var shape := CollisionShape2D.new()
-    var rectangle := RectangleShape2D.new()
-    rectangle.size = rect.size
-    shape.shape = rectangle
-    body.add_child(shape)
+    var lower_name := node_name.to_lower()
+    var normalized_role := collision_role.to_lower()
+    if normalized_role not in ["decorative", "no_collision"]:
+        var shape := CollisionShape2D.new()
+        var rectangle := RectangleShape2D.new()
+        rectangle.size = rect.size
+        shape.shape = rectangle
+        # Explicit one-way metadata keeps vertical routes passable from below.
+        if normalized_role == "one_way" or lower_name.begins_with("bridge_") or lower_name.begins_with("step_") or lower_name.begins_with("shaft_bridge_"):
+            shape.one_way_collision = true
+            shape.one_way_collision_margin = 2.0
+        body.add_child(shape)
 
     _add_platform_readability_base(body, rect.size, material, color)
     _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -7)
     _add_platform_visual(body, rect.size, material)
-    _decorate_platform(body, rect.size, material)
     add_child(body)
     return body
 
@@ -1872,25 +2058,36 @@ func _add_platform_readability_base(parent: Node, size_value: Vector2, material:
 
 
 func _platform_body_color(material: String, fallback_color: Color) -> Color:
-    if material == "moss_stone":
-        return Color(0.105, 0.185, 0.145, 0.96)
-    if material == "bronze_bridge":
-        return Color(0.185, 0.160, 0.092, 0.95)
-    if material == "boss_stone":
-        return Color(0.180, 0.105, 0.095, 0.96)
+    var theme := _art_theme_id()
+    var color := Color(0.15, 0.22, 0.18, 0.98)
+    if theme == "rain_foundry":
+        color = Color(0.19, 0.24, 0.24, 0.98)
+    elif theme == "salt_archive":
+        color = Color(0.26, 0.23, 0.20, 0.98)
+    elif theme == "string_greenhouse":
+        color = Color(0.17, 0.24, 0.17, 0.98)
+    elif theme == "obsidian_pilgrim":
+        color = Color(0.19, 0.17, 0.20, 0.98)
+    elif theme == "silent_crown":
+        color = Color(0.20, 0.21, 0.27, 0.98)
     if material.contains("wall") or material.contains("gate"):
-        return Color(0.145, 0.105, 0.092, 0.98)
-    return Color(fallback_color.r, fallback_color.g, fallback_color.b, maxf(fallback_color.a, 0.92))
+        color = color.darkened(0.18)
+    return color
 
 
 func _platform_edge_color(material: String) -> Color:
-    if material == "moss_stone":
-        return Color(0.42, 0.74, 0.47, 0.96)
-    if material == "bronze_bridge":
-        return Color(0.76, 0.63, 0.30, 0.94)
-    if material == "boss_stone":
-        return Color(0.76, 0.44, 0.36, 0.95)
-    return Color(0.50, 0.68, 0.55, 0.86)
+    var theme := _art_theme_id()
+    if theme == "rain_foundry":
+        return Color(0.44, 0.61, 0.60, 0.96)
+    if theme == "salt_archive":
+        return Color(0.72, 0.63, 0.44, 0.96)
+    if theme == "string_greenhouse":
+        return Color(0.44, 0.62, 0.34, 0.96)
+    if theme == "obsidian_pilgrim":
+        return Color(0.52, 0.40, 0.36, 0.96)
+    if theme == "silent_crown":
+        return Color(0.59, 0.62, 0.75, 0.96)
+    return Color(0.45, 0.60, 0.33, 0.96)
 
 
 func _add_platform_plate(parent: Node, local_center: Vector2, plate_size: Vector2, plate_color: Color, z_value: int) -> Polygon2D:
@@ -1917,17 +2114,58 @@ func _platform_shadow_color(material: String) -> Color:
 
 
 func _add_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
-    if _is_cemetery_material(material):
-        _add_cemetery_platform_visual(parent, size_value, material)
+    _add_original_platform_visual(parent, size_value, material)
+
+
+func _add_original_platform_visual(parent: Node, size_value: Vector2, material: String) -> void:
+    var art := _original_map_art()
+    var left_texture := _load_texture_resource(String(art.get("left", "")))
+    var mid_texture := _load_texture_resource(String(art.get("mid_tile", "")))
+    var mid_alt_texture := _load_texture_resource(String(art.get("mid_alt", "")))
+    var right_texture := _load_texture_resource(String(art.get("right", "")))
+    var cap_texture := _load_texture_resource(String(art.get("cap_small", "")))
+    var top_y := -size_value.y * 0.5
+    var visual_scale_y := clampf(size_value.y / 128.0 + 0.38, 0.56, 1.0)
+    var visual_center_y := top_y + 64.0 * visual_scale_y
+    var tint := Color(1.0, 1.0, 1.0, 0.98)
+    if material.contains("boss"):
+        tint = Color(1.08, 0.96, 0.86, 1.0)
+    elif material.contains("wall") or material.contains("gate"):
+        tint = Color(0.86, 0.88, 0.86, 1.0)
+
+    if size_value.x < 286.0 and cap_texture != null:
+        var cap := _add_platform_sprite(parent, "Material", cap_texture, Vector2(0.0, visual_center_y), tint, -3)
+        cap.scale = Vector2(minf(1.0, (size_value.x + 16.0) / float(cap_texture.get_width())), visual_scale_y)
+        cap.set_meta("original_map_asset", String(art.get("cap_small", "")))
         return
-    var kenney_family := _kenney_deluxe_family(material)
-    if not kenney_family.is_empty():
-        _add_kenney_deluxe_platform_visual(parent, size_value, material, kenney_family)
+    if left_texture == null or mid_texture == null or right_texture == null:
+        _add_platform_plate(parent, Vector2(0, 8), size_value, _platform_body_color(material, Color(0.16, 0.20, 0.18)), -4)
         return
-    if _is_industrial_material(material):
-        _add_industrial_platform_visual(parent, size_value, material)
-        return
-    _add_mossy_platform_visual(parent, size_value, material)
+
+    var start_x := -size_value.x * 0.5
+    var end_x := size_value.x * 0.5
+    var left_width := float(left_texture.get_width())
+    var right_width := float(right_texture.get_width())
+    var left := _add_platform_sprite(parent, "Material", left_texture, Vector2(start_x + left_width * 0.5, visual_center_y), tint, -3)
+    left.scale.y = visual_scale_y
+    left.set_meta("original_map_asset", String(art.get("left", "")))
+    var right := _add_platform_sprite(parent, "OriginalMapPlatformRight", right_texture, Vector2(end_x - right_width * 0.5, visual_center_y), tint, -3)
+    right.scale.y = visual_scale_y
+    right.set_meta("original_map_asset", String(art.get("right", "")))
+
+    var x := start_x + left_width
+    var index := 0
+    while x < end_x - right_width:
+        var texture := mid_alt_texture if index % 4 == 3 and mid_alt_texture != null else mid_texture
+        var available := end_x - right_width - x
+        var draw_width := minf(float(texture.get_width()), available)
+        if draw_width <= 0.0:
+            break
+        var tile := _add_platform_sprite(parent, "OriginalMapPlatformTile", texture, Vector2(x + draw_width * 0.5, visual_center_y), tint, -3)
+        tile.scale = Vector2(draw_width / float(texture.get_width()), visual_scale_y)
+        tile.set_meta("original_map_asset", String(art.get("mid_tile", "")) if texture == mid_texture else String(art.get("mid_alt", "")))
+        x += draw_width
+        index += 1
 
 
 func _is_cemetery_material(material: String) -> bool:
@@ -1935,13 +2173,13 @@ func _is_cemetery_material(material: String) -> bool:
 
 
 func _kenney_deluxe_family(material: String) -> String:
-    if material == "greenhouse_loam":
+    if material == "moss_stone" or material == "greenhouse_loam":
         return "grass"
-    if material == "glassvine_bridge":
+    if material == "bronze_bridge" or material == "glassvine_bridge":
         return "grass_half"
-    if material == "root_boss":
+    if material == "boss_stone" or material == "root_boss" or material == "dirt":
         return "dirt"
-    if material == "obsidian_basalt":
+    if material == "stone" or material == "obsidian_basalt":
         return "stone"
     if material == "ember_bridge" or material == "pilgrim_boss":
         return "castle"
@@ -2175,6 +2413,10 @@ func _platform_tint(material: String) -> Color:
         return Color(0.74, 0.82, 0.82, 1.0)
     if material == "wet_metal":
         return Color(0.88, 0.98, 1.0, 1.0)
+    if material == "dirt":
+        return Color(0.72, 0.58, 0.40, 1.0)
+    if material == "stone":
+        return Color(0.72, 0.72, 0.78, 1.0)
     if material == "boss_stone":
         return Color(0.88, 0.78, 0.74, 1.0)
     if material == "bronze_bridge":
@@ -3012,6 +3254,14 @@ func _refresh_ability_gates() -> void:
             continue
         if inventory_counts.has(required_ability):
             _unlock_ability_gate(gate_id)
+    _sync_player_abilities()
+
+
+func _sync_player_abilities() -> void:
+    if player == null:
+        return
+    var gated_start := bool(config.get("ability_gated_start", false))
+    player.dash_unlocked = (not gated_start) or inventory_counts.has("thread_dash")
 
 
 func _unlock_ability_gate(gate_id: String) -> void:

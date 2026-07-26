@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
+var failures := 0
 
 
 func _initialize() -> void:
@@ -32,15 +33,15 @@ func _run() -> void:
     _assert(scene.map_panel.visible, "M map opens overlay")
     _assert(scene.map_draw_root.get_child_count() > 0, "map draws room geometry")
 
-    scene.player.global_position = Vector2(2030, 478)
+    scene.player.global_position = _room_center(scene.config, "hub_gallery")
     await process_frame
     scene._toggle_map()
     scene._toggle_map()
     state = scene.get_demo_state()
-    _assert(String(state.get("current_room_id", "")) == "gear_lift", "map tracks current room after travel")
+    _assert(String(state.get("current_room_id", "")) == "hub_gallery", "map tracks current room after travel")
     _assert(int(state.get("visited_room_total", 0)) >= 2, "map records visited rooms")
-    _assert(String(scene.map_text.text).contains(_room_name(scene.config, "gear_lift")), "map text names current room")
-    _assert(String(scene.map_text.text).contains("Objective"), "map text shows route objective")
+    _assert(String(scene.map_text.text).contains(_room_name(scene.config, "hub_gallery")), "map text names current room")
+    _assert(String(scene.map_text.text).contains("目标"), "map text shows route objective")
 
     var currency_before := int(scene.currency_count)
     scene._on_enemy_died("T", false, "moss_larva")
@@ -56,8 +57,25 @@ func _run() -> void:
     scene._close_overlays()
     _assert(not scene.backpack_panel.visible and not scene.map_panel.visible, "Esc closes overlays")
 
+    if failures > 0:
+        push_error("INVENTORY_MAP_VALIDATION_FAIL failures=%d" % failures)
+        quit(1)
+        return
     print("INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=%d currency=%d" % [scene.visited_rooms.size(), scene.currency_count])
     quit(0)
+
+
+func _room_center(config: Dictionary, room_id: String) -> Vector2:
+    for room in config.get("map_rooms", []):
+        if not (room is Dictionary):
+            continue
+        var room_data: Dictionary = room
+        if String(room_data.get("id", "")) != room_id:
+            continue
+        var rect_value: Array = room_data.get("layout_rect", [])
+        if rect_value.size() >= 4:
+            return Vector2(float(rect_value[0]) + float(rect_value[2]) * 0.5, float(rect_value[1]) + float(rect_value[3]) * 0.5)
+    return Vector2.ZERO
 
 
 func _room_name(config: Dictionary, room_id: String) -> String:
@@ -75,4 +93,4 @@ func _assert(condition: bool, label: String) -> void:
         print("PASS: " + label)
         return
     push_error("FAIL: " + label)
-    quit(1)
+    failures += 1

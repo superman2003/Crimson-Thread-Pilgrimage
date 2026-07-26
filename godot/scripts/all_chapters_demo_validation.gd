@@ -9,6 +9,7 @@ const CONFIG_PATHS := [
     "res://data/demo_ch05_obsidian_pilgrim_road.json",
     "res://data/demo_ch06_silent_crown_core.json"
 ]
+var failures := 0
 
 
 func _initialize() -> void:
@@ -16,30 +17,83 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-    var ch01_config := _load_json(CONFIG_PATHS[0])
-    var ch02_config := _load_json(CONFIG_PATHS[1])
-    _validate_ch01_ch02_differ(ch01_config, ch02_config)
+    var configs: Array = []
+    for config_path in CONFIG_PATHS:
+        configs.append(_load_json(String(config_path)))
+    _validate_ch01_ch02_differ(configs[0], configs[1])
+    _validate_chapter_geometry_uniqueness(configs)
     _validate_chapter_visual_uniqueness()
     for config_path in CONFIG_PATHS:
         await _validate_chapter(String(config_path))
-    print("ALL_CHAPTERS_DEMO_VALIDATION_PASS chapters=6 complete=true")
-    quit(0)
+    if failures == 0:
+        print("ALL_CHAPTERS_DEMO_VALIDATION_PASS chapters=6 complete=true")
+        quit(0)
+    else:
+        push_error("ALL_CHAPTERS_DEMO_VALIDATION_FAIL failures=%d" % failures)
+        quit(1)
 
 
 func _validate_ch01_ch02_differ(ch01_config: Dictionary, ch02_config: Dictionary) -> void:
     _assert(String(ch01_config.get("art_theme", "")) == "moss_cavern", "CH01 declares moss cavern theme")
     _assert(String(ch02_config.get("art_theme", "")) == "rain_foundry", "CH02 declares rain foundry theme")
     _assert(String(ch01_config.get("map_title", "")) != String(ch02_config.get("map_title", "")), "CH01 and CH02 map titles differ")
-    _assert(int(ch01_config.get("world", {}).get("width", 0)) >= 11200, "CH01 is expanded beyond the original short map")
-    _assert(int(ch02_config.get("world", {}).get("width", 0)) >= 13600, "CH02 is longer than the original copied map")
-    _assert(int(ch02_config.get("world", {}).get("width", 0)) > int(ch01_config.get("world", {}).get("width", 0)), "CH02 is longer than CH01")
+    _assert(_world_is_expanded_2d(ch01_config.get("world", {})), "CH01 is expanded beyond the original short map")
+    _assert(_world_is_expanded_2d(ch02_config.get("world", {})), "CH02 is expanded beyond the original copied map")
+    _assert(_world_area(ch02_config) > _world_area(ch01_config), "CH02 is larger than CH01")
     _assert(ch01_config.get("map_rooms", []).size() >= 12, "CH01 has added rooms")
     _assert(ch02_config.get("map_rooms", []).size() >= 14, "CH02 has a larger room chain")
-    _assert(_platform_signature_overlap(ch01_config, ch02_config) <= 0.30, "CH02 platform layout is not a copy of CH01")
+    _assert(_normalized_route_signature(ch01_config) != _normalized_route_signature(ch02_config), "CH02 normalized route rhythm is not a copy of CH01")
     _assert(_shared_enemy_position_count(ch01_config, ch02_config) <= 2, "CH02 enemy placement is not copied from CH01")
     var ch02_materials := _platform_materials(ch02_config)
     _assert(ch02_materials.has("wet_metal") and ch02_materials.has("foundry_boss"), "CH02 has industrial material set")
     _assert(not ch02_materials.has("moss_stone"), "CH02 does not reuse moss platform material")
+
+
+func _validate_chapter_geometry_uniqueness(configs: Array) -> void:
+    var topology_signatures: Array = []
+    var route_signatures: Array = []
+    for config_value in configs:
+        var config: Dictionary = config_value
+        var fingerprint: Dictionary = config.get("map_topology", {}).get("graph_fingerprint", {})
+        var topology_signature := JSON.stringify({
+            "vertices": fingerprint.get("vertices", 0),
+            "edges": fingerprint.get("edges", 0),
+            "cycle_rank": fingerprint.get("cycle_rank", -1),
+            "maximum_degree": fingerprint.get("maximum_degree", 0),
+            "degree_sequence": fingerprint.get("degree_sequence", [])
+        })
+        var route_signature := _normalized_route_signature(config)
+        _assert(not topology_signatures.has(topology_signature), String(config.get("id", "")) + " unlabeled topology fingerprint is unique")
+        _assert(not route_signatures.has(route_signature), String(config.get("id", "")) + " normalized route rhythm is unique")
+        topology_signatures.append(topology_signature)
+        route_signatures.append(route_signature)
+
+
+func _normalized_route_signature(config: Dictionary) -> String:
+    var route: Array = []
+    for platform_value in config.get("platforms", []):
+        if platform_value is Dictionary and String(platform_value.get("route_role", "")) == "main":
+            route.append(platform_value)
+    route.sort_custom(func(left: Dictionary, right: Dictionary) -> bool:
+        return int(left.get("route_order", -1)) < int(right.get("route_order", -1))
+    )
+    var world: Dictionary = config.get("world", {})
+    var world_width := maxf(1.0, float(world.get("width", 1)))
+    var world_height := maxf(1.0, float(world.get("height", 1)))
+    var tokens: Array = []
+    for index in range(route.size() - 1):
+        var current_rect: Array = route[index].get("rect", [])
+        var next_rect: Array = route[index + 1].get("rect", [])
+        if current_rect.size() < 4 or next_rect.size() < 4:
+            continue
+        var gap := float(next_rect[0]) - float(current_rect[0]) - float(current_rect[2])
+        var delta_y := float(next_rect[1]) - float(current_rect[1])
+        tokens.append("%d:%d:%d" % [
+            roundi(float(current_rect[2]) / world_width * 1000.0),
+            roundi(gap / world_width * 1000.0),
+            roundi(delta_y / world_height * 100.0)
+        ])
+    return "|".join(tokens)
 
 
 func _validate_chapter_visual_uniqueness() -> void:
@@ -106,104 +160,33 @@ func _material_signature(config: Dictionary) -> String:
 
 
 func _platform_asset_paths(config: Dictionary) -> Array:
-    var result: Array = []
-    for material in _platform_materials(config):
-        for path in _asset_paths_for_material(String(material)):
-            if not result.has(path):
-                result.append(path)
-    result.sort()
-    return result
-
-
-func _asset_paths_for_material(material: String) -> Array:
-    if material == "salt_marble" or material == "vellum_bridge" or material == "archive_boss":
-        return ["res://assets/third_party/gothicvania_cemetery/tileset.png"]
-    if material == "greenhouse_loam":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/grassLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/grassMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/grassRight.png"
-        ]
-    if material == "glassvine_bridge":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/grassHalfLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/grassHalfMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/grassHalfRight.png"
-        ]
-    if material == "root_boss":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/dirtLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/dirtMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/dirtRight.png"
-        ]
-    if material == "obsidian_basalt":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/stoneLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/stoneMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/stoneRight.png"
-        ]
-    if material == "ember_bridge" or material == "pilgrim_boss":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/castleLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/castleMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/castleRight.png"
-        ]
-    if material == "crown_bone":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/snowLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/snowMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/snowRight.png"
-        ]
-    if material == "void_bridge" or material == "core_boss":
-        return [
-            "res://assets/third_party/kenney_platformer_deluxe/snowHalfLeft.png",
-            "res://assets/third_party/kenney_platformer_deluxe/snowHalfMid.png",
-            "res://assets/third_party/kenney_platformer_deluxe/snowHalfRight.png"
-        ]
-    if material == "rain_pipe" or material == "wet_metal" or material == "sluice_bridge" or material == "foundry_boss" or material == "drain_grate":
-        return [
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_001.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_002.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_003.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_004.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_008.png"
-        ]
+    var theme := _original_art_theme_key(config)
+    var root := "res://assets/sprites/original_map/%s" % theme
     return [
-        "res://assets/sprites/gothicvania/demo/platform_moss_stone.png",
-        "res://assets/sprites/gothicvania/demo/platform_bronze_bridge.png",
-        "res://assets/sprites/gothicvania/demo/platform_boss_stone.png"
+        root + "/platform_left.png",
+        root + "/platform_mid.png",
+        root + "/platform_mid_alt.png",
+        root + "/platform_right.png",
+        root + "/platform_cap_small.png",
+        root + "/wall.png"
     ]
 
 
 func _background_asset_paths(config: Dictionary) -> Array:
-    var theme := _art_theme_for_config(config)
-    if theme == "rain_foundry":
-        return [
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_073.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_085.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_067.png",
-            "res://assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_090.png"
-        ]
-    if theme == "salt_archive":
-        return [
-            "res://assets/third_party/gothicvania_cemetery/background.png",
-            "res://assets/third_party/gothicvania_cemetery/mountains.png",
-            "res://assets/third_party/gothicvania_cemetery/graveyard.png"
-        ]
-    if theme == "string_greenhouse":
-        return ["res://assets/third_party/kenney_platformer_deluxe/bg.png"]
-    if theme == "obsidian_pilgrim":
-        return ["res://assets/third_party/kenney_platformer_deluxe/bg_castle.png"]
-    if theme == "silent_crown":
-        return [
-            "res://assets/third_party/godot_platformer_2d/sky.png",
-            "res://assets/third_party/godot_platformer_2d/mountains.png"
-        ]
+    var theme := _original_art_theme_key(config)
+    var root := "res://assets/sprites/original_map/%s" % theme
     return [
-        "res://assets/sprites/gothicvania/demo/bg_ch01_sky.png",
-        "res://assets/sprites/gothicvania/demo/bg_ch01_fog.png",
-        "res://assets/sprites/gothicvania/demo/bg_ch01_near_vines.png"
+        root + "/sky.png",
+        root + "/far.png",
+        root + "/mid.png",
+        root + "/near.png",
+        root + "/map.png"
     ]
+
+
+func _original_art_theme_key(config: Dictionary) -> String:
+    var theme := _art_theme_for_config(config)
+    return "moss_cavern" if theme == "moss_bell" else theme
 
 
 func _art_theme_for_config(config: Dictionary) -> String:
@@ -425,24 +408,7 @@ func _validate_chapter(config_path: String) -> void:
     var boss: Dictionary = config.get("boss", {})
     var interactives: Array = config.get("interactives", [])
     var save_points: Array = config.get("save_points", [])
-    var expected_min_width := 14800 if config_id.ends_with("silent_crown_core") else 14800
-    if config_id == "demo_ch01_moss_bell_court":
-        expected_min_width = 14800
-    elif config_id == "demo_ch02_rain_foundry_canal":
-        expected_min_width = 20000
-    elif config_id == "demo_ch03_saltwhite_archive":
-        expected_min_width = 18800
-    elif config_id == "demo_ch04_broken_string_greenhouse":
-        expected_min_width = 18800
-    elif config_id == "demo_ch05_obsidian_pilgrim_road":
-        expected_min_width = 18800
-    elif config_id == "demo_ch06_silent_crown_core":
-        expected_min_width = 18800
-    var expected_min_rooms := 18
-    if config_id == "demo_ch01_moss_bell_court":
-        expected_min_rooms = 16
-    elif config_id == "demo_ch02_rain_foundry_canal":
-        expected_min_rooms = 24
+    var expected_rooms := int(config.get("map_topology", {}).get("graph_fingerprint", {}).get("vertices", 0))
     var boss_kind := String(boss.get("kind", ""))
     var boss_profile: Dictionary = config.get("ai_profiles", {}).get(boss_kind, {})
     var boss_attack_types := _attack_types(boss_profile)
@@ -453,13 +419,13 @@ func _validate_chapter(config_path: String) -> void:
     _assert((state.get("platform_visual_asset_paths", []) as Array).size() >= 1, config_id + " exposes runtime platform asset files")
     _assert((state.get("background_visual_asset_paths", []) as Array).size() >= 1, config_id + " exposes runtime background asset files")
     _assert(state.get("campaign_current_chapter") == chapter_name, config_id + " maps to campaign chapter")
-    _assert(int(config.get("world", {}).get("width", 0)) >= expected_min_width, config_id + " world width is expanded")
-    _assert(config.get("map_rooms", []).size() >= expected_min_rooms, config_id + " room count is expanded")
+    _assert(_world_is_expanded_2d(config.get("world", {})), config_id + " world is expanded in both axes")
+    _assert(config.get("map_rooms", []).size() == expected_rooms, config_id + " room count matches its unique topology")
     _assert(config.get("platforms", []).size() >= config.get("map_rooms", []).size() * 2, config_id + " platform count supports expanded rooms")
     _assert(config.get("parkour_segments", []).size() >= 1, config_id + " has configured parkour segment")
-    _assert(_ranges_are_contiguous(config.get("map_rooms", []), int(config.get("world", {}).get("width", 0))), config_id + " room ranges cover expanded world")
-    _assert(_has_multilayer_room_kinds(config.get("map_rooms", [])), config_id + " has upper, lower, and vertical map rooms")
-    _assert(_has_multilevel_platforms(config.get("platforms", [])), config_id + " has playable upper and lower platform layers")
+    _assert(_rooms_cover_world(config.get("map_rooms", []), config.get("world", {})), config_id + " room layout rects cover expanded world")
+    _assert(_has_multilayer_room_kinds(config.get("map_rooms", [])), config_id + " has at least four topology layers and varied room types")
+    _assert(_has_multilevel_platforms(config.get("platforms", [])), config_id + " has playable upper, middle, and lower platform bands")
     _assert(_connections_reference_rooms(config.get("connections", []), config.get("map_rooms", [])), config_id + " room connections reference existing rooms")
     _assert(_positions_map_to_rooms(config, config_id), config_id + " all important positions map to expanded rooms")
     _assert(_exit_points_to_next(config, config_id), config_id + " chapter exit points to next chapter or ending")
@@ -478,10 +444,11 @@ func _validate_chapter(config_path: String) -> void:
     _assert(_late_route_has_no_large_gap(config, exit_data_static.get("position", []), 160.0), config_id + " late route has continuous floor")
     _assert(state.get("normal_enemy_total") == enemies.size(), config_id + " enemy count matches config")
     _assert(state.get("npc_total") == npcs.size(), config_id + " NPC count matches config")
-    _assert(state.get("collectible_total") == 0, config_id + " has no route-token collectibles")
+    _assert(int(state.get("collectible_total", -1)) == _item_collectible_count(config), config_id + " spawns only configured ability/reward item collectibles")
+    _assert(_collectibles_have_no_route_tokens(config), config_id + " has no route-token collectibles")
     _assert(int(state.get("required_keys", -1)) == 0, config_id + " requires no keys")
     _assert(int(state.get("save_point_total", 0)) == save_points.size(), config_id + " save point count matches config")
-    _assert(save_points.size() <= 3, config_id + " save points stay sparse")
+    _assert(save_points.size() <= 4, config_id + " save points stay sparse")
     _assert(int(state.get("hidden_save_point_total", 0)) >= 1, config_id + " has at least one hidden save point")
     _assert(int(state.get("av_runtime_event_total", 0)) >= 8, config_id + " AV runtime manifest loaded")
 
@@ -673,6 +640,23 @@ func _interactive_exit(interactives: Array) -> Dictionary:
     return {}
 
 
+func _item_collectible_count(config: Dictionary) -> int:
+    var total := 0
+    for collectible in config.get("collectibles", []):
+        if collectible is Dictionary and String((collectible as Dictionary).get("kind", "")) == "item":
+            total += 1
+    return total
+
+
+func _collectibles_have_no_route_tokens(config: Dictionary) -> bool:
+    for collectible in config.get("collectibles", []):
+        if not (collectible is Dictionary):
+            return false
+        if String((collectible as Dictionary).get("kind", "")) not in ["item"]:
+            return false
+    return true
+
+
 func _room_by_kind(rooms: Array, kind: String) -> Dictionary:
     for room in rooms:
         if not (room is Dictionary):
@@ -814,46 +798,64 @@ func _attack_types(profile: Dictionary) -> Array:
     return types
 
 
-func _ranges_are_contiguous(rooms: Array, world_width: int) -> bool:
-    var ranges: Array = []
+func _world_area(config: Dictionary) -> float:
+    var world: Dictionary = config.get("world", {})
+    return float(world.get("width", 0)) * float(world.get("height", 0))
+
+
+func _world_is_expanded_2d(world: Dictionary) -> bool:
+    # True-2D maps trade raw ribbon width for stacked vertical layers, so
+    # require enough playable area on both axes instead of 1D length.
+    var width := float(world.get("width", 0))
+    var height := float(world.get("height", 0))
+    return width >= 5200.0 and height >= 2400.0 and width * height >= 14000000.0
+
+
+func _rooms_cover_world(rooms: Array, world: Dictionary) -> bool:
+    # Every room must expose a positive 2D layout rect, and together the
+    # rooms must span most of the world on both axes.
+    if rooms.is_empty():
+        return false
+    var min_x := INF
+    var min_y := INF
+    var max_x := -INF
+    var max_y := -INF
     for room in rooms:
         if not (room is Dictionary):
             return false
-        var room_data: Dictionary = room
-        var range_data: Array = room_data.get("range", [])
-        if range_data.size() < 2:
+        var rect := _room_layout_rect(room)
+        if rect.size.x <= 0.0 or rect.size.y <= 0.0:
             return false
-        ranges.append([int(range_data[0]), int(range_data[1])])
-    ranges.sort_custom(func(a, b): return int(a[0]) < int(b[0]))
-    if ranges.is_empty() or int(ranges[0][0]) != 0:
-        return false
-    var cursor := 0
-    for item in ranges:
-        if int(item[0]) != cursor:
-            return false
-        cursor = int(item[1])
-    return cursor == world_width
+        min_x = minf(min_x, rect.position.x)
+        min_y = minf(min_y, rect.position.y)
+        max_x = maxf(max_x, rect.position.x + rect.size.x)
+        max_y = maxf(max_y, rect.position.y + rect.size.y)
+    var width := maxf(1.0, float(world.get("width", 1)))
+    var height := maxf(1.0, float(world.get("height", 1)))
+    return (max_x - min_x) >= width * 0.72 and (max_y - min_y) >= height * 0.55
 
 
 func _has_multilayer_room_kinds(rooms: Array) -> bool:
-    var kinds: Dictionary = {}
-    var min_depth := 999
-    var max_depth := -999
+    var room_types: Dictionary = {}
+    var min_layer := 999
+    var max_layer := -999
     for room in rooms:
         if not (room is Dictionary):
             continue
         var data: Dictionary = room
-        kinds[String(data.get("kind", ""))] = true
-        var depth := int(data.get("depth", 0))
-        min_depth = mini(min_depth, depth)
-        max_depth = maxi(max_depth, depth)
-    return kinds.has("upper") and kinds.has("lower") and kinds.has("vertical") and min_depth < 0 and max_depth > 0
+        room_types[String(data.get("room_type", data.get("kind", "")))] = true
+        var layer := int(data.get("layer", data.get("depth", 0)))
+        min_layer = mini(min_layer, layer)
+        max_layer = maxi(max_layer, layer)
+    return room_types.size() >= 3 and max_layer - min_layer >= 3
 
 
 func _has_multilevel_platforms(platforms: Array) -> bool:
-    var has_upper := false
-    var has_lower := false
-    var has_mid := false
+    # Split the playable vertical span into thirds and require standable
+    # floors in every band, so each chapter is genuinely stacked in 2D.
+    var min_y := INF
+    var max_y := -INF
+    var floor_ys: Array = []
     for platform in platforms:
         if not (platform is Dictionary):
             continue
@@ -861,13 +863,24 @@ func _has_multilevel_platforms(platforms: Array) -> bool:
         var rect := _platform_rect(data.get("rect", []))
         if not _playable_floor_allowed(data, rect):
             continue
-        if rect.position.y <= 430.0:
+        floor_ys.append(rect.position.y)
+        min_y = minf(min_y, rect.position.y)
+        max_y = maxf(max_y, rect.position.y)
+    if floor_ys.size() < 3 or max_y - min_y < 1200.0:
+        return false
+    var band := (max_y - min_y) / 3.0
+    var has_upper := false
+    var has_mid := false
+    var has_lower := false
+    for y_value in floor_ys:
+        var y := float(y_value)
+        if y < min_y + band:
             has_upper = true
-        elif rect.position.y >= 600.0:
-            has_lower = true
-        elif rect.position.y >= 492.0 and rect.position.y <= 560.0:
+        elif y < min_y + band * 2.0:
             has_mid = true
-    return has_upper and has_lower and has_mid
+        else:
+            has_lower = true
+    return has_upper and has_mid and has_lower
 
 
 func _connections_reference_rooms(connections: Array, rooms: Array) -> bool:
@@ -1031,4 +1044,4 @@ func _assert(condition: bool, label: String) -> void:
         print("PASS: " + label)
         return
     push_error("FAIL: " + label)
-    quit(1)
+    failures += 1

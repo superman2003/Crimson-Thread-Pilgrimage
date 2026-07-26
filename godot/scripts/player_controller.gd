@@ -24,6 +24,9 @@ const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v2/manifest
 @export var jump_cut_multiplier: float = 0.48
 @export var dash_time: float = 0.16
 @export var dash_cooldown_time: float = 0.60
+## When false the dash input is ignored; unlocked by the thread_dash pickup
+## in ability-gated chapters (main_level syncs this from inventory state).
+@export var dash_unlocked: bool = true
 @export var attack_lunge: float = 92.0
 @export var downslash_bounce_velocity: float = -620.0
 @export var enemy_contact_guard_time: float = 0.22
@@ -119,7 +122,7 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
 
-    if Input.is_action_just_pressed("dash") and dash_cooldown <= 0.0 and dash_timer <= 0.0:
+    if Input.is_action_just_pressed("dash") and dash_unlocked and dash_cooldown <= 0.0 and dash_timer <= 0.0:
         dash_timer = dash_time
         dash_cooldown = dash_cooldown_time
         velocity.y = 0.0
