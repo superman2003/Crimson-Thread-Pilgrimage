@@ -8,6 +8,22 @@ const BOSS_TRIAL_CONFIG_PATH := "res://data/demo_ch01_boss_trial.json"
 const CAMPAIGN_PATH := "res://data/campaign_chapters.json"
 const CHAPTER_DATA_DIR := "res://data/chapters"
 const AV_MANIFEST_PATH := "res://data/audio_visual_manifest.json"
+## 圣典 §7 物品铭文库（tools/build_item_lore.mjs 从圣典逐字生成，勿手改铭文文本）。
+## 单点数据源：六章共用，展示时铭文优先于各章 JSON catalog 的短句。
+const ITEM_LORE_PATH := "res://data/item_lore.json"
+## 剧情关键物品拾取横幅停留秒数（比普通 toast 更久，"捡到证词=听到一段历史"）。
+const LORE_BANNER_SECONDS := 7.0
+## 真名信物类关键物品（证词/印记用前缀判断，见 _is_story_key_item）。
+const STORY_KEY_ITEM_IDS := {
+    "crown_splinter": true,
+    "smith_oath_plate": true,
+    "contract_original_fragment": true,
+    "salt_page_1_3": true,
+    "living_cover_vein": true,
+    "silent_order": true,
+    "seventh_name_parts": true,
+    "redline_gate_token": true
+}
 
 const ROOM_DISPLAY_NAMES := {
     "entry_bell": "Entry Gate",
@@ -64,14 +80,15 @@ const ROOM_MAP_COPY := {
     }
 }
 
+# 旧版兜底表（正常路径：圣典铭文表 item_lore > 章节 catalog > 本表）。
 const ITEM_DISPLAY := {
-    "currency": {"name": "Rosin Shards", "description": ""},
-    "bell_key": {"name": "Battle Mark", "description": "Old routing token kept only for legacy saves."},
-    "thread_burst": {"name": "Thread Burst", "description": "Spend 30 energy for a heavy thread slash."},
-    "menders_right": {"name": "Mender's Hand", "description": "Right click spends 60 energy to restore 1 HP."},
-    "moss_lens": {"name": "Moss Lens", "description": "Records explored rooms on the route map."},
-    "moss_chitin": {"name": "Moss Chitin", "description": "Hard shell dropped by melee court beasts."},
-    "crown_splinter": {"name": "Crown Splinter", "description": "A warm shard from the Rust Crown Guardian."}
+    "currency": {"name": "松脂碎片", "description": ""},
+    "bell_key": {"name": "敌群", "description": "唤醒捷径钟门的锈蚀战斗标记。"},
+    "thread_burst": {"name": "绯线爆裂", "description": "消耗30点能量，打出一次重型线刃。"},
+    "menders_right": {"name": "缝补右手", "description": "鼠标右键消耗60点能量，恢复1点生命。"},
+    "moss_lens": {"name": "苔光镜", "description": "会记录已探索房间的破损镜片。"},
+    "moss_chitin": {"name": "苔壳", "description": "近战庭兽留下的硬壳。"},
+    "crown_splinter": {"name": "王冠裂片", "description": "苔钟守母体内仍带余温的金属碎片。"}
 }
 
 const NPC_DISPLAY_NAMES := {
@@ -390,6 +407,46 @@ const AUDIO := {
     "interact": "res://assets/audio/sfx/interact.ogg"
 }
 
+## P0 音频总线基建（音效与音乐设计规格 20260726160400000 §5.1 / §6.3 第 0 期）。
+## 五总线：Master + BGM/SFX/Ambience/UI；MusicExplore/MusicCombat 等子总线随
+## audio_director 一期再拆。总线音量保持 0dB（BGM/SFX），使现有 11 个 sfx 与
+## 2 首 BGM 的节点级 volume_db 行为不回退。
+const AUDIO_BUSES := ["BGM", "SFX", "Ambience", "UI"]
+const AUDIO_BUS_DEFAULT_VOLUME_DB := {
+    "BGM": 0.0,
+    "SFX": 0.0,
+    "Ambience": -14.0,
+    "UI": -10.0
+}
+## 区域混响参数表（规格 §5.2）：世界海拔 L+3 → L-2 递变，值照抄文档。
+const REVERB_TIERS := {
+    "L+3": {"room_size": 0.95, "damping": 0.10, "wet": 0.50, "predelay_msec": 40.0},
+    "L+2_salt": {"room_size": 0.70, "damping": 0.25, "wet": 0.30, "predelay_msec": 25.0},
+    "L+2_glass": {"room_size": 0.55, "damping": 0.30, "wet": 0.28, "predelay_msec": 15.0},
+    "L+1": {"room_size": 0.60, "damping": 0.65, "wet": 0.25, "predelay_msec": 18.0},
+    "L0": {"room_size": 0.50, "damping": 0.40, "wet": 0.35, "predelay_msec": 30.0, "predelay_feedback": 0.3},
+    "L-1": {"room_size": 0.30, "damping": 0.20, "wet": 0.15, "predelay_msec": 60.0},
+    "L-2": {"room_size": 0.85, "damping": 0.90, "wet": 0.60, "predelay_msec": 10.0}
+}
+const CHAPTER_REVERB_TIER := {
+    "demo_ch01_moss_bell_court": "L+1",
+    "demo_ch01_boss_trial": "L+1",
+    "demo_ch02_rain_foundry_canal": "L0",
+    "demo_ch03_saltwhite_archive": "L+2_salt",
+    "demo_ch04_broken_string_greenhouse": "L+2_glass",
+    "demo_ch05_obsidian_pilgrim_road": "L-1",
+    "demo_ch06_silent_crown_core": "L+3"
+}
+## 濒死混音态（规格 §5.5）：HP==1 时 BGM 总线低通目标截止频率。
+const LOW_HP_LOWPASS_CUTOFF_HZ := 800.0
+
+## 结局门（剧情蓝图 §12 三结局最小闭环）：Boss 后按 ending 字段着色三扇门。
+const ENDING_GATE_TINTS := {
+    "ending_a": Color(1.0, 0.84, 0.38, 0.92),
+    "ending_b": Color(1.0, 0.42, 0.46, 0.92),
+    "ending_c": Color(0.52, 0.95, 1.0, 0.92)
+}
+
 var config: Dictionary = {}
 var campaign: Dictionary = {}
 var current_campaign_chapter: Dictionary = {}
@@ -399,6 +456,10 @@ var player: CharacterBody2D
 var ui_canvas: CanvasLayer
 var hud_label: Label
 var toast_label: Label
+var lore_banner_label: Label
+var lore_banner_time_left := 0.0
+# 圣典铭文表：item_id -> {display_name?, lore: Array[String], function?}（ITEM_LORE_PATH）。
+var item_lore: Dictionary = {}
 var win_label: Label
 var dialogue_panel: ColorRect
 var dialogue_name_label: Label
@@ -407,6 +468,9 @@ var dialogue_text_label: Label
 var dialogue_hint_label: Label
 var backpack_panel: ColorRect
 var backpack_text: Label
+var backpack_detail_text: Label
+var backpack_entry_ids: Array[String] = []
+var backpack_selection := 0
 var map_panel: ColorRect
 var map_text: Label
 var map_draw_root: Control
@@ -451,7 +515,24 @@ var visited_rooms: Dictionary = {}
 var current_room_id := ""
 var active_save_point_id := "start"
 var bgm_player: AudioStreamPlayer
+var bgm_duck_tween: Tween
+var low_hp_audio_active := false
 var pending_enemy_respawn := false
+# Story flags (npc_met_*, boss_down_*, whisper_*, quest flags ...). Part of the
+# carried save state; missing keys always default to false for old saves.
+var story_flags: Dictionary = {}
+# 跨章背包携带（照抄 story_flags 深拷贝携带模式）：_transition_to_next_chapter
+# 把 inventory_counts + currency 快照进下一场景，入章时与该章 starting_tools 做
+# 并集合并（starting_tools 只兜底不覆盖）。旧调用路径（直接启动单章、boss_trial）
+# 不设置 carried_inventory_enabled，行为完全不变。
+var carried_inventory_enabled := false
+var carried_inventory_counts: Dictionary = {}
+var carried_currency := 0
+# 结局门运行时（章节配置可选 "ending_gates" 数组，Boss 死亡后生成交互点）。
+var ending_gates_spawned := false
+# 巡礼愿板最小闭环（章节配置可选 "wish_board" 数组，target_flag 完成即发奖一次）。
+var wish_panel: ColorRect
+var wish_text: Label
 
 @export var config_path := DEFAULT_CONFIG_PATH
 
@@ -465,6 +546,7 @@ func _ready() -> void:
     campaign = _load_json(CAMPAIGN_PATH)
     chapter_file_configs = _load_chapter_file_configs()
     audio_visual_manifest = _load_json(AV_MANIFEST_PATH)
+    item_lore = _load_json(ITEM_LORE_PATH).get("items", {})
     current_campaign_chapter = _campaign_chapter_for_id(String(config.get("id", "")))
     var world: Dictionary = config.get("world", {})
     world_width = float(world.get("width", 4096.0))
@@ -498,6 +580,7 @@ func _apply_cmdline_config_override() -> void:
 
 
 func _process(_delta: float) -> void:
+    _tick_lore_banner(_delta)
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         _spawn_normal_enemies()
@@ -510,6 +593,11 @@ func _process(_delta: float) -> void:
         _toggle_backpack()
     elif Input.is_action_just_pressed("map"):
         _toggle_map()
+    if active_overlay == "backpack":
+        if Input.is_action_just_pressed("aim_up"):
+            _move_backpack_selection(-1)
+        elif Input.is_action_just_pressed("aim_down"):
+            _move_backpack_selection(1)
     if Input.is_action_just_pressed("interact"):
         _try_interact()
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
@@ -524,6 +612,11 @@ func _exit_tree() -> void:
     if bgm_player != null:
         bgm_player.stop()
         bgm_player.stream = null
+    # 总线是全局状态：场景销毁时摘掉濒死低通并复位 duck 音量，避免跨章节残留。
+    _set_low_hp_audio(false)
+    if bgm_duck_tween != null and bgm_duck_tween.is_valid():
+        bgm_duck_tween.kill()
+    _set_bgm_bus_volume_db(float(AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0)))
 
 
 func _load_json(path: String) -> Dictionary:
@@ -706,6 +799,25 @@ func _init_inventory_state() -> void:
         _add_inventory_item(String(item_id), 1, false)
     for item_id in inventory_config.get("starting_relics", []):
         _add_inventory_item(String(item_id), 1, false)
+    if carried_inventory_enabled:
+        _merge_carried_inventory()
+
+
+# 跨章并集合并：starting_tools 先落底，再把携带背包中缺口补齐（按 max 计数，
+# 不重复叠加同名工具）。走 _add_inventory_item 以保持 Tools/Relics/Materials
+# 分类簿记与 testimony 链 flag 刷新一致；合并发生在 _spawn_player →
+# _refresh_ability_gates → _sync_player_abilities 之前，因此"ch2 拿
+# silk_wall_grip → 回 ch1 开 gate_wall_mossgrip"的数据链路直接成立。
+func _merge_carried_inventory() -> void:
+    for item_id_value in carried_inventory_counts.keys():
+        var item_id := String(item_id_value)
+        if item_id.is_empty():
+            continue
+        var missing := int(carried_inventory_counts[item_id_value]) - int(inventory_counts.get(item_id, 0))
+        if missing > 0:
+            _add_inventory_item(item_id, missing, false)
+    if carried_currency > 0:
+        _add_currency(carried_currency)
 
 
 func _item_data(item_id: String) -> Dictionary:
@@ -714,15 +826,35 @@ func _item_data(item_id: String) -> Dictionary:
     return catalog.get(item_id, {"name": item_id, "category": "Materials", "description": ""})
 
 
+# 展示层口径（圣典 §7）：铭文表优先于各章 catalog；catalog 只负责 category
+# 与圣典未收录物品（功能道具/章节变体）的功能短句，避免六章重复维护铭文。
 func _item_display_name(item_id: String) -> String:
-    var item := _item_data(item_id)
-    if item.has("name"):
-        return String(item.get("name", item_id.capitalize()))
+    var lore_entry: Dictionary = item_lore.get(item_id, {})
+    if lore_entry.has("display_name"):
+        return String(lore_entry.get("display_name", item_id))
+    var catalog: Dictionary = config.get("inventory", {}).get("catalog", {})
+    if catalog.has(item_id):
+        var entry: Dictionary = catalog.get(item_id, {})
+        if entry.has("name"):
+            return String(entry.get("name", item_id.capitalize()))
+    # 跨章携带兜底：本章 catalog 没有该物品时退回圣典名，最后才退回旧表/原始 id。
+    if lore_entry.has("canon_name"):
+        return String(lore_entry.get("canon_name", item_id))
     var display: Dictionary = ITEM_DISPLAY.get(item_id, {})
     return String(display.get("name", item_id.capitalize()))
 
 
+# 圣典铭文多行保留分行；功能性物品先铭文后功能行（【功能】…）。
 func _item_display_description(item_id: String) -> String:
+    var lore_entry: Dictionary = item_lore.get(item_id, {})
+    var parts: Array[String] = []
+    for lore_line in lore_entry.get("lore", []):
+        parts.append(String(lore_line))
+    if not parts.is_empty():
+        var function_line := String(lore_entry.get("function", ""))
+        if not function_line.is_empty():
+            parts.append(function_line)
+        return "\n".join(parts)
     var item := _item_data(item_id)
     if item.has("description"):
         return String(item.get("description", ""))
@@ -843,6 +975,8 @@ func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true
         inventory_relics.append(item_id)
     elif category == "Materials":
         inventory_materials[item_id] = int(inventory_materials.get(item_id, 0)) + amount
+    if item_id.begins_with("testimony_"):
+        _refresh_testimony_chain_flag()
     if announce:
         _toast("Added to bag: " + _item_display_name(item_id))
     if active_overlay == "backpack":
@@ -863,9 +997,107 @@ func _build_metsys_bridge() -> void:
 
 
 func _build_audio() -> void:
+    _ensure_audio_buses()
+    _apply_chapter_reverb(String(config.get("id", "")))
     if not _should_autoplay_audio():
         return
     _switch_bgm("bgm_ch01")
+
+
+## P0 总线保障（规格 §5.1）：default_bus_layout.tres 缺失或加载失败时动态补建。
+## 幂等：章节切换重建场景时只补缺，并清理上一场景遗留的濒死低通 / duck 音量。
+func _ensure_audio_buses() -> void:
+    for bus_name in AUDIO_BUSES:
+        if AudioServer.get_bus_index(bus_name) == -1:
+            AudioServer.add_bus()
+            var new_index := AudioServer.bus_count - 1
+            AudioServer.set_bus_name(new_index, bus_name)
+            AudioServer.set_bus_send(new_index, "Master")
+        var bus_index := AudioServer.get_bus_index(bus_name)
+        AudioServer.set_bus_volume_db(bus_index, float(AUDIO_BUS_DEFAULT_VOLUME_DB.get(bus_name, 0.0)))
+    for reverb_bus_name in ["SFX", "Ambience"]:
+        var reverb_bus := AudioServer.get_bus_index(reverb_bus_name)
+        if reverb_bus != -1 and _find_bus_effect(reverb_bus, "AudioEffectReverb") == -1:
+            AudioServer.add_bus_effect(reverb_bus, AudioEffectReverb.new())
+    low_hp_audio_active = false
+    var bgm_bus := AudioServer.get_bus_index("BGM")
+    if bgm_bus != -1:
+        var stale_lowpass := _find_bus_effect(bgm_bus, "AudioEffectLowPassFilter")
+        if stale_lowpass != -1:
+            AudioServer.remove_bus_effect(bgm_bus, stale_lowpass)
+
+
+func _find_bus_effect(bus_index: int, effect_class: String) -> int:
+    for effect_index in AudioServer.get_bus_effect_count(bus_index):
+        var effect := AudioServer.get_bus_effect(bus_index, effect_index)
+        if effect != null and effect.get_class() == effect_class:
+            return effect_index
+    return -1
+
+
+## 区域混响（规格 §5.2）：章节加载时按海拔档把 SFX/Ambience 总线的混响调到位。
+func _apply_chapter_reverb(chapter_id: String) -> void:
+    var tier_key := String(CHAPTER_REVERB_TIER.get(chapter_id, "L+1"))
+    var params: Dictionary = REVERB_TIERS.get(tier_key, {})
+    if params.is_empty():
+        return
+    for bus_name in ["SFX", "Ambience"]:
+        var bus_index := AudioServer.get_bus_index(bus_name)
+        if bus_index == -1:
+            continue
+        var effect_index := _find_bus_effect(bus_index, "AudioEffectReverb")
+        if effect_index == -1:
+            continue
+        var reverb := AudioServer.get_bus_effect(bus_index, effect_index) as AudioEffectReverb
+        if reverb == null:
+            continue
+        reverb.room_size = float(params.get("room_size", 0.6))
+        reverb.damping = float(params.get("damping", 0.5))
+        reverb.wet = float(params.get("wet", 0.25))
+        reverb.predelay_msec = float(params.get("predelay_msec", 20.0))
+        if params.has("predelay_feedback"):
+            reverb.predelay_feedback = float(params.get("predelay_feedback", 0.0))
+
+
+## 战斗/演出 ducking（规格 §5.3）：BGM 总线压低 duck_db dB，保持 seconds 秒后回弹。
+## headless 下 AudioServer 照常可写、tween 随场景销毁，安全 no-op。
+func duck_bgm(duck_db: float, seconds: float) -> void:
+    var bus_index := AudioServer.get_bus_index("BGM")
+    if bus_index == -1 or not is_inside_tree():
+        return
+    if bgm_duck_tween != null and bgm_duck_tween.is_valid():
+        bgm_duck_tween.kill()
+    var base_db := float(AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0))
+    var ducked_db := base_db + minf(duck_db, 0.0)
+    bgm_duck_tween = create_tween()
+    bgm_duck_tween.tween_method(_set_bgm_bus_volume_db, AudioServer.get_bus_volume_db(bus_index), ducked_db, 0.35)
+    bgm_duck_tween.tween_interval(maxf(seconds, 0.0))
+    bgm_duck_tween.tween_method(_set_bgm_bus_volume_db, ducked_db, base_db, 0.6)
+
+
+func _set_bgm_bus_volume_db(value: float) -> void:
+    var bus_index := AudioServer.get_bus_index("BGM")
+    if bus_index != -1:
+        AudioServer.set_bus_volume_db(bus_index, value)
+
+
+## 濒死混音态（规格 §5.5）：HP==1 时 BGM 总线挂 800Hz 低通，HP 回升/死亡移除。
+## 心跳循环素材尚未入库（sfx 目录无候选），manifest sfx_catalog 中
+## player_low_hp_heartbeat 已登记为 future_free_candidate，先只做低通。
+func _set_low_hp_audio(active: bool) -> void:
+    if active == low_hp_audio_active:
+        return
+    low_hp_audio_active = active
+    var bus_index := AudioServer.get_bus_index("BGM")
+    if bus_index == -1:
+        return
+    var effect_index := _find_bus_effect(bus_index, "AudioEffectLowPassFilter")
+    if active and effect_index == -1:
+        var lowpass := AudioEffectLowPassFilter.new()
+        lowpass.cutoff_hz = LOW_HP_LOWPASS_CUTOFF_HZ
+        AudioServer.add_bus_effect(bus_index, lowpass)
+    elif not active and effect_index != -1:
+        AudioServer.remove_bus_effect(bus_index, effect_index)
 
 
 func _should_autoplay_audio() -> bool:
@@ -884,7 +1116,7 @@ func _switch_bgm(audio_key: String) -> void:
     if bgm_player == null:
         bgm_player = AudioStreamPlayer.new()
         bgm_player.name = "BgmPlayer"
-        bgm_player.bus = "Master"
+        bgm_player.bus = "BGM" if AudioServer.get_bus_index("BGM") != -1 else "Master"
         bgm_player.volume_db = -18.0
         bgm_player.finished.connect(_on_bgm_finished)
         add_child(bgm_player)
@@ -907,7 +1139,7 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "Sfx_" + audio_key
-    player_node.bus = "Master"
+    player_node.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
     player_node.stream = stream
     player_node.volume_db = volume_db
     add_child(player_node)
@@ -942,14 +1174,14 @@ func _load_texture_resource(path: String) -> Texture2D:
 func _build_backpack_overlay() -> void:
     backpack_panel = ColorRect.new()
     backpack_panel.name = "BackpackOverlay"
-    backpack_panel.position = Vector2(78, 78)
-    backpack_panel.size = Vector2(460, 500)
+    backpack_panel.position = Vector2(78, 62)
+    backpack_panel.size = Vector2(980, 560)
     backpack_panel.color = Color(0.035, 0.045, 0.05, 0.93)
     backpack_panel.visible = false
     ui_canvas.add_child(backpack_panel)
 
     var title := Label.new()
-    title.text = "Bag"
+    title.text = "背包 Bag"
     title.position = Vector2(22, 18)
     title.add_theme_font_size_override("font_size", 24)
     title.add_theme_color_override("font_color", Color(0.96, 0.80, 0.42))
@@ -957,10 +1189,20 @@ func _build_backpack_overlay() -> void:
 
     backpack_text = Label.new()
     backpack_text.position = Vector2(22, 60)
-    backpack_text.size = Vector2(410, 420)
+    backpack_text.size = Vector2(420, 480)
     backpack_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    backpack_text.add_theme_font_size_override("font_size", 14)
     backpack_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
     backpack_panel.add_child(backpack_text)
+
+    # 铭文详情区（圣典 §7）：右列展示选中物品的完整铭文，W/S 切换条目。
+    backpack_detail_text = Label.new()
+    backpack_detail_text.position = Vector2(470, 60)
+    backpack_detail_text.size = Vector2(486, 480)
+    backpack_detail_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    backpack_detail_text.add_theme_font_size_override("font_size", 15)
+    backpack_detail_text.add_theme_color_override("font_color", Color(0.93, 0.86, 0.72))
+    backpack_panel.add_child(backpack_detail_text)
     _refresh_backpack_overlay()
 
 
@@ -1003,7 +1245,96 @@ func _build_map_overlay() -> void:
     map_text.add_theme_font_size_override("font_size", 14)
     map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
     map_panel.add_child(map_text)
+    _build_wish_board_overlay()
     _refresh_map_overlay()
+
+
+# 巡礼愿板最小闭环（任务设计文档 §3 schema 子集）。章节配置可选 "wish_board"
+# 数组：{id, title, desc, kind, target_flag, reward_currency}。target_flag 在
+# story_flags 中翻转即视为完成，完成时经 _add_currency 发奖一次并记
+# wish_claimed_<id> flag（随 story_flags 跨章携带，不重复发奖）。
+# 没有该字段的章节不建面板、不做任何检查，行为完全不变。
+func _wish_board_entries() -> Array:
+    var entries: Array = []
+    for wish in config.get("wish_board", []):
+        if wish is Dictionary and not String((wish as Dictionary).get("id", "")).is_empty():
+            entries.append(wish)
+    return entries
+
+
+func _build_wish_board_overlay() -> void:
+    if map_panel == null or _wish_board_entries().is_empty():
+        return
+    wish_panel = ColorRect.new()
+    wish_panel.name = "WishBoardPanel"
+    wish_panel.position = Vector2(826, 72)
+    wish_panel.size = Vector2(316, 430)
+    wish_panel.color = Color(0.035, 0.045, 0.05, 0.93)
+    map_panel.add_child(wish_panel)
+
+    var title := Label.new()
+    title.text = "巡礼愿板"
+    title.position = Vector2(16, 12)
+    title.add_theme_font_size_override("font_size", 20)
+    title.add_theme_color_override("font_color", Color(0.96, 0.80, 0.42))
+    wish_panel.add_child(title)
+
+    wish_text = Label.new()
+    wish_text.position = Vector2(16, 48)
+    wish_text.size = Vector2(284, 366)
+    wish_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    wish_text.add_theme_font_size_override("font_size", 13)
+    wish_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
+    wish_panel.add_child(wish_text)
+    _refresh_wish_board_overlay()
+
+
+func _wish_completed(wish: Dictionary) -> bool:
+    var target_flag := String(wish.get("target_flag", ""))
+    return not target_flag.is_empty() and bool(story_flags.get(target_flag, false))
+
+
+func _wish_claim_flag(wish: Dictionary) -> String:
+    return "wish_claimed_%s" % String(wish.get("id", ""))
+
+
+func _check_wish_board_rewards() -> void:
+    for wish_value in _wish_board_entries():
+        var wish: Dictionary = wish_value
+        if not _wish_completed(wish):
+            continue
+        var claim_flag := _wish_claim_flag(wish)
+        if bool(story_flags.get(claim_flag, false)):
+            continue
+        # 直接写 flag（不走 _set_story_flag）避免奖励检查递归。
+        story_flags[claim_flag] = true
+        var reward := int(wish.get("reward_currency", 0))
+        if reward > 0:
+            _add_currency(reward)
+        _toast("愿望达成：%s（+%d %s）" % [
+            String(wish.get("title", wish.get("id", ""))),
+            reward,
+            _item_display_name("currency")
+        ])
+    _refresh_wish_board_overlay()
+
+
+func _refresh_wish_board_overlay() -> void:
+    if wish_text == null:
+        return
+    var lines: Array[String] = []
+    for wish_value in _wish_board_entries():
+        var wish: Dictionary = wish_value
+        var done := _wish_completed(wish)
+        lines.append("%s [%s] %s" % [
+            "已了" if done else "未了",
+            String(wish.get("kind", "wish")),
+            String(wish.get("title", wish.get("id", "")))
+        ])
+        var desc := String(wish.get("desc", ""))
+        if not desc.is_empty():
+            lines.append("    " + desc)
+    wish_text.text = "\n".join(lines)
 
 
 func _toggle_backpack() -> void:
@@ -1045,27 +1376,94 @@ func _close_overlays() -> void:
         dialogue_panel.visible = false
 
 
+# 背包分区顺序：印记/证词等剧情要物靠前，材料殿后；分区标题仅作视觉分组。
+const BACKPACK_SECTIONS := [
+    ["工具 Tools", "Tools"],
+    ["能力 Abilities", "Abilities"],
+    ["护符 Charms", "Charms"],
+    ["升级 Upgrades", "Upgrades"],
+    ["圣物 Relics", "Relics"],
+    ["印记与要物 Quest", "Quest"],
+    ["材料 Materials", "Materials"]
+]
+
+
 func _refresh_backpack_overlay() -> void:
     if backpack_text == null:
         return
+    backpack_entry_ids.clear()
     var lines: Array[String] = []
-    lines.append("%s: %d" % [_item_display_name("currency"), currency_count])
-    lines.append("")
+    backpack_entry_ids.append("currency")
+    lines.append("%s%s x%d" % [_selection_marker("currency"), _item_display_name("currency"), currency_count])
     if not _combat_progression_enabled():
+        lines.append("")
         lines.append("Route Marks")
         lines.append(_inventory_line_for_category("Combat"))
+    for section in BACKPACK_SECTIONS:
+        var section_ids := _inventory_ids_for_category(String(section[1]))
+        if section_ids.is_empty():
+            continue
+        lines.append("")
+        lines.append(String(section[0]))
+        for item_id in section_ids:
+            backpack_entry_ids.append(item_id)
+            var count := int(inventory_counts.get(item_id, 0))
+            var count_suffix := " x%d" % count if count > 1 else ""
+            lines.append("%s%s%s" % [_selection_marker(item_id), _item_display_name(item_id), count_suffix])
     lines.append("")
-    lines.append("Tools")
-    lines.append(_inventory_list(inventory_tools))
-    lines.append("")
-    lines.append("Relics")
-    lines.append(_inventory_list(inventory_relics))
-    lines.append("")
-    lines.append("Materials")
-    lines.append(_inventory_dict_list(inventory_materials))
-    lines.append("")
-    lines.append("Tab/I Bag   M Map   Esc Close")
+    lines.append("Tab/I 背包   W/S 查看铭文   M 地图   Esc 关闭")
     backpack_text.text = "\n".join(lines)
+    _refresh_backpack_detail()
+
+
+func _inventory_ids_for_category(category: String) -> Array[String]:
+    var ids: Array[String] = []
+    for item_id in inventory_counts.keys():
+        var data := _item_data(String(item_id))
+        if String(data.get("category", "")) == category:
+            ids.append(String(item_id))
+    return ids
+
+
+func _selection_marker(item_id: String) -> String:
+    var index := backpack_entry_ids.find(item_id)
+    return "▶ " if index == _backpack_selection_clamped() else "  "
+
+
+func _backpack_selection_clamped() -> int:
+    if backpack_entry_ids.is_empty():
+        return -1
+    return clampi(backpack_selection, 0, backpack_entry_ids.size() - 1)
+
+
+func _move_backpack_selection(delta: int) -> void:
+    if backpack_entry_ids.is_empty():
+        return
+    backpack_selection = wrapi(_backpack_selection_clamped() + delta, 0, backpack_entry_ids.size())
+    _refresh_backpack_overlay()
+
+
+# 详情区：选中物品的完整铭文（多行保留分行；功能行随描述一起展示）。
+func _refresh_backpack_detail() -> void:
+    if backpack_detail_text == null:
+        return
+    var index := _backpack_selection_clamped()
+    if index < 0:
+        backpack_detail_text.text = ""
+        return
+    var item_id := backpack_entry_ids[index]
+    var lines: Array[String] = []
+    if item_id == "currency":
+        lines.append("%s x%d" % [_item_display_name("currency"), currency_count])
+    else:
+        var count := int(inventory_counts.get(item_id, 0))
+        lines.append(_item_display_name(item_id) + (" x%d" % count if count > 1 else ""))
+    var description := _item_display_description(item_id)
+    if not description.is_empty():
+        lines.append("")
+        for description_line in description.split("\n"):
+            lines.append(description_line)
+    backpack_detail_text.text = "\n".join(lines)
 
 
 func _inventory_line_for_category(category: String) -> String:
@@ -1077,39 +1475,20 @@ func _inventory_line_for_category(category: String) -> String:
     return "  None" if entries.is_empty() else "  " + ", ".join(entries)
 
 
-func _inventory_list(item_ids: Array) -> String:
-    if item_ids.is_empty():
-        return "  None"
-    var entries: Array[String] = []
-    for item_id in item_ids:
-        entries.append("  %s - %s" % [_item_display_name(String(item_id)), _item_display_description(String(item_id))])
-    return "\n".join(entries)
-
-
-func _inventory_dict_list(items: Dictionary) -> String:
-    if items.is_empty():
-        return "  None"
-    var entries: Array[String] = []
-    for item_id in items.keys():
-        entries.append("  %s x%d - %s" % [
-            _item_display_name(String(item_id)),
-            int(items[item_id]),
-            _item_display_description(String(item_id))
-        ])
-    return "\n".join(entries)
-
-
 func _update_room_visit() -> void:
     if player == null or not is_instance_valid(player):
         return
     var room := _room_for_position(player.global_position)
     if room.is_empty():
         return
+    var previous_room_id := current_room_id
     current_room_id = String(room.get("id", ""))
     if not current_room_id.is_empty():
         visited_rooms[current_room_id] = true
         if metsys_bridge != null:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
+        if current_room_id != previous_room_id:
+            _trigger_whispers("enter_room", current_room_id)
 
 
 func _room_for_x(world_x: float) -> Dictionary:
@@ -1642,6 +2021,17 @@ func _build_hud() -> void:
     toast_label.add_theme_color_override("font_color", Color(0.62, 0.94, 0.86))
     ui_canvas.add_child(toast_label)
 
+    # 剧情关键物品拾取横幅：独立于普通 toast，停留 LORE_BANNER_SECONDS 秒，
+    # 展示"物品名 + 圣典铭文首句"（捡到证词=听到一段历史）。
+    lore_banner_label = Label.new()
+    lore_banner_label.position = Vector2(18, 66)
+    lore_banner_label.size = Vector2(1080, 52)
+    lore_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    lore_banner_label.add_theme_font_size_override("font_size", 16)
+    lore_banner_label.add_theme_color_override("font_color", Color(0.94, 0.62, 0.58))
+    lore_banner_label.visible = false
+    ui_canvas.add_child(lore_banner_label)
+
     win_label = Label.new()
     win_label.position = Vector2(380, 88)
     win_label.visible = false
@@ -1651,6 +2041,8 @@ func _build_hud() -> void:
     _build_backpack_overlay()
     _build_map_overlay()
     _build_dialogue_overlay()
+    # 入章即结算：跨章携带的 story_flags 可能已满足本章愿望条件。
+    _check_wish_board_rewards()
     _refresh_hud()
 
 
@@ -1724,6 +2116,9 @@ func _configure_player_camera() -> void:
     camera.limit_top = -120
     camera.limit_right = int(world_width + 80.0)
     camera.limit_bottom = int(world_height + 70.0)
+    var feel := get_node_or_null("/root/FeelKit")
+    if feel != null:
+        feel.register_camera(camera)
 
 
 func _void_respawn() -> void:
@@ -2769,6 +3164,11 @@ func _npc(data: Dictionary) -> void:
     area.set_meta("label", _npc_display_name(data))
     area.set_meta("dialogue", _npc_dialogue(data))
     area.set_meta("dialogue_index", 0)
+    area.set_meta("npc_id", String(data.get("id", "")))
+    area.set_meta("story_dialogue", data.get("story_dialogue", {}))
+    area.set_meta("dialogue_meta", data.get("dialogue_meta", {}))
+    area.set_meta("dialogue_state", "")
+    area.set_meta("dialogue_state_indices", {})
     area.set_meta("identity", String(data.get("identity", "")))
     area.set_meta("help", String(data.get("help", "")))
 
@@ -3107,6 +3507,9 @@ func _spawn_boss() -> void:
     add_child(boss_actor)
     boss_spawned = true
     _switch_bgm("bgm_boss")
+    # Boss 战开始 ducking 示范点（规格 §5.3）：入场威压瞬间压低 BGM 再回弹，
+    # 覆盖 _debug_start_boss 与 _activate_boss_gate 两条激活路径。
+    duck_bgm(-6.0, 1.5)
     _toast("Boss awakened: " + _boss_display_name(boss_data) + ".")
     _refresh_hud()
 
@@ -3234,6 +3637,8 @@ func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
         if collectible_kind == "item":
             unlocked_abilities[item_id] = ability_name if not ability_name.is_empty() else item_id
             _refresh_ability_gates()
+        _trigger_whispers("pickup_item", item_id)
+        _announce_lore_pickup(item_id)
     _play_sfx("pickup")
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
@@ -3262,6 +3667,7 @@ func _sync_player_abilities() -> void:
         return
     var gated_start := bool(config.get("ability_gated_start", false))
     player.dash_unlocked = (not gated_start) or inventory_counts.has("thread_dash")
+    player.wall_grip_unlocked = (not gated_start) or inventory_counts.has("silk_wall_grip")
 
 
 func _unlock_ability_gate(gate_id: String) -> void:
@@ -3312,6 +3718,8 @@ func _try_interact() -> void:
         _activate_save_point(nearby_interactable)
     elif kind == "chapter_exit" or kind == "ending_exit":
         _activate_chapter_exit(nearby_interactable)
+    elif kind == "ending_gate":
+        _activate_ending_gate(nearby_interactable)
 
 
 func _nearest_interactable(radius: float) -> Area2D:
@@ -3326,7 +3734,7 @@ func _nearest_interactable(radius: float) -> Area2D:
         if area == null or not is_instance_valid(area):
             continue
         var kind := String(area.get_meta("kind", ""))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit"].has(kind):
+        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate"].has(kind):
             continue
         var distance := player.global_position.distance_to(area.global_position)
         if distance > radius:
@@ -3447,8 +3855,136 @@ func _transition_to_next_chapter(next_config_path: String) -> void:
     next_scene.set("entry_spawn_override", entry_position)
     next_scene.set("entered_from_config_id", String(config.get("id", "")))
     next_scene.set("transition_entry_message", entry_message)
+    next_scene.set("story_flags", story_flags.duplicate(true))
+    next_scene.set("carried_inventory_enabled", true)
+    next_scene.set("carried_inventory_counts", inventory_counts.duplicate(true))
+    next_scene.set("carried_currency", currency_count)
     parent_node.add_child(next_scene)
     queue_free()
+
+
+# 结局门运行时（剧情蓝图 §12：Boss 后三扇门 + 结局文本 + 存档 flag 的最小闭环）。
+# 数据契约（章节 JSON 可选 "ending_gates" 数组，缺省章节行为完全不变）：
+#   {id, ending("ending_a"|"ending_b"|"ending_c"), label, position:[x,y](可选，
+#    缺省绕 Boss 尸位/玩家横向散开), requires:{items:[], flags:[]},
+#    message(达成结局文案), reject_message(可选，缺项拒绝提示)}
+func _ending_gate_entries() -> Array:
+    var entries: Array = []
+    for gate in config.get("ending_gates", []):
+        if gate is Dictionary:
+            entries.append(gate)
+    return entries
+
+
+func _spawn_ending_gates() -> void:
+    if ending_gates_spawned:
+        return
+    var entries := _ending_gate_entries()
+    if entries.is_empty():
+        return
+    ending_gates_spawned = true
+    var anchor := Vector2(world_width * 0.5, world_height * 0.5)
+    if boss_actor != null and is_instance_valid(boss_actor):
+        anchor = boss_actor.global_position
+    elif player != null and is_instance_valid(player):
+        anchor = player.global_position
+    for index in range(entries.size()):
+        var data: Dictionary = entries[index]
+        var ending := String(data.get("ending", String(data.get("id", "ending_%d" % index))))
+        var area := Area2D.new()
+        area.name = String(data.get("id", "ending_gate_%d" % index))
+        var fallback := anchor + Vector2(-230.0 + 230.0 * float(index), 0.0)
+        area.position = _vec2(data.get("position", [fallback.x, fallback.y]))
+        area.set_meta("kind", "ending_gate")
+        area.set_meta("label", String(data.get("label", "Ending Gate")))
+        area.set_meta("ending", ending)
+        area.set_meta("requires", data.get("requires", {}))
+        area.set_meta("message", String(data.get("message", "")))
+        area.set_meta("reject_message", String(data.get("reject_message", "")))
+        area.set_meta("object_id", "interactable/" + area.name)
+
+        var shape := CollisionShape2D.new()
+        var rectangle := RectangleShape2D.new()
+        rectangle.size = _vec2(data.get("interaction_size", [150, 150]))
+        shape.shape = rectangle
+        area.add_child(shape)
+
+        var tint: Color = ENDING_GATE_TINTS.get(ending, Color(0.82, 0.90, 1.0, 0.90))
+        var sprite := Sprite2D.new()
+        sprite.name = "EndingGateSprite"
+        sprite.texture = load(SPRITES["boss_gate"])
+        sprite.scale = Vector2(0.66, 0.66)
+        sprite.modulate = tint
+        sprite.z_index = 7
+        area.add_child(sprite)
+
+        var glow := Line2D.new()
+        glow.name = "EndingGateGlow"
+        glow.width = 3.0
+        glow.closed = true
+        glow.default_color = Color(tint.r, tint.g, tint.b, 0.66)
+        glow.points = PackedVector2Array([
+            Vector2(-36, -52), Vector2(36, -52), Vector2(46, 0), Vector2(30, 54), Vector2(-30, 54), Vector2(-46, 0)
+        ])
+        glow.z_index = 8
+        area.add_child(glow)
+
+        var tween := create_tween()
+        tween.set_loops()
+        tween.tween_property(glow, "scale", Vector2(1.12, 1.12), 0.8)
+        tween.parallel().tween_property(glow, "modulate:a", 0.42, 0.8)
+        tween.tween_property(glow, "scale", Vector2(0.96, 0.96), 0.8)
+        tween.parallel().tween_property(glow, "modulate:a", 1.0, 0.8)
+
+        area.body_entered.connect(_on_interactable_entered.bind(area))
+        area.body_exited.connect(_on_interactable_exited.bind(area))
+        add_child(area)
+    _toast("Boss 陨落：结局之门显现，按 F 抉择。")
+
+
+func _ending_gate_missing_requirements(requires_value: Variant) -> Array[String]:
+    var missing: Array[String] = []
+    if typeof(requires_value) != TYPE_DICTIONARY:
+        return missing
+    var requires: Dictionary = requires_value
+    for item_value in requires.get("items", []):
+        var item_id := String(item_value)
+        if not item_id.is_empty() and not inventory_counts.has(item_id):
+            missing.append(_item_display_name(item_id))
+    for flag_value in requires.get("flags", []):
+        var flag := String(flag_value)
+        if not flag.is_empty() and not bool(story_flags.get(flag, false)):
+            missing.append(flag)
+    return missing
+
+
+func _activate_ending_gate(area: Area2D) -> void:
+    var ending := String(area.get_meta("ending", ""))
+    var chosen := String(story_flags.get("ending_chosen", ""))
+    if not chosen.is_empty():
+        if chosen == ending:
+            if win_label != null:
+                win_label.text = String(area.get_meta("message", ""))
+                win_label.visible = true
+            _toast("结局已选定：" + String(area.get_meta("label", ending)))
+        else:
+            _toast("结局已定（%s），此门不再回应。" % chosen)
+        return
+    var missing := _ending_gate_missing_requirements(area.get_meta("requires", {}))
+    if not missing.is_empty():
+        var reject := String(area.get_meta("reject_message", ""))
+        if reject.is_empty():
+            reject = "此门未应：缺少 " + "、".join(missing)
+        _toast(reject)
+        return
+    story_flags["ending_chosen"] = ending
+    _set_story_flag("%s_done" % ending)
+    _play_sfx("interact", -6.0)
+    if win_label != null:
+        win_label.text = String(area.get_meta("message", "ENDING: " + ending))
+        win_label.visible = true
+    _toast("结局达成：" + String(area.get_meta("label", ending)))
+    _refresh_hud()
 
 
 func _activate_boss_gate() -> void:
@@ -3464,14 +4000,116 @@ func _activate_boss_gate() -> void:
 
 
 func _talk_to_npc(area: Area2D) -> void:
-    var dialogue: Array = area.get_meta("dialogue", [])
-    if dialogue.is_empty():
+    var lines := _resolve_npc_lines(area)
+    if lines.is_empty():
         _show_dialogue(area, "...")
         return
-    var index := int(area.get_meta("dialogue_index", 0))
+    var state := String(area.get_meta("dialogue_state", "repeat"))
+    var state_indices: Dictionary = area.get_meta("dialogue_state_indices", {})
+    var index := int(state_indices.get(state, 0))
     _play_sfx("interact", -10.0)
-    _show_dialogue(area, String(dialogue[index % dialogue.size()]))
-    area.set_meta("dialogue_index", index + 1)
+    _show_dialogue(area, String(lines[index % lines.size()]))
+    state_indices[state] = index + 1
+    area.set_meta("dialogue_state_indices", state_indices)
+    area.set_meta("dialogue_index", int(area.get_meta("dialogue_index", 0)) + 1)
+    # first_meet flips npc_met_<id> only after the full round has been heard
+    # (doc 2.1: 播完整轮后置位).
+    if state == "first_meet" and index + 1 >= lines.size():
+        _set_story_flag("npc_met_%s" % String(area.get_meta("npc_id", area.name)))
+
+
+# Six-state dialogue machine (doc 2.1/2.3). Priority: first_meet (only while
+# npc_met_<id> unset) -> true_ending_branch -> late_game -> sidequest_done ->
+# after_boss -> after_ability -> repeat. NPCs without story_dialogue fall back
+# to the legacy dialogue array untouched.
+func _resolve_npc_lines(area: Area2D) -> Array:
+    var fallback: Array = area.get_meta("dialogue", [])
+    var story_dialogue_value: Variant = area.get_meta("story_dialogue", {})
+    if typeof(story_dialogue_value) != TYPE_DICTIONARY:
+        area.set_meta("dialogue_state", "repeat")
+        return fallback
+    var story_dialogue: Dictionary = story_dialogue_value
+    if story_dialogue.is_empty():
+        area.set_meta("dialogue_state", "repeat")
+        return fallback
+    var npc_id := String(area.get_meta("npc_id", area.name))
+    var dialogue_meta_value: Variant = area.get_meta("dialogue_meta", {})
+    var dialogue_meta: Dictionary = dialogue_meta_value if typeof(dialogue_meta_value) == TYPE_DICTIONARY else {}
+    if not bool(story_flags.get("npc_met_%s" % npc_id, false)):
+        area.set_meta("dialogue_state", "first_meet")
+        var first_lines: Array = story_dialogue.get("first_meet", [])
+        return first_lines if not first_lines.is_empty() else fallback
+    for state in ["true_ending_branch", "late_game", "sidequest_done", "after_boss", "after_ability"]:
+        var lines: Array = story_dialogue.get(state, [])
+        if not lines.is_empty() and _dialogue_state_ok(String(state), dialogue_meta):
+            area.set_meta("dialogue_state", state)
+            return lines
+    area.set_meta("dialogue_state", "repeat")
+    var repeat_lines: Array = story_dialogue.get("repeat", [])
+    return repeat_lines if not repeat_lines.is_empty() else fallback
+
+
+func _dialogue_state_ok(state: String, dialogue_meta: Dictionary) -> bool:
+    match state:
+        "true_ending_branch":
+            return bool(story_flags.get("true_ending_testimony_complete", false))
+        "late_game":
+            var testimony_ref := String(dialogue_meta.get("testimony_ref", ""))
+            return not testimony_ref.is_empty() and inventory_counts.has(testimony_ref)
+        "sidequest_done":
+            var quest_flag := String(dialogue_meta.get("quest_flag", ""))
+            return not quest_flag.is_empty() and bool(story_flags.get(quest_flag, false))
+        "after_boss":
+            return demo_complete or bool(story_flags.get("boss_down_%s" % _chapter_story_id(), false))
+        "after_ability":
+            var ability_ref := String(dialogue_meta.get("ability_ref", dialogue_meta.get("ability_key", "")))
+            return not ability_ref.is_empty() and inventory_counts.has(ability_ref)
+    return false
+
+
+# "demo_ch01_moss_bell_court" -> "ch01" (used for boss_down_<chapter> flags).
+func _chapter_story_id() -> String:
+    for part in String(config.get("id", "")).split("_"):
+        var token := String(part)
+        if token.length() >= 3 and token.begins_with("ch") and token.substr(2).is_valid_int():
+            return token
+    return String(config.get("id", ""))
+
+
+func _set_story_flag(flag: String) -> void:
+    if flag.is_empty():
+        return
+    story_flags[flag] = true
+    _check_wish_board_rewards()
+
+
+# true_ending_testimony_complete flips once all six testimonies are held
+# (doc 2.1: true_ending_branch gate).
+func _refresh_testimony_chain_flag() -> void:
+    for index in range(1, 7):
+        if not inventory_counts.has("testimony_%02d" % index):
+            return
+    _set_story_flag("true_ending_testimony_complete")
+
+
+# One-shot ambient whispers (绯线低语, config `whispers`). trigger:
+# "enter_room" keyed by room_id, "pickup_item" keyed by item_id.
+func _trigger_whispers(trigger: String, key: String) -> void:
+    if key.is_empty():
+        return
+    for whisper in config.get("whispers", []):
+        if not (whisper is Dictionary):
+            continue
+        var data: Dictionary = whisper
+        if String(data.get("trigger", "enter_room")) != trigger:
+            continue
+        if String(data.get("room_id", data.get("item_id", ""))) != key:
+            continue
+        var whisper_id := String(data.get("id", ""))
+        if whisper_id.is_empty() or bool(story_flags.get("whisper_%s" % whisper_id, false)):
+            continue
+        _set_story_flag("whisper_%s" % whisper_id)
+        _toast(String(data.get("line", "")))
 
 
 func _show_dialogue(area: Area2D, line: String) -> void:
@@ -3499,11 +4137,13 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         var boss_name := _boss_display_name(boss_data)
         var reward_item := String(boss_data.get("reward_item", "crown_splinter"))
         demo_complete = true
+        _set_story_flag("boss_down_%s" % _chapter_story_id())
         _set_boss_arena_locked(false)
         win_label.text = String(config.get("completion_message", "DEMO COMPLETE: " + boss_name + " defeated"))
         win_label.visible = true
         _add_currency(30)
         _add_inventory_item(reward_item, 1, false)
+        _announce_lore_pickup(reward_item)
         if metsys_bridge != null and boss_actor != null:
             if not boss_actor.has_meta("object_id"):
                 boss_actor.set_meta("object_id", "boss/" + spawn_id)
@@ -3513,6 +4153,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         if player != null:
             player.gain_energy(30)
         _open_post_boss_route()
+        _spawn_ending_gates()
         _toast(String(config.get("completion_toast", "Demo complete: " + boss_name + " defeated.")))
         var transition: Dictionary = config.get("chapter_transition", {})
         if not transition.is_empty():
@@ -3617,7 +4258,12 @@ func _spawn_route_open_effect(position_value: Vector2) -> void:
         tween.tween_callback(ring.queue_free)
 
 
-func _on_hp_changed(_value: int) -> void:
+func _on_hp_changed(value: int) -> void:
+    # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
+    _set_low_hp_audio(value == 1)
+    if value <= 0:
+        # 玩家死亡 ducking 示范点（规格 §5.3/§5.5）：0.9s 死亡定格期间压低 BGM。
+        duck_bgm(-10.0, 1.2)
     _refresh_hud()
 
 
@@ -3666,6 +4312,39 @@ func _toast(text: String) -> void:
     if toast_label != null:
         toast_label.text = text
     print(text)
+
+
+## 证词/失声印记/真名信物类物品的拾取展示（圣典 §7）：普通材料不打扰，
+## 关键物品用独立横幅停留更久，后续 toast 不会盖掉它。headless 下纯 no-op 安全。
+func _is_story_key_item(item_id: String) -> bool:
+    return item_id.begins_with("testimony_") \
+        or item_id.begins_with("silent_mark_") \
+        or STORY_KEY_ITEM_IDS.has(item_id)
+
+
+func _announce_lore_pickup(item_id: String) -> void:
+    if not _is_story_key_item(item_id):
+        return
+    var lore_entry: Dictionary = item_lore.get(item_id, {})
+    var lore_lines: Array = lore_entry.get("lore", [])
+    if lore_lines.is_empty():
+        return
+    var text := "拾获「%s」——%s" % [_item_display_name(item_id), String(lore_lines[0])]
+    lore_banner_time_left = LORE_BANNER_SECONDS
+    if lore_banner_label != null:
+        lore_banner_label.text = text
+        lore_banner_label.visible = true
+    print("LORE_PICKUP " + text)
+
+
+# _process 驱动的横幅倒计时：不挂定时器/回调，headless 退出无残留。
+func _tick_lore_banner(delta: float) -> void:
+    if lore_banner_time_left <= 0.0:
+        return
+    lore_banner_time_left -= delta
+    if lore_banner_time_left <= 0.0 and lore_banner_label != null:
+        lore_banner_label.text = ""
+        lore_banner_label.visible = false
 
 
 func _spawn_pickup_effect(world_position: Vector2) -> void:
@@ -3782,6 +4461,8 @@ func get_demo_state() -> Dictionary:
         "active_spawn": [active_spawn.x, active_spawn.y],
         "ai_profile_total": config.get("ai_profiles", {}).size(),
         "npc_total": config.get("npcs", []).size(),
+        "story_flag_total": story_flags.size(),
+        "story_flags": story_flags.duplicate(),
         "currency_count": currency_count,
         "inventory_item_total": inventory_counts.size(),
         "unlocked_ability_total": unlocked_abilities.size(),
@@ -3804,6 +4485,12 @@ func get_demo_state() -> Dictionary:
         "boss_trial_mode": boss_trial_mode,
         "chapter_exit_total": chapter_exit_total,
         "ending_exit_total": ending_exit_total,
+        "carried_inventory_enabled": carried_inventory_enabled,
+        "ending_gate_total": _ending_gate_entries().size(),
+        "ending_gates_spawned": ending_gates_spawned,
+        "ending_chosen": String(story_flags.get("ending_chosen", "")),
+        "wish_total": _wish_board_entries().size(),
+        "wish_claimed_total": _wish_claimed_total(),
         "chapter_transition_to": transition_state.get("to_runtime_config_id", ""),
         "boss_attack_total": boss_profile.get("attacks", []).size(),
         "boss_attack_types": boss_attack_types
@@ -3872,6 +4559,14 @@ func get_demo_state() -> Dictionary:
     if metsys_bridge != null:
         state.merge(metsys_bridge.get_state(), true)
     return state
+
+
+func _wish_claimed_total() -> int:
+    var claimed := 0
+    for wish_value in _wish_board_entries():
+        if bool(story_flags.get(_wish_claim_flag(wish_value), false)):
+            claimed += 1
+    return claimed
 
 
 func _debug_collect_all_keys() -> void:
