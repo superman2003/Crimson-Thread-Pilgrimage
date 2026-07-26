@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
+var failures := 0
 const AUDIO_PATHS := [
     "res://assets/audio/bgm/ch01_cave_loop.ogg",
     "res://assets/audio/bgm/boss_rust_crown_loop.ogg",
@@ -27,10 +28,13 @@ func _run() -> void:
         _assert(FileAccess.file_exists(path), "audio file exists: " + path)
         _assert(AudioStreamOggVorbis.load_from_file(path) != null, "audio stream loads: " + path)
 
-    _assert(Image.load_from_file("res://assets/sprites/gothicvania/demo/platform_moss_stone.png") != null, "CH01 public platform texture loads")
-    _assert(Image.load_from_file("res://assets/sprites/gothicvania/demo/platform_bronze_bridge.png") != null, "CH01 public bridge texture loads")
-    _assert(Image.load_from_file("res://assets/sprites/gothicvania/demo/platform_boss_stone.png") != null, "CH01 public boss platform texture loads")
-    _assert(Image.load_from_file("res://assets/sprites/gothicvania/demo/map_background_ch01.png") != null, "CH01 public map background texture loads")
+    for path in [
+        "res://assets/sprites/original_map/moss_cavern/platform_mid.png",
+        "res://assets/sprites/original_map/moss_cavern/platform_cap_small.png",
+        "res://assets/sprites/original_map/moss_cavern/wall.png",
+        "res://assets/sprites/original_map/moss_cavern/map.png"
+    ]:
+        _assert(Image.load_from_file(path) != null, "CH01 original map texture loads: " + path)
     _assert(FileAccess.file_exists("res://assets/NOTICE.md"), "third-party asset notice exists")
 
     var scene: Node = load(MAIN_SCENE).instantiate()
@@ -41,15 +45,39 @@ func _run() -> void:
     var bgm := scene.get_node_or_null("BgmPlayer") as AudioStreamPlayer
     _assert(bgm != null and bgm.stream != null, "background music player is active")
 
+    # P0 音频基建断言（音频规格 §5.1/§6.1）：五总线、BGM 归位、区域混响、duck、濒死低通。
+    _assert(load("res://default_bus_layout.tres") as AudioBusLayout != null, "default bus layout resource loads")
+    for bus_name in ["BGM", "SFX", "Ambience", "UI"]:
+        _assert(AudioServer.get_bus_index(bus_name) != -1, "audio bus exists: " + bus_name)
+    _assert(bgm != null and String(bgm.bus) == "BGM", "bgm player routed to BGM bus")
+    var sfx_bus_index := AudioServer.get_bus_index("SFX")
+    _assert(sfx_bus_index != -1 and _bus_has_effect(sfx_bus_index, "AudioEffectReverb"), "SFX bus carries chapter reverb")
+    var ambience_bus_index := AudioServer.get_bus_index("Ambience")
+    _assert(ambience_bus_index != -1 and _bus_has_effect(ambience_bus_index, "AudioEffectReverb"), "Ambience bus carries chapter reverb")
+    _assert(scene.has_method("duck_bgm"), "main level exposes duck_bgm")
+    scene.duck_bgm(-6.0, 0.1)
+    var bgm_bus_index := AudioServer.get_bus_index("BGM")
+    scene._set_low_hp_audio(true)
+    _assert(_bus_has_effect(bgm_bus_index, "AudioEffectLowPassFilter"), "low hp lowpass engages on BGM bus")
+    scene._set_low_hp_audio(false)
+    _assert(not _bus_has_effect(bgm_bus_index, "AudioEffectLowPassFilter"), "low hp lowpass releases on BGM bus")
+
+    var manifest := _load_manifest()
+    _assert(int(manifest.get("version", 1)) >= 2, "AV manifest upgraded to v2")
+    for block in ["buses", "sfx_catalog", "ambience_zones", "reverb_zones", "mix_states"]:
+        _assert(manifest.has(block), "AV manifest v2 block present: " + block)
+
     var start_ground := scene.get_node_or_null("start_ground")
     _assert(start_ground != null, "start platform exists")
-    _assert(_has_named_child(start_ground, "MossVine"), "CH01 platform has vine decoration")
+    _assert(_sprite_uses_original_map(start_ground.get_node_or_null("Material") as Sprite2D), "CH01 platform uses original map material")
 
-    var bridge := scene.get_node_or_null("vista_bridge")
-    _assert(bridge != null, "bridge platform exists")
-    var bridge_material := bridge.get_node_or_null("Material") as Sprite2D
-    _assert(bridge_material != null and bridge_material.texture != null, "bridge uses public CH01 material sprite")
-    _assert(_count_textured_sprites(bridge) >= 3, "bridge has repeated public CH01 texture tiles")
+    # ch1 箱庭重做后旧 vista_bridge 已移除，改用中央钟庭枢纽地板做同口径断言。
+    var hub_floor := scene.get_node_or_null("hub_floor_w")
+    _assert(hub_floor != null, "hub platform exists")
+    if hub_floor != null:
+        var hub_material := hub_floor.get_node_or_null("Material") as Sprite2D
+        _assert(_sprite_uses_original_map(hub_material), "hub uses original CH01 material sprite")
+        _assert(_count_textured_sprites(hub_floor) >= 1, "hub has an original CH01 material module")
 
     scene._toggle_map()
     await process_frame
@@ -64,6 +92,7 @@ func _run() -> void:
 
     scene.player._start_attack(&"attack_1")
     _assert(_has_named_child(scene.player, "AttackSlashVfx"), "normal attack slash vfx spawns")
+    _assert(_audio_children_on_bus(scene.player, "SFX"), "player sfx players routed to SFX bus")
     scene.player.attack_timer = 0.0
     scene.player._start_attack(&"hook_throw")
     _assert(_has_named_child(scene.player, "HookTrailVfx"), "hook trail vfx spawns")
@@ -99,8 +128,40 @@ func _run() -> void:
     scene.queue_free()
     await process_frame
     await process_frame
-    print("AUDIO_VISUAL_VALIDATION_PASS audio=%d heal_effect=true hit_spark=true platform_art=true" % AUDIO_PATHS.size())
-    quit(0)
+    if failures == 0:
+        print("AUDIO_VISUAL_VALIDATION_PASS audio=%d heal_effect=true hit_spark=true platform_art=true" % AUDIO_PATHS.size())
+        quit(0)
+    else:
+        push_error("AUDIO_VISUAL_VALIDATION_FAIL failures=%d" % failures)
+        quit(1)
+
+
+func _bus_has_effect(bus_index: int, effect_class: String) -> bool:
+    if bus_index < 0:
+        return false
+    for effect_index in AudioServer.get_bus_effect_count(bus_index):
+        var effect := AudioServer.get_bus_effect(bus_index, effect_index)
+        if effect != null and effect.get_class() == effect_class:
+            return true
+    return false
+
+
+func _audio_children_on_bus(parent: Node, bus_name: String) -> bool:
+    var found := false
+    for child in parent.get_children():
+        if child is AudioStreamPlayer2D:
+            found = true
+            if String(child.bus) != bus_name:
+                return false
+    return found
+
+
+func _load_manifest() -> Dictionary:
+    var file := FileAccess.open("res://data/audio_visual_manifest.json", FileAccess.READ)
+    if file == null:
+        return {}
+    var parsed = JSON.parse_string(file.get_as_text())
+    return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
 
 
 func _has_named_child(parent: Node, child_name: String) -> bool:
@@ -126,6 +187,13 @@ func _count_textured_sprites(parent: Node) -> int:
         if sprite != null and sprite.texture != null:
             count += 1
     return count
+
+
+func _sprite_uses_original_map(sprite: Sprite2D) -> bool:
+    if sprite == null or sprite.texture == null:
+        return false
+    var source_path := String(sprite.get_meta("original_map_asset", sprite.texture.resource_path))
+    return source_path.contains("/original_map/")
 
 
 func _find_enemy(scene: Node, spawn_id: String):
@@ -168,4 +236,4 @@ func _assert(condition: bool, label: String) -> void:
         print("PASS: " + label)
         return
     push_error("FAIL: " + label)
-    quit(1)
+    failures += 1
