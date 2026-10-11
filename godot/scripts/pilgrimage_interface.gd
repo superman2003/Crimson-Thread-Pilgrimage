@@ -425,6 +425,9 @@ func _visible_inventory_ids() -> Array[String]:
     var ids: Array[String] = []
     for value in level.backpack_entry_ids:
         var id := String(value)
+        if id=="currency":
+            if bag_category=="全部":ids.append(id)
+            continue
         if _matches(String(level._item_data(id).get("category",""))):
             ids.append(id)
     return ids
