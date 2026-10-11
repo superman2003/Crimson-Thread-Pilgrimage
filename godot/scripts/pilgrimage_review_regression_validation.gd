@@ -27,6 +27,7 @@ func _run() -> void:
         actor.set_physics_process(false)
     _validate_bag(scene)
     _validate_settings(scene)
+    await _validate_overlay_windup(scene)
     await _validate_hazards(scene)
     await _validate_generated_art(scene)
     scene.queue_free()
@@ -144,3 +145,28 @@ func _validate_generated_art(scene: Node) -> void:
             ability_count+=1
     _check(npc_count==36, "all 36 generated NPCs covered")
     _check(ability_count==18, "all 18 generated ability icons covered")
+
+func _validate_overlay_windup(scene: Node) -> void:
+    for kind in ["melee","projectile"]:
+        var actor: Area2D=ENEMY.new()
+        scene.add_child(actor)
+        actor.set_physics_process(false)
+        actor._begin_attack({"id":"overlay_"+kind,"type":kind,"windup":0.6,"active":0.2})
+        var warning:=actor.get_node("OriginalAttackWarning") as Line2D
+        scene.active_overlay="backpack"
+        scene._sync_ui_input_lock()
+        var alpha_before: float=warning.modulate.a
+        var frame_before: int=actor.animated_sprite.frame
+        var progress_before: float=actor.animated_sprite.frame_progress
+        var time_before: float=actor.state_timer
+        await create_timer(0.8).timeout
+        actor._physics_process(0.8)
+        _check(is_instance_valid(warning) and warning.modulate.a==alpha_before, kind+" warning remains visible beyond windup while overlay is open")
+        _check(actor.state_timer==time_before, kind+" attack timer remains paused")
+        _check(actor.animated_sprite.frame==frame_before and is_equal_approx(actor.animated_sprite.frame_progress,progress_before), kind+" attack animation remains paused")
+        scene.active_overlay=""
+        scene._sync_ui_input_lock()
+        await create_timer(0.1).timeout
+        _check(is_instance_valid(warning) and warning.modulate.a<alpha_before, kind+" warning resumes from remaining windup")
+        actor.queue_free()
+        await process_frame

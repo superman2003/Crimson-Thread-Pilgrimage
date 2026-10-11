@@ -1618,6 +1618,10 @@ func _close_overlays() -> void:
 func _sync_ui_input_lock() -> void:
     if player != null and is_instance_valid(player):
         player.set("ui_input_locked", active_overlay != "")
+    if is_inside_tree():
+        for actor in get_tree().get_nodes_in_group("enemy"):
+            if actor.has_method("_set_combat_visuals_paused"):
+                actor._set_combat_visuals_paused(active_overlay != "")
 
 
 ## 对话面板关闭时归还 BGM/Ambience 压低（所有关闭路径共用：Esc、走远、切换 overlay）。

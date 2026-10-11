@@ -13,6 +13,9 @@ var battle_phase := 1
 var phase_pause := 0.0
 var original_visual := false
 var owned_attack_effects: Array[Node2D] = []
+var combat_tweens: Array[Tween] = []
+var combat_visuals_paused := false
+var animation_was_playing := false
 
 func _update_locomotion(delta: float, target: CharacterBody2D) -> void:
     if locomotion=="stationary":
@@ -251,7 +254,9 @@ func _physics_process(delta: float) -> void:
     if dying:
         return
     var player_node := _target_player()
-    if player_node != null and bool(player_node.get("ui_input_locked")):
+    var ui_locked := player_node != null and bool(player_node.get("ui_input_locked"))
+    _set_combat_visuals_paused(ui_locked)
+    if ui_locked:
         return
     if is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold",0.55)):
         battle_phase = 2
@@ -1220,7 +1225,7 @@ func _show_telegraph(command: Dictionary) -> void:
     telegraph.color = color
     telegraph.z_index = 8
     add_child(telegraph)
-    var tween := create_tween()
+    var tween := _combat_tween()
     tween.set_loops(3)
     tween.tween_property(telegraph, "scale", Vector2(1.08, 1.08), 0.08)
     tween.tween_property(telegraph, "scale", Vector2(1.0, 1.0), 0.08)
@@ -1504,7 +1509,7 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
         time = 0.06
     else:
         time = 0.12
-    var tween := create_tween()
+    var tween := _combat_tween()
     tween.set_parallel(true)
     tween.tween_property(sprite, "position", target_position, maxf(0.04, time)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
     tween.tween_property(sprite, "scale", target_scale, maxf(0.04, time)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -1671,6 +1676,7 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     var type := String(command.get("type", "melee"))
     if type in ["beam", "pool", "rootline"]: return
     var line := Line2D.new()
+    line.name = "OriginalAttackWarning" if warning else "OriginalAttackArc"
     line.width = 1.6 if warning else 3.5
     line.default_color = Color(.95,.77,.45,.68) if warning else Color(.86,.33,.25,.85)
     line.z_index = 8
@@ -1685,7 +1691,7 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
             points.append(Vector2(attack_direction*(20+cos(angle)*reach),-26+sin(angle)*float(command.get("hit_height",70))*.55))
     line.points=points
     add_child(line)
-    var tween := create_tween()
+    var tween := _combat_tween()
     tween.tween_property(line,"modulate:a",0.0,float(command.get("windup",.5)) if warning else .22)
     tween.finished.connect(line.queue_free)
 
@@ -1725,7 +1731,7 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
     warning.default_color = Color(1.0, 0.72, 0.28, 0.92)
     warning.z_index = 22
     add_child(warning)
-    var tween := create_tween()
+    var tween := _combat_tween()
     tween.tween_property(warning, "scale", Vector2(1.16, 1.16), float(command.get("windup", 0.25)))
     tween.parallel().tween_property(warning, "modulate:a", 0.0, float(command.get("windup", 0.25)))
     tween.finished.connect(Callable(warning, "queue_free"))
@@ -1797,7 +1803,7 @@ func _spawn_attack_burst_vfx(command: Dictionary) -> void:
             Vector2(offset + width * 0.22, 4.0)
         ])
     add_child(burst)
-    var tween := create_tween()
+    var tween := _combat_tween()
     tween.tween_property(burst, "scale", Vector2(1.35, 1.35), 0.18)
     tween.parallel().tween_property(burst, "modulate:a", 0.0, 0.18)
     tween.finished.connect(Callable(burst, "queue_free"))
@@ -1864,7 +1870,7 @@ func _spawn_hit_spark(hit_direction: int) -> void:
         Vector2(x + 34.0 * hit_direction, -12.0)
     ])
     add_child(spark)
-    var tween := create_tween()
+    var tween := _combat_tween()
     tween.tween_property(spark, "scale", Vector2(1.55, 1.55), 0.16)
     tween.parallel().tween_property(spark, "modulate:a", 0.0, 0.16)
     tween.finished.connect(Callable(spark, "queue_free"))
@@ -1877,3 +1883,28 @@ func _cancel_attack_effects() -> void:
 
 func _exit_tree() -> void:
     _cancel_attack_effects()
+
+func _combat_tween() -> Tween:
+    combat_tweens = combat_tweens.filter(func(tween: Tween) -> bool: return tween.is_valid())
+    var tween := create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+    combat_tweens.append(tween)
+    if combat_visuals_paused:
+        tween.pause()
+    return tween
+
+func _set_combat_visuals_paused(paused: bool) -> void:
+    if paused == combat_visuals_paused:
+        return
+    combat_visuals_paused = paused
+    for tween in combat_tweens:
+        if not tween.is_valid():continue
+        if paused:
+            tween.pause()
+        else:
+            tween.play()
+    if animated_sprite != null:
+        if paused:
+            animation_was_playing = animated_sprite.is_playing()
+            animated_sprite.pause()
+        elif animation_was_playing:
+            animated_sprite.play()
