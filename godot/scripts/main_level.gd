@@ -1115,6 +1115,7 @@ func _build_new_journey_dialog() -> void:
     new_journey_dialog.dialog_text = "是否从苔钟庭开始新的旅途？当前归途记录会保留为上一段旅途的备份。"
     new_journey_dialog.ok_button_text = "开始新旅途"
     new_journey_dialog.cancel_button_text = "继续当前旅途"
+    new_journey_dialog.theme = ui_shell.theme if ui_shell != null else null
     add_child(new_journey_dialog)
     new_journey_dialog.confirmed.connect(_start_new_journey)
     new_journey_dialog.canceled.connect(func():
@@ -1838,7 +1839,7 @@ func _build_map_overlay() -> void:
     map_panel.name = "CourtMapOverlay"
     map_panel.position = Vector2(52, 54)
     map_panel.size = Vector2(1176, 640)
-    map_panel.color = Color(0.012, 0.015, 0.018, 0.97)
+    map_panel.color = Color("10191f")
     map_panel.visible = false
     ui_shell.add_child(map_panel)
 
@@ -1859,12 +1860,13 @@ func _build_map_overlay() -> void:
     title.add_theme_font_size_override("font_size", 24)
     title.add_theme_color_override("font_color", Color("b5a17c"))
     map_panel.add_child(title)
+    ui_shell._label(map_panel,"绯线巡礼  /  已探索的归途",Vector2(30,58),Vector2(480,22),12,ui_shell.GOLD)
     ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
 
     map_draw_root = Control.new()
     map_draw_root.name = "MapDrawRoot"
-    map_draw_root.position = Vector2(34, 72)
-    map_draw_root.size = Vector2(1108, 430)
+    map_draw_root.position = Vector2(34, 106)
+    map_draw_root.size = Vector2(1108, 396)
     map_panel.add_child(map_draw_root)
 
     map_text = Label.new()
@@ -1901,8 +1903,8 @@ func _build_wish_board_overlay() -> void:
         return
     wish_panel = ColorRect.new()
     wish_panel.name = "WishBoardPanel"
-    wish_panel.position = Vector2(826, 72)
-    wish_panel.size = Vector2(316, 430)
+    wish_panel.position = Vector2(826, 106)
+    wish_panel.size = Vector2(316, 396)
     wish_panel.color = Color(0.035, 0.045, 0.05, 0.93)
     map_panel.add_child(wish_panel)
 
@@ -1910,12 +1912,12 @@ func _build_wish_board_overlay() -> void:
     title.text = "巡礼愿板"
     title.position = Vector2(16, 12)
     title.add_theme_font_size_override("font_size", 20)
-    title.add_theme_color_override("font_color", Color(0.96, 0.80, 0.42))
+    title.add_theme_color_override("font_color", Color("bda176"))
     wish_panel.add_child(title)
 
     wish_text = Label.new()
     wish_text.position = Vector2(16, 48)
-    wish_text.size = Vector2(284, 366)
+    wish_text.size = Vector2(284, 332)
     wish_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     wish_text.add_theme_font_size_override("font_size", 13)
     wish_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
@@ -2346,7 +2348,7 @@ func _refresh_map_overlay() -> void:
 
     var rooms: Array = config.get("map_rooms", [])
     var draw_width := 760.0 if not _wish_board_entries().is_empty() else 1108.0
-    var draw_size := Vector2(draw_width, 430.0)
+    var draw_size := Vector2(draw_width, map_draw_root.size.y)
     var base_y := 132.0
     var depth_step := 72.0
     var layout_bounds := _map_layout_bounds(rooms)
