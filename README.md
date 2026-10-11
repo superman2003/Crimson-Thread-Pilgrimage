@@ -12,6 +12,27 @@
 
 [合入版本的 CI](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38117357448) 通过 15 个 Godot 套件、三个 Node 测试和两项章节结构检查，其中章节回归 270 项、物理与减速 12 项、复审回归 133 项。最新自动代码与安全复审均已结束；合并后的两条 P2 意见仍待处理：跨章携带物品的分类，以及攻击打断后的警示线清理。详见[整合与验证记录](docs/report/20261011_flat_map_integration.md)。
 
+## 怪物素材与完整地图
+
+40 种小怪与 6 位 Boss 的当前素材在下方直接展示；[完整图册](docs/gallery/20261011_current_assets.md)提供各章高清地图、小怪分章图册、实机画面，以及全部 46 类敌人的原始动画图集链接。
+
+地图总览由当前章节配置按世界坐标比例生成，展示完整布局及关键对象位置，属于布局图。实机画面见下方预览及完整图册。
+
+![40 种小怪素材总览](artifacts/current_gallery/monsters_all.jpg)
+
+![6 位 Boss 素材总览](artifacts/current_gallery/bosses_all.jpg)
+
+![六章完整地图布局总览](artifacts/current_gallery/map_overview.jpg)
+
+| 章节 | 完整地图 | 小怪图册 | 实机画面 |
+| --- | --- | --- | --- |
+| 第 1 章 · 苔钟庭 | [查看全图](artifacts/current_gallery/demo_ch01_moss_bell_court_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch01_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png) |
+| 第 2 章 · 铸雨渠 | [查看全图](artifacts/current_gallery/demo_ch02_rain_foundry_canal_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch02_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch02_rain_foundry_canal.png) |
+| 第 3 章 · 盐白档案馆 | [查看全图](artifacts/current_gallery/demo_ch03_saltwhite_archive_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch03_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch03_saltwhite_archive.png) |
+| 第 4 章 · 断弦温室 | [查看全图](artifacts/current_gallery/demo_ch04_broken_string_greenhouse_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch04_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch04_broken_string_greenhouse.png) |
+| 第 5 章 · 黑曜巡礼路 | [查看全图](artifacts/current_gallery/demo_ch05_obsidian_pilgrim_road_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch05_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch05_obsidian_pilgrim_road.png) |
+| 第 6 章 · 无声王冠 | [查看全图](artifacts/current_gallery/demo_ch06_silent_crown_core_full_map.jpg) | [8 种小怪](artifacts/current_gallery/ch06_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch06_silent_crown_core.png) |
+
 ## 预览
 
 2026-10-11 改版：[第一章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)、[分类背包](artifacts/pilgrimage_overhaul/inventory.png)、[NPC对话](artifacts/pilgrimage_overhaul/dialogue.png)。[六章截图目录](artifacts/pilgrimage_overhaul)。本轮包含46类敌人的104个招式、六章手绘地图与连续地形，详见[改版记录与验证](docs/release/20261011_pilgrimage_overhaul.md)。
@@ -55,7 +76,7 @@ godot --headless --path godot --script res://scripts/pilgrimage_overhaul_validat
 python tools\validate_chapter_files.py
 python tools\validate_open_asset_policy.py
 python tools\validate_itch_enemy_assets.py
-python tools\render_demo_visuals.py
+python tools\render_current_gallery.py
 ```
 
 旧版浏览器原型：
