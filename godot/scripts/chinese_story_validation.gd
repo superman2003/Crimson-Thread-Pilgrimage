@@ -38,7 +38,7 @@ func _run() -> void:
     _assert(npc != null, "gate pilgrim npc spawned")
     scene._on_interactable_entered(scene.player, npc)
     _assert(String(scene.toast_label.text) == "按F交谈", "NPC prompt is Chinese")
-    scene.nearby_interactable = npc
+    scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(scene.dialogue_panel.visible, "NPC dialogue opens panel")
     _assert(_contains_han(scene.dialogue_text_label.text), "NPC dialogue panel text is Chinese")

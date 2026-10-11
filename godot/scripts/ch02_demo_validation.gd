@@ -116,14 +116,14 @@ func _run() -> void:
         _assert(enemy_kinds.has(expected_kind), "CH02 enemy kind exists: " + expected_kind)
 
     var first_npc: Area2D = scene.get_node_or_null("npc_rain_smith_liu")
-    scene.nearby_interactable = first_npc
+    scene.player.global_position = first_npc.global_position
     scene._try_interact()
     _assert(int(first_npc.get_meta("dialogue_index", 0)) == 1, "CH02 NPC dialogue advances")
 
     scene._debug_clear_combat_route()
     var lever: Area2D = scene.get_node_or_null("waterwheel_shortcut_lever")
     _assert(lever != null, "CH02 shortcut lever exists")
-    scene.nearby_interactable = lever
+    scene.player.global_position = lever.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("shortcut_open") == true, "CH02 combat clear opens boss route")
@@ -131,7 +131,7 @@ func _run() -> void:
 
     var boss_gate: Area2D = scene.get_node_or_null("sunken_hammer_gate")
     _assert(boss_gate != null, "CH02 boss gate exists")
-    scene.nearby_interactable = boss_gate
+    scene.player.global_position = boss_gate.global_position
     scene._try_interact()
     await process_frame
     state = scene.get_demo_state()
@@ -183,7 +183,7 @@ func _run() -> void:
         var reset_enemy_state: Dictionary = enemy_position
         _assert(bool(reset_enemy_state.get("spawn_clear", false)), "CH02 reset enemy spawn is clear of walls: " + String(reset_enemy_state.get("id", "")))
 
-    scene.nearby_interactable = boss_gate
+    scene.player.global_position = boss_gate.global_position
     scene._try_interact()
     await process_frame
     state = scene.get_demo_state()
