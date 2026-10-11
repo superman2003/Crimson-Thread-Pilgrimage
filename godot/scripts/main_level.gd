@@ -584,6 +584,7 @@ var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
 var world_map_view := false
 var world_map_key_held := false
+var applied_build_profile: Dictionary = {}
 
 @export var config_path := DEFAULT_CONFIG_PATH
 
@@ -620,7 +621,8 @@ func _ready() -> void:
         var restored: Dictionary = build_system.restore(world_state.data.build_state)
         if not restored.get("ok", false):
             world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑。"
-    build_system.sync_progress(inventory_counts, String(config.get("id", "")))
+    build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
+    _bind_build_inputs()
     _bind_audio_settings_key()
     _build_metsys_bridge()
     _build_audio()
@@ -712,9 +714,13 @@ func _process(_delta: float) -> void:
             _adjust_settings_volume(-5.0)
         elif Input.is_action_just_pressed("move_right"):
             _adjust_settings_volume(5.0)
-    if active_overlay.is_empty() and Input.is_physical_key_pressed(KEY_T) and not bool(get_meta("tool_key_held", false)):
-        perform_build_action("use_tool")
-    set_meta("tool_key_held", Input.is_physical_key_pressed(KEY_T))
+    if active_overlay.is_empty():
+        if Input.is_action_just_pressed("tool_cast"):
+            perform_build_action("use_tool")
+        elif Input.is_action_just_pressed("skill_cycle"):
+            perform_build_action("cycle_skill")
+        elif Input.is_action_just_pressed("tool_cycle"):
+            perform_build_action("cycle_tool")
     if Input.is_action_just_pressed("interact"):
         _try_interact()
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
@@ -1009,6 +1015,7 @@ func _commit_world_dialogue() -> void:
         elif not rewards.is_empty():
             _toast("心愿达成 · 收到 %d 枚碎钱" % int(rewards.get("currency", 0)))
         _apply_world_npc_state(area)
+        _sync_player_build()
     _save_world()
 
 
@@ -2129,9 +2136,9 @@ func _notify_dialogue_closed() -> void:
 
 # 背包分区顺序：印记/证词等剧情要物靠前，材料殿后；分区标题仅作视觉分组。
 const BACKPACK_SECTIONS := [
-    ["工具 Tools", "Tools"],
+    ["探索工具 Tools", "Tools"],
     ["能力 Abilities", "Abilities"],
-    ["护符 Charms", "Charms"],
+    ["铭饰 Charms", "Charms"],
     ["升级 Upgrades", "Upgrades"],
     ["圣物 Relics", "Relics"],
     ["印记与要物 Quest", "Quest"],
@@ -2718,11 +2725,36 @@ func _build_world_from_config() -> void:
 
     _spawn_normal_enemies()
     enemy_total = config.get("enemy_spawns", []).size()
+    if world_mode:
+        _spawn_seal_practice_targets()
     if _combat_progression_enabled() and _combat_goal_met():
         _open_all_shortcuts(false)
 
     # World labels are intentionally suppressed so tutorial copy does not cover the level art.
 
+
+func _spawn_seal_practice_targets() -> void:
+    for entry in WORLD_ROUTES_SCRIPT._data().get("seal_practice_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        var target := Area2D.new()
+        target.set_script(load("res://scripts/seal_training_target.gd"))
+        target.name = String(entry.training_id)
+        target.position = _vec2(entry.position)
+        for platform in config.get("platforms", []):
+            if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
+                target.position.y = float(platform.rect[1]) - 23.0
+        target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
+            "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
+            "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": []})
+        add_child(target)
+        var label := Label.new()
+        label.position = Vector2(-100, -132)
+        label.size = Vector2(200, 80)
+        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
+        label.add_theme_font_size_override("font_size", 13)
+        target.add_child(label)
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
@@ -2859,7 +2891,7 @@ func _void_respawn() -> void:
         player._interrupt_heal()
         player.guard_timer = 0.0
         player.hurt_timer = 0.0
-        player.take_damage(1, player.global_position + Vector2(50, 0))
+        player.take_damage(1, player.global_position + Vector2(50, 0), false)
         player._reset_traversal_state()
         player.global_position = active_spawn
         player.velocity = Vector2.ZERO
@@ -4365,7 +4397,7 @@ func _world_label(text: String, position_value: Vector2, color: Color) -> void:
 
 func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
     if body == player:
-        player.take_damage(int(area.get_meta("damage", 1)), area.global_position)
+        player.take_damage(int(area.get_meta("damage", 1)), area.global_position, false)
         _toast(String(area.get_meta("message", "Trap hit.")))
         _refresh_hud()
 
@@ -4637,7 +4669,7 @@ func _activate_save_point(area: Area2D) -> void:
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
     if build_system != null:
-        build_system.cooldowns.clear()
+        build_system.refill_tools()
     _save_world()
     _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
     _refresh_hud()
@@ -5620,9 +5652,32 @@ func get_build_system() -> RefCounted:
 func _sync_player_build() -> void:
     if not world_mode or build_system == null:
         return
-    build_system.sync_progress(inventory_counts, String(config.get("id", "")))
+    build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
     if player != null and is_instance_valid(player):
-        player.apply_build_stats(build_system.profile())
+        var profile: Dictionary = build_system.profile()
+        if profile != applied_build_profile:
+            player.apply_build_stats(profile)
+            applied_build_profile = profile.duplicate(true)
+
+func _bind_build_inputs() -> void:
+    var bindings := {"skill_cycle": [KEY_K, JOY_AXIS_TRIGGER_LEFT],
+        "tool_cast": [KEY_T, JOY_BUTTON_DPAD_DOWN], "tool_cycle": [KEY_G, JOY_AXIS_TRIGGER_RIGHT]}
+    for action in bindings:
+        if InputMap.has_action(action):
+            continue
+        InputMap.add_action(action)
+        var key := InputEventKey.new()
+        key.physical_keycode = int(bindings[action][0])
+        InputMap.action_add_event(action, key)
+        if action == "tool_cast":
+            var joy := InputEventJoypadButton.new()
+            joy.button_index = int(bindings[action][1])
+            InputMap.action_add_event(action, joy)
+        else:
+            var trigger := InputEventJoypadMotion.new()
+            trigger.axis = int(bindings[action][1])
+            trigger.axis_value = 1.0
+            InputMap.action_add_event(action, trigger)
 
 func _near_workstation(crafting: bool = false) -> bool:
     if player == null or player.hp <= 0 or player.death_timer > 0.0 or (boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body)):
@@ -5649,18 +5704,22 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
         "switch_crest", "crest":
             result = build_system.switch_crest(id, _near_workstation())
         "select_skill", "skill":
-            result = build_system.select_skill(id)
+            result = build_system.select_skill(id, int(extra) if extra is int or extra is float else -1)
         "select_tool", "tool":
-            result = build_system.select_tool(id)
+            result = build_system.select_tool(id, int(extra) if extra is int or extra is float else -1)
+        "cycle_skill":
+            result = build_system.cycle_skill()
+        "cycle_tool":
+            result = build_system.cycle_tool()
         "equip_passive", "passive":
-            result = build_system.equip_passive(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整被动装备"}
+            result = build_system.equip_passive(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整铭饰"}
         "save_loadout":
             result = build_system.save_loadout(id)
         "restore_loadout", "load_loadout":
             result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
         "transact", "craft":
             if not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面制作补给"}
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化；战具在钟龛免费补满"}
             else:
                 result = build_system.transact(id, {"currency": currency_count, "inventory_counts": inventory_counts})
                 if result.get("ok", false):
@@ -5672,12 +5731,12 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                             inventory_materials[item_id] = int(inventory_counts[item_id])
         "use_tool":
             if not active_overlay.is_empty() or player.attack_timer > 0.0 or player.dash_timer > 0.0 or player.hurt_timer > 0.0:
-                return {"ok": false, "reason": "请在动作结束后使用工具"}
+                return {"ok": false, "reason": "请在动作结束后使用战具"}
             var before: Dictionary = build_system.serialize()
             result = build_system.use_tool()
             if result.get("ok", false) and not player.cast_tool(result):
                 build_system.restore(before)
-                result = {"ok": false, "reason": "当前无法使用工具，次数已保留"}
+                result = {"ok": false, "reason": "当前无法使用战具，次数已保留"}
     if result.get("ok", false):
         _sync_player_build()
         _save_world()

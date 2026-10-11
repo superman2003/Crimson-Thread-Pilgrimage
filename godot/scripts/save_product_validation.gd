@@ -20,7 +20,7 @@ func _run() -> void:
     _check(world.data.version == 2 and world.data.currency == 77, "migration preserves progress")
     _check(world.data.build_state.is_empty() and world.data.death_cache.is_empty(), "v1 receives empty optional systems")
     var build := BUILD.new()
-    build.sync_progress({"echo_hook": 1, "bell_guard": 1}, "rain")
+    build.sync_progress({"echo_hook": 1, "bell_guard": 1}, "rain", {"skill_needle_learned": true})
     build.select_skill("needle")
     build.try_cast(100)
     build.save_loadout("one")

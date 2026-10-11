@@ -6,7 +6,7 @@ var checks := 0
 
 class TestPlayer extends CharacterBody2D:
     var damage_received := 0
-    func take_damage(amount: int, _origin: Vector2) -> void:
+    func take_damage(amount: int, _origin: Vector2, _blockable: bool = true) -> void:
         damage_received += amount
 
 func _initialize() -> void:

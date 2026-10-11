@@ -20,9 +20,11 @@ var build_system: RefCounted = null
 var selected_skill: Dictionary = {}
 var build_profile: Dictionary = {}
 var heal_timer := 0.0
+var heal_reserved_cost := 0
 var guard_timer := 0.0
 var guard_cooldown := 0.0
 var guard_refunded := false
+var guard_initial_duration := 0.42
 var resonance_cooldown := 0.0
 var phase_active := false
 var phase_energy_fraction := 0.0
@@ -36,6 +38,70 @@ var skill_effect_started := false
 var traversal_downstrike_active := false
 var build_baseline: Dictionary = {}
 var wall_jump_lock := 0.0
+var line_stacks := 0
+var line_expiry := 0.0
+var bell_pressure := 0
+var heal_speed_timer := 0.0
+var heal_stability_timer := 0.0
+var status_resist_timer := 0.0
+var crosscut_refund_paid := false
+var seal_presentation: Node2D = null
+var seal_recovery_shown := false
+var skill_displacement_done := 0.0
+
+func _seal_present(id: String, stage: String) -> void:
+    if seal_presentation == null and ResourceLoader.exists("res://scripts/seal_presentation.gd"):
+        seal_presentation = Node2D.new()
+        seal_presentation.set_script(load("res://scripts/seal_presentation.gd"))
+        add_child(seal_presentation)
+    if seal_presentation != null:
+        seal_presentation.set("muted", float(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))) <= -70.0 if AudioServer.get_bus_index("SFX") >= 0 else false)
+        seal_presentation.set("reduced_flash", not bool(_accessibility().get("flash_enabled", true)))
+        seal_presentation.play_action(id, stage, facing, {"range":attack_range})
+
+
+func get_seal_mechanism_snapshot() -> Dictionary:
+    if _crest() == "bell":
+        return {"label":"钟压", "stacks":bell_pressure, "max_stacks":2}
+    if _crest() == "salt":
+        var count := 0
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.get("salt_mark_timer") != null and float(enemy.get("salt_mark_timer")) > 0.0:
+                count += 1
+        return {"label":"盐记", "stacks":count, "max_stacks":count}
+    return {"label":"线势", "stacks":line_stacks, "max_stacks":3}
+
+func get_seal_combat_state() -> Dictionary:
+    return {"crest": String(build_profile.get("crest_id", "crimson")), "line_stacks": line_stacks, "bell_pressure": bell_pressure, "line_expiry": line_expiry, "heal_speed": heal_speed_timer, "heal_stability": heal_stability_timer}
+
+func _seal_tick(delta: float) -> void:
+    line_expiry = maxf(0.0, line_expiry - delta)
+    if line_expiry <= 0.0:
+        line_stacks = 0
+    heal_speed_timer = maxf(0.0, heal_speed_timer - delta)
+    heal_stability_timer = maxf(0.0, heal_stability_timer - delta)
+    status_resist_timer = maxf(0.0, status_resist_timer - delta)
+
+func _crest() -> String:
+    return String(build_profile.get("crest_id", "crimson"))
+
+func _basic_seal_hit() -> void:
+    if _crest() == "crimson" and bool(build_profile.get("crimson_repaired", true)):
+        line_stacks = mini(3, line_stacks + 1)
+        line_expiry = 3.5
+
+func _seal_heal_completed() -> void:
+    if _crest() == "crimson":
+        heal_speed_timer = 2.5
+    elif _crest() == "bell":
+        heal_stability_timer = 4.0
+    elif _crest() == "salt":
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy is Node2D and enemy.global_position.distance_to(global_position) <= 240.0 and enemy.has_method("extend_salt_mark_once"):
+                enemy.extend_salt_mark_once(2.0)
+    if float(build_profile.get("status_buildup_mult", 1.0)) < 1.0:
+        status_resist_timer = 3.0
+
 
 
 const SFX := {
@@ -241,7 +307,7 @@ var ui_input_locked: bool = false
 var snare_timer := 0.0
 
 func apply_snare(seconds: float) -> void:
-    snare_timer=maxf(snare_timer,seconds)
+    snare_timer=maxf(snare_timer, seconds * (float(build_profile.get("status_buildup_mult", 1.0)) if status_resist_timer > 0.0 else 1.0))
 
 
 func _ready() -> void:
@@ -281,6 +347,7 @@ func _physics_process(delta: float) -> void:
     resonance_cooldown = maxf(0.0, resonance_cooldown - delta)
     wall_jump_lock = maxf(0.0, wall_jump_lock - delta)
     _update_phase(delta)
+    _seal_tick(delta)
     _update_heal(delta)
     snare_timer=maxf(0,snare_timer-delta)
     if dash_timer>0:
@@ -420,10 +487,10 @@ func _physics_process(delta: float) -> void:
         if dash_timer <= 0.0:
             _spawn_dash_trail()
     elif attack_timer <= 0.0 and wall_jump_lock <= 0.0 and hurt_timer <= 0.0:
-        var movement_speed := speed * (0.58 if snare_timer > 0.0 else 1.0)
+        var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
         velocity.x = move_toward(velocity.x, input_axis * movement_speed, speed * 9.5 * delta)
     elif wall_jump_lock <= 0.0 and hurt_timer <= 0.0:
-        var movement_speed := speed * (0.58 if snare_timer > 0.0 else 1.0)
+        var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
         velocity.x = move_toward(velocity.x, input_axis * movement_speed * 0.45, speed * 5.0 * delta)
 
     _update_attack(delta)
@@ -561,6 +628,8 @@ func _spawn_double_jump_vfx() -> void:
 
 
 func _start_attack(animation: StringName, allow_traversal_action: bool = true) -> void:
+    if animation == &"attack_1" and _crest() == "bell":
+        animation = &"attack_2"
     active_skill.clear()
     current_attack = animation
     current_attack_direction = _read_attack_direction()
@@ -588,6 +657,8 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true) -
         velocity.x += current_attack_direction.x * (attack_lunge if is_on_floor() else attack_lunge * 0.45)
     elif current_attack_direction.y < -0.5:
         velocity.y = minf(velocity.y, -110.0)
+    if _crest() == "bell" and animation == &"attack_2" and bell_pressure > 0:
+        attack_damage += bell_pressure
     attack_damage = maxi(1, attack_damage + int(build_profile.attack_bonus)) if build_profile.has("attack_bonus") else maxi(1, int(ceil(float(attack_damage) * float(build_profile.get("attack_damage_mult", 1.0)))))
     var reach := float(build_profile.get("attack_reach_mult", 1.0))
     attack_range *= reach
@@ -639,12 +710,15 @@ func _try_skill_burst() -> void:
     cast_selected_skill()
 
 
-func cast_selected_skill() -> bool:
+func cast_selected_skill(slot: int = -1) -> bool:
     if not _can_start_action() or skill_cooldown > 0.0:
         return false
     var payload: Dictionary
     if build_system != null and build_system.has_method("try_cast"):
-        payload = build_system.try_cast(energy)
+        var preview: Dictionary = build_system.selected_skill() if slot < 0 else build_system.selected_skill(slot)
+        if String(preview.get("id", "")) == "shockwave" and not is_on_floor():
+            return false
+        payload = build_system.try_cast(energy) if slot < 0 else build_system.try_cast(energy, slot)
         if not bool(payload.get("ok", false)):
             return false
     else:
@@ -652,18 +726,43 @@ func cast_selected_skill() -> bool:
     var cost := int(payload.get("energy_cost", skill_energy_cost))
     if energy < cost:
         return false
+    if String(payload.get("id", "")) == "shockwave" and not is_on_floor():
+        return false
     gain_energy(-cost)
+    var old_velocity := velocity
     _start_attack(&"attack_2", false)
+    velocity = old_velocity
     active_skill = payload.duplicate(true)
+    enemy_contact_guard_timer = 0.0
     attack_damage = maxi(1, int(payload.get("damage", 2)))
+    active_skill["empowered"] = line_stacks >= 3 and _crest() == "crimson"
+    if bool(active_skill.empowered):
+        line_stacks = 0
+        line_expiry = 0.0
+    crosscut_refund_paid = false
+    if _crest() == "bell" and String(payload.get("id", "")) == "shockwave" and bell_pressure > 0:
+        attack_damage += bell_pressure
+        active_skill["stagger"] = bell_pressure * 0.3
+        bell_pressure = 0
     attack_range = float(payload.get("range", 126.0))
+    if bool(active_skill.get("empowered", false)) and String(payload.get("id", "")) == "cleave":
+        attack_range *= 1.35
+    if String(payload.get("id", "")) == "crosscut":
+        attack_forward_offset = 0.0
+        attack_range *= 2.0
+        current_attack_direction = Vector2(facing, 0)
     attack_windup = float(payload.get("windup", payload.get("warmup", 0.1)))
     attack_active_time = float(payload.get("active", 0.18))
+    if String(payload.get("kind", "")) == "defense":
+        attack_active_time = clampf(float(payload.get("duration", 0.5)), 0.1, 0.65)
     attack_duration = attack_windup + attack_active_time + float(payload.get("recovery", 0.2))
     attack_timer = attack_duration
     skill_effect_started = false
     skill_cooldown = 0.0 if build_system != null else float(payload.get("cooldown", 2.4))
     _sync_attack_hitbox()
+    seal_recovery_shown = false
+    skill_displacement_done = 0.0
+    _seal_present(String(payload.get("id", "cleave")), "prepare")
     skill_cast.emit(String(payload.get("skill_id", payload.get("id", "thread_burst"))))
     return true
 
@@ -672,6 +771,8 @@ func _try_heal() -> bool:
     if not _can_start_action() or heal_cooldown > 0.0 or hp >= max_hp or energy < heal_energy_cost or not is_on_floor():
         return false
     gain_energy(-heal_energy_cost)
+    heal_reserved_cost = heal_energy_cost
+    _seal_present("heal", "prepare")
     heal_timer = heal_duration
     velocity.x = 0.0
     heal_state_changed.emit("started")
@@ -688,15 +789,20 @@ func _update_heal(delta: float) -> void:
         return
     heal_timer = maxf(0.0, heal_timer - delta)
     if heal_timer <= 0.0:
+        heal_reserved_cost = 0
         hp = mini(max_hp, hp + heal_amount)
         heal_cooldown = 0.4
         hp_changed.emit(hp)
         heal_state_changed.emit("completed")
         _spawn_heal_effect()
+        _seal_heal_completed()
 
 
 func _interrupt_heal() -> void:
     if heal_timer > 0.0:
+        var loss_ratio := clampf(float(build_profile.get("heal_interrupt_loss_ratio", 1.0)), 0.0, 1.0)
+        gain_energy(heal_reserved_cost - int(ceil(heal_reserved_cost * loss_ratio)))
+        heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
         heal_state_changed.emit("interrupted")
@@ -705,6 +811,17 @@ func _interrupt_heal() -> void:
 func apply_build_stats(stats: Dictionary) -> void:
     if build_baseline.is_empty():
         build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed, "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost, "heal_amount": heal_amount, "heal_duration": heal_duration}
+    line_stacks = 0
+    bell_pressure = 0
+    line_expiry = 0.0
+    heal_speed_timer = 0.0
+    heal_stability_timer = 0.0
+    status_resist_timer = 0.0
+    attack_timer = 0.0
+    active_skill.clear()
+    for enemy in get_tree().get_nodes_in_group("enemy"):
+        if enemy.has_method("clear_salt_mark"):
+            enemy.clear_salt_mark()
     build_profile = stats.duplicate(true)
     max_hp = maxi(1, int(stats.get("max_hp", build_baseline.max_hp)))
     max_energy = maxi(1, int(stats.get("max_energy", build_baseline.max_energy)))
@@ -727,6 +844,7 @@ func _try_guard() -> bool:
         return false
     gain_energy(-8)
     guard_timer = 0.42
+    guard_initial_duration = guard_timer
     guard_cooldown = 0.8
     guard_refunded = false
     ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
@@ -836,38 +954,69 @@ func _update_camera(delta: float) -> void:
 
 func _apply_special_skill() -> void:
     var kind := String(active_skill.get("kind", "melee"))
+    var id := String(active_skill.get("id", ""))
     if kind == "ranged":
-        cast_tool({"kind": "projectile", "damage": attack_damage, "range": attack_range, "duration": 1.2, "pierce": active_skill.get("pierce", 1)})
+        cast_tool({"kind": "projectile", "damage": attack_damage, "range": attack_range, "duration": 1.2, "pierce": 1, "salt_mark": _crest() == "salt", "skill_effect": true})
     elif kind == "defense":
-        guard_timer = minf(1.0, float(active_skill.get("duration", 0.8)))
-        guard_refunded = true
+        guard_timer = minf(0.65, float(active_skill.get("duration", 0.5)))
+        guard_initial_duration = guard_timer
+        guard_refunded = false
         _ability_ring(56.0, THREAD_T3_CORE)
-    elif kind in ["control", "resonance"]:
+    elif id == "shockwave" or kind == "shockwave":
+        cast_tool({"kind": "wave", "damage": attack_damage, "range": attack_range, "duration": 0.8, "stagger": active_skill.get("stagger", 0.0), "skill_effect": true})
+    elif kind == "control":
+        cast_tool({"kind":"snare_field", "damage":attack_damage, "range":10000.0, "duration":maxf(0.4, float(active_skill.get("duration",1.5))), "salt_consume":_crest() == "salt", "skill_effect":true})
+    elif kind == "resonance":
         var radius := float(active_skill.get("range", 160.0))
         _ability_ring(radius, THREAD_T2_CORE)
         for enemy in get_tree().get_nodes_in_group("enemy"):
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
-                if enemy.has_method("apply_snare"):
-                    enemy.apply_snare(float(active_skill.get("duration", 1.5)))
-                elif enemy.has_method("set"):
-                    enemy.set_meta("control_until_msec", Time.get_ticks_msec() + int(float(active_skill.get("duration", 1.5)) * 1000))
                 if enemy.has_method("take_hit"):
                     enemy.take_hit(attack_damage, facing)
+
 
 
 func cast_tool(payload: Dictionary) -> bool:
     # A ranged skill creates its effect inside its own active frame; public tool
     # use must otherwise obey the same channel/recovery gates as combat actions.
-    var skill_emission := attack_timer > 0.0 and skill_effect_started and String(active_skill.get("kind", "")) == "ranged"
+    var skill_emission := attack_timer > 0.0 and skill_effect_started and bool(payload.get("skill_effect", false))
     if not _can_start_action() and not skill_emission:
         return false
+    var tool_id := String(payload.get("id", ""))
+    if tool_id == "mine":
+        var count := 0
+        for effect in get_tree().get_nodes_in_group("player_trap"):
+            if effect.get("owner_player") == self:
+                count += 1
+        if count >= 2:
+            return false
+    if String(payload.get("kind", "")) == "snare_field":
+        for field in get_tree().get_nodes_in_group("player_snare_field"):
+            if field.get("owner_player") == self:
+                field.queue_free()
     var projectile := Node2D.new()
     projectile.set_script(load("res://scripts/player_tool_effect.gd"))
     projectile.set("payload", payload.duplicate(true))
     projectile.set("direction", facing)
     projectile.set("owner_player", self)
     get_parent().add_child(projectile)
-    projectile.global_position = global_position + Vector2(facing * 24, -6 if String(payload.get("kind", "")) == "trap" else -42)
+    if not bool(payload.get("skill_effect", false)):
+        _seal_present(String(payload.get("id", "shard")), "active")
+    var spawn_offset := Vector2(facing * (90 if String(payload.get("kind", "")) == "snare_field" else 24), -6 if String(payload.get("kind", "")) in ["trap", "snare_field"] else -42)
+    var spawn_origin := global_position + Vector2(0, spawn_offset.y)
+    var spawn_position_effect := global_position + spawn_offset
+    var placement_ray := PhysicsRayQueryParameters2D.create(spawn_origin, spawn_position_effect, 1, [get_rid()])
+    var placement_hit := get_world_2d().direct_space_state.intersect_ray(placement_ray)
+    if not placement_hit.is_empty():
+        spawn_position_effect = placement_hit.position - Vector2(facing * 8, 0)
+    projectile.global_position = spawn_position_effect
+    if not bool(payload.get("skill_effect", false)):
+        attack_timer = 0.35
+        attack_duration = 0.35
+        attack_windup = 0.35
+        attack_active_time = 0.0
+        active_skill = {"id": String(payload.get("id", "shard")), "kind": "tool"}
+        skill_effect_started = true
     return true
 
 
@@ -885,9 +1034,14 @@ func _update_attack(delta: float) -> void:
     attack_timer = maxf(0.0, attack_timer - delta)
     var elapsed := attack_duration - attack_timer
     var active := elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
-    var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) != "melee"
+    var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) not in ["melee", "thrust", "crosscut"]
+    if not active_skill.is_empty() and elapsed > attack_windup + attack_active_time and not seal_recovery_shown:
+        seal_recovery_shown = true
+        _seal_present(String(active_skill.get("id", "cleave")), "recovery")
     if active and not attack_vfx_started:
         attack_vfx_started = true
+        if not active_skill.is_empty():
+            _seal_present(String(active_skill.get("id", "cleave")), "active")
         if not special:
             _spawn_attack_vfx(current_attack)
     if active and special and not skill_effect_started:
@@ -895,6 +1049,12 @@ func _update_attack(delta: float) -> void:
         _apply_special_skill()
     attack_shape.disabled = not active or special
     if active and not special:
+        if String(active_skill.get("id", "")) == "cleave":
+            var progress := clampf((elapsed - attack_windup) / maxf(0.01, attack_active_time), 0.0, 1.0)
+            var displacement := 64.0 * progress
+            if displacement > skill_displacement_done:
+                move_and_collide(Vector2(facing * (displacement - skill_displacement_done), 0))
+                skill_displacement_done = displacement
         _apply_attack_hits()
         if traversal_downstrike_active:
             for terrain in get_tree().get_nodes_in_group("fragile_terrain"):
@@ -930,6 +1090,14 @@ func _apply_attack_hits() -> void:
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
             if active_skill.is_empty() and (not is_instance_valid(node) or int(node.get("hp")) < target_hp_before):
                 gain_energy(energy_per_hit)
+                _basic_seal_hit()
+            elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
+                gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
+                crosscut_refund_paid = true
+            if active_skill.is_empty() and _crest() == "bell" and bell_pressure > 0 and current_attack == &"attack_2":
+                if node.has_method("apply_stagger"):
+                    node.apply_stagger(bell_pressure * 0.3)
+                bell_pressure = 0
             _apply_downslash_bounce(node.global_position)
             _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack)
@@ -1009,7 +1177,7 @@ func _attack_hit_direction() -> int:
 func _apply_downslash_bounce(_target_position: Vector2) -> void:
     if current_attack == &"hook_throw" or current_attack_direction.y <= 0.5:
         return
-    velocity.y = downslash_bounce_velocity
+    velocity.y = downslash_bounce_velocity * float(build_profile.get("downstrike_bounce_mult", 1.0))
     dash_timer = 0.0
     dash_cooldown = minf(dash_cooldown, 0.12)
     coyote_timer = 0.0
@@ -1548,7 +1716,17 @@ func _spawn_land_vfx() -> void:
     tween.finished.connect(Callable(dust, "queue_free"))
 
 
-func take_damage(amount: int, source_position: Vector2 = global_position) -> void:
+func practice_guard_contact(source_position: Vector2) -> bool:
+    # A practice contact is eligible only while already guarding the correct side.
+    # It cannot damage, begin a guard, heal, or exceed the real prepaid guard refund.
+    var source_side := signf(source_position.x - global_position.x)
+    if guard_timer <= 0.0 or hurt_timer > 0.0 or death_timer > 0.0 or debug_invulnerable or arrival_guard_timer > 0.0 or (source_side != 0.0 and int(source_side) != facing):
+        return false
+    take_damage(1, source_position, true)
+    return guard_timer <= 0.0
+
+
+func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> void:
     if arrival_guard_timer > 0.0:
         return
     if debug_invulnerable:
@@ -1557,28 +1735,22 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
         return
     if amount <= 0:
         return
-    if guard_timer > 0.0 and String(active_skill.get("kind", "")) == "defense":
+    var source_side := signf(source_position.x - global_position.x)
+    if blockable and guard_timer > 0.0 and (source_side == 0.0 or int(source_side) == facing):
+        var perfect := guard_timer >= guard_initial_duration - 0.14 and not guard_refunded
+        if perfect:
+            guard_refunded = true
+            if _crest() == "bell":
+                bell_pressure = mini(2, bell_pressure + 1)
+            # Guard refund stays below its payment: no repeatable energy source.
+            gain_energy(4 if String(active_skill.get("kind", "")) != "defense" else 0)
+            ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
         guard_timer = 0.0
         hurt_timer = 0.12
         _ability_ring(64.0, THREAD_T3_CORE)
         return
-    var source_side := signf(source_position.x - global_position.x)
-    if guard_timer > 0.0 and (source_side == 0.0 or int(source_side) == facing):
-        var perfect := guard_timer >= 0.26 and not guard_refunded
-        if perfect:
-            gain_energy(mini(20, int(build_profile.get("guard_refund", 18))))
-            guard_refunded = true
-            ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
-            _ability_ring(64.0, THREAD_T3_CORE)
-            guard_timer = 0.0
-            hurt_timer = 0.12
-            return
-        if energy >= 12:
-            gain_energy(-12)
-            guard_timer = 0.0
-            hurt_timer = 0.1
-            return
-        guard_timer = 0.0
+    line_stacks = 0
+    line_expiry = 0.0
     _interrupt_heal()
     _stop_phase()
     _stop_grapple()
@@ -1592,6 +1764,13 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
     _play_sfx("hurt", -6.0, 1.0, "", 0)
     _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
+        bell_pressure = 0
+        heal_speed_timer = 0.0
+        heal_stability_timer = 0.0
+        status_resist_timer = 0.0
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("clear_salt_mark"):
+                enemy.clear_salt_mark()
         death_timer = 0.9
         velocity = Vector2.ZERO
         _stop_wall_slide_loop()
@@ -1615,7 +1794,11 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
     var knockback_dir := signf(global_position.x - source_position.x)
     if knockback_dir == 0.0:
         knockback_dir = -facing
-    velocity = Vector2(knockback_dir * 260.0, -170.0)
+    if heal_stability_timer > 0.0:
+        heal_stability_timer = 0.0
+        velocity = Vector2.ZERO
+    else:
+        velocity = Vector2(knockback_dir * 260.0 * float(build_profile.get("knockback_mult", 1.0)), -170.0)
     _play(&"hurt")
 
 
@@ -1646,9 +1829,20 @@ func _spawn_thread_snap_vfx(source_position: Vector2) -> void:
         tween.finished.connect(Callable(thread, "queue_free"))
 
 
+func can_deflect_projectile() -> bool:
+    if attack_timer <= 0.0 or guard_timer > 0.0 or hurt_timer > 0.0 or death_timer > 0.0:
+        return false
+    if not active_skill.is_empty() and String(active_skill.get("kind", "")) not in ["melee", "thrust", "crosscut"]:
+        return false
+    var elapsed := attack_duration - attack_timer
+    return elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
+
+
 func can_ignore_enemy_contact(_source_position: Vector2) -> bool:
     if death_timer > 0.0 or hurt_timer > 0.0:
         return true
+    if not active_skill.is_empty():
+        return false
     if dash_timer > 0.0 or enemy_contact_guard_timer > 0.0:
         return true
     return false

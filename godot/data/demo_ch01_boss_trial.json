@@ -630,7 +630,12 @@
     "locomotion": "ground",
     "sprite_faces_left": false,
     "combat_identity": "沉重钟压、低波、孢子；半血后根阵缩窄落脚点",
-    "source_sprite": "res://assets/sprites/original_creatures/rust_crown_guardian/atlas.png"
+    "source_sprite": "res://assets/sprites/original_creatures/rust_crown_guardian/atlas.png",
+    "combat_resistance": {
+      "trip_immune": true,
+      "lure_immune": true,
+      "snare_mult": 0.35
+    }
   },
   "labels": [],
   "completion_message": "BOSS TRIAL COMPLETE: 苔钟守母已被击败",

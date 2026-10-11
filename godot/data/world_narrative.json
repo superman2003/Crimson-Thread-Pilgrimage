@@ -14,10 +14,15 @@
           "lines": [
             "你带回来的不是名单，是他们还活过的证据。",
             "柳认出了铆钉，书记认出了刮掉的字。这一次，我把名字绣在线结里面。",
-            "外庭的盐风口还在高处。你的双线跃够得着了；把这条回家的路也接起来吧。"
+            "外庭的盐风口还在高处。你的双线跃够得着了；把这条回家的路也接起来吧。",
+            "残缺线结已经缀好：缝名契印的线势现在能够留住连续针击的节奏。它不替你换一个身份，只替这些名字留住技艺。 这记断弦回斩与工匠线轴交给你。钟庭排水计时闸外有旧练针架，可以先试收势，别急着冲向敌群。"
           ],
           "flags_all": [
             "quest_bring_names_complete"
+          ],
+          "grant_flags": [
+            "skill_crosscut_learned",
+            "charm_reflux_found"
           ]
         },
         {
@@ -25,7 +30,8 @@
           "lines": [
             "你回来了。线头上有雨，也有盐。",
             "原来他们不是自己忘了名字，是有人把名字从契约里刮走了。",
-            "我会替他们缝回去。今后钟庭记得的，至少不再只有守门者。"
+            "我会替他们缝回去。今后钟庭记得的，至少不再只有守门者。",
+            "残缺线结已经缀好：缝名契印的线势现在能够留住连续针击的节奏。它不替你换一个身份，只替这些名字留住技艺。 这记断弦回斩与工匠线轴交给你。钟庭排水计时闸外有旧练针架，可以先试收势，别急着冲向敌群。"
           ],
           "flags_all": [
             "quest_bring_names_canal_heard",
@@ -33,7 +39,9 @@
           ],
           "grant_flags": [
             "quest_bring_names_complete",
-            "testimony_returned_names"
+            "testimony_returned_names",
+            "skill_crosscut_learned",
+            "charm_reflux_found"
           ],
           "reward_flag": "reward_returned_names_claimed",
           "grant_rewards": {
@@ -94,17 +102,35 @@
       "voice_profile": "low",
       "states": [
         {
+          "id": "seal_bell_acknowledged",
+          "flags_all": [
+            "seal_bell_repaired"
+          ],
+          "lines": [
+            "铜徽章修好了，工人的名字仍要带回钟庭。司铸契印不是谁赐下的权力，是他们留下的承力办法。",
+            "换契印要到钟龛。针架挡不住所有来击，钟压留给下一次真正打中的重击。"
+          ]
+        },
+        {
           "id": "names_smith_badge",
           "lines": [
             "这个铆钉是我打的。阿禾总嫌徽章刮衣服，我替他磨圆了。",
             "攀壁的线结要贴住铜面，再收脚。上面的检修路通向书库，水轮下面也能绕回来。",
-            "若有人说工人只有编号，把这枚铆钉给他看。"
+            "若有人说工人只有编号，把这枚铆钉给他看。",
+            "阿禾徽章里的承力线还在，我替它铆回针架。司铸契印记下的是工人如何承住钟的重量，不是什么护身魔法。 守钟架势只挡得住看得清的来击；地上敲出的钟鸣震波收势很重。绊线钉与铜背扣也交给你，先在泵房检修舱外试一试。"
           ],
           "items_any": [
             "worker_badge"
           ],
           "flags_all": [
             "quest_bring_names_started"
+          ],
+          "grant_flags": [
+            "seal_bell_repaired",
+            "skill_ward_learned",
+            "skill_shockwave_learned",
+            "tool_mine_found",
+            "charm_shell_found"
           ]
         },
         {
@@ -170,16 +196,34 @@
       "voice_profile": "dry",
       "states": [
         {
+          "id": "seal_salt_acknowledged",
+          "flags_all": [
+            "seal_salt_restored"
+          ],
+          "lines": [
+            "校录契印已照原件复原，盐记只是证据的索引，不是给人定罪的名字。",
+            "一枚回声针只碰一个目标。已有盐记在治疗完成时只能延长一次，不能拿治疗无限拖住敌人。"
+          ]
+        },
+        {
           "id": "names_librarian_truth",
           "lines": [
             "你带着原件，目录就不能再替我回答了。",
             "那些被删掉的人确实在这里读过书。我关过灯，也记得他们的脸。",
-            "书脊上的回路通向雨渠；如果决定把名字带回去，请走那条路。"
+            "书脊上的回路通向雨渠；如果决定把名字带回去，请走那条路。",
+            "我按原件复原这枚校录契印。删名记录不能再拿来抹掉人，只能帮助我们看见被遮住的痕迹。 回声针落下盐记，盐印缚线读出它并消耗它。盐雾瓶只能扰乱普通远程敌人的索敌，挡不住已经飞来的弹体；盐页书签也给你。 书库钟骨检修台和蜡封旁的练针架留下来练习。恢复记录不会替你决定最后怎样处理契约。"
           ],
           "items_any": [
             "testimony_03",
             "contract_fragment",
             "contract_original_fragment"
+          ],
+          "grant_flags": [
+            "seal_salt_restored",
+            "skill_needle_learned",
+            "skill_snare_learned",
+            "tool_fog_found",
+            "charm_spur_found"
           ]
         },
         {
@@ -444,23 +488,33 @@
           "id": "wax_returned",
           "lines": [
             "这批蜡我用来补检修灯，不会再把人封进书皮。",
-            "温室的西门有了灯，你往回走时也能辨认落脚台。"
+            "温室的西门有了灯，你往回走时也能辨认落脚台。",
+            "我把居民叫人回家的小铃交给你做回响诱铃，愿意调查的小怪会去看，守门者不会理它。",
+            "这枚静钟碎片原来垫在灯架底下。它只让治疗完成后的负面状态积累暂缓，不能抹掉已经受的伤。"
           ],
           "flags_all": [
             "quest_wax_lamps_complete"
+          ],
+          "grant_flags": [
+            "tool_lure_found",
+            "charm_mender_found"
           ]
         },
         {
           "id": "wax_supplied",
           "lines": [
             "你找到花粉蜡了。看，灯芯不再被雨打灭。",
-            "给你修路的报酬。蜡不必交给我销毁，沿路还会有人用到它。"
+            "给你修路的报酬。蜡不必交给我销毁，沿路还会有人用到它。",
+            "我把居民叫人回家的小铃交给你做回响诱铃，愿意调查的小怪会去看，守门者不会理它。",
+            "这枚静钟碎片原来垫在灯架底下。它只让治疗完成后的负面状态积累暂缓，不能抹掉已经受的伤。"
           ],
           "items_any": [
             "pollen_wax"
           ],
           "grant_flags": [
-            "quest_wax_lamps_complete"
+            "quest_wax_lamps_complete",
+            "tool_lure_found",
+            "charm_mender_found"
           ],
           "reward_flag": "reward_wax_lamps_claimed",
           "grant_rewards": {
@@ -710,24 +764,30 @@
           "id": "flag_freed",
           "lines": [
             "召集令断了，我把旗角留下作记号。营地现在是歇脚的地方。",
-            "哪怕没有替我做这件事，你也能去王冠；我不会把别人的命押成通行条件。"
+            "哪怕没有替我做这件事，你也能去王冠；我不会把别人的命押成通行条件。",
+            "余声针匣原本装的是补旗的针，不是军令。交给你多放一件战具，但每次特殊技能会多费一点能量。"
           ],
           "flags_all": [
             "quest_deserter_order_complete"
+          ],
+          "grant_flags": [
+            "charm_needlecase_found"
           ]
         },
         {
           "id": "flag_show_order",
           "lines": [
             "就是这份军令。失败者从名册上删去，又被暗令召回。",
-            "你把它带来，我才知道该剪断哪根召集线。我会去巡礼营地，不再替王冠举旗。"
+            "你把它带来，我才知道该剪断哪根召集线。我会去巡礼营地，不再替王冠举旗。",
+            "余声针匣原本装的是补旗的针，不是军令。交给你多放一件战具，但每次特殊技能会多费一点能量。"
           ],
           "items_any": [
             "silent_order"
           ],
           "grant_flags": [
             "quest_deserter_order_complete",
-            "npc_deserter_at_camp"
+            "npc_deserter_at_camp",
+            "charm_needlecase_found"
           ],
           "reward_flag": "reward_deserter_order_claimed",
           "grant_rewards": {
@@ -1328,6 +1388,27 @@
       ],
       "started_flag": "quest_deserter_order_started",
       "description": "找到沉默军令；让逃旗手辨认召集线。"
+    }
+  ],
+  "seal_acquisitions": [
+    {
+      "id": "crimson",
+      "flag": "quest_bring_names_complete",
+      "npc": "npc_threadsmith_apprentice",
+      "source": "把名字带回来",
+      "note": "初期基础针击可用；完成旧支线后才开放线势"
+    },
+    {
+      "id": "bell",
+      "flag": "seal_bell_repaired",
+      "npc": "npc_rain_smith_liu",
+      "source": "worker_badge 与已开始的带名字支线"
+    },
+    {
+      "id": "salt",
+      "flag": "seal_salt_restored",
+      "npc": "npc_salt_librarian_ye",
+      "source": "testimony_03 或契约原件残片"
     }
   ]
 }

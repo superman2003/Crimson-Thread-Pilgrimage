@@ -49,8 +49,10 @@ var build_grid: VBoxContainer
 var build_detail: RichTextLabel
 var build_summary: Label
 var build_tabs: Array[Button]=[]
-var build_category := "纹章"
+var build_category := "契印"
 var build_selection := ""
+var build_assign_slot := 0
+var build_slot_buttons: Array[Button]=[]
 var combat_status: Label
 var energy_status: Label
 var healing_bar: ProgressBar
@@ -67,7 +69,7 @@ var applied_player: Node
 var save_slot_buttons: Dictionary={}
 var journal_selection := 0
 
-const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"特殊技能","dash":"冲刺","interact":"互动"}
+const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动"}
 
 func bind(runtime: Node) -> void:
     level=runtime
@@ -192,17 +194,17 @@ func _build_hud() -> void:
     prompt.add_theme_constant_override("shadow_offset_x",2)
     prompt.add_theme_constant_override("shadow_offset_y",2)
     energy_status=_label(hud_card,"",Vector2(106,42),Vector2(145,24),14,GOLD)
-    combat_status=_label(self,"",Vector2(28,94),Vector2(300,52),14,IVORY)
+    combat_status=_label(self,"",Vector2(28,94),Vector2(420,78),14,IVORY)
     combat_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     healing_bar=ProgressBar.new()
-    healing_bar.position=Vector2(28,151)
+    healing_bar.position=Vector2(28,178)
     healing_bar.size=Vector2(220,8)
     healing_bar.show_percentage=false
     healing_bar.max_value=1.0
     healing_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
     healing_bar.visible=false
     add_child(healing_bar)
-    pinned=_label(self,"",Vector2(28,170),Vector2(290,45),15,MUTED)
+    pinned=_label(self,"",Vector2(28,192),Vector2(290,45),15,MUTED)
     pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     tutorial_hint=_label(self,"",Vector2(28,648),Vector2(535,58),13,MUTED)
     tutorial_hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -330,7 +332,7 @@ func _show_inventory_detail(selected: String) -> void:
         bag_tabs[i].add_theme_stylebox_override("normal",_style(Color("343531") if bag_tabs[i].text==bag_category else Color("252a2c"),GOLD if bag_tabs[i].text==bag_category else Color("4c514d")))
 
 func _category_name(category: String) -> String:
-    return {"Tools":"织具","Abilities":"能力","Charms":"护符","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
+    return {"Tools":"织具","Abilities":"能力","Charms":"铭饰","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
 
 func _pin_item() -> void:
     var id := _reconcile_inventory_selection()
@@ -445,11 +447,12 @@ func _build_settings() -> void:
     _accessibility_toggle("flash_enabled","受击闪光",Vector2(512,299))
     _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,299))
     _accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
-    _label(settings,"按键重映射 · 选择动作后按键盘键或手柄按钮",Vector2(34,394),Vector2(928,28),17,GOLD)
+    _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,394),Vector2(928,28),17,GOLD)
     var action_index:=0
     for action in REMAPPABLE_ACTIONS:
         var action_id:=String(action)
-        var button:=_button(settings,"",Vector2(34+(action_index%3)*311,436+(action_index/3)*44),Vector2(294,36),func():_begin_remap(action_id))
+        var button:=_button(settings,"",Vector2(34+(action_index%3)*311,426+(action_index/3)*33),Vector2(294,29),func():_begin_remap(action_id))
+        button.add_theme_font_size_override("font_size",13)
         remap_buttons[action_id]=button
         action_index+=1
     remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,532),Vector2(927,35),13,MUTED)
@@ -524,6 +527,7 @@ func _save_accessibility() -> void:
 
 func _apply_accessibility() -> void:
     if dialogue_body!=null:dialogue_body.add_theme_font_size_override("font_size",int(accessibility["subtitle_size"]))
+    if build_detail!=null:build_detail.add_theme_font_size_override("normal_font_size",int(accessibility["subtitle_size"]))
     if level!=null and is_instance_valid(level.player):
         level.player.set_meta("accessibility",accessibility.duplicate())
         applied_player=level.player
@@ -536,7 +540,7 @@ func _refresh_remap_labels() -> void:
     for action in remap_buttons:
         var names: Array[String]=[]
         if InputMap.has_action(action):
-            for event in InputMap.action_get_events(action):names.append(event.as_text())
+            for event in InputMap.action_get_events(action):names.append(_binding_name(event))
         remap_buttons[action].text=String(REMAPPABLE_ACTIONS[action])+" · "+(" / ".join(names) if not names.is_empty() else "未设置")
         remap_buttons[action].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         remap_buttons[action].tooltip_text=remap_buttons[action].text
@@ -549,7 +553,7 @@ func _input(event: InputEvent) -> void:
             remap_target=""
             remap_status.text="已取消重映射。"
             get_viewport().set_input_as_handled()
-        elif (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventJoypadButton and event.pressed):
+        elif (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventJoypadButton and event.pressed) or (event is InputEventJoypadMotion and absf(event.axis_value)>0.7):
             if event is InputEventKey and event.physical_keycode in [KEY_B,KEY_TAB,KEY_I,KEY_M,KEY_V]:
                 remap_status.text="此输入保留给界面快捷键，请换一个输入或 Esc 取消。"
                 get_viewport().set_input_as_handled()
@@ -559,6 +563,7 @@ func _input(event: InputEvent) -> void:
                 get_viewport().set_input_as_handled()
                 return
             var accepted:=event.duplicate() as InputEvent
+            if accepted is InputEventJoypadMotion:accepted.axis_value=1.0 if accepted.axis_value>0 else -1.0
             var action:=remap_target
             var conflicts: Array[String]=[]
             # Only reject a duplicate on another gameplay action on the same device;
@@ -572,7 +577,7 @@ func _input(event: InputEvent) -> void:
                 return
             if not InputMap.has_action(action):InputMap.add_action(action)
             for old in InputMap.action_get_events(action):
-                if (old is InputEventKey and accepted is InputEventKey) or (old is InputEventJoypadButton and accepted is InputEventJoypadButton):InputMap.action_erase_event(action,old)
+                if (old is InputEventKey and accepted is InputEventKey) or ((old is InputEventJoypadButton or old is InputEventJoypadMotion) and (accepted is InputEventJoypadButton or accepted is InputEventJoypadMotion)):InputMap.action_erase_event(action,old)
             InputMap.action_add_event(action,accepted)
             remap_target=""
             _save_accessibility()
@@ -598,10 +603,10 @@ func _bind_ui_navigation() -> void:
         if not InputMap.action_has_event(action,event):InputMap.action_add_event(action,event)
 
 func _build_build_panel() -> void:
-    build_panel=_panel(self,"纹章、技能与行装",Vector2(85,54),Vector2(1110,600))
+    build_panel=_panel(self,"契印与构筑",Vector2(85,54),Vector2(1110,600))
     build_panel.name="BuildOverlay"
     build_summary=_label(build_panel,"",Vector2(34,72),Vector2(1030,42),16,GOLD)
-    var categories: Array[String]=["纹章","技能","工具","护符","强化","方案"]
+    var categories: Array[String]=["契印","技能","战具","铭饰","强化","构筑"]
     for i in categories.size():
         var category:=categories[i]
         var tab:=_button(build_panel,category,Vector2(34+i*173,121),Vector2(162,38),func():
@@ -619,8 +624,14 @@ func _build_build_panel() -> void:
     build_grid.add_theme_constant_override("separation",8)
     scroll.add_child(build_grid)
     build_detail=RichTextLabel.new()
-    build_detail.position=Vector2(640,185)
-    build_detail.size=Vector2(427,345)
+    for slot_index in 2:
+        var slot:=slot_index
+        var slot_button:=_button(build_panel,"装备位置 %d" % (slot+1),Vector2(640+slot*216,174),Vector2(207,33),func():
+            build_assign_slot=slot
+            refresh_build())
+        build_slot_buttons.append(slot_button)
+    build_detail.position=Vector2(640,218)
+    build_detail.size=Vector2(427,312)
     build_detail.add_theme_font_size_override("normal_font_size",18)
     build_detail.add_theme_color_override("default_color",IVORY)
     build_detail.scroll_active=true
@@ -657,20 +668,24 @@ func refresh_build() -> void:
         build_summary.text="行装系统尚未就绪"
         build_detail.text="请从完整世界入口开始巡礼。"
         return
-    build_summary.text="碎钱 %d · 护符槽位 %d / %d · 纹章与方案需在钟龛附近调整" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0))]
+    for slot_index in build_slot_buttons.size():
+        var slot_button:=build_slot_buttons[slot_index]
+        slot_button.visible=build_category in ["技能","战具"]
+        slot_button.text=("▶ " if slot_index==build_assign_slot else "○ ")+"装备位置 %d" % (slot_index+1)
+    build_summary.text="碎钱 %d · 铭饰容量 %d / %d · 契印、铭饰及构筑在钟龛调整" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0))]
     var entries: Array=[]
     var action:=""
     match build_category:
-        "纹章":entries=snapshot.get("crests",[]);action="switch_crest"
+        "契印":entries=snapshot.get("crests",[]);action="switch_crest"
         "技能":entries=snapshot.get("skills",[]);action="select_skill"
-        "工具":entries=snapshot.get("tools",[]);action="select_tool"
-        "护符":entries=snapshot.get("passive_options",[]);action="equip_passive"
+        "战具":entries=snapshot.get("tools",[]);action="select_tool"
+        "铭饰":entries=snapshot.get("passive_options",[]);action="equip_passive"
         "强化":entries=snapshot.get("recipes",[]);action="transact"
-        "方案":
+        "构筑":
             for i in 3:
                 var id:="巡礼方案 %d" % (i+1)
                 var loadouts: Array=snapshot.get("loadouts",[])
-                entries.append({"id":id,"name":id,"description":"保存当前纹章、技能、工具和护符。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
+                entries.append({"id":id,"name":id,"description":"保存当前契印、技能、战具和铭饰。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
     for tab in build_tabs:tab.add_theme_stylebox_override("normal",_style(Color("343531") if tab.text==build_category else Color("252a2c"),GOLD if tab.text==build_category else Color("4c514d")))
     if entries.is_empty():build_detail.text="此页暂无可用条目。"
     var first: Button
@@ -678,9 +693,11 @@ func refresh_build() -> void:
         var entry: Dictionary=entry_value
         var id:=String(entry.get("id",entry.get("name","")))
         var text:=String(entry.get("name",id))
-        if not bool(entry.get("unlocked",true)):text+=" · 未解锁"
-        elif bool(entry.get("selected",false)):text+=" · 已装备"
-        if entry.has("cost"):text+=" · %d 槽" % int(entry.cost)
+        if not bool(entry.get("unlocked",true)):text="◇ "+text+" · 未解锁"
+        elif bool(entry.get("selected",false)):text="◆ "+text+" · 已装备"
+        var equipped_slots:=_entry_equipped_slots(snapshot,id)
+        if not equipped_slots.is_empty():text+=" · 位置 "+equipped_slots
+        if entry.has("cost"):text+=" · 容量 %d" % int(entry.cost)
         if entry.has("count"):text+=" · %d/%d 次" % [int(entry.count),int(entry.get("capacity",entry.count))]
         if entry.has("level"):text+=" · Lv.%d" % int(entry.level)
         var button:=_button(build_grid,text,Vector2.ZERO,Vector2(563,54),func():
@@ -688,10 +705,15 @@ func refresh_build() -> void:
             if not bool(entry.get("unlocked",true)):
                 _show_build_detail(entry)
                 return
-            _perform_build_action("restore_loadout" if build_category=="方案" else action,id))
+            _perform_build_action("restore_loadout" if build_category=="构筑" else action,id,build_assign_slot if build_category in ["技能","战具"] else -1))
         button.custom_minimum_size=Vector2(563,54)
         button.set_meta("build_id",id)
         button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+        var icon_path:="res://assets/ui/seals/%s.svg" % id
+        if ResourceLoader.exists(icon_path):
+            button.icon=load(icon_path)
+            button.expand_icon=true
+            button.add_theme_constant_override("icon_max_width",30)
         button.tooltip_text=String(entry.get("description",""))
         button.mouse_entered.connect(func():_show_build_detail(entry))
         button.focus_entered.connect(func():
@@ -699,7 +721,7 @@ func refresh_build() -> void:
             _show_build_detail(entry))
         if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",_style(Color("343531"),GOLD,2))
         if first==null or id==build_selection:first=button
-        if build_category=="方案":
+        if build_category=="构筑":
             var name_value:=id
             var save:=_button(build_grid,"保存为「%s」" % id,Vector2.ZERO,Vector2(563,36),func():_perform_build_action("save_loadout",name_value))
             save.custom_minimum_size=Vector2(563,36)
@@ -712,17 +734,45 @@ func refresh_build() -> void:
                 return
         _show_build_detail(entries[0])
 
+func _entry_equipped_slots(snapshot: Dictionary, id: String) -> String:
+    if not build_category in ["技能","战具"]:return ""
+    var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
+    if system==null:return ""
+    var equipped: Array=system.state.get("skills" if build_category=="技能" else "tools",[])
+    var slots: Array[String]=[]
+    for index in equipped.size():
+        if String(equipped[index])==id:slots.append(str(index+1))
+    return "/".join(slots)
+
+func _loadout_preview(build: Dictionary, system: RefCounted) -> String:
+    var crest_id:=String(build.get("crest","crimson"))
+    var lines: Array[String]=["契印："+String(system.catalog.crests.get(crest_id,{}).get("name",crest_id))]
+    for field in ["skills","tools","passives"]:
+        var table: String={"skills":"skills","tools":"tools","passives":"passives"}[field]
+        var title: String={"skills":"技能","tools":"战具","passives":"铭饰"}[field]
+        var names: Array[String]=[]
+        for id in build.get(field,[]):names.append(String(system.catalog[table].get(id,{}).get("name","未装备")))
+        lines.append(title+"："+(" / ".join(names) if not names.is_empty() else "未装备"))
+    return "\n".join(lines)
+
 func _show_build_detail(entry: Dictionary) -> void:
     var lines: Array[String]=[String(entry.get("name",entry.get("id",""))),"",String(entry.get("description",""))]
     var snapshot:=_build_snapshot()
+    if build_category=="构筑":
+        var system: Variant=level.call("get_build_system")
+        lines.append("\n当前整体配置\n"+_loadout_preview(system.state,system))
+        var saved_build: Dictionary=system.state.loadouts.get(String(entry.get("id","")),{})
+        if not saved_build.is_empty():lines.append("\n已保存配置\n"+_loadout_preview(saved_build,system))
+        lines.append("生命、能量、次数与冷却不会因方案恢复刷新。")
+    if entry.has("mechanism_unlocked") and not bool(entry.mechanism_unlocked):lines.append("\n◇ 专属机制尚未修复：基础战斗与永久探索能力仍可使用，完成来源委托后启用。")
     if entry.has("slots"):
         for crest in snapshot.get("crests",[]):
             if String(crest.get("id",""))!=String(snapshot.get("crest","")):continue
-            lines.append("\n纹章基础值 · 当前 → 所选")
-            for pair in [["slots","护符槽"],["max_hp","生命"],["max_energy","绯线容量"],["heal_cost","治疗耗能"],["heal_amount","治疗恢复"]]:
+            lines.append("\n契印基础值 · 当前 → 所选")
+            for pair in [["slots","铭饰槽"],["max_hp","生命"],["max_energy","绯线容量"],["heal_cost","治疗耗能"],["heal_amount","治疗恢复"]]:
                 lines.append("%s：%s → %s" % [pair[1],str(crest.get(pair[0],0)),str(entry.get(pair[0],0))])
             lines.append("治疗时间：%.2f → %.2f 秒" % [float(crest.get("heal_duration",0)),float(entry.get("heal_duration",0))])
-            lines.append("护符效果在装备后合并计算。")
+            lines.append("铭饰效果在装备后合并计算。")
     if String(entry.get("kind",""))=="skill" and entry.has("target"):
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))==String(entry.target):
@@ -732,11 +782,18 @@ func _show_build_detail(entry: Dictionary) -> void:
     if not bool(entry.get("unlocked",true)):
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
         if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % level._item_display_name(String(entry.unlock_item))
-        if build_category=="纹章":unlock_hint="探索雨渠并掌握攀壁后发现。" if String(entry.get("id",""))=="bell" else "探索盐风区域并掌握回声钩索后发现。"
         lines.append("\n尚未解锁 · "+unlock_hint)
+    for field in [["source","来源"],["attack_description","攻击"],["mechanism","专属机制"],["heal_effect","治疗完成"],["risk","动作风险与代价"],["synergy","契印协同"]]:
+        if entry.has(field[0]):lines.append("\n%s：%s" % [field[1],str(entry[field[0]])])
+    if build_category in ["技能","战具"]:lines.append("\n确认后装备到位置 %d；上方按钮选择位置。" % (build_assign_slot+1))
+    if build_category=="战具":lines.append("钟龛休整免费补满；换装与恢复构筑不会补充次数。")
+    if entry.has("cost"):
+        var used:=int(snapshot.get("slots_used",0))
+        var total:=int(snapshot.get("slots_total",0))
+        if not bool(entry.get("selected",false)) and used+int(entry.cost)>total:lines.append("◇ 容量不足：需要 %d，剩余 %d。" % [int(entry.cost),maxi(0,total-used)])
     if entry.has("energy_cost"):lines.append("\n消耗绯线：%d" % int(entry.energy_cost))
     if entry.has("cooldown"):lines.append("冷却：%.1f 秒" % float(entry.cooldown))
-    if entry.has("cost"):lines.append("护符槽位费用：%d；再次确认可卸下。" % int(entry.cost))
+    if entry.has("cost"):lines.append("铭饰容量消耗：%d；再次确认可卸下。" % int(entry.cost))
     if entry.has("count"):lines.append("剩余携带：%d / %d" % [int(entry.count),int(entry.get("capacity",entry.count))])
     if entry.has("currency"):lines.append("\n制作费用：%d 碎钱" % int(entry.currency))
     if entry.has("materials"):
@@ -745,9 +802,9 @@ func _show_build_detail(entry: Dictionary) -> void:
     if bool(entry.get("selected",false)):lines.append("\n当前已装备。")
     build_detail.text="\n".join(lines)
 
-func _perform_build_action(action: String, id: String) -> void:
+func _perform_build_action(action: String, id: String, slot: int = -1) -> void:
     if level==null or not level.has_method("perform_build_action"):return
-    var result: Variant=level.call("perform_build_action",action,id,0)
+    var result: Variant=level.call("perform_build_action",action,id,slot)
     refresh_build()
     if result is Dictionary:
         var message:=String(result.get("reason","已完成" if bool(result.get("ok",false)) else "条件不足"))
@@ -818,7 +875,7 @@ func _process(delta: float) -> void:
         _refresh_combat_status(player)
     tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
     if tutorial_hint.visible:
-        tutorial_hint.text="跳跃：%s  ·  普攻：%s  ·  治疗：%s\nB 构筑 · 未解锁技能与工具可在构筑页查看条件" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
+        tutorial_hint.text="跳跃：%s  ·  普攻：%s  ·  治疗：%s\nB 构筑 · 未解锁技能与战具可在构筑页查看条件" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
     currency.text=str(level.currency_count)
     var room: Dictionary=level._map_room_by_id(level.current_room_id)
     location.text=String(room.get("name",room.get("label",level.config.get("chapter_name","绯线巡礼"))))
@@ -892,31 +949,48 @@ func refresh_settings_selection() -> void:
         settings_labels[key].text=("▶ " if selected else "  ")+String(rows[i][1]).split(" ")[0]
         settings_labels[key].add_theme_color_override("font_color",GOLD if selected else IVORY)
 
+func _binding_name(event: InputEvent) -> String:
+    if event is InputEventJoypadMotion:
+        if event.axis==JOY_AXIS_TRIGGER_LEFT:return "手柄 L2" if event.axis_value>0 else "手柄 L2 反向"
+        if event.axis==JOY_AXIS_TRIGGER_RIGHT:return "手柄 R2" if event.axis_value>0 else "手柄 R2 反向"
+        return "手柄轴 %d %s" % [event.axis,"＋" if event.axis_value>0 else "－"]
+    return event.as_text()
+
 func _short_binding(action: String) -> String:
     if InputMap.has_action(action):
         var events:=InputMap.action_get_events(action)
-        if not events.is_empty():return events[0].as_text()
+        if not events.is_empty():return _binding_name(events[0])
     return "未设置"
 
 func _refresh_combat_status(player: Node) -> void:
     var state: Dictionary={}
     if player.has_method("get_combat_ui_state"):state=player.call("get_combat_ui_state")
     var snapshot:=_build_snapshot()
-    var selected_skill:="特殊技能"
-    var selected_tool:="工具"
-    var charges:=0
-    var skill_cost:=int(state.get("skill_cost",0))
-    for skill in snapshot.get("skills",[]):
-        if bool(skill.get("selected",false)):
-            selected_skill=String(skill.get("name",selected_skill))
-            skill_cost=int(skill.get("energy_cost",skill_cost))
-    for tool in snapshot.get("tools",[]):
-        if bool(tool.get("selected",false)):
-            selected_tool=String(tool.get("name",selected_tool))
-            charges=int(tool.get("count",0))
-    var cooldown:=float(state.get("skill_cooldown",player.get("skill_cooldown")))
-    var skill_text:="%.1fs" % cooldown if cooldown>0 else "就绪"
-    combat_status.text="%s · %s · 绯线 %d\n%s · %d 次" % [String(state.get("skill_name",selected_skill)),skill_text,skill_cost,String(state.get("equipment_name",selected_tool)),int(state.get("equipment_count",charges))]
+    var skill_lines: Array[String]=[]
+    var tool_lines: Array[String]=[]
+    var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
+    var build_state: Dictionary=system.state if system!=null else {}
+    var equipped_skills: Array=build_state.get("skills",[build_state.get("skill","cleave")])
+    var equipped_tools: Array=build_state.get("tools",[build_state.get("tool","shard")])
+    for slot in equipped_skills.size():
+        var id:=String(equipped_skills[slot])
+        if id.is_empty():skill_lines.append("○%d 未装备技能" % (slot+1));continue
+        for skill in snapshot.get("skills",[]):
+            if String(skill.get("id",""))!=id:continue
+            var remaining:=float(system.cooldowns.get(id,0)) if system!=null else float(state.get("skill_cooldown",0))
+            var status:="%.1fs" % remaining if remaining>0 else "就绪"
+            skill_lines.append("%s%d %s %s" % ["▶" if slot==int(build_state.get("active_skill_slot",0)) else "○",slot+1,String(skill.get("name",id)),status])
+    for slot in equipped_tools.size():
+        var id:=String(equipped_tools[slot])
+        if id.is_empty():tool_lines.append("○%d 未携带战具" % (slot+1));continue
+        for tool in snapshot.get("tools",[]):
+            if String(tool.get("id",""))==id:tool_lines.append("%s%d %s %d次" % ["▶" if slot==int(build_state.get("active_tool_slot",0)) else "○",slot+1,String(tool.get("name",id)),int(tool.get("count",0))])
+    combat_status.text=" · ".join(skill_lines)+"\n"+" · ".join(tool_lines)
+    if player.has_method("get_seal_mechanism_snapshot"):
+        var mechanism: Dictionary=player.call("get_seal_mechanism_snapshot")
+        var maximum:=int(mechanism.get("max_stacks",mechanism.get("max",3)))
+        var amount:=int(mechanism.get("stacks",mechanism.get("value",0)))
+        combat_status.text+="\n"+String(mechanism.get("label",mechanism.get("name","契印")))+" "+("%d / %d" % [amount,maximum] if maximum>0 else "%d 个目标" % amount)
     healing_bar.visible=bool(state.get("heal_active",false)) and level.active_overlay==""
     healing_bar.value=clampf(float(state.get("heal_progress",0)),0,1)
     if healing_bar.visible:combat_status.text+=" · 治疗中"

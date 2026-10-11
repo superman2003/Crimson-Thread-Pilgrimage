@@ -2,81 +2,91 @@ extends SceneTree
 const BUILD := preload("res://scripts/build_system.gd")
 const WORLD := preload("res://scripts/world_state.gd")
 var failures: Array[String] = []
+var checks := 0
 
 func _initialize() -> void:
     var build := BUILD.new()
-    _check(build.catalog.crests.size() == 3 and build.catalog.skills.size() == 4, "three crests and four distinct skill roles")
-    _check(build.state.unlocked_skills == ["cleave"], "new run begins with one skill, discoveries unlock others")
-    _check(not build.select_skill("needle").ok, "locked skill cannot be selected")
+    _check(build.catalog.crests.size() == 3 and build.catalog.skills.size() == 6 and build.catalog.tools.size() == 4, "three seals, six skills and four tools")
+    _check(build.state.skills == ["cleave", ""] and build.state.tools == ["shard", ""], "two slots with explicit empty slot")
+    _check(not build.select_skill("needle").ok and not build.select_tool("fog").ok, "locked content rejected")
     var before := build.serialize()
-    _check(not build.try_cast(0).ok and build.serialize() == before, "failed cast does not spend or start cooldown")
+    build.sync_progress({"echo_hook": 1, "silk_wall_grip": 1, "bell_guard": 1}, "ch06_salt")
+    _check(build.serialize() == before, "exploration abilities and regions never grant equipment")
+    _check(not build.try_cast(0).ok and build.serialize() == before, "failed cast cannot spend/start cooldown")
     var cast := build.try_cast(100)
-    _check(cast.ok and cast.energy_cost == 30 and cast.kind == "melee", "melee cast returns execution contract")
-    _check(not build.try_cast(100).ok, "cooldown blocks repeated cast")
-    build.tick(0.5)
-    var during_cooldown := build.serialize()
-    var cooling := BUILD.new()
-    _check(cooling.restore(JSON.parse_string(JSON.stringify(during_cooldown))).ok and not cooling.try_cast(100).ok, "cooldown survives save reload")
-    build.tick(2.0)
-    _check(build.try_cast(100).ok, "cooldown completes")
-    build.sync_progress({"silk_wall_grip": 1, "echo_hook": 1, "bell_guard": 1}, "salt")
-    _check(build.state.unlocked_skills.size() == 4 and build.state.unlocked_crests.size() == 3, "exploration unlocks all roles and crests")
-    for id in ["needle", "snare", "ward"]:
-        _check(build.select_skill(id).ok and build.try_cast(100).ok, "independent skill cast " + id)
-    _check(not build.switch_crest("bell", false).ok, "crest switch requires bell")
-    _check(build.switch_crest("bell").ok and build.profile().heal_amount == 2 and build.profile().max_hp == 6, "bell changes heal and survivability")
-    _check(build.switch_crest("salt").ok and build.profile().max_energy == 120 and build.selected_skill().energy_cost == 32, "salt creates energy tradeoff")
-    var wallet := {"currency": 200, "inventory_counts": {"moss_chitin": 2, "echo_hook": 1}}
-    var wallet_before := wallet.duplicate(true)
-    var purchase := build.transact("craft_shell", wallet)
-    _check(purchase.ok and purchase.wallet.currency == 180 and purchase.wallet.inventory_counts.moss_chitin == 1, "atomic craft deducts correct materials")
-    _check(wallet == wallet_before and purchase.wallet.inventory_counts.echo_hook == 1, "external wallet and abilities untouched")
-    before = build.serialize()
-    _check(not build.transact("craft_shell", purchase.wallet).ok and build.serialize() == before, "duplicate ownership cannot charge again")
-    _check(not build.transact("buy_reflux", {"currency": 0, "inventory_counts": {}}).ok and build.serialize() == before, "insufficient balance is atomic")
-    _check(build.transact("buy_reflux", wallet).ok and build.transact("buy_spur", wallet).ok, "alternate energy passives acquired")
-    _check(not build.equip_passives(["reflux", "spur"]).ok, "mutually exclusive energy items rejected")
-    _check(not build.equip_passives(["stride", "stride"]).ok, "duplicate passive rejected")
-    _check(not build.equip_passives(["shell", "reflux"]).ok, "slot overflow rejected")
-    _check(build.equip_passives(["shell", "stride"]).ok, "valid mixed passive build")
-    var stats := build.profile()
-    _check(is_equal_approx(float(stats.move_mult), 1.03) and stats.max_hp == 5, "passive modifiers accumulate once")
-    _check(build.profile() == stats and build.profile() == stats, "repeated reads do not multiply stats")
-    _check(build.save_loadout("探索").ok, "loadout saved")
-    _check(build.switch_crest("bell").ok and build.equip_passives([]).ok, "alternate crest clears slots")
-    _check(build.restore_loadout("探索").ok and build.state.crest == "salt" and build.state.passives == ["shell", "stride"], "loadout restores exact state")
-    _check(build.select_skill("needle").ok, "select upgrade target")
-    var level_zero := build.selected_skill()
-    _check(build.transact("upgrade_needle", wallet).ok and build.selected_skill().pierce == 2 and build.selected_skill().range > level_zero.range, "skill upgrade changes use")
-    _check(build.transact("upgrade_needle", wallet).ok and not build.transact("upgrade_needle", wallet).ok, "skill cap prevents repeated charge")
-    _check(build.select_tool("shard").ok, "select active tool")
-    for unused in range(3):
-        _check(build.use_tool().ok, "each tool use consumes count")
-    _check(not build.use_tool().ok and build.state.tool_counts.shard == 0, "empty tool rejects use")
-    _check(build.transact("refill_shard", wallet).ok and build.state.tool_counts.shard == 3, "merchant refill restores finite stock")
-    _check(build.transact("refill_shard", wallet).ok and not build.transact("refill_shard", wallet).ok, "full stock prevents waste purchase")
-    var world := WORLD.new()
-    _check(world.capture_global({"build_state": build.serialize()}), "live build keys satisfy strict world JSON validator")
+    _check(cast.ok and cast.energy_cost == 25 and cast.kind == "thrust", "thrust contract")
+    _check(not build.try_cast(100).ok, "independent cooldown blocks repeat")
     var restart := BUILD.new()
-    var json_snapshot: Variant = JSON.parse_string(JSON.stringify(build.serialize()))
-    _check(restart.restore(json_snapshot).ok and restart.serialize() == build.serialize(), "pure JSON state roundtrip")
-    var corrupt: Dictionary = build.serialize()
-    corrupt.tool_counts.shard = -1
-    before = restart.serialize()
-    _check(not restart.restore(corrupt).ok and restart.serialize() == before, "invalid restore preserves live state")
-    corrupt = build.serialize()
-    corrupt.skill_levels.needle = 1.5
-    _check(not restart.restore(corrupt).ok, "fractional upgrade rejected")
-    corrupt = build.serialize()
-    corrupt.passives = ["stride", "stride"]
-    _check(not restart.restore(corrupt).ok, "malformed duplicate equipment rejected")
-    corrupt = build.serialize()
-    corrupt.cooldowns = {"ward": -1}
-    _check(not restart.restore(corrupt).ok, "negative cooldown rejected")
+    _check(restart.restore(JSON.parse_string(JSON.stringify(build.serialize()))).ok and not restart.try_cast(100).ok, "cooldown persists on restart")
+    build.tick(2.1)
+    _check(build.try_cast(100).ok, "cooldown expires")
+    build.sync_progress({}, "", {"quest_bring_names_complete": true, "seal_bell_repaired": true, "seal_salt_restored": true})
+    _check(build.state.mechanisms.size() == 3 and build.state.unlocked_crests.size() == 3, "narrative repair grants mechanisms")
+    for id in build.catalog.skills:
+        _check(build.unlock_event("skill_" + id + "_learned").ok, "skill event " + id)
+    for id in build.catalog.tools:
+        _check(build.unlock_event("tool_" + id + "_found").ok, "tool event " + id)
+    for id in build.catalog.passives:
+        _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+    _check(build.select_skill("needle", 1).ok and build.state.skills == ["cleave", "needle"], "equip second skill")
+    _check(not build.select_skill("cleave", 1).ok, "duplicate skill rejected")
+    _check(build.cycle_skill().ok and build.state.skill == "cleave", "cycle preserves active alias")
+    _check(build.select_tool("mine", 1).ok and build.cycle_tool().ok and build.state.tool == "shard", "two tools and active alias")
+    _check(not build.refill_tools(false).ok, "refill requires shrine")
+    _check(build.refill_tools(true).ok and build.state.tool_counts == {"shard": 3, "mine": 2, "fog": 2, "lure": 2}, "free finite shrine refill")
+    before = build.serialize()
+    _check(not build.switch_crest("bell", false).ok and build.serialize() == before, "switch cannot occur away from shrine")
+    for id in ["crimson", "bell", "salt"]:
+        _check(build.switch_crest(id).ok, "seal switch " + id)
+        var stats := build.profile()
+        _check(stats.max_hp == 5 and stats.max_energy == 100 and stats.heal_amount == 1 and stats.heal_cost == 60 and stats.heal_duration == 0.8, "fixed resources " + id)
+        _check(build.state.tool_counts == before.tool_counts and build.cooldowns == before.cooldowns, "switch does not refresh stock/cooldown " + id)
+    _check(build.equip_passives(["shell", "stride"]).ok, "capacity valid")
+    var stats := build.profile()
+    _check(stats.max_hp == 5 and stats.max_energy == 100 and is_equal_approx(stats.move_mult, 1.08) and stats.heal_duration > 0.8 and stats.knockback_mult < 1, "charm benefit and drawback")
+    _check(build.profile() == stats and build.profile() == stats, "profile idempotent")
+    _check(not build.equip_passives(["stride", "stride"]).ok and not build.equip_passives(["reflux", "spur"]).ok, "duplicate and capacity rejection")
+    _check(build.save_loadout("记名").ok, "save dual-slot build")
+    var stock: Dictionary = build.state.tool_counts.duplicate(true)
+    var cds := build.cooldowns.duplicate(true)
+    _check(build.switch_crest("bell").ok and build.equip_passives([]).ok and build.restore_loadout("记名").ok, "restore exact build")
+    _check(build.state.skills == ["cleave", "needle"] and build.state.passives == ["shell", "stride"] and stock == build.state.tool_counts and cds == build.cooldowns, "loadout preserves stock/CD")
+    var wallet := {"currency": 200, "inventory_counts": {"echo_hook": 1}}
+    var wallet_before := wallet.duplicate(true)
+    _check(build.select_skill("needle", 1).ok, "upgrade target")
+    var zero := build.selected_skill()
+    var purchase := build.transact("upgrade_needle", wallet)
+    _check(purchase.ok and purchase.wallet.currency == 165 and wallet == wallet_before, "upgrade atomic wallet")
+    _check(build.selected_skill().pierce == 1 and build.selected_skill().range > zero.range, "upgrade remains single target")
+    _check(build.transact("upgrade_needle", wallet).ok and not build.transact("upgrade_needle", wallet).ok, "upgrade cap")
+    _check(build.select_tool("shard", 0).ok, "select tool")
+    for unused in range(3):
+        _check(build.use_tool().ok, "finite tool consumption")
+    _check(not build.use_tool().ok and build.state.tool_counts.shard == 0, "no infinite tools")
+    before = build.serialize()
+    _check(not build.transact("refill_shard", wallet).ok and build.serialize() == before, "no paid supply economy")
+    _check(build.equip_passives(["needlecase"]).ok and build.state.tool_counts.shard == 0, "capacity increase never adds stock")
+    _check(build.refill_tools(true).ok and build.state.tool_counts.shard == 4 and build.state.tool_counts.mine == 3 and build.state.tool_counts.fog == 2, "needlecase designated capacities only")
+    _check(build.equip_passives([]).ok and build.state.tool_counts.shard == 4, "unequip no stock creation or destructive subtraction")
+    var world := WORLD.new()
+    _check(world.capture_global({"build_state": build.serialize()}), "strict global JSON captures build")
+    _check(restart.restore(JSON.parse_string(JSON.stringify(build.serialize()))).ok and restart.serialize() == build.serialize(), "v2 exact JSON roundtrip")
+    for corrupt_kind in ["negative", "fractional", "duplicate", "cooldown", "unknown", "alias"]:
+        var corrupt := build.serialize()
+        match corrupt_kind:
+            "negative": corrupt.tool_counts.shard = -1
+            "fractional": corrupt.skill_levels.needle = 1.5
+            "duplicate": corrupt.passives = ["stride", "stride"]
+            "cooldown": corrupt.cooldowns = {"ward": -1}
+            "unknown": corrupt.unlocked_skills.append("unknown_skill")
+            "alias": corrupt.skill = "snare"
+        before = restart.serialize()
+        _check(not restart.restore(corrupt).ok and restart.serialize() == before, "transactional corruption rejection " + corrupt_kind)
     var snapshot := build.get_snapshot()
-    _check(snapshot.crests.size() == 3 and snapshot.skills.size() == 4 and snapshot.tools.size() == 2 and snapshot.passive_options.size() == 5 and snapshot.recipes.size() == 10, "UI catalog exposes all actionable content")
+    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == 6 and snapshot.recipes.size() == 6, "full UI catalog")
+    _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
     if failures.is_empty():
-        print("BUILD SYSTEM PASS: discovery, crests, casting, cooldown persistence, equipment constraints, merchant transactions, upgrades, tools, loadouts and corrupted saves")
+        print("BUILD SYSTEM PASS: %d checks" % checks)
         quit(0)
     else:
         for failure in failures:
@@ -84,5 +94,6 @@ func _initialize() -> void:
         quit(1)
 
 func _check(condition: bool, label: String) -> void:
+    checks += 1
     if not condition:
         failures.append(label)

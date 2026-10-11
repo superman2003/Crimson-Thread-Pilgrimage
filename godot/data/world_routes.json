@@ -1289,8 +1289,8 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。",
-          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。",
+          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。 绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回first_bell_shrine",
           "setpiece": "排水计时闸",
@@ -1306,6 +1306,20 @@
               120,
               160
             ]
+          },
+          "combat_practice": {
+            "skill_id": "cleave",
+            "region_id": "demo_ch01_moss_bell_court",
+            "room_id": "upgrade_thread_dash_1",
+            "position": [
+              8045,
+              540
+            ],
+            "label": "绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
+            "training_id": "seal_training_cleave",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
           }
         },
         {
@@ -1344,8 +1358,8 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。",
-          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。",
+          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。 断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回threadmakers_cache",
           "setpiece": "纺线检修仓",
@@ -1361,6 +1375,20 @@
               120,
               160
             ]
+          },
+          "combat_practice": {
+            "skill_id": "crosscut",
+            "region_id": "demo_ch01_moss_bell_court",
+            "room_id": "upgrade_silk_wall_grip_1",
+            "position": [
+              8045,
+              1080
+            ],
+            "label": "断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
+            "training_id": "seal_training_crosscut",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
           }
         },
         {
@@ -2474,8 +2502,8 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。",
-          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。",
+          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。 钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回silt_vault",
           "setpiece": "淤泥排压室",
@@ -2491,6 +2519,20 @@
               120,
               160
             ]
+          },
+          "combat_practice": {
+            "skill_id": "shockwave",
+            "region_id": "demo_ch02_rain_foundry_canal",
+            "room_id": "upgrade_thread_dash_2",
+            "position": [
+              7585,
+              540
+            ],
+            "label": "钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
+            "training_id": "seal_training_shockwave",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
           }
         },
         {
@@ -2529,8 +2571,8 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。",
-          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。",
+          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。 守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回pump_atrium",
           "setpiece": "泵房上检修舱",
@@ -2546,6 +2588,20 @@
               120,
               160
             ]
+          },
+          "combat_practice": {
+            "skill_id": "ward",
+            "region_id": "demo_ch02_rain_foundry_canal",
+            "room_id": "upgrade_silk_wall_grip_2",
+            "position": [
+              7585,
+              1080
+            ],
+            "label": "守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
+            "training_id": "seal_training_ward",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
           }
         },
         {
@@ -3670,8 +3726,8 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习回声钩索，打开封口取回物资与反证。",
-          "guide": "在门前按 K 钩住铜环，牵引检修闩。单纯持有能力不会开门。",
+          "objective": "获得能力后回访旧区，练习回声钩索，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "在门前按 K 钩住铜环，牵引检修闩。单纯持有能力不会开门。 回声针：单次单目标，碰墙即止；校录命中施加盐记。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回mezz_reading_ledges",
           "setpiece": "运书吊篮仓",
@@ -3687,6 +3743,20 @@
               120,
               160
             ]
+          },
+          "combat_practice": {
+            "skill_id": "needle",
+            "region_id": "demo_ch03_saltwhite_archive",
+            "room_id": "upgrade_echo_hook_2",
+            "position": [
+              7965,
+              540
+            ],
+            "label": "回声针：单次单目标，碰墙即止；校录命中施加盐记。",
+            "training_id": "seal_training_needle",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
           }
         },
         {
@@ -3725,8 +3795,8 @@
               470
             ]
           ],
-          "objective": "在安全工房练习刚取得的钟壳格挡，打开封口取回物资与反证。",
-          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。",
+          "objective": "在安全工房练习刚取得的钟壳格挡，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。 盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回wax_seal_vault",
           "setpiece": "钟壳格挡练习工房",
@@ -3742,6 +3812,20 @@
               120,
               160
             ]
+          },
+          "combat_practice": {
+            "skill_id": "snare",
+            "region_id": "demo_ch03_saltwhite_archive",
+            "room_id": "upgrade_bell_guard_3",
+            "position": [
+              7965,
+              1080
+            ],
+            "label": "盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+            "training_id": "seal_training_snare",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
           }
         },
         {
@@ -5550,5 +5634,91 @@
       "room_id": "crown_antechamber",
       "collectible_id": "upgrade_obtain_crown_resonance"
     }
-  }
+  },
+  "seal_practice_plan": [
+    {
+      "skill_id": "cleave",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_thread_dash_1",
+      "position": [
+        8045,
+        540
+      ],
+      "label": "绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
+      "training_id": "seal_training_cleave",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "crosscut",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_silk_wall_grip_1",
+      "position": [
+        8045,
+        1080
+      ],
+      "label": "断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
+      "training_id": "seal_training_crosscut",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "ward",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_silk_wall_grip_2",
+      "position": [
+        7585,
+        1080
+      ],
+      "label": "守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
+      "training_id": "seal_training_ward",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "shockwave",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_thread_dash_2",
+      "position": [
+        7585,
+        540
+      ],
+      "label": "钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
+      "training_id": "seal_training_shockwave",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "needle",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_echo_hook_2",
+      "position": [
+        7965,
+        540
+      ],
+      "label": "回声针：单次单目标，碰墙即止；校录命中施加盐记。",
+      "training_id": "seal_training_needle",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "snare",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_bell_guard_3",
+      "position": [
+        7965,
+        1080
+      ],
+      "label": "盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+      "training_id": "seal_training_snare",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    }
+  ]
 }

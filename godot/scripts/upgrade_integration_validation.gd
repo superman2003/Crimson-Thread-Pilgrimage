@@ -27,8 +27,12 @@ func _run() -> void:
     scene._add_inventory_item("silk_wall_grip", 1, false)
     scene._add_inventory_item("bell_guard", 1, false)
     scene._refresh_ability_gates()
+    _check(not scene.perform_build_action("select_skill", "snare").ok, "exploration abilities do not grant equipment")
+    scene.story_flags["skill_snare_learned"] = true
+    scene.story_flags["seal_bell_repaired"] = true
+    scene._sync_player_build()
     _check(scene.player.bell_guard_unlocked, "new ability is synchronized")
-    _check(scene.perform_build_action("select_skill", "snare").ok, "exploration unlocks actual control skill")
+    _check(scene.perform_build_action("select_skill", "snare").ok, "explicit learned event unlocks actual control skill")
     scene.player.global_position = Vector2(1000, 400)
     var initial_crest := String(scene.build_system.state.crest)
     _check(not scene.perform_build_action("switch_crest", "bell").ok, "crest denied outside shrine")

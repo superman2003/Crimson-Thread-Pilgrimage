@@ -1,78 +1,145 @@
 {
-  "version": 1,
+  "version": 2,
   "crests": {
     "crimson": {
-      "name": "绯线纹章",
-      "description": "长刃、快速缝补；生命均衡，槽位4。",
+      "name": "缝名契印",
+      "description": "线势：连续命中三层强化下一技能；受击清空。",
+      "source": "苔钟庭学徒重新缀合被带回的名字。",
       "slots": 4,
       "max_hp": 5,
       "max_energy": 100,
-      "attack_damage_mult": 1.0,
-      "attack_reach_mult": 1.15,
-      "attack_speed_mult": 1.05,
+      "attack_damage_mult": 1,
+      "attack_reach_mult": 0.8,
+      "attack_speed_mult": 1.15,
       "move_mult": 1.0,
       "damage_taken_mult": 1.0,
       "heal_cost": 60,
       "heal_amount": 1,
       "heal_duration": 0.8,
-      "energy_gain_mult": 1.0,
-      "skill_cost_mult": 1.0
+      "energy_gain_mult": 1,
+      "skill_cost_mult": 1.0,
+      "skill_damage_mult": 1.0,
+      "ranged_range_mult": 1.0,
+      "melee_energy_mult": 1.0,
+      "knockback_mult": 1.0,
+      "status_buildup_mult": 1.0,
+      "tool_capacity_bonus": 0,
+      "heal_interrupt_loss_ratio": 1.0,
+      "pogo_bounce_mult": 1.2,
+      "unlock_flag": "quest_bring_names_complete",
+      "mechanism_flag": "quest_bring_names_complete",
+      "heal_effect": "完成后地面移速短暂提高，不增加跳高。",
+      "heal_move_duration": 2.0,
+      "heal_knockback_duration": 0.0,
+      "heal_mark_extension": 0.0,
+      "attack_description": "短距离快速针击；高反弹下劈。",
+      "mechanism": "线势：连续命中三层强化下一技能；受击清空。",
+      "unlock_hint": "苔钟庭学徒重新缀合被带回的名字。"
     },
     "bell": {
-      "name": "铸钟纹章",
-      "description": "重刃与双格修复；动作慢、技能耗能高，槽位5。",
+      "name": "司铸契印",
+      "description": "钟压：精准防御积累两层，下一重击消耗并增强冲击。",
+      "source": "铸雨渠工匠修复无名工人的铜徽章与承力线结。",
       "slots": 5,
-      "max_hp": 6,
+      "max_hp": 5,
       "max_energy": 100,
       "attack_damage_mult": 1.5,
-      "attack_reach_mult": 0.85,
-      "attack_speed_mult": 0.8,
-      "move_mult": 0.9,
-      "damage_taken_mult": 1.0,
-      "heal_cost": 70,
-      "heal_amount": 2,
-      "heal_duration": 1.15,
-      "energy_gain_mult": 0.8,
-      "skill_cost_mult": 1.15
-    },
-    "salt": {
-      "name": "盐书纹章",
-      "description": "储能120，廉价技能和快疗；生命4、短刃，槽位3。",
-      "slots": 3,
-      "max_hp": 4,
-      "max_energy": 120,
-      "attack_damage_mult": 1.0,
-      "attack_reach_mult": 0.9,
-      "attack_speed_mult": 1.1,
+      "attack_reach_mult": 1.25,
+      "attack_speed_mult": 0.78,
       "move_mult": 1.0,
       "damage_taken_mult": 1.0,
-      "heal_cost": 45,
+      "heal_cost": 60,
       "heal_amount": 1,
-      "heal_duration": 0.65,
-      "energy_gain_mult": 0.9,
-      "skill_cost_mult": 0.8
+      "heal_duration": 0.8,
+      "energy_gain_mult": 1,
+      "skill_cost_mult": 1.0,
+      "skill_damage_mult": 1.0,
+      "ranged_range_mult": 1.0,
+      "melee_energy_mult": 1.0,
+      "knockback_mult": 1.0,
+      "status_buildup_mult": 1.0,
+      "tool_capacity_bonus": 0,
+      "heal_interrupt_loss_ratio": 1.0,
+      "pogo_bounce_mult": 0.75,
+      "unlock_flag": "seal_bell_repaired",
+      "mechanism_flag": "seal_bell_repaired",
+      "heal_effect": "完成后一次限时抗击退；仍承受伤害。",
+      "heal_move_duration": 0.0,
+      "heal_knockback_duration": 3.0,
+      "heal_mark_extension": 0.0,
+      "attack_description": "范围较宽的承力重击；后摇较长，低反弹。",
+      "mechanism": "钟压：精准防御积累两层，下一重击消耗并增强冲击。",
+      "unlock_hint": "铸雨渠工匠修复无名工人的铜徽章与承力线结。"
+    },
+    "salt": {
+      "name": "校录契印",
+      "description": "盐记：回声针施加，盐印缚线消耗；治疗仅延长一次。",
+      "source": "盐白书库核对删名记录后复原的校录印记。",
+      "slots": 3,
+      "max_hp": 5,
+      "max_energy": 100,
+      "attack_damage_mult": 1,
+      "attack_reach_mult": 1.5,
+      "attack_speed_mult": 0.9,
+      "move_mult": 1.0,
+      "damage_taken_mult": 1.0,
+      "heal_cost": 60,
+      "heal_amount": 1,
+      "heal_duration": 0.8,
+      "energy_gain_mult": 0.8,
+      "skill_cost_mult": 1.0,
+      "skill_damage_mult": 1.0,
+      "ranged_range_mult": 1.0,
+      "melee_energy_mult": 1.0,
+      "knockback_mult": 1.0,
+      "status_buildup_mult": 1.0,
+      "tool_capacity_bonus": 0,
+      "heal_interrupt_loss_ratio": 1.0,
+      "pogo_bounce_mult": 1,
+      "unlock_flag": "seal_salt_restored",
+      "mechanism_flag": "seal_salt_restored",
+      "heal_effect": "延长附近已有盐记一次；不能反复延长。",
+      "heal_move_duration": 0.0,
+      "heal_knockback_duration": 0.0,
+      "heal_mark_extension": 2.0,
+      "attack_description": "远距离线针刺击；普攻速度及回能较低。",
+      "mechanism": "盐记：回声针施加，盐印缚线消耗；治疗仅延长一次。",
+      "unlock_hint": "盐白书库核对删名记录后复原的校录印记。"
     }
   },
   "skills": {
     "cleave": {
-      "name": "绯线断章",
-      "description": "近战重斩；升级扩大范围并击退。",
-      "kind": "melee",
-      "energy_cost": 30,
-      "cooldown": 2.0,
+      "name": "绯线穿刺",
+      "description": "短暂准备后向前突刺；不穿墙、不带无敌。缝名线势仅增加攻击范围。",
+      "kind": "thrust",
+      "energy_cost": 25,
+      "cooldown": 2,
       "damage": 3,
-      "range": 110,
+      "range": 115,
       "windup": 0.18,
       "active": 0.15,
       "recovery": 0.28,
-      "duration": 0.0,
-      "unlock_item": ""
+      "duration": 0,
+      "unlock_flag": "skill_cleave_learned",
+      "unlock_item": "relic_skill_cleave",
+      "ground_only": false,
+      "pierce": 1,
+      "boss_control_mult": 0.35,
+      "max_instances": 1,
+      "mark_duration": 5.0,
+      "synergy": "短暂准备后向前突刺；不穿墙、不带无敌。缝名线势仅增加攻击范围。",
+      "cancel_rules": "准备期受击可打断；扣除资源不返还；有效与收势不可连锁取消。",
+      "refund_on_interrupt": 0,
+      "icon": "res://assets/ui/seals/cleave.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "短暂准备后向前突刺；不穿墙、不带无敌。缝名线势仅增加攻击范围。"
     },
     "needle": {
-      "name": "盐书飞针",
-      "description": "远程线针；升级贯穿一名敌人。",
+      "name": "回声针",
+      "description": "线针命中或碰墙消失；单次单目标。校录命中施加盐记。",
       "kind": "ranged",
-      "energy_cost": 25,
+      "energy_cost": 20,
       "cooldown": 1.8,
       "damage": 2,
       "range": 420,
@@ -80,13 +147,26 @@
       "active": 0.12,
       "recovery": 0.22,
       "duration": 1.2,
-      "unlock_item": "echo_hook"
+      "unlock_flag": "skill_needle_learned",
+      "unlock_item": "relic_skill_needle",
+      "ground_only": false,
+      "pierce": 1,
+      "boss_control_mult": 0.35,
+      "max_instances": 1,
+      "mark_duration": 5.0,
+      "synergy": "线针命中或碰墙消失；单次单目标。校录命中施加盐记。",
+      "cancel_rules": "准备期受击可打断；扣除资源不返还；有效与收势不可连锁取消。",
+      "refund_on_interrupt": 0,
+      "icon": "res://assets/ui/seals/needle.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "线针命中或碰墙消失；单次单目标。校录命中施加盐记。"
     },
     "snare": {
-      "name": "钟线束缚",
-      "description": "短距控场冲击；升级延长减速。",
+      "name": "盐印缚线",
+      "description": "前方落点短暂线阵；校录消耗盐记延长本次控制。Boss控制较弱。",
       "kind": "control",
-      "energy_cost": 35,
+      "energy_cost": 30,
       "cooldown": 4.5,
       "damage": 1,
       "range": 145,
@@ -94,176 +174,449 @@
       "active": 0.2,
       "recovery": 0.3,
       "duration": 1.4,
-      "unlock_item": "silk_wall_grip"
+      "unlock_flag": "skill_snare_learned",
+      "unlock_item": "relic_skill_snare",
+      "ground_only": false,
+      "pierce": 1,
+      "boss_control_mult": 0.35,
+      "max_instances": 2,
+      "mark_duration": 5.0,
+      "synergy": "前方落点短暂线阵；校录消耗盐记延长本次控制。Boss控制较弱。",
+      "cancel_rules": "准备期受击可打断；扣除资源不返还；有效与收势不可连锁取消。",
+      "refund_on_interrupt": 0,
+      "icon": "res://assets/ui/seals/snare.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "前方落点短暂线阵；校录消耗盐记延长本次控制。Boss控制较弱。"
     },
     "ward": {
-      "name": "铸钟护身",
-      "description": "短暂护身，受击不退；升级延长窗口。",
+      "name": "守钟架势",
+      "description": "针架与承力线只防可防御攻击；精准成功为司铸积累钟压。",
       "kind": "defense",
-      "energy_cost": 40,
-      "cooldown": 6.0,
+      "energy_cost": 20,
+      "cooldown": 6,
       "damage": 0,
       "range": 0,
       "windup": 0.08,
       "active": 0.1,
       "recovery": 0.15,
-      "duration": 1.0,
-      "unlock_item": "bell_guard"
+      "duration": 0.55,
+      "unlock_flag": "skill_ward_learned",
+      "unlock_item": "relic_skill_ward",
+      "ground_only": false,
+      "pierce": 1,
+      "boss_control_mult": 0.35,
+      "max_instances": 1,
+      "mark_duration": 5.0,
+      "synergy": "针架与承力线只防可防御攻击；精准成功为司铸积累钟压。",
+      "cancel_rules": "准备期受击可打断；扣除资源不返还；有效与收势不可连锁取消。",
+      "refund_on_interrupt": 0,
+      "icon": "res://assets/ui/seals/ward.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "针架与承力线只防可防御攻击；精准成功为司铸积累钟压。"
+    },
+    "shockwave": {
+      "name": "钟鸣震波",
+      "description": "地面敲击钟器向前震波，空中不可用；司铸可消耗钟压。",
+      "kind": "shockwave",
+      "energy_cost": 35,
+      "cooldown": 3.5,
+      "damage": 3,
+      "range": 160,
+      "windup": 0.25,
+      "active": 0.18,
+      "recovery": 0.35,
+      "duration": 0.2,
+      "unlock_flag": "skill_shockwave_learned",
+      "unlock_item": "relic_skill_shockwave",
+      "ground_only": true,
+      "pierce": 1,
+      "boss_control_mult": 0.35,
+      "max_instances": 1,
+      "mark_duration": 5.0,
+      "synergy": "地面敲击钟器向前震波，空中不可用；司铸可消耗钟压。",
+      "cancel_rules": "准备期受击可打断；扣除资源不返还；有效与收势不可连锁取消。",
+      "refund_on_interrupt": 0,
+      "icon": "res://assets/ui/seals/shockwave.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "地面敲击钟器向前震波，空中不可用；司铸可消耗钟压。"
+    },
+    "crosscut": {
+      "name": "断弦回斩",
+      "description": "原地前后交叉斩，无位移、无无敌；缝名线势增加有限命中回能。",
+      "kind": "crosscut",
+      "energy_cost": 30,
+      "cooldown": 2.8,
+      "damage": 2,
+      "range": 85,
+      "windup": 0.15,
+      "active": 0.2,
+      "recovery": 0.3,
+      "duration": 0,
+      "unlock_flag": "skill_crosscut_learned",
+      "unlock_item": "relic_skill_crosscut",
+      "ground_only": false,
+      "pierce": 1,
+      "boss_control_mult": 0.35,
+      "max_instances": 1,
+      "mark_duration": 5.0,
+      "synergy": "原地前后交叉斩，无位移、无无敌；缝名线势增加有限命中回能。",
+      "cancel_rules": "准备期受击可打断；扣除资源不返还；有效与收势不可连锁取消。",
+      "refund_on_interrupt": 0,
+      "icon": "res://assets/ui/seals/crosscut.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "原地前后交叉斩，无位移、无无敌；缝名线势增加有限命中回能。"
     }
   },
   "tools": {
     "shard": {
-      "name": "碎钟投刃",
-      "description": "无需能量的远程投掷。工匠处购买补给。",
-      "kind": "projectile",
+      "name": "铜铃投罐",
+      "description": "抛物线投掷，落地后提示再爆裂；不穿墙。 钟龛免费补满。",
+      "kind": "bomb",
       "damage": 2,
       "range": 360,
       "duration": 1.0,
-      "capacity": 6
+      "capacity": 3,
+      "max_instances": 2,
+      "boss_immune_control": true,
+      "unlock_flag": "tool_shard_found",
+      "unlock_item": "relic_tool_shard",
+      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "icon": "res://assets/ui/seals/shard.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "抛物线投掷，落地后提示再爆裂；不穿墙。 钟龛免费补满。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
     },
     "mine": {
-      "name": "绯线地钉",
-      "description": "脚边布置短时陷阱。工匠处制作，最多携带3。",
+      "name": "绊线钉",
+      "description": "地面陷阱，最多两个；Boss不被定身。 钟龛免费补满。",
       "kind": "trap",
       "damage": 3,
-      "range": 100,
+      "range": 180,
       "duration": 6.0,
-      "capacity": 3
+      "capacity": 2,
+      "max_instances": 2,
+      "boss_immune_control": true,
+      "unlock_flag": "tool_mine_found",
+      "unlock_item": "relic_tool_mine",
+      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "icon": "res://assets/ui/seals/mine.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "地面陷阱，最多两个；Boss不被定身。 钟龛免费补满。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+    },
+    "fog": {
+      "name": "盐雾瓶",
+      "description": "干扰普通远程敌人索敌；不影响已发射弹体。 钟龛免费补满。",
+      "kind": "fog",
+      "damage": 0,
+      "range": 180,
+      "duration": 4.0,
+      "capacity": 2,
+      "max_instances": 2,
+      "boss_immune_control": true,
+      "unlock_flag": "tool_fog_found",
+      "unlock_item": "relic_tool_fog",
+      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "icon": "res://assets/ui/seals/fog.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "干扰普通远程敌人索敌；不影响已发射弹体。 钟龛免费补满。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+    },
+    "lure": {
+      "name": "回响诱铃",
+      "description": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 钟龛免费补满。",
+      "kind": "lure",
+      "damage": 0,
+      "range": 180,
+      "duration": 5.0,
+      "capacity": 2,
+      "max_instances": 2,
+      "boss_immune_control": true,
+      "unlock_flag": "tool_lure_found",
+      "unlock_item": "relic_tool_lure",
+      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "icon": "res://assets/ui/seals/lure.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 钟龛免费补满。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
     }
   },
   "passives": {
     "reflux": {
-      "name": "回响线轴",
-      "description": "命中回能+20%，占2槽；与尖针互斥。",
+      "name": "工匠线轴",
+      "description": "普攻回能提高20%，技能伤害降低10%。",
       "cost": 2,
-      "group": "energy",
+      "group": "",
       "modifiers": {
-        "energy_gain_mult": 0.2
-      }
+        "energy_gain_mult": 0.2,
+        "skill_damage_mult": -0.1
+      },
+      "unlock_flag": "charm_reflux_found",
+      "unlock_item": "relic_passive_reflux",
+      "icon": "res://assets/ui/seals/reflux.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "普攻回能提高20%，技能伤害降低10%。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
     },
     "spur": {
-      "name": "尖针契约",
-      "description": "技能耗能-15%，占2槽；与线轴互斥。",
+      "name": "盐页书签",
+      "description": "远程触及增加20%，近战回能降低15%。",
       "cost": 2,
-      "group": "energy",
+      "group": "",
       "modifiers": {
-        "skill_cost_mult": -0.15
-      }
+        "ranged_range_mult": 0.2,
+        "melee_energy_mult": -0.15
+      },
+      "unlock_flag": "charm_spur_found",
+      "unlock_item": "relic_passive_spur",
+      "icon": "res://assets/ui/seals/spur.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "远程触及增加20%，近战回能降低15%。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+    },
+    "shell": {
+      "name": "铜背扣",
+      "description": "击退降低25%，治疗准备时间增加15%。",
+      "cost": 2,
+      "group": "",
+      "modifiers": {
+        "knockback_mult": -0.25,
+        "heal_duration": 0.15
+      },
+      "unlock_flag": "charm_shell_found",
+      "unlock_item": "relic_passive_shell",
+      "icon": "res://assets/ui/seals/shell.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "击退降低25%，治疗准备时间增加15%。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
     },
     "stride": {
-      "name": "轻履结",
-      "description": "移速+8%，占1槽。",
+      "name": "巡礼鞋结",
+      "description": "地面移动提高8%；不增加跳高。",
       "cost": 1,
       "group": "",
       "modifiers": {
         "move_mult": 0.08
-      }
-    },
-    "shell": {
-      "name": "苔壳缝片",
-      "description": "生命上限+1、移速-5%，占2槽。",
-      "cost": 2,
-      "group": "",
-      "modifiers": {
-        "max_hp": 1,
-        "move_mult": -0.05
-      }
+      },
+      "unlock_flag": "charm_stride_found",
+      "unlock_item": "relic_passive_stride",
+      "icon": "res://assets/ui/seals/stride.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "地面移动提高8%；不增加跳高。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
     },
     "mender": {
-      "name": "快缝指环",
-      "description": "治疗时间-20%，技能耗能+10%，占2槽。",
+      "name": "静钟碎片",
+      "description": "治疗完成后短暂降低状态积累，不清除已有状态。",
+      "cost": 1,
+      "group": "",
+      "modifiers": {
+        "status_buildup_mult": -0.2
+      },
+      "unlock_flag": "charm_mender_found",
+      "unlock_item": "relic_passive_mender",
+      "icon": "res://assets/ui/seals/mender.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "治疗完成后短暂降低状态积累，不清除已有状态。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+    },
+    "needlecase": {
+      "name": "余声针匣",
+      "description": "铜铃投罐与绊线钉容量增加一次，技能消耗增加10%。",
       "cost": 2,
       "group": "",
       "modifiers": {
-        "heal_duration": -0.2,
+        "tool_capacity_bonus": 1,
         "skill_cost_mult": 0.1
-      }
+      },
+      "unlock_flag": "charm_needlecase_found",
+      "unlock_item": "relic_passive_needlecase",
+      "icon": "res://assets/ui/seals/needlecase.svg",
+      "source": "人物传授、生活遗物或旧设施发现",
+      "unlock_hint": "相关人物回应或发现遗物后解锁",
+      "risk": "铜铃投罐与绊线钉容量增加一次，技能消耗增加10%。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。"
     }
   },
   "recipes": {
-    "refill_shard": {
-      "name": "补给投刃×3",
-      "description": "补给3枚碎钟投刃；超过上限不收费。",
-      "currency": 12,
-      "materials": {},
-      "kind": "refill",
-      "target": "shard",
-      "amount": 3
-    },
-    "refill_mine": {
-      "name": "补给地钉×1",
-      "description": "补给1枚绯线地钉。",
-      "currency": 10,
-      "materials": {},
-      "kind": "refill",
-      "target": "mine",
-      "amount": 1
-    },
-    "craft_shell": {
-      "name": "缝制苔壳缝片",
-      "description": "用苔壳制作生命缝片。",
-      "currency": 20,
-      "materials": {
-        "moss_chitin": 1
-      },
-      "kind": "passive",
-      "target": "shell"
-    },
-    "buy_reflux": {
-      "name": "购入回响线轴",
-      "description": "解锁命中回能修饰。",
-      "currency": 50,
-      "materials": {},
-      "kind": "passive",
-      "target": "reflux"
-    },
-    "buy_spur": {
-      "name": "购入尖针契约",
-      "description": "解锁技能耗能修饰。",
-      "currency": 50,
-      "materials": {},
-      "kind": "passive",
-      "target": "spur"
-    },
-    "buy_mender": {
-      "name": "购入快缝指环",
-      "description": "解锁治疗速度修饰。",
-      "currency": 40,
-      "materials": {},
-      "kind": "passive",
-      "target": "mender"
-    },
     "upgrade_cleave": {
-      "name": "断章强化",
-      "description": "范围110→150，伤害+1；最多强化两次。",
+      "name": "绯线穿刺校习",
+      "description": "强化范围或作用持续时间；回声针仍单次单目标。",
       "currency": 35,
       "materials": {},
       "kind": "skill",
       "target": "cleave"
     },
     "upgrade_needle": {
-      "name": "飞针强化",
-      "description": "增加贯穿；二级增加射程。",
-      "currency": 40,
+      "name": "回声针校习",
+      "description": "强化范围或作用持续时间；回声针仍单次单目标。",
+      "currency": 35,
       "materials": {},
       "kind": "skill",
       "target": "needle"
     },
     "upgrade_snare": {
-      "name": "束缚强化",
-      "description": "控制时间增加0.5秒并扩大范围。",
-      "currency": 40,
+      "name": "盐印缚线校习",
+      "description": "强化范围或作用持续时间；回声针仍单次单目标。",
+      "currency": 35,
       "materials": {},
       "kind": "skill",
       "target": "snare"
     },
     "upgrade_ward": {
-      "name": "护身强化",
-      "description": "保护时间增加0.35秒。",
-      "currency": 45,
+      "name": "守钟架势校习",
+      "description": "强化范围或作用持续时间；回声针仍单次单目标。",
+      "currency": 35,
       "materials": {},
       "kind": "skill",
       "target": "ward"
+    },
+    "upgrade_shockwave": {
+      "name": "钟鸣震波校习",
+      "description": "强化范围或作用持续时间；回声针仍单次单目标。",
+      "currency": 35,
+      "materials": {},
+      "kind": "skill",
+      "target": "shockwave"
+    },
+    "upgrade_crosscut": {
+      "name": "断弦回斩校习",
+      "description": "强化范围或作用持续时间；回声针仍单次单目标。",
+      "currency": 35,
+      "materials": {},
+      "kind": "skill",
+      "target": "crosscut"
+    }
+  },
+  "events": {
+    "repair_crimson": {
+      "crests": [
+        "crimson"
+      ],
+      "mechanism": "crimson"
+    },
+    "repair_bell": {
+      "crests": [
+        "bell"
+      ],
+      "mechanism": "bell"
+    },
+    "restore_salt": {
+      "crests": [
+        "salt"
+      ],
+      "mechanism": "salt"
+    },
+    "skill_cleave_learned": {
+      "skills": [
+        "cleave"
+      ]
+    },
+    "skill_needle_learned": {
+      "skills": [
+        "needle"
+      ]
+    },
+    "skill_snare_learned": {
+      "skills": [
+        "snare"
+      ]
+    },
+    "skill_ward_learned": {
+      "skills": [
+        "ward"
+      ]
+    },
+    "skill_shockwave_learned": {
+      "skills": [
+        "shockwave"
+      ]
+    },
+    "skill_crosscut_learned": {
+      "skills": [
+        "crosscut"
+      ]
+    },
+    "tool_shard_found": {
+      "tools": [
+        "shard"
+      ]
+    },
+    "tool_mine_found": {
+      "tools": [
+        "mine"
+      ]
+    },
+    "tool_fog_found": {
+      "tools": [
+        "fog"
+      ]
+    },
+    "tool_lure_found": {
+      "tools": [
+        "lure"
+      ]
+    },
+    "charm_reflux_found": {
+      "passives": [
+        "reflux"
+      ]
+    },
+    "charm_spur_found": {
+      "passives": [
+        "spur"
+      ]
+    },
+    "charm_shell_found": {
+      "passives": [
+        "shell"
+      ]
+    },
+    "charm_stride_found": {
+      "passives": [
+        "stride"
+      ]
+    },
+    "charm_mender_found": {
+      "passives": [
+        "mender"
+      ]
+    },
+    "charm_needlecase_found": {
+      "passives": [
+        "needlecase"
+      ]
+    },
+    "quest_bring_names_complete": {
+      "crests": [
+        "crimson"
+      ],
+      "mechanism": "crimson"
+    },
+    "seal_bell_repaired": {
+      "crests": [
+        "bell"
+      ],
+      "mechanism": "bell"
+    },
+    "seal_salt_restored": {
+      "crests": [
+        "salt"
+      ],
+      "mechanism": "salt"
     }
   }
 }

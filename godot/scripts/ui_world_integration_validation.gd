@@ -24,11 +24,14 @@ func run() -> void:
     main._toggle_build()
     check(main.active_overlay=="build" and ui.build_panel.visible,"B runtime adapter opens exclusive live build panel")
     check(main.player.ui_input_locked,"Live build overlay locks gameplay input")
-    ui.build_category="工具"
+    main.story_flags["tool_mine_found"]=true
+    main.inventory_counts["relic_tool_mine"]=1
+    main.build_system.sync_progress(main.inventory_counts,String(main.config.get("id","")),main.story_flags)
+    ui.build_category="战具"
     ui.refresh_build()
     check(click_id(ui,"mine"),"Tool button is accessible by real build ID")
     check(main.build_system.state.tool=="mine","Click changes actual selected tool")
-    ui.build_category="方案"
+    ui.build_category="构筑"
     ui.refresh_build()
     (ui.build_grid.get_child(1) as Button).pressed.emit()
     check(main.build_system.state.loadouts.has("巡礼方案 1"),"Visible save action records real build plan")

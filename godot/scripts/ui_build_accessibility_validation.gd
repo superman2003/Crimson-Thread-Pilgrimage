@@ -10,6 +10,8 @@ class MockPlayer extends Node:
     var max_energy := 100
     var energy := 70
     var skill_cooldown := 1.3
+    func get_seal_mechanism_snapshot() -> Dictionary:
+        return {"label":"线势","stacks":2,"max_stacks":3}
     func get_combat_ui_state() -> Dictionary:
         return {"heal_active":true,"heal_progress":0.5,"skill_name":"测试技能","skill_cooldown":1.3,"skill_cost":20}
 
@@ -29,11 +31,15 @@ class MockRuntime extends Node:
     var demo_complete := false
     var last_action := ""
     var last_id := ""
+    var last_slot := -1
     var selected_save_slot := 0
     func get_build_system() -> RefCounted:return build_system
     func perform_build_action(action: String,id: String,_slot: int) -> Dictionary:
         last_action=action
         last_id=id
+        last_slot=_slot
+        if action=="select_skill":return build_system.select_skill(id,_slot)
+        if action=="select_tool":return build_system.select_tool(id,_slot)
         return {"ok":true,"reason":"已执行测试事务"}
     func _toggle_build() -> void:active_overlay="build" if active_overlay=="" else ""
     func _close_overlays() -> void:active_overlay=""
@@ -60,6 +66,7 @@ func run() -> void:
     runtime.player=MockPlayer.new()
     runtime.add_child(runtime.player)
     runtime.build_system=BUILD.new()
+    runtime.build_system.cooldowns["cleave"]=1.3
     var ui:=UI.new()
     ui.accessibility_path="user://ui_build_accessibility_validation.cfg"
     runtime.add_child(ui)
@@ -80,7 +87,7 @@ func run() -> void:
     ui.refresh_build()
     (ui.build_grid.get_child(0) as Button).pressed.emit()
     check(runtime.last_action=="transact","Craft button invokes runtime transaction adapter")
-    ui.build_category="方案"
+    ui.build_category="构筑"
     ui.refresh_build()
     (ui.build_grid.get_child(1) as Button).pressed.emit()
     check(runtime.last_action=="save_loadout" and runtime.last_id=="巡礼方案 1","Visible save button names and saves a build")

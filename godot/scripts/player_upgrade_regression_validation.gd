@@ -91,7 +91,7 @@ func _run() -> void:
     player.bell_guard_unlocked = true
     _assert(player._try_guard(), "unlocked bell guard begins")
     player.take_damage(2, Vector2(100, -30))
-    _assert(player.hp == 5 and player.energy == 100, "perfect guard blocks and caps refund")
+    _assert(player.hp == 5 and player.energy == 96, "perfect guard blocks while retaining a net resource cost")
     player.hurt_timer = 0.0
     _assert(not player._try_guard(), "guard cannot be chained through cooldown")
     player.guard_cooldown = 0.0
@@ -99,7 +99,7 @@ func _run() -> void:
     player._try_guard()
     player.guard_timer = 0.2
     player.take_damage(2, Vector2(100, -30))
-    _assert(player.hp == 5 and player.energy == 30, "late guard spends block energy and grants no refund")
+    _assert(player.hp == 5 and player.energy == 42, "late guard spends upfront energy and grants no refund")
     player.hurt_timer = 0.0
     player.guard_cooldown = 0.0
     player._try_guard()
@@ -134,6 +134,8 @@ func _run() -> void:
     _assert(player.cast_selected_skill(), "control skill starts and spends energy")
     _assert(player.energy == 80 and target.snared == 0, "control waits for active frame")
     player._update_attack(0.1)
+    for index in range(3):
+        await physics_frame
     _assert(target.snared == 1.4, "control skill applies finite snare")
     _assert(player.energy == 80, "special skill hit cannot refund its own cost")
 
@@ -212,6 +214,7 @@ func _run() -> void:
     _assert(ranged_target.hit_count == 1 and ranged_target.hp == 98, "swept projectile hits exactly once")
     player.skill_cooldown = 0.0
     player.energy = 100
+    player._reset_traversal_state()
     player.configure_selected_skill({"id": "needle_test", "kind": "ranged", "damage": 2, "range": 220.0, "energy_cost": 25, "windup": 0.12, "active": 0.1, "recovery": 0.2, "cooldown": 1.0})
     _assert(player.cast_selected_skill(), "ranged skill starts with an energy cost")
     player._update_attack(0.13)
@@ -220,6 +223,7 @@ func _run() -> void:
     _assert(ranged_target.hp == 96 and player.energy == 75, "ranged skill emits swept projectile in active frame without self refund")
     player._update_attack(0.5)
     var hp_after: int = ranged_target.hp
+    player._reset_traversal_state()
     player.cast_tool({"kind": "trap", "damage": 3, "range": 100.0, "duration": 0.25})
     ranged_target.position = Vector2(-270, -42)
     for index in range(20):
@@ -233,7 +237,7 @@ func _run() -> void:
     player.cast_selected_skill()
     player._update_attack(0.1)
     player.take_damage(2, player.global_position + Vector2(-100, 0))
-    _assert(player.hp == hp_before_ward and player.energy == 60 and player.guard_timer == 0.0, "paid ward blocks one hit from either direction without refund")
+    _assert(player.hp == hp_before_ward - 2 and player.energy == 70 and player.guard_timer == 0.0, "paid ward exposes rear attacks and does not refund its cost")
     var clock := ClockBuild.new()
     player.build_system = clock
     player.ui_input_locked = true
