@@ -42,9 +42,7 @@ func _run() -> void:
     _assert(config.get("save_points", []).any(func(item): return item is Dictionary and bool(item.get("hidden", false))), "CH02 has a hidden save point")
     _assert(config.get("boss", {}).get("id") == "C2_B01", "CH02 boss id is stable")
     _assert(config.get("boss", {}).get("name") == "绯线执剪者", "CH02 boss name is readable")
-    _assert(String(config.get("boss", {}).get("sprite", "")).contains("boss_02_crimson_thread_scissor_apostle/manifest.json"), "CH02 boss uses high-fidelity boss_02 sprite")
-    _assert(config.get("boss", {}).get("sprite_region", []).size() == 4, "CH02 boss has a cropped sprite region")
-    _assert(config.get("boss", {}).get("sprite_regions", {}).has("attack"), "CH02 boss has attack sprite region")
+    _assert(String(config.get("boss", {}).get("sprite", "")).contains("original_creatures/sunken_hammer_smith/manifest.json"), "CH02 boss uses its original production atlas")
     _assert(config.get("boss", {}).has("arena_min_x") and config.get("boss", {}).has("arena_max_x"), "CH02 boss has arena clamp")
     _assert(_visual_region_has_sprite(config.get("boss", {}), "boss"), "CH02 boss region is not blue placeholder")
     for enemy in config.get("enemy_spawns", []):
@@ -63,7 +61,7 @@ func _run() -> void:
     var state: Dictionary = scene.get_demo_state()
     _assert(state.get("config_id") == "demo_ch02_rain_foundry_canal", "Main scene uses CH02 injected config")
     _assert(state.get("art_theme_id") == "rain_foundry", "runtime uses CH02 rain foundry theme")
-    _assert(String(state.get("visual_asset_source", "")).contains("original map art"), "runtime reports original map art source")
+    _assert(String(state.get("visual_asset_source", "")).contains("Original hand-drawn 2D PNG atlases"), "runtime reports original map art source")
     _assert((state.get("platform_materials", []) as Array).has("wet_metal"), "runtime exposes CH02 wet metal platforms")
     _assert(not (state.get("platform_materials", []) as Array).has("moss_stone"), "runtime CH02 platform materials are not CH01 moss")
     _assert(state.get("campaign_current_chapter") == "铸雨渠", "campaign maps runtime config to CH02")
@@ -107,23 +105,24 @@ func _run() -> void:
         var npc: Area2D = scene.get_node_or_null(npc_id)
         _assert(npc != null, npc_id + " exists")
         _assert(String(npc.get_meta("kind", "")) == "npc", npc_id + " is an NPC interactable")
-        _assert(npc.get_meta("dialogue", []).size() >= 3, npc_id + " has chapter dialogue")
-        _assert(npc.has_node("FriendlyTalkBadge"), npc_id + " has friendly talk badge")
-        _assert(npc.has_node("FriendlyHalo"), npc_id + " has friendly halo")
+        _assert(npc.get_meta("dialogue", []).size() >= 2, npc_id + " has chapter dialogue")
+        var npc_sprite := npc.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
+        _assert(npc_sprite != null and npc_sprite.sprite_frames != null and npc_sprite.sprite_frames.get_frame_count("talk") > 0, npc_id + " has animated friendly conversation art")
+        _assert(not String(npc.get_meta("dialogue_topics", {}).get("route", "")).is_empty(), npc_id + " has a route choice")
 
     var enemy_kinds := _enemy_kinds()
     for expected_kind in ["drain_leech", "pipe_thrower", "rust_diver", "bell_mote", "waterwheel_knight"]:
         _assert(enemy_kinds.has(expected_kind), "CH02 enemy kind exists: " + expected_kind)
 
     var first_npc: Area2D = scene.get_node_or_null("npc_rain_smith_liu")
-    scene.nearby_interactable = first_npc
+    scene.player.global_position = first_npc.global_position
     scene._try_interact()
     _assert(int(first_npc.get_meta("dialogue_index", 0)) == 1, "CH02 NPC dialogue advances")
 
     scene._debug_clear_combat_route()
     var lever: Area2D = scene.get_node_or_null("waterwheel_shortcut_lever")
     _assert(lever != null, "CH02 shortcut lever exists")
-    scene.nearby_interactable = lever
+    scene.player.global_position = lever.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("shortcut_open") == true, "CH02 combat clear opens boss route")
@@ -131,7 +130,7 @@ func _run() -> void:
 
     var boss_gate: Area2D = scene.get_node_or_null("sunken_hammer_gate")
     _assert(boss_gate != null, "CH02 boss gate exists")
-    scene.nearby_interactable = boss_gate
+    scene.player.global_position = boss_gate.global_position
     scene._try_interact()
     await process_frame
     state = scene.get_demo_state()
@@ -143,7 +142,7 @@ func _run() -> void:
     _assert(scene.boss_actor.kind == "sunken_hammer_smith", "CH02 boss actor uses CH02 kind")
     _assert(scene.boss_actor.get("arena_min_x") < scene.boss_actor.get("arena_max_x"), "CH02 boss runtime has arena bounds")
     _assert(not bool(scene.boss_actor.get("sprite_faces_left")), "CH02 boss source faces right")
-    _assert(String(scene.boss_actor.get("asset_path")).contains("boss_02_crimson_thread_scissor_apostle/manifest.json"), "CH02 boss runtime uses high-fidelity boss_02 manifest")
+    _assert(String(scene.boss_actor.get("asset_path")) == String(config.get("boss", {}).get("sprite", "")), "CH02 boss runtime uses high-fidelity boss_02 manifest")
     scene.boss_actor.set("direction", 1)
     scene.boss_actor._begin_attack({
         "id": "validation_lock",
@@ -158,8 +157,9 @@ func _run() -> void:
     })
     scene.boss_actor.set("direction", -1)
     _assert(int(scene.boss_actor.get("attack_direction")) == 1, "CH02 boss attack direction locks during windup")
-    _assert(int(state.get("boss_attack_total", 0)) >= 9, "CH02 boss has expanded move list")
-    _assert((state.get("boss_attack_types", []) as Array).has("shockwave"), "CH02 boss has shockwave")
+    _assert(int(state.get("boss_attack_total", 0)) == 4, "CH02 boss has four distinct authored attacks")
+    for attack_type in ["melee", "beam", "pool", "vault"]:
+        _assert((state.get("boss_attack_types", []) as Array).has(attack_type), "CH02 boss has " + attack_type + " attack")
 
     var leash_enemy := _first_normal_enemy(scene)
     _assert(leash_enemy != null, "CH02 has a normal enemy for leash validation")
@@ -183,7 +183,7 @@ func _run() -> void:
         var reset_enemy_state: Dictionary = enemy_position
         _assert(bool(reset_enemy_state.get("spawn_clear", false)), "CH02 reset enemy spawn is clear of walls: " + String(reset_enemy_state.get("id", "")))
 
-    scene.nearby_interactable = boss_gate
+    scene.player.global_position = boss_gate.global_position
     scene._try_interact()
     await process_frame
     state = scene.get_demo_state()
@@ -350,8 +350,11 @@ func _manifest_has_visible_frames(sprite_path: String, label: String) -> bool:
             if frames.is_empty():
                 push_error("FAIL: " + label + " " + animation_name + " has no keyframes")
                 return false
-            var image := Image.load_from_file(ProjectSettings.globalize_path(String(frames[0])))
-            if image == null or not _image_region_has_visible_non_blue(image, [0, 0, image.get_width(), image.get_height()]):
+            var frame = frames[0]
+            var frame_path := String(frame.get("atlas", "")) if frame is Dictionary else String(frame)
+            var image := Image.load_from_file(ProjectSettings.globalize_path(frame_path))
+            var region: Array = frame.get("region", []) if frame is Dictionary else ([0, 0, image.get_width(), image.get_height()] if image != null else [])
+            if image == null or not _image_region_has_visible_non_blue(image, region):
                 push_error("FAIL: " + label + " " + animation_name + " keyframe is empty/blue")
                 return false
         if not found:

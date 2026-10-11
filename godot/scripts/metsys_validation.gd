@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
+var failures := 0
 
 
 func _initialize() -> void:
@@ -27,15 +28,20 @@ func _run() -> void:
     _assert(int(state.get("metsys_discovered_cells", 0)) >= 1, "MetSys discovers the starting room")
     _assert(int(state.get("metsys_registered_objects", 0)) >= 4, "MetSys registers interactables")
 
-    scene.player.global_position = Vector2(2050, 478)
+    # Use the current room geometry; the old Gear Lift room and (2050, 478)
+    # point predate the box-garden map.
+    var room: Dictionary = scene._map_room_by_id("bell_stair_well")
+    var room_rect: Rect2 = scene._room_layout_rect(room)
+    _assert(room_rect.has_area(), "Bell Stair Well has authored 2D bounds")
+    scene.player.global_position = room_rect.get_center()
     await process_frame
     state = scene.get_demo_state()
-    _assert(String(state.get("current_room_id", "")) == "gear_lift", "room tracking moves to Gear Lift")
+    _assert(String(state.get("current_room_id", "")) == "bell_stair_well", "room tracking moves to Bell Stair Well")
     _assert(int(state.get("metsys_discovered_cells", 0)) >= 2, "MetSys discovers traveled rooms")
 
     var save_point: Area2D = scene.get_node_or_null("save_hidden_upper_respite")
     _assert(save_point != null, "save point object exists for MetSys storage")
-    scene.nearby_interactable = save_point
+    scene.player.global_position = save_point.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(int(state.get("metsys_stored_objects", 0)) >= 1, "MetSys stores activated save point object")
@@ -45,6 +51,10 @@ func _run() -> void:
     _assert(int(state.get("metsys_stored_objects", 0)) == stored_count, "MetSys ignores duplicate object store safely")
     _assert(state.has("metsys_save_data"), "MetSys exposes save data dictionary")
 
+    if failures > 0:
+        push_error("METSYS_VALIDATION_FAIL failures=%d" % failures)
+        quit(1)
+        return
     print("METSYS_VALIDATION_PASS cells=%d walls=%d passages=%d routes=%d locked=%d connectors=%d discovered=%d registered=%d stored=%d" % [
         int(state.get("metsys_map_cells", 0)),
         int(state.get("metsys_wall_borders", 0)),
@@ -64,4 +74,4 @@ func _assert(condition: bool, label: String) -> void:
         print("PASS: " + label)
         return
     push_error("FAIL: " + label)
-    quit(1)
+    failures += 1

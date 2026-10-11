@@ -1747,11 +1747,13 @@ func _update_room_visit() -> void:
                 audio_director.on_room_changed(String(room.get("kind", "")))
 
 
-func _room_for_x(world_x: float) -> Dictionary:
+func _room_for_x(world_x: float, legacy_only: bool = false) -> Dictionary:
     for room in config.get("map_rooms", []):
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
+        if legacy_only and _room_has_position_bounds(room_data):
+            continue
         var room_range: Array = room_data.get("range", [0.0, world_width])
         if room_range.size() < 2:
             continue
@@ -1761,13 +1763,19 @@ func _room_for_x(world_x: float) -> Dictionary:
 
 
 func _room_for_position(world_position: Vector2) -> Dictionary:
+    var best_room: Dictionary = {}
+    var best_area := INF
     for room in config.get("map_rooms", []):
         if not (room is Dictionary):
             continue
         var room_data: Dictionary = room
-        if _room_contains_position(room_data, world_position):
-            return room_data
-    return _room_for_x(world_position.x)
+        var area := _room_containing_area(room_data, world_position)
+        if area < best_area:
+            best_room = room_data
+            best_area = area
+    # A nested corridor or reward pocket takes precedence over its enclosing
+    # hall. Only legacy rooms without authored 2D bounds may use x fallback.
+    return best_room if not best_room.is_empty() else _room_for_x(world_position.x, true)
 
 
 func _room_layout_rect(room_data: Dictionary) -> Rect2:
@@ -1801,14 +1809,7 @@ func _rect_contains_position(rect: Rect2, position_value: Vector2, padding: floa
 
 
 func _room_contains_position(room_data: Dictionary, world_position: Vector2) -> bool:
-    var layout := _room_layout_rect(room_data)
-    if layout.size.x > 0.0 and layout.size.y > 0.0 and _rect_contains_position(layout, world_position):
-        return true
-    for rect_value in room_data.get("visit_rects", []):
-        var rect := _rect2(rect_value)
-        if rect.size.x > 0.0 and rect.size.y > 0.0 and _rect_contains_position(rect, world_position):
-            return true
-    return false
+    return _room_containing_area(room_data, world_position) < INF
 
 
 func _room_name(room_id: String) -> String:
@@ -3537,6 +3538,8 @@ func _enemy_spawn_visual_height(data: Dictionary) -> float:
 
 func _enemy_spawn_rect_clear(position_value: Vector2, half_width: float = 36.0, visual_height: float = 104.0, floor_platform_id: String = "") -> bool:
     var actor_rect := Rect2(position_value + Vector2(-half_width, -visual_height), Vector2(half_width * 2.0, visual_height + 8.0))
+    if chapter_terrain != null and chapter_terrain.intersects_rect(actor_rect):
+        return false
     for platform in config.get("platforms", []):
         if not (platform is Dictionary):
             continue
@@ -3802,7 +3805,7 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
 
 
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
-    if body != player:
+    if body != player or area.is_queued_for_deletion():
         return
     var collectible_kind := String(area.get_meta("kind", "bell_key"))
     var item_id := String(area.get_meta("item_id", collectible_kind))
@@ -3893,14 +3896,24 @@ func _on_interactable_exited(body: Node, area: Area2D) -> void:
 
 
 func _try_interact() -> void:
+    # Continue the visible speaker only while it is valid and in range.
+    if active_overlay == "dialogue":
+        var speaker: Area2D = null
+        if ui_shell != null and is_instance_valid(ui_shell.dialogue_area):
+            speaker = ui_shell.dialogue_area
+        if speaker != null and not speaker.is_queued_for_deletion() and player.global_position.distance_to(speaker.global_position) <= 150.0:
+            nearby_interactable = speaker
+        else:
+            _close_overlays()
+    # Overlapping Areas cannot choose the target through body-enter order.
     if active_overlay != "dialogue":
         nearby_interactable = _nearest_interactable(150.0)
-        if nearby_interactable == null or not is_instance_valid(nearby_interactable):
-            _toast("附近没有可交互的人物或机关。")
-            return
-    if bool(nearby_interactable.get_meta("manual_pickup",false)):
-        _on_collectible_body_entered(player,nearby_interactable)
-        nearby_interactable=null
+    if nearby_interactable == null or not is_instance_valid(nearby_interactable):
+        _toast("附近没有可交互的人物或机关。")
+        return
+    if bool(nearby_interactable.get_meta("manual_pickup", false)):
+        _on_collectible_body_entered(player, nearby_interactable)
+        nearby_interactable = null
         return
     var kind := String(nearby_interactable.get_meta("kind", ""))
     if kind == "lever":
@@ -3926,10 +3939,12 @@ func _nearest_interactable(radius: float) -> Area2D:
     var preferred_distance := radius
     for child in get_children():
         var area := child as Area2D
-        if area == null or not is_instance_valid(area):
+        if area == null or not is_instance_valid(area) or area.is_queued_for_deletion():
             continue
         var kind := String(area.get_meta("kind", ""))
         if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "item"].has(kind):
+            continue
+        if kind == "item" and not bool(area.get_meta("manual_pickup", false)):
             continue
         var distance := player.global_position.distance_to(area.global_position)
         if distance > radius:
@@ -3948,7 +3963,7 @@ func _activate_lever(area: Area2D) -> void:
     if _is_shortcut_open(shortcut_id):
         _toast("这条捷径已经接通。")
         return
-    if _combat_progression_enabled():
+    if _combat_progression_enabled() and not _shortcut_is_lever_controlled(shortcut_id):
         if not _combat_goal_met():
             _toast("清除附近的敌群，才能接通钟门前的道路。")
             return
@@ -3980,10 +3995,8 @@ func _open_shortcut(shortcut_id: String = "") -> void:
             var sprite := child.get_node_or_null("LeverSprite") as Sprite2D
             if sprite!=null:_apply_original_prop(sprite,"lever_open",52)
     shortcut_open = true
-    boss_unlocked = true
-    if gate_body != null and is_instance_valid(gate_body):
-        gate_body.queue_free()
-        gate_body = null
+    if not _combat_progression_enabled() or _combat_goal_met():
+        _unlock_boss_route()
     # 捷径门接通（音频规格 §4.5 ui_door_open）："绕回来了"的木门吱呀。
     _play_sfx("door_open", -9.0)
     var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
@@ -3996,10 +4009,7 @@ func _open_all_shortcuts(show_toast: bool = true) -> void:
     for shortcut_id in ids:
         opened_shortcuts[String(shortcut_id)] = true
     shortcut_open = true
-    boss_unlocked = true
-    if gate_body != null and is_instance_valid(gate_body):
-        gate_body.queue_free()
-        gate_body = null
+    _unlock_boss_route()
     if show_toast:
         _toast("本区捷径均已接通。")
     _refresh_hud()
@@ -4404,7 +4414,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             player.gain_energy(20)
         _toast("拾得碎钱与材料 · 绯线回充")
         if _combat_progression_enabled() and _combat_goal_met():
-            _open_all_shortcuts(false)
+            _open_combat_clear_route()
             _play_sfx("door_open", -9.0)
             _toast("本区敌群已清，钟门前的道路开启。")
     _refresh_hud()
@@ -4472,7 +4482,7 @@ func _open_post_boss_route() -> void:
 
 func _is_post_boss_blocker(platform_id: String) -> bool:
     var lowered := platform_id.to_lower()
-    return lowered == "boss_back_wall" or lowered.contains("post_boss_wall") or lowered.contains("chapter_exit_wall")
+    return lowered == "boss_back_wall" or lowered.ends_with("_boss_back_wall") or lowered.contains("post_boss_wall") or lowered.contains("chapter_exit_wall")
 
 
 func _spawn_route_open_effect(position_value: Vector2) -> void:
@@ -4529,12 +4539,14 @@ func _refresh_hud() -> void:
     var boss_text := "Awake" if boss_spawned else ("Ready" if boss_unlocked else "Locked")
     var save_text := active_save_point_id
     if _combat_progression_enabled():
-        hud_label.text = "HP %s/5  EN %s  Skill %s  Enemies %d/%d  Boss Route %s  Boss %s  Save %s  A/D Move W/S Aim Space Jump Shift Dash LMB/J Slash RMB Heal E Skill F Use Tab Bag M Map" % [
+        var boss_route_text := "Open" if boss_unlocked else "Closed"
+        hud_label.text = "HP %s/5  EN %s  Skill %s  Enemies %d/%d  Boss Route %s  Shortcuts %s  Boss %s  Save %s  A/D Move W/S Aim Space Jump Shift Dash LMB/J Slash RMB Heal E Skill F Use Tab Bag M Map" % [
             hp_text,
             energy_text,
             skill_text,
             enemy_defeated,
             enemy_total,
+            boss_route_text,
             shortcut_text,
             boss_text,
             save_text
@@ -4858,7 +4870,7 @@ func _debug_collect_all_abilities() -> void:
 func _debug_clear_combat_route() -> void:
     enemy_defeated = enemy_total
     if _combat_progression_enabled():
-        _open_all_shortcuts(false)
+        _open_combat_clear_route()
     _refresh_hud()
 
 
@@ -4896,3 +4908,49 @@ func _vec2(value: Variant) -> Vector2:
 
 func _color(hex: Variant) -> Color:
     return Color.html("#" + String(hex))
+
+func _shortcut_is_lever_controlled(shortcut_id: String) -> bool:
+    if shortcut_id.is_empty():
+        return false
+    for interactive in config.get("interactives", []):
+        if interactive is Dictionary and String(interactive.get("kind", "")) == "lever" and String(interactive.get("shortcut_id", "")) == shortcut_id:
+            return true
+    return false
+
+
+func _room_has_position_bounds(room_data: Dictionary) -> bool:
+    if _room_layout_rect(room_data).has_area():
+        return true
+    for rect_value in room_data.get("visit_rects", []):
+        if _rect2(rect_value).has_area():
+            return true
+    return false
+
+
+func _room_containing_area(room_data: Dictionary, world_position: Vector2) -> float:
+    var area := INF
+    var layout := _room_layout_rect(room_data)
+    if layout.has_area() and _rect_contains_position(layout, world_position):
+        area = layout.get_area()
+    for rect_value in room_data.get("visit_rects", []):
+        var rect := _rect2(rect_value)
+        if rect.has_area() and _rect_contains_position(rect, world_position):
+            area = minf(area, rect.get_area())
+    return area
+
+
+func _unlock_boss_route() -> void:
+    boss_unlocked = true
+    shortcut_open = true
+    if gate_body != null and is_instance_valid(gate_body):
+        gate_body.queue_free()
+        gate_body = null
+
+
+func _open_combat_clear_route() -> void:
+    for shortcut_id in _shortcut_ids():
+        if not _shortcut_is_lever_controlled(String(shortcut_id)):
+            opened_shortcuts[String(shortcut_id)] = true
+    _unlock_boss_route()
+    _refresh_hud()
+

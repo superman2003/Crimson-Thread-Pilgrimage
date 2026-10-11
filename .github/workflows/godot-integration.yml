@@ -1,0 +1,62 @@
+name: Godot integration regressions
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out the exact commit and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate JavaScript and chapter structure
+        run: |
+          npm run check
+          node tests/game-data.test.mjs
+          node tests/static-smoke.test.mjs
+          node tests/runtime-smoke.test.mjs
+          python3 tools/validate_campaign_chapters.py
+          python3 tools/validate_chapter_files.py
+      - name: Import project resources
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          "$engine" --headless --path godot --editor --import --quit
+          # The first import registers resource UIDs used by the editor plugin.
+          "$engine" --headless --path godot --editor --import --quit
+      - name: Run chapter, combat, dialogue and physics regressions
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          suites="chapter_route_regression pilgrimage_merge_regression all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial combat generated_runtime chapter_registry story_guidance chinese_story metsys"
+          for suite in $suites; do
+            log="$RUNNER_TEMP/$suite.log"
+            echo "Running $suite"
+            if ! timeout 180 "$engine" --headless --path godot --script "res://scripts/${suite}_validation.gd" > "$log" 2>&1; then
+              tail -n 100 "$log"
+              exit 1
+            fi
+            if grep -Eq '^(SCRIPT ERROR:|ERROR:)' "$log"; then
+              grep -E '^(SCRIPT ERROR:|ERROR:)' "$log" | head -n 40
+              exit 1
+            fi
+            tail -n 3 "$log"
+          done

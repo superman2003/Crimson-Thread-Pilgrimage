@@ -1,5 +1,7 @@
 extends SceneTree
 
+var failures := 0
+
 const MAIN_SCENE := "res://scenes/Main.tscn"
 
 
@@ -38,19 +40,25 @@ func _run() -> void:
     _assert(npc != null, "gate pilgrim npc spawned")
     scene._on_interactable_entered(scene.player, npc)
     _assert(String(scene.toast_label.text) == "按F交谈", "NPC prompt is Chinese")
-    scene.nearby_interactable = npc
+    scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(scene.dialogue_panel.visible, "NPC dialogue opens panel")
     _assert(_contains_han(scene.dialogue_text_label.text), "NPC dialogue panel text is Chinese")
     _assert(String(scene.dialogue_name_label.text).contains("守门朝圣者"), "Chinese NPC name is visible")
     _assert(String(npc.get_meta("identity", "")).contains("老巡礼者"), "NPC identity is data-driven")
     var npc_help := String(npc.get_meta("help", ""))
-    _assert(npc_help.contains("敌") or npc_help.contains("战斗"), "NPC help text is data-driven combat guidance")
+    _assert(_contains_han(npc_help) and npc_help.contains("F"), "NPC help text describes the Chinese interaction controls")
+    scene.ui_shell._topic("route")
+    var route := String(npc.get_meta("dialogue_topics", {}).get("route", ""))
+    _assert(_contains_han(route) and String(scene.dialogue_text_label.text) == route, "Chinese route choice shows authored combat guidance")
 
     scene._toggle_map()
     await process_frame
     _assert(not _visible_han_labels(scene).is_empty(), "visible map labels include Chinese")
 
+    if failures > 0:
+        quit(1)
+        return
     print("CHINESE_STORY_VALIDATION_PASS chinese_story_visible=true npc_prompt_chinese=true")
     quit(0)
 
@@ -79,5 +87,5 @@ func _assert(condition: bool, label: String) -> void:
     if condition:
         print("PASS: " + label)
         return
+    failures += 1
     push_error("FAIL: " + label)
-    quit(1)

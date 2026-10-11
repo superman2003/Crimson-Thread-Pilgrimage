@@ -103,7 +103,7 @@
       "silent_order": {
         "name": "沉默军令",
         "category": "Tools",
-        "description": "镜池新娘掉落的章节奖励。"
+        "description": "朝圣者冢里的旧军令，可交给逃旗者核实。"
       },
       "testimony_05": {
         "name": "证词·其五",
@@ -3023,6 +3023,21 @@
       "room_id": "war_graves",
       "platform_id": "graves_floor",
       "reward_role": "optional_exploration"
+    },
+    {
+      "id": "col_silent_order",
+      "kind": "item",
+      "item_id": "silent_order",
+      "amount": 1,
+      "position": [
+        90,
+        1346
+      ],
+      "room_id": "war_graves",
+      "platform_id": "graves_floor",
+      "label": "沉默军令",
+      "reward_role": "optional_exploration",
+      "note": "朝圣者冢碑列平台上的旧军令，按 F 收取后可交付逃旗者。"
     }
   ],
   "interactives": [

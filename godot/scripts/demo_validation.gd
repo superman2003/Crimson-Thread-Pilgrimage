@@ -1,5 +1,7 @@
 extends SceneTree
 
+var failures := 0
+
 const CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
 const MAIN_SCENE := "res://scenes/Main.tscn"
 
@@ -72,7 +74,7 @@ func _run() -> void:
     _assert(save_point.has_node("SavePointHalo"), "save point has animated halo")
     scene.player.hp = 2
     scene.player.energy = 0
-    scene.nearby_interactable = save_point
+    scene.player.global_position = save_point.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(String(state.get("active_save_point_id", "")) == "save_hidden_upper_respite", "F interaction activates save point")
@@ -94,14 +96,14 @@ func _run() -> void:
 
     var npc: Area2D = scene.get_node_or_null("npc_threadsmith_apprentice")
     _assert(npc != null, "threadsmith npc exists")
-    scene.nearby_interactable = npc
+    scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(int(npc.get_meta("dialogue_index", 0)) == 1, "F interaction advances npc dialogue")
 
     scene._debug_clear_combat_route()
     var lever: Area2D = scene.get_node_or_null("shortcut_lever")
     _assert(lever != null, "shortcut lever exists")
-    scene.nearby_interactable = lever
+    scene.player.global_position = lever.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("shortcut_open") == true, "combat clear opens boss route")
@@ -109,14 +111,13 @@ func _run() -> void:
 
     var boss_gate: Area2D = scene.get_node_or_null("boss_gate")
     _assert(boss_gate != null, "boss gate exists")
-    scene.nearby_interactable = boss_gate
+    scene.player.global_position = boss_gate.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("boss_spawned") == true, "F interaction spawns boss")
-    _assert(int(state.get("boss_attack_total", 0)) >= 9, "boss has expanded move list")
-    _assert((state.get("boss_attack_types", []) as Array).has("shockwave"), "boss has shockwave attack")
-    _assert((state.get("boss_attack_types", []) as Array).has("retreat"), "boss has retreat attack")
-    _assert((state.get("boss_attack_types", []) as Array).has("feint"), "boss has feint attack")
+    _assert(int(state.get("boss_attack_total", 0)) == 4, "boss has four distinct authored attacks")
+    for attack_type in ["melee", "wave", "fan", "rootline"]:
+        _assert((state.get("boss_attack_types", []) as Array).has(attack_type), "boss has " + attack_type + " attack")
 
     scene._debug_kill_boss()
     state = scene.get_demo_state()
@@ -125,6 +126,9 @@ func _run() -> void:
     _assert(chapter_exit != null, "chapter exit exists after boss")
     _assert(String(chapter_exit.get_meta("next_runtime_config_id", "")) == "demo_ch02_rain_foundry_canal", "chapter exit points to CH02")
 
+    if failures > 0:
+        quit(1)
+        return
     print("DEMO_VALIDATION_PASS enemies=%s hazards=%s keys=0 boss=1 combat_clear=true complete=true" % [state.get("normal_enemy_total"), state.get("hazard_total")])
     quit(0)
 
@@ -328,5 +332,5 @@ func _assert(condition: bool, label: String) -> void:
     if condition:
         print("PASS: " + label)
         return
+    failures += 1
     push_error("FAIL: " + label)
-    quit(1)

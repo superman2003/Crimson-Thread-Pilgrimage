@@ -240,6 +240,21 @@ QUESTS={
 }
 TITLES={'moss_cavern':'苔钟庭','rain_foundry':'铸雨渠','salt_archive':'盐白档案馆','string_greenhouse':'断弦温室','obsidian_pilgrim':'黑曜巡礼路','silent_crown':'无声王冠'}
 
+def repair_delivery_sources(data):
+    npc_ids = {npc['id'] for npc in data.get('npcs', [])}
+    catalog = data.setdefault('inventory', {}).setdefault('catalog', {})
+    if 'npc_beeswax_vendor' in npc_ids:
+        catalog.setdefault('heart_knot', {'name': '心结', 'category': 'Upgrades',
+            'description': '增加最大生命。打了死结的绯线，攥紧就不冷。'})
+    if 'npc_deserter_flagbearer' in npc_ids:
+        catalog.setdefault('silent_order', {'name': '沉默军令', 'category': 'Quest'})['description'] = '朝圣者冢里的旧军令，可交给逃旗者核实。'
+        collectibles = data.setdefault('collectibles', [])
+        if not any(item.get('item_id') == 'silent_order' for item in collectibles):
+            collectibles.append({'id': 'col_silent_order', 'kind': 'item', 'item_id': 'silent_order',
+                'amount': 1, 'position': [90, 1346], 'room_id': 'war_graves', 'platform_id': 'graves_floor',
+                'label': '沉默军令', 'reward_role': 'optional_exploration',
+                'note': '朝圣者冢碑列平台上的旧军令，按 F 收取后可交付逃旗者。'})
+
 def main():
     count=0
     for path in (ROOT/'godot/data').rglob('demo*.json'):
@@ -261,6 +276,7 @@ def main():
                     'consume':item=='pollen_wax','thanks':thanks}
             npc['dialogue_topics']=topics;changed=True;count+=1
         if changed:
+            repair_delivery_sources(data)
             data['map_title']=TITLES.get(data.get('art_theme',''),'巡礼地图')+' · 巡礼地图'
             data['chapter_name']=TITLES.get(data.get('art_theme',''),'绯线巡礼')
             data['interaction_design']={'key':'F','selection':'nearest_available','story_items':'manual_pickup','materials':'automatic_pickup','dialogue_choices':['continue','route','wish']}

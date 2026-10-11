@@ -327,13 +327,13 @@ func _physics_process(delta: float) -> void:
         if dash_timer <= 0.0:
             _spawn_dash_trail()
     elif attack_timer <= 0.0:
-        velocity.x = move_toward(velocity.x, input_axis * speed, speed * 9.5 * delta)
+        var movement_speed := speed * (0.58 if snare_timer > 0.0 else 1.0)
+        velocity.x = move_toward(velocity.x, input_axis * movement_speed, speed * 9.5 * delta)
     else:
-        velocity.x = move_toward(velocity.x, input_axis * speed * 0.45, speed * 5.0 * delta)
+        var movement_speed := speed * (0.58 if snare_timer > 0.0 else 1.0)
+        velocity.x = move_toward(velocity.x, input_axis * movement_speed * 0.45, speed * 5.0 * delta)
 
     _update_attack(delta)
-    if snare_timer>0 and dash_timer<=0:
-        velocity.x*=.58
     var fall_speed := velocity.y
     move_and_slide()
     if not was_on_floor and is_on_floor():

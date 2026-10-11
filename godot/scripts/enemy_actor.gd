@@ -329,9 +329,12 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
         sprite_faces_left=false
         original_visual=true
         var h := float(art_data.get("display_height",90))
-        hurtbox_offset=Vector2(0,40-h*.5)
-        body_size=Vector2(98 if is_boss else 35,h*.72)
-        hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
+        if not data.has("hurtbox_offset"):
+            hurtbox_offset=Vector2(0,40-h*.5)
+        if not data.has("body_size"):
+            body_size=Vector2(98 if is_boss else 35,h*.72)
+        if not data.has("hurtbox_size"):
+            hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
     ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))

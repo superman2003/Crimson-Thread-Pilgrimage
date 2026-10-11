@@ -1,5 +1,7 @@
 extends SceneTree
 
+var failures := 0
+
 const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_SCRIPT := preload("res://scripts/enemy_actor.gd")
 const CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
@@ -14,14 +16,16 @@ func _run() -> void:
     var config := _load_json(CONFIG_PATH)
     _assert(config.has("ai_profiles"), "ai profile table exists")
     var profiles: Dictionary = config.get("ai_profiles", {})
-    for kind in ["moss_larva", "bronze_moth", "spore_bellmaker", "gear_sentinel"]:
+    var expected_types := {"moss_larva": ["melee", "lunge"], "bronze_moth": ["dive", "fan"], "spore_bellmaker": ["fan", "pool"], "gear_sentinel": ["guard", "melee"]}
+    for kind in expected_types:
         _assert(profiles.has(kind), "%s has an ai profile" % kind)
         var profile: Dictionary = profiles.get(kind, {})
         var count: int = profile.get("attacks", []).size()
-        _assert(count == 1, "%s has exactly one attack" % kind)
-        _assert(_profile_has_only_melee(profile), "%s has no projectile or spell attacks" % kind)
-    _assert(profiles.get("rust_crown_guardian", {}).get("attacks", []).size() >= 5, "boss has expanded move list")
-    _assert(_profile_has_only_melee(profiles.get("rust_crown_guardian", {})), "boss has no projectile or spell attacks")
+        _assert(count == 2, "%s has two distinct authored attacks" % kind)
+        _assert(_profile_has_types(profile, expected_types[kind]), "%s retains its distinct attack mechanics" % kind)
+    var boss_profile: Dictionary = profiles.get("rust_crown_guardian", {})
+    _assert(boss_profile.get("attacks", []).size() == 4, "boss has four distinct authored attacks")
+    _assert(_profile_has_types(boss_profile, ["melee", "wave", "fan", "rootline"]), "boss retains ground, projectile and phase mechanics")
 
     _add_floor(180)
     var player := PLAYER_SCENE.instantiate()
@@ -144,6 +148,9 @@ func _run() -> void:
     _assert(not String(ai_debug.get("last_attack_id", "")).is_empty(), "enemy attack desire starts an active command")
     _assert(ai_player.hp < ai_player.max_hp, "enemy command ai can damage the player")
 
+    if failures > 0:
+        quit(1)
+        return
     print("COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_E=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true")
     quit(0)
 
@@ -211,10 +218,12 @@ func _has_key(action_name: StringName, keycode: int) -> bool:
     return false
 
 
-func _profile_has_only_melee(profile: Dictionary) -> bool:
+func _profile_has_types(profile: Dictionary, required: Array) -> bool:
+    var types: Array = []
     for attack in profile.get("attacks", []):
-        var attack_type := String(attack.get("type", ""))
-        if not ["melee", "lunge", "aoe", "shockwave", "retreat", "feint"].has(attack_type):
+        types.append(String(attack.get("type", "")))
+    for attack_type in required:
+        if not types.has(attack_type):
             return false
     return true
 
@@ -240,5 +249,5 @@ func _assert(condition: bool, label: String) -> void:
     if condition:
         print("PASS: " + label)
         return
+    failures += 1
     push_error("FAIL: " + label)
-    quit(1)

@@ -1,5 +1,7 @@
 extends SceneTree
 
+var failures := 0
+
 const MAIN_SCENE := "res://scenes/Main.tscn"
 const CONFIG_PATHS := [
     "res://data/demo_ch01_moss_bell_court.json",
@@ -30,15 +32,20 @@ func _run() -> void:
 
     var npc: Area2D = scene.get_node_or_null("npc_gate_pilgrim")
     _assert(npc != null, "story NPC exists")
-    scene.nearby_interactable = npc
+    scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(scene.dialogue_panel.visible, "NPC opens dialogue panel")
     _assert(String(scene.dialogue_name_label.text).contains("守门朝圣者"), "dialogue panel shows NPC name")
     _assert(String(scene.dialogue_meta_label.text).contains("老巡礼者"), "dialogue panel shows NPC identity")
     var help_text := String(scene.dialogue_hint_label.text)
-    _assert(help_text.contains("敌") or help_text.contains("战斗"), "dialogue panel shows combat-clear NPC help")
-    _assert(String(scene.dialogue_text_label.text).contains("正门"), "dialogue panel shows story line")
+    _assert(help_text.contains("F") and help_text.contains("Esc"), "dialogue panel shows continuation and exit controls")
+    _assert(String(scene.dialogue_text_label.text) == String(npc.get_meta("dialogue", [""])[0]), "dialogue panel shows the authored greeting")
+    scene.ui_shell._topic("route")
+    _assert(String(scene.dialogue_text_label.text) == String(npc.get_meta("dialogue_topics", {}).get("route", "")), "route choice shows authored combat-clear guidance")
 
+    if failures > 0:
+        quit(1)
+        return
     print("STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true")
     quit(0)
 
@@ -52,7 +59,9 @@ func _validate_config(config_path: String) -> void:
         _assert(not String(npc.get("identity", "")).is_empty(), config_path + " NPC identity exists: " + String(npc.get("id", "")))
         _assert(not String(npc.get("motive", "")).is_empty(), config_path + " NPC motive exists: " + String(npc.get("id", "")))
         _assert(not String(npc.get("help", "")).is_empty(), config_path + " NPC help exists: " + String(npc.get("id", "")))
-        _assert(npc.get("dialogue", []).size() >= 3, config_path + " NPC has story dialogue: " + String(npc.get("id", "")))
+        _assert(npc.get("dialogue", []).size() >= 2, config_path + " NPC has greeting and route dialogue: " + String(npc.get("id", "")))
+        var topics: Dictionary = npc.get("dialogue_topics", {})
+        _assert(not String(topics.get("route", "")).is_empty() and not String(topics.get("wish", "")).is_empty(), config_path + " NPC has route and wish choices: " + String(npc.get("id", "")))
     await process_frame
 
 
@@ -77,5 +86,5 @@ func _assert(condition: bool, label: String) -> void:
     if condition:
         print("PASS: " + label)
         return
+    failures += 1
     push_error("FAIL: " + label)
-    quit(1)
