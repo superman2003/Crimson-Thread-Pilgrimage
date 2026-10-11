@@ -72,7 +72,7 @@ func _run() -> void:
     _assert(save_point.has_node("SavePointHalo"), "save point has animated halo")
     scene.player.hp = 2
     scene.player.energy = 0
-    scene.nearby_interactable = save_point
+    scene.player.global_position = save_point.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(String(state.get("active_save_point_id", "")) == "save_hidden_upper_respite", "F interaction activates save point")
@@ -94,14 +94,14 @@ func _run() -> void:
 
     var npc: Area2D = scene.get_node_or_null("npc_threadsmith_apprentice")
     _assert(npc != null, "threadsmith npc exists")
-    scene.nearby_interactable = npc
+    scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(int(npc.get_meta("dialogue_index", 0)) == 1, "F interaction advances npc dialogue")
 
     scene._debug_clear_combat_route()
     var lever: Area2D = scene.get_node_or_null("shortcut_lever")
     _assert(lever != null, "shortcut lever exists")
-    scene.nearby_interactable = lever
+    scene.player.global_position = lever.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("shortcut_open") == true, "combat clear opens boss route")
@@ -109,7 +109,7 @@ func _run() -> void:
 
     var boss_gate: Area2D = scene.get_node_or_null("boss_gate")
     _assert(boss_gate != null, "boss gate exists")
-    scene.nearby_interactable = boss_gate
+    scene.player.global_position = boss_gate.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("boss_spawned") == true, "F interaction spawns boss")

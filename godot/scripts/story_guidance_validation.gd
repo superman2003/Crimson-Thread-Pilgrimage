@@ -30,7 +30,7 @@ func _run() -> void:
 
     var npc: Area2D = scene.get_node_or_null("npc_gate_pilgrim")
     _assert(npc != null, "story NPC exists")
-    scene.nearby_interactable = npc
+    scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(scene.dialogue_panel.visible, "NPC opens dialogue panel")
     _assert(String(scene.dialogue_name_label.text).contains("守门朝圣者"), "dialogue panel shows NPC name")

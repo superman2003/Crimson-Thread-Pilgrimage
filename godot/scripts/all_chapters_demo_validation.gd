@@ -460,7 +460,7 @@ func _validate_chapter(config_path: String) -> void:
     var first_npc: Area2D = scene.get_node_or_null(first_npc_id)
     _assert(first_npc != null, config_id + " first NPC exists")
     _assert(first_npc.get_meta("dialogue", []).size() >= 3, config_id + " first NPC has dialogue")
-    scene.nearby_interactable = first_npc
+    scene.player.global_position = first_npc.global_position
     scene._try_interact()
     _assert(int(first_npc.get_meta("dialogue_index", 0)) == 1, config_id + " first NPC dialogue advances")
 
@@ -487,7 +487,7 @@ func _validate_chapter(config_path: String) -> void:
     _assert(save_node.has_node("SavePointHalo"), config_id + " save point has animated halo")
     scene.player.hp = 2
     scene.player.energy = 0
-    scene.nearby_interactable = save_node
+    scene.player.global_position = save_node.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(String(state.get("active_save_point_id", "")) == String(first_save_point.get("id", "")), config_id + " save point interaction updates respawn")
@@ -499,7 +499,7 @@ func _validate_chapter(config_path: String) -> void:
     var lever := _interactive_by_kind(interactives, "lever")
     var lever_node: Area2D = scene.get_node_or_null(String(lever.get("id", "")))
     _assert(lever_node != null, config_id + " shortcut lever exists")
-    scene.nearby_interactable = lever_node
+    scene.player.global_position = lever_node.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("shortcut_open") == true, config_id + " combat clear opens boss route")
@@ -508,7 +508,7 @@ func _validate_chapter(config_path: String) -> void:
     var boss_gate := _interactive_by_kind(interactives, "boss_gate")
     var boss_gate_node: Area2D = scene.get_node_or_null(String(boss_gate.get("id", "")))
     _assert(boss_gate_node != null, config_id + " boss gate exists")
-    scene.nearby_interactable = boss_gate_node
+    scene.player.global_position = boss_gate_node.global_position
     scene._try_interact()
     await process_frame
     state = scene.get_demo_state()
@@ -560,7 +560,7 @@ func _validate_chapter(config_path: String) -> void:
             next_scene.queue_free()
             await process_frame
     else:
-        scene.nearby_interactable = exit_node
+        scene.player.global_position = exit_node.global_position
         scene._try_interact()
         _assert(scene.win_label.visible, config_id + " ending exit opens ending route")
 
