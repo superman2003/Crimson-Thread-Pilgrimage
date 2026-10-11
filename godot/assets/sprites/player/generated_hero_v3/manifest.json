@@ -2,14 +2,14 @@
   "version": 3,
   "source": "imagegen authored poses",
   "frame_size": [
-    256,
-    256
+    384,
+    384
   ],
-  "foot_baseline": 204,
+  "foot_baseline": 280,
   "sprite_scale": 0.66,
   "sprite_position": [
     0,
-    -50.160000000000004
+    -58.080000000000005
   ],
   "animations": [
     {
@@ -303,6 +303,7 @@
   ],
   "limitations": [
     "Four authored poses per action family; fall/apex are held poses.",
-    "Melee and area-wave skills share family poses; distinct runtime effects and phases remain."
+    "Melee and area-wave skills share family poses; distinct runtime effects and phases remain.",
+    "Touching source weapons and outer-source edge contacts need art review; see crop_audit.json."
   ]
 }

@@ -1223,7 +1223,7 @@ func _update_animation(input_axis: float) -> void:
     elif grapple_timer > 0.0:
         _play(&"hook_throw")
     elif dash_timer > 0.0:
-        _play(&"dash")
+        _pose_progress(&"dash", 1.0 - dash_timer / maxf(dash_time, 0.01))
     elif wall_sliding and not is_on_floor():
         _play(&"wall_slide")
     elif phase_active:

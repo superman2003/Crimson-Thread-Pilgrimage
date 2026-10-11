@@ -33,6 +33,8 @@ jobs:
         run: |
           npm test
           npm run test:campaign
+          python3 -m pip install -r tools/requirements-hero.txt
+          python3 tools/validate_hero_v3.py
       - name: Import project resources
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
