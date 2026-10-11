@@ -1,16 +1,24 @@
 # Crimson Thread Pilgrimage / 绯线巡礼
 
-一个 Godot 4.6 2D 动作平台游戏原型。当前仓库包含六章试玩配置、横版战斗、方向劈砍/下劈反弹、主动进攻敌人 AI、Boss 房锁门、存档点恢复、Metroidvania 地图桥接、素材处理脚本和本地回归验证。
+一个 Godot 4.6 2D 动作平台游戏原型。当前 main 包含六章手绘侧视地图、连续地形与斜坡、40 种小怪和 6 位 Boss 的 104 套攻击序列，以及分类背包、NPC 对话与交付、手动拾取、音量设置、存档和 Metroidvania 地图。
 
 > 本项目是学习与原型用途的独立工程，不包含任何第三方商业 IP 资源。代码按 MIT 发布；第三方素材分别遵守各自许可证。
 
+## 当前状态（2026-10-11）
+
+[PR #8](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/8) 已合入 main，合并提交为 [b0326e6](https://github.com/superman2003/Crimson-Thread-Pilgrimage/commit/b0326e62491140a9fe089706d692f5d09ca30354)。六章地图、美术、战斗和界面已可从 main 使用；原分支保留供历史追溯。
+
+[PR #7](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/7) 的运行时修复也已合入；旧 [PR #6](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/6) 已关闭，其旧地图没有覆盖新内容。
+
+[合入版本的 CI](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38117357448) 通过 15 个 Godot 套件、三个 Node 测试和两项章节结构检查，其中章节回归 270 项、物理与减速 12 项、复审回归 133 项。最新自动代码与安全复审均已结束；合并后的两条 P2 意见仍待处理：跨章携带物品的分类，以及攻击打断后的警示线清理。详见[整合与验证记录](docs/report/20261011_flat_map_integration.md)。
+
 ## 预览
 
-2026-10-11 改版：[六章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)、[分类背包](artifacts/pilgrimage_overhaul/inventory.png)、[NPC对话](artifacts/pilgrimage_overhaul/dialogue.png)。本轮包含46类敌人的104个招式、六章手绘地图与连续地形，详见[改版记录与验证](docs/release/20261011_pilgrimage_overhaul.md)。
+2026-10-11 改版：[第一章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)、[分类背包](artifacts/pilgrimage_overhaul/inventory.png)、[NPC对话](artifacts/pilgrimage_overhaul/dialogue.png)。[六章截图目录](artifacts/pilgrimage_overhaul)。本轮包含46类敌人的104个招式、六章手绘地图与连续地形，详见[改版记录与验证](docs/release/20261011_pilgrimage_overhaul.md)。
 
-![Six Chapter Map Overview](artifacts/godot_showcase/six_chapter_maps_contact_sheet.png)
+![新版第一章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)
 
-![Configured Monsters and Bosses](artifacts/godot_showcase/bestiary/configured_monsters_contact_sheet.png)
+![新版分类背包](artifacts/pilgrimage_overhaul/inventory.png)
 
 ## 运行 Godot 项目
 
@@ -39,6 +47,10 @@ godot --headless --path godot --script res://scripts/demo_validation.gd
 godot --headless --path godot --script res://scripts/ch02_demo_validation.gd
 godot --headless --path godot --script res://scripts/combat_validation.gd
 godot --headless --path godot --script res://scripts/all_chapters_demo_validation.gd
+godot --headless --path godot --script res://scripts/chapter_route_regression_validation.gd
+godot --headless --path godot --script res://scripts/pilgrimage_merge_regression_validation.gd
+godot --headless --path godot --script res://scripts/pilgrimage_review_regression_validation.gd
+godot --headless --path godot --script res://scripts/pilgrimage_overhaul_validation.gd
 
 python tools\validate_chapter_files.py
 python tools\validate_open_asset_policy.py
@@ -50,11 +62,15 @@ python tools\render_demo_visuals.py
 
 ```powershell
 npm run check
-npm test
+node tests/game-data.test.mjs
+node tests/static-smoke.test.mjs
+node tests/runtime-smoke.test.mjs
 npm start
 ```
 
 然后打开 `http://127.0.0.1:5173/`。
+
+全量 `npm test` 仍引用缺失的 `tools/audit_platform_geometry.py` 和 `tools/audit_map_uniqueness.py`；旧章节规划与新 campaign 的 Boss 名称一致性检查也尚未通过。上述 CI 成功不表示这两类检查已修复。
 
 ## 当前内容
 

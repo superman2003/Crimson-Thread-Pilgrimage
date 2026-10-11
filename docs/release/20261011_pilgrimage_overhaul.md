@@ -2,6 +2,12 @@
 
 本次以手绘侧视 2D、互连地图和可读战斗为目标。以《丝之歌》的设计质量为参考，角色、道具、场景图像与对白均围绕本项目的巡礼世界创作。
 
+## 发布状态
+
+2026-10-11，[PR #8](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/8) 已合入 main，合并提交为 `b0326e62491140a9fe089706d692f5d09ca30354`。同时保留已合入的 PR #7 运行时修复；旧 PR #6 已关闭，没有用旧地图覆盖本轮内容。
+
+[合入版本 CI](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38117357448) 通过 15 个 Godot 套件，包含 270 项章节回归、12 项物理与减速检查、133 项复审回归，以及三个 Node 测试和章节结构检查。代码与安全自动复审均已结束；合并后新增两条 P2（跨章物品分类、打断后的原创警示线）仍待处理，详见[最终整合记录](../report/20261011_flat_map_integration.md)。
+
 ## 已接入内容
 
 - 六章各自的背景、12 种平台模块、6 种装饰和6种地层纹理。连续地形共61段，将141个原平台锚点连接成道路、斜坡、桥、遗迹与洞道；保留垂直探索和能力门。
@@ -61,4 +67,4 @@ npm run check
 
 网页端的game-data、static-smoke和runtime-smoke测试通过。完整`npm test`最后的旧map-quality命令无法运行：基线仓库缺少`tools/audit_platform_geometry.py`及`tools/audit_map_uniqueness.py`。本次地形通过上述Godot运行检查；不将缺失的旧审计报告为通过。
 
-本改版分支为`codex/flat-2d-map-art`。提交不包含导入缓存或未修改的第三方素材。
+原开发分支 `codex/flat-2d-map-art` 保留供历史追溯，改版内容现已在 main。提交不包含导入缓存或未修改的第三方素材。

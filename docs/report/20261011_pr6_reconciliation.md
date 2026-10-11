@@ -2,11 +2,13 @@
 
 审计日期：2026-10-11。核对对象为远端代码和实际 Godot 运行结果，不以旧审查意见直接推断当前故障。
 
+最终处理状态：PR #6 已关闭且未合并，替代修复 PR #7 已合入 main；随后六章地图与美术 PR #8 也已合入，合并提交为 `b0326e62491140a9fe089706d692f5d09ca30354`。以下审计数字、地图配置和“main”比较均以审计起点 `7a6b96c` 为准，不代表改版后的当前 main。最终整合验证及新增待处理审查见[六章地图整合记录](20261011_flat_map_integration.md)。
+
 ## 结论
 
 [PR #6](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/6) 的四份地图已被 main 的独立地图、剧情、NPC、收集物及运行时配置替代，不适合通过解决 JSON 冲突来重新引入。采用基于当前 main 的独立修复 PR 替代旧 PR；旧分支保留以供追溯，不合并旧地图或其生成脚本。
 
-确认当前运行时仍有三类相关问题：拉杆捷径被清怪自动打开、重叠二维房间被列表中的外层房间抢先识别，以及交互使用过期的区域进入目标。修复这三类问题，同时补齐旧 Boss 挡墙命名的兼容性。当前六章地图没有旧 PR 的出口挡墙，因此兼容性修复不等于确认 main 存在第四至第六章无法离开的 P1 故障。
+在审计起点确认运行时仍有三类相关问题：拉杆捷径被清怪自动打开、重叠二维房间被列表中的外层房间抢先识别，以及交互使用过期的区域进入目标。修复这三类问题，同时补齐旧 Boss 挡墙命名的兼容性。当前六章地图没有旧 PR 的出口挡墙，因此兼容性修复不等于确认 main 存在第四至第六章无法离开的 P1 故障。
 
 六份 `godot/data/demo_ch0*.json`（不含 Boss trial）与审计起点 main **逐字节相同**；地图、剧情、NPC 位置、背包目录、Boss 数据与音频素材均不从旧 PR 覆盖。
 
@@ -14,7 +16,7 @@
 
 | 对象 | 固定提交 |
 | --- | --- |
-| 当前 main | [`7a6b96cf8ed54dc31e7e58d963372324ffbd579e`](https://github.com/superman2003/Crimson-Thread-Pilgrimage/commit/7a6b96cf8ed54dc31e7e58d963372324ffbd579e) |
+| 审计起点 main | [`7a6b96cf8ed54dc31e7e58d963372324ffbd579e`](https://github.com/superman2003/Crimson-Thread-Pilgrimage/commit/7a6b96cf8ed54dc31e7e58d963372324ffbd579e) |
 | PR #6 最新 head | [`3354377a0f8af7110c3eb066ebe1ce808860a388`](https://github.com/superman2003/Crimson-Thread-Pilgrimage/commit/3354377a0f8af7110c3eb066ebe1ce808860a388) |
 | 共同祖先 | [`3ecd08a28c14c816f89767aaf422c0b58e74b689`](https://github.com/superman2003/Crimson-Thread-Pilgrimage/commit/3ecd08a28c14c816f89767aaf422c0b58e74b689) |
 
@@ -95,4 +97,4 @@ HUD 修复后扩展回归 **199 / 199 通过**，没有脚本错误。
 
 2026-10-11 另一个会话正在上传 `codex/flat-2d-map-art`。以其本地固定提交 `4f3d0169f4312544ac230c64037e2d49a6c663b9` 和本 PR 的 `9504934f2c91acc2391b05c91105261217baca94` 运行 `git merge-tree --write-tree --name-only`，确有两份文件内容冲突：`godot/scripts/main_level.gd` 和 `godot/scripts/all_chapters_demo_validation.gd`。前者在 F 键交互函数，后者在 NPC 对话及交互测试。
 
-GitHub 对本 PR 相对当前 main 的 `clean` 状态不代表这两个并行分支彼此兼容。集成时需保留地图／美术分支的手动拾取、对话处理以及本 PR 的目标距离判定和路径修复，针对改写后的地图重新运行回归；不能整份选择 ours/theirs。本次检查没有修改另一个会话的工作树或分支，也没有合并任何 PR。
+GitHub 对本 PR 相对当前 main 的 `clean` 状态不代表这两个并行分支彼此兼容。集成时需保留地图／美术分支的手动拾取、对话处理以及本 PR 的目标距离判定和路径修复，针对改写后的地图重新运行回归；不能整份选择 ours/theirs。这段并行检查发生在合并前，当时未修改另一个会话的工作树或合并 PR。后续已通过 PR #8 逐项整合这些冲突，保留双方历史并重新验证改写后的地图；最终结果见上述整合记录。
