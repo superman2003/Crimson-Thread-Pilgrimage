@@ -766,17 +766,17 @@
       "id": "east_balcony",
       "name": "东庭露台",
       "range": [
-        4510,
-        4910
+        4490,
+        4930
       ],
       "depth": 2,
       "kind": "corridor",
       "archetype": "corridor",
       "layout_rect": [
-        4510,
-        2640,
-        400,
-        248
+        4490,
+        2490,
+        440,
+        398
       ],
       "map_rect": [
         1960,
@@ -784,21 +784,47 @@
         236,
         168
       ],
-      "objective": "从回廊踏上东庭露台环带。",
-      "guide": "环带一路向东，最终俯瞰铸雨渠。",
-      "danger": "露台年久失修。",
+      "objective": "穿过旧吊运露台，辨认铜蛾栖廊的入口。",
+      "guide": "西侧吊运口可以回访；沿地面交锋，或跳上东侧铜台观察守卫。",
+      "danger": "盾卫守在东端，进入吊运口附近可先停下。",
       "next": "铜蛾栖廊",
-      "setpiece": "苔蚀露台",
-      "traversal_focus": "环带横越",
-      "pacing_role": "explore_and_loop",
+      "setpiece": "弃置的吊钟台与铜环",
+      "traversal_focus": "上下两线处理盾卫",
+      "pacing_role": "encounter_choice",
       "visit_rects": [
         [
-          4510,
-          2640,
-          400,
-          248
+          4490,
+          2490,
+          440,
+          398
         ]
-      ]
+      ],
+      "landmark_art": {
+        "variant": 0,
+        "position": [
+          4760,
+          2410
+        ],
+        "size": [
+          165,
+          290
+        ],
+        "opacity": 0.62
+      },
+      "design_card": {
+        "purpose": "穿过旧吊运露台，辨认铜蛾栖廊的入口。",
+        "catastrophe": "钟骨吊运停摆，铜环仍连接旧检修支线。",
+        "landing_platform_ids": [
+          "eb_floor",
+          "eb_signal_shelf"
+        ],
+        "enemy_ids": [
+          "E06"
+        ],
+        "reward_ids": [
+          "upgrade_echo_hook_1_access_a"
+        ]
+      }
     },
     {
       "id": "moth_roost",
@@ -842,17 +868,17 @@
       "id": "rain_overlook",
       "name": "雨眺台",
       "range": [
-        5860,
-        6260
+        5840,
+        6280
       ],
       "depth": 2,
       "kind": "vista",
       "archetype": "vista",
       "layout_rect": [
-        5860,
-        2640,
-        400,
-        250
+        5840,
+        2490,
+        440,
+        400
       ],
       "map_rect": [
         2800,
@@ -860,21 +886,43 @@
         236,
         168
       ],
-      "objective": "眺望下方的铸雨渠。",
-      "guide": "东端钟隙对岸就是锈冠殿顶。",
-      "danger": "眺台风雨欲来。",
+      "objective": "从旧观雨台辨认东侧钟隙渡口。",
+      "guide": "沿下层继续东行；上层观雨台可单跳登上，向西落回原路。",
+      "danger": "此处可以喘息，东面的钟隙仍需要绯线冲刺。",
       "next": "钟隙渡口",
-      "setpiece": "远处的铸雨渠灯火",
-      "traversal_focus": "前瞻释放",
-      "pacing_role": "foreshadow",
+      "setpiece": "倾斜观雨拱与苔藤",
+      "traversal_focus": "低路通行，高台眺望",
+      "pacing_role": "respite_and_foreshadow",
       "visit_rects": [
         [
-          5860,
-          2640,
-          400,
-          250
+          5840,
+          2490,
+          440,
+          400
         ]
-      ]
+      ],
+      "landmark_art": {
+        "variant": 1,
+        "position": [
+          5970,
+          2390
+        ],
+        "size": [
+          220,
+          330
+        ],
+        "opacity": 0.58
+      },
+      "design_card": {
+        "purpose": "从旧观雨台辨认东侧钟隙渡口。",
+        "catastrophe": "观雨拱倾斜，铸雨渠仍在东面运转。",
+        "landing_platform_ids": [
+          "ro_floor",
+          "rain_observation_ledge"
+        ],
+        "enemy_ids": [],
+        "reward_ids": []
+      }
     },
     {
       "id": "bell_gap_crossing",
@@ -1080,9 +1128,9 @@
       "archetype": "secret",
       "layout_rect": [
         3720,
-        5270,
+        5190,
         400,
-        248
+        328
       ],
       "map_rect": [
         1680,
@@ -1090,21 +1138,45 @@
         236,
         168
       ],
-      "objective": "冲过钟隙进入深廊。",
-      "guide": "需要绯线冲刺。",
-      "danger": "深廊水声不对劲。",
+      "objective": "越过冲刺门，登上沉钟基座取回能量纺锤。",
+      "guide": "门内先落在西侧宽台；跳上右侧基座拾取，再原路退回假苔穴。",
+      "danger": "入口钟隙仍需绯线冲刺；基座下没有强制落井。",
       "next": "假苔穴",
-      "setpiece": "沉在水下的钟",
-      "traversal_focus": "冲刺门",
+      "setpiece": "沉钟基座上的遗留纺锤",
+      "traversal_focus": "门后安全落脚，短跳取宝",
       "pacing_role": "reward",
       "visit_rects": [
         [
           3720,
-          5270,
+          5190,
           400,
-          248
+          328
         ]
-      ]
+      ],
+      "landmark_art": {
+        "variant": 4,
+        "position": [
+          3920,
+          5100
+        ],
+        "size": [
+          165,
+          246
+        ],
+        "opacity": 0.6
+      },
+      "design_card": {
+        "purpose": "越过冲刺门，登上沉钟基座取回能量纺锤。",
+        "catastrophe": "水窖淹没旧钟，只剩基座与遗留纺锤。",
+        "landing_platform_ids": [
+          "cdg_floor",
+          "cdg_bell_plinth"
+        ],
+        "enemy_ids": [],
+        "reward_ids": [
+          "col_energy_spindle"
+        ]
+      }
     },
     {
       "id": "sluice_hall",
@@ -1425,17 +1497,17 @@
       "id": "maze_respite",
       "name": "迷园歇脚",
       "range": [
-        1320,
-        1720
+        1300,
+        1740
       ],
       "depth": 6,
       "kind": "save",
       "archetype": "save",
       "layout_rect": [
-        1320,
-        4970,
-        400,
-        252
+        1300,
+        4820,
+        440,
+        402
       ],
       "map_rect": [
         280,
@@ -1443,30 +1515,43 @@
         236,
         168
       ],
-      "objective": "在祭坛前最后一次点灯。",
-      "guide": "下面就是断枝祭坛——准备好再跳。",
-      "danger": "安全屋，但下方传来钟声。",
+      "objective": "在根须庇护所点亮苔灯，为断枝祭坛整备。",
+      "guide": "苔灯在中央宽地面；西侧断石凳可短跳登上，返回竖井仍沿原路。",
+      "danger": "庇护所内没有敌人，准备好后再向断枝祭坛下行。",
       "next": "断枝祭坛",
-      "setpiece": "根须间的苔灯",
-      "traversal_focus": "战前存档",
+      "setpiece": "根须包住的钟碑与断石凳",
+      "traversal_focus": "安全整备与回程识别",
       "pacing_role": "respite",
       "visit_rects": [
         [
-          1320,
-          4970,
-          400,
-          252
+          1300,
+          4820,
+          440,
+          402
         ]
       ],
       "landmark_art": {
-        "motif": "bell",
+        "variant": 3,
         "position": [
-          1484,
-          4930
+          1390,
+          4810
         ],
         "size": [
-          200,
-          220
+          175,
+          320
+        ],
+        "opacity": 0.65
+      },
+      "design_card": {
+        "purpose": "在根须庇护所点亮苔灯，为断枝祭坛整备。",
+        "catastrophe": "根须封住旧碑，却留下可供朝圣者停歇的苔灯。",
+        "landing_platform_ids": [
+          "mr_floor",
+          "mr_root_bench"
+        ],
+        "enemy_ids": [],
+        "reward_ids": [
+          "save_maze_respite"
         ]
       }
     },
@@ -1634,9 +1719,9 @@
       "archetype": "save",
       "layout_rect": [
         5220,
-        3770,
+        3610,
         400,
-        250
+        410
       ],
       "map_rect": [
         2520,
@@ -1644,30 +1729,43 @@
         236,
         168
       ],
-      "objective": "点亮殿前苔灯，准备面对守母。",
-      "guide": "死亡回跑很短。",
-      "danger": "门后就是守母的领域。",
+      "objective": "点亮殿前苔灯，再沿下层进入锈冠殿。",
+      "guide": "宽地面直通殿门；右侧烛台是观察台，不必攀登也能前进。",
+      "danger": "钟龛内可整备；门后才是守母的领域。",
       "next": "锈冠殿",
-      "setpiece": "殿前苔灯",
-      "traversal_focus": "战前存档",
-      "pacing_role": "tension",
+      "setpiece": "三钟祈愿碑与殿前烛台",
+      "traversal_focus": "无遮挡的短重试路线",
+      "pacing_role": "respite_before_boss",
       "visit_rects": [
         [
           5220,
-          3770,
+          3610,
           400,
-          250
+          410
         ]
       ],
       "landmark_art": {
-        "motif": "bell",
+        "variant": 4,
         "position": [
-          5384,
-          3730
+          5340,
+          3580
         ],
         "size": [
-          200,
-          220
+          180,
+          292
+        ],
+        "opacity": 0.65
+      },
+      "design_card": {
+        "purpose": "点亮殿前苔灯，再沿下层进入锈冠殿。",
+        "catastrophe": "祈愿碑失声，守母仍守着门后的旧殿。",
+        "landing_platform_ids": [
+          "pbs_floor",
+          "pbs_votive_shelf"
+        ],
+        "enemy_ids": [],
+        "reward_ids": [
+          "save_late_runback"
         ]
       }
     },
@@ -3852,7 +3950,7 @@
       "rect": [
         4550,
         2790,
-        320,
+        360,
         38
       ],
       "color": "1c2b1f",
@@ -5332,9 +5430,9 @@
     {
       "id": "mr_floor",
       "rect": [
-        1360,
+        1340,
         5120,
-        320,
+        380,
         42
       ],
       "color": "1c2b1f",
@@ -5720,6 +5818,126 @@
       "material": "moss_stone",
       "collision_role": "floor",
       "route_role": "branch"
+    },
+    {
+      "id": "eb_signal_shelf",
+      "rect": [
+        4800,
+        2694,
+        110,
+        22
+      ],
+      "color": "786747",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          3,
+          8
+        ]
+      }
+    },
+    {
+      "id": "rain_observation_ledge",
+      "rect": [
+        6010,
+        2702,
+        180,
+        22
+      ],
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          3,
+          8
+        ]
+      }
+    },
+    {
+      "id": "cdg_bell_plinth",
+      "rect": [
+        3910,
+        5356,
+        138,
+        64
+      ],
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          3,
+          8
+        ]
+      }
+    },
+    {
+      "id": "mr_root_bench",
+      "rect": [
+        1354,
+        5064,
+        94,
+        56
+      ],
+      "color": "344b3d",
+      "material": "moss_stone",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          3,
+          8
+        ]
+      }
+    },
+    {
+      "id": "pbs_votive_shelf",
+      "rect": [
+        5510,
+        3832,
+        78,
+        22
+      ],
+      "color": "786747",
+      "material": "bronze_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          3,
+          8
+        ]
+      }
     }
   ],
   "locked_gates": [
@@ -6020,12 +6238,12 @@
       "room_id": "cistern_deep_gallery",
       "item_id": "energy_spindle",
       "position": [
-        3920,
-        5380
+        3990,
+        5316
       ],
       "ability_name": "能量纺锤",
       "label": "能量纺锤",
-      "note": "水窖深廊，冲刺门后。"
+      "note": "水窖深廊冲刺门后；单跳登上沉钟基座，原路安全返回。"
     },
     {
       "id": "col_map_fragment",
@@ -6502,7 +6720,7 @@
       "id": "E06",
       "kind": "gear_sentinel",
       "position": [
-        4710,
+        4770,
         2750
       ],
       "platform_id": "eb_floor",
@@ -6516,8 +6734,8 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/gear_sentinel/atlas.png",
-      "patrol": 100,
-      "leash_radius": 230,
+      "patrol": 58,
+      "leash_radius": 110,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 62,
@@ -10281,9 +10499,15 @@
       ],
       [
         4096,
-        2784,
+        2794,
         416,
-        32
+        22
+      ],
+      [
+        4096,
+        2784,
+        394,
+        10
       ],
       [
         4992,
@@ -10739,7 +10963,13 @@
         5568,
         3584,
         992,
-        32
+        26
+      ],
+      [
+        5620,
+        3610,
+        940,
+        6
       ],
       [
         6848,
@@ -11099,7 +11329,13 @@
         -256,
         4800,
         1632,
-        32
+        20
+      ],
+      [
+        -256,
+        4820,
+        1556,
+        12
       ],
       [
         -256,
@@ -11175,9 +11411,15 @@
       ],
       [
         1728,
-        5120,
+        5124,
         288,
-        32
+        28
+      ],
+      [
+        1740,
+        5120,
+        276,
+        4
       ],
       [
         4032,
@@ -11409,6 +11651,18 @@
       ],
       [
         [
+          3712.0,
+          6080.0
+        ],
+        [
+          3712.0,
+          6048.0
+        ],
+        [
+          3520.0,
+          6048.0
+        ],
+        [
           3520.0,
           6016.0
         ],
@@ -11621,8 +11875,12 @@
           4832.0
         ],
         [
+          1300.0,
+          4820.0
+        ],
+        [
           1376.0,
-          4832.0
+          4820.0
         ],
         [
           1376.0,
@@ -12834,6 +13092,10 @@
         ],
         [
           4512.0,
+          2794.0
+        ],
+        [
+          4490.0,
           2784.0
         ],
         [
@@ -13082,6 +13344,10 @@
         ],
         [
           5568.0,
+          3610.0
+        ],
+        [
+          5620.0,
           3616.0
         ],
         [
@@ -13487,18 +13753,6 @@
         [
           3712.0,
           6080.0
-        ],
-        [
-          3712.0,
-          6048.0
-        ],
-        [
-          3520.0,
-          6048.0
-        ],
-        [
-          3520.0,
-          6016.0
         ]
       ],
       [
@@ -13667,6 +13921,18 @@
       ],
       [
         [
+          3424.0,
+          832.0
+        ],
+        [
+          3424.0,
+          864.0
+        ],
+        [
+          3456.0,
+          864.0
+        ],
+        [
           3456.0,
           896.0
         ],
@@ -13697,79 +13963,9 @@
         [
           3424.0,
           832.0
-        ],
-        [
-          3424.0,
-          864.0
-        ],
-        [
-          3456.0,
-          864.0
-        ],
-        [
-          3456.0,
-          896.0
         ]
       ],
       [
-        [
-          4128.0,
-          2272.0
-        ],
-        [
-          4096.0,
-          2272.0
-        ],
-        [
-          4096.0,
-          2368.0
-        ],
-        [
-          4160.0,
-          2368.0
-        ],
-        [
-          4160.0,
-          2400.0
-        ],
-        [
-          4224.0,
-          2400.0
-        ],
-        [
-          4224.0,
-          2368.0
-        ],
-        [
-          4192.0,
-          2368.0
-        ],
-        [
-          4192.0,
-          2336.0
-        ],
-        [
-          4160.0,
-          2336.0
-        ],
-        [
-          4160.0,
-          2304.0
-        ],
-        [
-          4128.0,
-          2304.0
-        ],
-        [
-          4128.0,
-          2272.0
-        ]
-      ],
-      [
-        [
-          2784.0,
-          4352.0
-        ],
         [
           2784.0,
           4128.0
@@ -13793,17 +13989,13 @@
         [
           2784.0,
           4352.0
+        ],
+        [
+          2784.0,
+          4128.0
         ]
       ],
       [
-        [
-          2784.0,
-          4608.0
-        ],
-        [
-          2784.0,
-          4672.0
-        ],
         [
           2816.0,
           4672.0
@@ -13839,12 +14031,20 @@
         [
           2784.0,
           4608.0
+        ],
+        [
+          2784.0,
+          4672.0
+        ],
+        [
+          2816.0,
+          4672.0
         ]
       ],
       [
         [
           1728.0,
-          5120.0
+          5124.0
         ],
         [
           1728.0,
@@ -13900,14 +14100,10 @@
         ],
         [
           1728.0,
-          5120.0
+          5124.0
         ]
       ],
       [
-        [
-          4064.0,
-          1568.0
-        ],
         [
           4064.0,
           1600.0
@@ -13971,13 +14167,67 @@
         [
           4064.0,
           1568.0
+        ],
+        [
+          4064.0,
+          1600.0
         ]
       ],
       [
         [
-          5120.0,
-          3392.0
+          4224.0,
+          2400.0
         ],
+        [
+          4224.0,
+          2368.0
+        ],
+        [
+          4192.0,
+          2368.0
+        ],
+        [
+          4192.0,
+          2336.0
+        ],
+        [
+          4160.0,
+          2336.0
+        ],
+        [
+          4160.0,
+          2304.0
+        ],
+        [
+          4128.0,
+          2304.0
+        ],
+        [
+          4128.0,
+          2272.0
+        ],
+        [
+          4096.0,
+          2272.0
+        ],
+        [
+          4096.0,
+          2368.0
+        ],
+        [
+          4160.0,
+          2368.0
+        ],
+        [
+          4160.0,
+          2400.0
+        ],
+        [
+          4224.0,
+          2400.0
+        ]
+      ],
+      [
         [
           5024.0,
           3392.0
@@ -13992,6 +14242,10 @@
         ],
         [
           5120.0,
+          3392.0
+        ],
+        [
+          5024.0,
           3392.0
         ]
       ],

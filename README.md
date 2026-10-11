@@ -215,3 +215,9 @@ npm start
 ## License
 
 项目代码使用 MIT License。第三方素材、插件、音频和字体等按各自许可证使用，详见 `THIRD_PARTY_NOTICES.md` 和各素材目录下的 NOTICE/LICENSE 文件。
+
+## 逐批关卡升级
+
+[W02 第一批：苔钟庭五间原房间重构](docs/CH01_ROOM_RECONSTRUCTION.md) · [实机前后对比](docs/gallery/20261011_ch01_rooms.md)。全清单仍分批推进，验收范围见文档。
+
+[六区岩壁与整块结构材质修复：实机对比](docs/WORLD_MATERIALS.md)。

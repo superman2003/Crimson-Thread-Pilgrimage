@@ -14,7 +14,7 @@ Import Godot resources before the runtime suites (`--headless --path godot --edi
 
 `npm run test:map-quality:all` and `npm run test:generated-maps` also examine the older generated maps. These remain explicit strict checks. The older generated map set currently has 54 recovery markers embedded in platforms; those defects are reported as failures, not hidden by the active-map checks. Generated maps are a separate layout pipeline from the active campaign.
 
-Repeated collision silhouettes are visible review warnings. Different names alone do not prove that rooms feel distinct; the current first region still has five rooms with the same local collision silhouette, and several ability workshop groups share a platform template. These require level-design and visual review.
+Repeated collision silhouettes are visible review warnings. Different names alone do not prove that rooms feel distinct; the five original first-region rooms identified by the earlier audit now have distinct local geometry and rendered comparisons (see [CH01_ROOM_RECONSTRUCTION.md](CH01_ROOM_RECONSTRUCTION.md)). Several ability workshop groups still share a platform template and require further level-design review.
 
 ## Evidence and limits
 

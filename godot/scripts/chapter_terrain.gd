@@ -1,5 +1,7 @@
 extends Node2D
 
+const ROCK := preload("res://scripts/world_rock_material.gd")
+var material_theme := "moss_cavern"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 var landforms: Array = []
 var atlas: Texture2D
@@ -12,6 +14,7 @@ var collision_regions: Array[Dictionary] = []
 
 func configure(config: Dictionary, theme: String) -> void:
     name = "ChapterTerrain"
+    material_theme = theme
     landforms = config.get("terrain", [])
     var directory := "res://assets/sprites/flat_maps/" + theme + "/"
     var data := ART.manifest(directory + "manifest.json")
@@ -46,7 +49,6 @@ func _build_landform(data: Dictionary) -> void:
     if bool(all_one_way.get(String(body.name), false)):
         spans = [[float(surface[0][0]), float(surface[-1][0])]]
     _build_collision_sections(body, surface, depth, spans)
-    var variants: Array = data.get("texture_variants", [0,1,2])
     for i in range(surface.size()-1):
         var a := Vector2(float(surface[i][0]),float(surface[i][1]))
         var b := Vector2(float(surface[i+1][0]),float(surface[i+1][1]))
@@ -59,7 +61,7 @@ func _build_landform(data: Dictionary) -> void:
         for piece in range(count):
             var left := a.lerp(b,float(piece)/count)
             var right := a.lerp(b,float(piece+1)/count)
-            _textured_face(body,left,right,depth,int(variants[(i+piece+body.name.hash())%variants.size()]))
+            _textured_face(body,left,right,depth)
     var edge := Line2D.new()
     edge.name = "WalkableContour"
     edge.width = 1.4
@@ -125,23 +127,11 @@ func intersects_rect(rect: Rect2) -> bool:
             return true
     return false
 
-func _textured_face(parent: Node, left: Vector2, right: Vector2, depth: float, variant: int) -> void:
-    var panel := Polygon2D.new()
+func _textured_face(parent: Node, left: Vector2, right: Vector2, depth: float) -> void:
+    var panel := ROCK.face(parent,PackedVector2Array([left,right,right+Vector2(0,depth),left+Vector2(0,depth)]),material_theme)
     panel.name = "HandPaintedStratum"
-    panel.polygon = PackedVector2Array([left,right,right+Vector2(0,depth),left+Vector2(0,depth)])
     panel.z_index = -5
-    if atlas != null and not regions.is_empty():
-        var region := ART.rect(regions[posmod(variant,regions.size())])
-        var x1 := region.position.x + region.size.x*0.11
-        var x2 := region.end.x - region.size.x*0.11
-        var top := region.position.y + region.size.y*0.10
-        var bottom := region.position.y + region.size.y*0.83
-        panel.texture = atlas
-        panel.uv = PackedVector2Array([Vector2(x1,top),Vector2(x2,top),Vector2(x2,bottom),Vector2(x1,bottom)])
-        panel.set_meta("original_map_asset", "terrain_atlas.png")
-    else:
-        panel.color = Color(0.17,0.20,0.18)
-    parent.add_child(panel)
+
 
 func floor_height(x: float, reference_y: float, tolerance: float = 180.0) -> float:
     var nearest := INF

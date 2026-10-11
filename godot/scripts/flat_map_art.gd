@@ -1,6 +1,7 @@
 extends Node2D
 ## Original side-view sprites, independent parallax and preserved platform caps.
 
+const ROCK := preload("res://scripts/world_rock_material.gd")
 const ROOT := "res://assets/sprites/flat_maps/"
 const INKS := {"moss_cavern": "173c3f", "rain_foundry": "183744", "salt_archive": "564c62", "string_greenhouse": "224939", "obsidian_pilgrim": "382f46", "silent_crown": "303953"}
 const ACCENTS := {"moss_cavern": "8eab79", "rain_foundry": "9c9980", "salt_archive": "baa794", "string_greenhouse": "94b57e", "obsidian_pilgrim": "a2747a", "silent_crown": "a6aec3"}
@@ -113,10 +114,11 @@ func _room_landmarks(chapter: Dictionary) -> void:
             continue
         var point: Array = data.get("position", [0, 0])
         var dimensions: Array = data.get("size", [250, 360])
-        var art := ornament(Vector2(dimensions[0], dimensions[1]), int(String(room.get("id", "")).hash()))
+        var variant := int(data.get("variant", String(room.get("id", "")).hash()))
+        var art := ornament(Vector2(dimensions[0], dimensions[1]), variant)
         art.name = "Landmark_" + String(room.get("id", ""))
         art.position = Vector2(point[0], point[1])
-        art.modulate.a = 0.42
+        art.modulate.a = clampf(float(data.get("opacity", 0.42)), 0.0, 1.0)
         art.z_index = -84
         add_child(art)
 
@@ -142,7 +144,10 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
         return false
     var variants: Array = manifest.get("variants", [])
     var style: Dictionary = platform_styles.get(String(parent.name), {})
-    var index := posmod(int(style.get("variant", parent.name.hash())), variants.size())
+    # Legacy per-tile variants mixed soil, masonry and roots inside one step.
+    # Select the complete platform by material, with an explicit whole-object override.
+    var family_variant := 7 if material_name.contains("bronze") else (11 if material_name.contains("boss") else 2)
+    var index := posmod(int(style.get("material_variant", family_variant)), variants.size())
     var variant: Dictionary = variants[index]
     var texture := _texture(ROOT + theme + "/platform_atlas.png")
     var region: Array = variant.get("region", [])
@@ -152,10 +157,10 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
     var top_offset := float(variant.get("walk_y", 0))
     var y_scale := clampf((dimensions.y + 30) / maxf(source.size.y - top_offset, 1), 0.40, 0.90)
     var top := -dimensions.y * 0.5
-    var flip := bool(style.get("flip_h", false))
+    var flip := bool(style.get("material_flip_h", false))
     parent.set_meta("platform_art_variant", index)
     parent.set_meta("platform_art_asset", ROOT + theme + "/platform_atlas.png")
-    parent.set_meta("platform_art_body_variants", style.get("body_variants", [index]))
+    parent.set_meta("platform_art_body_variants", [index])
     if dimensions.x <= source.size.x:
         _slice(parent, "Material", texture, source, Vector2(-dimensions.x * 0.5, top - top_offset * y_scale), Vector2(dimensions.x / source.size.x, y_scale), flip)
     else:
@@ -165,7 +170,7 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
         _slice(parent, "Material", texture, right_rect if flip else left_rect, Vector2(-dimensions.x * 0.5, top - top_offset * y_scale), Vector2(1, y_scale), flip)
         var cursor := -dimensions.x * 0.5 + cap_width
         var segment := 0
-        var body_variants: Array = style.get("body_variants", [index])
+        var body_variants: Array = [index]
         while cursor < dimensions.x * 0.5 - cap_width:
             var middle_variant: Dictionary = variants[posmod(int(body_variants[segment % body_variants.size()]), variants.size())]
             var r: Array = middle_variant.get("region", region)
@@ -175,17 +180,14 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
             var body_top := float(middle_variant.get("walk_y", 0))
             var body_scale := clampf((dimensions.y + 30) / maxf(middle_source.size.y - body_top, 1), 0.40, 0.90)
             var draw_width := minf(body_width, dimensions.x * 0.5 - cap_width - cursor)
-            _slice(parent, "PlatformBody%02d" % segment, texture, Rect2(middle_source.position + Vector2(middle_cap, 0), Vector2(body_width, middle_source.size.y)), Vector2(cursor, top - body_top * body_scale), Vector2(draw_width / body_width, body_scale), flip != (segment % 2 == 1))
+            _slice(parent, "PlatformBody%02d" % segment, texture, Rect2(middle_source.position + Vector2(middle_cap, 0), Vector2(body_width, middle_source.size.y)), Vector2(cursor, top - body_top * body_scale), Vector2(draw_width / body_width, body_scale), flip)
             cursor += draw_width
             segment += 1
         _slice(parent, "PlatformRightCap", texture, left_rect if flip else right_rect, Vector2(dimensions.x * 0.5 - cap_width, top - top_offset * y_scale), Vector2(1, y_scale), flip)
     if dimensions.y > 140 or material_name.contains("wall") or material_name.contains("gate"):
-        var fill := Polygon2D.new()
         var half := dimensions * 0.5
-        fill.polygon = PackedVector2Array([Vector2(-half.x, -half.y + 14), Vector2(half.x, -half.y + 14), Vector2(half.x, half.y), Vector2(-half.x, half.y)])
-        fill.color = Color(INKS.get(theme, "173c3f"))
+        var fill := ROCK.face(parent,PackedVector2Array([Vector2(-half.x,-half.y+14),Vector2(half.x,-half.y+14),Vector2(half.x,half.y),Vector2(-half.x,half.y)]),theme)
         fill.z_index = -5
-        parent.add_child(fill)
     var edge := Line2D.new()
     edge.name = "WalkableEdge"
     edge.points = PackedVector2Array([Vector2(-dimensions.x * 0.5, top), Vector2(dimensions.x * 0.5, top)])
