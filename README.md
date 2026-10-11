@@ -219,3 +219,5 @@ npm start
 ## 逐批关卡升级
 
 [W02 第一批：苔钟庭五间原房间重构](docs/CH01_ROOM_RECONSTRUCTION.md) · [实机前后对比](docs/gallery/20261011_ch01_rooms.md)。全清单仍分批推进，验收范围见文档。
+
+[六区岩壁与整块结构材质修复：实机对比](docs/WORLD_MATERIALS.md)。

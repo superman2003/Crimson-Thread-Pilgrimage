@@ -12,7 +12,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
     'world_map world_state world_integration world_route_walk ability_movement '
-    'enemy_effect_lifetime enemy_visibility cave_exploration cave_route_walk '
+    'enemy_effect_lifetime enemy_visibility world_material cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '

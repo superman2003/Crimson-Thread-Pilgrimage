@@ -1,6 +1,7 @@
 extends Node2D
 ## Opaque rock mass; ordinary rooms stay visible, authored dark rooms use local sight.
 
+const ROCK := preload("res://scripts/world_rock_material.gd")
 const INKS := {"moss_cavern":"172d26", "rain_foundry":"142b37", "salt_archive":"322c3b", "string_greenhouse":"203325", "obsidian_pilgrim":"2e2634", "silent_crown":"232b3c"}
 var solid_rects: Array[Rect2] = []
 var outlines: Array = []
@@ -40,21 +41,25 @@ func configure(chapter: Dictionary, theme: String, owner_scene: Node2D) -> void:
         collision.position = rect.get_center()
         collision.shape = shape
         body.add_child(collision)
-    z_index = 12 # Opaque rock covers distant backdrops and wall ornaments.
+    var surface := Node2D.new()
+    surface.name = "PaintedRockMass"
+    surface.show_behind_parent = true
+    add_child(surface)
+    for rect in solid_rects:
+        ROCK.face(surface,PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)]),theme)
+    z_index = 12 # Opaque painted rock covers distant backdrops and wall ornaments.
     queue_redraw()
     for point in chapter.get("save_points",[]):
         lights.append(Vector2(float(point.position[0]),float(point.position[1])-65))
     _create_vision()
 
 func _draw() -> void:
-    for rect in solid_rects:
-        draw_rect(rect,Color("030609"))
     for value in outlines:
         var points := PackedVector2Array()
         for p in value:points.append(Vector2(float(p[0]),float(p[1])))
         if points.size()<2:continue
-        draw_polyline(points,rock_ink,22.0,true)
-        draw_polyline(points,rock_ink.lightened(.15),3.0,true)
+        draw_polyline(points,rock_ink.darkened(.25),4.0,true)
+        draw_polyline(points,rock_ink.lightened(.25),1.2,true)
     for p in lights:
         for radius in [54,36,20]:
             draw_circle(p,float(radius),Color(.68,.89,.65,.035))
