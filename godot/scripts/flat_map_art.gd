@@ -113,10 +113,11 @@ func _room_landmarks(chapter: Dictionary) -> void:
             continue
         var point: Array = data.get("position", [0, 0])
         var dimensions: Array = data.get("size", [250, 360])
-        var art := ornament(Vector2(dimensions[0], dimensions[1]), int(String(room.get("id", "")).hash()))
+        var variant := int(data.get("variant", String(room.get("id", "")).hash()))
+        var art := ornament(Vector2(dimensions[0], dimensions[1]), variant)
         art.name = "Landmark_" + String(room.get("id", ""))
         art.position = Vector2(point[0], point[1])
-        art.modulate.a = 0.42
+        art.modulate.a = clampf(float(data.get("opacity", 0.42)), 0.0, 1.0)
         art.z_index = -84
         add_child(art)
 
