@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_blind_bell_knight",
+  "visual_scale": 0.23991507430997877,
+  "visual_offset": [
+    0,
+    -18.059447983014863
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+    "region": [
+      49,
+      13,
+      463,
+      306
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+          "region": [
+            49,
+            13,
+            463,
+            471
+          ],
+          "margin": [
+            49,
+            11,
+            49,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+          "region": [
+            587,
+            9,
+            437,
+            475
+          ],
+          "margin": [
+            75,
+            7,
+            75,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+          "region": [
+            1075,
+            12,
+            455,
+            478
+          ],
+          "margin": [
+            51,
+            4,
+            57,
+            6
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+          "region": [
+            63,
+            523,
+            449,
+            471
+          ],
+          "margin": [
+            63,
+            11,
+            63,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+          "region": [
+            625,
+            529,
+            356,
+            464
+          ],
+          "margin": [
+            113,
+            18,
+            156,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_blind_bell_knight/atlas.png",
+          "region": [
+            1104,
+            512,
+            390,
+            480
+          ],
+          "margin": [
+            80,
+            2,
+            122,
+            4
+          ]
+        }
+      ]
+    }
+  ]
+}

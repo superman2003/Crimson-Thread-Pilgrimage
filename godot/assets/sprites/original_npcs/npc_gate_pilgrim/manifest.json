@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_gate_pilgrim",
+  "visual_scale": 0.21951219512195122,
+  "visual_offset": [
+    0,
+    -14.768292682926827
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+    "region": [
+      46,
+      6,
+      422,
+      320
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+          "region": [
+            46,
+            6,
+            422,
+            492
+          ],
+          "margin": [
+            46,
+            5,
+            90,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+          "region": [
+            557,
+            36,
+            429,
+            462
+          ],
+          "margin": [
+            45,
+            35,
+            83,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+          "region": [
+            1063,
+            6,
+            467,
+            495
+          ],
+          "margin": [
+            39,
+            2,
+            45,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+          "region": [
+            33,
+            512,
+            479,
+            485
+          ],
+          "margin": [
+            33,
+            12,
+            33,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+          "region": [
+            593,
+            583,
+            394,
+            411
+          ],
+          "margin": [
+            81,
+            86,
+            118,
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+          "region": [
+            1024,
+            574,
+            492,
+            424
+          ],
+          "margin": [
+            0,
+            73,
+            20,
+            75
+          ]
+        }
+      ]
+    }
+  ]
+}

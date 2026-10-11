@@ -1,0 +1,465 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "broken_string_gardener",
+  "canvas": [
+    384,
+    342
+  ],
+  "display_height": 228,
+  "visual_scale": 0.7058823529411765,
+  "visual_offset": [
+    0,
+    -50.70588235294119
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            35,
+            10,
+            331,
+            323
+          ],
+          "margin": [
+            35,
+            17,
+            53,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            408,
+            27,
+            343,
+            305
+          ],
+          "margin": [
+            24,
+            35,
+            41,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            794,
+            12,
+            345,
+            319
+          ],
+          "margin": [
+            26,
+            21,
+            39,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            1168,
+            11,
+            352,
+            321
+          ],
+          "margin": [
+            16,
+            19,
+            32,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            22,
+            359,
+            353,
+            312
+          ],
+          "margin": [
+            22,
+            28,
+            31,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            410,
+            357,
+            344,
+            312
+          ],
+          "margin": [
+            26,
+            28,
+            40,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            787,
+            349,
+            349,
+            323
+          ],
+          "margin": [
+            19,
+            17,
+            35,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            1172,
+            352,
+            343,
+            319
+          ],
+          "margin": [
+            20,
+            21,
+            41,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            19,
+            693,
+            365,
+            295
+          ],
+          "margin": [
+            19,
+            45,
+            19,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            384,
+            726,
+            384,
+            257
+          ],
+          "margin": [
+            0,
+            83,
+            0,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            768,
+            690,
+            384,
+            297
+          ],
+          "margin": [
+            0,
+            43,
+            0,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+          "region": [
+            1152,
+            790,
+            372,
+            200
+          ],
+          "margin": [
+            0,
+            140,
+            12,
+            142
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            49,
+            3,
+            303,
+            338
+          ],
+          "margin": [
+            49,
+            2,
+            81,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            410,
+            5,
+            329,
+            336
+          ],
+          "margin": [
+            26,
+            4,
+            55,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            774,
+            91,
+            378,
+            250
+          ],
+          "margin": [
+            6,
+            90,
+            6,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            1186,
+            52,
+            303,
+            289
+          ],
+          "margin": [
+            34,
+            51,
+            81,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            23,
+            382,
+            317,
+            291
+          ],
+          "margin": [
+            23,
+            49,
+            67,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            388,
+            354,
+            380,
+            319
+          ],
+          "margin": [
+            4,
+            21,
+            4,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            768,
+            341,
+            384,
+            336
+          ],
+          "margin": [
+            0,
+            4,
+            0,
+            6
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            1152,
+            341,
+            350,
+            336
+          ],
+          "margin": [
+            0,
+            4,
+            34,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            14,
+            767,
+            370,
+            236
+          ],
+          "margin": [
+            14,
+            104,
+            14,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            384,
+            683,
+            356,
+            321
+          ],
+          "margin": [
+            0,
+            19,
+            28,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            768,
+            683,
+            384,
+            319
+          ],
+          "margin": [
+            0,
+            21,
+            0,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/broken_string_gardener/attacks.png",
+          "region": [
+            1152,
+            739,
+            377,
+            261
+          ],
+          "margin": [
+            0,
+            79,
+            7,
+            81
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

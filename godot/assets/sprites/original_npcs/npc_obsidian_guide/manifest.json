@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_obsidian_guide",
+  "visual_scale": 0.21906693711967545,
+  "visual_offset": [
+    0,
+    -14.876267748478703
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+    "region": [
+      149,
+      11,
+      344,
+      320
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+          "region": [
+            149,
+            11,
+            344,
+            493
+          ],
+          "margin": [
+            149,
+            6,
+            168,
+            8
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+          "region": [
+            592,
+            7,
+            381,
+            497
+          ],
+          "margin": [
+            80,
+            2,
+            131,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+          "region": [
+            1081,
+            12,
+            390,
+            491
+          ],
+          "margin": [
+            57,
+            8,
+            122,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+          "region": [
+            112,
+            521,
+            382,
+            487
+          ],
+          "margin": [
+            112,
+            12,
+            130,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+          "region": [
+            578,
+            523,
+            387,
+            484
+          ],
+          "margin": [
+            66,
+            15,
+            125,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+          "region": [
+            1025,
+            571,
+            465,
+            432
+          ],
+          "margin": [
+            1,
+            67,
+            47,
+            69
+          ]
+        }
+      ]
+    }
+  ]
+}

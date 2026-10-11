@@ -3154,84 +3154,173 @@
   ],
   "ai_profiles": {
     "drain_leech": {
-      "move_speed": 54,
-      "aggro_range": 210.0,
-      "preferred_range": 42.0,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "bite_lunge",
-          "type": "lunge",
-          "range": 92,
+          "id": "leech_drain",
+          "name": "吸血咬",
+          "type": "melee",
+          "range": 88,
+          "windup": 0.35,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 48,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.46,
-          "cooldown": 1.18,
-          "lunge_speed": 250,
-          "hit_width": 82,
-          "hit_height": 54,
-          "offset": 44,
-          "telegraph": "bf6c3f",
-          "priority": 1.0,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "吸血咬",
+          "leech": true
+        },
+        {
+          "id": "leech_leap",
+          "name": "渠虫弧跃",
+          "type": "vault",
+          "range": 215,
+          "windup": 0.55,
+          "active": 0.65,
+          "recover": 0.8,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "渠虫弧跃",
+          "jump_height": 105,
+          "lunge_speed": 210
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "pipe_thrower": {
-      "move_speed": 34,
-      "aggro_range": 235.0,
-      "preferred_range": 92.0,
+      "locomotion": "stationary",
+      "combat_identity": "向上抛射管弹，落地溅出短暂危险区",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "body_cast",
-          "type": "melee",
-          "range": 96,
-          "damage": 1,
-          "windup": 0.34,
-          "active": 0.18,
-          "recover": 0.55,
-          "cooldown": 1.34,
-          "hit_width": 88,
-          "hit_height": 64,
+          "id": "pipe_mortar",
+          "name": "管弹曲射",
+          "type": "mortar",
+          "range": 510,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c99a50",
-          "priority": 1.0,
-          "animation": "attack"
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "管弹曲射",
+          "shot_count": 3,
+          "gravity": 540,
+          "projectile_speed": 185,
+          "skin": "metal",
+          "impact_pool": true
+        },
+        {
+          "id": "pipe_backblast",
+          "name": "近身蒸汽反喷",
+          "type": "beam",
+          "range": 145,
+          "windup": 0.65,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 3.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "近身蒸汽反喷",
+          "beam_length": 160,
+          "radius": 17,
+          "hazard_life": 0.38
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "rust_diver": {
-      "move_speed": 68,
-      "aggro_range": 250.0,
-      "preferred_range": 76.0,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "sickle_swoop",
-          "type": "lunge",
-          "range": 112,
+          "id": "diver_vault",
+          "name": "锈枪跃刺",
+          "type": "vault",
+          "range": 280,
+          "windup": 0.55,
+          "active": 0.75,
+          "recover": 0.85,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.22,
-          "active": 0.2,
-          "recover": 0.44,
-          "cooldown": 1.16,
-          "lunge_speed": 285,
-          "hit_width": 92,
-          "hit_height": 58,
-          "offset": 52,
-          "telegraph": "d9b25f",
-          "priority": 1.0,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "锈枪跃刺",
+          "jump_height": 135,
+          "lunge_speed": 250
+        },
+        {
+          "id": "diver_splash",
+          "name": "潜盔涌浪",
+          "type": "wave",
+          "range": 370,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "潜盔涌浪",
+          "shot_count": 2,
+          "projectile_speed": 200,
+          "radius": 16
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "bell_mote": {
       "move_speed": 64,
@@ -3261,408 +3350,163 @@
       "attack_desire_decay": 0.82
     },
     "waterwheel_knight": {
-      "move_speed": 46,
-      "aggro_range": 245.0,
-      "preferred_range": 74.0,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "heavy_body_check",
-          "type": "melee",
-          "range": 84,
-          "damage": 2,
-          "windup": 0.4,
-          "active": 0.2,
-          "recover": 0.66,
-          "cooldown": 1.55,
-          "hit_width": 104,
-          "hit_height": 74,
+          "id": "wheel_charge",
+          "name": "轮盾推进",
+          "type": "lunge",
+          "range": 260,
+          "windup": 0.7,
+          "active": 0.4,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 124,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c9764a",
-          "priority": 1.0,
-          "animation": "attack"
-        }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
-    },
-    "sunken_hammer_smith": {
-      "move_speed": 52,
-      "aggro_range": 620,
-      "preferred_range": 132,
-      "attacks": [
-        {
-          "id": "hammer_overhead_slam",
-          "animation": "boss_02_atk_01",
-          "type": "aoe",
-          "range": 150,
-          "damage": 2,
-          "windup": 0.62,
-          "active": 0.28,
-          "recover": 0.82,
-          "cooldown": 2.15,
-          "hit_width": 300,
-          "hit_height": 116,
-          "telegraph": "d07b36",
-          "priority": 3.1,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "forge_charge",
-          "animation": "boss_02_atk_02",
-          "type": "lunge",
-          "range": 220,
-          "damage": 2,
-          "windup": 0.46,
-          "active": 0.34,
-          "recover": 0.86,
-          "cooldown": 2.05,
-          "lunge_speed": 350,
-          "hit_width": 150,
-          "hit_height": 104,
-          "offset": 76,
-          "telegraph": "b96032",
-          "priority": 2.7,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "anvil_hook_swing",
-          "animation": "boss_02_atk_03",
-          "type": "melee",
-          "range": 120,
           "damage": 1,
-          "windup": 0.28,
-          "active": 0.2,
-          "recover": 0.48,
-          "cooldown": 1.12,
-          "hit_width": 150,
-          "hit_height": 96,
-          "offset": 70,
-          "telegraph": "d9b158",
-          "priority": 1.8,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "轮盾推进",
+          "lunge_speed": 250
         },
         {
-          "id": "waterwheel_body_crush",
-          "type": "lunge",
-          "range": 170,
-          "damage": 1,
-          "windup": 0.34,
-          "active": 0.25,
-          "recover": 0.62,
-          "cooldown": 1.45,
-          "lunge_speed": 310,
-          "hit_width": 166,
-          "hit_height": 108,
-          "offset": 78,
-          "telegraph": "e0a542",
-          "priority": 2.15,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "bellows_stomp",
-          "type": "aoe",
-          "range": 190,
-          "damage": 1,
-          "windup": 0.74,
-          "active": 0.32,
-          "recover": 0.95,
-          "cooldown": 2.75,
-          "hit_width": 340,
-          "hit_height": 98,
-          "telegraph": "8ebf8b",
-          "priority": 1.6,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "sluice_shockwave_chain",
-          "type": "shockwave",
-          "min_range": 90,
-          "range": 390,
-          "damage": 1,
-          "windup": 0.3,
+          "id": "wheel_return",
+          "name": "返轮刃",
+          "type": "projectile",
+          "range": 410,
+          "windup": 0.75,
           "active": 0.24,
-          "recover": 0.46,
-          "cooldown": 1.85,
-          "hit_width": 280,
-          "hit_height": 50,
-          "offset": 150,
-          "telegraph": "f0c34f",
-          "priority": 3.25,
-          "start_cooldown": 0.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -22,
-            -10
-          ],
-          "windup_scale": [
-            1.1,
-            0.92
-          ],
-          "active_offset": [
-            46,
-            -3
-          ],
-          "active_scale": [
-            1.24,
-            0.84
-          ],
-          "recover_offset": [
-            -14,
-            4
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "backstep_hook_cut",
-          "type": "retreat",
-          "range": 160,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.18,
-          "active": 0.26,
-          "recover": 0.35,
-          "cooldown": 1.5,
-          "retreat_speed": 230,
-          "hit_width": 142,
-          "hit_height": 76,
-          "offset": 74,
-          "telegraph": "7fd6ca",
-          "priority": 2.7,
-          "pose_power": 1.38,
-          "windup_offset": [
-            18,
-            -8
-          ],
-          "windup_scale": [
-            0.96,
-            1.08
-          ],
-          "active_offset": [
-            -38,
-            -8
-          ],
-          "active_scale": [
-            0.92,
-            1.14
-          ],
-          "recover_offset": [
-            12,
-            1
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "false_hammer_feint",
-          "type": "feint",
-          "range": 142,
-          "damage": 1,
-          "windup": 0.12,
-          "active": 0.18,
-          "recover": 0.28,
-          "cooldown": 1.25,
-          "feint_sway": 130,
-          "hit_width": 126,
-          "hit_height": 84,
-          "offset": 62,
-          "telegraph": "d98ee8",
-          "priority": 2.45,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -14,
-            -12
-          ],
-          "windup_scale": [
-            1.08,
-            0.93
-          ],
-          "active_offset": [
-            20,
-            -6
-          ],
-          "active_scale": [
-            1.12,
-            0.94
-          ],
-          "recover_offset": [
-            -10,
-            2
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "triple_ring_quake",
-          "animation": "boss_02_atk_03",
-          "type": "shockwave",
-          "min_range": 120,
-          "range": 420,
-          "damage": 1,
-          "windup": 0.52,
-          "active": 0.3,
-          "recover": 0.8,
-          "cooldown": 3.2,
-          "hit_width": 320,
-          "hit_height": 58,
-          "offset": 170,
-          "telegraph": "9ed8ff",
-          "priority": 2.9,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -22,
-            -10
-          ],
-          "windup_scale": [
-            1.1,
-            0.92
-          ],
-          "active_offset": [
-            46,
-            -3
-          ],
-          "active_scale": [
-            1.24,
-            0.84
-          ],
-          "recover_offset": [
-            -14,
-            4
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "返轮刃",
+          "returning": true,
+          "projectile_speed": 270,
+          "skin": "wheel",
+          "radius": 17
         }
       ]
+    },
+    "sunken_hammer_smith": {
+      "locomotion": "ground",
+      "combat_identity": "剪口夹击、交叉绯线；半血后跃转剪迫使换边",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
+      "attacks": [
+        {
+          "id": "boss_shears_close",
+          "name": "合剪夹击",
+          "type": "melee",
+          "range": 225,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.8,
+          "cooldown": 2.7,
+          "hit_width": 230,
+          "hit_height": 115,
+          "offset": 105,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "合剪夹击"
+        },
+        {
+          "id": "boss_shears_thread",
+          "name": "绯线封路",
+          "type": "beam",
+          "range": 650,
+          "windup": 1.0,
+          "active": 0.24,
+          "recover": 0.8,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "绯线封路",
+          "beam_length": 650,
+          "radius": 15,
+          "hazard_life": 0.42
+        },
+        {
+          "id": "boss_shears_knots",
+          "name": "断线结阵",
+          "type": "pool",
+          "range": 570,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "断线结阵",
+          "shot_count": 3,
+          "spacing": 116,
+          "radius": 31,
+          "warning": 0.75,
+          "hazard_life": 1.25
+        },
+        {
+          "id": "boss_shears_turn",
+          "name": "跃转双剪",
+          "type": "vault",
+          "range": 460,
+          "windup": 0.75,
+          "active": 0.85,
+          "recover": 1.05,
+          "cooldown": 2.7,
+          "hit_width": 190,
+          "hit_height": 140,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "跃转双剪",
+          "jump_height": 170,
+          "lunge_speed": 380,
+          "phase": 2
+        }
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "双剪回旋"
     },
     "valve_crawler": {
       "move_speed": 50,
@@ -10702,89 +10546,23 @@
         744
       ],
       "platform_id": "ch02_02_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E002",
@@ -10794,89 +10572,23 @@
         603
       ],
       "platform_id": "ch02_03_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E003",
@@ -10886,89 +10598,23 @@
         691
       ],
       "platform_id": "ch02_06_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E004",
@@ -10978,89 +10624,23 @@
         539
       ],
       "platform_id": "ch02_08_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E005",
@@ -11070,89 +10650,23 @@
         703
       ],
       "platform_id": "ch02_11_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E006",
@@ -11162,89 +10676,23 @@
         773
       ],
       "platform_id": "ch02_12_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E007",
@@ -11254,89 +10702,23 @@
         880
       ],
       "platform_id": "ch02_14_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E008",
@@ -11346,89 +10728,23 @@
         636
       ],
       "platform_id": "ch02_16_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E009",
@@ -11438,89 +10754,23 @@
         615
       ],
       "platform_id": "ch02_17_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pipe_thrower/manifest.json",
+      "visual_scale": 0.3096774193548387,
       "visual_offset": [
         0,
-        -8
+        7.987096774193546
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "向上抛射管弹，落地溅出短暂危险区"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E010",
@@ -11530,89 +10780,23 @@
         840
       ],
       "platform_id": "ch02_20_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E011",
@@ -11622,89 +10806,23 @@
         786
       ],
       "platform_id": "ch02_21_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pipe_thrower/manifest.json",
+      "visual_scale": 0.3096774193548387,
       "visual_offset": [
         0,
-        -8
+        7.987096774193546
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "向上抛射管弹，落地溅出短暂危险区"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E012",
@@ -11714,89 +10832,23 @@
         778
       ],
       "platform_id": "ch02_22_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E013",
@@ -11806,89 +10858,23 @@
         901
       ],
       "platform_id": "ch02_23_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E014",
@@ -11898,89 +10884,23 @@
         938
       ],
       "platform_id": "ch02_24_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E015",
@@ -11990,89 +10910,23 @@
         726
       ],
       "platform_id": "ch02_27_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E016",
@@ -12082,89 +10936,23 @@
         669
       ],
       "platform_id": "ch02_30_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E017",
@@ -12174,89 +10962,23 @@
         828
       ],
       "platform_id": "ch02_31_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E018",
@@ -12266,89 +10988,23 @@
         727
       ],
       "platform_id": "ch02_32_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E019",
@@ -12358,89 +11014,23 @@
         692
       ],
       "platform_id": "ch02_35_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E020",
@@ -12450,89 +11040,23 @@
         802
       ],
       "platform_id": "ch02_36_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E021",
@@ -12542,89 +11066,23 @@
         732
       ],
       "platform_id": "ch02_38_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E022",
@@ -12634,89 +11092,23 @@
         739
       ],
       "platform_id": "ch02_39_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E023",
@@ -12726,89 +11118,23 @@
         739
       ],
       "platform_id": "ch02_39_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E024",
@@ -12818,89 +11144,23 @@
         783
       ],
       "platform_id": "ch02_40_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E025",
@@ -12910,89 +11170,23 @@
         697
       ],
       "platform_id": "ch02_41_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pipe_thrower/manifest.json",
+      "visual_scale": 0.3096774193548387,
       "visual_offset": [
         0,
-        -8
+        7.987096774193546
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "向上抛射管弹，落地溅出短暂危险区"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E026",
@@ -13002,89 +11196,23 @@
         723
       ],
       "platform_id": "ch02_42_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E027",
@@ -13094,89 +11222,23 @@
         738
       ],
       "platform_id": "ch02_44_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E028",
@@ -13186,89 +11248,23 @@
         885
       ],
       "platform_id": "ch02_47_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E029",
@@ -13278,89 +11274,23 @@
         714
       ],
       "platform_id": "ch02_48_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E030",
@@ -13370,89 +11300,23 @@
         550
       ],
       "platform_id": "ch02_50_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E031",
@@ -13462,89 +11326,23 @@
         561
       ],
       "platform_id": "ch02_51_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E032",
@@ -13554,89 +11352,23 @@
         643
       ],
       "platform_id": "ch02_52_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E033",
@@ -13646,89 +11378,23 @@
         694
       ],
       "platform_id": "ch02_53_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pipe_thrower/manifest.json",
+      "visual_scale": 0.3096774193548387,
       "visual_offset": [
         0,
-        -8
+        7.987096774193546
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "向上抛射管弹，落地溅出短暂危险区"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E034",
@@ -13738,89 +11404,23 @@
         847
       ],
       "platform_id": "ch02_55_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E035",
@@ -13830,89 +11430,23 @@
         871
       ],
       "platform_id": "ch02_56_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E036",
@@ -13922,89 +11456,23 @@
         625
       ],
       "platform_id": "ch02_59_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E037",
@@ -14014,89 +11482,23 @@
         763
       ],
       "platform_id": "ch02_60_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E038",
@@ -14106,89 +11508,23 @@
         844
       ],
       "platform_id": "ch02_62_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 116,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E039",
@@ -14198,89 +11534,23 @@
         912
       ],
       "platform_id": "ch02_64_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
+      "visual_scale": 0.46808510638297873,
       "visual_offset": [
         0,
-        -8
+        5.340425531914896
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 26,
+      "locomotion": "ground",
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E040",
@@ -14290,89 +11560,23 @@
         786
       ],
       "platform_id": "ch02_66_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+      "visual_scale": 0.36823104693140796,
       "visual_offset": [
         0,
-        -8
+        -0.18050541516245744
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
       "patrol": 80,
       "leash_radius": 220,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 62,
+      "locomotion": "ground",
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
     },
     {
       "id": "demo_ch02_rain_foundry_canal_generated_E041",
@@ -14382,89 +11586,23 @@
         658
       ],
       "platform_id": "ch02_67_floor",
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "visual_scale": 0.36486486486486486,
       "visual_offset": [
         0,
-        -8
+        0.5337837837837824
       ],
       "visual_modulate": "ffffff",
       "sprite_faces_left": false,
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
+      "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
       "patrol": 98,
       "leash_radius": 220,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "locomotion": "ground",
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
     }
   ],
   "boss": {
@@ -14480,53 +11618,15 @@
     "patrol": 260,
     "reward_item": "smith_oath_plate",
     "story_drop": "绯线执剪者承认自己把一批活人的名字缝进王冠，只有盐白书库保存谁下令的原文。",
-    "sprite": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
-    "sprite_region": [
-      0,
-      0,
-      80,
-      80
-    ],
-    "visual_scale": 0.92,
+    "sprite": "res://assets/sprites/original_creatures/sunken_hammer_smith/manifest.json",
+    "visual_scale": 0.6551724137931034,
     "visual_offset": [
       0,
-      -38
+      -49.89655172413792
     ],
-    "visual_modulate": "f1dcbd",
-    "visual_source": "High-fidelity Boss Concept Pack / boss_02_crimson_thread_scissor_apostle",
+    "visual_modulate": "ffffff",
+    "visual_source": "original_hand_drawn",
     "visual_role": "high_fidelity_boss_02_crimson_thread_scissor_apostle",
-    "sprite_regions": {
-      "idle": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "walk": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "attack": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "hurt": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "death": [
-        0,
-        0,
-        80,
-        80
-      ]
-    },
     "sprite_faces_left": false,
     "arena_min_x": 19410,
     "arena_max_x": 20230,
@@ -14542,14 +11642,12 @@
       0,
       -54
     ],
-    "source_sprite": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
-    "source_sprite_region": [
-      0,
-      0,
-      80,
-      80
-    ],
-    "platform_id": "ch02_68_floor"
+    "source_sprite": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+    "platform_id": "ch02_68_floor",
+    "locomotion": "ground",
+    "combat_identity": "剪口夹击、交叉绯线；半血后跃转剪迫使换边",
+    "spawn_half_width": 49,
+    "spawn_visual_height": 188
   },
   "labels": [
     {

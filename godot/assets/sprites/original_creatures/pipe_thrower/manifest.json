@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "pipe_thrower",
+  "canvas": [
+    384,
+    323
+  ],
+  "display_height": 96,
+  "visual_scale": 0.3096774193548387,
+  "visual_offset": [
+    0,
+    7.987096774193546
+  ],
+  "motion": "stationary",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            110,
+            14,
+            221,
+            310
+          ],
+          "margin": [
+            110,
+            11,
+            163,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            482,
+            17,
+            213,
+            306
+          ],
+          "margin": [
+            98,
+            15,
+            171,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            823,
+            29,
+            262,
+            293
+          ],
+          "margin": [
+            55,
+            28,
+            122,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            1185,
+            19,
+            276,
+            302
+          ],
+          "margin": [
+            33,
+            19,
+            108,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            65,
+            376,
+            262,
+            292
+          ],
+          "margin": [
+            65,
+            29,
+            122,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            419,
+            363,
+            313,
+            306
+          ],
+          "margin": [
+            35,
+            15,
+            71,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            817,
+            349,
+            308,
+            319
+          ],
+          "margin": [
+            49,
+            2,
+            76,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            1177,
+            392,
+            326,
+            277
+          ],
+          "margin": [
+            25,
+            44,
+            58,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            27,
+            729,
+            357,
+            248
+          ],
+          "margin": [
+            27,
+            73,
+            27,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            384,
+            751,
+            384,
+            227
+          ],
+          "margin": [
+            0,
+            94,
+            0,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            768,
+            692,
+            384,
+            286
+          ],
+          "margin": [
+            0,
+            35,
+            0,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "region": [
+            1152,
+            841,
+            359,
+            125
+          ],
+          "margin": [
+            0,
+            196,
+            25,
+            198
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

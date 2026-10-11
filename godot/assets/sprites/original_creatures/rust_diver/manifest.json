@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "rust_diver",
+  "canvas": [
+    384,
+    316
+  ],
+  "display_height": 102,
+  "visual_scale": 0.36823104693140796,
+  "visual_offset": [
+    0,
+    -0.18050541516245744
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            29,
+            45,
+            355,
+            277
+          ],
+          "margin": [
+            29,
+            37,
+            29,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            422,
+            47,
+            346,
+            276
+          ],
+          "margin": [
+            38,
+            38,
+            38,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            805,
+            59,
+            347,
+            264
+          ],
+          "margin": [
+            37,
+            50,
+            37,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            1191,
+            63,
+            342,
+            260
+          ],
+          "margin": [
+            39,
+            54,
+            42,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            26,
+            403,
+            358,
+            270
+          ],
+          "margin": [
+            26,
+            44,
+            26,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            422,
+            393,
+            346,
+            281
+          ],
+          "margin": [
+            38,
+            33,
+            38,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            808,
+            363,
+            315,
+            312
+          ],
+          "margin": [
+            40,
+            2,
+            69,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            1152,
+            387,
+            338,
+            288
+          ],
+          "margin": [
+            0,
+            26,
+            46,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            35,
+            736,
+            349,
+            243
+          ],
+          "margin": [
+            35,
+            71,
+            35,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            384,
+            729,
+            384,
+            251
+          ],
+          "margin": [
+            0,
+            63,
+            0,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            768,
+            745,
+            384,
+            245
+          ],
+          "margin": [
+            0,
+            69,
+            0,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "region": [
+            1152,
+            846,
+            372,
+            145
+          ],
+          "margin": [
+            0,
+            169,
+            12,
+            171
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

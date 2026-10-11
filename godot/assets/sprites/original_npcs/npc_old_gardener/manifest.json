@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_old_gardener",
+  "visual_scale": 0.22268041237113403,
+  "visual_offset": [
+    0,
+    -14.89072164948454
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+    "region": [
+      113,
+      8,
+      313,
+      315
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+          "region": [
+            113,
+            8,
+            313,
+            485
+          ],
+          "margin": [
+            113,
+            6,
+            199,
+            8
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+          "region": [
+            607,
+            14,
+            311,
+            481
+          ],
+          "margin": [
+            95,
+            10,
+            201,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+          "region": [
+            1107,
+            11,
+            364,
+            485
+          ],
+          "margin": [
+            83,
+            6,
+            148,
+            8
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+          "region": [
+            111,
+            513,
+            373,
+            489
+          ],
+          "margin": [
+            111,
+            2,
+            139,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+          "region": [
+            603,
+            530,
+            337,
+            474
+          ],
+          "margin": [
+            91,
+            17,
+            175,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+          "region": [
+            1050,
+            603,
+            441,
+            392
+          ],
+          "margin": [
+            26,
+            99,
+            71,
+            101
+          ]
+        }
+      ]
+    }
+  ]
+}

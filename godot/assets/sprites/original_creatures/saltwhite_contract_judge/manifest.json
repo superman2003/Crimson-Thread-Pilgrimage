@@ -1,0 +1,465 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "saltwhite_contract_judge",
+  "canvas": [
+    384,
+    343
+  ],
+  "display_height": 226,
+  "visual_scale": 0.7508305647840532,
+  "visual_offset": [
+    0,
+    -58.76744186046511
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            22,
+            15,
+            294,
+            301
+          ],
+          "margin": [
+            22,
+            40,
+            90,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            400,
+            15,
+            282,
+            303
+          ],
+          "margin": [
+            16,
+            38,
+            102,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            783,
+            17,
+            349,
+            301
+          ],
+          "margin": [
+            15,
+            40,
+            35,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            1176,
+            10,
+            328,
+            309
+          ],
+          "margin": [
+            24,
+            32,
+            56,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            18,
+            368,
+            315,
+            301
+          ],
+          "margin": [
+            18,
+            40,
+            69,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            400,
+            367,
+            331,
+            302
+          ],
+          "margin": [
+            16,
+            39,
+            53,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            796,
+            360,
+            332,
+            309
+          ],
+          "margin": [
+            28,
+            32,
+            52,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            1170,
+            364,
+            337,
+            306
+          ],
+          "margin": [
+            18,
+            35,
+            47,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            13,
+            718,
+            371,
+            262
+          ],
+          "margin": [
+            13,
+            79,
+            13,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            384,
+            723,
+            384,
+            255
+          ],
+          "margin": [
+            0,
+            86,
+            0,
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            768,
+            725,
+            360,
+            253
+          ],
+          "margin": [
+            0,
+            88,
+            24,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png",
+          "region": [
+            1156,
+            827,
+            369,
+            141
+          ],
+          "margin": [
+            4,
+            200,
+            15,
+            202
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            38,
+            16,
+            310,
+            325
+          ],
+          "margin": [
+            38,
+            16,
+            74,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            435,
+            11,
+            266,
+            330
+          ],
+          "margin": [
+            51,
+            11,
+            118,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            768,
+            115,
+            384,
+            226
+          ],
+          "margin": [
+            0,
+            115,
+            0,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            1175,
+            169,
+            342,
+            172
+          ],
+          "margin": [
+            23,
+            169,
+            42,
+            171
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            6,
+            341,
+            378,
+            338
+          ],
+          "margin": [
+            6,
+            3,
+            6,
+            5
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            384,
+            341,
+            384,
+            339
+          ],
+          "margin": [
+            0,
+            2,
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            768,
+            341,
+            384,
+            337
+          ],
+          "margin": [
+            0,
+            4,
+            0,
+            6
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            1152,
+            341,
+            380,
+            338
+          ],
+          "margin": [
+            0,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            7,
+            688,
+            377,
+            293
+          ],
+          "margin": [
+            7,
+            48,
+            7,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            384,
+            702,
+            384,
+            279
+          ],
+          "margin": [
+            0,
+            62,
+            0,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            768,
+            699,
+            384,
+            282
+          ],
+          "margin": [
+            0,
+            59,
+            0,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/saltwhite_contract_judge/attacks.png",
+          "region": [
+            1152,
+            752,
+            356,
+            229
+          ],
+          "margin": [
+            0,
+            112,
+            28,
+            114
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

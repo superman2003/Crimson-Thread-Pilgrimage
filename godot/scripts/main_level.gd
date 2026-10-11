@@ -1,5 +1,13 @@
 extends Node2D
 
+const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
+const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
+const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
+var ui_shell: Control
+const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
+var flat_map_art: Node2D
+var chapter_terrain: Node2D
+
 const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_ACTOR_SCRIPT := preload("res://scripts/enemy_actor.gd")
 const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
@@ -281,86 +289,6 @@ const GODOT_PLATFORMER_2D_ASSETS := {
     "mountains": "res://assets/third_party/godot_platformer_2d/mountains.png"
 }
 
-const ORIGINAL_MAP_ART := {
-    "moss_cavern": {
-        "sky": "res://assets/sprites/original_map/moss_cavern/sky.png",
-        "far": "res://assets/sprites/original_map/moss_cavern/far.png",
-        "mid": "res://assets/sprites/original_map/moss_cavern/mid.png",
-        "near": "res://assets/sprites/original_map/moss_cavern/near.png",
-        "map": "res://assets/sprites/original_map/moss_cavern/map.png",
-        "left": "res://assets/sprites/original_map/moss_cavern/platform_left.png",
-        "mid_tile": "res://assets/sprites/original_map/moss_cavern/platform_mid.png",
-        "mid_alt": "res://assets/sprites/original_map/moss_cavern/platform_mid_alt.png",
-        "right": "res://assets/sprites/original_map/moss_cavern/platform_right.png",
-        "cap_small": "res://assets/sprites/original_map/moss_cavern/platform_cap_small.png",
-        "wall": "res://assets/sprites/original_map/moss_cavern/wall.png"
-    },
-    "rain_foundry": {
-        "sky": "res://assets/sprites/original_map/rain_foundry/sky.png",
-        "far": "res://assets/sprites/original_map/rain_foundry/far.png",
-        "mid": "res://assets/sprites/original_map/rain_foundry/mid.png",
-        "near": "res://assets/sprites/original_map/rain_foundry/near.png",
-        "map": "res://assets/sprites/original_map/rain_foundry/map.png",
-        "left": "res://assets/sprites/original_map/rain_foundry/platform_left.png",
-        "mid_tile": "res://assets/sprites/original_map/rain_foundry/platform_mid.png",
-        "mid_alt": "res://assets/sprites/original_map/rain_foundry/platform_mid_alt.png",
-        "right": "res://assets/sprites/original_map/rain_foundry/platform_right.png",
-        "cap_small": "res://assets/sprites/original_map/rain_foundry/platform_cap_small.png",
-        "wall": "res://assets/sprites/original_map/rain_foundry/wall.png"
-    },
-    "salt_archive": {
-        "sky": "res://assets/sprites/original_map/salt_archive/sky.png",
-        "far": "res://assets/sprites/original_map/salt_archive/far.png",
-        "mid": "res://assets/sprites/original_map/salt_archive/mid.png",
-        "near": "res://assets/sprites/original_map/salt_archive/near.png",
-        "map": "res://assets/sprites/original_map/salt_archive/map.png",
-        "left": "res://assets/sprites/original_map/salt_archive/platform_left.png",
-        "mid_tile": "res://assets/sprites/original_map/salt_archive/platform_mid.png",
-        "mid_alt": "res://assets/sprites/original_map/salt_archive/platform_mid_alt.png",
-        "right": "res://assets/sprites/original_map/salt_archive/platform_right.png",
-        "cap_small": "res://assets/sprites/original_map/salt_archive/platform_cap_small.png",
-        "wall": "res://assets/sprites/original_map/salt_archive/wall.png"
-    },
-    "string_greenhouse": {
-        "sky": "res://assets/sprites/original_map/string_greenhouse/sky.png",
-        "far": "res://assets/sprites/original_map/string_greenhouse/far.png",
-        "mid": "res://assets/sprites/original_map/string_greenhouse/mid.png",
-        "near": "res://assets/sprites/original_map/string_greenhouse/near.png",
-        "map": "res://assets/sprites/original_map/string_greenhouse/map.png",
-        "left": "res://assets/sprites/original_map/string_greenhouse/platform_left.png",
-        "mid_tile": "res://assets/sprites/original_map/string_greenhouse/platform_mid.png",
-        "mid_alt": "res://assets/sprites/original_map/string_greenhouse/platform_mid_alt.png",
-        "right": "res://assets/sprites/original_map/string_greenhouse/platform_right.png",
-        "cap_small": "res://assets/sprites/original_map/string_greenhouse/platform_cap_small.png",
-        "wall": "res://assets/sprites/original_map/string_greenhouse/wall.png"
-    },
-    "obsidian_pilgrim": {
-        "sky": "res://assets/sprites/original_map/obsidian_pilgrim/sky.png",
-        "far": "res://assets/sprites/original_map/obsidian_pilgrim/far.png",
-        "mid": "res://assets/sprites/original_map/obsidian_pilgrim/mid.png",
-        "near": "res://assets/sprites/original_map/obsidian_pilgrim/near.png",
-        "map": "res://assets/sprites/original_map/obsidian_pilgrim/map.png",
-        "left": "res://assets/sprites/original_map/obsidian_pilgrim/platform_left.png",
-        "mid_tile": "res://assets/sprites/original_map/obsidian_pilgrim/platform_mid.png",
-        "mid_alt": "res://assets/sprites/original_map/obsidian_pilgrim/platform_mid_alt.png",
-        "right": "res://assets/sprites/original_map/obsidian_pilgrim/platform_right.png",
-        "cap_small": "res://assets/sprites/original_map/obsidian_pilgrim/platform_cap_small.png",
-        "wall": "res://assets/sprites/original_map/obsidian_pilgrim/wall.png"
-    },
-    "silent_crown": {
-        "sky": "res://assets/sprites/original_map/silent_crown/sky.png",
-        "far": "res://assets/sprites/original_map/silent_crown/far.png",
-        "mid": "res://assets/sprites/original_map/silent_crown/mid.png",
-        "near": "res://assets/sprites/original_map/silent_crown/near.png",
-        "map": "res://assets/sprites/original_map/silent_crown/map.png",
-        "left": "res://assets/sprites/original_map/silent_crown/platform_left.png",
-        "mid_tile": "res://assets/sprites/original_map/silent_crown/platform_mid.png",
-        "mid_alt": "res://assets/sprites/original_map/silent_crown/platform_mid_alt.png",
-        "right": "res://assets/sprites/original_map/silent_crown/platform_right.png",
-        "cap_small": "res://assets/sprites/original_map/silent_crown/platform_cap_small.png",
-        "wall": "res://assets/sprites/original_map/silent_crown/wall.png"
-    }
-}
 
 const KENNEY_DELUXE_TILE_FAMILIES := {
     "grass": {
@@ -791,8 +719,8 @@ func _enemy_death_sfx_key() -> String:
 
 
 func _original_map_art() -> Dictionary:
-    return ORIGINAL_MAP_ART.get(_art_theme_id(), ORIGINAL_MAP_ART["moss_cavern"]) as Dictionary
-
+    var root := "res://assets/sprites/flat_maps/" + _art_theme_id() + "/"
+    return {"map":root+"background.png","sky":root+"background.png","mid_tile":root+"platform_00.tres"}
 
 func _is_rain_foundry_theme() -> bool:
     return _art_theme_id() == "rain_foundry"
@@ -836,7 +764,7 @@ func _theme_map_art_modulate() -> Color:
 
 
 func _theme_asset_source() -> String:
-    return "Crimson Thread original map art (project-owned, deterministic build)"
+    return "Original hand-drawn 2D PNG atlases / built-in image_gen"
 
 
 func _theme_uses_industrial_tiles() -> bool:
@@ -849,14 +777,8 @@ func _theme_uses_kenney_deluxe() -> bool:
 
 
 func _background_visual_asset_paths() -> Array:
-    var art := _original_map_art()
-    return [
-        String(art.get("sky", "")),
-        String(art.get("far", "")),
-        String(art.get("mid", "")),
-        String(art.get("near", ""))
-    ]
-
+    var root := "res://assets/sprites/flat_maps/"+_art_theme_id()+"/"
+    return [root+"background.png",root+"decor_atlas.png"]
 
 func _theme_boss_material() -> String:
     var theme := _art_theme_id()
@@ -873,16 +795,9 @@ func _theme_boss_material() -> String:
     return "boss_stone"
 
 
-func _platform_visual_asset_paths_for_material(material: String) -> Array:
-    var art := _original_map_art()
-    return [
-        String(art.get("left", "")),
-        String(art.get("mid_tile", "")),
-        String(art.get("mid_alt", "")),
-        String(art.get("right", "")),
-        String(art.get("cap_small", ""))
-    ]
-
+func _platform_visual_asset_paths_for_material(_material: String) -> Array:
+    var root := "res://assets/sprites/flat_maps/"+_art_theme_id()+"/"
+    return [root+"platform_atlas.png",root+"terrain_atlas.png"]
 
 func _combat_progression_enabled() -> bool:
     return String(config.get("progression_mode", "keys")).to_lower() == "combat_clear"
@@ -1121,7 +1036,7 @@ func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true
     if item_id.begins_with("testimony_"):
         _refresh_testimony_chain_flag()
     if announce:
-        _toast("Added to bag: " + _item_display_name(item_id))
+        _toast("收入行囊 · " + _item_display_name(item_id))
     if active_overlay == "backpack":
         _refresh_backpack_overlay()
 
@@ -1420,39 +1335,10 @@ func _load_texture_resource(path: String) -> Texture2D:
 
 
 func _build_backpack_overlay() -> void:
-    backpack_panel = ColorRect.new()
-    backpack_panel.name = "BackpackOverlay"
-    backpack_panel.position = Vector2(78, 62)
-    backpack_panel.size = Vector2(980, 560)
-    backpack_panel.color = Color(0.035, 0.045, 0.05, 0.93)
-    backpack_panel.visible = false
-    ui_canvas.add_child(backpack_panel)
-
-    var title := Label.new()
-    title.text = "背包 Bag"
-    title.position = Vector2(22, 18)
-    title.add_theme_font_size_override("font_size", 24)
-    title.add_theme_color_override("font_color", Color(0.96, 0.80, 0.42))
-    backpack_panel.add_child(title)
-
-    backpack_text = Label.new()
-    backpack_text.position = Vector2(22, 60)
-    backpack_text.size = Vector2(420, 480)
-    backpack_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    backpack_text.add_theme_font_size_override("font_size", 14)
-    backpack_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
-    backpack_panel.add_child(backpack_text)
-
-    # 铭文详情区（圣典 §7）：右列展示选中物品的完整铭文，W/S 切换条目。
-    backpack_detail_text = Label.new()
-    backpack_detail_text.position = Vector2(470, 60)
-    backpack_detail_text.size = Vector2(486, 480)
-    backpack_detail_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    backpack_detail_text.add_theme_font_size_override("font_size", 15)
-    backpack_detail_text.add_theme_color_override("font_color", Color(0.93, 0.86, 0.72))
-    backpack_panel.add_child(backpack_detail_text)
+    backpack_panel=ui_shell.bag
+    backpack_text=ui_shell.legacy_bag_text
+    backpack_detail_text=ui_shell.legacy_bag_detail
     _refresh_backpack_overlay()
-
 
 func _build_map_overlay() -> void:
     map_panel = ColorRect.new()
@@ -1461,15 +1347,16 @@ func _build_map_overlay() -> void:
     map_panel.size = Vector2(1176, 640)
     map_panel.color = Color(0.012, 0.015, 0.018, 0.97)
     map_panel.visible = false
-    ui_canvas.add_child(map_panel)
+    ui_shell.add_child(map_panel)
 
     var map_art := TextureRect.new()
     map_art.name = "MapBackgroundArt"
+    map_art.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
     map_art.texture = _load_texture_resource(_theme_map_background_texture())
     map_art.position = Vector2.ZERO
     map_art.size = map_panel.size
     map_art.stretch_mode = TextureRect.STRETCH_SCALE
-    map_art.modulate = _theme_map_art_modulate()
+    map_art.modulate = Color(1,1,1,.07)
     map_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
     map_panel.add_child(map_art)
 
@@ -1477,8 +1364,9 @@ func _build_map_overlay() -> void:
     title.text = _theme_map_title()
     title.position = Vector2(28, 18)
     title.add_theme_font_size_override("font_size", 24)
-    title.add_theme_color_override("font_color", Color(0.58, 0.92, 0.86))
+    title.add_theme_color_override("font_color", Color("b5a17c"))
     map_panel.add_child(title)
+    ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
 
     map_draw_root = Control.new()
     map_draw_root.name = "MapDrawRoot"
@@ -1507,6 +1395,11 @@ func _wish_board_entries() -> Array:
     for wish in config.get("wish_board", []):
         if wish is Dictionary and not String((wish as Dictionary).get("id", "")).is_empty():
             entries.append(wish)
+    for npc in config.get("npcs",[]):
+        var topics: Dictionary=npc.get("dialogue_topics",{})
+        var quest: Dictionary=topics.get("quest",{})
+        if not quest.is_empty():
+            entries.append({"id":"npc_"+String(npc.id),"title":_npc_display_name(npc)+"的心愿","desc":topics.get("wish",""),"kind":"心愿","target_flag":quest.get("complete_flag",""),"reward_currency":0})
     return entries
 
 
@@ -1559,6 +1452,9 @@ func _check_wish_board_rewards() -> void:
         var reward := int(wish.get("reward_currency", 0))
         if reward > 0:
             _add_currency(reward)
+        if reward==0:
+            _toast("心愿达成 · "+String(wish.get("title",wish.get("id",""))))
+            continue
         _toast("愿望达成：%s（+%d %s）" % [
             String(wish.get("title", wish.get("id", ""))),
             reward,
@@ -1627,30 +1523,9 @@ func _toggle_map() -> void:
 # ---- 音频设置覆盖层（音量四滑条，复用背包面板构建模式）----
 
 func _build_settings_overlay() -> void:
-    settings_panel = ColorRect.new()
-    settings_panel.name = "AudioSettingsOverlay"
-    settings_panel.position = Vector2(390, 180)
-    settings_panel.size = Vector2(500, 330)
-    settings_panel.color = Color(0.035, 0.045, 0.05, 0.93)
-    settings_panel.visible = false
-    ui_canvas.add_child(settings_panel)
-
-    var title := Label.new()
-    title.text = "音频设置 Audio"
-    title.position = Vector2(22, 18)
-    title.add_theme_font_size_override("font_size", 24)
-    title.add_theme_color_override("font_color", Color(0.96, 0.80, 0.42))
-    settings_panel.add_child(title)
-
-    settings_text = Label.new()
-    settings_text.position = Vector2(22, 64)
-    settings_text.size = Vector2(456, 244)
-    settings_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    settings_text.add_theme_font_size_override("font_size", 15)
-    settings_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
-    settings_panel.add_child(settings_text)
+    settings_panel=ui_shell.settings
+    settings_text=ui_shell.legacy_settings
     _refresh_settings_overlay()
-
 
 func _toggle_audio_settings() -> void:
     if active_overlay == "settings":
@@ -1745,6 +1620,8 @@ func _sync_ui_input_lock() -> void:
 
 ## 对话面板关闭时归还 BGM/Ambience 压低（所有关闭路径共用：Esc、走远、切换 overlay）。
 func _notify_dialogue_closed() -> void:
+    if ui_shell!=null:
+        ui_shell.close_dialogue()
     if active_overlay == "dialogue" and audio_director != null:
         audio_director.on_dialogue(false)
 
@@ -1787,6 +1664,8 @@ func _refresh_backpack_overlay() -> void:
     lines.append("Tab/I 背包   W/S 查看铭文   M 地图   Esc 关闭")
     backpack_text.text = "\n".join(lines)
     _refresh_backpack_detail()
+    if ui_shell!=null:
+        ui_shell.refresh_inventory()
 
 
 func _inventory_ids_for_category(category: String) -> Array[String]:
@@ -1953,8 +1832,8 @@ func _refresh_map_overlay() -> void:
         child.free()
 
     var rooms: Array = config.get("map_rooms", [])
-    var draw_width := 1108.0
-    var draw_size := Vector2(1108.0, 430.0)
+    var draw_width := 760.0 if not _wish_board_entries().is_empty() else 1108.0
+    var draw_size := Vector2(draw_width, 430.0)
     var base_y := 132.0
     var depth_step := 72.0
     var layout_bounds := _map_layout_bounds(rooms)
@@ -1975,7 +1854,6 @@ func _refresh_map_overlay() -> void:
         var border := Color(0.74, 1.0, 0.92, 1.0) if current else (Color(0.42, 0.78, 0.56, 0.90) if visited else Color(0.24, 0.30, 0.28, 0.92))
         var border_width := 4.0 if current else 2.0
         _add_map_ui_rect("Room_" + room_id, overlay_rect.position, room_size, fill, border, border_width)
-        _add_map_room_texture(overlay_rect.position, room_size, visited, current)
         _add_map_wall_caps(room_id, overlay_rect.position, room_size, visited, current)
 
         var room_kind := String(room_data.get("kind", ""))
@@ -2008,29 +1886,17 @@ func _refresh_map_overlay() -> void:
     var guide := _room_map_copy(current_map_room_id, "guide", "Use the map for route status and F for nearby interactions.")
     var danger := _room_map_copy(current_map_room_id, "danger", "Watch traps and melee windups.")
     var next_step := _room_map_copy(current_map_room_id, "next", "Move forward.")
-    var archetype := _room_map_copy(current_map_room_id, "archetype", "unknown")
-    var traversal_focus := _room_map_copy(current_map_room_id, "traversal_focus", "unknown")
-    var pacing_role := _room_map_copy(current_map_room_id, "pacing_role", "unknown")
-    var setpiece := _room_map_copy(current_map_room_id, "setpiece", "")
-    var metsys_state: Dictionary = metsys_bridge.get_state() if metsys_bridge != null else {}
-    map_text.text = "%s  |  %s  |  探索 %d/%d  |  捷径 %d/%d\n%s  ·  %s  ·  %s\n目标  %s\n路线  %s  ->  %s\n危险  %s  |  边界 %d  通路 %d  锁 %d  连接 %d" % [
+    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\nM / Esc 返回  ·  F 与附近人物或机关互动" % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
         visited_rooms.size(),
         rooms.size(),
         _opened_shortcut_total(),
         _shortcut_total(),
-        setpiece if not setpiece.is_empty() else archetype,
-        pacing_role,
-        traversal_focus,
         objective,
         guide,
         next_step,
-        danger,
-        int(metsys_state.get("metsys_wall_borders", 0)),
-        int(metsys_state.get("metsys_passage_borders", 0)),
-        int(metsys_state.get("metsys_locked_edges", 0)),
-        int(metsys_state.get("metsys_connector_cells", 0))
+        danger
     ]
 
 
@@ -2258,6 +2124,8 @@ func _build_world_from_config() -> void:
         if block is Dictionary:
             _environment_block(block)
     for platform in config.get("platforms", []):
+        if platform.has("terrain_id"):
+            continue
         _platform(
             String(platform.get("id", "platform")),
             _rect2(platform.get("rect", [])),
@@ -2322,37 +2190,8 @@ func _build_world_from_config() -> void:
 
 
 func _environment_block(data: Dictionary) -> void:
-    var rect := _rect2(data.get("rect", []))
-    if rect.size.x <= 0.0 or rect.size.y <= 0.0:
-        return
-    var block := Polygon2D.new()
-    block.name = String(data.get("id", "environment_block"))
-    block.position = rect.position + rect.size * 0.5
-    var half := rect.size * 0.5
-    block.polygon = PackedVector2Array([
-        Vector2(-half.x, -half.y),
-        Vector2(half.x, -half.y),
-        Vector2(half.x, half.y),
-        Vector2(-half.x, half.y)
-    ])
-    var block_id := String(data.get("id", "environment_block"))
-    var base_color := _platform_body_color("wall", _color(data.get("color", "101816")))
-    var block_alpha := 0.62
-    if block_id.contains("floor_mass"):
-        base_color = base_color.darkened(0.28)
-        block_alpha = 0.96
-    elif block_id.contains("pier") or block_id.contains("band"):
-        base_color = base_color.lightened(0.05)
-        block_alpha = 0.90
-    elif block_id.contains("shadow") or block_id.contains("back"):
-        base_color = base_color.darkened(0.12)
-        block_alpha = 0.38
-    base_color.a = block_alpha
-    block.color = base_color
-    block.z_index = int(data.get("z_index", -90))
-    add_child(block)
-    _add_environment_block_texture(block_id, rect, block.z_index + 1, block_alpha)
-
+    if flat_map_art != null:
+        flat_map_art.add_environment_ornament(data)
 
 func _add_environment_block_texture(block_id: String, rect: Rect2, z_value: int, block_alpha: float) -> void:
     var art := _original_map_art()
@@ -2388,84 +2227,44 @@ func _spawn_player() -> void:
 
 
 func _build_hud() -> void:
-    ui_canvas = CanvasLayer.new()
+    ui_canvas=CanvasLayer.new()
     add_child(ui_canvas)
-    hud_label = Label.new()
-    hud_label.position = Vector2(18, 14)
-    hud_label.add_theme_color_override("font_color", Color(0.95, 0.90, 0.75))
-    ui_canvas.add_child(hud_label)
-
-    toast_label = Label.new()
-    toast_label.position = Vector2(18, 42)
-    toast_label.add_theme_color_override("font_color", Color(0.62, 0.94, 0.86))
-    ui_canvas.add_child(toast_label)
-
-    # 剧情关键物品拾取横幅：独立于普通 toast，停留 LORE_BANNER_SECONDS 秒，
-    # 展示"物品名 + 圣典铭文首句"（捡到证词=听到一段历史）。
-    lore_banner_label = Label.new()
-    lore_banner_label.position = Vector2(18, 66)
-    lore_banner_label.size = Vector2(1080, 52)
-    lore_banner_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    lore_banner_label.add_theme_font_size_override("font_size", 16)
-    lore_banner_label.add_theme_color_override("font_color", Color(0.94, 0.62, 0.58))
-    lore_banner_label.visible = false
-    ui_canvas.add_child(lore_banner_label)
-
-    win_label = Label.new()
-    win_label.position = Vector2(380, 88)
-    win_label.visible = false
-    win_label.add_theme_font_size_override("font_size", 34)
-    win_label.add_theme_color_override("font_color", Color(1.0, 0.86, 0.35))
-    ui_canvas.add_child(win_label)
+    ui_shell=PILGRIMAGE_UI_SCRIPT.new()
+    ui_canvas.add_child(ui_shell)
+    ui_shell.bind(self)
+    hud_label=Label.new()
+    hud_label.visible=false
+    ui_shell.add_child(hud_label)
+    toast_label=ui_shell.toast
+    lore_banner_label=Label.new()
+    lore_banner_label.position=Vector2(325,603)
+    lore_banner_label.size=Vector2(620,54)
+    lore_banner_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+    lore_banner_label.add_theme_font_size_override("font_size",17)
+    lore_banner_label.add_theme_color_override("font_color",Color("e8ddc3"))
+    lore_banner_label.visible=false
+    ui_shell.add_child(lore_banner_label)
+    win_label=Label.new()
+    win_label.position=Vector2(350,132)
+    win_label.size=Vector2(600,60)
+    win_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    win_label.add_theme_font_size_override("font_size",30)
+    win_label.visible=false
+    ui_shell.add_child(win_label)
     _build_backpack_overlay()
     _build_map_overlay()
     _build_dialogue_overlay()
     _build_settings_overlay()
-    # 入章即结算：跨章携带的 story_flags 可能已满足本章愿望条件。
+    ui_shell.frame(map_panel)
     _check_wish_board_rewards()
     _refresh_hud()
 
-
 func _build_dialogue_overlay() -> void:
-    dialogue_panel = ColorRect.new()
-    dialogue_panel.name = "DialogueOverlay"
-    dialogue_panel.position = Vector2(72, 504)
-    dialogue_panel.size = Vector2(1136, 172)
-    dialogue_panel.color = Color(0.020, 0.024, 0.024, 0.94)
-    dialogue_panel.visible = false
-    ui_canvas.add_child(dialogue_panel)
-
-    dialogue_name_label = Label.new()
-    dialogue_name_label.position = Vector2(24, 16)
-    dialogue_name_label.size = Vector2(330, 34)
-    dialogue_name_label.add_theme_font_size_override("font_size", 24)
-    dialogue_name_label.add_theme_color_override("font_color", Color(0.96, 0.84, 0.48))
-    dialogue_panel.add_child(dialogue_name_label)
-
-    dialogue_meta_label = Label.new()
-    dialogue_meta_label.position = Vector2(372, 18)
-    dialogue_meta_label.size = Vector2(730, 34)
-    dialogue_meta_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    dialogue_meta_label.add_theme_font_size_override("font_size", 15)
-    dialogue_meta_label.add_theme_color_override("font_color", Color(0.58, 0.90, 0.82))
-    dialogue_panel.add_child(dialogue_meta_label)
-
-    dialogue_text_label = Label.new()
-    dialogue_text_label.position = Vector2(24, 58)
-    dialogue_text_label.size = Vector2(1068, 70)
-    dialogue_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    dialogue_text_label.add_theme_font_size_override("font_size", 20)
-    dialogue_text_label.add_theme_color_override("font_color", Color(0.90, 0.94, 0.84))
-    dialogue_panel.add_child(dialogue_text_label)
-
-    dialogue_hint_label = Label.new()
-    dialogue_hint_label.position = Vector2(24, 132)
-    dialogue_hint_label.size = Vector2(1068, 28)
-    dialogue_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    dialogue_hint_label.add_theme_font_size_override("font_size", 14)
-    dialogue_hint_label.add_theme_color_override("font_color", Color(0.72, 0.78, 0.68))
-    dialogue_panel.add_child(dialogue_hint_label)
-
+    dialogue_panel=ui_shell.dialogue
+    dialogue_name_label=ui_shell.dialogue_name
+    dialogue_meta_label=ui_shell.dialogue_identity
+    dialogue_text_label=ui_shell.dialogue_body
+    dialogue_hint_label=ui_shell.dialogue_hint
 
 func _background() -> void:
     var left := -300.0
@@ -2478,7 +2277,12 @@ func _background() -> void:
     bg.z_index = -120
     add_child(bg)
 
-    _original_background_layers()
+    flat_map_art = FLAT_MAP_ART_SCRIPT.new()
+    add_child(flat_map_art)
+    flat_map_art.configure(_art_theme_id(),config)
+    chapter_terrain = TERRAIN_SCRIPT.new()
+    add_child(chapter_terrain)
+    chapter_terrain.configure(config,_art_theme_id())
 
     var shade := Polygon2D.new()
     shade.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
@@ -2510,7 +2314,7 @@ func _void_respawn() -> void:
         player.respawn_at(active_spawn)
     else:
         player.global_position = active_spawn
-    _toast("You fell. Back to the save point.")
+    _toast("绯线牵你回到了上一处钟龛。")
     _update_room_visit()
     _refresh_hud()
 
@@ -2817,9 +2621,10 @@ func _platform(node_name: String, rect: Rect2, color: Color, material: String = 
             shape.one_way_collision_margin = 2.0
         body.add_child(shape)
 
-    _add_platform_readability_base(body, rect.size, material, color)
-    _add_platform_plate(body, Vector2(0, 18), rect.size + Vector2(12, 36), _platform_shadow_color(material), -7)
-    _add_platform_visual(body, rect.size, material)
+    if flat_map_art != null and flat_map_art.ready_for_platforms():
+        flat_map_art.add_platform_visual(body,rect.size,material)
+    else:
+        _add_platform_readability_base(body,rect.size,material,color)
     add_child(body)
     return body
 
@@ -3289,6 +3094,15 @@ func _hazard(data: Dictionary) -> void:
     add_child(area)
 
 
+func _apply_original_prop(sprite: Sprite2D, key: String, height: float) -> void:
+    var props := ORIGINAL_ART.manifest("res://assets/sprites/original_interactables/manifest.json")
+    var texture := ORIGINAL_ART.frame(props.get(key,{}))
+    if texture==null:return
+    sprite.texture=texture
+    sprite.scale=Vector2.ONE*(height/texture.get_height())
+    sprite.position=Vector2(0,40-height*.5)
+    sprite.modulate=Color.WHITE
+
 func _collectible(data: Dictionary) -> void:
     var area := Area2D.new()
     area.name = String(data.get("id", "collectible"))
@@ -3309,10 +3123,16 @@ func _collectible(data: Dictionary) -> void:
     area.add_child(shape)
 
     var sprite := Sprite2D.new()
-    sprite.texture = load(SPRITES["bell_key"])
-    sprite.scale = Vector2(0.45, 0.45)
+    sprite.texture = ORIGINAL_ART.item(item_id)
+    if sprite.texture != null:
+        sprite.scale=Vector2.ONE*(32.0/maxf(sprite.texture.get_width(),sprite.texture.get_height()))
     area.add_child(sprite)
-    area.body_entered.connect(_on_collectible_body_entered.bind(area))
+    area.set_meta("manual_pickup",collectible_kind=="item" and _is_story_key_item(item_id))
+    if bool(area.get_meta("manual_pickup")):
+        area.add_to_group("interactable")
+        area.set_meta("interaction_label","收取 · "+_item_display_name(item_id))
+    else:
+        area.body_entered.connect(_on_collectible_body_entered.bind(area))
     add_child(area)
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
@@ -3339,6 +3159,8 @@ func _lever(data: Dictionary) -> void:
     var sprite := Sprite2D.new()
     sprite.texture = load(SPRITES["lever"])
     sprite.scale = Vector2(0.52, 0.52)
+    sprite.name="LeverSprite"
+    _apply_original_prop(sprite,"lever_closed",83)
     area.add_child(sprite)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -3353,7 +3175,7 @@ func _boss_door(data: Dictionary) -> void:
     area.name = String(data.get("id", "boss_gate"))
     area.position = _vec2(data.get("position", [0, 0]))
     area.set_meta("kind", "boss_gate")
-    area.set_meta("label", "Boss Gate")
+    area.set_meta("label", "踏入钟门")
     area.set_meta("object_id", "interactable/" + area.name)
 
     var shape := CollisionShape2D.new()
@@ -3365,6 +3187,7 @@ func _boss_door(data: Dictionary) -> void:
     var sprite := Sprite2D.new()
     sprite.texture = load(SPRITES["boss_gate"])
     sprite.scale = Vector2(0.82, 0.82)
+    _apply_original_prop(sprite,"gate_closed",152)
     area.add_child(sprite)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -3397,6 +3220,7 @@ func _chapter_exit(data: Dictionary) -> void:
     sprite.texture = load(SPRITES["boss_gate"])
     sprite.scale = Vector2(0.66, 0.66)
     sprite.modulate = Color(0.48, 1.0, 0.92, 0.84) if kind == "chapter_exit" else Color(1.0, 0.74, 0.96, 0.88)
+    _apply_original_prop(sprite,"gate_open",138)
     sprite.z_index = 7
     area.add_child(sprite)
 
@@ -3461,6 +3285,7 @@ func _save_point(data: Dictionary) -> void:
     marker.position = Vector2(0, -18)
     marker.scale = Vector2(2.9, 2.9)
     marker.modulate = Color(0.70, 1.0, 0.82, 0.84) if bool(data.get("hidden", false)) else Color(0.92, 1.0, 0.62, 1.0)
+    _apply_original_prop(marker,"rest_root" if bool(data.get("hidden",false)) else "rest_bell",118)
     marker.z_index = 8
     area.add_child(marker)
 
@@ -3485,10 +3310,6 @@ func _save_point(data: Dictionary) -> void:
 
 
 func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> void:
-    var bob := create_tween()
-    bob.set_loops()
-    bob.tween_property(marker, "position:y", -26.0, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-    bob.tween_property(marker, "position:y", -18.0, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
     var pulse := create_tween()
     pulse.set_loops()
@@ -3508,10 +3329,11 @@ func _play_save_point_activation(area: Area2D) -> void:
     var sprite := area.get_node_or_null("SavePointSprite") as Sprite2D
     var ring := area.get_node_or_null("SavePointHalo") as Line2D
     if sprite != null:
-        sprite.modulate = Color(0.96, 1.0, 0.62, 1.0)
+        sprite.modulate = Color(1.0, 0.94, 0.78, 1.0)
+        var base_scale := sprite.scale
         var flash := create_tween()
-        flash.tween_property(sprite, "scale", Vector2(3.45, 3.45), 0.10).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-        flash.tween_property(sprite, "scale", Vector2(2.9, 2.9), 0.18)
+        flash.tween_property(sprite, "scale", base_scale*1.08, 0.10).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+        flash.tween_property(sprite, "scale", base_scale, 0.18)
     if ring != null:
         ring.default_color = Color(0.90, 1.0, 0.58, 0.95)
     for index in range(3):
@@ -3558,64 +3380,21 @@ func _npc(data: Dictionary) -> void:
     shape.shape = circle
     area.add_child(shape)
 
-    var npc_texture := _load_texture_resource(String(NPC_SPRITES.get(role, "")))
-    if npc_texture != null:
-        var sprite := Sprite2D.new()
-        sprite.name = "FriendlyFamilySprite"
-        sprite.texture = npc_texture
-        sprite.position = Vector2(0, -24)
-        sprite.scale = Vector2(0.46, 0.46)
-        sprite.modulate = Color(0.86, 1.0, 0.92, 0.92)
-        sprite.z_index = 3
+    var manifest_path := "res://assets/sprites/original_npcs/"+String(data.get("id",""))+"/manifest.json"
+    var art_data := ORIGINAL_ART.manifest(manifest_path)
+    var npc_frames := ORIGINAL_ART.frames(manifest_path)
+    if npc_frames != null:
+        var sprite := AnimatedSprite2D.new()
+        sprite.name="FriendlyFamilySprite"
+        sprite.sprite_frames=npc_frames
+        sprite.play("idle")
+        sprite.scale=Vector2.ONE*float(art_data.get("visual_scale",.3))
+        sprite.position=_vec2(art_data.get("visual_offset",[0,-24]))
+        sprite.z_index=3
         area.add_child(sprite)
-    else:
-        var body := Polygon2D.new()
-        body.polygon = PackedVector2Array([
-            Vector2(-16, 26),
-            Vector2(-22, -8),
-            Vector2(0, -30),
-            Vector2(22, -8),
-            Vector2(16, 26)
-        ])
-        body.color = Color(0.18, 0.31, 0.34, 0.92)
-        area.add_child(body)
-
-        var face := Polygon2D.new()
-        face.polygon = PackedVector2Array([
-            Vector2(-9, -8),
-            Vector2(0, -17),
-            Vector2(9, -8),
-            Vector2(5, 3),
-            Vector2(-5, 3)
-        ])
-        face.color = Color(0.91, 0.69, 0.28, 0.95)
-        face.z_index = 2
-        area.add_child(face)
-
-    var friendly_badge := Polygon2D.new()
-    friendly_badge.name = "FriendlyTalkBadge"
-    friendly_badge.polygon = PackedVector2Array([
-        Vector2(0, -56),
-        Vector2(10, -45),
-        Vector2(0, -34),
-        Vector2(-10, -45)
-    ])
-    friendly_badge.color = Color(0.32, 0.96, 0.80, 0.92)
-    friendly_badge.z_index = 8
-    area.add_child(friendly_badge)
-
-    var halo := Line2D.new()
-    halo.name = "FriendlyHalo"
-    halo.points = PackedVector2Array([
-        Vector2(-22, 31),
-        Vector2(0, 40),
-        Vector2(22, 31)
-    ])
-    halo.width = 3.0
-    halo.default_color = Color(0.48, 1.0, 0.80, 0.72)
-    halo.z_index = 7
-    area.add_child(halo)
-
+    area.add_to_group("interactable")
+    area.set_meta("portrait_id",String(data.get("id","")))
+    area.set_meta("dialogue_topics",data.get("dialogue_topics",{}))
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -3743,6 +3522,9 @@ func _fallback_enemy_spawn_position(data: Dictionary, requested: Vector2, cleara
 
 
 func _enemy_spawn_visual_height(data: Dictionary) -> float:
+    var original_path := String(data.get("sprite",""))
+    if original_path.contains("original_creatures"):
+        return maxf(20,float(ORIGINAL_ART.manifest(original_path).get("display_height",90))-40)
     var region: Array = data.get("sprite_region", [])
     var region_height := 72.0
     if region.size() >= 4:
@@ -3759,6 +3541,8 @@ func _enemy_spawn_rect_clear(position_value: Vector2, half_width: float = 36.0, 
         if not (platform is Dictionary):
             continue
         var platform_data: Dictionary = platform
+        if not String(platform_data.get("terrain_id", "")).is_empty():
+            continue # The anchor rectangle was replaced by a continuous terrain polygon.
         var platform_id := String(platform_data.get("id", ""))
         if platform_id == floor_platform_id:
             continue
@@ -3829,7 +3613,7 @@ func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector
     while right + step <= max_x and _enemy_spawn_rect_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, platform_id):
         right += step
     if right - left < half_width:
-        return [min_x, max_x]
+        return [left-0.05, right+0.05]
     return [left, right]
 
 
@@ -3859,6 +3643,15 @@ func _enemy(data: Dictionary) -> Area2D:
     enemy.set_meta("platform_id", floor_platform_id)
     enemy.set_meta("spawn_half_width", float(data.get("spawn_half_width", 36.0)))
     enemy.set_meta("spawn_visual_height", float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data))))
+    if String(enemy.locomotion)=="flight":
+        while enemy.hover_height>35 and not _enemy_spawn_rect_clear(enemy.position-Vector2(0,enemy.hover_height),24,_enemy_spawn_visual_height(data),floor_platform_id):
+            enemy.hover_height-=10
+        if not _enemy_spawn_rect_clear(enemy.position-Vector2(0,enemy.hover_height),24,_enemy_spawn_visual_height(data),floor_platform_id):
+            for offset in [-48.0,48.0,-96.0,96.0]:
+                var candidate := enemy.position+Vector2(offset,-enemy.hover_height)
+                if _enemy_spawn_rect_clear(candidate,24,_enemy_spawn_visual_height(data),floor_platform_id):
+                    enemy.position.x=candidate.x
+                    break
     add_child(enemy)
     return enemy
 
@@ -3896,7 +3689,7 @@ func _spawn_boss() -> void:
     # Boss 战开始 ducking 示范点（规格 §5.3）：入场威压瞬间压低 BGM 再回弹，
     # 覆盖 _debug_start_boss 与 _activate_boss_gate 两条激活路径。
     duck_bgm(-6.0, 1.5)
-    _toast("Boss awakened: " + _boss_display_name(boss_data) + ".")
+    _toast("钟门深处 · " + _boss_display_name(boss_data))
     _refresh_hud()
 
 
@@ -3928,7 +3721,7 @@ func _start_boss_trial() -> void:
         if boss_trial_mode or not config.get("interactives", []).is_empty():
             _set_boss_arena_locked(true)
     _update_room_visit()
-    _toast("Boss trial: Chapter 1 boss is awake. Fight starts now.")
+    _toast("试炼开始 · 苔钟守母已苏醒。")
     _refresh_hud()
 
 
@@ -3945,7 +3738,7 @@ func _set_boss_arena_locked(locked: bool) -> void:
             if player.global_position.x < safe_x:
                 player.global_position = Vector2(safe_x, player.global_position.y)
                 player.set("velocity", Vector2.ZERO)
-        _toast("Boss arena sealed. Defeat the boss or die to leave.")
+        _toast("钟门已合，战斗开始。")
         return
 
     if boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body):
@@ -4100,11 +3893,15 @@ func _on_interactable_exited(body: Node, area: Area2D) -> void:
 
 
 func _try_interact() -> void:
-    if nearby_interactable == null or not is_instance_valid(nearby_interactable):
-        nearby_interactable = _nearest_interactable(170.0)
+    if active_overlay != "dialogue":
+        nearby_interactable = _nearest_interactable(150.0)
         if nearby_interactable == null or not is_instance_valid(nearby_interactable):
-            _toast("No nearby target.")
+            _toast("附近没有可交互的人物或机关。")
             return
+    if bool(nearby_interactable.get_meta("manual_pickup",false)):
+        _on_collectible_body_entered(player,nearby_interactable)
+        nearby_interactable=null
+        return
     var kind := String(nearby_interactable.get_meta("kind", ""))
     if kind == "lever":
         _activate_lever(nearby_interactable)
@@ -4132,7 +3929,7 @@ func _nearest_interactable(radius: float) -> Area2D:
         if area == null or not is_instance_valid(area):
             continue
         var kind := String(area.get_meta("kind", ""))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate"].has(kind):
+        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "item"].has(kind):
             continue
         var distance := player.global_position.distance_to(area.global_position)
         if distance > radius:
@@ -4149,11 +3946,11 @@ func _nearest_interactable(radius: float) -> Area2D:
 func _activate_lever(area: Area2D) -> void:
     var shortcut_id := _shortcut_id_for_area(area)
     if _is_shortcut_open(shortcut_id):
-        _toast("Shortcut already open.")
+        _toast("这条捷径已经接通。")
         return
     if _combat_progression_enabled():
         if not _combat_goal_met():
-            _toast("Defeat nearby enemies to open the boss route.")
+            _toast("清除附近的敌群，才能接通钟门前的道路。")
             return
         _open_shortcut(shortcut_id)
         _play_sfx("lever")
@@ -4178,6 +3975,10 @@ func _open_shortcut(shortcut_id: String = "") -> void:
             shortcut_id = String(ids[0])
     if not shortcut_id.is_empty():
         opened_shortcuts[shortcut_id] = true
+    for child in get_children():
+        if child is Area2D and String(child.get_meta("kind",""))=="lever" and _shortcut_id_for_area(child)==shortcut_id:
+            var sprite := child.get_node_or_null("LeverSprite") as Sprite2D
+            if sprite!=null:_apply_original_prop(sprite,"lever_open",52)
     shortcut_open = true
     boss_unlocked = true
     if gate_body != null and is_instance_valid(gate_body):
@@ -4186,7 +3987,7 @@ func _open_shortcut(shortcut_id: String = "") -> void:
     # 捷径门接通（音频规格 §4.5 ui_door_open）："绕回来了"的木门吱呀。
     _play_sfx("door_open", -9.0)
     var progress := "%d/%d" % [_opened_shortcut_total(), max(1, _shortcut_total())]
-    _toast("Shortcut open (%s). Find a save point before the boss run." % progress)
+    _toast("捷径已通（%s）。钟门前可以先在钟龛休息。" % progress)
     _refresh_hud()
 
 
@@ -4200,7 +4001,7 @@ func _open_all_shortcuts(show_toast: bool = true) -> void:
         gate_body.queue_free()
         gate_body = null
     if show_toast:
-        _toast("All generated shortcuts open.")
+        _toast("本区捷径均已接通。")
     _refresh_hud()
 
 
@@ -4220,7 +4021,7 @@ func _activate_save_point(area: Area2D) -> void:
     _play_save_point_activation(area)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
-    _toast("Saved and restored at " + String(area.get_meta("label", "Save Point")) + ".")
+    _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
     _refresh_hud()
 
 
@@ -4228,17 +4029,17 @@ func _activate_chapter_exit(area: Area2D) -> void:
     if chapter_transitioning:
         return
     if not _chapter_exit_can_open(area):
-        _toast("The way forward opens after this chapter boss falls.")
+        _toast("击败本章守门者后，前路才会开启。")
         return
     var kind := String(area.get_meta("kind", "chapter_exit"))
     if kind == "ending_exit":
         win_label.text = String(config.get("ending_message", "ENDING ROUTE OPEN: the silent crown answers."))
         win_label.visible = true
-        _toast("Ending route opened.")
+        _toast("最后的巡礼之路已经开启。")
         return
     var next_config_path := String(area.get_meta("next_config_path", ""))
     if next_config_path.is_empty():
-        _toast("Next chapter path missing.")
+        _toast("前路尚未接通。")
         return
     chapter_transitioning = true
     # 章节转场：BGM 总线 0.5s 淡出（新章 set_chapter 起播再从静音 0.8s 淡入）。
@@ -4353,7 +4154,7 @@ func _spawn_ending_gates() -> void:
         area.body_entered.connect(_on_interactable_entered.bind(area))
         area.body_exited.connect(_on_interactable_exited.bind(area))
         add_child(area)
-    _toast("Boss 陨落：结局之门显现，按 F 抉择。")
+    _toast("守门者陨落。结局之门显现，按 F 抉择。")
 
 
 func _ending_gate_missing_requirements(requires_value: Variant) -> Array[String]:
@@ -4412,9 +4213,9 @@ func _activate_ending_gate(area: Area2D) -> void:
 func _activate_boss_gate() -> void:
     if not boss_unlocked:
         if _combat_progression_enabled():
-            _toast("Boss gate sealed. Defeat all normal enemies first.")
+            _toast("钟门未应。先清除本区敌群。")
         else:
-            _toast("Boss gate sealed. Open the shortcut first.")
+            _toast("钟门未应。先接通附近的捷径。")
         return
     _spawn_boss()
     if boss_spawned and not demo_complete:
@@ -4559,8 +4360,9 @@ func _show_dialogue(area: Area2D, line: String) -> void:
         dialogue_text_label.text = line
     if dialogue_hint_label != null:
         dialogue_hint_label.text = String(area.get_meta("help", ""))
+    if ui_shell!=null:
+        ui_shell.show_speaker(area)
     _sync_ui_input_lock()
-    _toast("F继续 / Esc关闭")
 
 
 func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
@@ -4592,7 +4394,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         _toast(String(config.get("completion_toast", "Demo complete: " + boss_name + " defeated.")))
         var transition: Dictionary = config.get("chapter_transition", {})
         if not transition.is_empty():
-            _toast("Chapter exit opened: " + String(transition.get("entry_hint", _next_campaign_chapter_name())))
+            _toast("前往下一片土地 · " + String(transition.get("entry_hint", _next_campaign_chapter_name())))
     else:
         var drop_item := String(config.get("enemy_drop_item", "moss_chitin"))
         enemy_defeated += 1
@@ -4600,11 +4402,11 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         _add_inventory_item(drop_item, 1, false)
         if player != null:
             player.gain_energy(20)
-        _toast("Enemy defeated: %s (%s)" % [spawn_id, kind])
+        _toast("拾得碎钱与材料 · 绯线回充")
         if _combat_progression_enabled() and _combat_goal_met():
             _open_all_shortcuts(false)
             _play_sfx("door_open", -9.0)
-            _toast("All threats cleared. Boss route opened.")
+            _toast("本区敌群已清，钟门前的道路开启。")
     _refresh_hud()
 
 
@@ -4633,7 +4435,7 @@ func _reset_encounters_after_player_death() -> void:
             if player.has_method("restore_at_save_point"):
                 player.restore_at_save_point()
         call_deferred("_respawn_boss_trial_boss")
-        _toast("Boss trial reset: boss restored.")
+        _toast("试炼重置 · 守门者已经归位。")
     else:
         pending_enemy_respawn = true
         # 死亡重置：停 Boss 曲回到本章探索循环（director 缺席回退旧 ch01 单曲）。
@@ -4641,7 +4443,7 @@ func _reset_encounters_after_player_death() -> void:
             audio_director.stop_boss_music()
         else:
             _switch_bgm("bgm_ch01")
-        _toast("Death reset: enemies and boss restored.")
+        _toast("归途重新开始，敌群与守门者已经归位。")
     _refresh_hud()
 
 
@@ -4753,6 +4555,8 @@ func _refresh_hud() -> void:
 
 
 func _toast(text: String) -> void:
+    if ui_shell!=null:
+        ui_shell.toast_age=0.0
     if toast_label != null:
         toast_label.text = text
     # toast 提示微音（音频规格 §4.5 ui_toast）：900ms 冷却防连发刷屏音。
@@ -4959,7 +4763,14 @@ func get_demo_state() -> Dictionary:
         var leash_radius_value := float(enemy_area.get("leash_radius"))
         var spawn_half_width := float(enemy_area.get_meta("spawn_half_width", 36.0))
         var spawn_visual_height := float(enemy_area.get_meta("spawn_visual_height", 104.0))
-        var spawn_clear := _enemy_spawn_rect_clear(enemy_area.global_position, spawn_half_width, spawn_visual_height, String(enemy_area.get_meta("platform_id", "")))
+        var query := PhysicsShapeQueryParameters2D.new()
+        var shape := RectangleShape2D.new()
+        shape.size=enemy_area.hurtbox_size
+        query.shape=shape
+        query.transform=Transform2D(0,enemy_area.global_position+enemy_area.hurtbox_offset)
+        query.collision_mask=1
+        query.collide_with_areas=false
+        var spawn_clear := get_world_2d().direct_space_state.intersect_shape(query,1).is_empty()
         var ai_debug := {}
         if enemy_area.has_method("get_ai_debug_state"):
             ai_debug = enemy_area.get_ai_debug_state()
@@ -4970,7 +4781,8 @@ func get_demo_state() -> Dictionary:
             "spawn_position": [spawn_position_value.x, spawn_position_value.y],
             "leash_radius": leash_radius_value,
             "spawn_visual_height": spawn_visual_height,
-            "platform_id": _platform_under_position(enemy_area.global_position),
+            "platform_id": String(enemy_area.get_meta("platform_id","")),
+            "locomotion": String(enemy_area.get("locomotion")),
             "spawn_clear": spawn_clear,
             "ai_command_total": int(ai_debug.get("ai_command_total", 0)),
             "attack_desire": float(ai_debug.get("attack_desire", 0.0)),

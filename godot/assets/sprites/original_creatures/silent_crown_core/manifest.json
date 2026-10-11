@@ -1,0 +1,465 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "silent_crown_core",
+  "canvas": [
+    362,
+    366
+  ],
+  "display_height": 232,
+  "visual_scale": 0.672463768115942,
+  "visual_offset": [
+    0,
+    -53.06086956521739
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            20,
+            9,
+            341,
+            345
+          ],
+          "margin": [
+            20,
+            19,
+            21,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            384,
+            9,
+            323,
+            345
+          ],
+          "margin": [
+            22,
+            19,
+            39,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            740,
+            40,
+            334,
+            314
+          ],
+          "margin": [
+            16,
+            50,
+            28,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            1105,
+            40,
+            327,
+            314
+          ],
+          "margin": [
+            19,
+            50,
+            35,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            15,
+            388,
+            347,
+            321
+          ],
+          "margin": [
+            15,
+            43,
+            15,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            362,
+            386,
+            362,
+            323
+          ],
+          "margin": [
+            0,
+            41,
+            0,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            724,
+            409,
+            362,
+            300
+          ],
+          "margin": [
+            0,
+            64,
+            0,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            1086,
+            374,
+            346,
+            336
+          ],
+          "margin": [
+            0,
+            28,
+            16,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            16,
+            739,
+            346,
+            286
+          ],
+          "margin": [
+            16,
+            78,
+            16,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            362,
+            767,
+            362,
+            259
+          ],
+          "margin": [
+            0,
+            105,
+            0,
+            107
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            724,
+            756,
+            362,
+            273
+          ],
+          "margin": [
+            0,
+            91,
+            0,
+            93
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+          "region": [
+            1099,
+            876,
+            335,
+            163
+          ],
+          "margin": [
+            13,
+            201,
+            27,
+            203
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            15,
+            7,
+            306,
+            355
+          ],
+          "margin": [
+            15,
+            9,
+            56,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            362,
+            37,
+            362,
+            325
+          ],
+          "margin": [
+            0,
+            39,
+            0,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            724,
+            100,
+            362,
+            262
+          ],
+          "margin": [
+            0,
+            102,
+            0,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            1103,
+            131,
+            332,
+            231
+          ],
+          "margin": [
+            17,
+            133,
+            30,
+            135
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            14,
+            362,
+            348,
+            362
+          ],
+          "margin": [
+            14,
+            2,
+            14,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            362,
+            362,
+            362,
+            362
+          ],
+          "margin": [
+            0,
+            2,
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            724,
+            362,
+            362,
+            362
+          ],
+          "margin": [
+            0,
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            1086,
+            362,
+            340,
+            362
+          ],
+          "margin": [
+            0,
+            2,
+            22,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            14,
+            750,
+            348,
+            298
+          ],
+          "margin": [
+            14,
+            66,
+            14,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            362,
+            727,
+            362,
+            321
+          ],
+          "margin": [
+            0,
+            43,
+            0,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            724,
+            788,
+            362,
+            254
+          ],
+          "margin": [
+            0,
+            110,
+            0,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/attacks.png",
+          "region": [
+            1086,
+            797,
+            351,
+            239
+          ],
+          "margin": [
+            0,
+            125,
+            11,
+            127
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1448,
+    1086
+  ]
+}

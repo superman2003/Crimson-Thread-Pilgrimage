@@ -1,0 +1,465 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "sunken_hammer_smith",
+  "canvas": [
+    362,
+    366
+  ],
+  "display_height": 228,
+  "visual_scale": 0.6551724137931034,
+  "visual_offset": [
+    0,
+    -49.89655172413792
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            47,
+            4,
+            288,
+            348
+          ],
+          "margin": [
+            47,
+            16,
+            74,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            404,
+            6,
+            296,
+            344
+          ],
+          "margin": [
+            42,
+            20,
+            66,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            774,
+            15,
+            312,
+            333
+          ],
+          "margin": [
+            50,
+            31,
+            50,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            1152,
+            19,
+            291,
+            330
+          ],
+          "margin": [
+            66,
+            34,
+            71,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            45,
+            382,
+            307,
+            335
+          ],
+          "margin": [
+            45,
+            29,
+            55,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            401,
+            394,
+            318,
+            323
+          ],
+          "margin": [
+            39,
+            41,
+            44,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            744,
+            384,
+            315,
+            334
+          ],
+          "margin": [
+            20,
+            30,
+            47,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            1135,
+            383,
+            287,
+            333
+          ],
+          "margin": [
+            49,
+            31,
+            75,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            5,
+            800,
+            357,
+            229
+          ],
+          "margin": [
+            5,
+            135,
+            5,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            362,
+            768,
+            362,
+            265
+          ],
+          "margin": [
+            0,
+            99,
+            0,
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            724,
+            768,
+            352,
+            264
+          ],
+          "margin": [
+            0,
+            100,
+            10,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+          "region": [
+            1086,
+            897,
+            356,
+            137
+          ],
+          "margin": [
+            0,
+            227,
+            6,
+            229
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            19,
+            28,
+            343,
+            334
+          ],
+          "margin": [
+            19,
+            30,
+            19,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            362,
+            11,
+            362,
+            351
+          ],
+          "margin": [
+            0,
+            13,
+            0,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            724,
+            122,
+            362,
+            240
+          ],
+          "margin": [
+            0,
+            124,
+            0,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            1086,
+            135,
+            342,
+            227
+          ],
+          "margin": [
+            0,
+            137,
+            20,
+            139
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            13,
+            362,
+            338,
+            362
+          ],
+          "margin": [
+            13,
+            2,
+            24,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            378,
+            362,
+            346,
+            362
+          ],
+          "margin": [
+            16,
+            2,
+            16,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            724,
+            362,
+            362,
+            362
+          ],
+          "margin": [
+            0,
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            1086,
+            362,
+            346,
+            362
+          ],
+          "margin": [
+            0,
+            2,
+            16,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            12,
+            724,
+            350,
+            347
+          ],
+          "margin": [
+            12,
+            17,
+            12,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            362,
+            724,
+            349,
+            327
+          ],
+          "margin": [
+            0,
+            37,
+            13,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            724,
+            724,
+            362,
+            329
+          ],
+          "margin": [
+            0,
+            35,
+            0,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/sunken_hammer_smith/attacks.png",
+          "region": [
+            1086,
+            724,
+            355,
+            321
+          ],
+          "margin": [
+            0,
+            43,
+            7,
+            45
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1448,
+    1086
+  ]
+}

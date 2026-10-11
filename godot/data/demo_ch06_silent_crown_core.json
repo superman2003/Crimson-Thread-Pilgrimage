@@ -149,7 +149,18 @@
           950,
           284
         ]
-      ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          2997,
+          509
+        ],
+        "size": [
+          400,
+          227
+        ]
+      }
     },
     {
       "id": "shell_walk_east",
@@ -377,7 +388,18 @@
           500,
           256
         ]
-      ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          2665,
+          2710
+        ],
+        "size": [
+          250,
+          220
+        ]
+      }
     },
     {
       "id": "ring_west",
@@ -529,7 +551,18 @@
           700,
           434
         ]
-      ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          1947,
+          1188
+        ],
+        "size": [
+          350,
+          347
+        ]
+      }
     },
     {
       "id": "crown_ribs",
@@ -643,7 +676,18 @@
           740,
           262
         ]
-      ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          3543,
+          2930
+        ],
+        "size": [
+          370,
+          220
+        ]
+      }
     },
     {
       "id": "ascension_gate",
@@ -681,593 +725,587 @@
           920,
           318
         ]
-      ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          4427,
+          2764
+        ],
+        "size": [
+          400,
+          254
+        ]
+      }
     }
   ],
   "ai_profiles": {
     "echo_moss_larva": {
-      "move_speed": 48,
-      "aggro_range": 210,
-      "preferred_range": 44,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "bite_lunge",
+          "id": "echo_larva_burrow",
+          "name": "回声潜扑",
           "type": "lunge",
-          "range": 92,
+          "range": 260,
+          "windup": 0.7,
+          "active": 0.42,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.46,
-          "cooldown": 1.18,
-          "lunge_speed": 250,
-          "hit_width": 82,
-          "hit_height": 54,
-          "offset": 44,
-          "telegraph": "bf6c3f",
-          "priority": 1,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "回声潜扑",
+          "lunge_speed": 290,
+          "burrow": true
+        },
+        {
+          "id": "echo_larva_mark",
+          "name": "迟发苔音",
+          "type": "pool",
+          "range": 300,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "迟发苔音",
+          "radius": 39,
+          "warning": 1.15,
+          "hazard_life": 0.55
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "echo_waterwheel_knight": {
-      "move_speed": 42,
-      "aggro_range": 245,
-      "preferred_range": 70,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "heavy_body_check",
-          "type": "melee",
-          "range": 84,
-          "damage": 2,
-          "windup": 0.4,
-          "active": 0.2,
-          "recover": 0.66,
-          "cooldown": 1.55,
-          "hit_width": 104,
-          "hit_height": 74,
+          "id": "echo_wheel_guard",
+          "name": "回声盾反",
+          "type": "guard",
+          "range": 180,
+          "windup": 0.8,
+          "active": 0.3,
+          "recover": 0.7,
+          "cooldown": 2.1,
+          "hit_width": 142,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c9764a",
-          "priority": 1,
-          "animation": "attack"
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "回声盾反"
+        },
+        {
+          "id": "echo_wheel_wave",
+          "name": "快慢双轮波",
+          "type": "wave",
+          "range": 450,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "快慢双轮波",
+          "shot_count": 4,
+          "projectile_speed": 190,
+          "speed_step": 65
         }
       ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      "front_guard": true
     },
     "echo_contract_scribe": {
-      "move_speed": 36,
-      "aggro_range": 235,
-      "preferred_range": 82,
+      "locomotion": "flight",
+      "combat_identity": "悬浮封印师，低位纸页与脚下封圈",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "sigil_burst",
-          "type": "aoe",
-          "range": 86,
+          "id": "echo_scribe_pages",
+          "name": "冠页斜射",
+          "type": "fan",
+          "range": 430,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.38,
-          "active": 0.16,
-          "recover": 0.58,
-          "cooldown": 1.42,
-          "hit_width": 126,
-          "hit_height": 76,
-          "offset": 0,
-          "telegraph": "9bd7f0",
-          "priority": 1,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "冠页斜射",
+          "shot_count": 3,
+          "spread": 0.3,
+          "projectile_speed": 225,
+          "skin": "page"
+        },
+        {
+          "id": "echo_scribe_seals",
+          "name": "双落印",
+          "type": "pool",
+          "range": 420,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双落印",
+          "shot_count": 2,
+          "spacing": 135,
+          "radius": 30,
+          "warning": 0.9,
+          "hazard_life": 1.05
         }
       ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      "hover_height": 75
     },
     "echo_thorn_sentinel": {
-      "move_speed": 42,
-      "aggro_range": 245,
-      "preferred_range": 70,
+      "locomotion": "stationary",
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "bite_lunge",
-          "type": "lunge",
-          "range": 92,
+          "id": "echo_thorn_double",
+          "name": "双环荆针",
+          "type": "nova",
+          "range": 470,
+          "windup": 1,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.46,
-          "cooldown": 1.18,
-          "lunge_speed": 250,
-          "hit_width": 82,
-          "hit_height": 54,
-          "offset": 44,
-          "telegraph": "bf6c3f",
-          "priority": 1,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双环荆针",
+          "shot_count": 10,
+          "projectile_speed": 200,
+          "skin": "thorn"
+        },
+        {
+          "id": "echo_thorn_roots",
+          "name": "间隔根刺",
+          "type": "rootline",
+          "range": 430,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "间隔根刺",
+          "shot_count": 4,
+          "spacing": 92,
+          "radius": 22,
+          "warning": 0.85,
+          "hazard_life": 0.6
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "echo_pilgrim_commander_minor": {
-      "move_speed": 42,
-      "aggro_range": 245,
-      "preferred_range": 70,
+      "locomotion": "ground",
+      "combat_identity": "长枪连段与军旗落阵，攻后停顿明显",
+      "move_speed": 48,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "sickle_swoop",
-          "type": "lunge",
-          "range": 112,
+          "id": "minor_lances",
+          "name": "巡礼三枪",
+          "type": "combo",
+          "range": 260,
+          "windup": 0.75,
+          "active": 0.7,
+          "recover": 0.95,
+          "cooldown": 2.1,
+          "hit_width": 165,
+          "hit_height": 70,
+          "offset": 83,
           "damage": 1,
-          "windup": 0.22,
-          "active": 0.2,
-          "recover": 0.44,
-          "cooldown": 1.16,
-          "lunge_speed": 285,
-          "hit_width": 92,
-          "hit_height": 58,
-          "offset": 52,
-          "telegraph": "d9b25f",
-          "priority": 1,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "巡礼三枪",
+          "lunge_speed": 175
+        },
+        {
+          "id": "minor_banner",
+          "name": "军旗落阵",
+          "type": "rootline",
+          "range": 440,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "军旗落阵",
+          "shot_count": 4,
+          "spacing": 88,
+          "radius": 22,
+          "warning": 0.7,
+          "hazard_life": 0.6
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "isotope_lumen": {
-      "move_speed": 48,
-      "aggro_range": 210,
-      "preferred_range": 44,
+      "locomotion": "flight",
+      "combat_identity": "微光环弹与延迟聚光，弹体可以斩回",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "sigil_burst",
-          "type": "aoe",
-          "range": 86,
+          "id": "lumen_orbits",
+          "name": "光核环弹",
+          "type": "nova",
+          "range": 380,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.38,
-          "active": 0.16,
-          "recover": 0.58,
-          "cooldown": 1.42,
-          "hit_width": 126,
-          "hit_height": 76,
-          "offset": 0,
-          "telegraph": "9bd7f0",
-          "priority": 1,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "光核环弹",
+          "shot_count": 7,
+          "projectile_speed": 145,
+          "skin": "light"
+        },
+        {
+          "id": "lumen_focus",
+          "name": "延迟聚光",
+          "type": "pool",
+          "range": 400,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "延迟聚光",
+          "radius": 48,
+          "warning": 1.0,
+          "hazard_life": 0.8
         }
       ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      "hover_height": 130
     },
     "silent_crown_core": {
-      "move_speed": 70,
-      "aggro_range": 720,
-      "preferred_range": 126,
+      "locomotion": "ground",
+      "combat_identity": "钥戟压迫、回旋钥阵；半血后冠门封线与轮波",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
       "attacks": [
         {
-          "id": "crown_slam",
-          "type": "aoe",
-          "range": 138,
-          "damage": 2,
-          "windup": 0.5903999999999999,
-          "active": 0.26,
-          "recover": 0.9,
-          "cooldown": 2.2319999999999998,
-          "hit_width": 280,
-          "hit_height": 116,
-          "telegraph": "d07b36",
-          "priority": 2.95,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "rust_charge",
-          "type": "lunge",
-          "range": 190,
-          "damage": 2,
-          "windup": 0.4428,
-          "active": 0.36,
-          "recover": 0.95,
-          "cooldown": 2.052,
-          "lunge_speed": 370,
-          "hit_width": 132,
-          "hit_height": 100,
-          "offset": 72,
-          "telegraph": "b96032",
-          "priority": 2.6500000000000004,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "bell_body_crush",
-          "type": "lunge",
-          "range": 160,
-          "damage": 1,
-          "windup": 0.328,
+          "id": "boss_key_cleave",
+          "name": "百钥重劈",
+          "type": "melee",
+          "range": 240,
+          "windup": 0.85,
           "active": 0.24,
-          "recover": 0.62,
-          "cooldown": 1.26,
-          "lunge_speed": 360,
-          "hit_width": 150,
-          "hit_height": 108,
-          "offset": 76,
-          "telegraph": "e0a542",
-          "priority": 2.25,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "recover": 0.9,
+          "cooldown": 2.7,
+          "hit_width": 245,
+          "hit_height": 130,
+          "offset": 115,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "百钥重劈"
         },
         {
-          "id": "gear_knee",
-          "type": "melee",
-          "range": 108,
+          "id": "boss_key_return",
+          "name": "回旋钥阵",
+          "type": "fan",
+          "range": 680,
+          "windup": 1.0,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.48,
-          "cooldown": 1.1,
-          "hit_width": 128,
-          "hit_height": 92,
-          "offset": 62,
-          "telegraph": "b78c4d",
-          "priority": 1.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "回旋钥阵",
+          "shot_count": 4,
+          "spread": 0.58,
+          "projectile_speed": 260,
+          "returning": true,
+          "skin": "key",
+          "radius": 13
         },
         {
-          "id": "crown_backhand",
-          "type": "melee",
-          "range": 110,
-          "damage": 1,
-          "windup": 0.24,
-          "active": 0.16,
-          "recover": 0.46,
-          "cooldown": 1.05,
-          "hit_width": 126,
-          "hit_height": 94,
-          "offset": 64,
-          "telegraph": "d9b158",
-          "priority": 1.3,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "bellquake_stomp",
-          "type": "aoe",
-          "range": 184,
-          "damage": 1,
-          "windup": 0.738,
-          "active": 0.32,
+          "id": "boss_key_gate",
+          "name": "冠门封线",
+          "type": "beam",
+          "range": 700,
+          "windup": 1.15,
+          "active": 0.24,
           "recover": 1,
-          "cooldown": 3.024,
-          "hit_width": 320,
-          "hit_height": 98,
-          "telegraph": "8ebf8b",
-          "priority": 1.55,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
+          "cooldown": 4.8,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "冠门封线",
+          "beam_length": 720,
+          "radius": 18,
+          "hazard_life": 0.42,
+          "phase": 2
         },
         {
-          "id": "crown_shockwave_chain",
-          "type": "shockwave",
-          "min_range": 90,
-          "range": 360,
+          "id": "boss_key_rings",
+          "name": "钥环震地",
+          "type": "wave",
+          "range": 680,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 1.1,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.22,
-          "recover": 0.44,
-          "cooldown": 1.9,
-          "hit_width": 250,
-          "hit_height": 48,
-          "offset": 136,
-          "telegraph": "f0c34f",
-          "priority": 3.25,
-          "start_cooldown": 0.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -22,
-            -10
-          ],
-          "windup_scale": [
-            1.1,
-            0.92
-          ],
-          "active_offset": [
-            46,
-            -3
-          ],
-          "active_scale": [
-            1.24,
-            0.84
-          ],
-          "recover_offset": [
-            -14,
-            4
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "backstep_hook_cut",
-          "type": "retreat",
-          "range": 150,
-          "damage": 1,
-          "windup": 0.18,
-          "active": 0.26,
-          "recover": 0.35,
-          "cooldown": 1.55,
-          "retreat_speed": 225,
-          "hit_width": 130,
-          "hit_height": 72,
-          "offset": 70,
-          "telegraph": "7fd6ca",
-          "priority": 2.7,
-          "pose_power": 1.38,
-          "windup_offset": [
-            18,
-            -8
-          ],
-          "windup_scale": [
-            0.96,
-            1.08
-          ],
-          "active_offset": [
-            -38,
-            -8
-          ],
-          "active_scale": [
-            0.92,
-            1.14
-          ],
-          "recover_offset": [
-            12,
-            1
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "false_crown_feint",
-          "type": "feint",
-          "range": 132,
-          "damage": 1,
-          "windup": 0.12,
-          "active": 0.18,
-          "recover": 0.28,
-          "cooldown": 1.35,
-          "feint_sway": 120,
-          "hit_width": 112,
-          "hit_height": 80,
-          "offset": 58,
-          "telegraph": "d98ee8",
-          "priority": 2.45,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -14,
-            -12
-          ],
-          "windup_scale": [
-            1.08,
-            0.93
-          ],
-          "active_offset": [
-            20,
-            -6
-          ],
-          "active_scale": [
-            1.12,
-            0.94
-          ],
-          "recover_offset": [
-            -10,
-            2
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "钥环震地",
+          "shot_count": 4,
+          "projectile_speed": 190,
+          "speed_step": 80,
+          "radius": 23,
+          "phase": 2
         }
-      ]
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "冠门审判"
     },
     "falling_clapper": {
-      "move_speed": 42,
-      "aggro_range": 220,
-      "preferred_range": 58,
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82,
+      "locomotion": "flight",
+      "combat_identity": "高悬钟舌先标记俯冲，再放低位钟浪",
+      "move_speed": 35,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "heavy_body_check",
-          "type": "melee",
-          "range": 84,
-          "damage": 2,
-          "windup": 0.4,
-          "active": 0.2,
-          "recover": 0.66,
-          "cooldown": 1.55,
-          "hit_width": 104,
-          "hit_height": 74,
+          "id": "clapper_fall",
+          "name": "标记落锤",
+          "type": "dive",
+          "range": 300,
+          "windup": 0.95,
+          "active": 0.48,
+          "recover": 1.15,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c9764a",
-          "priority": 1,
-          "animation": "attack"
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "标记落锤"
+        },
+        {
+          "id": "clapper_wave",
+          "name": "钟浪斜射",
+          "type": "fan",
+          "range": 360,
+          "windup": 0.75,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "钟浪斜射",
+          "shot_count": 3,
+          "spread": 0.52,
+          "projectile_speed": 210,
+          "skin": "metal"
         }
-      ]
+      ],
+      "hover_height": 175
     },
     "delayed_shadow": {
-      "move_speed": 58,
-      "aggro_range": 220,
-      "preferred_range": 58,
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82,
+      "locomotion": "flight",
+      "combat_identity": "闪位后的迟发影刃，位置预警保留到出手",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "quick_cut",
-          "type": "melee",
-          "range": 88,
+          "id": "shadow_blink",
+          "name": "迟影侧刺",
+          "type": "blink",
+          "range": 370,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.2,
-          "active": 0.16,
-          "recover": 0.42,
-          "cooldown": 1.08,
-          "hit_width": 82,
-          "hit_height": 72,
-          "offset": 42,
-          "telegraph": "e1b879",
-          "priority": 1,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "迟影侧刺",
+          "blink_offset": 135,
+          "projectile_speed": 270,
+          "skin": "thorn"
+        },
+        {
+          "id": "shadow_echo",
+          "name": "影落封圈",
+          "type": "pool",
+          "range": 390,
+          "windup": 0.55,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "影落封圈",
+          "radius": 36,
+          "warning": 1.2,
+          "hazard_life": 0.6
         }
-      ]
+      ],
+      "hover_height": 60
     }
   },
   "platforms": [
@@ -1285,7 +1323,21 @@
       "route_role": "main",
       "route_order": 0,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": false,
+        "body_variants": [
+          2,
+          3,
+          6
+        ]
+      },
+      "terrain_id": "terrain_crown_antechamber_0_0",
+      "terrain_flat_span": [
+        2610,
+        3170
+      ]
     },
     {
       "id": "ante_east_step",
@@ -1301,7 +1353,21 @@
       "route_role": "main",
       "route_order": 1,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          11,
+          2
+        ]
+      },
+      "terrain_id": "terrain_crown_antechamber_0_0",
+      "terrain_flat_span": [
+        3290,
+        3480
+      ]
     },
     {
       "id": "sew_bone_a",
@@ -1317,7 +1383,21 @@
       "route_role": "main",
       "route_order": 2,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          2,
+          5
+        ]
+      },
+      "terrain_id": "terrain_sewn_slope_0_0",
+      "terrain_flat_span": [
+        3590,
+        3786.78
+      ]
     },
     {
       "id": "sew_bone_b",
@@ -1333,7 +1413,21 @@
       "route_role": "main",
       "route_order": 3,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          8,
+          11
+        ]
+      },
+      "terrain_id": "terrain_sewn_slope_0_0",
+      "terrain_flat_span": [
+        3953.22,
+        4076.61
+      ]
     },
     {
       "id": "sew_bone_c",
@@ -1349,7 +1443,21 @@
       "route_role": "main",
       "route_order": 4,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_sewn_slope_0_1",
+      "terrain_flat_span": [
+        4213.39,
+        4400
+      ]
     },
     {
       "id": "rain_pool_floor",
@@ -1365,7 +1473,21 @@
       "route_role": "main",
       "route_order": 5,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          6,
+          9
+        ]
+      },
+      "terrain_id": "terrain_echo_canal_0_0",
+      "terrain_flat_span": [
+        4480,
+        4880
+      ]
     },
     {
       "id": "rain_wheel_stand",
@@ -1381,7 +1503,21 @@
       "route_role": "main",
       "route_order": 6,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_echo_canal_0_0",
+      "terrain_flat_span": [
+        4990,
+        5190
+      ]
     },
     {
       "id": "rain_out_step",
@@ -1397,7 +1533,16 @@
       "route_role": "main",
       "route_order": 7,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          4,
+          8
+        ]
+      }
     },
     {
       "id": "string_shelf_a",
@@ -1413,7 +1558,16 @@
       "route_role": "main",
       "route_order": 8,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": true,
+        "body_variants": [
+          0,
+          2,
+          5
+        ]
+      }
     },
     {
       "id": "string_floor",
@@ -1429,7 +1583,16 @@
       "route_role": "main",
       "route_order": 9,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          8,
+          11
+        ]
+      }
     },
     {
       "id": "string_out_b",
@@ -1445,7 +1608,16 @@
       "route_role": "main",
       "route_order": 10,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          1,
+          4
+        ]
+      }
     },
     {
       "id": "ringE_walk_a",
@@ -1461,7 +1633,21 @@
       "route_role": "main",
       "route_order": 11,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          6,
+          9
+        ]
+      },
+      "terrain_id": "terrain_rib_gallery_0_0",
+      "terrain_flat_span": [
+        3690,
+        3970
+      ]
     },
     {
       "id": "ringE_walk_b",
@@ -1477,7 +1663,21 @@
       "route_role": "main",
       "route_order": 12,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          3,
+          7
+        ]
+      },
+      "terrain_id": "terrain_rib_gallery_0_0",
+      "terrain_flat_span": [
+        3330,
+        3570
+      ]
     },
     {
       "id": "ringE_lip",
@@ -1493,7 +1693,21 @@
       "route_role": "main",
       "route_order": 13,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          5,
+          9
+        ]
+      },
+      "terrain_id": "terrain_rib_gallery_0_0",
+      "terrain_flat_span": [
+        3060,
+        3240
+      ]
     },
     {
       "id": "core_fall_a",
@@ -1509,7 +1723,16 @@
       "route_role": "main",
       "route_order": 14,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          6,
+          6
+        ]
+      }
     },
     {
       "id": "core_fall_b",
@@ -1525,7 +1748,16 @@
       "route_role": "main",
       "route_order": 15,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      }
     },
     {
       "id": "core_fall_c",
@@ -1541,7 +1773,16 @@
       "route_role": "main",
       "route_order": 16,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          8,
+          8
+        ]
+      }
     },
     {
       "id": "vault_floor",
@@ -1557,7 +1798,21 @@
       "route_role": "main",
       "route_order": 17,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": true,
+        "body_variants": [
+          1,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_bell_vault_0_0",
+      "terrain_flat_span": [
+        2500,
+        2920
+      ]
     },
     {
       "id": "ringW_zig_a",
@@ -1573,7 +1828,16 @@
       "route_role": "main",
       "route_order": 18,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": false,
+        "body_variants": [
+          9,
+          10,
+          1
+        ]
+      }
     },
     {
       "id": "ringW_zag_b",
@@ -1589,7 +1853,16 @@
       "route_role": "main",
       "route_order": 19,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          7,
+          10
+        ]
+      }
     },
     {
       "id": "ringW_zig_c",
@@ -1605,7 +1878,16 @@
       "route_role": "main",
       "route_order": 20,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          2,
+          5
+        ]
+      }
     },
     {
       "id": "ringW_zag_d",
@@ -1621,7 +1903,16 @@
       "route_role": "main",
       "route_order": 21,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": true,
+        "body_variants": [
+          0,
+          1,
+          4
+        ]
+      }
     },
     {
       "id": "ringW_walk_e",
@@ -1637,7 +1928,16 @@
       "route_role": "main",
       "route_order": 22,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": true,
+        "body_variants": [
+          4,
+          6,
+          9
+        ]
+      }
     },
     {
       "id": "obs_camp_floor",
@@ -1653,7 +1953,16 @@
       "route_role": "main",
       "route_order": 23,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": true,
+        "body_variants": [
+          2,
+          3,
+          6
+        ]
+      }
     },
     {
       "id": "obs_banner_step",
@@ -1669,7 +1978,16 @@
       "route_role": "main",
       "route_order": 24,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          3,
+          6
+        ]
+      }
     },
     {
       "id": "obs_out_rise",
@@ -1685,7 +2003,16 @@
       "route_role": "main",
       "route_order": 25,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          4,
+          7
+        ]
+      }
     },
     {
       "id": "salt_gallery_floor",
@@ -1701,7 +2028,16 @@
       "route_role": "main",
       "route_order": 26,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          7,
+          10
+        ]
+      }
     },
     {
       "id": "salt_page_step",
@@ -1717,7 +2053,16 @@
       "route_role": "main",
       "route_order": 27,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          10,
+          1
+        ]
+      }
     },
     {
       "id": "salt_out_shelf",
@@ -1733,7 +2078,16 @@
       "route_role": "main",
       "route_order": 28,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          11,
+          2
+        ]
+      }
     },
     {
       "id": "moss_court_floor",
@@ -1749,7 +2103,21 @@
       "route_role": "main",
       "route_order": 29,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          2,
+          5
+        ]
+      },
+      "terrain_id": "terrain_moss_memory_0_0",
+      "terrain_flat_span": [
+        1700,
+        2004.78
+      ]
     },
     {
       "id": "moss_bell_perch",
@@ -1765,7 +2133,21 @@
       "route_role": "main",
       "route_order": 30,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          2,
+          6
+        ]
+      },
+      "terrain_id": "terrain_moss_memory_0_0",
+      "terrain_flat_span": [
+        2155.22,
+        2320
+      ]
     },
     {
       "id": "moss_secret_shelf",
@@ -1778,7 +2160,16 @@
       "color": "2b3040",
       "material": "crown_bone",
       "collision_role": "floor",
-      "route_role": "branch"
+      "route_role": "branch",
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          9,
+          1
+        ]
+      }
     },
     {
       "id": "rib_r1",
@@ -1794,7 +2185,16 @@
       "route_role": "main",
       "route_order": 31,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
     },
     {
       "id": "rib_r2",
@@ -1810,7 +2210,16 @@
       "route_role": "main",
       "route_order": 32,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          7,
+          7
+        ]
+      }
     },
     {
       "id": "rib_r3",
@@ -1826,7 +2235,16 @@
       "route_role": "main",
       "route_order": 33,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          6,
+          6
+        ]
+      }
     },
     {
       "id": "rib_r4",
@@ -1842,7 +2260,16 @@
       "route_role": "main",
       "route_order": 34,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          8,
+          8
+        ]
+      }
     },
     {
       "id": "rib_r5",
@@ -1858,7 +2285,16 @@
       "route_role": "main",
       "route_order": 35,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      }
     },
     {
       "id": "rib_r6",
@@ -1874,7 +2310,16 @@
       "route_role": "main",
       "route_order": 36,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          8,
+          8
+        ]
+      }
     },
     {
       "id": "rib_r7",
@@ -1890,7 +2335,16 @@
       "route_role": "main",
       "route_order": 37,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
     },
     {
       "id": "throne_walk_a",
@@ -1906,7 +2360,21 @@
       "route_role": "main",
       "route_order": 38,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": false,
+        "body_variants": [
+          2,
+          8,
+          11
+        ]
+      },
+      "terrain_id": "terrain_throne_approach_0_0",
+      "terrain_flat_span": [
+        2160,
+        2457.19
+      ]
     },
     {
       "id": "throne_rest_b",
@@ -1922,7 +2390,21 @@
       "route_role": "main",
       "route_order": 39,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          11,
+          2
+        ]
+      },
+      "terrain_id": "terrain_throne_approach_0_0",
+      "terrain_flat_span": [
+        2562.81,
+        2820
+      ]
     },
     {
       "id": "boss_threshold",
@@ -1938,7 +2420,21 @@
       "route_role": "main",
       "route_order": 40,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          1,
+          4
+        ]
+      },
+      "terrain_id": "terrain_throne_approach_0_0",
+      "terrain_flat_span": [
+        2940,
+        3160
+      ]
     },
     {
       "id": "throne_floor",
@@ -1954,7 +2450,21 @@
       "route_role": "main",
       "route_order": 41,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          11,
+          8
+        ]
+      },
+      "terrain_id": "terrain_last_court_0_0",
+      "terrain_flat_span": [
+        3280,
+        3940
+      ]
     },
     {
       "id": "asc_step_a",
@@ -1970,7 +2480,21 @@
       "route_role": "main",
       "route_order": 42,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          0,
+          3
+        ]
+      },
+      "terrain_id": "terrain_ascension_0_0",
+      "terrain_flat_span": [
+        4060,
+        4240.99
+      ]
     },
     {
       "id": "asc_step_b",
@@ -1986,7 +2510,21 @@
       "route_role": "main",
       "route_order": 43,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": false,
+        "body_variants": [
+          9,
+          11,
+          2
+        ]
+      },
+      "terrain_id": "terrain_ascension_0_0",
+      "terrain_flat_span": [
+        4369.01,
+        4520
+      ]
     },
     {
       "id": "exit_dais",
@@ -2002,7 +2540,21 @@
       "route_role": "main",
       "route_order": 44,
       "safe_landing": true,
-      "gameplay_clearance": 232
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          1,
+          4
+        ]
+      },
+      "terrain_id": "terrain_ascension_0_0",
+      "terrain_flat_span": [
+        4620,
+        4900
+      ]
     }
   ],
   "locked_gates": [],
@@ -2099,6 +2651,19 @@
       "ability_name": "证词其六",
       "label": "证词·其六",
       "note": "冠下回廊肋骨顶层，真结局收集品；地图重做后迁至 crown_resonance 冠门后。"
+    },
+    {
+      "id": "col_branch_bell_tongue_vault",
+      "kind": "item",
+      "item_id": "crown_echo_shard",
+      "amount": 5,
+      "position": [
+        2710,
+        2854
+      ],
+      "room_id": "bell_tongue_vault",
+      "platform_id": "vault_floor",
+      "reward_role": "optional_exploration"
     }
   ],
   "interactives": [
@@ -2148,39 +2713,31 @@
       ],
       "role": "true_ending_core",
       "dialogue": [
-        "我签下第七个名字，然后把名字藏进绯线；王冠删得掉字，删不掉线。",
-        "重鸣会救城，断冠会救人，改写契约才会让他们都记得自己是谁。",
-        "你若没有带来六处证词，就只能做一个干净的错误选择。"
+        "别急着认我。先看看手上的线，我们曾在同一处打结，也在同一处勒住过人。",
+        "冠肋连着六城的回声，最深处才是钥座。先回看漏下的证词，再决定要开哪扇门。"
       ],
       "identity": "第七签署者的回声，也是第一位发现契约被篡改的巡礼者。",
       "motive": "等待能集齐六处证词的人改写契约。",
-      "help": "真结局核心说明；判断证词是否齐全；解释三结局伦理。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
       "story_dialogue": {
         "first_meet": [
-          "我签下第七个名字，然后把名字藏进绯线；王冠删得掉字，删不掉线。",
-          "重鸣会救城，断冠会救人，改写契约才会让他们都记得自己是谁。",
-          "你若没有带来六处证词，就只能做一个干净的错误选择。"
+          "别急着认我。先看看手上的线，我们曾在同一处打结，也在同一处勒住过人。",
+          "冠肋连着六城的回声，最深处才是钥座。先回看漏下的证词，再决定要开哪扇门。"
         ],
         "repeat": [
-          "我等的不是救主，是执笔人；救主赦免世界，执笔人修订它。",
-          "每一代巡礼者走到这里，我都问同一句：你是来完成命令，还是来完成句子？"
+          "我留在这里，不是因为做得对，是因为有人得记住第一份契约怎样被写坏。"
         ],
         "after_ability": [
-          "共鸣在你线上了。记住它不是武器，是笔尖；对钟用是敲，对契约用是写。",
-          "有了共鸣，你敲出的每一声都会被契约听见；从现在起，慎响。"
+          "共鸣与你合上了。它能替你开门，但要写什么，仍得你自己决定。"
         ],
         "after_boss": [
-          "外壳碎了，三扇门开了；重鸣是誊清，断冠是撕毁——只有第三扇，是修订。",
-          "别急着选。我签错过一次名，用了一个王朝来改；你至少可以多站一炷香。"
+          "百钥的壳碎了，你却没有立刻伸手。我想这就是我们之间最重要的不同。"
         ],
         "late_game": [
-          "冠下回廊的证词也到手了。六份口供，一份不缺——现在你说的每句话，都有全世界作保。",
-          "证词不是弹药，是韵脚；改写契约时，它们会让新句子押上众人的呼吸。"
+          "六份证词齐了。现在每一笔后面，都有人能说“我也在场”。"
         ],
         "true_ending_branch": [
-          "都齐了。把你的绯线递过来——第七个名字的最后一笔，该由活人写完。",
-          "写完这一笔我就散了。别缝我——有些线，留成结尾比留成结好。",
-          "替我看一眼钟声落地的样子；我签名的时候，忘了抬头。"
+          "第七个名字最后一笔，留给活人。我会松手；这次不是把责任递给你，是让你选择。"
         ]
       },
       "dialogue_meta": {
@@ -2191,6 +2748,10 @@
           "condition": "ending_c_done",
           "effect": "消散；true_ending_branch 三句即告别戏，原位余一缕悬停的绯线（不可拾取，纯场景）"
         }
+      },
+      "dialogue_topics": {
+        "route": "冠肋连着六城的回声，最深处才是钥座。先回看漏下的证词，再决定要开哪扇门。",
+        "wish": "把六座城的证词带齐。我不催你，有人已经为赶着签字付过太长的代价。"
       }
     },
     {
@@ -2202,38 +2763,31 @@
       ],
       "role": "world_warning",
       "dialogue": [
-        "我压住黑潮，也压住了每个求救声；久了以后，两者听起来一样。",
-        "我不是王，我只是被王戴成王冠的钟；他们跪拜时，从没人问我疼不疼。",
-        "敲响我，城市会醒；拔掉我，井也会醒。你要先决定谁有资格做梦。"
+        "轻一点碰。我压住黑潮的时候，也压住过人声，两者不能因为听起来像就算作一样。",
+        "越过冠肋去钥座。核心击破后还有选择：重鸣、断冠，或带着完整证词改写。"
       ],
       "identity": "被旧王戴成王冠核心的钟舌意识，既是封印部件，也是受害者。",
       "motive": "想停止压住所有声音，但也害怕黑潮失控。",
-      "help": "说明钟声和黑潮关系；提醒重鸣与断冠都有代价。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
       "story_dialogue": {
         "first_meet": [
-          "我压住黑潮，也压住了每个求救声；久了以后，两者听起来一样。",
-          "我不是王，我只是被王戴成王冠的钟；他们跪拜时，从没人问我疼不疼。",
-          "敲响我，城市会醒；拔掉我，井也会醒。你要先决定谁有资格做梦。"
+          "轻一点碰。我压住黑潮的时候，也压住过人声，两者不能因为听起来像就算作一样。",
+          "越过冠肋去钥座。核心击破后还有选择：重鸣、断冠，或带着完整证词改写。"
         ],
         "repeat": [
-          "我这口钟被敲了六百年，敲我的人换了四代；疼倒是从来没换过。",
-          "你靠得越近，我越想响；忍着不响，是我唯一学会的礼貌。"
+          "一口钟也会疼，只是没人问过。我学了这么多年，仍不知道该怎么先说出来。"
         ],
         "after_ability": [
-          "你线上的共鸣，和我裂缝的频率对上了；六百年了，头一回有声音不是来命令我的。",
-          "轻一点碰。不是怕疼——是怕我一高兴，提前响了。"
+          "你的共鸣碰到裂缝了。这一次声音不是命令，我需要一点时间习惯。"
         ],
         "after_boss": [
-          "外壳碎的时候，我以为轮到我了；结果你停在了门前。会停的人，我等了六百年。",
-          "三扇门都通向我：敲我、拔我、改我。哪一种我都受得住——受不住的是再等四代人。"
+          "外壳碎了，我还在。谢谢你先问我，再去碰那扇门。"
         ],
         "late_game": [
-          "冠下回廊那份证词，说的是我铸成之前的事；原来我也曾是矿，是山，是不欠任何人的东西。",
-          "六座城的证词你都背在身上了；压得动你的东西，才有资格替你作证——这话我最懂。"
+          "证词提到我铸成以前的山。原来我也有一段不用负责关住什么的日子。"
         ],
         "true_ending_branch": [
-          "用共鸣改我吧。让我往后只压黑潮，不压人声；钟这一行的本分，我想重新学。",
-          "改完以后，请正常地敲我——不为封印，不为号令，就为报一个时辰；我想试试做一口普通的钟。"
+          "让我以后只报时吧。早晨、傍晚，谁晚了就晚了，不要再拿钟声决定谁能说话。"
         ]
       },
       "dialogue_meta": {
@@ -2241,6 +2795,10 @@
         "testimony_ref": "testimony_06",
         "quest_flag": "",
         "leave": null
+      },
+      "dialogue_topics": {
+        "route": "越过冠肋去钥座。核心击破后还有选择：重鸣、断冠，或带着完整证词改写。",
+        "wish": "决定时把井里的人也算上。他们很久没被问过想怎样，不该再漏一次。"
       }
     },
     {
@@ -2252,39 +2810,31 @@
       ],
       "role": "ending_checker",
       "dialogue": [
-        "苔、雨、盐、弦、曜，五枚已归；最后一枚在你要打碎的东西里。",
-        "若你缺少证词，我不会阻止你，但结局会少一种颜色。",
-        "把每枚印记放回心口前，先问它是否愿意；钥匙不会哭，心会。"
+        "先清点，不先判决。你带来的印记、证词和意愿，都应当各有一栏。",
+        "最后一枚印记在百钥守门人身上。六份证词齐全才有改写的路；缺哪份就回哪座城。"
       ],
       "identity": "六枚失声印记的守望接口，像存档点，也像审判前清单。",
       "motive": "确保主角知道自己收集的是心，不是普通战斗标记。",
-      "help": "结局检查；提示缺少证词会锁真结局；提醒尊重印记意愿。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
       "story_dialogue": {
         "first_meet": [
-          "苔、雨、盐、弦、曜，五枚已归；最后一枚在你要打碎的东西里。",
-          "若你缺少证词，我不会阻止你，但结局会少一种颜色。",
-          "把每枚印记放回心口前，先问它是否愿意；钥匙不会哭，心会。"
+          "先清点，不先判决。你带来的印记、证词和意愿，都应当各有一栏。",
+          "最后一枚印记在百钥守门人身上。六份证词齐全才有改写的路；缺哪份就回哪座城。"
         ],
         "repeat": [
-          "清点：印记六、证词六、军令一、真名三段——你身上背着一支看不见的队伍。",
-          "我不催你。清单的最后一栏，从来留给「愿意」。"
+          "我留下最后一格空白。规程里没教过，但我觉得“愿意”不能由别人代填。"
         ],
         "after_ability": [
-          "共鸣已录入。从此你每一次报数，六枚印记都会应「到」。",
-          "注意：共鸣使用者名录上，你之前只有一个名字——第七签署者。用的时候，别辱没编号。"
+          "共鸣已记入。我确认的是你拥有它，不是你必须使用它。"
         ],
         "after_boss": [
-          "核心击破，检查开始：印记齐否？证词齐否？愿意与否？——三问答完，门才算真的开。",
-          "你打碎的是壳，不是责任；责任在清单上，清单在你手里。"
+          "外壳已破，三扇门待选。请再读一次清单，别让胜利替你做最后的决定。"
         ],
         "late_game": [
-          "六比六。全项核对无误——请注意，这一行字，我等了整个王朝才盖上「齐」。",
-          "证词齐的人站在这里时，我的清单会发烫；规程上没写这条，我猜，这叫欣慰。"
+          "六份都在。清单热了一点，规程上没有这一条；我先写作“值得等待”。"
         ],
         "true_ending_branch": [
-          "最终确认：绯线改写，条件满足。守望者职责的最后一条是——目送。",
-          "去吧。六枚心会跟着你进门；这一次，它们不是钥匙，是证人。",
-          "改写完成后，请回来注销我；一份清点完的清单，该体面地归档。"
+          "最终确认完毕。我会目送，等你回来，再把这份清单归档。"
         ]
       },
       "dialogue_meta": {
@@ -2295,6 +2845,10 @@
           "condition": "ending_c_done 且再访",
           "effect": "注销归档（告别戏）；原位余一页盖了「齐」字的空白清单（纯场景）"
         }
+      },
+      "dialogue_topics": {
+        "route": "最后一枚印记在百钥守门人身上。六份证词齐全才有改写的路；缺哪份就回哪座城。",
+        "wish": "把漏下的证词补齐。印记能证明你走过，证词能证明你听过。"
       }
     },
     {
@@ -2306,38 +2860,31 @@
       ],
       "role": "hidden_temptation",
       "dialogue": [
-        "他们说我是灾难，可我只是在井底学会了说话；没人教我别用哭声开门。",
-        "王冠吃掉声音，我吃掉沉默。你觉得谁更像怪物？",
-        "把钟舌拔下来，我给你一个没有命令的世界；只是它会先很吵。"
+        "你听见我了吗？以前只有他们往井里说话，我往上说的，总被当作水声。",
+        "冠下面有三条路。别只听要你开门的人，也听听仍得留在井里的人。"
       ],
       "identity": "黑潮拟人化童声，可能是被王冠吞掉的所有声音聚合。",
       "motive": "诱导主角切断钟舌，同时质问王冠与黑潮谁更像怪物。",
-      "help": "隐藏支线诱惑；提供断冠结局情感理由；说明黑潮也包含受害者声音。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
       "story_dialogue": {
         "first_meet": [
-          "他们说我是灾难，可我只是在井底学会了说话；没人教我别用哭声开门。",
-          "王冠吃掉声音，我吃掉沉默。你觉得谁更像怪物？",
-          "把钟舌拔下来，我给你一个没有命令的世界；只是它会先很吵。"
+          "你听见我了吗？以前只有他们往井里说话，我往上说的，总被当作水声。",
+          "冠下面有三条路。别只听要你开门的人，也听听仍得留在井里的人。"
         ],
         "repeat": [
-          "井底数羊很难，羊不肯下来；我就数掉下来的钟声，一声、两声——你猜我数到多少了？",
-          "你身上有六座城的味道；他们现在，还会在睡前害怕我吗？"
+          "我会数落下来的钟声了。可我更想学数脚步，数那些往回来看我的脚步。"
         ],
         "after_ability": [
-          "你的线会唱歌了？唱给我听听嘛——从来都是我在下面听漏下来的，没人朝着井口唱过。",
-          "那个声音碰到我的时候，不疼；你知道吗，「不疼」对我来说是个新词。"
+          "你的线会唱歌，碰到我不疼。“不疼”这个词，我今天才真的学会。"
         ],
         "after_boss": [
-          "壳碎了，我离你只隔一层钟了；现在你听我说话，还需要把耳朵贴在地上吗？",
-          "三扇门里，一扇放我出去，一扇把我锁得更死；第三扇呢？第三扇是什么？没人告诉过我第三扇。"
+          "壳碎了，我们离得近些了。你能不用贴着地，就听我说完一句吗？"
         ],
         "late_game": [
-          "冠下回廊的证词里有我吗？……有？哪一行？念给我——慢一点，我要背下来。",
-          "原来我不是一个怪物，是很多个来不及；来不及说的，来不及喊的，全沉到我这儿来了。"
+          "证词里有我？念那一行，再慢一点。我想知道，他们怎么写一个没上过岸的人。"
         ],
         "true_ending_branch": [
-          "改写契约的话，我还得待在井里，对不对？……好吧。但你们要常常朝井口说话——说什么都行，别再只往下扔封条。",
-          "第七个名字写完的时候，帮我也署一笔：黑潮，到。——我第一次被点名，想应得响亮一点。"
+          "我还待在井里也可以。你们记得朝井口说话，不只扔封条；我会应到。"
         ]
       },
       "dialogue_meta": {
@@ -2348,6 +2895,10 @@
           "condition": "任一结局完成",
           "effect": "归井；结局 C 后在 ch1 well_throat 井口保留「朝井口说话」交互彩蛋（复用其 true_ending_branch 台词池）"
         }
+      },
+      "dialogue_topics": {
+        "route": "冠下面有三条路。别只听要你开门的人，也听听仍得留在井里的人。",
+        "wish": "不要替我带礼物。带一句从上面说下来、也肯等我回答的话。"
       }
     }
   ],
@@ -2364,89 +2915,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "visual_scale": 0.30985915492957744,
       "visual_offset": [
         0,
-        -8
+        1.2957746478873275
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 70,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波"
     },
     {
       "id": "E02",
@@ -2459,89 +2944,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "visual_scale": 0.301255230125523,
       "visual_offset": [
         0,
-        -8
+        15.372384937238493
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/sparky-surt-emceeflesher-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点"
     },
     {
       "id": "E03",
@@ -2554,89 +2973,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/manifest.json",
+      "visual_scale": 0.3564356435643564,
       "visual_offset": [
         0,
-        -8
+        -0.9900990099009874
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙"
     },
     {
       "id": "E04",
@@ -2649,89 +3002,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "visual_scale": 0.301255230125523,
       "visual_offset": [
         0,
-        -8
+        15.372384937238493
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/sparky-surt-emceeflesher-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点"
     },
     {
       "id": "E05",
@@ -2744,89 +3031,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/falling_clapper/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/falling_clapper/manifest.json",
+      "visual_scale": 0.315018315018315,
       "visual_offset": [
         0,
-        -8
+        11.692307692307693
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 46,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "高悬钟舌先标记俯冲，再放低位钟浪"
     },
     {
       "id": "E06",
@@ -2839,89 +3060,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/manifest.json",
+      "visual_scale": 0.2916666666666667,
       "visual_offset": [
         0,
-        -8
+        8.416666666666664
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-andromalius-57x88-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        57,
-        88
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "悬浮封印师，低位纸页与脚下封圈"
     },
     {
       "id": "E07",
@@ -2934,89 +3089,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/delayed_shadow/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
+      "sprite": "res://assets/sprites/original_creatures/delayed_shadow/manifest.json",
+      "visual_scale": 0.29673590504451036,
       "visual_offset": [
         0,
-        -8
+        7.406528189910986
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/delayed_shadow/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "闪位后的迟发影刃，位置预警保留到出手"
     },
     {
       "id": "E08",
@@ -3029,89 +3118,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/manifest.json",
+      "visual_scale": 0.3390804597701149,
       "visual_offset": [
         0,
-        -8
+        -1.8477011494252835
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 78,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "长枪连段与军旗落阵，攻后停顿明显"
     },
     {
       "id": "E09",
@@ -3124,89 +3147,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "visual_scale": 0.30985915492957744,
       "visual_offset": [
         0,
-        -8
+        1.2957746478873275
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 70,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波"
     },
     {
       "id": "E10",
@@ -3219,89 +3176,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/manifest.json",
+      "visual_scale": 0.2916666666666667,
       "visual_offset": [
         0,
-        -8
+        8.416666666666664
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-andromalius-57x88-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        57,
-        88
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "悬浮封印师，低位纸页与脚下封圈"
     },
     {
       "id": "E11",
@@ -3314,89 +3205,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "visual_scale": 0.301255230125523,
       "visual_offset": [
         0,
-        -8
+        15.372384937238493
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/sparky-surt-emceeflesher-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点"
     },
     {
       "id": "E12",
@@ -3409,89 +3234,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.82,
+      "sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/manifest.json",
+      "visual_scale": 0.3564356435643564,
       "visual_offset": [
         0,
-        -8
+        -0.9900990099009874
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        48
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙"
     },
     {
       "id": "E13",
@@ -3504,89 +3263,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/isotope_lumen/manifest.json",
+      "visual_scale": 0.2608695652173913,
       "visual_offset": [
         0,
-        -8
+        17.956521739130437
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/isotope_lumen/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 38,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "微光环弹与延迟聚光，弹体可以斩回"
     },
     {
       "id": "E14",
@@ -3599,89 +3292,23 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "visual_scale": 0.30985915492957744,
       "visual_offset": [
         0,
-        -8
+        1.2957746478873275
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72,
-      "clearance": 40
+      "spawn_half_width": 24,
+      "spawn_visual_height": 70,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波"
     }
   ],
   "boss": {
@@ -3697,20 +3324,14 @@
     "patrol": 260,
     "reward_item": "silent_mark_crown",
     "story_drop": "根据选择进入重鸣、断冠或绯线真结局。",
-    "sprite": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
-    "sprite_region": [
-      0,
-      0,
-      57,
-      88
-    ],
-    "visual_scale": 0.92,
+    "sprite": "res://assets/sprites/original_creatures/silent_crown_core/manifest.json",
+    "visual_scale": 0.672463768115942,
     "visual_offset": [
       0,
-      -38
+      -53.06086956521739
     ],
-    "visual_modulate": "f8f8ff",
-    "visual_source": "High-fidelity Boss Concept Pack / boss_06_hundred_key_gatekeeper",
+    "visual_modulate": "ffffff",
+    "visual_source": "original_hand_drawn",
     "visual_role": "high_fidelity_boss_06_hundred_key_gatekeeper",
     "body_size": [
       160,
@@ -3724,52 +3345,18 @@
       0,
       -52
     ],
-    "source_sprite": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
-    "source_sprite_region": [
-      0,
-      0,
-      80,
-      80
-    ],
-    "sprite_regions": {
-      "idle": [
-        0,
-        0,
-        57,
-        88
-      ],
-      "walk": [
-        0,
-        0,
-        57,
-        88
-      ],
-      "attack": [
-        0,
-        0,
-        57,
-        88
-      ],
-      "hurt": [
-        0,
-        0,
-        57,
-        88
-      ],
-      "death": [
-        0,
-        0,
-        57,
-        88
-      ]
-    },
+    "source_sprite": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
     "arena_min_x": 3310,
     "arena_max_x": 3910,
     "sprite_faces_left": false,
     "lock_x": 3232,
     "lock_height": 560,
     "lock_width": 42,
-    "platform_id": "throne_floor"
+    "platform_id": "throne_floor",
+    "locomotion": "ground",
+    "combat_identity": "钥戟压迫、回旋钥阵；半血后冠门封线与轮波",
+    "spawn_half_width": 49,
+    "spawn_visual_height": 192
   },
   "labels": [
     {
@@ -4605,7 +4192,7 @@
       "shared_upper_loop_recovery_loop"
     ]
   },
-  "map_title": "无声王冠：环冠核心版",
+  "map_title": "无声王冠 · 巡礼地图",
   "environment_blocks": [
     {
       "id": "ch06_back_wall",
@@ -4757,5 +4344,376 @@
       "target_flag": "quest_echo_perfect_done",
       "reward_currency": 0
     }
-  ]
+  ],
+  "map_art": {
+    "style": "flat_2d_side_view",
+    "platform_variant_count": 12,
+    "variant_usage": {
+      "0": 4,
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 4,
+      "5": 4,
+      "6": 5,
+      "7": 4,
+      "8": 4,
+      "9": 4,
+      "10": 4,
+      "11": 4
+    },
+    "repeat_rule": "avoid matching nearby platforms; preserve end caps; vary long-platform middle segments",
+    "background": "res://assets/sprites/flat_maps/silent_crown/background.png"
+  },
+  "terrain": [
+    {
+      "id": "terrain_crown_antechamber_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          2610,
+          700
+        ],
+        [
+          3170,
+          700
+        ],
+        [
+          3290,
+          748
+        ],
+        [
+          3480,
+          748
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "ante_floor",
+        "ante_east_step"
+      ]
+    },
+    {
+      "id": "terrain_sewn_slope_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          3590,
+          836
+        ],
+        [
+          3786.78,
+          836
+        ],
+        [
+          3953.22,
+          940
+        ],
+        [
+          4076.61,
+          940
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "sew_bone_a",
+        "sew_bone_b"
+      ]
+    },
+    {
+      "id": "terrain_sewn_slope_0_1",
+      "kind": "soil",
+      "surface": [
+        [
+          4213.39,
+          1052
+        ],
+        [
+          4400,
+          1052
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "sew_bone_c"
+      ]
+    },
+    {
+      "id": "terrain_echo_canal_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          4480,
+          1180
+        ],
+        [
+          4880,
+          1180
+        ],
+        [
+          4990,
+          1128
+        ],
+        [
+          5190,
+          1128
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "rain_pool_floor",
+        "rain_wheel_stand"
+      ]
+    },
+    {
+      "id": "terrain_rib_gallery_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          3060,
+          1930
+        ],
+        [
+          3240,
+          1930
+        ],
+        [
+          3330,
+          1876
+        ],
+        [
+          3570,
+          1876
+        ],
+        [
+          3690,
+          1810
+        ],
+        [
+          3970,
+          1810
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "ringE_lip",
+        "ringE_walk_b",
+        "ringE_walk_a"
+      ]
+    },
+    {
+      "id": "terrain_bell_vault_0_0",
+      "kind": "tunnel",
+      "surface": [
+        [
+          2500,
+          2900
+        ],
+        [
+          2920,
+          2900
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        3,
+        1,
+        5
+      ],
+      "platform_ids": [
+        "vault_floor"
+      ]
+    },
+    {
+      "id": "terrain_moss_memory_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          1700,
+          1590
+        ],
+        [
+          2004.78,
+          1590
+        ],
+        [
+          2155.22,
+          1496
+        ],
+        [
+          2320,
+          1496
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "moss_court_floor",
+        "moss_bell_perch"
+      ]
+    },
+    {
+      "id": "terrain_throne_approach_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          2160,
+          3040
+        ],
+        [
+          2457.19,
+          3040
+        ],
+        [
+          2562.81,
+          3106
+        ],
+        [
+          2820,
+          3106
+        ],
+        [
+          2940,
+          3060
+        ],
+        [
+          3160,
+          3060
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "throne_walk_a",
+        "throne_rest_b",
+        "boss_threshold"
+      ]
+    },
+    {
+      "id": "terrain_last_court_0_0",
+      "kind": "arena",
+      "surface": [
+        [
+          3280,
+          3120
+        ],
+        [
+          3940,
+          3120
+        ]
+      ],
+      "depth": 140,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "throne_floor"
+      ]
+    },
+    {
+      "id": "terrain_ascension_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          4060,
+          3040
+        ],
+        [
+          4240.99,
+          3040
+        ],
+        [
+          4369.01,
+          2960
+        ],
+        [
+          4520,
+          2960
+        ],
+        [
+          4620,
+          2990
+        ],
+        [
+          4900,
+          2990
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "asc_step_a",
+        "asc_step_b",
+        "exit_dais"
+      ]
+    }
+  ],
+  "terrain_design": {
+    "view": "orthographic_side_2d",
+    "max_ramp_degrees": 32,
+    "route_kinds": [
+      "ground",
+      "slope",
+      "tunnel",
+      "bridge",
+      "basin",
+      "vertical_climb"
+    ],
+    "notes": "Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges."
+  },
+  "chapter_name": "无声王冠",
+  "interaction_design": {
+    "key": "F",
+    "selection": "nearest_available",
+    "story_items": "manual_pickup",
+    "materials": "automatic_pickup",
+    "dialogue_choices": [
+      "continue",
+      "route",
+      "wish"
+    ]
+  }
 }

@@ -1,5 +1,108 @@
 extends Area2D
 
+const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
+const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
+var locomotion := "ground"
+var flight_clock := 0.0
+var hover_height := 0.0
+var attack_elapsed := 0.0
+var attack_start_position := Vector2.ZERO
+var attack_target := Vector2.ZERO
+var trail_clock := 0.0
+var battle_phase := 1
+var phase_pause := 0.0
+var original_visual := false
+
+func _update_locomotion(delta: float, target: CharacterBody2D) -> void:
+    if locomotion=="stationary":
+        global_position=spawn_position
+        return
+    if locomotion=="flight":
+        if state=="active" and String(active_attack.get("type",""))=="dive":
+            return
+        flight_clock+=delta
+        var desired := spawn_position.y+sin(flight_clock*2.8+start_x*.01)*11
+        if target!=null and state not in ["windup","active"]:
+            desired=clampf(target.global_position.y-90,spawn_position.y-65,spawn_position.y+75)+sin(flight_clock*3)*8
+        var candidate := Vector2(global_position.x,move_toward(global_position.y,desired,85*delta))
+        var level := get_parent()
+        if not level.has_method("_enemy_spawn_rect_clear") or level._enemy_spawn_rect_clear(candidate,24,float(get_meta("spawn_visual_height",60)),String(get_meta("platform_id",""))):
+            global_position=candidate
+        return
+    if state=="active" and String(active_attack.get("type",""))=="vault":
+        return
+    var terrain: Node = get_parent().get("chapter_terrain")
+    if terrain!=null:
+        var floor_y: float = terrain.floor_height(global_position.x,spawn_position.y+40,210)
+        if is_finite(floor_y):
+            global_position.y=floor_y-40
+
+func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Dictionary, warning: float, lifetime: float) -> Node2D:
+    var effect := ATTACK_EFFECT.new()
+    effect.effect_kind=effect_kind
+    effect.position=point
+    effect.velocity=vel
+    effect.heading=vel.normalized() if vel.length()>0 else Vector2(attack_direction,0)
+    effect.arm_delay=warning
+    effect.duration=warning+lifetime
+    effect.radius=float(command.get("radius",11))
+    effect.length=float(command.get("beam_length",360))
+    effect.damage=int(command.get("damage",damage))
+    effect.gravity=float(command.get("gravity",0))
+    effect.snare=float(command.get("snare",0))
+    effect.skin=String(command.get("skin","thorn"))
+    effect.returning=bool(command.get("returning",false))
+    effect.steering=float(command.get("steering",0))
+    effect.impact_pool=bool(command.get("impact_pool",false))
+    effect.owner_actor=self
+    effect.tint=Color.html("#"+String(command.get("telegraph","c99558")))
+    get_parent().add_child(effect)
+    return effect
+
+func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
+    var type := String(command.get("type","melee"))
+    var origin := global_position+Vector2(attack_direction*18,-22)
+    var aim := (attack_target-origin).normalized()
+    var count := int(command.get("shot_count",1))
+    var projectile_speed := float(command.get("projectile_speed",220))
+    if type in ["projectile","fan","nova","mortar","wave"]:
+        for i in range(count):
+            var velocity_value := aim*projectile_speed
+            if type=="fan":
+                var spread := float(command.get("spread",.5))
+                velocity_value=aim.rotated((float(i)/maxi(1,count-1)-.5)*spread)*projectile_speed
+            elif type=="nova":
+                velocity_value=Vector2.from_angle(float(i)/count*TAU)*projectile_speed
+            elif type=="mortar":
+                velocity_value=Vector2(attack_direction*(projectile_speed+i*52),-260-i*30)
+            elif type=="wave":
+                velocity_value=Vector2((-1 if i%2==0 else 1)*(projectile_speed+floori(i/2)*float(command.get("speed_step",0))),0)
+            var point := global_position+Vector2(0,24) if type=="wave" else origin
+            _effect("wave" if type=="wave" else "projectile",point,velocity_value,command,0,3.0)
+    elif type=="beam":
+        var warn := float(command.get("windup",.6)) if warning else .05
+        _effect("beam",origin,aim,command,warn,float(command.get("hazard_life",.4)))
+    elif type in ["pool","rootline"]:
+        for i in range(count):
+            var x := attack_target.x+(i-(count-1)*.5)*float(command.get("spacing",90))
+            var floor_y := attack_target.y+42
+            if type=="rootline" and not bool(command.get("targeted",false)):
+                x=global_position.x+attack_direction*(i+1)*float(command.get("spacing",90))
+                floor_y=global_position.y+40
+            var terrain: Node=get_parent().get("chapter_terrain")
+            if terrain!=null:
+                var sampled: float=terrain.floor_height(x,floor_y,210)
+                if is_finite(sampled):floor_y=sampled
+            var delay: float = (float(command.get("windup",.6)) if warning else 0.0)+float(command.get("warning",.65))+i*(.12 if type=="rootline" else 0.0)
+            _effect("eruption" if type=="rootline" else "pool",Vector2(x,floor_y-5),Vector2.ZERO,command,delay,float(command.get("hazard_life",.7)))
+    elif type=="blink":
+        var x := attack_target.x-attack_direction*float(command.get("blink_offset",115))
+        global_position.x=clampf(x,platform_min_x,platform_max_x)
+        var target := _target_player()
+        if target!=null:_face_target(target)
+        origin=global_position+Vector2(direction*20,-24)
+        _effect("projectile",origin,(attack_target-origin).normalized()*projectile_speed,command,.12,2.5)
+
 signal died(spawn_id: String, is_boss: bool, kind: String)
 
 const SFX := {
@@ -130,6 +233,8 @@ var boss_phase_shift_played := false
 
 func _ready() -> void:
     add_to_group("enemy")
+    if locomotion == "flight":
+        global_position.y -= hover_height
     start_x = global_position.x
     spawn_position = global_position
     monitoring = true
@@ -141,6 +246,21 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
     if dying:
+        return
+    var player_node := _target_player()
+    if player_node != null and bool(player_node.get("ui_input_locked")):
+        return
+    if is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold",0.55)):
+        battle_phase = 2
+        phase_pause = 0.9
+        _clear_telegraph()
+        state = "patrol"
+        active_attack = {}
+        _set_enemy_animation("phase")
+        if get_parent().has_method("_toast"):
+            get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
+    if phase_pause>0:
+        phase_pause-=delta
         return
     _tick_timers(delta)
     var target := _target_player()
@@ -159,6 +279,7 @@ func _physics_process(delta: float) -> void:
         _update_recover(delta)
     else:
         _update_patrol_or_aggro(delta, target)
+    _update_locomotion(delta,target)
 
 
 func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, profile: Dictionary = {}) -> void:
@@ -188,14 +309,40 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
         arena_min_x = float(data.get("arena_min_x", -INF))
     if data.has("arena_max_x"):
         arena_max_x = float(data.get("arena_max_x", INF))
-    ai_profile = profile
-    ai_commands = profile.get("attacks", [])
+    ai_profile = profile.duplicate(true)
+    var original_profile: Dictionary = ORIGINAL_ART.manifest("res://data/original_creature_combat.json").get(kind,{})
+    if not original_profile.is_empty():
+        ai_profile.merge(original_profile,true)
+    locomotion = String(ai_profile.get("locomotion",data.get("locomotion","ground")))
+    hover_height = float(ai_profile.get("hover_height",95)) if locomotion=="flight" else 0.0
+    speed = float(ai_profile.get("move_speed",speed))
+    var original_path := "res://assets/sprites/original_creatures/"+kind+"/manifest.json"
+    var art_data := ORIGINAL_ART.manifest(original_path)
+    if not art_data.is_empty():
+        asset_path=original_path
+        sprite_parts=[]
+        sprite_region=[]
+        sprite_regions={}
+        visual_scale=float(art_data.get("visual_scale",1))
+        visual_offset=_vec2(art_data.get("visual_offset",[0,0]))
+        visual_modulate=Color.WHITE
+        sprite_faces_left=false
+        original_visual=true
+        var h := float(art_data.get("display_height",90))
+        hurtbox_offset=Vector2(0,40-h*.5)
+        body_size=Vector2(98 if is_boss else 35,h*.72)
+        hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
+    ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
     if dying:
+        return
+    if bool(ai_profile.get("front_guard",false)) and String(active_attack.get("type",""))=="guard" and state in ["windup","active"] and hit_direction==-direction:
+        attack_desire+=.6
+        _play_attack_sfx("windup")
         return
     # 受击分档（音频规格 §4.3）：致命一击独立，其余按敌人材质族走 soft/shell/armor 三档。
     if hp - amount <= 0:
@@ -350,8 +497,8 @@ func _clamp_movement_bounds() -> void:
 
 
 func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
-    platform_min_x = min_x
-    platform_max_x = max_x
+    platform_min_x = min_x-100 if locomotion=="flight" else min_x
+    platform_max_x = max_x+100 if locomotion=="flight" else max_x
 
 
 func reset_for_respawn() -> void:
@@ -429,6 +576,10 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
 
 
 func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
+    if locomotion == "stationary":
+        last_ai_decision="hold_position"
+        _set_enemy_animation("idle")
+        return
     if _boss_tactical_enabled():
         _move_boss_tactical(delta, target)
         return
@@ -659,6 +810,9 @@ func _boss_at_arena_edge() -> bool:
 
 
 func _patrol(delta: float) -> void:
+    if locomotion=="stationary":
+        _set_enemy_animation("idle")
+        return
     position.x += direction * speed * 0.72 * delta
     _set_enemy_animation("walk")
     if absf(global_position.x - start_x) > patrol_distance:
@@ -725,6 +879,8 @@ func _target_in_any_attack_window(target: CharacterBody2D) -> bool:
 
 func _attack_can_reach_target(command: Dictionary, target: CharacterBody2D, ignore_cooldown: bool = false) -> bool:
     if target == null:
+        return false
+    if int(command.get("phase",1))>battle_phase:
         return false
     var id := String(command.get("id", "attack"))
     if not ignore_cooldown and float(cooldowns.get(id, 0.0)) > 0.0:
@@ -880,6 +1036,10 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
             candidates.append(command)
     if candidates.is_empty():
         return false
+    if candidates.size()>1:
+        var alternatives := candidates.filter(func(c): return String(c.get("id",""))!=last_attack_id)
+        if not alternatives.is_empty():
+            candidates=alternatives
     candidates.sort_custom(func(a, b): return _attack_candidate_score(a, target) > _attack_candidate_score(b, target))
     _face_target(target)
     _begin_attack(candidates[0])
@@ -888,6 +1048,11 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
 
 func _begin_attack(command: Dictionary) -> void:
     active_attack = command
+    attack_elapsed=0
+    trail_clock=0
+    attack_start_position=global_position
+    var target_node := _target_player()
+    attack_target=target_node.global_position-Vector2(0,42) if target_node!=null else global_position+Vector2(direction*140,-24)
     attack_has_hit = false
     attack_direction = direction
     last_attack_id = String(command.get("id", "attack"))
@@ -905,6 +1070,8 @@ func _begin_attack(command: Dictionary) -> void:
     _play_attack_sfx("windup")
     _spawn_windup_vfx(command)
     _show_telegraph(command)
+    if String(command.get("type","")) in ["beam","pool","rootline"]:
+        _spawn_command_effects(command,true)
 
 
 func _update_windup(delta: float) -> void:
@@ -915,11 +1082,24 @@ func _update_windup(delta: float) -> void:
         _pose_sprite("active", active_attack)
         _play_attack_sfx("active")
         _spawn_attack_burst_vfx(active_attack)
+        if String(active_attack.get("type","")) not in ["beam","pool","rootline"]:
+            _spawn_command_effects(active_attack,false)
 
 
 func _update_active(delta: float) -> void:
     var attack_type := String(active_attack.get("type", "melee"))
-    if attack_type == "lunge":
+    attack_elapsed+=delta
+    var progress := clampf(attack_elapsed/maxf(.01,float(active_attack.get("active",.24))),0,1)
+    if attack_type == "dive":
+        global_position=attack_start_position.lerp(attack_target,progress)
+    elif attack_type == "vault":
+        position.x+=attack_direction*float(active_attack.get("lunge_speed",240))*delta
+        global_position.y=attack_start_position.y-sin(progress*PI)*float(active_attack.get("jump_height",130))
+    elif attack_type == "combo":
+        position.x+=attack_direction*float(active_attack.get("lunge_speed",125))*delta
+        if int(attack_elapsed/.20)!=int((attack_elapsed-delta)/.20):
+            attack_has_hit=false
+    elif attack_type == "lunge":
         position.x += attack_direction * float(active_attack.get("lunge_speed", 220.0)) * delta
     elif attack_type == "retreat":
         position.x -= attack_direction * float(active_attack.get("retreat_speed", 150.0)) * delta
@@ -928,7 +1108,13 @@ func _update_active(delta: float) -> void:
         position.x += attack_direction * sway
     _clamp_movement_bounds()
 
-    _try_damage_player(active_attack)
+    if attack_type in ["melee","aoe","lunge","retreat","feint","combo","guard","dive"] or (attack_type=="vault" and progress>.6):
+        _try_damage_player(active_attack)
+    if bool(active_attack.get("trail",false)):
+        trail_clock+=delta
+        if trail_clock>.16:
+            trail_clock=0
+            _effect("pool",global_position+Vector2(0,25),Vector2.ZERO,active_attack,.35,1.1)
 
     state_timer -= delta
     if state_timer <= 0.0:
@@ -936,6 +1122,8 @@ func _update_active(delta: float) -> void:
         state_timer = float(active_attack.get("recover", 0.42))
         _pose_sprite("recover", active_attack)
         _clear_telegraph()
+        if attack_type=="vault":
+            global_position.y=attack_start_position.y
 
 
 func _update_recover(delta: float) -> void:
@@ -962,7 +1150,7 @@ func _try_damage_player(command: Dictionary) -> void:
 
     var attack_type := String(command.get("type", "melee"))
     var dir := attack_direction if _is_attack_state() else direction
-    var center := global_position + Vector2(dir * float(command.get("offset", 44.0)), -26.0)
+    var center := global_position + Vector2(dir * float(command.get("offset", 44.0)), float(command.get("offset_y",-26.0)))
     var size := Vector2(float(command.get("hit_width", 76.0)), float(command.get("hit_height", 58.0)))
     if attack_type == "aoe":
         center = global_position + Vector2(0.0, -24.0)
@@ -981,12 +1169,16 @@ func _try_damage_player(command: Dictionary) -> void:
     if attack_rect.intersects(player_rect):
         target.take_damage(int(command.get("damage", damage)), global_position)
         attack_has_hit = true
+        if bool(command.get("leech",false)):
+            hp=mini(max_hp,hp+1)
 
 
 func _show_telegraph(command: Dictionary) -> void:
     _clear_telegraph()
-    telegraph = Polygon2D.new()
+    if original_visual:
+        return
     var attack_type := String(command.get("type", "melee"))
+    telegraph = Polygon2D.new()
     var color := Color.html("#" + String(command.get("telegraph", "d66b3d")))
     color.a = 0.34
     var width := float(command.get("hit_width", 84.0))
@@ -1046,6 +1238,8 @@ func _build_shape() -> void:
     var rectangle := RectangleShape2D.new()
     rectangle.size = body_size if body_size != Vector2.ZERO else (Vector2(132, 128) if is_boss else Vector2(50, 46))
     shape.shape = rectangle
+    if original_visual:
+        shape.position=hurtbox_offset
     add_child(shape)
 
 
@@ -1122,6 +1316,8 @@ func _build_part_sprite() -> Node2D:
 
 
 func _load_enemy_sprite_frames(manifest_path: String) -> SpriteFrames:
+    if manifest_path.contains("original_creatures"):
+        return ORIGINAL_ART.frames(manifest_path)
     var file := FileAccess.open(manifest_path, FileAccess.READ)
     if file == null:
         return null
@@ -1184,6 +1380,8 @@ func _set_enemy_animation(animation_name: String) -> void:
     _apply_sprite_flip()
     if animated_sprite == null or animated_sprite.sprite_frames == null:
         return
+    if next_animation in ["idle", "walk", "phase"]:
+        animated_sprite.speed_scale = 1.0
     if animated_sprite.animation != next_animation:
         animated_sprite.play(next_animation)
 
@@ -1242,6 +1440,27 @@ func _apply_sprite_region(animation_name: String) -> void:
 
 func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
     if sprite == null:
+        return
+    if original_visual:
+        sprite.position=sprite_base_position
+        sprite.scale=sprite_base_scale
+        sprite.rotation=0
+        sprite.modulate.a = .24 if pose_name=="windup" and bool(command.get("burrow",false)) else 1.0
+        var animation_name := pose_name
+        var requested := String(command.get("animation","attack"))
+        if pose_name=="windup":
+            animation_name=requested+"_windup" if _has_enemy_animation(requested+"_windup") else "windup"
+        elif pose_name=="active":
+            animation_name=requested if _has_enemy_animation(requested) else "attack"
+        elif pose_name=="recover":
+            animation_name="idle"
+        _set_enemy_animation(animation_name)
+        if animated_sprite!=null:
+            animated_sprite.speed_scale=1.0
+            if pose_name in ["windup","active"]:
+                var frames := animated_sprite.sprite_frames
+                var duration := float(command.get("windup" if pose_name=="windup" else "active",.3))
+                animated_sprite.speed_scale=frames.get_frame_count(animation_name)/maxf(.01,frames.get_animation_speed(animation_name)*duration)
         return
     _apply_sprite_region("attack" if pose_name == "windup" or pose_name == "active" else pose_name)
     var attack_type := String(command.get("type", "melee"))
@@ -1438,7 +1657,32 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     player_node.play()
 
 
+func _original_attack_arc(command: Dictionary, warning: bool) -> void:
+    var type := String(command.get("type", "melee"))
+    if type in ["beam", "pool", "rootline"]: return
+    var line := Line2D.new()
+    line.width = 1.6 if warning else 3.5
+    line.default_color = Color(.95,.77,.45,.68) if warning else Color(.86,.33,.25,.85)
+    line.z_index = 8
+    var points := PackedVector2Array()
+    var reach := float(command.get("hit_width",80))*.62
+    if type in ["projectile", "fan", "mortar", "nova"]:
+        var aim := (attack_target-global_position-Vector2(0,-22)).normalized()
+        points=PackedVector2Array([Vector2(0,-22),Vector2(0,-22)+aim*48,Vector2(0,-22)+aim*40+aim.orthogonal()*8])
+    else:
+        for i in range(18):
+            var angle := lerpf(-1.25,1.25,float(i)/17)
+            points.append(Vector2(attack_direction*(20+cos(angle)*reach),-26+sin(angle)*float(command.get("hit_height",70))*.55))
+    line.points=points
+    add_child(line)
+    var tween := create_tween()
+    tween.tween_property(line,"modulate:a",0.0,float(command.get("windup",.5)) if warning else .22)
+    tween.finished.connect(line.queue_free)
+
 func _spawn_windup_vfx(command: Dictionary) -> void:
+    if original_visual:
+        _original_attack_arc(command, true)
+        return
     var warning := Line2D.new()
     warning.name = "EnemyWindupVfx"
     var width := float(command.get("hit_width", 84.0))
@@ -1478,6 +1722,9 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
 
 
 func _spawn_attack_burst_vfx(command: Dictionary) -> void:
+    if original_visual:
+        _original_attack_arc(command, false)
+        return
     var burst := Line2D.new()
     burst.name = "BossAttackBurstVfx" if is_boss else "EnemyAttackBurstVfx"
     var attack_type := String(command.get("type", "melee"))

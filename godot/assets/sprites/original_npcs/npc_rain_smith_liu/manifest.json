@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_rain_smith_liu",
+  "visual_scale": 0.22580645161290322,
+  "visual_offset": [
+    0,
+    -16.451612903225808
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+    "region": [
+      95,
+      13,
+      348,
+      322
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+          "region": [
+            95,
+            13,
+            348,
+            496
+          ],
+          "margin": [
+            95,
+            2,
+            164,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+          "region": [
+            585,
+            13,
+            344,
+            496
+          ],
+          "margin": [
+            73,
+            2,
+            168,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+          "region": [
+            1065,
+            13,
+            434,
+            496
+          ],
+          "margin": [
+            41,
+            2,
+            78,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+          "region": [
+            65,
+            537,
+            447,
+            459
+          ],
+          "margin": [
+            65,
+            39,
+            65,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+          "region": [
+            576,
+            597,
+            394,
+            396
+          ],
+          "margin": [
+            64,
+            102,
+            118,
+            104
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_rain_smith_liu/atlas.png",
+          "region": [
+            1084,
+            567,
+            408,
+            430
+          ],
+          "margin": [
+            60,
+            68,
+            104,
+            70
+          ]
+        }
+      ]
+    }
+  ]
+}

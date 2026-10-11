@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "falling_clapper",
+  "canvas": [
+    384,
+    294
+  ],
+  "display_height": 86,
+  "visual_scale": 0.315018315018315,
+  "visual_offset": [
+    0,
+    11.692307692307693
+  ],
+  "motion": "flight",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            34,
+            42,
+            286,
+            273
+          ],
+          "margin": [
+            34,
+            19,
+            98,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            410,
+            44,
+            300,
+            270
+          ],
+          "margin": [
+            26,
+            22,
+            84,
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            814,
+            50,
+            318,
+            260
+          ],
+          "margin": [
+            46,
+            32,
+            66,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            1175,
+            42,
+            333,
+            269
+          ],
+          "margin": [
+            23,
+            23,
+            51,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            45,
+            386,
+            292,
+            254
+          ],
+          "margin": [
+            45,
+            38,
+            92,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            413,
+            402,
+            330,
+            223
+          ],
+          "margin": [
+            29,
+            69,
+            54,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            834,
+            363,
+            292,
+            290
+          ],
+          "margin": [
+            66,
+            2,
+            92,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            1175,
+            383,
+            329,
+            271
+          ],
+          "margin": [
+            23,
+            21,
+            55,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            26,
+            699,
+            358,
+            244
+          ],
+          "margin": [
+            26,
+            48,
+            26,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            384,
+            683,
+            384,
+            245
+          ],
+          "margin": [
+            0,
+            47,
+            0,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            768,
+            700,
+            371,
+            236
+          ],
+          "margin": [
+            0,
+            56,
+            13,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "region": [
+            1178,
+            798,
+            340,
+            172
+          ],
+          "margin": [
+            26,
+            120,
+            44,
+            122
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

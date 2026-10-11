@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_canal_child",
+  "visual_scale": 0.16597510373443983,
+  "visual_offset": [
+    0,
+    -0.5809128630705374
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+    "region": [
+      70,
+      14,
+      403,
+      313
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+          "region": [
+            70,
+            14,
+            403,
+            482
+          ],
+          "margin": [
+            70,
+            5,
+            109,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+          "region": [
+            576,
+            15,
+            392,
+            475
+          ],
+          "margin": [
+            64,
+            12,
+            120,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+          "region": [
+            1092,
+            11,
+            407,
+            485
+          ],
+          "margin": [
+            68,
+            2,
+            105,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+          "region": [
+            63,
+            516,
+            439,
+            480
+          ],
+          "margin": [
+            63,
+            7,
+            73,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+          "region": [
+            628,
+            521,
+            351,
+            469
+          ],
+          "margin": [
+            116,
+            18,
+            161,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+          "region": [
+            1086,
+            635,
+            421,
+            334
+          ],
+          "margin": [
+            62,
+            153,
+            91,
+            155
+          ]
+        }
+      ]
+    }
+  ]
+}

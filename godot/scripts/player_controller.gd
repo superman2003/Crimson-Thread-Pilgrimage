@@ -193,6 +193,10 @@ var hook_reel_played: bool = false
 ## 用 player.set("ui_input_locked", opened) 同步；为 true 时忽略 move_left/right
 ## 与 aim_up/down，不影响 Esc/UI 键与既有暂停逻辑。
 var ui_input_locked: bool = false
+var snare_timer := 0.0
+
+func apply_snare(seconds: float) -> void:
+    snare_timer=maxf(snare_timer,seconds)
 
 
 func _ready() -> void:
@@ -207,11 +211,18 @@ func _ready() -> void:
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
     sprite.material = flash_material
+    floor_snap_length=18.0
+    floor_constant_speed=true
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 
 
 func _physics_process(delta: float) -> void:
+    if ui_input_locked:
+        return
+    snare_timer=maxf(0,snare_timer-delta)
+    if dash_timer>0:
+        snare_timer=0
     if death_timer > 0.0:
         wall_sliding = false
         _update_wall_slide_audio()
@@ -321,6 +332,8 @@ func _physics_process(delta: float) -> void:
         velocity.x = move_toward(velocity.x, input_axis * speed * 0.45, speed * 5.0 * delta)
 
     _update_attack(delta)
+    if snare_timer>0 and dash_timer<=0:
+        velocity.x*=.58
     var fall_speed := velocity.y
     move_and_slide()
     if not was_on_floor and is_on_floor():

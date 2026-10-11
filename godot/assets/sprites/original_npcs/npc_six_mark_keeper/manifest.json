@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_six_mark_keeper",
+  "visual_scale": 0.22515212981744423,
+  "visual_offset": [
+    0,
+    -16.625760649087226
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+    "region": [
+      95,
+      9,
+      332,
+      320
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+          "region": [
+            95,
+            9,
+            332,
+            493
+          ],
+          "margin": [
+            95,
+            8,
+            180,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+          "region": [
+            564,
+            8,
+            362,
+            494
+          ],
+          "margin": [
+            52,
+            7,
+            150,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+          "region": [
+            1062,
+            9,
+            461,
+            499
+          ],
+          "margin": [
+            38,
+            2,
+            51,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+          "region": [
+            30,
+            513,
+            439,
+            495
+          ],
+          "margin": [
+            30,
+            6,
+            73,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+          "region": [
+            561,
+            522,
+            386,
+            481
+          ],
+          "margin": [
+            49,
+            20,
+            126,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+          "region": [
+            1039,
+            597,
+            486,
+            386
+          ],
+          "margin": [
+            15,
+            115,
+            26,
+            117
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -3323,546 +3323,460 @@
   ],
   "ai_profiles": {
     "vine_crawler": {
-      "move_speed": 48,
-      "aggro_range": 210.0,
-      "preferred_range": 44.0,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "bite_lunge",
-          "type": "lunge",
+          "id": "vine_bite",
+          "name": "藤口咬",
+          "type": "melee",
           "range": 92,
-          "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.46,
-          "cooldown": 1.18,
-          "lunge_speed": 250,
+          "windup": 0.42,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
           "hit_width": 82,
-          "hit_height": 54,
-          "offset": 44,
-          "telegraph": "bf6c3f",
-          "priority": 1.0,
-          "animation": "attack"
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "藤口咬"
+        },
+        {
+          "id": "vine_roots",
+          "name": "三段根刺",
+          "type": "rootline",
+          "range": 320,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "三段根刺",
+          "shot_count": 3,
+          "spacing": 85,
+          "warning": 0.55,
+          "hazard_life": 0.5,
+          "radius": 24
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "wax_bee": {
-      "move_speed": 62,
-      "aggro_range": 250.0,
-      "preferred_range": 78.0,
+      "locomotion": "flight",
+      "combat_identity": "快速蜂刺俯冲，双针封住后撤方向",
+      "move_speed": 80,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "sickle_swoop",
-          "type": "lunge",
-          "range": 112,
+          "id": "bee_dive",
+          "name": "蜡蜂刺冲",
+          "type": "dive",
+          "range": 280,
+          "windup": 0.62,
+          "active": 0.48,
+          "recover": 0.85,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.22,
-          "active": 0.2,
-          "recover": 0.44,
-          "cooldown": 1.16,
-          "lunge_speed": 285,
-          "hit_width": 92,
-          "hit_height": 58,
-          "offset": 52,
-          "telegraph": "d9b25f",
-          "priority": 1.0,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "蜡蜂刺冲"
+        },
+        {
+          "id": "bee_stingers",
+          "name": "双针连射",
+          "type": "fan",
+          "range": 400,
+          "windup": 0.65,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双针连射",
+          "shot_count": 2,
+          "spread": 0.22,
+          "projectile_speed": 310,
+          "skin": "thorn"
         }
       ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      "hover_height": 125
     },
     "root_cage_hunter": {
-      "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "shield_rush",
-          "type": "lunge",
-          "range": 118,
+          "id": "cage_net",
+          "name": "根网投掷",
+          "type": "projectile",
+          "range": 360,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.3,
-          "active": 0.22,
-          "recover": 0.54,
-          "cooldown": 1.36,
-          "lunge_speed": 310,
-          "hit_width": 100,
-          "hit_height": 68,
-          "offset": 56,
-          "telegraph": "d38c45",
-          "priority": 1.0,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "根网投掷",
+          "projectile_speed": 220,
+          "skin": "thorn",
+          "radius": 14,
+          "snare": 1.2
+        },
+        {
+          "id": "cage_pounce",
+          "name": "根笼扑刺",
+          "type": "vault",
+          "range": 280,
+          "windup": 0.55,
+          "active": 0.6,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "根笼扑刺",
+          "jump_height": 100,
+          "lunge_speed": 290
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "pollen_lutist": {
-      "move_speed": 36,
-      "aggro_range": 235.0,
-      "preferred_range": 82.0,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "body_cast",
-          "type": "melee",
-          "range": 96,
-          "damage": 1,
-          "windup": 0.34,
-          "active": 0.18,
-          "recover": 0.55,
-          "cooldown": 1.34,
-          "hit_width": 88,
-          "hit_height": 64,
+          "id": "pollen_arcs",
+          "name": "弦音花粉",
+          "type": "fan",
+          "range": 440,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c99a50",
-          "priority": 1.0,
-          "animation": "attack"
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "弦音花粉",
+          "shot_count": 4,
+          "spread": 0.6,
+          "projectile_speed": 145,
+          "skin": "pollen",
+          "snare": 0.85
+        },
+        {
+          "id": "pollen_spots",
+          "name": "错位花粉圈",
+          "type": "pool",
+          "range": 400,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "错位花粉圈",
+          "shot_count": 2,
+          "spacing": 105,
+          "radius": 36,
+          "warning": 0.95,
+          "hazard_life": 1.5
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "thorn_sentinel": {
-      "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "heavy_body_check",
-          "type": "melee",
-          "range": 84,
-          "damage": 2,
-          "windup": 0.4,
-          "active": 0.2,
-          "recover": 0.66,
-          "cooldown": 1.55,
-          "hit_width": 104,
-          "hit_height": 74,
+          "id": "thorn_ring",
+          "name": "荆针轮射",
+          "type": "nova",
+          "range": 400,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c9764a",
-          "priority": 1.0,
-          "animation": "attack"
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "荆针轮射",
+          "shot_count": 6,
+          "projectile_speed": 185,
+          "skin": "thorn"
+        },
+        {
+          "id": "thorn_wall",
+          "name": "根墙封路",
+          "type": "rootline",
+          "range": 380,
+          "windup": 0.45,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 4,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "根墙封路",
+          "shot_count": 3,
+          "spacing": 90,
+          "warning": 0.8,
+          "radius": 24,
+          "hazard_life": 0.75
         }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
+      ]
     },
     "broken_string_gardener": {
-      "move_speed": 58,
-      "aggro_range": 620,
-      "preferred_range": 126,
+      "locomotion": "ground",
+      "combat_identity": "定点根刺、缓速藤种；半血后交错根墙",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
       "attacks": [
         {
-          "id": "crown_slam",
-          "animation": "boss_04_atk_02",
-          "type": "aoe",
-          "range": 138,
-          "damage": 2,
-          "windup": 0.5903999999999999,
-          "active": 0.26,
-          "recover": 0.9,
-          "cooldown": 2.2319999999999998,
-          "hit_width": 280,
-          "hit_height": 116,
-          "telegraph": "d07b36",
-          "priority": 2.95,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "rust_charge",
-          "animation": "boss_04_atk_02",
-          "type": "lunge",
-          "range": 190,
-          "damage": 2,
-          "windup": 0.4428,
-          "active": 0.36,
-          "recover": 0.95,
-          "cooldown": 2.052,
-          "lunge_speed": 370,
-          "hit_width": 132,
-          "hit_height": 100,
-          "offset": 72,
-          "telegraph": "b96032",
-          "priority": 2.6500000000000004,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "bell_body_crush",
-          "animation": "boss_04_atk_02",
-          "type": "lunge",
-          "range": 160,
-          "damage": 1,
-          "windup": 0.328,
+          "id": "boss_bishop_staff",
+          "name": "根杖敲击",
+          "type": "melee",
+          "range": 185,
+          "windup": 0.8,
           "active": 0.24,
-          "recover": 0.62,
-          "cooldown": 1.26,
-          "lunge_speed": 360,
-          "hit_width": 150,
-          "hit_height": 108,
-          "offset": 76,
-          "telegraph": "e0a542",
-          "priority": 2.25,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "recover": 0.8,
+          "cooldown": 2.7,
+          "hit_width": 180,
+          "hit_height": 125,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "根杖敲击"
         },
         {
-          "id": "gear_knee",
-          "animation": "boss_04_atk_01",
-          "type": "melee",
-          "range": 108,
+          "id": "boss_bishop_seeds",
+          "name": "藤种布道",
+          "type": "fan",
+          "range": 680,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.48,
-          "cooldown": 1.1,
-          "hit_width": 128,
-          "hit_height": 92,
-          "offset": 62,
-          "telegraph": "b78c4d",
-          "priority": 1.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "藤种布道",
+          "shot_count": 5,
+          "spread": 0.68,
+          "projectile_speed": 160,
+          "skin": "pollen",
+          "snare": 0.8
         },
         {
-          "id": "crown_backhand",
-          "animation": "boss_04_atk_01",
-          "type": "melee",
-          "range": 110,
+          "id": "boss_bishop_roots",
+          "name": "循地根刺",
+          "type": "rootline",
+          "range": 650,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.24,
-          "active": 0.16,
-          "recover": 0.46,
-          "cooldown": 1.05,
-          "hit_width": 126,
-          "hit_height": 94,
-          "offset": 64,
-          "telegraph": "d9b158",
-          "priority": 1.3,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "循地根刺",
+          "shot_count": 4,
+          "spacing": 110,
+          "warning": 0.68,
+          "radius": 26,
+          "hazard_life": 0.72
         },
         {
-          "id": "bellquake_stomp",
-          "animation": "boss_04_atk_02",
-          "type": "aoe",
-          "range": 184,
+          "id": "boss_bishop_cage",
+          "name": "交错根笼",
+          "type": "pool",
+          "range": 670,
+          "windup": 1.15,
+          "active": 0.24,
+          "recover": 1.2,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.738,
-          "active": 0.32,
-          "recover": 1,
-          "cooldown": 3.024,
-          "hit_width": 320,
-          "hit_height": 98,
-          "telegraph": "8ebf8b",
-          "priority": 1.55,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "crown_shockwave_chain",
-          "animation": "boss_04_atk_03",
-          "type": "shockwave",
-          "min_range": 90,
-          "range": 360,
-          "damage": 1,
-          "windup": 0.26,
-          "active": 0.22,
-          "recover": 0.44,
-          "cooldown": 1.9,
-          "hit_width": 250,
-          "hit_height": 48,
-          "offset": 136,
-          "telegraph": "f0c34f",
-          "priority": 3.25,
-          "start_cooldown": 0.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -22,
-            -10
-          ],
-          "windup_scale": [
-            1.1,
-            0.92
-          ],
-          "active_offset": [
-            46,
-            -3
-          ],
-          "active_scale": [
-            1.24,
-            0.84
-          ],
-          "recover_offset": [
-            -14,
-            4
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "backstep_hook_cut",
-          "animation": "boss_04_atk_01",
-          "type": "retreat",
-          "range": 150,
-          "damage": 1,
-          "windup": 0.18,
-          "active": 0.26,
-          "recover": 0.35,
-          "cooldown": 1.55,
-          "retreat_speed": 225,
-          "hit_width": 130,
-          "hit_height": 72,
-          "offset": 70,
-          "telegraph": "7fd6ca",
-          "priority": 2.7,
-          "pose_power": 1.38,
-          "windup_offset": [
-            18,
-            -8
-          ],
-          "windup_scale": [
-            0.96,
-            1.08
-          ],
-          "active_offset": [
-            -38,
-            -8
-          ],
-          "active_scale": [
-            0.92,
-            1.14
-          ],
-          "recover_offset": [
-            12,
-            1
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "false_crown_feint",
-          "animation": "boss_04_atk_03",
-          "type": "feint",
-          "range": 132,
-          "damage": 1,
-          "windup": 0.12,
-          "active": 0.18,
-          "recover": 0.28,
-          "cooldown": 1.35,
-          "feint_sway": 120,
-          "hit_width": 112,
-          "hit_height": 80,
-          "offset": 58,
-          "telegraph": "d98ee8",
-          "priority": 2.45,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -14,
-            -12
-          ],
-          "windup_scale": [
-            1.08,
-            0.93
-          ],
-          "active_offset": [
-            20,
-            -6
-          ],
-          "active_scale": [
-            1.12,
-            0.94
-          ],
-          "recover_offset": [
-            -10,
-            2
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "交错根笼",
+          "shot_count": 4,
+          "spacing": 120,
+          "radius": 34,
+          "warning": 0.9,
+          "hazard_life": 1.6,
+          "phase": 2
         }
-      ]
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "根笼讲坛"
     },
     "thorn_bloom_mote": {
-      "move_speed": 66,
-      "aggro_range": 235.0,
-      "preferred_range": 86.0,
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "sickle_swoop",
-          "type": "lunge",
-          "range": 112,
+          "id": "bloom_seeds",
+          "name": "花种落刺",
+          "type": "rootline",
+          "range": 340,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.22,
-          "active": 0.2,
-          "recover": 0.44,
-          "cooldown": 1.16,
-          "lunge_speed": 285,
-          "hit_width": 92,
-          "hit_height": 58,
-          "offset": 52,
-          "telegraph": "d9b25f",
-          "priority": 1.0,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "花种落刺",
+          "shot_count": 2,
+          "spacing": 80,
+          "targeted": true,
+          "warning": 0.7,
+          "radius": 25
+        },
+        {
+          "id": "bloom_needle",
+          "name": "花蕊针",
+          "type": "projectile",
+          "range": 340,
+          "windup": 0.5,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "花蕊针",
+          "projectile_speed": 240,
+          "skin": "thorn"
         }
-      ]
+      ],
+      "hover_height": 135
     }
   },
   "platforms": [
@@ -11181,88 +11095,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E002",
@@ -11275,88 +11123,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E003",
@@ -11369,88 +11151,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E004",
@@ -11463,88 +11179,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E005",
@@ -11557,88 +11207,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E006",
@@ -11651,88 +11235,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E007",
@@ -11745,88 +11263,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E008",
@@ -11839,88 +11291,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
       "visual_offset": [
         0,
-        -8
+        4.662379421221864
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E009",
@@ -11933,88 +11319,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E010",
@@ -12027,88 +11347,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E011",
@@ -12121,88 +11375,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E012",
@@ -12215,88 +11403,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
       "visual_offset": [
         0,
-        -8
+        4.662379421221864
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E013",
@@ -12309,88 +11431,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E014",
@@ -12403,88 +11459,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E015",
@@ -12497,88 +11487,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E016",
@@ -12591,88 +11515,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E017",
@@ -12685,88 +11543,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.9,
+      "sprite": "res://assets/sprites/original_creatures/wax_bee/manifest.json",
+      "visual_scale": 0.26936026936026936,
       "visual_offset": [
         0,
-        -8
+        13.824915824915827
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png",
-      "source_sprite_region": [
-        0,
-        0,
-        38,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/wax_bee/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "flight",
+      "combat_identity": "快速蜂刺俯冲，双针封住后撤方向"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E018",
@@ -12779,88 +11571,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E019",
@@ -12873,88 +11599,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E020",
@@ -12967,88 +11627,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E021",
@@ -13061,88 +11655,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E022",
@@ -13155,88 +11683,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E023",
@@ -13249,88 +11711,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
       "visual_offset": [
         0,
-        -8
+        4.662379421221864
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E024",
@@ -13343,88 +11739,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
       "visual_offset": [
         0,
-        -8
+        4.662379421221864
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E025",
@@ -13437,88 +11767,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E026",
@@ -13531,88 +11795,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E027",
@@ -13625,88 +11823,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E028",
@@ -13719,88 +11851,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E029",
@@ -13813,88 +11879,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E030",
@@ -13907,88 +11907,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E031",
@@ -14001,88 +11935,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.78,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
       "visual_offset": [
         0,
-        -8
+        4.662379421221864
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        80,
-        80
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E032",
@@ -14095,88 +11963,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E033",
@@ -14189,88 +11991,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E034",
@@ -14283,88 +12019,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E035",
@@ -14377,88 +12047,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E036",
@@ -14471,88 +12075,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E037",
@@ -14565,88 +12103,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
       "visual_offset": [
         0,
-        -8
+        9.39622641509434
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E038",
@@ -14659,88 +12131,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
       "visual_offset": [
         0,
-        -8
+        18.32116788321168
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E039",
@@ -14753,88 +12159,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
       "visual_offset": [
         0,
-        -8
+        5.335463258785943
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺"
     },
     {
       "id": "demo_ch04_broken_string_greenhouse_generated_E040",
@@ -14847,88 +12187,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_bloom_mote/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.88,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
       "visual_offset": [
         0,
-        -8
+        15.763066202090592
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        36,
-        36
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针"
     }
   ],
   "boss": {
@@ -14944,20 +12218,14 @@
     "patrol": 260,
     "reward_item": "silent_mark_greenhouse",
     "story_drop": "活封面证词补全第七签署者名字第二段，黑曜巡礼道开放。",
-    "sprite": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
-    "sprite_region": [
-      0,
-      0,
-      64,
-      64
-    ],
-    "visual_scale": 0.92,
+    "sprite": "res://assets/sprites/original_creatures/broken_string_gardener/manifest.json",
+    "visual_scale": 0.7058823529411765,
     "visual_offset": [
       0,
-      -38
+      -50.70588235294119
     ],
-    "visual_modulate": "d6ffd6",
-    "visual_source": "High-fidelity Boss Concept Pack / boss_04_copperroot_bishop",
+    "visual_modulate": "ffffff",
+    "visual_source": "original_hand_drawn",
     "visual_role": "high_fidelity_boss_04_copperroot_bishop",
     "body_size": [
       158,
@@ -14971,49 +12239,15 @@
       0,
       -50
     ],
-    "source_sprite": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
-    "source_sprite_region": [
-      0,
-      0,
-      64,
-      64
-    ],
-    "sprite_regions": {
-      "idle": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "walk": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "attack": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "hurt": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "death": [
-        0,
-        0,
-        64,
-        64
-      ]
-    },
+    "source_sprite": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
     "sprite_faces_left": false,
     "arena_min_x": 20911,
     "arena_max_x": 21731,
-    "platform_id": "ch04_72_floor"
+    "platform_id": "ch04_72_floor",
+    "locomotion": "ground",
+    "combat_identity": "定点根刺、缓速藤种；半血后交错根墙",
+    "spawn_half_width": 49,
+    "spawn_visual_height": 188
   },
   "labels": [
     {
