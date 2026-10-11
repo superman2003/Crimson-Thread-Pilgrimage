@@ -14,7 +14,8 @@ static func for_theme(theme: String) -> ShaderMaterial:
     var result := ShaderMaterial.new()
     result.shader = SHADER
     result.set_shader_parameter("stone_atlas",atlas)
-    result.set_shader_parameter("tile_size",Vector2(4096,4096))
+    # Native texel density avoids enlarging a 1254px mural to 4096 world pixels.
+    result.set_shader_parameter("tile_size",Vector2(atlas.get_size()))
     materials[theme] = result
     return result
 

@@ -1,6 +1,7 @@
 extends SceneTree
 ## Verify every region uses one continuous stone material, without touching collision.
 const ROCK := preload("res://scripts/world_rock_material.gd")
+const MAP_ART := preload("res://scripts/flat_map_art.gd")
 var failures := 0
 var checks := 0
 func _initialize() -> void: call_deferred("run")
@@ -10,6 +11,8 @@ func check(ok: bool, message: String) -> void:
         failures += 1
         push_error(message)
 func run() -> void:
+    for bridge in ["bronze_bridge", "sluice_bridge", "vellum_bridge", "glassvine_bridge", "ember_bridge", "void_bridge"]:
+        check(MAP_ART.material_variant_for(bridge) in [6,7],bridge+" selects bridge rather than fractured rock")
     for id in ["demo_ch01_moss_bell_court","demo_ch02_rain_foundry_canal","demo_ch03_saltwhite_archive","demo_ch04_broken_string_greenhouse","demo_ch05_obsidian_pilgrim_road","demo_ch06_silent_crown_core"]:
         var scene: Node = load("res://scenes/Main.tscn").instantiate()
         scene.config_path="res://data/"+id+".json"
@@ -20,11 +23,27 @@ func run() -> void:
         var theme: String = scene._art_theme_id()
         var material: ShaderMaterial = ROCK.for_theme(theme)
         check(material!=null and material.get_shader_parameter("stone_atlas")!=null,id+" stone texture loaded")
+        var texture: Texture2D = material.get_shader_parameter("stone_atlas")
+        check(material.get_shader_parameter("tile_size")==Vector2(texture.get_size()),id+" mural uses native density")
         var mass: Node = scene.cave_world.get_node("PaintedRockMass")
-        check(mass.get_child_count()==scene.cave_world.solid_rects.size(),id+" every rock collider has a textured visual")
+        check(mass.material==material,id+" visible rock uses regional material")
         check(scene.cave_world.get_node("SolidCaveMass").get_child_count()==scene.config.cave_world.solid_rects.size(),id+" rock collision count preserved")
-        for panel in mass.get_children():
-            check(panel.material==material and bool(panel.get_meta("world_aligned_material",false)),id+" cave face has continuous regional material")
+        var collision_count: int = scene.cave_world.get_node("SolidCaveMass").get_child_count()
+        # Visit real camera positions; renderer culling must not remove collision.
+        var camera: Camera2D = scene.player.get_node("Camera2D")
+        for sample in [Vector2(400,700),Vector2(scene.world_width*0.5,scene.world_height*0.5),Vector2(scene.world_width-400,scene.world_height-400)]:
+            scene.player.position=sample
+            camera.reset_smoothing()
+            await process_frame
+            await process_frame
+            mass._refresh_view()
+            for solid in scene.cave_world.solid_rects:
+                var visible: Rect2 = solid.intersection(mass.view_bounds)
+                if visible.has_area():
+                    check(mass.painted_rects.has(visible),id+" visible collision has opaque rock coverage")
+            for painted in mass.painted_rects:
+                check(mass.view_bounds.encloses(painted),id+" distant rock is culled")
+            check(scene.cave_world.get_node("SolidCaveMass").get_child_count()==collision_count,id+" distant collisions survive camera travel")
         for form in scene.chapter_terrain.get_children():
             for face in form.get_children():
                 if face is Polygon2D:

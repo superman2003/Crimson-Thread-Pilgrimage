@@ -146,7 +146,7 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
     var style: Dictionary = platform_styles.get(String(parent.name), {})
     # Legacy per-tile variants mixed soil, masonry and roots inside one step.
     # Select the complete platform by material, with an explicit whole-object override.
-    var family_variant := 7 if material_name.contains("bronze") else (11 if material_name.contains("boss") else 2)
+    var family_variant := material_variant_for(material_name)
     var index := posmod(int(style.get("material_variant", family_variant)), variants.size())
     var variant: Dictionary = variants[index]
     var texture := _texture(ROOT + theme + "/platform_atlas.png")
@@ -197,6 +197,16 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
     edge.z_index = -2
     parent.add_child(edge)
     return true
+
+
+static func material_variant_for(material_name: String) -> int:
+    if material_name.contains("boss"):
+        return 11
+    if material_name.contains("bronze") or material_name.contains("sluice"):
+        return 7
+    if material_name.contains("bridge"):
+        return 6
+    return 2
 
 
 func _slice(parent: Node2D, node_name: String, texture: Texture2D, region: Rect2, offset: Vector2, dimensions: Vector2, flip: bool) -> void:
