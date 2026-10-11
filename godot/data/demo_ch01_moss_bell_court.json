@@ -1014,7 +1014,7 @@
       ],
       "objective": "从塌落的苔板下探出隐藏石穴。",
       "guide": "塌方不是终点，是入口。",
-      "danger": "穴壁渗水，回声很远。",
+      "danger": "穴内没有灯火，只有身边近处可见；离开假苔穴后恢复正常视野。",
       "next": "暗河走道",
       "setpiece": "苔板塌出的石穴",
       "traversal_focus": "陷阱即通路",
@@ -1026,7 +1026,9 @@
           500,
           252
         ]
-      ]
+      ],
+      "visibility": "dark",
+      "vision_radius": 360
     },
     {
       "id": "underway",

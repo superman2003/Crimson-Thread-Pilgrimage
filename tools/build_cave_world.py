@@ -166,8 +166,9 @@ def build(path, number):
         for ring in [polygon.exterior,*polygon.interiors]:
             outlines.append([[round(x,1),round(y,1)] for x,y in ring.simplify(12).coords])
     d['cave_world']={'version':1,'solid_rects':merged,'outlines':outlines,'cell_size':cell,
+        'visibility':d.get('cave_world',{}).get('visibility','normal'),
         'vision_radius':540,'dark_vision_radius':360,'ray_count':96,
-        'walk_links':len(links),'design':'Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting.'}
+        'walk_links':len(links),'design':'Excavated rooms and shafts inside opaque solid rock; normal room visibility; authored dark rooms use local line-of-sight lighting.'}
     d['terrain_design']['cave_envelope']=True
     d['boss_route_via_exploration']=True
     d['exploration_hint']='洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。'
