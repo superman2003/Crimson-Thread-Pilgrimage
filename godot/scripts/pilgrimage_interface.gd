@@ -2,13 +2,26 @@ extends Control
 
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const FONT := preload("res://assets/fonts/NotoSansSC.ttf")
-const IVORY := Color("e8ddc3")
-const GOLD := Color("b5a17c")
-const MUTED := Color("999b96")
-const RED := Color("b65d59")
+const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
+const IVORY := Color("eee3ce")
+const GOLD := Color("bda176")
+const MUTED := Color("a5afa9")
+const RED := Color("d5686b")
 var level: Node
 var hud_card: Control
 var hearts: Label
+var hud_crest: TextureRect
+var health_glyphs: Control
+var modal_shade: ColorRect
+var tactical_cards: Array[Panel]=[]
+var tactical_icons: Array[TextureRect]=[]
+var tactical_names: Array[Label]=[]
+var tactical_values: Array[Label]=[]
+var mechanism_status: Label
+var quick_actions: Array[Button]=[]
+var build_heading: Label
+var build_emblem: TextureRect
+var tactical_signatures: Array[String]=["","","",""]
 var thread_bar: ProgressBar
 var currency: Label
 var location: Label
@@ -79,6 +92,14 @@ func bind(runtime: Node) -> void:
     ui_theme.default_font=FONT
     ui_theme.default_font_size=18
     theme=ui_theme
+    _install_theme(ui_theme)
+    modal_shade=ColorRect.new()
+    modal_shade.color=Color(0.015,0.025,0.03,0.78)
+    modal_shade.size=Vector2(1280,720)
+    modal_shade.z_index=5
+    modal_shade.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    modal_shade.visible=false
+    add_child(modal_shade)
     _load_accessibility()
     _build_hud()
     _build_bag()
@@ -86,6 +107,8 @@ func bind(runtime: Node) -> void:
     _build_settings()
     _build_build_panel()
     _bind_ui_navigation()
+    get_viewport().size_changed.connect(_fit_viewport)
+    _fit_viewport()
 
 func _label(parent: Node, text: String, position_value: Vector2, size_value: Vector2, font_size: int=18, tint: Color=IVORY) -> Label:
     var label:=Label.new()
@@ -103,10 +126,27 @@ func _style(tint: Color, border: Color, width: int=1) -> StyleBoxFlat:
     style.bg_color=tint
     style.border_color=border
     style.set_border_width_all(width)
-    style.set_corner_radius_all(3)
+    style.set_corner_radius_all(5)
+    style.content_margin_top=4
+    style.content_margin_bottom=4
     style.content_margin_left=10
     style.content_margin_right=10
     return style
+
+func _meter_style(tint: Color) -> StyleBoxFlat:
+    var result:=_style(tint,tint,0)
+    result.content_margin_left=0
+    result.content_margin_right=0
+    result.content_margin_top=0
+    result.content_margin_bottom=0
+    result.set_corner_radius_all(2)
+    return result
+
+func _tab_style(selected: bool) -> StyleBoxFlat:
+    var result:=_style(Color("29332e") if selected else Color("172228"),GOLD if selected else Color("43504a"),0)
+    result.border_width_bottom=2 if selected else 1
+    result.set_corner_radius_all(0)
+    return result
 
 func _button(parent: Node, text: String, position_value: Vector2, size_value: Vector2, action: Callable) -> Button:
     var button:=Button.new()
@@ -115,10 +155,13 @@ func _button(parent: Node, text: String, position_value: Vector2, size_value: Ve
     button.size=size_value
     button.add_theme_font_size_override("font_size",17)
     button.add_theme_color_override("font_color",IVORY)
-    button.add_theme_stylebox_override("normal",_style(Color("252a2c"),Color("4c514d")))
-    button.add_theme_stylebox_override("hover",_style(Color("343838"),GOLD))
+    button.add_theme_stylebox_override("normal",_style(Color("1c282d"),Color("4a5148")))
+    button.add_theme_stylebox_override("hover",_style(Color("304045"),GOLD))
     button.add_theme_stylebox_override("focus",_style(Color(0,0,0,0),GOLD,2))
-    button.add_theme_stylebox_override("pressed",_style(Color("3c3332"),RED,2))
+    button.add_theme_stylebox_override("pressed",_style(Color("503639"),RED,2))
+    button.add_theme_color_override("font_disabled_color",MUTED.darkened(0.3))
+    button.add_theme_stylebox_override("disabled",_style(Color("182025"),Color("303c3d")))
+    button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
     button.pressed.connect(action)
     parent.add_child(button)
     return button
@@ -127,27 +170,59 @@ func _panel(parent: Node, title: String, position_value: Vector2, size_value: Ve
     var root:=ColorRect.new()
     root.position=position_value
     root.size=size_value
-    root.color=Color(0.035,0.047,0.053,.98)
+    root.color=Color(0,0,0,0)
+    root.z_index=10
     root.visible=false
     parent.add_child(root)
     frame(root)
-    _label(root,title,Vector2(32,22),Vector2(size_value.x-120,44),30)
+    _label(root,title,Vector2(34,16),Vector2(size_value.x*0.44,44),28)
+    if not title.is_empty():_label(root,"绯线巡礼  /  归途手札",Vector2(36,59),Vector2(420,23),12,GOLD)
     _button(root,"返回",Vector2(size_value.x-91,24),Vector2(62,34),func():level._close_overlays())
     return root
 
 func frame(control: Control) -> void:
-    var outer:=Panel.new()
-    outer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    outer.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    outer.add_theme_stylebox_override("panel",_style(Color(0,0,0,0),Color(.55,.49,.37,.6)))
-    control.add_child(outer)
-    for x in [16.0,control.size.x-16]:
-        var ornament:=Label.new()
-        ornament.text="◇"
-        ornament.position=Vector2(x-8,8)
-        ornament.add_theme_color_override("font_color",GOLD)
-        ornament.mouse_filter=Control.MOUSE_FILTER_IGNORE
-        control.add_child(ornament)
+    control.z_index=10
+    var chrome:=CHROME.new()
+    chrome.kind="dialogue" if control==dialogue else "frame"
+    chrome.size=control.size
+    chrome.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    control.add_child(chrome)
+    control.move_child(chrome,0)
+
+func _well(parent: Control, point: Vector2, dimensions: Vector2) -> void:
+    var well:=Panel.new()
+    well.position=point
+    well.size=dimensions
+    well.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    well.add_theme_stylebox_override("panel",_style(Color("0c1419"),Color("36423f")))
+    parent.add_child(well)
+    parent.move_child(well,1)
+
+func _fit_viewport() -> void:
+    var available:=get_viewport_rect().size
+    var factor:=minf(available.x/1280.0,available.y/720.0)
+    set_anchors_preset(Control.PRESET_TOP_LEFT)
+    size=Vector2(1280,720)
+    scale=Vector2.ONE*factor
+    position=(available-Vector2(1280,720)*factor)*0.5
+    if modal_shade!=null:
+        modal_shade.position=-position/factor
+        modal_shade.size=available/factor
+
+func _install_theme(target: Theme) -> void:
+    target.set_color("font_color","Label",IVORY)
+    target.set_color("font_color","Button",IVORY)
+    target.set_stylebox("panel","TooltipPanel",_style(Color("152229"),GOLD))
+    target.set_color("font_color","TooltipLabel",IVORY)
+    target.set_font_size("font_size","TooltipLabel",16)
+    target.set_stylebox("scroll","VScrollBar",_style(Color("162027"),Color("162027"),0))
+    target.set_stylebox("grabber","VScrollBar",_style(Color("706951"),Color("706951"),0))
+    target.set_stylebox("grabber_highlight","VScrollBar",_style(GOLD,GOLD,0))
+    target.set_stylebox("grabber_pressed","VScrollBar",_style(RED,RED,0))
+    target.set_stylebox("slider","HSlider",_style(Color("26353a"),Color("4a5148")))
+    target.set_stylebox("grabber_area","HSlider",_style(GOLD,GOLD,0))
+    target.set_stylebox("grabber_area_highlight","HSlider",_style(IVORY,IVORY,0))
+    target.set_stylebox("panel","AcceptDialog",_style(Color("10191f"),GOLD,2))
 
 func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: Vector2) -> TextureRect:
     var icon:=TextureRect.new()
@@ -162,86 +237,123 @@ func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: 
 
 func _build_hud() -> void:
     hud_card=Control.new()
-    hud_card.position=Vector2(28,24)
-    hud_card.size=Vector2(260,100)
+    hud_card.position=Vector2(26,24)
+    hud_card.size=Vector2(322,112)
     hud_card.mouse_filter=Control.MOUSE_FILTER_IGNORE
     add_child(hud_card)
-    hearts=_label(hud_card,"",Vector2(0,0),Vector2(260,42),29)
-    _icon(hud_card,ART.item("thread_burst"),Vector2(2,47),Vector2(32,32))
-    _label(hud_card,"绯线",Vector2(45,42),Vector2(65,24),14,GOLD)
+    var backing:=Panel.new()
+    backing.size=hud_card.size
+    backing.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    backing.add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.88),Color("514e3e")))
+    hud_card.add_child(backing)
+    hud_crest=_icon(hud_card,load("res://assets/ui/seals/crimson.svg"),Vector2(14,20),Vector2(54,54))
+    _label(hud_card,"巡礼者",Vector2(80,8),Vector2(210,22),12,GOLD)
+    health_glyphs=CHROME.new()
+    health_glyphs.kind="health"
+    health_glyphs.position=Vector2(80,33)
+    health_glyphs.size=Vector2(214,30)
+    hud_card.add_child(health_glyphs)
+    hearts=_label(hud_card,"",Vector2(245,8),Vector2(63,22),12,MUTED)
+    hearts.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+    _label(hud_card,"绯线",Vector2(81,69),Vector2(65,22),12,GOLD)
+    energy_status=_label(hud_card,"",Vector2(194,69),Vector2(112,22),12,MUTED)
+    energy_status.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
     thread_bar=ProgressBar.new()
-    thread_bar.position=Vector2(45,71)
-    thread_bar.size=Vector2(165,5)
+    thread_bar.position=Vector2(82,96)
+    thread_bar.size=Vector2(224,5)
     thread_bar.custom_minimum_size=Vector2(0,5)
     thread_bar.show_percentage=false
     thread_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    thread_bar.add_theme_stylebox_override("background",_style(Color("24272c"),Color("424747")))
-    thread_bar.add_theme_stylebox_override("fill",_style(RED,RED,0))
-    thread_bar.add_theme_constant_override("outline_size",0)
     thread_bar.add_theme_font_size_override("font_size",1)
-    thread_bar.size=Vector2(165,5)
+    thread_bar.add_theme_constant_override("outline_size",0)
+    thread_bar.add_theme_stylebox_override("background",_meter_style(Color("293237")))
+    thread_bar.add_theme_stylebox_override("fill",_meter_style(RED))
+    thread_bar.size=Vector2(224,5)
     hud_card.add_child(thread_bar)
-    _icon(self,ART.item("currency"),Vector2(1080,26),Vector2(30,30))
-    currency=_label(self,"0",Vector2(1118,29),Vector2(132,30),22)
-    location=_label(self,"",Vector2(390,25),Vector2(500,30),19,GOLD)
+    thread_bar.update_minimum_size()
+    thread_bar.size=Vector2(224,5)
+    _icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
+    currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),21,GOLD)
+    location=_label(self,"",Vector2(400,28),Vector2(480,28),18,IVORY)
     location.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    toast=_label(self,"",Vector2(330,87),Vector2(620,56),17,IVORY)
+    _label(self,"—  绯 线 巡 礼  —",Vector2(480,60),Vector2(320,20),11,GOLD).horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    toast=_label(self,"",Vector2(395,102),Vector2(490,60),16,IVORY)
+    toast.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
     toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     toast.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    prompt=_label(self,"",Vector2(390,577),Vector2(500,40),19,IVORY)
+    prompt=_label(self,"",Vector2(370,549),Vector2(540,42),18,IVORY)
     prompt.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    prompt.add_theme_color_override("font_shadow_color",Color(0,0,0,.9))
-    prompt.add_theme_constant_override("shadow_offset_x",2)
-    prompt.add_theme_constant_override("shadow_offset_y",2)
-    energy_status=_label(hud_card,"",Vector2(106,42),Vector2(145,24),14,GOLD)
-    combat_status=_label(self,"",Vector2(28,94),Vector2(420,78),14,IVORY)
-    combat_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+    prompt.clip_text=true
+    prompt.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),GOLD))
+    combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),13,IVORY)
+    combat_status.visible=false
+    mechanism_status=_label(self,"",Vector2(30,141),Vector2(320,26),13,GOLD)
     healing_bar=ProgressBar.new()
-    healing_bar.position=Vector2(28,178)
-    healing_bar.size=Vector2(220,8)
+    healing_bar.position=Vector2(108,180)
+    healing_bar.size=Vector2(220,6)
     healing_bar.show_percentage=false
+    healing_bar.add_theme_font_size_override("font_size",1)
+    healing_bar.add_theme_constant_override("outline_size",0)
     healing_bar.max_value=1.0
     healing_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    healing_bar.add_theme_stylebox_override("background",_meter_style(Color("233039")))
+    healing_bar.add_theme_stylebox_override("fill",_meter_style(IVORY))
     healing_bar.visible=false
+    healing_bar.size=Vector2(220,6)
     add_child(healing_bar)
-    pinned=_label(self,"",Vector2(28,192),Vector2(290,45),15,MUTED)
+    healing_bar.update_minimum_size()
+    healing_bar.size=Vector2(220,6)
+    pinned=_label(self,"",Vector2(30,195),Vector2(300,45),13,MUTED)
     pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    tutorial_hint=_label(self,"",Vector2(28,648),Vector2(535,58),13,MUTED)
-    tutorial_hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    _button(self,"B  构筑",Vector2(875,674),Vector2(95,30),_request_build_toggle)
-    _button(self,"Tab  行囊",Vector2(978,674),Vector2(100,30),func():level._toggle_backpack())
-    _button(self,"M  地图",Vector2(1088,674),Vector2(85,30),func():level._toggle_map())
-    _button(self,"V  设置",Vector2(1181,674),Vector2(85,30),func():level._toggle_audio_settings())
-    boss_name=_label(self,"",Vector2(330,635),Vector2(620,27),18,GOLD)
+    for index in 4:
+        var card:=Panel.new()
+        card.position=Vector2(28+index*114,612)
+        card.size=Vector2(106,68)
+        card.mouse_filter=Control.MOUSE_FILTER_IGNORE
+        card.add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
+        add_child(card)
+        tactical_cards.append(card)
+        tactical_icons.append(_icon(card,null,Vector2(8,9),Vector2(32,32)))
+        tactical_values.append(_label(card,"",Vector2(45,9),Vector2(54,29),13,GOLD))
+        tactical_names.append(_label(card,"",Vector2(7,43),Vector2(92,18),11,IVORY))
+        tactical_names[-1].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+    tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),11,MUTED)
+    for entry in [["B  构筑",_request_build_toggle],["Tab  行囊",func():level._toggle_backpack()],["M  地图",func():level._toggle_map()],["V  设置",func():level._toggle_audio_settings()]]:
+        quick_actions.append(_button(self,entry[0],Vector2(827+quick_actions.size()*108,673),Vector2(100,33),entry[1]))
+    boss_name=_label(self,"",Vector2(395,593),Vector2(490,27),17,GOLD)
     boss_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     boss_bar=ProgressBar.new()
-    boss_bar.position=Vector2(348,667)
-    boss_bar.size=Vector2(584,5)
+    boss_bar.position=Vector2(468,628)
+    boss_bar.size=Vector2(344,7)
     boss_bar.show_percentage=false
     boss_bar.add_theme_font_size_override("font_size",1)
     boss_bar.add_theme_constant_override("outline_size",0)
-    boss_bar.add_theme_stylebox_override("background",_style(Color("20262a"),GOLD))
-    boss_bar.add_theme_stylebox_override("fill",_style(Color("a16f5e"),Color("a16f5e"),0))
-    boss_bar.size=Vector2(584,5)
+    boss_bar.add_theme_stylebox_override("background",_meter_style(Color("20262a")))
+    boss_bar.add_theme_stylebox_override("fill",_meter_style(RED))
     boss_bar.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    boss_bar.size=Vector2(344,7)
     add_child(boss_bar)
+    boss_bar.update_minimum_size()
+    boss_bar.size=Vector2(344,7)
 
 func _build_bag() -> void:
     bag=_panel(self,"巡礼行囊",Vector2(85,54),Vector2(1110,600))
     bag.name="BackpackOverlay"
-    _label(bag,"器物有用途，旧物有来处。",Vector2(34,70),Vector2(640,30),16,MUTED)
+    _well(bag,Vector2(724,136),Vector2(356,444))
+    _well(bag,Vector2(26,186),Vector2(665,354))
+    _label(bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(640,26),16,MUTED)
     _icon(bag,ART.item("currency"),Vector2(848,31),Vector2(28,28))
     bag_currency=_label(bag,"",Vector2(883,32),Vector2(120,30),20,GOLD)
     var categories:= ["全部","织具","遗物","材料","要物","旅记"]
     for i in categories.size():
         var category: String=categories[i]
-        var button:=_button(bag,category,Vector2(34+i*108,119),Vector2(100,38),func():
+        var button:=_button(bag,category,Vector2(34+i*108,136),Vector2(100,38),func():
             bag_category=category
             refresh_inventory())
         bag_tabs.append(button)
     var scroll:=ScrollContainer.new()
-    scroll.position=Vector2(34,180)
-    scroll.size=Vector2(645,357)
+    scroll.position=Vector2(34,194)
+    scroll.size=Vector2(645,337)
     scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
     bag.add_child(scroll)
     bag_grid=GridContainer.new()
@@ -302,14 +414,14 @@ func refresh_inventory() -> void:
         button.set_meta("item_id",item_id)
         button.custom_minimum_size=Vector2(94,98)
         if item_id==selected:
-            button.add_theme_stylebox_override("normal",_style(Color("343531"),GOLD,2))
+            button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
         _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
         var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
         var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
         name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
     for tab in bag_tabs:
-        tab.add_theme_stylebox_override("normal",_style(Color("343531") if tab.text==bag_category else Color("252a2c"),GOLD if tab.text==bag_category else Color("4c514d")))
+        tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     bag_pin.disabled=selected.is_empty()
     if selected.is_empty():
         bag_icon.texture=null
@@ -329,7 +441,7 @@ func _show_inventory_detail(selected: String) -> void:
     if bag_description.text.is_empty():bag_description.text="一路拾得的松脂碎片，可用来兑换巡礼所需。"
     bag_pin.text="取消旅记标记" if bool(level.story_flags.get("ui_pin_"+selected,false)) else "钉在旅记"
     for i in bag_tabs.size():
-        bag_tabs[i].add_theme_stylebox_override("normal",_style(Color("343531") if bag_tabs[i].text==bag_category else Color("252a2c"),GOLD if bag_tabs[i].text==bag_category else Color("4c514d")))
+        bag_tabs[i].add_theme_stylebox_override("normal",_tab_style(bag_tabs[i].text==bag_category))
 
 func _category_name(category: String) -> String:
     return {"Tools":"织具","Abilities":"能力","Charms":"铭饰","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
@@ -346,6 +458,8 @@ func _pin_item() -> void:
 func _build_dialogue() -> void:
     dialogue=_panel(self,"",Vector2(72,374),Vector2(1136,300))
     dialogue.name="DialogueOverlay"
+    dialogue.get_child(0).kind="dialogue"
+    _well(dialogue,Vector2(18,16),Vector2(188,220))
     dialogue_portrait=_icon(dialogue,null,Vector2(23,21),Vector2(173,191))
     dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(770,37),26,GOLD)
     dialogue_identity=_label(dialogue,"",Vector2(221,57),Vector2(770,28),14,MUTED)
@@ -421,13 +535,15 @@ func close_dialogue() -> void:
 func _build_settings() -> void:
     settings=_panel(self,"设置与无障碍",Vector2(135,48),Vector2(1010,618))
     settings.name="AudioSettingsOverlay"
-    _label(settings,"声音",Vector2(34,76),Vector2(440,30),20,GOLD)
+    _well(settings,Vector2(22,98),Vector2(458,280))
+    _well(settings,Vector2(500,98),Vector2(487,280))
+    _label(settings,"声音",Vector2(34,100),Vector2(440,26),20,GOLD)
     var rows: Array=level.AUDIO_SETTINGS_ROWS
     for i in rows.size():
         var key:=String(rows[i][0])
-        settings_labels[key]=_label(settings,String(rows[i][1]).split(" ")[0],Vector2(34,118+i*43),Vector2(145,30),16)
+        settings_labels[key]=_label(settings,String(rows[i][1]).split(" ")[0],Vector2(34,140+i*43),Vector2(145,30),16)
         var slider:=HSlider.new()
-        slider.position=Vector2(190,124+i*43)
+        slider.position=Vector2(190,146+i*43)
         slider.size=Vector2(257,22)
         slider.min_value=0
         slider.max_value=100
@@ -439,11 +555,11 @@ func _build_settings() -> void:
             if level.audio_director!=null:level.audio_director.set_user_volume(key,value))
         settings.add_child(slider)
         settings_sliders[key]=slider
-    _label(settings,"阅读与画面",Vector2(512,76),Vector2(440,30),20,GOLD)
-    _accessibility_slider("subtitle_size","字幕字号",Vector2(512,117),17,26,1)
-    _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,160),0.5,2.0,0.25)
-    _accessibility_slider("camera_shake","镜头震动",Vector2(512,203),0,1,0.25)
-    _accessibility_slider("camera_lookahead","镜头前瞻",Vector2(512,246),0,1,0.25)
+    _label(settings,"阅读与画面",Vector2(512,100),Vector2(440,26),20,GOLD)
+    _accessibility_slider("subtitle_size","字幕字号",Vector2(512,140),17,26,1)
+    _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,183),0.5,2.0,0.25)
+    _accessibility_slider("camera_shake","镜头震动",Vector2(512,226),0,1,0.25)
+    _accessibility_slider("camera_lookahead","镜头前瞻",Vector2(512,269),0,1,0.25)
     _accessibility_toggle("flash_enabled","受击闪光",Vector2(512,299))
     _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,299))
     _accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
@@ -605,11 +721,13 @@ func _bind_ui_navigation() -> void:
 func _build_build_panel() -> void:
     build_panel=_panel(self,"契印与构筑",Vector2(85,54),Vector2(1110,600))
     build_panel.name="BuildOverlay"
-    build_summary=_label(build_panel,"",Vector2(34,72),Vector2(1030,42),16,GOLD)
+    _well(build_panel,Vector2(627,174),Vector2(457,368))
+    _well(build_panel,Vector2(26,174),Vector2(588,368))
+    build_summary=_label(build_panel,"",Vector2(34,101),Vector2(1030,26),16,GOLD)
     var categories: Array[String]=["契印","技能","战具","铭饰","强化","构筑"]
     for i in categories.size():
         var category:=categories[i]
-        var tab:=_button(build_panel,category,Vector2(34+i*173,121),Vector2(162,38),func():
+        var tab:=_button(build_panel,category,Vector2(34+i*173,135),Vector2(162,38),func():
             build_category=category
             build_selection=""
             refresh_build())
@@ -630,8 +748,10 @@ func _build_build_panel() -> void:
             build_assign_slot=slot
             refresh_build())
         build_slot_buttons.append(slot_button)
-    build_detail.position=Vector2(640,218)
-    build_detail.size=Vector2(427,312)
+    build_emblem=_icon(build_panel,null,Vector2(645,222),Vector2(48,48))
+    build_heading=_label(build_panel,"",Vector2(710,222),Vector2(350,50),23,GOLD)
+    build_detail.position=Vector2(646,290)
+    build_detail.size=Vector2(418,239)
     build_detail.add_theme_font_size_override("normal_font_size",18)
     build_detail.add_theme_color_override("default_color",IVORY)
     build_detail.scroll_active=true
@@ -686,7 +806,7 @@ func refresh_build() -> void:
                 var id:="巡礼方案 %d" % (i+1)
                 var loadouts: Array=snapshot.get("loadouts",[])
                 entries.append({"id":id,"name":id,"description":"保存当前契印、技能、战具和铭饰。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
-    for tab in build_tabs:tab.add_theme_stylebox_override("normal",_style(Color("343531") if tab.text==build_category else Color("252a2c"),GOLD if tab.text==build_category else Color("4c514d")))
+    for tab in build_tabs:tab.add_theme_stylebox_override("normal",_tab_style(tab.text==build_category))
     if entries.is_empty():build_detail.text="此页暂无可用条目。"
     var first: Button
     for entry_value in entries:
@@ -706,7 +826,9 @@ func refresh_build() -> void:
                 _show_build_detail(entry)
                 return
             _perform_build_action("restore_loadout" if build_category=="构筑" else action,id,build_assign_slot if build_category in ["技能","战具"] else -1))
-        button.custom_minimum_size=Vector2(563,54)
+        button.custom_minimum_size=Vector2(563,64)
+        button.alignment=HORIZONTAL_ALIGNMENT_LEFT
+        button.add_theme_font_size_override("font_size",17)
         button.set_meta("build_id",id)
         button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         var icon_path:="res://assets/ui/seals/%s.svg" % id
@@ -719,7 +841,7 @@ func refresh_build() -> void:
         button.focus_entered.connect(func():
             build_selection=id
             _show_build_detail(entry))
-        if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",_style(Color("343531"),GOLD,2))
+        if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
         if first==null or id==build_selection:first=button
         if build_category=="构筑":
             var name_value:=id
@@ -756,7 +878,11 @@ func _loadout_preview(build: Dictionary, system: RefCounted) -> String:
     return "\n".join(lines)
 
 func _show_build_detail(entry: Dictionary) -> void:
-    var lines: Array[String]=[String(entry.get("name",entry.get("id",""))),"",String(entry.get("description",""))]
+    var entry_name:=String(entry.get("name",entry.get("id","")))
+    build_heading.text=entry_name
+    var icon_path:="res://assets/ui/seals/%s.svg" % String(entry.get("id",""))
+    build_emblem.texture=load(icon_path) if ResourceLoader.exists(icon_path) else null
+    var lines: Array[String]=[String(entry.get("description",""))]
     var snapshot:=_build_snapshot()
     if build_category=="构筑":
         var system: Variant=level.call("get_build_system")
@@ -842,6 +968,11 @@ func _refresh_save_slots() -> void:
 
 func _process(delta: float) -> void:
     if level==null:return
+    modal_shade.visible=not String(level.active_overlay).is_empty()
+    hud_card.visible=not modal_shade.visible
+    mechanism_status.visible=not modal_shade.visible
+    for card in tactical_cards:card.visible=not modal_shade.visible
+    for button in quick_actions:button.visible=not modal_shade.visible
     if applied_player!=level.player:_apply_accessibility()
     if last_overlay!=String(level.active_overlay):
         last_overlay=String(level.active_overlay)
@@ -867,7 +998,11 @@ func _process(delta: float) -> void:
     var player: Node=level.player
     if player!=null:
         var hp: int=int(player.hp)
-        hearts.text="● ".repeat(maxi(0,hp))+"○ ".repeat(maxi(0,int(player.max_hp)-hp))
+        hearts.text="%d / %d" % [hp,int(player.max_hp)]
+        if health_glyphs.hp!=maxi(0,hp) or health_glyphs.maximum!=maxi(1,int(player.max_hp)):
+            health_glyphs.hp=maxi(0,hp)
+            health_glyphs.maximum=maxi(1,int(player.max_hp))
+            health_glyphs.queue_redraw()
         hearts.modulate=RED if hp<=1 else IVORY
         thread_bar.max_value=player.max_energy
         thread_bar.value=player.energy
@@ -875,7 +1010,7 @@ func _process(delta: float) -> void:
         _refresh_combat_status(player)
     tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
     if tutorial_hint.visible:
-        tutorial_hint.text="跳跃：%s  ·  普攻：%s  ·  治疗：%s\nB 构筑 · 未解锁技能与战具可在构筑页查看条件" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
+        tutorial_hint.text="%s 跳跃   /   %s 普攻   /   %s 治疗" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
     currency.text=str(level.currency_count)
     var room: Dictionary=level._map_room_by_id(level.current_room_id)
     location.text=String(room.get("name",room.get("label",level.config.get("chapter_name","绯线巡礼"))))
@@ -883,15 +1018,17 @@ func _process(delta: float) -> void:
     if toast.text!=last_toast:
         last_toast=toast.text
         toast_age=0
+    toast.visible=not toast.text.is_empty()
     toast.modulate.a=clampf(5.5-toast_age,0,1)
     prompt.visible=level.active_overlay==""
     if prompt.visible:
         var area: Area2D=level._nearest_interactable(140)
         if area==null:
             prompt.text=""
+            prompt.visible=false
         else:
             var kind:=String(area.get_meta("kind",""))
-            prompt.text="F · "+String(area.get_meta("interaction_label",("与 "+String(area.get_meta("label",area.name))+" 交谈") if kind=="npc" else area.get_meta("label","触碰旧机关")))
+            prompt.text=_short_binding("interact")+" · "+String(area.get_meta("interaction_label",("与 "+String(area.get_meta("label",area.name))+" 交谈") if kind=="npc" else area.get_meta("label","触碰旧机关")))
     var actor: Node=level.boss_actor
     var show_boss: bool = actor!=null and is_instance_valid(actor) and not level.demo_complete and level.active_overlay==""
     boss_name.visible=show_boss
@@ -954,12 +1091,19 @@ func _binding_name(event: InputEvent) -> String:
         if event.axis==JOY_AXIS_TRIGGER_LEFT:return "手柄 L2" if event.axis_value>0 else "手柄 L2 反向"
         if event.axis==JOY_AXIS_TRIGGER_RIGHT:return "手柄 R2" if event.axis_value>0 else "手柄 R2 反向"
         return "手柄轴 %d %s" % [event.axis,"＋" if event.axis_value>0 else "－"]
+    if event is InputEventKey:return OS.get_keycode_string(event.physical_keycode if event.physical_keycode else event.keycode)
+    if event is InputEventMouseButton:return {MOUSE_BUTTON_LEFT:"鼠标左键",MOUSE_BUTTON_RIGHT:"鼠标右键",MOUSE_BUTTON_MIDDLE:"鼠标中键"}.get(event.button_index,"鼠标%d" % event.button_index)
+    if event is InputEventJoypadButton:return {JOY_BUTTON_A:"手柄 A",JOY_BUTTON_B:"手柄 B",JOY_BUTTON_X:"手柄 X",JOY_BUTTON_Y:"手柄 Y",JOY_BUTTON_LEFT_SHOULDER:"手柄 LB",JOY_BUTTON_RIGHT_SHOULDER:"手柄 RB",JOY_BUTTON_DPAD_DOWN:"十字键 ↓",JOY_BUTTON_DPAD_UP:"十字键 ↑",JOY_BUTTON_DPAD_LEFT:"十字键 ←",JOY_BUTTON_DPAD_RIGHT:"十字键 →"}.get(event.button_index,"手柄 %d" % event.button_index)
     return event.as_text()
 
 func _short_binding(action: String) -> String:
     if InputMap.has_action(action):
         var events:=InputMap.action_get_events(action)
-        if not events.is_empty():return _binding_name(events[0])
+        if not events.is_empty():
+            var event: InputEvent=events[0]
+            if event is InputEventKey:return OS.get_keycode_string(event.physical_keycode if event.physical_keycode else event.keycode)
+            if event is InputEventMouseButton:return {MOUSE_BUTTON_LEFT:"鼠标左键",MOUSE_BUTTON_RIGHT:"鼠标右键",MOUSE_BUTTON_MIDDLE:"鼠标中键"}.get(event.button_index,"鼠标%d" % event.button_index)
+            return _binding_name(event)
     return "未设置"
 
 func _refresh_combat_status(player: Node) -> void:
@@ -990,11 +1134,13 @@ func _refresh_combat_status(player: Node) -> void:
         var mechanism: Dictionary=player.call("get_seal_mechanism_snapshot")
         var maximum:=int(mechanism.get("max_stacks",mechanism.get("max",3)))
         var amount:=int(mechanism.get("stacks",mechanism.get("value",0)))
-        combat_status.text+="\n"+String(mechanism.get("label",mechanism.get("name","契印")))+" "+("%d / %d" % [amount,maximum] if maximum>0 else "%d 个目标" % amount)
+        mechanism_status.text=String(mechanism.get("label",mechanism.get("name","契印")))+"  "+("%d / %d" % [amount,maximum] if maximum>0 else "%d 个目标" % amount)
+        combat_status.text+="\n"+mechanism_status.text
     healing_bar.visible=bool(state.get("heal_active",false)) and level.active_overlay==""
     healing_bar.value=clampf(float(state.get("heal_progress",0)),0,1)
     if healing_bar.visible:combat_status.text+=" · 治疗中"
-    combat_status.visible=level.active_overlay==""
+    combat_status.visible=false
+    _refresh_tactical_cards(snapshot,build_state,system)
 
 
 func _refresh_journal() -> void:
@@ -1004,7 +1150,7 @@ func _refresh_journal() -> void:
     bag_category_label.text="旅途记录"
     bag_icon.texture=ART.item("moss_lens")
     bag_description.text="委托随跨区推进更新。证词按实际拾取记录；缺页只提示线索。"
-    for tab in bag_tabs:tab.add_theme_stylebox_override("normal",_style(Color("343531") if tab.text==bag_category else Color("252a2c"),GOLD if tab.text==bag_category else Color("4c514d")))
+    for tab in bag_tabs:tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     if not bool(level.get("world_mode")):
         bag_description.text="完整互联世界旅途中会记录跨区委托与六区证词。"
         return
@@ -1057,3 +1203,36 @@ func _show_journal_record(entry: Dictionary) -> void:
         lines.append(String(entry.get("claim","")) if acquired else "尚未拾得这页证词。")
         lines.append("\n线索："+String(entry.get("location_hint","留意区域中的遗物与生产设施。")))
     bag_description.text="\n".join(lines)
+
+func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, system: Variant) -> void:
+    var crest_id:=String(build_state.get("crest","crimson"))
+    if hud_crest.get_meta("crest_id","")!=crest_id:
+        hud_crest.set_meta("crest_id",crest_id)
+        var crest_path:="res://assets/ui/seals/%s.svg" % crest_id
+        hud_crest.texture=load(crest_path) if ResourceLoader.exists(crest_path) else null
+    for index in tactical_cards.size():
+        var is_skill:=index<2
+        var slot:=index%2
+        var equipped: Array=build_state.get("skills" if is_skill else "tools",[])
+        var id:=String(equipped[slot]) if slot<equipped.size() else ""
+        var path:="res://assets/ui/seals/%s.svg" % id
+        if tactical_icons[index].get_meta("asset_id","")!=id:
+            tactical_icons[index].set_meta("asset_id",id)
+            tactical_icons[index].texture=load(path) if not id.is_empty() and ResourceLoader.exists(path) else null
+        tactical_names[index].text="未装备" if is_skill else "未携带"
+        tactical_values[index].text="—"
+        var active:=slot==int(build_state.get("active_skill_slot" if is_skill else "active_tool_slot",0))
+        var signature:=id+str(active)
+        if tactical_signatures[index]!=signature:
+            tactical_signatures[index]=signature
+            tactical_cards[index].add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.94),GOLD if active else Color("454d43")))
+        for item in snapshot.get("skills" if is_skill else "tools",[]):
+            if String(item.get("id",""))!=id:continue
+            tactical_names[index].text=String(item.get("name",id))
+            if is_skill:
+                var remaining:=float(system.cooldowns.get(id,0)) if system!=null else 0.0
+                tactical_values[index].text="%.1fs" % remaining if remaining>0 else _short_binding("skill_1") if active else "待切换"
+                tactical_icons[index].modulate=Color(0.45,0.45,0.45) if remaining>0 else Color.WHITE
+            else:
+                tactical_values[index].text="× %d" % int(item.get("count",0))
+                tactical_icons[index].modulate=Color.WHITE if int(item.get("count",0))>0 else Color(0.45,0.45,0.45)

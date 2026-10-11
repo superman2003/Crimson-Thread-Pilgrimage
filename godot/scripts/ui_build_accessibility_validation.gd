@@ -93,7 +93,7 @@ func run() -> void:
     check(runtime.last_action=="save_loadout" and runtime.last_id=="巡礼方案 1","Visible save button names and saves a build")
     runtime.active_overlay=""
     ui._process(0.1)
-    check(ui.hearts.text.count("○")==4,"HUD empty hearts follow actual max HP")
+    check(ui.health_glyphs.maximum-ui.health_glyphs.hp==4 and ui.hearts.text=="3 / 7","Needle health glyphs and numeric readout follow actual max HP")
     check(ui.healing_bar.visible and is_equal_approx(ui.healing_bar.value,0.5),"HUD renders real healing channel progress")
     check(ui.combat_status.text.contains("1.3s"),"HUD displays current skill cooldown")
     ui.accessibility["subtitle_size"]=26
