@@ -305,7 +305,9 @@ func _build_dialogue() -> void:
     dialogue_body.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     dialogue_hint=_label(dialogue,"F 继续  ·  Esc 离开",Vector2(24,206),Vector2(180,24),13,MUTED)
     _button(dialogue,"继续交谈",Vector2(221,186),Vector2(147,34),func():
-        if is_instance_valid(dialogue_area):level._talk_to_npc(dialogue_area))
+        if is_instance_valid(dialogue_area):
+            if level.world_mode:level._try_interact()
+            else:level._talk_to_npc(dialogue_area))
     _button(dialogue,"问问道路",Vector2(380,186),Vector2(147,34),func():_topic("route"))
     dialogue_quest_button=_button(dialogue,"询问心愿",Vector2(540,186),Vector2(147,34),func():_topic("wish"))
 
@@ -325,6 +327,11 @@ func show_speaker(area: Area2D) -> void:
 
 func _topic(key: String) -> void:
     if not is_instance_valid(dialogue_area):return
+    if level.world_mode:
+        level._commit_world_dialogue()
+        # A route/wish answer is not an unread final line from the story round.
+        dialogue_area.set_meta("world_line_committed",true)
+        dialogue_area.set_meta("world_displayed_index",-1)
     var topics: Dictionary=dialogue_area.get_meta("dialogue_topics",{})
     var line:=String(topics.get(key,"你若愿意听，我们就再坐一会儿。"))
     if key=="wish":
@@ -346,6 +353,7 @@ func _topic(key: String) -> void:
             else:
                 level._set_story_flag(String(quest.get("accept_flag","")))
     level._show_dialogue(dialogue_area,line)
+    if level.world_mode:level._save_world()
 
 func close_dialogue() -> void:
     if is_instance_valid(dialogue_area):

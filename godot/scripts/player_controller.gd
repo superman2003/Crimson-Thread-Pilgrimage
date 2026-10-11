@@ -130,6 +130,13 @@ const THREAD_T3_GLOW := Color(0.902, 0.224, 0.314, 0.35)
 ## When false wall-grip is inert (behaviour identical to pre-ch2 builds);
 ## unlocked by the silk_wall_grip pickup (main_level syncs from inventory).
 @export var wall_grip_unlocked: bool = false
+## Inventory IDs: double_thread_jump and echo_hook. main_level owns unlock state.
+@export var double_jump_unlocked: bool = false
+@export var double_jump_velocity: float = -650.0
+@export var thread_grapple_unlocked: bool = false
+@export var grapple_range: float = 430.0
+@export var grapple_speed: float = 1000.0
+@export var grapple_timeout: float = 0.60
 @export var wall_slide_max_speed: float = 90.0
 @export var wall_jump_horizontal: float = 420.0
 @export var wall_jump_vertical: float = -640.0
@@ -180,6 +187,10 @@ var dash_start_position: Vector2 = Vector2.ZERO
 var was_dashing: bool = false
 var wall_sliding: bool = false
 var was_wall_sliding: bool = false
+var air_jump_available: bool = true
+var grapple_anchor: Node2D = null
+var grapple_timer: float = 0.0
+var grapple_line: Line2D = null
 var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
 var footstep_material: String = "moss"
@@ -247,10 +258,12 @@ func _physics_process(delta: float) -> void:
         jump_buffer_timer = maxf(0.0, jump_buffer_timer - delta)
 
     if is_on_floor():
+        air_jump_available = true
         coyote_timer = coyote_time
     else:
         coyote_timer = maxf(0.0, coyote_timer - delta)
-        velocity.y += gravity * delta
+        if grapple_timer <= 0.0:
+            velocity.y += gravity * delta
 
     dash_cooldown = maxf(0.0, dash_cooldown - delta)
     land_timer = maxf(0.0, land_timer - delta)
@@ -266,12 +279,15 @@ func _physics_process(delta: float) -> void:
 
     # silk_wall_grip (ch2 能力)：解锁后贴墙减速下滑；未解锁时行为与旧版完全一致。
     wall_sliding = false
-    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and dash_timer <= 0.0 and velocity.y > 0.0:
+    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and dash_timer <= 0.0 and grapple_timer <= 0.0 and velocity.y > 0.0:
         var slide_wall_dir := signi(-get_wall_normal().x)
         if input_axis != 0.0 and signi(input_axis) == slide_wall_dir:
             wall_sliding = true
             velocity.y = minf(velocity.y, wall_slide_max_speed)
 
+    # A fresh jump cancels the pull; holding the original jump never spends the air jump.
+    if grapple_timer > 0.0 and Input.is_action_just_pressed("jump"):
+        _stop_grapple()
     if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0:
         velocity.y = jump_velocity
         coyote_timer = 0.0
@@ -292,10 +308,21 @@ func _physics_process(delta: float) -> void:
         _play(&"wall_slide")
         _play_sfx("jump", -6.0)
 
+    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0:
+        air_jump_available = false
+        velocity.y = double_jump_velocity
+        jump_buffer_timer = 0.0
+        coyote_timer = 0.0
+        wall_sliding = false
+        _play(&"jump_start")
+        _play_sfx("jump", -6.0, 1.16)
+        _spawn_double_jump_vfx()
+
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
 
     if Input.is_action_just_pressed("dash") and dash_unlocked and dash_cooldown <= 0.0 and dash_timer <= 0.0:
+        _stop_grapple()
         dash_timer = dash_time
         dash_cooldown = dash_cooldown_time
         velocity.y = 0.0
@@ -310,14 +337,17 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed("heal"):
         _try_heal()
 
-    if Input.is_action_just_pressed("attack") and attack_timer <= 0.0 and dash_timer <= 0.0:
+    if Input.is_action_just_pressed("attack") and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0:
         _start_attack(&"attack_1")
     elif Input.is_action_just_pressed("hook") and attack_timer <= 0.0 and dash_timer <= 0.0:
-        _start_attack(&"hook_throw")
-    elif Input.is_action_just_pressed("skill_1") and attack_timer <= 0.0 and dash_timer <= 0.0:
+        if not _try_start_grapple():
+            _start_attack(&"hook_throw")
+    elif Input.is_action_just_pressed("skill_1") and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0:
         _try_skill_burst()
 
-    if dash_timer > 0.0:
+    if grapple_timer > 0.0:
+        _update_grapple(delta)
+    elif dash_timer > 0.0:
         dash_timer -= delta
         velocity.x = dash_speed * facing
         velocity.y = 0.0
@@ -339,11 +369,123 @@ func _physics_process(delta: float) -> void:
     if not was_on_floor and is_on_floor():
         land_timer = 0.14
         pogo_chain = 0
+        air_jump_available = true
         _play_land_sfx(fall_speed)
         _spawn_land_vfx()
     _update_wall_slide_audio()
     _update_footsteps(delta)
     _update_animation(input_axis)
+
+
+
+## Anchors are explicit world fixtures, never arbitrary scenery or enemies.
+## K/X still performs the original combat hook when no reachable anchor is in aim.
+func _try_start_grapple() -> bool:
+    if not thread_grapple_unlocked or grapple_timer > 0.0:
+        return false
+    var origin := global_position + Vector2(0.0, -42.0)
+    var aim := Vector2(float(facing), 0.0)
+    if Input.is_action_pressed("aim_up"):
+        aim = Vector2(float(facing) * 0.45, -1.0).normalized()
+    elif Input.is_action_pressed("aim_down"):
+        aim = Vector2(float(facing) * 0.45, 1.0).normalized()
+    var best: Node2D = null
+    var best_score := INF
+    for candidate in get_tree().get_nodes_in_group("grapple_anchor"):
+        if not candidate is Node2D or not candidate.is_inside_tree() or not candidate.is_visible_in_tree():
+            continue
+        if not bool(candidate.get_meta("grapple_enabled", true)):
+            continue
+        var offset: Vector2 = candidate.global_position - origin
+        var distance := offset.length()
+        if distance < 36.0 or distance > grapple_range:
+            continue
+        var alignment := aim.dot(offset.normalized())
+        if alignment < 0.35:
+            continue
+        var query := PhysicsRayQueryParameters2D.create(origin, candidate.global_position, collision_mask, [get_rid()])
+        var hit := get_world_2d().direct_space_state.intersect_ray(query)
+        if not hit.is_empty() and hit.get("collider") != candidate:
+            continue
+        var score := distance + (1.0 - alignment) * grapple_range
+        if score < best_score:
+            best = candidate
+            best_score = score
+    if best == null:
+        return false
+    grapple_anchor = best
+    grapple_timer = grapple_timeout
+    coyote_timer = 0.0
+    jump_buffer_timer = 0.0
+    wall_sliding = false
+    grapple_line = Line2D.new()
+    grapple_line.name = "TraversalThread"
+    grapple_line.width = 3.0
+    grapple_line.default_color = THREAD_T1_CORE
+    grapple_line.z_index = 59
+    add_child(grapple_line)
+    _play(&"hook_throw")
+    _play_sfx("hook_latch", -6.0)
+    _play_sfx("hook_reel", -8.0)
+    return true
+
+
+func _update_grapple(delta: float) -> void:
+    if not is_instance_valid(grapple_anchor) or not grapple_anchor.is_inside_tree():
+        _stop_grapple()
+        return
+    var offset := grapple_anchor.global_position - (global_position + Vector2(0.0, -42.0))
+    grapple_timer = maxf(0.0, grapple_timer - delta)
+    if offset.length() <= 36.0 or grapple_timer <= 0.0:
+        _stop_grapple()
+        velocity *= 0.35
+        return
+    # Sweep each physics tick instead of teleporting through solid terrain.
+    var origin := global_position + Vector2(0.0, -42.0)
+    var query := PhysicsRayQueryParameters2D.create(origin, grapple_anchor.global_position, collision_mask, [get_rid()])
+    var hit := get_world_2d().direct_space_state.intersect_ray(query)
+    if not hit.is_empty() and hit.get("collider") != grapple_anchor:
+        _stop_grapple()
+        return
+    velocity = offset.normalized() * minf(grapple_speed, maxf(0.0, offset.length() - 30.0) / delta)
+    if is_instance_valid(grapple_line):
+        grapple_line.points = PackedVector2Array([Vector2(0.0, -42.0), to_local(grapple_anchor.global_position)])
+
+
+func _stop_grapple() -> void:
+    grapple_timer = 0.0
+    grapple_anchor = null
+    if is_instance_valid(grapple_line):
+        grapple_line.queue_free()
+    grapple_line = null
+
+
+func _reset_traversal_state() -> void:
+    _stop_grapple()
+    air_jump_available = true
+    coyote_timer = 0.0
+    jump_buffer_timer = 0.0
+    dash_timer = 0.0
+    dash_cooldown = 0.0
+    attack_timer = 0.0
+    wall_sliding = false
+    if is_instance_valid(attack_shape):
+        attack_shape.set_deferred("disabled", true)
+
+
+func _spawn_double_jump_vfx() -> void:
+    for index in range(2):
+        var thread := Line2D.new()
+        thread.name = "DoubleJumpThread"
+        thread.points = PackedVector2Array([Vector2(-24.0, -12.0 + index * 10.0), Vector2(0.0, 2.0 + index * 10.0), Vector2(24.0, -12.0 + index * 10.0)])
+        thread.width = 3.0
+        thread.default_color = THREAD_T2_CORE if index == 0 else THREAD_T1_CORE
+        thread.z_index = 58
+        add_child(thread)
+        var tween := create_tween()
+        tween.tween_property(thread, "scale", Vector2(1.5, 1.0), 0.22)
+        tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.22)
+        tween.finished.connect(Callable(thread, "queue_free"))
 
 
 func _start_attack(animation: StringName) -> void:
@@ -591,6 +733,8 @@ func _update_animation(input_axis: float) -> void:
         _play(&"hurt")
     elif attack_timer > 0.0:
         _play(current_attack)
+    elif grapple_timer > 0.0:
+        _play(&"hook_throw")
     elif dash_timer > 0.0:
         _play(&"dash")
     elif wall_sliding and not is_on_floor():
@@ -1088,6 +1232,7 @@ func _spawn_land_vfx() -> void:
 func take_damage(amount: int, source_position: Vector2 = global_position) -> void:
     if hurt_timer > 0.0 or death_timer > 0.0:
         return
+    _stop_grapple()
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
     # P0 生死攸关音：声部抢占最高优先级。
@@ -1161,6 +1306,7 @@ func set_spawn(position_value: Vector2) -> void:
 
 
 func respawn_at(position_value: Vector2) -> void:
+    _reset_traversal_state()
     global_position = position_value
     velocity = Vector2.ZERO
     player_respawned.emit()
@@ -1178,6 +1324,7 @@ func _hard_respawn() -> void:
 
 
 func restore_at_save_point() -> void:
+    _reset_traversal_state()
     hp = max_hp
     energy = max_energy
     hurt_timer = 0.0
@@ -1278,6 +1425,10 @@ func get_player_debug_state() -> Dictionary:
         "animation_count": sprite.sprite_frames.get_animation_names().size() if sprite != null and sprite.sprite_frames != null else 0,
         "idle_frame_count": sprite.sprite_frames.get_frame_count(&"idle") if sprite != null and sprite.sprite_frames != null and sprite.sprite_frames.has_animation(&"idle") else 0,
         "directional_attack": true,
+        "double_jump_unlocked": double_jump_unlocked,
+        "air_jump_available": air_jump_available,
+        "thread_grapple_unlocked": thread_grapple_unlocked,
+        "grappling": grapple_timer > 0.0,
         "attack_direction": [current_attack_direction.x, current_attack_direction.y],
         "downslash_bounce_velocity": downslash_bounce_velocity,
         "enemy_contact_guard_time": enemy_contact_guard_time

@@ -111,6 +111,9 @@ const STINGER_TRACKS := {
 ## 钟道站厅音乐层（transit 房低音量循环，on_room_changed 驱动）。
 const BELLWAY_TRANSIT_LOOP := "res://assets/audio/bgm/generated/bellway_transit_loop.ogg"
 
+static var _npc_voice_cache: Dictionary = {}
+var _npc_voice_player: AudioStreamPlayer
+
 var autoplay_enabled := true
 var chapter_short_id := "ch01"
 var explore_player: AudioStreamPlayer
@@ -158,6 +161,20 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+    # Stop local envelopes before retirement. Global mix belongs to the latest
+    # director; a queued old scene must never strip a new scene's death/HP filter.
+    for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, low_hp_tween, death_tween]:
+        if tween != null and tween.is_valid():
+            tween.kill()
+    for tween in bus_tweens.values() + reverb_tweens.values():
+        if tween != null and tween.is_valid():
+            tween.kill()
+    for voice in [explore_player, combat_player, boss_player, lullaby_player, stinger_player, transit_player, ambience_bed_player, _npc_voice_player]:
+        if voice != null and is_instance_valid(voice):
+            voice.stop()
+            voice.stream = null
+    if instance != null and instance != self:
+        return
     if instance == self:
         instance = null
     # 总线是全局状态：摘除死亡/濒死滤波，避免跨章节残留（音量复位由 main_level 兜底）。
@@ -368,6 +385,9 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
         var decision := String(decision_value)
         if not decision.is_empty() and decision != "patrol" and decision != "return":
             engaged = true
+            # An encounter has one quiet material voice accent, never one per poll.
+            if not combat_active:
+                play_enemy_alert(String(enemy_node.get("kind")))
             break
     if engaged:
         combat_calm_time = 0.0
@@ -459,6 +479,9 @@ func _play_explore_track(path: String) -> void:
         explore_player.bus = _bus_or("MusicExplore", "BGM")
         explore_player.volume_db = EXPLORE_DB
         add_child(explore_player)
+    # Reapplying a region/room music state must not restart its audible phrase.
+    if explore_player.stream == stream and explore_player.playing:
+        return
     _kill_explore_tween()
     explore_player.stream_paused = false
     explore_player.stream = stream
@@ -745,8 +768,9 @@ func _start_ambience() -> void:
             ambience_bed_player.bus = _bus_or("Ambience", "Master")
             ambience_bed_player.volume_db = AMBIENCE_BED_DB
             add_child(ambience_bed_player)
-        ambience_bed_player.stream = bed_stream
-        ambience_bed_player.play()
+        if ambience_bed_player.stream != bed_stream or not ambience_bed_player.playing:
+            ambience_bed_player.stream = bed_stream
+            ambience_bed_player.play()
     oneshot_variant_count = _probe_oneshot_variant_count()
     if oneshot_timer == null or not is_instance_valid(oneshot_timer):
         oneshot_timer = Timer.new()
@@ -828,6 +852,8 @@ func on_dialogue(open: bool) -> void:
     if open == dialogue_open:
         return
     dialogue_open = open
+    if not open and _npc_voice_player != null and is_instance_valid(_npc_voice_player):
+        _npc_voice_player.stop()
     # duck 与对话共写 BGM 总线：对话开合即中止在途 duck，由 rest 基准接管。
     if duck_tween != null and duck_tween.is_valid():
         duck_tween.kill()
@@ -1071,3 +1097,81 @@ func _bus_reverb(bus_name: String) -> AudioEffectReverb:
     if effect_index == -1:
         return null
     return AudioServer.get_bus_effect(bus_index, effect_index) as AudioEffectReverb
+
+
+
+## Short original nonverbal greeting. The Chinese subtitle carries all meaning;
+## this is deliberately not synthetic Chinese speech or a borrowed game voice.
+## One dedicated player replaces the previous greeting; no syllable-per-letter spam.
+func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> bool:
+    if line.strip_edges().is_empty() or not is_inside_tree():
+        return false
+    var key := "npc_greeting_" + npc_id
+    if not request_voice(key, 2, 450, 1):
+        return false
+    var stream := npc_voice_stream(profile)
+    if _npc_voice_player == null or not is_instance_valid(_npc_voice_player):
+        _npc_voice_player = AudioStreamPlayer.new()
+        _npc_voice_player.name = "NPCNonverbalVoice"
+        _npc_voice_player.bus = _bus_or("SFXWorld", "SFX")
+        _npc_voice_player.volume_db = -13.0
+        add_child(_npc_voice_player)
+    _npc_voice_player.stream = stream
+    _npc_voice_player.pitch_scale = 0.96 + float(abs(npc_id.hash()) % 9) * 0.01
+    _npc_voice_player.play()
+    return true
+
+
+static func npc_voice_stream(profile: String) -> AudioStreamWAV:
+    var frequencies := {"warm": 185.0, "bright": 315.0, "low": 105.0, "hushed": 235.0, "dry": 155.0}
+    var resolved := profile if frequencies.has(profile) else "warm"
+    if _npc_voice_cache.has(resolved):
+        return _npc_voice_cache[resolved]
+    var frequency := float(frequencies[resolved])
+    var sample_rate := 22050
+    var duration := 0.24 if resolved != "hushed" else 0.19
+    var frames := int(duration * sample_rate)
+    var bytes := PackedByteArray()
+    bytes.resize(frames * 2)
+    for index in frames:
+        var t := float(index) / float(sample_rate)
+        var progress := float(index) / float(frames)
+        # Smooth breath envelope, harmonic vowel and gentle rising inflection.
+        var envelope := sin(PI * progress) * sin(PI * progress)
+        var phase := TAU * frequency * (t + 0.12 * t * t / duration)
+        var voice := sin(phase) * 0.67 + sin(phase * 2.0) * 0.21 + sin(phase * 3.0) * 0.08
+        var pulse := 0.72 + 0.28 * sin(TAU * 7.0 * t)
+        bytes.encode_s16(index * 2, int(clampf(voice * envelope * pulse * 0.38, -1.0, 1.0) * 32767.0))
+    var stream := AudioStreamWAV.new()
+    stream.format = AudioStreamWAV.FORMAT_16_BITS
+    stream.mix_rate = sample_rate
+    stream.data = bytes
+    _npc_voice_cache[resolved] = stream
+    return stream
+
+
+## Optional vocal accent for enemy alert, separate from existing impact/death SFX.
+## Call only on an AI transition into aggro, not every AI poll or strike.
+func play_enemy_alert(kind: String) -> bool:
+    var family := "soft"
+    if kind.contains("knight") or kind.contains("lancer") or kind.contains("spearman"):
+        family = "armor"
+    elif kind.contains("mite") or kind.contains("crawler") or kind.contains("bee"):
+        family = "shell"
+    var key := "enemy_alert_" + family
+    if not is_inside_tree() or not request_voice(key, 2, 1800, 1):
+        return false
+    var path := "res://assets/audio/sfx/generated/enemy_hit_%s.ogg" % family
+    var stream := load_cached(path)
+    if stream == null:
+        release_voice(key)
+        return false
+    var voice := AudioStreamPlayer.new()
+    voice.bus = _bus_or("SFXEnemy", "SFX")
+    voice.volume_db = -19.0
+    voice.pitch_scale = 0.72 if family == "armor" else 1.24
+    voice.stream = stream
+    add_child(voice)
+    voice.finished.connect(voice.queue_free)
+    voice.play()
+    return true

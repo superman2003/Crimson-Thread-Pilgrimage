@@ -59,7 +59,12 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.steering=float(command.get("steering",0))
     effect.impact_pool=bool(command.get("impact_pool",false))
     effect.owner_actor=self
-    owned_attack_effects = owned_attack_effects.filter(func(node: Node2D) -> bool: return is_instance_valid(node))
+    # Freed Object references cannot be converted to a typed lambda argument.
+    # Prune in place, retaining the typed array and never dereferencing stale nodes.
+    for index in range(owned_attack_effects.size() - 1, -1, -1):
+        var previous = owned_attack_effects[index]
+        if not is_instance_valid(previous) or previous.is_queued_for_deletion():
+            owned_attack_effects.remove_at(index)
     owned_attack_effects.append(effect)
     effect.tint=Color.html("#"+String(command.get("telegraph","c99558")))
     get_parent().add_child(effect)
@@ -1877,7 +1882,7 @@ func _spawn_hit_spark(hit_direction: int) -> void:
 
 func _cancel_attack_effects() -> void:
     for effect in owned_attack_effects:
-        if is_instance_valid(effect):
+        if is_instance_valid(effect) and not effect.is_queued_for_deletion():
             effect.cancel()
     owned_attack_effects.clear()
 
@@ -1885,7 +1890,10 @@ func _exit_tree() -> void:
     _cancel_attack_effects()
 
 func _combat_tween() -> Tween:
-    combat_tweens = combat_tweens.filter(func(tween: Tween) -> bool: return tween.is_valid())
+    for index in range(combat_tweens.size() - 1, -1, -1):
+        var previous = combat_tweens[index]
+        if not is_instance_valid(previous) or not previous.is_valid():
+            combat_tweens.remove_at(index)
     var tween := create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
     combat_tweens.append(tween)
     if combat_visuals_paused:
@@ -1897,7 +1905,7 @@ func _set_combat_visuals_paused(paused: bool) -> void:
         return
     combat_visuals_paused = paused
     for tween in combat_tweens:
-        if not tween.is_valid():continue
+        if not is_instance_valid(tween) or not tween.is_valid():continue
         if paused:
             tween.pause()
         else:
