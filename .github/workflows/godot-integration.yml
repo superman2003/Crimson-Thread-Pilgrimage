@@ -37,6 +37,7 @@ jobs:
           node tests/runtime-smoke.test.mjs
           python3 tools/validate_campaign_chapters.py
           python3 tools/validate_chapter_files.py
+          python3 tools/validate_world_routes.py
       - name: Import project resources
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
@@ -46,11 +47,24 @@ jobs:
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          suites="cave_exploration cave_route_walk chapter_route_regression pilgrimage_merge_regression pilgrimage_review_regression all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial combat generated_runtime chapter_registry story_guidance chinese_story metsys"
+          suites="world_map world_state world_integration world_route_walk ability_movement enemy_effect_lifetime cave_exploration cave_route_walk chapter_route_regression pilgrimage_merge_regression pilgrimage_review_regression all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial combat generated_runtime chapter_registry story_guidance chinese_story metsys"
           for suite in $suites; do
             log="$RUNNER_TEMP/$suite.log"
             echo "Running $suite"
             if ! XDG_DATA_HOME="$RUNNER_TEMP/test-user-data/$suite" timeout 180 "$engine" --headless --path godot --script "res://scripts/${suite}_validation.gd" > "$log" 2>&1; then
+              tail -n 100 "$log"
+              exit 1
+            fi
+            if grep -Eq '^(SCRIPT ERROR:|ERROR:)' "$log"; then
+              grep -E '^(SCRIPT ERROR:|ERROR:)' "$log" | head -n 40
+              exit 1
+            fi
+            tail -n 3 "$log"
+          done
+
+          for suite in verify_world_narrative verify_narrative_ui; do
+            log="$RUNNER_TEMP/$suite.log"
+            if ! XDG_DATA_HOME="$RUNNER_TEMP/test-user-data/$suite" timeout 180 "$engine" --headless --path godot --script "res://tests/$suite.gd" > "$log" 2>&1; then
               tail -n 100 "$log"
               exit 1
             fi

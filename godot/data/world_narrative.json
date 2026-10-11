@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "quest": {
+    "id": "bring_names_home",
+    "title": "把名字带回来",
+    "description": "在雨渠寻找工人的名字，在书库核对删名契约，把证词带回苔钟庭。"
+  },
+  "npcs": {
+    "npc_threadsmith_apprentice": {
+      "voice_profile": "warm",
+      "states": [
+        {
+          "id": "names_returned",
+          "lines": [
+            "你带回来的不是名单，是他们还活过的证据。",
+            "柳认出了铆钉，书记认出了刮掉的字。这一次，我把名字绣在线结里面。",
+            "外庭的盐风口还在高处。你的双线跃够得着了；把这条回家的路也接起来吧。"
+          ],
+          "flags_all": [
+            "quest_bring_names_complete"
+          ]
+        },
+        {
+          "id": "names_homecoming",
+          "lines": [
+            "你回来了。线头上有雨，也有盐。",
+            "原来他们不是自己忘了名字，是有人把名字从契约里刮走了。",
+            "我会替他们缝回去。今后钟庭记得的，至少不再只有守门者。"
+          ],
+          "flags_all": [
+            "quest_bring_names_canal_heard",
+            "quest_bring_names_archive_heard"
+          ],
+          "grant_flags": [
+            "quest_bring_names_complete",
+            "testimony_returned_names"
+          ]
+        },
+        {
+          "id": "names_waiting",
+          "lines": [
+            "雨渠把工人的声音冲走，书库把他们的名字刮掉。",
+            "先找渠里的孩子。高处的盐风口可以以后回来，泵井里还有一条低路。"
+          ],
+          "flags_all": [
+            "quest_bring_names_started"
+          ]
+        },
+        {
+          "id": "names_request",
+          "lines": [
+            "这座钟庭的衣服都没有署名。连我师父也只留下了一枚针。",
+            "去雨渠问问那些还在等人回家的孩子，再去书库看看名字被写到哪里。",
+            "不用替我打败谁。把名字带回来就好。"
+          ],
+          "grant_flags": [
+            "quest_bring_names_started"
+          ]
+        }
+      ]
+    },
+    "npc_canal_child": {
+      "voice_profile": "bright",
+      "states": [
+        {
+          "id": "names_child_heard",
+          "lines": [
+            "爹的徽章不是蓝的，是被雨洗白了。",
+            "你说你会回钟庭？那就告诉他们，我们还在等最后一班下工钟。"
+          ],
+          "flags_all": [
+            "quest_bring_names_canal_heard"
+          ]
+        },
+        {
+          "id": "names_child_witness",
+          "lines": [
+            "爹上工时叫柳叔帮他铆过徽章。后来账簿上只剩一串号码。",
+            "我记得他叫阿禾。书库的人说这个名字从来没有登记过。",
+            "如果那边有人肯翻旧页，请让他找找雨季以前的工匠名单。"
+          ],
+          "flags_all": [
+            "quest_bring_names_started"
+          ],
+          "grant_flags": [
+            "quest_bring_names_canal_heard"
+          ]
+        }
+      ]
+    },
+    "npc_rain_smith_liu": {
+      "voice_profile": "low",
+      "states": [
+        {
+          "id": "names_smith_badge",
+          "lines": [
+            "这个铆钉是我打的。阿禾总嫌徽章刮衣服，我替他磨圆了。",
+            "攀壁的线结要贴住铜面，再收脚。上面的检修路通向书库，水轮下面也能绕回来。",
+            "若有人说工人只有编号，把这枚铆钉给他看。"
+          ],
+          "items_any": [
+            "worker_badge"
+          ],
+          "flags_all": [
+            "quest_bring_names_started"
+          ]
+        },
+        {
+          "id": "names_smith_grip",
+          "lines": [
+            "铜墙还认得你的脚。别急着往炉底去，先沿检修路看看上游。",
+            "路打开以后，也回来看看孩子；他等的不是工具，是消息。"
+          ],
+          "abilities_all": [
+            "wall_grip"
+          ],
+          "flags_all": [
+            "quest_bring_names_started"
+          ]
+        }
+      ]
+    },
+    "npc_fugitive_scribe": {
+      "voice_profile": "hushed",
+      "states": [
+        {
+          "id": "names_scribe_confirmed",
+          "lines": [
+            "阿禾、时岚、舟九。删去的名字我已经抄在背面。",
+            "别把纸留给我。带回钟庭，让会缝东西的人替他们保存。"
+          ],
+          "flags_all": [
+            "quest_bring_names_archive_heard"
+          ]
+        },
+        {
+          "id": "names_scribe_evidence",
+          "lines": [
+            "这页缺角下面，压着雨季的工匠名单。阿禾的名字还在。",
+            "契约不是让人失声。它先把他们写成机器，才宣布机器不需要声音。",
+            "把名字带回钟庭吧。我不敢离开书库，但这份供述可以。"
+          ],
+          "flags_all": [
+            "quest_bring_names_started",
+            "quest_bring_names_canal_heard"
+          ],
+          "items_any": [
+            "testimony_03",
+            "contract_fragment",
+            "contract_original_fragment",
+            "testimony_returned_name"
+          ],
+          "grant_flags": [
+            "quest_bring_names_archive_heard"
+          ]
+        },
+        {
+          "id": "names_scribe_search",
+          "lines": [
+            "你从雨渠来？那孩子还记得名字，这是目录没料到的事。",
+            "去找契约原件的残片。只有我的话，他们会说我又写了一个好听的谎。",
+            "学会双线跃以后，旧钟庭高处的风口也该去看看。"
+          ],
+          "flags_all": [
+            "quest_bring_names_started",
+            "quest_bring_names_canal_heard"
+          ]
+        }
+      ]
+    },
+    "npc_salt_librarian_ye": {
+      "voice_profile": "dry",
+      "states": [
+        {
+          "id": "names_librarian_truth",
+          "lines": [
+            "你带着原件，目录就不能再替我回答了。",
+            "那些被删掉的人确实在这里读过书。我关过灯，也记得他们的脸。",
+            "书脊上的回路通向雨渠；如果决定把名字带回去，请走那条路。"
+          ],
+          "items_any": [
+            "testimony_03",
+            "contract_fragment",
+            "contract_original_fragment"
+          ]
+        },
+        {
+          "id": "names_librarian_jump",
+          "lines": [
+            "第二条线不是让你忘掉第一条路。",
+            "上层能走以后，回旧钟庭看看。我们封住的东西，未必都该一直封着。"
+          ],
+          "abilities_all": [
+            "double_thread_jump"
+          ]
+        }
+      ]
+    }
+  }
+}

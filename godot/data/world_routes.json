@@ -1,0 +1,645 @@
+{
+  "version": 1,
+  "design_note": "原创倒扣巨钟互联叠加。前三地构成能力回访闭环；后三地仅接回程，深层非线性尚待扩展。",
+  "chapters": {
+    "demo_ch01_moss_bell_court": {
+      "collectible_overrides": [],
+      "collectibles": [
+        {
+          "id": "world_col_returned_name",
+          "kind": "item",
+          "item_id": "testimony_returned_name",
+          "position": [
+            5240,
+            520
+          ],
+          "room_id": "salt_corridor",
+          "platform_id": "salt_ledge",
+          "label": "证词·被删去的名字",
+          "ability_name": "被删去的名字",
+          "note": "盐风能力门后的回访证词；右侧归庭索道永久接回入口。"
+        }
+      ],
+      "locked_gates": [],
+      "portals": [
+        {
+          "id": "moss_rain_pipe",
+          "kind": "world_portal",
+          "position": [
+            1790,
+            3712
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "rain_moss_pipe",
+          "target_spawn": [
+            330,
+            720
+          ],
+          "label": "排水钟管 → 铸雨渠",
+          "requires_demo_complete": false,
+          "room_id": "first_bell_shrine"
+        },
+        {
+          "id": "moss_archive_return",
+          "kind": "world_portal",
+          "position": [
+            280,
+            3360
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "archive_moss_return",
+          "target_spawn": [
+            1610,
+            2200
+          ],
+          "label": "旧运书线 → 盐白书库",
+          "requires_demo_complete": false,
+          "required_ability": "double_thread_jump",
+          "unlock_shortcut_id": "archive_return",
+          "room_id": "entry_bell",
+          "required_ability_name": "双线跃"
+        },
+        {
+          "id": "moss_salt_lift_lower",
+          "kind": "world_portal",
+          "position": [
+            410,
+            3360
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "moss_salt_lift_upper",
+          "target_spawn": [
+            4850,
+            610
+          ],
+          "label": "运书升降索道 → 盐风走廊",
+          "requires_demo_complete": false,
+          "room_id": "entry_bell"
+        },
+        {
+          "id": "moss_salt_lift_upper",
+          "kind": "world_portal",
+          "position": [
+            4850,
+            610
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "moss_salt_lift_lower",
+          "target_spawn": [
+            410,
+            3360
+          ],
+          "label": "运书升降索道 → 朝圣断阶",
+          "requires_demo_complete": false,
+          "room_id": "salt_corridor"
+        },
+        {
+          "id": "moss_salt_shortcut_upper",
+          "kind": "world_portal",
+          "position": [
+            5340,
+            520
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "moss_salt_shortcut_lower",
+          "target_spawn": [
+            200,
+            3360
+          ],
+          "label": "拉开盐风归庭索道",
+          "requires_demo_complete": false,
+          "required_ability": "double_thread_jump",
+          "unlock_shortcut_id": "salt_return",
+          "room_id": "salt_corridor",
+          "required_ability_name": "双线跃"
+        },
+        {
+          "id": "moss_salt_shortcut_lower",
+          "kind": "world_portal",
+          "position": [
+            200,
+            3360
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "moss_salt_shortcut_upper",
+          "target_spawn": [
+            5340,
+            520
+          ],
+          "label": "盐风归庭索道",
+          "requires_demo_complete": false,
+          "unlock_shortcut_id": "salt_return",
+          "requires_shortcut": "salt_return",
+          "room_id": "entry_bell"
+        }
+      ],
+      "remove_interactives": [],
+      "inventory_catalog": {
+        "testimony_returned_name": {
+          "name": "被删去的名字",
+          "category": "Relics",
+          "description": "盐风中保存的反证：第七个名字不是缺席，而是被从契约中抹掉。"
+        }
+      },
+      "locked_gate_overrides": [
+        {
+          "id": "gate_jump_salt",
+          "rect": [
+            5080,
+            300,
+            42,
+            600
+          ]
+        }
+      ],
+      "platforms": [
+        {
+          "id": "world_salt_arch_roof",
+          "rect": [
+            4720,
+            280,
+            686,
+            30
+          ],
+          "collision_role": "ceiling",
+          "material": "moss_stone",
+          "color": "3a3f38",
+          "route_role": "branch"
+        },
+        {
+          "id": "world_salt_arch_foundation",
+          "rect": [
+            5020,
+            650,
+            350,
+            250
+          ],
+          "collision_role": "floor",
+          "material": "moss_stone",
+          "color": "3a3f38",
+          "route_role": "branch"
+        },
+        {
+          "id": "world_salt_arch_backwall",
+          "rect": [
+            5370,
+            280,
+            36,
+            620
+          ],
+          "collision_role": "wall",
+          "material": "moss_stone",
+          "color": "3a3f38",
+          "route_role": "branch"
+        }
+      ],
+      "grapple_anchors": [
+        {
+          "id": "moss_viaduct_ring",
+          "position": [
+            4300,
+            2480
+          ],
+          "room_id": "bellbone_station",
+          "label": "钟骨桥回访铜环",
+          "required_ability": "echo_hook",
+          "test_from": [
+            3990,
+            2650
+          ],
+          "note": "回访时用钩索横越钟骨桥，落向东阳台。"
+        }
+      ]
+    },
+    "demo_ch02_rain_foundry_canal": {
+      "collectible_overrides": [
+        {
+          "id": "col_silk_wall_grip",
+          "position": [
+            1700,
+            880
+          ],
+          "room_id": "rain_deck",
+          "platform_id": "rd_run",
+          "note": "雨栅长堤检修台；首访无需自身能力。回到渡槽立管可进书库。"
+        }
+      ],
+      "collectibles": [],
+      "locked_gates": [],
+      "portals": [
+        {
+          "id": "rain_moss_pipe",
+          "kind": "world_portal",
+          "position": [
+            330,
+            720
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "moss_rain_pipe",
+          "target_spawn": [
+            1790,
+            3712
+          ],
+          "label": "排水钟管 → 苔钟庭",
+          "requires_demo_complete": false,
+          "room_id": "upper_sluice"
+        },
+        {
+          "id": "rain_archive_riser",
+          "kind": "world_portal",
+          "position": [
+            1350,
+            796
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "archive_rain_riser",
+          "target_spawn": [
+            430,
+            2580
+          ],
+          "label": "盐水立管 → 盐白书库",
+          "requires_demo_complete": false,
+          "required_ability": "silk_wall_grip",
+          "hint": "立管内壁太湿；沿雨栅长堤寻找检修者留下的丝壁攀附，再回来。",
+          "room_id": "aqueduct_gate",
+          "required_ability_name": "丝壁攀附"
+        }
+      ],
+      "remove_interactives": [],
+      "grapple_anchors": [
+        {
+          "id": "rain_pendulum_ring",
+          "position": [
+            6280,
+            1600
+          ],
+          "room_id": "pendulum_works",
+          "label": "钟摆检修铜环",
+          "required_ability": "echo_hook",
+          "test_from": [
+            6170,
+            1800
+          ],
+          "note": "取得既有回声钩索后可拉向检修铜环；环下是钟摆车间实地。"
+        }
+      ]
+    },
+    "demo_ch03_saltwhite_archive": {
+      "collectible_overrides": [],
+      "collectibles": [
+        {
+          "id": "world_col_double_thread_jump",
+          "kind": "item",
+          "item_id": "double_thread_jump",
+          "position": [
+            1510,
+            2200
+          ],
+          "room_id": "candle_mezzanine",
+          "platform_id": "candle_floor",
+          "label": "双线跃",
+          "ability_name": "双线跃",
+          "note": "烛台夹层的旧签署者线轴。单跳阶梯可达，取得后回访苔钟庭盐风门。"
+        }
+      ],
+      "locked_gates": [],
+      "portals": [
+        {
+          "id": "archive_rain_riser",
+          "kind": "world_portal",
+          "position": [
+            430,
+            2580
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "rain_archive_riser",
+          "target_spawn": [
+            1350,
+            796
+          ],
+          "label": "盐水立管 → 铸雨渠",
+          "requires_demo_complete": false,
+          "room_id": "salt_gatehouse"
+        },
+        {
+          "id": "archive_moss_return",
+          "kind": "world_portal",
+          "position": [
+            1610,
+            2200
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "moss_archive_return",
+          "target_spawn": [
+            280,
+            3360
+          ],
+          "label": "旧运书线 → 苔钟庭",
+          "requires_demo_complete": false,
+          "unlock_shortcut_id": "archive_return",
+          "required_ability": "double_thread_jump",
+          "room_id": "candle_mezzanine",
+          "required_ability_name": "双线跃"
+        },
+        {
+          "id": "world_3_4_out",
+          "kind": "world_portal",
+          "position": [
+            7110,
+            2608
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "world_4_3_back",
+          "target_spawn": [
+            460,
+            1740
+          ],
+          "label": "温室天窗 → 下一城区",
+          "requires_demo_complete": false,
+          "room_id": "salt_dock"
+        }
+      ],
+      "remove_interactives": [
+        "ch03_chapter_exit"
+      ],
+      "inventory_catalog": {
+        "double_thread_jump": {
+          "name": "双线跃",
+          "category": "Abilities",
+          "description": "腾空后再次按跳跃，拉出第二条命线。旧盐风门由此可通。"
+        }
+      },
+      "platform_overrides": [
+        {
+          "id": "candle_rise_a",
+          "rect": [
+            1810,
+            2442,
+            150,
+            24
+          ],
+          "note": "让首访巡礼者在书墙与烛台之间有足够身体宽度起跳，避免顶头夹缝。"
+        },
+        {
+          "id": "candle_rise_b",
+          "rect": [
+            1625,
+            2350,
+            135,
+            22
+          ],
+          "note": "留50像素起跳缝，让84像素高的巡礼者沿烛台阶梯登上夹层。"
+        }
+      ],
+      "grapple_anchors": [
+        {
+          "id": "archive_candle_ring",
+          "position": [
+            2080,
+            1930
+          ],
+          "room_id": "candle_mezzanine",
+          "label": "运书吊环",
+          "required_ability": "echo_hook",
+          "test_from": [
+            1950,
+            2144
+          ],
+          "note": "书库回访路线的运书吊环；不改变首次取得双线跃的阶梯。"
+        }
+      ],
+      "terrain_overrides": [
+        {
+          "id": "terrain_candle_arcade_0_0",
+          "depth": 20,
+          "note": "运书夹层在阶梯口留真实开口，玩家不能穿过实心桥底登楼。",
+          "surface": [
+            [
+              1400,
+              2240
+            ],
+            [
+              1670,
+              2240
+            ]
+          ],
+          "platform_ids": [
+            "candle_floor"
+          ]
+        }
+      ],
+      "terrain": [
+        {
+          "id": "world_candle_east_lintel",
+          "kind": "tunnel",
+          "surface": [
+            [
+              1890,
+              2184
+            ],
+            [
+              2115,
+              2184
+            ],
+            [
+              2225,
+              2158
+            ],
+            [
+              2410,
+              2158
+            ]
+          ],
+          "depth": 20,
+          "texture_variants": [
+            3,
+            1,
+            5
+          ],
+          "platform_ids": [
+            "candle_east_walk",
+            "candle_gap_stand"
+          ],
+          "note": "与西侧夹层断开，1670至1890为首访登楼开口。"
+        }
+      ]
+    },
+    "demo_ch04_broken_string_greenhouse": {
+      "collectible_overrides": [],
+      "collectibles": [],
+      "locked_gates": [],
+      "portals": [
+        {
+          "id": "world_4_3_back",
+          "kind": "world_portal",
+          "position": [
+            460,
+            1740
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "world_3_4_out",
+          "target_spawn": [
+            7110,
+            2608
+          ],
+          "label": "温室天窗 → 返回旧城区",
+          "requires_demo_complete": false,
+          "room_id": "west_gate"
+        },
+        {
+          "id": "world_4_5_out",
+          "kind": "world_portal",
+          "position": [
+            7140,
+            752
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch05_obsidian_pilgrim_road",
+          "target_portal_id": "world_5_4_back",
+          "target_spawn": [
+            430,
+            2720
+          ],
+          "label": "铸渣滑道 → 下一城区",
+          "requires_demo_complete": false,
+          "room_id": "victory_terrace"
+        }
+      ],
+      "remove_interactives": [
+        "ch04_chapter_exit"
+      ]
+    },
+    "demo_ch05_obsidian_pilgrim_road": {
+      "collectible_overrides": [],
+      "collectibles": [],
+      "locked_gates": [],
+      "portals": [
+        {
+          "id": "world_5_4_back",
+          "kind": "world_portal",
+          "position": [
+            430,
+            2720
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "world_4_5_out",
+          "target_spawn": [
+            7140,
+            752
+          ],
+          "label": "铸渣滑道 → 返回旧城区",
+          "requires_demo_complete": false,
+          "room_id": "ravine_gate"
+        },
+        {
+          "id": "world_5_6_out",
+          "kind": "world_portal",
+          "position": [
+            6675,
+            2682
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch06_silent_crown_core",
+          "target_portal_id": "world_6_5_back",
+          "target_spawn": [
+            2870,
+            660
+          ],
+          "label": "冠脊索道 → 下一城区",
+          "requires_demo_complete": false,
+          "room_id": "silent_gate"
+        }
+      ],
+      "remove_interactives": [
+        "ch05_chapter_exit"
+      ]
+    },
+    "demo_ch06_silent_crown_core": {
+      "collectible_overrides": [],
+      "collectibles": [],
+      "locked_gates": [],
+      "portals": [
+        {
+          "id": "world_6_5_back",
+          "kind": "world_portal",
+          "position": [
+            2870,
+            660
+          ],
+          "interaction_size": [
+            110,
+            110
+          ],
+          "target_config_id": "demo_ch05_obsidian_pilgrim_road",
+          "target_portal_id": "world_5_6_out",
+          "target_spawn": [
+            6675,
+            2682
+          ],
+          "label": "冠脊索道 → 返回旧城区",
+          "requires_demo_complete": false,
+          "room_id": "crown_antechamber"
+        }
+      ],
+      "remove_interactives": []
+    }
+  }
+}
