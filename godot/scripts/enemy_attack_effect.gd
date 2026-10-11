@@ -21,12 +21,16 @@ var skin := "thorn"
 var owner_actor: Node2D
 var travelled := 0.0
 var impact_pool := false
+var cancelled := false
 
 func _ready() -> void:
     add_to_group("hostile_attack")
     z_index = 7
 
 func _physics_process(delta: float) -> void:
+    if cancelled or (is_instance_valid(owner_actor) and (owner_actor.is_queued_for_deletion() or bool(owner_actor.get("dying")))):
+        cancel()
+        return
     var target := get_tree().get_first_node_in_group("player") as CharacterBody2D
     if target != null and bool(target.get("ui_input_locked")):
         return
@@ -157,3 +161,9 @@ func _draw() -> void:
         else:
             draw_colored_polygon(PackedVector2Array([axis*radius*1.5,-axis*radius+side*radius*.45,-axis*radius-side*radius*.45]),active_color)
             draw_line(-axis*radius,axis*radius*1.4,Color(.95,.87,.67,active_color.a),1,true)
+
+func cancel() -> void:
+    cancelled = true
+    set_physics_process(false)
+    remove_from_group("hostile_attack")
+    queue_free()

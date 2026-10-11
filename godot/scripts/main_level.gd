@@ -1586,6 +1586,8 @@ func _refresh_settings_overlay() -> void:
     lines.append("")
     lines.append("W/S 选择   A/D 调节   V/Esc 关闭")
     settings_text.text = "\n".join(lines)
+    if ui_shell != null:
+        ui_shell.refresh_settings_selection()
 
 
 func _close_overlays() -> void:
@@ -1692,7 +1694,10 @@ func _move_backpack_selection(delta: int) -> void:
     if backpack_entry_ids.is_empty():
         return
     _play_sfx_random(["ui_menu_move_1", "ui_menu_move_2"], -5.0)
-    backpack_selection = wrapi(_backpack_selection_clamped() + delta, 0, backpack_entry_ids.size())
+    if ui_shell != null:
+        ui_shell.move_inventory_selection(delta)
+    else:
+        backpack_selection = wrapi(_backpack_selection_clamped() + delta, 0, backpack_entry_ids.size())
     _refresh_backpack_overlay()
 
 
@@ -3381,7 +3386,8 @@ func _npc(data: Dictionary) -> void:
     shape.shape = circle
     area.add_child(shape)
 
-    var manifest_path := "res://assets/sprites/original_npcs/"+String(data.get("id",""))+"/manifest.json"
+    var art_id := ORIGINAL_ART.npc_art_id(String(data.get("id","")))
+    var manifest_path := "res://assets/sprites/original_npcs/"+art_id+"/manifest.json"
     var art_data := ORIGINAL_ART.manifest(manifest_path)
     var npc_frames := ORIGINAL_ART.frames(manifest_path)
     if npc_frames != null:
@@ -3394,7 +3400,7 @@ func _npc(data: Dictionary) -> void:
         sprite.z_index=3
         area.add_child(sprite)
     area.add_to_group("interactable")
-    area.set_meta("portrait_id",String(data.get("id","")))
+    area.set_meta("portrait_id",art_id)
     area.set_meta("dialogue_topics",data.get("dialogue_topics",{}))
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -3703,6 +3709,8 @@ func _start_boss_trial() -> void:
             continue
         if bool(enemy_area.get("is_boss")):
             continue
+        if enemy_area.has_method("_cancel_attack_effects"):
+            enemy_area._cancel_attack_effects()
         enemy_area.queue_free()
     enemy_defeated = enemy_total
     _open_all_shortcuts(false)

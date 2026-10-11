@@ -12,6 +12,7 @@ var trail_clock := 0.0
 var battle_phase := 1
 var phase_pause := 0.0
 var original_visual := false
+var owned_attack_effects: Array[Node2D] = []
 
 func _update_locomotion(delta: float, target: CharacterBody2D) -> void:
     if locomotion=="stationary":
@@ -55,6 +56,8 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.steering=float(command.get("steering",0))
     effect.impact_pool=bool(command.get("impact_pool",false))
     effect.owner_actor=self
+    owned_attack_effects = owned_attack_effects.filter(func(node: Node2D) -> bool: return is_instance_valid(node))
+    owned_attack_effects.append(effect)
     effect.tint=Color.html("#"+String(command.get("telegraph","c99558")))
     get_parent().add_child(effect)
     return effect
@@ -253,6 +256,7 @@ func _physics_process(delta: float) -> void:
     if is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold",0.55)):
         battle_phase = 2
         phase_pause = 0.9
+        _cancel_attack_effects()
         _clear_telegraph()
         state = "patrol"
         active_attack = {}
@@ -374,6 +378,8 @@ func take_hit(amount: int, hit_direction: int) -> void:
         boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
         boss_press_timer = 0.0
     if not is_boss and hp > 0:
+        _cancel_attack_effects()
+        active_attack = {}
         state = "recover"
         state_timer = 0.16
         _clear_telegraph()
@@ -385,6 +391,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
 ## 之后表现层溶解 0.45s（Boss 0.9s）再 queue_free——计数/掉落逻辑不受影响。
 func _begin_death_dissolve() -> void:
     dying = true
+    _cancel_attack_effects()
     monitoring = false
     monitorable = false
     remove_from_group("enemy")
@@ -1861,3 +1868,12 @@ func _spawn_hit_spark(hit_direction: int) -> void:
     tween.tween_property(spark, "scale", Vector2(1.55, 1.55), 0.16)
     tween.parallel().tween_property(spark, "modulate:a", 0.0, 0.16)
     tween.finished.connect(Callable(spark, "queue_free"))
+
+func _cancel_attack_effects() -> void:
+    for effect in owned_attack_effects:
+        if is_instance_valid(effect):
+            effect.cancel()
+    owned_attack_effects.clear()
+
+func _exit_tree() -> void:
+    _cancel_attack_effects()

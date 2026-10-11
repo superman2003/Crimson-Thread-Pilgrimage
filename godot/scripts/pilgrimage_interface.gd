@@ -42,6 +42,7 @@ var toast: Label
 var toast_age := 0.0
 var last_toast := ""
 var settings_sliders: Dictionary={}
+var settings_labels: Dictionary={}
 
 func bind(runtime: Node) -> void:
     level=runtime
@@ -243,18 +244,14 @@ func refresh_inventory() -> void:
         bag_grid.remove_child(node)
         node.queue_free()
     bag_currency.text=str(level.currency_count)
-    var selected: String="currency"
-    var index: int=level._backpack_selection_clamped()
-    if index>=0:selected=String(level.backpack_entry_ids[index])
-    for item_value in level.backpack_entry_ids:
+    var selected := _reconcile_inventory_selection()
+    for item_value in _visible_inventory_ids():
         var item_id:=String(item_value)
-        var item_data: Dictionary=level._item_data(item_id)
-        var category:=String(item_data.get("category",""))
-        if not _matches(category) and item_id!="currency":continue
         var button:=_button(bag_grid,"",Vector2.ZERO,Vector2(94,98),func():
             level.backpack_selection=level.backpack_entry_ids.find(item_id)
             level._refresh_backpack_detail()
             refresh_inventory())
+        button.set_meta("item_id",item_id)
         button.custom_minimum_size=Vector2(94,98)
         if item_id==selected:
             button.add_theme_stylebox_override("normal",_style(Color("343531"),GOLD,2))
@@ -263,6 +260,20 @@ func refresh_inventory() -> void:
         var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
         name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+    for tab in bag_tabs:
+        tab.add_theme_stylebox_override("normal",_style(Color("343531") if tab.text==bag_category else Color("252a2c"),GOLD if tab.text==bag_category else Color("4c514d")))
+    bag_pin.disabled=selected.is_empty()
+    if selected.is_empty():
+        bag_icon.texture=null
+        bag_name.text="这一分类暂无物品"
+        bag_category_label.text=bag_category
+        bag_description.text=""
+        bag_pin.text="钉在旅记"
+    else:
+        _show_inventory_detail(selected)
+
+
+func _show_inventory_detail(selected: String) -> void:
     bag_icon.texture=ART.item(selected)
     bag_name.text=level._item_display_name(selected)
     bag_category_label.text=_category_name(String(level._item_data(selected).get("category","Currency")))+"  ·  "+str(level.currency_count if selected=="currency" else level.inventory_counts.get(selected,0))
@@ -276,9 +287,8 @@ func _category_name(category: String) -> String:
     return {"Tools":"织具","Abilities":"能力","Charms":"护符","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
 
 func _pin_item() -> void:
-    var index: int=level._backpack_selection_clamped()
-    if index<0:return
-    var id:=String(level.backpack_entry_ids[index])
+    var id := _reconcile_inventory_selection()
+    if id.is_empty():return
     var was_pinned:=bool(level.story_flags.get("ui_pin_"+id,false))
     for key in level.story_flags.keys():
         if String(key).begins_with("ui_pin_"):level.story_flags[key]=false
@@ -349,7 +359,7 @@ func _build_settings() -> void:
     var rows: Array=level.AUDIO_SETTINGS_ROWS
     for i in rows.size():
         var key:=String(rows[i][0])
-        _label(settings,String(rows[i][1]).split(" ")[0],Vector2(34,96+i*51),Vector2(145,30),18)
+        settings_labels[key]=_label(settings,String(rows[i][1]).split(" ")[0],Vector2(34,96+i*51),Vector2(145,30),18)
         var slider:=HSlider.new()
         slider.position=Vector2(194,105+i*51)
         slider.size=Vector2(340,22)
@@ -358,14 +368,19 @@ func _build_settings() -> void:
         slider.step=1
         slider.value=level.audio_director.get_user_volume(key) if level.audio_director!=null else 100
         slider.value_changed.connect(func(value: float):
+            level.settings_selection=i
+            refresh_settings_selection()
             if level.audio_director!=null:level.audio_director.set_user_volume(key,value))
         settings.add_child(slider)
         settings_sliders[key]=slider
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false
+    refresh_settings_selection()
 
 func _process(delta: float) -> void:
     if level==null:return
+    if settings.visible:
+        refresh_settings_selection()
     if settings.visible and level.audio_director!=null:
         for key in settings_sliders:
             settings_sliders[key].set_value_no_signal(level.audio_director.get_user_volume(key))
@@ -405,3 +420,40 @@ func _process(delta: float) -> void:
         if String(key).begins_with("ui_pin_") and bool(level.story_flags[key]):
             pinned.text="旅记 · "+level._item_display_name(String(key).trim_prefix("ui_pin_"))
             break
+
+func _visible_inventory_ids() -> Array[String]:
+    var ids: Array[String] = []
+    for value in level.backpack_entry_ids:
+        var id := String(value)
+        if _matches(String(level._item_data(id).get("category",""))):
+            ids.append(id)
+    return ids
+
+func _reconcile_inventory_selection() -> String:
+    var visible_ids := _visible_inventory_ids()
+    if visible_ids.is_empty():
+        level.backpack_selection=-1
+        return ""
+    var index: int = level._backpack_selection_clamped()
+    var selected := String(level.backpack_entry_ids[index]) if index >= 0 else ""
+    if not visible_ids.has(selected):
+        selected=visible_ids[0]
+        level.backpack_selection=level.backpack_entry_ids.find(selected)
+        level._refresh_backpack_detail()
+    return selected
+
+func move_inventory_selection(delta: int) -> void:
+    var selected := _reconcile_inventory_selection()
+    var visible_ids := _visible_inventory_ids()
+    if visible_ids.is_empty():return
+    var next_id := visible_ids[wrapi(visible_ids.find(selected)+delta,0,visible_ids.size())]
+    level.backpack_selection=level.backpack_entry_ids.find(next_id)
+
+func refresh_settings_selection() -> void:
+    var rows: Array=level.AUDIO_SETTINGS_ROWS
+    for i in rows.size():
+        var key := String(rows[i][0])
+        if not settings_labels.has(key):continue
+        var selected: bool = i==level._settings_selection_clamped()
+        settings_labels[key].text=("▶ " if selected else "  ")+String(rows[i][1]).split(" ")[0]
+        settings_labels[key].add_theme_color_override("font_color",GOLD if selected else IVORY)
