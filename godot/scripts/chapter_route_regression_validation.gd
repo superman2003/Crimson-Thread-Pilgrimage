@@ -87,11 +87,14 @@ func _validate_chapter(config_path: String) -> void:
     scene.opened_shortcuts.clear()
     scene.shortcut_open = false
     scene.boss_unlocked = false
-    scene.config["connections"].append({"from": config["map_rooms"][0]["id"], "to": config["map_rooms"][1]["id"], "type": "shortcut", "shortcut_id": "regression_auto_shortcut"})
     scene.enemy_defeated = scene.enemy_total - 1
     scene._on_enemy_died("route_regression_last_enemy", false, "regression")
     _assert(scene.boss_unlocked, config_id + " last normal enemy unlocks the boss route")
     _assert(not scene._is_shortcut_open(shortcut_id), config_id + " combat clear leaves the manual shortcut closed")
+    _assert(scene.opened_shortcuts.is_empty(), config_id + " default combat clear opens no individual manual shortcuts")
+    _assert(scene.shortcut_open and bool(scene.get_demo_state().get("shortcut_open", false)), config_id + " aggregate route state reports the unlocked boss route before using the lever")
+    scene.config["connections"].append({"from": config["map_rooms"][0]["id"], "to": config["map_rooms"][1]["id"], "type": "shortcut", "shortcut_id": "regression_auto_shortcut"})
+    scene._open_combat_clear_route()
     _assert(scene._is_shortcut_open("regression_auto_shortcut"), config_id + " legacy combat shortcuts still open on combat clear")
     scene._try_interact()
     _assert(scene._is_shortcut_open(shortcut_id), config_id + " lever opens the shortcut after combat clear")

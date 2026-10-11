@@ -4222,6 +4222,7 @@ func _open_shortcut(shortcut_id: String = "") -> void:
 
 func _unlock_boss_route() -> void:
     boss_unlocked = true
+    shortcut_open = true
     if gate_body != null and is_instance_valid(gate_body):
         gate_body.queue_free()
         gate_body = null
@@ -4231,7 +4232,6 @@ func _open_combat_clear_route() -> void:
     for shortcut_id in _shortcut_ids():
         if not _shortcut_is_lever_controlled(String(shortcut_id)):
             opened_shortcuts[String(shortcut_id)] = true
-    shortcut_open = not opened_shortcuts.is_empty()
     _unlock_boss_route()
     _refresh_hud()
 

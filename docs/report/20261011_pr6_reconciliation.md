@@ -80,3 +80,15 @@ godot --headless --path godot --script res://scripts/chapter_route_regression_va
 | `validate_story_runtime_consistency.py` | `ch04_broken_string_greenhouse: boss name mismatch`。 | 数据未修改，既有名称差异保留并列明。 |
 
 旧 PR 声称通过的多层地图与节奏校验以旧宽度、水平连续房间和旧平台 ID 为前提，不能当作当前 main 的质量证据。无需重新套用旧地图来让这些旧前提成立。
+
+## 替代 PR #7 的审查补充
+
+[自动审查 4240218122](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/7#discussion_r4240218122) 指出：默认地图只有手动拉杆捷径时，清怪已经打开 Boss 路线，但聚合状态 `shortcut_open` 仍为 false。已有逐捷径测试添加了自动捷径夹具，未覆盖这个默认配置状态。新增用例先在未添加夹具的六章配置上清怪，再读取实际 `get_demo_state()`；提交 `9504934` 在这六项断言上全部失败（6 / 187），没有脚本错误。
+
+现在由 `_unlock_boss_route()` 同步设置聚合标志为 true；各个捷径是否开放仍由 `opened_shortcuts` 独立记录。扩展回归 **187 / 187 通过**；`demo`、`ch02_demo`、`generated_runtime`、`boss_trial` 四套相关既有检查再次通过，没有脚本错误。测试仍检查清怪不会开启手动拉杆捷径。
+
+## 并行地图／美术分支的合并核对
+
+2026-10-11 另一个会话正在上传 `codex/flat-2d-map-art`。以其本地固定提交 `4f3d0169f4312544ac230c64037e2d49a6c663b9` 和本 PR 的 `9504934f2c91acc2391b05c91105261217baca94` 运行 `git merge-tree --write-tree --name-only`，确有两份文件内容冲突：`godot/scripts/main_level.gd` 和 `godot/scripts/all_chapters_demo_validation.gd`。前者在 F 键交互函数，后者在 NPC 对话及交互测试。
+
+GitHub 对本 PR 相对当前 main 的 `clean` 状态不代表这两个并行分支彼此兼容。集成时需保留地图／美术分支的手动拾取、对话处理以及本 PR 的目标距离判定和路径修复，针对改写后的地图重新运行回归；不能整份选择 ours/theirs。本次检查没有修改另一个会话的工作树或分支，也没有合并任何 PR。
