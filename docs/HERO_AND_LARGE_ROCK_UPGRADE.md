@@ -27,7 +27,7 @@
 - 新增动作阶段检查 17 项通过：攻击有效姿态、治疗、受伤优先级、短冲刺末帧、起跳同帧保留与复活动作清理。短冲刺改为动作进度驱动。
 - 六区可见岩体、原生纹理密度、远处碰撞保留与桥梁材质检查共 1577 项通过。
 - 45 套隔离 Godot 回归通过，无运行时 SCRIPT ERROR / ERROR；npm test、npm run test:campaign、切帧跨行污染回归通过。
-- `artifacts/hero_rock_upgrade/checkpoint2/` 本地已采集六区入口视角共 12 张 GL 实机对照截图，截图、verification.json 及新预览将在下一检查点追加。before_density 只恢复旧 4096 采样周期，其他代码与帧保持一致。
+- `artifacts/hero_rock_upgrade/checkpoint2/` 保存六区入口视角共 12 张 GL 实机对照截图和 verification.json。before_density 只恢复旧 4096 采样周期，其他代码与帧保持一致。
 - 截图复跑：真实显示环境执行 `Godot --path godot --rendering-method gl_compatibility --script ../tools/capture_hero_rock.gd`；普通 Linux 可使用 xvfb-run。受限环境可在同一进程树内启动 TCP Xvfb。
 
 验收边界：截图覆盖入口视角，尚未逐房视觉验收；动作检查是状态与姿态契约，不是完整人工战斗通关；探索导航仍抑制伤害。截图环境使用 dummy audio，未进行听感验收。编辑器导入退出仍有已有插件/资源泄漏诊断，运行时回归无该错误。岩壁重复周期接缝、相连钩索原画与源边缘仍列为后续任务，因此保持草稿。

@@ -9,6 +9,11 @@ on:
 permissions:
   contents: read
 
+# Frequent material checkpoints supersede stale runs on the same PR.
+concurrency:
+  group: godot-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   runtime:
     runs-on: ubuntu-24.04
@@ -35,6 +40,7 @@ jobs:
           npm run test:campaign
           python3 -m pip install -r tools/requirements-hero.txt
           python3 tools/validate_hero_v3.py
+          python3 tools/test_hero_pose_extraction.py
       - name: Import project resources
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
