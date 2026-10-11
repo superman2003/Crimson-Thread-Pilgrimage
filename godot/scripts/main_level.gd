@@ -4770,12 +4770,14 @@ func _refresh_hud() -> void:
     var boss_text := "Awake" if boss_spawned else ("Ready" if boss_unlocked else "Locked")
     var save_text := active_save_point_id
     if _combat_progression_enabled():
-        hud_label.text = "HP %s/5  EN %s  Skill %s  Enemies %d/%d  Boss Route %s  Boss %s  Save %s  A/D Move W/S Aim Space Jump Shift Dash LMB/J Slash RMB Heal E Skill F Use Tab Bag M Map" % [
+        var boss_route_text := "Open" if boss_unlocked else "Closed"
+        hud_label.text = "HP %s/5  EN %s  Skill %s  Enemies %d/%d  Boss Route %s  Shortcuts %s  Boss %s  Save %s  A/D Move W/S Aim Space Jump Shift Dash LMB/J Slash RMB Heal E Skill F Use Tab Bag M Map" % [
             hp_text,
             energy_text,
             skill_text,
             enemy_defeated,
             enemy_total,
+            boss_route_text,
             shortcut_text,
             boss_text,
             save_text

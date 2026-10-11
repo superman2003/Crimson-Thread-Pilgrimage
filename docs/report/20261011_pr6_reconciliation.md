@@ -87,6 +87,10 @@ godot --headless --path godot --script res://scripts/chapter_route_regression_va
 
 现在由 `_unlock_boss_route()` 同步设置聚合标志为 true；各个捷径是否开放仍由 `opened_shortcuts` 独立记录。扩展回归 **187 / 187 通过**；`demo`、`ch02_demo`、`generated_runtime`、`boss_trial` 四套相关既有检查再次通过，没有脚本错误。测试仍检查清怪不会开启手动拉杆捷径。
 
+[后续审查 4240241756](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/7#discussion_r4240241756) 另确认 HUD 把逐捷径计数当成 Boss 路线状态。现在战斗模式分别显示 `Boss Route Open/Closed`（取决于 `boss_unlocked`）和 `Shortcuts n/m`。新增六章在“先开手动捷径”及“先清怪”两种顺序下的实际 HUD 断言；未修复提交 `0e4ad88` 在这 12 项断言上失败（12 / 199），没有脚本错误。
+
+HUD 修复后扩展回归 **199 / 199 通过**，没有脚本错误。
+
 ## 并行地图／美术分支的合并核对
 
 2026-10-11 另一个会话正在上传 `codex/flat-2d-map-art`。以其本地固定提交 `4f3d0169f4312544ac230c64037e2d49a6c663b9` 和本 PR 的 `9504934f2c91acc2391b05c91105261217baca94` 运行 `git merge-tree --write-tree --name-only`，确有两份文件内容冲突：`godot/scripts/main_level.gd` 和 `godot/scripts/all_chapters_demo_validation.gd`。前者在 F 键交互函数，后者在 NPC 对话及交互测试。

@@ -82,6 +82,7 @@ func _validate_chapter(config_path: String) -> void:
     scene._try_interact()
     _assert(scene._is_shortcut_open(shortcut_id), config_id + " manual lever works before clearing unrelated enemies")
     _assert(not scene.boss_unlocked, config_id + " opening a manual shortcut does not bypass the combat goal")
+    _assert(scene.hud_label.text.contains("Boss Route Closed") and scene.hud_label.text.contains("Shortcuts 1/%d" % scene._shortcut_total()), config_id + " HUD reports the opened shortcut separately from the locked boss route")
 
     # Start from a closed shortcut with exactly one normal enemy left.
     scene.opened_shortcuts.clear()
@@ -93,6 +94,7 @@ func _validate_chapter(config_path: String) -> void:
     _assert(not scene._is_shortcut_open(shortcut_id), config_id + " combat clear leaves the manual shortcut closed")
     _assert(scene.opened_shortcuts.is_empty(), config_id + " default combat clear opens no individual manual shortcuts")
     _assert(scene.shortcut_open and bool(scene.get_demo_state().get("shortcut_open", false)), config_id + " aggregate route state reports the unlocked boss route before using the lever")
+    _assert(scene.hud_label.text.contains("Boss Route Open") and scene.hud_label.text.contains("Shortcuts 0/%d" % scene._shortcut_total()), config_id + " HUD reports the unlocked boss route separately from closed manual shortcuts")
     scene.config["connections"].append({"from": config["map_rooms"][0]["id"], "to": config["map_rooms"][1]["id"], "type": "shortcut", "shortcut_id": "regression_auto_shortcut"})
     scene._open_combat_clear_route()
     _assert(scene._is_shortcut_open("regression_auto_shortcut"), config_id + " legacy combat shortcuts still open on combat clear")
