@@ -149,10 +149,17 @@ func _validate_generated_art(scene: Node) -> void:
 func _validate_overlay_windup(scene: Node) -> void:
     for kind in ["melee","projectile"]:
         var actor: Area2D=ENEMY.new()
+        var data: Dictionary=scene.config.get("enemy_spawns",[])[0]
+        actor.configure(data, "", false, scene.config.get("ai_profiles",{}).get(String(data.get("kind","")),{}))
         scene.add_child(actor)
         actor.set_physics_process(false)
         actor._begin_attack({"id":"overlay_"+kind,"type":kind,"windup":0.6,"active":0.2})
-        var warning:=actor.get_node("OriginalAttackWarning") as Line2D
+        var warning:=actor.get_node_or_null("OriginalAttackWarning") as Line2D
+        _check(actor.original_visual and warning!=null, kind+" uses a production original-art warning")
+        if warning==null:
+            actor.queue_free()
+            await process_frame
+            continue
         scene.active_overlay="backpack"
         scene._sync_ui_input_lock()
         var alpha_before: float=warning.modulate.a
