@@ -54,6 +54,10 @@ func _run() -> void:
                 break
         var lift: Node=scene.cave_lifts[0]
         scene.player.global_position=Vector2(lift.x,lift.bottom_y)
+        scene.player.velocity=Vector2.ZERO
+        scene.player.set_physics_process(true)
+        for i in range(10):await physics_frame
+        check(scene.player.is_on_floor(),String(id)+" live player settles on basket before ascent")
         check(lift.request(scene.player.global_position),String(id)+" lift accepts rider")
         var rock_clear:=true
         for i in range(ceili((lift.bottom_y-lift.top_y)/lift.speed*60)+8):

@@ -24,7 +24,7 @@
 
 ## 验证
 
-- `cave_exploration_validation.gd`：六章 120 项，覆盖出生点不埋入岩层、探索拉杆开门、升降笼上下行、正常玩家物理下乘坐、呼叫、远程拒绝、步行与岩墙阻挡视线；真实 Godot OpenGL 渲染截图已生成。
+- `cave_exploration_validation.gd`：六章 126 项，覆盖出生点不埋入岩层、探索拉杆开门、升降笼上下行、正常玩家物理下上行与下行乘坐、呼叫、远程拒绝、步行与岩墙阻挡视线；真实 Godot OpenGL 渲染截图已生成。
 - `cave_route_walk_validation.gd`：全部 39 条新连接，78 次双向物理步行，检查通行和保持接地，不输入跳跃。
 - 保留并运行章节路线 270 项、物理/减速 12 项、复审回归 133 项、六章通关、46 类敌人及 104 个攻击序列、试玩、第二章、背包地图、Boss 试炼、战斗、生成运行时、章节注册、剧情引导、中文剧情和 MetSys 套件。
 - 三个 Node 测试、JavaScript 语法检查、两项 Python 章节结构检查通过。
@@ -39,3 +39,7 @@
 ## 维护
 
 安装 Shapely 后执行 `python tools/build_cave_world.py`，从现有章节配置重新生成岩层、步行连接与升降笼数据；生成器会先移除上一轮自身生成的节点，保留其他章节内容。运行时仅依赖 Godot 与 JSON，不依赖 Python。安装 Pillow 后执行 `python tools/render_current_gallery.py` 可更新布局图。
+
+## 收尾核验
+
+升级 PR：[PR #9](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/9)。原提交 `c979a32` 的远端 CI 已通过全部 17 个 Godot 套件、三个 Node 测试和两项章节结构检查，代码与安全复审均完成且没有新增意见。收尾补丁让玩家在升降笼下层落点开启正常物理并接地，再执行上行，覆盖此前仅在关闭玩家物理时验证的上行路径；六章各新增一项上行前接地断言。原有路线、战斗和两条历史待处理 P2 保留。最终合并状态与补丁 CI 以 PR 页面为准。
