@@ -2753,6 +2753,7 @@ func _spawn_seal_practice_targets() -> void:
         label.size = Vector2(200, 80)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
+        label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
 
@@ -4669,7 +4670,7 @@ func _activate_save_point(area: Area2D) -> void:
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
     if build_system != null:
-        build_system.refill_tools()
+        build_system.refill_tools(true)
     _save_world()
     _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
     _refresh_hud()
@@ -5660,7 +5661,7 @@ func _sync_player_build() -> void:
             applied_build_profile = profile.duplicate(true)
 
 func _bind_build_inputs() -> void:
-    var bindings := {"skill_cycle": [KEY_K, JOY_AXIS_TRIGGER_LEFT],
+    var bindings := {"skill_cycle": [KEY_C, JOY_AXIS_TRIGGER_LEFT],
         "tool_cast": [KEY_T, JOY_BUTTON_DPAD_DOWN], "tool_cycle": [KEY_G, JOY_AXIS_TRIGGER_RIGHT]}
     for action in bindings:
         if InputMap.has_action(action):

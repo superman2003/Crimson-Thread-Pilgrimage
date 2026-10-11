@@ -76,6 +76,15 @@ func _run() -> void:
         quit(1)
         return
     player.global_position = shrine.global_position
+    build.state.tool_counts.shard = 0
+    build.state.tool_counts.mine = 0
+    build.cooldowns["cleave"] = 2.75
+    scene._activate_save_point(shrine)
+    _check(build.state.tool_counts.shard == 3 and build.state.tool_counts.mine == 2, "actual shrine callback refills acquired tools")
+    _check(build.cooldowns.cleave == 2.75, "actual shrine refill does not reset skill cooldown")
+    var cycle_keys: Array = InputMap.action_get_events("skill_cycle").filter(func(event): return event is InputEventKey)
+    var hook_keys: Array = InputMap.action_get_events("hook").filter(func(event): return event is InputEventKey)
+    _check(cycle_keys.all(func(cycle): return hook_keys.all(func(hook): return cycle.physical_keycode != hook.physical_keycode)), "default skill cycle does not collide with permanent hook")
     player.hp = 3
     player.energy = 63
     build.cooldowns["cleave"] = 2.75

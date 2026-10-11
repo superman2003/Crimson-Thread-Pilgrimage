@@ -1,8 +1,26 @@
 # Crimson Thread Pilgrimage / 绯线巡礼
 
-一个 Godot 4.6 原创银河恶魔城游戏原型。当前 main 包含六章洞穴地图、实心岩层、连续地形与斜坡、普通洞道完整视野、特殊暗穴局部视野和物理升降笼、40 种小怪和 6 位 Boss 的 104 套攻击序列，以及分类背包、NPC 对话与交付、手动拾取、音量设置、存档和 Metroidvania 地图。
+一个 Godot 4.6 原创银河恶魔城游戏原型。当前 main 包含六章洞穴地图、实心岩层、连续地形与斜坡、普通洞道完整视野、特殊暗穴局部视野和物理升降笼、40 种小怪和 6 位 Boss 的 104 套攻击序列，以及三契印、六技能、四战具、六铭饰、双槽构筑、剧情证据、三槽存档和 Metroidvania 地图。
 
 > 本项目是学习与原型用途的独立工程，不包含任何第三方商业 IP 资源。代码按 MIT 发布；第三方素材分别遵守各自许可证。
+
+## 最新升级与实机画面（2026-10-11）
+
+[PR #12](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/12) 已合入 main：六区跨区侧路、20 个能力练习／回访空间，以及按策划实现的 **契印系统**。缝名、司铸、校录通过线势、钟压和盐记形成不同打法；六个技能与四种战具各装备两个，六件铭饰消耗契印容量。获得接入既有 NPC 支线，永久探索能力独立保留。契印与铭饰在钟龛调整，战具在钟龛免费补给；换装和恢复方案不刷新生命、能量、次数或冷却。
+
+下图由 **Godot 4.6.1 实际运行 `World.tscn`** 截取，包含游戏场景、人物、HUD 和实际构筑界面。截图采用隔离的展示存档，预置获得进度与配装，用于展示功能；不作为正常流程获得或带伤通关证明。旧的灰背景大字号 UI 测试截图另保留为布局验收资料。
+
+![当前 World 场景与双槽 HUD](artifacts/seal_world/world_hud.png)
+
+![实际 World 场景中的契印页面](artifacts/seal_world/seal.png)
+
+![实际能力练习工房与练针架](artifacts/seal_world/practice.png)
+
+[查看全部 9 张最新实机图：六页面、HUD、练习与技能动作](docs/gallery/20261011_seal_world.md) · [契印验收与剩余项](docs/SEAL_VALIDATION.md) · [获得事件与剧情核对](docs/SEAL_LORE.md) · [六区升级范围](docs/SIX_REGION_UPGRADE.md)
+
+默认操作：**B** 构筑，**L** 施放当前技能，**C** 切换技能，**T** 使用战具，**G** 切换战具；**K/X** 保留钩索。手柄 **Y** 技能、**L2/R2** 切换技能／战具、**十字键下** 使用战具。设置页支持重新绑定；技能和战具尚未获得时会显示条件。
+
+验证覆盖 41 个不同 Godot 套件，最终受影响套件与新增契印套件串行复验通过；完整记录见验收文档。远端状态以 [GitHub Actions](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions) 为准。完整手柄体验、逐帧角色动画、混音试听和六区多构筑带伤通关仍待人工验收。
 
 ## 互联世界可玩版本（2026-10-11）
 
@@ -12,17 +30,17 @@
 
 五位 NPC 的“把名字带回来”支线跨越前三地区。完整听完才推进，F/鼠标先补全字幕再继续，返回学徒可获得一次性奖励。原创短拟声配中文字幕；保留原有区域音乐、战斗/命中/死亡音效，增加小怪交战叫声限频及跨场景混音保护。
 
-**范围**：前三地区已用真实输入走通能力回访闭环；后三地区先补成对返程入口，仍待深入重做非线性路线。运书索道目前使用明确的交互入口与成对落点，沿用的洞穴升降笼仍为真实物理交通。导航测试使用免伤，并不代表完整六区人工战斗通关。
+**范围**：前三地区已用真实输入走通能力回访闭环；最新版本增加后三地区侧向支路与能力回访工坊，原房间逐间重构和非线性路线体验仍待打磨。运书索道目前使用明确的交互入口与成对落点，沿用的洞穴升降笼仍为真实物理交通。导航测试使用免伤，并不代表完整六区人工战斗通关。
 
 独立试玩 `Main.tscn`、生成地图场景及 `--demo-config=...` 保持原配置，不读写新世界记录。[本轮实现与验证](docs/report/20261011_interconnected_world_implementation.md)。
 
-## 当前状态（2026-10-11）
+## 历史整合记录（2026-10-11）
 
 [PR #8](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/8) 已合入 main，合并提交为 [b0326e6](https://github.com/superman2003/Crimson-Thread-Pilgrimage/commit/b0326e62491140a9fe089706d692f5d09ca30354)。六章地图、美术、战斗和界面已可从 main 使用；原分支保留供历史追溯。
 
 [PR #7](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/7) 的运行时修复也已合入；旧 [PR #6](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/6) 已关闭，其旧地图没有覆盖新内容。
 
-[合入版本的 CI](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38117357448) 通过 15 个 Godot 套件、三个 Node 测试和两项章节结构检查，其中章节回归 270 项、物理与减速 12 项、复审回归 133 项。最新自动代码与安全复审均已结束；合并后的两条 P2 意见仍待处理：跨章携带物品的分类，以及攻击打断后的警示线清理。详见[整合与验证记录](docs/report/20261011_flat_map_integration.md)。
+[合入版本的 CI](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38117357448) 通过 15 个 Godot 套件、三个 Node 测试和两项章节结构检查，其中章节回归 270 项、物理与减速 12 项、复审回归 133 项。此处记录当时的整合检查；最新版本另扩展了构筑、状态清理与剧情回归。详见[整合与验证记录](docs/report/20261011_flat_map_integration.md)。
 
 ## 洞穴探索升级（2026-10-11）
 
@@ -91,8 +109,10 @@ godot --path godot
 主场景：
 
 ```text
-godot/scenes/Main.tscn
+godot/scenes/World.tscn
 ```
+
+`Main.tscn` 保留为独立章节试玩入口。
 
 常用验证：
 
@@ -126,7 +146,7 @@ npm start
 
 然后打开 `http://127.0.0.1:5173/`。
 
-全量 `npm test` 仍引用缺失的 `tools/audit_platform_geometry.py` 和 `tools/audit_map_uniqueness.py`；旧章节规划与新 campaign 的 Boss 名称一致性检查也尚未通过。上述 CI 成功不表示这两类检查已修复。
+`npm test` 已包含活动地图几何、唯一性和运行器负面检查，`npm run test:campaign` 校验当前战役、剧情和世界路线。旧生成地图的 54 处恢复点缺陷仍由单独的严格检查报告；它不等同于活动六区地图。详见 [验证范围](docs/VALIDATION.md)。
 
 ## 当前内容
 
