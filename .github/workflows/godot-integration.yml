@@ -46,11 +46,11 @@ jobs:
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          suites="chapter_route_regression pilgrimage_merge_regression pilgrimage_review_regression all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial combat generated_runtime chapter_registry story_guidance chinese_story metsys"
+          suites="cave_exploration cave_route_walk chapter_route_regression pilgrimage_merge_regression pilgrimage_review_regression all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial combat generated_runtime chapter_registry story_guidance chinese_story metsys"
           for suite in $suites; do
             log="$RUNNER_TEMP/$suite.log"
             echo "Running $suite"
-            if ! timeout 180 "$engine" --headless --path godot --script "res://scripts/${suite}_validation.gd" > "$log" 2>&1; then
+            if ! XDG_DATA_HOME="$RUNNER_TEMP/test-user-data/$suite" timeout 180 "$engine" --headless --path godot --script "res://scripts/${suite}_validation.gd" > "$log" 2>&1; then
               tail -n 100 "$log"
               exit 1
             fi

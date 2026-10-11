@@ -90,6 +90,9 @@ def full_map(config, number):
     ox, oy = (2200 - w * scale) / 2, 155
     def pt(p): return (ox + p[0] * scale, oy + p[1] * scale)
     draw.rectangle((ox, oy, ox + w * scale, oy + h * scale), fill='#16242c', outline='#425861', width=2)
+    for rect in config.get('cave_world', {}).get('solid_rects', []):
+        x,y,rw,rh=rect
+        draw.rectangle((*pt((x,y)),*pt((x+rw,y+rh))),fill='#030609')
     # Room bounds provide topology context; actual playable terrain is drawn above.
     for room in config.get('map_rooms', []):
         rect = room.get('layout_rect')
@@ -121,7 +124,12 @@ def full_map(config, number):
         if obj.get('kind') == 'chapter_exit': marker(obj.get('position'), '#83e6a6', 8, 'E')
     marker(config['player_start'], '#ffffff', 8, 'P')
     marker(config.get('boss', {}).get('position'), '#ff5c7a', 12, 'B')
-    label(draw, (35, 1790), 'P 出生点   B Boss   E 章节出口   S 存档   N NPC   ● 小怪（珊瑚红） / 拾取物（金色）', 25)
+    for lift in config.get('cave_lifts',[]):
+        a=pt((lift['x'],lift['top_y']));b=pt((lift['x'],lift['bottom_y']))
+        draw.line([a,b],fill='#87cde5',width=3)
+        marker((lift['x'],lift['top_y']),'#87cde5',7,'L')
+        marker((lift['x'],lift['bottom_y']),'#87cde5',7,'L')
+    label(draw, (35, 1790), 'P 出生点   B Boss   E 出口   S 存档   N NPC   L 升降笼   ● 小怪（红） / 拾取物（金）', 25)
     label(draw, (35, 1840), f'世界范围 {w} × {h} · 地形表面/平台/房间边界均来自当前配置', 23, '#a9bebf')
     return save(im, config['id'] + '_full_map.jpg')
 
