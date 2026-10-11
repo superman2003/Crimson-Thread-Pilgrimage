@@ -11,6 +11,59 @@ var attack_target := Vector2.ZERO
 var trail_clock := 0.0
 var battle_phase := 1
 var phase_pause := 0.0
+var snare_timer := 0.0
+var salt_mark_timer := 0.0
+var salt_mark_extended := false
+var interference_timer := 0.0
+var lure_timer := 0.0
+var lure_position := Vector2.ZERO
+var trip_timer := 0.0
+var combat_resistance: Dictionary = {}
+
+func apply_salt_mark(seconds: float) -> void:
+    salt_mark_timer = maxf(0.0, seconds)
+    salt_mark_extended = false
+
+func consume_salt_mark() -> bool:
+    var present := salt_mark_timer > 0.0
+    clear_salt_mark()
+    return present
+
+func extend_salt_mark_once(seconds: float) -> void:
+    if salt_mark_timer > 0.0 and not salt_mark_extended:
+        salt_mark_timer += minf(2.0, maxf(0.0, seconds))
+        salt_mark_extended = true
+
+func clear_salt_mark() -> void:
+    salt_mark_timer = 0.0
+    salt_mark_extended = false
+
+func apply_stagger(seconds: float) -> void:
+    if not is_boss and not dying:
+        trip_timer = maxf(trip_timer, minf(0.6, seconds))
+
+func apply_trip(seconds: float) -> void:
+    if not bool(combat_resistance.get("trip_immune", is_boss)):
+        trip_timer = maxf(trip_timer, minf(1.0, seconds))
+        _cancel_attack_effects()
+        state = "recover"
+        state_timer = maxf(state_timer, trip_timer)
+
+func apply_target_interference(seconds: float) -> void:
+    if not is_boss:
+        interference_timer = maxf(interference_timer, minf(3.0, seconds))
+
+func investigate_lure(point: Vector2, seconds: float) -> void:
+    if bool(combat_resistance.get("lure_immune", is_boss)) or not bool(ai_profile.get("lure_eligible", not is_boss)) or dying or state in ["windup", "active"]:
+        return
+    if is_inside_tree():
+        var lure_ray := PhysicsRayQueryParameters2D.create(global_position + Vector2(0,-24), point, 1)
+        lure_ray.collide_with_areas = false
+        if not get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
+            return
+    lure_position = point
+    lure_timer = maxf(lure_timer, minf(2.0, seconds))
+
 var original_visual := false
 var owned_attack_effects: Array[Node2D] = []
 var combat_tweens: Array[Tween] = []
@@ -51,6 +104,13 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.duration=warning+lifetime
     effect.radius=float(command.get("radius",11))
     effect.length=float(command.get("beam_length",360))
+    if effect_kind == "beam" and is_inside_tree():
+        var query := PhysicsRayQueryParameters2D.create(point, point + effect.heading * effect.length, 1)
+        query.collide_with_areas = false
+        var obstruction := get_world_2d().direct_space_state.intersect_ray(query)
+        if not obstruction.is_empty():
+            effect.length = minf(effect.length, point.distance_to(obstruction.position))
+    effect.set_meta("blockable", bool(command.get("blockable", true)))
     effect.damage=int(command.get("damage",damage))
     effect.gravity=float(command.get("gravity",0))
     effect.snare=float(command.get("snare",0))
@@ -228,6 +288,7 @@ var boss_reposition_target_x := 0.0
 var sprite: Node2D
 var animated_sprite: AnimatedSprite2D
 var telegraph: Polygon2D
+var telegraph_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
 var flash_materials: Array = []
@@ -323,6 +384,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
         arena_min_x = float(data.get("arena_min_x", -INF))
     if data.has("arena_max_x"):
         arena_max_x = float(data.get("arena_max_x", INF))
+    combat_resistance = data.get("combat_resistance", {"trip_immune": is_boss, "lure_immune": is_boss, "snare_mult": 0.35 if is_boss else 1.0})
     ai_profile = profile.duplicate(true)
     var original_profile: Dictionary = ORIGINAL_ART.manifest("res://data/original_creature_combat.json").get(kind,{})
     if not original_profile.is_empty():
@@ -349,6 +411,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
             body_size=Vector2(98 if is_boss else 35,h*.72)
         if not data.has("hurtbox_size"):
             hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
+    ai_profile["lure_eligible"] = bool(data.get("lure_eligible", ai_profile.get("lure_eligible", not is_boss and locomotion != "stationary")))
     ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
@@ -457,6 +520,11 @@ func get_ai_debug_state() -> Dictionary:
 
 
 func _tick_timers(delta: float) -> void:
+    snare_timer = maxf(0.0, snare_timer - delta)
+    salt_mark_timer = maxf(0.0, salt_mark_timer - delta)
+    interference_timer = maxf(0.0, interference_timer - delta)
+    lure_timer = maxf(0.0, lure_timer - delta)
+    trip_timer = maxf(0.0, trip_timer - delta)
     contact_timer = maxf(0.0, contact_timer - delta)
     if flash_timer > 0.0:
         flash_timer -= delta
@@ -534,6 +602,11 @@ func reset_for_respawn() -> void:
     active_attack = {}
     state = "patrol"
     attack_desire = 0.0
+    snare_timer = 0.0
+    clear_salt_mark()
+    interference_timer = 0.0
+    lure_timer = 0.0
+    trip_timer = 0.0
     last_player_command = "none"
     last_ai_decision = "patrol"
     last_attack_id = ""
@@ -556,6 +629,12 @@ func reset_for_respawn() -> void:
 
 
 func _target_player() -> CharacterBody2D:
+    if lure_timer > 0.0:
+        return null
+    if interference_timer > 0.0:
+        for command in ai_commands:
+            if String(command.get("type", "")) in ["projectile", "beam", "throw"]:
+                return null
     var nearest: CharacterBody2D = null
     var nearest_distance := INF
     for node in get_tree().get_nodes_in_group("player"):
@@ -576,9 +655,36 @@ func _face_target(target: Node2D) -> void:
     _set_sprite_flip(direction < 0)
 
 
+func _has_line_of_sight(target: CharacterBody2D) -> bool:
+    if target == null or not is_instance_valid(target) or not is_inside_tree():
+        return false
+    # Terrain occupies layer 1; player/enemy hurtboxes must not occlude sight.
+    var query := PhysicsRayQueryParameters2D.create(global_position + Vector2(0, -24), target.global_position + Vector2(0, -42), 1)
+    query.exclude = [get_rid(), target.get_rid()]
+    query.collide_with_areas = false
+    return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+func apply_snare(seconds: float) -> void:
+    if is_finite(seconds) and seconds > 0.0 and not dying:
+        snare_timer = maxf(snare_timer, minf(seconds, 12.0) * float(combat_resistance.get("snare_mult", 0.35 if is_boss else 1.0)))
+
+
+func _movement_speed() -> float:
+    return 0.0 if trip_timer > 0.0 else speed * ((0.82 if is_boss else 0.5) if snare_timer > 0.0 else 1.0)
+
+
 func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
+    if lure_timer > 0.0 and not is_boss:
+        var dx := lure_position.x - global_position.x
+        var step := signf(dx) * minf(absf(dx), _movement_speed() * delta)
+        var lure_ray := PhysicsRayQueryParameters2D.create(global_position + Vector2(0,-24), global_position + Vector2(step + signf(dx) * 24,-24), 1)
+        lure_ray.collide_with_areas = false
+        if get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
+            global_position.x += step
+        return
     var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
-    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range)
+    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range) and _has_line_of_sight(target)
     if engaged and not engage_announced:
         _announce_engagement()
     _update_attack_desire(delta, target, engaged)
@@ -613,7 +719,7 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
     var desired := preferred
     if pressured and attack_range > 0.0:
         desired = minf(preferred, maxf(34.0, attack_range * 0.70))
-    var chase_speed := speed * (float(ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
+    var chase_speed := _movement_speed() * (float(ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
     var movement_direction := 0.0
     if attack_range > 0.0 and distance > attack_range - 10.0:
         movement_direction = signf(dx)
@@ -627,7 +733,7 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
         last_ai_decision = "advance"
     elif distance < desired - 18.0 and not pressured:
         movement_direction = -signf(dx)
-        position.x += movement_direction * speed * 0.55 * delta
+        position.x += movement_direction * _movement_speed() * 0.55 * delta
         moved = true
         last_ai_decision = "space"
     else:
@@ -681,7 +787,7 @@ func _move_boss_tactical(delta: float, target: CharacterBody2D) -> void:
             boss_press_timer = maxf(0.0, boss_press_timer - delta * 0.45)
             last_ai_decision = "tactic:observe"
     if movement_direction != 0.0:
-        position.x += movement_direction * speed * move_multiplier * delta
+        position.x += movement_direction * _movement_speed() * move_multiplier * delta
         moved = true
     _clamp_movement_bounds()
     if moved:
@@ -833,7 +939,7 @@ func _patrol(delta: float) -> void:
     if locomotion=="stationary":
         _set_enemy_animation("idle")
         return
-    position.x += direction * speed * 0.72 * delta
+    position.x += direction * _movement_speed() * 0.72 * delta
     _set_enemy_animation("walk")
     if absf(global_position.x - start_x) > patrol_distance:
         direction *= -1
@@ -873,7 +979,7 @@ func _return_to_spawn(delta: float) -> void:
         _set_enemy_animation("idle")
         return
     direction = -1 if dx < 0.0 else 1
-    position.x += direction * speed * delta
+    position.x += direction * _movement_speed() * delta
     _clamp_movement_bounds()
     _set_sprite_flip(direction < 0)
     _set_enemy_animation("walk")
@@ -1035,7 +1141,7 @@ func _vector2_property(node: Object, key: String, fallback: Vector2) -> Vector2:
 
 
 func _try_start_attack(target: CharacterBody2D) -> bool:
-    if ai_commands.is_empty():
+    if ai_commands.is_empty() or not _has_line_of_sight(target):
         return false
     var desire_threshold := _attack_desire_threshold()
     if _boss_tactical_enabled():
@@ -1090,6 +1196,14 @@ func _begin_attack(command: Dictionary) -> void:
     _play_attack_sfx("windup")
     _spawn_windup_vfx(command)
     _show_telegraph(command)
+    if not bool(command.get("blockable", true)) and ResourceLoader.exists("res://scripts/seal_presentation.gd"):
+        var presentation := Node2D.new()
+        presentation.set_script(load("res://scripts/seal_presentation.gd"))
+        add_child(presentation)
+        presentation.cue_unblockable(global_position + Vector2(0,-65))
+        var cleanup := create_tween()
+        cleanup.tween_interval(1.0)
+        cleanup.tween_callback(presentation.queue_free)
     if String(command.get("type","")) in ["beam","pool","rootline"]:
         _spawn_command_effects(command,true)
 
@@ -1165,7 +1279,7 @@ func _try_damage_player(command: Dictionary) -> void:
     if attack_has_hit:
         return
     var target := _target_player()
-    if target == null:
+    if target == null or not _has_line_of_sight(target):
         return
 
     var attack_type := String(command.get("type", "melee"))
@@ -1187,7 +1301,7 @@ func _try_damage_player(command: Dictionary) -> void:
     var attack_rect := Rect2(center - size * 0.5, size)
     var player_rect := Rect2(target.global_position - Vector2(24.0, 84.0), Vector2(48.0, 88.0))
     if attack_rect.intersects(player_rect):
-        target.take_damage(int(command.get("damage", damage)), global_position)
+        target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
         attack_has_hit = true
         if bool(command.get("leech",false)):
             hp=mini(max_hp,hp+1)
@@ -1230,13 +1344,16 @@ func _show_telegraph(command: Dictionary) -> void:
     telegraph.color = color
     telegraph.z_index = 8
     add_child(telegraph)
-    var tween := _combat_tween()
-    tween.set_loops(3)
-    tween.tween_property(telegraph, "scale", Vector2(1.08, 1.08), 0.08)
-    tween.tween_property(telegraph, "scale", Vector2(1.0, 1.0), 0.08)
+    telegraph_tween = _combat_tween()
+    telegraph_tween.set_loops(3)
+    telegraph_tween.tween_property(telegraph, "scale", Vector2(1.08, 1.08), 0.08)
+    telegraph_tween.tween_property(telegraph, "scale", Vector2(1.0, 1.0), 0.08)
 
 
 func _clear_telegraph() -> void:
+    if telegraph_tween != null and is_instance_valid(telegraph_tween) and telegraph_tween.is_valid():
+        telegraph_tween.kill()
+    telegraph_tween = null
     if telegraph != null and is_instance_valid(telegraph):
         telegraph.queue_free()
     telegraph = null
@@ -1250,7 +1367,7 @@ func _on_body_entered(body: Node) -> void:
         return
     if body.has_method("take_damage"):
         contact_timer = 0.65
-        body.take_damage(damage, global_position)
+        body.take_damage(damage, global_position, false)
 
 
 func _build_shape() -> void:
@@ -1887,6 +2004,7 @@ func _cancel_attack_effects() -> void:
     owned_attack_effects.clear()
 
 func _exit_tree() -> void:
+    _clear_telegraph()
     _cancel_attack_effects()
 
 func _combat_tween() -> Tween:

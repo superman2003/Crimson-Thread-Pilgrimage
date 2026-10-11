@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "quest": {
     "id": "bring_names_home",
     "title": "把名字带回来",
@@ -14,10 +14,15 @@
           "lines": [
             "你带回来的不是名单，是他们还活过的证据。",
             "柳认出了铆钉，书记认出了刮掉的字。这一次，我把名字绣在线结里面。",
-            "外庭的盐风口还在高处。你的双线跃够得着了；把这条回家的路也接起来吧。"
+            "外庭的盐风口还在高处。你的双线跃够得着了；把这条回家的路也接起来吧。",
+            "残缺线结已经缀好：缝名契印的线势现在能够留住连续针击的节奏。它不替你换一个身份，只替这些名字留住技艺。 这记断弦回斩与工匠线轴交给你。钟庭排水计时闸外有旧练针架，可以先试收势，别急着冲向敌群。"
           ],
           "flags_all": [
             "quest_bring_names_complete"
+          ],
+          "grant_flags": [
+            "skill_crosscut_learned",
+            "charm_reflux_found"
           ]
         },
         {
@@ -25,7 +30,8 @@
           "lines": [
             "你回来了。线头上有雨，也有盐。",
             "原来他们不是自己忘了名字，是有人把名字从契约里刮走了。",
-            "我会替他们缝回去。今后钟庭记得的，至少不再只有守门者。"
+            "我会替他们缝回去。今后钟庭记得的，至少不再只有守门者。",
+            "残缺线结已经缀好：缝名契印的线势现在能够留住连续针击的节奏。它不替你换一个身份，只替这些名字留住技艺。 这记断弦回斩与工匠线轴交给你。钟庭排水计时闸外有旧练针架，可以先试收势，别急着冲向敌群。"
           ],
           "flags_all": [
             "quest_bring_names_canal_heard",
@@ -33,8 +39,14 @@
           ],
           "grant_flags": [
             "quest_bring_names_complete",
-            "testimony_returned_names"
-          ]
+            "testimony_returned_names",
+            "skill_crosscut_learned",
+            "charm_reflux_found"
+          ],
+          "reward_flag": "reward_returned_names_claimed",
+          "grant_rewards": {
+            "currency": 40
+          }
         },
         {
           "id": "names_waiting",
@@ -79,10 +91,8 @@
             "我记得他叫阿禾。书库的人说这个名字从来没有登记过。",
             "如果那边有人肯翻旧页，请让他找找雨季以前的工匠名单。"
           ],
-          "flags_all": [
-            "quest_bring_names_started"
-          ],
           "grant_flags": [
+            "quest_bring_names_started",
             "quest_bring_names_canal_heard"
           ]
         }
@@ -92,17 +102,35 @@
       "voice_profile": "low",
       "states": [
         {
+          "id": "seal_bell_acknowledged",
+          "flags_all": [
+            "seal_bell_repaired"
+          ],
+          "lines": [
+            "铜徽章修好了，工人的名字仍要带回钟庭。司铸契印不是谁赐下的权力，是他们留下的承力办法。",
+            "换契印要到钟龛。针架挡不住所有来击，钟压留给下一次真正打中的重击。"
+          ]
+        },
+        {
           "id": "names_smith_badge",
           "lines": [
             "这个铆钉是我打的。阿禾总嫌徽章刮衣服，我替他磨圆了。",
             "攀壁的线结要贴住铜面，再收脚。上面的检修路通向书库，水轮下面也能绕回来。",
-            "若有人说工人只有编号，把这枚铆钉给他看。"
+            "若有人说工人只有编号，把这枚铆钉给他看。",
+            "阿禾徽章里的承力线还在，我替它铆回针架。司铸契印记下的是工人如何承住钟的重量，不是什么护身魔法。 守钟架势只挡得住看得清的来击；地上敲出的钟鸣震波收势很重。绊线钉与铜背扣也交给你，先在泵房检修舱外试一试。"
           ],
           "items_any": [
             "worker_badge"
           ],
           "flags_all": [
             "quest_bring_names_started"
+          ],
+          "grant_flags": [
+            "seal_bell_repaired",
+            "skill_ward_learned",
+            "skill_shockwave_learned",
+            "tool_mine_found",
+            "charm_shell_found"
           ]
         },
         {
@@ -112,7 +140,7 @@
             "路打开以后，也回来看看孩子；他等的不是工具，是消息。"
           ],
           "abilities_all": [
-            "wall_grip"
+            "silk_wall_grip"
           ],
           "flags_all": [
             "quest_bring_names_started"
@@ -136,13 +164,9 @@
         {
           "id": "names_scribe_evidence",
           "lines": [
-            "这页缺角下面，压着雨季的工匠名单。阿禾的名字还在。",
+            "这页缺角下面，压着雨季的工匠名单。阿禾的名字还在，雨渠的孩子仍然记得他。",
             "契约不是让人失声。它先把他们写成机器，才宣布机器不需要声音。",
             "把名字带回钟庭吧。我不敢离开书库，但这份供述可以。"
-          ],
-          "flags_all": [
-            "quest_bring_names_started",
-            "quest_bring_names_canal_heard"
           ],
           "items_any": [
             "testimony_03",
@@ -151,19 +175,19 @@
             "testimony_returned_name"
           ],
           "grant_flags": [
+            "quest_bring_names_started",
             "quest_bring_names_archive_heard"
           ]
         },
         {
           "id": "names_scribe_search",
           "lines": [
-            "你从雨渠来？那孩子还记得名字，这是目录没料到的事。",
+            "你在查那些被删去的名字？雨渠还有人记得他们，这是目录没料到的事。",
             "去找契约原件的残片。只有我的话，他们会说我又写了一个好听的谎。",
             "学会双线跃以后，旧钟庭高处的风口也该去看看。"
           ],
           "flags_all": [
-            "quest_bring_names_started",
-            "quest_bring_names_canal_heard"
+            "quest_bring_names_started"
           ]
         }
       ]
@@ -172,16 +196,34 @@
       "voice_profile": "dry",
       "states": [
         {
+          "id": "seal_salt_acknowledged",
+          "flags_all": [
+            "seal_salt_restored"
+          ],
+          "lines": [
+            "校录契印已照原件复原，盐记只是证据的索引，不是给人定罪的名字。",
+            "一枚回声针只碰一个目标。已有盐记在治疗完成时只能延长一次，不能拿治疗无限拖住敌人。"
+          ]
+        },
+        {
           "id": "names_librarian_truth",
           "lines": [
             "你带着原件，目录就不能再替我回答了。",
             "那些被删掉的人确实在这里读过书。我关过灯，也记得他们的脸。",
-            "书脊上的回路通向雨渠；如果决定把名字带回去，请走那条路。"
+            "书脊上的回路通向雨渠；如果决定把名字带回去，请走那条路。",
+            "我按原件复原这枚校录契印。删名记录不能再拿来抹掉人，只能帮助我们看见被遮住的痕迹。 回声针落下盐记，盐印缚线读出它并消耗它。盐雾瓶只能扰乱普通远程敌人的索敌，挡不住已经飞来的弹体；盐页书签也给你。 书库钟骨检修台和蜡封旁的练针架留下来练习。恢复记录不会替你决定最后怎样处理契约。"
           ],
           "items_any": [
             "testimony_03",
             "contract_fragment",
             "contract_original_fragment"
+          ],
+          "grant_flags": [
+            "seal_salt_restored",
+            "skill_needle_learned",
+            "skill_snare_learned",
+            "tool_fog_found",
+            "charm_spur_found"
           ]
         },
         {
@@ -195,6 +237,1178 @@
           ]
         }
       ]
+    },
+    "npc_old_gardener": {
+      "voice_profile": "low",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我会按新的潮线重新种下这些树。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我会按新的潮线重新种下这些树。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我会按新的潮线重新种下这些树。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "garden_rescue_done",
+          "lines": [
+            "根笼打开以后，我给西门留了一盏灯。那人这次会用自己的名字住下。",
+            "救人没有让王冠自动改变；母株里的证词还得由你带过去。"
+          ],
+          "flags_all": [
+            "quest_root_rescue_complete"
+          ]
+        },
+        {
+          "id": "garden_original",
+          "lines": [
+            "母株把园主断弦后的第一声保存下来了。她是被当成锤子的乐器。",
+            "你不必先替我找人才能去王冠。六城的证词各自成立，不论先听见哪一句。"
+          ],
+          "items_any": [
+            "testimony_04"
+          ]
+        },
+        {
+          "id": "garden_invitation",
+          "lines": [
+            "园主靠一个音守住根系，钟令却把每个活着的喉咙都当成弦。",
+            "根笼里的囚徒还会敲两下求救。学会棘丝下劈后，再和他确认能割断束缚与离开的退路。",
+            "证词在母株深处；救人是你的选择，不是去王冠的通行费。"
+          ],
+          "grant_flags": [
+            "quest_root_rescue_started"
+          ]
+        }
+      ]
+    },
+    "npc_root_prisoner": {
+      "voice_profile": "hushed",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我终于知道自己该往哪儿走。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我终于知道自己该往哪儿走。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我终于知道自己该往哪儿走。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "root_westgate",
+          "lines": [
+            "我在西门等你说的那盏灯。根笼不再替我决定住在哪里。",
+            "先让园丁接好水，再沿检修道回到别的城区；我会留在这里帮忙。"
+          ],
+          "flags_all": [
+            "quest_root_rescue_complete"
+          ]
+        },
+        {
+          "id": "root_rescued",
+          "lines": [
+            "这道下劈足以割断脚上的细根。谢谢你肯等我站稳，底下那层枝台可以落脚。",
+            "你给我指出了西门的路。我会走到园丁的灯下，以自己的名字报平安。"
+          ],
+          "abilities_all": [
+            "thorn_downstrike"
+          ],
+          "grant_flags": [
+            "quest_root_rescue_complete",
+            "npc_root_prisoner_at_west_gate"
+          ],
+          "reward_flag": "reward_root_rescue_claimed",
+          "grant_rewards": {
+            "currency": 45
+          },
+          "response": "你把线端递给囚徒，指向西门。"
+        },
+        {
+          "id": "root_waiting",
+          "lines": [
+            "这里的根扣只认向下的锋刃。先学会棘丝下劈，再回来找我。",
+            "园主的证词在另一段母株根系，不必等我的事结束。"
+          ]
+        }
+      ],
+      "world_states": [
+        {
+          "id": "west_gate",
+          "flags_all": [
+            "npc_root_prisoner_at_west_gate"
+          ],
+          "region": "ch04_broken_string_greenhouse",
+          "room": "west_gate",
+          "visible": true,
+          "position": [
+            320,
+            1740
+          ]
+        },
+        {
+          "id": "root_cage",
+          "region": "ch04_broken_string_greenhouse",
+          "room": "root_vault",
+          "visible": true
+        }
+      ]
+    },
+    "npc_broken_singer": {
+      "voice_profile": "hushed",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我记得每个选择落在喉咙里的重量。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我记得每个选择落在喉咙里的重量。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我记得每个选择落在喉咙里的重量。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "singer_evidence",
+          "lines": [
+            "那段清唱不是请求你替我敲钟。我把心调成了一个音，是为了让母株活下去。",
+            "守住潮水未必要锁住名字。把六个人的原话放在一起，你才有资格改掉那一个字。"
+          ],
+          "items_any": [
+            "testimony_04"
+          ],
+          "grant_flags": [
+            "heard_guardian_greenhouse"
+          ]
+        },
+        {
+          "id": "singer_first",
+          "lines": [
+            "园主和我隔着同一根断弦。她还醒着，却不能替自己撤回契约。",
+            "母株深处藏着她唱出的证词。先听完，再决定怎样对待这颗心。"
+          ]
+        }
+      ]
+    },
+    "npc_beeswax_vendor": {
+      "voice_profile": "bright",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "蜂蜡还能补上水灯的裂缝。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "蜂蜡还能补上水灯的裂缝。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "蜂蜡还能补上水灯的裂缝。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "wax_returned",
+          "lines": [
+            "这批蜡我用来补检修灯，不会再把人封进书皮。",
+            "温室的西门有了灯，你往回走时也能辨认落脚台。",
+            "我把居民叫人回家的小铃交给你做回响诱铃，愿意调查的小怪会去看，守门者不会理它。",
+            "这枚静钟碎片原来垫在灯架底下。它只让治疗完成后的负面状态积累暂缓，不能抹掉已经受的伤。"
+          ],
+          "flags_all": [
+            "quest_wax_lamps_complete"
+          ],
+          "grant_flags": [
+            "tool_lure_found",
+            "charm_mender_found"
+          ]
+        },
+        {
+          "id": "wax_supplied",
+          "lines": [
+            "你找到花粉蜡了。看，灯芯不再被雨打灭。",
+            "给你修路的报酬。蜡不必交给我销毁，沿路还会有人用到它。",
+            "我把居民叫人回家的小铃交给你做回响诱铃，愿意调查的小怪会去看，守门者不会理它。",
+            "这枚静钟碎片原来垫在灯架底下。它只让治疗完成后的负面状态积累暂缓，不能抹掉已经受的伤。"
+          ],
+          "items_any": [
+            "pollen_wax"
+          ],
+          "grant_flags": [
+            "quest_wax_lamps_complete",
+            "tool_lure_found",
+            "charm_mender_found"
+          ],
+          "reward_flag": "reward_wax_lamps_claimed",
+          "grant_rewards": {
+            "currency": 30
+          }
+        },
+        {
+          "id": "wax_request",
+          "lines": [
+            "根系检修灯缺了蜡封。支路的蜂房里有花粉蜡，靠近前先看清虫群。",
+            "找到后带来让我看看。这个委托不影响你往黑曜道走。"
+          ],
+          "grant_flags": [
+            "quest_wax_lamps_started"
+          ]
+        }
+      ]
+    },
+    "npc_obsidian_guide": {
+      "voice_profile": "dry",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "这条路总要有一个会回答的引路人。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "这条路总要有一个会回答的引路人。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "这条路总要有一个会回答的引路人。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "guide_safe",
+          "lines": [
+            "灯影的信号已接好。灯明是安全层，灯暗时停在石阶上，不必追着队伍跑。",
+            "巡礼池的白纱保存了名字；你从温室还是书库来，都能继续追查。"
+          ],
+          "flags_all": [
+            "quest_lantern_watch_complete"
+          ]
+        },
+        {
+          "id": "guide_reach",
+          "lines": [
+            "军令把失败者列成空位，下次点名又会把他们填回来。",
+            "灯影穿行能越过影门，却不能替人拒绝军令。去找修女，让她确认信号。"
+          ],
+          "abilities_all": [
+            "lantern_phase"
+          ]
+        },
+        {
+          "id": "guide_first",
+          "lines": [
+            "黑曜道不是去王冠的单行军路。侧向检修道还能回到书库和温室。",
+            "别让军阵替你选路。这里保存的是第五位守门者的证词。"
+          ]
+        }
+      ]
+    },
+    "npc_blind_bell_knight": {
+      "voice_profile": "low",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我听见了这条路上新的脚步。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我听见了这条路上新的脚步。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我听见了这条路上新的脚步。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "knight_names",
+          "lines": [
+            "名册上的针距是我们列队的距离。那些空位都曾经有人。",
+            "统帅没有忘记他们，钟令却只允许他把人再编回军阵。把这段证词带去王冠。"
+          ],
+          "items_any": [
+            "testimony_05"
+          ],
+          "grant_flags": [
+            "heard_guardian_obsidian"
+          ]
+        },
+        {
+          "id": "knight_wait",
+          "lines": [
+            "统帅每次点名都慢半拍，像在等阵亡者回答。",
+            "池边那层白纱不是婚衣。若能穿过影门，去看它的夹层。"
+          ]
+        }
+      ]
+    },
+    "npc_lantern_sister": {
+      "voice_profile": "warm",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我会把灯留给愿意走的人。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我会把灯留给愿意走的人。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我会把灯留给愿意走的人。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "watch_complete",
+          "lines": [
+            "高灯与低灯都接上了。以后往返只要认灯，不必跟着军号。",
+            "你找到的军册已经说明了军令的代价。我的灯号不会替你决定结局。"
+          ],
+          "flags_all": [
+            "quest_lantern_watch_complete"
+          ]
+        },
+        {
+          "id": "watch_setup",
+          "lines": [
+            "你能穿过影门，也看过军册。现在才有条件区分求救灯与集合令。",
+            "我把两盏灯改成检修信号。先在安全台练一次，再把它用在军阵之间。"
+          ],
+          "abilities_all": [
+            "lantern_phase"
+          ],
+          "items_any": [
+            "testimony_05",
+            "silent_order"
+          ],
+          "grant_flags": [
+            "quest_lantern_watch_complete"
+          ],
+          "reward_flag": "reward_lantern_watch_claimed",
+          "grant_rewards": {
+            "currency": 55
+          },
+          "response": "你收起军令，把灯转向回程的石阶。"
+        },
+        {
+          "id": "watch_request",
+          "lines": [
+            "我想让灯只负责带路，不再召回已经离队的人。",
+            "先找到军册，再学会穿过影门。两件事谁先完成都行，回来时我会校正灯号。"
+          ],
+          "grant_flags": [
+            "quest_lantern_watch_started"
+          ]
+        }
+      ]
+    },
+    "npc_deserter_flagbearer": {
+      "voice_profile": "hushed",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我仍然记得旗帜拉扯手指的感觉。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我仍然记得旗帜拉扯手指的感觉。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我仍然记得旗帜拉扯手指的感觉。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "flag_freed",
+          "lines": [
+            "召集令断了，我把旗角留下作记号。营地现在是歇脚的地方。",
+            "哪怕没有替我做这件事，你也能去王冠；我不会把别人的命押成通行条件。",
+            "余声针匣原本装的是补旗的针，不是军令。交给你多放一件战具，但每次特殊技能会多费一点能量。"
+          ],
+          "flags_all": [
+            "quest_deserter_order_complete"
+          ],
+          "grant_flags": [
+            "charm_needlecase_found"
+          ]
+        },
+        {
+          "id": "flag_show_order",
+          "lines": [
+            "就是这份军令。失败者从名册上删去，又被暗令召回。",
+            "你把它带来，我才知道该剪断哪根召集线。我会去巡礼营地，不再替王冠举旗。",
+            "余声针匣原本装的是补旗的针，不是军令。交给你多放一件战具，但每次特殊技能会多费一点能量。"
+          ],
+          "items_any": [
+            "silent_order"
+          ],
+          "grant_flags": [
+            "quest_deserter_order_complete",
+            "npc_deserter_at_camp",
+            "charm_needlecase_found"
+          ],
+          "reward_flag": "reward_deserter_order_claimed",
+          "grant_rewards": {
+            "currency": 40
+          }
+        },
+        {
+          "id": "flag_request",
+          "lines": [
+            "旗上没有我的名字，军号却每夜把我叫回去。",
+            "找一份沉默军令让我认清召回条件。路上别靠近正在成形的军阵。"
+          ],
+          "grant_flags": [
+            "quest_deserter_order_started"
+          ]
+        }
+      ],
+      "world_states": [
+        {
+          "id": "pilgrim_camp",
+          "flags_all": [
+            "npc_deserter_at_camp"
+          ],
+          "region": "ch05_obsidian_pilgrim_road",
+          "room": "pilgrim_camp",
+          "visible": true,
+          "position": [
+            270,
+            1870
+          ]
+        },
+        {
+          "id": "flag_ruins",
+          "region": "ch05_obsidian_pilgrim_road",
+          "room": "war_graves",
+          "visible": true
+        }
+      ]
+    },
+    "npc_first_pilgrim_echo": {
+      "voice_profile": "hushed",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "我等的是能够自己回答的后来者。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "我等的是能够自己回答的后来者。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "我等的是能够自己回答的后来者。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "echo_six",
+          "lines": [
+            "六份原话都在。它们不要求你宽恕守门者，只证明无人替后人答应过。",
+            "我是唤醒你的那根线，不能替你说第七个名字。最后一句，由你自己决定。"
+          ],
+          "evidence_min": 6,
+          "grant_flags": [
+            "heard_contract_original"
+          ],
+          "response": "你把六份证词铺开，将自己的线结放在空白处。"
+        },
+        {
+          "id": "echo_first",
+          "lines": [
+            "六城曾请守门者镇住黑潮；愿意押上心的人有名字。",
+            "王冠把自愿改成世袭后，后人的声音成了抵押物。你要查清这一步，不只是敲碎眼前的冠。",
+            "证词可以从任何城区带来，支线的承诺不会替你决定主线。"
+          ]
+        }
+      ]
+    },
+    "npc_crown_tongue": {
+      "voice_profile": "low",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "王冠记得你留下的那一拍。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "王冠记得你留下的那一拍。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "王冠记得你留下的那一拍。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "tongue_defeated",
+          "lines": [
+            "冠已裂开，镇潮设施还在。重鸣会续行旧约，断冠会归还声音却失去钟网。",
+            "六份证词齐全才能把世袭改回自愿。缺哪一份，就回那座城寻找；门会等。"
+          ],
+          "flags_all": [
+            "boss_down_ch06"
+          ]
+        },
+        {
+          "id": "tongue_six",
+          "lines": [
+            "你带来六个彼此独立的声音，冠不能再假称无人反对。",
+            "打败它之后，重鸣、断冠与改写都将由你承担后果。"
+          ],
+          "evidence_min": 6
+        },
+        {
+          "id": "tongue_first",
+          "lines": [
+            "我锁了一百道门，后来才明白，冠怕的也有人声。",
+            "跪行小门后有我的告解。不要把打败我当作已经知道真相。"
+          ]
+        }
+      ]
+    },
+    "npc_six_mark_keeper": {
+      "voice_profile": "dry",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "旧账归档，下一页留给活着的人。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "旧账归档，下一页留给活着的人。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "旧账归档，下一页留给活着的人。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "keeper_complete",
+          "lines": [
+            "六城证词齐全。它们并不要求收集某人的谢礼，也不依赖先听哪一位说话。",
+            "王冠倒下后，你能保留镇潮设施，把世袭条款改回可退出的自愿契约。"
+          ],
+          "evidence_min": 6,
+          "grant_flags": [
+            "six_evidence_reviewed"
+          ]
+        },
+        {
+          "id": "keeper_partial",
+          "lines": [
+            "你已找到部分证词。背包中的每份原话都对应一座城，缺页可以逐城回访。",
+            "无需替所有居民完成心愿；打败王冠仍可选择重鸣或断冠。改写需要六份原话。"
+          ],
+          "evidence_min": 1
+        },
+        {
+          "id": "keeper_first",
+          "lines": [
+            "我只核对证词，不核对你答应过多少委托。",
+            "第一份在苔钟井喉，第二份在雨泵侧室，其余四份分散在书库、母株、白纱和跪行小门。",
+            "顺序不影响真假。每一处都留有回去的路。"
+          ]
+        }
+      ]
+    },
+    "npc_black_tide_child": {
+      "voice_profile": "bright",
+      "states": [
+        {
+          "id": "aftermath_rewritten",
+          "lines": [
+            "井边终于有人听见我了。",
+            "六城的名字重新进入契约。以后留下的人，可以自己答应，也可以离开。"
+          ],
+          "flags_all": [
+            "ending_c_done"
+          ]
+        },
+        {
+          "id": "aftermath_resound",
+          "lines": [
+            "井边终于有人听见我了。",
+            "钟令又响起来了。黑潮暂退，旧契约也跟着回来了；这就是这次选择留下的代价。"
+          ],
+          "flags_all": [
+            "ending_a_done"
+          ]
+        },
+        {
+          "id": "aftermath_severed",
+          "lines": [
+            "井边终于有人听见我了。",
+            "钟网停了，人声回来了。现在要靠活着的人一起守住潮水。"
+          ],
+          "flags_all": [
+            "ending_b_done"
+          ]
+        },
+        {
+          "id": "child_contract",
+          "lines": [
+            "他们说没名字的人就不会回答，可你听见我了。",
+            "冠后的那道小门里有人一直藏着钥匙。把他的声音和另外五句放在一起。"
+          ],
+          "items_any": [
+            "testimony_06"
+          ]
+        },
+        {
+          "id": "child_first",
+          "lines": [
+            "井下面有潮水，也有人。别把这两种声音当成同一个敌人。",
+            "你可以等自己想清楚再回来。井口的绳子会留着。"
+          ]
+        }
+      ]
     }
-  }
+  },
+  "main_story": {
+    "title": "失声契约",
+    "protagonist_goal": "把六位守门者的原始证词带回王冠，辨清自愿守潮如何变成世代失声，再选择承担何种后果。",
+    "causal_chain": [
+      "六城曾请求六位守门者以心镇守黑潮，契约原本仅约束自愿签署者。",
+      "王冠将契约的自愿改为世袭，书库删去反对者姓名，雨铸工牌与巡礼军令延续这一篡改。",
+      "守门者既是执行者也是被抵押的人：记忆残存，行动仍被钟令驱动。",
+      "主角由初代巡礼者的线结唤醒，但不会替众人作无代价的选择。六份独立证词可以按任何顺序发现。"
+    ],
+    "critical_path": [
+      "探索六区与能力路线",
+      "击败无声王冠",
+      "选择重鸣或断冠；集齐六区证词后可改写契约"
+    ],
+    "optional_quests_required": false,
+    "response_boundary": "主角少言，以点头、收线与将证物放在对方面前回应；关键回应跟随主动交谈，不打断普通探索。"
+  },
+  "evidence": [
+    {
+      "id": "testimony_01",
+      "title": "苔钟庭的自愿抵押",
+      "region": "ch01_moss_bell_court",
+      "items_any": [
+        "testimony_01"
+      ],
+      "claim": "守母只同意押上自己的心，没有同意押上后人的嗓子。",
+      "location_hint": "井喉深处的旧声；取得攀壁后回访，离开时走接通的低路。",
+      "independent": true
+    },
+    {
+      "id": "testimony_02",
+      "title": "雨铸渠的工匠名字",
+      "region": "ch02_rain_foundry_canal",
+      "items_any": [
+        "testimony_02"
+      ],
+      "claim": "沉锤铁匠把工人的名字铸进誓牌，沉井守候有人敲出名字。",
+      "location_hint": "雨泵侧室的锤语；检查检修路，不必先替任何 NPC 完成委托。",
+      "independent": true
+    },
+    {
+      "id": "testimony_03",
+      "title": "盐白书库的改字原文",
+      "region": "ch03_saltwhite_archive",
+      "items_any": [
+        "testimony_03"
+      ],
+      "claim": "契约官保存被替换的原字，知道失声制度来自篡改而非救灾所需。",
+      "location_hint": "封存书架的木匣；留意不结盐的页角。",
+      "independent": true
+    },
+    {
+      "id": "testimony_04",
+      "title": "断弦温室的活封面",
+      "region": "ch04_broken_string_greenhouse",
+      "items_any": [
+        "testimony_04"
+      ],
+      "claim": "园主以自身的音守住母株，王冠却把乐器当成敲钟的工具。",
+      "location_hint": "母株根系里的清唱；下劈练习后回访根系深处。",
+      "independent": true
+    },
+    {
+      "id": "testimony_05",
+      "title": "黑曜巡礼道的点名册",
+      "region": "ch05_obsidian_pilgrim_road",
+      "items_any": [
+        "testimony_05"
+      ],
+      "claim": "统帅以点名保存阵亡者，军令却将失败者重新编入无声军队。",
+      "location_hint": "巡礼池白纱夹层；用灯影穿行后查看池边的名册。",
+      "independent": true
+    },
+    {
+      "id": "testimony_06",
+      "title": "王冠核心的锁门告解",
+      "region": "ch06_silent_crown_core",
+      "items_any": [
+        "testimony_06"
+      ],
+      "claim": "无声王冠既镇潮也锁住人声；吞下的第一百零一把钥匙说明它曾主动拒绝开门。",
+      "location_hint": "跪行小门后的告解；王冠共鸣开启的深处，回程循原门。",
+      "independent": true
+    }
+  ],
+  "guardians": [
+    {
+      "region": "ch01_moss_bell_court",
+      "motive": "守母只同意押上自己的心，没有同意押上后人的嗓子。",
+      "contract_role": "自愿镇潮的最早抵押者"
+    },
+    {
+      "region": "ch02_rain_foundry_canal",
+      "motive": "沉锤铁匠把工人的名字铸进誓牌，沉井守候有人敲出名字。",
+      "contract_role": "名字的铸造与保管者"
+    },
+    {
+      "region": "ch03_saltwhite_archive",
+      "motive": "契约官保存被替换的原字，知道失声制度来自篡改而非救灾所需。",
+      "contract_role": "原文保管与删改执行者"
+    },
+    {
+      "region": "ch04_broken_string_greenhouse",
+      "motive": "园主以自身的音守住母株，王冠却把乐器当成敲钟的工具。",
+      "contract_role": "维持温室音律的活印记"
+    },
+    {
+      "region": "ch05_obsidian_pilgrim_road",
+      "motive": "统帅以点名保存阵亡者，军令却将失败者重新编入无声军队。",
+      "contract_role": "守军亡者点名者"
+    },
+    {
+      "region": "ch06_silent_crown_core",
+      "motive": "无声王冠既镇潮也锁住人声；吞下的第一百零一把钥匙说明它曾主动拒绝开门。",
+      "contract_role": "镇潮与封声的最后执行者"
+    }
+  ],
+  "endings": {
+    "ending_a": {
+      "title": "重鸣",
+      "requires_evidence": false,
+      "message": "钟声回来了，名字还在钟里。你恢复了镇潮秩序，也让旧契约继续生效。",
+      "consequence_flags": [
+        "world_bells_restored",
+        "world_hereditary_silence_retained"
+      ],
+      "consequences": {
+        "world": "钟网重新稳定，黑潮退回井下，后人仍被旧契约束缚。",
+        "npc_broken_singer": "回到印记中，留下不再颤动的弦。",
+        "npc_blind_bell_knight": "重新入队，等待有人兑现让他停下的承诺。"
+      }
+    },
+    "ending_b": {
+      "title": "断冠",
+      "requires_evidence": false,
+      "message": "他们终于能说话，第一声却像洪水。你切断了世袭钟令，六城必须一起承担失去镇潮器的代价。",
+      "consequence_flags": [
+        "world_crown_severed",
+        "world_black_tide_uncontained"
+      ],
+      "consequences": {
+        "world": "声音归还众人；钟网停止，居民自建防潮工事。",
+        "npc_lantern_sister": "组织沿路灯号与撤离，灯不再用于召兵。",
+        "npc_black_tide_child": "归井，井边留下第一次清晰的呼唤。"
+      }
+    },
+    "ending_c": {
+      "title": "绯线改写",
+      "requires_evidence": true,
+      "message": "钟仍在响，但这一次，每个名字都能回答。六份证词将世袭改回自愿，镇潮的代价由有名之人共同决定。",
+      "consequence_flags": [
+        "world_contract_rewritten",
+        "world_names_restored",
+        "world_shared_tide_watch"
+      ],
+      "consequences": {
+        "world": "保留镇潮设施，解除强制世袭，六城轮值且可退出。",
+        "npc_first_pilgrim_echo": "完成见证后消散，线结交还主角。",
+        "npc_six_mark_keeper": "注销抵押清单，留下六城可自行签署的新页。",
+        "npc_root_prisoner": "以自己的名字参加温室修复。"
+      }
+    }
+  },
+  "quests": [
+    {
+      "id": "bring_names_home",
+      "title": "把名字带回来",
+      "description": "在雨渠寻找工人的名字，在书库核对删名契约，把证词带回苔钟庭。",
+      "journal_steps": [
+        {
+          "label": "听完雨渠孩子的证言",
+          "flags_all": [
+            "quest_bring_names_canal_heard"
+          ],
+          "hint": "回雨渠找仍在等最后一班下工钟的孩子。"
+        },
+        {
+          "label": "找到旧契约证物",
+          "items_any": [
+            "testimony_03",
+            "contract_fragment",
+            "contract_original_fragment",
+            "testimony_returned_name"
+          ],
+          "hint": "在盐白书库查找不结盐的木匣或契约原件残片。"
+        },
+        {
+          "label": "让书记核对删去的名字",
+          "flags_all": [
+            "quest_bring_names_archive_heard"
+          ],
+          "hint": "携带原件与逃亡书记完整交谈。"
+        },
+        {
+          "label": "把证词带回钟庭学徒",
+          "flags_all": [
+            "quest_bring_names_complete"
+          ],
+          "hint": "回苔钟庭让学徒听完两处证言。"
+        }
+      ],
+      "started_flag": "quest_bring_names_started",
+      "complete_flag": "quest_bring_names_complete",
+      "reward_flag": "reward_returned_names_claimed",
+      "optional": true
+    },
+    {
+      "id": "root_rescue",
+      "title": "西门的灯",
+      "complete_flag": "quest_root_rescue_complete",
+      "optional": true,
+      "steps": [
+        "发现根笼",
+        "获得棘丝下劈",
+        "完整听完囚徒确认退路"
+      ],
+      "reward_flag": "reward_root_rescue_claimed",
+      "journal_steps": [
+        {
+          "label": "学会棘丝下劈",
+          "abilities_all": [
+            "thorn_downstrike"
+          ],
+          "hint": "探索温室母株，找到棘丝下劈并在安全工房练习。"
+        },
+        {
+          "label": "确认囚徒解缚与退路",
+          "flags_all": [
+            "quest_root_rescue_complete"
+          ],
+          "hint": "回温室根笼，与囚徒完整交谈；完成后可在西门重逢。"
+        }
+      ],
+      "started_flag": "quest_root_rescue_started",
+      "description": "发现根笼；获得棘丝下劈；完整听完囚徒确认退路。"
+    },
+    {
+      "id": "wax_lamps",
+      "title": "补好检修灯",
+      "complete_flag": "quest_wax_lamps_complete",
+      "optional": true,
+      "steps": [
+        "找到花粉蜡",
+        "让蜂蜡商人确认"
+      ],
+      "reward_flag": "reward_wax_lamps_claimed",
+      "journal_steps": [
+        {
+          "label": "找到花粉蜡",
+          "items_any": [
+            "pollen_wax"
+          ],
+          "hint": "查看温室蜂房支路，先观察虫群再取蜡。"
+        },
+        {
+          "label": "让商人确认补灯材料",
+          "flags_all": [
+            "quest_wax_lamps_complete"
+          ],
+          "hint": "携带花粉蜡回蜂蜡商人处完整交谈。"
+        }
+      ],
+      "started_flag": "quest_wax_lamps_started",
+      "description": "找到花粉蜡；让蜂蜡商人确认。"
+    },
+    {
+      "id": "lantern_watch",
+      "title": "灯不召兵",
+      "complete_flag": "quest_lantern_watch_complete",
+      "optional": true,
+      "steps": [
+        "找到军册或证词",
+        "获得灯影穿行",
+        "与修女校正灯号"
+      ],
+      "reward_flag": "reward_lantern_watch_claimed",
+      "journal_steps": [
+        {
+          "label": "取得军册或黑曜证词",
+          "items_any": [
+            "silent_order",
+            "testimony_05"
+          ],
+          "hint": "查找沉默军令，或检查巡礼池白纱的夹层。"
+        },
+        {
+          "label": "学会灯影穿行",
+          "abilities_all": [
+            "lantern_phase"
+          ],
+          "hint": "在黑曜道的影门路线取得灯影穿行。"
+        },
+        {
+          "label": "与修女校正检修信号",
+          "flags_all": [
+            "quest_lantern_watch_complete"
+          ],
+          "hint": "两件事完成后回灯影修女处完整交谈。"
+        }
+      ],
+      "started_flag": "quest_lantern_watch_started",
+      "description": "找到军册或证词；获得灯影穿行；与修女校正灯号。"
+    },
+    {
+      "id": "deserter_order",
+      "title": "不用回答的军号",
+      "complete_flag": "quest_deserter_order_complete",
+      "optional": true,
+      "steps": [
+        "找到沉默军令",
+        "让逃旗手辨认召集线"
+      ],
+      "reward_flag": "reward_deserter_order_claimed",
+      "journal_steps": [
+        {
+          "label": "找到沉默军令",
+          "items_any": [
+            "silent_order"
+          ],
+          "hint": "在黑曜道查找军令，避开正在成形的军阵。"
+        },
+        {
+          "label": "让逃旗手辨认召集线",
+          "flags_all": [
+            "quest_deserter_order_complete"
+          ],
+          "hint": "携带军令与逃旗手完整交谈；之后在巡礼营地重逢。"
+        }
+      ],
+      "started_flag": "quest_deserter_order_started",
+      "description": "找到沉默军令；让逃旗手辨认召集线。"
+    }
+  ],
+  "seal_acquisitions": [
+    {
+      "id": "crimson",
+      "flag": "quest_bring_names_complete",
+      "npc": "npc_threadsmith_apprentice",
+      "source": "把名字带回来",
+      "note": "初期基础针击可用；完成旧支线后才开放线势"
+    },
+    {
+      "id": "bell",
+      "flag": "seal_bell_repaired",
+      "npc": "npc_rain_smith_liu",
+      "source": "worker_badge 与已开始的带名字支线"
+    },
+    {
+      "id": "salt",
+      "flag": "seal_salt_restored",
+      "npc": "npc_salt_librarian_ye",
+      "source": "testimony_03 或契约原件残片"
+    }
+  ]
 }

@@ -27,7 +27,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "抬头咬击"
+        "mechanic": "抬头咬击",
+        "blockable": true
       },
       {
         "id": "larva_curl",
@@ -47,9 +48,11 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "蜷壳扑身",
-        "lunge_speed": 260
+        "lunge_speed": 260,
+        "blockable": true
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "spore_bellmaker": {
     "locomotion": "stationary",
@@ -83,7 +86,8 @@
         "shot_count": 3,
         "spread": 0.5,
         "projectile_speed": 190,
-        "skin": "spore"
+        "skin": "spore",
+        "blockable": true
       },
       {
         "id": "bell_fungus",
@@ -106,9 +110,11 @@
         "radius": 45,
         "warning": 0.85,
         "hazard_life": 1.8,
-        "skin": "spore"
+        "skin": "spore",
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "bronze_moth": {
     "locomotion": "flight",
@@ -138,7 +144,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "铜翼俯冲"
+        "mechanic": "铜翼俯冲",
+        "blockable": false
       },
       {
         "id": "moth_dust",
@@ -161,10 +168,12 @@
         "shot_count": 3,
         "spread": 0.72,
         "projectile_speed": 170,
-        "skin": "pollen"
+        "skin": "pollen",
+        "blockable": true
       }
     ],
-    "hover_height": 95
+    "hover_height": 95,
+    "lure_eligible": true
   },
   "gear_sentinel": {
     "locomotion": "ground",
@@ -194,7 +203,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "架盾反突"
+        "mechanic": "架盾反突",
+        "blockable": false
       },
       {
         "id": "gear_spear",
@@ -213,10 +223,12 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "齿矛长刺"
+        "mechanic": "齿矛长刺",
+        "blockable": true
       }
     ],
-    "front_guard": true
+    "front_guard": true,
+    "lure_eligible": true
   },
   "corridor_heavy": {
     "locomotion": "ground",
@@ -247,7 +259,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "钟壳滚撞",
-        "lunge_speed": 300
+        "lunge_speed": 300,
+        "blockable": true
       },
       {
         "id": "heavy_stamp",
@@ -269,9 +282,11 @@
         "mechanic": "重壳震地",
         "shot_count": 2,
         "projectile_speed": 200,
-        "radius": 20
+        "radius": 20,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "bellroot_acolyte": {
     "locomotion": "ground",
@@ -301,7 +316,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "铃杖敲击"
+        "mechanic": "铃杖敲击",
+        "blockable": true
       },
       {
         "id": "root_bell_wave",
@@ -322,9 +338,11 @@
         "desire_cost": 0.7,
         "mechanic": "贴地双钟波",
         "shot_count": 2,
-        "projectile_speed": 210
+        "projectile_speed": 210,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "drain_leech": {
     "locomotion": "ground",
@@ -355,7 +373,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "吸血咬",
-        "leech": true
+        "leech": true,
+        "blockable": true
       },
       {
         "id": "leech_leap",
@@ -376,9 +395,11 @@
         "desire_cost": 0.7,
         "mechanic": "渠虫弧跃",
         "jump_height": 105,
-        "lunge_speed": 210
+        "lunge_speed": 210,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "pipe_thrower": {
     "locomotion": "stationary",
@@ -413,7 +434,8 @@
         "gravity": 540,
         "projectile_speed": 185,
         "skin": "metal",
-        "impact_pool": true
+        "impact_pool": true,
+        "blockable": false
       },
       {
         "id": "pipe_backblast",
@@ -435,9 +457,11 @@
         "mechanic": "近身蒸汽反喷",
         "beam_length": 160,
         "radius": 17,
-        "hazard_life": 0.38
+        "hazard_life": 0.38,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "waterwheel_knight": {
     "locomotion": "ground",
@@ -468,7 +492,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "轮盾推进",
-        "lunge_speed": 250
+        "lunge_speed": 250,
+        "blockable": true
       },
       {
         "id": "wheel_return",
@@ -491,9 +516,11 @@
         "returning": true,
         "projectile_speed": 270,
         "skin": "wheel",
-        "radius": 17
+        "radius": 17,
+        "blockable": true
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "rust_diver": {
     "locomotion": "ground",
@@ -525,7 +552,8 @@
         "desire_cost": 0.7,
         "mechanic": "锈枪跃刺",
         "jump_height": 135,
-        "lunge_speed": 250
+        "lunge_speed": 250,
+        "blockable": false
       },
       {
         "id": "diver_splash",
@@ -547,9 +575,11 @@
         "mechanic": "潜盔涌浪",
         "shot_count": 2,
         "projectile_speed": 200,
-        "radius": 16
+        "radius": 16,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "bell_mote": {
     "locomotion": "flight",
@@ -582,7 +612,8 @@
         "mechanic": "缓追钟珠",
         "projectile_speed": 150,
         "steering": 135,
-        "skin": "light"
+        "skin": "light",
+        "blockable": true
       },
       {
         "id": "mote_peck",
@@ -601,10 +632,12 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "铃蛾扑击"
+        "mechanic": "铃蛾扑击",
+        "blockable": false
       }
     ],
-    "hover_height": 110
+    "hover_height": 110,
+    "lure_eligible": true
   },
   "valve_crawler": {
     "locomotion": "ground",
@@ -635,7 +668,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "阀轮滚撞",
-        "lunge_speed": 200
+        "lunge_speed": 200,
+        "blockable": true
       },
       {
         "id": "valve_vent",
@@ -657,9 +691,11 @@
         "mechanic": "排汽横扫",
         "beam_length": 300,
         "radius": 13,
-        "hazard_life": 0.4
+        "hazard_life": 0.4,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "rain_censer_mote": {
     "locomotion": "flight",
@@ -695,7 +731,8 @@
         "projectile_speed": 185,
         "gravity": 130,
         "skin": "pollen",
-        "snare": 0.55
+        "snare": 0.55,
+        "blockable": true
       },
       {
         "id": "censer_cloud",
@@ -717,10 +754,12 @@
         "mechanic": "香灰落圈",
         "radius": 48,
         "warning": 0.65,
-        "hazard_life": 1.6
+        "hazard_life": 1.6,
+        "blockable": false
       }
     ],
-    "hover_height": 145
+    "hover_height": 145,
+    "lure_eligible": true
   },
   "salt_bookmite": {
     "locomotion": "ground",
@@ -752,7 +791,8 @@
         "desire_cost": 0.7,
         "mechanic": "伏书钻咬",
         "lunge_speed": 260,
-        "burrow": true
+        "burrow": true,
+        "blockable": true
       },
       {
         "id": "book_bite",
@@ -771,9 +811,11 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "啮页咬"
+        "mechanic": "啮页咬",
+        "blockable": true
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "index_scribe": {
     "locomotion": "stationary",
@@ -807,7 +849,8 @@
         "shot_count": 3,
         "spread": 0.35,
         "projectile_speed": 245,
-        "skin": "page"
+        "skin": "page",
+        "blockable": true
       },
       {
         "id": "index_seal",
@@ -830,9 +873,11 @@
         "warning": 0.8,
         "radius": 37,
         "hazard_life": 1.25,
-        "snare": 0.9
+        "snare": 0.9,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "page_duelist": {
     "locomotion": "ground",
@@ -862,7 +907,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "虚晃退刺"
+        "mechanic": "虚晃退刺",
+        "blockable": false
       },
       {
         "id": "page_combo",
@@ -882,9 +928,11 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "双段追刺",
-        "lunge_speed": 175
+        "lunge_speed": 175,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "wax_lancer": {
     "locomotion": "ground",
@@ -916,7 +964,8 @@
         "desire_cost": 0.7,
         "mechanic": "熔蜡冲枪",
         "lunge_speed": 300,
-        "trail": true
+        "trail": true,
+        "blockable": true
       },
       {
         "id": "wax_high",
@@ -936,9 +985,11 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "挑枪截空",
-        "offset_y": -74
+        "offset_y": -74,
+        "blockable": true
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "erasure_bailiff": {
     "locomotion": "ground",
@@ -968,7 +1019,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "断页大刀"
+        "mechanic": "断页大刀",
+        "blockable": true
       },
       {
         "id": "bailiff_erase",
@@ -990,9 +1042,11 @@
         "mechanic": "擦除直线",
         "beam_length": 455,
         "radius": 18,
-        "hazard_life": 0.36
+        "hazard_life": 0.36,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "summoned_page": {
     "locomotion": "flight",
@@ -1025,7 +1079,8 @@
         "mechanic": "环页散刃",
         "shot_count": 5,
         "projectile_speed": 160,
-        "skin": "page"
+        "skin": "page",
+        "blockable": false
       },
       {
         "id": "page_skim",
@@ -1044,10 +1099,12 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "折页俯掠"
+        "mechanic": "折页俯掠",
+        "blockable": false
       }
     ],
-    "hover_height": 105
+    "hover_height": 105,
+    "lure_eligible": true
   },
   "vine_crawler": {
     "locomotion": "ground",
@@ -1077,7 +1134,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "藤口咬"
+        "mechanic": "藤口咬",
+        "blockable": true
       },
       {
         "id": "vine_roots",
@@ -1101,9 +1159,11 @@
         "spacing": 85,
         "warning": 0.55,
         "hazard_life": 0.5,
-        "radius": 24
+        "radius": 24,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "root_cage_hunter": {
     "locomotion": "ground",
@@ -1137,7 +1197,8 @@
         "projectile_speed": 220,
         "skin": "thorn",
         "radius": 14,
-        "snare": 1.2
+        "snare": 1.2,
+        "blockable": true
       },
       {
         "id": "cage_pounce",
@@ -1158,9 +1219,11 @@
         "desire_cost": 0.7,
         "mechanic": "根笼扑刺",
         "jump_height": 100,
-        "lunge_speed": 290
+        "lunge_speed": 290,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "wax_bee": {
     "locomotion": "flight",
@@ -1190,7 +1253,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "蜡蜂刺冲"
+        "mechanic": "蜡蜂刺冲",
+        "blockable": false
       },
       {
         "id": "bee_stingers",
@@ -1213,10 +1277,12 @@
         "shot_count": 2,
         "spread": 0.22,
         "projectile_speed": 310,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": true
       }
     ],
-    "hover_height": 125
+    "hover_height": 125,
+    "lure_eligible": true
   },
   "thorn_sentinel": {
     "locomotion": "stationary",
@@ -1249,7 +1315,8 @@
         "mechanic": "荆针轮射",
         "shot_count": 6,
         "projectile_speed": 185,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": false
       },
       {
         "id": "thorn_wall",
@@ -1273,9 +1340,11 @@
         "spacing": 90,
         "warning": 0.8,
         "radius": 24,
-        "hazard_life": 0.75
+        "hazard_life": 0.75,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "pollen_lutist": {
     "locomotion": "stationary",
@@ -1310,7 +1379,8 @@
         "spread": 0.6,
         "projectile_speed": 145,
         "skin": "pollen",
-        "snare": 0.85
+        "snare": 0.85,
+        "blockable": true
       },
       {
         "id": "pollen_spots",
@@ -1334,9 +1404,11 @@
         "spacing": 105,
         "radius": 36,
         "warning": 0.95,
-        "hazard_life": 1.5
+        "hazard_life": 1.5,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "thorn_bloom_mote": {
     "locomotion": "flight",
@@ -1371,7 +1443,8 @@
         "spacing": 80,
         "targeted": true,
         "warning": 0.7,
-        "radius": 25
+        "radius": 25,
+        "blockable": false
       },
       {
         "id": "bloom_needle",
@@ -1392,10 +1465,12 @@
         "desire_cost": 0.7,
         "mechanic": "花蕊针",
         "projectile_speed": 240,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": true
       }
     ],
-    "hover_height": 135
+    "hover_height": 135,
+    "lure_eligible": true
   },
   "obsidian_spearman": {
     "locomotion": "ground",
@@ -1426,7 +1501,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "黑曜直刺",
-        "lunge_speed": 230
+        "lunge_speed": 230,
+        "blockable": true
       },
       {
         "id": "obsidian_raise",
@@ -1446,9 +1522,11 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "抬枪截空",
-        "offset_y": -80
+        "offset_y": -80,
+        "blockable": true
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "phase_censor": {
     "locomotion": "flight",
@@ -1481,7 +1559,8 @@
         "mechanic": "侧移弯刃",
         "blink_offset": 115,
         "skin": "thorn",
-        "projectile_speed": 245
+        "projectile_speed": 245,
+        "blockable": false
       },
       {
         "id": "censor_fan",
@@ -1504,10 +1583,12 @@
         "shot_count": 3,
         "spread": 0.42,
         "projectile_speed": 200,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": true
       }
     ],
-    "hover_height": 80
+    "hover_height": 80,
+    "lure_eligible": true
   },
   "pilgrim_chariot": {
     "locomotion": "ground",
@@ -1538,7 +1619,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "巡礼战车",
-        "lunge_speed": 350
+        "lunge_speed": 350,
+        "blockable": true
       },
       {
         "id": "chariot_caltrops",
@@ -1562,9 +1644,11 @@
         "spacing": 90,
         "radius": 28,
         "warning": 0.8,
-        "hazard_life": 2.1
+        "hazard_life": 2.1,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "silent_bugbler": {
     "locomotion": "stationary",
@@ -1598,7 +1682,8 @@
         "shot_count": 5,
         "spread": 0.6,
         "projectile_speed": 250,
-        "skin": "metal"
+        "skin": "metal",
+        "blockable": true
       },
       {
         "id": "bugle_pulse",
@@ -1620,9 +1705,11 @@
         "mechanic": "号口震波",
         "shot_count": 2,
         "projectile_speed": 205,
-        "radius": 19
+        "radius": 19,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "kneeling_crossbowman": {
     "locomotion": "stationary",
@@ -1656,7 +1743,8 @@
         "shot_count": 3,
         "spread": 0.15,
         "projectile_speed": 350,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": true
       },
       {
         "id": "crossbow_low",
@@ -1678,9 +1766,11 @@
         "mechanic": "贴地重矢",
         "projectile_speed": 300,
         "radius": 12,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": true
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "ash_banner_imp": {
     "locomotion": "ground",
@@ -1711,7 +1801,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "旗枪三连",
-        "lunge_speed": 95
+        "lunge_speed": 95,
+        "blockable": false
       },
       {
         "id": "imp_retreat",
@@ -1731,9 +1822,11 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "回旗退刺",
-        "retreat_speed": 165
+        "retreat_speed": 165,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "obsidian_bellwheel": {
     "locomotion": "ground",
@@ -1764,7 +1857,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "黑钟滚撞",
-        "lunge_speed": 300
+        "lunge_speed": 300,
+        "blockable": true
       },
       {
         "id": "bellwheel_waves",
@@ -1786,9 +1880,11 @@
         "mechanic": "双向钟涟",
         "shot_count": 2,
         "projectile_speed": 265,
-        "radius": 19
+        "radius": 19,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "echo_waterwheel_knight": {
     "locomotion": "ground",
@@ -1818,7 +1914,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "回声盾反"
+        "mechanic": "回声盾反",
+        "blockable": false
       },
       {
         "id": "echo_wheel_wave",
@@ -1840,10 +1937,12 @@
         "mechanic": "快慢双轮波",
         "shot_count": 4,
         "projectile_speed": 190,
-        "speed_step": 65
+        "speed_step": 65,
+        "blockable": false
       }
     ],
-    "front_guard": true
+    "front_guard": true,
+    "lure_eligible": true
   },
   "echo_moss_larva": {
     "locomotion": "ground",
@@ -1875,7 +1974,8 @@
         "desire_cost": 0.7,
         "mechanic": "回声潜扑",
         "lunge_speed": 290,
-        "burrow": true
+        "burrow": true,
+        "blockable": true
       },
       {
         "id": "echo_larva_mark",
@@ -1897,9 +1997,11 @@
         "mechanic": "迟发苔音",
         "radius": 39,
         "warning": 1.15,
-        "hazard_life": 0.55
+        "hazard_life": 0.55,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "echo_thorn_sentinel": {
     "locomotion": "stationary",
@@ -1932,7 +2034,8 @@
         "mechanic": "双环荆针",
         "shot_count": 10,
         "projectile_speed": 200,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": false
       },
       {
         "id": "echo_thorn_roots",
@@ -1956,9 +2059,11 @@
         "spacing": 92,
         "radius": 22,
         "warning": 0.85,
-        "hazard_life": 0.6
+        "hazard_life": 0.6,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "echo_contract_scribe": {
     "locomotion": "flight",
@@ -1992,7 +2097,8 @@
         "shot_count": 3,
         "spread": 0.3,
         "projectile_speed": 225,
-        "skin": "page"
+        "skin": "page",
+        "blockable": true
       },
       {
         "id": "echo_scribe_seals",
@@ -2016,10 +2122,12 @@
         "spacing": 135,
         "radius": 30,
         "warning": 0.9,
-        "hazard_life": 1.05
+        "hazard_life": 1.05,
+        "blockable": false
       }
     ],
-    "hover_height": 75
+    "hover_height": 75,
+    "lure_eligible": true
   },
   "falling_clapper": {
     "locomotion": "flight",
@@ -2049,7 +2157,8 @@
         "vertical_tolerance": 190,
         "animation": "attack",
         "desire_cost": 0.7,
-        "mechanic": "标记落锤"
+        "mechanic": "标记落锤",
+        "blockable": false
       },
       {
         "id": "clapper_wave",
@@ -2072,10 +2181,12 @@
         "shot_count": 3,
         "spread": 0.52,
         "projectile_speed": 210,
-        "skin": "metal"
+        "skin": "metal",
+        "blockable": true
       }
     ],
-    "hover_height": 175
+    "hover_height": 175,
+    "lure_eligible": true
   },
   "delayed_shadow": {
     "locomotion": "flight",
@@ -2108,7 +2219,8 @@
         "mechanic": "迟影侧刺",
         "blink_offset": 135,
         "projectile_speed": 270,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": false
       },
       {
         "id": "shadow_echo",
@@ -2130,10 +2242,12 @@
         "mechanic": "影落封圈",
         "radius": 36,
         "warning": 1.2,
-        "hazard_life": 0.6
+        "hazard_life": 0.6,
+        "blockable": false
       }
     ],
-    "hover_height": 60
+    "hover_height": 60,
+    "lure_eligible": true
   },
   "echo_pilgrim_commander_minor": {
     "locomotion": "ground",
@@ -2164,7 +2278,8 @@
         "animation": "attack",
         "desire_cost": 0.7,
         "mechanic": "巡礼三枪",
-        "lunge_speed": 175
+        "lunge_speed": 175,
+        "blockable": false
       },
       {
         "id": "minor_banner",
@@ -2188,9 +2303,11 @@
         "spacing": 88,
         "radius": 22,
         "warning": 0.7,
-        "hazard_life": 0.6
+        "hazard_life": 0.6,
+        "blockable": false
       }
-    ]
+    ],
+    "lure_eligible": true
   },
   "isotope_lumen": {
     "locomotion": "flight",
@@ -2223,7 +2340,8 @@
         "mechanic": "光核环弹",
         "shot_count": 7,
         "projectile_speed": 145,
-        "skin": "light"
+        "skin": "light",
+        "blockable": false
       },
       {
         "id": "lumen_focus",
@@ -2245,10 +2363,12 @@
         "mechanic": "延迟聚光",
         "radius": 48,
         "warning": 1.0,
-        "hazard_life": 0.8
+        "hazard_life": 0.8,
+        "blockable": false
       }
     ],
-    "hover_height": 130
+    "hover_height": 130,
+    "lure_eligible": true
   },
   "rust_crown_guardian": {
     "locomotion": "ground",
@@ -2278,7 +2398,8 @@
         "vertical_tolerance": 260,
         "animation": "attack",
         "desire_cost": 0.8,
-        "mechanic": "苔镰横扫"
+        "mechanic": "苔镰横扫",
+        "blockable": true
       },
       {
         "id": "boss_moss_stamp",
@@ -2300,7 +2421,8 @@
         "mechanic": "钟冠重压",
         "shot_count": 2,
         "projectile_speed": 230,
-        "radius": 23
+        "radius": 23,
+        "blockable": false
       },
       {
         "id": "boss_moss_spores",
@@ -2323,7 +2445,8 @@
         "shot_count": 5,
         "spread": 0.85,
         "projectile_speed": 185,
-        "skin": "spore"
+        "skin": "spore",
+        "blockable": true
       },
       {
         "id": "boss_moss_roots",
@@ -2348,12 +2471,14 @@
         "warning": 0.72,
         "radius": 25,
         "hazard_life": 0.55,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       }
     ],
     "tactical_ai": true,
     "phase_threshold": 0.55,
-    "phase_name": "根冠苏醒"
+    "phase_name": "根冠苏醒",
+    "lure_eligible": false
   },
   "sunken_hammer_smith": {
     "locomotion": "ground",
@@ -2383,7 +2508,8 @@
         "vertical_tolerance": 260,
         "animation": "heavy",
         "desire_cost": 0.8,
-        "mechanic": "合剪夹击"
+        "mechanic": "合剪夹击",
+        "blockable": true
       },
       {
         "id": "boss_shears_thread",
@@ -2405,7 +2531,8 @@
         "mechanic": "绯线封路",
         "beam_length": 650,
         "radius": 15,
-        "hazard_life": 0.42
+        "hazard_life": 0.42,
+        "blockable": false
       },
       {
         "id": "boss_shears_knots",
@@ -2429,7 +2556,8 @@
         "spacing": 116,
         "radius": 31,
         "warning": 0.75,
-        "hazard_life": 1.25
+        "hazard_life": 1.25,
+        "blockable": false
       },
       {
         "id": "boss_shears_turn",
@@ -2451,12 +2579,14 @@
         "mechanic": "跃转双剪",
         "jump_height": 170,
         "lunge_speed": 380,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       }
     ],
     "tactical_ai": true,
     "phase_threshold": 0.55,
-    "phase_name": "双剪回旋"
+    "phase_name": "双剪回旋",
+    "lure_eligible": false
   },
   "saltwhite_contract_judge": {
     "locomotion": "ground",
@@ -2486,7 +2616,8 @@
         "vertical_tolerance": 260,
         "animation": "cast",
         "desire_cost": 0.8,
-        "mechanic": "交刃反击"
+        "mechanic": "交刃反击",
+        "blockable": false
       },
       {
         "id": "boss_mantis_lunge",
@@ -2506,7 +2637,8 @@
         "animation": "attack",
         "desire_cost": 0.8,
         "mechanic": "灰冠长突",
-        "lunge_speed": 440
+        "lunge_speed": 440,
+        "blockable": true
       },
       {
         "id": "boss_mantis_overhead",
@@ -2526,7 +2658,8 @@
         "animation": "heavy",
         "desire_cost": 0.8,
         "mechanic": "冠刃下劈",
-        "offset_y": -60
+        "offset_y": -60,
+        "blockable": true
       },
       {
         "id": "boss_mantis_flurry",
@@ -2547,13 +2680,15 @@
         "desire_cost": 0.8,
         "mechanic": "左右三连斩",
         "lunge_speed": 230,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       }
     ],
     "tactical_ai": true,
     "phase_threshold": 0.55,
     "front_guard": true,
-    "phase_name": "灰冠三连"
+    "phase_name": "灰冠三连",
+    "lure_eligible": false
   },
   "broken_string_gardener": {
     "locomotion": "ground",
@@ -2583,7 +2718,8 @@
         "vertical_tolerance": 260,
         "animation": "heavy",
         "desire_cost": 0.8,
-        "mechanic": "根杖敲击"
+        "mechanic": "根杖敲击",
+        "blockable": true
       },
       {
         "id": "boss_bishop_seeds",
@@ -2607,7 +2743,8 @@
         "spread": 0.68,
         "projectile_speed": 160,
         "skin": "pollen",
-        "snare": 0.8
+        "snare": 0.8,
+        "blockable": true
       },
       {
         "id": "boss_bishop_roots",
@@ -2631,7 +2768,8 @@
         "spacing": 110,
         "warning": 0.68,
         "radius": 26,
-        "hazard_life": 0.72
+        "hazard_life": 0.72,
+        "blockable": false
       },
       {
         "id": "boss_bishop_cage",
@@ -2656,12 +2794,14 @@
         "radius": 34,
         "warning": 0.9,
         "hazard_life": 1.6,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       }
     ],
     "tactical_ai": true,
     "phase_threshold": 0.55,
-    "phase_name": "根笼讲坛"
+    "phase_name": "根笼讲坛",
+    "lure_eligible": false
   },
   "silent_pilgrim_commander": {
     "locomotion": "ground",
@@ -2691,7 +2831,8 @@
         "vertical_tolerance": 260,
         "animation": "heavy",
         "desire_cost": 0.8,
-        "mechanic": "镜杖弧扫"
+        "mechanic": "镜杖弧扫",
+        "blockable": true
       },
       {
         "id": "boss_bride_mirror",
@@ -2713,7 +2854,8 @@
         "mechanic": "镜像侧刺",
         "blink_offset": 155,
         "projectile_speed": 290,
-        "skin": "thorn"
+        "skin": "thorn",
+        "blockable": false
       },
       {
         "id": "boss_bride_pools",
@@ -2737,7 +2879,8 @@
         "spacing": 135,
         "radius": 36,
         "warning": 1.2,
-        "hazard_life": 0.65
+        "hazard_life": 0.65,
+        "blockable": false
       },
       {
         "id": "boss_bride_dash",
@@ -2759,12 +2902,14 @@
         "mechanic": "月镜掠袭",
         "jump_height": 130,
         "lunge_speed": 410,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       }
     ],
     "tactical_ai": true,
     "phase_threshold": 0.55,
-    "phase_name": "镜池重影"
+    "phase_name": "镜池重影",
+    "lure_eligible": false
   },
   "silent_crown_core": {
     "locomotion": "ground",
@@ -2794,7 +2939,8 @@
         "vertical_tolerance": 260,
         "animation": "heavy",
         "desire_cost": 0.8,
-        "mechanic": "百钥重劈"
+        "mechanic": "百钥重劈",
+        "blockable": true
       },
       {
         "id": "boss_key_return",
@@ -2819,7 +2965,8 @@
         "projectile_speed": 260,
         "returning": true,
         "skin": "key",
-        "radius": 13
+        "radius": 13,
+        "blockable": true
       },
       {
         "id": "boss_key_gate",
@@ -2842,7 +2989,8 @@
         "beam_length": 720,
         "radius": 18,
         "hazard_life": 0.42,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       },
       {
         "id": "boss_key_rings",
@@ -2866,11 +3014,13 @@
         "projectile_speed": 190,
         "speed_step": 80,
         "radius": 23,
-        "phase": 2
+        "phase": 2,
+        "blockable": false
       }
     ],
     "tactical_ai": true,
     "phase_threshold": 0.55,
-    "phase_name": "冠门审判"
+    "phase_name": "冠门审判",
+    "lure_eligible": false
   }
 }

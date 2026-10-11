@@ -2,7 +2,7 @@ extends RefCounted
 ## One shared instance is retained by Main's parent between region scenes.
 ## Positions are JSON arrays; scene objects and Vector2 never enter disk data.
 
-const VERSION := 1
+const VERSION := 2
 const DEFAULT_PATH := "user://pilgrimage_world.json"
 const MAX_BYTES := 4 * 1024 * 1024
 var last_error := ""
@@ -11,7 +11,7 @@ var data: Dictionary = fresh_data()
 static func fresh_data() -> Dictionary:
     return {"version": VERSION, "inventory_counts": {}, "currency": 0,
         "story_flags": {}, "regions": {}, "current_region": "", "entry": [0, 0],
-        "hp": 5, "energy": 100}
+        "hp": 5, "energy": 100, "build_state": {}, "death_cache": {}}
 
 static func fresh_region() -> Dictionary:
     return {"collected_ids": {}, "opened_shortcuts": {}, "visited_rooms": {},
@@ -115,6 +115,7 @@ func _read_valid_file(path: String) -> Variant:
     if parser.parse(contents) != OK:
         _fail("invalid JSON")
         return null
+    parser.data = _migrate(parser.data)
     if not _valid_data(parser.data):
         _fail("unsupported version or invalid save fields")
         return null
@@ -176,6 +177,8 @@ static func _valid_region(value: Variant) -> bool:
 static func _valid_data(value: Variant) -> bool:
     if not value is Dictionary or not _whole(value.get("version")) or int(value.version) != VERSION:
         return false
+    if not value.get("build_state") is Dictionary or not _valid_death_cache(value.get("death_cache")):
+        return false
     if not value.get("inventory_counts") is Dictionary or not value.get("story_flags") is Dictionary or not value.get("regions") is Dictionary:
         return false
     for key in value.inventory_counts:
@@ -189,3 +192,59 @@ static func _valid_data(value: Variant) -> bool:
 func _fail(message: String) -> bool:
     last_error = message
     return false
+
+
+static func _migrate(value: Variant) -> Variant:
+    if not value is Dictionary or not _whole(value.get("version")):
+        return value
+    var migrated: Dictionary = value.duplicate(true)
+    if int(migrated.version) == 1:
+        migrated.version = VERSION
+        migrated["build_state"] = {}
+        migrated["death_cache"] = {}
+    return migrated
+
+static func _valid_death_cache(value: Variant) -> bool:
+    if not value is Dictionary:
+        return false
+    if value.is_empty():
+        return true
+    return value.get("region_id") is String and not String(value.region_id).is_empty() and _point(value.get("position")) and _whole(value.get("currency"))
+
+static func slot_path(index: int) -> String:
+    return DEFAULT_PATH if index == 1 else "user://pilgrimage_world_slot_%d.json" % clampi(index, 1, 3)
+
+static func slot_summaries() -> Array:
+    var summaries: Array = []
+    for index in range(1, 4):
+        var world = load("res://scripts/world_state.gd").new()
+        var path := slot_path(index)
+        var exists := FileAccess.file_exists(path)
+        var valid: bool = world.read(path) if exists else false
+        summaries.append({"slot": index, "exists": exists, "valid": valid,
+            "region_id": String(world.data.current_region) if valid else "",
+            "regions": world.data.regions.size() if valid else 0,
+            "currency": int(world.data.currency) if valid else 0,
+            "error": world.last_error if exists and not valid else ""})
+    return summaries
+
+## A damaged primary is retained verbatim before installing a validated backup.
+func restore_backup(path: String = DEFAULT_PATH) -> bool:
+    var backup := path + ".bak"
+    var candidate: Variant = _read_valid_file(backup)
+    if candidate == null:
+        return _fail("backup missing or damaged")
+    var temporary := path + ".restore"
+    var absolute := ProjectSettings.globalize_path(path)
+    if DirAccess.copy_absolute(ProjectSettings.globalize_path(backup), ProjectSettings.globalize_path(temporary)) != OK:
+        return _fail("cannot prepare backup recovery")
+    if FileAccess.file_exists(path):
+        var preserved := absolute + ".before_restore_" + str(Time.get_unix_time_from_system()).replace(".", "_")
+        if DirAccess.rename_absolute(absolute, preserved) != OK:
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
+            return _fail("cannot preserve original save")
+    if DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), absolute) != OK:
+        return _fail("cannot install recovered save; original was preserved")
+    data = candidate.duplicate(true)
+    last_error = ""
+    return read(path)

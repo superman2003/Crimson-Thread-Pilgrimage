@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "design_note": "原创倒扣巨钟互联叠加。前三地构成能力回访闭环；后三地仅接回程，深层非线性尚待扩展。",
+  "version": 2,
+  "design_note": "六区互联：书库分赴温室/黑曜，根须影管与冠脊索道在王冠汇合。三条旧补给/运书线由远侧开启；八能力各有两间安全、动作驱动、有物资和反证奖励的旧区检修工房。",
   "chapters": {
     "demo_ch01_moss_bell_court": {
       "collectible_overrides": [],
@@ -18,9 +18,339 @@
           "label": "证词·被删去的名字",
           "ability_name": "被删去的名字",
           "note": "盐风能力门后的回访证词；右侧归庭索道永久接回入口。"
+        },
+        {
+          "id": "upgrade_thread_dash_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_thread_dash_1_record",
+          "position": [
+            8394,
+            530
+          ],
+          "room_id": "upgrade_thread_dash_1",
+          "platform_id": "upgrade_thread_dash_1_foundation",
+          "label": "计时闸检修签",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_thread_dash_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            530
+          ],
+          "room_id": "upgrade_thread_dash_1",
+          "platform_id": "upgrade_thread_dash_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_silk_wall_grip_1_record",
+          "position": [
+            8394,
+            1070
+          ],
+          "room_id": "upgrade_silk_wall_grip_1",
+          "platform_id": "upgrade_silk_wall_grip_1_foundation",
+          "label": "纺线工回收令",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            1070
+          ],
+          "room_id": "upgrade_silk_wall_grip_1",
+          "platform_id": "upgrade_silk_wall_grip_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_echo_hook_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_echo_hook_1_record",
+          "position": [
+            8394,
+            1610
+          ],
+          "room_id": "upgrade_echo_hook_1",
+          "platform_id": "upgrade_echo_hook_1_foundation",
+          "label": "钟骨吊运清单",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_echo_hook_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            1610
+          ],
+          "room_id": "upgrade_echo_hook_1",
+          "platform_id": "upgrade_echo_hook_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_double_thread_jump_1_record",
+          "position": [
+            8394,
+            2150
+          ],
+          "room_id": "upgrade_double_thread_jump_1",
+          "platform_id": "upgrade_double_thread_jump_1_foundation",
+          "label": "双线仓旧线轴",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            2150
+          ],
+          "room_id": "upgrade_double_thread_jump_1",
+          "platform_id": "upgrade_double_thread_jump_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_bell_guard_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_bell_guard_1_record",
+          "position": [
+            8394,
+            2690
+          ],
+          "room_id": "upgrade_bell_guard_1",
+          "platform_id": "upgrade_bell_guard_1_foundation",
+          "label": "封蜡中的求救声",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_bell_guard_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            2690
+          ],
+          "room_id": "upgrade_bell_guard_1",
+          "platform_id": "upgrade_bell_guard_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_thorn_downstrike_1_record",
+          "position": [
+            8394,
+            3290
+          ],
+          "room_id": "upgrade_thorn_downstrike_1",
+          "platform_id": "upgrade_thorn_downstrike_1_foundation",
+          "label": "棘根底部的铭牌",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            3290
+          ],
+          "room_id": "upgrade_thorn_downstrike_1",
+          "platform_id": "upgrade_thorn_downstrike_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_crown_resonance_1_record",
+          "position": [
+            8394,
+            3770
+          ],
+          "room_id": "upgrade_crown_resonance_1",
+          "platform_id": "upgrade_crown_resonance_1_foundation",
+          "label": "无名者旧契约",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 50,
+          "position": [
+            8464,
+            3770
+          ],
+          "room_id": "upgrade_crown_resonance_1",
+          "platform_id": "upgrade_crown_resonance_1_foundation",
+          "label": "检修物资 · 松脂碎片"
         }
       ],
-      "locked_gates": [],
+      "locked_gates": [
+        {
+          "id": "upgrade_thread_dash_1_action_gate",
+          "rect": [
+            8206,
+            260,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "thread_dash",
+          "required_ability_name": "绯线冲刺",
+          "requires_action": "thread_dash",
+          "permanent_action_unlock_id": "upgrade_thread_dash_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_thread_dash_1",
+          "to_room": "upgrade_thread_dash_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "Shift 冲刺拨开计时栅闩。"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_action_gate",
+          "rect": [
+            8206,
+            800,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "silk_wall_grip",
+          "required_ability_name": "丝壁攀附",
+          "requires_action": "silk_wall_grip",
+          "permanent_action_unlock_id": "upgrade_silk_wall_grip_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_silk_wall_grip_1",
+          "to_room": "upgrade_silk_wall_grip_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "贴住门壁按跳跃，墙跳拨开检修闩。"
+        },
+        {
+          "id": "upgrade_echo_hook_1_action_gate",
+          "rect": [
+            8206,
+            1340,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "echo_hook",
+          "required_ability_name": "回声钩索",
+          "requires_action": "echo_hook",
+          "permanent_action_unlock_id": "upgrade_echo_hook_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_echo_hook_1",
+          "to_room": "upgrade_echo_hook_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前按 K 钩住铜环，牵引检修闩。"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_action_gate",
+          "rect": [
+            8206,
+            1880,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "double_thread_jump",
+          "required_ability_name": "双线跃",
+          "requires_action": "double_thread_jump",
+          "permanent_action_unlock_id": "upgrade_double_thread_jump_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_double_thread_jump_1",
+          "to_room": "upgrade_double_thread_jump_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前腾空，再按一次跳跃，接通双线锁。"
+        },
+        {
+          "id": "upgrade_bell_guard_1_action_gate",
+          "rect": [
+            8206,
+            2420,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "bell_guard",
+          "required_ability_name": "钟壳格挡",
+          "requires_action": "bell_guard",
+          "permanent_action_unlock_id": "upgrade_bell_guard_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_bell_guard_1",
+          "to_room": "upgrade_bell_guard_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前按 Q，钟壳震动拨开封蜡闩。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_action_gate",
+          "rect": [
+            8244,
+            3118,
+            298,
+            30
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "thorn_downstrike",
+          "required_ability_name": "棘线下劈",
+          "requires_action": "thorn_downstrike",
+          "permanent_action_unlock_id": "upgrade_thorn_downstrike_1_action_gate",
+          "action_range": 175,
+          "from_room": "upgrade_thorn_downstrike_1",
+          "to_room": "upgrade_thorn_downstrike_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "fragile_terrain",
+          "action_hint": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_action_gate",
+          "rect": [
+            8206,
+            3500,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "crown_resonance",
+          "required_ability_name": "王冠共鸣",
+          "requires_action": "crown_resonance",
+          "permanent_action_unlock_id": "upgrade_crown_resonance_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_crown_resonance_1",
+          "to_room": "upgrade_crown_resonance_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "靠近旧钟门按 R，消耗能量重接契约锁。"
+        }
+      ],
       "portals": [
         {
           "id": "moss_rain_pipe",
@@ -65,7 +395,8 @@
           "required_ability": "double_thread_jump",
           "unlock_shortcut_id": "archive_return",
           "room_id": "entry_bell",
-          "required_ability_name": "双线跃"
+          "required_ability_name": "双线跃",
+          "requires_shortcut": "archive_return"
         },
         {
           "id": "moss_salt_lift_lower",
@@ -155,6 +486,345 @@
           "unlock_shortcut_id": "salt_return",
           "requires_shortcut": "salt_return",
           "room_id": "entry_bell"
+        },
+        {
+          "id": "upgrade_thread_dash_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            1630,
+            3712
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_thread_dash_1_access_b",
+          "target_spawn": [
+            8010,
+            530
+          ],
+          "label": "检修支线 → 排水计时闸",
+          "requires_demo_complete": false,
+          "room_id": "first_bell_shrine"
+        },
+        {
+          "id": "upgrade_thread_dash_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            530
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_thread_dash_1_access_a",
+          "target_spawn": [
+            1630,
+            3712
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thread_dash_1"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            1600,
+            3120
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_silk_wall_grip_1_access_b",
+          "target_spawn": [
+            8010,
+            1070
+          ],
+          "label": "检修支线 → 纺线检修仓",
+          "requires_demo_complete": false,
+          "room_id": "threadmakers_cache"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            1070
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_silk_wall_grip_1_access_a",
+          "target_spawn": [
+            1600,
+            3120
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_silk_wall_grip_1"
+        },
+        {
+          "id": "upgrade_echo_hook_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            4580,
+            2750
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_echo_hook_1_access_b",
+          "target_spawn": [
+            8010,
+            1610
+          ],
+          "label": "检修支线 → 钟骨吊运台",
+          "requires_demo_complete": false,
+          "room_id": "east_balcony"
+        },
+        {
+          "id": "upgrade_echo_hook_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            1610
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_echo_hook_1_access_a",
+          "target_spawn": [
+            4580,
+            2750
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_echo_hook_1"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            3140,
+            610
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_double_thread_jump_1_access_b",
+          "target_spawn": [
+            8010,
+            2150
+          ],
+          "label": "检修支线 → 钟冠双线仓",
+          "requires_demo_complete": false,
+          "room_id": "belfry_top"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            2150
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_double_thread_jump_1_access_a",
+          "target_spawn": [
+            3140,
+            610
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_double_thread_jump_1"
+        },
+        {
+          "id": "upgrade_bell_guard_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            4030,
+            1170
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_bell_guard_1_access_b",
+          "target_spawn": [
+            8010,
+            2690
+          ],
+          "label": "检修支线 → 钟髓封蜡室",
+          "requires_demo_complete": false,
+          "room_id": "bell_marrow_cell"
+        },
+        {
+          "id": "upgrade_bell_guard_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            2690
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_bell_guard_1_access_a",
+          "target_spawn": [
+            4030,
+            1170
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_bell_guard_1"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            2840,
+            5820
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_thorn_downstrike_1_access_b",
+          "target_spawn": [
+            8010,
+            3090
+          ],
+          "label": "检修支线 → 棘根深井",
+          "requires_demo_complete": false,
+          "room_id": "root_vault"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            3090
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_thorn_downstrike_1_access_a",
+          "target_spawn": [
+            2840,
+            5820
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_1"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_well_lift_a",
+          "kind": "world_portal",
+          "position": [
+            8130,
+            3090
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_thorn_downstrike_1_well_lift_b",
+          "target_spawn": [
+            8320,
+            3290
+          ],
+          "label": "深井返程升梯",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_1",
+          "requires_shortcut": "upgrade_thorn_downstrike_1_return",
+          "unlock_shortcut_id": "upgrade_thorn_downstrike_1_return"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_well_lift_b",
+          "kind": "world_portal",
+          "position": [
+            8320,
+            3290
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_thorn_downstrike_1_well_lift_a",
+          "target_spawn": [
+            8130,
+            3090
+          ],
+          "label": "拉开深井返程升梯",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_1",
+          "unlock_shortcut_id": "upgrade_thorn_downstrike_1_return"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            6600,
+            3880
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_crown_resonance_1_access_b",
+          "target_spawn": [
+            8010,
+            3770
+          ],
+          "label": "检修支线 → 无名钟契库",
+          "requires_demo_complete": false,
+          "room_id": "crown_treasury"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            8010,
+            3770
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch01_moss_bell_court",
+          "target_portal_id": "upgrade_crown_resonance_1_access_a",
+          "target_spawn": [
+            6600,
+            3880
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_crown_resonance_1"
         }
       ],
       "remove_interactives": [],
@@ -163,6 +833,41 @@
           "name": "被删去的名字",
           "category": "Relics",
           "description": "盐风中保存的反证：第七个名字不是缺席，而是被从契约中抹掉。"
+        },
+        "upgrade_thread_dash_1_record": {
+          "name": "计时闸检修签",
+          "category": "Relics",
+          "description": "排水计时闸保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_silk_wall_grip_1_record": {
+          "name": "纺线工回收令",
+          "category": "Relics",
+          "description": "纺线检修仓保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_echo_hook_1_record": {
+          "name": "钟骨吊运清单",
+          "category": "Relics",
+          "description": "钟骨吊运台保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_double_thread_jump_1_record": {
+          "name": "双线仓旧线轴",
+          "category": "Relics",
+          "description": "钟冠双线仓保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_bell_guard_1_record": {
+          "name": "封蜡中的求救声",
+          "category": "Relics",
+          "description": "钟髓封蜡室保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_thorn_downstrike_1_record": {
+          "name": "棘根底部的铭牌",
+          "category": "Relics",
+          "description": "棘根深井保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_crown_resonance_1_record": {
+          "name": "无名者旧契约",
+          "category": "Relics",
+          "description": "无名钟契库保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
         }
       },
       "locked_gate_overrides": [
@@ -215,6 +920,305 @@
           "material": "moss_stone",
           "color": "3a3f38",
           "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thread_dash_1_roof",
+          "rect": [
+            7900,
+            240,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thread_dash_1_foundation",
+          "rect": [
+            7900,
+            570,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thread_dash_1_backwall",
+          "rect": [
+            8536,
+            240,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_roof",
+          "rect": [
+            7900,
+            780,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_foundation",
+          "rect": [
+            7900,
+            1110,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1_backwall",
+          "rect": [
+            8536,
+            780,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_echo_hook_1_roof",
+          "rect": [
+            7900,
+            1320,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_echo_hook_1_foundation",
+          "rect": [
+            7900,
+            1650,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_echo_hook_1_backwall",
+          "rect": [
+            8536,
+            1320,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_roof",
+          "rect": [
+            7900,
+            1860,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_foundation",
+          "rect": [
+            7900,
+            2190,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_double_thread_jump_1_backwall",
+          "rect": [
+            8536,
+            1860,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_1_roof",
+          "rect": [
+            7900,
+            2400,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_1_foundation",
+          "rect": [
+            7900,
+            2730,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_1_backwall",
+          "rect": [
+            8536,
+            2400,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_roof",
+          "rect": [
+            7900,
+            2940,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_foundation",
+          "rect": [
+            7900,
+            3330,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_backwall",
+          "rect": [
+            8536,
+            2940,
+            28,
+            490
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_approach",
+          "rect": [
+            7900,
+            3130,
+            346,
+            26
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_well_wall",
+          "rect": [
+            8218,
+            3130,
+            28,
+            210
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_roof",
+          "rect": [
+            7900,
+            3480,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_foundation",
+          "rect": [
+            7900,
+            3810,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_backwall",
+          "rect": [
+            8536,
+            3480,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
         }
       ],
       "grapple_anchors": [
@@ -232,8 +1236,486 @@
             2650
           ],
           "note": "回访时用钩索横越钟骨桥，落向东阳台。"
+        },
+        {
+          "id": "upgrade_echo_hook_1_ring",
+          "position": [
+            8150,
+            1470
+          ],
+          "room_id": "upgrade_echo_hook_1",
+          "label": "检修闩牵引环",
+          "required_ability": "echo_hook",
+          "test_from": [
+            8110,
+            1610
+          ]
         }
-      ]
+      ],
+      "map_rooms": [
+        {
+          "id": "upgrade_thread_dash_1",
+          "name": "排水计时闸",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 0,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            220,
+            664,
+            470
+          ],
+          "play_rect": [
+            7900,
+            220,
+            664,
+            470
+          ],
+          "map_rect": [
+            1800,
+            0,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              220,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。 绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回first_bell_shrine",
+          "setpiece": "排水计时闸",
+          "traversal_focus": "Shift 冲刺拨开计时栅闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              320
+            ],
+            "size": [
+              120,
+              160
+            ]
+          },
+          "combat_practice": {
+            "skill_id": "cleave",
+            "region_id": "demo_ch01_moss_bell_court",
+            "room_id": "upgrade_thread_dash_1",
+            "position": [
+              8045,
+              540
+            ],
+            "label": "绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
+            "training_id": "seal_training_cleave",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
+          }
+        },
+        {
+          "id": "upgrade_silk_wall_grip_1",
+          "name": "纺线检修仓",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 1,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            760,
+            664,
+            470
+          ],
+          "play_rect": [
+            7900,
+            760,
+            664,
+            470
+          ],
+          "map_rect": [
+            1800,
+            210,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              760,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。 断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回threadmakers_cache",
+          "setpiece": "纺线检修仓",
+          "traversal_focus": "贴住门壁按跳跃，墙跳拨开检修闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              860
+            ],
+            "size": [
+              120,
+              160
+            ]
+          },
+          "combat_practice": {
+            "skill_id": "crosscut",
+            "region_id": "demo_ch01_moss_bell_court",
+            "room_id": "upgrade_silk_wall_grip_1",
+            "position": [
+              8045,
+              1080
+            ],
+            "label": "断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
+            "training_id": "seal_training_crosscut",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
+          }
+        },
+        {
+          "id": "upgrade_echo_hook_1",
+          "name": "钟骨吊运台",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 2,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            1300,
+            664,
+            470
+          ],
+          "play_rect": [
+            7900,
+            1300,
+            664,
+            470
+          ],
+          "map_rect": [
+            1800,
+            420,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              1300,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习回声钩索，打开封口取回物资与反证。",
+          "guide": "在门前按 K 钩住铜环，牵引检修闩。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回east_balcony",
+          "setpiece": "钟骨吊运台",
+          "traversal_focus": "在门前按 K 钩住铜环，牵引检修闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              1400
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_double_thread_jump_1",
+          "name": "钟冠双线仓",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 3,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            1840,
+            664,
+            470
+          ],
+          "play_rect": [
+            7900,
+            1840,
+            664,
+            470
+          ],
+          "map_rect": [
+            1800,
+            630,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              1840,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习双线跃，打开封口取回物资与反证。",
+          "guide": "在门前腾空，再按一次跳跃，接通双线锁。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回belfry_top",
+          "setpiece": "钟冠双线仓",
+          "traversal_focus": "在门前腾空，再按一次跳跃，接通双线锁。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              1940
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_bell_guard_1",
+          "name": "钟髓封蜡室",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 4,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            2380,
+            664,
+            470
+          ],
+          "play_rect": [
+            7900,
+            2380,
+            664,
+            470
+          ],
+          "map_rect": [
+            1800,
+            840,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              2380,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习钟壳格挡，打开封口取回物资与反证。",
+          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回bell_marrow_cell",
+          "setpiece": "钟髓封蜡室",
+          "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              2480
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1",
+          "name": "棘根深井",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 5,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            2920,
+            664,
+            530
+          ],
+          "play_rect": [
+            7900,
+            2920,
+            664,
+            530
+          ],
+          "map_rect": [
+            1800,
+            1050,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              2920,
+              664,
+              530
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习棘线下劈，打开封口取回物资与反证。",
+          "guide": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回root_vault",
+          "setpiece": "棘根深井",
+          "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              3020
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_crown_resonance_1",
+          "name": "无名钟契库",
+          "range": [
+            7900,
+            8564
+          ],
+          "depth": 6,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7900,
+            3460,
+            664,
+            470
+          ],
+          "play_rect": [
+            7900,
+            3460,
+            664,
+            470
+          ],
+          "map_rect": [
+            1800,
+            1260,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7900,
+              3460,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习王冠共鸣，打开封口取回物资与反证。",
+          "guide": "靠近旧钟门按 R，消耗能量重接契约锁。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回crown_treasury",
+          "setpiece": "无名钟契库",
+          "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8364,
+              3560
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        }
+      ],
+      "save_points": [],
+      "map_room_overrides": [
+        {
+          "id": "first_bell_shrine",
+          "guide": "钟龛会记录你的归处。 可见旧检修入口：「排水计时闸」。Shift 冲刺拨开计时栅闩。",
+          "objective": "点亮第一座苔灯钟龛。 可选：排水计时闸。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "threadmakers_cache",
+          "guide": "需要绯线冲刺。 可见旧检修入口：「纺线检修仓」。贴住门壁按跳跃，墙跳拨开检修闩。",
+          "objective": "冲过钟隙取回织线者的遗物。 可选：纺线检修仓。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "east_balcony",
+          "guide": "环带一路向东，最终俯瞰铸雨渠。 可见旧检修入口：「钟骨吊运台」。在门前按 K 钩住铜环，牵引检修闩。",
+          "objective": "从回廊踏上东庭露台环带。 可选：钟骨吊运台。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "belfry_top",
+          "guide": "西沿是钟冠悬廊的起点。 可见旧检修入口：「钟冠双线仓」。在门前腾空，再按一次跳跃，接通双线锁。",
+          "objective": "登顶钟塔，俯瞰整座苔钟庭。 可选：钟冠双线仓。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "bell_marrow_cell",
+          "guide": "需要棘线下劈（断弦温室）。 可见旧检修入口：「钟髓封蜡室」。在门前按 Q，钟壳震动拨开封蜡闩。",
+          "objective": "劈开脆钟地板，取回钟髓中的证词线索。 可选：钟髓封蜡室。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "root_vault",
+          "guide": "库房再往东就是井喉。 可见旧检修入口：「棘根深井」。站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "objective": "搜刮库房，听织线学徒的姐姐讲深井的事。 可选：棘根深井。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "crown_treasury",
+          "guide": "头顶的裂口通向钟隙渡口。 可见旧检修入口：「无名钟契库」。靠近旧钟门按 R，消耗能量重接契约锁。",
+          "objective": "清点守母守了一生的东西。 可选：无名钟契库。",
+          "generated_by": "world_upgrade"
+        }
+      ],
+      "world_overrides": {
+        "width": 8780,
+        "height": 6446
+      }
     },
     "demo_ch02_rain_foundry_canal": {
       "collectible_overrides": [
@@ -248,8 +1730,245 @@
           "note": "雨栅长堤检修台；首访无需自身能力。回到渡槽立管可进书库。"
         }
       ],
-      "collectibles": [],
-      "locked_gates": [],
+      "collectibles": [
+        {
+          "id": "upgrade_thread_dash_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_thread_dash_2_record",
+          "position": [
+            7934,
+            530
+          ],
+          "room_id": "upgrade_thread_dash_2",
+          "platform_id": "upgrade_thread_dash_2_foundation",
+          "label": "淤泥排压账",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_thread_dash_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 55,
+          "position": [
+            8004,
+            530
+          ],
+          "room_id": "upgrade_thread_dash_2",
+          "platform_id": "upgrade_thread_dash_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_silk_wall_grip_2_record",
+          "position": [
+            7934,
+            1070
+          ],
+          "room_id": "upgrade_silk_wall_grip_2",
+          "platform_id": "upgrade_silk_wall_grip_2_foundation",
+          "label": "上泵房调度单",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 55,
+          "position": [
+            8004,
+            1070
+          ],
+          "room_id": "upgrade_silk_wall_grip_2",
+          "platform_id": "upgrade_silk_wall_grip_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_double_thread_jump_2_record",
+          "position": [
+            7934,
+            1610
+          ],
+          "room_id": "upgrade_double_thread_jump_2",
+          "platform_id": "upgrade_double_thread_jump_2_foundation",
+          "label": "两次涨潮的记录",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 55,
+          "position": [
+            8004,
+            1610
+          ],
+          "room_id": "upgrade_double_thread_jump_2",
+          "platform_id": "upgrade_double_thread_jump_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_bell_guard_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_bell_guard_2_record",
+          "position": [
+            7934,
+            2150
+          ],
+          "room_id": "upgrade_bell_guard_2",
+          "platform_id": "upgrade_bell_guard_2_foundation",
+          "label": "旧铸工拒签信",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_bell_guard_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 55,
+          "position": [
+            8004,
+            2150
+          ],
+          "room_id": "upgrade_bell_guard_2",
+          "platform_id": "upgrade_bell_guard_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_evidence",
+          "kind": "item",
+          "item_id": "upgrade_lantern_phase_1_record",
+          "position": [
+            7934,
+            2690
+          ],
+          "room_id": "upgrade_lantern_phase_1",
+          "platform_id": "upgrade_lantern_phase_1_foundation",
+          "label": "潮影中的轮班表",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 55,
+          "position": [
+            8004,
+            2690
+          ],
+          "room_id": "upgrade_lantern_phase_1",
+          "platform_id": "upgrade_lantern_phase_1_foundation",
+          "label": "检修物资 · 松脂碎片"
+        }
+      ],
+      "locked_gates": [
+        {
+          "id": "upgrade_thread_dash_2_action_gate",
+          "rect": [
+            7746,
+            260,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "thread_dash",
+          "required_ability_name": "绯线冲刺",
+          "requires_action": "thread_dash",
+          "permanent_action_unlock_id": "upgrade_thread_dash_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_thread_dash_2",
+          "to_room": "upgrade_thread_dash_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "Shift 冲刺拨开计时栅闩。"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_action_gate",
+          "rect": [
+            7746,
+            800,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "silk_wall_grip",
+          "required_ability_name": "丝壁攀附",
+          "requires_action": "silk_wall_grip",
+          "permanent_action_unlock_id": "upgrade_silk_wall_grip_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_silk_wall_grip_2",
+          "to_room": "upgrade_silk_wall_grip_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "贴住门壁按跳跃，墙跳拨开检修闩。"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_action_gate",
+          "rect": [
+            7746,
+            1340,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "double_thread_jump",
+          "required_ability_name": "双线跃",
+          "requires_action": "double_thread_jump",
+          "permanent_action_unlock_id": "upgrade_double_thread_jump_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_double_thread_jump_2",
+          "to_room": "upgrade_double_thread_jump_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前腾空，再按一次跳跃，接通双线锁。"
+        },
+        {
+          "id": "upgrade_bell_guard_2_action_gate",
+          "rect": [
+            7746,
+            1880,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "bell_guard",
+          "required_ability_name": "钟壳格挡",
+          "requires_action": "bell_guard",
+          "permanent_action_unlock_id": "upgrade_bell_guard_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_bell_guard_2",
+          "to_room": "upgrade_bell_guard_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前按 Q，钟壳震动拨开封蜡闩。"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_action_gate",
+          "rect": [
+            7746,
+            2420,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "lantern_phase",
+          "required_ability_name": "灯影相位",
+          "requires_action": "lantern_phase",
+          "permanent_action_unlock_id": "upgrade_lantern_phase_1_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_lantern_phase_1",
+          "to_room": "upgrade_lantern_phase_1",
+          "map_marker": "ability_gate",
+          "gate_kind": "phase_gate",
+          "action_hint": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。"
+        }
+      ],
       "portals": [
         {
           "id": "rain_moss_pipe",
@@ -295,6 +2014,240 @@
           "hint": "立管内壁太湿；沿雨栅长堤寻找检修者留下的丝壁攀附，再回来。",
           "room_id": "aqueduct_gate",
           "required_ability_name": "丝壁攀附"
+        },
+        {
+          "id": "upgrade_obsidian_rain_return_b",
+          "kind": "world_portal",
+          "position": [
+            3090,
+            1700
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch05_obsidian_pilgrim_road",
+          "target_portal_id": "upgrade_obsidian_rain_return_a",
+          "target_spawn": [
+            220,
+            1870
+          ],
+          "label": "旧补给索道 → 黑曜巡礼路",
+          "requires_demo_complete": false,
+          "room_id": "wish_board_landing",
+          "requires_shortcut": "obsidian_rain_service",
+          "unlock_shortcut_id": "obsidian_rain_service",
+          "hint": "补给索道的门闩在黑曜营地，需从远侧先开启。"
+        },
+        {
+          "id": "upgrade_thread_dash_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            4240,
+            4430
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_thread_dash_2_access_b",
+          "target_spawn": [
+            7550,
+            530
+          ],
+          "label": "检修支线 → 淤泥排压室",
+          "requires_demo_complete": false,
+          "room_id": "silt_vault"
+        },
+        {
+          "id": "upgrade_thread_dash_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7550,
+            530
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_thread_dash_2_access_a",
+          "target_spawn": [
+            4240,
+            4430
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thread_dash_2"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            2870,
+            3280
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_silk_wall_grip_2_access_b",
+          "target_spawn": [
+            7550,
+            1070
+          ],
+          "label": "检修支线 → 泵房上检修舱",
+          "requires_demo_complete": false,
+          "room_id": "pump_atrium"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7550,
+            1070
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_silk_wall_grip_2_access_a",
+          "target_spawn": [
+            2870,
+            3280
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_silk_wall_grip_2"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            1470,
+            1500
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_double_thread_jump_2_access_b",
+          "target_spawn": [
+            7550,
+            1610
+          ],
+          "label": "检修支线 → 双层水位记录室",
+          "requires_demo_complete": false,
+          "room_id": "riser_shrine"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7550,
+            1610
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_double_thread_jump_2_access_a",
+          "target_spawn": [
+            1470,
+            1500
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_double_thread_jump_2"
+        },
+        {
+          "id": "upgrade_bell_guard_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            2200,
+            2120
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_bell_guard_2_access_b",
+          "target_spawn": [
+            7550,
+            2150
+          ],
+          "label": "检修支线 → 旧铸工证物柜",
+          "requires_demo_complete": false,
+          "room_id": "atrium_west_vault"
+        },
+        {
+          "id": "upgrade_bell_guard_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7550,
+            2150
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_bell_guard_2_access_a",
+          "target_spawn": [
+            2200,
+            2120
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_bell_guard_2"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_access_a",
+          "kind": "world_portal",
+          "position": [
+            1760,
+            4910
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_lantern_phase_1_access_b",
+          "target_spawn": [
+            7550,
+            2690
+          ],
+          "label": "检修支线 → 潮影检修室",
+          "requires_demo_complete": false,
+          "room_id": "tide_listening_cell"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_access_b",
+          "kind": "world_portal",
+          "position": [
+            7550,
+            2690
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_lantern_phase_1_access_a",
+          "target_spawn": [
+            1760,
+            4910
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_lantern_phase_1"
         }
       ],
       "remove_interactives": [],
@@ -314,7 +2267,573 @@
           ],
           "note": "取得既有回声钩索后可拉向检修铜环；环下是钟摆车间实地。"
         }
-      ]
+      ],
+      "platforms": [
+        {
+          "id": "upgrade_thread_dash_2_roof",
+          "rect": [
+            7440,
+            240,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thread_dash_2_foundation",
+          "rect": [
+            7440,
+            570,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thread_dash_2_backwall",
+          "rect": [
+            8076,
+            240,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_roof",
+          "rect": [
+            7440,
+            780,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_foundation",
+          "rect": [
+            7440,
+            1110,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2_backwall",
+          "rect": [
+            8076,
+            780,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_roof",
+          "rect": [
+            7440,
+            1320,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_foundation",
+          "rect": [
+            7440,
+            1650,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_double_thread_jump_2_backwall",
+          "rect": [
+            8076,
+            1320,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_2_roof",
+          "rect": [
+            7440,
+            1860,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_2_foundation",
+          "rect": [
+            7440,
+            2190,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_2_backwall",
+          "rect": [
+            8076,
+            1860,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_roof",
+          "rect": [
+            7440,
+            2400,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_foundation",
+          "rect": [
+            7440,
+            2730,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_backwall",
+          "rect": [
+            8076,
+            2400,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        }
+      ],
+      "map_rooms": [
+        {
+          "id": "upgrade_thread_dash_2",
+          "name": "淤泥排压室",
+          "range": [
+            7440,
+            8104
+          ],
+          "depth": 0,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7440,
+            220,
+            664,
+            470
+          ],
+          "play_rect": [
+            7440,
+            220,
+            664,
+            470
+          ],
+          "map_rect": [
+            2080,
+            0,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7440,
+              220,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。 钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回silt_vault",
+          "setpiece": "淤泥排压室",
+          "traversal_focus": "Shift 冲刺拨开计时栅闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              7904,
+              320
+            ],
+            "size": [
+              120,
+              160
+            ]
+          },
+          "combat_practice": {
+            "skill_id": "shockwave",
+            "region_id": "demo_ch02_rain_foundry_canal",
+            "room_id": "upgrade_thread_dash_2",
+            "position": [
+              7585,
+              540
+            ],
+            "label": "钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
+            "training_id": "seal_training_shockwave",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
+          }
+        },
+        {
+          "id": "upgrade_silk_wall_grip_2",
+          "name": "泵房上检修舱",
+          "range": [
+            7440,
+            8104
+          ],
+          "depth": 1,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7440,
+            760,
+            664,
+            470
+          ],
+          "play_rect": [
+            7440,
+            760,
+            664,
+            470
+          ],
+          "map_rect": [
+            2080,
+            210,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7440,
+              760,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。 守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回pump_atrium",
+          "setpiece": "泵房上检修舱",
+          "traversal_focus": "贴住门壁按跳跃，墙跳拨开检修闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              7904,
+              860
+            ],
+            "size": [
+              120,
+              160
+            ]
+          },
+          "combat_practice": {
+            "skill_id": "ward",
+            "region_id": "demo_ch02_rain_foundry_canal",
+            "room_id": "upgrade_silk_wall_grip_2",
+            "position": [
+              7585,
+              1080
+            ],
+            "label": "守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
+            "training_id": "seal_training_ward",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
+          }
+        },
+        {
+          "id": "upgrade_double_thread_jump_2",
+          "name": "双层水位记录室",
+          "range": [
+            7440,
+            8104
+          ],
+          "depth": 2,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7440,
+            1300,
+            664,
+            470
+          ],
+          "play_rect": [
+            7440,
+            1300,
+            664,
+            470
+          ],
+          "map_rect": [
+            2080,
+            420,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7440,
+              1300,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习双线跃，打开封口取回物资与反证。",
+          "guide": "在门前腾空，再按一次跳跃，接通双线锁。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回riser_shrine",
+          "setpiece": "双层水位记录室",
+          "traversal_focus": "在门前腾空，再按一次跳跃，接通双线锁。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              7904,
+              1400
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_bell_guard_2",
+          "name": "旧铸工证物柜",
+          "range": [
+            7440,
+            8104
+          ],
+          "depth": 3,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7440,
+            1840,
+            664,
+            470
+          ],
+          "play_rect": [
+            7440,
+            1840,
+            664,
+            470
+          ],
+          "map_rect": [
+            2080,
+            630,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7440,
+              1840,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习钟壳格挡，打开封口取回物资与反证。",
+          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回atrium_west_vault",
+          "setpiece": "旧铸工证物柜",
+          "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              7904,
+              1940
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_lantern_phase_1",
+          "name": "潮影检修室",
+          "range": [
+            7440,
+            8104
+          ],
+          "depth": 4,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7440,
+            2380,
+            664,
+            470
+          ],
+          "play_rect": [
+            7440,
+            2380,
+            664,
+            470
+          ],
+          "map_rect": [
+            2080,
+            840,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7440,
+              2380,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习灯影相位，打开封口取回物资与反证。",
+          "guide": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回tide_listening_cell",
+          "setpiece": "潮影检修室",
+          "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              7904,
+              2480
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        }
+      ],
+      "save_points": [],
+      "map_room_overrides": [
+        {
+          "id": "silt_vault",
+          "guide": "半沉工头想找回三枚工牌。 可见旧检修入口：「淤泥排压室」。Shift 冲刺拨开计时栅闩。",
+          "objective": "搜刮沉在淤泥里的库房。 可选：淤泥排压室。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "pump_atrium",
+          "guide": "记住这里；所有水最终都绕回泵房。 可见旧检修入口：「泵房上检修舱」。贴住门壁按跳跃，墙跳拨开检修闩。",
+          "objective": "以泵房中庭为枢纽：上读水表、西攀立管、下探沉渠、东讨锤炉。 可选：泵房上检修舱。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "riser_shrine",
+          "guide": "东沿可以一路坠回水线站厅。 可见旧检修入口：「双层水位记录室」。在门前腾空，再按一次跳跃，接通双线锁。",
+          "objective": "在立管井顶点灯。 可选：双层水位记录室。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "atrium_west_vault",
+          "guide": "需要丝壁攀附。 可见旧检修入口：「旧铸工证物柜」。在门前按 Q，钟壳震动拨开封蜡闩。",
+          "objective": "破开湿墙封条，取回暗室里的纺锤。 可选：旧铸工证物柜。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "tide_listening_cell",
+          "guide": "黑潮在这里学人敲击；隐藏钟龛也在这里。 可见旧检修入口：「潮影检修室」。靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "objective": "从塌落的湿苔板坠入听潮暗室。 可选：潮影检修室。",
+          "generated_by": "world_upgrade"
+        }
+      ],
+      "inventory_catalog": {
+        "upgrade_thread_dash_2_record": {
+          "name": "淤泥排压账",
+          "category": "Relics",
+          "description": "淤泥排压室保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_silk_wall_grip_2_record": {
+          "name": "上泵房调度单",
+          "category": "Relics",
+          "description": "泵房上检修舱保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_double_thread_jump_2_record": {
+          "name": "两次涨潮的记录",
+          "category": "Relics",
+          "description": "双层水位记录室保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_bell_guard_2_record": {
+          "name": "旧铸工拒签信",
+          "category": "Relics",
+          "description": "旧铸工证物柜保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_lantern_phase_1_record": {
+          "name": "潮影中的轮班表",
+          "category": "Relics",
+          "description": "潮影检修室保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        }
+      },
+      "world_overrides": {
+        "width": 8320,
+        "height": 5192
+      }
     },
     "demo_ch03_saltwhite_archive": {
       "collectible_overrides": [],
@@ -332,9 +2851,212 @@
           "label": "双线跃",
           "ability_name": "双线跃",
           "note": "烛台夹层的旧签署者线轴。单跳阶梯可达，取得后回访苔钟庭盐风门。"
+        },
+        {
+          "id": "upgrade_obtain_bell_guard",
+          "kind": "item",
+          "item_id": "bell_guard",
+          "position": [
+            4390,
+            2640
+          ],
+          "room_id": "wax_seal_vault",
+          "platform_id": "vault_floor",
+          "label": "钟壳格挡",
+          "ability_name": "钟壳格挡",
+          "note": "首次取得无需自身能力。在门前按 Q，钟壳震动拨开封蜡闩。"
+        },
+        {
+          "id": "upgrade_echo_hook_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_echo_hook_2_record",
+          "position": [
+            8314,
+            530
+          ],
+          "room_id": "upgrade_echo_hook_2",
+          "platform_id": "upgrade_echo_hook_2_foundation",
+          "label": "运书吊篮收据",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_echo_hook_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 60,
+          "position": [
+            8384,
+            530
+          ],
+          "room_id": "upgrade_echo_hook_2",
+          "platform_id": "upgrade_echo_hook_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_bell_guard_3_evidence",
+          "kind": "item",
+          "item_id": "upgrade_bell_guard_3_record",
+          "position": [
+            8314,
+            1070
+          ],
+          "room_id": "upgrade_bell_guard_3",
+          "platform_id": "upgrade_bell_guard_3_foundation",
+          "label": "旧检修操作手册",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_bell_guard_3_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 60,
+          "position": [
+            8384,
+            1070
+          ],
+          "room_id": "upgrade_bell_guard_3",
+          "platform_id": "upgrade_bell_guard_3_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_thorn_downstrike_2_record",
+          "position": [
+            8314,
+            1670
+          ],
+          "room_id": "upgrade_thorn_downstrike_2",
+          "platform_id": "upgrade_thorn_downstrike_2_foundation",
+          "label": "碎板下的删改页",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 60,
+          "position": [
+            8384,
+            1670
+          ],
+          "room_id": "upgrade_thorn_downstrike_2",
+          "platform_id": "upgrade_thorn_downstrike_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_crown_resonance_2_record",
+          "position": [
+            8314,
+            2150
+          ],
+          "room_id": "upgrade_crown_resonance_2",
+          "platform_id": "upgrade_crown_resonance_2_foundation",
+          "label": "第七签署者反证",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 60,
+          "position": [
+            8384,
+            2150
+          ],
+          "room_id": "upgrade_crown_resonance_2",
+          "platform_id": "upgrade_crown_resonance_2_foundation",
+          "label": "检修物资 · 松脂碎片"
         }
       ],
-      "locked_gates": [],
+      "locked_gates": [
+        {
+          "id": "upgrade_echo_hook_2_action_gate",
+          "rect": [
+            8126,
+            260,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "echo_hook",
+          "required_ability_name": "回声钩索",
+          "requires_action": "echo_hook",
+          "permanent_action_unlock_id": "upgrade_echo_hook_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_echo_hook_2",
+          "to_room": "upgrade_echo_hook_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前按 K 钩住铜环，牵引检修闩。"
+        },
+        {
+          "id": "upgrade_bell_guard_3_action_gate",
+          "rect": [
+            8126,
+            800,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "bell_guard",
+          "required_ability_name": "钟壳格挡",
+          "requires_action": "bell_guard",
+          "permanent_action_unlock_id": "upgrade_bell_guard_3_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_bell_guard_3",
+          "to_room": "upgrade_bell_guard_3",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "在门前按 Q，钟壳震动拨开封蜡闩。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_action_gate",
+          "rect": [
+            8164,
+            1498,
+            298,
+            30
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "thorn_downstrike",
+          "required_ability_name": "棘线下劈",
+          "requires_action": "thorn_downstrike",
+          "permanent_action_unlock_id": "upgrade_thorn_downstrike_2_action_gate",
+          "action_range": 175,
+          "from_room": "upgrade_thorn_downstrike_2",
+          "to_room": "upgrade_thorn_downstrike_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "fragile_terrain",
+          "action_hint": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_action_gate",
+          "rect": [
+            8126,
+            1880,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "crown_resonance",
+          "required_ability_name": "王冠共鸣",
+          "requires_action": "crown_resonance",
+          "permanent_action_unlock_id": "upgrade_crown_resonance_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_crown_resonance_2",
+          "to_room": "upgrade_crown_resonance_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "靠近旧钟门按 R，消耗能量重接契约锁。"
+        }
+      ],
       "portals": [
         {
           "id": "archive_rain_riser",
@@ -401,6 +3123,243 @@
           "label": "温室天窗 → 下一城区",
           "requires_demo_complete": false,
           "room_id": "salt_dock"
+        },
+        {
+          "id": "upgrade_archive_obsidian_branch_a",
+          "kind": "world_portal",
+          "position": [
+            2340,
+            2118
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch05_obsidian_pilgrim_road",
+          "target_portal_id": "upgrade_archive_obsidian_branch_b",
+          "target_spawn": [
+            710,
+            2672
+          ],
+          "label": "旧军用运书线 → 黑曜巡礼路",
+          "requires_demo_complete": false,
+          "room_id": "candle_mezzanine",
+          "required_ability": "double_thread_jump",
+          "required_ability_name": "双线跃",
+          "hint": "双线跃接通高架线后，可先走黑曜巡礼路，或继续探索温室。"
+        },
+        {
+          "id": "upgrade_echo_hook_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            1990,
+            1712
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_echo_hook_2_access_b",
+          "target_spawn": [
+            7930,
+            530
+          ],
+          "label": "检修支线 → 运书吊篮仓",
+          "requires_demo_complete": false,
+          "room_id": "mezz_reading_ledges"
+        },
+        {
+          "id": "upgrade_echo_hook_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7930,
+            530
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_echo_hook_2_access_a",
+          "target_spawn": [
+            1990,
+            1712
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_echo_hook_2"
+        },
+        {
+          "id": "upgrade_bell_guard_3_access_a",
+          "kind": "world_portal",
+          "position": [
+            4480,
+            2640
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_bell_guard_3_access_b",
+          "target_spawn": [
+            7930,
+            1070
+          ],
+          "label": "检修支线 → 钟壳格挡练习工房",
+          "requires_demo_complete": false,
+          "room_id": "wax_seal_vault"
+        },
+        {
+          "id": "upgrade_bell_guard_3_access_b",
+          "kind": "world_portal",
+          "position": [
+            7930,
+            1070
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_bell_guard_3_access_a",
+          "target_spawn": [
+            4480,
+            2640
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_bell_guard_3"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            3250,
+            2672
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_thorn_downstrike_2_access_b",
+          "target_spawn": [
+            7930,
+            1470
+          ],
+          "label": "检修支线 → 盐脊碎板井",
+          "requires_demo_complete": false,
+          "room_id": "salt_gate_walk"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7930,
+            1470
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_thorn_downstrike_2_access_a",
+          "target_spawn": [
+            3250,
+            2672
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_2"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_well_lift_a",
+          "kind": "world_portal",
+          "position": [
+            8050,
+            1470
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_thorn_downstrike_2_well_lift_b",
+          "target_spawn": [
+            8240,
+            1670
+          ],
+          "label": "深井返程升梯",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_2",
+          "requires_shortcut": "upgrade_thorn_downstrike_2_return",
+          "unlock_shortcut_id": "upgrade_thorn_downstrike_2_return"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_well_lift_b",
+          "kind": "world_portal",
+          "position": [
+            8240,
+            1670
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_thorn_downstrike_2_well_lift_a",
+          "target_spawn": [
+            8050,
+            1470
+          ],
+          "label": "拉开深井返程升梯",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_2",
+          "unlock_shortcut_id": "upgrade_thorn_downstrike_2_return"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            1490,
+            1358
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_crown_resonance_2_access_b",
+          "target_spawn": [
+            7930,
+            2150
+          ],
+          "label": "检修支线 → 删名契约暗柜",
+          "requires_demo_complete": false,
+          "room_id": "secret_nook"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7930,
+            2150
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_crown_resonance_2_access_a",
+          "target_spawn": [
+            1490,
+            1358
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_crown_resonance_2"
         }
       ],
       "remove_interactives": [
@@ -411,6 +3370,31 @@
           "name": "双线跃",
           "category": "Abilities",
           "description": "腾空后再次按跳跃，拉出第二条命线。旧盐风门由此可通。"
+        },
+        "bell_guard": {
+          "name": "钟壳格挡",
+          "category": "Abilities",
+          "description": "在门前按 Q，钟壳震动拨开封蜡闩。旧区有两处检修目标。"
+        },
+        "upgrade_echo_hook_2_record": {
+          "name": "运书吊篮收据",
+          "category": "Relics",
+          "description": "运书吊篮仓保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_bell_guard_3_record": {
+          "name": "钟壳格挡检修手册",
+          "category": "Relics",
+          "description": "钟壳格挡练习工房保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_thorn_downstrike_2_record": {
+          "name": "碎板下的删改页",
+          "category": "Relics",
+          "description": "盐脊碎板井保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_crown_resonance_2_record": {
+          "name": "第七签署者反证",
+          "category": "Relics",
+          "description": "删名契约暗柜保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
         }
       },
       "platform_overrides": [
@@ -450,6 +3434,20 @@
             2144
           ],
           "note": "书库回访路线的运书吊环；不改变首次取得双线跃的阶梯。"
+        },
+        {
+          "id": "upgrade_echo_hook_2_ring",
+          "position": [
+            8070,
+            390
+          ],
+          "room_id": "upgrade_echo_hook_2",
+          "label": "检修闩牵引环",
+          "required_ability": "echo_hook",
+          "test_from": [
+            8030,
+            530
+          ]
         }
       ],
       "terrain_overrides": [
@@ -506,12 +3504,587 @@
           ],
           "note": "与西侧夹层断开，1670至1890为首访登楼开口。"
         }
-      ]
+      ],
+      "platforms": [
+        {
+          "id": "upgrade_echo_hook_2_roof",
+          "rect": [
+            7820,
+            240,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_echo_hook_2_foundation",
+          "rect": [
+            7820,
+            570,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_echo_hook_2_backwall",
+          "rect": [
+            8456,
+            240,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_3_roof",
+          "rect": [
+            7820,
+            780,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_3_foundation",
+          "rect": [
+            7820,
+            1110,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_3_backwall",
+          "rect": [
+            8456,
+            780,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_roof",
+          "rect": [
+            7820,
+            1320,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_foundation",
+          "rect": [
+            7820,
+            1710,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_backwall",
+          "rect": [
+            8456,
+            1320,
+            28,
+            490
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_approach",
+          "rect": [
+            7820,
+            1510,
+            346,
+            26
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_well_wall",
+          "rect": [
+            8138,
+            1510,
+            28,
+            210
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_roof",
+          "rect": [
+            7820,
+            1860,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_foundation",
+          "rect": [
+            7820,
+            2190,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_backwall",
+          "rect": [
+            8456,
+            1860,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        }
+      ],
+      "map_rooms": [
+        {
+          "id": "upgrade_echo_hook_2",
+          "name": "运书吊篮仓",
+          "range": [
+            7820,
+            8484
+          ],
+          "depth": 0,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7820,
+            220,
+            664,
+            470
+          ],
+          "play_rect": [
+            7820,
+            220,
+            664,
+            470
+          ],
+          "map_rect": [
+            2360,
+            0,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7820,
+              220,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习回声钩索，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "在门前按 K 钩住铜环，牵引检修闩。单纯持有能力不会开门。 回声针：单次单目标，碰墙即止；校录命中施加盐记。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回mezz_reading_ledges",
+          "setpiece": "运书吊篮仓",
+          "traversal_focus": "在门前按 K 钩住铜环，牵引检修闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "pages",
+            "position": [
+              8284,
+              320
+            ],
+            "size": [
+              120,
+              160
+            ]
+          },
+          "combat_practice": {
+            "skill_id": "needle",
+            "region_id": "demo_ch03_saltwhite_archive",
+            "room_id": "upgrade_echo_hook_2",
+            "position": [
+              7965,
+              540
+            ],
+            "label": "回声针：单次单目标，碰墙即止；校录命中施加盐记。",
+            "training_id": "seal_training_needle",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
+          }
+        },
+        {
+          "id": "upgrade_bell_guard_3",
+          "name": "钟壳格挡练习工房",
+          "range": [
+            7820,
+            8484
+          ],
+          "depth": 1,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7820,
+            760,
+            664,
+            470
+          ],
+          "play_rect": [
+            7820,
+            760,
+            664,
+            470
+          ],
+          "map_rect": [
+            2360,
+            210,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7820,
+              760,
+              664,
+              470
+            ]
+          ],
+          "objective": "在安全工房练习刚取得的钟壳格挡，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。 盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回wax_seal_vault",
+          "setpiece": "钟壳格挡练习工房",
+          "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "pages",
+            "position": [
+              8284,
+              860
+            ],
+            "size": [
+              120,
+              160
+            ]
+          },
+          "combat_practice": {
+            "skill_id": "snare",
+            "region_id": "demo_ch03_saltwhite_archive",
+            "room_id": "upgrade_bell_guard_3",
+            "position": [
+              7965,
+              1080
+            ],
+            "label": "盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+            "training_id": "seal_training_snare",
+            "safe": true,
+            "requires_equipment": false,
+            "damage_to_player": 0
+          }
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2",
+          "name": "盐脊碎板井",
+          "range": [
+            7820,
+            8484
+          ],
+          "depth": 2,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7820,
+            1300,
+            664,
+            530
+          ],
+          "play_rect": [
+            7820,
+            1300,
+            664,
+            530
+          ],
+          "map_rect": [
+            2360,
+            420,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7820,
+              1300,
+              664,
+              530
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习棘线下劈，打开封口取回物资与反证。",
+          "guide": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回salt_gate_walk",
+          "setpiece": "盐脊碎板井",
+          "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "pages",
+            "position": [
+              8284,
+              1400
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_crown_resonance_2",
+          "name": "删名契约暗柜",
+          "range": [
+            7820,
+            8484
+          ],
+          "depth": 3,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7820,
+            1840,
+            664,
+            470
+          ],
+          "play_rect": [
+            7820,
+            1840,
+            664,
+            470
+          ],
+          "map_rect": [
+            2360,
+            630,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7820,
+              1840,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习王冠共鸣，打开封口取回物资与反证。",
+          "guide": "靠近旧钟门按 R，消耗能量重接契约锁。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回secret_nook",
+          "setpiece": "删名契约暗柜",
+          "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "pages",
+            "position": [
+              8284,
+              1940
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        }
+      ],
+      "save_points": [],
+      "map_room_overrides": [
+        {
+          "id": "mezz_reading_ledges",
+          "guide": "走一步，停半拍，再跳。 可见旧检修入口：「运书吊篮仓」。在门前按 K 钩住铜环，牵引检修闩。",
+          "objective": "清理阅览廊，尽头有人影在暗阁上方晃动。 可选：运书吊篮仓。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "wax_seal_vault",
+          "guide": "从背面打开的捷径会长期有效。 可见旧检修入口：「钟壳格挡练习工房」。在门前按 Q，钟壳震动拨开封蜡闩。",
+          "objective": "拉下封蜡拉杆：清怪后盐门长开，首领之路解锁。 可选：钟壳格挡练习工房。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "salt_gate_walk",
+          "guide": "这条地面步道是打通后最快的回环。 可见旧检修入口：「盐脊碎板井」。站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "objective": "沿盐门步道向西，直通中庭塔底。 可选：盐脊碎板井。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "secret_nook",
+          "guide": "隐藏存档点藏在暗格书堆后。 可见旧检修入口：「删名契约暗柜」。靠近旧钟门按 R，消耗能量重接契约锁。",
+          "objective": "攀上秘阁暗格，找到逃亡书记与隐藏盐灯。 可选：删名契约暗柜。",
+          "generated_by": "world_upgrade"
+        }
+      ],
+      "world_overrides": {
+        "width": 8700,
+        "height": 2842
+      }
     },
     "demo_ch04_broken_string_greenhouse": {
       "collectible_overrides": [],
-      "collectibles": [],
-      "locked_gates": [],
+      "collectibles": [
+        {
+          "id": "upgrade_obtain_thorn_downstrike",
+          "kind": "item",
+          "item_id": "thorn_downstrike",
+          "position": [
+            2810,
+            1562
+          ],
+          "room_id": "tree_heart",
+          "platform_id": "heart_floor",
+          "label": "棘线下劈",
+          "ability_name": "棘线下劈",
+          "note": "首次取得无需自身能力。站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_evidence",
+          "kind": "item",
+          "item_id": "upgrade_thorn_downstrike_3_record",
+          "position": [
+            8344,
+            590
+          ],
+          "room_id": "upgrade_thorn_downstrike_3",
+          "platform_id": "upgrade_thorn_downstrike_3_foundation",
+          "label": "旧检修操作手册",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 65,
+          "position": [
+            8414,
+            590
+          ],
+          "room_id": "upgrade_thorn_downstrike_3",
+          "platform_id": "upgrade_thorn_downstrike_3_foundation",
+          "label": "检修物资 · 松脂碎片"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_evidence",
+          "kind": "item",
+          "item_id": "upgrade_lantern_phase_2_record",
+          "position": [
+            8344,
+            1070
+          ],
+          "room_id": "upgrade_lantern_phase_2",
+          "platform_id": "upgrade_lantern_phase_2_foundation",
+          "label": "蜂蜡影闩密令",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 65,
+          "position": [
+            8414,
+            1070
+          ],
+          "room_id": "upgrade_lantern_phase_2",
+          "platform_id": "upgrade_lantern_phase_2_foundation",
+          "label": "检修物资 · 松脂碎片"
+        }
+      ],
+      "locked_gates": [
+        {
+          "id": "upgrade_thorn_downstrike_3_action_gate",
+          "rect": [
+            8194,
+            418,
+            298,
+            30
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "thorn_downstrike",
+          "required_ability_name": "棘线下劈",
+          "requires_action": "thorn_downstrike",
+          "permanent_action_unlock_id": "upgrade_thorn_downstrike_3_action_gate",
+          "action_range": 175,
+          "from_room": "upgrade_thorn_downstrike_3",
+          "to_room": "upgrade_thorn_downstrike_3",
+          "map_marker": "ability_gate",
+          "gate_kind": "fragile_terrain",
+          "action_hint": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_action_gate",
+          "rect": [
+            8156,
+            800,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "lantern_phase",
+          "required_ability_name": "灯影相位",
+          "requires_action": "lantern_phase",
+          "permanent_action_unlock_id": "upgrade_lantern_phase_2_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_lantern_phase_2",
+          "to_room": "upgrade_lantern_phase_2",
+          "map_marker": "ability_gate",
+          "gate_kind": "phase_gate",
+          "action_hint": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。"
+        }
+      ],
       "portals": [
         {
           "id": "world_4_3_back",
@@ -554,16 +4127,487 @@
           "label": "铸渣滑道 → 下一城区",
           "requires_demo_complete": false,
           "room_id": "victory_terrace"
+        },
+        {
+          "id": "upgrade_greenhouse_crown_branch_a",
+          "kind": "world_portal",
+          "position": [
+            2400,
+            1942
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch06_silent_crown_core",
+          "target_portal_id": "upgrade_greenhouse_crown_branch_b",
+          "target_spawn": [
+            4615,
+            1540
+          ],
+          "label": "根须影管 → 无声王冠",
+          "requires_demo_complete": false,
+          "room_id": "root_vault",
+          "required_ability": "lantern_phase",
+          "required_ability_name": "灯影相位",
+          "hint": "温室根须影管需要灯影相位；黑曜巡礼路与温室可按不同顺序探索。"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_access_a",
+          "kind": "world_portal",
+          "position": [
+            2720,
+            1562
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_thorn_downstrike_3_access_b",
+          "target_spawn": [
+            7960,
+            390
+          ],
+          "label": "检修支线 → 棘线下劈练习工房",
+          "requires_demo_complete": false,
+          "room_id": "tree_heart"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_access_b",
+          "kind": "world_portal",
+          "position": [
+            7960,
+            390
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_thorn_downstrike_3_access_a",
+          "target_spawn": [
+            2720,
+            1562
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_3"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_well_lift_a",
+          "kind": "world_portal",
+          "position": [
+            8080,
+            390
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_thorn_downstrike_3_well_lift_b",
+          "target_spawn": [
+            8270,
+            590
+          ],
+          "label": "深井返程升梯",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_3",
+          "requires_shortcut": "upgrade_thorn_downstrike_3_return",
+          "unlock_shortcut_id": "upgrade_thorn_downstrike_3_return"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_well_lift_b",
+          "kind": "world_portal",
+          "position": [
+            8270,
+            590
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_thorn_downstrike_3_well_lift_a",
+          "target_spawn": [
+            8080,
+            390
+          ],
+          "label": "拉开深井返程升梯",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_thorn_downstrike_3",
+          "unlock_shortcut_id": "upgrade_thorn_downstrike_3_return"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_access_a",
+          "kind": "world_portal",
+          "position": [
+            5070,
+            2260
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_lantern_phase_2_access_b",
+          "target_spawn": [
+            7960,
+            1070
+          ],
+          "label": "检修支线 → 蜂蜡影闩室",
+          "requires_demo_complete": false,
+          "room_id": "beeswax_nook"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_access_b",
+          "kind": "world_portal",
+          "position": [
+            7960,
+            1070
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_lantern_phase_2_access_a",
+          "target_spawn": [
+            5070,
+            2260
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_lantern_phase_2"
         }
       ],
       "remove_interactives": [
         "ch04_chapter_exit"
-      ]
+      ],
+      "platforms": [
+        {
+          "id": "upgrade_thorn_downstrike_3_roof",
+          "rect": [
+            7850,
+            240,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_foundation",
+          "rect": [
+            7850,
+            630,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_backwall",
+          "rect": [
+            8486,
+            240,
+            28,
+            490
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_approach",
+          "rect": [
+            7850,
+            430,
+            346,
+            26
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_well_wall",
+          "rect": [
+            8168,
+            430,
+            28,
+            210
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_roof",
+          "rect": [
+            7850,
+            780,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_foundation",
+          "rect": [
+            7850,
+            1110,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_backwall",
+          "rect": [
+            8486,
+            780,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        }
+      ],
+      "map_rooms": [
+        {
+          "id": "upgrade_thorn_downstrike_3",
+          "name": "棘线下劈练习工房",
+          "range": [
+            7850,
+            8514
+          ],
+          "depth": 0,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7850,
+            220,
+            664,
+            530
+          ],
+          "play_rect": [
+            7850,
+            220,
+            664,
+            530
+          ],
+          "map_rect": [
+            2640,
+            0,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7850,
+              220,
+              664,
+              530
+            ]
+          ],
+          "objective": "在安全工房练习刚取得的棘线下劈，打开封口取回物资与反证。",
+          "guide": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回tree_heart",
+          "setpiece": "棘线下劈练习工房",
+          "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8314,
+              320
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        },
+        {
+          "id": "upgrade_lantern_phase_2",
+          "name": "蜂蜡影闩室",
+          "range": [
+            7850,
+            8514
+          ],
+          "depth": 1,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7850,
+            760,
+            664,
+            470
+          ],
+          "play_rect": [
+            7850,
+            760,
+            664,
+            470
+          ],
+          "map_rect": [
+            2640,
+            210,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7850,
+              760,
+              664,
+              470
+            ]
+          ],
+          "objective": "获得能力后回访旧区，练习灯影相位，打开封口取回物资与反证。",
+          "guide": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回beeswax_nook",
+          "setpiece": "蜂蜡影闩室",
+          "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              8314,
+              860
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        }
+      ],
+      "grapple_anchors": [],
+      "save_points": [],
+      "map_room_overrides": [
+        {
+          "id": "tree_heart",
+          "guide": "断弦歌者守在树心，听她唱完再走。 可见旧检修入口：「棘线下劈练习工房」。站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "objective": "以大树之心为枢纽：下有根库拉杆，西有断弦辐桥，上可回树冠。 可选：棘线下劈练习工房。",
+          "generated_by": "world_upgrade"
+        },
+        {
+          "id": "beeswax_nook",
+          "guide": "隐藏存档点藏在蜡壁后。 可见旧检修入口：「蜂蜡影闩室」。靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "objective": "在蜂蜡暗屋补给，找到藏在蜡壁后的暗灯。 可选：蜂蜡影闩室。",
+          "generated_by": "world_upgrade"
+        }
+      ],
+      "inventory_catalog": {
+        "thorn_downstrike": {
+          "name": "棘线下劈",
+          "category": "Abilities",
+          "description": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。旧区有两处检修目标。"
+        },
+        "upgrade_thorn_downstrike_3_record": {
+          "name": "棘线下劈检修手册",
+          "category": "Relics",
+          "description": "棘线下劈练习工房保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        },
+        "upgrade_lantern_phase_2_record": {
+          "name": "蜂蜡影闩密令",
+          "category": "Relics",
+          "description": "蜂蜡影闩室保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        }
+      },
+      "world_overrides": {
+        "width": 8730,
+        "height": 2718
+      }
     },
     "demo_ch05_obsidian_pilgrim_road": {
       "collectible_overrides": [],
-      "collectibles": [],
-      "locked_gates": [],
+      "collectibles": [
+        {
+          "id": "upgrade_obtain_lantern_phase",
+          "kind": "item",
+          "item_id": "lantern_phase",
+          "position": [
+            330,
+            1870
+          ],
+          "room_id": "pilgrim_camp",
+          "platform_id": "camp_floor",
+          "label": "灯影相位",
+          "ability_name": "灯影相位",
+          "note": "首次取得无需自身能力。靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_evidence",
+          "kind": "item",
+          "item_id": "upgrade_lantern_phase_3_record",
+          "position": [
+            7884,
+            530
+          ],
+          "room_id": "upgrade_lantern_phase_3",
+          "platform_id": "upgrade_lantern_phase_3_foundation",
+          "label": "旧检修操作手册",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 70,
+          "position": [
+            7954,
+            530
+          ],
+          "room_id": "upgrade_lantern_phase_3",
+          "platform_id": "upgrade_lantern_phase_3_foundation",
+          "label": "检修物资 · 松脂碎片"
+        }
+      ],
+      "locked_gates": [
+        {
+          "id": "upgrade_lantern_phase_3_action_gate",
+          "rect": [
+            7696,
+            260,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "lantern_phase",
+          "required_ability_name": "灯影相位",
+          "requires_action": "lantern_phase",
+          "permanent_action_unlock_id": "upgrade_lantern_phase_3_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_lantern_phase_3",
+          "to_room": "upgrade_lantern_phase_3",
+          "map_marker": "ability_gate",
+          "gate_kind": "phase_gate",
+          "action_hint": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。"
+        }
+      ],
       "portals": [
         {
           "id": "world_5_4_back",
@@ -605,17 +4649,292 @@
           ],
           "label": "冠脊索道 → 下一城区",
           "requires_demo_complete": false,
-          "room_id": "silent_gate"
+          "room_id": "silent_gate",
+          "required_ability": "lantern_phase",
+          "required_ability_name": "灯影相位",
+          "hint": "冠脊索道穿过影闩，先在黑曜营地获得灯影相位。"
+        },
+        {
+          "id": "upgrade_archive_obsidian_branch_b",
+          "kind": "world_portal",
+          "position": [
+            710,
+            2672
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch03_saltwhite_archive",
+          "target_portal_id": "upgrade_archive_obsidian_branch_a",
+          "target_spawn": [
+            2340,
+            2118
+          ],
+          "label": "旧支线 → 盐白书库试玩章",
+          "requires_demo_complete": false,
+          "room_id": "ravine_gate"
+        },
+        {
+          "id": "upgrade_obsidian_rain_return_a",
+          "kind": "world_portal",
+          "position": [
+            220,
+            1870
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch02_rain_foundry_canal",
+          "target_portal_id": "upgrade_obsidian_rain_return_b",
+          "target_spawn": [
+            3090,
+            1700
+          ],
+          "label": "解锁旧补给索道 → 铸雨渠",
+          "requires_demo_complete": false,
+          "room_id": "pilgrim_camp",
+          "unlock_shortcut_id": "obsidian_rain_service"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_access_a",
+          "kind": "world_portal",
+          "position": [
+            240,
+            1870
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch05_obsidian_pilgrim_road",
+          "target_portal_id": "upgrade_lantern_phase_3_access_b",
+          "target_spawn": [
+            7500,
+            530
+          ],
+          "label": "检修支线 → 灯影相位练习工房",
+          "requires_demo_complete": false,
+          "room_id": "pilgrim_camp"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_access_b",
+          "kind": "world_portal",
+          "position": [
+            7500,
+            530
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch05_obsidian_pilgrim_road",
+          "target_portal_id": "upgrade_lantern_phase_3_access_a",
+          "target_spawn": [
+            240,
+            1870
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_lantern_phase_3"
         }
       ],
       "remove_interactives": [
         "ch05_chapter_exit"
-      ]
+      ],
+      "platforms": [
+        {
+          "id": "upgrade_lantern_phase_3_roof",
+          "rect": [
+            7390,
+            240,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_foundation",
+          "rect": [
+            7390,
+            570,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_backwall",
+          "rect": [
+            8026,
+            240,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        }
+      ],
+      "map_rooms": [
+        {
+          "id": "upgrade_lantern_phase_3",
+          "name": "灯影相位练习工房",
+          "range": [
+            7390,
+            8054
+          ],
+          "depth": 0,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            7390,
+            220,
+            664,
+            470
+          ],
+          "play_rect": [
+            7390,
+            220,
+            664,
+            470
+          ],
+          "map_rect": [
+            2920,
+            0,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              7390,
+              220,
+              664,
+              470
+            ]
+          ],
+          "objective": "在安全工房练习刚取得的灯影相位，打开封口取回物资与反证。",
+          "guide": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回pilgrim_camp",
+          "setpiece": "灯影相位练习工房",
+          "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              7854,
+              320
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        }
+      ],
+      "grapple_anchors": [],
+      "save_points": [],
+      "map_room_overrides": [
+        {
+          "id": "pilgrim_camp",
+          "guide": "盲钟骑士守着营火，听他讲完再走。 可见旧检修入口：「灯影相位练习工房」。靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "objective": "以营地为枢纽：东上段砌道通山顶，东侧缆车井connects山根，头顶是旗桥。 可选：灯影相位练习工房。",
+          "generated_by": "world_upgrade"
+        }
+      ],
+      "inventory_catalog": {
+        "lantern_phase": {
+          "name": "灯影相位",
+          "category": "Abilities",
+          "description": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。旧区有两处检修目标。"
+        },
+        "upgrade_lantern_phase_3_record": {
+          "name": "灯影相位检修手册",
+          "category": "Relics",
+          "description": "灯影相位练习工房保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        }
+      },
+      "world_overrides": {
+        "width": 8270,
+        "height": 3262
+      }
     },
     "demo_ch06_silent_crown_core": {
       "collectible_overrides": [],
-      "collectibles": [],
-      "locked_gates": [],
+      "collectibles": [
+        {
+          "id": "upgrade_obtain_crown_resonance",
+          "kind": "item",
+          "item_id": "crown_resonance",
+          "position": [
+            3050,
+            660
+          ],
+          "room_id": "crown_antechamber",
+          "platform_id": "ante_floor",
+          "label": "王冠共鸣",
+          "ability_name": "王冠共鸣",
+          "note": "首次取得无需自身能力。靠近旧钟门按 R，消耗能量重接契约锁。"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_evidence",
+          "kind": "item",
+          "item_id": "upgrade_crown_resonance_3_record",
+          "position": [
+            6284,
+            530
+          ],
+          "room_id": "upgrade_crown_resonance_3",
+          "platform_id": "upgrade_crown_resonance_3_foundation",
+          "label": "旧检修操作手册",
+          "note": "能力回访反证；可选，不代替六区主线证词。"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_resin",
+          "kind": "currency",
+          "item_id": "currency",
+          "amount": 75,
+          "position": [
+            6354,
+            530
+          ],
+          "room_id": "upgrade_crown_resonance_3",
+          "platform_id": "upgrade_crown_resonance_3_foundation",
+          "label": "检修物资 · 松脂碎片"
+        }
+      ],
+      "locked_gates": [
+        {
+          "id": "upgrade_crown_resonance_3_action_gate",
+          "rect": [
+            6096,
+            260,
+            36,
+            420
+          ],
+          "color": "b58a48",
+          "material": "bronze_bridge",
+          "required_ability": "crown_resonance",
+          "required_ability_name": "王冠共鸣",
+          "requires_action": "crown_resonance",
+          "permanent_action_unlock_id": "upgrade_crown_resonance_3_action_gate",
+          "action_range": 155,
+          "from_room": "upgrade_crown_resonance_3",
+          "to_room": "upgrade_crown_resonance_3",
+          "map_marker": "ability_gate",
+          "gate_kind": "action_gate",
+          "action_hint": "靠近旧钟门按 R，消耗能量重接契约锁。"
+        }
+      ],
       "portals": [
         {
           "id": "world_6_5_back",
@@ -636,10 +4955,770 @@
           ],
           "label": "冠脊索道 → 返回旧城区",
           "requires_demo_complete": false,
+          "room_id": "crown_antechamber",
+          "required_ability": "lantern_phase",
+          "required_ability_name": "灯影相位",
+          "hint": "冠脊索道穿过影闩，先在黑曜营地获得灯影相位。"
+        },
+        {
+          "id": "upgrade_greenhouse_crown_branch_b",
+          "kind": "world_portal",
+          "position": [
+            4615,
+            1540
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch04_broken_string_greenhouse",
+          "target_portal_id": "upgrade_greenhouse_crown_branch_a",
+          "target_spawn": [
+            2400,
+            1942
+          ],
+          "label": "旧支线 → 断弦温室试玩章",
+          "requires_demo_complete": false,
+          "room_id": "echo_string"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_access_a",
+          "kind": "world_portal",
+          "position": [
+            2960,
+            660
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch06_silent_crown_core",
+          "target_portal_id": "upgrade_crown_resonance_3_access_b",
+          "target_spawn": [
+            5900,
+            530
+          ],
+          "label": "检修支线 → 王冠共鸣练习工房",
+          "requires_demo_complete": false,
           "room_id": "crown_antechamber"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_access_b",
+          "kind": "world_portal",
+          "position": [
+            5900,
+            530
+          ],
+          "interaction_size": [
+            90,
+            110
+          ],
+          "target_config_id": "demo_ch06_silent_crown_core",
+          "target_portal_id": "upgrade_crown_resonance_3_access_a",
+          "target_spawn": [
+            2960,
+            660
+          ],
+          "label": "检修设施 → 返回原通路",
+          "requires_demo_complete": false,
+          "room_id": "upgrade_crown_resonance_3"
         }
       ],
-      "remove_interactives": []
+      "remove_interactives": [],
+      "platforms": [
+        {
+          "id": "upgrade_crown_resonance_3_roof",
+          "rect": [
+            5790,
+            240,
+            664,
+            28
+          ],
+          "collision_role": "ceiling",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_foundation",
+          "rect": [
+            5790,
+            570,
+            664,
+            100
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_backwall",
+          "rect": [
+            6426,
+            240,
+            28,
+            430
+          ],
+          "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        }
+      ],
+      "map_rooms": [
+        {
+          "id": "upgrade_crown_resonance_3",
+          "name": "王冠共鸣练习工房",
+          "range": [
+            5790,
+            6454
+          ],
+          "depth": 0,
+          "kind": "branch",
+          "archetype": "ability_backtrack",
+          "layout_rect": [
+            5790,
+            220,
+            664,
+            470
+          ],
+          "play_rect": [
+            5790,
+            220,
+            664,
+            470
+          ],
+          "map_rect": [
+            3200,
+            0,
+            236,
+            168
+          ],
+          "visit_rects": [
+            [
+              5790,
+              220,
+              664,
+              470
+            ]
+          ],
+          "objective": "在安全工房练习刚取得的王冠共鸣，打开封口取回物资与反证。",
+          "guide": "靠近旧钟门按 R，消耗能量重接契约锁。单纯持有能力不会开门。",
+          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "next": "检修设施返回crown_antechamber",
+          "setpiece": "王冠共鸣练习工房",
+          "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
+          "pacing_role": "optional_reward",
+          "landmark_art": {
+            "motif": "bell",
+            "position": [
+              6254,
+              320
+            ],
+            "size": [
+              120,
+              160
+            ]
+          }
+        }
+      ],
+      "grapple_anchors": [],
+      "save_points": [],
+      "map_room_overrides": [
+        {
+          "id": "crown_antechamber",
+          "guide": "初代巡礼者的回声守在这里，听完再动身。 可见旧检修入口：「王冠共鸣练习工房」。靠近旧钟门按 R，消耗能量重接契约锁。",
+          "objective": "站在王冠前厅，认出六枚印记的方向。 可选：王冠共鸣练习工房。",
+          "generated_by": "world_upgrade"
+        }
+      ],
+      "inventory_catalog": {
+        "crown_resonance": {
+          "name": "王冠共鸣",
+          "category": "Abilities",
+          "description": "靠近旧钟门按 R，消耗能量重接契约锁。旧区有两处检修目标。"
+        },
+        "upgrade_crown_resonance_3_record": {
+          "name": "王冠共鸣检修手册",
+          "category": "Relics",
+          "description": "王冠共鸣练习工房保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。"
+        }
+      },
+      "world_overrides": {
+        "width": 6670,
+        "height": 3412
+      }
     }
-  }
+  },
+  "ability_backtracks": [
+    {
+      "ability_id": "thread_dash",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "first_bell_shrine",
+      "room_id": "upgrade_thread_dash_1",
+      "entry_portal_id": "upgrade_thread_dash_1_access_a",
+      "gate_id": "upgrade_thread_dash_1_action_gate",
+      "reward_ids": [
+        "upgrade_thread_dash_1_evidence",
+        "upgrade_thread_dash_1_resin"
+      ],
+      "source_position": [
+        1630,
+        3712
+      ],
+      "approach_position": [
+        8158,
+        530
+      ],
+      "clue": "Shift 冲刺拨开计时栅闩。",
+      "required_action": "thread_dash",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "thread_dash",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "source_room_id": "silt_vault",
+      "room_id": "upgrade_thread_dash_2",
+      "entry_portal_id": "upgrade_thread_dash_2_access_a",
+      "gate_id": "upgrade_thread_dash_2_action_gate",
+      "reward_ids": [
+        "upgrade_thread_dash_2_evidence",
+        "upgrade_thread_dash_2_resin"
+      ],
+      "source_position": [
+        4240,
+        4430
+      ],
+      "approach_position": [
+        7698,
+        530
+      ],
+      "clue": "Shift 冲刺拨开计时栅闩。",
+      "required_action": "thread_dash",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "silk_wall_grip",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "threadmakers_cache",
+      "room_id": "upgrade_silk_wall_grip_1",
+      "entry_portal_id": "upgrade_silk_wall_grip_1_access_a",
+      "gate_id": "upgrade_silk_wall_grip_1_action_gate",
+      "reward_ids": [
+        "upgrade_silk_wall_grip_1_evidence",
+        "upgrade_silk_wall_grip_1_resin"
+      ],
+      "source_position": [
+        1600,
+        3120
+      ],
+      "approach_position": [
+        8158,
+        1070
+      ],
+      "clue": "贴住门壁按跳跃，墙跳拨开检修闩。",
+      "required_action": "silk_wall_grip",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "silk_wall_grip",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "source_room_id": "pump_atrium",
+      "room_id": "upgrade_silk_wall_grip_2",
+      "entry_portal_id": "upgrade_silk_wall_grip_2_access_a",
+      "gate_id": "upgrade_silk_wall_grip_2_action_gate",
+      "reward_ids": [
+        "upgrade_silk_wall_grip_2_evidence",
+        "upgrade_silk_wall_grip_2_resin"
+      ],
+      "source_position": [
+        2870,
+        3280
+      ],
+      "approach_position": [
+        7698,
+        1070
+      ],
+      "clue": "贴住门壁按跳跃，墙跳拨开检修闩。",
+      "required_action": "silk_wall_grip",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "echo_hook",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "east_balcony",
+      "room_id": "upgrade_echo_hook_1",
+      "entry_portal_id": "upgrade_echo_hook_1_access_a",
+      "gate_id": "upgrade_echo_hook_1_action_gate",
+      "reward_ids": [
+        "upgrade_echo_hook_1_evidence",
+        "upgrade_echo_hook_1_resin"
+      ],
+      "source_position": [
+        4580,
+        2750
+      ],
+      "approach_position": [
+        8158,
+        1610
+      ],
+      "clue": "在门前按 K 钩住铜环，牵引检修闩。",
+      "required_action": "echo_hook",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "echo_hook",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "source_room_id": "mezz_reading_ledges",
+      "room_id": "upgrade_echo_hook_2",
+      "entry_portal_id": "upgrade_echo_hook_2_access_a",
+      "gate_id": "upgrade_echo_hook_2_action_gate",
+      "reward_ids": [
+        "upgrade_echo_hook_2_evidence",
+        "upgrade_echo_hook_2_resin"
+      ],
+      "source_position": [
+        1990,
+        1712
+      ],
+      "approach_position": [
+        8078,
+        530
+      ],
+      "clue": "在门前按 K 钩住铜环，牵引检修闩。",
+      "required_action": "echo_hook",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "double_thread_jump",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "belfry_top",
+      "room_id": "upgrade_double_thread_jump_1",
+      "entry_portal_id": "upgrade_double_thread_jump_1_access_a",
+      "gate_id": "upgrade_double_thread_jump_1_action_gate",
+      "reward_ids": [
+        "upgrade_double_thread_jump_1_evidence",
+        "upgrade_double_thread_jump_1_resin"
+      ],
+      "source_position": [
+        3140,
+        610
+      ],
+      "approach_position": [
+        8158,
+        2150
+      ],
+      "clue": "在门前腾空，再按一次跳跃，接通双线锁。",
+      "required_action": "double_thread_jump",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "double_thread_jump",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "source_room_id": "riser_shrine",
+      "room_id": "upgrade_double_thread_jump_2",
+      "entry_portal_id": "upgrade_double_thread_jump_2_access_a",
+      "gate_id": "upgrade_double_thread_jump_2_action_gate",
+      "reward_ids": [
+        "upgrade_double_thread_jump_2_evidence",
+        "upgrade_double_thread_jump_2_resin"
+      ],
+      "source_position": [
+        1470,
+        1500
+      ],
+      "approach_position": [
+        7698,
+        1610
+      ],
+      "clue": "在门前腾空，再按一次跳跃，接通双线锁。",
+      "required_action": "double_thread_jump",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "bell_guard",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "bell_marrow_cell",
+      "room_id": "upgrade_bell_guard_1",
+      "entry_portal_id": "upgrade_bell_guard_1_access_a",
+      "gate_id": "upgrade_bell_guard_1_action_gate",
+      "reward_ids": [
+        "upgrade_bell_guard_1_evidence",
+        "upgrade_bell_guard_1_resin"
+      ],
+      "source_position": [
+        4030,
+        1170
+      ],
+      "approach_position": [
+        8158,
+        2690
+      ],
+      "clue": "在门前按 Q，钟壳震动拨开封蜡闩。",
+      "required_action": "bell_guard",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "bell_guard",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "source_room_id": "atrium_west_vault",
+      "room_id": "upgrade_bell_guard_2",
+      "entry_portal_id": "upgrade_bell_guard_2_access_a",
+      "gate_id": "upgrade_bell_guard_2_action_gate",
+      "reward_ids": [
+        "upgrade_bell_guard_2_evidence",
+        "upgrade_bell_guard_2_resin"
+      ],
+      "source_position": [
+        2200,
+        2120
+      ],
+      "approach_position": [
+        7698,
+        2150
+      ],
+      "clue": "在门前按 Q，钟壳震动拨开封蜡闩。",
+      "required_action": "bell_guard",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "bell_guard",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "source_room_id": "wax_seal_vault",
+      "room_id": "upgrade_bell_guard_3",
+      "entry_portal_id": "upgrade_bell_guard_3_access_a",
+      "gate_id": "upgrade_bell_guard_3_action_gate",
+      "reward_ids": [
+        "upgrade_bell_guard_3_evidence",
+        "upgrade_bell_guard_3_resin"
+      ],
+      "source_position": [
+        4480,
+        2640
+      ],
+      "approach_position": [
+        8078,
+        1070
+      ],
+      "clue": "在门前按 Q，钟壳震动拨开封蜡闩。",
+      "required_action": "bell_guard",
+      "role": "practice"
+    },
+    {
+      "ability_id": "thorn_downstrike",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "root_vault",
+      "room_id": "upgrade_thorn_downstrike_1",
+      "entry_portal_id": "upgrade_thorn_downstrike_1_access_a",
+      "gate_id": "upgrade_thorn_downstrike_1_action_gate",
+      "reward_ids": [
+        "upgrade_thorn_downstrike_1_evidence",
+        "upgrade_thorn_downstrike_1_resin"
+      ],
+      "source_position": [
+        2840,
+        5820
+      ],
+      "approach_position": [
+        8158,
+        3090
+      ],
+      "clue": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+      "required_action": "thorn_downstrike",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "thorn_downstrike",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "source_room_id": "salt_gate_walk",
+      "room_id": "upgrade_thorn_downstrike_2",
+      "entry_portal_id": "upgrade_thorn_downstrike_2_access_a",
+      "gate_id": "upgrade_thorn_downstrike_2_action_gate",
+      "reward_ids": [
+        "upgrade_thorn_downstrike_2_evidence",
+        "upgrade_thorn_downstrike_2_resin"
+      ],
+      "source_position": [
+        3250,
+        2672
+      ],
+      "approach_position": [
+        8078,
+        1470
+      ],
+      "clue": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+      "required_action": "thorn_downstrike",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "thorn_downstrike",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "source_room_id": "tree_heart",
+      "room_id": "upgrade_thorn_downstrike_3",
+      "entry_portal_id": "upgrade_thorn_downstrike_3_access_a",
+      "gate_id": "upgrade_thorn_downstrike_3_action_gate",
+      "reward_ids": [
+        "upgrade_thorn_downstrike_3_evidence",
+        "upgrade_thorn_downstrike_3_resin"
+      ],
+      "source_position": [
+        2720,
+        1562
+      ],
+      "approach_position": [
+        8108,
+        390
+      ],
+      "clue": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+      "required_action": "thorn_downstrike",
+      "role": "practice"
+    },
+    {
+      "ability_id": "lantern_phase",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "source_room_id": "tide_listening_cell",
+      "room_id": "upgrade_lantern_phase_1",
+      "entry_portal_id": "upgrade_lantern_phase_1_access_a",
+      "gate_id": "upgrade_lantern_phase_1_action_gate",
+      "reward_ids": [
+        "upgrade_lantern_phase_1_evidence",
+        "upgrade_lantern_phase_1_resin"
+      ],
+      "source_position": [
+        1760,
+        4910
+      ],
+      "approach_position": [
+        7698,
+        2690
+      ],
+      "clue": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+      "required_action": "lantern_phase",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "lantern_phase",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "source_room_id": "beeswax_nook",
+      "room_id": "upgrade_lantern_phase_2",
+      "entry_portal_id": "upgrade_lantern_phase_2_access_a",
+      "gate_id": "upgrade_lantern_phase_2_action_gate",
+      "reward_ids": [
+        "upgrade_lantern_phase_2_evidence",
+        "upgrade_lantern_phase_2_resin"
+      ],
+      "source_position": [
+        5070,
+        2260
+      ],
+      "approach_position": [
+        8108,
+        1070
+      ],
+      "clue": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+      "required_action": "lantern_phase",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "lantern_phase",
+      "region_id": "demo_ch05_obsidian_pilgrim_road",
+      "source_room_id": "pilgrim_camp",
+      "room_id": "upgrade_lantern_phase_3",
+      "entry_portal_id": "upgrade_lantern_phase_3_access_a",
+      "gate_id": "upgrade_lantern_phase_3_action_gate",
+      "reward_ids": [
+        "upgrade_lantern_phase_3_evidence",
+        "upgrade_lantern_phase_3_resin"
+      ],
+      "source_position": [
+        240,
+        1870
+      ],
+      "approach_position": [
+        7648,
+        530
+      ],
+      "clue": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+      "required_action": "lantern_phase",
+      "role": "practice"
+    },
+    {
+      "ability_id": "crown_resonance",
+      "region_id": "demo_ch01_moss_bell_court",
+      "source_room_id": "crown_treasury",
+      "room_id": "upgrade_crown_resonance_1",
+      "entry_portal_id": "upgrade_crown_resonance_1_access_a",
+      "gate_id": "upgrade_crown_resonance_1_action_gate",
+      "reward_ids": [
+        "upgrade_crown_resonance_1_evidence",
+        "upgrade_crown_resonance_1_resin"
+      ],
+      "source_position": [
+        6600,
+        3880
+      ],
+      "approach_position": [
+        8158,
+        3770
+      ],
+      "clue": "靠近旧钟门按 R，消耗能量重接契约锁。",
+      "required_action": "crown_resonance",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "crown_resonance",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "source_room_id": "secret_nook",
+      "room_id": "upgrade_crown_resonance_2",
+      "entry_portal_id": "upgrade_crown_resonance_2_access_a",
+      "gate_id": "upgrade_crown_resonance_2_action_gate",
+      "reward_ids": [
+        "upgrade_crown_resonance_2_evidence",
+        "upgrade_crown_resonance_2_resin"
+      ],
+      "source_position": [
+        1490,
+        1358
+      ],
+      "approach_position": [
+        8078,
+        2150
+      ],
+      "clue": "靠近旧钟门按 R，消耗能量重接契约锁。",
+      "required_action": "crown_resonance",
+      "role": "backtrack"
+    },
+    {
+      "ability_id": "crown_resonance",
+      "region_id": "demo_ch06_silent_crown_core",
+      "source_room_id": "crown_antechamber",
+      "room_id": "upgrade_crown_resonance_3",
+      "entry_portal_id": "upgrade_crown_resonance_3_access_a",
+      "gate_id": "upgrade_crown_resonance_3_action_gate",
+      "reward_ids": [
+        "upgrade_crown_resonance_3_evidence",
+        "upgrade_crown_resonance_3_resin"
+      ],
+      "source_position": [
+        2960,
+        660
+      ],
+      "approach_position": [
+        6048,
+        530
+      ],
+      "clue": "靠近旧钟门按 R，消耗能量重接契约锁。",
+      "required_action": "crown_resonance",
+      "role": "practice"
+    }
+  ],
+  "acquisition_plan": {
+    "bell_guard": {
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "wax_seal_vault",
+      "collectible_id": "upgrade_obtain_bell_guard"
+    },
+    "thorn_downstrike": {
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "tree_heart",
+      "collectible_id": "upgrade_obtain_thorn_downstrike"
+    },
+    "lantern_phase": {
+      "region_id": "demo_ch05_obsidian_pilgrim_road",
+      "room_id": "pilgrim_camp",
+      "collectible_id": "upgrade_obtain_lantern_phase"
+    },
+    "crown_resonance": {
+      "region_id": "demo_ch06_silent_crown_core",
+      "room_id": "crown_antechamber",
+      "collectible_id": "upgrade_obtain_crown_resonance"
+    }
+  },
+  "seal_practice_plan": [
+    {
+      "skill_id": "cleave",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_thread_dash_1",
+      "position": [
+        8045,
+        540
+      ],
+      "label": "绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
+      "training_id": "seal_training_cleave",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "crosscut",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_silk_wall_grip_1",
+      "position": [
+        8045,
+        1080
+      ],
+      "label": "断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
+      "training_id": "seal_training_crosscut",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "ward",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_silk_wall_grip_2",
+      "position": [
+        7585,
+        1080
+      ],
+      "label": "守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
+      "training_id": "seal_training_ward",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "shockwave",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_thread_dash_2",
+      "position": [
+        7585,
+        540
+      ],
+      "label": "钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
+      "training_id": "seal_training_shockwave",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "needle",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_echo_hook_2",
+      "position": [
+        7965,
+        540
+      ],
+      "label": "回声针：单次单目标，碰墙即止；校录命中施加盐记。",
+      "training_id": "seal_training_needle",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    },
+    {
+      "skill_id": "snare",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_bell_guard_3",
+      "position": [
+        7965,
+        1080
+      ],
+      "label": "盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+      "training_id": "seal_training_snare",
+      "safe": true,
+      "requires_equipment": false,
+      "damage_to_player": 0
+    }
+  ]
 }

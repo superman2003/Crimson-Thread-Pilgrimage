@@ -3535,7 +3535,12 @@
     "locomotion": "ground",
     "combat_identity": "架刃反击、长距离突刺；半血后左右连斩",
     "spawn_half_width": 49,
-    "spawn_visual_height": 186
+    "spawn_visual_height": 186,
+    "combat_resistance": {
+      "trip_immune": true,
+      "lure_immune": true,
+      "snare_mult": 0.35
+    }
   },
   "labels": [
     {
@@ -3620,7 +3625,7 @@
       "id": "save_late_runback",
       "label": "索道厅盐灯",
       "position": [
-        5155,
+        5180,
         2566
       ],
       "hidden": false,

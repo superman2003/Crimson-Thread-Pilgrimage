@@ -3,6 +3,106 @@ extends CharacterBody2D
 signal hp_changed(value: int)
 signal player_respawned
 signal energy_changed(value: int, maximum: int)
+var arrival_guard_timer := 0.0
+
+signal ability_action(ability_id: String, origin: Vector2, direction: Vector2)
+signal heal_state_changed(state: String)
+signal skill_cast(skill_id: String)
+
+@export var debug_invulnerable := false
+@export var bell_guard_unlocked := false
+@export var thorn_downstrike_unlocked := false
+@export var lantern_phase_unlocked := false
+@export var crown_resonance_unlocked := false
+@export var heal_duration := 0.85
+@export var heal_amount := 1
+var build_system: RefCounted = null
+var selected_skill: Dictionary = {}
+var build_profile: Dictionary = {}
+var heal_timer := 0.0
+var heal_reserved_cost := 0
+var guard_timer := 0.0
+var guard_cooldown := 0.0
+var guard_refunded := false
+var guard_initial_duration := 0.42
+var resonance_cooldown := 0.0
+var phase_active := false
+var phase_energy_fraction := 0.0
+var phase_safe_position := Vector2.ZERO
+var phase_exceptions: Array[PhysicsBody2D] = []
+var attack_vfx_started := false
+var attack_windup := 0.06
+var attack_active_time := 0.22
+var active_skill: Dictionary = {}
+var skill_effect_started := false
+var traversal_downstrike_active := false
+var build_baseline: Dictionary = {}
+var wall_jump_lock := 0.0
+var line_stacks := 0
+var line_expiry := 0.0
+var bell_pressure := 0
+var heal_speed_timer := 0.0
+var heal_stability_timer := 0.0
+var status_resist_timer := 0.0
+var crosscut_refund_paid := false
+var seal_presentation: Node2D = null
+var seal_recovery_shown := false
+var skill_displacement_done := 0.0
+
+func _seal_present(id: String, stage: String) -> void:
+    if seal_presentation == null and ResourceLoader.exists("res://scripts/seal_presentation.gd"):
+        seal_presentation = Node2D.new()
+        seal_presentation.set_script(load("res://scripts/seal_presentation.gd"))
+        add_child(seal_presentation)
+    if seal_presentation != null:
+        seal_presentation.set("muted", float(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))) <= -70.0 if AudioServer.get_bus_index("SFX") >= 0 else false)
+        seal_presentation.set("reduced_flash", not bool(_accessibility().get("flash_enabled", true)))
+        seal_presentation.play_action(id, stage, facing, {"range":attack_range})
+
+
+func get_seal_mechanism_snapshot() -> Dictionary:
+    if _crest() == "bell":
+        return {"label":"钟压", "stacks":bell_pressure, "max_stacks":2}
+    if _crest() == "salt":
+        var count := 0
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.get("salt_mark_timer") != null and float(enemy.get("salt_mark_timer")) > 0.0:
+                count += 1
+        return {"label":"盐记", "stacks":count, "max_stacks":count}
+    return {"label":"线势", "stacks":line_stacks, "max_stacks":3}
+
+func get_seal_combat_state() -> Dictionary:
+    return {"crest": String(build_profile.get("crest_id", "crimson")), "line_stacks": line_stacks, "bell_pressure": bell_pressure, "line_expiry": line_expiry, "heal_speed": heal_speed_timer, "heal_stability": heal_stability_timer}
+
+func _seal_tick(delta: float) -> void:
+    line_expiry = maxf(0.0, line_expiry - delta)
+    if line_expiry <= 0.0:
+        line_stacks = 0
+    heal_speed_timer = maxf(0.0, heal_speed_timer - delta)
+    heal_stability_timer = maxf(0.0, heal_stability_timer - delta)
+    status_resist_timer = maxf(0.0, status_resist_timer - delta)
+
+func _crest() -> String:
+    return String(build_profile.get("crest_id", "crimson"))
+
+func _basic_seal_hit() -> void:
+    if _crest() == "crimson" and bool(build_profile.get("crimson_repaired", true)):
+        line_stacks = mini(3, line_stacks + 1)
+        line_expiry = 3.5
+
+func _seal_heal_completed() -> void:
+    if _crest() == "crimson":
+        heal_speed_timer = 2.5
+    elif _crest() == "bell":
+        heal_stability_timer = 4.0
+    elif _crest() == "salt":
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy is Node2D and enemy.global_position.distance_to(global_position) <= 240.0 and enemy.has_method("extend_salt_mark_once"):
+                enemy.extend_salt_mark_once(2.0)
+    if float(build_profile.get("status_buildup_mult", 1.0)) < 1.0:
+        status_resist_timer = 3.0
+
+
 
 const SFX := {
     "attack": "res://assets/audio/sfx/player_attack.ogg",
@@ -207,7 +307,7 @@ var ui_input_locked: bool = false
 var snare_timer := 0.0
 
 func apply_snare(seconds: float) -> void:
-    snare_timer=maxf(snare_timer,seconds)
+    snare_timer=maxf(snare_timer, seconds * (float(build_profile.get("status_buildup_mult", 1.0)) if status_resist_timer > 0.0 else 1.0))
 
 
 func _ready() -> void:
@@ -222,6 +322,10 @@ func _ready() -> void:
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
     sprite.material = flash_material
+    build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed,
+        "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost,
+        "heal_amount": heal_amount, "heal_duration": heal_duration}
+    phase_safe_position = global_position
     floor_snap_length=18.0
     floor_constant_speed=true
     hp_changed.emit(hp)
@@ -230,7 +334,21 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
     if ui_input_locked:
+        _interrupt_heal()
+        _stop_phase()
+        if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):
+            flash_material.set_shader_parameter("flash_amount", 0.0)
         return
+    arrival_guard_timer = maxf(0.0, arrival_guard_timer - delta)
+    if build_system != null and build_system.has_method("tick"):
+        build_system.tick(delta)
+    guard_timer = maxf(0.0, guard_timer - delta)
+    guard_cooldown = maxf(0.0, guard_cooldown - delta)
+    resonance_cooldown = maxf(0.0, resonance_cooldown - delta)
+    wall_jump_lock = maxf(0.0, wall_jump_lock - delta)
+    _update_phase(delta)
+    _seal_tick(delta)
+    _update_heal(delta)
     snare_timer=maxf(0,snare_timer-delta)
     if dash_timer>0:
         snare_timer=0
@@ -249,7 +367,7 @@ func _physics_process(delta: float) -> void:
     if self_flash_timer > 0.0:
         self_flash_timer -= delta
         if flash_material != null:
-            flash_material.set_shader_parameter("flash_amount", 1.0 if self_flash_timer > 0.017 else 0.0)
+            flash_material.set_shader_parameter("flash_amount", 1.0 if self_flash_timer > 0.017 and bool(_accessibility().get("flash_enabled", true)) else 0.0)
 
     var was_on_floor := is_on_floor()
     if Input.is_action_just_pressed("jump"):
@@ -272,31 +390,35 @@ func _physics_process(delta: float) -> void:
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
     var input_axis := _move_axis()
 
-    if input_axis != 0.0:
+    if input_axis != 0.0 and attack_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0:
         facing = signi(input_axis)
         sprite.flip_h = facing < 0
         _sync_attack_hitbox()
 
     # silk_wall_grip (ch2 能力)：解锁后贴墙减速下滑；未解锁时行为与旧版完全一致。
     wall_sliding = false
-    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and dash_timer <= 0.0 and grapple_timer <= 0.0 and velocity.y > 0.0:
+    if wall_grip_unlocked and not is_on_floor() and is_on_wall() and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and velocity.y > 0.0:
         var slide_wall_dir := signi(-get_wall_normal().x)
         if input_axis != 0.0 and signi(input_axis) == slide_wall_dir:
             wall_sliding = true
+            if not was_wall_sliding:
+                ability_action.emit("silk_wall_grip", global_position, Vector2(slide_wall_dir, 0))
             velocity.y = minf(velocity.y, wall_slide_max_speed)
 
     # A fresh jump cancels the pull; holding the original jump never spends the air jump.
     if grapple_timer > 0.0 and Input.is_action_just_pressed("jump"):
         _stop_grapple()
-    if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0:
+    if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
         velocity.y = jump_velocity
         coyote_timer = 0.0
         jump_buffer_timer = 0.0
         _play(&"jump_start")
         _play_sfx("jump", -6.0)
-    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall():
+    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
         # 蹬墙跳：离墙水平 420 / 垂直 -640，播 wall_slide 帧。
         var jump_wall_dir := signi(-get_wall_normal().x)
+        wall_jump_lock = 0.16
+        ability_action.emit("silk_wall_grip", global_position, Vector2(-jump_wall_dir, -1))
         velocity.x = -float(jump_wall_dir) * wall_jump_horizontal
         velocity.y = wall_jump_vertical
         facing = -jump_wall_dir
@@ -308,7 +430,8 @@ func _physics_process(delta: float) -> void:
         _play(&"wall_slide")
         _play_sfx("jump", -6.0)
 
-    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0:
+    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+        ability_action.emit("double_thread_jump", global_position, Vector2.UP)
         air_jump_available = false
         velocity.y = double_jump_velocity
         jump_buffer_timer = 0.0
@@ -321,8 +444,9 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
 
-    if Input.is_action_just_pressed("dash") and dash_unlocked and dash_cooldown <= 0.0 and dash_timer <= 0.0:
+    if Input.is_action_just_pressed("dash") and dash_unlocked and dash_cooldown <= 0.0 and dash_timer <= 0.0 and attack_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0 and hurt_timer <= 0.0:
         _stop_grapple()
+        ability_action.emit("thread_dash", global_position, Vector2(facing, 0))
         dash_timer = dash_time
         dash_cooldown = dash_cooldown_time
         velocity.y = 0.0
@@ -330,22 +454,28 @@ func _physics_process(delta: float) -> void:
         dash_ghost_tick = 0
         dash_start_position = global_position
         if feel != null:
-            feel.add_trauma(0.08)
+            _add_trauma(0.08)
         _play(&"dash")
         _play_sfx("dash", -7.0)
 
+    if Input.is_action_just_pressed("bell_guard"):
+        _try_guard()
+    if Input.is_action_just_pressed("crown_resonance"):
+        _try_resonance()
     if Input.is_action_just_pressed("heal"):
         _try_heal()
 
-    if Input.is_action_just_pressed("attack") and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0:
+    if Input.is_action_just_pressed("attack") and _can_start_action():
         _start_attack(&"attack_1")
-    elif Input.is_action_just_pressed("hook") and attack_timer <= 0.0 and dash_timer <= 0.0:
+    elif Input.is_action_just_pressed("hook") and _can_start_action():
         if not _try_start_grapple():
             _start_attack(&"hook_throw")
-    elif Input.is_action_just_pressed("skill_1") and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0:
+    elif Input.is_action_just_pressed("skill_1") and _can_start_action():
         _try_skill_burst()
 
-    if grapple_timer > 0.0:
+    if heal_timer > 0.0 or guard_timer > 0.0:
+        velocity.x = move_toward(velocity.x, 0.0, speed * 12.0 * delta)
+    elif grapple_timer > 0.0:
         _update_grapple(delta)
     elif dash_timer > 0.0:
         dash_timer -= delta
@@ -356,11 +486,11 @@ func _physics_process(delta: float) -> void:
         dash_ghost_tick += 1
         if dash_timer <= 0.0:
             _spawn_dash_trail()
-    elif attack_timer <= 0.0:
-        var movement_speed := speed * (0.58 if snare_timer > 0.0 else 1.0)
+    elif attack_timer <= 0.0 and wall_jump_lock <= 0.0 and hurt_timer <= 0.0:
+        var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
         velocity.x = move_toward(velocity.x, input_axis * movement_speed, speed * 9.5 * delta)
-    else:
-        var movement_speed := speed * (0.58 if snare_timer > 0.0 else 1.0)
+    elif wall_jump_lock <= 0.0 and hurt_timer <= 0.0:
+        var movement_speed := speed * (1.12 if heal_speed_timer > 0.0 and is_on_floor() else 1.0) * (0.58 if snare_timer > 0.0 else 1.0)
         velocity.x = move_toward(velocity.x, input_axis * movement_speed * 0.45, speed * 5.0 * delta)
 
     _update_attack(delta)
@@ -374,6 +504,7 @@ func _physics_process(delta: float) -> void:
         _spawn_land_vfx()
     _update_wall_slide_audio()
     _update_footsteps(delta)
+    _update_camera(delta)
     _update_animation(input_axis)
 
 
@@ -413,6 +544,7 @@ func _try_start_grapple() -> bool:
             best_score = score
     if best == null:
         return false
+    ability_action.emit("echo_hook", global_position, (best.global_position - origin).normalized())
     grapple_anchor = best
     grapple_timer = grapple_timeout
     coyote_timer = 0.0
@@ -462,6 +594,13 @@ func _stop_grapple() -> void:
 
 func _reset_traversal_state() -> void:
     _stop_grapple()
+    _interrupt_heal()
+    _stop_phase()
+    guard_timer = 0.0
+    guard_cooldown = 0.0
+    active_skill.clear()
+    traversal_downstrike_active = false
+    wall_jump_lock = 0.0
     air_jump_available = true
     coyote_timer = 0.0
     jump_buffer_timer = 0.0
@@ -488,7 +627,10 @@ func _spawn_double_jump_vfx() -> void:
         tween.finished.connect(Callable(thread, "queue_free"))
 
 
-func _start_attack(animation: StringName) -> void:
+func _start_attack(animation: StringName, allow_traversal_action: bool = true) -> void:
+    if animation == &"attack_1" and _crest() == "bell":
+        animation = &"attack_2"
+    active_skill.clear()
     current_attack = animation
     current_attack_direction = _read_attack_direction()
     if animation == &"hook_throw":
@@ -515,6 +657,21 @@ func _start_attack(animation: StringName) -> void:
         velocity.x += current_attack_direction.x * (attack_lunge if is_on_floor() else attack_lunge * 0.45)
     elif current_attack_direction.y < -0.5:
         velocity.y = minf(velocity.y, -110.0)
+    if _crest() == "bell" and animation == &"attack_2" and bell_pressure > 0:
+        attack_damage += bell_pressure
+    attack_damage = maxi(1, attack_damage + int(build_profile.attack_bonus)) if build_profile.has("attack_bonus") else maxi(1, int(ceil(float(attack_damage) * float(build_profile.get("attack_damage_mult", 1.0)))))
+    var reach := float(build_profile.get("attack_reach_mult", 1.0))
+    attack_range *= reach
+    attack_height *= reach
+    attack_forward_offset *= reach
+    attack_duration /= maxf(0.25, float(build_profile.get("attack_speed_mult", 1.0)))
+    attack_windup = minf(0.10 if animation == &"attack_2" else 0.06, attack_duration * 0.25)
+    attack_active_time = attack_duration * 0.52
+    traversal_downstrike_active = allow_traversal_action and current_attack_direction.y > 0.5 and animation != &"hook_throw" and thorn_downstrike_unlocked and not is_on_floor()
+    if traversal_downstrike_active:
+        velocity.y = maxf(velocity.y, 760.0)
+        ability_action.emit("thorn_downstrike", global_position, Vector2.DOWN)
+    attack_vfx_started = false
     attack_timer = attack_duration
     enemy_contact_guard_timer = maxf(enemy_contact_guard_timer, enemy_contact_guard_time)
     hit_targets.clear()
@@ -528,7 +685,6 @@ func _start_attack(animation: StringName) -> void:
         _play_sfx("skill", -7.0)
     else:
         _play_attack_swing_sfx()
-    _spawn_attack_vfx(animation)
 
 
 ## 普攻三采样顺序轮换 + 每次 ±4% 随机变调（音频规格 §4.1）；
@@ -542,26 +698,332 @@ func _play_attack_swing_sfx() -> void:
     _play_sfx(key, -5.0, randf_range(0.96, 1.04), "player_attack")
 
 
+func _can_start_action() -> bool:
+    return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
+
+
+func configure_selected_skill(skill: Dictionary) -> void:
+    selected_skill = skill.duplicate(true)
+
+
 func _try_skill_burst() -> void:
-    if skill_cooldown > 0.0 or energy < skill_energy_cost:
-        return
-    energy -= skill_energy_cost
-    skill_cooldown = 2.4
-    energy_changed.emit(energy, max_energy)
-    _start_attack(&"attack_2")
+    cast_selected_skill()
 
 
-func _try_heal() -> void:
-    if heal_cooldown > 0.0 or hp >= max_hp or energy < heal_energy_cost or death_timer > 0.0:
-        return
-    energy -= heal_energy_cost
-    hp = mini(max_hp, hp + 1)
-    heal_cooldown = 0.55
-    energy_changed.emit(energy, max_energy)
-    hp_changed.emit(hp)
+func cast_selected_skill(slot: int = -1) -> bool:
+    if not _can_start_action() or skill_cooldown > 0.0:
+        return false
+    var payload: Dictionary
+    if build_system != null and build_system.has_method("try_cast"):
+        var preview: Dictionary = build_system.selected_skill() if slot < 0 else build_system.selected_skill(slot)
+        if String(preview.get("id", "")) == "shockwave" and not is_on_floor():
+            return false
+        payload = build_system.try_cast(energy) if slot < 0 else build_system.try_cast(energy, slot)
+        if not bool(payload.get("ok", false)):
+            return false
+    else:
+        payload = selected_skill.duplicate(true) if not selected_skill.is_empty() else {"id": "thread_burst", "kind": "melee", "energy_cost": skill_energy_cost, "damage": 2, "range": 126.0, "windup": 0.1, "active": 0.22, "recovery": 0.16, "cooldown": 2.4}
+    var cost := int(payload.get("energy_cost", skill_energy_cost))
+    if energy < cost:
+        return false
+    if String(payload.get("id", "")) == "shockwave" and not is_on_floor():
+        return false
+    gain_energy(-cost)
+    var old_velocity := velocity
+    _start_attack(&"attack_2", false)
+    velocity = old_velocity
+    active_skill = payload.duplicate(true)
+    enemy_contact_guard_timer = 0.0
+    attack_damage = maxi(1, int(payload.get("damage", 2)))
+    active_skill["empowered"] = line_stacks >= 3 and _crest() == "crimson"
+    if bool(active_skill.empowered):
+        line_stacks = 0
+        line_expiry = 0.0
+    crosscut_refund_paid = false
+    if _crest() == "bell" and String(payload.get("id", "")) == "shockwave" and bell_pressure > 0:
+        attack_damage += bell_pressure
+        active_skill["stagger"] = bell_pressure * 0.3
+        bell_pressure = 0
+    attack_range = float(payload.get("range", 126.0))
+    if bool(active_skill.get("empowered", false)) and String(payload.get("id", "")) == "cleave":
+        attack_range *= 1.35
+    if String(payload.get("id", "")) == "crosscut":
+        attack_forward_offset = 0.0
+        attack_range *= 2.0
+        current_attack_direction = Vector2(facing, 0)
+    attack_windup = float(payload.get("windup", payload.get("warmup", 0.1)))
+    attack_active_time = float(payload.get("active", 0.18))
+    if String(payload.get("kind", "")) == "defense":
+        attack_active_time = clampf(float(payload.get("duration", 0.5)), 0.1, 0.65)
+    attack_duration = attack_windup + attack_active_time + float(payload.get("recovery", 0.2))
+    attack_timer = attack_duration
+    skill_effect_started = false
+    skill_cooldown = 0.0 if build_system != null else float(payload.get("cooldown", 2.4))
+    _sync_attack_hitbox()
+    seal_recovery_shown = false
+    skill_displacement_done = 0.0
+    _seal_present(String(payload.get("id", "cleave")), "prepare")
+    skill_cast.emit(String(payload.get("skill_id", payload.get("id", "thread_burst"))))
+    return true
+
+
+func _try_heal() -> bool:
+    if not _can_start_action() or heal_cooldown > 0.0 or hp >= max_hp or energy < heal_energy_cost or not is_on_floor():
+        return false
+    gain_energy(-heal_energy_cost)
+    heal_reserved_cost = heal_energy_cost
+    _seal_present("heal", "prepare")
+    heal_timer = heal_duration
+    velocity.x = 0.0
+    heal_state_changed.emit("started")
     _play_sfx("heal", -5.0)
-    _spawn_heal_effect()
-    _play(&"land")
+    _play(&"heal")
+    return true
+
+
+func _update_heal(delta: float) -> void:
+    if heal_timer <= 0.0:
+        return
+    if not is_on_floor() or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash") or absf(_move_axis()) > 0.1:
+        _interrupt_heal()
+        return
+    heal_timer = maxf(0.0, heal_timer - delta)
+    if heal_timer <= 0.0:
+        heal_reserved_cost = 0
+        hp = mini(max_hp, hp + heal_amount)
+        heal_cooldown = 0.4
+        hp_changed.emit(hp)
+        heal_state_changed.emit("completed")
+        _spawn_heal_effect()
+        _seal_heal_completed()
+
+
+func _interrupt_heal() -> void:
+    if heal_timer > 0.0:
+        var loss_ratio := clampf(float(build_profile.get("heal_interrupt_loss_ratio", 1.0)), 0.0, 1.0)
+        gain_energy(heal_reserved_cost - int(ceil(heal_reserved_cost * loss_ratio)))
+        heal_reserved_cost = 0
+        heal_timer = 0.0
+        heal_cooldown = maxf(heal_cooldown, 0.3)
+        heal_state_changed.emit("interrupted")
+
+
+func apply_build_stats(stats: Dictionary) -> void:
+    if build_baseline.is_empty():
+        build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed, "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost, "heal_amount": heal_amount, "heal_duration": heal_duration}
+    line_stacks = 0
+    bell_pressure = 0
+    line_expiry = 0.0
+    heal_speed_timer = 0.0
+    heal_stability_timer = 0.0
+    status_resist_timer = 0.0
+    attack_timer = 0.0
+    active_skill.clear()
+    for enemy in get_tree().get_nodes_in_group("enemy"):
+        if enemy.has_method("clear_salt_mark"):
+            enemy.clear_salt_mark()
+    build_profile = stats.duplicate(true)
+    max_hp = maxi(1, int(stats.get("max_hp", build_baseline.max_hp)))
+    max_energy = maxi(1, int(stats.get("max_energy", build_baseline.max_energy)))
+    speed = float(build_baseline.speed) * float(stats.get("move_mult", stats.get("speed_multiplier", 1.0)))
+    energy_per_hit = maxi(0, int(stats.energy_per_hit)) if stats.has("energy_per_hit") else maxi(0, int(round(float(build_baseline.energy_per_hit) * float(stats.get("energy_gain_mult", 1.0)))))
+    heal_energy_cost = maxi(1, int(stats.get("heal_cost", stats.get("heal_energy_cost", build_baseline.heal_energy_cost))))
+    heal_amount = maxi(1, int(stats.get("heal_amount", build_baseline.heal_amount)))
+    heal_duration = maxf(0.2, float(stats.get("heal_duration", build_baseline.heal_duration)))
+    hp = mini(hp, max_hp)
+    energy = mini(energy, max_energy)
+    _interrupt_heal()
+    guard_timer = 0.0
+    _stop_phase()
+    hp_changed.emit(hp)
+    energy_changed.emit(energy, max_energy)
+
+
+func _try_guard() -> bool:
+    if not bell_guard_unlocked or not _can_start_action() or guard_cooldown > 0.0 or energy < 8:
+        return false
+    gain_energy(-8)
+    guard_timer = 0.42
+    guard_initial_duration = guard_timer
+    guard_cooldown = 0.8
+    guard_refunded = false
+    ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
+    _play(&"guard")
+    _ability_ring(46.0, THREAD_T3_CORE)
+    return true
+
+
+func _try_resonance() -> bool:
+    if not crown_resonance_unlocked or not _can_start_action() or resonance_cooldown > 0.0 or energy < 20:
+        return false
+    gain_energy(-20)
+    resonance_cooldown = 1.4
+    _start_attack(&"attack_2", false)
+    active_skill = {"kind": "resonance", "range": 160.0, "damage": 1}
+    skill_effect_started = false
+    ability_action.emit("crown_resonance", global_position, Vector2(facing, 0))
+    _ability_ring(160.0, THREAD_T3_CORE)
+    return true
+
+
+func is_phasing() -> bool:
+    return phase_active
+
+
+func _update_phase(delta: float) -> void:
+    if phase_active:
+        if not Input.is_action_pressed("lantern_phase") or energy <= 0 or hurt_timer > 0.0 or death_timer > 0.0:
+            _stop_phase()
+            return
+        phase_energy_fraction += delta * 24.0
+        var drain := int(phase_energy_fraction)
+        if drain > 0:
+            phase_energy_fraction -= drain
+            gain_energy(-drain)
+        _sync_phase_gates()
+        if _phase_position_clear():
+            phase_safe_position = global_position
+    elif lantern_phase_unlocked and Input.is_action_pressed("lantern_phase") and _can_start_action() and energy >= 8:
+        gain_energy(-8)
+        phase_active = true
+        phase_energy_fraction = 0.0
+        phase_safe_position = global_position
+        _sync_phase_gates()
+        ability_action.emit("lantern_phase", global_position, Vector2(facing, 0))
+        _ability_ring(54.0, Color(0.5, 0.7, 1.0, 0.9))
+
+
+func _sync_phase_gates() -> void:
+    for gate in get_tree().get_nodes_in_group("phase_gate"):
+        if gate is PhysicsBody2D and not phase_exceptions.has(gate):
+            add_collision_exception_with(gate)
+            phase_exceptions.append(gate)
+
+
+func _phase_position_clear() -> bool:
+    var body_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+    if body_shape == null:
+        return true
+    var query := PhysicsShapeQueryParameters2D.new()
+    query.shape = body_shape.shape
+    query.transform = body_shape.global_transform
+    query.collision_mask = collision_mask
+    query.exclude = [get_rid()]
+    for hit in get_world_2d().direct_space_state.intersect_shape(query):
+        if hit.collider is PhysicsBody2D:
+            return false
+    return true
+
+
+func _stop_phase() -> void:
+    if phase_active and is_inside_tree() and not _phase_position_clear():
+        global_position = phase_safe_position
+        velocity = Vector2.ZERO
+    for gate in phase_exceptions:
+        if is_instance_valid(gate):
+            remove_collision_exception_with(gate)
+    phase_exceptions.clear()
+    phase_active = false
+    phase_energy_fraction = 0.0
+
+
+func _ability_ring(radius: float, color: Color) -> void:
+    var ring := Line2D.new()
+    ring.name = "AbilityPulse"
+    ring.closed = true
+    ring.width = 3.0
+    ring.default_color = color
+    for step in range(32):
+        var angle := TAU * float(step) / 32.0
+        ring.add_point(Vector2(cos(angle), sin(angle)) * radius + Vector2(0, -42))
+    add_child(ring)
+    var tween := create_tween()
+    tween.tween_property(ring, "modulate:a", 0.0, 0.3)
+    tween.finished.connect(ring.queue_free)
+
+
+func _update_camera(delta: float) -> void:
+    var camera := get_node_or_null("Camera2D") as Camera2D
+    if camera == null:
+        return
+    # Feet remain in view during falls; world-owned limits and zoom are preserved.
+    var strength := clampf(float(_accessibility().get("camera_lookahead", 1.0)), 0.0, 1.0)
+    var target := Vector2(clampf(velocity.x * 0.18, -90.0, 90.0) * strength, -55.0 + clampf(velocity.y * 0.10, -50.0, 90.0) * strength)
+    camera.position = camera.position.lerp(target, 1.0 - exp(-delta * 5.0))
+
+
+func _apply_special_skill() -> void:
+    var kind := String(active_skill.get("kind", "melee"))
+    var id := String(active_skill.get("id", ""))
+    if kind == "ranged":
+        cast_tool({"kind": "projectile", "damage": attack_damage, "range": attack_range, "duration": 1.2, "pierce": 1, "salt_mark": _crest() == "salt", "skill_effect": true})
+    elif kind == "defense":
+        guard_timer = minf(0.65, float(active_skill.get("duration", 0.5)))
+        guard_initial_duration = guard_timer
+        guard_refunded = false
+        _ability_ring(56.0, THREAD_T3_CORE)
+    elif id == "shockwave" or kind == "shockwave":
+        cast_tool({"kind": "wave", "damage": attack_damage, "range": attack_range, "duration": 0.8, "stagger": active_skill.get("stagger", 0.0), "skill_effect": true})
+    elif kind == "control":
+        cast_tool({"kind":"snare_field", "damage":attack_damage, "range":10000.0, "duration":maxf(0.4, float(active_skill.get("duration",1.5))), "salt_consume":_crest() == "salt", "skill_effect":true})
+    elif kind == "resonance":
+        var radius := float(active_skill.get("range", 160.0))
+        _ability_ring(radius, THREAD_T2_CORE)
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
+                if enemy.has_method("take_hit"):
+                    enemy.take_hit(attack_damage, facing)
+
+
+
+func cast_tool(payload: Dictionary) -> bool:
+    # A ranged skill creates its effect inside its own active frame; public tool
+    # use must otherwise obey the same channel/recovery gates as combat actions.
+    var skill_emission := attack_timer > 0.0 and skill_effect_started and bool(payload.get("skill_effect", false))
+    if not _can_start_action() and not skill_emission:
+        return false
+    var tool_id := String(payload.get("id", ""))
+    if tool_id == "mine":
+        var count := 0
+        for effect in get_tree().get_nodes_in_group("player_trap"):
+            if effect.get("owner_player") == self:
+                count += 1
+        if count >= 2:
+            return false
+    if String(payload.get("kind", "")) == "snare_field":
+        for field in get_tree().get_nodes_in_group("player_snare_field"):
+            if field.get("owner_player") == self:
+                field.queue_free()
+    var projectile := Node2D.new()
+    projectile.set_script(load("res://scripts/player_tool_effect.gd"))
+    projectile.set("payload", payload.duplicate(true))
+    projectile.set("direction", facing)
+    projectile.set("owner_player", self)
+    get_parent().add_child(projectile)
+    if not bool(payload.get("skill_effect", false)):
+        _seal_present(String(payload.get("id", "shard")), "active")
+    var spawn_offset := Vector2(facing * (90 if String(payload.get("kind", "")) == "snare_field" else 24), -6 if String(payload.get("kind", "")) in ["trap", "snare_field"] else -42)
+    var spawn_origin := global_position + Vector2(0, spawn_offset.y)
+    var spawn_position_effect := global_position + spawn_offset
+    var placement_ray := PhysicsRayQueryParameters2D.create(spawn_origin, spawn_position_effect, 1, [get_rid()])
+    var placement_hit := get_world_2d().direct_space_state.intersect_ray(placement_ray)
+    if not placement_hit.is_empty():
+        spawn_position_effect = placement_hit.position - Vector2(facing * 8, 0)
+    projectile.global_position = spawn_position_effect
+    if not bool(payload.get("skill_effect", false)):
+        attack_timer = 0.35
+        attack_duration = 0.35
+        attack_windup = 0.35
+        attack_active_time = 0.0
+        active_skill = {"id": String(payload.get("id", "shard")), "kind": "tool"}
+        skill_effect_started = true
+    return true
+
+
+func _attack_line_clear(target: Vector2) -> bool:
+    var query := PhysicsRayQueryParameters2D.create(global_position + Vector2(0, -42), target, collision_mask, [get_rid()])
+    var hit := get_world_2d().direct_space_state.intersect_ray(query)
+    return hit.is_empty() or hit.collider.is_in_group("enemy")
 
 
 func _update_attack(delta: float) -> void:
@@ -571,22 +1033,33 @@ func _update_attack(delta: float) -> void:
 
     attack_timer = maxf(0.0, attack_timer - delta)
     var elapsed := attack_duration - attack_timer
-    var active := false
-    if current_attack == &"hook_throw":
-        active = elapsed >= 0.08 and elapsed <= 0.36
-        if elapsed > 0.36 and not hook_reel_played:
-            # 收线音对齐 0.22s 钩索回收淡出（命中窗关闭点）；待真正钩环抓取
-            # 位移机制落地后，此音迁移到位移开始点。
-            hook_reel_played = true
-            _play_sfx("hook_reel", -8.0)
-    elif current_attack == &"attack_2":
-        active = elapsed >= 0.07 and elapsed <= 0.34
-    else:
-        active = elapsed >= 0.06 and elapsed <= 0.28
-
-    attack_shape.disabled = not active
-    if active:
+    var active := elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
+    var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) not in ["melee", "thrust", "crosscut"]
+    if not active_skill.is_empty() and elapsed > attack_windup + attack_active_time and not seal_recovery_shown:
+        seal_recovery_shown = true
+        _seal_present(String(active_skill.get("id", "cleave")), "recovery")
+    if active and not attack_vfx_started:
+        attack_vfx_started = true
+        if not active_skill.is_empty():
+            _seal_present(String(active_skill.get("id", "cleave")), "active")
+        if not special:
+            _spawn_attack_vfx(current_attack)
+    if active and special and not skill_effect_started:
+        skill_effect_started = true
+        _apply_special_skill()
+    attack_shape.disabled = not active or special
+    if active and not special:
+        if String(active_skill.get("id", "")) == "cleave":
+            var progress := clampf((elapsed - attack_windup) / maxf(0.01, attack_active_time), 0.0, 1.0)
+            var displacement := 64.0 * progress
+            if displacement > skill_displacement_done:
+                move_and_collide(Vector2(facing * (displacement - skill_displacement_done), 0))
+                skill_displacement_done = displacement
         _apply_attack_hits()
+        if traversal_downstrike_active:
+            for terrain in get_tree().get_nodes_in_group("fragile_terrain"):
+                if terrain is Node2D and terrain.has_method("receive_ability_action") and terrain.global_position.distance_to(global_position) < 100.0:
+                    terrain.receive_ability_action("thorn_downstrike", global_position, Vector2.DOWN)
 
 
 func _apply_attack_hits() -> void:
@@ -602,8 +1075,9 @@ func _apply_attack_hits() -> void:
         var hurtbox := Rect2(node.global_position - Vector2(34, 38), Vector2(68, 76))
         if node.has_method("get_hurtbox_rect"):
             hurtbox = node.get_hurtbox_rect()
-        if attack_rect.intersects(hurtbox):
+        if attack_rect.intersects(hurtbox) and _attack_line_clear(hurtbox.get_center()):
             hit_targets[id] = true
+            var target_hp_before := int(node.get("hp"))
             node.take_hit(attack_damage, _attack_hit_direction())
             if current_attack == &"hook_throw" and not hook_latch_played:
                 # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
@@ -614,7 +1088,16 @@ func _apply_attack_hits() -> void:
                 if footstep_material == "copper":
                     _play_sfx("ch02_beat_echo_hook", -10.0)
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
-            gain_energy(energy_per_hit)
+            if active_skill.is_empty() and (not is_instance_valid(node) or int(node.get("hp")) < target_hp_before):
+                gain_energy(energy_per_hit)
+                _basic_seal_hit()
+            elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
+                gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
+                crosscut_refund_paid = true
+            if active_skill.is_empty() and _crest() == "bell" and bell_pressure > 0 and current_attack == &"attack_2":
+                if node.has_method("apply_stagger"):
+                    node.apply_stagger(bell_pressure * 0.3)
+                bell_pressure = 0
             _apply_downslash_bounce(node.global_position)
             _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack)
@@ -639,9 +1122,9 @@ func _trigger_hit_feedback(killed: bool) -> void:
     elif killed:
         stop_ms = 90.0
     feel.hitstop(stop_ms)
-    feel.add_trauma(trauma)
+    _add_trauma(trauma)
     if killed:
-        feel.flash_screen(Color.WHITE, 0.08, 1)
+        _flash_screen(Color.WHITE, 0.08, 1)
 
 
 func _sync_attack_hitbox() -> void:
@@ -694,7 +1177,7 @@ func _attack_hit_direction() -> int:
 func _apply_downslash_bounce(_target_position: Vector2) -> void:
     if current_attack == &"hook_throw" or current_attack_direction.y <= 0.5:
         return
-    velocity.y = downslash_bounce_velocity
+    velocity.y = downslash_bounce_velocity * float(build_profile.get("downstrike_bounce_mult", 1.0))
     dash_timer = 0.0
     dash_cooldown = minf(dash_cooldown, 0.12)
     coyote_timer = 0.0
@@ -731,6 +1214,10 @@ func gain_energy(amount: int) -> void:
 func _update_animation(input_axis: float) -> void:
     if hurt_timer > 0.0:
         _play(&"hurt")
+    elif heal_timer > 0.0:
+        _play(&"heal" if sprite.sprite_frames.has_animation(&"heal") else &"land")
+    elif guard_timer > 0.0:
+        _play(&"guard" if sprite.sprite_frames.has_animation(&"guard") else &"idle")
     elif attack_timer > 0.0:
         _play(current_attack)
     elif grapple_timer > 0.0:
@@ -1229,16 +1716,61 @@ func _spawn_land_vfx() -> void:
     tween.finished.connect(Callable(dust, "queue_free"))
 
 
-func take_damage(amount: int, source_position: Vector2 = global_position) -> void:
+func practice_guard_contact(source_position: Vector2) -> bool:
+    # A practice contact is eligible only while already guarding the correct side.
+    # It cannot damage, begin a guard, heal, or exceed the real prepaid guard refund.
+    var source_side := signf(source_position.x - global_position.x)
+    if guard_timer <= 0.0 or hurt_timer > 0.0 or death_timer > 0.0 or debug_invulnerable or arrival_guard_timer > 0.0 or (source_side != 0.0 and int(source_side) != facing):
+        return false
+    take_damage(1, source_position, true)
+    return guard_timer <= 0.0
+
+
+func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> void:
+    if arrival_guard_timer > 0.0:
+        return
+    if debug_invulnerable:
+        return
     if hurt_timer > 0.0 or death_timer > 0.0:
         return
+    if amount <= 0:
+        return
+    var source_side := signf(source_position.x - global_position.x)
+    if blockable and guard_timer > 0.0 and (source_side == 0.0 or int(source_side) == facing):
+        var perfect := guard_timer >= guard_initial_duration - 0.14 and not guard_refunded
+        if perfect:
+            guard_refunded = true
+            if _crest() == "bell":
+                bell_pressure = mini(2, bell_pressure + 1)
+            # Guard refund stays below its payment: no repeatable energy source.
+            gain_energy(4 if String(active_skill.get("kind", "")) != "defense" else 0)
+            ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
+        guard_timer = 0.0
+        hurt_timer = 0.12
+        _ability_ring(64.0, THREAD_T3_CORE)
+        return
+    line_stacks = 0
+    line_expiry = 0.0
+    _interrupt_heal()
+    _stop_phase()
     _stop_grapple()
+    guard_timer = 0.0
+    attack_timer = 0.0
+    attack_shape.set_deferred("disabled", true)
+    amount = maxi(1, int(ceil(float(amount) * float(build_profile.get("damage_taken_mult", 1.0)))))
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
     # P0 生死攸关音：声部抢占最高优先级。
     _play_sfx("hurt", -6.0, 1.0, "", 0)
     _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
+        bell_pressure = 0
+        heal_speed_timer = 0.0
+        heal_stability_timer = 0.0
+        status_resist_timer = 0.0
+        for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("clear_salt_mark"):
+                enemy.clear_salt_mark()
         death_timer = 0.9
         velocity = Vector2.ZERO
         _stop_wall_slide_loop()
@@ -1246,23 +1778,27 @@ func take_damage(amount: int, source_position: Vector2 = global_position) -> voi
         _play_sfx("death_cocoon", -5.0, 1.0, "", 0)
         if feel != null:
             feel.hitstop(200.0)
-            feel.add_trauma(0.60)
-            feel.black_frame(global_position, 3)
+            _add_trauma(0.60)
+            _black_frame(global_position, 3)
         _play(&"death")
         return
     if feel != null:
         feel.hitstop(110.0)
-        feel.add_trauma(0.45)
-        feel.black_frame(global_position, 2)
+        _add_trauma(0.45)
+        _black_frame(global_position, 2)
     self_flash_timer = 0.05
     if flash_material != null:
-        flash_material.set_shader_parameter("flash_amount", 1.0)
+        flash_material.set_shader_parameter("flash_amount", 1.0 if bool(_accessibility().get("flash_enabled", true)) else 0.0)
     gain_energy(energy_on_damage)
     hurt_timer = 0.35
     var knockback_dir := signf(global_position.x - source_position.x)
     if knockback_dir == 0.0:
         knockback_dir = -facing
-    velocity = Vector2(knockback_dir * 260.0, -170.0)
+    if heal_stability_timer > 0.0:
+        heal_stability_timer = 0.0
+        velocity = Vector2.ZERO
+    else:
+        velocity = Vector2(knockback_dir * 260.0 * float(build_profile.get("knockback_mult", 1.0)), -170.0)
     _play(&"hurt")
 
 
@@ -1293,12 +1829,23 @@ func _spawn_thread_snap_vfx(source_position: Vector2) -> void:
         tween.finished.connect(Callable(thread, "queue_free"))
 
 
+func can_deflect_projectile() -> bool:
+    if attack_timer <= 0.0 or guard_timer > 0.0 or hurt_timer > 0.0 or death_timer > 0.0:
+        return false
+    if not active_skill.is_empty() and String(active_skill.get("kind", "")) not in ["melee", "thrust", "crosscut"]:
+        return false
+    var elapsed := attack_duration - attack_timer
+    return elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
+
+
 func can_ignore_enemy_contact(_source_position: Vector2) -> bool:
     if death_timer > 0.0 or hurt_timer > 0.0:
         return true
+    if not active_skill.is_empty():
+        return false
     if dash_timer > 0.0 or enemy_contact_guard_timer > 0.0:
         return true
-    return attack_timer > 0.0 and current_attack != &"hook_throw"
+    return false
 
 
 func set_spawn(position_value: Vector2) -> void:
@@ -1458,7 +2005,29 @@ func _ensure_input_actions() -> void:
     _bind_mouse("attack", [MOUSE_BUTTON_LEFT])
     _bind_key("attack", [KEY_J])
     _bind_key("hook", [KEY_K, KEY_X])
-    _bind_key("skill_1", [KEY_E])
+    # E is traversal phase; combat skills use L. Do not leave a legacy E event.
+    if InputMap.has_action("skill_1"):
+        for existing in InputMap.action_get_events("skill_1"):
+            if existing is InputEventKey and existing.physical_keycode == KEY_E:
+                InputMap.action_erase_event("skill_1", existing)
+    _bind_key("skill_1", [KEY_L])
+    _bind_key("bell_guard", [KEY_Q])
+    _bind_key("lantern_phase", [KEY_E])
+    _bind_key("crown_resonance", [KEY_R])
+    _bind_key("heal", [KEY_H])
+    _bind_joy_axis("move_left", JOY_AXIS_LEFT_X, -1.0)
+    _bind_joy_axis("move_right", JOY_AXIS_LEFT_X, 1.0)
+    _bind_joy_axis("aim_up", JOY_AXIS_LEFT_Y, -1.0)
+    _bind_joy_axis("aim_down", JOY_AXIS_LEFT_Y, 1.0)
+    _bind_joy("attack", JOY_BUTTON_X)
+    _bind_joy("jump", JOY_BUTTON_A)
+    _bind_joy("dash", JOY_BUTTON_B)
+    _bind_joy("skill_1", JOY_BUTTON_Y)
+    _bind_joy("hook", JOY_BUTTON_RIGHT_SHOULDER)
+    _bind_joy("heal", JOY_BUTTON_LEFT_SHOULDER)
+    _bind_joy("bell_guard", JOY_BUTTON_DPAD_LEFT)
+    _bind_joy("lantern_phase", JOY_BUTTON_DPAD_RIGHT)
+    _bind_joy("crown_resonance", JOY_BUTTON_DPAD_UP)
     _bind_mouse("heal", [MOUSE_BUTTON_RIGHT])
     _bind_key("interact", [KEY_F])
     _bind_key("inventory", [KEY_TAB, KEY_I])
@@ -1500,3 +2069,57 @@ func _bind_mouse(action_name: StringName, buttons: Array[int]) -> void:
 
 func signi(value: float) -> int:
     return -1 if value < 0.0 else 1
+
+
+func _bind_joy(action_name: StringName, button: JoyButton) -> void:
+    if not InputMap.has_action(action_name):
+        InputMap.add_action(action_name)
+    for event in InputMap.action_get_events(action_name):
+        if event is InputEventJoypadButton and event.button_index == button:
+            return
+    var joy := InputEventJoypadButton.new()
+    joy.button_index = button
+    InputMap.action_add_event(action_name, joy)
+
+
+func _accessibility() -> Dictionary:
+    return get_meta("accessibility", {})
+
+
+func _add_trauma(amount: float) -> void:
+    if feel != null:
+        feel.add_trauma(amount * clampf(float(_accessibility().get("camera_shake", 1.0)), 0.0, 1.0))
+
+
+func _flash_screen(color: Color, duration: float, frames: int) -> void:
+    if feel != null and bool(_accessibility().get("flash_enabled", true)):
+        feel.flash_screen(color, duration, frames)
+
+
+func _black_frame(point: Vector2, frames: int) -> void:
+    if feel != null and bool(_accessibility().get("flash_enabled", true)):
+        feel.black_frame(point, frames)
+
+
+func get_combat_ui_state() -> Dictionary:
+    var skill := selected_skill
+    if build_system != null and build_system.has_method("selected_skill"):
+        skill = build_system.selected_skill()
+    return {"heal_progress": 1.0 - heal_timer / maxf(0.2, heal_duration) if heal_timer > 0.0 else 0.0,
+        "heal_active": heal_timer > 0.0, "heal_cost": heal_energy_cost,
+        "skill_name": String(skill.get("name", skill.get("label", skill.get("id", "绯线震击")))),
+        "skill_cooldown": float(skill.get("cooldown_remaining", skill_cooldown)), "skill_cost": int(skill.get("energy_cost", skill_energy_cost)),
+        "guard_cooldown": guard_cooldown, "phase_active": phase_active,
+        "equipment_name": "", "equipment_count": 0}
+
+
+func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -> void:
+    if not InputMap.has_action(action_name):
+        InputMap.add_action(action_name, 0.3)
+    for event in InputMap.action_get_events(action_name):
+        if event is InputEventJoypadMotion and event.axis == axis and event.axis_value == axis_value:
+            return
+    var joy := InputEventJoypadMotion.new()
+    joy.axis = axis
+    joy.axis_value = axis_value
+    InputMap.action_add_event(action_name, joy)

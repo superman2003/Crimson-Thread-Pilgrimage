@@ -25,6 +25,14 @@ static func apply_to(source: Dictionary) -> Dictionary:
     var overlay: Dictionary = _data().get("chapters", {}).get(str(config.get("id", "")), {})
     if overlay.is_empty():
         return config
+    # Optional return workshops extend the authored region instead of placing
+    # solid gates across its mandatory route. Camera/fall bounds use this too.
+    if not overlay.get("world_overrides", {}).is_empty():
+        config["world"].merge(overlay["world_overrides"].duplicate(true), true)
+    for room_override in overlay.get("map_room_overrides", []):
+        for room in config.get("map_rooms", []):
+            if str(room.get("id", "")) == str(room_override.get("id", "")):
+                room.merge(room_override.duplicate(true), true)
     for terrain_override in overlay.get("terrain_overrides", []):
         for terrain in config.get("terrain", []):
             if str(terrain.get("id", "")) == str(terrain_override.get("id", "")):
@@ -41,7 +49,7 @@ static func apply_to(source: Dictionary) -> Dictionary:
         for collectible in config.get("collectibles", []):
             if str(collectible.get("id", "")) == str(override.get("id", "")):
                 collectible.merge(override.duplicate(true), true)
-    for key in ["collectibles", "platforms", "locked_gates", "map_rooms", "terrain", "grapple_anchors"]:
+    for key in ["collectibles", "platforms", "locked_gates", "map_rooms", "terrain", "grapple_anchors", "save_points"]:
         if not overlay.get(key, []).is_empty():
             if not config.has(key):
                 config[key] = []

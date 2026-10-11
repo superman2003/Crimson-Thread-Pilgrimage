@@ -40,7 +40,7 @@ func _run() -> void:
         for actor in get_nodes_in_group("enemy"):
             if actor.get_parent()==scene:actor.set_physics_process(false)
         scene.player.set_physics_process(false)
-        scene.player.hurt_timer=1000
+        scene.player.debug_invulnerable=true
         for interactive in scene.config.interactives:
             if String(interactive.kind)=="lever":
                 scene._activate_lever(scene.get_node(String(interactive.id)))

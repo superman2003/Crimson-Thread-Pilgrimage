@@ -85,7 +85,7 @@ func _physics_process(delta: float) -> void:
     elif target != null:
         var center := target.global_position-Vector2(0,42)
         # Straight projectiles can be deflected by a facing slash; waves and hazards require movement.
-        if effect_kind=="projectile" and float(target.get("attack_timer"))>0.03 and center.distance_to(global_position)<72:
+        if effect_kind=="projectile" and bool(get_meta("blockable",true)) and target.has_method("can_deflect_projectile") and target.can_deflect_projectile() and center.distance_to(global_position)<72:
             var facing := int(target.get("facing"))
             if (global_position.x-center.x)*facing>0:
                 reflected=true
@@ -93,7 +93,7 @@ func _physics_process(delta: float) -> void:
                 tint=Color(0.94,0.86,0.61)
         if not reflected and not hit_player and _hits_player(center):
             if target.has_method("take_damage"):
-                target.take_damage(damage,global_position)
+                target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
             if snare>0 and target.has_method("apply_snare"):
                 target.apply_snare(snare)
             hit_player=true

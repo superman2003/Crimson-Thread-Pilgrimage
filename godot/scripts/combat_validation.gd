@@ -34,10 +34,11 @@ func _run() -> void:
     await _frames(3)
     _assert(_has_mouse("attack", MOUSE_BUTTON_LEFT), "left mouse is bound to player attack")
     _assert(_has_mouse("heal", MOUSE_BUTTON_RIGHT), "right mouse is bound to healing")
-    _assert(_has_key("skill_1", KEY_E), "E is bound to skill")
+    _assert(_has_key("skill_1", KEY_L), "L is bound to skill")
+    _assert(_has_key("lantern_phase", KEY_E), "E is reserved for traversal phase")
     _assert(_has_key("interact", KEY_F), "F is bound to interaction")
 
-    var slash_enemy := _spawn_enemy(Vector2(155, 180), 3, profiles.get("moss_larva", {}))
+    var slash_enemy := _spawn_enemy(Vector2(155, 140), 3, profiles.get("moss_larva", {}))
     await _frames(3)
     _assert(_enemy_has_runtime_visual(slash_enemy), "enemy runtime uses open gothicvania visual")
     var before: int = int(slash_enemy.hp)
@@ -49,7 +50,7 @@ func _run() -> void:
     slash_enemy.queue_free()
     await _frames(2)
 
-    var left_enemy := _spawn_enemy(Vector2(45, 180), 3, profiles.get("moss_larva", {}))
+    var left_enemy := _spawn_enemy(Vector2(45, 140), 3, profiles.get("moss_larva", {}))
     player.global_position = Vector2(100, 180)
     player.velocity = Vector2.ZERO
     player.facing = -1
@@ -72,7 +73,7 @@ func _run() -> void:
     up_enemy.queue_free()
     await _frames(2)
 
-    var down_enemy := _spawn_enemy(Vector2(100, 180), 3, profiles.get("moss_larva", {}))
+    var down_enemy := _spawn_enemy(Vector2(100, 140), 3, profiles.get("moss_larva", {}))
     player.global_position = Vector2(100, 100)
     player.velocity = Vector2(0.0, 260.0)
     Input.action_press("aim_down")
@@ -85,7 +86,7 @@ func _run() -> void:
     down_enemy.queue_free()
     await _frames(2)
 
-    var contact_enemy := _spawn_enemy(Vector2(100, 180), 3, profiles.get("moss_larva", {}))
+    var contact_enemy := _spawn_enemy(Vector2(100, 140), 3, profiles.get("moss_larva", {}))
     player.global_position = Vector2(100, 180)
     player.velocity = Vector2.ZERO
     player.hp = player.max_hp
@@ -100,38 +101,43 @@ func _run() -> void:
     contact_enemy.queue_free()
     await _frames(2)
 
-    var hook_enemy := _spawn_enemy(Vector2(226, 180), 3, profiles.get("moss_larva", {}))
+    var hook_enemy := _spawn_enemy(Vector2(226, 140), 3, profiles.get("moss_larva", {}))
     player.global_position = Vector2(100, 180)
     player.velocity = Vector2.ZERO
     player.facing = 1
     player.hurt_timer = 0.0
     before = int(hook_enemy.hp)
     player._start_attack(&"hook_throw")
-    await _frames(18)
+    await _frames(28)
     _assert(is_instance_valid(hook_enemy) and hook_enemy.hp < before, "hook attack hits at extended range")
     hook_enemy.queue_free()
     await _frames(2)
 
-    var burst_enemy := _spawn_enemy(Vector2(154, 180), 4, profiles.get("moss_larva", {}))
+    var burst_enemy := _spawn_enemy(Vector2(154, 140), 4, profiles.get("moss_larva", {}))
     await _frames(3)
     player.energy = player.skill_energy_cost
     player._try_skill_burst()
     await _frames(20)
-    _assert(is_instance_valid(burst_enemy) and burst_enemy.hp <= 2, "E skill spends energy and deals 2 damage")
-    _assert(player.energy <= player.energy_per_hit, "E skill consumes energy before hit reward")
+    _assert(is_instance_valid(burst_enemy) and burst_enemy.hp <= 2, "L skill spends energy and deals 2 damage")
+    _assert(player.energy <= player.energy_per_hit, "L skill consumes energy and does not refund on its own hit")
 
+    burst_enemy.queue_free()
+    player._reset_traversal_state()
+    player.hurt_timer = 0.0
+    player.global_position = Vector2(100, 180)
+    player.velocity = Vector2.ZERO
+    await _frames(3)
     player.hp = 3
     player.energy = player.heal_energy_cost
-    player._try_heal()
-    _assert(player.hp == 4, "right mouse heal restores 1 HP")
-    _assert(player.energy == 0, "right mouse heal spends 60 energy")
-    burst_enemy.queue_free()
-    await _frames(2)
+    _assert(player._try_heal(), "right mouse heal starts while grounded and idle")
+    _assert(player.hp == 3 and player.energy == 0, "heal reserves 60 energy until completion")
+    await _frames(int(ceil(player.heal_duration * 60.0)) + 2)
+    _assert(player.hp == 4, "right mouse heal restores 1 HP after channel completes")
 
     var ai_player := PLAYER_SCENE.instantiate()
     root.add_child(ai_player)
     ai_player.global_position = Vector2(420, 180)
-    var ai_enemy := _spawn_enemy(Vector2(482, 180), 5, profiles.get("moss_larva", {}))
+    var ai_enemy := _spawn_enemy(Vector2(482, 140), 5, profiles.get("moss_larva", {}))
     await _frames(6)
     var ai_debug: Dictionary = ai_enemy.get_ai_debug_state()
     _assert(bool(ai_debug.get("reads_player_commands", false)), "enemy ai reads player command state")
@@ -151,7 +157,7 @@ func _run() -> void:
     if failures > 0:
         quit(1)
         return
-    print("COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_E=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true")
+    print("COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true")
     quit(0)
 
 
@@ -186,14 +192,14 @@ func _add_floor(y: float) -> void:
 
 func _frames(count: int) -> void:
     for _i in range(count):
-        await process_frame
+        await physics_frame
 
 
 func _frames_until_enemy_damage(target: CharacterBody2D, max_frames: int) -> void:
     for _i in range(max_frames):
         if target.hp < target.max_hp:
             return
-        await process_frame
+        await physics_frame
 
 
 func _load_json(path: String) -> Dictionary:
