@@ -43,7 +43,9 @@ func _validate_bag(scene: Node) -> void:
     ui.refresh_inventory()
     _check(ui._reconcile_inventory_selection()=="moss_chitin", "category switch chooses visible material")
     for button in ui.bag_grid.get_children():
-        _check(String(button.get_meta("item_id"))=="moss_chitin", "material grid excludes currency and other categories")
+        _check(String(button.get_meta("item_id")) in ["moss_chitin","crown_splinter"], "material grid excludes currency and other categories")
+    scene._move_backpack_selection(1)
+    _check(ui._reconcile_inventory_selection()=="crown_splinter", "keyboard moves inside active category")
     scene._move_backpack_selection(1)
     _check(ui._reconcile_inventory_selection()=="moss_chitin", "keyboard wraps inside active category")
     ui._pin_item()
