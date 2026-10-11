@@ -1,5 +1,5 @@
 extends Node2D
-## Opaque rock mass, real cave collision and local visibility limited by rock.
+## Opaque rock mass; ordinary rooms stay visible, authored dark rooms use local sight.
 
 const INKS := {"moss_cavern":"172d26", "rain_foundry":"142b37", "salt_archive":"322c3b", "string_greenhouse":"203325", "obsidian_pilgrim":"2e2634", "silent_crown":"232b3c"}
 var solid_rects: Array[Rect2] = []
@@ -11,6 +11,8 @@ var shader_material: ShaderMaterial
 var ray_lengths := PackedFloat32Array()
 var scan_timer := 0.0
 var vision_radius := 540.0
+var dark_vision_radius := 360.0
+var default_visibility := "normal"
 var ray_count := 96
 var lights: Array[Vector2] = []
 
@@ -21,6 +23,8 @@ func configure(chapter: Dictionary, theme: String, owner_scene: Node2D) -> void:
     var data: Dictionary = chapter.get("cave_world", {})
     if data.is_empty(): return
     vision_radius = float(data.get("vision_radius",540))
+    dark_vision_radius = float(data.get("dark_vision_radius",360))
+    default_visibility = String(data.get("visibility","normal"))
     outlines = data.get("outlines",[])
     var body := StaticBody2D.new()
     body.name = "SolidCaveMass"
@@ -64,6 +68,7 @@ func intersects_rect(rect: Rect2) -> bool:
 func _create_vision() -> void:
     fog = ColorRect.new()
     fog.name = "CaveSight"
+    fog.visible = false
     fog.mouse_filter = Control.MOUSE_FILTER_IGNORE
     fog.z_index = 40
     fog.color = Color.WHITE
@@ -95,6 +100,12 @@ void fragment() {
 
 func _process(delta: float) -> void:
     if fog==null or scene.player==null:return
+    var room: Dictionary = scene._map_room_by_id(String(scene.current_room_id))
+    var dark := String(room.get("visibility",default_visibility)) == "dark"
+    fog.visible = dark
+    if not dark:
+        scan_timer = 0.0
+        return
     var viewport := get_viewport()
     var camera := viewport.get_camera_2d()
     if camera==null:return
@@ -104,10 +115,7 @@ func _process(delta: float) -> void:
     fog.global_position = inverse * Vector2.ZERO
     fog.size = size / camera.zoom
     var origin: Vector2 = scene.player.global_position + Vector2(0,-48)
-    var radius := vision_radius
-    var room_id := String(scene.current_room_id)
-    if room_id.contains("vault") or room_id.contains("grotto"):
-        radius = 360.0
+    var radius := maxf(1.0,float(room.get("vision_radius",dark_vision_radius)))
     shader_material.set_shader_parameter("source_px",viewport.get_canvas_transform()*origin)
     shader_material.set_shader_parameter("viewport_px",size)
     shader_material.set_shader_parameter("zoom_value",camera.zoom.x)

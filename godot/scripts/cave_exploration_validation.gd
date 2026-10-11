@@ -34,6 +34,7 @@ func _run() -> void:
         check(scene.cave_world.solid_rects.size()>80,String(id)+" solid rock envelope")
         check(not scene.cave_world.intersects_rect(Rect2(scene.player.global_position+Vector2(-17,-84),Vector2(34,84))),String(id)+" spawn not buried")
         check(scene.cave_lifts.size()==1,String(id)+" physical lift installed")
+        check(not scene.cave_world.fog.visible,String(id)+" chapter entrance has normal visibility")
         await snap(scene,String(id)+"_entry")
         # Clear incidental combat while traversing geometry.
         for actor in get_nodes_in_group("enemy"):
@@ -104,6 +105,45 @@ func _run() -> void:
         var query:=PhysicsRayQueryParameters2D.create(center-Vector2(rock.size.x+50,0),center,16)
         check(not scene.get_world_2d().direct_space_state.intersect_ray(query).is_empty(),String(id)+" rock blocks sight ray")
         check(scene.cave_world.shader_material!=null,String(id)+" sight material installed")
+
+        # Ordinary rooms are readable; darkness requires an explicit room/chapter setting.
+        var original_room_id: String=scene.current_room_id
+        var original_visibility: String=scene.cave_world.default_visibility
+        for authored_room in scene.config.map_rooms:
+            if String(authored_room.get("visibility","normal"))!="dark":continue
+            scene.player.global_position=scene._room_layout_rect(authored_room).get_center()
+            scene._update_room_visit()
+            scene.cave_world._process(0.0)
+            check(scene.current_room_id==String(authored_room.id),String(id)+" authored dark cave is detected from player position")
+            check(scene.cave_world.fog.visible,String(id)+" authored dark cave enables limited visibility")
+
+        scene.current_room_id="unconfigured_vault_grotto"
+        scene.cave_world._process(0.0)
+        check(not scene.cave_world.fog.visible,String(id)+" unconfigured room names never enable darkness")
+        var normal_room: Dictionary={"id":"visibility_test_normal","visibility":"normal"}
+        var dark_room: Dictionary={"id":"visibility_test_dark","visibility":"dark","vision_radius":280}
+        scene.config.map_rooms.append(normal_room)
+        scene.config.map_rooms.append(dark_room)
+        scene.current_room_id=String(dark_room.id)
+        scene.cave_world._process(0.0)
+        check(scene.cave_world.fog.visible,String(id)+" explicit dark room enables sight mask")
+        check(is_equal_approx(float(scene.cave_world.shader_material.get_shader_parameter("radius")),280.0),String(id)+" dark room uses configured radius")
+        scene.current_room_id=String(normal_room.id)
+        scene.cave_world._process(0.0)
+        check(not scene.cave_world.fog.visible,String(id)+" leaving dark room restores full visibility")
+        scene.cave_world.default_visibility="dark"
+        scene.current_room_id="unconfigured_room"
+        scene.cave_world._process(0.0)
+        check(scene.cave_world.fog.visible,String(id)+" chapter can explicitly opt into darkness")
+        scene.current_room_id=String(normal_room.id)
+        scene.cave_world._process(0.0)
+        check(not scene.cave_world.fog.visible,String(id)+" normal room overrides dark chapter")
+        scene.config.map_rooms.erase(normal_room)
+        scene.config.map_rooms.erase(dark_room)
+        scene.cave_world.default_visibility=original_visibility
+        scene.current_room_id=original_room_id
+        scene.cave_world._process(0.0)
+
         scene.queue_free()
         for i in range(3):await process_frame
     print("CAVE_EXPLORATION_VALIDATION chapters=6 checks=%d failures=%d"%[checks,failures])
