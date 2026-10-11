@@ -16,6 +16,7 @@ const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_ACTOR_SCRIPT := preload("res://scripts/enemy_actor.gd")
 const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
 const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
+const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
@@ -571,6 +572,11 @@ var world_collected_ids: Dictionary = {}
 var world_catalog: Dictionary = {}
 var world_write_error_shown := false
 var world_loading := true
+var build_system: RefCounted
+var world_slot := 1
+var death_cache_area: Area2D
+var last_safe_ground := Vector2.ZERO
+var death_recorded := false
 var world_initial_error := ""
 var subtitle_elapsed := 0.0
 var subtitle_seconds := 0.0
@@ -609,11 +615,20 @@ func _ready() -> void:
     _init_inventory_state()
     if world_mode:
         _restore_world_inventory_and_region()
+    build_system = BUILD_SYSTEM_SCRIPT.new()
+    if world_mode and not world_state.data.get("build_state", {}).is_empty():
+        var restored: Dictionary = build_system.restore(world_state.data.build_state)
+        if not restored.get("ok", false):
+            world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑。"
+    build_system.sync_progress(inventory_counts, String(config.get("id", "")))
     _bind_audio_settings_key()
     _build_metsys_bridge()
     _build_audio()
     _build_world_from_config()
     _spawn_player()
+    last_safe_ground = active_spawn
+    if world_mode:
+        _spawn_death_cache()
     if world_mode:
         _restore_world_runtime()
     # 音频状态机运行时注入（契约 bind_runtime）：director 自驱轮询，这里只此一行。
@@ -697,11 +712,16 @@ func _process(_delta: float) -> void:
             _adjust_settings_volume(-5.0)
         elif Input.is_action_just_pressed("move_right"):
             _adjust_settings_volume(5.0)
+    if active_overlay.is_empty() and Input.is_physical_key_pressed(KEY_T) and not bool(get_meta("tool_key_held", false)):
+        perform_build_action("use_tool")
+    set_meta("tool_key_held", Input.is_physical_key_pressed(KEY_T))
     if Input.is_action_just_pressed("interact"):
         _try_interact()
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
         _void_respawn()
     if player != null and is_instance_valid(player):
+        if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position):
+            last_safe_ground = player.global_position
         _update_room_visit()
         if active_overlay == "map":
             _refresh_map_overlay()
@@ -731,6 +751,10 @@ func _exit_tree() -> void:
 func _prepare_world_start() -> void:
     if not world_mode:
         return
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--save-slot="):
+            world_slot = clampi(int(argument.trim_prefix("--save-slot=")), 1, 3)
+            world_save_path = WORLD_STATE_SCRIPT.slot_path(world_slot)
     if world_state == null:
         world_state = WORLD_STATE_SCRIPT.new()
         var args := OS.get_cmdline_args()
@@ -783,6 +807,7 @@ func _restore_world_inventory_and_region() -> void:
 func _restore_world_runtime() -> void:
     if entry_spawn_override_enabled:
         player.global_position = entry_spawn_override
+        player.arrival_guard_timer = 1.2
     player.set_spawn(active_spawn)
     player.hp = clampi(int(world_state.data.hp), 1, player.max_hp)
     player.energy = clampi(int(world_state.data.energy), 0, player.max_energy)
@@ -810,7 +835,8 @@ func _save_world() -> void:
     captured = world_state.capture_global({
         "inventory_counts": inventory_counts, "currency": currency_count,
         "story_flags": story_flags, "current_region": region_id,
-        "entry": active_spawn, "hp": player.hp, "energy": player.energy}) and captured
+        "entry": active_spawn, "hp": player.hp, "energy": player.energy,
+        "build_state": build_system.serialize() if build_system != null else {}}) and captured
     if (not captured or not world_state.write(world_save_path)) and not world_write_error_shown:
         world_write_error_shown = true
         _toast("归途记录暂未写入，当前旅途进度仍保留。")
@@ -847,6 +873,17 @@ func _world_portal(data: Dictionary) -> void:
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
+
+
+func _apply_world_npc_state(area: Area2D) -> void:
+    if not world_mode or world_narrative == null or not is_instance_valid(area):
+        return
+    var state: Dictionary = world_narrative.npc_world_state(String(area.get_meta("npc_id", "")), story_flags)
+    if state.is_empty():
+        return
+    area.set_meta("world_location_state", String(state.get("id", "")))
+    if state.has("position") and "demo_" + String(state.get("region", "")) == String(config.get("id", "")):
+        area.position = _vec2(state.position)
 
 
 func _world_grapple_anchor(data: Dictionary) -> void:
@@ -920,6 +957,7 @@ func _travel_world(next_path: String, entry: Vector2) -> void:
     next_scene.world_state = world_state
     next_scene.world_resume = false
     next_scene.world_save_path = world_save_path
+    next_scene.world_slot = world_slot
     next_scene.entry_spawn_override_enabled = true
     next_scene.entry_spawn_override = entry
     next_scene.entered_from_config_id = String(config.get("id", ""))
@@ -951,12 +989,26 @@ func _commit_world_dialogue() -> void:
     if state == "first_meet" and displayed_index + 1 >= int(area.get_meta("world_displayed_total", 0)):
         _set_story_flag("npc_met_%s" % String(area.get_meta("npc_id", area.name)))
     var result: Dictionary = area.get_meta("world_dialogue_result", {})
-    for flag in WORLD_NARRATIVE_SCRIPT.completion_flags(result, int(area.get_meta("world_displayed_index", -1)), story_flags):
-        _set_story_flag(String(flag))
-    if bool(story_flags.get("quest_bring_names_complete", false)) and not bool(story_flags.get("quest_bring_names_rewarded", false)):
+    # Keep legacy saves from claiming the same homecoming gift under a new key.
+    if bool(story_flags.get("quest_bring_names_rewarded", false)):
+        story_flags["reward_returned_names_claimed"] = true
+    var rewards := WORLD_NARRATIVE_SCRIPT.completion_rewards(result, displayed_index, story_flags)
+    var fresh_flags := WORLD_NARRATIVE_SCRIPT.completion_flags(result, displayed_index, story_flags)
+    if int(rewards.get("currency", 0)) > 0:
+        _add_currency(int(rewards.currency))
+    for flag in fresh_flags:
+        story_flags[String(flag)] = true
+    if bool(story_flags.get("reward_returned_names_claimed", false)):
         story_flags["quest_bring_names_rewarded"] = true
-        _add_currency(40)
-        _toast("名字已经带回 · 学徒将四十枚碎钱缝进你的行囊。")
+    # Commit the reward and all quest/claim flags together before one disk save.
+    if not fresh_flags.is_empty():
+        _check_wish_board_rewards()
+        var response := String(result.get("response", ""))
+        if not response.is_empty():
+            _toast(response)
+        elif not rewards.is_empty():
+            _toast("心愿达成 · 收到 %d 枚碎钱" % int(rewards.get("currency", 0)))
+        _apply_world_npc_state(area)
     _save_world()
 
 
@@ -1465,6 +1517,10 @@ func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true
         inventory_materials[item_id] = int(inventory_materials.get(item_id, 0)) + amount
     if item_id.begins_with("testimony_"):
         _refresh_testimony_chain_flag()
+    if world_mode and world_narrative != null:
+        var progress: Dictionary = world_narrative.evaluate_progress(inventory_counts, story_flags)
+        for flag in progress.get("grant_flags", []):
+            story_flags[String(flag)] = true
     if announce:
         _toast("收入行囊 · " + _item_display_name(item_id))
     if active_overlay == "backpack":
@@ -1912,6 +1968,8 @@ func _refresh_wish_board_overlay() -> void:
 
 
 func _toggle_backpack() -> void:
+    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
+        ui_shell.build_panel.visible = false
     if active_overlay == "backpack":
         _close_overlays()
         return
@@ -1931,6 +1989,8 @@ func _toggle_backpack() -> void:
 
 
 func _toggle_map() -> void:
+    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
+        ui_shell.build_panel.visible = false
     if active_overlay == "map":
         _close_overlays()
         return
@@ -1958,6 +2018,8 @@ func _build_settings_overlay() -> void:
     _refresh_settings_overlay()
 
 func _toggle_audio_settings() -> void:
+    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
+        ui_shell.build_panel.visible = false
     if active_overlay == "settings":
         _close_overlays()
         return
@@ -2021,6 +2083,8 @@ func _refresh_settings_overlay() -> void:
 
 
 func _close_overlays() -> void:
+    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
+        ui_shell.build_panel.visible = false
     # UI 关闭音（音频规格 §4.5）：按正在关的 overlay 选音，空关不发声。
     if active_overlay == "backpack":
         _play_sfx("ui_inventory_close", -3.0)
@@ -2608,6 +2672,11 @@ func _build_world_from_config() -> void:
         )
         locked_gate.set_meta("required_ability", String(gate.get("required_ability", "")))
         locked_gate.set_meta("required_ability_name", String(gate.get("required_ability_name", "")))
+        locked_gate.set_meta("requires_action", String(gate.get("requires_action", "")))
+        if String(gate.get("requires_action", "")) == "lantern_phase":
+            locked_gate.add_to_group("phase_gate")
+        if String(gate.get("requires_action", "")) == "thorn_downstrike":
+            locked_gate.add_to_group("fragile_terrain")
         locked_gate_bodies[String(gate.get("id", "locked_gate"))] = locked_gate
 
     for hazard in config.get("hazards", []):
@@ -2617,7 +2686,7 @@ func _build_world_from_config() -> void:
     if _combat_progression_enabled():
         collectible_total = 0
         for collectible in config.get("collectibles", []):
-            if collectible is Dictionary and String(collectible.get("kind", "")) == "item":
+            if collectible is Dictionary and (String(collectible.get("kind", "")) == "item" or (world_mode and String(collectible.get("kind", "")) == "currency")):
                 _collectible(collectible)
                 collectible_total += 1
     else:
@@ -2686,6 +2755,10 @@ func _spawn_player() -> void:
     player.hp_changed.connect(_on_hp_changed)
     player.energy_changed.connect(_on_energy_changed)
     player.player_respawned.connect(_on_player_respawned)
+    player.ability_action.connect(_on_ability_action)
+    if world_mode:
+        player.build_system = build_system
+        _sync_player_build()
     # 材质化脚步（音频规格 §4.2）：按章节 art theme 指定脚步材质组。
     player.set("footstep_material", String(FOOTSTEP_MATERIAL_BY_THEME.get(_art_theme_id(), "moss")))
     _configure_player_camera()
@@ -2777,6 +2850,22 @@ func _configure_player_camera() -> void:
 
 func _void_respawn() -> void:
     if player == null or not is_instance_valid(player):
+        return
+    if world_mode:
+        if player.death_timer > 0.0:
+            player.global_position = active_spawn
+            return
+        # Falling is a resource cost, never a full-heal shortcut.
+        player._interrupt_heal()
+        player.guard_timer = 0.0
+        player.hurt_timer = 0.0
+        player.take_damage(1, player.global_position + Vector2(50, 0))
+        player._reset_traversal_state()
+        player.global_position = active_spawn
+        player.velocity = Vector2.ZERO
+        _save_world()
+        _toast("坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。")
+        _refresh_hud()
         return
     if player.has_method("restore_at_save_point"):
         player.restore_at_save_point()
@@ -3871,6 +3960,7 @@ func _npc(data: Dictionary) -> void:
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
+    _apply_world_npc_state(area)
 
 
 func _resolve_enemy_spawn_position(data: Dictionary) -> Vector2:
@@ -4283,6 +4373,9 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
     if body != player or area.is_queued_for_deletion():
         return
+    if String(area.get_meta("kind", "")) == "death_cache":
+        _recover_death_cache(area)
+        return
     var collectible_kind := String(area.get_meta("kind", "bell_key"))
     var item_id := String(area.get_meta("item_id", collectible_kind))
     var amount := int(area.get_meta("amount", 1))
@@ -4326,6 +4419,12 @@ func _refresh_ability_gates(play_unlock_sfx: bool = false) -> void:
         var required_ability := String(gate_data.get("required_ability", ""))
         if gate_id.is_empty() or required_ability.is_empty():
             continue
+        var action := String(gate_data.get("requires_action", ""))
+        if not action.is_empty():
+            var unlock_id := String(gate_data.get("permanent_action_unlock_id", gate_id))
+            if bool(story_flags.get("action_gate_" + unlock_id, false)):
+                _unlock_ability_gate(gate_id)
+            continue
         if int(inventory_counts.get(required_ability, 0)) > 0:
             var unlock_sfx := String(GATE_UNLOCK_SFX.get(required_ability, "gate_dash")) if play_unlock_sfx else ""
             _unlock_ability_gate(gate_id, unlock_sfx)
@@ -4341,6 +4440,11 @@ func _sync_player_abilities() -> void:
     player.dash_unlocked = (not gated_start and not world_mode) or inventory_counts.has("thread_dash")
     player.double_jump_unlocked = int(inventory_counts.get("double_thread_jump", 0)) > 0
     player.thread_grapple_unlocked = int(inventory_counts.get("echo_hook", 0)) > 0
+    player.bell_guard_unlocked = int(inventory_counts.get("bell_guard", 0)) > 0
+    player.thorn_downstrike_unlocked = int(inventory_counts.get("thorn_downstrike", 0)) > 0
+    player.lantern_phase_unlocked = int(inventory_counts.get("lantern_phase", 0)) > 0
+    player.crown_resonance_unlocked = int(inventory_counts.get("crown_resonance", 0)) > 0
+    _sync_player_build()
     if world_mode:
         for anchor in get_tree().get_nodes_in_group("grapple_anchor"):
             if anchor.get_parent() != self:
@@ -4442,7 +4546,7 @@ func _nearest_interactable(radius: float) -> Area2D:
         if area == null or not is_instance_valid(area) or area.is_queued_for_deletion():
             continue
         var kind := String(area.get_meta("kind", ""))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item"].has(kind):
+        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache"].has(kind):
             continue
         if kind == "item" and not bool(area.get_meta("manual_pickup", false)):
             continue
@@ -4532,6 +4636,8 @@ func _activate_save_point(area: Area2D) -> void:
     _play_save_point_activation(area)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
+    if build_system != null:
+        build_system.cooldowns.clear()
     _save_world()
     _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
     _refresh_hud()
@@ -4685,7 +4791,7 @@ func _ending_gate_missing_requirements(requires_value: Variant) -> Array[String]
     var requires: Dictionary = requires_value
     for item_value in requires.get("items", []):
         var item_id := String(item_value)
-        if not item_id.is_empty() and not inventory_counts.has(item_id):
+        if not item_id.is_empty() and int(inventory_counts.get(item_id, 0)) <= 0:
             missing.append(_item_display_name(item_id))
     for flag_value in requires.get("flags", []):
         var flag := String(flag_value)
@@ -4706,7 +4812,14 @@ func _activate_ending_gate(area: Area2D) -> void:
         else:
             _toast("结局已定（%s），此门不再回应。" % chosen)
         return
-    var missing := _ending_gate_missing_requirements(area.get_meta("requires", {}))
+    var evaluated: Dictionary = {}
+    var missing: Array[String] = []
+    if world_mode and world_narrative != null:
+        evaluated = world_narrative.evaluate_ending(ending, inventory_counts, story_flags)
+        for requirement in evaluated.get("missing", []):
+            missing.append(String(requirement.get("label", requirement.get("id", ""))))
+    else:
+        missing = _ending_gate_missing_requirements(area.get_meta("requires", {}))
     if not missing.is_empty():
         var reject := String(area.get_meta("reject_message", ""))
         if reject.is_empty():
@@ -4715,6 +4828,11 @@ func _activate_ending_gate(area: Area2D) -> void:
         _play_sfx("ui_menu_cancel", -4.0)
         _toast(reject)
         return
+    if not evaluated.is_empty():
+        for flag in evaluated.get("grant_flags", []):
+            story_flags[String(flag)] = true
+        story_flags["ending_consequences"] = evaluated.get("consequences", {})
+        area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
     story_flags["ending_chosen"] = ending
     _set_story_flag("%s_done" % ending)
     _play_sfx("interact", -6.0)
@@ -4728,6 +4846,7 @@ func _activate_ending_gate(area: Area2D) -> void:
         win_label.text = String(area.get_meta("message", "ENDING: " + ending))
         win_label.visible = true
     _toast("结局达成：" + String(area.get_meta("label", ending)))
+    _save_world()
     _refresh_hud()
 
 
@@ -4872,6 +4991,8 @@ func _trigger_whispers(trigger: String, key: String) -> void:
 
 
 func _show_dialogue(area: Area2D, line: String) -> void:
+    if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
+        ui_shell.build_panel.visible = false
     # 对话混音态（规格 §5.3）：Music -4dB / Ambience -6dB，关闭时归还。
     if active_overlay != "dialogue" and audio_director != null:
         audio_director.on_dialogue(true)
@@ -4892,7 +5013,7 @@ func _show_dialogue(area: Area2D, line: String) -> void:
         dialogue_text_label.text = line
         if world_mode:
             subtitle_elapsed = 0.0
-            subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line)
+            subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(ui_shell.get_accessibility("subtitle_speed")) if ui_shell != null and ui_shell.has_method("get_accessibility") else 1.0)
             dialogue_text_label.visible_characters = 0
             if audio_director != null:
                 var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
@@ -4953,6 +5074,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
 
 
 func _on_player_respawned() -> void:
+    death_recorded = false
     _reset_encounters_after_player_death()
     _save_world()
 
@@ -5049,6 +5171,7 @@ func _on_hp_changed(value: int) -> void:
     # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
     _set_low_hp_audio(value == 1)
     if value <= 0:
+        _record_death_cache()
         # 玩家死亡（规格 §5.3/§5.5）：director 在场时全总线 300Hz 低通 + duck 自清；
         # 缺席时保持旧 duck 行为。
         if audio_director != null:
@@ -5489,3 +5612,222 @@ func _open_combat_clear_route() -> void:
     _unlock_boss_route()
     _refresh_hud()
 
+
+
+func get_build_system() -> RefCounted:
+    return build_system
+
+func _sync_player_build() -> void:
+    if not world_mode or build_system == null:
+        return
+    build_system.sync_progress(inventory_counts, String(config.get("id", "")))
+    if player != null and is_instance_valid(player):
+        player.apply_build_stats(build_system.profile())
+
+func _near_workstation(crafting: bool = false) -> bool:
+    if player == null or player.hp <= 0 or player.death_timer > 0.0 or (boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body)):
+        return false
+    for child in get_children():
+        if not child is Area2D or player.global_position.distance_to(child.global_position) > 120.0:
+            continue
+        var kind := String(child.get_meta("kind", ""))
+        if kind == "save_point" and not crafting:
+            return true
+        if crafting and kind == "npc":
+            var id := String(child.get_meta("npc_id", child.name))
+            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]:
+                return true
+    return false
+
+func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
+    if build_system == null or not world_mode:
+        return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
+    if player == null or player.hp <= 0 or chapter_transitioning:
+        return {"ok": false, "reason": "当前无法更换构筑"}
+    var result: Dictionary = {"ok": false, "reason": "未知构筑操作"}
+    match action:
+        "switch_crest", "crest":
+            result = build_system.switch_crest(id, _near_workstation())
+        "select_skill", "skill":
+            result = build_system.select_skill(id)
+        "select_tool", "tool":
+            result = build_system.select_tool(id)
+        "equip_passive", "passive":
+            result = build_system.equip_passive(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整被动装备"}
+        "save_loadout":
+            result = build_system.save_loadout(id)
+        "restore_loadout", "load_loadout":
+            result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
+        "transact", "craft":
+            if not _near_workstation(true):
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面制作补给"}
+            else:
+                result = build_system.transact(id, {"currency": currency_count, "inventory_counts": inventory_counts})
+                if result.get("ok", false):
+                    currency_count = int(result.wallet.currency)
+                    inventory_counts = result.wallet.inventory_counts.duplicate(true)
+                    inventory_materials.clear()
+                    for item_id in inventory_counts:
+                        if String(_item_data(String(item_id)).get("category", "Materials")) == "Materials":
+                            inventory_materials[item_id] = int(inventory_counts[item_id])
+        "use_tool":
+            if not active_overlay.is_empty() or player.attack_timer > 0.0 or player.dash_timer > 0.0 or player.hurt_timer > 0.0:
+                return {"ok": false, "reason": "请在动作结束后使用工具"}
+            var before: Dictionary = build_system.serialize()
+            result = build_system.use_tool()
+            if result.get("ok", false) and not player.cast_tool(result):
+                build_system.restore(before)
+                result = {"ok": false, "reason": "当前无法使用工具，次数已保留"}
+    if result.get("ok", false):
+        _sync_player_build()
+        _save_world()
+        _refresh_hud()
+    elif not String(result.get("reason", "")).is_empty():
+        _toast(String(result.reason))
+    return result
+
+func _toggle_build() -> void:
+    if ui_shell == null or not is_instance_valid(ui_shell.get("build_panel")):
+        return
+    if active_overlay == "build":
+        _close_overlays()
+        return
+    _close_overlays()
+    active_overlay = "build"
+    ui_shell.build_panel.visible = true
+    ui_shell.refresh_build()
+    _sync_ui_input_lock()
+
+func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2) -> void:
+    if not world_mode or int(inventory_counts.get(ability_id, 0)) <= 0 or player == null or player.hp <= 0:
+        return
+    var changed := false
+    for gate in config.get("locked_gates", []):
+        if String(gate.get("requires_action", "")) != ability_id:
+            continue
+        var id := String(gate.get("id", ""))
+        if not locked_gate_bodies.has(id):
+            continue
+        var rect := _rect2(gate.get("rect", []))
+        var closest := Vector2(clampf(origin.x, rect.position.x, rect.end.x), clampf(origin.y - 42.0, rect.position.y, rect.end.y))
+        if closest.distance_to(origin - Vector2(0, 42)) > float(gate.get("action_range", 150.0)):
+            continue
+        # A downward break only acts on ground below the player, never a side wall.
+        if ability_id == "thorn_downstrike" and (direction.y < 0.5 or origin.y > rect.end.y):
+            continue
+        var unlock_id := String(gate.get("permanent_action_unlock_id", id))
+        changed = true
+        story_flags["action_gate_" + unlock_id] = true
+        _spawn_route_open_effect(rect.get_center())
+        _unlock_ability_gate(id, String(GATE_UNLOCK_SFX.get(ability_id, "gate_dash")))
+        _toast(String(gate.get("open_message", "动作唤醒旧机关，回访通路永久接通。")))
+    if changed:
+        _save_world()
+
+func get_save_slots() -> Array:
+    return WORLD_STATE_SCRIPT.slot_summaries()
+
+func select_save_slot(index: int) -> bool:
+    if not world_mode or index < 1 or index > 3 or chapter_transitioning or player.hp <= 0:
+        return false
+    var path := WORLD_STATE_SCRIPT.slot_path(index)
+    if path == world_save_path:
+        return true
+    var candidate = WORLD_STATE_SCRIPT.new()
+    if FileAccess.file_exists(path) and not candidate.read(path):
+        _toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
+        return false
+    _save_world()
+    chapter_transitioning = true
+    call_deferred("_replace_with_save_slot", index)
+    return true
+
+func _replace_with_save_slot(index: int) -> void:
+    var parent_node := get_parent()
+    var scene: Node = load("res://scenes/World.tscn").instantiate()
+    scene.world_slot = index
+    scene.world_save_path = WORLD_STATE_SCRIPT.slot_path(index)
+    var was_current := get_tree().current_scene == self
+    parent_node.remove_child(self)
+    parent_node.add_child(scene)
+    if was_current:
+        scene.get_tree().current_scene = scene
+    queue_free()
+
+func restore_save_backup(index: int = 0) -> bool:
+    if not world_mode or chapter_transitioning:
+        return false
+    var slot := world_slot if index == 0 else clampi(index, 1, 3)
+    var recovered = WORLD_STATE_SCRIPT.new()
+    if not recovered.restore_backup(WORLD_STATE_SCRIPT.slot_path(slot)):
+        _toast("备份恢复失败：" + recovered.last_error)
+        return false
+    chapter_transitioning = true
+    call_deferred("_replace_with_save_slot", slot)
+    return true
+
+func _ground_is_hazardous(position_value: Vector2) -> bool:
+    for hazard in config.get("hazards", []):
+        if _rect2(hazard.get("rect", [])).grow(36).has_point(position_value):
+            return true
+    return false
+
+func _record_death_cache() -> void:
+    if not world_mode or death_recorded or world_state == null:
+        return
+    death_recorded = true
+    var lost := int(currency_count / 2)
+    currency_count -= lost
+    var recovery := last_safe_ground if last_safe_ground != Vector2.ZERO else active_spawn
+    # Boss attempts leave currency at the outside checkpoint, beyond the arena seal.
+    if boss_spawned:
+        recovery = active_spawn
+    world_state.capture_global({"death_cache": {"region_id": String(config.get("id", "")), "position": [recovery.x, recovery.y], "currency": lost}})
+    _spawn_death_cache()
+    _save_world()
+    _toast("碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。")
+
+func _spawn_death_cache() -> void:
+    if death_cache_area != null and is_instance_valid(death_cache_area):
+        death_cache_area.queue_free()
+    death_cache_area = null
+    if not world_mode or world_state == null:
+        return
+    var cache: Dictionary = world_state.data.get("death_cache", {})
+    if cache.is_empty() or String(cache.get("region_id", "")) != String(config.get("id", "")) or int(cache.get("currency", 0)) <= 0:
+        return
+    var area := Area2D.new()
+    area.name = "DeathRecoveryKnot"
+    area.position = _vec2(cache.position)
+    area.set_meta("kind", "death_cache")
+    area.set_meta("manual_pickup", true)
+    area.set_meta("label", "归途结 · 找回碎钱")
+    var shape := CollisionShape2D.new()
+    var circle := CircleShape2D.new()
+    circle.radius = 54.0
+    shape.shape = circle
+    area.add_child(shape)
+    var ring := Line2D.new()
+    ring.closed = true
+    ring.width = 4.0
+    ring.default_color = Color("e9c276")
+    for i in range(17):
+        var angle := TAU * float(i) / 16.0
+        ring.add_point(Vector2(cos(angle), sin(angle)) * 24.0 - Vector2(0, 32))
+    area.add_child(ring)
+    area.body_entered.connect(_on_interactable_entered.bind(area))
+    area.body_exited.connect(_on_interactable_exited.bind(area))
+    add_child(area)
+    death_cache_area = area
+
+func _recover_death_cache(area: Area2D) -> void:
+    if not world_mode or player.hp <= 0 or world_state == null:
+        return
+    var cache: Dictionary = world_state.data.get("death_cache", {})
+    _add_currency(int(cache.get("currency", 0)))
+    world_state.capture_global({"death_cache": {}})
+    area.queue_free()
+    death_cache_area = null
+    _save_world()
+    _toast("归途结已收回，遗留碎钱回到行囊。")
+    _refresh_hud()

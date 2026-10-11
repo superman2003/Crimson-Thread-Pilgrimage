@@ -11,6 +11,7 @@ var attack_target := Vector2.ZERO
 var trail_clock := 0.0
 var battle_phase := 1
 var phase_pause := 0.0
+var snare_timer := 0.0
 var original_visual := false
 var owned_attack_effects: Array[Node2D] = []
 var combat_tweens: Array[Tween] = []
@@ -51,6 +52,12 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.duration=warning+lifetime
     effect.radius=float(command.get("radius",11))
     effect.length=float(command.get("beam_length",360))
+    if effect_kind == "beam" and is_inside_tree():
+        var query := PhysicsRayQueryParameters2D.create(point, point + effect.heading * effect.length, 1)
+        query.collide_with_areas = false
+        var obstruction := get_world_2d().direct_space_state.intersect_ray(query)
+        if not obstruction.is_empty():
+            effect.length = minf(effect.length, point.distance_to(obstruction.position))
     effect.damage=int(command.get("damage",damage))
     effect.gravity=float(command.get("gravity",0))
     effect.snare=float(command.get("snare",0))
@@ -228,6 +235,7 @@ var boss_reposition_target_x := 0.0
 var sprite: Node2D
 var animated_sprite: AnimatedSprite2D
 var telegraph: Polygon2D
+var telegraph_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
 var flash_materials: Array = []
@@ -457,6 +465,7 @@ func get_ai_debug_state() -> Dictionary:
 
 
 func _tick_timers(delta: float) -> void:
+    snare_timer = maxf(0.0, snare_timer - delta)
     contact_timer = maxf(0.0, contact_timer - delta)
     if flash_timer > 0.0:
         flash_timer -= delta
@@ -534,6 +543,7 @@ func reset_for_respawn() -> void:
     active_attack = {}
     state = "patrol"
     attack_desire = 0.0
+    snare_timer = 0.0
     last_player_command = "none"
     last_ai_decision = "patrol"
     last_attack_id = ""
@@ -576,9 +586,28 @@ func _face_target(target: Node2D) -> void:
     _set_sprite_flip(direction < 0)
 
 
+func _has_line_of_sight(target: CharacterBody2D) -> bool:
+    if target == null or not is_instance_valid(target) or not is_inside_tree():
+        return false
+    # Terrain occupies layer 1; player/enemy hurtboxes must not occlude sight.
+    var query := PhysicsRayQueryParameters2D.create(global_position + Vector2(0, -24), target.global_position + Vector2(0, -42), 1)
+    query.exclude = [get_rid(), target.get_rid()]
+    query.collide_with_areas = false
+    return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+func apply_snare(seconds: float) -> void:
+    if is_finite(seconds) and seconds > 0.0 and not dying:
+        snare_timer = maxf(snare_timer, minf(seconds, 12.0))
+
+
+func _movement_speed() -> float:
+    return speed * (0.5 if snare_timer > 0.0 else 1.0)
+
+
 func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
     var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
-    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range)
+    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range) and _has_line_of_sight(target)
     if engaged and not engage_announced:
         _announce_engagement()
     _update_attack_desire(delta, target, engaged)
@@ -613,7 +642,7 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
     var desired := preferred
     if pressured and attack_range > 0.0:
         desired = minf(preferred, maxf(34.0, attack_range * 0.70))
-    var chase_speed := speed * (float(ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
+    var chase_speed := _movement_speed() * (float(ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
     var movement_direction := 0.0
     if attack_range > 0.0 and distance > attack_range - 10.0:
         movement_direction = signf(dx)
@@ -627,7 +656,7 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
         last_ai_decision = "advance"
     elif distance < desired - 18.0 and not pressured:
         movement_direction = -signf(dx)
-        position.x += movement_direction * speed * 0.55 * delta
+        position.x += movement_direction * _movement_speed() * 0.55 * delta
         moved = true
         last_ai_decision = "space"
     else:
@@ -681,7 +710,7 @@ func _move_boss_tactical(delta: float, target: CharacterBody2D) -> void:
             boss_press_timer = maxf(0.0, boss_press_timer - delta * 0.45)
             last_ai_decision = "tactic:observe"
     if movement_direction != 0.0:
-        position.x += movement_direction * speed * move_multiplier * delta
+        position.x += movement_direction * _movement_speed() * move_multiplier * delta
         moved = true
     _clamp_movement_bounds()
     if moved:
@@ -833,7 +862,7 @@ func _patrol(delta: float) -> void:
     if locomotion=="stationary":
         _set_enemy_animation("idle")
         return
-    position.x += direction * speed * 0.72 * delta
+    position.x += direction * _movement_speed() * 0.72 * delta
     _set_enemy_animation("walk")
     if absf(global_position.x - start_x) > patrol_distance:
         direction *= -1
@@ -873,7 +902,7 @@ func _return_to_spawn(delta: float) -> void:
         _set_enemy_animation("idle")
         return
     direction = -1 if dx < 0.0 else 1
-    position.x += direction * speed * delta
+    position.x += direction * _movement_speed() * delta
     _clamp_movement_bounds()
     _set_sprite_flip(direction < 0)
     _set_enemy_animation("walk")
@@ -1035,7 +1064,7 @@ func _vector2_property(node: Object, key: String, fallback: Vector2) -> Vector2:
 
 
 func _try_start_attack(target: CharacterBody2D) -> bool:
-    if ai_commands.is_empty():
+    if ai_commands.is_empty() or not _has_line_of_sight(target):
         return false
     var desire_threshold := _attack_desire_threshold()
     if _boss_tactical_enabled():
@@ -1165,7 +1194,7 @@ func _try_damage_player(command: Dictionary) -> void:
     if attack_has_hit:
         return
     var target := _target_player()
-    if target == null:
+    if target == null or not _has_line_of_sight(target):
         return
 
     var attack_type := String(command.get("type", "melee"))
@@ -1230,13 +1259,16 @@ func _show_telegraph(command: Dictionary) -> void:
     telegraph.color = color
     telegraph.z_index = 8
     add_child(telegraph)
-    var tween := _combat_tween()
-    tween.set_loops(3)
-    tween.tween_property(telegraph, "scale", Vector2(1.08, 1.08), 0.08)
-    tween.tween_property(telegraph, "scale", Vector2(1.0, 1.0), 0.08)
+    telegraph_tween = _combat_tween()
+    telegraph_tween.set_loops(3)
+    telegraph_tween.tween_property(telegraph, "scale", Vector2(1.08, 1.08), 0.08)
+    telegraph_tween.tween_property(telegraph, "scale", Vector2(1.0, 1.0), 0.08)
 
 
 func _clear_telegraph() -> void:
+    if telegraph_tween != null and is_instance_valid(telegraph_tween) and telegraph_tween.is_valid():
+        telegraph_tween.kill()
+    telegraph_tween = null
     if telegraph != null and is_instance_valid(telegraph):
         telegraph.queue_free()
     telegraph = null
@@ -1887,6 +1919,7 @@ func _cancel_attack_effects() -> void:
     owned_attack_effects.clear()
 
 func _exit_tree() -> void:
+    _clear_telegraph()
     _cancel_attack_effects()
 
 func _combat_tween() -> Tween:

@@ -102,7 +102,7 @@ func _run() -> void:
                 actor._update_recover(float(command.recover)+.001)
                 moves_tested+=1
         scene.player.ui_input_locked=false
-        scene.player.hurt_timer=100
+        scene.player.debug_invulnerable=true
         for effect in get_nodes_in_group("hostile_attack"):
             if effect.get_parent()==scene:
                 effect._physics_process(.05)

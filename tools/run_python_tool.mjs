@@ -58,7 +58,10 @@ for (const candidate of candidates) {
     lastError = result.error.message;
     continue;
   }
-  process.exit(result.status ?? 0);
+  if (result.signal) {
+    console.error(`Python tool terminated by signal ${result.signal}: ${scriptPath}`);
+  }
+  process.exit(result.status ?? 1);
 }
 
 console.error(`No usable Python runtime found. Last error: ${lastError}`);

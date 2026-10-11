@@ -24,6 +24,7 @@ def validate(routes_path, data_root):
                     platform.update(override)
         configs[key]['platforms'].extend(overlay.get('platforms', []))
         configs[key].setdefault('terrain', []).extend(overlay.get('terrain', []))
+        configs[key].setdefault('map_rooms', []).extend(overlay.get('map_rooms', []))
         for override in overlay.get('locked_gate_overrides', []):
             for gate in configs[key].get('locked_gates', []):
                 if gate['id'] == override['id']:

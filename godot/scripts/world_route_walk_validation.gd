@@ -1,6 +1,6 @@
 extends SceneTree
 ## Navigation acceptance uses live Player input and collision physics only.
-## Enemy damage is suppressed with hurt_timer, so this is not a combat playthrough.
+## Enemy damage is suppressed with an explicit debug flag, so this is not a combat playthrough.
 const SAVE := "user://test_world_walk.json"
 var scene: Node
 var failures := 0
@@ -76,7 +76,7 @@ func _run() -> void:
 func _tick(count: int = 1) -> void:
     for unused in range(count):
         if is_instance_valid(scene) and is_instance_valid(scene.player):
-            scene.player.hurt_timer = 10.0
+            scene.player.debug_invulnerable = true
         await physics_frame
         frames += 1
         for child in root.get_children():
