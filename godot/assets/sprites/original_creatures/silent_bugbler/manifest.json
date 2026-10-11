@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "silent_bugbler",
+  "canvas": [
+    384,
+    325
+  ],
+  "display_height": 100,
+  "visual_scale": 0.33783783783783783,
+  "visual_offset": [
+    0,
+    3.1013513513513544
+  ],
+  "motion": "stationary",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            51,
+            18,
+            272,
+            296
+          ],
+          "margin": [
+            51,
+            27,
+            112,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            440,
+            16,
+            255,
+            297
+          ],
+          "margin": [
+            56,
+            26,
+            129,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            792,
+            31,
+            277,
+            281
+          ],
+          "margin": [
+            24,
+            42,
+            107,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            1184,
+            33,
+            296,
+            279
+          ],
+          "margin": [
+            32,
+            44,
+            88,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            32,
+            367,
+            297,
+            290
+          ],
+          "margin": [
+            32,
+            33,
+            87,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            420,
+            371,
+            297,
+            287
+          ],
+          "margin": [
+            36,
+            36,
+            87,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            793,
+            416,
+            324,
+            246
+          ],
+          "margin": [
+            25,
+            77,
+            60,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            1218,
+            341,
+            282,
+            321
+          ],
+          "margin": [
+            66,
+            2,
+            102,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            17,
+            724,
+            367,
+            259
+          ],
+          "margin": [
+            17,
+            64,
+            17,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            411,
+            721,
+            345,
+            263
+          ],
+          "margin": [
+            27,
+            60,
+            39,
+            62
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            805,
+            730,
+            347,
+            253
+          ],
+          "margin": [
+            37,
+            70,
+            37,
+            72
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
+          "region": [
+            1152,
+            840,
+            369,
+            153
+          ],
+          "margin": [
+            0,
+            170,
+            15,
+            172
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "corridor_heavy",
+  "canvas": [
+    362,
+    360
+  ],
+  "display_height": 118,
+  "visual_scale": 0.3959731543624161,
+  "visual_offset": [
+    0,
+    -13.275167785234899
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            43,
+            43,
+            319,
+            298
+          ],
+          "margin": [
+            43,
+            60,
+            43,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            399,
+            55,
+            320,
+            286
+          ],
+          "margin": [
+            37,
+            72,
+            42,
+            74
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            759,
+            54,
+            327,
+            287
+          ],
+          "margin": [
+            35,
+            71,
+            35,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            1125,
+            51,
+            318,
+            289
+          ],
+          "margin": [
+            39,
+            69,
+            44,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            44,
+            436,
+            318,
+            276
+          ],
+          "margin": [
+            44,
+            82,
+            44,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            420,
+            428,
+            304,
+            284
+          ],
+          "margin": [
+            58,
+            74,
+            58,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            724,
+            362,
+            346,
+            356
+          ],
+          "margin": [
+            0,
+            2,
+            16,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            1108,
+            363,
+            293,
+            354
+          ],
+          "margin": [
+            22,
+            4,
+            69,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            18,
+            778,
+            344,
+            260
+          ],
+          "margin": [
+            18,
+            98,
+            18,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            362,
+            784,
+            362,
+            247
+          ],
+          "margin": [
+            0,
+            111,
+            0,
+            113
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            724,
+            798,
+            362,
+            232
+          ],
+          "margin": [
+            0,
+            126,
+            0,
+            128
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "region": [
+            1086,
+            902,
+            358,
+            133
+          ],
+          "margin": [
+            0,
+            225,
+            4,
+            227
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1448,
+    1086
+  ]
+}

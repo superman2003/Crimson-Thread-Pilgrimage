@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_deserter_flagbearer",
+  "visual_scale": 0.21713147410358566,
+  "visual_offset": [
+    0,
+    -15.69422310756972
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+    "region": [
+      74,
+      10,
+      428,
+      326
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+          "region": [
+            74,
+            10,
+            428,
+            502
+          ],
+          "margin": [
+            74,
+            9,
+            84,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+          "region": [
+            602,
+            10,
+            422,
+            500
+          ],
+          "margin": [
+            90,
+            11,
+            90,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+          "region": [
+            1066,
+            3,
+            412,
+            509
+          ],
+          "margin": [
+            42,
+            2,
+            100,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+          "region": [
+            78,
+            526,
+            434,
+            492
+          ],
+          "margin": [
+            78,
+            19,
+            78,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+          "region": [
+            512,
+            546,
+            446,
+            469
+          ],
+          "margin": [
+            0,
+            42,
+            66,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_deserter_flagbearer/atlas.png",
+          "region": [
+            1058,
+            520,
+            450,
+            502
+          ],
+          "margin": [
+            34,
+            9,
+            62,
+            11
+          ]
+        }
+      ]
+    }
+  ]
+}

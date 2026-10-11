@@ -1,5 +1,7 @@
 extends SceneTree
 
+var failures := 0
+
 const CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
 const MAIN_SCENE := "res://scenes/Main.tscn"
 
@@ -113,10 +115,9 @@ func _run() -> void:
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("boss_spawned") == true, "F interaction spawns boss")
-    _assert(int(state.get("boss_attack_total", 0)) >= 9, "boss has expanded move list")
-    _assert((state.get("boss_attack_types", []) as Array).has("shockwave"), "boss has shockwave attack")
-    _assert((state.get("boss_attack_types", []) as Array).has("retreat"), "boss has retreat attack")
-    _assert((state.get("boss_attack_types", []) as Array).has("feint"), "boss has feint attack")
+    _assert(int(state.get("boss_attack_total", 0)) == 4, "boss has four distinct authored attacks")
+    for attack_type in ["melee", "wave", "fan", "rootline"]:
+        _assert((state.get("boss_attack_types", []) as Array).has(attack_type), "boss has " + attack_type + " attack")
 
     scene._debug_kill_boss()
     state = scene.get_demo_state()
@@ -125,6 +126,9 @@ func _run() -> void:
     _assert(chapter_exit != null, "chapter exit exists after boss")
     _assert(String(chapter_exit.get_meta("next_runtime_config_id", "")) == "demo_ch02_rain_foundry_canal", "chapter exit points to CH02")
 
+    if failures > 0:
+        quit(1)
+        return
     print("DEMO_VALIDATION_PASS enemies=%s hazards=%s keys=0 boss=1 combat_clear=true complete=true" % [state.get("normal_enemy_total"), state.get("hazard_total")])
     quit(0)
 
@@ -328,5 +332,5 @@ func _assert(condition: bool, label: String) -> void:
     if condition:
         print("PASS: " + label)
         return
+    failures += 1
     push_error("FAIL: " + label)
-    quit(1)

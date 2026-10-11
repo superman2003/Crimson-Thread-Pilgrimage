@@ -6,6 +6,8 @@
 
 ## 预览
 
+2026-10-11 改版：[六章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)、[分类背包](artifacts/pilgrimage_overhaul/inventory.png)、[NPC对话](artifacts/pilgrimage_overhaul/dialogue.png)。本轮包含46类敌人的104个招式、六章手绘地图与连续地形，详见[改版记录与验证](docs/release/20261011_pilgrimage_overhaul.md)。
+
 ![Six Chapter Map Overview](artifacts/godot_showcase/six_chapter_maps_contact_sheet.png)
 
 ![Configured Monsters and Bosses](artifacts/godot_showcase/bestiary/configured_monsters_contact_sheet.png)

@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "vine_crawler",
+  "canvas": [
+    384,
+    302
+  ],
+  "display_height": 72,
+  "visual_scale": 0.26277372262773724,
+  "visual_offset": [
+    0,
+    18.32116788321168
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            29,
+            42,
+            309,
+            274
+          ],
+          "margin": [
+            29,
+            26,
+            75,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            415,
+            42,
+            314,
+            274
+          ],
+          "margin": [
+            31,
+            26,
+            70,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            811,
+            58,
+            331,
+            258
+          ],
+          "margin": [
+            43,
+            42,
+            53,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            1200,
+            66,
+            317,
+            250
+          ],
+          "margin": [
+            48,
+            50,
+            67,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            43,
+            387,
+            325,
+            261
+          ],
+          "margin": [
+            43,
+            39,
+            59,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            427,
+            400,
+            339,
+            247
+          ],
+          "margin": [
+            43,
+            53,
+            45,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            806,
+            411,
+            345,
+            236
+          ],
+          "margin": [
+            38,
+            64,
+            39,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            1200,
+            371,
+            304,
+            277
+          ],
+          "margin": [
+            48,
+            23,
+            80,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            24,
+            720,
+            360,
+            256
+          ],
+          "margin": [
+            24,
+            44,
+            24,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            384,
+            718,
+            384,
+            258
+          ],
+          "margin": [
+            0,
+            42,
+            0,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            768,
+            683,
+            364,
+            298
+          ],
+          "margin": [
+            0,
+            2,
+            20,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+          "region": [
+            1166,
+            769,
+            347,
+            215
+          ],
+          "margin": [
+            14,
+            85,
+            37,
+            87
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

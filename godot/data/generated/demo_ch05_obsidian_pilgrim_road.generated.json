@@ -3233,559 +3233,498 @@
   ],
   "ai_profiles": {
     "obsidian_spearman": {
-      "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
-      "attacks": [
-        {
-          "id": "quick_cut",
-          "type": "melee",
-          "range": 88,
-          "damage": 1,
-          "windup": 0.2,
-          "active": 0.16,
-          "recover": 0.42,
-          "cooldown": 1.08,
-          "hit_width": 82,
-          "hit_height": 72,
-          "offset": 42,
-          "telegraph": "e1b879",
-          "priority": 1.0,
-          "animation": "attack"
-        }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
-    },
-    "phase_censor": {
-      "move_speed": 36,
-      "aggro_range": 235.0,
-      "preferred_range": 82.0,
-      "attacks": [
-        {
-          "id": "sigil_burst",
-          "type": "aoe",
-          "range": 86,
-          "damage": 1,
-          "windup": 0.38,
-          "active": 0.16,
-          "recover": 0.58,
-          "cooldown": 1.42,
-          "hit_width": 126,
-          "hit_height": 76,
-          "offset": 0,
-          "telegraph": "9bd7f0",
-          "priority": 1.0,
-          "animation": "attack"
-        }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
-    },
-    "silent_bugbler": {
-      "move_speed": 48,
-      "aggro_range": 210.0,
-      "preferred_range": 44.0,
-      "attacks": [
-        {
-          "id": "bite_lunge",
-          "type": "lunge",
-          "range": 92,
-          "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.46,
-          "cooldown": 1.18,
-          "lunge_speed": 250,
-          "hit_width": 82,
-          "hit_height": 54,
-          "offset": 44,
-          "telegraph": "bf6c3f",
-          "priority": 1.0,
-          "animation": "attack"
-        }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
-    },
-    "kneeling_crossbowman": {
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同",
       "move_speed": 62,
-      "aggro_range": 250.0,
-      "preferred_range": 78.0,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "body_cast",
+          "id": "obsidian_thrust",
+          "name": "黑曜直刺",
+          "type": "lunge",
+          "range": 240,
+          "windup": 0.6,
+          "active": 0.3,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 172,
+          "hit_height": 42,
+          "offset": 82,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "黑曜直刺",
+          "lunge_speed": 230
+        },
+        {
+          "id": "obsidian_raise",
+          "name": "抬枪截空",
           "type": "melee",
-          "range": 96,
-          "damage": 1,
-          "windup": 0.34,
-          "active": 0.18,
-          "recover": 0.55,
-          "cooldown": 1.34,
-          "hit_width": 88,
-          "hit_height": 64,
-          "offset": 48,
-          "telegraph": "c99a50",
-          "priority": 1.0,
-          "animation": "attack"
-        }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
-    },
-    "pilgrim_chariot": {
-      "move_speed": 42,
-      "aggro_range": 245.0,
-      "preferred_range": 70.0,
-      "attacks": [
-        {
-          "id": "shield_rush",
-          "type": "lunge",
-          "range": 118,
-          "damage": 1,
-          "windup": 0.3,
-          "active": 0.22,
-          "recover": 0.54,
-          "cooldown": 1.36,
-          "lunge_speed": 310,
-          "hit_width": 100,
-          "hit_height": 68,
-          "offset": 56,
-          "telegraph": "d38c45",
-          "priority": 1.0,
-          "animation": "attack"
-        }
-      ],
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82
-    },
-    "silent_pilgrim_commander": {
-      "move_speed": 58,
-      "aggro_range": 620,
-      "preferred_range": 126,
-      "attacks": [
-        {
-          "id": "crown_slam",
-          "type": "aoe",
-          "range": 138,
-          "damage": 2,
-          "windup": 0.5903999999999999,
-          "active": 0.26,
-          "recover": 0.9,
-          "cooldown": 2.2319999999999998,
-          "hit_width": 280,
-          "hit_height": 116,
-          "telegraph": "d07b36",
-          "priority": 2.95,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "rust_charge",
-          "type": "lunge",
-          "range": 190,
-          "damage": 2,
-          "windup": 0.4428,
-          "active": 0.36,
-          "recover": 0.95,
-          "cooldown": 2.052,
-          "lunge_speed": 370,
-          "hit_width": 132,
-          "hit_height": 100,
-          "offset": 72,
-          "telegraph": "b96032",
-          "priority": 2.6500000000000004,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "bell_body_crush",
-          "type": "lunge",
-          "range": 160,
-          "damage": 1,
-          "windup": 0.328,
+          "range": 120,
+          "windup": 0.6,
           "active": 0.24,
-          "recover": 0.62,
-          "cooldown": 1.26,
-          "lunge_speed": 360,
-          "hit_width": 150,
-          "hit_height": 108,
-          "offset": 76,
-          "telegraph": "e0a542",
-          "priority": 2.25,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "gear_knee",
-          "type": "melee",
-          "range": 108,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 95,
+          "hit_height": 150,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.48,
-          "cooldown": 1.1,
-          "hit_width": 128,
-          "hit_height": 92,
-          "offset": 62,
-          "telegraph": "b78c4d",
-          "priority": 1.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "crown_backhand",
-          "type": "melee",
-          "range": 110,
-          "damage": 1,
-          "windup": 0.24,
-          "active": 0.16,
-          "recover": 0.46,
-          "cooldown": 1.05,
-          "hit_width": 126,
-          "hit_height": 94,
-          "offset": 64,
-          "telegraph": "d9b158",
-          "priority": 1.3,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "bellquake_stomp",
-          "type": "aoe",
-          "range": 184,
-          "damage": 1,
-          "windup": 0.738,
-          "active": 0.32,
-          "recover": 1,
-          "cooldown": 3.024,
-          "hit_width": 320,
-          "hit_height": 98,
-          "telegraph": "8ebf8b",
-          "priority": 1.55,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
-        },
-        {
-          "id": "crown_shockwave_chain",
-          "type": "shockwave",
-          "min_range": 90,
-          "range": 360,
-          "damage": 1,
-          "windup": 0.26,
-          "active": 0.22,
-          "recover": 0.44,
-          "cooldown": 1.9,
-          "hit_width": 250,
-          "hit_height": 48,
-          "offset": 136,
-          "telegraph": "f0c34f",
-          "priority": 3.25,
-          "start_cooldown": 0.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -22,
-            -10
-          ],
-          "windup_scale": [
-            1.1,
-            0.92
-          ],
-          "active_offset": [
-            46,
-            -3
-          ],
-          "active_scale": [
-            1.24,
-            0.84
-          ],
-          "recover_offset": [
-            -14,
-            4
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "backstep_hook_cut",
-          "type": "retreat",
-          "range": 150,
-          "damage": 1,
-          "windup": 0.18,
-          "active": 0.26,
-          "recover": 0.35,
-          "cooldown": 1.55,
-          "retreat_speed": 225,
-          "hit_width": 130,
-          "hit_height": 72,
-          "offset": 70,
-          "telegraph": "7fd6ca",
-          "priority": 2.7,
-          "pose_power": 1.38,
-          "windup_offset": [
-            18,
-            -8
-          ],
-          "windup_scale": [
-            0.96,
-            1.08
-          ],
-          "active_offset": [
-            -38,
-            -8
-          ],
-          "active_scale": [
-            0.92,
-            1.14
-          ],
-          "recover_offset": [
-            12,
-            1
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "false_crown_feint",
-          "type": "feint",
-          "range": 132,
-          "damage": 1,
-          "windup": 0.12,
-          "active": 0.18,
-          "recover": 0.28,
-          "cooldown": 1.35,
-          "feint_sway": 120,
-          "hit_width": 112,
-          "hit_height": 80,
-          "offset": 58,
-          "telegraph": "d98ee8",
-          "priority": 2.45,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -14,
-            -12
-          ],
-          "windup_scale": [
-            1.08,
-            0.93
-          ],
-          "active_offset": [
-            20,
-            -6
-          ],
-          "active_scale": [
-            1.12,
-            0.94
-          ],
-          "recover_offset": [
-            -10,
-            2
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "抬枪截空",
+          "offset_y": -80
         }
       ]
     },
-    "ash_banner_imp": {
-      "move_speed": 58,
-      "aggro_range": 220.0,
-      "preferred_range": 58.0,
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82,
+    "phase_censor": {
+      "locomotion": "flight",
+      "combat_identity": "前摇标记位置，闪到侧面投出弯刃",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "quick_cut",
-          "type": "melee",
-          "range": 88,
+          "id": "censor_blink",
+          "name": "侧移弯刃",
+          "type": "blink",
+          "range": 320,
+          "windup": 0.8,
+          "active": 0.32,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.2,
-          "active": 0.16,
-          "recover": 0.42,
-          "cooldown": 1.08,
-          "hit_width": 82,
-          "hit_height": 72,
-          "offset": 42,
-          "telegraph": "e1b879",
-          "priority": 1.0,
-          "animation": "attack"
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "侧移弯刃",
+          "blink_offset": 115,
+          "skin": "thorn",
+          "projectile_speed": 245
+        },
+        {
+          "id": "censor_fan",
+          "name": "审灯三刃",
+          "type": "fan",
+          "range": 420,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "审灯三刃",
+          "shot_count": 3,
+          "spread": 0.42,
+          "projectile_speed": 200,
+          "skin": "thorn"
+        }
+      ],
+      "hover_height": 80
+    },
+    "silent_bugbler": {
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "bugle_volley",
+          "name": "无声号阵",
+          "type": "fan",
+          "range": 540,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "无声号阵",
+          "shot_count": 5,
+          "spread": 0.6,
+          "projectile_speed": 250,
+          "skin": "metal"
+        },
+        {
+          "id": "bugle_pulse",
+          "name": "号口震波",
+          "type": "wave",
+          "range": 230,
+          "windup": 0.65,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "号口震波",
+          "shot_count": 2,
+          "projectile_speed": 205,
+          "radius": 19
+        }
+      ]
+    },
+    "kneeling_crossbowman": {
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "crossbow_burst",
+          "name": "锁线三矢",
+          "type": "fan",
+          "range": 580,
+          "windup": 1,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "锁线三矢",
+          "shot_count": 3,
+          "spread": 0.15,
+          "projectile_speed": 350,
+          "skin": "thorn"
+        },
+        {
+          "id": "crossbow_low",
+          "name": "贴地重矢",
+          "type": "projectile",
+          "range": 440,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "贴地重矢",
+          "projectile_speed": 300,
+          "radius": 12,
+          "skin": "thorn"
+        }
+      ]
+    },
+    "pilgrim_chariot": {
+      "locomotion": "ground",
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障",
+      "move_speed": 40,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "chariot_charge",
+          "name": "巡礼战车",
+          "type": "lunge",
+          "range": 380,
+          "windup": 0.95,
+          "active": 0.65,
+          "recover": 1.15,
+          "cooldown": 2.1,
+          "hit_width": 158,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "巡礼战车",
+          "lunge_speed": 350
+        },
+        {
+          "id": "chariot_caltrops",
+          "name": "灰钉阵",
+          "type": "pool",
+          "range": 380,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "灰钉阵",
+          "shot_count": 3,
+          "spacing": 90,
+          "radius": 28,
+          "warning": 0.8,
+          "hazard_life": 2.1
+        }
+      ]
+    },
+    "silent_pilgrim_commander": {
+      "locomotion": "ground",
+      "combat_identity": "镜刃斜射、侧移影刺；半血后延迟镜池与掠袭",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
+      "attacks": [
+        {
+          "id": "boss_bride_crescent",
+          "name": "镜杖弧扫",
+          "type": "melee",
+          "range": 220,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.65,
+          "cooldown": 2.7,
+          "hit_width": 215,
+          "hit_height": 100,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "镜杖弧扫"
+        },
+        {
+          "id": "boss_bride_mirror",
+          "name": "镜像侧刺",
+          "type": "blink",
+          "range": 590,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.7,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "镜像侧刺",
+          "blink_offset": 155,
+          "projectile_speed": 290,
+          "skin": "thorn"
+        },
+        {
+          "id": "boss_bride_pools",
+          "name": "镜池迟影",
+          "type": "pool",
+          "range": 680,
+          "windup": 0.75,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "镜池迟影",
+          "shot_count": 3,
+          "spacing": 135,
+          "radius": 36,
+          "warning": 1.2,
+          "hazard_life": 0.65
+        },
+        {
+          "id": "boss_bride_dash",
+          "name": "月镜掠袭",
+          "type": "vault",
+          "range": 500,
+          "windup": 0.65,
+          "active": 0.75,
+          "recover": 0.9,
+          "cooldown": 2.7,
+          "hit_width": 175,
+          "hit_height": 90,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "月镜掠袭",
+          "jump_height": 130,
+          "lunge_speed": 410,
+          "phase": 2
+        }
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "镜池重影"
+    },
+    "ash_banner_imp": {
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "imp_flurry",
+          "name": "旗枪三连",
+          "type": "combo",
+          "range": 160,
+          "windup": 0.42,
+          "active": 0.55,
+          "recover": 0.55,
+          "cooldown": 2.1,
+          "hit_width": 98,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "旗枪三连",
+          "lunge_speed": 95
+        },
+        {
+          "id": "imp_retreat",
+          "name": "回旗退刺",
+          "type": "retreat",
+          "range": 145,
+          "windup": 0.45,
+          "active": 0.3,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 110,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "回旗退刺",
+          "retreat_speed": 165
         }
       ]
     },
     "obsidian_bellwheel": {
-      "move_speed": 42,
-      "aggro_range": 220.0,
-      "preferred_range": 58.0,
-      "attack_desire_threshold": 0.62,
-      "attack_desire_gain": 1.05,
-      "attack_desire_decay": 0.82,
+      "locomotion": "ground",
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
       "attacks": [
         {
-          "id": "heavy_body_check",
-          "type": "melee",
-          "range": 84,
-          "damage": 2,
-          "windup": 0.4,
-          "active": 0.2,
-          "recover": 0.66,
-          "cooldown": 1.55,
-          "hit_width": 104,
-          "hit_height": 74,
+          "id": "bellwheel_roll",
+          "name": "黑钟滚撞",
+          "type": "lunge",
+          "range": 330,
+          "windup": 0.7,
+          "active": 0.55,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 130,
+          "hit_height": 70,
           "offset": 48,
-          "telegraph": "c9764a",
-          "priority": 1.0,
-          "animation": "attack"
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "黑钟滚撞",
+          "lunge_speed": 300
+        },
+        {
+          "id": "bellwheel_waves",
+          "name": "双向钟涟",
+          "type": "wave",
+          "range": 390,
+          "windup": 0.82,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双向钟涟",
+          "shot_count": 2,
+          "projectile_speed": 265,
+          "radius": 19
         }
       ]
     }
@@ -10924,88 +10863,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "visual_scale": 0.33783783783783783,
       "visual_offset": [
         0,
-        -8
+        3.1013513513513544
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E002",
@@ -11018,88 +10891,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E003",
@@ -11112,88 +10919,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E004",
@@ -11206,88 +10947,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
+      "sprite": "res://assets/sprites/original_creatures/phase_censor/manifest.json",
+      "visual_scale": 0.30625,
       "visual_offset": [
         0,
-        -8
+        8.234374999999993
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/phase_censor/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "locomotion": "flight",
+      "combat_identity": "前摇标记位置，闪到侧面投出弯刃"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E005",
@@ -11300,88 +10975,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
+      "visual_scale": 0.3741935483870968,
       "visual_offset": [
         0,
-        -8
+        -0.748387096774195
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 76,
+      "locomotion": "ground",
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E006",
@@ -11394,88 +11003,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
+      "visual_scale": 0.32989690721649484,
       "visual_offset": [
         0,
-        -8
+        7.690721649484537
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "ground",
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E007",
@@ -11488,88 +11031,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "visual_scale": 0.3322884012539185,
       "visual_offset": [
         0,
-        -8
+        4.169278996865202
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 66,
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E008",
@@ -11582,88 +11059,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "visual_scale": 0.33783783783783783,
       "visual_offset": [
         0,
-        -8
+        3.1013513513513544
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E009",
@@ -11676,88 +11087,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E010",
@@ -11770,88 +11115,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E011",
@@ -11864,88 +11143,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "visual_scale": 0.3322884012539185,
       "visual_offset": [
         0,
-        -8
+        4.169278996865202
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 66,
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E012",
@@ -11958,88 +11171,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
+      "sprite": "res://assets/sprites/original_creatures/phase_censor/manifest.json",
+      "visual_scale": 0.30625,
       "visual_offset": [
         0,
-        -8
+        8.234374999999993
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/phase_censor/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "locomotion": "flight",
+      "combat_identity": "前摇标记位置，闪到侧面投出弯刃"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E013",
@@ -12052,88 +11199,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "visual_scale": 0.33783783783783783,
       "visual_offset": [
         0,
-        -8
+        3.1013513513513544
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E014",
@@ -12146,88 +11227,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E015",
@@ -12240,88 +11255,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E016",
@@ -12334,88 +11283,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "visual_scale": 0.33783783783783783,
       "visual_offset": [
         0,
-        -8
+        3.1013513513513544
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E017",
@@ -12428,88 +11311,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E018",
@@ -12522,88 +11339,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
+      "visual_scale": 0.3741935483870968,
       "visual_offset": [
         0,
-        -8
+        -0.748387096774195
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 76,
+      "locomotion": "ground",
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E019",
@@ -12616,88 +11367,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "visual_scale": 0.3322884012539185,
       "visual_offset": [
         0,
-        -8
+        4.169278996865202
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 66,
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E020",
@@ -12710,88 +11395,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
+      "sprite": "res://assets/sprites/original_creatures/phase_censor/manifest.json",
+      "visual_scale": 0.30625,
       "visual_offset": [
         0,
-        -8
+        8.234374999999993
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/phase_censor/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "locomotion": "flight",
+      "combat_identity": "前摇标记位置，闪到侧面投出弯刃"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E021",
@@ -12804,88 +11423,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E022",
@@ -12898,88 +11451,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
+      "visual_scale": 0.3741935483870968,
       "visual_offset": [
         0,
-        -8
+        -0.748387096774195
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 76,
+      "locomotion": "ground",
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E023",
@@ -12992,88 +11479,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
+      "visual_scale": 0.32989690721649484,
       "visual_offset": [
         0,
-        -8
+        7.690721649484537
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "ground",
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E024",
@@ -13086,88 +11507,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
+      "visual_scale": 0.32989690721649484,
       "visual_offset": [
         0,
-        -8
+        7.690721649484537
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "ground",
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E025",
@@ -13180,88 +11535,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E026",
@@ -13274,88 +11563,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "visual_scale": 0.3322884012539185,
       "visual_offset": [
         0,
-        -8
+        4.169278996865202
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 66,
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E027",
@@ -13368,88 +11591,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "visual_scale": 0.33783783783783783,
       "visual_offset": [
         0,
-        -8
+        3.1013513513513544
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E028",
@@ -13462,88 +11619,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
+      "visual_scale": 0.32989690721649484,
       "visual_offset": [
         0,
-        -8
+        7.690721649484537
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "ground",
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E029",
@@ -13556,88 +11647,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E030",
@@ -13650,88 +11675,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
+      "sprite": "res://assets/sprites/original_creatures/phase_censor/manifest.json",
+      "visual_scale": 0.30625,
       "visual_offset": [
         0,
-        -8
+        8.234374999999993
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/phase_censor/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "locomotion": "flight",
+      "combat_identity": "前摇标记位置，闪到侧面投出弯刃"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E031",
@@ -13744,88 +11703,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "visual_scale": 0.33783783783783783,
       "visual_offset": [
         0,
-        -8
+        3.1013513513513544
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/silent_bugbler/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "locomotion": "stationary",
+      "combat_identity": "号音扇弹与贴身钟波，不能追击"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E032",
@@ -13838,88 +11731,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E033",
@@ -13932,88 +11759,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
+      "visual_scale": 0.3741935483870968,
       "visual_offset": [
         0,
-        -8
+        -0.748387096774195
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 76,
+      "locomotion": "ground",
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E034",
@@ -14026,88 +11787,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E035",
@@ -14120,88 +11815,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "visual_scale": 0.3322884012539185,
       "visual_offset": [
         0,
-        -8
+        4.169278996865202
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 66,
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E036",
@@ -14214,88 +11843,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "visual_scale": 0.31724137931034485,
       "visual_offset": [
         0,
-        -8
+        5.972413793103442
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        60,
-        40
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 52,
+      "locomotion": "stationary",
+      "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E037",
@@ -14308,88 +11871,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
+      "visual_scale": 0.3741935483870968,
       "visual_offset": [
         0,
-        -8
+        -0.748387096774195
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 76,
+      "locomotion": "ground",
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E038",
@@ -14402,88 +11899,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.92,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "visual_scale": 0.3322884012539185,
       "visual_offset": [
         0,
-        -8
+        4.169278996865202
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        32,
-        32
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 66,
+      "locomotion": "ground",
+      "combat_identity": "长枪平刺与上挑，攻击距离不同"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E039",
@@ -14496,88 +11927,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 98,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.86,
+      "sprite": "res://assets/sprites/original_creatures/phase_censor/manifest.json",
+      "visual_scale": 0.30625,
       "visual_offset": [
         0,
-        -8
+        8.234374999999993
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        64
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/phase_censor/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "locomotion": "flight",
+      "combat_identity": "前摇标记位置，闪到侧面投出弯刃"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E040",
@@ -14590,88 +11955,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 116,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_bellwheel/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.76,
+      "sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
+      "visual_scale": 0.32989690721649484,
       "visual_offset": [
         0,
-        -8
+        7.690721649484537
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        64,
-        72
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 42,
-      "spawn_visual_height": 72
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "locomotion": "ground",
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳"
     },
     {
       "id": "demo_ch05_obsidian_pilgrim_road_generated_E041",
@@ -14684,88 +11983,22 @@
       "hp": 2,
       "damage": 1,
       "patrol": 80,
-      "sprite": "res://assets/third_party/dark_fantasy_bestiary/runtime_keyframes/ash_banner_imp/manifest.json",
-      "sprite_region": [
-        0,
-        0,
-        128,
-        128
-      ],
-      "visual_scale": 0.84,
+      "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "visual_scale": 0.24024024024024024,
       "visual_offset": [
         0,
-        -8
+        17.51951951951952
       ],
       "visual_modulate": "ffffff",
-      "visual_source": "OpenGameArt Dark Fantasy Platformer Bestiary CC-BY 4.0; normalized directional keyframes",
+      "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
-      "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png",
-      "source_sprite_region": [
-        0,
-        0,
-        45,
-        66
-      ],
-      "sprite_regions": {
-        "idle": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "walk_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_left": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "attack_right": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "hurt": [
-          0,
-          0,
-          128,
-          128
-        ],
-        "death": [
-          0,
-          0,
-          128,
-          128
-        ]
-      },
+      "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
       "leash_radius": 220,
       "sprite_faces_left": false,
-      "spawn_half_width": 36,
-      "spawn_visual_height": 58
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "locomotion": "ground",
+      "combat_identity": "短身旗枪连击，跃后退刺"
     }
   ],
   "boss": {
@@ -14781,20 +12014,14 @@
     "patrol": 260,
     "reward_item": "silent_mark_obsidian",
     "story_drop": "统帅短暂恢复自我，交出沉默军令，承认王冠核心会把所有失败者重新编入军队。",
-    "sprite": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
-    "sprite_region": [
-      0,
-      0,
-      60,
-      60
-    ],
-    "visual_scale": 0.92,
+    "sprite": "res://assets/sprites/original_creatures/silent_pilgrim_commander/manifest.json",
+    "visual_scale": 0.6890243902439024,
     "visual_offset": [
       0,
-      -38
+      -49.20121951219511
     ],
-    "visual_modulate": "ddd8ff",
-    "visual_source": "High-fidelity Boss Concept Pack / boss_05_mirrorpool_bride",
+    "visual_modulate": "ffffff",
+    "visual_source": "original_hand_drawn",
     "visual_role": "high_fidelity_boss_05_mirrorpool_bride",
     "body_size": [
       162,
@@ -14808,49 +12035,15 @@
       0,
       -52
     ],
-    "source_sprite": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
-    "source_sprite_region": [
-      0,
-      0,
-      60,
-      60
-    ],
-    "sprite_regions": {
-      "idle": [
-        0,
-        0,
-        60,
-        60
-      ],
-      "walk": [
-        0,
-        0,
-        60,
-        60
-      ],
-      "attack": [
-        0,
-        0,
-        60,
-        60
-      ],
-      "hurt": [
-        0,
-        0,
-        60,
-        60
-      ],
-      "death": [
-        0,
-        0,
-        60,
-        60
-      ]
-    },
+    "source_sprite": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
     "sprite_faces_left": false,
     "arena_min_x": 20070,
     "arena_max_x": 20890,
-    "platform_id": "ch05_70_floor"
+    "platform_id": "ch05_70_floor",
+    "locomotion": "ground",
+    "combat_identity": "镜刃斜射、侧移影刺；半血后延迟镜池与掠袭",
+    "spawn_half_width": 49,
+    "spawn_visual_height": 186
   },
   "labels": [
     {

@@ -1,0 +1,465 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "silent_pilgrim_commander",
+  "canvas": [
+    384,
+    346
+  ],
+  "display_height": 226,
+  "visual_scale": 0.6890243902439024,
+  "visual_offset": [
+    0,
+    -49.20121951219511
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            10,
+            4,
+            355,
+            328
+          ],
+          "margin": [
+            10,
+            16,
+            29,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            407,
+            4,
+            344,
+            329
+          ],
+          "margin": [
+            23,
+            15,
+            40,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            794,
+            8,
+            357,
+            322
+          ],
+          "margin": [
+            26,
+            22,
+            27,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            1175,
+            10,
+            334,
+            319
+          ],
+          "margin": [
+            23,
+            25,
+            50,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            16,
+            344,
+            364,
+            327
+          ],
+          "margin": [
+            16,
+            17,
+            20,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            416,
+            343,
+            352,
+            329
+          ],
+          "margin": [
+            32,
+            15,
+            32,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            809,
+            349,
+            321,
+            326
+          ],
+          "margin": [
+            41,
+            18,
+            63,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            1173,
+            360,
+            329,
+            315
+          ],
+          "margin": [
+            21,
+            29,
+            55,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            8,
+            698,
+            376,
+            287
+          ],
+          "margin": [
+            8,
+            57,
+            8,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            384,
+            718,
+            384,
+            267
+          ],
+          "margin": [
+            0,
+            77,
+            0,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            768,
+            714,
+            337,
+            282
+          ],
+          "margin": [
+            0,
+            62,
+            47,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png",
+          "region": [
+            1152,
+            873,
+            377,
+            113
+          ],
+          "margin": [
+            0,
+            231,
+            7,
+            233
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            11,
+            12,
+            347,
+            329
+          ],
+          "margin": [
+            11,
+            15,
+            37,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            384,
+            4,
+            384,
+            337
+          ],
+          "margin": [
+            0,
+            7,
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            768,
+            55,
+            384,
+            286
+          ],
+          "margin": [
+            0,
+            58,
+            0,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            1152,
+            53,
+            384,
+            288
+          ],
+          "margin": [
+            0,
+            56,
+            0,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            15,
+            341,
+            365,
+            342
+          ],
+          "margin": [
+            15,
+            2,
+            19,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            424,
+            341,
+            344,
+            342
+          ],
+          "margin": [
+            40,
+            2,
+            40,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            768,
+            355,
+            384,
+            328
+          ],
+          "margin": [
+            0,
+            16,
+            0,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            1152,
+            341,
+            356,
+            342
+          ],
+          "margin": [
+            0,
+            2,
+            28,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            2,
+            683,
+            382,
+            321
+          ],
+          "margin": [
+            2,
+            23,
+            2,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            384,
+            683,
+            384,
+            326
+          ],
+          "margin": [
+            0,
+            18,
+            0,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 9,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            768,
+            683,
+            384,
+            333
+          ],
+          "margin": [
+            0,
+            11,
+            0,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_pilgrim_commander/attacks.png",
+          "region": [
+            1166,
+            683,
+            363,
+            325
+          ],
+          "margin": [
+            14,
+            19,
+            21,
+            21
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

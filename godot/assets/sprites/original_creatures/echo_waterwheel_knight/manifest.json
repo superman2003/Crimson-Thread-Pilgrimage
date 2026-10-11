@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "echo_waterwheel_knight",
+  "canvas": [
+    362,
+    366
+  ],
+  "display_height": 110,
+  "visual_scale": 0.30985915492957744,
+  "visual_offset": [
+    0,
+    1.2957746478873275
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            42,
+            7,
+            308,
+            355
+          ],
+          "margin": [
+            42,
+            9,
+            54,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            421,
+            7,
+            300,
+            355
+          ],
+          "margin": [
+            59,
+            9,
+            62,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            778,
+            18,
+            308,
+            344
+          ],
+          "margin": [
+            54,
+            20,
+            54,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            1159,
+            16,
+            264,
+            346
+          ],
+          "margin": [
+            73,
+            18,
+            98,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            31,
+            362,
+            331,
+            361
+          ],
+          "margin": [
+            31,
+            3,
+            31,
+            5
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            419,
+            362,
+            305,
+            360
+          ],
+          "margin": [
+            57,
+            4,
+            57,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            782,
+            362,
+            273,
+            362
+          ],
+          "margin": [
+            58,
+            2,
+            89,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            1151,
+            362,
+            272,
+            361
+          ],
+          "margin": [
+            65,
+            3,
+            90,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            13,
+            759,
+            349,
+            288
+          ],
+          "margin": [
+            13,
+            76,
+            13,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            362,
+            784,
+            362,
+            264
+          ],
+          "margin": [
+            0,
+            100,
+            0,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            724,
+            776,
+            331,
+            271
+          ],
+          "margin": [
+            0,
+            93,
+            31,
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+          "region": [
+            1086,
+            916,
+            354,
+            143
+          ],
+          "margin": [
+            0,
+            221,
+            8,
+            223
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1448,
+    1086
+  ]
+}

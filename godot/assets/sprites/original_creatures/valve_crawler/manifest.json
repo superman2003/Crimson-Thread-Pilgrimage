@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "valve_crawler",
+  "canvas": [
+    384,
+    242
+  ],
+  "display_height": 74,
+  "visual_scale": 0.34579439252336447,
+  "visual_offset": [
+    0,
+    16.1588785046729
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            26,
+            91,
+            319,
+            214
+          ],
+          "margin": [
+            26,
+            26,
+            65,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            420,
+            102,
+            313,
+            203
+          ],
+          "margin": [
+            36,
+            37,
+            71,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            789,
+            96,
+            351,
+            209
+          ],
+          "margin": [
+            21,
+            31,
+            33,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            1199,
+            96,
+            307,
+            209
+          ],
+          "margin": [
+            47,
+            31,
+            77,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            28,
+            433,
+            330,
+            208
+          ],
+          "margin": [
+            28,
+            32,
+            54,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            422,
+            426,
+            339,
+            214
+          ],
+          "margin": [
+            38,
+            26,
+            45,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            794,
+            437,
+            353,
+            203
+          ],
+          "margin": [
+            26,
+            37,
+            31,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            1186,
+            404,
+            334,
+            238
+          ],
+          "margin": [
+            34,
+            2,
+            50,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            19,
+            729,
+            365,
+            203
+          ],
+          "margin": [
+            19,
+            37,
+            19,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            384,
+            729,
+            384,
+            211
+          ],
+          "margin": [
+            0,
+            29,
+            0,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            768,
+            723,
+            344,
+            222
+          ],
+          "margin": [
+            0,
+            18,
+            40,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/valve_crawler/atlas.png",
+          "region": [
+            1152,
+            775,
+            373,
+            167
+          ],
+          "margin": [
+            0,
+            73,
+            11,
+            75
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

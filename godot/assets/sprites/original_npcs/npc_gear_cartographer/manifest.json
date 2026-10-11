@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_gear_cartographer",
+  "visual_scale": 0.21739130434782608,
+  "visual_offset": [
+    0,
+    -10.978260869565219
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+    "region": [
+      50,
+      16,
+      398,
+      299
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+          "region": [
+            50,
+            16,
+            398,
+            460
+          ],
+          "margin": [
+            50,
+            7,
+            114,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+          "region": [
+            573,
+            20,
+            388,
+            458
+          ],
+          "margin": [
+            61,
+            9,
+            124,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+          "region": [
+            1104,
+            26,
+            409,
+            449
+          ],
+          "margin": [
+            80,
+            18,
+            103,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+          "region": [
+            71,
+            516,
+            417,
+            465
+          ],
+          "margin": [
+            71,
+            2,
+            95,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+          "region": [
+            582,
+            561,
+            428,
+            422
+          ],
+          "margin": [
+            70,
+            45,
+            84,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gear_cartographer/atlas.png",
+          "region": [
+            1053,
+            615,
+            459,
+            370
+          ],
+          "margin": [
+            29,
+            97,
+            53,
+            99
+          ]
+        }
+      ]
+    }
+  ]
+}

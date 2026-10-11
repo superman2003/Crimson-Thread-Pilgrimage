@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_root_prisoner",
+  "visual_scale": 0.20366598778004075,
+  "visual_offset": [
+    0,
+    -11.527494908350306
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+    "region": [
+      110,
+      21,
+      337,
+      319
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+          "region": [
+            110,
+            21,
+            337,
+            491
+          ],
+          "margin": [
+            110,
+            13,
+            175,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+          "region": [
+            581,
+            10,
+            305,
+            502
+          ],
+          "margin": [
+            69,
+            2,
+            207,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+          "region": [
+            1070,
+            14,
+            424,
+            498
+          ],
+          "margin": [
+            46,
+            6,
+            88,
+            8
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+          "region": [
+            85,
+            528,
+            427,
+            476
+          ],
+          "margin": [
+            85,
+            28,
+            85,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+          "region": [
+            512,
+            577,
+            448,
+            428
+          ],
+          "margin": [
+            0,
+            76,
+            64,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_root_prisoner/atlas.png",
+          "region": [
+            1036,
+            651,
+            436,
+            356
+          ],
+          "margin": [
+            12,
+            148,
+            76,
+            150
+          ]
+        }
+      ]
+    }
+  ]
+}

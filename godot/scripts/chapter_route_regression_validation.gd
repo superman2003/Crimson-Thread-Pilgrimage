@@ -61,6 +61,8 @@ func _validate_chapter(config_path: String) -> void:
     await process_frame
     var config: Dictionary = scene.config
     var config_id := String(config.get("id", ""))
+    _validate_one_way_anchors(scene, config_id)
+    await _validate_manual_pickup(scene, config_id)
     for room in config.get("map_rooms", []):
         if NESTED_ROOMS.get(config_id, []).has(String(room.get("id", ""))):
             var rect: Array = room.get("layout_rect", [])
@@ -116,8 +118,8 @@ func _validate_chapter(config_path: String) -> void:
         lever.set_meta("requires_keys", 0)
 
     if config_id == "demo_ch06_silent_crown_core":
-        _validate_close_interactions(scene, "save_hidden_upper_respite", "npc_black_tide_child")
-        _validate_close_interactions(scene, "save_ch06_lower_loop", "npc_crown_tongue")
+        await _validate_close_interactions(scene, "save_hidden_upper_respite", "npc_black_tide_child")
+        await _validate_close_interactions(scene, "save_ch06_lower_loop", "npc_crown_tongue")
 
     # The current maps have no legacy exit walls. Inject the old PR's naming
     # convention to exercise actual body removal instead of a vacuous null check.
@@ -138,9 +140,21 @@ func _validate_chapter(config_path: String) -> void:
     _assert(scene.boss_arena_lock_body != null, config_id + " boss entry installs an arena lock")
     var boss: Dictionary = config.get("boss", {})
     var floor := _platform_rect(config, String(boss.get("platform_id", "")))
+    var floor_body := _floor_body(scene, String(boss.get("platform_id", "")))
+    _assert(_floor_has_collision(floor_body), config_id + " boss arena has a physical platform or terrain floor")
     var min_x := float(boss.get("arena_min_x", -INF))
     var max_x := float(boss.get("arena_max_x", INF))
     _assert(floor.size.x > 0 and min_x >= floor.position.x and max_x <= floor.end.x and min_x < max_x, config_id + " scalar boss bounds fit the current floor")
+    var expected_body := Vector2(float(boss["body_size"][0]), float(boss["body_size"][1]))
+    var expected_hurtbox := Vector2(float(boss["hurtbox_size"][0]), float(boss["hurtbox_size"][1]))
+    _assert(scene.boss_actor.body_size.is_equal_approx(expected_body) and scene.boss_actor.get_hurtbox_rect().size.is_equal_approx(expected_hurtbox), config_id + " original Boss artwork preserves configured body and attack hitbox dimensions")
+    var body_shape: CollisionShape2D
+    for child in scene.boss_actor.get_children():
+        if child is CollisionShape2D:
+            body_shape = child
+            break
+    var expected_offset := Vector2(float(boss["hurtbox_offset"][0]), float(boss["hurtbox_offset"][1]))
+    _assert(body_shape != null and body_shape.shape is RectangleShape2D and body_shape.shape.size.is_equal_approx(expected_body) and body_shape.position.is_equal_approx(expected_offset), config_id + " physical contact shape retains configured size and offset")
     scene.boss_actor.global_position.x = min_x - 500
     scene.boss_actor._clamp_movement_bounds()
     _assert(is_equal_approx(scene.boss_actor.global_position.x, min_x), config_id + " boss clamps at left bound")
@@ -151,8 +165,9 @@ func _validate_chapter(config_path: String) -> void:
     await process_frame
     _assert(scene.demo_complete and scene.post_boss_route_open, config_id + " boss death opens the exit route")
     _assert(scene.get_node_or_null(blocker_id) == null, config_id + " boss death removes the prefixed legacy wall")
-    _assert(scene.get_node_or_null(String(boss.get("platform_id", ""))) != null, config_id + " boss floor survives route opening")
+    _assert(is_instance_valid(floor_body) and not floor_body.is_queued_for_deletion() and _floor_has_collision(floor_body), config_id + " boss floor survives route opening")
     _assert(scene.boss_arena_lock_body == null, config_id + " boss death releases the arena lock")
+    await _validate_deliveries(scene, config_id)
 
     for interactive in config.get("interactives", []):
         if String(interactive.get("kind", "")) in ["chapter_exit", "ending_exit"]:
@@ -173,17 +188,29 @@ func _validate_close_interactions(scene: Node, save_id: String, npc_id: String) 
     scene.nearby_interactable = save
     scene._try_interact()
     _assert(scene.dialogue_panel.visible and int(npc.get_meta("dialogue_index", 0)) == dialogue_index + 1, npc_id + " dialogue wins over the cached nearby shrine")
-    scene._close_overlays()
+    scene.nearby_interactable = save
+    scene._try_interact()
+    _assert(scene.ui_shell.dialogue_area == npc and int(npc.get_meta("dialogue_index", 0)) == dialogue_index + 2, npc_id + " F continues the visible speaker despite a cached shrine")
     scene.player.global_position = Vector2(100000, 100000)
     scene.nearby_interactable = npc
     scene._try_interact()
     _assert(not scene.dialogue_panel.visible, npc_id + " cannot be activated from a stale target outside interaction range")
+    _assert(scene.active_overlay.is_empty() and scene.nearby_interactable == null, npc_id + " moving outside range closes dialogue and clears the target")
     scene.player.global_position = save.global_position
     scene.nearby_interactable = npc
     scene.player.hp = 1
     scene._try_interact()
     _assert(scene.active_save_point_id == save_id and scene.player.hp == scene.player.max_hp, save_id + " remains usable next to its NPC")
     scene._close_overlays()
+    var removed_speaker := Area2D.new()
+    removed_speaker.set_meta("npc_id", String(npc.get_meta("npc_id", "")))
+    scene.add_child(removed_speaker)
+    scene._show_dialogue(removed_speaker, "freed speaker regression")
+    removed_speaker.queue_free()
+    await process_frame
+    scene.player.global_position = Vector2(100000, 100000)
+    scene._try_interact()
+    _assert(scene.active_overlay.is_empty() and scene.nearby_interactable == null, npc_id + " freeing the visible speaker safely closes dialogue")
 
 
 func _validate_transition(scene: Node, next_path: String) -> void:
@@ -239,3 +266,96 @@ func _assert(condition: bool, label: String) -> void:
     else:
         push_error("FAIL: " + label)
         failures += 1
+
+func _floor_body(scene: Node, platform_id: String) -> Node:
+    for platform in scene.config.get("platforms", []):
+        if String(platform.get("id", "")) == platform_id:
+            var terrain_id := String(platform.get("terrain_id", ""))
+            if not terrain_id.is_empty() and scene.chapter_terrain != null:
+                return scene.chapter_terrain.get_node_or_null(terrain_id)
+    return scene.get_node_or_null(platform_id)
+
+
+func _floor_has_collision(body: Node) -> bool:
+    if body == null:
+        return false
+    for child in body.get_children():
+        if child is CollisionPolygon2D and not child.disabled and child.polygon.size() >= 3:
+            return true
+        if child is CollisionShape2D and not child.disabled and child.shape != null:
+            return true
+    return false
+
+
+func _validate_one_way_anchors(scene: Node, config_id: String) -> void:
+    for platform in scene.config.get("platforms", []):
+        if String(platform.get("collision_role", "")) != "one_way" or String(platform.get("terrain_id", "")).is_empty():
+            continue
+        var body := _floor_body(scene, String(platform.get("id", "")))
+        var rect: Array = platform.get("rect", [])
+        var point := Vector2(float(rect[0]) + float(rect[2]) * 0.5, float(rect[1]) + 1.0)
+        var preserved := false
+        if body != null:
+            for child in body.get_children():
+                if child is CollisionPolygon2D and child.one_way_collision and Geometry2D.is_point_in_polygon(point, child.polygon):
+                    preserved = true
+        _assert(preserved, config_id + " converted terrain preserves one-way anchor " + String(platform.get("id", "")))
+
+
+func _validate_manual_pickup(scene: Node, config_id: String) -> void:
+    var pickup: Area2D = null
+    for child in scene.get_children():
+        if child is Area2D and bool(child.get_meta("manual_pickup", false)):
+            pickup = child
+            break
+    _assert(pickup != null, config_id + " has a manual story pickup")
+    if pickup == null:
+        return
+    var item_id := String(pickup.get_meta("item_id", ""))
+    var before := int(scene.inventory_counts.get(item_id, 0))
+    scene.player.global_position = pickup.global_position
+    scene._try_interact()
+    var expected := before + int(pickup.get_meta("amount", 1))
+    _assert(int(scene.inventory_counts.get(item_id, 0)) == expected and pickup.is_queued_for_deletion(), config_id + " F collects the actual story pickup")
+    scene._on_collectible_body_entered(scene.player, pickup)
+    _assert(int(scene.inventory_counts.get(item_id, 0)) == expected, config_id + " same-frame body event cannot duplicate a manual pickup")
+    await process_frame
+
+
+func _validate_deliveries(scene: Node, config_id: String) -> void:
+    for npc_data in scene.config.get("npcs", []):
+        var quest: Dictionary = npc_data.get("dialogue_topics", {}).get("quest", {})
+        if quest.is_empty():
+            continue
+        var item_id := String(quest.get("item", ""))
+        if int(scene.inventory_counts.get(item_id, 0)) <= 0:
+            var pickup: Area2D = null
+            for collectible in scene.config.get("collectibles", []):
+                if String(collectible.get("item_id", "")) == item_id:
+                    pickup = scene.get_node_or_null(String(collectible.get("id", "")))
+                    break
+            _assert(pickup != null, config_id + " quest has an obtainable pickup for " + item_id)
+            if pickup == null:
+                continue
+            scene._close_overlays()
+            scene.player.global_position = pickup.global_position
+            if bool(pickup.get_meta("manual_pickup", false)):
+                scene._try_interact()
+            else:
+                scene._on_collectible_body_entered(scene.player, pickup)
+            await process_frame
+        var npc: Area2D = scene.get_node_or_null(String(npc_data.get("id", "")))
+        var reward := String(quest.get("reward", ""))
+        var reward_before := int(scene.inventory_counts.get(reward, 0))
+        scene._close_overlays()
+        scene.player.global_position = npc.global_position
+        scene._try_interact()
+        scene.ui_shell._topic("wish")
+        _assert(bool(scene.story_flags.get(String(quest.get("complete_flag", "")), false)), config_id + " actual item completes " + String(npc.name) + " delivery")
+        if not reward.is_empty():
+            _assert(int(scene.inventory_counts.get(reward, 0)) == reward_before + 1, config_id + " delivery grants its reward once")
+            scene.ui_shell._topic("wish")
+            _assert(int(scene.inventory_counts.get(reward, 0)) == reward_before + 1, config_id + " repeated wish cannot duplicate the reward")
+        if reward == "heart_knot":
+            _assert(String(scene._item_data(reward).get("category", "")) == "Upgrades" and not scene.inventory_materials.has(reward), "heart knot delivery reward stays in the upgrade category")
+        scene._close_overlays()

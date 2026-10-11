@@ -1,0 +1,137 @@
+{
+  "npc_id": "npc_sealed_archivist",
+  "visual_scale": 0.22075055187637968,
+  "visual_offset": [
+    0,
+    -10.441501103752756
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+    "region": [
+      69,
+      25,
+      414,
+      294
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 2.5,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+          "region": [
+            69,
+            25,
+            414,
+            453
+          ],
+          "margin": [
+            69,
+            2,
+            98,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+          "region": [
+            575,
+            25,
+            398,
+            453
+          ],
+          "margin": [
+            63,
+            2,
+            114,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+          "region": [
+            1062,
+            28,
+            412,
+            450
+          ],
+          "margin": [
+            38,
+            5,
+            100,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+          "region": [
+            54,
+            513,
+            457,
+            449
+          ],
+          "margin": [
+            54,
+            6,
+            55,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+          "region": [
+            553,
+            549,
+            470,
+            413
+          ],
+          "margin": [
+            41,
+            42,
+            42,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 3,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+          "region": [
+            1031,
+            582,
+            477,
+            386
+          ],
+          "margin": [
+            7,
+            69,
+            35,
+            71
+          ]
+        }
+      ]
+    }
+  ]
+}

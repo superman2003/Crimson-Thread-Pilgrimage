@@ -104,7 +104,18 @@
         0,
         1500,
         900
-      ]
+      ],
+      "landmark_art": {
+        "motif": "bell",
+        "position": [
+          790,
+          -97
+        ],
+        "size": [
+          400,
+          540
+        ]
+      }
     }
   ],
   "connections": [],
@@ -175,7 +186,16 @@
         72
       ],
       "color": "273a24",
-      "material": "boss_stone"
+      "material": "boss_stone",
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          11,
+          5
+        ]
+      }
     },
     {
       "id": "trial_left_wall",
@@ -186,7 +206,16 @@
         640
       ],
       "color": "1f2b20",
-      "material": "boss_stone"
+      "material": "boss_stone",
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          5,
+          8
+        ]
+      }
     },
     {
       "id": "trial_right_wall",
@@ -197,7 +226,16 @@
         640
       ],
       "color": "1f2b20",
-      "material": "boss_stone"
+      "material": "boss_stone",
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          11,
+          5
+        ]
+      }
     },
     {
       "id": "trial_ceiling_trim",
@@ -208,7 +246,16 @@
         42
       ],
       "color": "1b251b",
-      "material": "boss_stone"
+      "material": "boss_stone",
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          11,
+          8
+        ]
+      }
     }
   ],
   "locked_gates": [],
@@ -430,383 +477,109 @@
       ]
     },
     "rust_crown_guardian": {
-      "move_speed": 58,
-      "aggro_range": 620,
-      "preferred_range": 118,
+      "locomotion": "ground",
+      "combat_identity": "沉重钟压、低波、孢子；半血后根阵缩窄落脚点",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
       "attacks": [
         {
-          "id": "boss_01_atk_01",
-          "type": "aoe",
-          "range": 168,
-          "damage": 2,
-          "windup": 0.52,
-          "active": 0.28,
-          "recover": 0.82,
-          "cooldown": 2.15,
-          "hit_width": 300,
-          "hit_height": 126,
-          "telegraph": "78c26d",
-          "priority": 2.95,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ],
-          "label": "Moss Bell Liturgy",
-          "animation": "boss_01_atk_01"
-        },
-        {
-          "id": "boss_01_atk_02",
-          "type": "shockwave",
-          "range": 265,
-          "damage": 2,
-          "windup": 0.46,
-          "active": 0.34,
-          "recover": 0.9,
-          "cooldown": 2.05,
-          "lunge_speed": 370,
-          "hit_width": 310,
-          "hit_height": 66,
-          "offset": 154,
-          "telegraph": "6fa85d",
-          "priority": 2.6500000000000004,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ],
-          "label": "Cradle of Roots",
-          "animation": "boss_01_atk_02"
-        },
-        {
-          "id": "boss_01_atk_03",
-          "type": "lunge",
-          "range": 188,
-          "damage": 1,
-          "windup": 0.34,
-          "active": 0.26,
-          "recover": 0.64,
-          "cooldown": 1.42,
-          "lunge_speed": 360,
-          "hit_width": 168,
-          "hit_height": 118,
-          "offset": 84,
-          "telegraph": "a7d66f",
-          "priority": 2.25,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ],
-          "label": "Matriarch Chime Rain",
-          "animation": "boss_01_atk_03"
-        },
-        {
-          "id": "gear_knee",
+          "id": "boss_moss_scythe",
+          "name": "苔镰横扫",
           "type": "melee",
-          "range": 108,
+          "range": 210,
+          "windup": 0.68,
+          "active": 0.24,
+          "recover": 0.7,
+          "cooldown": 2.7,
+          "hit_width": 210,
+          "hit_height": 105,
+          "offset": 100,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.18,
-          "recover": 0.48,
-          "cooldown": 1.1,
-          "hit_width": 128,
-          "hit_height": 92,
-          "offset": 62,
-          "telegraph": "b78c4d",
-          "priority": 1.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "attack",
+          "desire_cost": 0.8,
+          "mechanic": "苔镰横扫"
         },
         {
-          "id": "crown_backhand",
-          "type": "melee",
-          "range": 110,
+          "id": "boss_moss_stamp",
+          "name": "钟冠重压",
+          "type": "wave",
+          "range": 620,
+          "windup": 1.05,
+          "active": 0.24,
+          "recover": 1.05,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.24,
-          "active": 0.16,
-          "recover": 0.46,
-          "cooldown": 1.05,
-          "hit_width": 126,
-          "hit_height": 94,
-          "offset": 64,
-          "telegraph": "d9b158",
-          "priority": 1.3,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -18,
-            -8
-          ],
-          "windup_scale": [
-            1.09,
-            0.92
-          ],
-          "active_offset": [
-            34,
-            3
-          ],
-          "active_scale": [
-            1.22,
-            0.84
-          ],
-          "recover_offset": [
-            -12,
-            3
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "钟冠重压",
+          "shot_count": 2,
+          "projectile_speed": 230,
+          "radius": 23
         },
         {
-          "id": "bellquake_stomp",
-          "type": "aoe",
-          "range": 184,
+          "id": "boss_moss_spores",
+          "name": "守庭孢子",
+          "type": "fan",
+          "range": 620,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.8,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.738,
-          "active": 0.32,
-          "recover": 1,
-          "cooldown": 3.024,
-          "hit_width": 320,
-          "hit_height": 98,
-          "telegraph": "8ebf8b",
-          "priority": 1.55,
-          "pose_power": 1.38,
-          "windup_offset": [
-            0,
-            -14
-          ],
-          "windup_scale": [
-            1.13,
-            0.9
-          ],
-          "active_offset": [
-            0,
-            12
-          ],
-          "active_scale": [
-            1.22,
-            0.78
-          ],
-          "recover_scale": [
-            0.94,
-            1.08
-          ],
-          "mirror_pose_offset": false,
-          "recover_offset": [
-            0,
-            5
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "守庭孢子",
+          "shot_count": 5,
+          "spread": 0.85,
+          "projectile_speed": 185,
+          "skin": "spore"
         },
         {
-          "id": "crown_shockwave_chain",
-          "type": "shockwave",
-          "min_range": 90,
-          "range": 360,
+          "id": "boss_moss_roots",
+          "name": "根冠苏醒",
+          "type": "rootline",
+          "range": 640,
+          "windup": 1.1,
+          "active": 0.24,
+          "recover": 1.1,
+          "cooldown": 5,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
           "damage": 1,
-          "windup": 0.26,
-          "active": 0.22,
-          "recover": 0.44,
-          "cooldown": 1.9,
-          "hit_width": 250,
-          "hit_height": 48,
-          "offset": 136,
-          "telegraph": "f0c34f",
-          "priority": 3.25,
-          "start_cooldown": 0.5,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -22,
-            -10
-          ],
-          "windup_scale": [
-            1.1,
-            0.92
-          ],
-          "active_offset": [
-            46,
-            -3
-          ],
-          "active_scale": [
-            1.24,
-            0.84
-          ],
-          "recover_offset": [
-            -14,
-            4
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "backstep_hook_cut",
-          "type": "retreat",
-          "range": 150,
-          "damage": 1,
-          "windup": 0.18,
-          "active": 0.26,
-          "recover": 0.35,
-          "cooldown": 1.55,
-          "retreat_speed": 225,
-          "hit_width": 130,
-          "hit_height": 72,
-          "offset": 70,
-          "telegraph": "7fd6ca",
-          "priority": 2.7,
-          "pose_power": 1.38,
-          "windup_offset": [
-            18,
-            -8
-          ],
-          "windup_scale": [
-            0.96,
-            1.08
-          ],
-          "active_offset": [
-            -38,
-            -8
-          ],
-          "active_scale": [
-            0.92,
-            1.14
-          ],
-          "recover_offset": [
-            12,
-            1
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
-        },
-        {
-          "id": "false_crown_feint",
-          "type": "feint",
-          "range": 132,
-          "damage": 1,
-          "windup": 0.12,
-          "active": 0.18,
-          "recover": 0.28,
-          "cooldown": 1.35,
-          "feint_sway": 120,
-          "hit_width": 112,
-          "hit_height": 80,
-          "offset": 58,
-          "telegraph": "d98ee8",
-          "priority": 2.45,
-          "pose_power": 1.38,
-          "windup_offset": [
-            -14,
-            -12
-          ],
-          "windup_scale": [
-            1.08,
-            0.93
-          ],
-          "active_offset": [
-            20,
-            -6
-          ],
-          "active_scale": [
-            1.12,
-            0.94
-          ],
-          "recover_offset": [
-            -10,
-            2
-          ],
-          "recover_scale": [
-            0.96,
-            1.04
-          ]
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "根冠苏醒",
+          "shot_count": 5,
+          "spacing": 98,
+          "warning": 0.72,
+          "radius": 25,
+          "hazard_life": 0.55,
+          "phase": 2
         }
-      ]
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "根冠苏醒"
     }
   },
   "boss": {
@@ -821,18 +594,18 @@
     "hp": 22,
     "damage": 1,
     "patrol": 260,
-    "sprite": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
-    "visual_scale": 0.78,
+    "sprite": "res://assets/sprites/original_creatures/rust_crown_guardian/manifest.json",
+    "visual_scale": 0.7133757961783439,
     "visual_offset": [
       0,
-      -22
+      -50.560509554140125
     ],
     "platform_id": "trial_floor",
     "clearance": 40,
-    "spawn_half_width": 92,
-    "spawn_visual_height": 178,
+    "spawn_half_width": 49,
+    "spawn_visual_height": 184,
     "visual_modulate": "ffffff",
-    "visual_source": "High-fidelity Boss Concept Pack / boss_01_moss_bell_matriarch",
+    "visual_source": "original_hand_drawn",
     "visual_role": "high_fidelity_boss_01_moss_bell_matriarch",
     "body_size": [
       150,
@@ -853,7 +626,11 @@
       138,
       44,
       622
-    ]
+    ],
+    "locomotion": "ground",
+    "sprite_faces_left": false,
+    "combat_identity": "沉重钟压、低波、孢子；半血后根阵缩窄落脚点",
+    "source_sprite": "res://assets/sprites/original_creatures/rust_crown_guardian/atlas.png"
   },
   "labels": [],
   "completion_message": "BOSS TRIAL COMPLETE: 苔钟守母已被击败",
@@ -873,5 +650,16 @@
     "boss_trial",
     "single_room",
     "no_runback"
-  ]
+  ],
+  "map_art": {
+    "style": "flat_2d_side_view",
+    "platform_variant_count": 12,
+    "variant_usage": {
+      "5": 1,
+      "8": 2,
+      "11": 1
+    },
+    "repeat_rule": "avoid matching nearby platforms; preserve end caps; vary long-platform middle segments",
+    "background": "res://assets/sprites/flat_maps/moss_cavern/background.png"
+  }
 }

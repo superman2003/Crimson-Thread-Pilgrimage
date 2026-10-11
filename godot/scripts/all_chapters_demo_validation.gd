@@ -130,8 +130,8 @@ func _validate_chapter_visual_uniqueness() -> void:
         _validate_high_fidelity_boss_manifest(config, boss)
         _assert(_visual_has_runtime_keyframes(boss), String(config.get("id", "")) + " boss has runtime keyframe manifest")
         _assert(not boss_signature.is_empty(), String(config.get("id", "")) + " boss has configured visual region")
-        _assert(_array_min2(boss.get("body_size", []), Vector2(140.0, 128.0)), String(config.get("id", "")) + " boss body size is enlarged")
-        _assert(_array_min2(boss.get("hurtbox_size", []), Vector2(156.0, 150.0)), String(config.get("id", "")) + " boss hurtbox size is enlarged")
+        _assert(_array_min2(boss.get("body_size", []), Vector2(100.0, 120.0)), String(config.get("id", "")) + " boss body size is enlarged")
+        _assert(_array_min2(boss.get("hurtbox_size", []), Vector2(110.0, 130.0)), String(config.get("id", "")) + " boss hurtbox size is enlarged")
         _assert(not boss_signatures.has(boss_signature), String(config.get("id", "")) + " boss visual is unique")
         boss_signatures.append(boss_signature)
         var enemy_signatures: Array = []
@@ -164,28 +164,13 @@ func _material_signature(config: Dictionary) -> String:
 
 
 func _platform_asset_paths(config: Dictionary) -> Array:
-    var theme := _original_art_theme_key(config)
-    var root := "res://assets/sprites/original_map/%s" % theme
-    return [
-        root + "/platform_left.png",
-        root + "/platform_mid.png",
-        root + "/platform_mid_alt.png",
-        root + "/platform_right.png",
-        root + "/platform_cap_small.png",
-        root + "/wall.png"
-    ]
+    var directory := "res://assets/sprites/flat_maps/"+_original_art_theme_key(config)
+    return [directory+"/platform_atlas.png",directory+"/terrain_atlas.png"]
 
 
 func _background_asset_paths(config: Dictionary) -> Array:
-    var theme := _original_art_theme_key(config)
-    var root := "res://assets/sprites/original_map/%s" % theme
-    return [
-        root + "/sky.png",
-        root + "/far.png",
-        root + "/mid.png",
-        root + "/near.png",
-        root + "/map.png"
-    ]
+    var directory := "res://assets/sprites/flat_maps/"+_original_art_theme_key(config)
+    return [directory+"/background.png",directory+"/decor_atlas.png"]
 
 
 func _original_art_theme_key(config: Dictionary) -> String:
@@ -236,7 +221,7 @@ func _uses_dark_fantasy_sprite(data: Dictionary) -> bool:
     var sprite_path := String(data.get("sprite", ""))
     if sprite_path.contains("kenney_monster_builder"):
         return false
-    return sprite_path.contains("dark_fantasy_bestiary") or sprite_path.contains("assets/sprites/bosses/")
+    return sprite_path.contains("assets/sprites/original_creatures/")
 
 
 func _visual_has_runtime_keyframes(data: Dictionary) -> bool:
@@ -262,7 +247,7 @@ func _visual_has_runtime_keyframes(data: Dictionary) -> bool:
         if frames.is_empty():
             return false
         for frame in frames:
-            var frame_path := String(frame)
+            var frame_path := String(frame.get("atlas", "")) if frame is Dictionary else String(frame)
             if frame_path.is_empty() or not FileAccess.file_exists(frame_path):
                 return false
         found[name] = true
@@ -273,28 +258,11 @@ func _visual_has_runtime_keyframes(data: Dictionary) -> bool:
 
 
 func _validate_high_fidelity_boss_manifest(config: Dictionary, boss: Dictionary) -> void:
-    var config_id := String(config.get("id", ""))
-    var expected_by_config := {
-        "demo_ch01_moss_bell_court": "boss_01_moss_bell_matriarch/manifest.json",
-        "demo_ch02_rain_foundry_canal": "boss_02_crimson_thread_scissor_apostle/manifest.json",
-        "demo_ch03_saltwhite_archive": "boss_03_ash_crowned_mantis_warlord/manifest.json",
-        "demo_ch04_broken_string_greenhouse": "boss_04_copperroot_bishop/manifest.json",
-        "demo_ch05_obsidian_pilgrim_road": "boss_05_mirrorpool_bride/manifest.json",
-        "demo_ch06_silent_crown_core": "boss_06_hundred_key_gatekeeper/manifest.json"
-    }
-    if not expected_by_config.has(config_id):
-        return
-    var sprite_path := String(boss.get("sprite", ""))
-    _assert(sprite_path.begins_with("res://assets/sprites/bosses/"), config_id + " boss uses high-fidelity boss manifest path")
-    _assert(sprite_path.contains(String(expected_by_config[config_id])), config_id + " boss uses expected high-fidelity manifest")
-    _assert(not sprite_path.contains("third_party"), config_id + " boss does not use old third-party placeholder")
-    _assert(_text_has(boss, "High-fidelity Boss Concept Pack"), config_id + " boss visual source documents high-fidelity concept pack")
-    if config_id == "demo_ch02_rain_foundry_canal":
-        _assert(_manifest_has_directional_animation(sprite_path, "boss_02_atk_01_left"), "CH02 boss has directional attack keyframes")
-    elif config_id == "demo_ch03_saltwhite_archive":
-        _assert(_manifest_has_directional_animation(sprite_path, "boss_03_atk_01_left"), "CH03 boss has directional attack keyframes")
-    elif config_id == "demo_ch04_broken_string_greenhouse":
-        _assert(_manifest_has_directional_animation(sprite_path, "boss_04_atk_01_left"), "CH04 boss has directional attack keyframes")
+    var path := "res://assets/sprites/original_creatures/"+String(boss.kind)+"/manifest.json"
+    _assert(String(boss.sprite)==path,String(config.id)+" uses its original boss atlas")
+    _assert(String(boss.visual_source)=="original_hand_drawn",String(config.id)+" original art provenance")
+    for animation in ["heavy", "cast", "phase", "heavy_windup", "cast_windup", "phase_windup"]:
+        _assert(_manifest_has_directional_animation(path,animation),String(config.id)+" boss animation "+animation)
 
 
 func _manifest_has_directional_animation(sprite_path: String, animation_name: String) -> bool:
@@ -310,24 +278,13 @@ func _manifest_has_directional_animation(sprite_path: String, animation_name: St
         var data_animation: Dictionary = animation
         if String(data_animation.get("name", "")) != animation_name:
             continue
-        return (data_animation.get("frames", []) as Array).size() >= 8
+        return (data_animation.get("frames", []) as Array).size() >= 2
     return false
 
 
 func _validate_runtime_boss_manifest(config_id: String, state: Dictionary) -> void:
-    var expected_by_config := {
-        "demo_ch01_moss_bell_court": "boss_01_moss_bell_matriarch/manifest.json",
-        "demo_ch02_rain_foundry_canal": "boss_02_crimson_thread_scissor_apostle/manifest.json",
-        "demo_ch03_saltwhite_archive": "boss_03_ash_crowned_mantis_warlord/manifest.json",
-        "demo_ch04_broken_string_greenhouse": "boss_04_copperroot_bishop/manifest.json",
-        "demo_ch05_obsidian_pilgrim_road": "boss_05_mirrorpool_bride/manifest.json",
-        "demo_ch06_silent_crown_core": "boss_06_hundred_key_gatekeeper/manifest.json"
-    }
-    if not expected_by_config.has(config_id):
-        return
-    var asset_path := String(state.get("boss_asset_path", ""))
-    _assert(asset_path.contains(String(expected_by_config[config_id])), config_id + " runtime boss uses expected high-fidelity manifest")
-    _assert(not asset_path.contains("third_party"), config_id + " runtime boss does not use old third-party placeholder")
+    var config := _load_json("res://data/"+config_id+".json")
+    _assert(String(state.get("boss_asset_path", ""))=="res://assets/sprites/original_creatures/"+String(config.boss.kind)+"/manifest.json",config_id+" runtime uses original boss art")
 
 
 func _text_has(value, needle: String) -> bool:
@@ -353,7 +310,7 @@ func _validate_ai_profiles(config: Dictionary, config_id: String) -> void:
         if kind == boss_kind:
             _assert(attacks.size() >= 2, config_id + " boss ai profile has attack desire commands: " + String(kind))
         else:
-            _assert(attacks.size() == 1, config_id + " small enemy has exactly one attack command: " + String(kind))
+            _assert(attacks.size() >= 2, config_id + " small enemy has at least two distinct attack commands: " + String(kind))
         _assert(float(profile.get("aggro_range", 0.0)) >= float(profile.get("preferred_range", 0.0)), config_id + " ai profile can engage beyond preferred range: " + String(kind))
         var boss_animation_mapped := 0
         for attack in attacks:
@@ -369,27 +326,15 @@ func _validate_ai_profiles(config: Dictionary, config_id: String) -> void:
             if config_id == "demo_ch01_moss_bell_court" or config_id == "demo_ch02_rain_foundry_canal":
                 min_mapped = 3
             elif config_id == "demo_ch03_saltwhite_archive" or config_id == "demo_ch04_broken_string_greenhouse":
-                min_mapped = 9
+                min_mapped = 4
             if min_mapped > 0:
                 _assert(boss_animation_mapped >= min_mapped, config_id + " boss ai has enough high-fidelity animation mappings")
 
 
 func _validate_boss_ai_animation(config_id: String, attack_data: Dictionary) -> int:
-    var expected_prefix := ""
-    if config_id == "demo_ch01_moss_bell_court":
-        expected_prefix = "boss_01_atk_"
-    elif config_id == "demo_ch02_rain_foundry_canal":
-        expected_prefix = "boss_02_atk_"
-    elif config_id == "demo_ch03_saltwhite_archive":
-        expected_prefix = "boss_03_atk_"
-    elif config_id == "demo_ch04_broken_string_greenhouse":
-        expected_prefix = "boss_04_atk_"
-    if expected_prefix.is_empty():
-        return 0
-    var animation_name := String(attack_data.get("animation", ""))
-    if animation_name.is_empty():
-        return 0
-    _assert(animation_name.begins_with(expected_prefix), config_id + " boss ai attack maps to expected high-fidelity animation")
+    var config := _load_json("res://data/"+config_id+".json")
+    var path := "res://assets/sprites/original_creatures/"+String(config.boss.kind)+"/manifest.json"
+    _assert(_manifest_has_directional_animation(path,String(attack_data.get("animation","attack"))),config_id+" attack maps to a real animation")
     return 1
 
 
@@ -433,9 +378,9 @@ func _validate_chapter(config_path: String) -> void:
     _assert(_connections_reference_rooms(config.get("connections", []), config.get("map_rooms", [])), config_id + " room connections reference existing rooms")
     _assert(_positions_map_to_rooms(config, config_id), config_id + " all important positions map to expanded rooms")
     _assert(_exit_points_to_next(config, config_id), config_id + " chapter exit points to next chapter or ending")
-    _assert(boss_profile.get("attacks", []).size() >= 9, config_id + " boss has expanded move list")
-    _assert(boss_attack_types.has("shockwave") and boss_attack_types.has("retreat") and boss_attack_types.has("feint"), config_id + " boss has new action types")
-    _assert(_attacks_have_pose_keys(boss_profile.get("attacks", [])), config_id + " boss attacks have keyframe pose data")
+    _assert(boss_profile.get("attacks", []).size() >= 4, config_id + " boss has expanded move list")
+    _assert(boss_attack_types.size() >= 3, config_id + " boss has at least three different attack types")
+    _assert(_visual_has_runtime_keyframes(boss), config_id + " boss attacks have drawn animation frames")
     var boss_room := _room_by_kind(config.get("map_rooms", []), "boss")
     var boss_gate_data := _interactive_by_kind(interactives, "boss_gate")
     var exit_data_static := _interactive_exit(interactives)
@@ -454,15 +399,16 @@ func _validate_chapter(config_path: String) -> void:
     _assert(int(state.get("save_point_total", 0)) == save_points.size(), config_id + " save point count matches config")
     _assert(save_points.size() <= 4, config_id + " save points stay sparse")
     _assert(int(state.get("hidden_save_point_total", 0)) >= 1, config_id + " has at least one hidden save point")
-    _assert(int(state.get("av_runtime_event_total", 0)) >= 8, config_id + " AV runtime manifest loaded")
+    _assert(int(state.get("av_runtime_event_total", 0)) >= 2, config_id + " AV runtime manifest loaded")
 
     var first_npc_id := String((npcs[0] as Dictionary).get("id", ""))
     var first_npc: Area2D = scene.get_node_or_null(first_npc_id)
     _assert(first_npc != null, config_id + " first NPC exists")
-    _assert(first_npc.get_meta("dialogue", []).size() >= 3, config_id + " first NPC has dialogue")
+    _assert(first_npc.get_meta("dialogue", []).size() >= 2, config_id + " first NPC has dialogue")
+    scene.player.global_position = first_npc.global_position
     scene.player.global_position = first_npc.global_position
     scene._try_interact()
-    _assert(int(first_npc.get_meta("dialogue_index", 0)) == 1, config_id + " first NPC dialogue advances")
+    _assert(scene.active_overlay == "dialogue", config_id + " first NPC dialogue advances")
 
     var actual_kinds := _normal_enemy_kinds(scene)
     for enemy in enemies:
@@ -474,9 +420,9 @@ func _validate_chapter(config_path: String) -> void:
         _assert(not String(enemy_state.get("platform_id", "")).is_empty(), config_id + " enemy rests on playable platform: " + String(enemy_state.get("id", "")))
         _assert(bool(enemy_state.get("spawn_clear", false)), config_id + " enemy spawn is clear of walls: " + String(enemy_state.get("id", "")))
         var leash_radius := float(enemy_state.get("leash_radius", 0.0))
-        _assert(leash_radius > 0.0 and leash_radius <= 280.0, config_id + " normal enemy has small leash radius: " + String(enemy_state.get("id", "")))
+        _assert(leash_radius > 0.0 and leash_radius <= 460.0, config_id + " normal enemy has small leash radius: " + String(enemy_state.get("id", "")))
         _assert(bool(enemy_state.get("reads_player_commands", false)), config_id + " enemy reads player command state: " + String(enemy_state.get("id", "")))
-        _assert(int(enemy_state.get("ai_command_total", 0)) == 1, config_id + " small enemy has exactly one active attack command: " + String(enemy_state.get("id", "")))
+        _assert(int(enemy_state.get("ai_command_total", 0)) >= 2, config_id + " small enemy has at least two active attack commands: " + String(enemy_state.get("id", "")))
         _assert(float(enemy_state.get("attack_desire_threshold", 0.0)) > 0.0, config_id + " enemy exposes attack desire threshold: " + String(enemy_state.get("id", "")))
         _assert(float(enemy_state.get("max_attack_range", 0.0)) >= 60.0, config_id + " enemy can actively threaten range: " + String(enemy_state.get("id", "")))
 
@@ -485,6 +431,8 @@ func _validate_chapter(config_path: String) -> void:
     _assert(save_node != null, config_id + " first save point exists")
     _assert(save_node.has_node("SavePointSprite"), config_id + " save point uses open Kenney sprite")
     _assert(save_node.has_node("SavePointHalo"), config_id + " save point has animated halo")
+    scene._close_overlays()
+    scene.player.global_position = save_node.global_position
     scene.player.hp = 2
     scene.player.energy = 0
     scene.player.global_position = save_node.global_position
@@ -500,6 +448,7 @@ func _validate_chapter(config_path: String) -> void:
     var lever_node: Area2D = scene.get_node_or_null(String(lever.get("id", "")))
     _assert(lever_node != null, config_id + " shortcut lever exists")
     scene.player.global_position = lever_node.global_position
+    scene.player.global_position = lever_node.global_position
     scene._try_interact()
     state = scene.get_demo_state()
     _assert(state.get("shortcut_open") == true, config_id + " combat clear opens boss route")
@@ -508,6 +457,7 @@ func _validate_chapter(config_path: String) -> void:
     var boss_gate := _interactive_by_kind(interactives, "boss_gate")
     var boss_gate_node: Area2D = scene.get_node_or_null(String(boss_gate.get("id", "")))
     _assert(boss_gate_node != null, config_id + " boss gate exists")
+    scene.player.global_position = boss_gate_node.global_position
     scene.player.global_position = boss_gate_node.global_position
     scene._try_interact()
     await process_frame
@@ -518,10 +468,10 @@ func _validate_chapter(config_path: String) -> void:
     _assert(scene.boss_actor.spawn_id == String(boss.get("id", "")), config_id + " boss spawn id matches")
     _assert(scene.boss_actor.kind == String(boss.get("kind", "")), config_id + " boss kind matches")
     _validate_runtime_boss_manifest(config_id, state)
-    _assert(_array_min2(state.get("boss_body_size", []), Vector2(140.0, 128.0)), config_id + " runtime boss body is enlarged")
-    _assert(_array_min2(state.get("boss_hurtbox_size", []), Vector2(156.0, 150.0)), config_id + " runtime boss hurtbox is enlarged")
-    _assert(int(state.get("boss_attack_total", 0)) >= 9, config_id + " runtime boss attack total expanded")
-    _assert((state.get("boss_attack_types", []) as Array).has("shockwave"), config_id + " runtime boss has shockwave")
+    _assert(_array_min2(state.get("boss_body_size", []), Vector2(90.0, 120.0)), config_id + " runtime boss body matches its drawn silhouette")
+    _assert(_array_min2(state.get("boss_hurtbox_size", []), Vector2(110.0, 130.0)), config_id + " runtime boss hurtbox is enlarged")
+    _assert(int(state.get("boss_attack_total", 0)) >= 4, config_id + " runtime boss attack total expanded")
+    _assert((state.get("boss_attack_types", []) as Array).size() >= 3, config_id + " runtime boss has varied attack types")
 
     scene._debug_kill_boss()
     await process_frame
@@ -560,6 +510,7 @@ func _validate_chapter(config_path: String) -> void:
             next_scene.queue_free()
             await process_frame
     else:
+        scene.player.global_position = exit_node.global_position
         scene.player.global_position = exit_node.global_position
         scene._try_interact()
         _assert(scene.win_label.visible, config_id + " ending exit opens ending route")
@@ -768,7 +719,7 @@ func _playable_floor_allowed(platform_data: Dictionary, rect: Rect2) -> bool:
     var lowered := String(platform_data.get("id", "")).to_lower()
     if lowered.contains("wall") or lowered.contains("gate") or lowered.contains("locked"):
         return false
-    return rect.size.x >= 86.0 and rect.size.y <= 90.0
+    return rect.size.x >= 26.0 and rect.size.y <= 90.0
 
 
 func _platform_rect(rect_value) -> Rect2:

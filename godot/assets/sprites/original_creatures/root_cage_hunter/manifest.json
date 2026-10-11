@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "root_cage_hunter",
+  "canvas": [
+    384,
+    317
+  ],
+  "display_height": 104,
+  "visual_scale": 0.33226837060702874,
+  "visual_offset": [
+    0,
+    5.335463258785943
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            76,
+            20,
+            222,
+            313
+          ],
+          "margin": [
+            76,
+            2,
+            162,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            463,
+            21,
+            239,
+            312
+          ],
+          "margin": [
+            79,
+            3,
+            145,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            830,
+            36,
+            273,
+            296
+          ],
+          "margin": [
+            62,
+            19,
+            111,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            1209,
+            20,
+            286,
+            312
+          ],
+          "margin": [
+            57,
+            3,
+            98,
+            5
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            71,
+            368,
+            274,
+            302
+          ],
+          "margin": [
+            71,
+            13,
+            110,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            427,
+            367,
+            308,
+            302
+          ],
+          "margin": [
+            43,
+            13,
+            76,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            818,
+            365,
+            292,
+            306
+          ],
+          "margin": [
+            50,
+            9,
+            92,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            1238,
+            365,
+            261,
+            308
+          ],
+          "margin": [
+            86,
+            7,
+            123,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            21,
+            707,
+            363,
+            273
+          ],
+          "margin": [
+            21,
+            42,
+            21,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            384,
+            721,
+            384,
+            259
+          ],
+          "margin": [
+            0,
+            56,
+            0,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            768,
+            707,
+            384,
+            275
+          ],
+          "margin": [
+            0,
+            40,
+            0,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "region": [
+            1152,
+            838,
+            365,
+            134
+          ],
+          "margin": [
+            0,
+            181,
+            19,
+            183
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}

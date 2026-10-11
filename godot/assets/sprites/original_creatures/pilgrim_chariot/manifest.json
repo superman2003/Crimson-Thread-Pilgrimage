@@ -1,0 +1,243 @@
+{
+  "source": "Original hand-drawn production atlas / built-in image_gen",
+  "kind": "pilgrim_chariot",
+  "canvas": [
+    384,
+    314
+  ],
+  "display_height": 116,
+  "visual_scale": 0.3741935483870968,
+  "visual_offset": [
+    0,
+    -0.748387096774195
+  ],
+  "motion": "ground",
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 3,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            43,
+            13,
+            304,
+            310
+          ],
+          "margin": [
+            43,
+            2,
+            80,
+            4
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            433,
+            14,
+            295,
+            309
+          ],
+          "margin": [
+            49,
+            3,
+            89,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 9,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            814,
+            16,
+            322,
+            307
+          ],
+          "margin": [
+            46,
+            5,
+            62,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            1197,
+            18,
+            312,
+            305
+          ],
+          "margin": [
+            45,
+            7,
+            72,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            24,
+            358,
+            333,
+            299
+          ],
+          "margin": [
+            24,
+            13,
+            51,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            427,
+            350,
+            334,
+            307
+          ],
+          "margin": [
+            43,
+            5,
+            50,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 6,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            812,
+            368,
+            333,
+            288
+          ],
+          "margin": [
+            44,
+            24,
+            51,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            1172,
+            353,
+            349,
+            304
+          ],
+          "margin": [
+            20,
+            8,
+            35,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            18,
+            683,
+            366,
+            286
+          ],
+          "margin": [
+            18,
+            26,
+            18,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            384,
+            683,
+            384,
+            288
+          ],
+          "margin": [
+            0,
+            24,
+            0,
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            768,
+            684,
+            364,
+            283
+          ],
+          "margin": [
+            0,
+            29,
+            20,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+          "region": [
+            1152,
+            769,
+            369,
+            197
+          ],
+          "margin": [
+            0,
+            115,
+            15,
+            117
+          ]
+        }
+      ]
+    }
+  ],
+  "atlas_size": [
+    1536,
+    1024
+  ]
+}
