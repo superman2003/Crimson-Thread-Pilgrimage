@@ -57,6 +57,9 @@ func _validate_chapter(config_path: String) -> void:
     scene.set("config_path", config_path)
     root.add_child(scene)
     scene.set_process(false)
+    # This suite keeps the legacy combat-gated contract; cave progression is
+    # exercised separately by cave_exploration_validation.
+    scene.config["boss_route_via_exploration"] = false
     scene.player.set_physics_process(false)
     await process_frame
     var config: Dictionary = scene.config

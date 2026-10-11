@@ -1,12 +1,14 @@
-# 六章完整地图与怪物素材展示
+# 六章洞穴地图与怪物素材展示
 
-本页展示 2026-10-11 已合入 main 的当前素材与章节配置。40 种小怪、6 位 Boss 均从原始 manifest 的 idle 首帧提取；展示尺寸分别适配，不能用图册判断游戏中的体型比例。点击原始图集链接可查看完整动画素材。
+本页展示 2026-10-11 当前素材与洞穴章节配置。40 种小怪、6 位 Boss 均从原始 manifest 的 idle 首帧提取；展示尺寸分别适配，不能用图册判断游戏中的体型比例。点击原始图集链接可查看完整动画素材。
 
-完整地图是按当前 JSON 世界坐标绘制的布局图，覆盖全部世界范围和房间，标记地形、出生点、Boss、章节出口、存档、NPC、小怪及拾取物。它不是实机全景截图；每章同时提供真实运行画面。
+完整地图是按当前 JSON 世界坐标绘制的布局图，覆盖全部世界范围和房间，标记实心岩层、地形、出生点、Boss、章节出口、升降笼、存档、NPC、小怪及拾取物。它不是实机全景截图；每章同时提供真实运行画面。
 
 ![40 种小怪总览](../../artifacts/current_gallery/monsters_all.jpg)
 
 ![6 位 Boss 总览](../../artifacts/current_gallery/bosses_all.jpg)
+
+![六章洞穴实机总览](../../artifacts/cave_exploration/six_chapter_caves.jpg)
 
 ![六章完整布局总览](../../artifacts/current_gallery/map_overview.jpg)
 
@@ -25,7 +27,7 @@
 
 ![第 1 章小怪素材](../../artifacts/current_gallery/ch01_enemies.jpg)
 
-[章节实机画面](../../artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png) · [Boss 实机画面](../../artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court_boss.png) · [章节配置](../../godot/data/demo_ch01_moss_bell_court.json)
+[洞穴实机画面](../../artifacts/cave_exploration/ch01_cave.jpg) · [升降笼实机画面](../../artifacts/cave_exploration/ch01_lift.jpg) · [前轮改版 Boss 画面](../../artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court_boss.png) · [章节配置](../../godot/data/demo_ch01_moss_bell_court.json)
 
 | 小怪 ID | 活动类型 | 完整动画图集 |
 | --- | --- | --- |
@@ -42,7 +44,7 @@
 
 ![第 2 章小怪素材](../../artifacts/current_gallery/ch02_enemies.jpg)
 
-[章节实机画面](../../artifacts/pilgrimage_overhaul/demo_ch02_rain_foundry_canal.png) · [Boss 实机画面](../../artifacts/pilgrimage_overhaul/demo_ch02_rain_foundry_canal_boss.png) · [章节配置](../../godot/data/demo_ch02_rain_foundry_canal.json)
+[洞穴实机画面](../../artifacts/cave_exploration/ch02_cave.jpg) · [升降笼实机画面](../../artifacts/cave_exploration/ch02_lift.jpg) · [前轮改版 Boss 画面](../../artifacts/pilgrimage_overhaul/demo_ch02_rain_foundry_canal_boss.png) · [章节配置](../../godot/data/demo_ch02_rain_foundry_canal.json)
 
 | 小怪 ID | 活动类型 | 完整动画图集 |
 | --- | --- | --- |
@@ -60,7 +62,7 @@
 
 ![第 3 章小怪素材](../../artifacts/current_gallery/ch03_enemies.jpg)
 
-[章节实机画面](../../artifacts/pilgrimage_overhaul/demo_ch03_saltwhite_archive.png) · [Boss 实机画面](../../artifacts/pilgrimage_overhaul/demo_ch03_saltwhite_archive_boss.png) · [章节配置](../../godot/data/demo_ch03_saltwhite_archive.json)
+[洞穴实机画面](../../artifacts/cave_exploration/ch03_cave.jpg) · [升降笼实机画面](../../artifacts/cave_exploration/ch03_lift.jpg) · [前轮改版 Boss 画面](../../artifacts/pilgrimage_overhaul/demo_ch03_saltwhite_archive_boss.png) · [章节配置](../../godot/data/demo_ch03_saltwhite_archive.json)
 
 | 小怪 ID | 活动类型 | 完整动画图集 |
 | --- | --- | --- |
@@ -77,7 +79,7 @@
 
 ![第 4 章小怪素材](../../artifacts/current_gallery/ch04_enemies.jpg)
 
-[章节实机画面](../../artifacts/pilgrimage_overhaul/demo_ch04_broken_string_greenhouse.png) · [Boss 实机画面](../../artifacts/pilgrimage_overhaul/demo_ch04_broken_string_greenhouse_boss.png) · [章节配置](../../godot/data/demo_ch04_broken_string_greenhouse.json)
+[洞穴实机画面](../../artifacts/cave_exploration/ch04_cave.jpg) · [升降笼实机画面](../../artifacts/cave_exploration/ch04_lift.jpg) · [前轮改版 Boss 画面](../../artifacts/pilgrimage_overhaul/demo_ch04_broken_string_greenhouse_boss.png) · [章节配置](../../godot/data/demo_ch04_broken_string_greenhouse.json)
 
 | 小怪 ID | 活动类型 | 完整动画图集 |
 | --- | --- | --- |
@@ -94,7 +96,7 @@
 
 ![第 5 章小怪素材](../../artifacts/current_gallery/ch05_enemies.jpg)
 
-[章节实机画面](../../artifacts/pilgrimage_overhaul/demo_ch05_obsidian_pilgrim_road.png) · [Boss 实机画面](../../artifacts/pilgrimage_overhaul/demo_ch05_obsidian_pilgrim_road_boss.png) · [章节配置](../../godot/data/demo_ch05_obsidian_pilgrim_road.json)
+[洞穴实机画面](../../artifacts/cave_exploration/ch05_cave.jpg) · [升降笼实机画面](../../artifacts/cave_exploration/ch05_lift.jpg) · [前轮改版 Boss 画面](../../artifacts/pilgrimage_overhaul/demo_ch05_obsidian_pilgrim_road_boss.png) · [章节配置](../../godot/data/demo_ch05_obsidian_pilgrim_road.json)
 
 | 小怪 ID | 活动类型 | 完整动画图集 |
 | --- | --- | --- |
@@ -112,7 +114,7 @@
 
 ![第 6 章小怪素材](../../artifacts/current_gallery/ch06_enemies.jpg)
 
-[章节实机画面](../../artifacts/pilgrimage_overhaul/demo_ch06_silent_crown_core.png) · [Boss 实机画面](../../artifacts/pilgrimage_overhaul/demo_ch06_silent_crown_core_boss.png) · [章节配置](../../godot/data/demo_ch06_silent_crown_core.json)
+[洞穴实机画面](../../artifacts/cave_exploration/ch06_cave.jpg) · [升降笼实机画面](../../artifacts/cave_exploration/ch06_lift.jpg) · [前轮改版 Boss 画面](../../artifacts/pilgrimage_overhaul/demo_ch06_silent_crown_core_boss.png) · [章节配置](../../godot/data/demo_ch06_silent_crown_core.json)
 
 | 小怪 ID | 活动类型 | 完整动画图集 |
 | --- | --- | --- |

@@ -1,6 +1,6 @@
 # Crimson Thread Pilgrimage / 绯线巡礼
 
-一个 Godot 4.6 2D 动作平台游戏原型。当前 main 包含六章手绘侧视地图、连续地形与斜坡、40 种小怪和 6 位 Boss 的 104 套攻击序列，以及分类背包、NPC 对话与交付、手动拾取、音量设置、存档和 Metroidvania 地图。
+一个 Godot 4.6 2D 动作平台游戏原型。当前 main 包含六章洞穴地图、实心岩层、连续地形与斜坡、遮挡视野和物理升降笼、40 种小怪和 6 位 Boss 的 104 套攻击序列，以及分类背包、NPC 对话与交付、手动拾取、音量设置、存档和 Metroidvania 地图。
 
 > 本项目是学习与原型用途的独立工程，不包含任何第三方商业 IP 资源。代码按 MIT 发布；第三方素材分别遵守各自许可证。
 
@@ -11,6 +11,25 @@
 [PR #7](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/7) 的运行时修复也已合入；旧 [PR #6](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/6) 已关闭，其旧地图没有覆盖新内容。
 
 [合入版本的 CI](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38117357448) 通过 15 个 Godot 套件、三个 Node 测试和两项章节结构检查，其中章节回归 270 项、物理与减速 12 项、复审回归 133 项。最新自动代码与安全复审均已结束；合并后的两条 P2 意见仍待处理：跨章携带物品的分类，以及攻击打断后的警示线清理。详见[整合与验证记录](docs/report/20261011_flat_map_integration.md)。
+
+## 洞穴探索升级（2026-10-11）
+
+地图现以实心岩层围出洞道，普通通道有洞顶和洞壁，大厅与 Boss 场保留战斗空间。玩家附近有局部视野，岩墙会遮挡视线；39 条新增地面连接可双向步行，每章有一座可呼叫的物理升降笼。找到并接通捷径拉杆即可开启 Boss 通路，清空全图小怪也仍可开门。
+
+下面是 Godot 实机渲染，不是概念图。按 **F** 呼叫/乘坐升降笼，**M** 查看已探索地图。保留攀爬和少量跳跃路段，主线增加步行、洞道探索与升降通路。
+
+![六章洞穴实机总览](artifacts/cave_exploration/six_chapter_caves.jpg)
+
+[调研、改动与验证记录](docs/report/20261011_cave_exploration_upgrade.md) · [完整地图及怪物图册](docs/gallery/20261011_current_assets.md)
+
+| 章节 | 洞穴画面 | 升降笼画面 |
+| --- | --- | --- |
+| 第 1 章 | [实机画面](artifacts/cave_exploration/ch01_cave.jpg) | [升降笼](artifacts/cave_exploration/ch01_lift.jpg) |
+| 第 2 章 | [实机画面](artifacts/cave_exploration/ch02_cave.jpg) | [升降笼](artifacts/cave_exploration/ch02_lift.jpg) |
+| 第 3 章 | [实机画面](artifacts/cave_exploration/ch03_cave.jpg) | [升降笼](artifacts/cave_exploration/ch03_lift.jpg) |
+| 第 4 章 | [实机画面](artifacts/cave_exploration/ch04_cave.jpg) | [升降笼](artifacts/cave_exploration/ch04_lift.jpg) |
+| 第 5 章 | [实机画面](artifacts/cave_exploration/ch05_cave.jpg) | [升降笼](artifacts/cave_exploration/ch05_lift.jpg) |
+| 第 6 章 | [实机画面](artifacts/cave_exploration/ch06_cave.jpg) | [升降笼](artifacts/cave_exploration/ch06_lift.jpg) |
 
 ## 怪物素材与完整地图
 
@@ -37,7 +56,7 @@
 
 2026-10-11 改版：[第一章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)、[分类背包](artifacts/pilgrimage_overhaul/inventory.png)、[NPC对话](artifacts/pilgrimage_overhaul/dialogue.png)。[六章截图目录](artifacts/pilgrimage_overhaul)。本轮包含46类敌人的104个招式、六章手绘地图与连续地形，详见[改版记录与验证](docs/release/20261011_pilgrimage_overhaul.md)。
 
-![新版第一章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)
+![第一章当前洞道实机画面](artifacts/cave_exploration/ch01_cave.jpg)
 
 ![新版分类背包](artifacts/pilgrimage_overhaul/inventory.png)
 
@@ -68,6 +87,8 @@ godot --headless --path godot --script res://scripts/demo_validation.gd
 godot --headless --path godot --script res://scripts/ch02_demo_validation.gd
 godot --headless --path godot --script res://scripts/combat_validation.gd
 godot --headless --path godot --script res://scripts/all_chapters_demo_validation.gd
+godot --headless --path godot --script res://scripts/cave_exploration_validation.gd
+godot --headless --path godot --script res://scripts/cave_route_walk_validation.gd
 godot --headless --path godot --script res://scripts/chapter_route_regression_validation.gd
 godot --headless --path godot --script res://scripts/pilgrimage_merge_regression_validation.gd
 godot --headless --path godot --script res://scripts/pilgrimage_review_regression_validation.gd

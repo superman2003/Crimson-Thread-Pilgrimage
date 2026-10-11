@@ -2,11 +2,15 @@ extends Node2D
 
 const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
 const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
+const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
+const CAVE_LIFT_SCRIPT := preload("res://scripts/cave_lift.gd")
 const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 var ui_shell: Control
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 var flat_map_art: Node2D
 var chapter_terrain: Node2D
+var cave_world: Node2D
+var cave_lifts: Array[Node2D] = []
 
 const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_ACTOR_SCRIPT := preload("res://scripts/enemy_actor.gd")
@@ -602,6 +606,12 @@ func _apply_cmdline_config_override() -> void:
             config_path = BOSS_TRIAL_CONFIG_PATH
 
 
+func _physics_process(_delta: float) -> void:
+    # Check the void before player movement can depenetrate against deep cave rock.
+    if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
+        _void_respawn()
+
+
 func _process(_delta: float) -> void:
     _tick_lore_banner(_delta)
     if pending_enemy_respawn:
@@ -956,6 +966,8 @@ func _campaign_chapter_for_id(chapter_id: String) -> Dictionary:
 
 
 func _chapter_objective_text() -> String:
+    if bool(config.get("boss_route_via_exploration",false)):
+        return "第%d章 %s：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name","")))]
     if current_campaign_chapter.is_empty():
         return "Defeat normal enemies, open the boss route, and clear the chapter boss."
     return "第%d章 %s：%s" % [
@@ -1973,6 +1985,9 @@ func _map_room_overlay_rect(room_data: Dictionary, layout_bounds: Rect2, draw_si
 
 
 func _add_world_map_pins(draw_width: float, base_y: float, depth_step: float, layout_bounds: Rect2 = Rect2(), draw_size: Vector2 = Vector2.ZERO) -> void:
+    for data in config.get("cave_lifts", []):
+        for y in [float(data.top_y),float(data.bottom_y)]:
+            _add_map_pin(Vector2(float(data.x),y),draw_width,base_y,depth_step,Color(.6,.8,.9,.95),Vector2(11,11),layout_bounds,draw_size)
     for collectible in config.get("collectibles", []):
         if collectible is Dictionary:
             var data: Dictionary = collectible
@@ -2130,6 +2145,11 @@ func _add_map_ui_rect(node_name: String, rect_position: Vector2, rect_size: Vect
 
 func _build_world_from_config() -> void:
     _background()
+    for data in config.get("cave_lifts", []):
+        var lift := CAVE_LIFT_SCRIPT.new()
+        add_child(lift)
+        lift.configure(data,self)
+        cave_lifts.append(lift)
     for block in config.get("environment_blocks", []):
         if block is Dictionary:
             _environment_block(block)
@@ -2293,6 +2313,10 @@ func _background() -> void:
     chapter_terrain = TERRAIN_SCRIPT.new()
     add_child(chapter_terrain)
     chapter_terrain.configure(config,_art_theme_id())
+    if not config.get("cave_world", {}).is_empty():
+        cave_world = CAVE_WORLD_SCRIPT.new()
+        add_child(cave_world)
+        cave_world.configure(config,_art_theme_id(),self)
 
     var shade := Polygon2D.new()
     shade.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
@@ -3550,6 +3574,8 @@ func _enemy_spawn_rect_clear(position_value: Vector2, half_width: float = 36.0, 
     var actor_rect := Rect2(position_value + Vector2(-half_width, -visual_height), Vector2(half_width * 2.0, visual_height + 8.0))
     if chapter_terrain != null and chapter_terrain.intersects_rect(actor_rect):
         return false
+    if cave_world != null and cave_world.intersects_rect(actor_rect):
+        return false
     for platform in config.get("platforms", []):
         if not (platform is Dictionary):
             continue
@@ -3921,6 +3947,10 @@ func _try_interact() -> void:
     if active_overlay != "dialogue":
         nearby_interactable = _nearest_interactable(150.0)
     if nearby_interactable == null or not is_instance_valid(nearby_interactable):
+        for lift in cave_lifts:
+            if lift.request(player.global_position):
+                _toast("升降笼启动。可在途中跳离，落点两侧可呼叫。")
+                return
         _toast("附近没有可交互的人物或机关。")
         return
     if bool(nearby_interactable.get_meta("manual_pickup", false)):
@@ -4007,7 +4037,7 @@ func _open_shortcut(shortcut_id: String = "") -> void:
             var sprite := child.get_node_or_null("LeverSprite") as Sprite2D
             if sprite!=null:_apply_original_prop(sprite,"lever_open",52)
     shortcut_open = true
-    if not _combat_progression_enabled() or _combat_goal_met():
+    if bool(config.get("boss_route_via_exploration", false)) or not _combat_progression_enabled() or _combat_goal_met():
         _unlock_boss_route()
     # 捷径门接通（音频规格 §4.5 ui_door_open）："绕回来了"的木门吱呀。
     _play_sfx("door_open", -9.0)
@@ -4235,7 +4265,7 @@ func _activate_ending_gate(area: Area2D) -> void:
 func _activate_boss_gate() -> void:
     if not boss_unlocked:
         if _combat_progression_enabled():
-            _toast("钟门未应。先清除本区敌群。")
+            _toast("钟门未应。先探索洞道并接通捷径拉杆。" if bool(config.get("boss_route_via_exploration",false)) else "钟门未应。先清除本区敌群。")
         else:
             _toast("钟门未应。先接通附近的捷径。")
         return
