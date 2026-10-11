@@ -4441,6 +4441,8 @@ func _reset_encounters_after_player_death() -> void:
         var enemy_area := enemy_node as Area2D
         if enemy_area == null or not is_instance_valid(enemy_area):
             continue
+        if enemy_area.has_method("_cancel_attack_effects"):
+            enemy_area._cancel_attack_effects()
         enemy_area.queue_free()
     boss_actor = null
     boss_spawned = false
