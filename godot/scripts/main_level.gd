@@ -19,6 +19,8 @@ const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
+const WORLD_PLATFORMS := preload("res://scripts/world_platform_residency.gd")
+var world_platforms: RefCounted
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
@@ -652,6 +654,8 @@ func _prepare_region(prepared_config: Dictionary = {}) -> void:
     _bind_audio_settings_key()
     _build_metsys_bridge()
     _build_audio()
+    if world_mode:
+        world_platforms = WORLD_PLATFORMS.new()
 
 
 func _finish_region() -> void:
@@ -693,6 +697,10 @@ func _apply_cmdline_config_override() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+    if world_mode and not world_loading and is_instance_valid(chapter_terrain) and is_instance_valid(player):
+        chapter_terrain.update_collision_window(player.global_position, player.velocity, _delta)
+    if world_mode and not world_loading and world_platforms != null and is_instance_valid(player):
+        world_platforms.update(self, player.global_position, player.velocity, _delta)
     if world_mode and not world_loading and is_instance_valid(cave_world) and is_instance_valid(player):
         cave_world.update_collision_window(player.global_position, player.velocity, _delta)
     # Check the void before player movement can depenetrate against deep cave rock.
@@ -769,6 +777,8 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+    if world_platforms != null:
+        world_platforms.shutdown()
     if world_loader != null:
         world_loader.shutdown()
     if world_prefetch != null:
@@ -861,6 +871,10 @@ func _restore_world_runtime() -> void:
         player.arrival_guard_timer = 1.2
     if is_instance_valid(cave_world):
         cave_world.warm_collision_focus(player.global_position)
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.warm_collision_focus(player.global_position)
+    if world_platforms != null:
+        world_platforms.warm(self, player.global_position)
     player.set_spawn(active_spawn)
     player.hp = clampi(int(world_state.data.hp), 1, player.max_hp)
     player.energy = clampi(int(world_state.data.energy), 0, player.max_energy)
@@ -2846,7 +2860,15 @@ func _region_lift(data: Dictionary) -> void:
 
 
 func _region_platform(data: Dictionary) -> void:
-    _platform(String(data.get("id", "platform")), _rect2(data.get("rect", [])),
+    if world_platforms != null and not _is_post_boss_blocker(String(data.get("id", ""))):
+        var focus := entry_spawn_override if entry_spawn_override_enabled else active_spawn
+        world_platforms.register(self, data, focus)
+    else:
+        _make_region_platform(data)
+
+
+func _make_region_platform(data: Dictionary) -> StaticBody2D:
+    return _platform(String(data.get("id", "platform")), _rect2(data.get("rect", [])),
         _color(data.get("color", "333333")), String(data.get("material", "moss_stone")), String(data.get("collision_role", "")))
 
 
@@ -2886,6 +2908,8 @@ func _spawn_seal_practice_targets() -> void:
         for platform in config.get("platforms", []):
             if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
                 target.position.y = float(platform.rect[1]) - 23.0
+                if world_platforms != null:
+                    _hold_actor_support(String(platform.id))
         target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
             "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
             "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": []})
@@ -3018,7 +3042,7 @@ func _background_art() -> void:
 func _background_terrain_metadata() -> void:
     chapter_terrain = TERRAIN_SCRIPT.new()
     add_child(chapter_terrain)
-    chapter_terrain.prepare_config(config, _art_theme_id(), world_mode)
+    chapter_terrain.prepare_config(config, _art_theme_id(), world_mode, world_mode)
 
 
 func _background_landform(data: Dictionary) -> void:
@@ -3027,7 +3051,7 @@ func _background_landform(data: Dictionary) -> void:
 
 func _background_terrain_warm() -> void:
     if world_mode:
-        chapter_terrain.warm_focus(active_spawn)
+        chapter_terrain.warm_focus(entry_spawn_override if entry_spawn_override_enabled else active_spawn)
 
 
 func _background_cave() -> void:
@@ -3068,6 +3092,8 @@ func _void_respawn() -> void:
             chapter_terrain.warm_focus(active_spawn)
             if is_instance_valid(cave_world):
                 cave_world.warm_collision_focus(active_spawn)
+            if world_platforms != null:
+                world_platforms.warm(self, active_spawn)
             player.reset_camera_after_arrival()
             return
         # Falling is a resource cost, never a full-heal shortcut.
@@ -3081,6 +3107,8 @@ func _void_respawn() -> void:
         chapter_terrain.warm_focus(active_spawn)
         if is_instance_valid(cave_world):
             cave_world.warm_collision_focus(active_spawn)
+        if world_platforms != null:
+            world_platforms.warm(self, active_spawn)
         player.reset_camera_after_arrival()
         _save_world()
         _toast("坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。")
@@ -4180,6 +4208,8 @@ func _npc(data: Dictionary) -> void:
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     _apply_world_npc_state(area)
+    if world_platforms != null:
+        _hold_actor_support(_platform_under_position(area.position, 100))
 
 
 func _resolve_enemy_spawn_position(data: Dictionary) -> Vector2:
@@ -4422,6 +4452,8 @@ func _enemy(data: Dictionary) -> Area2D:
     enemy.configure(data, SPRITES.get(kind, SPRITES["moss_larva"]), false, profile)
     enemy.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(enemy.position, clearance)
+    if world_platforms != null:
+        _hold_actor_support(floor_platform_id)
     var bounds := _enemy_platform_movement_bounds(floor_platform_id, enemy.position, data)
     if bounds.size() >= 2 and enemy.has_method("set_platform_movement_bounds"):
         enemy.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
@@ -4458,6 +4490,8 @@ func _spawn_boss() -> void:
     boss_actor.configure(boss_data, SPRITES.get(kind, SPRITES["rust_crown_guardian"]), true, profile)
     boss_actor.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(boss_actor.position, clearance)
+    if world_platforms != null:
+        _hold_actor_support(floor_platform_id)
     var bounds := _enemy_platform_movement_bounds(floor_platform_id, boss_actor.position, boss_data)
     if bounds.size() >= 2 and boss_actor.has_method("set_platform_movement_bounds"):
         boss_actor.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
@@ -5308,6 +5342,8 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
 
 
 func _on_player_respawned() -> void:
+    if world_platforms != null and is_instance_valid(player):
+        world_platforms.warm(self, player.global_position)
     if is_instance_valid(cave_world) and is_instance_valid(player):
         cave_world.warm_collision_focus(player.global_position)
     if chapter_terrain != null:
@@ -6098,14 +6134,43 @@ func _recover_death_cache(area: Area2D) -> void:
     _refresh_hud()
 
 
+func _hold_actor_support(platform_id: String) -> void:
+    if world_platforms != null:
+        world_platforms.hold(self, platform_id)
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.hold_collision_support(platform_id)
+
+
 func _ensure_collision_segment(from: Vector2, to: Vector2) -> void:
+    if world_mode and is_instance_valid(chapter_terrain):
+        chapter_terrain.ensure_collision_segment(from, to)
     if world_mode and is_instance_valid(cave_world):
         cave_world.ensure_collision_segment(from, to)
+    if world_platforms != null:
+        world_platforms.ensure_segment(self, from, to)
 
 
 func _rock_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
-    return cave_world.rock_ray_hit(from, to) if world_mode and is_instance_valid(cave_world) else {}
+    var hit: Dictionary = cave_world.rock_ray_hit(from, to) if world_mode and is_instance_valid(cave_world) else {}
+    if world_platforms != null:
+        var platform: Dictionary = world_platforms.ray_hit(self, from, to)
+        if not platform.is_empty() and (hit.is_empty() or from.distance_squared_to(platform.position) < from.distance_squared_to(hit.position)):
+            hit = platform
+    if world_mode and is_instance_valid(chapter_terrain):
+        var terrain: Dictionary = chapter_terrain.terrain_ray_hit(from, to)
+        if not terrain.is_empty() and (hit.is_empty() or from.distance_squared_to(terrain.position) < from.distance_squared_to(hit.position)):
+            hit = terrain
+    return hit
 
 
 func _world_collision_ready() -> bool:
-    return not world_mode or not is_instance_valid(cave_world) or cave_world.critical_collision_ready()
+    var cave_ready: bool = not world_mode or not is_instance_valid(cave_world) or cave_world.critical_collision_ready()
+    var terrain_ready: bool = not world_mode or not is_instance_valid(chapter_terrain) or chapter_terrain.critical_collision_ready()
+    return cave_ready and terrain_ready and (world_platforms == null or world_platforms.ready())
+
+
+func _release_region_platforms() -> void:
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.close_collisions()
+    if world_platforms != null:
+        world_platforms.shutdown()

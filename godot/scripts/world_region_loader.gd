@@ -81,6 +81,17 @@ func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionar
                         last_error = "目标区域地形轮廓坐标无效。"
                         return {}
     var config := ROUTES.apply_to(parsed)
+    var platform_ids: Dictionary = {}
+    for platform in config.get("platforms", []):
+        var id_value: Variant = platform.get("id")
+        var rect: Variant = platform.get("rect")
+        if not id_value is String or String(id_value).is_empty() or not _finite_tuple(rect, 4) or float(rect[2]) <= 0 or float(rect[3]) <= 0:
+            last_error = "目标区域的平台身份或尺寸无效。"
+            return {}
+        if platform_ids.has(id_value):
+            last_error = "目标区域的平台身份重复。"
+            return {}
+        platform_ids[id_value] = true
     var world: Variant = config.get("world")
     if not world is Dictionary:
         last_error = "目标区域缺少世界边界。"
@@ -127,6 +138,7 @@ func replace_region(host: Node, path: String, entry: Vector2) -> bool:
     host.world_loading = true
     host._stop_region_tweens()
     host._release_region_audio()
+    host._release_region_platforms()
     phase = "unloading"
     for child in host.get_children():
         if child == host.player:
@@ -314,6 +326,7 @@ func replace_region_async(host: Node, path: String, entry: Vector2) -> bool:
     host.process_mode = Node.PROCESS_MODE_DISABLED
     host._stop_region_tweens()
     host._release_region_audio()
+    host._release_region_platforms()
     generation += 1 # invalidate departing callbacks before the first yield
     cancel_requested = false
     last_transition = {"source": source_id, "target": String(target.id), "rolled_back": false}
@@ -333,6 +346,7 @@ func replace_region_async(host: Node, path: String, entry: Vector2) -> bool:
         last_transition["rolled_back"] = true
         host._stop_region_tweens()
         host._release_region_audio()
+        host._release_region_platforms()
         if not await _evict_budgeted(host):
             _clear_loading_canvas()
             return false

@@ -21,9 +21,24 @@ var resident_chunks: Dictionary = {}
 var streamed_loads := 0
 var streamed_releases := 0
 var view_bounds := Rect2()
+# Collision geometry is immutable; only its tree-owned polygon nodes retire.
+var collision_streaming := false
+var collision_records: Array[Dictionary] = []
+var resident_collisions: Dictionary = {}
+var collision_pins: Dictionary = {}
+var collision_holds: Dictionary = {}
+var support_rects: Dictionary = {}
+var critical_bounds := Rect2()
+var collision_sync_until := 0
+var collision_loads := 0
+var collision_releases := 0
+var collision_closed := false
+const COLLISION_HALF := Vector2(960, 768)
+const COLLISION_PRELOAD := 640.0
+const COLLISION_KEEP := 1280.0
 
-func configure(config: Dictionary, theme: String, enable_streaming: bool = false, initial_focus: Vector2 = Vector2.ZERO) -> void:
-    prepare_config(config, theme, enable_streaming)
+func configure(config: Dictionary, theme: String, enable_streaming: bool = false, initial_focus: Vector2 = Vector2.ZERO, enable_collision_streaming: bool = false) -> void:
+    prepare_config(config, theme, enable_streaming, enable_collision_streaming)
     for value in landforms:
         _build_landform(value)
     if streaming:
@@ -31,10 +46,11 @@ func configure(config: Dictionary, theme: String, enable_streaming: bool = false
 
 
 ## Metadata first; the host may then admit one landform at a time.
-func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = false) -> void:
+func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = false, enable_collision_streaming: bool = false) -> void:
     name = "ChapterTerrain"
     material_theme = theme
     streaming = enable_streaming
+    collision_streaming = enable_collision_streaming
     landforms = config.get("terrain", [])
     var directory := "res://assets/sprites/flat_maps/" + theme + "/"
     var data := ART.manifest(directory + "manifest.json")
@@ -44,6 +60,9 @@ func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = 
         var terrain_id := String(platform.get("terrain_id", ""))
         if terrain_id.is_empty():
             continue
+        var support: Array = platform.get("rect", [])
+        if support.size() == 4:
+            support_rects[String(platform.get("id", ""))] = Rect2(support[0], support[1], support[2], support[3])
         var one_way := String(platform.get("collision_role", "")) == "one_way"
         all_one_way[terrain_id] = bool(all_one_way.get(terrain_id, true)) and one_way
         if one_way:
@@ -54,6 +73,7 @@ func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = 
                 one_way_spans[terrain_id].append([float(rect[0]), float(rect[0]) + float(rect[2])])
 
 func warm_focus(focus: Vector2) -> void:
+    warm_collision_focus(focus)
     refresh_visual_chunks(Rect2(focus - Vector2(1280, 900), Vector2(2560, 1800)), true)
 
 func _build_landform(data: Dictionary) -> void:
@@ -65,6 +85,8 @@ func _build_landform(data: Dictionary) -> void:
     body.name = String(data.get("id", "Ground"))
     body.set_meta("landform_kind", String(data.get("kind", "ground")))
     body.set_meta("terrain_surface", surface)
+    if collision_streaming:
+        body.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
     add_child(body)
     var spans: Array = one_way_spans.get(String(body.name), [])
     if bool(all_one_way.get(String(body.name), false)):
@@ -219,15 +241,123 @@ func _add_collision_region(body: StaticBody2D, surface: PackedVector2Array, dept
     var polygon := surface.duplicate()
     for i in range(surface.size() - 1, -1, -1):
         polygon.append(surface[i] + Vector2(0, depth))
-    var collision := CollisionPolygon2D.new()
-    collision.polygon = polygon
-    collision.one_way_collision = one_way
-    collision.one_way_collision_margin = 2.0
-    body.add_child(collision)
     var bounds := Rect2(polygon[0], Vector2.ZERO)
     for point in polygon:
         bounds = bounds.expand(point)
     collision_regions.append({"bounds": bounds, "polygon": polygon})
+    var index := collision_records.size()
+    collision_records.append({"bounds": bounds, "polygon": polygon, "parent": body, "one_way": one_way})
+    if not collision_streaming:
+        _create_collision(index)
+
+func _create_collision(index: int) -> void:
+    if collision_closed or resident_collisions.has(index):
+        return
+    var record: Dictionary = collision_records[index]
+    var node := CollisionPolygon2D.new()
+    node.polygon = record.polygon
+    node.one_way_collision = record.one_way
+    node.one_way_collision_margin = 2.0
+    record.parent.add_child(node)
+    resident_collisions[index] = node
+    collision_loads += 1
+
+func hold_collision_support(platform_id: String) -> void:
+    if not collision_streaming or collision_closed or not support_rects.has(platform_id):
+        return
+    var bounds: Rect2 = support_rects[platform_id].grow(8)
+    for index in range(collision_records.size()):
+        if bounds.intersects(collision_records[index].bounds):
+            collision_holds[index] = true
+            _create_collision(index)
+
+func warm_collision_focus(focus: Vector2) -> void:
+    update_collision_window(focus, Vector2.ZERO, 0, true)
+
+func update_collision_window(focus: Vector2, velocity: Vector2, delta: float, eager: bool = false) -> void:
+    if not collision_streaming or collision_closed or not focus.is_finite() or not velocity.is_finite():
+        return
+    var point := to_local(focus)
+    var sweep := velocity * clampf(delta, 0, 0.25)
+    critical_bounds = Rect2(point - COLLISION_HALF, COLLISION_HALF * 2).expand(point + sweep - COLLISION_HALF).expand(point + sweep + COLLISION_HALF)
+    var frame := Engine.get_physics_frames()
+    for index in collision_pins.keys():
+        if int(collision_pins[index]) < frame:
+            collision_pins.erase(index)
+    for index in range(collision_records.size()):
+        if critical_bounds.intersects(collision_records[index].bounds) and not resident_collisions.has(index):
+            _create_collision(index)
+            collision_sync_until = frame + 1
+    var keep := critical_bounds.grow(COLLISION_KEEP)
+    var started := Time.get_ticks_usec()
+    var count := 0
+    for index in resident_collisions.keys():
+        if not collision_holds.has(index) and not collision_pins.has(index) and not keep.intersects(collision_records[index].bounds):
+            if not eager and (count >= 2 or (count > 0 and Time.get_ticks_usec() - started >= STREAM_BUDGET_US)):
+                break
+            var node: Node = resident_collisions[index]
+            node.get_parent().remove_child(node)
+            node.free()
+            resident_collisions.erase(index)
+            collision_releases += 1
+            count += 1
+    var pending: Array[int] = []
+    for index in range(collision_records.size()):
+        if not resident_collisions.has(index) and critical_bounds.grow(COLLISION_PRELOAD).intersects(collision_records[index].bounds):
+            pending.append(index)
+    pending.sort_custom(func(a, b): return collision_records[a].bounds.get_center().distance_squared_to(point) < collision_records[b].bounds.get_center().distance_squared_to(point))
+    started = Time.get_ticks_usec()
+    count = 0
+    for index in pending:
+        if not eager and (count >= 2 or (count > 0 and Time.get_ticks_usec() - started >= STREAM_BUDGET_US)):
+            break
+        _create_collision(index)
+        count += 1
+
+func ensure_collision_segment(from: Vector2, to: Vector2) -> void:
+    if not collision_streaming or collision_closed or not from.is_finite() or not to.is_finite():
+        return
+    var bounds := Rect2(to_local(from), Vector2.ZERO).expand(to_local(to)).grow(16)
+    for index in range(collision_records.size()):
+        if bounds.intersects(collision_records[index].bounds):
+            _create_collision(index)
+            collision_pins[index] = Engine.get_physics_frames() + 2
+
+func terrain_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
+    if not collision_streaming or collision_closed or not from.is_finite() or not to.is_finite():
+        return {}
+    var start := to_local(from)
+    var finish := to_local(to)
+    var nearest := INF
+    var hit := Vector2.ZERO
+    for record in collision_regions:
+        var polygon: PackedVector2Array = record.polygon
+        # Physics ray queries exclude inside starts by default. Only edges count.
+        if Geometry2D.is_point_in_polygon(start, polygon):
+            continue
+        for i in range(polygon.size()):
+            var contact: Variant = Geometry2D.segment_intersects_segment(start, finish, polygon[i], polygon[(i + 1) % polygon.size()])
+            if contact != null and start.distance_squared_to(contact) < nearest:
+                nearest = start.distance_squared_to(contact)
+                hit = contact
+    return {} if not is_finite(nearest) else {"position": to_global(hit), "authored_static": true}
+
+func critical_collision_ready() -> bool:
+    return not collision_streaming or Engine.get_physics_frames() >= collision_sync_until
+
+func collision_snapshot() -> Dictionary:
+    return {"enabled": collision_streaming, "authored": collision_records.size(), "resident": resident_collisions.size(), "held": collision_holds.size(), "pins": collision_pins.size(), "loads": collision_loads, "releases": collision_releases}
+
+func close_collisions() -> void:
+    collision_closed = true
+    resident_collisions.clear()
+    collision_pins.clear()
+    collision_holds.clear()
+    collision_records.clear()
+    support_rects.clear()
+
+func _exit_tree() -> void:
+    close_collisions()
 
 func intersects_rect(rect: Rect2) -> bool:
     var corners := PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)])

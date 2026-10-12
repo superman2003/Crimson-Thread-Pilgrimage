@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
                 var rock: Dictionary = get_parent()._rock_ray_hit(previous, global_position)
                 if not rock.is_empty() and (wall.is_empty() or previous.distance_squared_to(rock.position) < previous.distance_squared_to(wall.position)):
                     wall = rock
-            if not wall.is_empty() and (bool(wall.get("authored_rock", false)) or wall.get("collider") is StaticBody2D):
+            if not wall.is_empty() and (bool(wall.get("authored_rock", false)) or bool(wall.get("authored_static", false)) or wall.get("collider") is StaticBody2D):
                 if impact_pool:
                     global_position=wall.position-Vector2(0,5)
                     effect_kind="pool"
