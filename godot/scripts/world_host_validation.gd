@@ -47,6 +47,7 @@ func _run() -> void:
     scene.player.dash_cooldown = 1.2
     scene.player.guard_cooldown = 0.9
     scene.player.resonance_cooldown = 1.4
+    scene.player.grapple_recovery_timer = 0.4
     scene.build_system.cooldowns["cleave"] = 4.5
     scene._save_world()
     var journal: Dictionary = scene.story_flags[CARTO.KEY].duplicate(true)
@@ -61,6 +62,19 @@ func _run() -> void:
         _check(scene.world_state.data == before_state and not scene.chapter_transitioning, "failed preflight retains state and input")
     scene._travel_world("res://data/missing_world_region.json", Vector2.ZERO)
     _check(scene.get_child_count() == before_nodes and scene.world_loader.generation == generation, "missing target cannot evict current region")
+    var music_rest: float = scene.audio_director._music_rest_db()
+    scene.audio_director.begin_chapter_transition()
+    var transition: Tween = scene.audio_director.bus_tweens.get("BGM")
+    scene.audio_director._set_bus_db("BGM", -60)
+    scene._travel_world("res://data/missing_world_region.json", Vector2.ZERO)
+    _check(not transition.is_valid() and not scene.audio_director.bus_tweens.has("BGM"), "failed load cancels music fade")
+    _check(is_equal_approx(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("BGM")), music_rest), "failed load restores current music mix")
+    var initial_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(first_region)))
+    for field in ["world", "map_rooms", "platforms", "inventory"]:
+        var corrupt: Dictionary = initial_config.duplicate(true)
+        corrupt[field] = [1] if field == "map_rooms" else [] if field in ["world", "inventory"] else {}
+        _check(scene.world_loader.validate_config(corrupt, ROUTES.config_path(first_region), before_position).is_empty(), "reject malformed " + field + " before overlay construction")
+        _check(scene.get_child_count() == before_nodes and scene.world_loader.generation == generation, "bad config cannot evict region " + field)
     scene.world_loader.phase = "loading"
     _check(not scene.world_loader.replace_region(scene, ROUTES.config_path(first_region), before_position), "reentrant replacement rejected")
     scene.world_loader.phase = "idle"
@@ -110,6 +124,7 @@ func _run() -> void:
     _check(scene.player.heal_timer == 0 and scene.player.attack_timer == 0 and scene.player.active_skill.is_empty() and not scene.player.traversal_downstrike_active, "actions do not leak into next region")
     _check(scene.player.energy == 68 and scene.player.hp == 3, "heal cancellation settles ten-point refund without healing")
     _check(scene.player.dash_cooldown == 1.2 and scene.player.guard_cooldown == 0.9 and scene.player.resonance_cooldown == 1.4, "travel cannot erase action cooldowns")
+    _check(scene.player.grapple_recovery_timer == 0.4, "travel retains grapple recovery")
     _check(scene.build_system.cooldowns.get("cleave", 0) == 4.5, "skill cooldown remains on same build instance")
     _check(scene.player.velocity == Vector2.ZERO and not scene.player.ui_input_locked, "safe arrival clears movement and input lock")
     _check(scene.nearby_interactable == null and scene.boss_actor == null and not scene.boss_spawned and not scene.pending_enemy_respawn, "region-local references reset")

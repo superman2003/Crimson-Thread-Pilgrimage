@@ -31,6 +31,13 @@ func preflight(path: String, entry: Vector2) -> Dictionary:
         last_error = "目标位置或区域文件无效。"
         return {}
     var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+    return validate_config(parsed, path, entry)
+
+func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionary:
+    last_error = ""
+    if not entry.is_finite():
+        last_error = "目标位置无效。"
+        return {}
     if not parsed is Dictionary:
         last_error = "目标区域记录无法读取。"
         return {}
@@ -41,7 +48,10 @@ func preflight(path: String, entry: Vector2) -> Dictionary:
     if not parsed.get("world") is Dictionary or not parsed.get("map_rooms") is Array or parsed.map_rooms.is_empty():
         last_error = "目标区域缺少地形与房间记录。"
         return {}
-    for field in ["platforms", "terrain", "locked_gates", "collectibles", "interactives", "npcs", "enemy_spawns", "save_points"]:
+    if not parsed.get("inventory", {}) is Dictionary:
+        last_error = "目标区域的物品记录无效。"
+        return {}
+    for field in ["map_rooms", "platforms", "terrain", "locked_gates", "collectibles", "interactives", "npcs", "enemy_spawns", "save_points"]:
         if not parsed.get(field, []) is Array:
             last_error = "目标区域的%s记录无效。" % field
             return {}

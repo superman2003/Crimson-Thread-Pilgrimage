@@ -987,6 +987,10 @@ func _activate_world_portal(area: Area2D) -> void:
     if next_path.is_empty():
         _toast("这条旧路尚未接通。")
         return
+    var entry := _vec2(data.get("target_spawn", [120, 500]))
+    if world_loader == null or world_loader.preflight(next_path, entry).is_empty():
+        _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
+        return
     var shortcut := String(data.get("unlock_shortcut_id", ""))
     if not shortcut.is_empty():
         story_flags["world_shortcut_" + shortcut] = true
@@ -996,13 +1000,15 @@ func _activate_world_portal(area: Area2D) -> void:
     if audio_director != null:
         audio_director.begin_chapter_transition()
     _play_sfx_persistent("chapter_transition", -9.0)
-    _defer_region_call("_travel_world", [next_path, _vec2(data.get("target_spawn", [120, 500]))])
+    _defer_region_call("_travel_world", [next_path, entry])
 
 
 func _travel_world(next_path: String, entry: Vector2) -> void:
     _save_world()
     if world_loader == null or not world_loader.replace_region(self, next_path, entry):
         chapter_transitioning = false
+        if is_instance_valid(audio_director):
+            audio_director.cancel_chapter_transition()
         _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
 
 

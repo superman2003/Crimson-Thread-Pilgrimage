@@ -59,7 +59,10 @@ def main():
                     # Frame-counted ability/actuator probes use a fixed clock.
                     # Audio lifetime suites must retain normal playback timing.
                     simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade'] else []
-                    result = subprocess.run([engine, '--headless', *simulation, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
+                    # An intermittent CI shutdown leak needs the actual Resource
+                    # identity; verbose keeps that evidence without hiding errors.
+                    diagnostics = ['--verbose'] if suite == 'world_upgrade' else []
+                    result = subprocess.run([engine, '--headless', *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
                 output = log.read_text(errors='replace')
                 errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
                 if result.returncode != 0 or errors:

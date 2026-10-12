@@ -1911,9 +1911,11 @@ func prepare_region_handoff() -> void:
     # cooldown reset or restoring the already reserved healing energy.
     var dash_remaining := dash_cooldown
     var guard_remaining := guard_cooldown
+    var grapple_remaining := grapple_recovery_timer
     _reset_traversal_state()
     dash_cooldown = dash_remaining
     guard_cooldown = guard_remaining
+    grapple_recovery_timer = grapple_remaining
     attack_vfx_started = false
     skill_effect_started = false
     skill_displacement_done = 0.0
