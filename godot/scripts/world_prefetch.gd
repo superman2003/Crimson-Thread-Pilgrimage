@@ -1,11 +1,20 @@
 extends RefCounted
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
-## Bounded resources and detached ordinary platform bodies; no neighbor gameplay.
+## Bounded detached landing geometry. Neighbors never enter source physics.
+const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
+const MAX_PLATFORMS := 12
+const MAX_ROCK_CHUNKS := 6
+const MAX_TERRAIN_POLYGONS := 6
+const MAX_ROCK_SHAPES := 32
+const MAX_POLYGON_POINTS := 256
+var rock_hits := 0
+var terrain_hits := 0
+
 const BODY := preload("res://scripts/world_platform_body.gd")
 const MAX_BODIES_PER_REGION := 24
 const LANDING_HALF := Vector2(1280, 900)
 var entities: Dictionary = {}
-var retiring: Array[StaticBody2D] = []
+var retiring: Array[Node] = []
 var entity_builds := 0
 var entity_hits := 0
 var entity_releases := 0
@@ -116,10 +125,11 @@ func step(host: Node, delta: float) -> void:
 func _release_entities(region_id: String) -> void:
     if not entities.has(region_id):
         return
-    for record in entities[region_id].bodies.values():
-        var body: StaticBody2D = record.body
-        if is_instance_valid(body):
-            retiring.append(body)
+    for category in ["bodies", "collisions"]:
+        for record in entities[region_id][category].values():
+            var body: Node = record.body
+            if is_instance_valid(body):
+                retiring.append(body)
     entities.erase(region_id)
 
 func _retire_entities(started: int, eager: bool = false) -> void:
@@ -127,7 +137,7 @@ func _retire_entities(started: int, eager: bool = false) -> void:
     while not retiring.is_empty():
         if not eager and (removed >= 2 or (removed > 0 and Time.get_ticks_usec() - started >= BUDGET_US)):
             return
-        var body: StaticBody2D = retiring.pop_front()
+        var body: Node = retiring.pop_front()
         if is_instance_valid(body):
             body.free()
             entity_releases += 1
@@ -146,25 +156,23 @@ func _warm_entities(host: Node, started: int) -> void:
         if entities.has(region_id) and entities[region_id].entry != candidate.entry:
             _release_entities(region_id)
         if not entities.has(region_id):
-            var pending: Array = []
-            var bounds := Rect2(candidate.entry - LANDING_HALF, LANDING_HALF * 2)
-            for platform in configs[region_id].prepared.get("platforms", []):
-                if platform.has("terrain_id") or host._is_post_boss_blocker(String(platform.id)):
-                    continue
-                var value: Array = platform.rect
-                if bounds.intersects(Rect2(value[0], value[1], value[2], value[3])):
-                    pending.append(platform.duplicate(true))
-            pending.sort_custom(func(a, b): return Vector2(a.rect[0], a.rect[1]).distance_squared_to(candidate.entry) < Vector2(b.rect[0], b.rect[1]).distance_squared_to(candidate.entry))
-            pending.resize(mini(pending.size(), MAX_BODIES_PER_REGION))
-            entities[region_id] = {"entry": candidate.entry, "pending": pending, "bodies": {}}
+            entities[region_id] = {"entry": candidate.entry,
+                "pending": _landing_plan(host, configs[region_id].prepared, candidate.entry),
+                "bodies": {}, "collisions": {}}
         var record: Dictionary = entities[region_id]
         while not record.pending.is_empty():
             if built >= 2 or Time.get_ticks_usec() - started >= BUDGET_US or _entity_count() + retiring.size() >= MAX_REGIONS * MAX_BODIES_PER_REGION:
                 return
-            var data: Dictionary = record.pending.pop_front()
-            var rect: Array = data.rect
-            var body := BODY.create(String(data.id), Rect2(rect[0], rect[1], rect[2], rect[3]), String(data.get("collision_role", "")))
-            record.bodies[String(data.id)] = {"body": body, "data": data}
+            var job: Dictionary = record.pending.pop_front()
+            var data: Dictionary = job.data
+            var body: Node
+            if job.kind == "platform":
+                var rect: Array = data.rect
+                body = BODY.create(String(data.id), Rect2(rect[0], rect[1], rect[2], rect[3]), String(data.get("collision_role", "")))
+                record.bodies[job.key] = {"body": body, "data": data}
+            else:
+                body = GEOMETRY.rock_body(job.key, data) if job.kind == "rock" else GEOMETRY.terrain_polygon(data)
+                record.collisions[job.kind + ":" + job.key] = {"body": body, "data": data}
             entity_builds += 1
             built += 1
             max_entities = maxi(max_entities, _entity_count() + retiring.size())
@@ -172,8 +180,65 @@ func _warm_entities(host: Node, started: int) -> void:
 func _entity_count() -> int:
     var count := 0
     for record in entities.values():
-        count += record.bodies.size()
+        count += record.bodies.size() + record.collisions.size()
     return count
+
+func _landing_plan(host: Node, config: Dictionary, entry: Vector2) -> Array:
+    var bounds := Rect2(entry - LANDING_HALF, LANDING_HALF * 2)
+    var platforms: Array = []
+    var rocks: Array = []
+    var terrain: Array = []
+    for data in config.get("platforms", []):
+        if data.has("terrain_id") or host._is_post_boss_blocker(String(data.id)):
+            continue
+        var value: Array = data.rect
+        var rect := Rect2(value[0], value[1], value[2], value[3])
+        if bounds.intersects(rect):
+            platforms.append({"kind": "platform", "key": String(data.id), "data": data.duplicate(true), "bounds": rect})
+    var chunks := GEOMETRY.rock_chunks(config.get("cave_world", {}).get("solid_rects", []))
+    for key in chunks:
+        var data: Dictionary = chunks[key]
+        if bounds.intersects(data.bounds) and data.indices.size() <= MAX_ROCK_SHAPES:
+            rocks.append({"kind": "rock", "key": key, "data": data, "bounds": data.bounds})
+    for landform in config.get("terrain", []):
+        var surface: Array = landform.get("surface", [])
+        var id := String(landform.get("id", "Ground"))
+        var spans := GEOMETRY.terrain_spans(config, id, surface)
+        var sections := GEOMETRY.terrain_sections(surface, float(landform.get("depth", 104)), spans)
+        for index in range(sections.size()):
+            var data: Dictionary = sections[index]
+            if bounds.intersects(data.bounds) and data.polygon.size() <= MAX_POLYGON_POINTS:
+                terrain.append({"kind": "terrain", "key": "%s:%d" % [id, index], "data": data, "bounds": data.bounds})
+    var groups := [platforms, rocks, terrain]
+    var limits := [MAX_PLATFORMS, MAX_ROCK_CHUNKS, MAX_TERRAIN_POLYGONS]
+    var pending: Array = []
+    for index in range(groups.size()):
+        var group: Array = groups[index]
+        group.sort_custom(func(a, b): return a.bounds.get_center().distance_squared_to(entry) < b.bounds.get_center().distance_squared_to(entry))
+        group.resize(mini(group.size(), limits[index]))
+        pending.append_array(group)
+    pending.sort_custom(func(a, b): return a.bounds.get_center().distance_squared_to(entry) < b.bounds.get_center().distance_squared_to(entry))
+    return pending
+
+## Exact geometry and timestamp lease; transfer removes all cache ownership.
+func take_collision(region_id: String, kind: String, key: String, data: Dictionary) -> Node:
+    if not entities.has(region_id) or not desired.has(region_id) or not configs.has(region_id):
+        return null
+    if configs[region_id].stamp != FileAccess.get_modified_time(desired[region_id].path):
+        _release_entities(region_id)
+        return null
+    var cache_key := kind + ":" + key
+    if not entities[region_id].collisions.has(cache_key):
+        return null
+    var record: Dictionary = entities[region_id].collisions[cache_key]
+    if record.data != data:
+        return null
+    entities[region_id].collisions.erase(cache_key)
+    if kind == "rock":
+        rock_hits += 1
+    else:
+        terrain_hits += 1
+    return record.body
 
 ## Transfer ownership only to an already validated target's exact descriptor.
 func take_platform(region_id: String, data: Dictionary) -> StaticBody2D:
@@ -237,10 +302,18 @@ func cached_raw(path: String) -> Variant:
     return null
 
 func snapshot() -> Dictionary:
+    var rocks := 0
+    var polygons := 0
+    for region in entities.values():
+        for key in region.collisions:
+            if String(key).begins_with("rock:"):
+                rocks += 1
+            else:
+                polygons += 1
     var count := 0
     for textures in retained.values():
         count += textures.size()
-    return {"retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
+    return {"rock_chunks": rocks, "terrain_polygons": polygons, "rock_hits": rock_hits, "terrain_hits": terrain_hits, "retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
         "regions": configs.size(), "textures": count, "jobs": jobs.size(), "queued": queue.size(),
         "config_reads": config_reads, "cache_hits": cache_hits, "failures": failures,
         "stale_results": stale_results, "max_jobs": max_jobs_seen, "generation": generation}

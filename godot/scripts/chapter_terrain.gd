@@ -1,5 +1,9 @@
 extends Node2D
 
+const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
+var prefetch: RefCounted
+var region_id := ""
+
 const ROCK := preload("res://scripts/world_rock_material.gd")
 var material_theme := "moss_cavern"
 const ART := preload("res://scripts/hand_drawn_assets.gd")
@@ -203,61 +207,24 @@ func streaming_snapshot() -> Dictionary:
         "collision_regions": collision_regions.size()}
 
 func _build_collision_sections(body: StaticBody2D, surface: Array, depth: float, spans: Array) -> void:
-    var section := PackedVector2Array()
-    var section_one_way := false
-    for i in range(surface.size() - 1):
-        var a := Vector2(float(surface[i][0]), float(surface[i][1]))
-        var b := Vector2(float(surface[i + 1][0]), float(surface[i + 1][1]))
-        if b.x <= a.x:
-            continue
-        var breaks: Array[float] = [a.x, b.x]
-        for span in spans:
-            for x in span:
-                if float(x) > a.x and float(x) < b.x:
-                    breaks.append(float(x))
-        breaks.sort()
-        for j in range(breaks.size() - 1):
-            if is_equal_approx(breaks[j], breaks[j + 1]):
-                continue
-            var left := a.lerp(b, (breaks[j] - a.x) / (b.x - a.x))
-            var right := a.lerp(b, (breaks[j + 1] - a.x) / (b.x - a.x))
-            var midpoint := (left.x + right.x) * 0.5
-            var one_way := false
-            for span in spans:
-                if midpoint >= float(span[0]) and midpoint <= float(span[1]):
-                    one_way = true
-                    break
-            if not section.is_empty() and section_one_way != one_way:
-                _add_collision_region(body, section, depth, section_one_way)
-                section = PackedVector2Array()
-            if section.is_empty():
-                section.append(left)
-                section_one_way = one_way
-            section.append(right)
-    if section.size() >= 2:
-        _add_collision_region(body, section, depth, section_one_way)
-
-func _add_collision_region(body: StaticBody2D, surface: PackedVector2Array, depth: float, one_way: bool) -> void:
-    var polygon := surface.duplicate()
-    for i in range(surface.size() - 1, -1, -1):
-        polygon.append(surface[i] + Vector2(0, depth))
-    var bounds := Rect2(polygon[0], Vector2.ZERO)
-    for point in polygon:
-        bounds = bounds.expand(point)
-    collision_regions.append({"bounds": bounds, "polygon": polygon})
-    var index := collision_records.size()
-    collision_records.append({"bounds": bounds, "polygon": polygon, "parent": body, "one_way": one_way})
-    if not collision_streaming:
-        _create_collision(index)
+    var sections := GEOMETRY.terrain_sections(surface, depth, spans)
+    for section_index in range(sections.size()):
+        var data: Dictionary = sections[section_index]
+        collision_regions.append({"bounds": data.bounds, "polygon": data.polygon})
+        var index := collision_records.size()
+        collision_records.append({"bounds": data.bounds, "polygon": data.polygon,
+            "parent": body, "one_way": data.one_way, "cache_key": "%s:%d" % [body.name, section_index]})
+        if not collision_streaming:
+            _create_collision(index)
 
 func _create_collision(index: int) -> void:
     if collision_closed or resident_collisions.has(index):
         return
     var record: Dictionary = collision_records[index]
-    var node := CollisionPolygon2D.new()
-    node.polygon = record.polygon
-    node.one_way_collision = record.one_way
-    node.one_way_collision_margin = 2.0
+    var data := {"bounds": record.bounds, "polygon": record.polygon, "one_way": record.one_way}
+    var node: CollisionPolygon2D = prefetch.take_collision(region_id, "terrain", record.cache_key, data) if prefetch != null else null
+    if node == null:
+        node = GEOMETRY.terrain_polygon(data)
     record.parent.add_child(node)
     resident_collisions[index] = node
     collision_loads += 1
@@ -350,6 +317,7 @@ func collision_snapshot() -> Dictionary:
 
 func close_collisions() -> void:
     collision_closed = true
+    prefetch = null
     resident_collisions.clear()
     collision_pins.clear()
     collision_holds.clear()
