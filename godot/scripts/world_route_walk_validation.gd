@@ -136,6 +136,12 @@ func _interact(portal_id: String, target_region: String, spawn: Vector2) -> void
     Input.action_press("interact")
     await _tick()
     Input.action_release("interact")
+    await process_frame
+    for frame in range(2000):
+        if not scene.chapter_transitioning:
+            break
+        await process_frame
+    _check(not scene.chapter_transitioning, "budgeted physical portal settles")
     await _tick(15)
     _check(str(scene.config.id) == target_region and scene.player.global_position.distance_to(spawn) < 90, "physical portal %s arrives at destination" % portal_id)
     if failures > 0:

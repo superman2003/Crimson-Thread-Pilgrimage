@@ -25,6 +25,12 @@ func _release() -> void:
             Input.action_release(action)
 
 func _tick(count: int = 1) -> void:
+    for frame in range(2000):
+        if not is_instance_valid(scene) or not scene.chapter_transitioning:
+            break
+        await process_frame
+    if is_instance_valid(scene) and scene.chapter_transitioning:
+        _assert(false, "budgeted portal transition did not settle before action probe")
     for unused in range(count):
         for actor in get_nodes_in_group("enemy"):
             actor.queue_free()
