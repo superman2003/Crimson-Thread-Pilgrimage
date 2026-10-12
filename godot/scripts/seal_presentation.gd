@@ -10,6 +10,16 @@ var _effects: Array[Node2D] = []
 var _voices: Array[AudioStreamPlayer2D] = []
 var _streams: Dictionary = {}
 
+func _exit_tree() -> void:
+    # A scene can retire while a cue is still playing. Detach the playback
+    # before releasing the cached streams, including under fixed-fps tests.
+    for voice in _voices:
+        if is_instance_valid(voice):
+            voice.stop()
+            voice.stream = null
+    _voices.clear()
+    _streams.clear()
+
 class ActionTrace extends Node2D:
     var action_id := "needle"
     var stage := "active"

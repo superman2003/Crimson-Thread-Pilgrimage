@@ -1,5 +1,6 @@
 extends SceneTree
 const PRESENTATION := preload("res://scripts/seal_presentation.gd")
+const AUDIO_RETIREMENT := preload("res://scripts/audio_retirement_probe.gd")
 var checks := 0
 var failures := 0
 func _initialize() -> void:
@@ -41,7 +42,26 @@ func _run() -> void:
     presentation.play_action("needle", "active")
     _check(presentation._voices.size() == voice_count, "mute produces no audio player")
     await create_timer(0.4).timeout
+    var audio_refs := AUDIO_RETIREMENT.stream_refs(presentation)
     presentation.queue_free()
     await process_frame
+    _check(await AUDIO_RETIREMENT.wait_for_release(self, audio_refs), "expired presentation releases audio resources")
+    # Retire a scene with an unfinished cue, rather than only after expiry.
+    var retiring := PRESENTATION.new()
+    root.add_child(retiring)
+    retiring.play_action("cleave", "active")
+    _check(retiring._voices.size() == 1, "retirement fixture starts a real cue")
+    var retiring_voice: AudioStreamPlayer2D = retiring._voices[0]
+    audio_refs = AUDIO_RETIREMENT.stream_refs(retiring)
+    root.remove_child(retiring)
+    _check(not retiring_voice.playing and retiring_voice.stream == null, "retirement stops and detaches unfinished playback")
+    _check(retiring._voices.is_empty() and retiring._streams.is_empty(), "retirement releases voice and stream caches")
+    retiring.free()
+    _check(await AUDIO_RETIREMENT.wait_for_release(self, audio_refs), "unfinished playback resources retire before shutdown")
+    var retained := AudioStreamWAV.new()
+    var retained_refs := [weakref(retained)]
+    _check(not await AUDIO_RETIREMENT.wait_for_release(self, retained_refs, 10), "retained resource fails bounded retirement wait")
+    retained = null
+    _check(await AUDIO_RETIREMENT.wait_for_release(self, retained_refs), "released resource completes retirement wait")
     print("SEAL_PRESENTATION_VALIDATION: %d checks, %d failures" % [checks, failures])
     quit(0 if failures == 0 else 1)

@@ -4,6 +4,7 @@ extends SceneTree
 ## Enemies are removed: this is not a complete damage-enabled six-region run.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const STATE := preload("res://scripts/world_state.gd")
+const AUDIO_RETIREMENT := preload("res://scripts/audio_retirement_probe.gd")
 const SAVE := "user://world_upgrade_validation.json"
 var scene: Node
 var checks := 0
@@ -209,11 +210,12 @@ func _run() -> void:
             _assert(scene.get_node_or_null(String(reward_id)) == null, gate_id + ": collected reward does not respawn")
         print("WORKSHOP_ACTION_PASS " + gate_id)
     _release()
+    var audio_refs := AUDIO_RETIREMENT.stream_refs(scene.player.seal_presentation)
     if is_instance_valid(scene):
         scene.queue_free()
         await process_frame
+    _assert(await AUDIO_RETIREMENT.wait_for_release(self, audio_refs), "retired scene releases seal audio before shutdown")
     _clean()
     print("WORLD_UPGRADE checks=%d failures=%d enemy_removal=true fixture_positioning=true" % [checks, failures])
-    # Let the async test stack release its final saved-state Resource first.
-    # Direct quit can race reference teardown on faster CI runners.
+    # Return from the async test stack before requesting tree shutdown.
     call_deferred("quit", 1 if failures > 0 else 0)

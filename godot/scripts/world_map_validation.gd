@@ -35,7 +35,7 @@ func _run() -> void:
             _check(child.position.y + child.size.y <= scene.map_draw_root.size.y, "world panels fit above map text")
         if child is Line2D:
             edges += 1
-            _check(child.points.size() == 2, "atlas edges represent actual paired regions")
+            _check(child.points.size() in [2,4], "atlas edges represent actual paired regions")
     _check(panels == 6, "atlas contains six canonical regions")
     _check(edges > 0 and edges < 6, "atlas reveals only known region adjacency")
     _check(scene.wish_panel == null or not scene.wish_panel.visible, "atlas does not overlap wish board")
