@@ -120,7 +120,7 @@ func _prefetch_checks() -> void:
     var status: Dictionary = scene.world_prefetch.snapshot()
     _check(status.regions == 2 and status.textures == 10 and status.failures == 0, "two neighboring themes warmed successfully")
     _check(status.jobs <= 2 and status.max_jobs <= 2 and max_reads <= 1, "bounded worker jobs and config reads")
-    _check(scene.get_child_count() == nodes and String(scene.config.id) == source, "prefetch does not instantiate neighbor nodes")
+    _check(scene.get_child_count() == nodes and String(scene.config.id) == source, "prefetch does not attach neighbor nodes to active tree")
     _check(scene.story_flags == journal and scene.inventory_counts == inventory, "prefetch cannot grant maps, journals or abilities")
     var original_portals: Array = scene.config.interactives.duplicate(true)
     scene.config.interactives.append({"kind": "world_portal", "target_config_id": "unknown_prefetch_region", "position": [scene.player.position.x, scene.player.position.y]})

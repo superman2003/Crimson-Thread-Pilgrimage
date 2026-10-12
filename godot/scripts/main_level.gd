@@ -19,6 +19,7 @@ const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
+const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
 const WORLD_PLATFORMS := preload("res://scripts/world_platform_residency.gd")
 var world_platforms: RefCounted
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
@@ -2868,8 +2869,9 @@ func _region_platform(data: Dictionary) -> void:
 
 
 func _make_region_platform(data: Dictionary) -> StaticBody2D:
+    var warmed: StaticBody2D = world_prefetch.take_platform(String(config.id), data) if world_mode and world_prefetch != null else null
     return _platform(String(data.get("id", "platform")), _rect2(data.get("rect", [])),
-        _color(data.get("color", "333333")), String(data.get("material", "moss_stone")), String(data.get("collision_role", "")))
+        _color(data.get("color", "333333")), String(data.get("material", "moss_stone")), String(data.get("collision_role", "")), warmed)
 
 
 func _region_gate(data: Dictionary) -> void:
@@ -3410,23 +3412,8 @@ func _background_rain_streaks() -> void:
         index += 1
 
 
-func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "") -> StaticBody2D:
-    var body := StaticBody2D.new()
-    body.name = node_name
-    body.position = rect.position + rect.size * 0.5
-    var lower_name := node_name.to_lower()
-    var normalized_role := collision_role.to_lower()
-    if normalized_role not in ["decorative", "no_collision"]:
-        var shape := CollisionShape2D.new()
-        var rectangle := RectangleShape2D.new()
-        rectangle.size = rect.size
-        shape.shape = rectangle
-        # Explicit one-way metadata keeps vertical routes passable from below.
-        if normalized_role == "one_way" or lower_name.begins_with("bridge_") or lower_name.begins_with("step_") or lower_name.begins_with("shaft_bridge_"):
-            shape.one_way_collision = true
-            shape.one_way_collision_margin = 2.0
-        body.add_child(shape)
-
+func _platform(node_name: String, rect: Rect2, color: Color, material: String = "moss_stone", collision_role: String = "", warmed: StaticBody2D = null) -> StaticBody2D:
+    var body: StaticBody2D = warmed if warmed != null else PLATFORM_BODY.create(node_name, rect, collision_role)
     if flat_map_art != null and flat_map_art.ready_for_platforms():
         flat_map_art.add_platform_visual(body,rect.size,material)
     else:
