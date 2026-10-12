@@ -48,6 +48,9 @@ func _run() -> void:
     await _walk(Vector2(5240,560), "salt testimony revisited")
     await _tick(3)
     Input.action_press("interact")
+    # The host polls F during _process; hold through a render tick rather
+    # than assuming one physics signal includes a render tick on every runner.
+    await process_frame
     await _tick()
     Input.action_release("interact")
     await _tick(4)
