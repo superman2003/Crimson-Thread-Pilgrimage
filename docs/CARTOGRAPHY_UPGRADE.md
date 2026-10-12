@@ -48,3 +48,9 @@ PR #15最新CI成功；PR #16仍有工房退出资源错误，虽然本地回归
 底图明确排除 secret/reward/exit/hidden/upgrade 房间。购图窗口切换背包或设置时关闭；售图NPC的连续剧情F推进不再每行返回商店。
 
 本版本局部 Godot 4.6.1 回归：cartography 4067检查、world_map 17检查、ui_world_integration、tests/verify_narrative_runtime 23检查均通过，无运行时 ERROR/SCRIPT ERROR。六区逐房验证底图、待补绘和全补绘后的坐标一致、秘密不提前显示、地形归一化裁切与标记坐标一致。该检查使用购图/探索夹具，不代表完整自然通关；不沿用上一批49项作为本版本结果。日志：artifacts/cartography/contour_fix/diagnostics。
+
+### 实机复验与第二检查点
+
+补充六区浅墨/深墨13张OpenGL截图（苔钟庭另有pending态）及复跑脚本 tools/capture_cartography_contours.gd。检查所有地区的文字/轮廓；密集房间不强塞标题，优先入口/中枢/远景，其他有足够空间才显示，悬停已补绘房间可读名称。标题避让已占用文字区域。底图另外排除treasure，最后cartography复验为4055检查0失败；前检查点4067中的差值来自这类奖励房间不再纳入公共底图位置检查。其余三套回归代码未受此次文字布局调整影响。
+
+全部截图使用已购地图和全房探索夹具，再调用真实钟龛适配器补绘；不代表经济/步行通关。最终GL捕获无ERROR/SCRIPT ERROR，不验证音频。artifacts/cartography/contour_fix/verification.json、diagnostics与原尺寸jpg共同保存。代码与第一轮日志先上传f6a50ff，之后保存标题可读性与实机证据。

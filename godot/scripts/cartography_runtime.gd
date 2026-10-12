@@ -66,7 +66,7 @@ static func purchase(level: Node, area: Area2D) -> Dictionary:
     level._toast(String(result.reason))
     return result
 static func public_room(room: Dictionary) -> bool:
-    return String(room.get("kind","")) not in ["secret","reward","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
+    return String(room.get("kind","")) not in ["secret","reward","treasure","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
 static func region_bounds(level: Node) -> Rect2:
     # Visibility never changes the coordinate frame. Reserve space for every
     # authored room without emitting its outline, label or connections.
@@ -162,6 +162,7 @@ static func render(level: Node) -> void:
     var bounds: Rect2=region_bounds(level)
     var draw_size: Vector2=host.size
     var terrain: Array[PackedVector2Array]=terrain_polygons(level)
+    var label_bounds: Array[Rect2]=[]
     for connection in level.config.get("connections",[]):
         var a:=String(connection.get("from",""))
         var b:=String(connection.get("to",""))
@@ -190,14 +191,23 @@ static func render(level: Node) -> void:
         outline.detailed=detailed
         outline.seed_value=room_id.hash()
         if detailed: outline.contours=room_terrain(level,room,terrain)
-        outline.mouse_filter=Control.MOUSE_FILTER_IGNORE
+        outline.mouse_filter=Control.MOUSE_FILTER_PASS if detailed else Control.MOUSE_FILTER_IGNORE
+        if detailed: outline.tooltip_text=level._room_name(room_id)
         outline.set_meta("charted",detailed)
         host.add_child(outline)
-        if detailed or String(room.get("kind","")) in ["hub","vista","entry"]:
+        var title_text: String=level._room_name(room_id)
+        var title_size:=host.get_theme_font("font").get_string_size(title_text,HORIZONTAL_ALIGNMENT_LEFT,-1,12)
+        var title_rect:=Rect2(rect.position+Vector2(0,-16),Vector2(title_size.x,16))
+        var show_title: bool=(detailed and rect.size.x>=title_size.x+8) or String(room.get("kind","")) in ["hub","vista","entry"]
+        for occupied in label_bounds:
+            if occupied.grow(3).intersects(title_rect): show_title=false
+        if show_title:
+            label_bounds.append(title_rect)
             var title:=Label.new()
             title.name="SurveyLabel_"+room_id
-            title.text=level._room_name(room_id)
-            title.position=rect.position+Vector2(5,5)
+            title.text=title_text
+            title.position=title_rect.position
+            title.mouse_filter=Control.MOUSE_FILTER_IGNORE
             title.add_theme_font_size_override("font_size",12)
             title.add_theme_color_override("font_color",Color("60452b"))
             host.add_child(title)
