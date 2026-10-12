@@ -50,6 +50,10 @@ func run() -> void:
     check(area.get_node("WorldPortalGlyph").text=="F","ability pickup refreshes entry without scene reload")
     check(area.get_meta("route_status").open,"live feedback uses same condition as traversal")
     scene.story_flags.erase("world_shortcut_archive_return")
+    var journal = preload("res://scripts/pilgrimage_cartography.gd")
+    journal.region(scene.story_flags,String(scene.config.id)).owned=true
+    journal.visit(scene.story_flags,String(scene.config.id),String(entry.room_id))
+    journal.rest(scene.story_flags)
     scene._toggle_map()
     scene.world_map_view=true
     scene._refresh_map_overlay()
