@@ -711,6 +711,8 @@ func _play_attack_swing_sfx() -> void:
 
 
 func _can_start_action() -> bool:
+    if get_parent().has_method("_walking_world_passage") and get_parent()._walking_world_passage():
+        return false
     return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
 
 

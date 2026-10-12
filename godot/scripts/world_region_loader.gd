@@ -6,7 +6,7 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
-    "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch"]
+    "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch", "world_passage"]
 var generation := 0
 var active_region_id := ""
 var phase := "idle"
@@ -162,7 +162,7 @@ func replace_region(host: Node, path: String, entry: Vector2) -> bool:
     host._release_region_platforms()
     phase = "unloading"
     for child in host.get_children():
-        if child == host.player:
+        if child == host.player or child == host.world_passage:
             continue
         host.remove_child(child)
         child.free()
@@ -264,7 +264,7 @@ func _evict_budgeted(host: Node) -> bool:
                 break
             var child: Variant = children[cursor]
             cursor += 1
-            if not is_instance_valid(child) or child == host.player or child.get_parent() != host:
+            if not is_instance_valid(child) or child == host.player or child == host.world_passage or child.get_parent() != host:
                 continue
             host.remove_child(child)
             child.free()
@@ -320,7 +320,7 @@ func _set_destination(host: Node, path: String, entry: Vector2, previous_id: Str
     host.transition_entry_message = "旧路重新接通 · " + String(target.get("name", ""))
 
 
-func replace_region_async(host: Node, path: String, entry: Vector2) -> bool:
+func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF) -> bool:
     if phase != "idle" or not _alive(host) or not is_instance_valid(host.player):
         last_error = "区域正在装载。"
         return false
@@ -373,7 +373,7 @@ func replace_region_async(host: Node, path: String, entry: Vector2) -> bool:
             return false
         host.world_state.data = source_state
         host.build_system.restore(source_build)
-        _set_destination(host, source_path, source_position, source_id, source_config)
+        _set_destination(host, source_path, rollback_entry if rollback_entry.is_finite() else source_position, source_id, source_config)
         host.transition_entry_message = "已返回来路。"
         if not await _construct_budgeted(host, source_config, false):
             _clear_loading_canvas()

@@ -137,9 +137,18 @@ func _interact(portal_id: String, target_region: String, spawn: Vector2) -> void
     _release()
     await _tick(3)
     Input.action_press("interact")
+    await process_frame
     await _tick()
     Input.action_release("interact")
     await process_frame
+    if scene.world_passage.active:
+        _axis(signf(scene.world_passage.destination_point.x - scene.world_passage.source_point.x))
+        for frame in range(3600):
+            await _tick()
+            if not scene.world_passage.active:
+                break
+        _release()
+        _check(not scene.world_passage.active, "full pipe walked with collision and input")
     for frame in range(2000):
         if not scene.chapter_transitioning:
             break
