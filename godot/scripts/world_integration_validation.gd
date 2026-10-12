@@ -1,6 +1,6 @@
 extends SceneTree
 ## Stateful runtime regression, not a physical route or reachability test.
-## Portal activation replaces real scenes; positioning is deliberate test setup.
+## Portal activation reloads region content; positioning is deliberate test setup.
 const PATH := "user://world_integration_validation.json"
 const WORLD := preload("res://scripts/world_state.gd")
 var failures: Array[String] = []
@@ -24,6 +24,7 @@ func _run() -> void:
     _check(current_scene == scene, "test starts with real current_scene")
     var first_id := String(scene.config.id)
     var first_instance := scene.get_instance_id()
+    var first_player: int = scene.player.get_instance_id()
     var pickup: Area2D
     for candidate in scene.get_children():
         if candidate is Area2D and candidate.has_meta("item_id"):
@@ -75,7 +76,8 @@ func _run() -> void:
     scene._activate_world_portal(portal)
     await _frames()
     scene = current_scene
-    _check(scene.get_instance_id() != first_instance, "portal replaces scene instance")
+    _check(scene.get_instance_id() == first_instance, "portal retains persistent world host")
+    _check(scene.player.get_instance_id() == first_player, "portal retains the same player")
     _check(String(scene.config.id) == "demo_ch02_rain_foundry_canal", "A portal enters B")
     _check(scene.player_world_position() == WORLD.COORDINATES.to_world(String(scene.config.id), scene.player.global_position), "arrival uses destination world origin")
     _check(not scene.world_state.data.world_location.is_empty(), "runtime save records world checkpoint")

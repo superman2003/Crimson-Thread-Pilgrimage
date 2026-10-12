@@ -873,6 +873,14 @@ func begin_chapter_transition() -> void:
     _tween_bus_db("BGM", SILENT_DB, CHAPTER_EXIT_BGM_FADE_S)
 
 
+func cancel_chapter_transition() -> void:
+    var transition: Tween = bus_tweens.get("BGM")
+    if transition != null and transition.is_valid():
+        transition.kill()
+    bus_tweens.erase("BGM")
+    _apply_user_volume("music")
+
+
 ## 房型混响微调：hub/vista wet +0.10、corridor/secret wet -0.08，0.6s tween 回归基准。
 ## transit 房同时驱动钟道站厅音乐层。
 func on_room_changed(kind: String) -> void:

@@ -11,7 +11,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
-    'world_coordinates cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
+    'world_host world_coordinates cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
     'enemy_effect_lifetime enemy_visibility world_material hero_animation cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
@@ -59,7 +59,10 @@ def main():
                     # Frame-counted ability/actuator probes use a fixed clock.
                     # Audio lifetime suites must retain normal playback timing.
                     simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade'] else []
-                    result = subprocess.run([engine, '--headless', *simulation, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
+                    # An intermittent CI shutdown leak needs the actual Resource
+                    # identity; verbose keeps that evidence without hiding errors.
+                    diagnostics = ['--verbose'] if suite == 'world_upgrade' else []
+                    result = subprocess.run([engine, '--headless', *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
                 output = log.read_text(errors='replace')
                 errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
                 if result.returncode != 0 or errors:
