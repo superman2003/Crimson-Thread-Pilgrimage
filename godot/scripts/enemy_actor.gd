@@ -57,6 +57,10 @@ func investigate_lure(point: Vector2, seconds: float) -> void:
     if bool(combat_resistance.get("lure_immune", is_boss)) or not bool(ai_profile.get("lure_eligible", not is_boss)) or dying or state in ["windup", "active"]:
         return
     if is_inside_tree():
+        if get_parent().has_method("_ensure_collision_segment"):
+            get_parent()._ensure_collision_segment(global_position + Vector2(0, -24), point)
+        if get_parent().has_method("_rock_ray_hit") and not get_parent()._rock_ray_hit(global_position + Vector2(0, -24), point).is_empty():
+            return
         var lure_ray := PhysicsRayQueryParameters2D.create(global_position + Vector2(0,-24), point, 1)
         lure_ray.collide_with_areas = false
         if not get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
@@ -105,9 +109,15 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.radius=float(command.get("radius",11))
     effect.length=float(command.get("beam_length",360))
     if effect_kind == "beam" and is_inside_tree():
+        if get_parent().has_method("_ensure_collision_segment"):
+            get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
         var query := PhysicsRayQueryParameters2D.create(point, point + effect.heading * effect.length, 1)
         query.collide_with_areas = false
         var obstruction := get_world_2d().direct_space_state.intersect_ray(query)
+        if get_parent().has_method("_rock_ray_hit"):
+            var rock: Dictionary = get_parent()._rock_ray_hit(point, point + effect.heading * effect.length)
+            if not rock.is_empty() and (obstruction.is_empty() or point.distance_squared_to(rock.position) < point.distance_squared_to(obstruction.position)):
+                obstruction = rock
         if not obstruction.is_empty():
             effect.length = minf(effect.length, point.distance_to(obstruction.position))
     effect.set_meta("blockable", bool(command.get("blockable", true)))
@@ -657,6 +667,10 @@ func _face_target(target: Node2D) -> void:
 
 func _has_line_of_sight(target: CharacterBody2D) -> bool:
     if target == null or not is_instance_valid(target) or not is_inside_tree():
+        return false
+    if get_parent().has_method("_ensure_collision_segment"):
+        get_parent()._ensure_collision_segment(global_position + Vector2(0, -24), target.global_position + Vector2(0, -42))
+    if get_parent().has_method("_rock_ray_hit") and not get_parent()._rock_ray_hit(global_position + Vector2(0, -24), target.global_position + Vector2(0, -42)).is_empty():
         return false
     # Terrain occupies layer 1; player/enemy hurtboxes must not occlude sight.
     var query := PhysicsRayQueryParameters2D.create(global_position + Vector2(0, -24), target.global_position + Vector2(0, -42), 1)

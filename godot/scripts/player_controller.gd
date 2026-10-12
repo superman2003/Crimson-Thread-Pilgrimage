@@ -335,6 +335,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    # A newly acquired critical rock body needs one server synchronization.
+    # Hold movement/actions for that step; preserve velocity/resources/cooldowns.
+    if get_parent().has_method("_world_collision_ready") and not get_parent()._world_collision_ready():
+        return
     if ui_input_locked:
         _interrupt_heal()
         _stop_phase()

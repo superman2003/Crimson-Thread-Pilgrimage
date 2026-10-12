@@ -39,8 +39,14 @@ func _physics_process(delta: float) -> void:
     elif not trap and id not in ["fog", "lure"] and not landed:
         next += Vector2(direction * 620.0 * delta, 0)
     if next != previous:
+        if get_parent().has_method("_ensure_collision_segment"):
+            get_parent()._ensure_collision_segment(previous, next)
         var ray := PhysicsRayQueryParameters2D.create(previous, next, 1, [owner_player.get_rid()])
         var hit := get_world_2d().direct_space_state.intersect_ray(ray)
+        if get_parent().has_method("_rock_ray_hit"):
+            var rock: Dictionary = get_parent()._rock_ray_hit(previous, next)
+            if not rock.is_empty() and (hit.is_empty() or previous.distance_squared_to(rock.position) < previous.distance_squared_to(hit.position)):
+                hit = rock
         if not hit.is_empty():
             global_position = hit.position
             if id == "shard":
@@ -73,7 +79,11 @@ func _physics_process(delta: float) -> void:
         var point := Geometry2D.get_closest_point_to_segment(hurtbox.get_center(), previous, global_position)
         if not hurtbox.grow(radius).has_point(point):
             continue
+        if get_parent().has_method("_ensure_collision_segment"):
+            get_parent()._ensure_collision_segment(global_position, hurtbox.get_center())
         var ray := PhysicsRayQueryParameters2D.create(global_position, hurtbox.get_center(), 1, [owner_player.get_rid()])
+        if get_parent().has_method("_rock_ray_hit") and not get_parent()._rock_ray_hit(global_position, hurtbox.get_center()).is_empty():
+            continue
         if not get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
             continue
         if id == "fog":
