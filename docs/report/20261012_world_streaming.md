@@ -41,3 +41,10 @@ W00a、W00b1 已完成；本批完成 W00b2a。W00b2b、W00c 未完成，主任�
 绘制分块范围仅 ChapterTerrain 的岩层面与轮廓，其他场景装饰/地标/平台视觉未全部流式化。背景和共享材质纹理缓存仍可能常驻；预取器释放自身引用不等于全局ART/ROCK缓存释放。远处碰撞、AI与交互继续常驻，现有岩壁的镜头裁绘机制保留。
 
 本批状态/导航检查含定位夹具和伤害抑制，T04 新档开启伤害的六区完整通关仍待执行。全量日志仍有旧 boss_trial、world_route_walk 的 ObjectDB 退出警告；未宣称长期内存稳定或这些问题的根因已消除。原先world_upgrade间歇退出资源错误本轮没有复现，T03继续追踪。
+
+
+## PR #21 CI第56次失败修复
+
+原提交51d8fba：50套中world_upgrade退出ERROR，其402项玩法断言均通过。verbose日志定位残留资源为cleave_active.wav（AudioStreamWAV）及AudioStreamPlaybackWAV。SealPresentation原先仅queue_free音源；现在淘汰时先stop并清空stream，所有音源tree_exiting也清理，表现节点退场清理声部及流缓存。没有更改CI错误检测或靠等待音效播完规避。
+
+新增验收覆盖声部上限淘汰与劈斩音效播放中退场，使用原生Godot 4.6.1与真实纹章资源的隔离夹具：123项通过、无引擎ERROR；旧实现跑同一夹具失败3项，证明新断言能检出问题。完整项目与最新远端CI结果待补。原报告的本地50套结果属于此前提交，不能用于宣称这次修复CI通过。
