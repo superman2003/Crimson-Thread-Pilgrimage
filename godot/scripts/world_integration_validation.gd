@@ -223,6 +223,13 @@ func _hear_round(scene: Node, npc: Area2D, count: int = -1) -> void:
 func _frames() -> void:
     await process_frame
     await process_frame
+    # A real portal now rebuilds across frames. Keep the existing assertions,
+    # but await completion rather than assuming two render frames are enough.
+    for frame in range(2000):
+        if not is_instance_valid(current_scene) or not current_scene.chapter_transitioning:
+            return
+        await process_frame
+    _check(false, "budgeted portal transition did not settle")
 
 func _check(condition: bool, label: String) -> void:
     checks += 1

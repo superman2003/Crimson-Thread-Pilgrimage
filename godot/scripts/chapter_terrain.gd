@@ -23,6 +23,15 @@ var streamed_releases := 0
 var view_bounds := Rect2()
 
 func configure(config: Dictionary, theme: String, enable_streaming: bool = false, initial_focus: Vector2 = Vector2.ZERO) -> void:
+    prepare_config(config, theme, enable_streaming)
+    for value in landforms:
+        _build_landform(value)
+    if streaming:
+        warm_focus(initial_focus)
+
+
+## Metadata first; the host may then admit one landform at a time.
+func prepare_config(config: Dictionary, theme: String, enable_streaming: bool = false) -> void:
     name = "ChapterTerrain"
     material_theme = theme
     streaming = enable_streaming
@@ -43,11 +52,6 @@ func configure(config: Dictionary, theme: String, enable_streaming: bool = false
                 if not one_way_spans.has(terrain_id):
                     one_way_spans[terrain_id] = []
                 one_way_spans[terrain_id].append([float(rect[0]), float(rect[0]) + float(rect[2])])
-    for value in landforms:
-        _build_landform(value)
-    if streaming:
-        # Cover camera clamping at the region border before the first frame.
-        warm_focus(initial_focus)
 
 func warm_focus(focus: Vector2) -> void:
     refresh_visual_chunks(Rect2(focus - Vector2(1280, 900), Vector2(2560, 1800)), true)

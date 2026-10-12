@@ -608,6 +608,12 @@ func _ready() -> void:
 
 
 func _initialize_region(prepared_config: Dictionary = {}) -> void:
+    _prepare_region(prepared_config)
+    _build_world_from_config()
+    _finish_region()
+
+
+func _prepare_region(prepared_config: Dictionary = {}) -> void:
     config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
     if world_mode:
         if prepared_config.is_empty():
@@ -646,7 +652,9 @@ func _initialize_region(prepared_config: Dictionary = {}) -> void:
     _bind_audio_settings_key()
     _build_metsys_bridge()
     _build_audio()
-    _build_world_from_config()
+
+
+func _finish_region() -> void:
     _spawn_player()
     last_safe_ground = active_spawn
     if world_mode:
@@ -759,6 +767,8 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+    if world_loader != null:
+        world_loader.shutdown()
     if world_prefetch != null:
         world_prefetch.shutdown()
     _stop_region_tweens()
@@ -1007,16 +1017,22 @@ func _activate_world_portal(area: Area2D) -> void:
     if audio_director != null:
         audio_director.begin_chapter_transition()
     _play_sfx_persistent("chapter_transition", -9.0)
-    _defer_region_call("_travel_world", [next_path, entry])
+    _defer_region_call("_travel_world_async", [next_path, entry])
 
 
 func _travel_world(next_path: String, entry: Vector2) -> void:
+    if world_loader != null and world_loader.phase != "idle":
+        return
     _save_world()
     if world_loader == null or not world_loader.replace_region(self, next_path, entry):
         chapter_transitioning = false
         if is_instance_valid(audio_director):
             audio_director.cancel_chapter_transition()
         _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
+
+
+func _travel_world_async(next_path: String, entry: Vector2) -> void:
+    world_loader.start_region_transition(self, next_path, entry)
 
 
 func _region_tween() -> Tween:
@@ -2772,91 +2788,87 @@ func _add_map_ui_rect(node_name: String, rect_position: Vector2, rect_size: Vect
 
 
 func _build_world_from_config() -> void:
-    _background()
+    for job in _region_build_jobs():
+        callv(job.method, job.args)
+
+
+## Shared ordered plan: synchronous boot/fixtures and budgeted travel build the
+## same authored content. One job may contain a complex object, not one node.
+func _region_build_jobs() -> Array:
+    var jobs: Array = _background_jobs()
     if world_mode:
         for data in config.get("grapple_anchors", []):
-            _world_grapple_anchor(data)
+            jobs.append({"method": "_world_grapple_anchor", "args": [data]})
     for data in config.get("cave_lifts", []):
-        var lift := CAVE_LIFT_SCRIPT.new()
-        add_child(lift)
-        lift.configure(data,self)
-        cave_lifts.append(lift)
-    for block in config.get("environment_blocks", []):
-        if block is Dictionary:
-            _environment_block(block)
-    for platform in config.get("platforms", []):
-        if platform.has("terrain_id"):
-            continue
-        _platform(
-            String(platform.get("id", "platform")),
-            _rect2(platform.get("rect", [])),
-            _color(platform.get("color", "333333")),
-            String(platform.get("material", "moss_stone")),
-            String(platform.get("collision_role", ""))
-        )
-
+        jobs.append({"method": "_region_lift", "args": [data]})
+    for data in config.get("environment_blocks", []):
+        if data is Dictionary:
+            jobs.append({"method": "_environment_block", "args": [data]})
+    for data in config.get("platforms", []):
+        if not data.has("terrain_id"):
+            jobs.append({"method": "_region_platform", "args": [data]})
     locked_gate_bodies.clear()
-    for gate in config.get("locked_gates", []):
-        var locked_gate := _platform(
-            String(gate.get("id", "locked_gate")),
-            _rect2(gate.get("rect", [])),
-            _color(gate.get("color", "875f29")),
-            String(gate.get("material", "bronze_bridge"))
-        )
-        locked_gate.set_meta("required_ability", String(gate.get("required_ability", "")))
-        locked_gate.set_meta("required_ability_name", String(gate.get("required_ability_name", "")))
-        locked_gate.set_meta("requires_action", String(gate.get("requires_action", "")))
-        if String(gate.get("requires_action", "")) == "lantern_phase":
-            locked_gate.add_to_group("phase_gate")
-        if String(gate.get("requires_action", "")) == "thorn_downstrike":
-            locked_gate.add_to_group("fragile_terrain")
-        locked_gate_bodies[String(gate.get("id", "locked_gate"))] = locked_gate
+    for data in config.get("locked_gates", []):
+        jobs.append({"method": "_region_gate", "args": [data]})
+    for data in config.get("hazards", []):
+        jobs.append({"method": "_hazard", "args": [data]})
+    collectible_total = 0
+    for data in config.get("collectibles", []):
+        if not _combat_progression_enabled() or (data is Dictionary and (String(data.get("kind", "")) == "item" or (world_mode and String(data.get("kind", "")) == "currency"))):
+            jobs.append({"method": "_collectible", "args": [data]})
+            collectible_total += 1
+    for data in config.get("interactives", []):
+        var method: String = {"lever": "_lever", "boss_gate": "_boss_door", "world_portal": "_world_portal", "chapter_exit": "_chapter_exit", "ending_exit": "_chapter_exit"}.get(String(data.get("kind", "")), "")
+        if not String(method).is_empty():
+            jobs.append({"method": method, "args": [data]})
+    for data in config.get("save_points", []):
+        jobs.append({"method": "_save_point", "args": [data]})
+    for data in config.get("npcs", []):
+        jobs.append({"method": "_npc", "args": [data]})
+    for data in config.get("enemy_spawns", []):
+        if data is Dictionary:
+            jobs.append({"method": "_enemy", "args": [data]})
+    if world_mode:
+        jobs.append({"method": "_spawn_seal_practice_targets", "args": []})
+    jobs.append({"method": "_finish_region_geometry", "args": []})
+    return jobs
 
-    for hazard in config.get("hazards", []):
-        _hazard(hazard)
+
+func _region_lift(data: Dictionary) -> void:
+    var lift := CAVE_LIFT_SCRIPT.new()
+    add_child(lift)
+    lift.configure(data, self)
+    cave_lifts.append(lift)
+
+
+func _region_platform(data: Dictionary) -> void:
+    _platform(String(data.get("id", "platform")), _rect2(data.get("rect", [])),
+        _color(data.get("color", "333333")), String(data.get("material", "moss_stone")), String(data.get("collision_role", "")))
+
+
+func _region_gate(data: Dictionary) -> void:
+    var gate := _platform(String(data.get("id", "locked_gate")), _rect2(data.get("rect", [])),
+        _color(data.get("color", "875f29")), String(data.get("material", "bronze_bridge")))
+    gate.set_meta("required_ability", String(data.get("required_ability", "")))
+    gate.set_meta("required_ability_name", String(data.get("required_ability_name", "")))
+    gate.set_meta("requires_action", String(data.get("requires_action", "")))
+    if String(data.get("requires_action", "")) == "lantern_phase":
+        gate.add_to_group("phase_gate")
+    if String(data.get("requires_action", "")) == "thorn_downstrike":
+        gate.add_to_group("fragile_terrain")
+    locked_gate_bodies[String(data.get("id", "locked_gate"))] = gate
+
+
+func _finish_region_geometry() -> void:
     hazard_total = config.get("hazards", []).size()
-
-    if _combat_progression_enabled():
-        collectible_total = 0
-        for collectible in config.get("collectibles", []):
-            if collectible is Dictionary and (String(collectible.get("kind", "")) == "item" or (world_mode and String(collectible.get("kind", "")) == "currency")):
-                _collectible(collectible)
-                collectible_total += 1
-    else:
-        for collectible in config.get("collectibles", []):
-            _collectible(collectible)
-        collectible_total = config.get("collectibles", []).size()
-
-    for interactive in config.get("interactives", []):
-        var kind := String(interactive.get("kind", ""))
-        if kind == "lever":
-            _lever(interactive)
-        elif kind == "boss_gate":
-            _boss_door(interactive)
-        elif kind == "world_portal":
-            _world_portal(interactive)
-        elif kind == "chapter_exit" or kind == "ending_exit":
-            _chapter_exit(interactive)
-
-    for save_point in config.get("save_points", []):
-        _save_point(save_point)
     save_point_total = config.get("save_points", []).size()
     hidden_save_point_total = 0
-    for save_point in config.get("save_points", []):
-        if save_point is Dictionary and bool(save_point.get("hidden", false)):
+    for point in config.get("save_points", []):
+        if point is Dictionary and bool(point.get("hidden", false)):
             hidden_save_point_total += 1
-
-    for npc in config.get("npcs", []):
-        _npc(npc)
-
-    _spawn_normal_enemies()
     enemy_total = config.get("enemy_spawns", []).size()
-    if world_mode:
-        _spawn_seal_practice_targets()
     if _combat_progression_enabled() and _combat_goal_met():
         _open_all_shortcuts(false)
-
-    # World labels are intentionally suppressed so tutorial copy does not cover the level art.
 
 
 func _spawn_seal_practice_targets() -> void:
@@ -2967,31 +2979,65 @@ func _build_dialogue_overlay() -> void:
     dialogue_hint_label=ui_shell.dialogue_hint
 
 func _background() -> void:
-    var left := -300.0
-    var right := world_width + 300.0
-    var top := -200.0
-    var bottom := world_height + 220.0
+    for job in _background_jobs():
+        callv(job.method, job.args)
+
+
+func _background_jobs() -> Array:
+    var jobs: Array = [
+        {"method": "_background_base", "args": []},
+        {"method": "_background_art", "args": []},
+        {"method": "_background_terrain_metadata", "args": []}]
+    for landform in config.get("terrain", []):
+        jobs.append({"method": "_background_landform", "args": [landform]})
+    jobs.append({"method": "_background_terrain_warm", "args": []})
+    jobs.append({"method": "_background_cave", "args": []})
+    jobs.append({"method": "_background_shade", "args": []})
+    return jobs
+
+
+func _background_base() -> void:
     var bg := Polygon2D.new()
-    bg.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
+    bg.polygon = PackedVector2Array([Vector2(-300, -200), Vector2(world_width + 300, -200),
+        Vector2(world_width + 300, world_height + 220), Vector2(-300, world_height + 220)])
     bg.color = _theme_background_color()
     bg.z_index = -120
     add_child(bg)
 
+
+func _background_art() -> void:
     flat_map_art = FLAT_MAP_ART_SCRIPT.new()
     add_child(flat_map_art)
-    flat_map_art.configure(_art_theme_id(),config)
+    flat_map_art.configure(_art_theme_id(), config)
+
+
+func _background_terrain_metadata() -> void:
     chapter_terrain = TERRAIN_SCRIPT.new()
     add_child(chapter_terrain)
-    chapter_terrain.configure(config,_art_theme_id(),world_mode,active_spawn)
+    chapter_terrain.prepare_config(config, _art_theme_id(), world_mode)
+
+
+func _background_landform(data: Dictionary) -> void:
+    chapter_terrain._build_landform(data)
+
+
+func _background_terrain_warm() -> void:
+    if world_mode:
+        chapter_terrain.warm_focus(active_spawn)
+
+
+func _background_cave() -> void:
     if not config.get("cave_world", {}).is_empty():
         cave_world = CAVE_WORLD_SCRIPT.new()
         add_child(cave_world)
-        cave_world.configure(config,_art_theme_id(),self)
+        cave_world.configure(config, _art_theme_id(), self)
 
+
+func _background_shade() -> void:
     var shade := Polygon2D.new()
-    shade.polygon = PackedVector2Array([Vector2(left, top), Vector2(right, top), Vector2(right, bottom), Vector2(left, bottom)])
-    var shade_alpha := 0.025
-    shade.color = Color(0.0, 0.0, 0.0, shade_alpha)
+    shade.polygon = PackedVector2Array([Vector2(-300, -200), Vector2(world_width + 300, -200),
+        Vector2(world_width + 300, world_height + 220), Vector2(-300, world_height + 220)])
+    shade.color = Color(0, 0, 0, 0.025)
     shade.z_index = -94
     add_child(shade)
 
@@ -4529,6 +4575,8 @@ func _world_label(text: String, position_value: Vector2, color: Color) -> void:
 
 
 func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
+    if world_loading:
+        return
     if body == player:
         player.take_damage(int(area.get_meta("damage", 1)), area.global_position, false)
         _toast(String(area.get_meta("message", "Trap hit.")))
@@ -4536,6 +4584,8 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
 
 
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
+    if world_loading:
+        return
     if body != player or area.is_queued_for_deletion():
         return
     if String(area.get_meta("kind", "")) == "death_cache":
@@ -4633,6 +4683,8 @@ func _unlock_ability_gate(gate_id: String, unlock_sfx_key: String = "") -> void:
 
 
 func _on_interactable_entered(body: Node, area: Area2D) -> void:
+    if world_loading:
+        return
     if body != player:
         return
     nearby_interactable = area
@@ -4646,6 +4698,8 @@ func _on_interactable_entered(body: Node, area: Area2D) -> void:
 
 
 func _on_interactable_exited(body: Node, area: Area2D) -> void:
+    if world_loading:
+        return
     if body != player:
         return
     if nearby_interactable == area:
