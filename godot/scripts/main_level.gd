@@ -589,6 +589,9 @@ var applied_build_profile: Dictionary = {}
 @export var config_path := DEFAULT_CONFIG_PATH
 
 
+const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
+const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
+
 func _ready() -> void:
     _apply_cmdline_config_override()
     _prepare_world_start()
@@ -636,6 +639,8 @@ func _ready() -> void:
     # 音频状态机运行时注入（契约 bind_runtime）：director 自驱轮询，这里只此一行。
     audio_director.bind_runtime(player, func() -> Array: return get_tree().get_nodes_in_group("enemy"))
     _build_hud()
+    if world_mode:
+        CARTOGRAPHY_UI.setup(self)
     _show_chapter_entry_message()
     world_loading = false
     if world_mode:
@@ -797,6 +802,7 @@ func _restore_world_inventory_and_region() -> void:
             _add_inventory_item(String(item_id), missing, false)
     currency_count = int(snapshot.currency)
     story_flags = snapshot.story_flags.duplicate(true)
+    CARTOGRAPHY.migrate(story_flags, snapshot.regions)
     var region := world_state.get_region(String(config.get("id", "")))
     world_collected_ids = region.collected_ids.duplicate(true)
     opened_shortcuts = region.opened_shortcuts.duplicate(true)
@@ -1102,6 +1108,11 @@ func _draw_world_atlas() -> void:
             var target_seen: bool = world_state.data.regions.has(target) or current_id == target
             if not source_seen and not target_seen:
                 continue
+            var source_drawn := CARTOGRAPHY.charted(story_flags, region_id, String(data.get("room_id", "")))
+            var peer_for_visibility := WORLD_ROUTES_SCRIPT.portal(target, String(data.get("target_portal_id", "")))
+            var target_drawn := CARTOGRAPHY.charted(story_flags, target, String(peer_for_visibility.get("room_id", "")))
+            if not source_drawn and not target_drawn:
+                continue
             drawn[key] = true
             var line := Line2D.new()
             line.width = 3.0
@@ -1149,8 +1160,8 @@ func _draw_world_atlas() -> void:
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         label.add_theme_font_size_override("font_size", 17)
-        var explored: int = world_state.get_region(region_id).get("visited_rooms", {}).size()
-        label.text = String(titles[region_id]) + ("\n探索 %d 室" % explored if known else "\n尚未踏足")
+        var explored: int = CARTOGRAPHY.region(story_flags,region_id).charted.size()
+        label.text = String(titles[region_id]) + ("\n补绘 %d 室" % explored if CARTOGRAPHY.owned(story_flags,region_id) else "\n未购本区地图" if known else "\n尚未踏足")
         map_draw_root.add_child(label)
     map_text.text = "倒扣巨钟 · 互联世界\n蓝线：双向互通  ·  金线：至少一侧有门槛（悬停查看两侧条件）  ·  仅显示已踏足区域的相邻通路\n" + _world_exploration_hint() + "\nTab 区域地图 · M / Esc 返回旅途"
 
@@ -2023,6 +2034,7 @@ func _refresh_wish_board_overlay() -> void:
 
 
 func _toggle_backpack() -> void:
+    if active_overlay == "cartographer": _close_overlays()
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     if active_overlay == "backpack":
@@ -2049,6 +2061,9 @@ func _toggle_map() -> void:
     if active_overlay == "map":
         _close_overlays()
         return
+    if active_overlay == "cartographer":
+        _close_overlays()
+    world_map_view = false
     _play_sfx("ui_map_open", -2.0)
     _notify_dialogue_closed()
     active_overlay = "map"
@@ -2073,6 +2088,7 @@ func _build_settings_overlay() -> void:
     _refresh_settings_overlay()
 
 func _toggle_audio_settings() -> void:
+    if active_overlay == "cartographer": _close_overlays()
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     if active_overlay == "settings":
@@ -2149,6 +2165,9 @@ func _close_overlays() -> void:
         _play_sfx("ui_dialogue_close", -4.0)
     elif active_overlay == "settings":
         _play_sfx("ui_menu_cancel", -4.0)
+    var map_purchase := get_node_or_null("MapPurchaseDialog")
+    if map_purchase != null:
+        map_purchase.hide()
     _notify_dialogue_closed()
     active_overlay = ""
     if backpack_panel != null:
@@ -2297,6 +2316,8 @@ func _update_room_visit() -> void:
     current_room_id = String(room.get("id", ""))
     if not current_room_id.is_empty():
         visited_rooms[current_room_id] = true
+        if world_mode:
+            CARTOGRAPHY.visit(story_flags, String(config.id), current_room_id)
         if metsys_bridge != null:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
         if current_room_id != previous_room_id:
@@ -2402,7 +2423,11 @@ func _refresh_map_overlay() -> void:
     if wish_panel != null:
         wish_panel.visible = not (world_mode and world_map_view)
     if world_mode and world_map_view:
+        CARTOGRAPHY_UI.paper(self, false)
         _draw_world_atlas()
+        return
+    if world_mode:
+        CARTOGRAPHY_UI.render(self)
         return
     _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
@@ -4605,7 +4630,10 @@ func _try_interact() -> void:
     elif kind == "boss_gate":
         _activate_boss_gate()
     elif kind == "npc":
-        _talk_to_npc(nearby_interactable)
+        if world_mode and nearby_interactable.has_meta("map_seller_region") and active_overlay != "dialogue":
+            CARTOGRAPHY_UI.open_shop(self, nearby_interactable)
+        else:
+            _talk_to_npc(nearby_interactable)
     elif kind == "save_point":
         _activate_save_point(nearby_interactable)
     elif kind == "chapter_exit" or kind == "ending_exit":
@@ -4703,6 +4731,9 @@ func _open_all_shortcuts(show_toast: bool = true) -> void:
 
 
 func _activate_save_point(area: Area2D) -> void:
+    if world_mode:
+        _update_room_visit()
+        CARTOGRAPHY.rest(story_flags)
     active_spawn = area.global_position
     active_save_point_id = String(area.name)
     player.set_spawn(active_spawn)

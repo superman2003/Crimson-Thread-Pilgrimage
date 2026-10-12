@@ -37,7 +37,7 @@ func _run() -> void:
             edges += 1
             _check(child.points.size() in [2,4], "atlas edges represent actual paired regions")
     _check(panels == 6, "atlas contains six canonical regions")
-    _check(edges > 0 and edges < 6, "atlas reveals only known region adjacency")
+    _check(edges == 0, "atlas does not reveal routes before buying and charting a map")
     _check(scene.wish_panel == null or not scene.wish_panel.visible, "atlas does not overlap wish board")
     var anchor: Node2D = scene.get_node("moss_viaduct_ring")
     _check(not bool(anchor.get_meta("grapple_enabled")), "real world anchor remains locked without hook")
@@ -47,7 +47,7 @@ func _run() -> void:
     scene.world_map_view = false
     scene._refresh_map_overlay()
     _check(scene.map_draw_root.get_node_or_null("WorldRegion_demo_ch01_moss_bell_court") == null, "returning to local map clears atlas")
-    _check(scene.wish_panel == null or scene.wish_panel.visible, "local map restores wish board")
+    _check(scene.wish_panel == null or not scene.wish_panel.visible, "hand-drawn map keeps quest board out of paper")
     scene._close_overlays()
     _check(not scene.player.ui_input_locked, "map close returns player control")
     scene.queue_free()
