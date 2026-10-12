@@ -46,3 +46,9 @@
 - tools/capture_hook_action.gd 在真实苔钟庭铜环上采集抛出、拉动与收线。夹具授予 echo_hook 并设定初始位置；后续位移使用真实碰撞物理。不是首次探索获取能力的验收。
 - artifacts/hero_rock_upgrade/checkpoint3 保存截图、物理位置记录和后续验证汇总。GL截图使用 Dummy 音频，不代表听感验收。
 - 生成方式及提示见 docs/HERO_HOOK_V4_SOURCE.md。源边余量、纹理周期接缝、逐房视觉验收与完整人工战斗仍保留为后续任务。
+
+### 检查点 3 最终验证
+
+45套回归覆盖全部通过：完整运行通过44套，机关路线在180秒时限后以固定步长单独复验，402项通过。最终帧策略仅作用于 ability_movement 与 world_upgrade 两套物理探针，其余套件保持原时序。动作25项、切帧2项、80帧审计、六区材质1577项通过；npm test、npm run test:campaign通过。
+
+verification.json 记录逐套结果来源、工具版本、帧与源图指标以及截图物理记录。diagnostics 目录保留初次高度失败、隔离复跑、全局固定帧退出错误与机关路线时限记录。不得把本轮汇总说成单次45套全部通过，也不把夹具截图说成完整人工通关。

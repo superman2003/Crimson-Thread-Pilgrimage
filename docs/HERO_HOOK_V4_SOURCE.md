@@ -11,3 +11,5 @@ Use case: identity-preserve. Asset type: ORIGINAL game character hook-throw anim
 初检：四姿态在新源图中分离，可避免旧表中两名角色被线连接。生成器没有严格满足所有格内余量要求，因此仍采用连通区域提取，不把格线作为裁切边界。尚未接入运行时，不代表已完成动作验收。
 
 源边问题复核：五张旧源表在真实画布边界均无 alpha>128 像素；上一检查点的16项指不足8像素余量，不能把它们直接称为已确认源画截断。后续分别记录真实画布边界像素和安全余量警告。
+
+后续集成完成：新表四帧已接入，其他76帧哈希不变。当前输出裁切、真实不透明画布边界与活跃相连姿态均为0；20项安全余量警告保留。运行时拉动保持受力姿态并在正常结束后收线。验证来源与边界见 HERO_AND_LARGE_ROCK_UPGRADE.md 及 artifacts/hero_rock_upgrade/checkpoint3/verification.json。
