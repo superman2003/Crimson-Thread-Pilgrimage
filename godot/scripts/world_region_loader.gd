@@ -6,7 +6,7 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
-    "world_catalog", "world_narrative", "world_write_error_shown"]
+    "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch"]
 var generation := 0
 var active_region_id := ""
 var phase := "idle"
@@ -25,12 +25,14 @@ func snapshot(host: Node) -> Dictionary:
         "player_id": host.player.get_instance_id() if is_instance_valid(host.player) else 0,
         "world_bounds": COORDINATES.region_bounds(active_region_id)}
 
-func preflight(path: String, entry: Vector2) -> Dictionary:
+func preflight(path: String, entry: Vector2, prefetch: RefCounted = null) -> Dictionary:
     last_error = ""
     if not entry.is_finite() or not FileAccess.file_exists(path):
         last_error = "目标位置或区域文件无效。"
         return {}
-    var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+    var parsed: Variant = prefetch.cached_raw(path) if prefetch != null else null
+    if parsed == null:
+        parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
     return validate_config(parsed, path, entry)
 
 func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionary:
@@ -82,7 +84,7 @@ func replace_region(host: Node, path: String, entry: Vector2) -> bool:
         last_error = "区域正在装载。"
         return false
     phase = "preflight"
-    var target := preflight(path, entry)
+    var target := preflight(path, entry, host.world_prefetch)
     if target.is_empty():
         phase = "idle"
         return false

@@ -16,6 +16,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', required=True)
     parser.add_argument('--log-dir', type=Path, required=True)
+    parser.add_argument('--script', default='../tools/validate_rock_seams.gd')
+    parser.add_argument('--success-marker', default='ROCK_SEAMS probes=12 failures=0')
+    parser.add_argument('--summary-path', default='artifacts/hero_rock_upgrade/checkpoint4/gpu_seams.json')
     args = parser.parse_args()
     engine = shutil.which(args.engine)
     if not engine or not shutil.which('Xvfb'):
@@ -50,13 +53,13 @@ def main():
                             raise RuntimeError('Xvfb startup timed out')
                         time.sleep(0.1)
                 env = dict(os.environ, DISPLAY=f'127.0.0.1:{display}', LIBGL_ALWAYS_SOFTWARE='1', XDG_DATA_HOME=scratch)
-                result = subprocess.run([engine, '--display-driver', 'x11', '--audio-driver', 'Dummy', '--fixed-fps', '60', '--path', str(ROOT / 'godot'), '--rendering-method', 'gl_compatibility', '--script', '../tools/validate_rock_seams.gd'], env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=120)
+                result = subprocess.run([engine, '--display-driver', 'x11', '--audio-driver', 'Dummy', '--fixed-fps', '60', '--path', str(ROOT / 'godot'), '--rendering-method', 'gl_compatibility', '--script', args.script], env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=120)
                 (args.log_dir / 'gpu.log').write_text(result.stdout)
                 print(result.stdout, end='')
-                failed = result.returncode != 0 or re.search(r'^\s*(SCRIPT ERROR:|ERROR:)', result.stdout, re.MULTILINE) or 'ROCK_SEAMS probes=12 failures=0' not in result.stdout
+                failed = result.returncode != 0 or re.search(r'^\s*(SCRIPT ERROR:|ERROR:)', result.stdout, re.MULTILINE) or args.success_marker not in result.stdout
                 if failed:
                     raise SystemExit(1)
-                shutil.copyfile(ROOT / 'artifacts/hero_rock_upgrade/checkpoint4/gpu_seams.json', args.log_dir / 'gpu_seams.json')
+                shutil.copyfile(ROOT / args.summary_path, args.log_dir / Path(args.summary_path).name)
             finally:
                 server.terminate()
                 try:

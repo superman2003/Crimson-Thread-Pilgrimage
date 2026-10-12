@@ -52,6 +52,7 @@ jobs:
           sudo apt-get install -y xvfb libgl1-mesa-dri
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/rock-gpu"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/streaming-gpu" --script ../tools/validate_streaming_pixels.gd --success-marker "STREAMING_PIXELS probes=12 failures=0" --summary-path artifacts/world_streaming/gpu_pixels.json
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

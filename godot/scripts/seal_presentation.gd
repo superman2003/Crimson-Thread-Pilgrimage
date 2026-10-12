@@ -126,7 +126,9 @@ func _sound(cue: String, world_position: Vector2) -> void:
         _streams[cue] = load(path)
     _voices = _voices.filter(func(voice): return is_instance_valid(voice) and not voice.is_queued_for_deletion())
     if _voices.size() >= MAX_VOICES:
-        _voices.pop_front().queue_free()
+        var oldest := _voices.pop_front() as AudioStreamPlayer2D
+        _retire_voice(oldest)
+        oldest.queue_free()
     var voice := AudioStreamPlayer2D.new()
     voice.stream = _streams[cue]
     voice.volume_db = -6
@@ -137,8 +139,24 @@ func _sound(cue: String, world_position: Vector2) -> void:
     voice.top_level = true
     voice.global_position = world_position
     voice.finished.connect(voice.queue_free)
+    voice.tree_exiting.connect(_retire_voice.bind(voice))
     _voices.append(voice)
     voice.play()
 
 func active_effect_count() -> int:
     return _effects.filter(func(effect): return is_instance_valid(effect) and not effect.is_queued_for_deletion()).size()
+
+
+func _retire_voice(voice: AudioStreamPlayer2D) -> void:
+    # Node deletion alone can leave the AudioServer playback holding its WAV
+    # until a later mix tick, especially with accelerated headless physics.
+    voice.stop()
+    voice.stream = null
+
+
+func _exit_tree() -> void:
+    for voice in _voices:
+        if is_instance_valid(voice):
+            _retire_voice(voice)
+    _voices.clear()
+    _streams.clear()

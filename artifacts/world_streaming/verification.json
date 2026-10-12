@@ -1,0 +1,84 @@
+{
+  "full": {
+    "suites": 50,
+    "runtime_errors": 0
+  },
+  "final": {
+    "suites": 2,
+    "runtime_errors": 0
+  },
+  "terrain_metrics": [
+    {
+      "arrival_faces": 16,
+      "chunks": 27,
+      "collision_shapes": 26,
+      "faces": 79,
+      "region": "demo_ch01_moss_bell_court",
+      "released": 55
+    },
+    {
+      "arrival_faces": 16,
+      "chunks": 24,
+      "collision_shapes": 24,
+      "faces": 77,
+      "region": "demo_ch02_rain_foundry_canal",
+      "released": 45
+    },
+    {
+      "arrival_faces": 18,
+      "chunks": 22,
+      "collision_shapes": 14,
+      "faces": 65,
+      "region": "demo_ch03_saltwhite_archive",
+      "released": 48
+    },
+    {
+      "arrival_faces": 14,
+      "chunks": 25,
+      "collision_shapes": 18,
+      "faces": 79,
+      "region": "demo_ch04_broken_string_greenhouse",
+      "released": 51
+    },
+    {
+      "arrival_faces": 26,
+      "chunks": 23,
+      "collision_shapes": 16,
+      "faces": 69,
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "released": 48
+    },
+    {
+      "arrival_faces": 19,
+      "chunks": 15,
+      "collision_shapes": 11,
+      "faces": 43,
+      "region": "demo_ch06_silent_crown_core",
+      "released": 25
+    }
+  ],
+  "engine": "Godot 4.6.1",
+  "world_streaming_checks": 1991,
+  "gpu_probes": 12,
+  "gpu_failures": 0,
+  "max_changed_pixels": 2,
+  "allowed_changed_pixels": 64,
+  "fixture_positioning": true,
+  "damage_enabled_full_campaign": false,
+  "runtime_blobs": {
+    "godot/scripts/main_level.gd": "cafad1b52776170653dbaddc8e5667b214842d5c",
+    "godot/scripts/chapter_terrain.gd": "da142b83a873144de0cc1adabebed65117505f77",
+    "godot/scripts/world_prefetch.gd": "3bbe722f564473224cfa5b92620e66a872d04dd1",
+    "godot/scripts/world_region_loader.gd": "426d0966d9f57d433b510c9cc7c8b15a1195a9cd",
+    "godot/scripts/world_streaming_validation.gd": "80e154791a58dd5b3a1aac0b984dff861834abdb",
+    "tools/validate_streaming_pixels.gd": "b0c0ff7cbf5e56166ee69a0961c04af66efb9064",
+    "tools/run_rock_gpu_validation.py": "6695bb774df64e7f5e2db4c4ad2cd9b2e9fcd074",
+    "tools/run_godot_regressions.py": "21fe25d2098b6c2809b896439e24c34445857ad4"
+  },
+  "compressed_logs": {
+    "artifacts/world_streaming/diagnostics/full/world_upgrade.log.gz": {
+      "raw_bytes": 616431,
+      "raw_sha256": "b5f372f7af4f072aac5e9a50198a024528dca1c0e744227e70707e15b021d531"
+    }
+  }
+}

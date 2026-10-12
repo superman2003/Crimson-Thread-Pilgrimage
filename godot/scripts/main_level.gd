@@ -19,6 +19,7 @@ const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
+const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
@@ -570,6 +571,7 @@ var wish_text: Label
 @export var world_save_path := "user://pilgrimage_world.json"
 var world_state: WORLD_STATE_SCRIPT
 var world_loader: WORLD_REGION_LOADER
+var world_prefetch: WORLD_PREFETCH
 var region_tweens: Array[Tween] = []
 var world_narrative: WORLD_NARRATIVE_SCRIPT
 var world_collected_ids: Dictionary = {}
@@ -601,6 +603,7 @@ func _ready() -> void:
     _prepare_world_start()
     if world_mode:
         world_loader = WORLD_REGION_LOADER.new()
+        world_prefetch = WORLD_PREFETCH.new()
     _initialize_region()
 
 
@@ -688,6 +691,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(_delta: float) -> void:
+    if world_mode and not world_loading and world_prefetch != null:
+        world_prefetch.step(self, _delta)
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
@@ -754,6 +759,8 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+    if world_prefetch != null:
+        world_prefetch.shutdown()
     _stop_region_tweens()
     _release_region_audio()
 
@@ -988,7 +995,7 @@ func _activate_world_portal(area: Area2D) -> void:
         _toast("这条旧路尚未接通。")
         return
     var entry := _vec2(data.get("target_spawn", [120, 500]))
-    if world_loader == null or world_loader.preflight(next_path, entry).is_empty():
+    if world_loader == null or world_loader.preflight(next_path, entry, world_prefetch).is_empty():
         _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
         return
     var shortcut := String(data.get("unlock_shortcut_id", ""))
@@ -2975,7 +2982,7 @@ func _background() -> void:
     flat_map_art.configure(_art_theme_id(),config)
     chapter_terrain = TERRAIN_SCRIPT.new()
     add_child(chapter_terrain)
-    chapter_terrain.configure(config,_art_theme_id())
+    chapter_terrain.configure(config,_art_theme_id(),world_mode,active_spawn)
     if not config.get("cave_world", {}).is_empty():
         cave_world = CAVE_WORLD_SCRIPT.new()
         add_child(cave_world)
@@ -3008,6 +3015,8 @@ func _void_respawn() -> void:
     if world_mode:
         if player.death_timer > 0.0:
             player.global_position = active_spawn
+            chapter_terrain.warm_focus(active_spawn)
+            player.reset_camera_after_arrival()
             return
         # Falling is a resource cost, never a full-heal shortcut.
         player._interrupt_heal()
@@ -3017,6 +3026,8 @@ func _void_respawn() -> void:
         player._reset_traversal_state()
         player.global_position = active_spawn
         player.velocity = Vector2.ZERO
+        chapter_terrain.warm_focus(active_spawn)
+        player.reset_camera_after_arrival()
         _save_world()
         _toast("坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。")
         _refresh_hud()
@@ -5235,6 +5246,8 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
 
 
 func _on_player_respawned() -> void:
+    if chapter_terrain != null:
+        chapter_terrain.warm_focus(player.global_position)
     death_recorded = false
     _reset_encounters_after_player_death()
     _save_world()

@@ -11,10 +11,21 @@ var ramp_count := 0
 var one_way_spans: Dictionary = {}
 var all_one_way: Dictionary = {}
 var collision_regions: Array[Dictionary] = []
+const CHUNK_SIZE := 1024.0
+const LOAD_MARGIN := 320.0
+const KEEP_MARGIN := 900.0
+const STREAM_BUDGET_US := 2000
+var streaming := false
+var visual_chunks: Dictionary = {}
+var resident_chunks: Dictionary = {}
+var streamed_loads := 0
+var streamed_releases := 0
+var view_bounds := Rect2()
 
-func configure(config: Dictionary, theme: String) -> void:
+func configure(config: Dictionary, theme: String, enable_streaming: bool = false, initial_focus: Vector2 = Vector2.ZERO) -> void:
     name = "ChapterTerrain"
     material_theme = theme
+    streaming = enable_streaming
     landforms = config.get("terrain", [])
     var directory := "res://assets/sprites/flat_maps/" + theme + "/"
     var data := ART.manifest(directory + "manifest.json")
@@ -34,6 +45,12 @@ func configure(config: Dictionary, theme: String) -> void:
                 one_way_spans[terrain_id].append([float(rect[0]), float(rect[0]) + float(rect[2])])
     for value in landforms:
         _build_landform(value)
+    if streaming:
+        # Cover camera clamping at the region border before the first frame.
+        warm_focus(initial_focus)
+
+func warm_focus(focus: Vector2) -> void:
+    refresh_visual_chunks(Rect2(focus - Vector2(1280, 900), Vector2(2560, 1800)), true)
 
 func _build_landform(data: Dictionary) -> void:
     var surface: Array = data.get("surface", [])
@@ -61,7 +78,12 @@ func _build_landform(data: Dictionary) -> void:
         for piece in range(count):
             var left := a.lerp(b,float(piece)/count)
             var right := a.lerp(b,float(piece+1)/count)
-            _textured_face(body,left,right,depth)
+            if streaming:
+                _register_visual_face(body,left,right,depth)
+            else:
+                _textured_face(body,left,right,depth)
+    if streaming:
+        return
     var edge := Line2D.new()
     edge.name = "WalkableContour"
     edge.width = 1.4
@@ -70,6 +92,89 @@ func _build_landform(data: Dictionary) -> void:
         edge.add_point(Vector2(float(point[0]),float(point[1])))
     edge.z_index = -1
     body.add_child(edge)
+
+func _register_visual_face(body: StaticBody2D, left: Vector2, right: Vector2, depth: float) -> void:
+    var points := PackedVector2Array([left, right, right + Vector2(0, depth), left + Vector2(0, depth)])
+    var center := (left + right) * 0.5
+    var key := "%s:%d:%d" % [body.name, floori(center.x / CHUNK_SIZE), floori(center.y / CHUNK_SIZE)]
+    var bounds := Rect2(points[0], Vector2.ZERO)
+    for point in points:
+        bounds = bounds.expand(point)
+    if not visual_chunks.has(key):
+        visual_chunks[key] = {"parent": body, "bounds": bounds, "faces": []}
+    visual_chunks[key].bounds = visual_chunks[key].bounds.merge(bounds)
+    visual_chunks[key].faces.append(points)
+
+func _process(_delta: float) -> void:
+    if not streaming:
+        return
+    var inverse := get_global_transform_with_canvas().affine_inverse()
+    var screen := get_viewport_rect()
+    var first := inverse * screen.position
+    var bounds := Rect2(first, Vector2.ZERO)
+    for point in [Vector2(screen.end.x, screen.position.y), screen.end, Vector2(screen.position.x, screen.end.y)]:
+        bounds = bounds.expand(inverse * point)
+    refresh_visual_chunks(bounds)
+
+func refresh_visual_chunks(bounds: Rect2, eager: bool = false) -> void:
+    if not streaming or not bounds.has_area():
+        return
+    view_bounds = bounds
+    var load_bounds := bounds.grow(LOAD_MARGIN)
+    var keep_bounds := bounds.grow(KEEP_MARGIN)
+    for key in resident_chunks.keys():
+        if not keep_bounds.intersects(visual_chunks[key].bounds):
+            var node: Node = resident_chunks[key]
+            node.get_parent().remove_child(node)
+            node.free()
+            resident_chunks.erase(key)
+            streamed_releases += 1
+    var pending: Array = []
+    for key in visual_chunks:
+        if not resident_chunks.has(key) and load_bounds.intersects(visual_chunks[key].bounds):
+            pending.append(key)
+    pending.sort_custom(func(a, b): return visual_chunks[a].bounds.get_center().distance_squared_to(bounds.get_center()) < visual_chunks[b].bounds.get_center().distance_squared_to(bounds.get_center()))
+    var started := Time.get_ticks_usec()
+    var created := 0
+    for key in pending:
+        if not eager and (created >= 2 or Time.get_ticks_usec() - started >= STREAM_BUDGET_US):
+            break
+        var record: Dictionary = visual_chunks[key]
+        var chunk := Node2D.new()
+        chunk.name = "TerrainVisualChunk"
+        chunk.set_meta("stream_chunk_id", key)
+        record.parent.add_child(chunk)
+        for points in record.faces:
+            var face := ROCK.face(chunk, points, material_theme)
+            face.name = "HandPaintedStratum"
+            face.z_index = -5
+        # Reassemble consecutive top edges without drawing joins across gaps.
+        var edge: Line2D = null
+        for points in record.faces:
+            if edge == null or not edge.get_point_position(edge.get_point_count() - 1).is_equal_approx(points[0]):
+                edge = Line2D.new()
+                edge.name = "WalkableContour"
+                edge.width = 1.4
+                edge.default_color = Color(0.79,0.75,0.58,0.47)
+                edge.z_index = -1
+                chunk.add_child(edge)
+                edge.add_point(points[0])
+            edge.add_point(points[1])
+        resident_chunks[key] = chunk
+        streamed_loads += 1
+        created += 1
+
+func streaming_snapshot() -> Dictionary:
+    var total_faces := 0
+    var resident_faces := 0
+    for key in visual_chunks:
+        total_faces += visual_chunks[key].faces.size()
+        if resident_chunks.has(key):
+            resident_faces += visual_chunks[key].faces.size()
+    return {"enabled": streaming, "chunks": visual_chunks.size(), "resident": resident_chunks.size(),
+        "faces": total_faces, "resident_faces": resident_faces,
+        "loaded": streamed_loads, "released": streamed_releases,
+        "collision_regions": collision_regions.size()}
 
 func _build_collision_sections(body: StaticBody2D, surface: Array, depth: float, spans: Array) -> void:
     var section := PackedVector2Array()
