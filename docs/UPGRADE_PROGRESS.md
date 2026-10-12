@@ -26,7 +26,7 @@
 
 六区固定出生夹具的岩层形状合计从1072个全驻留变为406个预热驻留；这是此类碰撞节点数，不能换算为整机帧率、内存或全部玩法节点的降幅。大型矩形未切割，块包围盒保守；远程攻击锁定可能增加驻留。
 
-本批报告：[20261012_cave_collision_streaming.md](report/20261012_cave_collision_streaming.md)。新增几何/真实物理对照套件已通过；完整回归与本PR远端CI分别记录。旧退出引用警告继续跟踪，T03未标完成。本批不新增实机图，不以旧图替代此轮画面验收。
+本批报告：[20261012_cave_collision_streaming.md](report/20261012_cave_collision_streaming.md)。最终代码9b6d9af完整52套零失败，新增几何/真实物理对照129452项循环断言通过；npm/campaign通过。日志与原始SHA256在artifacts/cave_collision_streaming。本PR远端CI单独记录。旧退出引用警告继续跟踪，T03未标完成。本批不新增实机图，不以旧图替代此轮画面验收。
 
 ## 完整任务范围
 

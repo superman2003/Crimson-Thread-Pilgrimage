@@ -32,7 +32,7 @@ CaveWorld 的原始 `solid_rects` 始终保留，用于绘制、地图、出生/
 
 初轮含脚本类型推断错误；随后强化物理断言发现暂停夹具会把碰撞对象移出物理空间，旧的双侧空射线比较不足。已保留物理空间并要求参考射线确实命中。修正后的即时新块探针仍显示未同步射线不可见，权威矩形合并和玩家同步等待的真实控制器测试通过。失败日志与修复后结果均保留，不放宽运行器 ERROR、超时或退出码门禁。
 
-针对性套件通过；完整 Godot 回归结果、npm/campaign及远端CI在本批最终记录追加。导航夹具免伤、动作夹具移除敌人仍不计 T04 带伤通关。既有 boss_trial/world_upgrade 退出引用警告继续列入 T03。
+最终代码检查点 `9b6d9af` 的完整 Godot 4.6.1 回归52套零失败，新增套件129452项循环几何/物理断言通过（不是129452个独立玩法场景）。world_async_loading94项、world_host497项、world_streaming1991项通过；world_route_walk25步/1853物理帧通过，world_upgrade动作/门/奖励回归通过。npm test、npm run test:campaign和空白检查通过。完整日志、失败迭代记录与原始字节数/SHA256见 artifacts/cave_collision_streaming；大日志使用无损gzip。最终远端CI另行记录，创建PR时尚无结果。导航夹具免伤、动作夹具移除敌人仍不计 T04 带伤通关。本轮 world_route_walk、boss_trial、world_upgrade 的退出 ObjectDB/RefCounted 警告保留在原始日志，继续列入 T03。
 
 ## 未完成边界与下一步
 
