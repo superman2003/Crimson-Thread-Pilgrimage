@@ -30,7 +30,7 @@
 
 新增邻区入口平台预建：承接已合并PR #24的5d8e60b（源0e42592、CI第63次通过），每区最多24个树外平台体、最多两区，每帧创建最多两个；实际到达复用实例，未转移实体按范围/代际/配置变化释放。入口检查和进度不变；邻区其它实体及连续通道仍未完成。新增套件和完整55套结果见 [20261012_neighbor_platform_prebuild.md](report/20261012_neighbor_platform_prebuild.md)，最终源码3d6d724完整55套零失败，邻区247项（含等待循环）、npm/campaign通过。world_upgrade退出仍有5个RefCounted实例，T03持续跟踪，未宣称长期稳定。
 
-PR #25 的CI第64次失败：world_upgrade 402项通过，但退出cleave_active.wav仍被播放对象持有，严格ERROR门禁失败。本批新增弱引用追踪播放对象与WAV，世界夹具清理后最多等待1秒实际所有权释放，超时仍失败；不删声音、不关闭测试音频、不放宽错误门禁。同时新增缓存跨帧退休队列，正常帧每帧最多两体释放，可用与待释放所有权合计≤48，退出时同步排空。新增音频探针通过，完整56套正在运行。报告见 [20261012_neighbor_retirement_audio_fix.md](report/20261012_neighbor_retirement_audio_fix.md)。
+PR #25 的CI第64次失败：world_upgrade 402项通过，但退出cleave_active.wav仍被播放对象持有，严格ERROR门禁失败。本批新增弱引用追踪播放对象与WAV，世界夹具清理后最多等待1秒实际所有权释放，超时仍失败；不删声音、不关闭测试音频、不放宽错误门禁。同时新增缓存跨帧退休队列，正常帧每帧最多两体释放，可用与待释放所有权合计≤48，退出时同步排空。最终源码022e75d本地56套零失败，world_upgrade403项、pending=0且无WAV资源ERROR；邻区377项（含调度循环）通过，npm/campaign通过。4个RefCounted警告保留，T03继续跟踪；脱敏结果与日志SHA256在artifacts/pr25_fix_and_retirement。报告见 [20261012_neighbor_retirement_audio_fix.md](report/20261012_neighbor_retirement_audio_fix.md)。
 
 ## 完整任务范围
 
