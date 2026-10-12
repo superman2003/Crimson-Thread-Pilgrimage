@@ -693,6 +693,8 @@ func _apply_cmdline_config_override() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+    if world_mode and not world_loading and is_instance_valid(cave_world) and is_instance_valid(player):
+        cave_world.update_collision_window(player.global_position, player.velocity, _delta)
     # Check the void before player movement can depenetrate against deep cave rock.
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
         _void_respawn()
@@ -857,6 +859,8 @@ func _restore_world_runtime() -> void:
     if entry_spawn_override_enabled:
         player.global_position = entry_spawn_override
         player.arrival_guard_timer = 1.2
+    if is_instance_valid(cave_world):
+        cave_world.warm_collision_focus(player.global_position)
     player.set_spawn(active_spawn)
     player.hp = clampi(int(world_state.data.hp), 1, player.max_hp)
     player.energy = clampi(int(world_state.data.energy), 0, player.max_energy)
@@ -3030,7 +3034,7 @@ func _background_cave() -> void:
     if not config.get("cave_world", {}).is_empty():
         cave_world = CAVE_WORLD_SCRIPT.new()
         add_child(cave_world)
-        cave_world.configure(config, _art_theme_id(), self)
+        cave_world.configure(config, _art_theme_id(), self, world_mode, entry_spawn_override if entry_spawn_override_enabled else active_spawn)
 
 
 func _background_shade() -> void:
@@ -3062,6 +3066,8 @@ func _void_respawn() -> void:
         if player.death_timer > 0.0:
             player.global_position = active_spawn
             chapter_terrain.warm_focus(active_spawn)
+            if is_instance_valid(cave_world):
+                cave_world.warm_collision_focus(active_spawn)
             player.reset_camera_after_arrival()
             return
         # Falling is a resource cost, never a full-heal shortcut.
@@ -3073,6 +3079,8 @@ func _void_respawn() -> void:
         player.global_position = active_spawn
         player.velocity = Vector2.ZERO
         chapter_terrain.warm_focus(active_spawn)
+        if is_instance_valid(cave_world):
+            cave_world.warm_collision_focus(active_spawn)
         player.reset_camera_after_arrival()
         _save_world()
         _toast("坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。")
@@ -5300,6 +5308,8 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
 
 
 func _on_player_respawned() -> void:
+    if is_instance_valid(cave_world) and is_instance_valid(player):
+        cave_world.warm_collision_focus(player.global_position)
     if chapter_terrain != null:
         chapter_terrain.warm_focus(player.global_position)
     death_recorded = false
@@ -6086,3 +6096,16 @@ func _recover_death_cache(area: Area2D) -> void:
     _save_world()
     _toast("归途结已收回，遗留碎钱回到行囊。")
     _refresh_hud()
+
+
+func _ensure_collision_segment(from: Vector2, to: Vector2) -> void:
+    if world_mode and is_instance_valid(cave_world):
+        cave_world.ensure_collision_segment(from, to)
+
+
+func _rock_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
+    return cave_world.rock_ray_hit(from, to) if world_mode and is_instance_valid(cave_world) else {}
+
+
+func _world_collision_ready() -> bool:
+    return not world_mode or not is_instance_valid(cave_world) or cave_world.critical_collision_ready()
