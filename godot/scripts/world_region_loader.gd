@@ -80,6 +80,27 @@ func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionar
                     if not _finite_tuple(point, 2):
                         last_error = "目标区域地形轮廓坐标无效。"
                         return {}
+    # Prefetch and arrival share these descriptors. Reject malformed geometry
+    # before either detached allocation or eviction of the current region.
+    var terrain_ids: Dictionary = {}
+    for landform in parsed.get("terrain", []):
+        var terrain_id: Variant = landform.get("id")
+        var depth: Variant = landform.get("depth", 104)
+        if not terrain_id is String or String(terrain_id).is_empty() or terrain_ids.has(terrain_id):
+            last_error = "目标区域地形身份无效或重复。"
+            return {}
+        if typeof(depth) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(depth)) or float(depth) <= 0:
+            last_error = "目标区域地形厚度无效。"
+            return {}
+        terrain_ids[terrain_id] = true
+    var cave: Variant = parsed.get("cave_world", {})
+    if not cave is Dictionary or not cave.get("solid_rects", []) is Array:
+        last_error = "目标区域岩层记录无效。"
+        return {}
+    for rect in cave.get("solid_rects", []):
+        if not _finite_tuple(rect, 4) or float(rect[2]) <= 0 or float(rect[3]) <= 0:
+            last_error = "目标区域岩层坐标或尺寸无效。"
+            return {}
     var config := ROUTES.apply_to(parsed)
     var platform_ids: Dictionary = {}
     for platform in config.get("platforms", []):

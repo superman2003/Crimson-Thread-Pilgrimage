@@ -3044,6 +3044,8 @@ func _background_art() -> void:
 func _background_terrain_metadata() -> void:
     chapter_terrain = TERRAIN_SCRIPT.new()
     add_child(chapter_terrain)
+    chapter_terrain.prefetch = world_prefetch if world_mode else null
+    chapter_terrain.region_id = String(config.get("id", ""))
     chapter_terrain.prepare_config(config, _art_theme_id(), world_mode, world_mode)
 
 
@@ -3060,6 +3062,8 @@ func _background_cave() -> void:
     if not config.get("cave_world", {}).is_empty():
         cave_world = CAVE_WORLD_SCRIPT.new()
         add_child(cave_world)
+        cave_world.prefetch = world_prefetch if world_mode else null
+        cave_world.region_id = String(config.get("id", ""))
         cave_world.configure(config, _art_theme_id(), self, world_mode, entry_spawn_override if entry_spawn_override_enabled else active_spawn)
 
 

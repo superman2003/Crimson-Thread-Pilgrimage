@@ -1,6 +1,10 @@
 extends Node2D
 ## Opaque rock mass; ordinary rooms stay visible, authored dark rooms use local sight.
 
+const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
+var prefetch: RefCounted
+var region_id := ""
+
 const ROCK := preload("res://scripts/world_rock_material.gd")
 const VISIBLE_ROCK := preload("res://scripts/visible_rock_mass.gd")
 const INKS := {"moss_cavern":"172d26", "rain_foundry":"142b37", "salt_archive":"322c3b", "string_greenhouse":"203325", "obsidian_pilgrim":"2e2634", "silent_crown":"232b3c"}
@@ -20,7 +24,7 @@ var lights: Array[Vector2] = []
 
 ## Descriptors stay resident for maps, spawn checks and authored geometry.
 ## Only physical rock bodies are distance resident in the World host.
-const COLLISION_CHUNK_SIZE := 1024.0
+const COLLISION_CHUNK_SIZE := GEOMETRY.ROCK_CHUNK_SIZE
 const CRITICAL_HALF_SIZE := Vector2(960, 768)
 const PREFETCH_MARGIN := 640.0
 const KEEP_MARGIN := 1280.0
@@ -63,16 +67,10 @@ func configure(chapter: Dictionary, theme: String, owner_scene: Node2D, stream_c
         var rect := Rect2(float(value[0]), float(value[1]), float(value[2]), float(value[3]))
         var index := solid_rects.size()
         solid_rects.append(rect)
-        if collision_streaming:
-            var center := rect.get_center()
-            var key := "%d:%d" % [floori(center.x / COLLISION_CHUNK_SIZE), floori(center.y / COLLISION_CHUNK_SIZE)]
-            if not collision_chunks.has(key):
-                collision_chunks[key] = {"bounds": rect, "indices": []}
-            collision_chunks[key].bounds = collision_chunks[key].bounds.merge(rect)
-            collision_chunks[key].indices.append(index)
-        else:
+        if not collision_streaming:
             _add_collision_shape(collision_root, rect, index)
     if collision_streaming:
+        collision_chunks = GEOMETRY.rock_chunks(data.get("solid_rects", []))
         warm_collision_focus(initial_focus)
     var surface := VISIBLE_ROCK.new()
     surface.name = "PaintedRockMass"
@@ -183,14 +181,11 @@ func _add_collision_shape(body: Node, rect: Rect2, index: int) -> void:
 func _create_collision_chunk(key: String) -> void:
     if resident_collision_chunks.has(key):
         return
-    var body := StaticBody2D.new()
-    body.name = "RockChunk_" + key.replace(":", "_")
-    body.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
-    body.collision_layer = 17 # preserve terrain/sight-blocker bits
-    body.collision_mask = 0
+    var data: Dictionary = collision_chunks[key]
+    var body: StaticBody2D = prefetch.take_collision(region_id, "rock", key, data) if prefetch != null else null
+    if body == null:
+        body = GEOMETRY.rock_body(key, data)
     collision_root.add_child(body)
-    for index in collision_chunks[key].indices:
-        _add_collision_shape(body, solid_rects[index], index)
     resident_collision_chunks[key] = body
     collision_loads += 1
 
@@ -269,6 +264,7 @@ func collision_snapshot() -> Dictionary:
 
 func _exit_tree() -> void:
     collision_shutdown = true
+    prefetch = null
     resident_collision_chunks.clear()
     collision_pins.clear()
     # Shapes are tree-owned. No detached-body retention or deferred work queue.
