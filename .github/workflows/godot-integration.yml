@@ -47,6 +47,12 @@ jobs:
           "$engine" --headless --path godot --editor --import --quit
           # The first import registers resource UIDs used by the editor plugin.
           "$engine" --headless --path godot --editor --import --quit
+      - name: Validate real GL rock boundaries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/rock-gpu"
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

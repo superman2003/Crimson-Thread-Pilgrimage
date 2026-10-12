@@ -60,3 +60,11 @@ verification.json 记录逐套结果来源、工具版本、帧与源图指标�
 - tools/validate_rock_seams.gd 用真实 GL、两端不同色的合成纹理验证横纵、负坐标、两倍周期及交叉边界。12个探针通过；关闭 mirror_repeat 的对照必须检测到不连续，分块与整块结果必须一致。GPU结果保存在 checkpoint4/gpu_seams.json。
 - 六区材质检查1577项通过。六区实机对照与洞穴回归正在整理，将追加检查点。
 - 镜像会形成重复对称图案，不代表逐房独立美术已经完成。逐房视觉验收、源边余量、完整人工战斗与音频听感仍待推进，PR保持草稿。
+
+### 检查点 4 最终验证
+
+- 六区材质1577项、洞穴探索170项通过；真实GL接缝12探针通过。原对照边界最大色差1.0，修复后0.0，分块与整块渲染差0.0（合成纹理夹具）。
+- checkpoint4保存六区12张全尺寸对照、six_region_comparison.jpg、GPU数值、回归日志和verification.json；图片上传逐张核对Git blob哈希。左列旧重复，右列镜像重复。截图选取外层实体岩壁边界并受相机限位约束，不是可玩房间构图或探索路径验收。
+- tools/run_rock_gpu_validation.py在同一进程树启动TCP Xvfb，强制Mesa软件GL，检查退出码及引擎错误。复跑：`python tools/run_rock_gpu_validation.py --engine /path/to/godot --log-dir /tmp/rock-gpu`。CI增加相同步骤并保存日志，最新提交的远端CI另行报告，不沿用基线成功状态。
+- 实机复跑：`xvfb-run -a Godot --audio-driver Dummy --path godot --rendering-method gl_compatibility --script ../tools/capture_rock_seams.gd`；受限显示环境使用上述同进程树TCP Xvfb方式。
+- 图像中植物、框饰和矿脉有可见镜像对称；连续性修复已完成，独立房间美术仍未完成。下一轮应优先改造包含落脚面与主角的正常房间构图，再验收操作与战斗可读性。
