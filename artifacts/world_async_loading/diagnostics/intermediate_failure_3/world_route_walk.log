@@ -1,0 +1,18 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+F: 盐风归庭索道 · 另一侧门闩
+PASS fresh start lacks double jump
+F: 旧运书线 → 盐白书库 · 另一侧门闩
+F: 运书升降索道 → 盐风走廊 · F 通行
+WALK initial lift reached (396.2938, 3399.996)
+PASS budgeted physical portal settles
+ERROR: physical portal moss_salt_lift_lower arrives at destination
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/world_route_walk_validation.gd:166)
+       [1] _interact (res://scripts/world_route_walk_validation.gd:145)
+       [2] _tick (res://scripts/world_route_walk_validation.gd:83)
+WORLD_ROUTE_WALK_VALIDATION aborted actual=demo_ch01_moss_bell_court (407.7729, 3399.996)
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)

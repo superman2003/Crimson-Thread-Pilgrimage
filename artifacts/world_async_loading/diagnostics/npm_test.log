@@ -1,0 +1,80 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test
+> npm run check && node tests/game-data.test.mjs && node tests/static-smoke.test.mjs && node tests/runtime-smoke.test.mjs && npm run test:map-quality && npm run test:runner
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 check
+> node --check src/main.js && node --check src/gameData.js && node --check server.js
+
+game-data.test: PASS
+static-smoke.test: PASS
+runtime-smoke.test: PASS
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:map-quality
+> node tools/run_python_tool.mjs tools/audit_platform_geometry.py --scope active --strict && node tools/run_python_tool.mjs tools/audit_map_uniqueness.py --scope active --strict && node tools/run_python_tool.mjs tools/test_map_audits.py
+
+{
+  "suite": "platform_geometry",
+  "scope": "active",
+  "files": 6,
+  "checks": 1429,
+  "errors": [],
+  "limitation": "Collision/recovery data audit; does not certify physical traversal or player experience."
+}
+{
+  "suite": "map_uniqueness",
+  "scope": "active",
+  "files": 6,
+  "checks": 648,
+  "errors": [],
+  "warnings": [
+    {
+      "file": "demo_ch01_moss_bell_court.json",
+      "repeated_collision_silhouette": [
+        "upgrade_thread_dash_1",
+        "upgrade_silk_wall_grip_1",
+        "upgrade_echo_hook_1",
+        "upgrade_double_thread_jump_1",
+        "upgrade_bell_guard_1",
+        "upgrade_crown_resonance_1"
+      ]
+    },
+    {
+      "file": "demo_ch02_rain_foundry_canal.json",
+      "repeated_collision_silhouette": [
+        "upgrade_thread_dash_2",
+        "upgrade_silk_wall_grip_2",
+        "upgrade_double_thread_jump_2",
+        "upgrade_bell_guard_2",
+        "upgrade_lantern_phase_1"
+      ]
+    },
+    {
+      "file": "demo_ch03_saltwhite_archive.json",
+      "repeated_collision_silhouette": [
+        "upgrade_echo_hook_2",
+        "upgrade_bell_guard_3",
+        "upgrade_crown_resonance_2"
+      ]
+    }
+  ],
+  "limitation": "Unique IDs/outlines do not establish visual identity; repeated collision shapes require design review."
+}
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:runner
+> node tools/run_python_tool.mjs tools/test_regression_runner.py
+
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.367s
+
+OK

@@ -24,10 +24,16 @@ Esc 取消或调用 `cancel_transition()`：完成正在退休的节点清理，
 
 针对性最终检查：`world_async_loading` 94 项、`world_host` 497 项通过。既有 `world_streaming` 1991 项、`world_integration` 64 项通过。真实输入导航 `world_route_walk` 25 步/1853 物理帧通过，明确使用免伤，不能计作 T04。`world_upgrade` 动作/门/奖励回归通过；敌人移除与定位仍为夹具，保留其既有 ObjectDB 退出警告。
 
-`npm test`、`npm run test:campaign` 通过。完整 Godot 回归与图形证据会在本批结束记录追加；远端 CI 单独报告，不提前宣称通过。脚本断言不代表自然赚钱、完整六区带伤通关、听感或手柄体验。
+`npm test`、`npm run test:campaign` 通过。完整 Godot 51 套零失败；全套启动后补了同步切区标记复位和 Esc 输入夹具，最终受影响的 world_async_loading/world_host 再次通过。代码检查点 `107b7a0` 已上传，日志在 artifacts/world_async_loading/diagnostics，完整覆盖边界及压缩日志原始 SHA256 见 verification.json。boss_trial/world_upgrade 的既有退出 ObjectDB 警告保留，T03 未完成。远端 CI 单独按最新推送树报告，不提前宣称通过。脚本断言不代表自然赚钱、完整六区带伤通关、听感或手柄体验。
 
 ## 实测预算限制
 
 最终受影响套件的 headless 夹具：六区工作计划分别 285/293/139/131/115/97 项；每批最大操作数均为 8。准备阶段约 8–13ms，最大构建批次约 43–256ms，提交阶段约 97–191ms。具体原始微秒值保留在 `artifacts/world_async_loading/diagnostics/final_affected/world_async_loading.log`。数字包含素材缓存/共享运行环境影响，不是稳定帧率基准，也不表示最终画面每帧都在 2ms 内。
 
 后续应进一步拆分复杂单项、贴图读取、岩壁网格和 UI 提交，再把世界连接落实为实体通道并引入相邻实体的空间加载边界。进度同步见 [UPGRADE_PROGRESS.md](../UPGRADE_PROGRESS.md)。
+
+## 画面验收
+
+本批未取得可交付的真实 GL 截图：当前执行环境的 X11 显示连接失败，不能以 headless 虚拟渲染或旧画面代替。README 保留此前实机图的原日期，新增异步装载说明与本批报告链接。完整画面/自然操作/听感验收仍待后续具备显示环境时执行。
+
+初次验收的退出时立即 free 加载界面错误、提前解除跨区标记、无效已释放节点赋值，以及固定帧数等待造成的中途断言失败均保留在 diagnostics 的 first_failure/intermediate_failure 目录；修复后进行上述复验。运行器的 ERROR/超时/退出码门禁未放宽。
