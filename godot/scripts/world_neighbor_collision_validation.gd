@@ -28,6 +28,15 @@ func _run() -> void:
     _complex_limits()
     for id in COORDINATES.manifest().regions:
         await _region(String(id))
+    # Every authored cross-region landing, including the far-side shortcuts.
+    # Fixture positioning does not bypass or count as natural gate traversal.
+    for source_id in ROUTES._data().chapters:
+        for portal in ROUTES._data().chapters[source_id].get("portals", []):
+            var target := String(portal.get("target_config_id", ""))
+            if target == String(source_id) or not COORDINATES.has_region(target):
+                continue
+            var value: Array = portal.target_spawn
+            await _region(target, Vector2(value[0], value[1]))
     await _invalidation()
     print("NEIGHBOR COLLISION METRICS ", JSON.stringify(metrics))
     scene.free()
@@ -104,9 +113,9 @@ func _warm(pref: RefCounted) -> void:
         await process_frame
     _check(false, "geometry fixture warm deadline")
 
-func _region(id: String) -> void:
+func _region(id: String, landing: Vector2 = Vector2.INF) -> void:
     var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))
-    var entry := Vector2(raw.player_start[0], raw.player_start[1])
+    var entry := landing if landing.is_finite() else Vector2(raw.player_start[0], raw.player_start[1])
     var pref := _seed(id, entry)
     var flags: Dictionary = scene.story_flags.duplicate(true)
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
@@ -161,7 +170,7 @@ func _region(id: String) -> void:
             _check(node.polygon == record.data.polygon and node.one_way_collision == record.data.one_way, id + " terrain collision exact after transfer")
         _check(not pref.entities[id].collisions.has(key), id + " transferred node has no cache owner")
     _check(rocks > 0 and polygons > 0 and pref.rock_hits == rocks and pref.terrain_hits == polygons, id + " both arrival cache types actually adopted")
-    metrics.append({"region": id, "cached_rocks": summary.rock_chunks, "cached_polygons": summary.terrain_polygons, "adopted_rocks": rocks, "adopted_polygons": polygons})
+    metrics.append({"region": id, "entry": [entry.x, entry.y], "cached_rocks": summary.rock_chunks, "cached_polygons": summary.terrain_polygons, "adopted_rocks": rocks, "adopted_polygons": polygons})
     pref.shutdown()
     _check(pref.snapshot().owned_bodies == 0, id + " shutdown drains detached ownership")
     for key in records:
