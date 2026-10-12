@@ -56,7 +56,9 @@ def main():
             print(f'Running {suite}', flush=True)
             try:
                 with log.open('w') as output:
-                    result = subprocess.run([engine, '--headless', '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
+                    # One fixed simulation frame avoids load-dependent catch-up
+                    # between awaited physics/process signals in input probes.
+                    result = subprocess.run([engine, '--headless', '--fixed-fps', '60', '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
                 output = log.read_text(errors='replace')
                 errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
                 if result.returncode != 0 or errors:

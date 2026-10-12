@@ -290,6 +290,8 @@ var was_wall_sliding: bool = false
 var air_jump_available: bool = true
 var grapple_anchor: Node2D = null
 var grapple_timer: float = 0.0
+var grapple_recovery_timer := 0.0
+const GRAPPLE_RECOVERY_TIME := 0.10
 var grapple_line: Line2D = null
 var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
@@ -385,6 +387,7 @@ func _physics_process(delta: float) -> void:
 
     dash_cooldown = maxf(0.0, dash_cooldown - delta)
     land_timer = maxf(0.0, land_timer - delta)
+    grapple_recovery_timer = maxf(0.0, grapple_recovery_timer - delta)
     skill_cooldown = maxf(0.0, skill_cooldown - delta)
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
@@ -408,6 +411,8 @@ func _physics_process(delta: float) -> void:
     # A fresh jump cancels the pull; holding the original jump never spends the air jump.
     if grapple_timer > 0.0 and Input.is_action_just_pressed("jump"):
         _stop_grapple()
+    if Input.is_action_just_pressed("jump"):
+        grapple_recovery_timer = 0.0
     if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
         velocity.y = jump_velocity
         coyote_timer = 0.0
@@ -547,6 +552,7 @@ func _try_start_grapple() -> bool:
     ability_action.emit("echo_hook", global_position, (best.global_position - origin).normalized())
     grapple_anchor = best
     grapple_timer = grapple_timeout
+    grapple_recovery_timer = 0.0
     coyote_timer = 0.0
     jump_buffer_timer = 0.0
     wall_sliding = false
@@ -569,7 +575,7 @@ func _update_grapple(delta: float) -> void:
     var offset := grapple_anchor.global_position - (global_position + Vector2(0.0, -42.0))
     grapple_timer = maxf(0.0, grapple_timer - delta)
     if offset.length() <= 36.0 or grapple_timer <= 0.0:
-        _stop_grapple()
+        _stop_grapple(true)
         velocity *= 0.35
         return
     # Sweep each physics tick instead of teleporting through solid terrain.
@@ -584,8 +590,9 @@ func _update_grapple(delta: float) -> void:
         grapple_line.points = PackedVector2Array([Vector2(0.0, -42.0), to_local(grapple_anchor.global_position)])
 
 
-func _stop_grapple() -> void:
+func _stop_grapple(recover: bool = false) -> void:
     grapple_timer = 0.0
+    grapple_recovery_timer = GRAPPLE_RECOVERY_TIME if recover else 0.0
     grapple_anchor = null
     if is_instance_valid(grapple_line):
         grapple_line.queue_free()
@@ -628,6 +635,7 @@ func _spawn_double_jump_vfx() -> void:
 
 
 func _start_attack(animation: StringName, allow_traversal_action: bool = true) -> void:
+    grapple_recovery_timer = 0.0
     if animation == &"attack_1" and _crest() == "bell":
         animation = &"attack_2"
     active_skill.clear()
@@ -1221,13 +1229,17 @@ func _update_animation(input_axis: float) -> void:
     elif attack_timer > 0.0:
         _update_attack_pose()
     elif grapple_timer > 0.0:
-        _play(&"hook_throw")
+        # Hold the pull pose; do not replay release every 0.4 seconds.
+        var elapsed := grapple_timeout - grapple_timer
+        _pose_progress(&"hook_throw", 0.25 if elapsed < 0.05 else 0.5)
     elif dash_timer > 0.0:
         _pose_progress(&"dash", 1.0 - dash_timer / maxf(dash_time, 0.01))
     elif wall_sliding and not is_on_floor():
         _play(&"wall_slide")
     elif phase_active:
         _play(&"phase")
+    elif grapple_recovery_timer > 0.0:
+        _pose_progress(&"hook_throw", 0.75)
     elif not is_on_floor():
         if velocity.y < 0.0 and sprite.animation == &"jump_start" and sprite.is_playing():
             return # Preserve takeoff instead of replacing it on the same tick.
@@ -1279,7 +1291,7 @@ func _update_attack_pose() -> void:
     elif elapsed < attack_windup:
         progress = 0.5 * elapsed / maxf(attack_windup, 0.01)
     elif elapsed <= attack_windup + attack_active_time:
-        progress = 0.5 # Effective pose held for exactly the damage window.
+        progress = 0.25 if current_attack == &"hook_throw" else 0.5
     else:
         progress = 0.75
     _pose_progress(animation, progress)

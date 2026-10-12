@@ -20,8 +20,9 @@ ROWS = {
     'skills': ['heal', 'skill_projectile', 'skill_control', 'skill_defense'],
     'reactions': ['hurt', 'death', 'guard', 'resonance'],
 }
+ACTION_SOURCES = {'hook_throw': 'actions/hook_throw_v4.png'}
 
-def extract_poses(source):
+def extract_poses(source, columns=4, rows=4, max_fragment_distance=48):
     """Assign complete alpha components before cropping across authored grid rows.
 
     Touching shapes spanning two columns remain ambiguous and are audited.
@@ -36,23 +37,24 @@ def extract_poses(source):
         if areas[number] < 1000:
             continue
         y, x = box
-        row = min(3, int((y.start + y.stop) * 2 / source.height))
-        column = min(3, int((x.start + x.stop) * 2 / source.width))
+        row = min(rows-1, int((y.start + y.stop) * rows / (2*source.height)))
+        column = min(columns-1, int((x.start + x.stop) * columns / (2*source.width)))
         mask = components == number
-        if x.stop - x.start > source.width / 4 * 1.6:
-            for col in range(4):
-                left, right = round(col * source.width / 4), round((col + 1) * source.width / 4)
+        if x.stop - x.start > source.width / columns * 1.6:
+            for col in range(columns):
+                left, right = round(col * source.width / columns), round((col + 1) * source.width / columns)
                 part = mask[:, left:right]
                 if part.sum() >= 1000:
-                    owners[:, left:right][part] = row * 4 + col + 1
-                    ambiguous.add(row * 4 + col)
+                    owners[:, left:right][part] = row * columns + col + 1
+                    ambiguous.add(row * columns + col)
         else:
-            owners[mask] = row * 4 + column + 1
+            owners[mask] = row * columns + column + 1
     distance, nearest = distance_transform_edt(owners == 0, return_indices=True)
     assigned = owners[nearest[0], nearest[1]]
-    assigned[distance > 48] = 0
+    if max_fragment_distance is not None:
+        assigned[distance > max_fragment_distance] = 0
     cells, origins = [], []
-    for index in range(16):
+    for index in range(rows*columns):
         pose = pixels.copy()
         pose[assigned != index + 1] = 0
         image = Image.fromarray(pose)
@@ -91,24 +93,42 @@ def package():
         scale = 128 / median(body_height(cell) for cell in cells[:4])
         for row, name in enumerate(names):
             images, paths = [], []
+            pose_source, pose_scale, columns = source, scale, 4
+            pose_cells, pose_origins = cells[row*4:row*4+4], origins[row*4:row*4+4]
+            pose_ambiguous = {col for col in range(4) if row*4+col in ambiguous}
+            source_name = sheet+'.png'
+            if name in ACTION_SOURCES:
+                source_name = ACTION_SOURCES[name]
+                pose_source = Image.open(OUT/'sources'/source_name).convert('RGBA')
+                pose_cells, pose_origins, pose_ambiguous = extract_poses(pose_source,columns=2,rows=2,max_fragment_distance=None)
+                if pose_ambiguous:
+                    raise ValueError(f'{name}: replacement poses still touch; refuse integration')
+                columns = 2
+                pose_scale = 128/median(body_height(cell) for cell in pose_cells[:2])
             # Preserve authored horizontal placement; cape/weapon bounding boxes
             # must never pull the body sideways when the pose changes.
             for col in range(4):
-                cell = cells[row * 4 + col]
+                cell = pose_cells[col]
                 foot = boot_baseline(cell)
-                scaled = cell.resize((round(cell.width * scale), round(cell.height * scale)), Image.Resampling.LANCZOS)
+                scaled = cell.resize((round(cell.width * pose_scale), round(cell.height * pose_scale)), Image.Resampling.LANCZOS)
                 frame = Image.new('RGBA', (SIZE, SIZE))
-                origin = origins[row * 4 + col]
-                body_anchor = (col + .6) * source.width / 4 - origin[0]
-                offset = (round(SIZE / 2 - body_anchor * scale), round(BASELINE - foot * scale))
+                origin = pose_origins[col]
+                body_anchor = (col % columns + .6) * pose_source.width / columns - origin[0]
+                offset = (round(SIZE / 2 - body_anchor * pose_scale), round(BASELINE - foot * pose_scale))
                 frame.alpha_composite(scaled, offset)
                 bbox = frame.getbbox()
                 source_box = cell.getbbox()
-                edge = origin[0] < 8 or origin[1] < 8 or origin[2] > source.width - 8 or origin[3] > source.height - 8
-                clipped = offset[0] + source_box[0] * scale < 0 or offset[0] + source_box[2] * scale > SIZE or offset[1] + source_box[1] * scale < 0 or offset[1] + source_box[3] * scale > SIZE
+                edge = origin[0] < 8 or origin[1] < 8 or origin[2] > pose_source.width - 8 or origin[3] > pose_source.height - 8
+                alpha = np.asarray(cell)[:,:,3]
+                canvas_edge = ((origin[0]==0 and bool((alpha[:,0]>128).any())) or
+                    (origin[1]==0 and bool((alpha[0,:]>128).any())) or
+                    (origin[2]==pose_source.width and bool((alpha[:,-1]>128).any())) or
+                    (origin[3]==pose_source.height and bool((alpha[-1,:]>128).any())))
+                clipped = offset[0] + source_box[0] * pose_scale < 0 or offset[0] + source_box[2] * pose_scale > SIZE or offset[1] + source_box[1] * pose_scale < 0 or offset[1] + source_box[3] * pose_scale > SIZE
                 audit.append({'action': name, 'frame': col, 'source_edge_contact': edge, 'output_clipped': clipped,
-                              'sheet_scale': round(scale, 6), 'source_foot_y': foot, 'bbox': bbox,
-                              'source_bounds': origin, 'ambiguous_connected_pose': row * 4 + col in ambiguous})
+                              'sheet_scale': round(pose_scale, 6), 'source_foot_y': foot, 'bbox': bbox,
+                              'source_bounds': origin, 'ambiguous_connected_pose': col in pose_ambiguous,
+                              'source_file': source_name, 'opaque_source_canvas_edge': bool(canvas_edge)})
                 if clipped:
                     raise ValueError(f'{name}/{col}: authored pixels exceed canvas; refuse silent clipping')
                 key = f'{name}_{col:02d}'
@@ -140,10 +160,11 @@ def package():
                 'foot_baseline': BASELINE, 'sprite_scale': .66, 'sprite_position': [0, -(BASELINE - SIZE/2)*.66],
                 'animations': specs, 'limitations': ['Four authored poses per action family; fall/apex are held poses.',
                 'Melee and area-wave skills share family poses; distinct runtime effects and phases remain.',
-                'Touching source weapons and outer-source edge contacts need art review; see crop_audit.json.']}
+                'Low source clearance remains an art-review warning, distinct from opaque canvas-edge contact.',
+                'Hook throw uses four isolated versioned source poses; the original sheet is retained.']}
     (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     (OUT / 'crop_audit.json').write_text(json.dumps(audit, indent=2) + '\n')
-    print(json.dumps({'animations': len(specs), 'frames': len(audit), 'source_edge_contacts': sum(v['source_edge_contact'] for v in audit), 'ambiguous_poses': sum(v['ambiguous_connected_pose'] for v in audit), 'output_clipped': sum(v['output_clipped'] for v in audit)}))
+    print(json.dumps({'animations': len(specs), 'frames': len(audit), 'source_clearance_warnings': sum(v['source_edge_contact'] for v in audit), 'opaque_source_canvas_edges': sum(v['opaque_source_canvas_edge'] for v in audit), 'ambiguous_poses': sum(v['ambiguous_connected_pose'] for v in audit), 'output_clipped': sum(v['output_clipped'] for v in audit)}))
 
 if __name__ == '__main__':
     package()

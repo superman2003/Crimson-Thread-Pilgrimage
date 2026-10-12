@@ -39,6 +39,18 @@ func run() -> void:
     player._update_animation(1)
     check(sprite.animation==&"dash" and sprite.frame==3,"short dash reaches authored recovery pose")
     player.dash_timer=0
+    player.grapple_timer=player.grapple_timeout
+    player._update_animation(0)
+    check(sprite.animation==&"hook_throw" and sprite.frame==1,"grapple begins with release pose")
+    player.grapple_timer=player.grapple_timeout-0.12
+    for tick in 5:
+        player._update_animation(0)
+        check(sprite.frame==2 and not sprite.is_playing(),"pull pose never loops back to throwing")
+    player._stop_grapple(true)
+    player._update_animation(0)
+    check(sprite.frame==3,"successful arrival displays recovery")
+    player._stop_grapple()
+    check(player.grapple_recovery_timer==0,"cancel clears recovery pose")
     player.velocity=Vector2(0,-100)
     player._play(&"jump_start",true)
     player._update_animation(0)
@@ -47,7 +59,7 @@ func run() -> void:
     player.attack_timer=0.2
     player.heal_timer=0.2
     player.restore_at_save_point()
-    check(player.death_timer==0 and player.attack_timer==0 and player.heal_timer==0,"respawn clears transient actions")
+    check(player.death_timer==0 and player.attack_timer==0 and player.heal_timer==0 and player.grapple_recovery_timer==0,"respawn clears transient actions")
     player.queue_free()
     await process_frame
     print("HERO_ANIMATION_VALIDATION checks=%d failures=%d" % [checks,failures])
