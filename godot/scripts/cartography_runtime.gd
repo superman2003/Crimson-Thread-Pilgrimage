@@ -66,7 +66,68 @@ static func purchase(level: Node, area: Area2D) -> Dictionary:
     level._toast(String(result.reason))
     return result
 static func public_room(room: Dictionary) -> bool:
-    return String(room.get("kind",""))!="secret" and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
+    return String(room.get("kind","")) not in ["secret","reward","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
+static func region_bounds(level: Node) -> Rect2:
+    # Visibility never changes the coordinate frame. Reserve space for every
+    # authored room without emitting its outline, label or connections.
+    return level._map_layout_bounds(level.config.get("map_rooms",[]))
+static func terrain_polygons(level: Node) -> Array[PackedVector2Array]:
+    var polygons: Array[PackedVector2Array]=[]
+    if level.chapter_terrain!=null:
+        for region in level.chapter_terrain.collision_regions:
+            polygons.append(region.polygon)
+    for platform in level.config.get("platforms",[]):
+        if not String(platform.get("terrain_id","")).is_empty(): continue
+        var rect: Rect2=level._rect2(platform.rect)
+        polygons.append(rect_polygon(rect))
+    return polygons
+static func rect_polygon(rect: Rect2) -> PackedVector2Array:
+    return PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
+static func map_position(level: Node, room: Dictionary, point: Vector2, bounds: Rect2, draw_size: Vector2) -> Vector2:
+    var physical: Rect2=level._room_layout_rect(room)
+    var map_rect: Rect2=level._room_map_rect(room)
+    if physical.size.x<=0 or physical.size.y<=0:
+        return level._map_world_to_overlay(point,bounds,draw_size)
+    return level._map_world_to_overlay(map_rect.position+map_rect.size*(point-physical.position)/physical.size,bounds,draw_size)
+static func room_terrain(level: Node, room: Dictionary, polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+    var physical: Rect2=level._room_layout_rect(room)
+    var contours: Array[PackedVector2Array]=[]
+    if physical.size.x<=0 or physical.size.y<=0: return contours
+    for polygon in polygons:
+        var fragments: Array[PackedVector2Array]=Geometry2D.intersect_polygons(polygon,rect_polygon(physical))
+        # Nested pockets belong to their own exploration record. Charting the
+        # enclosing hall must not disclose their terrain before resting.
+        for other in level.config.get("map_rooms",[]):
+            if String(other.id)==String(room.id): continue
+            var pocket: Rect2=level._room_layout_rect(other)
+            if pocket.get_area()>=physical.get_area() or not physical.intersects(pocket): continue
+            var remaining: Array[PackedVector2Array]=[]
+            for fragment in fragments:
+                remaining.append_array(exclude_pocket(fragment,pocket))
+            fragments=remaining
+        for fragment in fragments:
+            var normalized:=PackedVector2Array()
+            for point in fragment:
+                normalized.append((point-physical.position)/physical.size)
+            contours.append(normalized)
+    return contours
+static func exclude_pocket(polygon: PackedVector2Array, pocket: Rect2) -> Array[PackedVector2Array]:
+    var bounds:=Rect2(polygon[0],Vector2.ZERO)
+    for point in polygon: bounds=bounds.expand(point)
+    if not bounds.intersects(pocket): return [polygon]
+    var cut:=bounds.intersection(pocket)
+    var result: Array[PackedVector2Array]=[]
+    # Four disjoint slabs avoid hole loops (which draw_colored_polygon would
+    # otherwise fill back in and disclose an uncharted nested pocket).
+    var slabs: Array[Rect2]=[
+        Rect2(bounds.position,Vector2(cut.position.x-bounds.position.x,bounds.size.y)),
+        Rect2(Vector2(cut.end.x,bounds.position.y),Vector2(bounds.end.x-cut.end.x,bounds.size.y)),
+        Rect2(Vector2(cut.position.x,bounds.position.y),Vector2(cut.size.x,cut.position.y-bounds.position.y)),
+        Rect2(Vector2(cut.position.x,cut.end.y),Vector2(cut.size.x,bounds.end.y-cut.end.y))]
+    for slab in slabs:
+        if slab.size.x>0 and slab.size.y>0:
+            result.append_array(Geometry2D.intersect_polygons(polygon,rect_polygon(slab)))
+    return result
 static func paper(level: Node, enabled: bool) -> void:
     var art: TextureRect=level.map_panel.get_node("MapBackgroundArt")
     art.texture=load("res://assets/ui/cartography/survey_paper.svg") if enabled else level._load_texture_resource(level._theme_map_background_texture())
@@ -98,8 +159,9 @@ static func render(level: Node) -> void:
         if public_room(value) or JOURNAL.charted(level.story_flags,id,String(value.id)):
             rooms.append(value)
             ids[String(value.id)]=true
-    var bounds: Rect2=level._map_layout_bounds(rooms)
+    var bounds: Rect2=region_bounds(level)
     var draw_size: Vector2=host.size
+    var terrain: Array[PackedVector2Array]=terrain_polygons(level)
     for connection in level.config.get("connections",[]):
         var a:=String(connection.get("from",""))
         var b:=String(connection.get("to",""))
@@ -117,14 +179,17 @@ static func render(level: Node) -> void:
     for room in rooms:
         var room_id:=String(room.id)
         var detailed:=JOURNAL.charted(level.story_flags,id,room_id)
-        var rect: Rect2=level._map_room_overlay_rect(room,bounds,draw_size,host.size.x,132,72)
-        if rect.size.x<7 or rect.size.y<7: continue
+        var map_rect: Rect2=level._room_map_rect(room)
+        var top_left: Vector2=level._map_world_to_overlay(map_rect.position,bounds,draw_size)
+        var rect:=Rect2(top_left,level._map_world_to_overlay(map_rect.end,bounds,draw_size)-top_left)
+        if rect.size.x<=0 or rect.size.y<=0: continue
         var outline: Control=INK.new()
         outline.name="SurveyRoom_"+room_id
         outline.position=rect.position
         outline.size=rect.size
         outline.detailed=detailed
         outline.seed_value=room_id.hash()
+        if detailed: outline.contours=room_terrain(level,room,terrain)
         outline.mouse_filter=Control.MOUSE_FILTER_IGNORE
         outline.set_meta("charted",detailed)
         host.add_child(outline)
@@ -144,7 +209,7 @@ static func render(level: Node) -> void:
         if kind not in ["save_point","world_portal","boss_gate"]: continue
         var marker:=Label.new()
         marker.name="SurveyPin_"+String(data.get("id","pin"))
-        marker.position=level._map_room_world_position_to_overlay(room,point,bounds,draw_size)-Vector2(6,9)
+        marker.position=map_position(level,room,point,bounds,draw_size)-Vector2(6,9)
         marker.text="◇" if kind=="world_portal" else "◎" if kind=="save_point" else "×"
         marker.add_theme_color_override("font_color",Color("7b4232"))
         host.add_child(marker)
@@ -153,8 +218,8 @@ static func render(level: Node) -> void:
     if ids.has(String(current.get("id",""))):
         var dot:=Label.new()
         dot.name="SurveyPlayerMarker"
-        dot.position=level._map_room_world_position_to_overlay(current,level.player.global_position,bounds,draw_size)-Vector2(6,9)
+        dot.position=map_position(level,current,level.player.global_position,bounds,draw_size)-Vector2(6,9)
         dot.text="◆"
         dot.add_theme_color_override("font_color",Color("a14c3a"))
         host.add_child(dot)
-    level.map_text.text="手绘旅册 · 已补绘 %d室 · 待补绘 %d笔\n浅墨：底图轮廓 · 深墨：钟龛补绘 · ◆你的位置 · ◎钟龛 · ◇旧路\n途中笔记不会立即展开详细地图；安坐任意钟龛，补绘已购地区。\nM / Esc 返回 · Tab 世界总览" % [journal.charted.size(),journal.pending.size()]
+    level.map_text.text="手绘旅册 · 已补绘 %d室 · 待补绘 %d笔\n浅墨：底图轮廓 · 深墨：真实地形 · ◆你的位置 · ◎钟龛 · ◇旧路\n途中笔记不会立即展开详细地图；安坐任意钟龛，补绘已购地区。\nM / Esc 返回 · Tab 世界总览" % [journal.charted.size(),journal.pending.size()]

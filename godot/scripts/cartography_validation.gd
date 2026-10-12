@@ -47,6 +47,14 @@ func run() -> void:
     check(dialog.theme.default_font!=null,"map shop explicitly inherits Chinese UI font")
     check(dialog.visible and scene.player.ui_input_locked,"real F opens purchase confirmation and locks gameplay")
     check(dialog.get_ok_button().disabled,"insufficient game currency disables purchase button")
+    scene._toggle_backpack()
+    check(not dialog.visible and scene.active_overlay=="backpack","backpack closes seller window")
+    scene._close_overlays()
+    RUNTIME.open_shop(scene,stall)
+    scene._toggle_audio_settings()
+    check(not dialog.visible and scene.active_overlay=="settings","settings closes seller window")
+    scene._close_overlays()
+    RUNTIME.open_shop(scene,stall)
     dialog.confirmed.emit()
     check(not JOURNAL.owned(scene.story_flags,id) and scene.currency_count==0,"failed UI transaction does not charge or grant")
     check(not scene.player.ui_input_locked and not dialog.visible,"confirmation returns player control")
@@ -76,6 +84,9 @@ func run() -> void:
     check(dialog.get_ok_button().disabled,"owned region map cannot be bought twice")
     dialog.custom_action.emit("talk")
     check(scene.active_overlay=="dialogue" and not dialog.visible,"map NPC retains its original story dialogue")
+    scene.dialogue_text_label.visible_characters=-1
+    scene._try_interact()
+    check(not dialog.visible and scene.active_overlay!="cartographer","F advances seller narrative without reopening shop")
     scene._close_overlays()
     check(not RUNTIME.purchase(scene,stall).ok and scene.currency_count==wallet,"duplicate direct transaction cannot spend again")
     JOURNAL.visit(scene.story_flags,id,"hidden_attic")
@@ -116,6 +127,39 @@ func run() -> void:
         check(npc!=null and npc.get_meta("kind","")=="npc",String(region_id)+": purchase belongs to a character, not a stall")
         test_scene._toggle_map()
         check(test_scene.map_draw_root.get_node("MapNotPurchased").text=="还未获得此区域地图",String(region_id)+": unpurchased M uses exact requested message")
+        JOURNAL.region(test_scene.story_flags,String(region_id)).owned=true
+        test_scene._refresh_map_overlay()
+        var positions: Dictionary={}
+        var initial_bounds: Rect2=RUNTIME.region_bounds(test_scene)
+        var terrain: Array[PackedVector2Array]=RUNTIME.terrain_polygons(test_scene)
+        var terrain_rooms:=0
+        for room in test_scene.config.map_rooms:
+            var node: Control=test_scene.map_draw_root.get_node_or_null("SurveyRoom_"+String(room.id))
+            if RUNTIME.public_room(room):
+                check(node!=null,String(region_id)+": public base room exists "+String(room.id))
+                positions[String(room.id)]=Rect2(node.position,node.size)
+            else:
+                check(node==null,String(region_id)+": hidden/reward/exit withheld "+String(room.id))
+            JOURNAL.visit(test_scene.story_flags,String(region_id),String(room.id))
+        test_scene._refresh_map_overlay()
+        for room_id in positions:
+            var node: Control=test_scene.map_draw_root.get_node("SurveyRoom_"+room_id)
+            check(Rect2(node.position,node.size)==positions[room_id],String(region_id)+": pending notes preserve base transform")
+        JOURNAL.rest(test_scene.story_flags)
+        test_scene._refresh_map_overlay()
+        check(RUNTIME.region_bounds(test_scene)==initial_bounds,String(region_id)+": secret charting preserves region bounds")
+        for room in test_scene.config.map_rooms:
+            var node: Control=test_scene.map_draw_root.get_node("SurveyRoom_"+String(room.id))
+            if positions.has(String(room.id)):
+                check(Rect2(node.position,node.size)==positions[String(room.id)],String(region_id)+": charting preserves original room position and scale")
+            check(node.detailed,String(region_id)+": rest charts room")
+            if not node.contours.is_empty(): terrain_rooms+=1
+            for contour in node.contours:
+                for point in contour:
+                    check(point.x>=-0.001 and point.y>=-0.001 and point.x<=1.001 and point.y<=1.001,String(region_id)+": terrain clipped to physical room")
+            var physical: Rect2=test_scene._room_layout_rect(room)
+            check(RUNTIME.map_position(test_scene,room,physical.position,initial_bounds,test_scene.map_draw_root.size).is_equal_approx(node.position),String(region_id)+": terrain and marker share exact origin")
+        check(terrain_rooms>0 and not terrain.is_empty(),String(region_id)+": charted ink includes runtime collision terrain")
         test_scene.queue_free()
         await process_frame
     for suffix in ["",".tmp",".bak"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))

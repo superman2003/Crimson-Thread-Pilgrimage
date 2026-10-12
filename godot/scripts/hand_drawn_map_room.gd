@@ -1,8 +1,18 @@
 extends Control
-## Stable hand-inked contours; geometry comes from the actual room map rectangle.
+## The coarse room frame stays fixed; charted ink follows collision geometry.
 var detailed := false
 var seed_value := 0
+var contours: Array[PackedVector2Array]=[]
 func _draw() -> void:
+    if detailed:
+        for contour in contours:
+            var points:=PackedVector2Array()
+            for point in contour: points.append(point*size)
+            if points.size()<3: continue
+            draw_colored_polygon(points,Color(0.38,0.27,0.17,0.14))
+            points.append(points[0])
+            draw_polyline(points,Color("60452b"),1.3,true)
+        return
     var ink := Color("60452b") if detailed else Color(0.38,0.27,0.17,0.32)
     var corners := [Vector2(3,3),Vector2(size.x-3,3),Vector2(size.x-3,size.y-3),Vector2(3,size.y-3),Vector2(3,3)]
     var strokes := PackedVector2Array()
@@ -14,7 +24,3 @@ func _draw() -> void:
             strokes.append(point)
     strokes.append(corners[0])
     draw_polyline(strokes,ink,1.8 if detailed else 1.0,true)
-    if detailed and size.x>16 and size.y>16:
-        for i in 4:
-            var x:=size.x*(0.18+float(i)*0.18)
-            draw_line(Vector2(x,size.y-6),Vector2(x+4,size.y-11),Color(0.38,0.27,0.17,0.30),1,true)

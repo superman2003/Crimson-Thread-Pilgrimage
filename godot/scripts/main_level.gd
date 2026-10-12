@@ -2034,6 +2034,7 @@ func _refresh_wish_board_overlay() -> void:
 
 
 func _toggle_backpack() -> void:
+    if active_overlay == "cartographer": _close_overlays()
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     if active_overlay == "backpack":
@@ -2087,6 +2088,7 @@ func _build_settings_overlay() -> void:
     _refresh_settings_overlay()
 
 func _toggle_audio_settings() -> void:
+    if active_overlay == "cartographer": _close_overlays()
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     if active_overlay == "settings":
@@ -4628,7 +4630,7 @@ func _try_interact() -> void:
     elif kind == "boss_gate":
         _activate_boss_gate()
     elif kind == "npc":
-        if world_mode and nearby_interactable.has_meta("map_seller_region"):
+        if world_mode and nearby_interactable.has_meta("map_seller_region") and active_overlay != "dialogue":
             CARTOGRAPHY_UI.open_shop(self, nearby_interactable)
         else:
             _talk_to_npc(nearby_interactable)
