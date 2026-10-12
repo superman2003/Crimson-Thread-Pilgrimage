@@ -1113,12 +1113,23 @@ func _draw_world_atlas() -> void:
             line.set_meta("source_region", region_id)
             line.set_meta("target_region", target)
             line.default_color = Color(0.35, 0.82, 0.90) if forward.open and reverse.open else Color(0.88, 0.63, 0.30)
-            line.add_point(centers[region_id])
-            line.add_point(centers[target])
+            var source_center: Vector2 = centers[region_id]
+            var target_center: Vector2 = centers[target]
+            var badge_center: Vector2 = (source_center + target_center) * 0.5
+            if is_equal_approx(source_center.y, target_center.y) and absf(source_center.x-target_center.x)>300:
+                # Skip-region routes must not run beneath the middle region card.
+                line.add_point(source_center-Vector2(0,40))
+                line.add_point(source_center-Vector2(0,75))
+                line.add_point(target_center-Vector2(0,75))
+                line.add_point(target_center-Vector2(0,40))
+                badge_center.y-=75
+            else:
+                line.add_point(source_center)
+                line.add_point(target_center)
             map_draw_root.add_child(line)
             var badge := Label.new()
             badge.name = "WorldRouteState_" + String(data.get("id", ""))
-            badge.position = (centers[region_id] + centers[target]) * 0.5 - Vector2(45, 20)
+            badge.position = badge_center - Vector2(45, 20)
             badge.size = Vector2(90, 40)
             badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
             badge.add_theme_font_size_override("font_size", 13)
@@ -4544,7 +4555,7 @@ func _on_interactable_entered(body: Node, area: Area2D) -> void:
     if String(area.get_meta("kind", "")) == "npc":
         _toast("按F交谈")
     else:
-        _toast("F: " + String(area.get_meta("label", area.name)))
+        _toast("F: " + String(area.get_meta("interaction_label", area.get_meta("label", area.name))))
     var exit_kind := String(area.get_meta("kind", ""))
     if (exit_kind == "chapter_exit" or exit_kind == "ending_exit") and _chapter_exit_can_open(area):
         call_deferred("_activate_chapter_exit", area)

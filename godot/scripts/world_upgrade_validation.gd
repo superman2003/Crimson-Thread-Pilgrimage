@@ -214,4 +214,6 @@ func _run() -> void:
         await process_frame
     _clean()
     print("WORLD_UPGRADE checks=%d failures=%d enemy_removal=true fixture_positioning=true" % [checks, failures])
-    quit(1 if failures > 0 else 0)
+    # Let the async test stack release its final saved-state Resource first.
+    # Direct quit can race reference teardown on faster CI runners.
+    call_deferred("quit", 1 if failures > 0 else 0)
