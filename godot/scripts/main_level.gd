@@ -1160,8 +1160,8 @@ func _draw_world_atlas() -> void:
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         label.add_theme_font_size_override("font_size", 17)
-        var explored: int = world_state.get_region(region_id).get("visited_rooms", {}).size()
-        label.text = String(titles[region_id]) + ("\n探索 %d 室" % explored if known else "\n尚未踏足")
+        var explored: int = CARTOGRAPHY.region(story_flags,region_id).charted.size()
+        label.text = String(titles[region_id]) + ("\n补绘 %d 室" % explored if CARTOGRAPHY.owned(story_flags,region_id) else "\n未购本区地图" if known else "\n尚未踏足")
         map_draw_root.add_child(label)
     map_text.text = "倒扣巨钟 · 互联世界\n蓝线：双向互通  ·  金线：至少一侧有门槛（悬停查看两侧条件）  ·  仅显示已踏足区域的相邻通路\n" + _world_exploration_hint() + "\nTab 区域地图 · M / Esc 返回旅途"
 
