@@ -1,0 +1,381 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PASS: same x resolves upper layer
+PASS: same x resolves lower layer
+PASS: outside authored 2D bounds does not visit an x-only room
+PASS: legacy x-only maps remain supported
+PASS: legacy and prefixed blocker IDs are recognized case-insensitively
+PASS: other existing post-boss naming conventions remain supported
+PASS: a decorative name containing the legacy ID is not removed
+第1章 苔钟庭：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor entry_step_a
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor entry_step_b
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor md_step
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor hg_w
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor hg_c1
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor hg_c2
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor hg_c3
+PASS: demo_ch01_moss_bell_court converted terrain preserves one-way anchor hub_balcony_e
+PASS: demo_ch01_moss_bell_court has a manual story pickup
+LORE_PICKUP 拾获「证词·其一」——一段封在井喉的旧声，出土时还带着欢呼的余温。
+证词·其一
+PASS: demo_ch01_moss_bell_court F collects the actual story pickup
+PASS: demo_ch01_moss_bell_court same-frame body event cannot duplicate a manual pickup
+PASS: demo_ch01_moss_bell_court identifies nested room hub_gallery
+PASS: demo_ch01_moss_bell_court identifies nested room sluice_hall
+PASS: demo_ch01_moss_bell_court identifies nested room mossgrip_shaft
+PASS: demo_ch01_moss_bell_court identifies nested room maze_respite
+PASS: demo_ch01_moss_bell_court player start has a landing within the movement envelope
+PASS: demo_ch01_moss_bell_court has a shortcut lever
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: demo_ch01_moss_bell_court manual lever works before clearing unrelated enemies
+PASS: demo_ch01_moss_bell_court opening a manual shortcut does not bypass the combat goal
+PASS: demo_ch01_moss_bell_court HUD reports the opened shortcut separately from the locked boss route
+拾得碎钱与材料 · 绯线回充
+本区敌群已清，钟门前的道路开启。
+PASS: demo_ch01_moss_bell_court last normal enemy unlocks the boss route
+PASS: demo_ch01_moss_bell_court combat clear leaves the manual shortcut closed
+PASS: demo_ch01_moss_bell_court default combat clear opens no individual manual shortcuts
+PASS: demo_ch01_moss_bell_court aggregate route state reports the unlocked boss route before using the lever
+PASS: demo_ch01_moss_bell_court HUD reports the unlocked boss route separately from closed manual shortcuts
+PASS: demo_ch01_moss_bell_court legacy combat shortcuts still open on combat clear
+捷径已通（2/2）。钟门前可以先在钟龛休息。
+PASS: demo_ch01_moss_bell_court lever opens the shortcut after combat clear
+Shortcut needs 3 route marks. You have 0.
+PASS: legacy key progression still rejects an unpaid lever
+捷径已通（1/2）。钟门前可以先在钟龛休息。
+PASS: legacy key progression opens after the required marks
+PASS: demo_ch01_moss_bell_court legacy blocker exists before boss death
+PASS: demo_ch01_moss_bell_court ordinary arena walls are not post-boss blockers
+钟门深处 · 苔钟守母
+钟门已合，战斗开始。
+PASS: demo_ch01_moss_bell_court boss entry installs an arena lock
+PASS: demo_ch01_moss_bell_court boss arena has a physical platform or terrain floor
+PASS: demo_ch01_moss_bell_court scalar boss bounds fit the current floor
+PASS: demo_ch01_moss_bell_court original Boss artwork preserves configured body and attack hitbox dimensions
+PASS: demo_ch01_moss_bell_court physical contact shape retains configured size and offset
+PASS: demo_ch01_moss_bell_court boss clamps at left bound
+PASS: demo_ch01_moss_bell_court boss clamps at right bound
+LORE_PICKUP 拾获「王冠裂片」——苔钟守母体内仍带余温的金属碎片，断面锋利如新。
+第一章闭环完成：苔钟庭清怪、Boss门和苔钟守母均已验证。
+前往下一片土地 · 锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。
+F: 踏入钟门
+PASS: demo_ch01_moss_bell_court boss death opens the exit route
+PASS: demo_ch01_moss_bell_court boss death removes the prefixed legacy wall
+PASS: demo_ch01_moss_bell_court boss floor survives route opening
+PASS: demo_ch01_moss_bell_court boss death releases the arena lock
+PASS: demo_ch01_moss_bell_court quest has an obtainable pickup for map_fragment
+地图残页
+心愿达成 · 升台绘图师的心愿
+收入行囊 · 能量纺锤
+PASS: demo_ch01_moss_bell_court actual item completes npc_gear_cartographer delivery
+PASS: demo_ch01_moss_bell_court delivery grants its reward once
+PASS: demo_ch01_moss_bell_court repeated wish cannot duplicate the reward
+PASS: demo_ch01_moss_bell_court configured exit is usable after boss death
+第2章：铸雨渠。你从苔钟庭的排水钟管落入雨渠入口。
+PASS: res://data/demo_ch02_rain_foundry_canal.json campaign transition creates a scene
+PASS: res://data/demo_ch02_rain_foundry_canal.json transition sets the authored respawn point
+PASS: res://data/demo_ch02_rain_foundry_canal.json player respawn uses the campaign entry
+PASS: res://data/demo_ch02_rain_foundry_canal.json carries acquired abilities without duplicates
+PASS: res://data/demo_ch02_rain_foundry_canal.json carries currency
+PASS: res://data/demo_ch02_rain_foundry_canal.json carries story flags
+第2章 铸雨渠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor us_step_a
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor aq_lip
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor rd_step
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor gg_w
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor gg_c1
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor gg_c2
+PASS: demo_ch02_rain_foundry_canal converted terrain preserves one-way anchor hub_balcony_e
+PASS: demo_ch02_rain_foundry_canal has a manual story pickup
+LORE_PICKUP 拾获「证词·其二」——水声里析出的一段锤语，节拍极稳。
+证词·其二
+PASS: demo_ch02_rain_foundry_canal F collects the actual story pickup
+PASS: demo_ch02_rain_foundry_canal same-frame body event cannot duplicate a manual pickup
+PASS: demo_ch02_rain_foundry_canal identifies nested room wish_board_landing
+PASS: demo_ch02_rain_foundry_canal identifies nested room gauge_gallery
+PASS: demo_ch02_rain_foundry_canal identifies nested room drowned_archive_pod
+PASS: demo_ch02_rain_foundry_canal identifies nested room counterweight_niche
+PASS: demo_ch02_rain_foundry_canal identifies nested room preboss_causeway
+PASS: demo_ch02_rain_foundry_canal identifies nested room pendulum_works
+PASS: demo_ch02_rain_foundry_canal player start has a landing within the movement envelope
+PASS: demo_ch02_rain_foundry_canal campaign entry has a landing within the movement envelope
+PASS: demo_ch02_rain_foundry_canal has a shortcut lever
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: demo_ch02_rain_foundry_canal manual lever works before clearing unrelated enemies
+PASS: demo_ch02_rain_foundry_canal opening a manual shortcut does not bypass the combat goal
+PASS: demo_ch02_rain_foundry_canal HUD reports the opened shortcut separately from the locked boss route
+拾得碎钱与材料 · 绯线回充
+本区敌群已清，钟门前的道路开启。
+PASS: demo_ch02_rain_foundry_canal last normal enemy unlocks the boss route
+PASS: demo_ch02_rain_foundry_canal combat clear leaves the manual shortcut closed
+PASS: demo_ch02_rain_foundry_canal default combat clear opens no individual manual shortcuts
+PASS: demo_ch02_rain_foundry_canal aggregate route state reports the unlocked boss route before using the lever
+PASS: demo_ch02_rain_foundry_canal HUD reports the unlocked boss route separately from closed manual shortcuts
+PASS: demo_ch02_rain_foundry_canal legacy combat shortcuts still open on combat clear
+捷径已通（2/2）。钟门前可以先在钟龛休息。
+PASS: demo_ch02_rain_foundry_canal lever opens the shortcut after combat clear
+PASS: demo_ch02_rain_foundry_canal legacy blocker exists before boss death
+PASS: demo_ch02_rain_foundry_canal ordinary arena walls are not post-boss blockers
+钟门深处 · 绯线执剪者
+钟门已合，战斗开始。
+PASS: demo_ch02_rain_foundry_canal boss entry installs an arena lock
+PASS: demo_ch02_rain_foundry_canal boss arena has a physical platform or terrain floor
+PASS: demo_ch02_rain_foundry_canal scalar boss bounds fit the current floor
+PASS: demo_ch02_rain_foundry_canal original Boss artwork preserves configured body and attack hitbox dimensions
+PASS: demo_ch02_rain_foundry_canal physical contact shape retains configured size and offset
+PASS: demo_ch02_rain_foundry_canal boss clamps at left bound
+PASS: demo_ch02_rain_foundry_canal boss clamps at right bound
+LORE_PICKUP 拾获「铁匠誓牌」——铁誓牌，正面一百四十七个名字，背面一枚缺角的徽记。
+第二章闭环完成：铸雨渠水轮捷径、Boss门和绯线执剪者均已验证。
+前往下一片土地 · 绯线执剪者倒下后，冷却水漫过契约索道，通往盐白书库的升降井开始运转。
+F: 踏入钟门
+PASS: demo_ch02_rain_foundry_canal boss death opens the exit route
+PASS: demo_ch02_rain_foundry_canal boss death removes the prefixed legacy wall
+PASS: demo_ch02_rain_foundry_canal boss floor survives route opening
+PASS: demo_ch02_rain_foundry_canal boss death releases the arena lock
+PASS: demo_ch02_rain_foundry_canal quest has an obtainable pickup for worker_badge
+锈工牌·其一
+心愿达成 · 失聪铁匠柳的心愿
+收入行囊 · 防潮线结
+PASS: demo_ch02_rain_foundry_canal actual item completes npc_rain_smith_liu delivery
+PASS: demo_ch02_rain_foundry_canal delivery grants its reward once
+PASS: demo_ch02_rain_foundry_canal repeated wish cannot duplicate the reward
+PASS: demo_ch02_rain_foundry_canal configured exit is usable after boss death
+第3章：盐白书库。契约索道把你送到被盐晶封住的档案塔。
+PASS: res://data/demo_ch03_saltwhite_archive.json campaign transition creates a scene
+PASS: res://data/demo_ch03_saltwhite_archive.json transition sets the authored respawn point
+PASS: res://data/demo_ch03_saltwhite_archive.json player respawn uses the campaign entry
+PASS: res://data/demo_ch03_saltwhite_archive.json carries acquired abilities without duplicates
+PASS: res://data/demo_ch03_saltwhite_archive.json carries currency
+PASS: res://data/demo_ch03_saltwhite_archive.json carries story flags
+第3章 盐白档案馆：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: demo_ch03_saltwhite_archive has a manual story pickup
+LORE_PICKUP 拾获「证词·其三」——全馆唯一不结盐的木匣里，装着半拍之后的声音。
+证词·其三
+PASS: demo_ch03_saltwhite_archive F collects the actual story pickup
+PASS: demo_ch03_saltwhite_archive same-frame body event cannot duplicate a manual pickup
+PASS: demo_ch03_saltwhite_archive player start has a landing within the movement envelope
+PASS: demo_ch03_saltwhite_archive campaign entry has a landing within the movement envelope
+PASS: demo_ch03_saltwhite_archive has a shortcut lever
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: demo_ch03_saltwhite_archive manual lever works before clearing unrelated enemies
+PASS: demo_ch03_saltwhite_archive opening a manual shortcut does not bypass the combat goal
+PASS: demo_ch03_saltwhite_archive HUD reports the opened shortcut separately from the locked boss route
+拾得碎钱与材料 · 绯线回充
+本区敌群已清，钟门前的道路开启。
+PASS: demo_ch03_saltwhite_archive last normal enemy unlocks the boss route
+PASS: demo_ch03_saltwhite_archive combat clear leaves the manual shortcut closed
+PASS: demo_ch03_saltwhite_archive default combat clear opens no individual manual shortcuts
+PASS: demo_ch03_saltwhite_archive aggregate route state reports the unlocked boss route before using the lever
+PASS: demo_ch03_saltwhite_archive HUD reports the unlocked boss route separately from closed manual shortcuts
+PASS: demo_ch03_saltwhite_archive legacy combat shortcuts still open on combat clear
+捷径已通（2/2）。钟门前可以先在钟龛休息。
+PASS: demo_ch03_saltwhite_archive lever opens the shortcut after combat clear
+PASS: demo_ch03_saltwhite_archive legacy blocker exists before boss death
+PASS: demo_ch03_saltwhite_archive ordinary arena walls are not post-boss blockers
+钟门深处 · 灰冠螳将
+钟门已合，战斗开始。
+PASS: demo_ch03_saltwhite_archive boss entry installs an arena lock
+PASS: demo_ch03_saltwhite_archive boss arena has a physical platform or terrain floor
+PASS: demo_ch03_saltwhite_archive scalar boss bounds fit the current floor
+PASS: demo_ch03_saltwhite_archive original Boss artwork preserves configured body and attack hitbox dimensions
+PASS: demo_ch03_saltwhite_archive physical contact shape retains configured size and offset
+PASS: demo_ch03_saltwhite_archive boss clamps at left bound
+PASS: demo_ch03_saltwhite_archive boss clamps at right bound
+LORE_PICKUP 拾获「盐白失声印记」——封在盐晶里的心，看得见，摸不着棱角。
+盐白书库闭环完成：NPC、清怪、Boss门、灰冠螳将和章节奖励均已验证。
+前往下一片土地 · 契约法庭的副册燃成白盐，书库后门露出被藤蔓吞没的温室栈道。
+F: 踏入钟门
+PASS: demo_ch03_saltwhite_archive boss death opens the exit route
+PASS: demo_ch03_saltwhite_archive boss death removes the prefixed legacy wall
+PASS: demo_ch03_saltwhite_archive boss floor survives route opening
+PASS: demo_ch03_saltwhite_archive boss death releases the arena lock
+PASS: demo_ch03_saltwhite_archive configured exit is usable after boss death
+第4章：断弦温室。书库后门之后，是被藤蔓吞没的温室栈道。
+PASS: res://data/demo_ch04_broken_string_greenhouse.json campaign transition creates a scene
+PASS: res://data/demo_ch04_broken_string_greenhouse.json transition sets the authored respawn point
+PASS: res://data/demo_ch04_broken_string_greenhouse.json player respawn uses the campaign entry
+PASS: res://data/demo_ch04_broken_string_greenhouse.json carries acquired abilities without duplicates
+PASS: res://data/demo_ch04_broken_string_greenhouse.json carries currency
+PASS: res://data/demo_ch04_broken_string_greenhouse.json carries story flags
+第4章 断弦温室：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: demo_ch04_broken_string_greenhouse has a manual story pickup
+LORE_PICKUP 拾获「证词·其四」——母株根系里存着的一小节清唱，音准好得让人心碎。
+证词·其四
+PASS: demo_ch04_broken_string_greenhouse F collects the actual story pickup
+PASS: demo_ch04_broken_string_greenhouse same-frame body event cannot duplicate a manual pickup
+PASS: demo_ch04_broken_string_greenhouse player start has a landing within the movement envelope
+PASS: demo_ch04_broken_string_greenhouse campaign entry has a landing within the movement envelope
+PASS: demo_ch04_broken_string_greenhouse has a shortcut lever
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: demo_ch04_broken_string_greenhouse manual lever works before clearing unrelated enemies
+PASS: demo_ch04_broken_string_greenhouse opening a manual shortcut does not bypass the combat goal
+PASS: demo_ch04_broken_string_greenhouse HUD reports the opened shortcut separately from the locked boss route
+拾得碎钱与材料 · 绯线回充
+本区敌群已清，钟门前的道路开启。
+PASS: demo_ch04_broken_string_greenhouse last normal enemy unlocks the boss route
+PASS: demo_ch04_broken_string_greenhouse combat clear leaves the manual shortcut closed
+PASS: demo_ch04_broken_string_greenhouse default combat clear opens no individual manual shortcuts
+PASS: demo_ch04_broken_string_greenhouse aggregate route state reports the unlocked boss route before using the lever
+PASS: demo_ch04_broken_string_greenhouse HUD reports the unlocked boss route separately from closed manual shortcuts
+PASS: demo_ch04_broken_string_greenhouse legacy combat shortcuts still open on combat clear
+捷径已通（2/2）。钟门前可以先在钟龛休息。
+PASS: demo_ch04_broken_string_greenhouse lever opens the shortcut after combat clear
+PASS: demo_ch04_broken_string_greenhouse legacy blocker exists before boss death
+PASS: demo_ch04_broken_string_greenhouse ordinary arena walls are not post-boss blockers
+钟门深处 · 铜根主教
+钟门已合，战斗开始。
+PASS: demo_ch04_broken_string_greenhouse boss entry installs an arena lock
+PASS: demo_ch04_broken_string_greenhouse boss arena has a physical platform or terrain floor
+PASS: demo_ch04_broken_string_greenhouse scalar boss bounds fit the current floor
+PASS: demo_ch04_broken_string_greenhouse original Boss artwork preserves configured body and attack hitbox dimensions
+PASS: demo_ch04_broken_string_greenhouse physical contact shape retains configured size and offset
+PASS: demo_ch04_broken_string_greenhouse boss clamps at left bound
+PASS: demo_ch04_broken_string_greenhouse boss clamps at right bound
+LORE_PICKUP 拾获「断弦失声印记」——缠着断弦的心，弦头打着只有演奏者才会用的活结。
+断弦温室闭环完成：NPC、清怪、Boss门和章节奖励均已验证。
+前往下一片土地 · 铜根主教沉入根井后，温室外墙裂开，黑曜巡礼道的号角从雾里传来。
+F: 树心暖灯
+F: 踏入钟门
+PASS: demo_ch04_broken_string_greenhouse boss death opens the exit route
+PASS: demo_ch04_broken_string_greenhouse boss death removes the prefixed legacy wall
+PASS: demo_ch04_broken_string_greenhouse boss floor survives route opening
+PASS: demo_ch04_broken_string_greenhouse boss death releases the arena lock
+心愿达成 · 蜂蜡商人蜜岚的心愿
+收入行囊 · 心结
+PASS: demo_ch04_broken_string_greenhouse actual item completes npc_beeswax_vendor delivery
+PASS: demo_ch04_broken_string_greenhouse delivery grants its reward once
+PASS: demo_ch04_broken_string_greenhouse repeated wish cannot duplicate the reward
+PASS: heart knot delivery reward stays in the upgrade category
+PASS: demo_ch04_broken_string_greenhouse configured exit is usable after boss death
+第5章：黑曜巡礼道。温室外墙裂开，旧王都外环的号角在雾里回响。
+PASS: res://data/demo_ch05_obsidian_pilgrim_road.json campaign transition creates a scene
+PASS: res://data/demo_ch05_obsidian_pilgrim_road.json transition sets the authored respawn point
+PASS: res://data/demo_ch05_obsidian_pilgrim_road.json player respawn uses the campaign entry
+PASS: res://data/demo_ch05_obsidian_pilgrim_road.json carries acquired abilities without duplicates
+PASS: res://data/demo_ch05_obsidian_pilgrim_road.json carries currency
+PASS: res://data/demo_ch05_obsidian_pilgrim_road.json carries story flags
+第5章 黑曜巡礼路：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: demo_ch05_obsidian_pilgrim_road has a manual story pickup
+LORE_PICKUP 拾获「证词·其五」——白纱夹层里绣出的一段点名册，针脚是行伍的间距。
+证词·其五
+PASS: demo_ch05_obsidian_pilgrim_road F collects the actual story pickup
+PASS: demo_ch05_obsidian_pilgrim_road same-frame body event cannot duplicate a manual pickup
+PASS: demo_ch05_obsidian_pilgrim_road identifies nested room pilgrim_camp
+PASS: demo_ch05_obsidian_pilgrim_road player start has a landing within the movement envelope
+PASS: demo_ch05_obsidian_pilgrim_road campaign entry has a landing within the movement envelope
+PASS: demo_ch05_obsidian_pilgrim_road has a shortcut lever
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: demo_ch05_obsidian_pilgrim_road manual lever works before clearing unrelated enemies
+PASS: demo_ch05_obsidian_pilgrim_road opening a manual shortcut does not bypass the combat goal
+PASS: demo_ch05_obsidian_pilgrim_road HUD reports the opened shortcut separately from the locked boss route
+拾得碎钱与材料 · 绯线回充
+本区敌群已清，钟门前的道路开启。
+PASS: demo_ch05_obsidian_pilgrim_road last normal enemy unlocks the boss route
+PASS: demo_ch05_obsidian_pilgrim_road combat clear leaves the manual shortcut closed
+PASS: demo_ch05_obsidian_pilgrim_road default combat clear opens no individual manual shortcuts
+PASS: demo_ch05_obsidian_pilgrim_road aggregate route state reports the unlocked boss route before using the lever
+PASS: demo_ch05_obsidian_pilgrim_road HUD reports the unlocked boss route separately from closed manual shortcuts
+PASS: demo_ch05_obsidian_pilgrim_road legacy combat shortcuts still open on combat clear
+捷径已通（2/2）。钟门前可以先在钟龛休息。
+PASS: demo_ch05_obsidian_pilgrim_road lever opens the shortcut after combat clear
+PASS: demo_ch05_obsidian_pilgrim_road legacy blocker exists before boss death
+PASS: demo_ch05_obsidian_pilgrim_road ordinary arena walls are not post-boss blockers
+钟门深处 · 镜池新娘
+钟门已合，战斗开始。
+PASS: demo_ch05_obsidian_pilgrim_road boss entry installs an arena lock
+PASS: demo_ch05_obsidian_pilgrim_road boss arena has a physical platform or terrain floor
+PASS: demo_ch05_obsidian_pilgrim_road scalar boss bounds fit the current floor
+PASS: demo_ch05_obsidian_pilgrim_road original Boss artwork preserves configured body and attack hitbox dimensions
+PASS: demo_ch05_obsidian_pilgrim_road physical contact shape retains configured size and offset
+PASS: demo_ch05_obsidian_pilgrim_road boss clamps at left bound
+PASS: demo_ch05_obsidian_pilgrim_road boss clamps at right bound
+LORE_PICKUP 拾获「黑曜失声印记」——黑曜壳的心，冷得像熄了很久的灰，中心有一点不肯灭的红。
+黑曜巡礼道闭环完成：NPC、清怪、Boss门和章节奖励均已验证。
+前往下一片土地 · 镜池新娘的军令化作黑曜钥纹，王冠核心的无声门终于张开。
+F: 踏入钟门
+PASS: demo_ch05_obsidian_pilgrim_road boss death opens the exit route
+PASS: demo_ch05_obsidian_pilgrim_road boss death removes the prefixed legacy wall
+PASS: demo_ch05_obsidian_pilgrim_road boss floor survives route opening
+PASS: demo_ch05_obsidian_pilgrim_road boss death releases the arena lock
+PASS: demo_ch05_obsidian_pilgrim_road quest has an obtainable pickup for silent_order
+LORE_PICKUP 拾获「沉默军令」——一纸没有字的军令，握住时耳后会响起立正的错觉。
+沉默军令
+心愿达成 · 逃旗手的心愿
+PASS: demo_ch05_obsidian_pilgrim_road actual item completes npc_deserter_flagbearer delivery
+PASS: demo_ch05_obsidian_pilgrim_road configured exit is usable after boss death
+第6章：无声王冠。黑曜军令打开王冠核心的无声门。
+PASS: res://data/demo_ch06_silent_crown_core.json campaign transition creates a scene
+PASS: res://data/demo_ch06_silent_crown_core.json transition sets the authored respawn point
+PASS: res://data/demo_ch06_silent_crown_core.json player respawn uses the campaign entry
+PASS: res://data/demo_ch06_silent_crown_core.json carries acquired abilities without duplicates
+PASS: res://data/demo_ch06_silent_crown_core.json carries currency
+PASS: res://data/demo_ch06_silent_crown_core.json carries story flags
+第6章 无声王冠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: demo_ch06_silent_crown_core has a manual story pickup
+LORE_PICKUP 拾获「证词·其六」——从跪行小门后传出的告解，嗓音属于一个锁了一辈子门的人。
+证词·其六
+PASS: demo_ch06_silent_crown_core F collects the actual story pickup
+PASS: demo_ch06_silent_crown_core same-frame body event cannot duplicate a manual pickup
+PASS: demo_ch06_silent_crown_core player start has a landing within the movement envelope
+PASS: demo_ch06_silent_crown_core campaign entry has a landing within the movement envelope
+PASS: demo_ch06_silent_crown_core has a shortcut lever
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: demo_ch06_silent_crown_core manual lever works before clearing unrelated enemies
+PASS: demo_ch06_silent_crown_core opening a manual shortcut does not bypass the combat goal
+PASS: demo_ch06_silent_crown_core HUD reports the opened shortcut separately from the locked boss route
+拾得碎钱与材料 · 绯线回充
+本区敌群已清，钟门前的道路开启。
+PASS: demo_ch06_silent_crown_core last normal enemy unlocks the boss route
+PASS: demo_ch06_silent_crown_core combat clear leaves the manual shortcut closed
+PASS: demo_ch06_silent_crown_core default combat clear opens no individual manual shortcuts
+PASS: demo_ch06_silent_crown_core aggregate route state reports the unlocked boss route before using the lever
+PASS: demo_ch06_silent_crown_core HUD reports the unlocked boss route separately from closed manual shortcuts
+PASS: demo_ch06_silent_crown_core legacy combat shortcuts still open on combat clear
+捷径已通（2/2）。钟门前可以先在钟龛休息。
+PASS: demo_ch06_silent_crown_core lever opens the shortcut after combat clear
+PASS: npc_black_tide_child dialogue wins over the cached nearby shrine
+PASS: npc_black_tide_child F continues the visible speaker despite a cached shrine
+附近没有可交互的人物或机关。
+PASS: npc_black_tide_child cannot be activated from a stale target outside interaction range
+PASS: npc_black_tide_child moving outside range closes dialogue and clears the target
+安坐钟龛 · 已记下归途，恢复生命与绯线。
+PASS: save_hidden_upper_respite remains usable next to its NPC
+附近没有可交互的人物或机关。
+PASS: npc_black_tide_child freeing the visible speaker safely closes dialogue
+PASS: npc_crown_tongue dialogue wins over the cached nearby shrine
+PASS: npc_crown_tongue F continues the visible speaker despite a cached shrine
+附近没有可交互的人物或机关。
+PASS: npc_crown_tongue cannot be activated from a stale target outside interaction range
+PASS: npc_crown_tongue moving outside range closes dialogue and clears the target
+安坐钟龛 · 已记下归途，恢复生命与绯线。
+PASS: save_ch06_lower_loop remains usable next to its NPC
+附近没有可交互的人物或机关。
+PASS: npc_crown_tongue freeing the visible speaker safely closes dialogue
+PASS: demo_ch06_silent_crown_core legacy blocker exists before boss death
+PASS: demo_ch06_silent_crown_core ordinary arena walls are not post-boss blockers
+钟门深处 · 百钥守门人
+钟门已合，战斗开始。
+PASS: demo_ch06_silent_crown_core boss entry installs an arena lock
+PASS: demo_ch06_silent_crown_core boss arena has a physical platform or terrain floor
+PASS: demo_ch06_silent_crown_core scalar boss bounds fit the current floor
+PASS: demo_ch06_silent_crown_core original Boss artwork preserves configured body and attack hitbox dimensions
+PASS: demo_ch06_silent_crown_core physical contact shape retains configured size and offset
+PASS: demo_ch06_silent_crown_core boss clamps at left bound
+PASS: demo_ch06_silent_crown_core boss clamps at right bound
+LORE_PICKUP 拾获「王冠失声印记」——从王冠正中取下的心，比其余五枚都轻——轻得像被预支了太多年。
+守门者陨落。结局之门显现，按 F 抉择。
+无声王冠闭环完成：NPC、清怪、Boss门和章节奖励均已验证。
+前往下一片土地 · 百钥守门人停止吞咽名字，三道结局门在第七根绯线上同时亮起。
+按F交谈
+F: 苔庭回声暗灯
+按F交谈
+F: 钟舌常明灯
+F: 踏入钟门
+PASS: demo_ch06_silent_crown_core boss death opens the exit route
+PASS: demo_ch06_silent_crown_core boss death removes the prefixed legacy wall
+PASS: demo_ch06_silent_crown_core boss floor survives route opening
+PASS: demo_ch06_silent_crown_core boss death releases the arena lock
+PASS: demo_ch06_silent_crown_core configured exit is usable after boss death
+CHAPTER_ROUTE_REGRESSION_PASS chapters=6 checks=270
