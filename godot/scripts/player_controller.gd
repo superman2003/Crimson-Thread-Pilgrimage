@@ -1906,6 +1906,21 @@ func set_spawn(position_value: Vector2) -> void:
     spawn_position = position_value
 
 
+func prepare_region_handoff() -> void:
+    # Cancel references to the departing geometry without making travel a free
+    # cooldown reset or restoring the already reserved healing energy.
+    var dash_remaining := dash_cooldown
+    var guard_remaining := guard_cooldown
+    _reset_traversal_state()
+    dash_cooldown = dash_remaining
+    guard_cooldown = guard_remaining
+    attack_vfx_started = false
+    skill_effect_started = false
+    skill_displacement_done = 0.0
+    velocity = Vector2.ZERO
+    ui_input_locked = false
+
+
 func respawn_at(position_value: Vector2) -> void:
     _reset_traversal_state()
     global_position = position_value

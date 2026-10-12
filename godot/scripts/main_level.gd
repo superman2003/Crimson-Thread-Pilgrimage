@@ -18,6 +18,7 @@ const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
 const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
+const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
@@ -568,6 +569,8 @@ var wish_text: Label
 @export var world_resume := true
 @export var world_save_path := "user://pilgrimage_world.json"
 var world_state: WORLD_STATE_SCRIPT
+var world_loader: WORLD_REGION_LOADER
+var region_tweens: Array[Tween] = []
 var world_narrative: WORLD_NARRATIVE_SCRIPT
 var world_collected_ids: Dictionary = {}
 var world_catalog: Dictionary = {}
@@ -596,11 +599,20 @@ const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
 func _ready() -> void:
     _apply_cmdline_config_override()
     _prepare_world_start()
-    config = _load_json(config_path)
     if world_mode:
-        config = WORLD_ROUTES_SCRIPT.apply_to(config)
-        world_narrative = WORLD_NARRATIVE_SCRIPT.new()
-        _build_world_catalog()
+        world_loader = WORLD_REGION_LOADER.new()
+    _initialize_region()
+
+
+func _initialize_region(prepared_config: Dictionary = {}) -> void:
+    config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
+    if world_mode:
+        if prepared_config.is_empty():
+            config = WORLD_ROUTES_SCRIPT.apply_to(config)
+        if world_narrative == null:
+            world_narrative = WORLD_NARRATIVE_SCRIPT.new()
+        if world_catalog.is_empty():
+            _build_world_catalog()
     if config.is_empty():
         push_error("Missing demo config: " + config_path)
         return
@@ -620,11 +632,12 @@ func _ready() -> void:
     _init_inventory_state()
     if world_mode:
         _restore_world_inventory_and_region()
-    build_system = BUILD_SYSTEM_SCRIPT.new()
-    if world_mode and not world_state.data.get("build_state", {}).is_empty():
-        var restored: Dictionary = build_system.restore(world_state.data.build_state)
-        if not restored.get("ok", false):
-            world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑。"
+    if build_system == null:
+        build_system = BUILD_SYSTEM_SCRIPT.new()
+        if world_mode and not world_state.data.get("build_state", {}).is_empty():
+            var restored: Dictionary = build_system.restore(world_state.data.build_state)
+            if not restored.get("ok", false):
+                world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑。"
     build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
     _bind_build_inputs()
     _bind_audio_settings_key()
@@ -649,8 +662,9 @@ func _ready() -> void:
         if not world_initial_error.is_empty():
             _toast(world_initial_error)
         _save_world()
+        world_loader.register_region(self)
     if boss_trial_mode:
-        call_deferred("_start_boss_trial")
+        _defer_region_call("_start_boss_trial")
 
 
 func _apply_cmdline_config_override() -> void:
@@ -740,6 +754,11 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+    _stop_region_tweens()
+    _release_region_audio()
+
+
+func _release_region_audio() -> void:
     if bgm_player != null:
         bgm_player.stop()
         bgm_player.stream = null
@@ -977,31 +996,44 @@ func _activate_world_portal(area: Area2D) -> void:
     if audio_director != null:
         audio_director.begin_chapter_transition()
     _play_sfx_persistent("chapter_transition", -9.0)
-    call_deferred("_travel_world", next_path, _vec2(data.get("target_spawn", [120, 500])))
+    _defer_region_call("_travel_world", [next_path, _vec2(data.get("target_spawn", [120, 500]))])
 
 
 func _travel_world(next_path: String, entry: Vector2) -> void:
-    var parent_node := get_parent()
-    if parent_node == null:
-        chapter_transitioning = false
-        return
     _save_world()
-    var next_scene: Node = load("res://scenes/World.tscn").instantiate()
-    next_scene.config_path = next_path
-    next_scene.world_state = world_state
-    next_scene.world_resume = false
-    next_scene.world_save_path = world_save_path
-    next_scene.world_slot = world_slot
-    next_scene.entry_spawn_override_enabled = true
-    next_scene.entry_spawn_override = entry
-    next_scene.entered_from_config_id = String(config.get("id", ""))
-    next_scene.transition_entry_message = "旧路重新接通 · " + String(_load_json(next_path).get("name", ""))
-    var was_current := get_tree().current_scene == self
-    parent_node.remove_child(self)
-    parent_node.add_child(next_scene)
-    if was_current:
-        next_scene.get_tree().current_scene = next_scene
-    queue_free()
+    if world_loader == null or not world_loader.replace_region(self, next_path, entry):
+        chapter_transitioning = false
+        _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
+
+
+func _region_tween() -> Tween:
+    for index in range(region_tweens.size() - 1, -1, -1):
+        if not region_tweens[index].is_valid():
+            region_tweens.remove_at(index)
+    var tween := create_tween()
+    region_tweens.append(tween)
+    return tween
+
+
+func _stop_region_tweens() -> void:
+    for tween in region_tweens:
+        if tween.is_valid():
+            tween.kill()
+    region_tweens.clear()
+
+
+func _defer_region_call(method: StringName, arguments: Array = []) -> void:
+    var generation := world_loader.generation if world_loader != null else 0
+    call_deferred("_run_region_deferred", generation, method, arguments)
+
+
+func _run_region_deferred(generation: int, method: StringName, arguments: Array) -> void:
+    if world_loader != null and world_loader.generation != generation:
+        return
+    for argument in arguments:
+        if typeof(argument) == TYPE_OBJECT and not is_instance_valid(argument):
+            return
+    callv(method, arguments)
 
 
 func _commit_world_dialogue() -> void:
@@ -1199,9 +1231,8 @@ func _start_new_journey() -> void:
             return
         DirAccess.remove_absolute(ProjectSettings.globalize_path(world_save_path))
     # Keep the old scene's shared snapshot valid until it has left the tree.
-    world_state = WORLD_STATE_SCRIPT.new()
     world_loading = true
-    _travel_world(DEFAULT_CONFIG_PATH, _vec2(_load_json(DEFAULT_CONFIG_PATH).get("player_start", [120, 500])))
+    _replace_with_save_slot(world_slot, world_save_path)
 
 
 func _load_json(path: String) -> Dictionary:
@@ -1712,7 +1743,7 @@ func duck_bgm(duck_db: float, seconds: float) -> void:
         bgm_duck_tween.kill()
     var base_db := float(AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0))
     var ducked_db := base_db + minf(duck_db, 0.0)
-    bgm_duck_tween = create_tween()
+    bgm_duck_tween = _region_tween()
     bgm_duck_tween.tween_method(_set_bgm_bus_volume_db, AudioServer.get_bus_volume_db(bus_index), ducked_db, 0.35)
     bgm_duck_tween.tween_interval(maxf(seconds, 0.0))
     bgm_duck_tween.tween_method(_set_bgm_bus_volume_db, ducked_db, base_db, 0.6)
@@ -2863,14 +2894,16 @@ func _add_environment_block_texture(block_id: String, rect: Rect2, z_value: int,
 
 
 func _spawn_player() -> void:
-    player = PLAYER_SCENE.instantiate()
-    add_child(player)
+    if not is_instance_valid(player):
+        player = PLAYER_SCENE.instantiate()
+        add_child(player)
     player.global_position = active_spawn
     player.set_spawn(active_spawn)
-    player.hp_changed.connect(_on_hp_changed)
-    player.energy_changed.connect(_on_energy_changed)
-    player.player_respawned.connect(_on_player_respawned)
-    player.ability_action.connect(_on_ability_action)
+    if not player.hp_changed.is_connected(_on_hp_changed):
+        player.hp_changed.connect(_on_hp_changed)
+        player.energy_changed.connect(_on_energy_changed)
+        player.player_respawned.connect(_on_player_respawned)
+        player.ability_action.connect(_on_ability_action)
     if world_mode:
         player.build_system = build_system
         _sync_player_build()
@@ -3911,7 +3944,7 @@ func _chapter_exit(data: Dictionary) -> void:
     glow.z_index = 8
     area.add_child(glow)
 
-    var tween := create_tween()
+    var tween := _region_tween()
     tween.set_loops()
     tween.tween_property(glow, "scale", Vector2(1.12, 1.12), 0.8)
     tween.parallel().tween_property(glow, "modulate:a", 0.42, 0.8)
@@ -3987,14 +4020,14 @@ func _save_point(data: Dictionary) -> void:
 
 func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> void:
 
-    var pulse := create_tween()
+    var pulse := _region_tween()
     pulse.set_loops()
     pulse.tween_property(ring, "scale", Vector2(1.22, 1.22), 0.95).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
     pulse.parallel().tween_property(ring, "modulate:a", 0.35, 0.95)
     pulse.tween_property(ring, "scale", Vector2(0.92, 0.92), 0.95).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
     pulse.parallel().tween_property(ring, "modulate:a", 0.95, 0.95)
 
-    var blink := create_tween()
+    var blink := _region_tween()
     blink.set_loops()
     blink.tween_property(area, "modulate:a", 0.82, 1.25)
     blink.tween_property(area, "modulate:a", 1.0, 1.25)
@@ -4007,7 +4040,7 @@ func _play_save_point_activation(area: Area2D) -> void:
     if sprite != null:
         sprite.modulate = Color(1.0, 0.94, 0.78, 1.0)
         var base_scale := sprite.scale
-        var flash := create_tween()
+        var flash := _region_tween()
         flash.tween_property(sprite, "scale", base_scale*1.08, 0.10).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
         flash.tween_property(sprite, "scale", base_scale, 0.18)
     if ring != null:
@@ -4026,7 +4059,7 @@ func _play_save_point_activation(area: Area2D) -> void:
             points.append(Vector2(cos(angle), sin(angle)) * (24.0 + float(index) * 8.0))
         echo.points = points
         add_child(echo)
-        var tween := create_tween()
+        var tween := _region_tween()
         tween.tween_interval(float(index) * 0.07)
         tween.tween_property(echo, "scale", Vector2(2.15, 2.15), 0.38).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(echo, "modulate:a", 0.0, 0.38)
@@ -4592,7 +4625,7 @@ func _on_interactable_entered(body: Node, area: Area2D) -> void:
         _toast("F: " + String(area.get_meta("interaction_label", area.get_meta("label", area.name))))
     var exit_kind := String(area.get_meta("kind", ""))
     if (exit_kind == "chapter_exit" or exit_kind == "ending_exit") and _chapter_exit_can_open(area):
-        call_deferred("_activate_chapter_exit", area)
+        _defer_region_call("_activate_chapter_exit", [area])
 
 
 func _on_interactable_exited(body: Node, area: Area2D) -> void:
@@ -4788,7 +4821,7 @@ func _activate_chapter_exit(area: Area2D) -> void:
     # 章节切换线音（音频规格 §4.5 env_chapter_transition）：挂 root 不被换场截断。
     _play_sfx_persistent("chapter_transition", -7.0)
     _toast("Entering " + String(area.get_meta("next_runtime_config_id", "next chapter")) + ".")
-    call_deferred("_transition_to_next_chapter", next_config_path)
+    _defer_region_call("_transition_to_next_chapter", [next_config_path])
 
 
 func _chapter_exit_can_open(area: Area2D) -> bool:
@@ -4893,7 +4926,7 @@ func _spawn_ending_gates() -> void:
         glow.z_index = 8
         area.add_child(glow)
 
-        var tween := create_tween()
+        var tween := _region_tween()
         tween.set_loops()
         tween.tween_property(glow, "scale", Vector2(1.12, 1.12), 0.8)
         tween.parallel().tween_property(glow, "modulate:a", 0.42, 0.8)
@@ -5223,7 +5256,7 @@ func _reset_encounters_after_player_death() -> void:
             player.global_position = active_spawn
             if player.has_method("restore_at_save_point"):
                 player.restore_at_save_point()
-        call_deferred("_respawn_boss_trial_boss")
+        _defer_region_call("_respawn_boss_trial_boss")
         _toast("试炼重置 · 守门者已经归位。")
     else:
         pending_enemy_respawn = true
@@ -5282,7 +5315,7 @@ func _spawn_route_open_effect(position_value: Vector2) -> void:
         ring.position = position_value
         ring.z_index = 12
         add_child(ring)
-        var tween := create_tween()
+        var tween := _region_tween()
         tween.tween_interval(float(index) * 0.08)
         tween.tween_property(ring, "scale", Vector2(1.65, 1.65), 0.42)
         tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.42)
@@ -5425,7 +5458,7 @@ func _spawn_pickup_effect(world_position: Vector2) -> void:
     ray.z_index = 91
     add_child(ray)
 
-    var tween := create_tween()
+    var tween := _region_tween()
     tween.tween_property(ring, "scale", Vector2(2.0, 2.0), 0.28)
     tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.28)
     tween.parallel().tween_property(ray, "scale", Vector2(1.5, 1.5), 0.20)
@@ -5888,14 +5921,14 @@ func select_save_slot(index: int) -> bool:
         return false
     _save_world()
     chapter_transitioning = true
-    call_deferred("_replace_with_save_slot", index)
+    _defer_region_call("_replace_with_save_slot", [index])
     return true
 
-func _replace_with_save_slot(index: int) -> void:
+func _replace_with_save_slot(index: int, path_override: String = "") -> void:
     var parent_node := get_parent()
     var scene: Node = load("res://scenes/World.tscn").instantiate()
     scene.world_slot = index
-    scene.world_save_path = WORLD_STATE_SCRIPT.slot_path(index)
+    scene.world_save_path = path_override if not path_override.is_empty() else WORLD_STATE_SCRIPT.slot_path(index)
     var was_current := get_tree().current_scene == self
     parent_node.remove_child(self)
     parent_node.add_child(scene)
@@ -5912,7 +5945,7 @@ func restore_save_backup(index: int = 0) -> bool:
         _toast("备份恢复失败：" + recovered.last_error)
         return false
     chapter_transitioning = true
-    call_deferred("_replace_with_save_slot", slot)
+    _defer_region_call("_replace_with_save_slot", [slot])
     return true
 
 func _ground_is_hazardous(position_value: Vector2) -> bool:
