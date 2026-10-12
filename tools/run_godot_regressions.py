@@ -56,9 +56,9 @@ def main():
             print(f'Running {suite}', flush=True)
             try:
                 with log.open('w') as output:
-                    # Only the frame-counted ability probe needs a fixed clock.
+                    # Frame-counted ability/actuator probes use a fixed clock.
                     # Audio lifetime suites must retain normal playback timing.
-                    simulation = ['--fixed-fps', '60'] if suite == 'ability_movement' else []
+                    simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade'] else []
                     result = subprocess.run([engine, '--headless', *simulation, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
                 output = log.read_text(errors='replace')
                 errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
