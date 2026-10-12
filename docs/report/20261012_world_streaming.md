@@ -28,7 +28,7 @@ Godot 4.6.1 完整50套回归通过，包含既有购图/补绘、状态、导�
 
 真实OpenGL llvmpipe/Mesa 25.2.8：12个取样点（每区出生点及中段视觉块），原始绘制与分块绘制观察差异为0～2像素。检测器容差为64像素（为分段轮廓端点/接缝预留）；没有把本次结果宣称为逐像素完全相同。GPU结果不是普通游戏整屏或自然通关验收，Dummy音频不代表听感。CI新增该GPU对比，默认旧岩壁探针仍保留，并另行通过12个真实GL取样，验证通用运行器的默认路径没有退化。
 
-npm test、npm run test:campaign、运行器单测、Python语法和改动空白检查通过。详细日志在 artifacts/world_streaming/diagnostics；指标和代码blob在 verification.json；gpu_pixels.json为实测数据。
+npm test、npm run test:campaign、运行器单测、Python语法和改动空白检查通过。详细日志在 artifacts/world_streaming/diagnostics；体积较大的world_upgrade.log使用无损gzip保存，原始字节数与SHA256见verification.json；指标和代码blob在 verification.json；gpu_pixels.json为实测数据。
 
 ## 更新进度与下一批
 
