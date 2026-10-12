@@ -34,7 +34,7 @@ World 的 ChapterTerrain 增加独立的碰撞驻留开关；仅开启视觉分�
 
 初次新套件有x变量推断类型解析错误，改为显式float，原失败日志保留；并非产品断言失败。同期world_async_loading 94项、world_host 497项、world_route_walk 25步/1853物理帧、world_streaming 1991项通过。旧视觉套件仍使用独立视觉开关，其全碰撞常驻对照契约未放宽。
 
-完整54套回归正在运行，最终结果随后更新。
+最终源码检查点 `7881d3c` 完整54套零失败：地形2289项、普通平台15877项、异步94项、宿主497项、世界升级402项均通过。回归启动后未修改运行时/套件代码。`npm test`、`npm run test:campaign` 通过；失败与最终日志、gzip原始字节数和SHA256在 `artifacts/terrain_collision_residency/verification.json`。远端CI按最新提交单独报告，不提前宣称通过。最终world_upgrade退出记录两个RefCounted实例，原始ID与警告完整保留，长期引用稳定性未验收。
 
 ## 剩余工作
 

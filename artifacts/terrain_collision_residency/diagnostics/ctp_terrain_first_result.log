@@ -1,0 +1,25 @@
+Running terrain_collision_streaming
+FAIL: terrain_collision_streaming: exit=1 engine_errors=2
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/terrain_collision_streaming_validation.gd:60)
+ERROR: Failed to load script "res://scripts/terrain_collision_streaming_validation.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+Running world_async_loading
+PASS: world_async_loading
+ASYNC METRICS [{"batches":74,"commit_usec":282411,"jobs":285,"max_batch_usec":72769,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":14748,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":76,"commit_usec":144276,"jobs":293,"max_batch_usec":418513,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":15030,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":56,"commit_usec":252927,"jobs":139,"max_batch_usec":88927,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":12245,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":50,"commit_usec":147383,"jobs":131,"max_batch_usec":81110,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":11247,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":48,"commit_usec":142357,"jobs":115,"max_batch_usec":62608,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":10982,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":40,"commit_usec":148540,"jobs":97,"max_batch_usec":66217,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":12519,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 94 checks; six-region parity, budget limits, rollback, save isolation and teardown
+Running world_host
+PASS: world_host
+WORLD HOST METRICS: transitions=43 peak_region_nodes=131 initial_region_nodes=136 fixture_positioning=true
+WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles
+Running world_route_walk
+PASS: world_route_walk
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running world_streaming
+PASS: world_streaming
+WORLD PREFETCH METRICS {"cache_hits":5,"config_reads":5,"failures":0,"generation":3,"jobs":0,"max_jobs":2,"queued":0,"regions":0,"stale_results":2,"textures":0}
+WORLD STREAMING PASS: 1991 checks; six-region visual coverage, unchanged collisions, bounded prefetch and stale-job retirement
+GODOT_REGRESSIONS suites=5 failures=1
