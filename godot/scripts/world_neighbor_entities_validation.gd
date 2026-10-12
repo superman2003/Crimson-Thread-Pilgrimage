@@ -85,7 +85,8 @@ func _run() -> void:
     _check(adopted > 0 and pref.entity_hits - hits == adopted, "arrival uses cache rather than constructing duplicate geometry")
     scene.player.global_position = Vector2(-100000, -100000)
     pref.step(scene, 1)
-    _check(pref.entities.is_empty(), "generation change retires unused detached geometry")
+    _check(pref.entities.is_empty(), "generation change invalidates unused detached geometry")
+    await _retire(pref)
     for body in refs:
         if is_instance_valid(body):
             _check(body.is_inside_tree() and body.get_parent() == scene, "only transferred bodies survive old cache retirement")
@@ -98,8 +99,9 @@ func _run() -> void:
     var item: Dictionary = pref.entities[region].bodies.values()[0]
     var stale: Variant = item.body
     pref.configs[region].stamp = -1
-    _check(pref.take_platform(region, item.data) == null and not is_instance_valid(stale), "timestamp mismatch frees stale geometry before adoption")
+    _check(pref.take_platform(region, item.data) == null and not pref.entities.has(region), "timestamp mismatch invalidates stale geometry before adoption")
     await _warm(pref)
+    _check(not is_instance_valid(stale), "stale geometry retires while fresh cache warms")
     _check(pref.configs[region].stamp != -1 and pref.entities.has(region), "timestamp change rebuilds fresh cache")
     var retired: Array = []
     for cache in pref.entities.values():
@@ -107,6 +109,7 @@ func _run() -> void:
             retired.append(value.body)
     scene.player.global_position = Vector2(-100000, -100000)
     pref.step(scene, 1)
+    await _retire(pref)
     _check(pref.entities.is_empty() and retired.all(func(body): return not is_instance_valid(body)), "leaving radius releases all untransferred bodies")
     print("NEIGHBOR ENTITY METRICS ", JSON.stringify(pref.snapshot()))
     pref.shutdown()
@@ -126,13 +129,25 @@ func _run() -> void:
 func _warm(pref: RefCounted) -> void:
     var deadline := Time.get_ticks_msec() + 10000
     while Time.get_ticks_msec() < deadline:
+        var released: int = pref.entity_releases
         var before: int = pref.entity_builds
         pref.step(scene, 0.25)
+        _check(pref.entity_releases - released <= 2 and pref.snapshot().owned_bodies <= 48, "per-frame retirement and total ownership bounded")
         _check(pref.entity_builds - before <= 2, "per-frame build admission capped at two")
         if not pref.entities.is_empty() and pref.entities.values().all(func(record): return record.pending.is_empty()) and pref.jobs.is_empty() and pref.queue.is_empty():
             return
         await process_frame
     _check(false, "warm cache finishes in bounded fixture time")
+
+func _retire(pref: RefCounted) -> void:
+    for frame in range(100):
+        if pref.retiring.is_empty():
+            return
+        var before: int = pref.entity_releases
+        pref.step(scene, 0.25)
+        _check(pref.entity_releases - before <= 2 and pref.snapshot().owned_bodies <= 48, "retirement queue obeys two-item and global ownership bounds")
+        await process_frame
+    _check(false, "retirement queue drains within bounded fixture frames")
 
 func _geometry(body: StaticBody2D) -> Array:
     var result: Array = [body.position, body.collision_layer, body.collision_mask]

@@ -5,6 +5,7 @@ const BODY := preload("res://scripts/world_platform_body.gd")
 const MAX_BODIES_PER_REGION := 24
 const LANDING_HALF := Vector2(1280, 900)
 var entities: Dictionary = {}
+var retiring: Array[StaticBody2D] = []
 var entity_builds := 0
 var entity_hits := 0
 var entity_releases := 0
@@ -44,6 +45,7 @@ func step(host: Node, delta: float) -> void:
     if selection_elapsed >= 0.25:
         selection_elapsed = 0
         _select(host)
+    _retire_entities(started)
     # Never block on load_threaded_get until its status is LOADED/FAILED.
     for index in range(jobs.size() - 1, -1, -1):
         var job := jobs[index]
@@ -117,9 +119,19 @@ func _release_entities(region_id: String) -> void:
     for record in entities[region_id].bodies.values():
         var body: StaticBody2D = record.body
         if is_instance_valid(body):
+            retiring.append(body)
+    entities.erase(region_id)
+
+func _retire_entities(started: int, eager: bool = false) -> void:
+    var removed := 0
+    while not retiring.is_empty():
+        if not eager and (removed >= 2 or (removed > 0 and Time.get_ticks_usec() - started >= BUDGET_US)):
+            return
+        var body: StaticBody2D = retiring.pop_front()
+        if is_instance_valid(body):
             body.free()
             entity_releases += 1
-    entities.erase(region_id)
+        removed += 1
 
 func _clear_entities() -> void:
     for region_id in entities.keys():
@@ -147,7 +159,7 @@ func _warm_entities(host: Node, started: int) -> void:
             entities[region_id] = {"entry": candidate.entry, "pending": pending, "bodies": {}}
         var record: Dictionary = entities[region_id]
         while not record.pending.is_empty():
-            if built >= 2 or Time.get_ticks_usec() - started >= BUDGET_US:
+            if built >= 2 or Time.get_ticks_usec() - started >= BUDGET_US or _entity_count() + retiring.size() >= MAX_REGIONS * MAX_BODIES_PER_REGION:
                 return
             var data: Dictionary = record.pending.pop_front()
             var rect: Array = data.rect
@@ -155,7 +167,7 @@ func _warm_entities(host: Node, started: int) -> void:
             record.bodies[String(data.id)] = {"body": body, "data": data}
             entity_builds += 1
             built += 1
-            max_entities = maxi(max_entities, _entity_count())
+            max_entities = maxi(max_entities, _entity_count() + retiring.size())
 
 func _entity_count() -> int:
     var count := 0
@@ -228,7 +240,7 @@ func snapshot() -> Dictionary:
     var count := 0
     for textures in retained.values():
         count += textures.size()
-    return {"entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
+    return {"retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
         "regions": configs.size(), "textures": count, "jobs": jobs.size(), "queued": queue.size(),
         "config_reads": config_reads, "cache_hits": cache_hits, "failures": failures,
         "stale_results": stale_results, "max_jobs": max_jobs_seen, "generation": generation}
@@ -240,6 +252,7 @@ func shutdown() -> void:
         if ResourceLoader.load_threaded_get_status(job.path) in [ResourceLoader.THREAD_LOAD_IN_PROGRESS, ResourceLoader.THREAD_LOAD_LOADED]:
             ResourceLoader.load_threaded_get(job.path)
     _clear_entities()
+    _retire_entities(Time.get_ticks_usec(), true)
     jobs.clear()
     queue.clear()
     configs.clear()
