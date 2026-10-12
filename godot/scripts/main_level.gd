@@ -18,6 +18,7 @@ const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
 const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
+const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 const WORLD_ABILITIES := ["thread_dash", "silk_wall_grip", "echo_hook", "double_thread_jump", "bell_guard", "thorn_downstrike", "lantern_phase", "crown_resonance"]
@@ -780,7 +781,7 @@ func _prepare_world_start() -> void:
             if not saved_path.is_empty():
                 config_path = saved_path
                 entry_spawn_override_enabled = true
-                entry_spawn_override = _vec2(world_state.data.entry)
+                entry_spawn_override = world_state.resume_local_position()
         elif world_resume and world_state.last_error != "missing":
             world_initial_error = "归途记录无法读取，本次不会覆盖原记录。"
 
@@ -832,6 +833,14 @@ func _restore_world_runtime() -> void:
         for room_id in visited_rooms:
             if bool(visited_rooms[room_id]):
                 metsys_bridge.discover_room(String(room_id))
+
+
+## Shared coordinate frame for the future streaming host and world navigation.
+## The existing chapter scene still simulates in its own local physics frame.
+func player_world_position() -> Vector2:
+    if player == null or not world_mode:
+        return Vector2.INF
+    return WORLD_COORDINATES.to_world(String(config.get("id", "")), player.global_position)
 
 
 func _save_world() -> void:

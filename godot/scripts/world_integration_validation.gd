@@ -20,6 +20,7 @@ func _run() -> void:
     var scene := _spawn(true, false)
     await _frames()
     _check(scene.world_mode, "World enables persistent campaign")
+    _check(scene.player_world_position() == WORLD.COORDINATES.to_world(String(scene.config.id), scene.player.global_position), "player exposes unified world position")
     _check(current_scene == scene, "test starts with real current_scene")
     var first_id := String(scene.config.id)
     var first_instance := scene.get_instance_id()
@@ -76,6 +77,9 @@ func _run() -> void:
     scene = current_scene
     _check(scene.get_instance_id() != first_instance, "portal replaces scene instance")
     _check(String(scene.config.id) == "demo_ch02_rain_foundry_canal", "A portal enters B")
+    _check(scene.player_world_position() == WORLD.COORDINATES.to_world(String(scene.config.id), scene.player.global_position), "arrival uses destination world origin")
+    _check(not scene.world_state.data.world_location.is_empty(), "runtime save records world checkpoint")
+    _check(scene.world_state.resume_local_position() == scene.active_spawn, "runtime resume retains bell checkpoint")
     _check(scene.player.hp == 3 and scene.player.energy == 41, "travel preserves HP and energy")
     _check(scene.inventory_counts.get(item_id, 0) >= amount_after, "travel carries inventory")
     var child: Area2D = scene.get_node_or_null("npc_canal_child")
