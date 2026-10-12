@@ -204,7 +204,7 @@ const FOOTSTEP_MATERIAL_REMAP := {"fiber": "glass", "copper": "wet"}
 const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
 const FOOTSTEP_STRIDE := 88.0
-const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v2/manifest.json"
+const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 
 ## 绯线视觉语言色值（docs/spec/20260726160500000 §1.2）
@@ -290,6 +290,8 @@ var was_wall_sliding: bool = false
 var air_jump_available: bool = true
 var grapple_anchor: Node2D = null
 var grapple_timer: float = 0.0
+var grapple_recovery_timer := 0.0
+const GRAPPLE_RECOVERY_TIME := 0.10
 var grapple_line: Line2D = null
 var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
@@ -385,6 +387,7 @@ func _physics_process(delta: float) -> void:
 
     dash_cooldown = maxf(0.0, dash_cooldown - delta)
     land_timer = maxf(0.0, land_timer - delta)
+    grapple_recovery_timer = maxf(0.0, grapple_recovery_timer - delta)
     skill_cooldown = maxf(0.0, skill_cooldown - delta)
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
@@ -408,6 +411,8 @@ func _physics_process(delta: float) -> void:
     # A fresh jump cancels the pull; holding the original jump never spends the air jump.
     if grapple_timer > 0.0 and Input.is_action_just_pressed("jump"):
         _stop_grapple()
+    if Input.is_action_just_pressed("jump"):
+        grapple_recovery_timer = 0.0
     if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
         velocity.y = jump_velocity
         coyote_timer = 0.0
@@ -547,6 +552,7 @@ func _try_start_grapple() -> bool:
     ability_action.emit("echo_hook", global_position, (best.global_position - origin).normalized())
     grapple_anchor = best
     grapple_timer = grapple_timeout
+    grapple_recovery_timer = 0.0
     coyote_timer = 0.0
     jump_buffer_timer = 0.0
     wall_sliding = false
@@ -569,7 +575,7 @@ func _update_grapple(delta: float) -> void:
     var offset := grapple_anchor.global_position - (global_position + Vector2(0.0, -42.0))
     grapple_timer = maxf(0.0, grapple_timer - delta)
     if offset.length() <= 36.0 or grapple_timer <= 0.0:
-        _stop_grapple()
+        _stop_grapple(true)
         velocity *= 0.35
         return
     # Sweep each physics tick instead of teleporting through solid terrain.
@@ -584,8 +590,9 @@ func _update_grapple(delta: float) -> void:
         grapple_line.points = PackedVector2Array([Vector2(0.0, -42.0), to_local(grapple_anchor.global_position)])
 
 
-func _stop_grapple() -> void:
+func _stop_grapple(recover: bool = false) -> void:
     grapple_timer = 0.0
+    grapple_recovery_timer = GRAPPLE_RECOVERY_TIME if recover else 0.0
     grapple_anchor = null
     if is_instance_valid(grapple_line):
         grapple_line.queue_free()
@@ -628,6 +635,7 @@ func _spawn_double_jump_vfx() -> void:
 
 
 func _start_attack(animation: StringName, allow_traversal_action: bool = true) -> void:
+    grapple_recovery_timer = 0.0
     if animation == &"attack_1" and _crest() == "bell":
         animation = &"attack_2"
     active_skill.clear()
@@ -678,7 +686,7 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true) -
     hook_latch_played = false
     hook_reel_played = false
     _sync_attack_hitbox()
-    _play(animation)
+    _play(animation, true)
     if animation == &"hook_throw":
         _play_sfx("hook", -6.0)
     elif animation == &"attack_2":
@@ -1215,32 +1223,78 @@ func _update_animation(input_axis: float) -> void:
     if hurt_timer > 0.0:
         _play(&"hurt")
     elif heal_timer > 0.0:
-        _play(&"heal" if sprite.sprite_frames.has_animation(&"heal") else &"land")
+        _pose_progress(&"heal", 1.0 - heal_timer / maxf(heal_duration, 0.01))
     elif guard_timer > 0.0:
-        _play(&"guard" if sprite.sprite_frames.has_animation(&"guard") else &"idle")
+        _pose_progress(&"guard", 1.0 - guard_timer / maxf(guard_initial_duration, 0.01))
     elif attack_timer > 0.0:
-        _play(current_attack)
+        _update_attack_pose()
     elif grapple_timer > 0.0:
-        _play(&"hook_throw")
+        # Hold the pull pose; do not replay release every 0.4 seconds.
+        var elapsed := grapple_timeout - grapple_timer
+        _pose_progress(&"hook_throw", 0.25 if elapsed < 0.05 else 0.5)
     elif dash_timer > 0.0:
-        _play(&"dash")
+        _pose_progress(&"dash", 1.0 - dash_timer / maxf(dash_time, 0.01))
     elif wall_sliding and not is_on_floor():
         _play(&"wall_slide")
+    elif phase_active:
+        _play(&"phase")
+    elif grapple_recovery_timer > 0.0:
+        _pose_progress(&"hook_throw", 0.75)
     elif not is_on_floor():
+        if velocity.y < 0.0 and sprite.animation == &"jump_start" and sprite.is_playing():
+            return # Preserve takeoff instead of replacing it on the same tick.
         _play(&"jump_loop" if velocity.y < 0.0 else &"fall")
     elif land_timer > 0.0:
-        _play(&"land")
+        _pose_progress(&"land", 1.0 - land_timer / 0.14)
     elif absf(input_axis) > 0.1:
         _play(&"run")
     else:
         _play(&"idle")
 
 
-func _play(name: StringName) -> void:
+func _play(name: StringName, restart: bool = false) -> void:
     if sprite.sprite_frames == null or not sprite.sprite_frames.has_animation(name):
         return
-    if sprite.animation != name:
+    if restart:
+        sprite.stop()
+    if sprite.animation != name or not sprite.is_playing() or restart:
         sprite.play(name)
+
+
+func _pose_progress(name: StringName, progress: float) -> void:
+    if not sprite.sprite_frames.has_animation(name):
+        return
+    _play(name)
+    sprite.pause()
+    var count := sprite.sprite_frames.get_frame_count(name)
+    sprite.set_frame_and_progress(clampi(int(progress * count), 0, count - 1), 0.0)
+
+
+func _update_attack_pose() -> void:
+    var animation := current_attack
+    var kind := String(active_skill.get("kind", ""))
+    if kind == "tool": animation = &"item_use"
+    elif kind == "resonance": animation = &"resonance"
+    elif not active_skill.is_empty():
+        if kind == "ranged": animation = &"skill_projectile"
+        elif kind == "defense": animation = &"skill_defense"
+        elif String(active_skill.get("id", "")) == "shockwave": animation = &"skill_wave"
+        elif kind == "control": animation = &"skill_control"
+        else: animation = &"skill_melee"
+    elif current_attack != &"hook_throw":
+        if current_attack_direction.y > 0.5: animation = &"down_attack"
+        elif not is_on_floor(): animation = &"air_attack"
+    var elapsed := attack_duration - attack_timer
+    var progress := 0.0
+    if kind == "tool":
+        progress = elapsed / maxf(attack_duration, 0.01)
+    elif elapsed < attack_windup:
+        progress = 0.5 * elapsed / maxf(attack_windup, 0.01)
+    elif elapsed <= attack_windup + attack_active_time:
+        progress = 0.25 if current_attack == &"hook_throw" else 0.5
+    else:
+        progress = 0.75
+    _pose_progress(animation, progress)
 
 
 func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0, voice_key: String = "", voice_priority: int = 1) -> void:
@@ -1856,7 +1910,18 @@ func respawn_at(position_value: Vector2) -> void:
     _reset_traversal_state()
     global_position = position_value
     velocity = Vector2.ZERO
+    reset_camera_after_arrival()
     player_respawned.emit()
+
+
+func reset_camera_after_arrival() -> void:
+    var camera := get_node_or_null("Camera2D") as Camera2D
+    if camera != null:
+        camera.position = Vector2(0, -55)
+        camera.offset = Vector2.ZERO
+        camera.rotation = 0.0
+        camera.reset_smoothing()
+        camera.force_update_scroll()
 
 
 func _hard_respawn() -> void:
@@ -1899,6 +1964,10 @@ func _load_sprite_frames() -> void:
         _play(&"idle")
         return
 
+    var scale_value := float(data.get("sprite_scale", 0.66))
+    sprite.scale = Vector2.ONE * scale_value
+    var position_value: Array = data.get("sprite_position", [0, -50])
+    sprite.position = Vector2(float(position_value[0]), float(position_value[1]))
     var frames := SpriteFrames.new()
     for anim in data.get("animations", []):
         var anim_name: StringName = StringName(anim.get("name", "idle"))

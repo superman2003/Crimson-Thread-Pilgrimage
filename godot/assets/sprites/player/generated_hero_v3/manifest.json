@@ -1,0 +1,310 @@
+{
+  "version": 3,
+  "source": "imagegen authored poses",
+  "frame_size": [
+    384,
+    384
+  ],
+  "foot_baseline": 280,
+  "sprite_scale": 0.66,
+  "sprite_position": [
+    0,
+    -58.080000000000005
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/idle_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/idle_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/idle_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/idle_03.png"
+      ]
+    },
+    {
+      "name": "run",
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/run_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/run_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/run_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/run_03.png"
+      ]
+    },
+    {
+      "name": "jump",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_03.png"
+      ]
+    },
+    {
+      "name": "landing",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_03.png"
+      ]
+    },
+    {
+      "name": "attack_1",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_1_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_1_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_1_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_1_03.png"
+      ]
+    },
+    {
+      "name": "air_attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/air_attack_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/air_attack_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/air_attack_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/air_attack_03.png"
+      ]
+    },
+    {
+      "name": "attack_2",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_03.png"
+      ]
+    },
+    {
+      "name": "down_attack",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/down_attack_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/down_attack_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/down_attack_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/down_attack_03.png"
+      ]
+    },
+    {
+      "name": "dash",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/dash_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/dash_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/dash_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/dash_03.png"
+      ]
+    },
+    {
+      "name": "wall_slide",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/wall_slide_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/wall_slide_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/wall_slide_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/wall_slide_03.png"
+      ]
+    },
+    {
+      "name": "hook_throw",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/hook_throw_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/hook_throw_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/hook_throw_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/hook_throw_03.png"
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/phase_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/phase_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/phase_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/phase_03.png"
+      ]
+    },
+    {
+      "name": "heal",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/heal_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/heal_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/heal_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/heal_03.png"
+      ]
+    },
+    {
+      "name": "skill_projectile",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_03.png"
+      ]
+    },
+    {
+      "name": "skill_control",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_03.png"
+      ]
+    },
+    {
+      "name": "skill_defense",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_defense_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_defense_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_defense_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_defense_03.png"
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/hurt_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/hurt_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/hurt_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/hurt_03.png"
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/death_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/death_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/death_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/death_03.png"
+      ]
+    },
+    {
+      "name": "guard",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/guard_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/guard_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/guard_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/guard_03.png"
+      ]
+    },
+    {
+      "name": "resonance",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/resonance_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/resonance_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/resonance_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/resonance_03.png"
+      ]
+    },
+    {
+      "name": "jump_start",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_02.png"
+      ]
+    },
+    {
+      "name": "jump_loop",
+      "fps": 8,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/jump_03.png"
+      ]
+    },
+    {
+      "name": "fall",
+      "fps": 8,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_00.png"
+      ]
+    },
+    {
+      "name": "land",
+      "fps": 22,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/landing_03.png"
+      ]
+    },
+    {
+      "name": "skill_melee",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/attack_2_03.png"
+      ]
+    },
+    {
+      "name": "skill_wave",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_control_03.png"
+      ]
+    },
+    {
+      "name": "item_use",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_00.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_01.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_02.png",
+        "res://assets/sprites/player/generated_hero_v3/frames/skill_projectile_03.png"
+      ]
+    }
+  ],
+  "limitations": [
+    "Four authored poses per action family; fall/apex are held poses.",
+    "Melee and area-wave skills share family poses; distinct runtime effects and phases remain.",
+    "Low source clearance remains an art-review warning, distinct from opaque canvas-edge contact.",
+    "Hook throw uses four isolated versioned source poses; the original sheet is retained."
+  ]
+}

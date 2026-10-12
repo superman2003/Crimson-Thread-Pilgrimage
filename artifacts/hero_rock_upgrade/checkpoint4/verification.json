@@ -1,0 +1,104 @@
+{
+  "baseline": "0fff8ff415d950b0228bc9ab57e6838a2a8bbdce",
+  "baseline_ci": {
+    "run": 38198631236,
+    "conclusion": "success"
+  },
+  "gpu_probe": {
+    "count": 12,
+    "failures": 0,
+    "renderer": "Mesa llvmpipe",
+    "old_edge_delta": 1.0,
+    "new_edge_delta": 0.0,
+    "partition_delta": 0.0
+  },
+  "regressions": {
+    "world_material": {
+      "checks": 1577,
+      "failures": 0
+    },
+    "cave_exploration": {
+      "checks": 170,
+      "failures": 0
+    }
+  },
+  "capture": {
+    "regions": 6,
+    "images": [
+      {
+        "path": "demo_ch01_moss_bell_court_after_seams.jpg",
+        "bytes": 328852,
+        "sha256": "7828c469cc7b34fcb3f27d1d1a52b85a85562df63b9aa55032e52fdccd41f9ad"
+      },
+      {
+        "path": "demo_ch01_moss_bell_court_before_seams.jpg",
+        "bytes": 325364,
+        "sha256": "2fb08b593f98045e152ed360688780b63bd7a37a7f48a3ae5157b44930c1f380"
+      },
+      {
+        "path": "demo_ch02_rain_foundry_canal_after_seams.jpg",
+        "bytes": 286531,
+        "sha256": "6c4d2e03346b778ea0c2064b1feb4bd87ddae6fa7c8d924b65929021d8f75bc8"
+      },
+      {
+        "path": "demo_ch02_rain_foundry_canal_before_seams.jpg",
+        "bytes": 288632,
+        "sha256": "37299cbb2625e2098330c8dab7481c4ffd5b9fb22da29d72b062fe0c3f744591"
+      },
+      {
+        "path": "demo_ch03_saltwhite_archive_after_seams.jpg",
+        "bytes": 304889,
+        "sha256": "0926de0c33c1e941f74573e69a973a1a50eba5fed29abb77a457b63bf35fb80f"
+      },
+      {
+        "path": "demo_ch03_saltwhite_archive_before_seams.jpg",
+        "bytes": 301031,
+        "sha256": "a7218e3954e20076ae7b90e7f3f8c7ba2ceecbc7e638b298264ff3fae69e54ca"
+      },
+      {
+        "path": "demo_ch04_broken_string_greenhouse_after_seams.jpg",
+        "bytes": 322905,
+        "sha256": "f23b87f312d66648d80cb4f1de8b37bcd3f18bba25428781c0345549d909a5a8"
+      },
+      {
+        "path": "demo_ch04_broken_string_greenhouse_before_seams.jpg",
+        "bytes": 321235,
+        "sha256": "61c8f1779ff0b9f39c3dabc2c6723d09e92c0add612e7907221f433860551b79"
+      },
+      {
+        "path": "demo_ch05_obsidian_pilgrim_road_after_seams.jpg",
+        "bytes": 283391,
+        "sha256": "95cfc4c350dd37304ed1a1667ba3071baa968fa2e5a1fe77e8668e5c4b1e0e5e"
+      },
+      {
+        "path": "demo_ch05_obsidian_pilgrim_road_before_seams.jpg",
+        "bytes": 283839,
+        "sha256": "2315ea3bb4250f5e6005dcbe96e735d106c4f4b8310ed2e4381490e2b6d33379"
+      },
+      {
+        "path": "demo_ch06_silent_crown_core_after_seams.jpg",
+        "bytes": 286257,
+        "sha256": "0696954235670492a5585f5ae2e67fa92cbaca136b21959146e547de86db7f76"
+      },
+      {
+        "path": "demo_ch06_silent_crown_core_before_seams.jpg",
+        "bytes": 286028,
+        "sha256": "b9d6d96c10df4ee4dd946e321298e5f38b1e8dda4f5132d5949d0ac05a66890b"
+      },
+      {
+        "path": "six_region_comparison.jpg",
+        "bytes": 783010,
+        "sha256": "1fcb4adcfd123713266725f537bcdae650737313140a9b4e2c7d2df9a40c3454"
+      }
+    ],
+    "fixture": "Camera placed at authored outer solid-rock boundary, camera limits apply. Actors frozen; no traversal proof.",
+    "audio": "Dummy; no listening QA"
+  },
+  "remaining": [
+    "Mirrored ornament repetition",
+    "Room-by-room visual review",
+    "Source edge clearance",
+    "Manual combat playthrough",
+    "Audio listening review"
+  ]
+}

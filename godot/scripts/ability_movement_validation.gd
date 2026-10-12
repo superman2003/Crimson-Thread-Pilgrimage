@@ -49,6 +49,7 @@ func _run() -> void:
 
     var locked_peak: float = await _jump_peak(player, false)
     var unlocked_peak: float = await _jump_peak(player, true)
+    print("ABILITY_PEAK locked=%.3f unlocked=%.3f" % [locked_peak,unlocked_peak])
     _assert(locked_peak > 120.0 and unlocked_peak < 110.0, "double jump reaches a high ledge that a single jump cannot reach")
 
     var anchor := Node2D.new()

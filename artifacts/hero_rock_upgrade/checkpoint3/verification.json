@@ -1,0 +1,559 @@
+{
+  "date": "2026-10-12",
+  "baseline": "97550d639f5953c4919ae0e2fbeb02809ebae592",
+  "source_checkpoint": "cf64b8559987561dd4e2eaf406b2540113b2a218",
+  "regression_coverage": 45,
+  "final_coverage_failures": 0,
+  "coverage_method": "44 suites passed in complete run; world_upgrade passed isolated fixed-clock recheck with 402 checks.",
+  "earlier_diagnostics_preserved": true,
+  "frame_count": 80,
+  "changed_runtime_frames": 4,
+  "unchanged_runtime_frames": 76,
+  "output_clipped": 0,
+  "opaque_source_canvas_edges": 0,
+  "connected_active_poses": 0,
+  "source_clearance_warnings": 20,
+  "animation_checks": 25,
+  "pose_extraction_tests": 2,
+  "world_material_checks": 1577,
+  "world_action_checks": 402,
+  "capture": {
+    "fixture_grants_ability": true,
+    "fixture_sets_start": true,
+    "records": [
+      {
+        "grapple_active": false,
+        "pose": 0,
+        "position": [
+          3990.0,
+          2650.0
+        ],
+        "stage": "00_ready"
+      },
+      {
+        "grapple_active": true,
+        "pose": 1,
+        "position": [
+          3990.0,
+          2650.0
+        ],
+        "stage": "01_release"
+      },
+      {
+        "grapple_active": true,
+        "pose": 2,
+        "position": [
+          4082.43017578125,
+          2611.8349609375
+        ],
+        "stage": "02_pull"
+      },
+      {
+        "grapple_active": false,
+        "pose": 3,
+        "position": [
+          4272.68505859375,
+          2533.27856445312
+        ],
+        "stage": "03_arrival"
+      }
+    ]
+  },
+  "tools": {
+    "image_generation": "built-in imagegen",
+    "python": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "suites": [
+    {
+      "suite": "ability_movement",
+      "fixed_simulation_fps": 60,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: reachable anchor is available again",
+        "PASS: freed anchor cancels without retaining an invalid reference",
+        "PASS: respawn resets traversal impulses and air jump",
+        "ABILITY_MOVEMENT_VALIDATION failures=0"
+      ]
+    },
+    {
+      "suite": "all_chapters_demo",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "最后的巡礼之路已经开启。",
+        "PASS: demo_ch06_silent_crown_core ending exit opens ending route",
+        "PASS_CHAPTER_RUNTIME: demo_ch06_silent_crown_core enemies=14 npcs=4 reward=silent_mark_crown",
+        "ALL_CHAPTERS_DEMO_VALIDATION_PASS chapters=6 complete=true"
+      ]
+    },
+    {
+      "suite": "boss_trial",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "钟门深处 · 苔钟守母",
+        "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1020.0, 720.0] boss_spawned=true",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "     at: cleanup (core/object/object.cpp:2641)"
+      ]
+    },
+    {
+      "suite": "build_system",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "BUILD SYSTEM PASS: 72 checks"
+      ]
+    },
+    {
+      "suite": "cave_exploration",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "捷径已通（1/1）。钟门前可以先在钟龛休息。",
+        "第6章 无声王冠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "捷径已通（1/1）。钟门前可以先在钟龛休息。",
+        "CAVE_EXPLORATION_VALIDATION chapters=6 checks=170 failures=0"
+      ]
+    },
+    {
+      "suite": "cave_route_walk",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "第4章 断弦温室：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "第5章 黑曜巡礼路：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "第6章 无声王冠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "CAVE_ROUTE_WALK_VALIDATION traversals=78 failures=0"
+      ]
+    },
+    {
+      "suite": "ch01_room_reconstruction",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "F: 迷园苔灯",
+        "F: 殿前苔灯",
+        "F: 检修支线 → 钟骨吊运台",
+        "CH01_ROOM_RECONSTRUCTION checks=63 failures=0 combat_scope=local_arrival"
+      ]
+    },
+    {
+      "suite": "ch02_demo",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Entering demo_ch03_saltwhite_archive.",
+        "第3章：盐白书库。契约索道把你送到被盐晶封住的档案塔。",
+        "PASS: CH02 nearby F fallback enters CH03",
+        "CH02_DEMO_VALIDATION_PASS enemies=15 npcs=4 keys=0 boss=C2_B01 combat_clear=true complete=true"
+      ]
+    },
+    {
+      "suite": "chapter_registry",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: runtime chapter registry includes ch04_broken_string_greenhouse",
+        "PASS: runtime chapter registry includes ch05_obsidian_pilgrim_road",
+        "PASS: runtime chapter registry includes ch06_silent_crown_core",
+        "CHAPTER_REGISTRY_VALIDATION_PASS campaign=6 chapter_files=5"
+      ]
+    },
+    {
+      "suite": "chapter_route_regression",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: demo_ch06_silent_crown_core boss floor survives route opening",
+        "PASS: demo_ch06_silent_crown_core boss death releases the arena lock",
+        "PASS: demo_ch06_silent_crown_core configured exit is usable after boss death",
+        "CHAPTER_ROUTE_REGRESSION_PASS chapters=6 checks=270"
+      ]
+    },
+    {
+      "suite": "chinese_story",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "……抬头。整座城，都住在一口钟的里面。",
+        "按F交谈",
+        "PASS: visible map labels include Chinese",
+        "CHINESE_STORY_VALIDATION_PASS chinese_story_visible=true npc_prompt_chinese=true"
+      ]
+    },
+    {
+      "suite": "combat",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: ai enemy remains active during combat validation",
+        "PASS: enemy attack desire starts an active command",
+        "PASS: enemy command ai can damage the player",
+        "COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true"
+      ]
+    },
+    {
+      "suite": "demo",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: chapter exit exists after boss",
+        "PASS: chapter exit points to CH02",
+        "DEMO_VALIDATION_PASS enemies=14 hazards=9 keys=0 boss=1 combat_clear=true complete=true",
+        "殿里的锈味很旧，旧得像一句守了太久的诺言。"
+      ]
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: owner cancellation clears remaining effects",
+        "PASS: cancelled effect is freed",
+        "PASS: enemy removal cancels its live attack effects",
+        "ENEMY_EFFECT_LIFETIME_VALIDATION checks=29 failures=0"
+      ]
+    },
+    {
+      "suite": "enemy_visibility",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "ENEMY_VISIBILITY_VALIDATION checks=36 failures=0"
+      ]
+    },
+    {
+      "suite": "generated_runtime",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "",
+        "第1章 苔钟庭：清完苔钟庭三处敌群，打开后门捷径，击败苔钟守母。",
+        "本区捷径均已接通。",
+        "GENERATED_RUNTIME_VALIDATION_PASS configs=6"
+      ]
+    },
+    {
+      "suite": "hero_animation",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "HERO_ANIMATION_VALIDATION checks=25 failures=0"
+      ]
+    },
+    {
+      "suite": "inventory_map",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "前往下一片土地 · 锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。",
+        "PASS: boss drops unique material",
+        "PASS: Esc closes overlays",
+        "INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=2 currency=38"
+      ]
+    },
+    {
+      "suite": "metsys",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: MetSys stores activated save point object",
+        "PASS: MetSys ignores duplicate object store safely",
+        "PASS: MetSys exposes save data dictionary",
+        "METSYS_VALIDATION_PASS cells=144 walls=271 passages=305 routes=47 locked=1 connectors=102 discovered=2 registered=13 stored=1"
+      ]
+    },
+    {
+      "suite": "pilgrimage_merge_regression",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: snare keeps 58 percent target speed at 120 Hz",
+        "PASS: snare expiry restores normal movement speed",
+        "PASS: dash escapes the snare",
+        "PILGRIMAGE_MERGE_REGRESSION checks=12 failures=0"
+      ]
+    },
+    {
+      "suite": "pilgrimage_overhaul",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "钟门深处 · 百钥守门人",
+        "按F交谈",
+        "冠门审判",
+        "PILGRIMAGE_OVERHAUL_VALIDATION kinds=46 moves=104 failures=0"
+      ]
+    },
+    {
+      "suite": "pilgrimage_review_regression",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "第二阶段",
+        "第二阶段",
+        "归途重新开始，敌群与守门者已经归位。",
+        "PILGRIMAGE_REVIEW_REGRESSION checks=133 failures=0"
+      ]
+    },
+    {
+      "suite": "player_upgrade_regression",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0"
+      ]
+    },
+    {
+      "suite": "save_product",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "SAVE PRODUCT PASS: 23 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ]
+    },
+    {
+      "suite": "seal_acceptance",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。",
+        "旧路重新接通 · 铸雨渠试玩章",
+        "攀壁已会：雨溢立管通向书库；排水钟管随时可以返回钟庭。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "SEAL_ACCEPTANCE_PASS checks=32 failures=0 real_world_ui_damage_crossregion_restart"
+      ]
+    },
+    {
+      "suite": "seal_acquisition",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "SEAL_ACQUISITION_VALIDATION: 66 checks; 0 failures"
+      ]
+    },
+    {
+      "suite": "seal_combat",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "SEAL_COMBAT_VALIDATION PASS checks=70 failures=0"
+      ]
+    },
+    {
+      "suite": "seal_presentation",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "SEAL_PRESENTATION_VALIDATION: 119 checks, 0 failures"
+      ]
+    },
+    {
+      "suite": "seal_system",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "SEAL SYSTEM PASS: 14 checks"
+      ]
+    },
+    {
+      "suite": "seal_ui",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "SEAL_UI_VALIDATION_PASS checks=23 failures=0"
+      ]
+    },
+    {
+      "suite": "story_guidance",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS: dialogue panel shows the authored greeting",
+        "PASS: route choice shows authored combat-clear guidance",
+        "STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true",
+        "……抬头。整座城，都住在一口钟的里面。"
+      ]
+    },
+    {
+      "suite": "tests_verify_narrative_progression",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "NARRATIVE_PROGRESSION_PASS checks=78 failures=0"
+      ]
+    },
+    {
+      "suite": "tests_verify_narrative_runtime",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "结局达成：绯线改写",
+        "结局已定（ending_c），此门不再回应。",
+        "来路与返程都已标在地图上。继续探索，或带着新证据返回旧地。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "NARRATIVE_RUNTIME_PASS checks=23 failures=0"
+      ]
+    },
+    {
+      "suite": "tests_verify_narrative_ui",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "按F交谈",
+        "F: 检修支线 → 排水计时闸",
+        "收入行囊 · 能量纺锤",
+        "Narrative UI failures: 0"
+      ]
+    },
+    {
+      "suite": "tests_verify_world_narrative",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "Narrative/audio checks: 28, failures: 0"
+      ]
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0"
+      ]
+    },
+    {
+      "suite": "ui_redesign",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "",
+        "盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "F: 盐风归庭索道",
+        "UI_REDESIGN_VALIDATION_PASS checks=30 failures=0"
+      ]
+    },
+    {
+      "suite": "ui_world_integration",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "",
+        "盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "F: 盐风归庭索道",
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ]
+    },
+    {
+      "suite": "upgrade_integration",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "归途结已收回，遗留碎钱回到行囊。",
+        "坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。",
+        "盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "UPGRADE INTEGRATION PASS: 28 checks, real scene build/UI/abilities/tools/death/save"
+      ]
+    },
+    {
+      "suite": "world_integration",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "第1章 苔钟庭：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "双线跃已会：返回运书索道，穿过盐风封门，带回失名证词。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "旧路重新接通 · 苔钟庭",
+        "WORLD_INTEGRATION checks=59 failures=0"
+      ]
+    },
+    {
+      "suite": "world_map",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。",
+        "WORLD_MAP checks=19 failures=0"
+      ]
+    },
+    {
+      "suite": "world_material",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "第4章 断弦温室：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "第5章 黑曜巡礼路：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "第6章 无声王冠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。",
+        "WORLD_MATERIAL_VALIDATION regions=6 checks=1577 failures=0"
+      ]
+    },
+    {
+      "suite": "world_route_walk",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "PASS restart restores earned ability and unique testimony",
+        "PASS restart restores permanent salt shortcut",
+        "PASS restart restores last region at its remembered bell shrine",
+        "WORLD_ROUTE_WALK_VALIDATION steps=25 physics_frames=1853 failures=0 damage_suppression=true"
+      ]
+    },
+    {
+      "suite": "world_state",
+      "fixed_simulation_fps": null,
+      "verification_run": "complete_run",
+      "result_tail": [
+        "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "",
+        "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves"
+      ]
+    },
+    {
+      "suite": "world_upgrade",
+      "fixed_simulation_fps": 60,
+      "verification_run": "targeted_recheck",
+      "result_tail": [
+        "旧路重新接通 · 无声王冠试玩章",
+        "F: 检修支线 → 王冠共鸣练习工房",
+        "WORKSHOP_ACTION_PASS upgrade_crown_resonance_3_action_gate",
+        "WORLD_UPGRADE checks=402 failures=0 enemy_removal=true fixture_positioning=true"
+      ]
+    }
+  ],
+  "limitations": [
+    "World screenshot fixture grants hook and sets initial position.",
+    "Navigation suppresses damage; not a full manual combat run.",
+    "Dummy audio screenshots do not validate listening quality.",
+    "Low source clearance and rock repeat seams remain visual review tasks.",
+    "Editor plugin/resource exit diagnostics remain separate from clean gameplay-suite results."
+  ]
+}

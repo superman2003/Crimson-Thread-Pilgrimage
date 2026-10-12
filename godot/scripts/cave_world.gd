@@ -2,6 +2,7 @@ extends Node2D
 ## Opaque rock mass; ordinary rooms stay visible, authored dark rooms use local sight.
 
 const ROCK := preload("res://scripts/world_rock_material.gd")
+const VISIBLE_ROCK := preload("res://scripts/visible_rock_mass.gd")
 const INKS := {"moss_cavern":"172d26", "rain_foundry":"142b37", "salt_archive":"322c3b", "string_greenhouse":"203325", "obsidian_pilgrim":"2e2634", "silent_crown":"232b3c"}
 var solid_rects: Array[Rect2] = []
 var outlines: Array = []
@@ -41,12 +42,11 @@ func configure(chapter: Dictionary, theme: String, owner_scene: Node2D) -> void:
         collision.position = rect.get_center()
         collision.shape = shape
         body.add_child(collision)
-    var surface := Node2D.new()
+    var surface := VISIBLE_ROCK.new()
     surface.name = "PaintedRockMass"
     surface.show_behind_parent = true
     add_child(surface)
-    for rect in solid_rects:
-        ROCK.face(surface,PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)]),theme)
+    surface.configure(solid_rects, ROCK.for_theme(theme))
     z_index = 12 # Opaque painted rock covers distant backdrops and wall ornaments.
     queue_redraw()
     for point in chapter.get("save_points",[]):

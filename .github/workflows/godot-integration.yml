@@ -9,6 +9,11 @@ on:
 permissions:
   contents: read
 
+# Frequent material checkpoints supersede stale runs on the same PR.
+concurrency:
+  group: godot-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   runtime:
     runs-on: ubuntu-24.04
@@ -33,12 +38,21 @@ jobs:
         run: |
           npm test
           npm run test:campaign
+          python3 -m pip install -r tools/requirements-hero.txt
+          python3 tools/validate_hero_v3.py
+          python3 tools/test_hero_pose_extraction.py
       - name: Import project resources
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           "$engine" --headless --path godot --editor --import --quit
           # The first import registers resource UIDs used by the editor plugin.
           "$engine" --headless --path godot --editor --import --quit
+      - name: Validate real GL rock boundaries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/rock-gpu"
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
