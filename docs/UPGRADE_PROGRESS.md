@@ -28,7 +28,7 @@
 
 新增地形碰撞报告：[20261012_terrain_collision_residency.md](report/20261012_terrain_collision_residency.md)。最终源码7881d3c完整54套零失败，地形2289项、平台15877项通过，npm/campaign通过；日志和SHA256在artifacts/terrain_collision_residency。最终world_upgrade仍报告两个退出RefCounted实例，T03继续跟踪。第1阶段仍未整体验收。
 
-新增邻区入口平台预建：承接已合并PR #24的5d8e60b（源0e42592、CI第63次通过），每区最多24个树外平台体、最多两区，每帧创建最多两个；实际到达复用实例，未转移实体按范围/代际/配置变化释放。入口检查和进度不变；邻区其它实体及连续通道仍未完成。新增套件和完整55套结果见 [20261012_neighbor_platform_prebuild.md](report/20261012_neighbor_platform_prebuild.md)，最终回归正在运行。
+新增邻区入口平台预建：承接已合并PR #24的5d8e60b（源0e42592、CI第63次通过），每区最多24个树外平台体、最多两区，每帧创建最多两个；实际到达复用实例，未转移实体按范围/代际/配置变化释放。入口检查和进度不变；邻区其它实体及连续通道仍未完成。新增套件和完整55套结果见 [20261012_neighbor_platform_prebuild.md](report/20261012_neighbor_platform_prebuild.md)，最终源码3d6d724完整55套零失败，邻区247项（含等待循环）、npm/campaign通过。world_upgrade退出仍有5个RefCounted实例，T03持续跟踪，未宣称长期稳定。
 
 ## 完整任务范围
 
