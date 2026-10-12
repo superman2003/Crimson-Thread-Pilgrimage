@@ -872,7 +872,8 @@ func _world_portal(data: Dictionary) -> void:
     arch.add_point(Vector2(29, 17))
     area.add_child(arch)
     var glyph := Label.new()
-    glyph.text = "F"
+    glyph.name = "WorldPortalGlyph"
+    glyph.text = "F" if _world_portal_missing(data).is_empty() else "闩" if not String(data.get("requires_shortcut", "")).is_empty() else "缺"
     glyph.position = Vector2(-8, -32)
     glyph.add_theme_font_size_override("font_size", 20)
     area.add_child(glyph)
@@ -916,16 +917,28 @@ func _world_grapple_anchor(data: Dictionary) -> void:
 
 
 func _world_portal_missing(data: Dictionary) -> String:
-    var shortcut := String(data.get("unlock_shortcut_id", ""))
-    if not shortcut.is_empty() and bool(story_flags.get("world_shortcut_" + shortcut, false)):
-        return ""
-    var required_shortcut := String(data.get("requires_shortcut", ""))
-    if not required_shortcut.is_empty() and not bool(story_flags.get("world_shortcut_" + required_shortcut, false)):
-        return String(data.get("hint", "门闩在另一侧。请先寻找别的通路。"))
-    var ability := String(data.get("required_ability", ""))
-    if not ability.is_empty() and int(inventory_counts.get(ability, 0)) <= 0:
-        return String(data.get("hint", "需要" + _item_display_name(ability) + "。暂时可以探索别处。"))
-    return ""
+    return String(WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags).hint)
+
+
+func _refresh_world_portals() -> void:
+    if not world_mode:
+        return
+    for data in config.get("interactives", []):
+        if String(data.get("kind", "")) != "world_portal":
+            continue
+        var area := get_node_or_null(NodePath(String(data.get("id", ""))))
+        if area == null:
+            continue
+        var status: Dictionary = WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags)
+        area.set_meta("route_status", status.duplicate(true))
+        var arch := area.get_node_or_null("WorldPortalArch") as Line2D
+        if arch != null:
+            arch.default_color = Color(0.40, 0.80, 0.88) if status.open else Color(0.93, 0.67, 0.30)
+        var glyph := area.get_node_or_null("WorldPortalGlyph") as Label
+        if glyph != null:
+            glyph.text = "F" if status.open else "闩" if status.kind == "far_side" else "缺"
+            glyph.tooltip_text = String(data.get("label", "旧通路")) + " · " + String(status.label)
+        area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (" · F 通行" if status.open else " · " + String(status.label)))
 
 
 func _activate_world_portal(area: Area2D) -> void:
@@ -1035,7 +1048,7 @@ func _world_route_status() -> String:
     var parts: Array[String] = []
     for data in config.get("interactives", []):
         if String(data.get("kind", "")) == "world_portal":
-            var status := "通" if _world_portal_missing(data).is_empty() else "待"
+            var status := String(WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags).label)
             parts.append("%s〔%s〕" % [String(data.get("label", "通路")), status])
     return " · ".join(parts)
 
@@ -1054,6 +1067,12 @@ func _world_exploration_hint() -> String:
         if inventory_counts.has("double_thread_jump"):
             return "双线跃使旧地生出新路：阅览台旁的运书线通回钟庭。"
         return "沿烛台阅览支线寻找双线跃；先前的雨渠入口仍可返回。"
+    if region_id.contains("ch04"):
+        return "根须影管通向王冠，需要灯影相位；先去黑曜营地，或沿来路回书库。"
+    if region_id.contains("ch05"):
+        return "营地的灯影相位接通冠脊索道；旧补给索道可从营地开启，返回雨渠。"
+    if region_id.contains("ch06"):
+        return "王冠与温室、黑曜两路汇合；取得共鸣后，可回旧区检修钟门寻找反证。"
     return "来路与返程都已标在地图上。继续探索，或带着新证据返回旧地。"
 
 
@@ -1086,10 +1105,26 @@ func _draw_world_atlas() -> void:
             drawn[key] = true
             var line := Line2D.new()
             line.width = 3.0
-            line.default_color = Color(0.35, 0.82, 0.90) if _world_portal_missing(data).is_empty() else Color(0.88, 0.63, 0.30)
+            var forward: Dictionary = WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags)
+            var peer: Dictionary = WORLD_ROUTES_SCRIPT.portal(target, String(data.get("target_portal_id", "")))
+            var reverse: Dictionary = WORLD_ROUTES_SCRIPT.access(peer, inventory_counts, story_flags)
+            line.set_meta("forward_status", forward)
+            line.set_meta("reverse_status", reverse)
+            line.set_meta("source_region", region_id)
+            line.set_meta("target_region", target)
+            line.default_color = Color(0.35, 0.82, 0.90) if forward.open and reverse.open else Color(0.88, 0.63, 0.30)
             line.add_point(centers[region_id])
             line.add_point(centers[target])
             map_draw_root.add_child(line)
+            var badge := Label.new()
+            badge.name = "WorldRouteState_" + String(data.get("id", ""))
+            badge.position = (centers[region_id] + centers[target]) * 0.5 - Vector2(45, 20)
+            badge.size = Vector2(90, 40)
+            badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+            badge.add_theme_font_size_override("font_size", 13)
+            badge.text = "互通" if forward.open and reverse.open else "单向\n" + String(reverse.label if forward.open else forward.label) if forward.open or reverse.open else String(forward.label) + "\n" + String(reverse.label)
+            badge.tooltip_text = "%s → %s：%s\n%s → %s：%s" % [titles[region_id], titles[target], forward.label, titles[target], titles[region_id], reverse.label]
+            map_draw_root.add_child(badge)
     for region_id_value in region_ids:
         var region_id := String(region_id_value)
         var center: Vector2 = centers[region_id]
@@ -1106,7 +1141,7 @@ func _draw_world_atlas() -> void:
         var explored: int = world_state.get_region(region_id).get("visited_rooms", {}).size()
         label.text = String(titles[region_id]) + ("\n探索 %d 室" % explored if known else "\n尚未踏足")
         map_draw_root.add_child(label)
-    map_text.text = "倒扣巨钟 · 互联世界\n蓝线：当前可用通路  ·  金线：尚有门槛  ·  仅显示已踏足区域的相邻通路\n" + _world_exploration_hint() + "\nTab 区域地图 · M / Esc 返回旅途"
+    map_text.text = "倒扣巨钟 · 互联世界\n蓝线：双向互通  ·  金线：至少一侧有门槛（悬停查看两侧条件）  ·  仅显示已踏足区域的相邻通路\n" + _world_exploration_hint() + "\nTab 区域地图 · M / Esc 返回旅途"
 
 
 func _build_new_journey_dialog() -> void:
@@ -4464,6 +4499,7 @@ func _refresh_ability_gates(play_unlock_sfx: bool = false) -> void:
             var unlock_sfx := String(GATE_UNLOCK_SFX.get(required_ability, "gate_dash")) if play_unlock_sfx else ""
             _unlock_ability_gate(gate_id, unlock_sfx)
     _sync_player_abilities()
+    _refresh_world_portals()
 
 
 func _sync_player_abilities() -> void:
