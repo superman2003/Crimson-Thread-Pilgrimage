@@ -697,6 +697,8 @@ func _apply_cmdline_config_override() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+    if world_mode and not world_loading and is_instance_valid(chapter_terrain) and is_instance_valid(player):
+        chapter_terrain.update_collision_window(player.global_position, player.velocity, _delta)
     if world_mode and not world_loading and world_platforms != null and is_instance_valid(player):
         world_platforms.update(self, player.global_position, player.velocity, _delta)
     if world_mode and not world_loading and is_instance_valid(cave_world) and is_instance_valid(player):
@@ -869,6 +871,8 @@ func _restore_world_runtime() -> void:
         player.arrival_guard_timer = 1.2
     if is_instance_valid(cave_world):
         cave_world.warm_collision_focus(player.global_position)
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.warm_collision_focus(player.global_position)
     if world_platforms != null:
         world_platforms.warm(self, player.global_position)
     player.set_spawn(active_spawn)
@@ -2905,7 +2909,7 @@ func _spawn_seal_practice_targets() -> void:
             if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
                 target.position.y = float(platform.rect[1]) - 23.0
                 if world_platforms != null:
-                    world_platforms.hold(self, String(platform.id))
+                    _hold_actor_support(String(platform.id))
         target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
             "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
             "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": []})
@@ -3038,7 +3042,7 @@ func _background_art() -> void:
 func _background_terrain_metadata() -> void:
     chapter_terrain = TERRAIN_SCRIPT.new()
     add_child(chapter_terrain)
-    chapter_terrain.prepare_config(config, _art_theme_id(), world_mode)
+    chapter_terrain.prepare_config(config, _art_theme_id(), world_mode, world_mode)
 
 
 func _background_landform(data: Dictionary) -> void:
@@ -3047,7 +3051,7 @@ func _background_landform(data: Dictionary) -> void:
 
 func _background_terrain_warm() -> void:
     if world_mode:
-        chapter_terrain.warm_focus(active_spawn)
+        chapter_terrain.warm_focus(entry_spawn_override if entry_spawn_override_enabled else active_spawn)
 
 
 func _background_cave() -> void:
@@ -4205,7 +4209,7 @@ func _npc(data: Dictionary) -> void:
     add_child(area)
     _apply_world_npc_state(area)
     if world_platforms != null:
-        world_platforms.hold(self, _platform_under_position(area.position, 100))
+        _hold_actor_support(_platform_under_position(area.position, 100))
 
 
 func _resolve_enemy_spawn_position(data: Dictionary) -> Vector2:
@@ -4449,7 +4453,7 @@ func _enemy(data: Dictionary) -> Area2D:
     enemy.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(enemy.position, clearance)
     if world_platforms != null:
-        world_platforms.hold(self, floor_platform_id)
+        _hold_actor_support(floor_platform_id)
     var bounds := _enemy_platform_movement_bounds(floor_platform_id, enemy.position, data)
     if bounds.size() >= 2 and enemy.has_method("set_platform_movement_bounds"):
         enemy.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
@@ -4487,7 +4491,7 @@ func _spawn_boss() -> void:
     boss_actor.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(boss_actor.position, clearance)
     if world_platforms != null:
-        world_platforms.hold(self, floor_platform_id)
+        _hold_actor_support(floor_platform_id)
     var bounds := _enemy_platform_movement_bounds(floor_platform_id, boss_actor.position, boss_data)
     if bounds.size() >= 2 and boss_actor.has_method("set_platform_movement_bounds"):
         boss_actor.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
@@ -6130,7 +6134,16 @@ func _recover_death_cache(area: Area2D) -> void:
     _refresh_hud()
 
 
+func _hold_actor_support(platform_id: String) -> void:
+    if world_platforms != null:
+        world_platforms.hold(self, platform_id)
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.hold_collision_support(platform_id)
+
+
 func _ensure_collision_segment(from: Vector2, to: Vector2) -> void:
+    if world_mode and is_instance_valid(chapter_terrain):
+        chapter_terrain.ensure_collision_segment(from, to)
     if world_mode and is_instance_valid(cave_world):
         cave_world.ensure_collision_segment(from, to)
     if world_platforms != null:
@@ -6143,14 +6156,21 @@ func _rock_ray_hit(from: Vector2, to: Vector2) -> Dictionary:
         var platform: Dictionary = world_platforms.ray_hit(self, from, to)
         if not platform.is_empty() and (hit.is_empty() or from.distance_squared_to(platform.position) < from.distance_squared_to(hit.position)):
             hit = platform
+    if world_mode and is_instance_valid(chapter_terrain):
+        var terrain: Dictionary = chapter_terrain.terrain_ray_hit(from, to)
+        if not terrain.is_empty() and (hit.is_empty() or from.distance_squared_to(terrain.position) < from.distance_squared_to(hit.position)):
+            hit = terrain
     return hit
 
 
 func _world_collision_ready() -> bool:
     var cave_ready: bool = not world_mode or not is_instance_valid(cave_world) or cave_world.critical_collision_ready()
-    return cave_ready and (world_platforms == null or world_platforms.ready())
+    var terrain_ready: bool = not world_mode or not is_instance_valid(chapter_terrain) or chapter_terrain.critical_collision_ready()
+    return cave_ready and terrain_ready and (world_platforms == null or world_platforms.ready())
 
 
 func _release_region_platforms() -> void:
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.close_collisions()
     if world_platforms != null:
         world_platforms.shutdown()
