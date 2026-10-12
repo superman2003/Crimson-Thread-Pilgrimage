@@ -218,6 +218,7 @@ func _run() -> void:
     if is_instance_valid(scene):
         scene.queue_free()
         await process_frame
+    _assert(await preload("res://scripts/audio_retirement.gd").drain(self), "AudioServer releases retired seal playback before shutdown")
     _clean()
     print("WORLD_UPGRADE checks=%d failures=%d enemy_removal=true fixture_positioning=true" % [checks, failures])
     # Let the async test stack release its final saved-state Resource first.

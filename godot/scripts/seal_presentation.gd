@@ -1,6 +1,7 @@
 extends Node2D
 ## Original needle/thread/copper action cues. Visual only: never mutates combat stats.
 ## Add as player child. Effects are world anchored and expire even if the player moves.
+const RETIREMENT := preload("res://scripts/audio_retirement.gd")
 const IDS := ["crimson", "bell", "salt", "cleave", "needle", "snare", "ward", "shockwave", "crosscut", "shard", "mine", "fog", "lure", "reflux", "spur", "shell", "stride", "mender", "needlecase"]
 const MAX_EFFECTS := 8
 const MAX_VOICES := 4
@@ -142,6 +143,7 @@ func _sound(cue: String, world_position: Vector2) -> void:
     voice.tree_exiting.connect(_retire_voice.bind(voice))
     _voices.append(voice)
     voice.play()
+    RETIREMENT.watch(voice)
 
 func active_effect_count() -> int:
     return _effects.filter(func(effect): return is_instance_valid(effect) and not effect.is_queued_for_deletion()).size()
