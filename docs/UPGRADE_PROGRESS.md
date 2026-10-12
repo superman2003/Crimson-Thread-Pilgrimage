@@ -24,7 +24,7 @@
 
 六区固定出生夹具普通平台486→129（包括40个角色支撑平台，部分与窗口重合）；只表示这类节点数。关键/可见窗口完整创建，非关键预取与释放各至多两项/帧，2ms为准入预算，单项仍可超时。地形多边形碰撞仍常驻；邻区实体、连续通道仍待完成。
 
-验证与已知问题见 [20261012_platform_spatial_residency.md](report/20261012_platform_spatial_residency.md)，日志在 artifacts/platform_spatial_residency。保留首次完整回归的输入夹具时序失败与训练目标支撑地面失败，修复后复验。未新增实机图/自然流程通关，T03/T04未标完成；本批远端CI按最终提交单独报告。
+验证与已知问题见 [20261012_platform_spatial_residency.md](report/20261012_platform_spatial_residency.md)，日志在 artifacts/platform_spatial_residency。保留首次完整回归的输入夹具时序失败与训练目标支撑地面失败，修复后完整53套零失败，最终源码平台套件15877项复验通过，npm/campaign通过。未新增实机图/自然流程通关，T03/T04未标完成；本批远端CI按最终提交单独报告。
 
 ## 完整任务范围
 
