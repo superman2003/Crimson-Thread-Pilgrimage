@@ -5,6 +5,8 @@ const COORD := preload("res://scripts/world_coordinates.gd")
 const GAMEPLAY := preload("res://scripts/world_gameplay_prefetch.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const SAVE := "user://neighbor_gameplay_validation.json"
+const CACHE_RETRY := "user://world_shared_metadata_retry.json"
+const CACHE_OTHER := "user://world_shared_metadata_other.json"
 const MASK := 1 << 22
 var scene: Node
 var checks := 0
@@ -12,6 +14,8 @@ var failures: Array[String] = []
 var metrics: Array = []
 var observed: Dictionary = {}
 var churn: Dictionary = {}
+var shared_metadata_baseline: Dictionary = {}
+var shared_metadata_signature: Dictionary = {}
 func _initialize() -> void: call_deferred("run")
 func check(ok: bool, message: String) -> void:
     checks += 1
@@ -64,6 +68,87 @@ func signature(actor: Area2D) -> Array:
         elif child is Sprite2D:
             result.append([str(child.name) if not str(child.name).begins_with("@") else child.get_class(),child.position,child.scale,child.texture.get_size(),child.modulate])
     return result
+
+func metadata_signature() -> Dictionary:
+    return {"campaign": scene.campaign.duplicate(true),
+        "chapter_files": scene.chapter_file_configs.duplicate(true),
+        "audio_visual_manifest": scene.audio_visual_manifest.duplicate(true),
+        "item_lore": scene.item_lore.duplicate(true)}
+
+func write_fixture(path: String, text: String) -> void:
+    var file := FileAccess.open(path, FileAccess.WRITE)
+    if file != null:
+        file.store_string(text)
+        file.close()
+
+func verify_shared_metadata_cache() -> void:
+    shared_metadata_baseline = scene.world_shared_metadata_snapshot()
+    shared_metadata_signature = metadata_signature()
+    var reads: Dictionary = shared_metadata_baseline.reads
+    var parses: Dictionary = shared_metadata_baseline.parses
+    var bytes: Dictionary = shared_metadata_baseline.bytes
+    var expected_paths: Array[String] = ["res://data/campaign_chapters.json", "res://data/audio_visual_manifest.json", "res://data/item_lore.json"]
+    for chapter_name in ["ch02_rain_foundry_canal.json", "ch03_saltwhite_archive.json", "ch04_broken_string_greenhouse.json", "ch05_obsidian_pilgrim_road.json", "ch06_silent_crown_core.json"]:
+        expected_paths.append("res://data/chapters/" + chapter_name)
+    var expected_keys: Array[String] = []
+    for expected_path in expected_paths:
+        expected_keys.append(scene._world_shared_metadata_key(expected_path))
+    expected_keys.sort()
+    var actual_keys: Array = reads.keys()
+    actual_keys.sort()
+    check(actual_keys == expected_keys and reads.values().all(func(n): return int(n) == 1), "World host reads eight known immutable metadata sources once")
+    check(parses == reads and bytes.size() == 8 and bytes.values().all(func(n): return int(n) > 0), "metadata parse/byte counters record actual successful source reads")
+    var failures: Dictionary = shared_metadata_baseline.failures
+    check(expected_keys.all(func(key): return int(failures.get(key, 0)) == 0), "all production metadata sources parse without failure")
+    check(scene.campaign.get("chapters", []).size() == 6 and scene.chapter_file_configs.size() == 5 and not scene.audio_visual_manifest.get("runtime_events", {}).is_empty() and not scene.item_lore.is_empty(), "production metadata has expected campaign, chapter, audio, and lore contents")
+    var campaign_path := "res://data/campaign_chapters.json"
+    var campaign_key: String = scene._world_shared_metadata_key(campaign_path)
+    var campaign_reads_before := int(scene.world_shared_metadata_reads.get(campaign_key, 0))
+    var campaign_probes_before := int(scene.world_shared_metadata_probes.get(campaign_key, 0))
+    var cached_campaign: Dictionary = scene._load_world_shared_json(campaign_path)
+    var expected_campaign: Dictionary = cached_campaign.duplicate(true)
+    if not cached_campaign.get("chapters", []).is_empty():
+        cached_campaign.chapters[0]["name"] = "fixture mutation must not escape its copy"
+    check(scene._load_world_shared_json(campaign_path) == expected_campaign, "caller mutation cannot alter cached campaign snapshot")
+    check(int(scene.world_shared_metadata_probes.get(campaign_key, 0)) == campaign_probes_before + 2 and int(scene.world_shared_metadata_reads.get(campaign_key, 0)) == campaign_reads_before, "cache hits probe source metadata without rereading or reparsing content")
+
+    for suffix in ["", ".tmp"]:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(CACHE_RETRY + suffix))
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(CACHE_OTHER + suffix))
+    var missing: Dictionary = scene._load_world_shared_json(CACHE_RETRY)
+    var retry_key: String = scene._world_shared_metadata_key(CACHE_RETRY)
+    check(missing.is_empty() and not scene.world_shared_metadata_cache.has(retry_key), "missing shared metadata is not cached")
+    write_fixture(CACHE_RETRY, "{")
+    check(scene._load_world_shared_json(CACHE_RETRY).is_empty(), "malformed shared metadata is rejected")
+    check(not scene.world_shared_metadata_cache.has(retry_key), "malformed shared metadata is not cached")
+    write_fixture(CACHE_RETRY, "{}")
+    var valid_empty: Dictionary = scene._load_world_shared_json(CACHE_RETRY)
+    var empty_reads := int(scene.world_shared_metadata_reads.get(retry_key, 0))
+    check(valid_empty.is_empty() and scene.world_shared_metadata_cache.has(retry_key), "valid empty JSON object is cached distinctly from failure")
+    check(scene._load_world_shared_json(CACHE_RETRY).is_empty() and int(scene.world_shared_metadata_reads.get(retry_key, 0)) == empty_reads, "valid empty JSON cache avoids a redundant parse")
+    write_fixture(CACHE_RETRY, "{\"value\":\"changed source\"}")
+    var changed: Dictionary = scene._load_world_shared_json(CACHE_RETRY)
+    check(changed.get("value", "") == "changed source", "mtime/size source change invalidates cached snapshot")
+    changed["value"] = "mutated return value"
+    check(scene._load_world_shared_json(CACHE_RETRY).get("value", "") == "changed source", "cache returns a deep copy after source refresh")
+    write_fixture(CACHE_OTHER, "{\"value\":\"other path\"}")
+    check(scene._load_world_shared_json(CACHE_OTHER).get("value", "") == "other path" and scene._load_world_shared_json(CACHE_RETRY).get("value", "") == "changed source", "canonical path keys isolate sources")
+    var world_mode_before: bool = scene.world_mode
+    scene.world_mode = false
+    var other_key: String = scene._world_shared_metadata_key(CACHE_OTHER)
+    var non_world_reads := int(scene.world_shared_metadata_reads.get(other_key, 0))
+    check(scene._load_world_shared_json(CACHE_OTHER).get("value", "") == "other path" and int(scene.world_shared_metadata_reads.get(other_key, 0)) == non_world_reads, "non-World loading retains uncached behavior")
+    scene.world_mode = world_mode_before
+    scene.world_shared_metadata_cache.erase(retry_key)
+    scene.world_shared_metadata_cache.erase(other_key)
+    for suffix in ["", ".tmp"]:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(CACHE_RETRY + suffix))
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(CACHE_OTHER + suffix))
+    for metrics_name in ["world_shared_metadata_reads", "world_shared_metadata_bytes", "world_shared_metadata_parses", "world_shared_metadata_failures", "world_shared_metadata_probes"]:
+        var metrics: Dictionary = scene.get(metrics_name)
+        metrics.erase(retry_key)
+        metrics.erase(other_key)
+    shared_metadata_baseline = scene.world_shared_metadata_snapshot()
 func landing(id: String, entry: Vector2) -> void:
     var pref := _seed_cache(id,entry)
     var state: Dictionary = scene.story_flags.duplicate(true)
@@ -99,6 +184,11 @@ func landing(id: String, entry: Vector2) -> void:
             check(pref.gameplay.take(id,kind,record.data,wrong_profile) == null, "AI profile lease cannot be substituted")
     scene._travel_world(ROUTES.config_path(id),entry)
     await frames(2)
+    var metadata_after: Dictionary = scene.world_shared_metadata_snapshot()
+    check(metadata_after.reads == shared_metadata_baseline.reads and metadata_after.parses == shared_metadata_baseline.parses and metadata_after.bytes == shared_metadata_baseline.bytes, "region arrival reuses immutable metadata without rereading or reparsing")
+    check(metadata_signature() == shared_metadata_signature, "campaign, chapter, audio and lore metadata semantics survive region arrival")
+    check(scene.current_campaign_chapter == scene._campaign_chapter_for_id(id), "current campaign chapter is resolved from the current region, not cached as region state")
+    check(String(scene.config.get("id", "")) == id and String(scene.world_state.data.get("current_region", "")) == id, "region-specific config and saved progression still advance dynamically")
     var warm_signatures: Dictionary = {}
     for key in records:
         var record: Dictionary = records[key]
@@ -209,6 +299,8 @@ func cancellation() -> void:
         await process_frame
     check(scene.world_loader.last_transition.get("rolled_back",false) and String(scene.config.id) == source, "cancelled target rolls back source")
     check(scene.story_flags == state and scene.currency_count == wallet, "cancelled gameplay preserves source progress")
+    var metadata_after: Dictionary = scene.world_shared_metadata_snapshot()
+    check(metadata_after.reads == shared_metadata_baseline.reads and metadata_after.parses == shared_metadata_baseline.parses, "cancelled target preparation reuses immutable metadata")
     var saved := STATE.new()
     check(saved.read(SAVE) and saved.data.current_region == source, "partial destination never committed to disk")
     pref.shutdown()
@@ -305,6 +397,7 @@ func run() -> void:
     current_scene = scene
     await frames(2)
     invalid_descriptors()
+    verify_shared_metadata_cache()
     for id in COORD.manifest().regions:
         var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))
         await landing(id,Vector2(raw.player_start[0],raw.player_start[1]))
