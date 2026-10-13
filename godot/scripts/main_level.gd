@@ -544,6 +544,7 @@ var bgm_player: AudioStreamPlayer
 var bgm_duck_tween: Tween
 var low_hp_audio_active := false
 var low_hp_heartbeat_player: AudioStreamPlayer
+var pending_sfx_players: Dictionary = {}
 # AudioDirector 一期：章节音乐组/环境床/混音状态总导演（audio_director.gd）。
 # 战斗层轮询/摇篮曲距离/Boss 相位三个状态机已整体迁入 director._process
 #（bind_runtime 注入 player/敌群），main_level 不再持有轮询状态。
@@ -667,21 +668,46 @@ func _prepare_region(prepared_config: Dictionary = {}) -> void:
 
 
 func _finish_region() -> void:
+    # Initial/synchronous loads use exactly the same plan as async arrivals.
+    for job in _region_finish_jobs():
+        callv(job.method, job.args)
+    _publish_region()
+
+
+func _region_finish_jobs() -> Array:
+    var jobs: Array = [{"method": "_finish_region_spawn", "args": []}]
+    if world_mode:
+        jobs.append({"method": "_spawn_death_cache", "args": []})
+        jobs.append_array(_world_runtime_jobs())
+    jobs.append({"method": "_bind_region_audio", "args": []})
+    jobs.append_array(_hud_build_jobs())
+    if world_mode:
+        jobs.append({"method": "_setup_cartography", "args": []})
+        jobs.append({"method": "_build_new_journey_dialog", "args": []})
+    return jobs
+
+
+func _finish_region_spawn() -> void:
     _spawn_player()
     last_safe_ground = active_spawn
-    if world_mode:
-        _spawn_death_cache()
-    if world_mode:
-        _restore_world_runtime()
-    # 音频状态机运行时注入（契约 bind_runtime）：director 自驱轮询，这里只此一行。
+
+
+func _bind_region_audio() -> void:
     audio_director.bind_runtime(player, func() -> Array: return get_tree().get_nodes_in_group("enemy"))
-    _build_hud()
-    if world_mode:
-        CARTOGRAPHY_UI.setup(self)
+
+
+func _setup_cartography() -> void:
+    CARTOGRAPHY_UI.setup(self)
+
+
+func _publish_region() -> void:
+    # No yields here: rewards, discovery, saved location and loader generation
+    # become visible together only after every arrival/UI job has completed.
+    _check_wish_board_rewards()
+    _refresh_hud()
     _show_chapter_entry_message()
     world_loading = false
     if world_mode:
-        _build_new_journey_dialog()
         if not world_initial_error.is_empty():
             _toast(world_initial_error)
         _save_world()
@@ -794,6 +820,7 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+    _cancel_pending_sfx()
     if world_platforms != null:
         world_platforms.shutdown()
     if world_loader != null:
@@ -883,22 +910,51 @@ func _restore_world_inventory_and_region() -> void:
 
 
 func _restore_world_runtime() -> void:
+    for job in _world_runtime_jobs():
+        callv(job.method, job.args)
+
+
+func _world_runtime_jobs() -> Array:
+    return [{"method": "_restore_world_player", "args": []},
+        {"method": "_warm_arrival_cave", "args": []},
+        {"method": "_warm_arrival_terrain", "args": []},
+        {"method": "_warm_arrival_platforms", "args": []},
+        {"method": "_restore_world_routes", "args": []},
+        {"method": "_restore_world_discovery", "args": []}]
+
+
+func _restore_world_player() -> void:
     if entry_spawn_override_enabled:
         player.global_position = entry_spawn_override
         player.arrival_guard_timer = 1.2
-    if is_instance_valid(cave_world):
-        cave_world.warm_collision_focus(player.global_position)
-    if is_instance_valid(chapter_terrain):
-        chapter_terrain.warm_collision_focus(player.global_position)
-    if world_platforms != null:
-        world_platforms.warm(self, player.global_position)
     player.set_spawn(active_spawn)
     player.hp = clampi(int(world_state.data.hp), 1, player.max_hp)
     player.energy = clampi(int(world_state.data.energy), 0, player.max_energy)
+
+
+func _warm_arrival_cave() -> void:
+    if is_instance_valid(cave_world):
+        cave_world.warm_collision_focus(player.global_position)
+
+
+func _warm_arrival_terrain() -> void:
+    if is_instance_valid(chapter_terrain):
+        chapter_terrain.warm_collision_focus(player.global_position)
+
+
+func _warm_arrival_platforms() -> void:
+    if world_platforms != null:
+        world_platforms.warm(self, player.global_position)
+
+
+func _restore_world_routes() -> void:
     if shortcut_open or boss_unlocked:
         _unlock_boss_route()
     if demo_complete:
         _open_post_boss_route()
+
+
+func _restore_world_discovery() -> void:
     # Reconstruct discovered cells after MetSys builds this region's map.
     if metsys_bridge != null:
         for room_id in visited_rooms:
@@ -1894,7 +1950,7 @@ func _ensure_bgm_player() -> void:
 
 
 func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
-    if not _should_autoplay_audio():
+    if not _should_autoplay_audio() or not is_inside_tree() or is_queued_for_deletion():
         return
     # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
     if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
@@ -1909,9 +1965,45 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.bus = _sfx_bus_for_key(audio_key)
     player_node.stream = stream
     player_node.volume_db = volume_db
+    var instance_id := player_node.get_instance_id()
+    pending_sfx_players[instance_id] = {"player": player_node, "audio_key": audio_key}
+    # Interactable signals can close an overlay while this level or one of its
+    # children is entering/exiting the tree. Defer attachment until scene-tree
+    # notifications finish, then play only after the player is actually inside.
+    call_deferred("_attach_pending_sfx", instance_id)
+
+
+func _attach_pending_sfx(instance_id: int) -> void:
+    if not pending_sfx_players.has(instance_id):
+        return
+    var pending: Dictionary = pending_sfx_players[instance_id]
+    pending_sfx_players.erase(instance_id)
+    var player_node: AudioStreamPlayer = pending.get("player")
+    var audio_key: String = String(pending.get("audio_key", ""))
+    if not is_instance_valid(player_node):
+        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        return
+    if not is_inside_tree() or is_queued_for_deletion():
+        player_node.free()
+        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        return
     add_child(player_node)
+    if not player_node.is_inside_tree():
+        player_node.free()
+        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        return
     player_node.finished.connect(Callable(player_node, "queue_free"))
     player_node.play()
+
+
+func _cancel_pending_sfx() -> void:
+    for pending_value in pending_sfx_players.values():
+        var pending: Dictionary = pending_value
+        var player_node: AudioStreamPlayer = pending.get("player")
+        if is_instance_valid(player_node):
+            player_node.free()
+        AUDIO_DIRECTOR_SCRIPT.release_voice(String(pending.get("audio_key", "")))
+    pending_sfx_players.clear()
 
 
 ## UI 音走 UI 总线（干声），世界音走 SFXWorld 子总线（send→SFX 吃章节混响）。
@@ -1976,7 +2068,7 @@ func _build_backpack_overlay() -> void:
     backpack_panel=ui_shell.bag
     backpack_text=ui_shell.legacy_bag_text
     backpack_detail_text=ui_shell.legacy_bag_detail
-    _refresh_backpack_overlay()
+    _refresh_backpack_overlay(false)
 
 func _build_map_overlay() -> void:
     map_panel = ColorRect.new()
@@ -1986,9 +2078,7 @@ func _build_map_overlay() -> void:
     map_panel.color = Color("10191f")
     if world_mode:
         map_panel.theme = ui_shell.theme.duplicate()
-        var map_font: FontFile = ui_shell.theme.default_font.duplicate()
-        map_font.multichannel_signed_distance_field = true
-        map_panel.theme.default_font = map_font
+        map_panel.theme.default_font = PILGRIMAGE_UI_SCRIPT.survey_font()
     map_panel.visible = false
     ui_shell.add_child(map_panel)
 
@@ -2044,7 +2134,6 @@ func _build_map_overlay() -> void:
     map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
     map_panel.add_child(map_text)
     _build_wish_board_overlay()
-    _refresh_map_overlay()
 
 
 # 巡礼愿板最小闭环（任务设计文档 §3 schema 子集）。章节配置可选 "wish_board"
@@ -2323,7 +2412,7 @@ const BACKPACK_SECTIONS := [
 ]
 
 
-func _refresh_backpack_overlay() -> void:
+func _refresh_backpack_overlay(render_inventory: bool = true) -> void:
     if backpack_text == null:
         return
     backpack_entry_ids.clear()
@@ -2349,7 +2438,7 @@ func _refresh_backpack_overlay() -> void:
     lines.append("Tab/I 背包   W/S 查看铭文   M 地图   Esc 关闭")
     backpack_text.text = "\n".join(lines)
     _refresh_backpack_detail()
-    if ui_shell!=null:
+    if render_inventory and ui_shell!=null:
         ui_shell.refresh_inventory()
 
 
@@ -2995,11 +3084,48 @@ func _spawn_player() -> void:
 
 
 func _build_hud() -> void:
+    for job in _hud_build_jobs():
+        callv(job.method, job.args)
+    _check_wish_board_rewards()
+    _refresh_hud()
+
+
+func _hud_build_jobs() -> Array:
+    var jobs: Array = [{"method": "_begin_hud", "args": []}]
+    for method in PILGRIMAGE_UI_SCRIPT.build_steps():
+        jobs.append({"method": "_build_interface_step", "args": [method]})
+    jobs.append_array([
+        {"method": "_build_hud_labels", "args": []},
+        {"method": "_build_backpack_overlay", "args": []},
+        {"method": "_build_interface_step", "args": ["begin_inventory_refresh"]}])
+    var item_ids: Array[String] = ["currency"]
+    for section in BACKPACK_SECTIONS:
+        item_ids.append_array(_inventory_ids_for_category(String(section[1])))
+    for item_id in item_ids:
+        jobs.append({"method": "_build_interface_step", "args": ["append_inventory_item", [item_id]]})
+    jobs.append_array([
+        {"method": "_build_interface_step", "args": ["finish_inventory_refresh"]},
+        {"method": "_build_map_overlay", "args": []},
+        {"method": "_refresh_map_overlay", "args": []},
+        {"method": "_build_dialogue_overlay", "args": []},
+        {"method": "_build_settings_overlay", "args": []},
+        {"method": "_finish_hud", "args": []}])
+    return jobs
+
+
+func _begin_hud() -> void:
     ui_canvas=CanvasLayer.new()
     add_child(ui_canvas)
     ui_shell=PILGRIMAGE_UI_SCRIPT.new()
     ui_canvas.add_child(ui_shell)
-    ui_shell.bind(self)
+    ui_shell.begin_bind(self)
+
+
+func _build_interface_step(method: String, args: Array = []) -> void:
+    ui_shell.callv(method, args)
+
+
+func _build_hud_labels() -> void:
     hud_label=Label.new()
     hud_label.visible=false
     ui_shell.add_child(hud_label)
@@ -3019,13 +3145,11 @@ func _build_hud() -> void:
     win_label.add_theme_font_size_override("font_size",30)
     win_label.visible=false
     ui_shell.add_child(win_label)
-    _build_backpack_overlay()
-    _build_map_overlay()
-    _build_dialogue_overlay()
-    _build_settings_overlay()
+
+
+func _finish_hud() -> void:
     ui_shell.frame(map_panel)
-    _check_wish_board_rewards()
-    _refresh_hud()
+    ui_shell.finish_bind()
 
 func _build_dialogue_overlay() -> void:
     dialogue_panel=ui_shell.dialogue

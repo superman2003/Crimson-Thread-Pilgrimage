@@ -92,6 +92,10 @@ func run() -> void:
     check(restored.read(main.world_save_path), "Hand-in transaction saves readable world")
     check(bool(restored.data.story_flags.get("test_handin", false)), "Saved transaction includes completed hand-in")
     check(not restored.data.inventory_counts.has("test_supply") and restored.data.inventory_counts.has("energy_spindle"), "Saved transaction contains final inventory")
+    check(main.dialogue_panel.visible, "Exit fixture leaves NPC dialogue open for the real interactable-exit callback")
+    # Freeing the level emits Area2D body_exited while the scene tree is
+    # tearing down. Closing dialogue there must not attach or play audio in
+    # the middle of tree notifications.
     main.free()
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path("user://verify_narrative_ui.json" + suffix))

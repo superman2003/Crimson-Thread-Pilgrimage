@@ -2,6 +2,7 @@ extends Control
 
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const FONT := preload("res://assets/fonts/NotoSansSC.ttf")
+static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
 const IVORY := Color("eee3ce")
 const GOLD := Color("bda176")
@@ -81,10 +82,32 @@ var last_build_signature := ""
 var applied_player: Node
 var save_slot_buttons: Dictionary={}
 var journal_selection := 0
+var construction_complete := false
+var inventory_build_selection := ""
 
 const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动"}
 
 func bind(runtime: Node) -> void:
+    begin_bind(runtime)
+    for method in build_steps():
+        call(method)
+    finish_bind()
+
+static func build_steps() -> Array[String]:
+    return ["_build_hud", "_build_bag", "_build_dialogue", "_build_settings", "_build_build_panel"]
+
+static func survey_font() -> FontFile:
+    # Keep the zoomable map's glyph cache across region-owned HUD lifetimes.
+    # The shared font retains no level, node or signal references.
+    if _survey_font==null:
+        _survey_font=FONT.duplicate()
+        _survey_font.multichannel_signed_distance_field=true
+    return _survey_font
+
+func begin_bind(runtime: Node) -> void:
+    construction_complete=false
+    set_process(false)
+    set_process_input(false)
     level=runtime
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -101,14 +124,15 @@ func bind(runtime: Node) -> void:
     modal_shade.visible=false
     add_child(modal_shade)
     _load_accessibility()
-    _build_hud()
-    _build_bag()
-    _build_dialogue()
-    _build_settings()
-    _build_build_panel()
+
+func finish_bind() -> void:
     _bind_ui_navigation()
-    get_viewport().size_changed.connect(_fit_viewport)
+    if not get_viewport().size_changed.is_connected(_fit_viewport):
+        get_viewport().size_changed.connect(_fit_viewport)
     _fit_viewport()
+    construction_complete=true
+    set_process(true)
+    set_process_input(true)
 
 func _label(parent: Node, text: String, position_value: Vector2, size_value: Vector2, font_size: int=18, tint: Color=IVORY) -> Label:
     var label:=Label.new()
@@ -396,30 +420,39 @@ func _matches(category: String) -> bool:
 
 func refresh_inventory() -> void:
     if bag_grid==null:return
+    begin_inventory_refresh()
+    if bag_category=="旅记":
+        _refresh_journal()
+        return
+    for item_id in _visible_inventory_ids():
+        append_inventory_item(item_id)
+    finish_inventory_refresh()
+
+func begin_inventory_refresh() -> void:
     for node in bag_grid.get_children():
         bag_grid.remove_child(node)
         node.queue_free()
     bag_currency.text=str(level.currency_count)
-    if bag_category=="旅记":
-        _refresh_journal()
-        return
     bag_grid.columns=6
-    var selected := _reconcile_inventory_selection()
-    for item_value in _visible_inventory_ids():
-        var item_id:=String(item_value)
-        var button:=_button(bag_grid,"",Vector2.ZERO,Vector2(94,98),func():
-            level.backpack_selection=level.backpack_entry_ids.find(item_id)
-            level._refresh_backpack_detail()
-            refresh_inventory())
-        button.set_meta("item_id",item_id)
-        button.custom_minimum_size=Vector2(94,98)
-        if item_id==selected:
-            button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
-        _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
-        var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
-        var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
-        name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-        _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+    inventory_build_selection=_reconcile_inventory_selection()
+
+func append_inventory_item(item_id: String) -> void:
+    var button:=_button(bag_grid,"",Vector2.ZERO,Vector2(94,98),func():
+        level.backpack_selection=level.backpack_entry_ids.find(item_id)
+        level._refresh_backpack_detail()
+        refresh_inventory())
+    button.set_meta("item_id",item_id)
+    button.custom_minimum_size=Vector2(94,98)
+    if item_id==inventory_build_selection:
+        button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
+    _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
+    var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
+    var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
+    name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+    _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+
+func finish_inventory_refresh() -> void:
+    var selected := inventory_build_selection
     for tab in bag_tabs:
         tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     bag_pin.disabled=selected.is_empty()
@@ -662,7 +695,7 @@ func _refresh_remap_labels() -> void:
         remap_buttons[action].tooltip_text=remap_buttons[action].text
 
 func _input(event: InputEvent) -> void:
-    if level==null:return
+    if level==null or not construction_complete:return
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
         if event is InputEventKey and event.pressed and event.keycode==KEY_ESCAPE:
@@ -967,7 +1000,7 @@ func _refresh_save_slots() -> void:
         button.tooltip_text="读取失败：%s。原文件会保留，请恢复备份。" % String(entry.get("error","未知错误")) if bool(entry.get("exists",false)) and not bool(entry.get("valid",false)) else "切换前会保存当前进度。\n"+status
 
 func _process(delta: float) -> void:
-    if level==null:return
+    if level==null or not construction_complete:return
     modal_shade.visible=not String(level.active_overlay).is_empty()
     hud_card.visible=not modal_shade.visible
     mechanism_status.visible=not modal_shade.visible
