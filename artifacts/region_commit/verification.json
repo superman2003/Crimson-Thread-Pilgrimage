@@ -4,14 +4,16 @@
   "engine": "4.6.1.stable.official.14d19694e",
   "renderer": "Mesa llvmpipe real OpenGL",
   "source_sha256": {
-    "godot/scripts/main_level.gd": "ad5e48cac4f2c7d600e8736a4924319aa62b36ab1c5111dff75fd83e4bfe23a6",
+    "godot/scripts/main_level.gd": "3e00af260ce8776a642fac70f9fabd56a35bf285718b4f11181c148bae0ed9f2",
     "godot/scripts/pilgrimage_interface.gd": "9e6833dbe961f61638bd578161825d400718850c805eaa647ae1552581debac3",
     "godot/scripts/world_region_loader.gd": "dc9c48e77e2650a37c1ccb45cb982ad6bcd9fb0094cd161d8d689dcab531cda3",
     "godot/scripts/world_async_loading_validation.gd": "fee0c33f8d2f7171f7cece35fdbf5bec502f7d95f5d55be8fc8fef2915640b27",
     "godot/scripts/world_neighbor_gameplay_live_validation.gd": "c4e8e0399809a2d079ca87f1e2b6d1230a78ddbf8b5d5bab20ff59e3d9cef204",
     "tools/validate_region_commit_pixels.gd": "b36b4ec1917e111318d79a8fcc2bb24cba31633ce7b7dc71d212ef4efe70ff09",
     "tools/run_godot_regressions.py": "5f0a433f4aa376c2fe44ba971ae5db68c4add4889d2c946cd84404070c62054c",
-    ".github/workflows/godot-integration.yml": "626a5a04232ab0c6802c898bf8b4e66e60e190c4d172d54409a3ffdfb08432e6"
+    ".github/workflows/godot-integration.yml": "626a5a04232ab0c6802c898bf8b4e66e60e190c4d172d54409a3ffdfb08432e6",
+    "godot/tests/verify_narrative_ui.gd": "f89d48b84578dc4eaa164de9c31475e8cb446edc6825ea64042ac1962d2b010c",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "db25c061aa8b55753baf20d8773f7b2a1129b8b4d7a32b5042edb5ac33093e94"
   },
   "related_regressions": {
     "distinct_suites": 25,
@@ -872,7 +874,7 @@
   },
   "full_63_suite_run_on_this_branch": false,
   "previous_ci_waited_for": false,
-  "remote_ci_status": "Not waited for; inspect CI for the final submitted PR commit.",
+  "remote_ci_status": "Remote CI has not run for candidate 8906d4e7c7fe3bc5354a0e0e10c8d0220feb1be5.",
   "limitations": [
     "2ms is an admission budget; a job cannot be preempted.",
     "Awaiting batches increases wall clock; total travel latency reduction is not claimed.",
@@ -886,5 +888,57 @@
     "complete_raw_logs_uploaded": false,
     "reason": "Automatic approval review rejected uploading the raw archive because it could contain private logs or environment metadata.",
     "safer_alternative": "Publish only task-specific assertion results, game-state metrics, file hashes and render fixtures; retain raw logs locally."
+  },
+  "candidate_validation": {
+    "commit": "8906d4e7c7fe3bc5354a0e0e10c8d0220feb1be5",
+    "targeted_regressions": [
+      {
+        "suite": "tests/verify_narrative_ui",
+        "mode": "headless",
+        "exit_code": 0,
+        "failures": 0,
+        "engine_errors": 0,
+        "result": "Narrative UI failures: 0",
+        "log": "/workspace/scratch/bbd44cdd8ee6/pr30-targeted-logs-fixed/tests_verify_narrative_ui.log",
+        "log_sha256": "bc2a4c02d716b7265f3c527ea2e2e5e2867f67da8c701324ff28298dd6ad1ce5"
+      },
+      {
+        "suite": "world_neighbor_gameplay_stress",
+        "mode": "Mesa llvmpipe real OpenGL (Godot 4.6.1, Dummy audio)",
+        "exit_code": 0,
+        "failures": 0,
+        "engine_errors": 0,
+        "result": "WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=8715 failures=0; builds=1320; releases=1320; final owned/pending/regions/jobs=0",
+        "log": "/tmp/pr30-stress-gl-final.log",
+        "log_sha256": "ced4ca8c538dcf156f86894a91207022da4915506c2c828945146805508d82be",
+        "warning": "ObjectDB instances leaked at exit; WARNING, not counted as engine_errors."
+      }
+    ],
+    "full_regressions": [
+      {
+        "commit": "0e58a77a2439a9145a6772235d39f8f3e3744d54",
+        "expected_suites": 63,
+        "completed_suites": 63,
+        "exit_code": 1,
+        "failures": 1,
+        "engine_errors": 1,
+        "failed_suite": "world_neighbor_gameplay_stress",
+        "failure": "The combined child-count/enemy-group/story-flags assertion observed one additional transient Sfx_ui_toast AudioStreamPlayer; enemy group and story state matched.",
+        "failed_suite_log": "/workspace/scratch/bbd44cdd8ee6/pr30-full-logs/world_neighbor_gameplay_stress.log",
+        "failed_suite_log_sha256": "583a4cf36755a9847a7a9c74dff45b39061dcbd9ac60a40d18d127828c641567"
+      },
+      {
+        "commit": "8906d4e7c7fe3bc5354a0e0e10c8d0220feb1be5",
+        "expected_suites": 63,
+        "status": "stopped_early",
+        "completed_suites": 6,
+        "started_suite": "world_neighbor_gameplay",
+        "exit_code": 130,
+        "failures": "incomplete; no final runner summary",
+        "log_dir": "/workspace/scratch/bbd44cdd8ee6/pr30-final-logs",
+        "note": "Stopped before completion after six suites passed. Do not treat as a full-suite PASS."
+      }
+    ],
+    "editor_import": "exit 0 after LFS hydration; first-run import emitted startup missing-resource/class errors and Dummy-renderer shutdown leak diagnostics, so that bootstrap output is not an error-free test result."
   }
 }

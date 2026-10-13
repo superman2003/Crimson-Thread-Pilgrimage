@@ -256,6 +256,41 @@ func cache_churn() -> void:
     pref.shutdown()
     scene.config.interactives = source_portals
     scene.player.position = source_position
+    # One-shot SFX are attached deferred so they cannot add children while a
+    # scene-tree notification is active. This fixture disables the level tree,
+    # so temporarily let only the one-shot players process while the last toast
+    # finishes; gameplay and its entities remain frozen.
+    var sfx_settle_frames := 0
+    var previous_sfx_process_modes: Dictionary = {}
+    while sfx_settle_frames < 180:
+        var active_sfx := scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+        var pending_players: Array = []
+        for pending_value in scene.pending_sfx_players.values():
+            var pending: Dictionary = pending_value
+            var player: AudioStreamPlayer = pending.get("player")
+            if is_instance_valid(player):
+                pending_players.append(player)
+        for player in active_sfx + pending_players:
+            var instance_id: int = player.get_instance_id()
+            if not previous_sfx_process_modes.has(instance_id):
+                previous_sfx_process_modes[instance_id] = player.process_mode
+            player.process_mode = Node.PROCESS_MODE_ALWAYS
+        if active_sfx.is_empty() and pending_players.is_empty():
+            break
+        await frames(1)
+        sfx_settle_frames += 1
+    var remaining_sfx := scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+    var sfx_restore_candidates: Array = remaining_sfx.duplicate()
+    for pending_value in scene.pending_sfx_players.values():
+        var pending: Dictionary = pending_value
+        var player: AudioStreamPlayer = pending.get("player")
+        if is_instance_valid(player):
+            sfx_restore_candidates.append(player)
+    for child in sfx_restore_candidates:
+        var instance_id: int = child.get_instance_id()
+        if previous_sfx_process_modes.has(instance_id):
+            child.process_mode = int(previous_sfx_process_modes[instance_id])
+    check(remaining_sfx.is_empty() and scene.pending_sfx_players.is_empty(), "one-shot SFX retire after cache churn")
     check(old_actors.all(func(x): return not is_instance_valid(x)) and pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0, "churn teardown releases all detached objects")
     check(pref.gameplay.builds - before_builds == pref.gameplay.releases - before_releases, "every churn-built gameplay actor retired exactly once")
     check(scene.get_child_count() == baseline_nodes and get_nodes_in_group("enemy").size() == baseline_enemies and scene.story_flags == baseline_state, "80 cache cycles leave source tree groups and progress untouched")
