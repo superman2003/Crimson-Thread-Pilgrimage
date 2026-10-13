@@ -7,6 +7,46 @@ func check(ok: bool, description: String) -> void:
     if not ok:
         failures += 1
         push_error(description)
+
+func resident_npc(main: Node, npc_id: String) -> Area2D:
+    var authored: Dictionary = {}
+    for value in main.config.get("npcs", []):
+        if String(value.get("id", "")) == npc_id:
+            authored = value
+            break
+    check(not authored.is_empty(), "NPC fixture exists in authored region " + npc_id)
+    if authored.is_empty():
+        return null
+    var point := Vector2(float(authored.position[0]), float(authored.position[1]))
+    point = main._world_npc_residency_position(npc_id, point)
+    var prior_mode: int = main.process_mode
+    var prior_physics: bool = main.player.is_physics_processing()
+    var paused_enemies: Array[Dictionary] = []
+    for enemy in main.get_tree().get_nodes_in_group("enemy"):
+        if is_instance_valid(enemy):
+            paused_enemies.append({"node": enemy, "mode": enemy.process_mode})
+            enemy.process_mode = Node.PROCESS_MODE_DISABLED
+    main.process_mode = Node.PROCESS_MODE_ALWAYS
+    main.player.set_physics_process(false)
+    main.player.velocity = Vector2.ZERO
+    main.player.global_position = main.to_global(point)
+    for frame in range(120):
+        await process_frame
+        var npc := main.get_node_or_null(NodePath(npc_id)) as Area2D
+        var snapshot: Dictionary = main.world_gameplay_residency.snapshot()
+        if is_instance_valid(npc) and npc.is_inside_tree() and npc.get_parent() == main and String(npc.get_meta("npc_id", "")) == npc_id and main.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+            main.player.set_physics_process(prior_physics)
+            main.process_mode = prior_mode
+            for paused in paused_enemies:
+                if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+            return npc
+    main.player.set_physics_process(prior_physics)
+    main.process_mode = prior_mode
+    for paused in paused_enemies:
+        if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+    check(false, "moving the test player into the active window constructs the requested NPC " + npc_id)
+    return null
+
 func press_f() -> void:
     var event := InputEventKey.new()
     event.physical_keycode = KEY_F
@@ -30,7 +70,12 @@ func run() -> void:
     main.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):
         enemy.set_physics_process(false)
-    var npc: Area2D = main.get_node("npc_threadsmith_apprentice")
+    check(main.get_node_or_null("npc_gate_pilgrim") == null, "remote ordinary pilgrim remains deferred outside the arrival window")
+    var npc: Area2D = await resident_npc(main, "npc_threadsmith_apprentice")
+    if not is_instance_valid(npc):
+        main.free()
+        quit(1)
+        return
     main.player.global_position = npc.global_position
     main.nearby_interactable = npc
     await press_f()

@@ -7,6 +7,46 @@ var failures: Array[String] = []
 var checks := 0
 var host: Node
 
+func _resident_npc(scene: Node, npc_id: String) -> Area2D:
+    var authored: Dictionary = {}
+    for value in scene.config.get("npcs", []):
+        if String(value.get("id", "")) == npc_id:
+            authored = value
+            break
+    if authored.is_empty():
+        _check(false, "NPC fixture exists in authored region " + npc_id)
+        return null
+    var point := Vector2(float(authored.position[0]), float(authored.position[1]))
+    point = scene._world_npc_residency_position(npc_id, point)
+    var prior_mode: int = scene.process_mode
+    var prior_physics: bool = scene.player.is_physics_processing()
+    var paused_enemies: Array[Dictionary] = []
+    for enemy in scene.get_tree().get_nodes_in_group("enemy"):
+        if is_instance_valid(enemy):
+            paused_enemies.append({"node": enemy, "mode": enemy.process_mode})
+            enemy.process_mode = Node.PROCESS_MODE_DISABLED
+    scene.process_mode = Node.PROCESS_MODE_ALWAYS
+    scene.player.set_physics_process(false)
+    scene.player.velocity = Vector2.ZERO
+    scene.player.global_position = scene.to_global(point)
+    var npc: Area2D
+    for frame in range(120):
+        await process_frame
+        npc = scene.get_node_or_null(NodePath(npc_id)) as Area2D
+        var snapshot: Dictionary = scene.world_gameplay_residency.snapshot()
+        if is_instance_valid(npc) and npc.is_inside_tree() and npc.get_parent() == scene and String(npc.get_meta("npc_id", "")) == npc_id and scene.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+            scene.player.set_physics_process(prior_physics)
+            scene.process_mode = prior_mode
+            for paused in paused_enemies:
+                if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+            return npc
+    scene.player.set_physics_process(prior_physics)
+    scene.process_mode = prior_mode
+    for paused in paused_enemies:
+        if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+    _check(false, "approaching NPC makes its active-window interaction resident " + npc_id)
+    return null
+
 func _initialize() -> void:
     call_deferred("_run")
 
@@ -55,8 +95,9 @@ func _run() -> void:
     var boss_reward_count := int(scene.inventory_counts.get(boss_reward_id, 0))
     scene.player.hp = 3
     scene.player.energy = 41
-    var apprentice: Area2D = scene.get_node_or_null("npc_threadsmith_apprentice")
-    _check(apprentice != null, "quest apprentice exists")
+    _check(scene.get_node_or_null("npc_gate_pilgrim") == null, "remote ordinary pilgrim outside the arrival window stays deferred")
+    var apprentice: Area2D = await _resident_npc(scene, "npc_threadsmith_apprentice")
+    _check(apprentice != null, "quest apprentice is resident after the fixture approaches")
     if apprentice != null:
         scene._talk_to_npc(apprentice)
         scene._commit_world_dialogue()
@@ -84,7 +125,7 @@ func _run() -> void:
     _check(scene.world_state.resume_local_position() == scene.active_spawn, "runtime resume retains bell checkpoint")
     _check(scene.player.hp == 3 and scene.player.energy == 41, "travel preserves HP and energy")
     _check(scene.inventory_counts.get(item_id, 0) >= amount_after, "travel carries inventory")
-    var child: Area2D = scene.get_node_or_null("npc_canal_child")
+    var child: Area2D = await _resident_npc(scene, "npc_canal_child")
     _check(child != null, "canal witness exists")
     if child != null:
         _hear_round(scene, child)
@@ -109,7 +150,7 @@ func _run() -> void:
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == "demo_ch03_saltwhite_archive", "wall grip opens real B to C transition")
-    var scribe: Area2D = scene.get_node_or_null("npc_fugitive_scribe")
+    var scribe: Area2D = await _resident_npc(scene, "npc_fugitive_scribe")
     _check(scribe != null, "archive quest witness exists")
     if scribe != null:
         _hear_round(scene, scribe)
@@ -155,12 +196,14 @@ func _run() -> void:
     _check(scene.demo_complete and scene.post_boss_route_open, "dead boss and exit route restore")
     _check(scene.inventory_counts.get(boss_reward_id, 0) == boss_reward_count, "boss reward does not duplicate on return")
     _check(scene.player.hp == 3 and scene.player.energy == 41, "roundtrip preserves resources")
-    apprentice = scene.get_node_or_null("npc_threadsmith_apprentice")
+    apprentice = await _resident_npc(scene, "npc_threadsmith_apprentice")
     var reward_before: int = scene.currency_count
-    _hear_round(scene, apprentice)
+    if is_instance_valid(apprentice):
+        _hear_round(scene, apprentice)
     _check(scene.story_flags.get("quest_bring_names_complete", false), "homecoming completes only after whole round")
     _check(scene.currency_count == reward_before + 40, "homecoming grants exactly forty once")
-    _hear_round(scene, apprentice)
+    if is_instance_valid(apprentice):
+        _hear_round(scene, apprentice)
     _check(scene.currency_count == reward_before + 40, "repeat conversation cannot grant reward again")
     scene._close_overlays()
     scene._save_world()
@@ -185,7 +228,9 @@ func _run() -> void:
     _check(scene.player.hp == 3 and scene.player.energy == 41, "restart preserves resources")
     _check(scene.story_flags.get("quest_bring_names_rewarded", false), "restart preserves paid reward flag")
     var resume_currency: int = scene.currency_count
-    _hear_round(scene, scene.get_node_or_null("npc_threadsmith_apprentice"))
+    apprentice = await _resident_npc(scene, "npc_threadsmith_apprentice")
+    if is_instance_valid(apprentice):
+        _hear_round(scene, apprentice)
     _check(scene.currency_count == resume_currency, "restart cannot repeat quest reward")
     scene._close_overlays()
     scene._start_new_journey()

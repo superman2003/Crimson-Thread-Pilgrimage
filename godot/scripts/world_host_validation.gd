@@ -140,6 +140,8 @@ func _run() -> void:
             var entry: Array = config.player_start
             scene._travel_world(path, Vector2(entry[0], entry[1]))
             await _frames()
+            var settled := await _settle_region_runtime()
+            _check(settled, "region residency and one-shot audio settle " + region_id)
             _check(current_scene == scene and scene.get_instance_id() == host_id, "host identity " + region_id)
             _check(scene.player.get_instance_id() == player_id and scene.player.get_node("Camera2D").get_instance_id() == camera_id, "player/camera identity " + region_id)
             _check(scene.world_state.get_instance_id() == state_id and scene.build_system.get_instance_id() == build_id and scene.world_loader.get_instance_id() == loader_id, "session identities " + region_id)
@@ -155,7 +157,9 @@ func _run() -> void:
             if cycle == 0:
                 warmed_counts[region_id] = scene.get_child_count()
             else:
-                _check(scene.get_child_count() == warmed_counts[region_id], "bounded region node count " + region_id)
+                var child_names: Array[String] = []
+                for child in scene.get_children(): child_names.append(String(child.name))
+                _check(scene.get_child_count() == warmed_counts[region_id], "bounded region node count " + region_id + " expected=" + str(warmed_counts[region_id]) + " actual=" + str(scene.get_child_count()) + " residency=" + JSON.stringify(scene.world_gameplay_residency.snapshot()) + " children=" + ",".join(child_names))
             if region_id == first_region:
                 _check(scene.world_collected_ids.has("host_validation_pickup") and scene.opened_shortcuts.has("host_validation_shortcut"), "home region remembers pickups and shortcuts")
     var reboot := STATE.new()
@@ -176,6 +180,42 @@ func _run() -> void:
 func _frames() -> void:
     await process_frame
     await process_frame
+
+func _settle_region_runtime() -> bool:
+    var service: RefCounted = scene.world_gameplay_residency
+    var previous_sfx_modes: Dictionary = {}
+    var settled := false
+    for _frame in range(180):
+        service.update(scene, scene.player.global_position, scene.player.velocity, 1.0 / 60.0)
+        var active_sfx := scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+        var pending_sfx: Array = []
+        for pending_value in scene.pending_sfx_players.values():
+            var pending: Dictionary = pending_value
+            var player: AudioStreamPlayer = pending.get("player")
+            if is_instance_valid(player): pending_sfx.append(player)
+        for player in active_sfx + pending_sfx:
+            var instance_id: int = player.get_instance_id()
+            if not previous_sfx_modes.has(instance_id): previous_sfx_modes[instance_id] = player.process_mode
+            player.process_mode = Node.PROCESS_MODE_ALWAYS
+        var state: Dictionary = service.snapshot()
+        if state.pending_build == 0 and state.pending_release == 0 and bool(state.window_ready) and active_sfx.is_empty() and pending_sfx.is_empty():
+            # Let queue_free finish before measuring the host's strict node count.
+            await process_frame
+            state = service.snapshot()
+            active_sfx = scene.get_children().filter(func(child): return child is AudioStreamPlayer and String(child.name).begins_with("Sfx_"))
+            if state.pending_build == 0 and state.pending_release == 0 and bool(state.window_ready) and active_sfx.is_empty() and scene.pending_sfx_players.is_empty():
+                settled = true
+                break
+        await process_frame
+    for child in scene.get_children():
+        var instance_id: int = child.get_instance_id()
+        if previous_sfx_modes.has(instance_id): child.process_mode = int(previous_sfx_modes[instance_id])
+    for pending_value in scene.pending_sfx_players.values():
+        var pending: Dictionary = pending_value
+        var player: AudioStreamPlayer = pending.get("player")
+        if is_instance_valid(player) and previous_sfx_modes.has(player.get_instance_id()):
+            player.process_mode = int(previous_sfx_modes[player.get_instance_id()])
+    return settled
 
 func _check(ok: bool, label: String) -> void:
     checks += 1

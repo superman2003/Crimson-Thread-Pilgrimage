@@ -23,6 +23,10 @@ const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
 const WORLD_PLATFORMS := preload("res://scripts/world_platform_residency.gd")
 var world_platforms: RefCounted
+const WORLD_GAMEPLAY_RESIDENCY := preload("res://scripts/world_gameplay_residency.gd")
+var world_gameplay_residency: RefCounted
+var npc_residency_memory: Dictionary = {}
+var save_point_residency_memory: Dictionary = {}
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
@@ -665,6 +669,11 @@ func _prepare_region(prepared_config: Dictionary = {}) -> void:
     _build_audio()
     if world_mode:
         world_platforms = WORLD_PLATFORMS.new()
+        world_gameplay_residency = WORLD_GAMEPLAY_RESIDENCY.new()
+        npc_residency_memory.clear()
+        save_point_residency_memory.clear()
+        var arrival_focus := entry_spawn_override if entry_spawn_override_enabled else active_spawn
+        world_gameplay_residency.configure(self, config, world_loader.generation + 1, arrival_focus)
 
 
 func _finish_region() -> void:
@@ -754,6 +763,8 @@ func _process(_delta: float) -> void:
         return
     if world_mode and not world_loading and world_prefetch != null:
         world_prefetch.step(self, _delta)
+    if world_mode and not world_loading and world_gameplay_residency != null and is_instance_valid(player):
+        world_gameplay_residency.update(self, player.global_position, player.velocity, _delta)
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
@@ -827,6 +838,10 @@ func _exit_tree() -> void:
         world_loader.shutdown()
     if world_prefetch != null:
         world_prefetch.shutdown()
+    if world_gameplay_residency != null:
+        world_gameplay_residency.shutdown()
+    npc_residency_memory.clear()
+    save_point_residency_memory.clear()
     _stop_region_tweens()
     _release_region_audio()
 
@@ -930,6 +945,8 @@ func _restore_world_player() -> void:
     player.set_spawn(active_spawn)
     player.hp = clampi(int(world_state.data.hp), 1, player.max_hp)
     player.energy = clampi(int(world_state.data.energy), 0, player.max_energy)
+    if world_gameplay_residency != null:
+        world_gameplay_residency.warm_arrival(self, player.global_position)
 
 
 func _warm_arrival_cave() -> void:
@@ -1089,6 +1106,8 @@ func _apply_world_npc_state(area: Area2D) -> void:
     area.set_meta("world_location_state", String(state.get("id", "")))
     if state.has("position") and "demo_" + String(state.get("region", "")) == String(config.get("id", "")):
         area.position = _vec2(state.position)
+    if world_gameplay_residency != null:
+        world_gameplay_residency.refresh_actor_position("npc", String(area.get_meta("npc_id", area.name)), area.position)
 
 
 func _world_grapple_anchor(data: Dictionary) -> void:
@@ -3245,6 +3264,7 @@ func _void_respawn() -> void:
     if world_mode:
         if player.death_timer > 0.0:
             player.global_position = active_spawn
+            if world_gameplay_residency != null: world_gameplay_residency.warm_arrival(self, active_spawn)
             chapter_terrain.warm_focus(active_spawn)
             if is_instance_valid(cave_world):
                 cave_world.warm_collision_focus(active_spawn)
@@ -3260,6 +3280,7 @@ func _void_respawn() -> void:
         player._reset_traversal_state()
         player.global_position = active_spawn
         player.velocity = Vector2.ZERO
+        if world_gameplay_residency != null: world_gameplay_residency.warm_arrival(self, active_spawn)
         chapter_terrain.warm_focus(active_spawn)
         if is_instance_valid(cave_world):
             cave_world.warm_collision_focus(active_spawn)
@@ -4115,14 +4136,21 @@ func _make_lever(data: Dictionary) -> Area2D:
 
 
 func _lever(data: Dictionary) -> void:
+    if world_mode and world_gameplay_residency != null and world_gameplay_residency.should_defer("lever", data, self):
+        return
     var area := _take_gameplay_prefab("lever", data)
     if area == null: area = _make_lever(data)
     area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
     area.set_meta("label", String(data.get("label", "Boss Route Control" if _combat_progression_enabled() else "Shortcut Lever")))
+    var lever_sprite := area.get_node_or_null("LeverSprite") as Sprite2D
+    if lever_sprite != null and _is_shortcut_open(String(data.get("shortcut_id", ""))):
+        _apply_original_prop(lever_sprite, "lever_open", 52)
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
+    if world_mode and world_gameplay_residency != null:
+        world_gameplay_residency.adopt("lever", String(data.get("id", "")), area)
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -4270,21 +4298,36 @@ func _make_save_point(data: Dictionary) -> Area2D:
 
 
 func _save_point(data: Dictionary) -> void:
+    if world_mode and world_gameplay_residency != null and world_gameplay_residency.should_defer("save_point", data, self):
+        return
     var area := _take_gameplay_prefab("save_point", data)
     if area == null: area = _make_save_point(data)
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
-    _animate_save_point(area, area.get_node("SavePointSprite"), area.get_node("SavePointHalo"))
+    var checkpoint_key := String(config.get("id", "")) + ":" + String(area.name)
+    var was_activated := bool(save_point_residency_memory.get(checkpoint_key, false))
+    if world_mode and (was_activated or String(area.name) == String(active_save_point_id)):
+        save_point_residency_memory[checkpoint_key] = true
+        area.set_meta("activated", true)
+        var marker := area.get_node_or_null("SavePointSprite") as Sprite2D
+        var ring := area.get_node_or_null("SavePointHalo") as Line2D
+        if marker != null: marker.modulate = Color(1.0, 0.94, 0.78, 1.0)
+        if ring != null: ring.default_color = Color(0.90, 1.0, 0.58, 0.95)
+    if world_mode and world_gameplay_residency != null:
+        world_gameplay_residency.adopt("save_point", String(data.get("id", "")), area)
+    area.set_meta("residency_tweens", _animate_save_point(area, area.get_node("SavePointSprite"), area.get_node("SavePointHalo")))
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
-func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> void:
-
+func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> Array:
+    # Bind looping visuals to the shrine itself so any external/tree teardown
+    # also retires them, even when the residency owner cannot inspect freed meta.
     var pulse := _region_tween()
+    pulse.bind_node(area)
     pulse.set_loops()
     pulse.tween_property(ring, "scale", Vector2(1.22, 1.22), 0.95).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
     pulse.parallel().tween_property(ring, "modulate:a", 0.35, 0.95)
@@ -4292,9 +4335,11 @@ func _animate_save_point(area: Area2D, marker: Sprite2D, ring: Line2D) -> void:
     pulse.parallel().tween_property(ring, "modulate:a", 0.95, 0.95)
 
     var blink := _region_tween()
+    blink.bind_node(area)
     blink.set_loops()
     blink.tween_property(area, "modulate:a", 0.82, 1.25)
     blink.tween_property(area, "modulate:a", 1.0, 1.25)
+    return [pulse, blink]
 
 
 func _play_save_point_activation(area: Area2D) -> void:
@@ -4305,6 +4350,7 @@ func _play_save_point_activation(area: Area2D) -> void:
         sprite.modulate = Color(1.0, 0.94, 0.78, 1.0)
         var base_scale := sprite.scale
         var flash := _region_tween()
+        flash.bind_node(sprite)
         flash.tween_property(sprite, "scale", base_scale*1.08, 0.10).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
         flash.tween_property(sprite, "scale", base_scale, 0.18)
     if ring != null:
@@ -4324,6 +4370,7 @@ func _play_save_point_activation(area: Area2D) -> void:
         echo.points = points
         add_child(echo)
         var tween := _region_tween()
+        tween.bind_node(echo)
         tween.tween_interval(float(index) * 0.07)
         tween.tween_property(echo, "scale", Vector2(2.15, 2.15), 0.38).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(echo, "modulate:a", 0.0, 0.38)
@@ -4373,13 +4420,22 @@ func _make_npc(data: Dictionary) -> Area2D:
 
 
 func _npc(data: Dictionary) -> void:
+    if world_mode and world_gameplay_residency != null and world_gameplay_residency.should_defer("npc", data, self):
+        return
     var area := _take_gameplay_prefab("npc", data)
     if area == null: area = _make_npc(data)
+    var memory_key := String(config.get("id", "")) + ":" + String(data.get("id", ""))
+    var memory: Dictionary = npc_residency_memory.get(memory_key, {})
+    if memory.has("dialogue_index"):
+        area.set_meta("dialogue_index", int(memory.dialogue_index))
+        area.set_meta("dialogue_state_indices", memory.get("dialogue_state_indices", {}).duplicate(true))
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
     _apply_world_npc_state(area)
+    if world_mode and world_gameplay_residency != null:
+        world_gameplay_residency.adopt("npc", String(data.get("id", "")), area)
     if world_platforms != null:
         _hold_actor_support(_platform_under_position(area.position, 100))
 
@@ -4631,6 +4687,53 @@ func _create_gameplay_prefab(kind: String, data: Dictionary, prepared: Dictionar
         "boss_gate": return _make_boss_door(data)
         "world_portal": return _make_world_portal(data)
     return null
+
+
+func _build_resident_interaction(kind: String, data: Dictionary) -> Area2D:
+    match kind:
+        "npc": _npc(data)
+        "save_point": _save_point(data)
+        "lever": _lever(data)
+    return get_node_or_null(NodePath(String(data.get("id", "")))) as Area2D
+
+
+func _release_resident_interaction(kind: String, id: String, area: Area2D) -> bool:
+    if not is_instance_valid(area):
+        return true
+    if kind == "npc":
+        var memory_key := String(config.get("id", "")) + ":" + id
+        npc_residency_memory[memory_key] = {
+            "dialogue_index": int(area.get_meta("dialogue_index", 0)),
+            "dialogue_state_indices": area.get_meta("dialogue_state_indices", {}).duplicate(true)
+        }
+    elif kind == "save_point":
+        var memory_key := String(config.get("id", "")) + ":" + id
+        save_point_residency_memory[memory_key] = bool(area.get_meta("activated", false))
+    if nearby_interactable == area:
+        nearby_interactable = null
+    if ui_shell != null and ui_shell.dialogue_area == area:
+        return false
+    var owned_tweens: Variant = area.get_meta("residency_tweens", [])
+    if owned_tweens is Array:
+        for tween in owned_tweens:
+            if tween is Tween:
+                if tween.is_valid(): tween.kill()
+                region_tweens.erase(tween)
+        area.remove_meta("residency_tweens")
+    if area.get_parent() == self:
+        remove_child(area)
+    area.free()
+    return true
+
+
+func _world_npc_residency_position(npc_id: String, fallback: Vector2) -> Vector2:
+    if not world_mode or world_narrative == null:
+        return fallback
+    var state: Dictionary = world_narrative.npc_world_state(npc_id, story_flags)
+    var region_id := "demo_" + String(state.get("region", ""))
+    if region_id == String(config.get("id", "")) and state.has("position"):
+        return _vec2(state.position)
+    return fallback
 
 
 func _enemy(data: Dictionary) -> Area2D:
@@ -5082,6 +5185,7 @@ func _activate_save_point(area: Area2D) -> void:
         CARTOGRAPHY.rest(story_flags)
     active_spawn = area.global_position
     active_save_point_id = String(area.name)
+    save_point_residency_memory[String(config.get("id", "")) + ":" + String(area.name)] = true
     player.set_spawn(active_spawn)
     if player.has_method("restore_at_save_point"):
         player.restore_at_save_point()
@@ -6375,3 +6479,7 @@ func _release_region_platforms() -> void:
         chapter_terrain.close_collisions()
     if world_platforms != null:
         world_platforms.shutdown()
+    if world_gameplay_residency != null:
+        world_gameplay_residency.shutdown()
+    npc_residency_memory.clear()
+    save_point_residency_memory.clear()
