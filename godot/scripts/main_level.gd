@@ -712,6 +712,8 @@ func _setup_cartography() -> void:
 func _publish_region() -> void:
     # No yields here: rewards, discovery, saved location and loader generation
     # become visible together only after every arrival/UI job has completed.
+    if world_mode and world_gameplay_residency != null and is_instance_valid(player):
+        world_gameplay_residency.warm_enemy_arrival(self, player.global_position)
     _check_wish_board_rewards()
     _refresh_hud()
     _show_chapter_entry_message()
@@ -4769,6 +4771,8 @@ func _enemy(data: Dictionary) -> Area2D:
                     enemy.position.x=candidate.x
                     break
     add_child(enemy)
+    if world_mode and world_gameplay_residency != null:
+        world_gameplay_residency.adopt_enemy(enemy)
     return enemy
 
 
@@ -4812,6 +4816,8 @@ func _spawn_boss() -> void:
 
 
 func _start_boss_trial() -> void:
+    if world_gameplay_residency != null:
+        world_gameplay_residency.clear_enemy_actors()
     for enemy_node in get_tree().get_nodes_in_group("enemy"):
         var enemy_area := enemy_node as Area2D
         if enemy_area == null or not is_instance_valid(enemy_area):
@@ -5654,6 +5660,8 @@ func _reset_encounters_after_player_death() -> void:
         _refresh_hud()
         return
     _set_boss_arena_locked(false)
+    if world_gameplay_residency != null:
+        world_gameplay_residency.clear_enemy_actors()
     for enemy_node in get_tree().get_nodes_in_group("enemy"):
         var enemy_area := enemy_node as Area2D
         if enemy_area == null or not is_instance_valid(enemy_area):

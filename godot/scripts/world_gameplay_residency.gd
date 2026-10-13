@@ -30,6 +30,15 @@ var building_key := ""
 var current_checkpoint_id := ""
 var excluded_map_sellers := 0
 var excluded_workshops := 0
+var enemy_records: Dictionary = {}
+var enemy_actors: Dictionary = {}
+var enemy_builds := 0
+var enemy_releases := 0
+var enemy_arrival_suspensions := 0
+var enemy_builds_this_frame := 0
+var enemy_releases_this_frame := 0
+const MAX_ENEMY_ACTIVATIONS_PER_FRAME := 4
+const MAX_ENEMY_DEACTIVATIONS_PER_FRAME := 4
 
 func configure(host: Node, config: Dictionary, next_generation: int, focus: Vector2) -> void:
 	shutdown()
@@ -67,6 +76,13 @@ func configure(host: Node, config: Dictionary, next_generation: int, focus: Vect
 			records[key] = {"kind": kind, "id": id, "data": data.duplicate(true), "position": point}
 			var actor := host.get_node_or_null(NodePath(id)) as Area2D
 			if actor != null: resident[key] = actor
+	for data_value in config.get("enemy_spawns", []):
+		if not data_value is Dictionary: continue
+		var data: Dictionary = data_value
+		var id := String(data.get("id", ""))
+		var position: Variant = data.get("position", [])
+		if id.is_empty() or not position is Array or position.size() < 2: continue
+		enemy_records[id] = {"data": data.duplicate(true), "position": Vector2(float(position[0]), float(position[1]))}
 	_update_window(host, focus, Vector2.ZERO, 0.0)
 	_refresh_queues(host, focus)
 	max_owned = maxi(max_owned, resident.size())
@@ -74,9 +90,12 @@ func configure(host: Node, config: Dictionary, next_generation: int, focus: Vect
 func update(host: Node, focus: Vector2, velocity: Vector2, delta: float) -> void:
 	last_frame_builds = 0
 	last_frame_releases = 0
+	enemy_builds_this_frame = 0
+	enemy_releases_this_frame = 0
 	if closed or host_instance_id != host.get_instance_id() or generation != host.world_loader.generation or not focus.is_finite() or not velocity.is_finite(): return
 	_update_window(host, focus, velocity, delta)
 	_refresh_queues(host, focus)
+	_update_enemy_residency(host)
 	var started := Time.get_ticks_usec()
 	while not pending_release.is_empty() and last_frame_releases < MAX_RELEASE_PER_FRAME:
 		if Time.get_ticks_usec() - started >= BUDGET_US: break
@@ -104,6 +123,112 @@ func update(host: Node, focus: Vector2, velocity: Vector2, delta: float) -> void
 		last_frame_builds += 1
 		builds += 1
 	max_owned = maxi(max_owned, resident.size())
+
+func adopt_enemy(actor: Area2D) -> void:
+	if closed or not is_instance_valid(actor) or bool(actor.get("is_boss")): return
+	var id := String(actor.get("spawn_id"))
+	if id.is_empty(): return
+	var flags := {"process_mode": actor.process_mode, "visible": actor.visible,
+		"monitoring": actor.monitoring, "monitorable": actor.monitorable,
+		"collision_layer": actor.collision_layer, "collision_mask": actor.collision_mask}
+	actor.set_meta("world_residency_active", true)
+	enemy_records[id] = {"data": enemy_records.get(id, {}).get("data", {}).duplicate(true), "position": actor.position}
+	enemy_actors[id] = {"actor": actor, "flags": flags, "active": true}
+
+func _update_enemy_residency(host: Node) -> void:
+	var activate: Array[String] = []
+	var deactivate: Array[String] = []
+	var keep_window := last_window.grow(KEEP_MARGIN)
+	for id_value in enemy_actors.keys():
+		var id := String(id_value)
+		var entry: Dictionary = enemy_actors[id]
+		var actor: Variant = entry.get("actor")
+		if not is_instance_valid(actor) or actor.is_queued_for_deletion():
+			enemy_actors.erase(id)
+			continue
+		if bool(actor.get("dying")):
+			continue
+		if last_window.has_point(actor.position):
+			if not bool(entry.active): activate.append(id)
+		elif bool(entry.active) and not keep_window.has_point(actor.position) and _enemy_can_suspend(actor):
+			deactivate.append(id)
+	activate.sort_custom(func(a, b): return enemy_actors[a].actor.position.distance_squared_to(last_window.get_center()) < enemy_actors[b].actor.position.distance_squared_to(last_window.get_center()))
+	deactivate.sort_custom(func(a, b): return enemy_actors[b].actor.position.distance_squared_to(last_window.get_center()) < enemy_actors[a].actor.position.distance_squared_to(last_window.get_center()))
+	for id in activate.slice(0, MAX_ENEMY_ACTIVATIONS_PER_FRAME):
+		_set_enemy_active(id, true)
+		enemy_builds_this_frame += 1
+		enemy_builds += 1
+	for id in deactivate.slice(0, MAX_ENEMY_DEACTIVATIONS_PER_FRAME):
+		_set_enemy_active(id, false)
+		enemy_releases_this_frame += 1
+		enemy_releases += 1
+
+func _enemy_can_suspend(actor: Area2D) -> bool:
+	if String(actor.get("state")) in ["windup", "active", "dying"]: return false
+	var effects: Variant = actor.get("owned_attack_effects")
+	if effects is Array:
+		for effect in effects:
+			if is_instance_valid(effect) and not effect.is_queued_for_deletion(): return false
+	return true
+
+func _set_enemy_active(id: String, active: bool) -> void:
+	if not enemy_actors.has(id): return
+	var entry: Dictionary = enemy_actors[id]
+	var actor: Variant = entry.get("actor")
+	if not is_instance_valid(actor) or bool(entry.active) == active: return
+	var flags: Dictionary = entry.flags
+	if active:
+		actor.process_mode = int(flags.process_mode)
+		actor.show()
+		actor.collision_layer = int(flags.collision_layer)
+		actor.collision_mask = int(flags.collision_mask)
+		actor.monitoring = bool(flags.monitoring)
+		actor.monitorable = bool(flags.monitorable)
+		actor.set_meta("world_residency_active", true)
+	else:
+		# Keep the actor in its canonical group for resets, saves and state cleanup;
+		# attack/target consumers consult the residency flag before acting on it.
+		actor.monitoring = false
+		actor.monitorable = false
+		actor.hide()
+		actor.process_mode = Node.PROCESS_MODE_DISABLED
+		actor.set_meta("world_residency_active", false)
+	entry.active = active
+
+func warm_enemy_arrival(host: Node, focus: Vector2) -> void:
+	if closed or host_instance_id != host.get_instance_id(): return
+	_update_window(host, focus, Vector2.ZERO, 0.0)
+	# All camera-window enemies are critical arrival work: activate them before
+	# world_loading is cleared so no visible encounter frame is skipped.
+	var keep_window := last_window.grow(KEEP_MARGIN)
+	for id_value in enemy_actors.keys():
+		var id := String(id_value)
+		var actor: Variant = enemy_actors[id].get("actor")
+		if not is_instance_valid(actor): continue
+		if last_window.has_point(actor.position):
+			_set_enemy_active(id, true)
+		elif not keep_window.has_point(actor.position) and bool(enemy_actors[id].active) and _enemy_can_suspend(actor):
+			_set_enemy_active(id, false)
+			enemy_releases += 1
+			enemy_arrival_suspensions += 1
+
+func all_enemy_actors() -> Array[Area2D]:
+	var result: Array[Area2D] = []
+	var seen: Dictionary = {}
+	for entry in enemy_actors.values():
+		var actor: Variant = entry.get("actor")
+		if is_instance_valid(actor) and not seen.has(actor.get_instance_id()):
+			result.append(actor)
+			seen[actor.get_instance_id()] = true
+	return result
+
+func clear_enemy_actors() -> void:
+	for id_value in enemy_actors.keys():
+		var actor: Variant = enemy_actors[id_value].get("actor")
+		if is_instance_valid(actor):
+			if actor.has_method("_cancel_attack_effects"): actor._cancel_attack_effects()
+			actor.queue_free()
+	enemy_actors.clear()
 
 func _update_window(host: Node, focus: Vector2, velocity: Vector2, delta: float) -> void:
 	var local_focus: Vector2 = host.to_local(focus)
@@ -227,7 +352,21 @@ func snapshot() -> Dictionary:
 		"last_frame_builds": last_frame_builds, "last_frame_releases": last_frame_releases,
 		"normal_max_operations": MAX_BUILD_PER_FRAME + MAX_RELEASE_PER_FRAME,
 		"critical_builds": critical_builds, "warm_bypass_builds": warm_bypass_builds,
-		"generation": generation, "window": last_window}
+		"generation": generation, "window": last_window,
+		"enemy_authored": enemy_records.size(), "enemy_tracked": enemy_actors.size(),
+		"enemy_active": _count_enemy_active(), "enemy_suspended": enemy_actors.size() - _count_enemy_active(),
+		"enemy_activations": enemy_builds, "enemy_deactivations": enemy_releases,
+		"enemy_arrival_suspensions": enemy_arrival_suspensions,
+		"enemy_last_frame_activations": enemy_builds_this_frame,
+		"enemy_last_frame_deactivations": enemy_releases_this_frame,
+		"enemy_frame_activation_limit": MAX_ENEMY_ACTIVATIONS_PER_FRAME,
+		"enemy_frame_deactivation_limit": MAX_ENEMY_DEACTIVATIONS_PER_FRAME}
+
+func _count_enemy_active() -> int:
+	var count := 0
+	for entry in enemy_actors.values():
+		if bool(entry.get("active", false)): count += 1
+	return count
 
 func shutdown() -> void:
 	closed = true
@@ -236,3 +375,5 @@ func shutdown() -> void:
 	resident.clear()
 	pending_build.clear()
 	pending_release.clear()
+	enemy_records.clear()
+	enemy_actors.clear()

@@ -20,6 +20,9 @@ var lure_position := Vector2.ZERO
 var trip_timer := 0.0
 var combat_resistance: Dictionary = {}
 
+func world_residency_active() -> bool:
+    return not has_meta("world_residency_active") or bool(get_meta("world_residency_active", true))
+
 func apply_salt_mark(seconds: float) -> void:
     salt_mark_timer = maxf(0.0, seconds)
     salt_mark_extended = false

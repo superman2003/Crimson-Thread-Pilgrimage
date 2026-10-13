@@ -84,6 +84,7 @@ func _physics_process(delta: float) -> void:
                 return
     if reflected:
         for actor in get_tree().get_nodes_in_group("enemy"):
+            if actor.has_method("world_residency_active") and not actor.world_residency_active(): continue
             if actor is Node2D and actor.has_method("take_hit") and actor.global_position.distance_to(global_position)<44:
                 actor.take_hit(1,1 if velocity.x>0 else -1)
                 queue_free()

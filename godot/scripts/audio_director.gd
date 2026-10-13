@@ -379,6 +379,7 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
         var enemy_node := enemy_variant as Node
         if enemy_node == null or not is_instance_valid(enemy_node) or enemy_node.get("is_boss") == true:
             continue
+        if enemy_node.has_method("world_residency_active") and not enemy_node.world_residency_active(): continue
         var decision_value: Variant = enemy_node.get("last_ai_decision")
         if typeof(decision_value) != TYPE_STRING:
             continue

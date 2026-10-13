@@ -66,6 +66,8 @@ func get_seal_mechanism_snapshot() -> Dictionary:
     if _crest() == "salt":
         var count := 0
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
+                continue
             if enemy.get("salt_mark_timer") != null and float(enemy.get("salt_mark_timer")) > 0.0:
                 count += 1
         return {"label":"盐记", "stacks":count, "max_stacks":count}
@@ -97,6 +99,8 @@ func _seal_heal_completed() -> void:
         heal_stability_timer = 4.0
     elif _crest() == "salt":
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
+                continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= 240.0 and enemy.has_method("extend_salt_mark_once"):
                 enemy.extend_salt_mark_once(2.0)
     if float(build_profile.get("status_buildup_mult", 1.0)) < 1.0:
@@ -984,6 +988,7 @@ func _apply_special_skill() -> void:
         var radius := float(active_skill.get("range", 160.0))
         _ability_ring(radius, THREAD_T2_CORE)
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active(): continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
                 if enemy.has_method("take_hit"):
                     enemy.take_hit(attack_damage, facing)
@@ -1082,6 +1087,8 @@ func _apply_attack_hits() -> void:
     var attack_rect := Rect2(center - attack_size * 0.5, attack_size)
     for node in get_tree().get_nodes_in_group("enemy"):
         if not is_instance_valid(node) or not node.has_method("take_hit"):
+            continue
+        if node.has_method("world_residency_active") and not node.world_residency_active():
             continue
         var id := node.get_instance_id()
         if hit_targets.has(id):
