@@ -226,11 +226,11 @@ func _reset_region_fields(host: Node) -> void:
     defaults.free()
 
 
-## Escape requests rollback while the geometry plan is incomplete. Permanent
+## Escape requests rollback while geometry or arrival/UI jobs are incomplete. Permanent
 ## progress is restored from the settled departure snapshot; transient attacks
 ## are cancelled and source enemies are reconstructed, as on ordinary revisit.
 func cancel_transition() -> void:
-    if phase in ["unloading", "loading"]:
+    if phase in ["unloading", "loading", "committing"]:
         cancel_requested = true
 
 
@@ -338,6 +338,49 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     return not (cancellable and cancel_requested)
 
 
+func _finish_budgeted(host: Node, cancellable: bool) -> bool:
+    var jobs: Array = host._region_finish_jobs()
+    var cursor := 0
+    var wall_started := Time.get_ticks_usec()
+    last_transition["commit_jobs"] = jobs.size()
+    while cursor < jobs.size():
+        if cancellable and cancel_requested:
+            return false
+        var started := Time.get_ticks_usec()
+        var operations := 0
+        while cursor < jobs.size() and operations < MAX_OPERATIONS_PER_FRAME:
+            if operations > 0 and Time.get_ticks_usec() - started >= FRAME_BUDGET_USEC:
+                break
+            var job: Dictionary = jobs[cursor]
+            var job_started := Time.get_ticks_usec()
+            host.callv(job.method, job.args)
+            var job_usec := Time.get_ticks_usec() - job_started
+            var key: String = job.method if job.args.is_empty() else String(job.args[0])
+            var timings: Dictionary = last_transition.get("commit_operation_usec", {})
+            timings[key] = maxi(int(timings.get(key, 0)), job_usec)
+            last_transition["commit_operation_usec"] = timings
+            last_transition["max_commit_job_usec"] = maxi(int(last_transition.get("max_commit_job_usec", 0)), job_usec)
+            cursor += 1
+            operations += 1
+            last_transition["commit_cursor"] = cursor
+            last_transition["commit_job"] = key
+        var batch_usec := Time.get_ticks_usec() - started
+        last_transition["commit_work_usec"] = int(last_transition.get("commit_work_usec", 0)) + batch_usec
+        last_transition["max_commit_batch_usec"] = maxi(int(last_transition.get("max_commit_batch_usec", 0)), batch_usec)
+        last_transition["commit_batches"] = int(last_transition.get("commit_batches", 0)) + 1
+        _measure_batch(operations, started, "max_commit_operations")
+        if is_instance_valid(loading_label):
+            loading_label.text = ("正在整理行囊… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
+        # Even the last batch yields before publication, so Escape/host exit
+        # cannot publish a destination whose fully constructed UI was cancelled.
+        await host.get_tree().process_frame
+        if not _alive(host):
+            return false
+        _cancel_input()
+    last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
+    return not (cancellable and cancel_requested)
+
+
 func _set_destination(host: Node, path: String, entry: Vector2, previous_id: String, target: Dictionary) -> void:
     _reset_region_fields(host)
     host.config_path = path
@@ -388,6 +431,9 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     _set_destination(host, path, entry, source_id, target)
     phase = "loading"
     var built := await _construct_budgeted(host, target, true)
+    if built:
+        phase = "committing"
+        built = await _finish_budgeted(host, true)
     if not _alive(host):
         _clear_loading_canvas()
         return false
@@ -407,12 +453,16 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         if not await _construct_budgeted(host, source_config, false):
             _clear_loading_canvas()
             return false
-    # Arrival, exploration, UI and save happen only after the entire geometry
-    # plan is built. Partially loaded targets never become the saved location.
-    phase = "committing"
+        if not await _finish_budgeted(host, false):
+            _clear_loading_canvas()
+            return false
+    # Only this small, non-yielding boundary may publish rewards and save the
+    # destination. Rollback retires even partially constructed arrival/UI nodes.
+    phase = "publishing"
     var committed_at := Time.get_ticks_usec()
-    host._finish_region()
-    last_transition["commit_usec"] = Time.get_ticks_usec() - committed_at
+    host._publish_region()
+    last_transition["publish_usec"] = Time.get_ticks_usec() - committed_at
+    last_transition["commit_usec"] = int(last_transition.get("commit_work_usec", 0)) + int(last_transition.publish_usec)
     host.player.reset_camera_after_arrival()
     host.player.collision_layer = player_layer
     host.player.collision_mask = player_mask
