@@ -160,5 +160,96 @@
     "godot/scripts/world_route_walk_validation.gd": "692c6234f93e14ac2c0d1a5700b218daa0b2dafa",
     "tools/run_godot_regressions.py": "ed49bb47c8802b9d6f41090dead8881aa62462ee",
     "tools/validate_passage_pixels.gd": "d869883e5c56df5c238ef3bab848d2a841b85bc9"
+  },
+  "visual_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "396327cd4e20b7c4a1e6b7123185e5e2f1ed7028",
+    "baseline_ci": {
+      "run": 70,
+      "id": 38265570656,
+      "result": "success"
+    },
+    "source_asset": "godot/assets/sprites/flat_maps/moss_cavern/decor_atlas.png",
+    "source_asset_sha256": "c59c144d745ba80216da42c36d6048fce000059664c8b3ac267f849ace3cd01d",
+    "support_region": [
+      431,
+      46,
+      405,
+      581
+    ],
+    "lantern_region": [
+      984,
+      627,
+      144,
+      576
+    ],
+    "support_height": 284,
+    "lantern_height": 126,
+    "support_count": 14,
+    "lantern_count": 13,
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 3230,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1268,
+          "offset": 1000,
+          "ornament_pixels": 26237,
+          "passed": true,
+          "visible_samples": 5074
+        },
+        {
+          "distinct_colors": 3430,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1275,
+          "offset": 4200,
+          "ornament_pixels": 26316,
+          "passed": true,
+          "visible_samples": 5048
+        },
+        {
+          "distinct_colors": 3186,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1342,
+          "offset": 7600,
+          "ornament_pixels": 17509,
+          "passed": true,
+          "visible_samples": 5034
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "art_texture_ownership": "Per-passage texture ownership released on cleanup; no static ornament texture cache",
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl",
+        "bytes": 25980,
+        "sha256": "6cf5ec232939056295d34e1c67ebd65cfb7cb55f32141ed9c716a5b3e9c583e2"
+      },
+      {
+        "name": "initial_art_cache_gl",
+        "bytes": 667,
+        "sha256": "f57c4a0f4697616e4e4a877170d42cf4cfccf269422a48f5e004ec82067a2e5f"
+      },
+      {
+        "name": "import",
+        "bytes": 126384,
+        "sha256": "e98cc887e7f51bf8f63b71a28ae09707ee5c283e8225d6495ee9e46c92cb9c28"
+      }
+    ]
   }
 }

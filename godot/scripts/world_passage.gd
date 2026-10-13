@@ -4,6 +4,10 @@ extends Node2D
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const ROCK := preload("res://scripts/world_rock_material.gd")
+const DECOR_ATLAS := "res://assets/sprites/flat_maps/moss_cavern/decor_atlas.png"
+# Whole authored ornaments from the existing moss atlas, not generated outlines.
+const SUPPORT_REGION := Rect2(431, 46, 405, 581)
+const LANTERN_REGION := Rect2(984, 627, 144, 576)
 const PATH := "res://data/world_passages.json"
 const TRANSIT_LAYER := 64
 static var definitions: Array = []
@@ -21,6 +25,7 @@ var frozen: Array[Dictionary] = []
 var original_mask := 0
 var original_layer := 0
 var sync_until := 0
+var ornament_texture: Texture2D
 var notice: Label
 var terminal_world_point := Vector2.ZERO
 var previous_position := Vector2.ZERO
@@ -167,12 +172,12 @@ func _build_tube() -> void:
     for index in range(int(length / 640) + 1):
         var x := a.x + index * 640
         var y := floor_a.y + (floor_b.y - floor_a.y) * (x - a.x) / length
-        var ring := Line2D.new()
-        ring.width = 2.5
-        ring.z_index = -3
-        ring.default_color = Color("7b8c79")
-        ring.points = PackedVector2Array([Vector2(x, y - 4), Vector2(x - 30, y - 230), Vector2(x, y - 260), Vector2(x + 30, y - 230), Vector2(x + 60, y - 4)])
-        add_child(ring)
+        _painted_ornament("MossStoneSupport_%d" % index, SUPPORT_REGION,
+            Vector2(x, y + 18), 284.0, "support", true)
+        if x + 320 < b.x:
+            var lamp_y := floor_a.y + (floor_b.y - floor_a.y) * (x + 320 - a.x) / length
+            _painted_ornament("DrainpipeLantern_%d" % index, LANTERN_REGION,
+                Vector2(x + 320, lamp_y - 252), 126.0, "lantern", false)
     var canvas := CanvasLayer.new()
     add_child(canvas)
     notice = Label.new()
@@ -180,6 +185,30 @@ func _build_tube() -> void:
     notice.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
     notice.add_theme_font_size_override("font_size", 20)
     canvas.add_child(notice)
+
+func _painted_ornament(node_name: String, region: Rect2, anchor: Vector2,
+        height: float, kind: String, bottom_anchor: bool) -> void:
+    if ornament_texture == null:
+        ornament_texture = load(DECOR_ATLAS) as Texture2D
+    if ornament_texture == null:
+        push_error("Missing painted drainpipe ornaments")
+        return
+    var frame := AtlasTexture.new()
+    frame.atlas = ornament_texture
+    frame.region = region
+    frame.filter_clip = true
+    var sprite := Sprite2D.new()
+    sprite.name = node_name
+    sprite.texture = frame
+    sprite.centered = false
+    # Preserve the entire arch's aspect ratio and a single atlas/material.
+    sprite.scale = Vector2.ONE * height / region.size.y
+    sprite.position = anchor - Vector2(region.size.x * sprite.scale.x * 0.5,
+        height if bottom_anchor else 0.0)
+    sprite.z_index = -3
+    sprite.set_meta("passage_ornament", kind)
+    sprite.set_meta("original_map_asset", DECOR_ATLAS)
+    add_child(sprite)
 
 func _camera_bounds() -> void:
     var camera: Camera2D = host.player.get_node("Camera2D")
@@ -281,6 +310,7 @@ func _clear() -> void:
     settling = false
     frozen.clear()
     notice = null
+    ornament_texture = null
     for child in get_children():
         remove_child(child)
         child.queue_free()

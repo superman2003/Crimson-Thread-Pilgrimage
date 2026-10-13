@@ -50,6 +50,23 @@ func _run() -> void:
             for x in range(0, image.get_width(), 2):
                 if image.get_pixel(x, y) != without_hero.get_pixel(x, y):
                     hero_pixels += 1
+        # Prove the painted supports/lanterns actually contribute pixels.
+        var ornaments: Array[Sprite2D] = []
+        for child in scene.world_passage.get_children():
+            if child is Sprite2D and child.has_meta("passage_ornament"):
+                ornaments.append(child)
+                child.visible = false
+        for frame in range(3):
+            await process_frame
+            await RenderingServer.frame_post_draw
+        var without_ornaments: Image = root.get_texture().get_image()
+        for sprite in ornaments:
+            sprite.visible = true
+        var ornament_pixels := 0
+        for y in range(0, image.get_height(), 2):
+            for x in range(0, image.get_width(), 2):
+                if image.get_pixel(x, y) != without_ornaments.get_pixel(x, y):
+                    ornament_pixels += 1
         var samples := 0
         var distinct: Dictionary = {}
         for y in range(50, 670, 12):
@@ -58,7 +75,7 @@ func _run() -> void:
                 distinct[color.to_html()] = true
                 if color.get_luminance() > 0.025:
                     samples += 1
-        var ok := samples > 1000 and distinct.size() > 64 and hero_pixels > 40
+        var ok := samples > 1000 and distinct.size() > 64 and hero_pixels > 40 and ornament_pixels > 400
         if not ok:
             failures += 1
             push_error("Pipe render blank or untextured")
@@ -66,7 +83,8 @@ func _run() -> void:
         if image.save_jpg(output.path_join(file), 0.92) != OK:
             failures += 1
             push_error("Cannot save pipe capture")
-        probes.append({"offset": offset, "visible_samples": samples, "distinct_colors": distinct.size(), "hero_pixels": hero_pixels, "passed": ok, "file": file})
+        ornaments.clear()
+        probes.append({"offset": offset, "visible_samples": samples, "distinct_colors": distinct.size(), "hero_pixels": hero_pixels, "ornament_pixels": ornament_pixels, "passed": ok, "file": file})
     scene.free()
     current_scene = null
     for frame in range(4):
