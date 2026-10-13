@@ -11,6 +11,7 @@ var checks := 0
 var failures: Array[String] = []
 var metrics: Array = []
 var observed: Dictionary = {}
+var churn: Dictionary = {}
 func _initialize() -> void: call_deferred("run")
 func check(ok: bool, message: String) -> void:
     checks += 1
@@ -66,11 +67,12 @@ func signature(actor: Area2D) -> Array:
 func landing(id: String, entry: Vector2) -> void:
     var pref := _seed_cache(id,entry)
     var state: Dictionary = scene.story_flags.duplicate(true)
+    var inventory: Dictionary = scene.inventory_counts.duplicate(true)
     var wallet: int = scene.currency_count
     var enemy_count := get_nodes_in_group("enemy").size()
     var node_count: int = scene.get_child_count()
     await warm(pref)
-    check(scene.story_flags == state and scene.currency_count == wallet and get_nodes_in_group("enemy").size() == enemy_count and scene.get_child_count() == node_count, "prebuild leaves active progression/groups/tree unchanged")
+    check(scene.story_flags == state and scene.inventory_counts == inventory and scene.currency_count == wallet and get_nodes_in_group("enemy").size() == enemy_count and scene.get_child_count() == node_count, "prebuild leaves active progression/inventory/groups/tree unchanged")
     var records: Dictionary = pref.gameplay.regions[id].actors.duplicate()
     check(records.size() <= GAMEPLAY.MAX_PER_REGION, "per-region actor limit")
     var before_hits: int = pref.gameplay.hits
@@ -129,10 +131,21 @@ func invalid_descriptors() -> void:
         var malformed: Dictionary = raw.duplicate(true)
         malformed[field].append(malformed[field][0].duplicate(true))
         check(scene.world_loader.validate_config(malformed,path,entry).is_empty(), "duplicate gameplay identity rejected before prebuild")
-    for value in [[0,40],[-1,40],[INF,40],["bad",40]]:
+        malformed = raw.duplicate(true)
+        malformed[field][0].erase("position")
+        check(scene.world_loader.validate_config(malformed,path,entry).is_empty(), "missing gameplay position rejected before allocation")
+    for value in [[],[0,40],[-1,40],[INF,40],["bad",40]]:
         var malformed: Dictionary = raw.duplicate(true)
         malformed.interactives[0].interaction_size = value
         check(scene.world_loader.validate_config(malformed,path,entry).is_empty(), "bad interaction dimensions rejected")
+    for value in [[], "invalid", {String(raw.enemy_spawns[0].kind): []}]:
+        var malformed: Dictionary = raw.duplicate(true)
+        malformed.ai_profiles = value
+        check(scene.world_loader.validate_config(malformed,path,entry).is_empty(), "malformed enemy profile rejected before prebuild")
+    var defaults: Dictionary = raw.duplicate(true)
+    defaults.enemy_spawns[0].body_size = []
+    defaults.enemy_spawns[0].hurtbox_size = []
+    check(not scene.world_loader.validate_config(defaults,path,entry).is_empty(), "empty enemy sizes retain authored defaults")
 func invalidation() -> void:
     var id := "demo_ch02_rain_foundry_canal"
     var entry := Vector2(330,720)
@@ -199,6 +212,54 @@ func cancellation() -> void:
     var saved := STATE.new()
     check(saved.read(SAVE) and saved.data.current_region == source, "partial destination never committed to disk")
     pref.shutdown()
+
+func cache_churn() -> void:
+    scene._travel_world(ROUTES.config_path("demo_ch01_moss_bell_court"),Vector2(200,3360))
+    var pref: RefCounted = scene.world_prefetch
+    pref.shutdown()
+    pref.generation = scene.world_loader.generation
+    pref.selection_elapsed = -1000
+    var baseline_nodes := scene.get_child_count()
+    var baseline_enemies := get_nodes_in_group("enemy").size()
+    var baseline_state: Dictionary = scene.story_flags.duplicate(true)
+    var source_position: Vector2 = scene.player.position
+    var source_portals: Array = scene.config.interactives.duplicate(true)
+    var focus: Vector2 = (scene.get_node("moss_rain_pipe").position + scene.get_node("moss_archive_return").position) * 0.5
+    var old_actors: Array = []
+    var before_builds: int = pref.gameplay.builds
+    var before_releases: int = pref.gameplay.releases
+    # Repeated two-neighbor, changed-entry and leave-range leases in one host.
+    # Retirements deliberately overlap new plans; no per-cycle shutdown.
+    for cycle in 80:
+        scene.config.interactives = source_portals.duplicate(true)
+        for portal in scene.config.interactives:
+            if String(portal.get("target_config_id","")) in ["demo_ch02_rain_foundry_canal", "demo_ch03_saltwhite_archive"]:
+                portal.target_spawn[0] += (cycle % 2) * 120
+        scene.player.position = focus
+        pref.selection_elapsed = 1
+        await warm(pref)
+        check(old_actors.all(func(x): return not is_instance_valid(x)), "changed entry releases previous gameplay lease")
+        old_actors = []
+        for cache in pref.gameplay.regions.values():
+            old_actors.append_array(cache.actors.values().map(func(x): return x.actor))
+        if cycle % 5 == 4:
+            scene.player.position = Vector2(8000,6000)
+            pref.selection_elapsed = 1
+            for unused in 80:
+                var built: int = pref.entity_builds + pref.gameplay.builds
+                var released: int = pref.entity_releases + pref.gameplay.releases
+                pref.step(scene,0)
+                check(pref.entity_builds + pref.gameplay.builds - built <= 2 and pref.entity_releases + pref.gameplay.releases - released <= 2, "leave-range shared frame admission bounded")
+                if pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0: break
+                await process_frame
+            check(old_actors.all(func(x): return not is_instance_valid(x)), "leave-range lease drains during churn")
+    pref.shutdown()
+    scene.config.interactives = source_portals
+    scene.player.position = source_position
+    check(old_actors.all(func(x): return not is_instance_valid(x)) and pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0, "churn teardown releases all detached objects")
+    check(pref.gameplay.builds - before_builds == pref.gameplay.releases - before_releases, "every churn-built gameplay actor retired exactly once")
+    check(scene.get_child_count() == baseline_nodes and get_nodes_in_group("enemy").size() == baseline_enemies and scene.story_flags == baseline_state, "80 cache cycles leave source tree groups and progress untouched")
+    churn = {"cycles":80,"builds":pref.gameplay.builds-before_builds,"releases":pref.gameplay.releases-before_releases,"final":pref.snapshot(),"memory_soak":false}
 func run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
@@ -217,7 +278,13 @@ func run() -> void:
         for portal in raw.interactives:
             if String(portal.get("kind","")) == "world_portal":
                 await landing(String(portal.target_config_id),Vector2(portal.target_spawn[0],portal.target_spawn[1]))
-    for kind in ["enemy","npc","save_point","world_portal"]: check(observed.has(kind), "canonical fixtures cover " + kind)
+    # All regions/portal landings are covered above. Add the two categories
+    # outside those landing windows without repeating entire-region rebuilds.
+    var authored: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path("demo_ch01_moss_bell_court")))
+    for data in authored.interactives:
+        if String(data.get("kind","")) in ["lever","boss_gate"]:
+            await landing("demo_ch01_moss_bell_court",Vector2(data.position[0],data.position[1]))
+    for kind in ["enemy","npc","save_point","lever","boss_gate","world_portal"]: check(observed.has(kind), "canonical fixtures cover " + kind)
     await invalidation()
     await two_neighbors()
     await cancellation()
@@ -226,7 +293,7 @@ func run() -> void:
     current_scene = null
     await frames(2)
     for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
-    print("NEIGHBOR GAMEPLAY METRICS ",JSON.stringify({"landings":metrics,"final":stats,"fixture_positioning":true,"combat_acceptance":false}))
+    print("NEIGHBOR GAMEPLAY METRICS ",JSON.stringify({"landings":metrics,"final":stats,"churn":churn,"fixture_positioning":true,"combat_acceptance":false}))
     for message in failures: push_error(message)
     print("WORLD_NEIGHBOR_GAMEPLAY checks=%d failures=%d" % [checks,failures.size()])
     quit(0 if failures.is_empty() else 1)

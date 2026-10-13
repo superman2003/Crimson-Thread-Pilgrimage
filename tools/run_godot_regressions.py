@@ -2,16 +2,18 @@
 """Run isolated Godot suites; failures, engine errors and timeouts all fail CI."""
 from __future__ import annotations
 import argparse
+from contextlib import nullcontext
 import os
 from pathlib import Path
 import re
 import shutil
 import subprocess
 import tempfile
+from software_gl import software_gl
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
-    'world_rim world_wayfinding world_passage audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
+    'world_rim world_wayfinding world_passage audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
     'enemy_effect_lifetime enemy_visibility world_material hero_animation cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
@@ -33,6 +35,7 @@ def main():
     parser.add_argument('--suite', action='append', help='Repeat to select suites; defaults to the CI suite list.')
     parser.add_argument('--timeout', type=float, default=180)
     parser.add_argument('--log-dir', type=Path)
+    parser.add_argument('--software-gl', action='store_true', help='Run all suites under real llvmpipe GL; avoids the Godot 4.6 dummy texture RID race without hiding errors.')
     args = parser.parse_args()
     engine = shutil.which(args.engine)
     if not engine:
@@ -44,37 +47,50 @@ def main():
     with tempfile.TemporaryDirectory(prefix='pilgrimage-regressions-') as scratch:
         logs = args.log_dir or Path(scratch) / 'logs'
         logs.mkdir(parents=True, exist_ok=True)
-        for suite in suites:
-            script = suite_path(suite)
-            name = suite.replace('/', '_')
-            log = logs / f'{name}.log'
-            if not (ROOT / 'godot' / script.removeprefix('res://')).is_file():
-                failures.append(f'{suite}: missing validation script')
-                print('FAIL: ' + failures[-1], flush=True)
-                continue
-            env = dict(os.environ, XDG_DATA_HOME=str(Path(scratch) / name))
-            print(f'Running {suite}', flush=True)
-            try:
-                with log.open('w') as output:
-                    # Frame-counted ability/actuator probes use a fixed clock.
-                    # Audio lifetime suites must retain normal playback timing.
-                    simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage'] else []
-                    # An intermittent CI shutdown leak needs the actual Resource
-                    # identity; verbose keeps that evidence without hiding errors.
-                    diagnostics = ['--verbose'] if suite == 'world_upgrade' else []
-                    result = subprocess.run([engine, '--headless', *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, check=False)
-                output = log.read_text(errors='replace')
-                errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
-                if result.returncode != 0 or errors:
-                    failures.append(f'{suite}: exit={result.returncode} engine_errors={len(errors)}')
-                    print('FAIL: ' + failures[-1] + '\n' + '\n'.join(output.splitlines()[-40:]), flush=True)
-                else:
-                    print('PASS: ' + suite + '\n' + '\n'.join(output.splitlines()[-2:]), flush=True)
-            except subprocess.TimeoutExpired:
-                failures.append(f'{suite}: timeout after {args.timeout:g}s')
-                print('FAIL: ' + failures[-1], flush=True)
+        display = software_gl(logs / 'display') if args.software_gl else nullcontext({})
+        with display as renderer_env:
+            failures = run_suites(engine, suites, args.timeout, logs, Path(scratch), args.software_gl, renderer_env)
     print(f'GODOT_REGRESSIONS suites={len(suites)} failures={len(failures)}')
     return 1 if failures else 0
+
+
+def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
+    failures = []
+    for suite in suites:
+        script = suite_path(suite)
+        name = suite.replace('/', '_')
+        log = logs / f'{name}.log'
+        if not (ROOT / 'godot' / script.removeprefix('res://')).is_file():
+            failures.append(f'{suite}: missing validation script')
+            print('FAIL: ' + failures[-1], flush=True)
+            continue
+        env = dict(os.environ, **renderer_env, XDG_DATA_HOME=str(scratch / name))
+        print(f'Running {suite}', flush=True)
+        try:
+            with log.open('w') as output:
+                # Frame-counted ability/actuator probes use a fixed clock.
+                # Audio lifetime suites must retain normal playback timing.
+                simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live'] else []
+                # An intermittent CI shutdown leak needs the actual Resource
+                # identity; verbose keeps that evidence without hiding errors.
+                diagnostics = ['--verbose'] if suite == 'world_upgrade' else []
+                renderer = ['--display-driver', 'x11', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility'] if real_gl else ['--headless']
+                # This input/action/state suite rebuilds twenty full workshops
+                # but never samples pixels. Keep the real GL resource backend
+                # and live physics/audio; avoid rasterizing every fixture frame.
+                drawing = ['--disable-render-loop'] if real_gl and suite == 'world_upgrade' else []
+                result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
+            output = log.read_text(errors='replace')
+            errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
+            if result.returncode != 0 or errors:
+                failures.append(f'{suite}: exit={result.returncode} engine_errors={len(errors)}')
+                print('FAIL: ' + failures[-1] + '\n' + '\n'.join(output.splitlines()[-40:]), flush=True)
+            else:
+                print('PASS: ' + suite + '\n' + '\n'.join(output.splitlines()[-2:]), flush=True)
+        except subprocess.TimeoutExpired:
+            failures.append(f'{suite}: timeout after {timeout:g}s')
+            print('FAIL: ' + failures[-1], flush=True)
+    return failures
 
 if __name__ == '__main__':
     raise SystemExit(main())
