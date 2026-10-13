@@ -313,6 +313,14 @@ var engage_announced := false
 var boss_phase_shift_played := false
 
 
+var presentation_prepared := false
+
+func prepare_presentation() -> void:
+    if presentation_prepared: return
+    _build_shape()
+    _build_sprite()
+    presentation_prepared = true
+
 func _ready() -> void:
     add_to_group("enemy")
     if locomotion == "flight":
@@ -322,8 +330,7 @@ func _ready() -> void:
     monitoring = true
     monitorable = true
     body_entered.connect(_on_body_entered)
-    _build_shape()
-    _build_sprite()
+    prepare_presentation()
 
 
 func _physics_process(delta: float) -> void:

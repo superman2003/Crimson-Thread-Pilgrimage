@@ -80,6 +80,21 @@ func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionar
                     if not _finite_tuple(point, 2):
                         last_error = "目标区域地形轮廓坐标无效。"
                         return {}
+    # Gameplay prefabs use exact identities and size descriptors. Reject bad
+    # leases before allocation so duplicate keys cannot orphan detached nodes.
+    for field in ["enemy_spawns", "npcs", "save_points", "interactives"]:
+        var identities: Dictionary = {}
+        for item in parsed.get(field, []):
+            var item_id: Variant = item.get("id")
+            if not item_id is String or String(item_id).is_empty() or identities.has(item_id):
+                last_error = "目标区域的%s身份无效或重复。" % field
+                return {}
+            identities[item_id] = true
+            for size_field in ["interaction_size", "body_size", "hurtbox_size"]:
+                if not item.has(size_field) or item[size_field] == []: continue
+                if not _finite_tuple(item[size_field], 2) or float(item[size_field][0]) <= 0 or float(item[size_field][1]) <= 0:
+                    last_error = "目标区域的%s尺寸无效。" % size_field
+                    return {}
     # Prefetch and arrival share these descriptors. Reject malformed geometry
     # before either detached allocation or eviction of the current region.
     var terrain_ids: Dictionary = {}
