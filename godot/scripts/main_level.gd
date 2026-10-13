@@ -987,7 +987,7 @@ func _add_wayfinding(area: Area2D) -> void:
         marker.z_index = 20
     area.add_child(marker)
 
-func _world_portal(data: Dictionary) -> void:
+func _make_world_portal(data: Dictionary) -> Area2D:
     var area := Area2D.new()
     area.name = String(data.get("id", "world_portal"))
     area.position = _vec2(data.get("position", [0, 0]))
@@ -1010,6 +1010,14 @@ func _world_portal(data: Dictionary) -> void:
         arch.add_point(Vector2(cos(angle) * 29.0, sin(angle) * 46.0))
     arch.add_point(Vector2(29, 17))
     area.add_child(arch)
+    return area
+
+
+func _world_portal(data: Dictionary) -> void:
+    var area := _take_gameplay_prefab("world_portal", data)
+    if area == null: area = _make_world_portal(data)
+    var arch: Line2D = area.get_node("WorldPortalArch")
+    arch.default_color = Color(0.40, 0.80, 0.88) if _world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -3956,7 +3964,7 @@ func _collectible(data: Dictionary) -> void:
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
-func _lever(data: Dictionary) -> void:
+func _make_lever(data: Dictionary) -> Area2D:
     var area := Area2D.new()
     area.name = String(data.get("id", "shortcut_lever"))
     area.position = _vec2(data.get("position", [0, 0]))
@@ -3979,6 +3987,14 @@ func _lever(data: Dictionary) -> void:
     sprite.name="LeverSprite"
     _apply_original_prop(sprite,"lever_closed",83)
     area.add_child(sprite)
+    return area
+
+
+func _lever(data: Dictionary) -> void:
+    var area := _take_gameplay_prefab("lever", data)
+    if area == null: area = _make_lever(data)
+    area.set_meta("requires_keys", int(data.get("requires_keys", max_bells)))
+    area.set_meta("label", String(data.get("label", "Boss Route Control" if _combat_progression_enabled() else "Shortcut Lever")))
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -3988,7 +4004,7 @@ func _lever(data: Dictionary) -> void:
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
-func _boss_door(data: Dictionary) -> void:
+func _make_boss_door(data: Dictionary) -> Area2D:
     var area := Area2D.new()
     area.name = String(data.get("id", "boss_gate"))
     area.position = _vec2(data.get("position", [0, 0]))
@@ -4007,6 +4023,12 @@ func _boss_door(data: Dictionary) -> void:
     sprite.scale = Vector2(0.82, 0.82)
     _apply_original_prop(sprite,"gate_closed",152)
     area.add_child(sprite)
+    return area
+
+
+func _boss_door(data: Dictionary) -> void:
+    var area := _take_gameplay_prefab("boss_gate", data)
+    if area == null: area = _make_boss_door(data)
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -4070,7 +4092,7 @@ func _chapter_exit(data: Dictionary) -> void:
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
-func _save_point(data: Dictionary) -> void:
+func _make_save_point(data: Dictionary) -> Area2D:
     var area := Area2D.new()
     area.name = String(data.get("id", "save_point"))
     area.position = _vec2(data.get("position", active_spawn))
@@ -4120,11 +4142,17 @@ func _save_point(data: Dictionary) -> void:
     ])
     area.add_child(ring)
 
+    return area
+
+
+func _save_point(data: Dictionary) -> void:
+    var area := _take_gameplay_prefab("save_point", data)
+    if area == null: area = _make_save_point(data)
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
-    _animate_save_point(area, marker, ring)
+    _animate_save_point(area, area.get_node("SavePointSprite"), area.get_node("SavePointHalo"))
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -4178,7 +4206,7 @@ func _play_save_point_activation(area: Area2D) -> void:
         tween.finished.connect(Callable(echo, "queue_free"))
 
 
-func _npc(data: Dictionary) -> void:
+func _make_npc(data: Dictionary) -> Area2D:
     var area := Area2D.new()
     area.name = String(data.get("id", "npc"))
     area.position = _vec2(data.get("position", [0, 0]))
@@ -4217,6 +4245,12 @@ func _npc(data: Dictionary) -> void:
     area.add_to_group("interactable")
     area.set_meta("portrait_id",art_id)
     area.set_meta("dialogue_topics",data.get("dialogue_topics",{}))
+    return area
+
+
+func _npc(data: Dictionary) -> void:
+    var area := _take_gameplay_prefab("npc", data)
+    if area == null: area = _make_npc(data)
     _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
@@ -4453,17 +4487,40 @@ func _spawn_normal_enemies() -> void:
             _enemy(spawn)
 
 
-func _enemy(data: Dictionary) -> Area2D:
+func _take_gameplay_prefab(kind: String, data: Dictionary, profile: Dictionary = {}) -> Area2D:
+    return world_prefetch.gameplay.take(String(config.id), kind, data, profile) if world_mode and world_prefetch != null else null
+
+func _make_enemy_prefab(data: Dictionary, profile: Dictionary) -> Area2D:
     var enemy := Area2D.new()
-    var clearance := float(data.get("clearance", 40.0))
-    enemy.position = _resolve_enemy_spawn_position(data)
     enemy.set_script(ENEMY_ACTOR_SCRIPT)
+    var kind := String(data.get("kind", "moss_larva"))
+    enemy.configure(data, SPRITES.get(kind, SPRITES["moss_larva"]), false, profile)
+    enemy.prepare_presentation()
+    return enemy
+
+func _create_gameplay_prefab(kind: String, data: Dictionary, prepared: Dictionary) -> Area2D:
+    match kind:
+        "enemy": return _make_enemy_prefab(data, prepared.get("ai_profiles", {}).get(String(data.get("kind", "moss_larva")), {}))
+        "npc": return _make_npc(data)
+        "save_point": return _make_save_point(data)
+        "lever": return _make_lever(data)
+        "boss_gate": return _make_boss_door(data)
+        "world_portal": return _make_world_portal(data)
+    return null
+
+
+func _enemy(data: Dictionary) -> Area2D:
+    var clearance := float(data.get("clearance", 40.0))
     var kind := String(data.get("kind", "moss_larva"))
     var profiles: Dictionary = config.get("ai_profiles", {})
     var profile: Dictionary = profiles.get(kind, {})
     if profile.is_empty():
         push_warning("Missing normal enemy AI profile: " + kind)
-    enemy.configure(data, SPRITES.get(kind, SPRITES["moss_larva"]), false, profile)
+    var enemy := _take_gameplay_prefab("enemy", data, profile)
+    if enemy == null: enemy = _make_enemy_prefab(data, profile)
+    # Collision clearance and support depend on the active destination, never
+    # on the region in which the detached actor was prepared.
+    enemy.position = _resolve_enemy_spawn_position(data)
     enemy.set("death_sfx_key", _enemy_death_sfx_key())
     var floor_platform_id := _platform_under_position(enemy.position, clearance)
     if world_platforms != null:

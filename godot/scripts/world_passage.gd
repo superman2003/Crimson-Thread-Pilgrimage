@@ -33,6 +33,7 @@ const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
 var terminal_world_point := Vector2.ZERO
 var previous_position := Vector2.ZERO
 var travelled := 0.0
+var return_progress := -30.0
 var last_result: Dictionary = {}
 
 static func routes() -> Array:
@@ -110,6 +111,11 @@ func begin(portal_id: String) -> bool:
     source_id = String(host.config.id)
     source_point = Vector2(portal.position[0], portal.position[1])
     destination_point = COORDINATES.to_local(source_id, COORDINATES.to_world(destination_id, entry))
+    # Directional mouth entry may begin up to 52px before the marker. Measure
+    # reversal from that actual entry as well, so a normal forward approach
+    # cannot be mistaken for an immediate walk back out of the connector.
+    var direction := signf(destination_point.x - source_point.x)
+    return_progress = minf(-30.0, direction * (host.player.global_position.x - source_point.x) - 30.0)
     # Cancel geometry-bound actions and settle heal refunds before checkpointing.
     var speed: Vector2 = host.player.velocity
     host.player.prepare_region_handoff()
@@ -267,7 +273,7 @@ func step() -> void:
         retry_blocked = false
     if Input.is_action_just_pressed("close_overlay") or host.player.hp <= 0 or point.y > maxf(source_point.y, destination_point.y) + 80:
         _return_to_source(true)
-    elif direction * (point.x - source_point.x) < -30:
+    elif direction * (point.x - source_point.x) < return_progress:
         _return_to_source(false)
     elif not retry_blocked and direction * (point.x - destination_point.x) >= 0:
         settling = true

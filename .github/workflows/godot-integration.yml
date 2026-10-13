@@ -16,7 +16,9 @@ concurrency:
 jobs:
   runtime:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # The complete suite now renders through llvmpipe as well as the pixel
+    # probes. Individual suite timeouts and strict engine error checks remain.
+    timeout-minutes: 30
     steps:
       - name: Check out the exact commit and hydrate runtime assets
         env:
@@ -64,11 +66,19 @@ jobs:
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_godot_regressions.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
       - name: Validate fixed-coordinate world atlas rendering
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/atlas-gpu" --script ../tools/validate_world_atlas_pixels.gd --success-marker 'WORLD_ATLAS_PIXELS probes=5 failures=0' --summary-path artifacts/world_atlas/gpu_atlas.json
+      - name: Validate neighboring gameplay artwork parity
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-gpu" --script ../tools/validate_neighbor_gameplay_pixels.gd --success-marker 'NEIGHBOR_GAMEPLAY_PIXELS probes=6 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_gameplay.json
+      - name: Validate live neighboring gameplay and directional pipe approaches
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=44 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json
       - name: Preserve regression logs
         if: always()
         uses: actions/upload-artifact@v4

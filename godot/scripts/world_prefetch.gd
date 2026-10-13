@@ -7,6 +7,8 @@ const MAX_ROCK_CHUNKS := 6
 const MAX_TERRAIN_POLYGONS := 6
 const MAX_ROCK_SHAPES := 32
 const MAX_POLYGON_POINTS := 256
+const GAMEPLAY := preload("res://scripts/world_gameplay_prefetch.gd")
+var gameplay := GAMEPLAY.new()
 var rock_hits := 0
 var terrain_hits := 0
 
@@ -54,7 +56,9 @@ func step(host: Node, delta: float) -> void:
     if selection_elapsed >= 0.25:
         selection_elapsed = 0
         _select(host)
-    _retire_entities(started)
+    gameplay.synchronize(desired, configs, generation)
+    var retired := _retire_entities(started)
+    gameplay.retire(started, 2 - retired)
     # Never block on load_threaded_get until its status is LOADED/FAILED.
     for index in range(jobs.size() - 1, -1, -1):
         var job := jobs[index]
@@ -120,7 +124,9 @@ func step(host: Node, delta: float) -> void:
         else:
             failures += 1
     if Time.get_ticks_usec() - started < BUDGET_US:
-        _warm_entities(host, started)
+        gameplay.synchronize(desired, configs, generation)
+        var built := _warm_entities(host, started)
+        gameplay.warm(host, started, 2 - built)
 
 func _release_entities(region_id: String) -> void:
     if not entities.has(region_id):
@@ -132,22 +138,23 @@ func _release_entities(region_id: String) -> void:
                 retiring.append(body)
     entities.erase(region_id)
 
-func _retire_entities(started: int, eager: bool = false) -> void:
+func _retire_entities(started: int, eager: bool = false) -> int:
     var removed := 0
     while not retiring.is_empty():
         if not eager and (removed >= 2 or (removed > 0 and Time.get_ticks_usec() - started >= BUDGET_US)):
-            return
+            return removed
         var body: Node = retiring.pop_front()
         if is_instance_valid(body):
             body.free()
             entity_releases += 1
         removed += 1
+    return removed
 
 func _clear_entities() -> void:
     for region_id in entities.keys():
         _release_entities(region_id)
 
-func _warm_entities(host: Node, started: int) -> void:
+func _warm_entities(host: Node, started: int) -> int:
     var built := 0
     for region_id in desired:
         if not configs.has(region_id) or configs[region_id].raw.is_empty():
@@ -162,7 +169,7 @@ func _warm_entities(host: Node, started: int) -> void:
         var record: Dictionary = entities[region_id]
         while not record.pending.is_empty():
             if built >= 2 or Time.get_ticks_usec() - started >= BUDGET_US or _entity_count() + retiring.size() >= MAX_REGIONS * MAX_BODIES_PER_REGION:
-                return
+                return built
             var job: Dictionary = record.pending.pop_front()
             var data: Dictionary = job.data
             var body: Node
@@ -176,6 +183,7 @@ func _warm_entities(host: Node, started: int) -> void:
             entity_builds += 1
             built += 1
             max_entities = maxi(max_entities, _entity_count() + retiring.size())
+    return built
 
 func _entity_count() -> int:
     var count := 0
@@ -313,7 +321,7 @@ func snapshot() -> Dictionary:
     var count := 0
     for textures in retained.values():
         count += textures.size()
-    return {"rock_chunks": rocks, "terrain_polygons": polygons, "rock_hits": rock_hits, "terrain_hits": terrain_hits, "retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
+    return {"gameplay": gameplay.snapshot(), "rock_chunks": rocks, "terrain_polygons": polygons, "rock_hits": rock_hits, "terrain_hits": terrain_hits, "retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
         "regions": configs.size(), "textures": count, "jobs": jobs.size(), "queued": queue.size(),
         "config_reads": config_reads, "cache_hits": cache_hits, "failures": failures,
         "stale_results": stale_results, "max_jobs": max_jobs_seen, "generation": generation}
@@ -326,6 +334,7 @@ func shutdown() -> void:
             ResourceLoader.load_threaded_get(job.path)
     _clear_entities()
     _retire_entities(Time.get_ticks_usec(), true)
+    gameplay.shutdown()
     jobs.clear()
     queue.clear()
     configs.clear()
