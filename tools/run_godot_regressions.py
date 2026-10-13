@@ -13,7 +13,7 @@ from software_gl import software_gl
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
-    'world_rim world_wayfinding world_passage audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
+    'world_rim world_wayfinding world_passage audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
     'enemy_effect_lifetime enemy_visibility world_material hero_animation cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
