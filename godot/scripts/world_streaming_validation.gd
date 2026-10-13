@@ -48,7 +48,7 @@ func _terrain_checks(region_id: String) -> void:
     var native_count := 0
     for body in reference.get_children():
         for face in body.get_children():
-            if face is Polygon2D:
+            if face is Polygon2D and not face.has_meta("independent_edge_art"):
                 var signature := _signature(face.polygon)
                 native_faces[signature] = int(native_faces.get(signature, 0)) + 1
                 native_count += 1
@@ -56,18 +56,39 @@ func _terrain_checks(region_id: String) -> void:
     for record in streamed.visual_chunks.values():
         for points in record.faces:
             described_faces += 1
-            var signature := _signature(points)
+            # The authored floor rim covers the first strip of the stratum.
+            # Compare the actual stone plane; rims are checked separately below.
+            var stone: PackedVector2Array = points.duplicate()
+            var inset := minf(12, (points[3].y - points[0].y) * 0.25)
+            stone[0] += Vector2(0, inset)
+            stone[1] += Vector2(0, inset)
+            var signature := _signature(stone)
             _check(int(native_faces.get(signature, 0)) > 0, region_id + " chunk preserves native face geometry")
             native_faces[signature] = int(native_faces.get(signature, 0)) - 1
     _check(described_faces == native_count and native_faces.values().all(func(count): return count == 0), region_id + " no missing or duplicated source faces")
     var initial: Dictionary = streamed.streaming_snapshot()
     _check(initial.resident_faces < initial.faces, region_id + " arrival avoids building distant faces")
     var first_resident: int = initial.resident_faces
+    var checked_chunks: Dictionary = {}
     # Sweep every real chunk, including edge/corner crossings and return trips.
     for key in streamed.visual_chunks:
         var center: Vector2 = streamed.visual_chunks[key].bounds.get_center()
         var view := Rect2(center - Vector2(640, 360), Vector2(1280, 720))
         streamed.refresh_visual_chunks(view, true)
+        for resident in streamed.resident_chunks:
+            if checked_chunks.has(resident): continue
+            checked_chunks[resident] = true
+            var chunk: Node = streamed.resident_chunks[resident]
+            var stone_count := 0
+            var rim_count := 0
+            for face in chunk.get_children():
+                if not face is Polygon2D: continue
+                if face.has_meta("independent_edge_art"):
+                    rim_count += 1
+                    _check(String(face.get_meta("independent_edge_art")) == "floor", region_id + " streamed face retains floor rim")
+                else:
+                    stone_count += 1
+            _check(stone_count == streamed.visual_chunks[resident].faces.size() and rim_count == stone_count, region_id + " each streamed stratum retains one independent rim")
         for candidate in streamed.visual_chunks:
             var record: Dictionary = streamed.visual_chunks[candidate]
             if view.intersects(record.bounds):
@@ -75,6 +96,7 @@ func _terrain_checks(region_id: String) -> void:
         for resident in streamed.resident_chunks:
             _check(view.grow(streamed.KEEP_MARGIN).intersects(streamed.visual_chunks[resident].bounds), region_id + " residency respects hysteresis bounds")
         _check(_collision_count(streamed) == collision_count, region_id + " camera sweep cannot unload collision")
+    _check(checked_chunks.size() == streamed.visual_chunks.size(), region_id + " every authored chunk examined")
     var view_offworld := Rect2(Vector2(-50000, -50000), Vector2(1280, 720))
     streamed.refresh_visual_chunks(view_offworld, true)
     _check(streamed.resident_chunks.is_empty(), region_id + " distant visuals released")
