@@ -62,9 +62,9 @@ func _run() -> void:
         var without_ornaments: Image = root.get_texture().get_image()
         for sprite in ornaments:
             sprite.visible = true
-        var markers: Array[Label] = []
+        var markers: Array[Node2D] = []
         for child in scene.world_passage.get_children():
-            if child is Label and String(child.name).begins_with("Endpoint_"):
+            if child is Node2D and String(child.name).begins_with("Endpoint_"):
                 markers.append(child)
                 child.visible = false
         for frame in range(3):

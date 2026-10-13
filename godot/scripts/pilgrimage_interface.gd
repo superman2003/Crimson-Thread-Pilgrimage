@@ -71,7 +71,7 @@ var energy_status: Label
 var healing_bar: ProgressBar
 var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
-var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":true}
+var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false}
 var remap_target := ""
 var remap_buttons: Dictionary={}
 var remap_status: Label
@@ -1020,15 +1020,9 @@ func _process(delta: float) -> void:
         toast_age=0
     toast.visible=not toast.text.is_empty()
     toast.modulate.a=clampf(5.5-toast_age,0,1)
-    prompt.visible=level.active_overlay==""
-    if prompt.visible:
-        var area: Area2D=level._nearest_interactable(140)
-        if area==null:
-            prompt.text=""
-            prompt.visible=false
-        else:
-            var kind:=String(area.get_meta("kind",""))
-            prompt.text=_short_binding("interact")+" · "+String(area.get_meta("interaction_label",("与 "+String(area.get_meta("label",area.name))+" 交谈") if kind=="npc" else area.get_meta("label","触碰旧机关")))
+    # Interaction is shown at the object by WorldWayfinding.
+    prompt.visible=false
+    prompt.text=""
     var actor: Node=level.boss_actor
     var show_boss: bool = actor!=null and is_instance_valid(actor) and not level.demo_complete and level.active_overlay==""
     boss_name.visible=show_boss

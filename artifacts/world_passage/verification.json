@@ -489,5 +489,45 @@
         "sha256": "6e9719b60ed6b4937a995123a4fe0947f096a78a523359eded12fa9a01e4f614"
       }
     ]
+  },
+  "wayfinding_revision": {
+    "date": "2026-10-13",
+    "base_commit": "ab607e9e0ebd41bd6233688c1bfbb949c7070ff0",
+    "godot_suites": 6,
+    "godot_failures": 0,
+    "wayfinding_checks": 37,
+    "passage_checks": 52,
+    "route_access_checks": 553,
+    "cartography_checks": 4055,
+    "gpu_probes": 4,
+    "gpu_failures": 0,
+    "tutorial_scope": "once per interaction type; persisted story_flags; remapped keys",
+    "logs": [
+      {
+        "file": "wayfinding-revised-run.log",
+        "sha256": "b587451b90d1b849e75e7772f46f9b0d89508b56b4ca9aa05d525ae7e39014fc"
+      },
+      {
+        "file": "wayfinding-npm.log",
+        "sha256": "e62948ea2dc4def8c2cd0b1b9510e73c97426e3ad4add53f4f5d6aec46a2275d"
+      },
+      {
+        "file": "wayfinding-campaign.log",
+        "sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036"
+      },
+      {
+        "file": "gpu.log",
+        "sha256": "d03d034eb152e827d6c976ac9247eaf0d936d8d149913f7eed01083235d18653"
+      },
+      {
+        "file": "gpu.log",
+        "sha256": "6e9719b60ed6b4937a995123a4fe0947f096a78a523359eded12fa9a01e4f614"
+      }
+    ],
+    "limits": [
+      "Fixture captures, not natural playthrough",
+      "First standard GL run reported an ObjectDB exit warning; verbose follow-up had no engine ERROR or exit warning; existing editor RID errors remain outside runtime acceptance",
+      "Remote CI pending final commit"
+    ]
   }
 }

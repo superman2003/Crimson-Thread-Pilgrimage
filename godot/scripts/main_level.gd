@@ -934,6 +934,56 @@ func _save_world() -> void:
         _toast("归途记录暂未写入，当前旅途进度仍保留。")
 
 
+const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
+
+func _first_interaction_type(area: Area2D) -> String:
+    var kind := String(area.get_meta("kind", ""))
+    if kind == "npc":
+        return "map_shop" if area.has_meta("map_seller_region") else "talk"
+    if kind == "world_portal":
+        return "walk_passage" if not WORLD_PASSAGE.endpoint(String(config.id), String(area.name)).is_empty() else "portal"
+    return kind
+
+func _show_first_interaction_hint(area: Area2D) -> void:
+    var kind := _first_interaction_type(area)
+    var flag := "tutorial_interaction_seen_" + kind
+    if bool(story_flags.get(flag, false)):
+        return
+    var key: String = ui_shell._short_binding("interact") if is_instance_valid(ui_shell) else "F"
+    var hints := {
+        "save_point": "按 %s 休息，恢复状态并记录归途。" % key,
+        "talk": "按 %s 与人物交谈。" % key,
+        "map_shop": "按 %s 交谈，购买本区地图。" % key,
+        "lever": "按 %s 操作机关。" % key,
+        "portal": "按 %s 通过旧通路。" % key,
+        "walk_passage": "沿路牌箭头步行进入通道，可沿来路折返。",
+        "boss_gate": "按 %s 开启钟门。" % key,
+        "ending_gate": "按 %s 查看归途的选择。" % key,
+        "death_cache": "按 %s 取回遗落物资。" % key}
+    if not hints.has(kind):
+        return
+    story_flags[flag] = true
+    _toast(String(hints[kind]))
+    _save_world()
+
+func _add_wayfinding(area: Area2D) -> void:
+    if area.has_node("Wayfinding"):
+        return
+    var marker := WAYFINDING.new()
+    marker.name = "Wayfinding"
+    marker.host = self
+    marker.area = area
+    var kind := String(area.get_meta("kind", ""))
+    marker.symbol = "rest" if kind == "save_point" else "lever" if kind == "lever" else "talk" if kind == "npc" else "passage"
+    if kind == "world_portal":
+        marker.configure_portal(area.get_meta("world_portal_data", {}), String(config.id))
+        marker.position.y = 20
+        marker.z_index = -1
+    else:
+        marker.visible = false
+        marker.z_index = 20
+    area.add_child(marker)
+
 func _world_portal(data: Dictionary) -> void:
     var area := Area2D.new()
     area.name = String(data.get("id", "world_portal"))
@@ -957,12 +1007,7 @@ func _world_portal(data: Dictionary) -> void:
         arch.add_point(Vector2(cos(angle) * 29.0, sin(angle) * 46.0))
     arch.add_point(Vector2(29, 17))
     area.add_child(arch)
-    var glyph := Label.new()
-    glyph.name = "WorldPortalGlyph"
-    glyph.text = WORLD_PASSAGE.glyph(String(config.id), String(data.get("id", ""))) if _world_portal_missing(data).is_empty() else "闩" if not String(data.get("requires_shortcut", "")).is_empty() else "缺"
-    glyph.position = Vector2(-8, -32)
-    glyph.add_theme_font_size_override("font_size", 20)
-    area.add_child(glyph)
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -1020,10 +1065,10 @@ func _refresh_world_portals() -> void:
         var arch := area.get_node_or_null("WorldPortalArch") as Line2D
         if arch != null:
             arch.default_color = Color(0.40, 0.80, 0.88) if status.open else Color(0.93, 0.67, 0.30)
-        var glyph := area.get_node_or_null("WorldPortalGlyph") as Label
-        if glyph != null:
-            glyph.text = WORLD_PASSAGE.glyph(String(config.id), String(data.get("id", ""))) if status.open else "闩" if status.kind == "far_side" else "缺"
-            glyph.tooltip_text = String(data.get("label", "旧通路")) + " · " + String(status.label)
+        var marker := area.get_node_or_null("Wayfinding")
+        if marker != null:
+            marker.gate_state = String(status.kind)
+            marker.queue_redraw()
         var walk_glyph: String = WORLD_PASSAGE.glyph(String(config.id), String(data.get("id", "")))
         var prompt := " · 向右步行进入" if walk_glyph == "→" else " · 向左步行进入" if walk_glyph == "←" else " · F 通行"
         area.set_meta("interaction_label", String(data.get("label", "旧通路")) + (prompt if status.open else " · " + String(status.label)))
@@ -3984,6 +4029,7 @@ func _lever(data: Dictionary) -> void:
     sprite.name="LeverSprite"
     _apply_original_prop(sprite,"lever_closed",83)
     area.add_child(sprite)
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -4011,6 +4057,7 @@ func _boss_door(data: Dictionary) -> void:
     sprite.scale = Vector2(0.82, 0.82)
     _apply_original_prop(sprite,"gate_closed",152)
     area.add_child(sprite)
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -4064,6 +4111,7 @@ func _chapter_exit(data: Dictionary) -> void:
     tween.tween_property(glow, "scale", Vector2(0.96, 0.96), 0.8)
     tween.parallel().tween_property(glow, "modulate:a", 1.0, 0.8)
 
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -4122,6 +4170,7 @@ func _save_point(data: Dictionary) -> void:
     ])
     area.add_child(ring)
 
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -4218,6 +4267,7 @@ func _npc(data: Dictionary) -> void:
     area.add_to_group("interactable")
     area.set_meta("portrait_id",art_id)
     area.set_meta("dialogue_topics",data.get("dialogue_topics",{}))
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)
@@ -4744,10 +4794,6 @@ func _on_interactable_entered(body: Node, area: Area2D) -> void:
     if body != player:
         return
     nearby_interactable = area
-    if String(area.get_meta("kind", "")) == "npc":
-        _toast("按F交谈")
-    else:
-        _toast("F: " + String(area.get_meta("interaction_label", area.get_meta("label", area.name))))
     var exit_kind := String(area.get_meta("kind", ""))
     if (exit_kind == "chapter_exit" or exit_kind == "ending_exit") and _chapter_exit_can_open(area):
         _defer_region_call("_activate_chapter_exit", [area])
@@ -5060,6 +5106,7 @@ func _spawn_ending_gates() -> void:
         tween.tween_property(glow, "scale", Vector2(0.96, 0.96), 0.8)
         tween.parallel().tween_property(glow, "modulate:a", 1.0, 0.8)
 
+        _add_wayfinding(area)
         area.body_entered.connect(_on_interactable_entered.bind(area))
         area.body_exited.connect(_on_interactable_exited.bind(area))
         add_child(area)
@@ -6132,6 +6179,7 @@ func _spawn_death_cache() -> void:
         var angle := TAU * float(i) / 16.0
         ring.add_point(Vector2(cos(angle), sin(angle)) * 24.0 - Vector2(0, 32))
     area.add_child(ring)
+    _add_wayfinding(area)
     area.body_entered.connect(_on_interactable_entered.bind(area))
     area.body_exited.connect(_on_interactable_exited.bind(area))
     add_child(area)

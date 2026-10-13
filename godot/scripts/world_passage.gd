@@ -29,7 +29,7 @@ var sync_until := 0
 var support_material: ShaderMaterial
 var rear_wall: Node2D
 var ornament_texture: Texture2D
-var notice: Label
+const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
 var terminal_world_point := Vector2.ZERO
 var previous_position := Vector2.ZERO
 var travelled := 0.0
@@ -202,27 +202,14 @@ func _build_tube() -> void:
     var direction := signf(destination_point.x - source_point.x)
     _endpoint_marker(source_point, source_id, -direction)
     _endpoint_marker(destination_point, destination_id, direction)
-    var canvas := CanvasLayer.new()
-    add_child(canvas)
-    notice = Label.new()
-    notice.position = Vector2(36, 30)
-    notice.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
-    notice.add_theme_font_size_override("font_size", 20)
-    canvas.add_child(notice)
 
 func _endpoint_marker(point: Vector2, region_id: String, direction: float) -> void:
-    var names := {"demo_ch01_moss_bell_court": "苔钟庭", "demo_ch02_rain_foundry_canal": "铸雨渠"}
-    var marker := Label.new()
+    var marker := WAYFINDING.new()
     marker.name = "Endpoint_" + region_id
-    marker.text = "%s出口 →" % names[region_id] if direction > 0 else "← %s出口" % names[region_id]
-    marker.position = point + Vector2(-140 * direction - 130, -100)
-    marker.size = Vector2(260, 40)
-    marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    marker.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
-    marker.add_theme_font_size_override("font_size", 22)
-    marker.add_theme_color_override("font_color", Color(0.78, 0.80, 0.57))
-    marker.add_theme_color_override("font_outline_color", Color(0.06, 0.07, 0.04))
-    marker.add_theme_constant_override("outline_size", 4)
+    marker.symbol = WAYFINDING.region_symbol(region_id)
+    marker.physical_sign = true
+    marker.direction = Vector2(direction, 0)
+    marker.position = point + Vector2(-160 * direction, 56)
     marker.z_index = -3
     add_child(marker)
 
@@ -269,7 +256,6 @@ func step() -> void:
     travelled += point.distance_to(previous_position)
     previous_position = point
     var direction := signf(destination_point.x - source_point.x)
-    notice.text = "%s · 距出口 %d 米\n继续步行；向来路折返 · Esc 返回入口" % [String(route.label), ceili(absf(destination_point.x - point.x) / 100)]
     if retry_blocked and (absf(point.x - destination_point.x) > 128 or Input.is_action_just_pressed("move_right" if direction > 0 else "move_left")):
         retry_blocked = false
     if Input.is_action_just_pressed("close_overlay") or host.player.hp <= 0 or point.y > maxf(source_point.y, destination_point.y) + 80:
@@ -354,7 +340,6 @@ func _clear() -> void:
     active = false
     settling = false
     frozen.clear()
-    notice = null
     ornament_texture = null
     support_material = null
     rear_wall = null
