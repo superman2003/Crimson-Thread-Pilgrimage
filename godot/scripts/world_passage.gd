@@ -4,6 +4,7 @@ extends Node2D
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const ROCK := preload("res://scripts/world_rock_material.gd")
+const SUPPORT_SHADER := preload("res://shaders/passage_support.gdshader")
 const DECOR_ATLAS := "res://assets/sprites/flat_maps/moss_cavern/decor_atlas.png"
 # Whole authored ornaments from the existing moss atlas, not generated outlines.
 const SUPPORT_REGION := Rect2(431, 46, 405, 581)
@@ -25,6 +26,8 @@ var frozen: Array[Dictionary] = []
 var original_mask := 0
 var original_layer := 0
 var sync_until := 0
+var support_material: ShaderMaterial
+var contact_texture: GradientTexture2D
 var ornament_texture: Texture2D
 var notice: Label
 var terminal_world_point := Vector2.ZERO
@@ -146,6 +149,20 @@ func _build_tube() -> void:
     var floor_b := b + Vector2(0, 40)
     var length := b.x - a.x
     var theme := String(route.get("material", "moss_cavern"))
+    var stone_material := ROCK.for_theme(theme)
+    support_material = ShaderMaterial.new()
+    support_material.shader = SUPPORT_SHADER
+    support_material.set_shader_parameter("stone_atlas", stone_material.get_shader_parameter("stone_atlas"))
+    support_material.set_shader_parameter("tile_size", stone_material.get_shader_parameter("tile_size"))
+    var gradient := Gradient.new()
+    gradient.colors = PackedColorArray([Color(0.015, 0.018, 0.010, 0.62), Color(0.015, 0.018, 0.010, 0.0)])
+    contact_texture = GradientTexture2D.new()
+    contact_texture.gradient = gradient
+    contact_texture.width = 128
+    contact_texture.height = 64
+    contact_texture.fill = GradientTexture2D.FILL_RADIAL
+    contact_texture.fill_from = Vector2(0.5, 0.5)
+    contact_texture.fill_to = Vector2(0.5, 0.0)
     var backdrop := ROCK.face(self, PackedVector2Array([a + Vector2(-640, -600), b + Vector2(640, -600), b + Vector2(640, 500), a + Vector2(-640, 500)]), theme)
     backdrop.color = Color(0.24, 0.32, 0.30)
     backdrop.z_index = -25
@@ -172,6 +189,14 @@ func _build_tube() -> void:
     for index in range(int(length / 640) + 1):
         var x := a.x + index * 640
         var y := floor_a.y + (floor_b.y - floor_a.y) * (x - a.x) / length
+        for foot in [-62.0, 62.0]:
+            var shadow := Sprite2D.new()
+            shadow.name = "SupportContact_%d_%d" % [index, int(foot)]
+            shadow.texture = contact_texture
+            shadow.position = Vector2(x + foot, y + 2)
+            shadow.scale = Vector2(0.62, 0.22)
+            shadow.z_index = -4
+            add_child(shadow)
         _painted_ornament("MossStoneSupport_%d" % index, SUPPORT_REGION,
             Vector2(x, y + 18), 284.0, "support", true)
         if x + 320 < b.x:
@@ -205,7 +230,12 @@ func _painted_ornament(node_name: String, region: Rect2, anchor: Vector2,
     sprite.scale = Vector2.ONE * height / region.size.y
     sprite.position = anchor - Vector2(region.size.x * sprite.scale.x * 0.5,
         height if bottom_anchor else 0.0)
-    sprite.z_index = -3
+    # Midground structure: floor/ceiling cover its base and crown; hero stays in front.
+    sprite.z_index = -12
+    if kind == "support":
+        sprite.material = support_material
+    else:
+        sprite.modulate = Color(0.68, 0.72, 0.54)
     sprite.set_meta("passage_ornament", kind)
     sprite.set_meta("original_map_asset", DECOR_ATLAS)
     add_child(sprite)
@@ -311,6 +341,8 @@ func _clear() -> void:
     frozen.clear()
     notice = null
     ornament_texture = null
+    support_material = null
+    contact_texture = null
     for child in get_children():
         remove_child(child)
         child.queue_free()

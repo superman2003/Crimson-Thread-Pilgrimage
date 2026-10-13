@@ -251,5 +251,77 @@
         "sha256": "e98cc887e7f51bf8f63b71a28ae09707ee5c283e8225d6495ee9e46c92cb9c28"
       }
     ]
+  },
+  "layer_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "4ac48fcc1737c1c5c16e6e17289b7ebb1b8e4e64",
+    "baseline_ci": {
+      "run": 71,
+      "id": 38335867536,
+      "result": "success"
+    },
+    "material": "passage_support.gdshader shares moss stone sampling and preserves atlas alpha",
+    "support_z": -12,
+    "rock_z": -5,
+    "backdrop_z": -25,
+    "contact_shadow_z": -4,
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 2960,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1268,
+          "offset": 1000,
+          "ornament_pixels": 22018,
+          "passed": true,
+          "visible_samples": 5075
+        },
+        {
+          "distinct_colors": 3218,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1275,
+          "offset": 4200,
+          "ornament_pixels": 22053,
+          "passed": true,
+          "visible_samples": 5050
+        },
+        {
+          "distinct_colors": 3038,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1308,
+          "offset": 7600,
+          "ornament_pixels": 14659,
+          "passed": true,
+          "visible_samples": 5033
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl_final",
+        "bytes": 26037,
+        "sha256": "199dee465528ff0324611e4842b5db3e24a9496574c95d060845e3530b1ead8c"
+      },
+      {
+        "name": "real_gl_first_grade",
+        "bytes": 26037,
+        "sha256": "199dee465528ff0324611e4842b5db3e24a9496574c95d060845e3530b1ead8c"
+      }
+    ]
   }
 }
