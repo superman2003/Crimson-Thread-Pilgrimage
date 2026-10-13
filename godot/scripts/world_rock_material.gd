@@ -54,3 +54,24 @@ static func authored_edge(parent: Node2D, left: Vector2, right: Vector2, theme: 
     face.set_meta("independent_edge_art",kind)
     parent.add_child(face)
     return face
+
+static func surface_rim(parent: Node2D, left: Vector2, right: Vector2, theme: String, ceiling: bool, depth: float = 96.0) -> Polygon2D:
+    var rim := authored_edge(parent,left,right,theme,ceiling)
+    var height := clampf(depth*2.4,60,220)
+    var lip := minf(12,depth*0.25)
+    rim.material.set_shader_parameter("art_height",height)
+    rim.material.set_shader_parameter("silhouette_relief",0.45 if ceiling else 0.18)
+    rim.material.set_shader_parameter("join_body",true)
+    rim.material.set_shader_parameter("join_depth",maxf(8,depth*0.7))
+    rim.material.set_shader_parameter("body_atlas",ART.texture(INK_ROCK))
+    rim.polygon = PackedVector2Array([left+Vector2(0,-depth if ceiling else -lip),right+Vector2(0,-depth if ceiling else -lip),right+Vector2(0,lip if ceiling else depth),left+Vector2(0,lip if ceiling else depth)])
+    return rim
+
+static func stratum(parent: Node2D, left: Vector2, right: Vector2, depth: float, theme: String) -> Polygon2D:
+    var inset := minf(12,depth*0.25)
+    var face := face(parent,PackedVector2Array([left+Vector2(0,inset),right+Vector2(0,inset),right+Vector2(0,depth),left+Vector2(0,depth)]),theme)
+    face.name = "HandPaintedStratum"
+    face.z_index = -5
+    var rim := surface_rim(parent,left,right,theme,false,minf(depth,96))
+    rim.z_index = -4
+    return face

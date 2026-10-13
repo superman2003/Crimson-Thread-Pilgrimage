@@ -48,7 +48,7 @@ func run() -> void:
             check(scene.cave_world.get_node("SolidCaveMass").get_child_count()==collision_count,id+" distant collisions survive camera travel")
         for form in scene.chapter_terrain.get_children():
             for face in form.get_children():
-                if face is Polygon2D:
+                if face is Polygon2D and not face.has_meta("independent_edge_art"):
                     check(face.material==material,id+" entire ground stratum shares cave material")
         for data in scene.config.platforms:
             if data.has("terrain_id"): continue
