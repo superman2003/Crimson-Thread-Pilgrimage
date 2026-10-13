@@ -17,6 +17,8 @@ void fragment() {
     vec2 uv = 1.0 - abs(mod(stone_position / tile_size, 2.0) - 1.0);
     vec2 half_texel = 0.5 / vec2(textureSize(stone_atlas, 0));
     vec3 rock = texture(stone_atlas, clamp(uv, half_texel, vec2(1.0) - half_texel)).rgb;
-    vec3 relief = rock * mix(0.22, 0.70, clamp(value * 2.8, 0.0, 1.0));
-    COLOR = vec4(mix(mineral, relief, 0.70) * 1.70, paint.a) * item_tint;
+    // Match the rear wall's dark palette rather than the foreground stone.
+    vec3 wall = rock * vec3(0.24, 0.32, 0.30);
+    vec3 carving = wall * mix(0.70, 1.65, clamp(value * 2.8, 0.0, 1.0));
+    COLOR = vec4(mix(carving, mineral * 0.55, 0.25), paint.a) * item_tint;
 }

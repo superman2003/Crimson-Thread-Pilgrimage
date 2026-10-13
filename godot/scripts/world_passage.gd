@@ -27,7 +27,7 @@ var original_mask := 0
 var original_layer := 0
 var sync_until := 0
 var support_material: ShaderMaterial
-var contact_texture: GradientTexture2D
+var rear_wall: Node2D
 var ornament_texture: Texture2D
 var notice: Label
 var terminal_world_point := Vector2.ZERO
@@ -154,18 +154,13 @@ func _build_tube() -> void:
     support_material.shader = SUPPORT_SHADER
     support_material.set_shader_parameter("stone_atlas", stone_material.get_shader_parameter("stone_atlas"))
     support_material.set_shader_parameter("tile_size", stone_material.get_shader_parameter("tile_size"))
-    var gradient := Gradient.new()
-    gradient.colors = PackedColorArray([Color(0.015, 0.018, 0.010, 0.62), Color(0.015, 0.018, 0.010, 0.0)])
-    contact_texture = GradientTexture2D.new()
-    contact_texture.gradient = gradient
-    contact_texture.width = 128
-    contact_texture.height = 64
-    contact_texture.fill = GradientTexture2D.FILL_RADIAL
-    contact_texture.fill_from = Vector2(0.5, 0.5)
-    contact_texture.fill_to = Vector2(0.5, 0.0)
-    var backdrop := ROCK.face(self, PackedVector2Array([a + Vector2(-640, -600), b + Vector2(640, -600), b + Vector2(640, 500), a + Vector2(-640, 500)]), theme)
+    rear_wall = Node2D.new()
+    rear_wall.name = "PassageRearWall"
+    rear_wall.z_index = -20
+    add_child(rear_wall)
+    var backdrop := ROCK.face(rear_wall, PackedVector2Array([a + Vector2(-640, -600), b + Vector2(640, -600), b + Vector2(640, 500), a + Vector2(-640, 500)]), theme)
     backdrop.color = Color(0.24, 0.32, 0.30)
-    backdrop.z_index = -25
+    backdrop.z_index = -5
     var body := StaticBody2D.new()
     body.disable_mode = CollisionObject2D.DISABLE_MODE_KEEP_ACTIVE
     body.collision_layer = TRANSIT_LAYER
@@ -189,19 +184,20 @@ func _build_tube() -> void:
     for index in range(int(length / 640) + 1):
         var x := a.x + index * 640
         var y := floor_a.y + (floor_b.y - floor_a.y) * (x - a.x) / length
-        var shadow := Sprite2D.new()
-        shadow.name = "SupportContact_%d" % index
-        shadow.texture = contact_texture
-        shadow.position = Vector2(x, y + 2)
-        shadow.scale = Vector2(0.78, 0.22)
-        shadow.z_index = -4
-        add_child(shadow)
-        _painted_ornament("MossStoneSupport_%d" % index, SUPPORT_REGION,
-            Vector2(x, y + 18), 284.0, "support", true)
+        # Raised rear-wall foot, separated from the playable foreground lane.
+        _painted_ornament("MossWallPilaster_%d" % index, SUPPORT_REGION,
+            Vector2(x, y - 52), 208.0, "support", true)
         if x + 320 < b.x:
             var lamp_y := floor_a.y + (floor_b.y - floor_a.y) * (x + 320 - a.x) / length
             _painted_ornament("DrainpipeLantern_%d" % index, LANTERN_REGION,
-                Vector2(x + 320, lamp_y - 252), 126.0, "lantern", false)
+                Vector2(x + 320, lamp_y - 246), 98.0, "lantern", false)
+    # Continuous rear-wall plinth covers the pilaster feet 56px above the lane.
+    var plinth := ROCK.face(rear_wall, PackedVector2Array([
+        floor_a + Vector2(-640, -56), floor_b + Vector2(640, -56),
+        floor_b + Vector2(640, 0), floor_a + Vector2(-640, 0)]), theme)
+    plinth.name = "RearWallPlinth"
+    plinth.color = Color(0.19, 0.25, 0.23)
+    plinth.z_index = 2
     # Sideways travel ends here; rear-wall ornaments are never entrances.
     var direction := signf(destination_point.x - source_point.x)
     _endpoint_marker(source_point, source_id, -direction)
@@ -245,19 +241,19 @@ func _painted_ornament(node_name: String, region: Rect2, anchor: Vector2,
     sprite.name = node_name
     sprite.texture = frame
     sprite.centered = false
-    # Solid pillar, no doorway silhouette; preserve the authored aspect ratio.
+    # Recessed wall ornament; preserve the authored aspect ratio.
     sprite.scale = Vector2.ONE * height / region.size.y
     sprite.position = anchor - Vector2(region.size.x * sprite.scale.x * 0.5,
         height if bottom_anchor else 0.0)
-    # Midground structure: floor/ceiling cover its base and crown; hero stays in front.
-    sprite.z_index = -12
+    # Child of the rear wall, behind its plinth and the entire gameplay plane.
+    sprite.z_index = 1
     if kind == "support":
         sprite.material = support_material
     else:
-        sprite.modulate = Color(0.68, 0.72, 0.54)
+        sprite.modulate = Color(0.42, 0.50, 0.37)
     sprite.set_meta("passage_ornament", kind)
     sprite.set_meta("original_map_asset", DECOR_ATLAS)
-    add_child(sprite)
+    rear_wall.add_child(sprite)
 
 func _camera_bounds() -> void:
     var camera: Camera2D = host.player.get_node("Camera2D")
@@ -361,7 +357,7 @@ func _clear() -> void:
     notice = null
     ornament_texture = null
     support_material = null
-    contact_texture = null
+    rear_wall = null
     for child in get_children():
         remove_child(child)
         child.queue_free()

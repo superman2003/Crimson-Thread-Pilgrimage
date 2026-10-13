@@ -52,7 +52,7 @@ func _run() -> void:
                     hero_pixels += 1
         # Prove the painted supports/lanterns actually contribute pixels.
         var ornaments: Array[Sprite2D] = []
-        for child in scene.world_passage.get_children():
+        for child in scene.world_passage.rear_wall.get_children():
             if child is Sprite2D and child.has_meta("passage_ornament"):
                 ornaments.append(child)
                 child.visible = false
@@ -80,10 +80,14 @@ func _run() -> void:
                     endpoint_pixels += 1
         var endpoint_ok := endpoint_pixels > 80 if offset == 8500 else endpoint_pixels == 0
         var ornament_pixels := 0
+        var lane_ornament_pixels := 0
+        var feet_y: float = scene.player.get_global_transform_with_canvas().origin.y
         for y in range(0, image.get_height(), 2):
             for x in range(0, image.get_width(), 2):
                 if image.get_pixel(x, y) != without_ornaments.get_pixel(x, y):
                     ornament_pixels += 1
+                    if y >= feet_y - 40 and y <= feet_y + 16:
+                        lane_ornament_pixels += 1
         var samples := 0
         var distinct: Dictionary = {}
         for y in range(50, 670, 12):
@@ -92,7 +96,7 @@ func _run() -> void:
                 distinct[color.to_html()] = true
                 if color.get_luminance() > 0.025:
                     samples += 1
-        var ok := samples > 1000 and distinct.size() > 64 and hero_pixels > 40 and ornament_pixels > 400 and endpoint_ok
+        var ok := samples > 1000 and distinct.size() > 64 and hero_pixels > 40 and ornament_pixels > 400 and lane_ornament_pixels == 0 and endpoint_ok
         if not ok:
             failures += 1
             push_error("Pipe render blank or untextured")
@@ -102,7 +106,7 @@ func _run() -> void:
             push_error("Cannot save pipe capture")
         ornaments.clear()
         markers.clear()
-        probes.append({"offset": offset, "visible_samples": samples, "distinct_colors": distinct.size(), "hero_pixels": hero_pixels, "ornament_pixels": ornament_pixels, "endpoint_pixels": endpoint_pixels, "passed": ok, "file": file})
+        probes.append({"offset": offset, "visible_samples": samples, "distinct_colors": distinct.size(), "hero_pixels": hero_pixels, "ornament_pixels": ornament_pixels, "lane_ornament_pixels": lane_ornament_pixels, "endpoint_pixels": endpoint_pixels, "passed": ok, "file": file})
     scene.free()
     current_scene = null
     for frame in range(4):
