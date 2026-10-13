@@ -499,6 +499,7 @@ var backpack_selection := 0
 var map_panel: ColorRect
 var map_text: Label
 var map_draw_root: Control
+var survey_map_view: Control
 var gate_body: StaticBody2D
 var locked_gate_bodies: Dictionary = {}
 var unlocked_abilities: Dictionary = {}
@@ -1975,6 +1976,11 @@ func _build_map_overlay() -> void:
     map_panel.position = Vector2(52, 54)
     map_panel.size = Vector2(1176, 640)
     map_panel.color = Color("10191f")
+    if world_mode:
+        map_panel.theme = ui_shell.theme.duplicate()
+        var map_font: FontFile = ui_shell.theme.default_font.duplicate()
+        map_font.multichannel_signed_distance_field = true
+        map_panel.theme.default_font = map_font
     map_panel.visible = false
     ui_shell.add_child(map_panel)
 
@@ -1996,18 +2002,35 @@ func _build_map_overlay() -> void:
     title.add_theme_font_size_override("font_size", 24)
     title.add_theme_color_override("font_color", Color("b5a17c"))
     map_panel.add_child(title)
-    ui_shell._label(map_panel,"绯线巡礼  /  已探索的归途",Vector2(30,58),Vector2(480,22),12,ui_shell.GOLD)
+
     ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
 
     map_draw_root = Control.new()
     map_draw_root.name = "MapDrawRoot"
-    map_draw_root.position = Vector2(34, 106)
-    map_draw_root.size = Vector2(1108, 396)
-    map_panel.add_child(map_draw_root)
+    map_draw_root.position = Vector2(34, 78) if world_mode else Vector2(34, 106)
+    map_draw_root.size = Vector2(1108, 504) if world_mode else Vector2(1108, 396)
+    if world_mode:
+        survey_map_view = preload("res://scripts/survey_map_view.gd").new()
+        survey_map_view.name = "SurveyMapViewport"
+        survey_map_view.position = map_draw_root.position
+        survey_map_view.size = map_draw_root.size
+        map_draw_root.position = Vector2.ZERO
+        map_draw_root.mouse_filter = Control.MOUSE_FILTER_PASS
+        survey_map_view.content = map_draw_root
+        map_panel.add_child(survey_map_view)
+        survey_map_view.add_child(map_draw_root)
+        var out_button: Button = ui_shell._button(map_panel,"−",Vector2(946,18),Vector2(34,34),func():survey_map_view.magnify(0.8))
+        out_button.tooltip_text = "缩小地图"
+        var in_button: Button = ui_shell._button(map_panel,"+",Vector2(984,18),Vector2(34,34),func():survey_map_view.magnify(1.25))
+        in_button.tooltip_text = "放大地图"
+        var reset_button: Button = ui_shell._button(map_panel,"复位",Vector2(1022,18),Vector2(50,34),func():survey_map_view.reset())
+        reset_button.tooltip_text = "显示完整地图"
+    else:
+        map_panel.add_child(map_draw_root)
 
     map_text = Label.new()
-    map_text.position = Vector2(34, 514)
-    map_text.size = Vector2(1108, 110)
+    map_text.position = Vector2(34, 600) if world_mode else Vector2(34, 514)
+    map_text.size = Vector2(1108, 24) if world_mode else Vector2(1108, 110)
     map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     map_text.add_theme_font_size_override("font_size", 14)
     map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
@@ -2489,9 +2512,10 @@ func _room_is_visited(room_id: String) -> bool:
 func _refresh_map_overlay() -> void:
     if map_draw_root == null or map_text == null:
         return
+    if survey_map_view != null: survey_map_view.set_view(1 if world_map_view else 0)
     var title: Label = map_panel.get_node_or_null("SurveyMapTitle")
     if title != null:
-        title.text = "倒扣巨钟 · 世界旅册" if world_mode and world_map_view else _theme_map_title()
+        title.text = ("世界地图" if world_map_view else String(config.get("chapter_name", "区域地图"))) if world_mode else _theme_map_title()
     for child in map_draw_root.get_children():
         child.free()
 

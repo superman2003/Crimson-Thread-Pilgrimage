@@ -68,7 +68,7 @@ jobs:
       - name: Validate fixed-coordinate world atlas rendering
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/atlas-gpu" --script ../tools/validate_world_atlas_pixels.gd --success-marker 'WORLD_ATLAS_PIXELS probes=3 failures=0' --summary-path artifacts/world_atlas/gpu_atlas.json
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/atlas-gpu" --script ../tools/validate_world_atlas_pixels.gd --success-marker 'WORLD_ATLAS_PIXELS probes=5 failures=0' --summary-path artifacts/world_atlas/gpu_atlas.json
       - name: Preserve regression logs
         if: always()
         uses: actions/upload-artifact@v4

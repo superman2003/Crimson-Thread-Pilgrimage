@@ -1,10 +1,12 @@
 extends Control
 ## The coarse room frame stays fixed; charted ink follows collision geometry.
+var draw_ink := true
 var detailed := false
 var seed_value := 0
 var stroke_scale := 1.0
 var contours: Array[PackedVector2Array]=[]
 func _draw() -> void:
+    if not draw_ink: return
     if detailed:
         for contour in contours:
             var points:=PackedVector2Array()

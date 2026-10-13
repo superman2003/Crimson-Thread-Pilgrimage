@@ -3,6 +3,7 @@ const ATLAS := preload("res://scripts/world_atlas.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
 const SURVEY := preload("res://scripts/cartography_runtime.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
+const SURFACE := preload("res://scripts/survey_map_surface.gd")
 const TERRAIN := preload("res://scripts/chapter_terrain.gd")
 
 var failures := 0
@@ -18,6 +19,15 @@ func _check(ok: bool, message: String) -> void:
         push_error(message)
 
 func _run() -> void:
+    # Exterior perimeter stays correct for overlaps, duplicates and holes.
+    var ring: Array[Rect2] = [Rect2(0,0,20,5),Rect2(0,15,20,5),Rect2(0,5,5,10),Rect2(15,5,5,10)]
+    var perimeter := 0.0
+    for segment in SURFACE.boundaries(ring): perimeter += segment[0].distance_to(segment[1])
+    _check(is_equal_approx(perimeter,120.0), "room union retains the enclosed empty pocket")
+    var overlaps: Array[Rect2] = [Rect2(0,0,10,10),Rect2(5,0,10,10),Rect2(0,0,10,10)]
+    perimeter = 0.0
+    for segment in SURFACE.boundaries(overlaps): perimeter += segment[0].distance_to(segment[1])
+    _check(is_equal_approx(perimeter,50.0), "overlapping and duplicate rooms have one exterior border")
     var scene: Node = load("res://scenes/World.tscn").instantiate()
     scene.world_resume = false
     scene.world_save_path = "user://world_map_validation.json"
@@ -31,7 +41,7 @@ func _run() -> void:
     _check(scene.map_draw_root.get_node_or_null("WorldRegion_demo_ch01_moss_bell_court") == null, "local map remains initial view")
     scene.world_map_view = true
     scene._refresh_map_overlay()
-    _check(scene.map_text.text.contains("互联世界"), "world atlas shows topology copy")
+    _check(scene.map_panel.get_node("SurveyMapTitle").text == "世界地图", "world atlas has a concise title")
     var panels := 0
     var edges := 0
     for child in scene.map_draw_root.get_children():
@@ -89,6 +99,28 @@ func _run() -> void:
             physical_routes += 1
             _check(child.get_meta("source_world").distance_to(child.get_meta("target_world")) > 8500, "pipe keeps real world length")
     _check(physical_routes == 1, "one real pipe drawn once in both directions")
+    _check(not scene.map_text.text.contains("\n"), "world map instructions occupy one line")
+    for child in scene.map_draw_root.get_children():
+        if child is Line2D and not bool(child.get_meta("physical_passage")):
+            _check(not child.visible, "abstract links stay out of the default overview")
+            var source := "WorldSurvey_" + String(child.get_meta("source_region")) + "_" + String(child.get_meta("source_room"))
+            var room: Control = scene.map_draw_root.get_node_or_null(source)
+            if room != null:
+                room.mouse_entered.emit()
+                _check(child.visible, "hovering a portal room reveals its old link")
+                room.mouse_exited.emit()
+                _check(not child.visible, "old link disappears when leaving the room")
+    var camera: Control = scene.survey_map_view
+    _check(camera.clip_contents and scene.map_draw_root.get_parent() == camera, "camera clips drawing below the map header")
+    var position_before: Vector2 = scene.map_draw_root.get_node("WorldSurveyPlayer").position
+    camera.magnify(2.0, Vector2(300,200))
+    _check(is_equal_approx(camera.zoom,2.0) and scene.map_draw_root.position.is_equal_approx(Vector2(-300,-200)), "zoom preserves the position beneath its anchor")
+    _check(scene.map_draw_root.get_node("WorldSurveyPlayer").position == position_before and scene.map_draw_root.get_meta("world_atlas_frame") == layout, "zoom never modifies cartography coordinates")
+    scene.map_draw_root.position = Vector2(-10000,10000)
+    camera.clamp_pan()
+    _check(scene.map_draw_root.position.is_equal_approx(Vector2(-scene.map_draw_root.size.x,0)), "pan stops at content edges")
+    camera.reset()
+    _check(camera.zoom == 1.0 and scene.map_draw_root.position == Vector2.ZERO, "reset restores the full atlas")
     # Same clipped terrain as the local hand-drawn map, without scene building.
     var descriptor_polygons := ATLAS.terrain(String(scene.config.id))
     var live_polygons := SURVEY.terrain_polygons(scene)
@@ -115,6 +147,9 @@ func _run() -> void:
     scene.world_map_view = false
     scene._refresh_map_overlay()
     _check(scene.map_draw_root.get_node_or_null("WorldRegion_demo_ch01_moss_bell_court") == null, "returning to local map clears atlas")
+    _check(camera.zoom == 1.0 and not scene.map_text.text.contains("\n"), "local map resets camera and uses a quiet footer")
+    for child in scene.map_draw_root.get_children():
+        _check(not String(child.name).begins_with("SurveyLabel_") and not String(child.name).begins_with("SurveyEdge_"), "local map has no text labels or artificial center links")
     _check(scene.wish_panel == null or not scene.wish_panel.visible, "hand-drawn map keeps quest board out of paper")
     scene._close_overlays()
     _check(not scene.player.ui_input_locked, "map close returns player control")

@@ -6,6 +6,7 @@ const PASSAGE := preload("res://scripts/world_passage.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 const SURVEY := preload("res://scripts/cartography_runtime.gd")
 const INK := preload("res://scripts/hand_drawn_map_room.gd")
+const SURFACE := preload("res://scripts/survey_map_surface.gd")
 const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
 static var configurations: Dictionary = {}
 static var geometry: Dictionary = {}
@@ -64,10 +65,15 @@ static func render(level: Node) -> void:
         title.size = Vector2(bounds.size.x * layout.scale, 22)
         title.text = String(data.get("chapter_name", data.get("name", id)))
         title.add_theme_font_size_override("font_size", 14)
-        title.add_theme_color_override("font_color", Color("a14c3a") if id == current else Color("60452b"))
+        title.add_theme_color_override("font_color", SURFACE.ACCENT if id == current else SURFACE.INK)
+        title.mouse_filter = Control.MOUSE_FILTER_PASS
         title.tooltip_text = "未购本区地图" if not JOURNAL.owned(level.story_flags, id) else "已补绘 %d 室" % JOURNAL.region(level.story_flags, id).charted.size()
         host.add_child(title)
         if not JOURNAL.owned(level.story_flags, id): continue
+        var surface := SURFACE.new()
+        surface.name = "WorldSilhouette_" + id
+        surface.size = host.size
+        host.add_child(surface)
         for room in data.get("map_rooms", []):
             var room_id := String(room.id)
             var detailed := JOURNAL.charted(level.story_flags, id, room_id)
@@ -78,7 +84,12 @@ static func render(level: Node) -> void:
             outline.name = "WorldSurvey_" + id + "_" + room_id
             outline.position = project(COORD.to_world(id, physical.position), layout)
             outline.size = physical.size * layout.scale
+            outline.mouse_filter = Control.MOUSE_FILTER_PASS
+            outline.draw_ink = false
             outline.detailed = detailed
+            var footprint := Rect2(outline.position, outline.size)
+            if detailed: surface.charted_rooms.append(footprint)
+            else: surface.base_rooms.append(footprint)
             outline.seed_value = room_id.hash()
             outline.stroke_scale = 0.6
             if detailed:
@@ -91,6 +102,7 @@ static func render(level: Node) -> void:
             outline.set_meta("charted", detailed)
             outline.tooltip_text = String(room.get("name", room_id)) if detailed or SURVEY.public_room(room) else ""
             host.add_child(outline)
+        surface.prepare()
     var drawn: Dictionary = {}
     for id_value in COORD.manifest().regions:
         var id := String(id_value)
@@ -113,10 +125,14 @@ static func render(level: Node) -> void:
             var physical := not PASSAGE.endpoint(id, String(portal.id)).is_empty()
             var line := Line2D.new()
             line.name = "WorldRoute_" + String(portal.id)
-            line.width = 3.0 if physical else 1.0
-            line.default_color = Color("60452b") if physical else Color(0.38, 0.27, 0.17, 0.25)
-            if not forward.open or not reverse.open: line.default_color = Color("a87937")
+            line.width = 2.4 if physical else 1.0
+            line.default_color = SURFACE.INK if physical else Color(0.55, 0.61, 0.56, 0.28)
+
+            if not forward.open or not reverse.open: line.default_color = Color(0.74, 0.63, 0.46, 0.45)
+            line.visible = physical
             line.points = PackedVector2Array([project(a, layout), project(b, layout)])
+            line.set_meta("source_room", String(portal.get("room_id", "")))
+            line.set_meta("target_room", String(peer.get("room_id", "")))
             line.set_meta("source_region", id)
             line.set_meta("target_region", target)
             line.set_meta("source_world", a)
@@ -125,18 +141,38 @@ static func render(level: Node) -> void:
             line.set_meta("forward_status", forward)
             line.set_meta("reverse_status", reverse)
             host.add_child(line)
+            host.move_child(line, 0)
             var badge := Label.new()
             badge.name = "WorldRouteState_" + String(portal.id)
-            badge.position = project((a + b) * 0.5, layout) - Vector2(0, 18)
-            badge.text = "排水钟管" if physical else "◇"
+            badge.position = project(a if not forward.open else b, layout) - Vector2(6, 9)
+            badge.mouse_filter = Control.MOUSE_FILTER_PASS
+            badge.text = "◇" if not forward.open or not reverse.open else ""
             badge.add_theme_font_size_override("font_size", 12)
-            badge.add_theme_color_override("font_color", Color("60452b"))
+            badge.add_theme_color_override("font_color", SURFACE.GOLD)
             badge.tooltip_text = "正向：%s\n反向：%s" % [forward.label, reverse.label]
             host.add_child(badge)
+    # Old portal links are a hover detail, rather than a web of diagonals
+    # across every region. The solid physical passage remains always visible.
+    for child in host.get_children():
+        if not String(child.name).begins_with("WorldSurvey_"): continue
+        var links: Array[Line2D] = []
+        for route in host.get_children():
+            if not route is Line2D or bool(route.get_meta("physical_passage")): continue
+            var source: bool = route.get_meta("source_region") == child.get_meta("region_id") and route.get_meta("source_room") == child.get_meta("room_id")
+            var target: bool = route.get_meta("target_region") == child.get_meta("region_id") and route.get_meta("target_room") == child.get_meta("room_id")
+            if source or target: links.append(route)
+        child.mouse_entered.connect(func():
+            for route in links:
+                if is_instance_valid(route): route.visible = true)
+        child.mouse_exited.connect(func():
+            for route in links:
+                if is_instance_valid(route): route.visible = false)
     var dot := Label.new()
     dot.name = "WorldSurveyPlayer"
+    dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
     dot.text = "◆"
     dot.position = project(level.player_world_position(), layout) - Vector2(6, 9)
-    dot.add_theme_color_override("font_color", Color("a14c3a"))
+    dot.add_theme_color_override("font_color", SURFACE.ACCENT)
     host.add_child(dot)
-    level.map_text.text = "倒扣巨钟 · 互联世界旅册\n六区按固定世界坐标绘制 · 浅墨底图 / 深墨补绘地形 · ◆你的位置\n粗线：实体钟管 · 细线：旧路端点关系（尚非连续洞道） · 金线：有门槛\nTab 区域地图 · M / Esc 返回旅途"
+    level.map_text.text = "◆ 位置    ◇ 门槛    滚轮缩放 / 拖动    Tab 区域地图    M / Esc 返回"
+    level.map_text.tooltip_text = "实线是实体钟管；悬停房间可查看名称和旧路端点关系，悬停门槛可查看通行条件。"

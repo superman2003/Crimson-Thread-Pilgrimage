@@ -51,6 +51,46 @@ func run() -> void:
     await capture("02_pending_notes")
     JOURNAL.rest(scene.story_flags)
     await capture("03_charted_world")
+    var camera: Control = scene.survey_map_view
+    camera.process_mode = Node.PROCESS_MODE_ALWAYS
+    var anchor := Vector2(50,250)
+    var pointer := InputEventMouseMotion.new()
+    pointer.position = camera.global_position + anchor
+    pointer.global_position = pointer.position
+    Input.parse_input_event(pointer)
+    await process_frame
+    for unused in 4:
+        var wheel := InputEventMouseButton.new()
+        wheel.position = pointer.position
+        wheel.global_position = pointer.position
+        wheel.button_index = MOUSE_BUTTON_WHEEL_UP
+        wheel.pressed = true
+        Input.parse_input_event(wheel)
+        await process_frame
+    var before_drag: Vector2 = scene.map_draw_root.position
+    var press := InputEventMouseButton.new()
+    press.position = pointer.position
+    press.global_position = pointer.position
+    press.button_index = MOUSE_BUTTON_LEFT
+    press.pressed = true
+    Input.parse_input_event(press)
+    await process_frame
+    pointer.position += Vector2(40,30)
+    pointer.global_position = pointer.position
+    pointer.relative = Vector2(40,30)
+    Input.parse_input_event(pointer)
+    await process_frame
+    press.pressed = false
+    press.position = pointer.position
+    press.global_position = pointer.position
+    Input.parse_input_event(press)
+    await process_frame
+    if camera.zoom <= 1.0 or before_drag == scene.map_draw_root.position or camera.dragging:
+        failures += 1
+        push_error("Map wheel zoom, drag or release failed")
+    await capture("04_zoomed_world")
+    scene.world_map_view = false
+    await capture("05_charted_region")
     scene.free()
     current_scene = null
     await process_frame
@@ -60,5 +100,5 @@ func run() -> void:
     var file := FileAccess.open(output.path_join("gpu_atlas.json"),FileAccess.WRITE)
     file.store_string(JSON.stringify(summary,"  ") + "\n")
     file.close()
-    print("WORLD_ATLAS_PIXELS probes=3 failures=%d" % failures)
+    print("WORLD_ATLAS_PIXELS probes=5 failures=%d" % failures)
     quit(1 if failures > 0 else 0)
