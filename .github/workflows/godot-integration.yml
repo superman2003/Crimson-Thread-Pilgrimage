@@ -63,10 +63,10 @@ jobs:
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/room-rims-gpu" --script ../tools/validate_room_rim_pixels.gd --success-marker 'ROOM_RIM_PIXELS probes=12 failures=0' --summary-path artifacts/world_rims/gpu_rims.json
-      - name: Run chapter, combat, dialogue and physics regressions
+      - name: Run chapter, preparation, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
+          npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
       - name: Validate fixed-coordinate world atlas rendering
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

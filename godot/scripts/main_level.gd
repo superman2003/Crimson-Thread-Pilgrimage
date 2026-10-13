@@ -593,6 +593,7 @@ var region_tweens: Array[Tween] = []
 var world_narrative: WORLD_NARRATIVE_SCRIPT
 var world_collected_ids: Dictionary = {}
 var world_catalog: Dictionary = {}
+var world_catalog_prepare_staging: Dictionary = {}
 var world_write_error_shown := false
 var world_loading := true
 var build_system: RefCounted
@@ -635,21 +636,149 @@ func _initialize_region(prepared_config: Dictionary = {}) -> void:
 
 
 func _prepare_region(prepared_config: Dictionary = {}) -> void:
-    config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
+    var jobs := _region_prepare_jobs(prepared_config)
+    var cursor := 0
+    while cursor < jobs.size():
+        var job: Dictionary = jobs[cursor]
+        var result: Variant = callv(job.method, job.args)
+        if result is Array and not result.is_empty() and result[0] is Dictionary and result[0].has("method"):
+            for offset in range(result.size()):
+                jobs.insert(cursor + 1 + offset, result[offset])
+        var completed_method := String(job.get("method", ""))
+        if config.is_empty() and ((completed_method == "_prepare_narrative_config" and (not world_mode or not world_catalog.is_empty())) or completed_method == "_commit_world_catalog_prepare"):
+            break
+        cursor += 1
+
+
+## Ordered preparation contract shared by synchronous startup and async World travel.
+## Planning enumerates chapter filenames only; content reads, parsing and deep copies stay in jobs.
+func _region_prepare_jobs(prepared_config: Dictionary = {}) -> Array:
+    var jobs: Array = [
+        {"method": "_prepare_config_and_route", "args": [prepared_config]},
+        {"method": "_prepare_narrative_config", "args": []}
+    ]
+    if world_mode and world_catalog.is_empty():
+        jobs.append({"method": "_begin_world_catalog_prepare", "args": []})
+        # The index job reads route order once and expands into one job per region.
+        jobs.append({"method": "_prepare_world_catalog_jobs", "args": []})
+        jobs.append({"method": "_commit_world_catalog_prepare", "args": []})
+    jobs.append_array([
+        {"method": "_prepare_campaign_metadata", "args": []},
+        {"method": "_begin_chapter_metadata", "args": []}
+    ])
+    for path in _chapter_metadata_paths():
+        jobs.append({"method": "_prepare_chapter_metadata", "args": [path]})
+    jobs.append_array([
+        {"method": "_prepare_av_metadata", "args": []},
+        {"method": "_prepare_item_lore_metadata", "args": []},
+        {"method": "_resolve_chapter_world_and_spawn", "args": []},
+        {"method": "_prepare_inventory_state", "args": []}
+    ])
     if world_mode:
-        if prepared_config.is_empty():
-            config = WORLD_ROUTES_SCRIPT.apply_to(config)
-        if world_narrative == null:
-            world_narrative = WORLD_NARRATIVE_SCRIPT.new()
-        if world_catalog.is_empty():
-            _build_world_catalog()
+        jobs.append({"method": "_restore_inventory_and_region", "args": []})
+    jobs.append_array([
+        {"method": "_restore_build_state", "args": []},
+        {"method": "_sync_build_progress", "args": []},
+        {"method": "_prepare_build_inputs", "args": []},
+        {"method": "_prepare_audio_settings_key", "args": []},
+        {"method": "_prepare_metsys_bridge", "args": []},
+        {"method": "_prepare_audio", "args": []}
+    ])
+    if world_mode:
+        jobs.append({"method": "_prepare_platform_and_gameplay_residency", "args": []})
+    return jobs
+
+
+func _chapter_metadata_paths() -> Array:
+    var paths: Array = []
+    var dir := DirAccess.open(CHAPTER_DATA_DIR)
+    if dir == null:
+        return paths
+    dir.list_dir_begin()
+    var file_name := dir.get_next()
+    while file_name != "":
+        if not dir.current_is_dir() and file_name.ends_with(".json"):
+            paths.append(CHAPTER_DATA_DIR + "/" + file_name)
+        file_name = dir.get_next()
+    dir.list_dir_end()
+    paths.sort()
+    return paths
+
+
+func _prepare_config_and_route(prepared_config: Dictionary) -> void:
+    config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
+    if world_mode and prepared_config.is_empty():
+        config = WORLD_ROUTES_SCRIPT.apply_to(config)
     if config.is_empty():
         push_error("Missing demo config: " + config_path)
+
+
+func _prepare_narrative_config() -> void:
+    if world_mode and world_narrative == null:
+        world_narrative = WORLD_NARRATIVE_SCRIPT.new()
+
+
+func _begin_world_catalog_prepare() -> void:
+    world_catalog_prepare_staging.clear()
+
+
+func _prepare_world_catalog_jobs() -> Array:
+    var routes := _load_json("res://data/world_routes.json")
+    var jobs: Array = []
+    for region_id in routes.get("chapters", {}):
+        var route: Dictionary = routes.chapters[region_id]
+        var catalog: Dictionary = route.get("inventory_catalog", {}).duplicate(true)
+        jobs.append({"method": "_prepare_world_catalog_region", "args": [String(region_id), catalog]})
+    return jobs
+
+
+func _prepare_world_catalog_region(region_id: String, route_catalog: Dictionary) -> void:
+    var region_config := _load_json("res://data/%s.json" % region_id)
+    var catalog: Dictionary = region_config.get("inventory", {}).get("catalog", {}).duplicate(true)
+    catalog.merge(route_catalog, true)
+    world_catalog_prepare_staging.merge(catalog, false)
+
+
+func _commit_world_catalog_prepare() -> void:
+    world_catalog = world_catalog_prepare_staging
+    world_catalog_prepare_staging = {}
+
+
+func _prepare_campaign_metadata() -> void:
+    if config.is_empty():
         return
     campaign = _load_world_shared_json(CAMPAIGN_PATH)
-    chapter_file_configs = _load_chapter_file_configs()
+
+
+func _begin_chapter_metadata() -> void:
+    if config.is_empty():
+        return
+    chapter_file_configs.clear()
+
+
+func _prepare_chapter_metadata(path: String) -> void:
+    if config.is_empty():
+        return
+    var chapter := _load_world_shared_json(path)
+    if not chapter.is_empty():
+        chapter_file_configs.append(chapter)
+
+
+func _prepare_av_metadata() -> void:
+    if config.is_empty():
+        return
     audio_visual_manifest = _load_world_shared_json(AV_MANIFEST_PATH)
+
+
+func _prepare_item_lore_metadata() -> void:
+    if config.is_empty():
+        return
     item_lore = _load_world_shared_json(ITEM_LORE_PATH).get("items", {})
+
+
+func _resolve_chapter_world_and_spawn() -> void:
+    if config.is_empty():
+        return
     current_campaign_chapter = _campaign_chapter_for_id(String(config.get("id", "")))
     var world: Dictionary = config.get("world", {})
     world_width = float(world.get("width", 4096.0))
@@ -659,27 +788,66 @@ func _prepare_region(prepared_config: Dictionary = {}) -> void:
     if entry_spawn_override_enabled:
         active_spawn = entry_spawn_override
     max_bells = 0 if _combat_progression_enabled() else int(config.get("required_keys", 3))
+
+
+func _prepare_inventory_state() -> void:
+    if config.is_empty():
+        return
     _init_inventory_state()
-    if world_mode:
-        _restore_world_inventory_and_region()
+
+
+func _restore_inventory_and_region() -> void:
+    if config.is_empty():
+        return
+    _restore_world_inventory_and_region()
+
+
+func _restore_build_state() -> void:
+    if config.is_empty():
+        return
     if build_system == null:
         build_system = BUILD_SYSTEM_SCRIPT.new()
         if world_mode and not world_state.data.get("build_state", {}).is_empty():
             var restored: Dictionary = build_system.restore(world_state.data.build_state)
             if not restored.get("ok", false):
                 world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑。"
+
+
+func _sync_build_progress() -> void:
+    if config.is_empty():
+        return
     build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
-    _bind_build_inputs()
-    _bind_audio_settings_key()
-    _build_metsys_bridge()
-    _build_audio()
-    if world_mode:
-        world_platforms = WORLD_PLATFORMS.new()
-        world_gameplay_residency = WORLD_GAMEPLAY_RESIDENCY.new()
-        npc_residency_memory.clear()
-        save_point_residency_memory.clear()
-        var arrival_focus := entry_spawn_override if entry_spawn_override_enabled else active_spawn
-        world_gameplay_residency.configure(self, config, world_loader.generation + 1, arrival_focus)
+
+
+func _prepare_build_inputs() -> void:
+    if not config.is_empty():
+        _bind_build_inputs()
+
+
+func _prepare_audio_settings_key() -> void:
+    if not config.is_empty():
+        _bind_audio_settings_key()
+
+
+func _prepare_metsys_bridge() -> void:
+    if not config.is_empty():
+        _build_metsys_bridge()
+
+
+func _prepare_audio() -> void:
+    if not config.is_empty():
+        _build_audio()
+
+
+func _prepare_platform_and_gameplay_residency() -> void:
+    if config.is_empty():
+        return
+    world_platforms = WORLD_PLATFORMS.new()
+    world_gameplay_residency = WORLD_GAMEPLAY_RESIDENCY.new()
+    npc_residency_memory.clear()
+    save_point_residency_memory.clear()
+    var arrival_focus := entry_spawn_override if entry_spawn_override_enabled else active_spawn
+    world_gameplay_residency.configure(self, config, world_loader.generation + 1, arrival_focus)
 
 
 func _finish_region() -> void:
