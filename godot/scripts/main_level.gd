@@ -548,6 +548,7 @@ var bgm_player: AudioStreamPlayer
 var bgm_duck_tween: Tween
 var low_hp_audio_active := false
 var low_hp_heartbeat_player: AudioStreamPlayer
+var pending_sfx_players: Dictionary = {}
 # AudioDirector 一期：章节音乐组/环境床/混音状态总导演（audio_director.gd）。
 # 战斗层轮询/摇篮曲距离/Boss 相位三个状态机已整体迁入 director._process
 #（bind_runtime 注入 player/敌群），main_level 不再持有轮询状态。
@@ -830,6 +831,7 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+    _cancel_pending_sfx()
     if world_platforms != null:
         world_platforms.shutdown()
     if world_loader != null:
@@ -1967,7 +1969,7 @@ func _ensure_bgm_player() -> void:
 
 
 func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
-    if not _should_autoplay_audio():
+    if not _should_autoplay_audio() or not is_inside_tree() or is_queued_for_deletion():
         return
     # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
     if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
@@ -1982,9 +1984,45 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.bus = _sfx_bus_for_key(audio_key)
     player_node.stream = stream
     player_node.volume_db = volume_db
+    var instance_id := player_node.get_instance_id()
+    pending_sfx_players[instance_id] = {"player": player_node, "audio_key": audio_key}
+    # Interactable signals can close an overlay while this level or one of its
+    # children is entering/exiting the tree. Defer attachment until scene-tree
+    # notifications finish, then play only after the player is actually inside.
+    call_deferred("_attach_pending_sfx", instance_id)
+
+
+func _attach_pending_sfx(instance_id: int) -> void:
+    if not pending_sfx_players.has(instance_id):
+        return
+    var pending: Dictionary = pending_sfx_players[instance_id]
+    pending_sfx_players.erase(instance_id)
+    var player_node: AudioStreamPlayer = pending.get("player")
+    var audio_key: String = String(pending.get("audio_key", ""))
+    if not is_instance_valid(player_node):
+        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        return
+    if not is_inside_tree() or is_queued_for_deletion():
+        player_node.free()
+        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        return
     add_child(player_node)
+    if not player_node.is_inside_tree():
+        player_node.free()
+        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        return
     player_node.finished.connect(Callable(player_node, "queue_free"))
     player_node.play()
+
+
+func _cancel_pending_sfx() -> void:
+    for pending_value in pending_sfx_players.values():
+        var pending: Dictionary = pending_value
+        var player_node: AudioStreamPlayer = pending.get("player")
+        if is_instance_valid(player_node):
+            player_node.free()
+        AUDIO_DIRECTOR_SCRIPT.release_voice(String(pending.get("audio_key", "")))
+    pending_sfx_players.clear()
 
 
 ## UI 音走 UI 总线（干声），世界音走 SFXWorld 子总线（send→SFX 吃章节混响）。
