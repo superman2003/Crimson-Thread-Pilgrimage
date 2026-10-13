@@ -67,11 +67,14 @@ func _physics_process(delta: float) -> void:
             return
     if id == "lure":
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active(): continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= float(payload.get("range", 320.0)) and enemy.has_method("investigate_lure"):
                 enemy.investigate_lure(global_position, 1.5)
         queue_free()
         return
     for enemy in get_tree().get_nodes_in_group("enemy"):
+        if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
+            continue
         if not enemy is Node2D or not enemy.has_method("take_hit") or targets.has(enemy.get_instance_id()):
             continue
         var hurtbox: Rect2 = enemy.get_hurtbox_rect() if enemy.has_method("get_hurtbox_rect") else Rect2(enemy.global_position - Vector2(34,38), Vector2(68,76))
