@@ -3,6 +3,7 @@ const ATLAS := preload("res://scripts/world_atlas.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
 const SURVEY := preload("res://scripts/cartography_runtime.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
+const TERRAIN := preload("res://scripts/chapter_terrain.gd")
 
 var failures := 0
 var checks := 0
@@ -92,6 +93,18 @@ func _run() -> void:
     var descriptor_polygons := ATLAS.terrain(String(scene.config.id))
     var live_polygons := SURVEY.terrain_polygons(scene)
     _check(descriptor_polygons == live_polygons, "atlas terrain matches live local-map collision descriptors")
+    for id in COORD.manifest().regions:
+        var data := ATLAS.configuration(id)
+        var reference := TERRAIN.new()
+        root.add_child(reference)
+        reference.configure(data, String(data.art_theme))
+        var polygons: Array[PackedVector2Array] = []
+        for region in reference.collision_regions: polygons.append(region.polygon)
+        for platform in data.get("platforms", []):
+            if not String(platform.get("terrain_id", "")).is_empty(): continue
+            polygons.append(SURVEY.rect_polygon(scene._rect2(platform.rect)))
+        _check(ATLAS.terrain(id) == polygons, id + " atlas describes authoritative terrain and ordinary platforms")
+        reference.free()
     scene.story_flags = original_flags
     _check(scene.wish_panel == null or not scene.wish_panel.visible, "atlas does not overlap wish board")
     var anchor: Node2D = scene.get_node("moss_viaduct_ring")
