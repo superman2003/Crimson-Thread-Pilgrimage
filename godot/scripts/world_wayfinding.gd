@@ -1,7 +1,7 @@
 extends Node2D
 ## In-world bronze signs and proximity pictograms. No route prose is drawn.
 const COORD := preload("res://scripts/world_coordinates.gd")
-const INK := Color(0.86, 0.80, 0.57)
+const INK := Color(0.74, 0.77, 0.60)
 var host: Node
 var area: Area2D
 var symbol := "rest"
@@ -10,6 +10,7 @@ var physical_sign := false
 var nearby := false
 var gate_state := "open"
 var key_hint := ""
+var mount := "post"
 
 static func region_symbol(region: String) -> String:
     for pair in [["ch01", "bell"], ["ch02", "forge"], ["ch03", "book"],
@@ -21,6 +22,7 @@ static func region_symbol(region: String) -> String:
 func configure_portal(data: Dictionary, region: String) -> void:
     symbol = region_symbol(String(data.get("target_config_id", "")))
     physical_sign = true
+    mount = String(data.get("sign_mount", ["stone", "wall", "lantern"][posmod(String(data.get("id", "")).hash(), 3)]))
     var start := COORD.to_world(region, Vector2(data.position[0], data.position[1]))
     var spawn: Array = data.get("target_spawn", [0, 0])
     var end := COORD.to_world(String(data.get("target_config_id", "")), Vector2(spawn[0], spawn[1]))
@@ -42,34 +44,66 @@ func _process(_delta: float) -> void:
     visible = physical_sign or nearby
     queue_redraw()
 
-func _draw() -> void:
+func _sign_center() -> Vector2:
     if physical_sign:
-        # Grounded post with a carved plank, behind the walking actor.
-        draw_line(Vector2(0, 36), Vector2(0, -48), Color(0.20, 0.17, 0.12), 9, true)
-        var plank := PackedVector2Array([Vector2(-45,-76),Vector2(45,-76),Vector2(53,-58),Vector2(45,-40),Vector2(-45,-40),Vector2(-51,-58)])
-        draw_colored_polygon(plank, Color(0.15, 0.18, 0.13))
+        return Vector2(0, -136 if mount == "lantern" else -88 if mount == "wall" else -58)
+    return Vector2(0, -91)
+
+func _housing(c: Vector2, wide: bool) -> void:
+    var w := 51.0 if wide else 25.0
+    var h := 21.0 if wide else 25.0
+    var dark := Color(0.10, 0.16, 0.15)
+    var rim := Color(0.36, 0.44, 0.36)
+    if mount == "lantern":
+        # Closed chains and hood distinguish this from a doorway/open arch.
+        var top := -266.0 if physical_sign else c.y - 49.0
+        for x in [-w * 0.55, w * 0.55]:
+            draw_line(Vector2(x, top), c + Vector2(x, -h), rim, 2.0, true)
+        draw_colored_polygon(PackedVector2Array([c+Vector2(-w-5,-h),c+Vector2(-w+3,-h-9),c+Vector2(w-3,-h-9),c+Vector2(w+5,-h)]), dark)
+        draw_rect(Rect2(c-Vector2(w,h),Vector2(w*2,h*2)), Color(0.15,0.23,0.20))
+        draw_rect(Rect2(c-Vector2(w,h),Vector2(w*2,h*2)), rim, false, 3)
+        draw_line(c+Vector2(-w-4,h+5),c+Vector2(w+4,h+5),rim,3,true)
+        draw_line(c+Vector2(0,h+5),c+Vector2(0,h+14),rim,2,true)
+        draw_colored_polygon(PackedVector2Array([c+Vector2(0,h+12),c+Vector2(5,h+18),c+Vector2(0,h+24),c+Vector2(-5,h+18)]),rim)
+    elif mount == "stone":
+        var feet := 36.0 if physical_sign else c.y + h + 5
+        var slab := PackedVector2Array([c+Vector2(-w+5,-h),c+Vector2(w-7,-h-3),c+Vector2(w,-h+7),Vector2(c.x+w-3,feet),Vector2(c.x-w-2,feet),c+Vector2(-w,-h+9)])
+        draw_colored_polygon(slab,dark)
+        var edge := slab.duplicate()
+        edge.append(slab[0])
+        draw_polyline(edge,rim,2,true)
+        draw_line(c+Vector2(w-8,h+1),c+Vector2(w-14,h+10),rim,1,true)
+    else:
+        if mount == "post":
+            draw_line(Vector2(0,36),c+Vector2(0,-h),Color(0.15,0.20,0.16),8,true)
+        else:
+            draw_polyline(PackedVector2Array([c+Vector2(-w-16,-h-18),c+Vector2(-w-16,0),c+Vector2(-w,0)]),rim,4,true)
+        var plank := PackedVector2Array([c+Vector2(-w,-h),c+Vector2(w-8,-h),c+Vector2(w,0),c+Vector2(w-8,h),c+Vector2(-w+3,h),c+Vector2(-w-3,1)])
+        draw_colored_polygon(plank,dark)
         var edge := plank.duplicate()
         edge.append(plank[0])
-        draw_polyline(edge, Color(0.49, 0.44, 0.28), 2, true)
-        draw_circle(Vector2(-39,-58), 2, INK)
-        _icon(symbol, Vector2(-12,-58), 0.78)
-        var tail := Vector2(21,-58) - direction * 10
-        var tip := Vector2(21,-58) + direction * 10
-        draw_line(tail, tip, INK, 2.5, true)
-        var normal := Vector2(-direction.y, direction.x)
-        draw_polyline(PackedVector2Array([tip-direction*6+normal*5,tip,tip-direction*6-normal*5]), INK, 2.5, true)
+        draw_polyline(edge,rim,2,true)
+        draw_circle(c+Vector2(-w+7,0),1.5,INK)
+
+func _draw() -> void:
+    var c := _sign_center()
+    if physical_sign or nearby:
+        _housing(c,physical_sign)
+        _icon(symbol,c+Vector2(-12,0) if physical_sign else c,0.78 if physical_sign else 0.9)
+    if physical_sign:
+        var tail := c+Vector2(21,0)-direction*10
+        var tip := c+Vector2(21,0)+direction*10
+        draw_line(tail,tip,INK,2.5,true)
+        var normal := Vector2(-direction.y,direction.x)
+        draw_polyline(PackedVector2Array([tip-direction*6+normal*5,tip,tip-direction*6-normal*5]),INK,2.5,true)
         if gate_state != "open":
-            _icon("lock" if gate_state == "far_side" else "ability", Vector2(0,-24), 0.65)
-    elif nearby:
-        draw_circle(Vector2(0,-91), 23, Color(0.05,0.08,0.07,0.9))
-        draw_arc(Vector2(0,-91), 23, 0, TAU, 32, INK, 1.5, true)
-        _icon(symbol, Vector2(0,-91), 1.0)
+            _icon("lock" if gate_state == "far_side" else "ability",c+Vector2(0,39),0.65)
     if nearby and not key_hint.is_empty():
         var font := ThemeDB.fallback_font
-        var width := font.get_string_size(key_hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 14).x
-        var anchor := Vector2(-width/2, -108 if physical_sign else -124)
-        draw_style_box(_key_box(), Rect2(anchor-Vector2(6,16),Vector2(width+12,23)))
-        draw_string(font, anchor, key_hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, INK)
+        var width := font.get_string_size(key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,14).x
+        var anchor := c+Vector2(-width/2,-44)
+        draw_style_box(_key_box(),Rect2(anchor-Vector2(6,16),Vector2(width+12,23)))
+        draw_string(font,anchor,key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,14,INK)
 
 func _key_box() -> StyleBoxFlat:
     var box := StyleBoxFlat.new()

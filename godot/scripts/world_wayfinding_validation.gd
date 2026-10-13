@@ -72,12 +72,23 @@ func run() -> void:
     check(not scene.ui_shell.prompt.visible and scene.ui_shell.prompt.text.is_empty(), "HUD does not duplicate interaction prose")
     scene.player.global_position = portal.global_position
     check(scene.world_passage.begin("moss_rain_pipe"), "pipe begins")
+    var floor_art: Texture2D = scene.world_passage.get_node("AuthoredFloor").material.get_shader_parameter("edge_atlas")
+    var ceiling_art: Texture2D = scene.world_passage.get_node("AuthoredCeiling").material.get_shader_parameter("edge_atlas")
+    check(floor_art.resource_path != ceiling_art.resource_path, "floor and ceiling use independently authored images")
+    var rim: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/sprites/flat_maps/shared_ink/edges.json"))
+    var floor_data: Dictionary = rim.floor
+    var anchor: float = floor_data.anchor_v
+    var max_rim_shift := maxf(absf(float(floor_data.edge_pixel_range[0])/float(floor_data.height)-anchor),absf(float(floor_data.edge_pixel_range[1])/float(floor_data.height)-anchor))*600*0.18+600/255
+    check(max_rim_shift < 20, "painted floor rim stays within 20px of collision; boots remain readable")
     var endpoint_count := 0
+    var mounts: Array = []
     for child in scene.world_passage.get_children():
         check(not child is CanvasLayer and not child is Label, "pipe contains no text guidance layer")
         if String(child.name).begins_with("Endpoint_"):
             endpoint_count += 1
+            mounts.append(child.mount)
             check(child is Node2D and child.physical_sign, "pipe endpoint is grounded sign")
+    check(mounts.has("stone") and mounts.has("lantern"), "pipe mixes grounded and hanging signs with same semantic glyphs")
     check(endpoint_count == 2, "both pipe directions have physical signs")
     scene.world_passage._return_to_source(true)
     scene.free()

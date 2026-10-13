@@ -27,7 +27,7 @@ func _run() -> void:
         return
     var output := ProjectSettings.globalize_path("res://../artifacts/world_passage")
     DirAccess.make_dir_recursive_absolute(output)
-    for offset in [1000, 4200, 7600, 8500]:
+    for offset in [40, 1000, 4200, 7600, 8500]:
         var point: Vector2 = scene.world_passage.source_point.lerp(scene.world_passage.destination_point, float(offset) / 8540) + Vector2(0, 40)
         scene.player.global_position = point
         scene.player.reset_camera_after_arrival()
@@ -78,7 +78,7 @@ func _run() -> void:
             for x in range(0, image.get_width(), 2):
                 if image.get_pixel(x, y) != without_markers.get_pixel(x, y):
                     endpoint_pixels += 1
-        var endpoint_ok := endpoint_pixels > 80 if offset == 8500 else endpoint_pixels == 0
+        var endpoint_ok := endpoint_pixels > 80 if offset in [40, 8500] else endpoint_pixels == 0
         var ornament_pixels := 0
         var lane_ornament_pixels := 0
         var feet_y: float = scene.player.get_global_transform_with_canvas().origin.y

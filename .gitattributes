@@ -51,3 +51,6 @@ artifacts/cartography/** -filter -diff -merge -text
 
 # Small verification captures are kept as regular Git blobs.
 artifacts/world_passage/*.jpg -filter -diff -merge -text
+
+# Lossless hand-inked environment art is stored as regular Git blobs.
+godot/assets/sprites/flat_maps/shared_ink/*.webp -filter -diff -merge -text

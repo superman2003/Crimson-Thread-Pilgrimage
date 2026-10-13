@@ -24,6 +24,8 @@ func run() -> void:
         var material: ShaderMaterial = ROCK.for_theme(theme)
         check(material!=null and material.get_shader_parameter("stone_atlas")!=null,id+" stone texture loaded")
         var texture: Texture2D = material.get_shader_parameter("stone_atlas")
+        check(texture.resource_path==ROCK.INK_ROCK,id+" shares hand-inked rock family")
+        check(material.get_shader_parameter("stone_tint")==ROCK.TINTS[theme],id+" keeps region palette")
         check(material.get_shader_parameter("tile_size")==Vector2(texture.get_size()),id+" mural uses native density")
         var mass: Node = scene.cave_world.get_node("PaintedRockMass")
         check(mass.material==material,id+" visible rock uses regional material")

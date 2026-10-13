@@ -172,8 +172,14 @@ func _build_tube() -> void:
         var collision := CollisionPolygon2D.new()
         collision.polygon = points
         body.add_child(collision)
-        var face := ROCK.face(self, points, theme)
-        face.z_index = -5
+    # Independent authored silhouettes; collision polygons remain authoritative.
+    var slope := (floor_b.y-floor_a.y)/length
+    var edge_a := floor_a-Vector2(640,640*slope)
+    var edge_b := floor_b+Vector2(640,640*slope)
+    var floor_face := ROCK.authored_edge(self,edge_a,edge_b,theme,false)
+    floor_face.z_index = -5
+    var ceiling_face := ROCK.authored_edge(self,edge_a-Vector2(0,260),edge_b-Vector2(0,260),theme,true)
+    ceiling_face.z_index = -5
     for point in [floor_a + Vector2(-96, -130), floor_b + Vector2(96, -130)]:
         var cap := CollisionShape2D.new()
         var shape := RectangleShape2D.new()
@@ -208,6 +214,7 @@ func _endpoint_marker(point: Vector2, region_id: String, direction: float) -> vo
     marker.name = "Endpoint_" + region_id
     marker.symbol = WAYFINDING.region_symbol(region_id)
     marker.physical_sign = true
+    marker.mount = "lantern" if region_id.contains("ch02") else "stone"
     marker.direction = Vector2(direction, 0)
     marker.position = point + Vector2(-160 * direction, 56)
     marker.z_index = -3

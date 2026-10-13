@@ -56,7 +56,7 @@ jobs:
       - name: Validate physical pipe rendering and visible hero
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/passage-gpu" --script ../tools/validate_passage_pixels.gd --success-marker 'PASSAGE_PIXELS probes=4 failures=0' --summary-path artifacts/world_passage/gpu_pipe.json
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/passage-gpu" --script ../tools/validate_passage_pixels.gd --success-marker 'PASSAGE_PIXELS probes=5 failures=0' --summary-path artifacts/world_passage/gpu_pipe.json
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

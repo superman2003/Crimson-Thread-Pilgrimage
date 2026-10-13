@@ -981,6 +981,7 @@ func _add_wayfinding(area: Area2D) -> void:
         marker.z_index = -1
     else:
         marker.visible = false
+        marker.mount = "lantern" if kind == "save_point" else "wall" if kind == "npc" else "stone"
         marker.z_index = 20
     area.add_child(marker)
 

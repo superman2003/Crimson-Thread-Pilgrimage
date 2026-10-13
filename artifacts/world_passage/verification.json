@@ -529,5 +529,45 @@
       "First standard GL run reported an ObjectDB exit warning; verbose follow-up had no engine ERROR or exit warning; existing editor RID errors remain outside runtime acceptance",
       "Remote CI pending final commit"
     ]
+  },
+  "ink_cave_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "d67b3e27a154d2fc9c4d79c077c6cffcb197eb99",
+    "scope": "six-region rock family; independent ceiling/floor first pipe; four stable sign mounts",
+    "final_affected_suites": 3,
+    "final_failures": 0,
+    "wayfinding_checks": 40,
+    "passage_checks": 52,
+    "material_checks": 1589,
+    "earlier_platform_checks": 15877,
+    "earlier_collision_checks": 129452,
+    "gpu_probes": 5,
+    "gpu_failures": 0,
+    "rock_seam_probes": 12,
+    "source_images": "three separately generated raster assets, lossless WebP verified pixel-identical",
+    "limitations": [
+      "First pipe uses independent rims; other rooms not individually redrawn",
+      "Fixture captures, not natural playthrough",
+      "Existing editor RID exit errors retained; W00c and T03/T04 incomplete",
+      "Remote CI pending final commit"
+    ],
+    "logs": [
+      {
+        "name": "/tmp/ink-delivery-checks.log",
+        "sha256": "b2499f1303234942b46fb50951bd7709eafeb809e8e836c1f00f353f26cdb988"
+      },
+      {
+        "name": "/tmp/ink-cave-checks.log",
+        "sha256": "99ea8c9956bdf2b751ff9e8706a6cce2ace0d6f0a8e8fdc813052cc2ba948451"
+      },
+      {
+        "name": "/tmp/ink-delivery-gpu/gpu.log",
+        "sha256": "0913602e196e95609bc3cde7189fb6f0ee961a0ed937634c11cf39b68963b60e"
+      },
+      {
+        "name": "/tmp/ink-cave-seams-final/gpu.log",
+        "sha256": "a28ce466635b1d7facf0ada5ca7f419cd7d469c9c024e9d0432371355221130b"
+      }
+    ]
   }
 }
