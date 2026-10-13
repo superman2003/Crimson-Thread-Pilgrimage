@@ -83,16 +83,18 @@ static func map_position(level: Node, room: Dictionary, point: Vector2, bounds: 
         return level._map_world_to_overlay(point,bounds,draw_size)
     return level._map_world_to_overlay(map_rect.position+map_rect.size*(point-physical.position)/physical.size,bounds,draw_size)
 static func room_terrain(level: Node, room: Dictionary, polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
-    var physical: Rect2=level._room_layout_rect(room)
+    return room_terrain_config(level.config, room, polygons)
+static func room_terrain_config(config: Dictionary, room: Dictionary, polygons: Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+    var physical := room_rect(room)
     var contours: Array[PackedVector2Array]=[]
     if physical.size.x<=0 or physical.size.y<=0: return contours
     for polygon in polygons:
         var fragments: Array[PackedVector2Array]=Geometry2D.intersect_polygons(polygon,rect_polygon(physical))
         # Nested pockets belong to their own exploration record. Charting the
         # enclosing hall must not disclose their terrain before resting.
-        for other in level.config.get("map_rooms",[]):
+        for other in config.get("map_rooms",[]):
             if String(other.id)==String(room.id): continue
-            var pocket: Rect2=level._room_layout_rect(other)
+            var pocket := room_rect(other)
             if pocket.get_area()>=physical.get_area() or not physical.intersects(pocket): continue
             var remaining: Array[PackedVector2Array]=[]
             for fragment in fragments:
@@ -104,6 +106,9 @@ static func room_terrain(level: Node, room: Dictionary, polygons: Array[PackedVe
                 normalized.append((point-physical.position)/physical.size)
             contours.append(normalized)
     return contours
+static func room_rect(room: Dictionary) -> Rect2:
+    var value: Array = room.get("layout_rect", room.get("play_rect", []))
+    return Rect2(value[0], value[1], value[2], value[3]) if value.size() >= 4 else Rect2()
 static func exclude_pocket(polygon: PackedVector2Array, pocket: Rect2) -> Array[PackedVector2Array]:
     var bounds:=Rect2(polygon[0],Vector2.ZERO)
     for point in polygon: bounds=bounds.expand(point)

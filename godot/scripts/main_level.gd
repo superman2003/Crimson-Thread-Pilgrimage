@@ -601,6 +601,7 @@ var applied_build_profile: Dictionary = {}
 
 
 const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
+const WORLD_ATLAS := preload("res://scripts/world_atlas.gd")
 const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
 
 func _ready() -> void:
@@ -1241,87 +1242,7 @@ func _world_exploration_hint() -> String:
 
 
 func _draw_world_atlas() -> void:
-    var routes := _load_json("res://data/world_routes.json")
-    var regions: Dictionary = routes.get("chapters", {})
-    var region_ids: Array = regions.keys()
-    var centers: Dictionary = {}
-    var current_id := String(config.get("id", ""))
-    var titles: Dictionary = {}
-    for index in range(region_ids.size()):
-        var region_id := String(region_ids[index])
-        centers[region_id] = Vector2(145 + (index % 3) * 290, 185 + (index / 3) * 165)
-        var region_config := _load_json(WORLD_ROUTES_SCRIPT.config_path(region_id))
-        titles[region_id] = String(region_config.get("chapter_name", region_config.get("name", region_id)))
-    var drawn: Dictionary = {}
-    for region_id_value in region_ids:
-        var region_id := String(region_id_value)
-        for data in regions[region_id].get("portals", []):
-            var target := String(data.get("target_config_id", ""))
-            if target == region_id or not centers.has(target):
-                continue
-            var key := region_id + ":" + target if region_id < target else target + ":" + region_id
-            if drawn.has(key):
-                continue
-            var source_seen: bool = world_state.data.regions.has(region_id) or current_id == region_id
-            var target_seen: bool = world_state.data.regions.has(target) or current_id == target
-            if not source_seen and not target_seen:
-                continue
-            var source_drawn := CARTOGRAPHY.charted(story_flags, region_id, String(data.get("room_id", "")))
-            var peer_for_visibility := WORLD_ROUTES_SCRIPT.portal(target, String(data.get("target_portal_id", "")))
-            var target_drawn := CARTOGRAPHY.charted(story_flags, target, String(peer_for_visibility.get("room_id", "")))
-            if not source_drawn and not target_drawn:
-                continue
-            drawn[key] = true
-            var line := Line2D.new()
-            line.width = 3.0
-            var forward: Dictionary = WORLD_ROUTES_SCRIPT.access(data, inventory_counts, story_flags)
-            var peer: Dictionary = WORLD_ROUTES_SCRIPT.portal(target, String(data.get("target_portal_id", "")))
-            var reverse: Dictionary = WORLD_ROUTES_SCRIPT.access(peer, inventory_counts, story_flags)
-            line.set_meta("forward_status", forward)
-            line.set_meta("reverse_status", reverse)
-            line.set_meta("source_region", region_id)
-            line.set_meta("target_region", target)
-            line.default_color = Color(0.35, 0.82, 0.90) if forward.open and reverse.open else Color(0.88, 0.63, 0.30)
-            var source_center: Vector2 = centers[region_id]
-            var target_center: Vector2 = centers[target]
-            var badge_center: Vector2 = (source_center + target_center) * 0.5
-            if is_equal_approx(source_center.y, target_center.y) and absf(source_center.x-target_center.x)>300:
-                # Skip-region routes must not run beneath the middle region card.
-                line.add_point(source_center-Vector2(0,40))
-                line.add_point(source_center-Vector2(0,75))
-                line.add_point(target_center-Vector2(0,75))
-                line.add_point(target_center-Vector2(0,40))
-                badge_center.y-=75
-            else:
-                line.add_point(source_center)
-                line.add_point(target_center)
-            map_draw_root.add_child(line)
-            var badge := Label.new()
-            badge.name = "WorldRouteState_" + String(data.get("id", ""))
-            badge.position = badge_center - Vector2(45, 20)
-            badge.size = Vector2(90, 40)
-            badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-            badge.add_theme_font_size_override("font_size", 13)
-            badge.text = "互通" if forward.open and reverse.open else "单向\n" + String(reverse.label if forward.open else forward.label) if forward.open or reverse.open else String(forward.label) + "\n" + String(reverse.label)
-            badge.tooltip_text = "%s → %s：%s\n%s → %s：%s" % [titles[region_id], titles[target], forward.label, titles[target], titles[region_id], reverse.label]
-            map_draw_root.add_child(badge)
-    for region_id_value in region_ids:
-        var region_id := String(region_id_value)
-        var center: Vector2 = centers[region_id]
-        var known: bool = world_state.data.regions.has(region_id) or current_id == region_id
-        var fill := Color(0.07, 0.18, 0.17) if known else Color(0.045, 0.055, 0.065)
-        var border := Color(0.80, 1.0, 0.88) if region_id == current_id else Color(0.27, 0.48, 0.47)
-        _add_map_ui_rect("WorldRegion_" + region_id, center - Vector2(104, 40), Vector2(208, 80), fill, border, 3.0 if region_id == current_id else 1.5)
-        var label := Label.new()
-        label.position = center - Vector2(98, 32)
-        label.size = Vector2(196, 65)
-        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-        label.add_theme_font_size_override("font_size", 17)
-        var explored: int = CARTOGRAPHY.region(story_flags,region_id).charted.size()
-        label.text = String(titles[region_id]) + ("\n补绘 %d 室" % explored if CARTOGRAPHY.owned(story_flags,region_id) else "\n未购本区地图" if known else "\n尚未踏足")
-        map_draw_root.add_child(label)
-    map_text.text = "倒扣巨钟 · 互联世界\n蓝线：双向互通  ·  金线：至少一侧有门槛（悬停查看两侧条件）  ·  仅显示已踏足区域的相邻通路\n" + _world_exploration_hint() + "\nTab 区域地图 · M / Esc 返回旅途"
+    WORLD_ATLAS.render(self)
 
 
 func _build_new_journey_dialog() -> void:
@@ -2070,6 +1991,7 @@ func _build_map_overlay() -> void:
 
     var title := Label.new()
     title.text = _theme_map_title()
+    title.name = "SurveyMapTitle"
     title.position = Vector2(28, 18)
     title.add_theme_font_size_override("font_size", 24)
     title.add_theme_color_override("font_color", Color("b5a17c"))
@@ -2567,6 +2489,9 @@ func _room_is_visited(room_id: String) -> bool:
 func _refresh_map_overlay() -> void:
     if map_draw_root == null or map_text == null:
         return
+    var title: Label = map_panel.get_node_or_null("SurveyMapTitle")
+    if title != null:
+        title.text = "倒扣巨钟 · 世界旅册" if world_mode and world_map_view else _theme_map_title()
     for child in map_draw_root.get_children():
         child.free()
 
@@ -2580,7 +2505,7 @@ func _refresh_map_overlay() -> void:
     if wish_panel != null:
         wish_panel.visible = not (world_mode and world_map_view)
     if world_mode and world_map_view:
-        CARTOGRAPHY_UI.paper(self, false)
+        CARTOGRAPHY_UI.paper(self, true)
         _draw_world_atlas()
         return
     if world_mode:
