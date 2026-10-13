@@ -76,7 +76,7 @@ func configure(chapter: Dictionary, theme: String, owner_scene: Node2D, stream_c
     surface.name = "PaintedRockMass"
     surface.show_behind_parent = true
     add_child(surface)
-    surface.configure(solid_rects, ROCK.for_theme(theme))
+    surface.configure(solid_rects, ROCK.for_theme(theme),theme)
     z_index = 12 # Opaque painted rock covers distant backdrops and wall ornaments.
     queue_redraw()
     for point in chapter.get("save_points",[]):
@@ -88,8 +88,7 @@ func _draw() -> void:
         var points := PackedVector2Array()
         for p in value:points.append(Vector2(float(p[0]),float(p[1])))
         if points.size()<2:continue
-        draw_polyline(points,rock_ink.darkened(.25),4.0,true)
-        draw_polyline(points,rock_ink.lightened(.25),1.2,true)
+        draw_polyline(points,rock_ink.darkened(.1),1.0,true)
     for p in lights:
         for radius in [54,36,20]:
             draw_circle(p,float(radius),Color(.68,.89,.65,.035))

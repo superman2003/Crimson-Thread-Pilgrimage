@@ -175,7 +175,7 @@ func refresh_visual_chunks(bounds: Rect2, eager: bool = false) -> void:
         chunk.set_meta("stream_chunk_id", key)
         record.parent.add_child(chunk)
         for points in record.faces:
-            var face := ROCK.face(chunk, points, material_theme)
+            var face := ROCK.stratum(chunk,points[0],points[1],points[3].y-points[0].y,material_theme)
             face.name = "HandPaintedStratum"
             face.z_index = -5
         # Reassemble consecutive top edges without drawing joins across gaps.
@@ -335,7 +335,7 @@ func intersects_rect(rect: Rect2) -> bool:
     return false
 
 func _textured_face(parent: Node, left: Vector2, right: Vector2, depth: float) -> void:
-    var panel := ROCK.face(parent,PackedVector2Array([left,right,right+Vector2(0,depth),left+Vector2(0,depth)]),material_theme)
+    var panel := ROCK.stratum(parent,left,right,depth,material_theme)
     panel.name = "HandPaintedStratum"
     panel.z_index = -5
 

@@ -138,12 +138,23 @@ func _run() -> void:
 func _geometry_signature() -> Dictionary:
     var signature := {"types": {}, "enemy_positions": [], "collision_shapes": 0, "polygons": 0,
         "hazards": scene.hazard_total, "collectibles": scene.collectible_total, "saves": scene.save_point_total, "gates": scene.locked_gate_bodies.keys()}
+    # Renderer residency depends on prior camera history; compare its immutable
+    # authoritative exposed-edge descriptors separately from tree node counts.
+    var rock: Node = scene.cave_world.get_node("PaintedRockMass")
+    scene.player.get_node("Camera2D").force_update_scroll()
+    rock._refresh_view()
+    signature["authored_cave_rims"] = JSON.stringify(rock.rim_descriptors)
+    for key in rock.rim_chunks:
+        if rock.rim_chunks[key].bounds.intersects(rock.view_bounds):
+            _check(rock.resident_rims.has(key), "arrival view has complete cave rims")
     _walk(scene, signature)
     signature.enemy_positions.sort()
     signature.gates.sort()
     return signature
 
 func _walk(node: Node, result: Dictionary) -> void:
+    if node.has_meta("rim_chunk"):
+        return
     if node == scene.player or node is CanvasLayer or node is Window or node is AudioStreamPlayer or node is AudioStreamPlayer2D or node == scene.audio_director or node == scene.metsys_bridge:
         return
     var kind := node.get_class()

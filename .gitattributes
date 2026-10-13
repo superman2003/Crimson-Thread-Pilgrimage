@@ -48,3 +48,12 @@ artifacts/world_route_contract/** -filter -diff -merge -text
 
 # Original cartography assets and review captures remain directly browsable.
 artifacts/cartography/** -filter -diff -merge -text
+
+# Small verification captures are kept as regular Git blobs.
+artifacts/world_passage/*.jpg -filter -diff -merge -text
+
+# Lossless hand-inked environment art is stored as regular Git blobs.
+godot/assets/sprites/flat_maps/shared_ink/*.webp -filter -diff -merge -text
+
+# All-region rim verification captures are reviewable regular Git blobs.
+artifacts/world_rims/*.jpg -filter -diff -merge -text

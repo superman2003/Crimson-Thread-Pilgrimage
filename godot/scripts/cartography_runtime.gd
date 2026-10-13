@@ -11,13 +11,6 @@ static func setup(level: Node) -> void:
     area.set_meta("map_seller_region",String(level.config.id))
     area.set_meta("map_seller_data",seller.duplicate(true))
     area.set_meta("interaction_label",String(area.get_meta("label","地图NPC"))+" · 交谈 / 购买本区地图")
-    var caption := Label.new()
-    caption.name="MapSellerMarker"
-    caption.text="◇ 地图 · %d枚" % JOURNAL.PRICE
-    caption.position=Vector2(-48,-130)
-    caption.add_theme_font_override("font",preload("res://assets/fonts/NotoSansSC.ttf"))
-    caption.add_theme_font_size_override("font_size",14)
-    area.add_child(caption)
     var dialog := ConfirmationDialog.new()
     dialog.name="MapPurchaseDialog"
     dialog.theme=level.ui_shell.theme.duplicate()

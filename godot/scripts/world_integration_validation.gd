@@ -73,7 +73,7 @@ func _run() -> void:
         _finish()
         return
     scene.player.global_position = portal.global_position
-    scene._activate_world_portal(portal)
+    scene._travel_world("res://data/demo_ch02_rain_foundry_canal.json", Vector2(330, 720)) # State fixture; physical tube is verified by world_passage.
     await _frames()
     scene = current_scene
     _check(scene.get_instance_id() == first_instance, "portal retains persistent world host")
@@ -146,7 +146,7 @@ func _run() -> void:
         _finish()
         return
     scene.player.global_position = return_portal.global_position
-    scene._activate_world_portal(return_portal)
+    scene._travel_world("res://data/demo_ch01_moss_bell_court.json", Vector2(1790, 3712)) # State fixture; no teleport claim.
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == first_id, "B returns to A")

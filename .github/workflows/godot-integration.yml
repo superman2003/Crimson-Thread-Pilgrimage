@@ -53,6 +53,14 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/rock-gpu"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/streaming-gpu" --script ../tools/validate_streaming_pixels.gd --success-marker "STREAMING_PIXELS probes=12 failures=0" --summary-path artifacts/world_streaming/gpu_pixels.json
+      - name: Validate physical pipe rendering and visible hero
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/passage-gpu" --script ../tools/validate_passage_pixels.gd --success-marker 'PASSAGE_PIXELS probes=5 failures=0' --summary-path artifacts/world_passage/gpu_pipe.json
+      - name: Validate authored rock rims in all regions
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/room-rims-gpu" --script ../tools/validate_room_rim_pixels.gd --success-marker 'ROOM_RIM_PIXELS probes=12 failures=0' --summary-path artifacts/world_rims/gpu_rims.json
       - name: Run chapter, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
