@@ -323,5 +323,83 @@
         "sha256": "199dee465528ff0324611e4842b5db3e24a9496574c95d060845e3530b1ead8c"
       }
     ]
+  },
+  "semantic_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "578260fa95fa23cf32de645d718c951c741cc1da",
+    "support_region": [
+      96,
+      652,
+      249,
+      566
+    ],
+    "support_type": "Solid moss stone pillar; no doorway silhouette",
+    "exit_markers": "Only actual source and destination ends; horizontal direction follows travel",
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 2914,
+          "endpoint_pixels": 0,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1268,
+          "offset": 1000,
+          "ornament_pixels": 16579,
+          "passed": true,
+          "visible_samples": 5069
+        },
+        {
+          "distinct_colors": 3154,
+          "endpoint_pixels": 0,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1275,
+          "offset": 4200,
+          "ornament_pixels": 16570,
+          "passed": true,
+          "visible_samples": 5042
+        },
+        {
+          "distinct_colors": 3017,
+          "endpoint_pixels": 0,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1275,
+          "offset": 7600,
+          "ornament_pixels": 9541,
+          "passed": true,
+          "visible_samples": 5023
+        },
+        {
+          "distinct_colors": 2305,
+          "endpoint_pixels": 897,
+          "file": "pipe_8500.jpg",
+          "hero_pixels": 1279,
+          "offset": 8500,
+          "ornament_pixels": 8435,
+          "passed": true,
+          "visible_samples": 5022
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl_final",
+        "bytes": 26037,
+        "sha256": "6e9719b60ed6b4937a995123a4fe0947f096a78a523359eded12fa9a01e4f614"
+      }
+    ]
   }
 }

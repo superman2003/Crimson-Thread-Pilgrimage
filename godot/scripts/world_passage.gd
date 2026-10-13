@@ -7,7 +7,7 @@ const ROCK := preload("res://scripts/world_rock_material.gd")
 const SUPPORT_SHADER := preload("res://shaders/passage_support.gdshader")
 const DECOR_ATLAS := "res://assets/sprites/flat_maps/moss_cavern/decor_atlas.png"
 # Whole authored ornaments from the existing moss atlas, not generated outlines.
-const SUPPORT_REGION := Rect2(431, 46, 405, 581)
+const SUPPORT_REGION := Rect2(96, 652, 249, 566)
 const LANTERN_REGION := Rect2(984, 627, 144, 576)
 const PATH := "res://data/world_passages.json"
 const TRANSIT_LAYER := 64
@@ -189,20 +189,23 @@ func _build_tube() -> void:
     for index in range(int(length / 640) + 1):
         var x := a.x + index * 640
         var y := floor_a.y + (floor_b.y - floor_a.y) * (x - a.x) / length
-        for foot in [-62.0, 62.0]:
-            var shadow := Sprite2D.new()
-            shadow.name = "SupportContact_%d_%d" % [index, int(foot)]
-            shadow.texture = contact_texture
-            shadow.position = Vector2(x + foot, y + 2)
-            shadow.scale = Vector2(0.62, 0.22)
-            shadow.z_index = -4
-            add_child(shadow)
+        var shadow := Sprite2D.new()
+        shadow.name = "SupportContact_%d" % index
+        shadow.texture = contact_texture
+        shadow.position = Vector2(x, y + 2)
+        shadow.scale = Vector2(0.78, 0.22)
+        shadow.z_index = -4
+        add_child(shadow)
         _painted_ornament("MossStoneSupport_%d" % index, SUPPORT_REGION,
             Vector2(x, y + 18), 284.0, "support", true)
         if x + 320 < b.x:
             var lamp_y := floor_a.y + (floor_b.y - floor_a.y) * (x + 320 - a.x) / length
             _painted_ornament("DrainpipeLantern_%d" % index, LANTERN_REGION,
                 Vector2(x + 320, lamp_y - 252), 126.0, "lantern", false)
+    # Sideways travel ends here; rear-wall ornaments are never entrances.
+    var direction := signf(destination_point.x - source_point.x)
+    _endpoint_marker(source_point, source_id, -direction)
+    _endpoint_marker(destination_point, destination_id, direction)
     var canvas := CanvasLayer.new()
     add_child(canvas)
     notice = Label.new()
@@ -210,6 +213,22 @@ func _build_tube() -> void:
     notice.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
     notice.add_theme_font_size_override("font_size", 20)
     canvas.add_child(notice)
+
+func _endpoint_marker(point: Vector2, region_id: String, direction: float) -> void:
+    var names := {"demo_ch01_moss_bell_court": "苔钟庭", "demo_ch02_rain_foundry_canal": "铸雨渠"}
+    var marker := Label.new()
+    marker.name = "Endpoint_" + region_id
+    marker.text = "%s出口 →" % names[region_id] if direction > 0 else "← %s出口" % names[region_id]
+    marker.position = point + Vector2(-140 * direction - 130, -100)
+    marker.size = Vector2(260, 40)
+    marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    marker.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+    marker.add_theme_font_size_override("font_size", 22)
+    marker.add_theme_color_override("font_color", Color(0.78, 0.80, 0.57))
+    marker.add_theme_color_override("font_outline_color", Color(0.06, 0.07, 0.04))
+    marker.add_theme_constant_override("outline_size", 4)
+    marker.z_index = -3
+    add_child(marker)
 
 func _painted_ornament(node_name: String, region: Rect2, anchor: Vector2,
         height: float, kind: String, bottom_anchor: bool) -> void:
@@ -226,7 +245,7 @@ func _painted_ornament(node_name: String, region: Rect2, anchor: Vector2,
     sprite.name = node_name
     sprite.texture = frame
     sprite.centered = false
-    # Preserve the entire arch's aspect ratio and a single atlas/material.
+    # Solid pillar, no doorway silhouette; preserve the authored aspect ratio.
     sprite.scale = Vector2.ONE * height / region.size.y
     sprite.position = anchor - Vector2(region.size.x * sprite.scale.x * 0.5,
         height if bottom_anchor else 0.0)

@@ -27,7 +27,7 @@ func _run() -> void:
         return
     var output := ProjectSettings.globalize_path("res://../artifacts/world_passage")
     DirAccess.make_dir_recursive_absolute(output)
-    for offset in [1000, 4200, 7600]:
+    for offset in [1000, 4200, 7600, 8500]:
         var point: Vector2 = scene.world_passage.source_point.lerp(scene.world_passage.destination_point, float(offset) / 8540) + Vector2(0, 40)
         scene.player.global_position = point
         scene.player.reset_camera_after_arrival()
@@ -62,6 +62,23 @@ func _run() -> void:
         var without_ornaments: Image = root.get_texture().get_image()
         for sprite in ornaments:
             sprite.visible = true
+        var markers: Array[Label] = []
+        for child in scene.world_passage.get_children():
+            if child is Label and String(child.name).begins_with("Endpoint_"):
+                markers.append(child)
+                child.visible = false
+        for frame in range(3):
+            await process_frame
+            await RenderingServer.frame_post_draw
+        var without_markers: Image = root.get_texture().get_image()
+        for marker in markers:
+            marker.visible = true
+        var endpoint_pixels := 0
+        for y in range(0, image.get_height(), 2):
+            for x in range(0, image.get_width(), 2):
+                if image.get_pixel(x, y) != without_markers.get_pixel(x, y):
+                    endpoint_pixels += 1
+        var endpoint_ok := endpoint_pixels > 80 if offset == 8500 else endpoint_pixels == 0
         var ornament_pixels := 0
         for y in range(0, image.get_height(), 2):
             for x in range(0, image.get_width(), 2):
@@ -75,7 +92,7 @@ func _run() -> void:
                 distinct[color.to_html()] = true
                 if color.get_luminance() > 0.025:
                     samples += 1
-        var ok := samples > 1000 and distinct.size() > 64 and hero_pixels > 40 and ornament_pixels > 400
+        var ok := samples > 1000 and distinct.size() > 64 and hero_pixels > 40 and ornament_pixels > 400 and endpoint_ok
         if not ok:
             failures += 1
             push_error("Pipe render blank or untextured")
@@ -84,7 +101,8 @@ func _run() -> void:
             failures += 1
             push_error("Cannot save pipe capture")
         ornaments.clear()
-        probes.append({"offset": offset, "visible_samples": samples, "distinct_colors": distinct.size(), "hero_pixels": hero_pixels, "ornament_pixels": ornament_pixels, "passed": ok, "file": file})
+        markers.clear()
+        probes.append({"offset": offset, "visible_samples": samples, "distinct_colors": distinct.size(), "hero_pixels": hero_pixels, "ornament_pixels": ornament_pixels, "endpoint_pixels": endpoint_pixels, "passed": ok, "file": file})
     scene.free()
     current_scene = null
     for frame in range(4):
