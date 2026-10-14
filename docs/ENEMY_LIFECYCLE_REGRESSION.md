@@ -1,6 +1,6 @@
 # Enemy attack and effect lifecycle hardening
 
-Baseline: main `6bf697b69463cab79418f2572ca3fad86bbbf198`. The three changed runtime files were fetched at that exact revision; the older local snapshot was not used as the runtime baseline. Open PRs #38, #44 and #45 were reviewed for scope separation. No resource proposal, shared controller, audio director or CI changes are included.
+Baseline: main `278aec8a5df8ee94097878d0c80e961a0e4f78a2`. The three changed runtime files were reviewed against that exact revision; the older local snapshot was not used as the runtime baseline. Open PRs #38, #44 and #45 were reviewed for scope separation. No resource proposal, shared controller or audio director changes are included.
 
 ## Contract and fixes
 
@@ -20,7 +20,7 @@ In a complete checkout:
 python tools/run_godot_regressions.py --suite enemy_lifecycle_regression --suite enemy_effect_lifetime --suite enemy_visibility
 ```
 
-The shared regression runner is not edited in this category. Add `enemy_lifecycle_regression` to its suite list in the coordinated integration change.
+The shared regression runner now includes `enemy_lifecycle_regression` in the coordinated integration change, so the adversarial suite runs in the default CI collection.
 
 Local verification used Godot **4.6.3** and an isolated minimal project containing the unmodified production dependencies `hand_drawn_assets.gd` and `hit_flash.gdshader`, the three changed runtime scripts, and the three test scripts. No renderer, audio assets or autoload substitutions were made to the scripts being tested. Writable XDG data/cache roots were supplied for this container.
 
