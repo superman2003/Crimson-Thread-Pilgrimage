@@ -43,7 +43,7 @@ python tools/build_release.py --target windows --engine C:/Godot/Godot_v4.6.1-st
 |---|---|
 | 素材水合、受限目录、必要配置与许可证输入检查 | 已实现，真实仓库输入通过 |
 | 错误日志、超时、假读档、资源边界与校验和负面测试 | 15 项单元测试通过 |
-| Linux 独立导出与两次启动 | 开发版本已通过，最终工具版本另行精确提交验证 |
+| Linux 独立导出与两次启动 | 最终工具版本已通过：移除临时源码后启动、写出存档、重启保留探针标记；见下方验证记录 |
 | Windows 原生导出与启动 | 工具和未启用 CI 草案就绪；本地 Linux 未宣称 Windows 通过 |
 | 玩家启动说明、操作入口、保存位置、已知限制 | 随包 `README.md`，源文件 `RELEASE_PLAYER_GUIDE.md` |
 | 整体剧情/终局/存档与设置流程验收 | 另一 agent 的 PR #35/#36 整合范围，本分支不替代 |
@@ -51,6 +51,14 @@ python tools/build_release.py --target windows --engine C:/Godot/Godot_v4.6.1-st
 | 所有素材的原创来源与第三方条款复核 | 保留已登记许可，完整来源审计仍待人工复核 |
 | 失效入口、占位文本全量清理 | 后续结合逐章评测/文案候选处理，不擅改运行数据 |
 | 正式发布 | 未进行；候选包与正式发布分开 |
+
+## 2026-10-14 本地验证记录
+
+- 最终工具版本来自本地提交 `3fbfd20db7b1c38dfca2656f758b30bc9179d5c4`；远端等价提交 `c049a991aa7f444fba39279450bb2ebf5201aadd` 的 Git tree 同为 `605b19c8af35bd24b6955f406b248b450e08592e`。后续仅补充本验证记录。
+- `python tools/test_release_builder.py` 的 15 项测试通过；`npm test` 与 `npm run test:campaign` 通过。
+- 官方 Godot 4.6.1 Linux 编辑器和匹配导出模板经过官方 SHA512 清单核验。最终构建完成导入、导出、引擎许可采集和真实 Linux release 二进制两次独立启动，相关日志未发现 ERROR。
+- 本地开发 ZIP 为 `CrimsonThreadPilgrimage-linux-3fbfd20db7b1.zip`，447,799,226 字节。构建开始时工作树曾有未跟踪的工作流草案副本，因此清单如实标为 `source_dirty=true`；该副本后来移出工作树，未提交或启用。不将此开发包称为 clean checkout 正式候选。
+- 这些检查没有覆盖 Windows、六区自然带伤通关、终局流程、手柄、视觉或实机混音；对应待验收项保持不变。
 
 ## 下一批
 
