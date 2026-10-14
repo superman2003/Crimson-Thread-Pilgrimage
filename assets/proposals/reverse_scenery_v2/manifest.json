@@ -1,0 +1,622 @@
+{
+  "schema_version": 1,
+  "pack_id": "reverse_scenery_v2",
+  "title": "绯线巡礼 V03 · 六区设施景深",
+  "kind": "scenery",
+  "seed": 260614,
+  "baseline_commit": "6544cceff5e812b5295b97204d7c55a4b8933de9",
+  "items": [
+    {
+      "id": "ch06_scene",
+      "title": "无声王冠 · 镇潮银线汇流室",
+      "region_id": "ch06",
+      "region_data_id": "ch06_silent_crown_core",
+      "type": "layers",
+      "width": 960,
+      "height": 540,
+      "layers": [
+        {
+          "luma_p95": 0.2234,
+          "painted_fraction": 1.0,
+          "contrast_budget": {
+            "luma_p95_max": 0.32,
+            "painted_fraction_max": 1.0
+          },
+          "id": "far",
+          "title": "远景",
+          "file": "ch06_far.svg",
+          "parallax": 0.15,
+          "z_index": -30,
+          "horizontal_tiling": false,
+          "alpha": "opaque",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "broad low-frequency atmosphere"
+        },
+        {
+          "luma_p95": 0.3632,
+          "painted_fraction": 0.172,
+          "contrast_budget": {
+            "luma_p95_max": 0.52,
+            "painted_fraction_max": 0.25
+          },
+          "id": "mid",
+          "title": "中景设施",
+          "file": "ch06_mid.svg",
+          "parallax": 0.4,
+          "z_index": -20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            29,
+            0,
+            931,
+            476
+          ],
+          "contrast_intent": "muted facility silhouette; upper/side accents"
+        },
+        {
+          "luma_p95": 0.3456,
+          "painted_fraction": 0.0761,
+          "contrast_budget": {
+            "luma_p95_max": 0.44,
+            "painted_fraction_max": 0.12
+          },
+          "id": "front",
+          "title": "边角前景",
+          "file": "ch06_front.svg",
+          "parallax": 0.75,
+          "z_index": 20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "dark corner silhouette; empty central action area"
+        }
+      ],
+      "preview": "ch06_preview.png",
+      "description": "同心冠骨、针状悬垂件、封闭银线汇流器。镇潮钟网的传动终端，不是可交互开关。",
+      "horizontal_tiling": false,
+      "palette": {
+        "void": "#111c2b",
+        "atmosphere": "#273c50",
+        "structure": "#476071",
+        "muted_accent": "#8e9fa5",
+        "crimson": "#751f3e"
+      },
+      "recommended_order": [
+        "far",
+        "mid",
+        "gameplay_world",
+        "front"
+      ],
+      "foreground_safe_rect_px": [
+        160,
+        100,
+        640,
+        390
+      ],
+      "placement": "room-local single scenic panel; reposition per room; do not mirror/repeat as terrain",
+      "collision": false,
+      "navigation": false
+    },
+    {
+      "id": "ch05_scene",
+      "title": "黑曜巡礼道 · 蜡誓风驿",
+      "region_id": "ch05",
+      "region_data_id": "ch05_obsidian_pilgrim_road",
+      "type": "layers",
+      "width": 960,
+      "height": 540,
+      "layers": [
+        {
+          "luma_p95": 0.2171,
+          "painted_fraction": 1.0,
+          "contrast_budget": {
+            "luma_p95_max": 0.32,
+            "painted_fraction_max": 1.0
+          },
+          "id": "far",
+          "title": "远景",
+          "file": "ch05_far.svg",
+          "parallax": 0.15,
+          "z_index": -30,
+          "horizontal_tiling": false,
+          "alpha": "opaque",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "broad low-frequency atmosphere"
+        },
+        {
+          "luma_p95": 0.3867,
+          "painted_fraction": 0.1718,
+          "contrast_budget": {
+            "luma_p95_max": 0.52,
+            "painted_fraction_max": 0.25
+          },
+          "id": "mid",
+          "title": "中景设施",
+          "file": "ch05_mid.svg",
+          "parallax": 0.4,
+          "z_index": -20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            14,
+            0,
+            944,
+            532
+          ],
+          "contrast_intent": "muted facility silhouette; upper/side accents"
+        },
+        {
+          "luma_p95": 0.2915,
+          "painted_fraction": 0.0818,
+          "contrast_budget": {
+            "luma_p95_max": 0.44,
+            "painted_fraction_max": 0.12
+          },
+          "id": "front",
+          "title": "边角前景",
+          "file": "ch05_front.svg",
+          "parallax": 0.75,
+          "z_index": 20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "dark corner silhouette; empty central action area"
+        }
+      ],
+      "preview": "ch05_preview.png",
+      "description": "陡直黑曜片、弯背蜡像与风蚀火龛。路旁收集誓蜡、维持驿火的设施，没有绘制裂谷桥面。",
+      "horizontal_tiling": false,
+      "palette": {
+        "void": "#201c2a",
+        "atmosphere": "#3a3547",
+        "structure": "#575066",
+        "muted_accent": "#9e7962",
+        "crimson": "#7e3c40"
+      },
+      "recommended_order": [
+        "far",
+        "mid",
+        "gameplay_world",
+        "front"
+      ],
+      "foreground_safe_rect_px": [
+        160,
+        100,
+        640,
+        390
+      ],
+      "placement": "room-local single scenic panel; reposition per room; do not mirror/repeat as terrain",
+      "collision": false,
+      "navigation": false
+    },
+    {
+      "id": "ch04_scene",
+      "title": "断弦温室 · 母株调弦腔",
+      "region_id": "ch04",
+      "region_data_id": "ch04_broken_string_greenhouse",
+      "type": "layers",
+      "width": 960,
+      "height": 540,
+      "layers": [
+        {
+          "luma_p95": 0.2458,
+          "painted_fraction": 1.0,
+          "contrast_budget": {
+            "luma_p95_max": 0.32,
+            "painted_fraction_max": 1.0
+          },
+          "id": "far",
+          "title": "远景",
+          "file": "ch04_far.svg",
+          "parallax": 0.15,
+          "z_index": -30,
+          "horizontal_tiling": false,
+          "alpha": "opaque",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "broad low-frequency atmosphere"
+        },
+        {
+          "luma_p95": 0.3862,
+          "painted_fraction": 0.1564,
+          "contrast_budget": {
+            "luma_p95_max": 0.52,
+            "painted_fraction_max": 0.25
+          },
+          "id": "mid",
+          "title": "中景设施",
+          "file": "ch04_mid.svg",
+          "parallax": 0.4,
+          "z_index": -20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            27,
+            0,
+            933,
+            540
+          ],
+          "contrast_intent": "muted facility silhouette; upper/side accents"
+        },
+        {
+          "luma_p95": 0.3654,
+          "painted_fraction": 0.1045,
+          "contrast_budget": {
+            "luma_p95_max": 0.44,
+            "painted_fraction_max": 0.12
+          },
+          "id": "front",
+          "title": "边角前景",
+          "file": "ch04_front.svg",
+          "parallax": 0.75,
+          "z_index": 20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "dark corner silhouette; empty central action area"
+        }
+      ],
+      "preview": "ch04_preview.png",
+      "description": "弧形温室肋、下垂根囊与铜制共鸣弦。母株营养与花粉回收设施，碎弦向上收束。",
+      "horizontal_tiling": false,
+      "palette": {
+        "void": "#122c2a",
+        "atmosphere": "#23453e",
+        "structure": "#47685a",
+        "muted_accent": "#a38d59",
+        "crimson": "#794348"
+      },
+      "recommended_order": [
+        "far",
+        "mid",
+        "gameplay_world",
+        "front"
+      ],
+      "foreground_safe_rect_px": [
+        160,
+        100,
+        640,
+        390
+      ],
+      "placement": "room-local single scenic panel; reposition per room; do not mirror/repeat as terrain",
+      "collision": false,
+      "navigation": false
+    },
+    {
+      "id": "ch03_scene",
+      "title": "盐白书库 · 删名封存柜",
+      "region_id": "ch03",
+      "region_data_id": "ch03_saltwhite_archive",
+      "type": "layers",
+      "width": 960,
+      "height": 540,
+      "layers": [
+        {
+          "luma_p95": 0.2832,
+          "painted_fraction": 1.0,
+          "contrast_budget": {
+            "luma_p95_max": 0.32,
+            "painted_fraction_max": 1.0
+          },
+          "id": "far",
+          "title": "远景",
+          "file": "ch03_far.svg",
+          "parallax": 0.15,
+          "z_index": -30,
+          "horizontal_tiling": false,
+          "alpha": "opaque",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "broad low-frequency atmosphere"
+        },
+        {
+          "luma_p95": 0.4787,
+          "painted_fraction": 0.2239,
+          "contrast_budget": {
+            "luma_p95_max": 0.52,
+            "painted_fraction_max": 0.25
+          },
+          "id": "mid",
+          "title": "中景设施",
+          "file": "ch03_mid.svg",
+          "parallax": 0.4,
+          "z_index": -20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            38,
+            0,
+            922,
+            540
+          ],
+          "contrast_intent": "muted facility silhouette; upper/side accents"
+        },
+        {
+          "luma_p95": 0.4176,
+          "painted_fraction": 0.0701,
+          "contrast_budget": {
+            "luma_p95_max": 0.44,
+            "painted_fraction_max": 0.12
+          },
+          "id": "front",
+          "title": "边角前景",
+          "file": "ch03_front.svg",
+          "parallax": 0.75,
+          "z_index": 20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "dark corner silhouette; empty central action area"
+        }
+      ],
+      "preview": "ch03_preview.png",
+      "description": "竖向折页柜、扇形卷宗与细长盐结晶。密封已删名契约的保存库，柜底隐入雾中。",
+      "horizontal_tiling": false,
+      "palette": {
+        "void": "#282936",
+        "atmosphere": "#454854",
+        "structure": "#6d737b",
+        "muted_accent": "#b2ac99",
+        "crimson": "#85505a"
+      },
+      "recommended_order": [
+        "far",
+        "mid",
+        "gameplay_world",
+        "front"
+      ],
+      "foreground_safe_rect_px": [
+        160,
+        100,
+        640,
+        390
+      ],
+      "placement": "room-local single scenic panel; reposition per room; do not mirror/repeat as terrain",
+      "collision": false,
+      "navigation": false
+    },
+    {
+      "id": "ch02_scene",
+      "title": "铸雨渠 · 双缸计时泵室",
+      "region_id": "ch02",
+      "region_data_id": "ch02_rain_foundry_canal",
+      "type": "layers",
+      "width": 960,
+      "height": 540,
+      "layers": [
+        {
+          "luma_p95": 0.2344,
+          "painted_fraction": 1.0,
+          "contrast_budget": {
+            "luma_p95_max": 0.32,
+            "painted_fraction_max": 1.0
+          },
+          "id": "far",
+          "title": "远景",
+          "file": "ch02_far.svg",
+          "parallax": 0.15,
+          "z_index": -30,
+          "horizontal_tiling": false,
+          "alpha": "opaque",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "broad low-frequency atmosphere"
+        },
+        {
+          "luma_p95": 0.3616,
+          "painted_fraction": 0.1769,
+          "contrast_budget": {
+            "luma_p95_max": 0.52,
+            "painted_fraction_max": 0.25
+          },
+          "id": "mid",
+          "title": "中景设施",
+          "file": "ch02_mid.svg",
+          "parallax": 0.4,
+          "z_index": -20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            5,
+            0,
+            918,
+            540
+          ],
+          "contrast_intent": "muted facility silhouette; upper/side accents"
+        },
+        {
+          "luma_p95": 0.3588,
+          "painted_fraction": 0.0737,
+          "contrast_budget": {
+            "luma_p95_max": 0.44,
+            "painted_fraction_max": 0.12
+          },
+          "id": "front",
+          "title": "边角前景",
+          "file": "ch02_front.svg",
+          "parallax": 0.75,
+          "z_index": 20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "dark corner silhouette; empty central action area"
+        }
+      ],
+      "preview": "ch02_preview.png",
+      "description": "大直径叶轮、圆头铸铁压力缸与回弯管。排水计量泵，配重和仪表全在背景层。",
+      "horizontal_tiling": false,
+      "palette": {
+        "void": "#102932",
+        "atmosphere": "#21424d",
+        "structure": "#44616a",
+        "muted_accent": "#9b8060",
+        "crimson": "#824b42"
+      },
+      "recommended_order": [
+        "far",
+        "mid",
+        "gameplay_world",
+        "front"
+      ],
+      "foreground_safe_rect_px": [
+        160,
+        100,
+        640,
+        390
+      ],
+      "placement": "room-local single scenic panel; reposition per room; do not mirror/repeat as terrain",
+      "collision": false,
+      "navigation": false
+    },
+    {
+      "id": "ch01_scene",
+      "title": "苔钟庭 · 雨铃养根庭",
+      "region_id": "ch01",
+      "region_data_id": "ch01_moss_bell_court",
+      "type": "layers",
+      "width": 960,
+      "height": 540,
+      "layers": [
+        {
+          "luma_p95": 0.2537,
+          "painted_fraction": 1.0,
+          "contrast_budget": {
+            "luma_p95_max": 0.32,
+            "painted_fraction_max": 1.0
+          },
+          "id": "far",
+          "title": "远景",
+          "file": "ch01_far.svg",
+          "parallax": 0.15,
+          "z_index": -30,
+          "horizontal_tiling": false,
+          "alpha": "opaque",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "broad low-frequency atmosphere"
+        },
+        {
+          "luma_p95": 0.3853,
+          "painted_fraction": 0.1159,
+          "contrast_budget": {
+            "luma_p95_max": 0.52,
+            "painted_fraction_max": 0.25
+          },
+          "id": "mid",
+          "title": "中景设施",
+          "file": "ch01_mid.svg",
+          "parallax": 0.4,
+          "z_index": -20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            31,
+            0,
+            918,
+            540
+          ],
+          "contrast_intent": "muted facility silhouette; upper/side accents"
+        },
+        {
+          "luma_p95": 0.3553,
+          "painted_fraction": 0.0775,
+          "contrast_budget": {
+            "luma_p95_max": 0.44,
+            "painted_fraction_max": 0.12
+          },
+          "id": "front",
+          "title": "边角前景",
+          "file": "ch01_front.svg",
+          "parallax": 0.75,
+          "z_index": 20,
+          "horizontal_tiling": false,
+          "alpha": "transparent",
+          "render_alpha_bounds_px": [
+            0,
+            0,
+            960,
+            540
+          ],
+          "contrast_intent": "dark corner silhouette; empty central action area"
+        }
+      ],
+      "preview": "ch01_preview.png",
+      "description": "钟形花萼、尖拱遗构与细垂根。旧雨铃给根系灌水计时，苔藓吞没铜壳。",
+      "horizontal_tiling": false,
+      "palette": {
+        "void": "#152c29",
+        "atmosphere": "#29483e",
+        "structure": "#4d6a54",
+        "muted_accent": "#998861",
+        "crimson": "#80474b"
+      },
+      "recommended_order": [
+        "far",
+        "mid",
+        "gameplay_world",
+        "front"
+      ],
+      "foreground_safe_rect_px": [
+        160,
+        100,
+        640,
+        390
+      ],
+      "placement": "room-local single scenic panel; reposition per room; do not mirror/repeat as terrain",
+      "collision": false,
+      "navigation": false
+    }
+  ]
+}

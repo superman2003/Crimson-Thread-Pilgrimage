@@ -1,0 +1,538 @@
+{
+  "pack_id": "reverse_motion_v2",
+  "status": "pass",
+  "technical_scope": "Offline source, alpha, bounds, geometry, phase timing, binary size and deterministic rebuild only.",
+  "runtime_verified": false,
+  "invulnerability_implied": false,
+  "checks": {
+    "nine_actions": 9,
+    "total_frames": 72,
+    "png_bytes_including_contact_sheet": 1167413,
+    "deterministic_rebuild": true
+  },
+  "atlases": [
+    {
+      "id": "crimson_needle",
+      "bytes": 67734,
+      "sha256": "c57c0d1d8898057cfeebb69e37b9157e6147ffa8bc3c1c916f9291ba9f2b3253",
+      "alpha_bounds_per_frame": [
+        [
+          42,
+          41,
+          150,
+          169
+        ],
+        [
+          31,
+          45,
+          127,
+          169
+        ],
+        [
+          26,
+          48,
+          122,
+          169
+        ],
+        [
+          52,
+          42,
+          172,
+          169
+        ],
+        [
+          54,
+          47,
+          177,
+          169
+        ],
+        [
+          54,
+          47,
+          158,
+          169
+        ],
+        [
+          48,
+          43,
+          152,
+          169
+        ],
+        [
+          42,
+          41,
+          150,
+          169
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.571429,
+      "minimum_transparent_gutter": 15
+    },
+    {
+      "id": "bell_needle",
+      "bytes": 65846,
+      "sha256": "3d616dc637114028501198a9335cbe75df381418498df60bf33edb9e90c2f6b8",
+      "alpha_bounds_per_frame": [
+        [
+          39,
+          45,
+          141,
+          169
+        ],
+        [
+          30,
+          46,
+          119,
+          169
+        ],
+        [
+          24,
+          44,
+          119,
+          169
+        ],
+        [
+          31,
+          50,
+          128,
+          169
+        ],
+        [
+          49,
+          50,
+          169,
+          169
+        ],
+        [
+          49,
+          55,
+          166,
+          169
+        ],
+        [
+          51,
+          51,
+          151,
+          169
+        ],
+        [
+          39,
+          45,
+          141,
+          169
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.727273,
+      "minimum_transparent_gutter": 23
+    },
+    {
+      "id": "salt_needle",
+      "bytes": 64033,
+      "sha256": "0dc4017c479112f79b63a237e0626e66adf2bd946d8431df7dff2345988a607b",
+      "alpha_bounds_per_frame": [
+        [
+          39,
+          41,
+          147,
+          169
+        ],
+        [
+          34,
+          43,
+          141,
+          169
+        ],
+        [
+          30,
+          45,
+          139,
+          169
+        ],
+        [
+          50,
+          39,
+          177,
+          169
+        ],
+        [
+          43,
+          40,
+          173,
+          169
+        ],
+        [
+          26,
+          45,
+          150,
+          169
+        ],
+        [
+          33,
+          42,
+          146,
+          169
+        ],
+        [
+          39,
+          41,
+          147,
+          169
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.615385,
+      "minimum_transparent_gutter": 15
+    },
+    {
+      "id": "crimson_down",
+      "bytes": 69424,
+      "sha256": "e7dfe1b84e1e85d626c4939360409cb2fd69f97ed3e48b37c06f532701afe0dd",
+      "alpha_bounds_per_frame": [
+        [
+          50,
+          24,
+          144,
+          151
+        ],
+        [
+          31,
+          19,
+          126,
+          144
+        ],
+        [
+          27,
+          20,
+          122,
+          143
+        ],
+        [
+          42,
+          27,
+          121,
+          172
+        ],
+        [
+          49,
+          33,
+          127,
+          181
+        ],
+        [
+          49,
+          26,
+          124,
+          159
+        ],
+        [
+          46,
+          24,
+          143,
+          150
+        ],
+        [
+          50,
+          24,
+          144,
+          151
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.571429,
+      "minimum_transparent_gutter": 11
+    },
+    {
+      "id": "bell_down",
+      "bytes": 76472,
+      "sha256": "785e1525854372d0ec8c6e08f19730ab9870af515d447c47bd56e5704b2d70a3",
+      "alpha_bounds_per_frame": [
+        [
+          38,
+          24,
+          131,
+          152
+        ],
+        [
+          28,
+          22,
+          126,
+          148
+        ],
+        [
+          23,
+          21,
+          127,
+          147
+        ],
+        [
+          28,
+          24,
+          138,
+          150
+        ],
+        [
+          45,
+          42,
+          129,
+          181
+        ],
+        [
+          51,
+          48,
+          131,
+          183
+        ],
+        [
+          53,
+          46,
+          125,
+          172
+        ],
+        [
+          44,
+          41,
+          138,
+          169
+        ]
+      ],
+      "unique_frames": 8,
+      "duration_seconds": 0.8,
+      "minimum_transparent_gutter": 9
+    },
+    {
+      "id": "salt_down",
+      "bytes": 66933,
+      "sha256": "b258c8c8da9318f7a37cb9fbaab55453ad2691b84fd7e181fd12597c08ec62ec",
+      "alpha_bounds_per_frame": [
+        [
+          38,
+          21,
+          148,
+          149
+        ],
+        [
+          32,
+          20,
+          156,
+          147
+        ],
+        [
+          27,
+          23,
+          155,
+          148
+        ],
+        [
+          43,
+          28,
+          136,
+          171
+        ],
+        [
+          37,
+          31,
+          130,
+          177
+        ],
+        [
+          24,
+          30,
+          145,
+          155
+        ],
+        [
+          31,
+          24,
+          146,
+          151
+        ],
+        [
+          38,
+          21,
+          148,
+          149
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.666667,
+      "minimum_transparent_gutter": 15
+    },
+    {
+      "id": "crimson_heal",
+      "bytes": 57782,
+      "sha256": "dc7c499eb1463a149188c737725175a39cdd5a9b00d0a90799a1c86293d98369",
+      "alpha_bounds_per_frame": [
+        [
+          42,
+          41,
+          150,
+          169
+        ],
+        [
+          42,
+          43,
+          114,
+          169
+        ],
+        [
+          45,
+          46,
+          111,
+          169
+        ],
+        [
+          48,
+          48,
+          110,
+          169
+        ],
+        [
+          47,
+          46,
+          111,
+          169
+        ],
+        [
+          44,
+          44,
+          115,
+          169
+        ],
+        [
+          43,
+          42,
+          149,
+          169
+        ],
+        [
+          42,
+          41,
+          150,
+          169
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.8,
+      "minimum_transparent_gutter": 23
+    },
+    {
+      "id": "bell_heal",
+      "bytes": 64111,
+      "sha256": "bcd809113a030fb8489fa2649864d5c5b4e6642fc0554fd04fb512e3b27531f4",
+      "alpha_bounds_per_frame": [
+        [
+          39,
+          45,
+          141,
+          169
+        ],
+        [
+          44,
+          49,
+          130,
+          169
+        ],
+        [
+          50,
+          56,
+          125,
+          177
+        ],
+        [
+          52,
+          60,
+          125,
+          180
+        ],
+        [
+          52,
+          60,
+          125,
+          180
+        ],
+        [
+          49,
+          56,
+          124,
+          177
+        ],
+        [
+          43,
+          49,
+          144,
+          169
+        ],
+        [
+          39,
+          45,
+          141,
+          169
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.888889,
+      "minimum_transparent_gutter": 12
+    },
+    {
+      "id": "salt_heal",
+      "bytes": 54346,
+      "sha256": "f1274724a6ce2a1160f82e204c5e5a617338821ced25a9cd460a6c478efd25f4",
+      "alpha_bounds_per_frame": [
+        [
+          39,
+          41,
+          147,
+          169
+        ],
+        [
+          36,
+          42,
+          133,
+          169
+        ],
+        [
+          33,
+          45,
+          135,
+          169
+        ],
+        [
+          34,
+          46,
+          135,
+          169
+        ],
+        [
+          37,
+          45,
+          134,
+          169
+        ],
+        [
+          38,
+          43,
+          130,
+          169
+        ],
+        [
+          39,
+          42,
+          146,
+          169
+        ],
+        [
+          39,
+          41,
+          147,
+          169
+        ]
+      ],
+      "unique_frames": 7,
+      "duration_seconds": 0.8,
+      "minimum_transparent_gutter": 23
+    }
+  ],
+  "errors": []
+}

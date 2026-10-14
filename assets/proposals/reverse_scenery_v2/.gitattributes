@@ -1,0 +1,5 @@
+* -filter
+*.png -diff -merge -text
+*.svg text eol=lf diff
+*.json text eol=lf diff
+.gitattributes text diff
