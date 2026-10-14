@@ -3,6 +3,7 @@ extends SceneTree
 ## godot --headless --path godot --script res://scripts/world_resume_regression_validation.gd
 const WORLD := preload("res://scripts/world_state.gd")
 const MAIN := preload("res://scripts/main_level.gd")
+const LOADER := preload("res://scripts/world_region_loader.gd")
 const SAVE := "user://world_resume_regression_validation.json"
 const FINAL_REGION := "demo_ch06_silent_crown_core"
 var checks := 0
@@ -19,6 +20,7 @@ func _run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     _clean()
     _test_startup_options()
+    _test_persistent_session_guards()
     _test_backup_failure()
     await _test_ending_restore()
     await _test_incompatible_build()
@@ -39,6 +41,16 @@ func _test_startup_options() -> void:
     subject.world_save_path = SAVE
     _check(not subject._consume_world_startup_options(PackedStringArray(["--save-slot=2", "--new-game"])), "replacement scene ignores startup new-game")
     _check(subject.world_slot == 3 and subject.world_save_path == SAVE, "replacement scene preserves explicit target slot")
+    subject.free()
+
+func _test_persistent_session_guards() -> void:
+    var subject := MAIN.new()
+    var loader := LOADER.new()
+    subject.world_save_blocked = true
+    subject.world_startup_options_enabled = false
+    loader._reset_region_fields(subject)
+    _check(subject.world_save_blocked, "persistent host reset retains incompatible-save protection")
+    _check(not subject.world_startup_options_enabled, "persistent host reset retains consumed launch options")
     subject.free()
 
 func _test_backup_failure() -> void:
@@ -88,6 +100,8 @@ func _test_ending_restore() -> void:
     await _frames()
     _check(_ending_count() == 3, "completed final region restores endings on revisit")
     _check(not scene.world_startup_options_enabled, "region travel never reapplies launch flags")
+    await scene._travel_world_async("res://data/" + FINAL_REGION + ".json", arena)
+    _check(_ending_count() == 3 and scene.world_loader.phase == "idle", "asynchronous publication also restores ending choices exactly once")
     await _dispose_scene()
     _clean()
     # Standalone demos retain their existing boss-death ending choices.
@@ -121,6 +135,9 @@ func _test_incompatible_build() -> void:
     await _frames()
     _check(scene.world_save_blocked and scene.currency_count == 102, "region travel carries save protection and live progress")
     _check(FileAccess.get_file_as_string(SAVE) == before, "region autosave remains blocked")
+    await scene._travel_world_async(scene.config_path, scene.active_spawn)
+    _check(scene.world_save_blocked and scene.currency_count == 102, "async host travel retains save protection and live progress")
+    _check(FileAccess.get_file_as_string(SAVE) == before, "async publication never overwrites incompatible disk progress")
     scene._start_new_journey()
     scene = current_scene
     await _frames()

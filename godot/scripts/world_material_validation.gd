@@ -24,6 +24,8 @@ func run() -> void:
         var material: ShaderMaterial = ROCK.for_theme(theme)
         check(material!=null and material.get_shader_parameter("stone_atlas")!=null,id+" stone texture loaded")
         var texture: Texture2D = material.get_shader_parameter("stone_atlas")
+        check(texture.resource_path==ROCK.INK_ROCK,id+" shares hand-inked rock family")
+        check(material.get_shader_parameter("stone_tint")==ROCK.TINTS[theme],id+" keeps region palette")
         check(material.get_shader_parameter("tile_size")==Vector2(texture.get_size()),id+" mural uses native density")
         var mass: Node = scene.cave_world.get_node("PaintedRockMass")
         check(mass.material==material,id+" visible rock uses regional material")
@@ -46,7 +48,7 @@ func run() -> void:
             check(scene.cave_world.get_node("SolidCaveMass").get_child_count()==collision_count,id+" distant collisions survive camera travel")
         for form in scene.chapter_terrain.get_children():
             for face in form.get_children():
-                if face is Polygon2D:
+                if face is Polygon2D and not face.has_meta("independent_edge_art"):
                     check(face.material==material,id+" entire ground stratum shares cave material")
         for data in scene.config.platforms:
             if data.has("terrain_id"): continue

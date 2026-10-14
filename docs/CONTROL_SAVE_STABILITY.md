@@ -1,7 +1,9 @@
 # Control and save-lifecycle stability upgrade
 
-This independent change is based on main `3bd62d199662fcd3a248e8d7a849ab00cea6c26a`.
-It does not include or replace the separate World preparation/preflight PR stack.
+This consolidation preserves main `3bd62d199662fcd3a248e8d7a849ab00cea6c26a`, the
+World preparation/preflight stack through corrected PR #35 commit `4c1b1d2`, and
+the independent control/save upgrade from PR #36. It uses a two-parent merge;
+main-only plan documentation and deferred validation cleanup remain included.
 
 ## Player-visible changes
 
@@ -17,9 +19,14 @@ It does not include or replace the separate World preparation/preflight PR stack
   not overwrite knockback. Ignored damage and ordinary dash contact immunity
   retain their existing rules. Full shrine restoration and death respawn clear
   snare; generic relocation does not grant free status cleansing.
+- Dead players, open overlays and pending transitions cannot activate shrines,
+  portals, exits or ending choices. Living dialogue still advances normally.
+  Defeated bosses cannot be reactivated from a completed save, and repeated
+  boss-death callbacks grant rewards only once.
 - Input capture suppresses global shortcut/volume polling, including its final
   accept/cancel frame. F9 remains reserved for a new journey. Controller bindings
-  are independent of a temporary device index, and malformed settings cannot
+  are independent of a temporary device index; UI rebuilds do not restore a
+  superseded default interaction button. Malformed settings cannot
   erase working bindings or send non-finite values into sliders.
 
 No save schema, item progression, map geometry, balance tables or artwork is
@@ -28,7 +35,8 @@ changed. This is not a complete six-region playthrough or release certification.
 ## Regression coverage
 
 The standard Godot runner now includes `world_resume_regression`,
-`player_state_cleanup` and `input_settings_regression`. The first uses real World
+`world_interaction_safety`, `player_state_cleanup` and
+`input_settings_regression`. The first two use real World
 scenes; the controller suite deliberately disables presentation while exercising
 actual damage/movement/rest logic; the settings suite exercises the actual adapter.
 
@@ -38,6 +46,8 @@ Local validation used Godot 4.6.3, Python 3.12 and Node 24:
   patched version passes again.
 - Settings adapter: 23 checks passed in an isolated project using a system-font
   fixture. This is control/state validation, not Chinese-font or visual QA.
+- Interaction safety: 12 checks and boss persistence: 8 checks passed against
+  exact implementation methods. The unpatched boss behavior fails 4 checks.
 - Save lifecycle: 26 checks passed against exact extracted implementation methods
   and real world/build models. This does not replace the real-scene suite in CI.
 - Existing pure-model suites passed: world_state, build_system (72), seal_system
@@ -68,3 +78,22 @@ editor-plugin UID errors during import. Those editor-plugin defects are not fixe
 or certified here. An isolated real-SVG/intentional-plugin-error experiment verifies
 that ordinary import reports the plugin error, recovery import imports the SVG
 without running it, and genuine recovery-mode errors still fail the wrapper.
+
+## First full-asset CI checkpoint
+
+Commit `74a6254169651a148941d573d5cbc301a66d3835`, [run #99](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38505193012): strict resource import, real GL probe and all new suites passed (World resume 33 checks, controller 9, settings 23). Overall result remains **failed**: among 48 suites, `world_upgrade` reported one resource still in use at exit with engine exit code zero. This is not waived or called a full pass. The next combined integration must resolve or diagnose it and pass the entire suite.
+
+## Combined lifecycle checks
+
+The persistent World host keeps the save-protection and consumed-startup latches
+in its session fields. Ending reconstruction runs at shared region publication,
+including asynchronous arrivals. UI construction remains staged and applies
+existing saved bindings after navigation defaults. The resume suite checks both
+synchronous and asynchronous arrivals and explicit host-field reset.
+
+PR #35 correction `4c1b1d2` adds bounded waits through queued requests, preflight
+and active transitions, settles deferred map-opening audio before exact source
+snapshots, and rejects dictionary-shaped enemy sizes without script errors.
+The exact node/state/save equality assertions and full integration suite remain
+required. Local validator-only coverage passes 3,941 checks; transition helper
+red/green tests pass 9 checks after exposing the old same-frame queued-request gap.

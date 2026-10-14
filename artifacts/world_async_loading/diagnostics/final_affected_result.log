@@ -1,0 +1,9 @@
+Running world_async_loading
+PASS: world_async_loading
+ASYNC METRICS [{"batches":85,"commit_usec":191079,"jobs":285,"max_batch_usec":47529,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":12449,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":91,"commit_usec":96954,"jobs":293,"max_batch_usec":256042,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":10336,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":68,"commit_usec":98608,"jobs":139,"max_batch_usec":56837,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":8565,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":52,"commit_usec":100586,"jobs":131,"max_batch_usec":48436,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":8133,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":47,"commit_usec":108402,"jobs":115,"max_batch_usec":43236,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":8246,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":42,"commit_usec":132807,"jobs":97,"max_batch_usec":67745,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":9490,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 94 checks; six-region parity, budget limits, rollback, save isolation and teardown
+Running world_host
+PASS: world_host
+WORLD HOST METRICS: transitions=43 peak_region_nodes=259 initial_region_nodes=257 fixture_positioning=true
+WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles
+GODOT_REGRESSIONS suites=2 failures=0

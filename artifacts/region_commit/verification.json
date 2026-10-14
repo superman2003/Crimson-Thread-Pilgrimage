@@ -1,0 +1,944 @@
+{
+  "base_commit": "621f3a35d41ab24463d2374dd76133a243aa6a94",
+  "date": "2026-10-13",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe real OpenGL",
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "3e00af260ce8776a642fac70f9fabd56a35bf285718b4f11181c148bae0ed9f2",
+    "godot/scripts/pilgrimage_interface.gd": "9e6833dbe961f61638bd578161825d400718850c805eaa647ae1552581debac3",
+    "godot/scripts/world_region_loader.gd": "dc9c48e77e2650a37c1ccb45cb982ad6bcd9fb0094cd161d8d689dcab531cda3",
+    "godot/scripts/world_async_loading_validation.gd": "fee0c33f8d2f7171f7cece35fdbf5bec502f7d95f5d55be8fc8fef2915640b27",
+    "godot/scripts/world_neighbor_gameplay_live_validation.gd": "c4e8e0399809a2d079ca87f1e2b6d1230a78ddbf8b5d5bab20ff59e3d9cef204",
+    "tools/validate_region_commit_pixels.gd": "b36b4ec1917e111318d79a8fcc2bb24cba31633ce7b7dc71d212ef4efe70ff09",
+    "tools/run_godot_regressions.py": "5f0a433f4aa376c2fe44ba971ae5db68c4add4889d2c946cd84404070c62054c",
+    ".github/workflows/godot-integration.yml": "626a5a04232ab0c6802c898bf8b4e66e60e190c4d172d54409a3ffdfb08432e6",
+    "godot/tests/verify_narrative_ui.gd": "f89d48b84578dc4eaa164de9c31475e8cb446edc6825ea64042ac1962d2b010c",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "db25c061aa8b55753baf20d8773f7b2a1129b8b4d7a32b5042edb5ac33093e94"
+  },
+  "related_regressions": {
+    "distinct_suites": 25,
+    "failures": 0,
+    "engine_errors": 0,
+    "execution": "five expanded suites plus 21 related suites, one shared suite counted once",
+    "results": [
+      {
+        "suite": "all_chapters_demo",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "ALL_CHAPTERS_DEMO_VALIDATION_PASS chapters=6 complete=true",
+        "log_sha256": "55663922a27974447b5743aad8ea010bb63b378b9c4695a41c4de3683f906aa6",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "audio_retirement",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "AUDIO RETIREMENT PASS: live cap eviction and immediate scene exit, failures=0",
+        "log_sha256": "60d069fd285409f3a0a4245588942309406ec83a866e664f8547bef8771c0f7e",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "boss_trial",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1017.6240234375, 720.0] boss_spawned=true",
+        "log_sha256": "70790236317723deeca4e40f1d9deb0659ce4171f200141a3c7353f2460c5157",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "cartography",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "CARTOGRAPHY checks=4055 failures=0 fixture_positioning=true",
+        "log_sha256": "a79a2145157946544c835761096b9a6d6712872b69bc3bf907644d7424e26a18",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "inventory_map",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=2 currency=38",
+        "log_sha256": "c55cbe2f83b79253295451f1a8cc0215393344459ef443f86272a504fc9b5c4e",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "save_product",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "SAVE PRODUCT PASS: 23 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+        "log_sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "seal_acceptance",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "SEAL_ACCEPTANCE_PASS checks=32 failures=0 real_world_ui_damage_crossregion_restart",
+        "log_sha256": "e91654f1586f3cb7bf4862047181d93bc3d7feb395dec3e2e03d862354101f3b",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "seal_presentation",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "SEAL_PRESENTATION_VALIDATION: 123 checks, 0 failures",
+        "log_sha256": "f45c6b6770a8b3736a5764539d7b5eca9ffbfe1615570a10f3103c2049a8c984",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "seal_ui",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "SEAL_UI_VALIDATION_PASS checks=23 failures=0",
+        "log_sha256": "516dca908abd34d42fc9a970f558382b3eb6d1a83cd9051e82c4b61fc9b6a4ea",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "story_guidance",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true",
+        "log_sha256": "f7d94f9532e529aabb2b4d4cff9bf165b387d7ef40a11b222bc5761e7c914323",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "tests/verify_narrative_ui",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "Narrative UI failures: 0",
+        "log_sha256": "4a1edf74d3d9bdc80afa795d531dd18ee4f8781f876470dd0cf2012da1d02e44",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "ui_build_accessibility",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0",
+        "log_sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "ui_redesign",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "UI_REDESIGN_VALIDATION_PASS checks=30 failures=0",
+        "log_sha256": "6a43895743c3178a39ab059c82290b6fe17e35f6372312135946c96fc80e71e4",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "ui_world_integration",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0",
+        "log_sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "upgrade_integration",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "UPGRADE INTEGRATION PASS: 28 checks, real scene build/UI/abilities/tools/death/save",
+        "log_sha256": "b68503982f6ebc9fdde2eba1648423ef9003684fd8f5c009095789cef1d03b74",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_async_loading",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD ASYNC LOADING PASS: 424 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+        "log_sha256": "2c7137de66d5296cddff8d1bb43fc608e0990c32facd5f75f0d70828c3024266",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_host",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles",
+        "log_sha256": "addc4c76f83c142ccf8a67667982cc71ec7bafc7c702de42afb6cc22d37d7f44",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_integration",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD_INTEGRATION checks=64 failures=0",
+        "log_sha256": "86439c782829f9bd764698c771c5f98e5df4498995453bef7ce213754342ea4f",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_map",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD_MAP checks=657 failures=0",
+        "log_sha256": "8b5861e8100d94fb85b5fada2be6ba9be4030e60e8c7087f91185f1cf5619096",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_neighbor_gameplay",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD_NEIGHBOR_GAMEPLAY checks=6629 failures=0",
+        "log_sha256": "e6a2be92b79f1d5d0d78395e9b51c6253229a522cc9291f0eee268de4a79570d",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_neighbor_gameplay_live",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=44 failures=0",
+        "log_sha256": "e2990c93f231df12658a86e942bbf07f4c8226c45185265620835f6d414a5af7",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_passage",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD PASSAGE PASS: 52 checks; physical input roundtrip, reversal, save isolation and terminal continuity",
+        "log_sha256": "97c7e2433a4c6367df5fb29461502e5c8ba4990c52830df3ecae08b85fdf360d",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_route_access",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD_ROUTE_ACCESS checks=553 failures=0 fixture_positioning=true",
+        "log_sha256": "5a78428f8f0cdc9dde959f06ba616be5d1e8708fecb36f52929d27f6d35c0a3f",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 2,
+        "warning_categories": [
+          "ObjectDB exit",
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_state",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves",
+        "log_sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1",
+        "renderer": "real OpenGL",
+        "draw_loop": true,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      },
+      {
+        "suite": "world_upgrade",
+        "passed": true,
+        "engine_errors": 0,
+        "result": "WORLD_UPGRADE checks=403 failures=0 enemy_removal=true fixture_positioning=true",
+        "log_sha256": "9995186b13eaadc2eb08f4979ca382b04c59800aa7a69976e4a5b07a306a5bfb",
+        "renderer": "real OpenGL",
+        "draw_loop": false,
+        "warning_count": 1,
+        "warning_categories": [
+          "V-Sync unsupported"
+        ]
+      }
+    ]
+  },
+  "async_loading": {
+    "checks": 424,
+    "cancellation_boundaries": [
+      "unloading",
+      "loading",
+      "committing",
+      "partial_hud",
+      "ready_hud"
+    ],
+    "teardown_boundaries": [
+      "unloading",
+      "partial_hud",
+      "ready_hud"
+    ],
+    "destination_reward_fixture": 200,
+    "metrics": [
+      {
+        "batches": 93,
+        "commit_batches": 22,
+        "commit_cursor": 38,
+        "commit_job": "_build_new_journey_dialog",
+        "commit_jobs": 38,
+        "commit_operation_usec": {
+          "_begin_hud": 341,
+          "_bind_region_audio": 18,
+          "_build_backpack_overlay": 270,
+          "_build_bag": 16487,
+          "_build_build_panel": 16856,
+          "_build_dialogue": 6988,
+          "_build_dialogue_overlay": 9,
+          "_build_hud": 12939,
+          "_build_hud_labels": 367,
+          "_build_map_overlay": 18422,
+          "_build_new_journey_dialog": 3420,
+          "_build_settings": 23162,
+          "_build_settings_overlay": 194,
+          "_finish_hud": 191,
+          "_finish_region_spawn": 636,
+          "_refresh_map_overlay": 1972,
+          "_restore_world_discovery": 3,
+          "_restore_world_player": 8,
+          "_restore_world_routes": 3,
+          "_setup_cartography": 4540,
+          "_spawn_death_cache": 9,
+          "_warm_arrival_cave": 134,
+          "_warm_arrival_platforms": 994,
+          "_warm_arrival_terrain": 41,
+          "append_inventory_item": 34878,
+          "begin_inventory_refresh": 44,
+          "finish_inventory_refresh": 750
+        },
+        "commit_usec": 237220,
+        "commit_wall_usec": 758561,
+        "commit_work_usec": 232711,
+        "jobs": 285,
+        "max_batch_usec": 79701,
+        "max_build_operations": 8,
+        "max_commit_batch_usec": 34895,
+        "max_commit_job_usec": 34878,
+        "max_commit_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 13472,
+        "publish_usec": 4509,
+        "rolled_back": false,
+        "source": "demo_ch01_moss_bell_court",
+        "target": "demo_ch01_moss_bell_court"
+      },
+      {
+        "batches": 98,
+        "commit_batches": 23,
+        "commit_cursor": 39,
+        "commit_job": "_build_new_journey_dialog",
+        "commit_jobs": 39,
+        "commit_operation_usec": {
+          "_begin_hud": 341,
+          "_bind_region_audio": 11,
+          "_build_backpack_overlay": 264,
+          "_build_bag": 16082,
+          "_build_build_panel": 19672,
+          "_build_dialogue": 27669,
+          "_build_dialogue_overlay": 10,
+          "_build_hud": 12671,
+          "_build_hud_labels": 369,
+          "_build_map_overlay": 34119,
+          "_build_new_journey_dialog": 16396,
+          "_build_settings": 22533,
+          "_build_settings_overlay": 351,
+          "_finish_hud": 141,
+          "_finish_region_spawn": 595,
+          "_refresh_map_overlay": 1984,
+          "_restore_world_discovery": 5,
+          "_restore_world_player": 7,
+          "_restore_world_routes": 10,
+          "_setup_cartography": 5314,
+          "_spawn_death_cache": 9,
+          "_warm_arrival_cave": 135,
+          "_warm_arrival_platforms": 1372,
+          "_warm_arrival_terrain": 38,
+          "append_inventory_item": 15925,
+          "begin_inventory_refresh": 46,
+          "finish_inventory_refresh": 588
+        },
+        "commit_usec": 213397,
+        "commit_wall_usec": 696142,
+        "commit_work_usec": 210465,
+        "jobs": 293,
+        "max_batch_usec": 276748,
+        "max_build_operations": 8,
+        "max_commit_batch_usec": 34731,
+        "max_commit_job_usec": 34119,
+        "max_commit_operations": 6,
+        "max_unload_operations": 8,
+        "prepare_usec": 14350,
+        "publish_usec": 2932,
+        "rolled_back": false,
+        "source": "demo_ch01_moss_bell_court",
+        "target": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "batches": 78,
+        "commit_batches": 23,
+        "commit_cursor": 39,
+        "commit_job": "_build_new_journey_dialog",
+        "commit_jobs": 39,
+        "commit_operation_usec": {
+          "_begin_hud": 340,
+          "_bind_region_audio": 18,
+          "_build_backpack_overlay": 269,
+          "_build_bag": 17480,
+          "_build_build_panel": 18335,
+          "_build_dialogue": 7627,
+          "_build_dialogue_overlay": 12,
+          "_build_hud": 12282,
+          "_build_hud_labels": 397,
+          "_build_map_overlay": 42903,
+          "_build_new_journey_dialog": 3791,
+          "_build_settings": 23082,
+          "_build_settings_overlay": 379,
+          "_finish_hud": 145,
+          "_finish_region_spawn": 473,
+          "_refresh_map_overlay": 1979,
+          "_restore_world_discovery": 3,
+          "_restore_world_player": 6,
+          "_restore_world_routes": 2,
+          "_setup_cartography": 6392,
+          "_spawn_death_cache": 9,
+          "_warm_arrival_cave": 91,
+          "_warm_arrival_platforms": 696,
+          "_warm_arrival_terrain": 56,
+          "append_inventory_item": 2996,
+          "begin_inventory_refresh": 45,
+          "finish_inventory_refresh": 778
+        },
+        "commit_usec": 175000,
+        "commit_wall_usec": 609864,
+        "commit_work_usec": 172135,
+        "jobs": 139,
+        "max_batch_usec": 67909,
+        "max_build_operations": 8,
+        "max_commit_batch_usec": 43712,
+        "max_commit_job_usec": 42903,
+        "max_commit_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 10547,
+        "publish_usec": 2865,
+        "rolled_back": false,
+        "source": "demo_ch02_rain_foundry_canal",
+        "target": "demo_ch03_saltwhite_archive"
+      },
+      {
+        "batches": 72,
+        "commit_batches": 23,
+        "commit_cursor": 39,
+        "commit_job": "_build_new_journey_dialog",
+        "commit_jobs": 39,
+        "commit_operation_usec": {
+          "_begin_hud": 523,
+          "_bind_region_audio": 28,
+          "_build_backpack_overlay": 254,
+          "_build_bag": 18018,
+          "_build_build_panel": 20076,
+          "_build_dialogue": 8144,
+          "_build_dialogue_overlay": 11,
+          "_build_hud": 15066,
+          "_build_hud_labels": 726,
+          "_build_map_overlay": 25636,
+          "_build_new_journey_dialog": 4827,
+          "_build_settings": 27901,
+          "_build_settings_overlay": 165,
+          "_finish_hud": 182,
+          "_finish_region_spawn": 587,
+          "_refresh_map_overlay": 1927,
+          "_restore_world_discovery": 3,
+          "_restore_world_player": 9,
+          "_restore_world_routes": 3,
+          "_setup_cartography": 5590,
+          "_spawn_death_cache": 9,
+          "_warm_arrival_cave": 97,
+          "_warm_arrival_platforms": 603,
+          "_warm_arrival_terrain": 40,
+          "append_inventory_item": 3298,
+          "begin_inventory_refresh": 82,
+          "finish_inventory_refresh": 747
+        },
+        "commit_usec": 168981,
+        "commit_wall_usec": 685111,
+        "commit_work_usec": 165967,
+        "jobs": 131,
+        "max_batch_usec": 59110,
+        "max_build_operations": 8,
+        "max_commit_batch_usec": 27916,
+        "max_commit_job_usec": 27901,
+        "max_commit_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 11961,
+        "publish_usec": 3014,
+        "rolled_back": false,
+        "source": "demo_ch03_saltwhite_archive",
+        "target": "demo_ch04_broken_string_greenhouse"
+      },
+      {
+        "batches": 68,
+        "commit_batches": 23,
+        "commit_cursor": 39,
+        "commit_job": "_build_new_journey_dialog",
+        "commit_jobs": 39,
+        "commit_operation_usec": {
+          "_begin_hud": 369,
+          "_bind_region_audio": 17,
+          "_build_backpack_overlay": 248,
+          "_build_bag": 20160,
+          "_build_build_panel": 17972,
+          "_build_dialogue": 10888,
+          "_build_dialogue_overlay": 20,
+          "_build_hud": 14147,
+          "_build_hud_labels": 369,
+          "_build_map_overlay": 21158,
+          "_build_new_journey_dialog": 3837,
+          "_build_settings": 25577,
+          "_build_settings_overlay": 288,
+          "_finish_hud": 159,
+          "_finish_region_spawn": 448,
+          "_refresh_map_overlay": 2373,
+          "_restore_world_discovery": 3,
+          "_restore_world_player": 8,
+          "_restore_world_routes": 2,
+          "_setup_cartography": 5428,
+          "_spawn_death_cache": 8,
+          "_warm_arrival_cave": 88,
+          "_warm_arrival_platforms": 836,
+          "_warm_arrival_terrain": 34,
+          "append_inventory_item": 6728,
+          "begin_inventory_refresh": 73,
+          "finish_inventory_refresh": 651
+        },
+        "commit_usec": 164985,
+        "commit_wall_usec": 670159,
+        "commit_work_usec": 161985,
+        "jobs": 115,
+        "max_batch_usec": 67494,
+        "max_build_operations": 8,
+        "max_commit_batch_usec": 25615,
+        "max_commit_job_usec": 25577,
+        "max_commit_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 12434,
+        "publish_usec": 3000,
+        "rolled_back": false,
+        "source": "demo_ch04_broken_string_greenhouse",
+        "target": "demo_ch05_obsidian_pilgrim_road"
+      },
+      {
+        "batches": 65,
+        "commit_batches": 23,
+        "commit_cursor": 39,
+        "commit_job": "_build_new_journey_dialog",
+        "commit_jobs": 39,
+        "commit_operation_usec": {
+          "_begin_hud": 375,
+          "_bind_region_audio": 18,
+          "_build_backpack_overlay": 332,
+          "_build_bag": 16701,
+          "_build_build_panel": 17458,
+          "_build_dialogue": 7722,
+          "_build_dialogue_overlay": 17,
+          "_build_hud": 17129,
+          "_build_hud_labels": 400,
+          "_build_map_overlay": 17630,
+          "_build_new_journey_dialog": 4422,
+          "_build_settings": 22577,
+          "_build_settings_overlay": 262,
+          "_finish_hud": 216,
+          "_finish_region_spawn": 337,
+          "_refresh_map_overlay": 2071,
+          "_restore_world_discovery": 3,
+          "_restore_world_player": 7,
+          "_restore_world_routes": 2,
+          "_setup_cartography": 5965,
+          "_spawn_death_cache": 10,
+          "_warm_arrival_cave": 94,
+          "_warm_arrival_platforms": 702,
+          "_warm_arrival_terrain": 31,
+          "append_inventory_item": 5582,
+          "begin_inventory_refresh": 48,
+          "finish_inventory_refresh": 730
+        },
+        "commit_usec": 155692,
+        "commit_wall_usec": 996539,
+        "commit_work_usec": 152600,
+        "jobs": 97,
+        "max_batch_usec": 66201,
+        "max_build_operations": 8,
+        "max_commit_batch_usec": 22589,
+        "max_commit_job_usec": 22577,
+        "max_commit_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 10125,
+        "publish_usec": 3092,
+        "rolled_back": false,
+        "source": "demo_ch05_obsidian_pilgrim_road",
+        "target": "demo_ch06_silent_crown_core"
+      }
+    ]
+  },
+  "previous_synchronous_commit": {
+    "base_commit": "621f3a35d41ab24463d2374dd76133a243aa6a94",
+    "log_sha256": "9dc861dee89148188fdc32cb04b9099f632715672319cc46a45cc23bb0f9d627",
+    "metrics": [
+      {
+        "batches": 71,
+        "commit_usec": 305116,
+        "jobs": 285,
+        "max_batch_usec": 78416,
+        "max_build_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 11201,
+        "rolled_back": false,
+        "source": "demo_ch01_moss_bell_court",
+        "target": "demo_ch01_moss_bell_court"
+      },
+      {
+        "batches": 75,
+        "commit_usec": 233014,
+        "jobs": 293,
+        "max_batch_usec": 298577,
+        "max_build_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 13579,
+        "rolled_back": false,
+        "source": "demo_ch01_moss_bell_court",
+        "target": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "batches": 52,
+        "commit_usec": 215094,
+        "jobs": 139,
+        "max_batch_usec": 59909,
+        "max_build_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 9262,
+        "rolled_back": false,
+        "source": "demo_ch02_rain_foundry_canal",
+        "target": "demo_ch03_saltwhite_archive"
+      },
+      {
+        "batches": 48,
+        "commit_usec": 236365,
+        "jobs": 131,
+        "max_batch_usec": 50755,
+        "max_build_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 8814,
+        "rolled_back": false,
+        "source": "demo_ch03_saltwhite_archive",
+        "target": "demo_ch04_broken_string_greenhouse"
+      },
+      {
+        "batches": 46,
+        "commit_usec": 231962,
+        "jobs": 115,
+        "max_batch_usec": 46042,
+        "max_build_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 11315,
+        "rolled_back": false,
+        "source": "demo_ch04_broken_string_greenhouse",
+        "target": "demo_ch05_obsidian_pilgrim_road"
+      },
+      {
+        "batches": 39,
+        "commit_usec": 212479,
+        "jobs": 97,
+        "max_batch_usec": 46012,
+        "max_build_operations": 8,
+        "max_unload_operations": 8,
+        "prepare_usec": 12172,
+        "rolled_back": false,
+        "source": "demo_ch05_obsidian_pilgrim_road",
+        "target": "demo_ch06_silent_crown_core"
+      }
+    ],
+    "limitation": "Single historical run and current fixture run; not FPS or a statistical benchmark."
+  },
+  "pixel_parity": {
+    "combat_acceptance": false,
+    "failures": 0,
+    "fixture_positioning": true,
+    "probes": [
+      {
+        "changed_pixels": 0,
+        "mode": "hud",
+        "passed": true,
+        "region": "demo_ch01_moss_bell_court"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "backpack",
+        "passed": true,
+        "region": "demo_ch01_moss_bell_court"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "map",
+        "passed": true,
+        "region": "demo_ch01_moss_bell_court"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "build",
+        "passed": true,
+        "region": "demo_ch01_moss_bell_court"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "settings",
+        "passed": true,
+        "region": "demo_ch01_moss_bell_court"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "hud",
+        "passed": true,
+        "region": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "backpack",
+        "passed": true,
+        "region": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "map",
+        "passed": true,
+        "region": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "build",
+        "passed": true,
+        "region": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "changed_pixels": 0,
+        "mode": "settings",
+        "passed": true,
+        "region": "demo_ch02_rain_foundry_canal"
+      }
+    ],
+    "renderer": "real software GL",
+    "ui_isolated_viewport": true
+  },
+  "live_input": {
+    "combat": {
+      "actor_id": 183995732536,
+      "direct_damage_calls": false,
+      "hp_after_hit": 1,
+      "hp_before": 4,
+      "killed": true,
+      "reward_delta": 8
+    },
+    "crossings": [
+      {
+        "damage_suppression": false,
+        "distance": 8573.86938619614,
+        "reused": 5,
+        "target": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "damage_suppression": false,
+        "distance": 8573.81296110153,
+        "reused": 8,
+        "target": "demo_ch01_moss_bell_court"
+      }
+    ],
+    "damage_suppression": false,
+    "failures": 0,
+    "initial_checkpoint_fixture": true,
+    "physics_frames": 4544,
+    "renderer": "real OpenGL",
+    "six_region_playthrough": false
+  },
+  "other_checks": {
+    "npm_test": "passed",
+    "npm_campaign": "passed",
+    "runner_tests": 7,
+    "git_diff_check": "passed"
+  },
+  "initial_probe_environment_failure": {
+    "action": "parallel GL probe startup",
+    "reason": "display 90 lock occupied across isolated process networks",
+    "resolution": "same runner with only display range changed to 120-129; no engine error filtering or fallback",
+    "ci": "sequential unmodified runner"
+  },
+  "full_63_suite_run_on_this_branch": false,
+  "previous_ci_waited_for": false,
+  "remote_ci_status": "Remote CI has not run for candidate 8906d4e7c7fe3bc5354a0e0e10c8d0220feb1be5.",
+  "limitations": [
+    "2ms is an admission budget; a job cannot be preempted.",
+    "Awaiting batches increases wall clock; total travel latency reduction is not claimed.",
+    "Initial synchronous startup remains synchronous.",
+    "Geometry construction, preparation and UI sections retain expensive individual operations.",
+    "Existing ObjectDB exit warnings are retained; long-term whole-game memory acceptance remains pending.",
+    "Active-region actor spatial residency and shared physical region mouths remain pending.",
+    "Fixture parity and a local live-input roundtrip are not six-region combat playthrough acceptance."
+  ],
+  "evidence_publication": {
+    "complete_raw_logs_uploaded": false,
+    "reason": "Automatic approval review rejected uploading the raw archive because it could contain private logs or environment metadata.",
+    "safer_alternative": "Publish only task-specific assertion results, game-state metrics, file hashes and render fixtures; retain raw logs locally."
+  },
+  "candidate_validation": {
+    "commit": "8906d4e7c7fe3bc5354a0e0e10c8d0220feb1be5",
+    "targeted_regressions": [
+      {
+        "suite": "tests/verify_narrative_ui",
+        "mode": "headless",
+        "exit_code": 0,
+        "failures": 0,
+        "engine_errors": 0,
+        "result": "Narrative UI failures: 0",
+        "log": "/workspace/scratch/bbd44cdd8ee6/pr30-targeted-logs-fixed/tests_verify_narrative_ui.log",
+        "log_sha256": "bc2a4c02d716b7265f3c527ea2e2e5e2867f67da8c701324ff28298dd6ad1ce5"
+      },
+      {
+        "suite": "world_neighbor_gameplay_stress",
+        "mode": "Mesa llvmpipe real OpenGL (Godot 4.6.1, Dummy audio)",
+        "exit_code": 0,
+        "failures": 0,
+        "engine_errors": 0,
+        "result": "WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=8715 failures=0; builds=1320; releases=1320; final owned/pending/regions/jobs=0",
+        "log": "/tmp/pr30-stress-gl-final.log",
+        "log_sha256": "ced4ca8c538dcf156f86894a91207022da4915506c2c828945146805508d82be",
+        "warning": "ObjectDB instances leaked at exit; WARNING, not counted as engine_errors."
+      }
+    ],
+    "full_regressions": [
+      {
+        "commit": "0e58a77a2439a9145a6772235d39f8f3e3744d54",
+        "expected_suites": 63,
+        "completed_suites": 63,
+        "exit_code": 1,
+        "failures": 1,
+        "engine_errors": 1,
+        "failed_suite": "world_neighbor_gameplay_stress",
+        "failure": "The combined child-count/enemy-group/story-flags assertion observed one additional transient Sfx_ui_toast AudioStreamPlayer; enemy group and story state matched.",
+        "failed_suite_log": "/workspace/scratch/bbd44cdd8ee6/pr30-full-logs/world_neighbor_gameplay_stress.log",
+        "failed_suite_log_sha256": "583a4cf36755a9847a7a9c74dff45b39061dcbd9ac60a40d18d127828c641567"
+      },
+      {
+        "commit": "8906d4e7c7fe3bc5354a0e0e10c8d0220feb1be5",
+        "expected_suites": 63,
+        "status": "stopped_early",
+        "completed_suites": 6,
+        "started_suite": "world_neighbor_gameplay",
+        "exit_code": 130,
+        "failures": "incomplete; no final runner summary",
+        "log_dir": "/workspace/scratch/bbd44cdd8ee6/pr30-final-logs",
+        "note": "Stopped before completion after six suites passed. Do not treat as a full-suite PASS."
+      }
+    ],
+    "editor_import": "exit 0 after LFS hydration; first-run import emitted startup missing-resource/class errors and Dummy-renderer shutdown leak diagnostics, so that bootstrap output is not an error-free test result."
+  }
+}

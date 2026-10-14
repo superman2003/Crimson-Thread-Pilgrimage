@@ -379,6 +379,7 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
         var enemy_node := enemy_variant as Node
         if enemy_node == null or not is_instance_valid(enemy_node) or enemy_node.get("is_boss") == true:
             continue
+        if enemy_node.has_method("world_residency_active") and not enemy_node.world_residency_active(): continue
         var decision_value: Variant = enemy_node.get("last_ai_decision")
         if typeof(decision_value) != TYPE_STRING:
             continue
@@ -871,6 +872,14 @@ func begin_chapter_transition() -> void:
     if duck_tween != null and duck_tween.is_valid():
         duck_tween.kill()
     _tween_bus_db("BGM", SILENT_DB, CHAPTER_EXIT_BGM_FADE_S)
+
+
+func cancel_chapter_transition() -> void:
+    var transition: Tween = bus_tweens.get("BGM")
+    if transition != null and transition.is_valid():
+        transition.kill()
+    bus_tweens.erase("BGM")
+    _apply_user_volume("music")
 
 
 ## 房型混响微调：hub/vista wet +0.10、corridor/secret wet -0.08，0.6s tween 回归基准。

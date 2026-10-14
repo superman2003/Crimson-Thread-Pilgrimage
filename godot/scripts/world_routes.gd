@@ -19,6 +19,20 @@ static func portal(region_id: String, portal_id: String) -> Dictionary:
             return candidate.duplicate(true)
     return {}
 
+## A permanent latch only removes its latch condition, never an ability condition.
+## Used for entry, nearby feedback and both directions of the atlas.
+static func access(data: Dictionary, inventory: Dictionary, flags: Dictionary) -> Dictionary:
+    var latch := str(data.get("requires_shortcut", ""))
+    if not latch.is_empty() and not bool(flags.get("world_shortcut_" + latch, false)):
+        return {"open": false, "kind": "far_side", "requirement": latch,
+            "label": "另一侧门闩", "hint": str(data.get("hint", "门闩在另一侧。请先寻找别的通路。"))}
+    var ability := str(data.get("required_ability", ""))
+    if not ability.is_empty() and int(inventory.get(ability, 0)) <= 0:
+        var title := str(data.get("required_ability_name", ability))
+        return {"open": false, "kind": "ability", "requirement": ability,
+            "label": title, "hint": "需要%s。%s" % [title, str(data.get("hint", "暂时可以探索别处。"))]}
+    return {"open": true, "kind": "open", "requirement": "", "label": "已通", "hint": ""}
+
 ## Apply ONLY in world mode. Standalone chapter demos retain their original data.
 static func apply_to(source: Dictionary) -> Dictionary:
     var config := source.duplicate(true)

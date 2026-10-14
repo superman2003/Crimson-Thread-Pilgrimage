@@ -7,6 +7,7 @@ import re
 import shutil
 import socket
 import subprocess
+import sys
 import tempfile
 import time
 
@@ -16,6 +17,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', required=True)
     parser.add_argument('--log-dir', type=Path, required=True)
+    parser.add_argument('--script', default='../tools/validate_rock_seams.gd')
+    parser.add_argument('--success-marker', default='ROCK_SEAMS probes=12 failures=0')
+    parser.add_argument('--summary-path', default='artifacts/hero_rock_upgrade/checkpoint4/gpu_seams.json')
+    parser.add_argument('--timeout', type=float, default=120,
+                        help='maximum Godot runtime in seconds (default: 120)')
     args = parser.parse_args()
     engine = shutil.which(args.engine)
     if not engine or not shutil.which('Xvfb'):
@@ -50,13 +56,24 @@ def main():
                             raise RuntimeError('Xvfb startup timed out')
                         time.sleep(0.1)
                 env = dict(os.environ, DISPLAY=f'127.0.0.1:{display}', LIBGL_ALWAYS_SOFTWARE='1', XDG_DATA_HOME=scratch)
-                result = subprocess.run([engine, '--display-driver', 'x11', '--audio-driver', 'Dummy', '--fixed-fps', '60', '--path', str(ROOT / 'godot'), '--rendering-method', 'gl_compatibility', '--script', '../tools/validate_rock_seams.gd'], env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=120)
+                try:
+                    result = subprocess.run([engine, '--display-driver', 'x11', '--audio-driver', 'Dummy', '--fixed-fps', '60', '--path', str(ROOT / 'godot'), '--rendering-method', 'gl_compatibility', '--script', args.script], env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=args.timeout)
+                except subprocess.TimeoutExpired as exc:
+                    output = exc.stdout or exc.output or ''
+                    if isinstance(output, bytes):
+                        output = output.decode(errors='replace')
+                    timeout_message = f'ERROR: Godot validation timed out after {args.timeout:g} seconds'
+                    log_output = output + ('' if output.endswith('\n') or not output else '\n') + timeout_message + '\n'
+                    (args.log_dir / 'gpu.log').write_text(log_output)
+                    print(output, end='')
+                    print(timeout_message, file=sys.stderr)
+                    raise SystemExit(124) from exc
                 (args.log_dir / 'gpu.log').write_text(result.stdout)
                 print(result.stdout, end='')
-                failed = result.returncode != 0 or re.search(r'^\s*(SCRIPT ERROR:|ERROR:)', result.stdout, re.MULTILINE) or 'ROCK_SEAMS probes=12 failures=0' not in result.stdout
+                failed = result.returncode != 0 or re.search(r'^\s*(SCRIPT ERROR:|ERROR:)', result.stdout, re.MULTILINE) or args.success_marker not in result.stdout
                 if failed:
                     raise SystemExit(1)
-                shutil.copyfile(ROOT / 'artifacts/hero_rock_upgrade/checkpoint4/gpu_seams.json', args.log_dir / 'gpu_seams.json')
+                shutil.copyfile(ROOT / args.summary_path, args.log_dir / Path(args.summary_path).name)
             finally:
                 server.terminate()
                 try:

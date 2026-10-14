@@ -39,6 +39,8 @@ func _run() -> void:
     ui.bag = ColorRect.new()
     ui.add_child(ui.bag)
     ui.bag.hide()
+    # This adapter fixture supplies its controls directly, so finish staging.
+    ui.construction_complete = true
     var config := ConfigFile.new()
     config.set_value("accessibility", "subtitle_size", {"broken":true})
     config.set_value("accessibility", "subtitle_speed", "fast")

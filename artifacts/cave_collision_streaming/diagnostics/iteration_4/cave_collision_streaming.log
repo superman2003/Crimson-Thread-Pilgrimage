@@ -1,0 +1,10 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+ERROR: Parameter "body->get_space()" is null.
+   at: body_test_motion (modules/godot_physics_2d/godot_physics_server_2d.cpp:997)
+   GDScript backtrace (most recent call first):
+       [0] _physics_process (res://scripts/player_controller.gd:507)
+       [1] _offscreen_effects (res://scripts/cave_collision_streaming_validation.gd:167)
+       [2] _frames (res://scripts/cave_collision_streaming_validation.gd:182)
+CAVE COLLISION METRICS [{"arrival":64,"authored":282,"chunks":36,"peak":191,"region":"demo_ch01_moss_bell_court"},{"arrival":54,"authored":248,"chunks":36,"peak":175,"region":"demo_ch02_rain_foundry_canal"},{"arrival":44,"authored":120,"chunks":23,"peak":108,"region":"demo_ch03_saltwhite_archive"},{"arrival":72,"authored":121,"chunks":22,"peak":102,"region":"demo_ch04_broken_string_greenhouse"},{"arrival":58,"authored":152,"chunks":22,"peak":124,"region":"demo_ch05_obsidian_pilgrim_road"},{"arrival":114,"authored":149,"chunks":21,"peak":149,"region":"demo_ch06_silent_crown_core"}]
+CAVE COLLISION STREAMING PASS: 126236 checks; authored parity, swept safety, hysteresis, ray pins and teardown

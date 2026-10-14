@@ -1,0 +1,217 @@
+Running terrain_collision_streaming
+PASS: terrain_collision_streaming
+TERRAIN COLLISION METRICS [{"arrival_polygons_without_actors":9,"authored_polygons":26,"region":"demo_ch01_moss_bell_court"},{"arrival_polygons_without_actors":6,"authored_polygons":24,"region":"demo_ch02_rain_foundry_canal"},{"arrival_polygons_without_actors":4,"authored_polygons":14,"region":"demo_ch03_saltwhite_archive"},{"arrival_polygons_without_actors":3,"authored_polygons":18,"region":"demo_ch04_broken_string_greenhouse"},{"arrival_polygons_without_actors":6,"authored_polygons":16,"region":"demo_ch05_obsidian_pilgrim_road"},{"arrival_polygons_without_actors":5,"authored_polygons":11,"region":"demo_ch06_silent_crown_core"},{"actor_supports":7,"host_arrival":13,"host_authored":26,"region":"demo_ch01_moss_bell_court"},{"actor_supports":6,"host_arrival":9,"host_authored":24,"region":"demo_ch02_rain_foundry_canal"},{"actor_supports":8,"host_arrival":9,"host_authored":14,"region":"demo_ch03_saltwhite_archive"},{"actor_supports":10,"host_arrival":11,"host_authored":18,"region":"demo_ch04_broken_string_greenhouse"},{"actor_supports":9,"host_arrival":10,"host_authored":16,"region":"demo_ch05_obsidian_pilgrim_road"},{"actor_supports":6,"host_arrival":9,"host_authored":11,"region":"demo_ch06_silent_crown_core"}]
+TERRAIN COLLISION STREAMING PASS: 2289 checks
+Running world_platform_streaming
+PASS: world_platform_streaming
+PLATFORM RESIDENCY METRICS [{"actor_supports":9,"arrival_resident":26,"ordinary_authored":147,"region":"demo_ch01_moss_bell_court","sweep_peak":94},{"actor_supports":12,"arrival_resident":41,"ordinary_authored":169,"region":"demo_ch02_rain_foundry_canal","sweep_peak":121},{"actor_supports":7,"arrival_resident":13,"ordinary_authored":48,"region":"demo_ch03_saltwhite_archive","sweep_peak":36},{"actor_supports":3,"arrival_resident":14,"ordinary_authored":50,"region":"demo_ch04_broken_string_greenhouse","sweep_peak":33},{"actor_supports":4,"arrival_resident":11,"ordinary_authored":41,"region":"demo_ch05_obsidian_pilgrim_road","sweep_peak":30},{"actor_supports":5,"arrival_resident":24,"ordinary_authored":31,"region":"demo_ch06_silent_crown_core","sweep_peak":28}]
+WORLD PLATFORM STREAMING PASS: 15877 checks; authored physics/visual parity, pins, blockers, arrival and teardown
+Running cave_collision_streaming
+PASS: cave_collision_streaming
+CAVE COLLISION METRICS [{"arrival":64,"authored":282,"chunks":36,"peak":191,"region":"demo_ch01_moss_bell_court"},{"arrival":54,"authored":248,"chunks":36,"peak":175,"region":"demo_ch02_rain_foundry_canal"},{"arrival":44,"authored":120,"chunks":23,"peak":108,"region":"demo_ch03_saltwhite_archive"},{"arrival":72,"authored":121,"chunks":22,"peak":102,"region":"demo_ch04_broken_string_greenhouse"},{"arrival":58,"authored":152,"chunks":22,"peak":124,"region":"demo_ch05_obsidian_pilgrim_road"},{"arrival":114,"authored":149,"chunks":21,"peak":149,"region":"demo_ch06_silent_crown_core"}]
+CAVE COLLISION STREAMING PASS: 129452 checks; authored parity, swept safety, hysteresis, ray pins and teardown
+Running world_async_loading
+PASS: world_async_loading
+ASYNC METRICS [{"batches":75,"commit_usec":274649,"jobs":285,"max_batch_usec":67039,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":14772,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":78,"commit_usec":142299,"jobs":293,"max_batch_usec":420980,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":14214,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":55,"commit_usec":141480,"jobs":139,"max_batch_usec":82605,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":13135,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":50,"commit_usec":142044,"jobs":131,"max_batch_usec":72605,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":11719,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":47,"commit_usec":155029,"jobs":115,"max_batch_usec":60715,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":10203,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":41,"commit_usec":147825,"jobs":97,"max_batch_usec":69347,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":11281,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 94 checks; six-region parity, budget limits, rollback, save isolation and teardown
+Running world_streaming
+PASS: world_streaming
+WORLD PREFETCH METRICS {"cache_hits":5,"config_reads":5,"failures":0,"generation":3,"jobs":0,"max_jobs":2,"queued":0,"regions":0,"stale_results":2,"textures":0}
+WORLD STREAMING PASS: 1991 checks; six-region visual coverage, unchanged collisions, bounded prefetch and stale-job retirement
+Running world_host
+PASS: world_host
+WORLD HOST METRICS: transitions=43 peak_region_nodes=131 initial_region_nodes=136 fixture_positioning=true
+WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles
+Running world_coordinates
+PASS: world_coordinates
+
+WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves
+Running cartography
+PASS: cartography
+王冠与温室、黑曜两路汇合；取得共鸣后，可回旧区检修钟门寻找反证。  M 地图 / Tab 世界图 · F9 新旅途。
+CARTOGRAPHY checks=4055 failures=0 fixture_positioning=true
+Running world_map
+PASS: world_map
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+WORLD_MAP checks=17 failures=0
+Running world_route_access
+PASS: world_route_access
+需要双线跃。暂时可以探索别处。
+WORLD_ROUTE_ACCESS checks=553 failures=0 fixture_positioning=true
+Running world_state
+PASS: world_state
+
+WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves
+Running world_integration
+PASS: world_integration
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+WORLD_INTEGRATION checks=64 failures=0
+Running world_route_walk
+PASS: world_route_walk
+PASS restart restores last region at its remembered bell shrine
+WORLD_ROUTE_WALK_VALIDATION steps=25 physics_frames=1853 failures=0 damage_suppression=true
+Running ability_movement
+PASS: ability_movement
+PASS: respawn resets traversal impulses and air jump
+ABILITY_MOVEMENT_VALIDATION failures=0
+Running enemy_effect_lifetime
+PASS: enemy_effect_lifetime
+PASS: enemy removal cancels its live attack effects
+ENEMY_EFFECT_LIFETIME_VALIDATION checks=29 failures=0
+Running enemy_visibility
+PASS: enemy_visibility
+
+ENEMY_VISIBILITY_VALIDATION checks=36 failures=0
+Running world_material
+PASS: world_material
+第6章 无声王冠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+WORLD_MATERIAL_VALIDATION regions=6 checks=1577 failures=0
+Running hero_animation
+PASS: hero_animation
+
+HERO_ANIMATION_VALIDATION checks=25 failures=0
+Running cave_exploration
+PASS: cave_exploration
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+CAVE_EXPLORATION_VALIDATION chapters=6 checks=170 failures=0
+Running cave_route_walk
+PASS: cave_route_walk
+第6章 无声王冠：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+CAVE_ROUTE_WALK_VALIDATION traversals=78 failures=0
+Running chapter_route_regression
+PASS: chapter_route_regression
+PASS: demo_ch06_silent_crown_core configured exit is usable after boss death
+CHAPTER_ROUTE_REGRESSION_PASS chapters=6 checks=270
+Running ch01_room_reconstruction
+PASS: ch01_room_reconstruction
+F: 检修支线 → 钟骨吊运台 · F 通行
+CH01_ROOM_RECONSTRUCTION checks=63 failures=0 combat_scope=local_arrival
+Running pilgrimage_merge_regression
+PASS: pilgrimage_merge_regression
+PASS: dash escapes the snare
+PILGRIMAGE_MERGE_REGRESSION checks=12 failures=0
+Running pilgrimage_review_regression
+PASS: pilgrimage_review_regression
+归途重新开始，敌群与守门者已经归位。
+PILGRIMAGE_REVIEW_REGRESSION checks=133 failures=0
+Running all_chapters_demo
+PASS: all_chapters_demo
+PASS_CHAPTER_RUNTIME: demo_ch06_silent_crown_core enemies=14 npcs=4 reward=silent_mark_crown
+ALL_CHAPTERS_DEMO_VALIDATION_PASS chapters=6 complete=true
+Running pilgrimage_overhaul
+PASS: pilgrimage_overhaul
+冠门审判
+PILGRIMAGE_OVERHAUL_VALIDATION kinds=46 moves=104 failures=0
+Running demo
+PASS: demo
+DEMO_VALIDATION_PASS enemies=14 hazards=9 keys=0 boss=1 combat_clear=true complete=true
+殿里的锈味很旧，旧得像一句守了太久的诺言。
+Running ch02_demo
+PASS: ch02_demo
+PASS: CH02 nearby F fallback enters CH03
+CH02_DEMO_VALIDATION_PASS enemies=15 npcs=4 keys=0 boss=C2_B01 combat_clear=true complete=true
+Running inventory_map
+PASS: inventory_map
+PASS: Esc closes overlays
+INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=2 currency=38
+Running boss_trial
+PASS: boss_trial
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running combat
+PASS: combat
+PASS: enemy command ai can damage the player
+COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true
+Running generated_runtime
+PASS: generated_runtime
+本区捷径均已接通。
+GENERATED_RUNTIME_VALIDATION_PASS configs=6
+Running chapter_registry
+PASS: chapter_registry
+PASS: runtime chapter registry includes ch06_silent_crown_core
+CHAPTER_REGISTRY_VALIDATION_PASS campaign=6 chapter_files=5
+Running story_guidance
+PASS: story_guidance
+STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true
+……抬头。整座城，都住在一口钟的里面。
+Running chinese_story
+PASS: chinese_story
+PASS: visible map labels include Chinese
+CHINESE_STORY_VALIDATION_PASS chinese_story_visible=true npc_prompt_chinese=true
+Running metsys
+PASS: metsys
+PASS: MetSys exposes save data dictionary
+METSYS_VALIDATION_PASS cells=144 walls=271 passages=305 routes=47 locked=1 connectors=102 discovered=2 registered=13 stored=1
+Running player_upgrade_regression
+PASS: player_upgrade_regression
+
+PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0
+Running build_system
+PASS: build_system
+
+BUILD SYSTEM PASS: 72 checks
+Running world_upgrade
+PASS: world_upgrade
+Leaked instance: RefCounted:9223372730424888193 - Reference count: 0
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Running upgrade_integration
+PASS: upgrade_integration
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+UPGRADE INTEGRATION PASS: 28 checks, real scene build/UI/abilities/tools/death/save
+Running save_product
+PASS: save_product
+
+SAVE PRODUCT PASS: 23 checks, v1 migration, atomic backup recovery, builds, death cache and slots
+Running ui_build_accessibility
+PASS: ui_build_accessibility
+
+UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0
+Running ui_world_integration
+PASS: ui_world_integration
+F: 盐风归庭索道 · 另一侧门闩
+UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0
+Running ui_redesign
+PASS: ui_redesign
+F: 盐风归庭索道 · 另一侧门闩
+UI_REDESIGN_VALIDATION_PASS checks=30 failures=0
+Running seal_system
+PASS: seal_system
+
+SEAL SYSTEM PASS: 14 checks
+Running seal_combat
+PASS: seal_combat
+
+SEAL_COMBAT_VALIDATION PASS checks=70 failures=0
+Running seal_ui
+PASS: seal_ui
+
+SEAL_UI_VALIDATION_PASS checks=23 failures=0
+Running seal_acceptance
+PASS: seal_acceptance
+攀壁已会：雨溢立管通向书库；排水钟管随时可以返回钟庭。  M 地图 / Tab 世界图 · F9 新旅途。
+SEAL_ACCEPTANCE_PASS checks=32 failures=0 real_world_ui_damage_crossregion_restart
+Running seal_acquisition
+PASS: seal_acquisition
+
+SEAL_ACQUISITION_VALIDATION: 66 checks; 0 failures
+Running seal_presentation
+PASS: seal_presentation
+
+SEAL_PRESENTATION_VALIDATION: 123 checks, 0 failures
+Running tests/verify_world_narrative
+PASS: tests/verify_world_narrative
+
+Narrative/audio checks: 28, failures: 0
+Running tests/verify_narrative_ui
+PASS: tests/verify_narrative_ui
+收入行囊 · 能量纺锤
+Narrative UI failures: 0
+Running tests/verify_narrative_progression
+PASS: tests/verify_narrative_progression
+
+NARRATIVE_PROGRESSION_PASS checks=78 failures=0
+Running tests/verify_narrative_runtime
+PASS: tests/verify_narrative_runtime
+王冠与温室、黑曜两路汇合；取得共鸣后，可回旧区检修钟门寻找反证。  M 地图 / Tab 世界图 · F9 新旅途。
+NARRATIVE_RUNTIME_PASS checks=23 failures=0
+GODOT_REGRESSIONS suites=54 failures=0

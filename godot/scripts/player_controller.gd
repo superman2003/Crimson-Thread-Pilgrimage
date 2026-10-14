@@ -66,6 +66,8 @@ func get_seal_mechanism_snapshot() -> Dictionary:
     if _crest() == "salt":
         var count := 0
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
+                continue
             if enemy.get("salt_mark_timer") != null and float(enemy.get("salt_mark_timer")) > 0.0:
                 count += 1
         return {"label":"盐记", "stacks":count, "max_stacks":count}
@@ -97,6 +99,8 @@ func _seal_heal_completed() -> void:
         heal_stability_timer = 4.0
     elif _crest() == "salt":
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
+                continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= 240.0 and enemy.has_method("extend_salt_mark_once"):
                 enemy.extend_salt_mark_once(2.0)
     if float(build_profile.get("status_buildup_mult", 1.0)) < 1.0:
@@ -335,6 +339,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    # A newly acquired critical rock body needs one server synchronization.
+    # Hold movement/actions for that step; preserve velocity/resources/cooldowns.
+    if get_parent().has_method("_world_collision_ready") and not get_parent()._world_collision_ready():
+        return
     if ui_input_locked:
         _interrupt_heal()
         _stop_phase()
@@ -707,6 +715,8 @@ func _play_attack_swing_sfx() -> void:
 
 
 func _can_start_action() -> bool:
+    if get_parent().has_method("_walking_world_passage") and get_parent()._walking_world_passage():
+        return false
     return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
 
 
@@ -978,6 +988,7 @@ func _apply_special_skill() -> void:
         var radius := float(active_skill.get("range", 160.0))
         _ability_ring(radius, THREAD_T2_CORE)
         for enemy in get_tree().get_nodes_in_group("enemy"):
+            if enemy.has_method("world_residency_active") and not enemy.world_residency_active(): continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
                 if enemy.has_method("take_hit"):
                     enemy.take_hit(attack_damage, facing)
@@ -1076,6 +1087,8 @@ func _apply_attack_hits() -> void:
     var attack_rect := Rect2(center - attack_size * 0.5, attack_size)
     for node in get_tree().get_nodes_in_group("enemy"):
         if not is_instance_valid(node) or not node.has_method("take_hit"):
+            continue
+        if node.has_method("world_residency_active") and not node.world_residency_active():
             continue
         var id := node.get_instance_id()
         if hit_targets.has(id):
@@ -1906,6 +1919,23 @@ func can_ignore_enemy_contact(_source_position: Vector2) -> bool:
 
 func set_spawn(position_value: Vector2) -> void:
     spawn_position = position_value
+
+
+func prepare_region_handoff() -> void:
+    # Cancel references to the departing geometry without making travel a free
+    # cooldown reset or restoring the already reserved healing energy.
+    var dash_remaining := dash_cooldown
+    var guard_remaining := guard_cooldown
+    var grapple_remaining := grapple_recovery_timer
+    _reset_traversal_state()
+    dash_cooldown = dash_remaining
+    guard_cooldown = guard_remaining
+    grapple_recovery_timer = grapple_remaining
+    attack_vfx_started = false
+    skill_effect_started = false
+    skill_displacement_done = 0.0
+    velocity = Vector2.ZERO
+    ui_input_locked = false
 
 
 func respawn_at(position_value: Vector2) -> void:

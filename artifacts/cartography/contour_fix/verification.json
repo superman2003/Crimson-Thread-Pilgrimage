@@ -1,0 +1,24 @@
+{
+  "engine": "Godot 4.6.1",
+  "cartography_checks": 4055,
+  "failures": 0,
+  "other_passed_suites": [
+    "world_map (17)",
+    "ui_world_integration",
+    "tests/verify_narrative_runtime (23)"
+  ],
+  "capture": {
+    "renderer": "OpenGL 4.5 Mesa llvmpipe",
+    "regions": 6,
+    "images": 13,
+    "fixture_owned": true,
+    "fixture_notes": true,
+    "actual_shrine_adapter": true,
+    "errors": 0
+  },
+  "limits": [
+    "authored room layout retained; not a continuous six-region world map",
+    "static terrain/platform contours, not dynamic gate state",
+    "fixture exploration is not a natural complete playthrough"
+  ]
+}
