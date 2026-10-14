@@ -3535,10 +3535,9 @@ func _configure_player_camera() -> void:
     var camera := player.get_node_or_null("Camera2D") as Camera2D
     if camera == null:
         return
-    camera.limit_left = -40
-    camera.limit_top = -120
-    camera.limit_right = int(world_width + 80.0)
-    camera.limit_bottom = int(world_height + 70.0)
+    player.configure_camera_focus(Rect2(-40, -120, world_width + 120.0, world_height + 190.0))
+    if is_instance_valid(boss_arena_lock_body):
+        _lock_boss_camera()
     var feel := get_node_or_null("/root/FeelKit")
     if feel != null:
         feel.register_camera(camera)
@@ -5137,6 +5136,7 @@ func _start_boss_trial() -> void:
 
 func _set_boss_arena_locked(locked: bool) -> void:
     if locked:
+        _lock_boss_camera()
         if boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body):
             return
         var lock_rect := _boss_arena_lock_rect()
@@ -5155,6 +5155,20 @@ func _set_boss_arena_locked(locked: bool) -> void:
         _spawn_route_open_effect(boss_arena_lock_body.global_position)
         boss_arena_lock_body.queue_free()
     boss_arena_lock_body = null
+    if is_instance_valid(player):
+        player.remove_camera_lock("boss_arena")
+
+
+func _lock_boss_camera() -> void:
+    if not is_instance_valid(player):
+        return
+    var boss_data: Dictionary = config.get("boss", {})
+    var point := _vec2(boss_data.get("position", active_spawn))
+    var left := float(boss_data.get("arena_min_x", point.x - 360.0))
+    var right := float(boss_data.get("arena_max_x", point.x + 360.0))
+    var floor_y := point.y + 40.0
+    # Floor/jump/telegraph framing comes from the real arena, not map rectangles.
+    player.push_camera_lock("boss_arena", Rect2(left - 100.0, floor_y - 520.0, right - left + 200.0, 620.0), 100, true, true)
 
 
 func _boss_arena_lock_rect() -> Rect2:

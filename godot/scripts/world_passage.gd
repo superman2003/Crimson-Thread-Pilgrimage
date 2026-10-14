@@ -260,11 +260,11 @@ func _painted_ornament(node_name: String, region: Rect2, anchor: Vector2,
     rear_wall.add_child(sprite)
 
 func _camera_bounds() -> void:
-    var camera: Camera2D = host.player.get_node("Camera2D")
-    camera.limit_left = floori(minf(source_point.x, destination_point.x) - 640)
-    camera.limit_right = ceili(maxf(source_point.x, destination_point.x) + 640)
-    camera.limit_top = floori(minf(source_point.y, destination_point.y) - 560)
-    camera.limit_bottom = ceili(maxf(source_point.y, destination_point.y) + 440)
+    var left := floori(minf(source_point.x, destination_point.x) - 640)
+    var right := ceili(maxf(source_point.x, destination_point.x) + 640)
+    var top := floori(minf(source_point.y, destination_point.y) - 560)
+    var bottom := ceili(maxf(source_point.y, destination_point.y) + 440)
+    host.player.configure_camera_focus(Rect2(left, top, right - left, bottom - top))
 
 func step() -> void:
     if not active or settling:

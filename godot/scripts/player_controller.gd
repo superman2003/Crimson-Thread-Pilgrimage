@@ -209,6 +209,9 @@ const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
 const FOOTSTEP_STRIDE := 88.0
 const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
+const CAMERA_FOCUS := preload("res://scripts/camera_focus.gd")
+var camera_focus := CAMERA_FOCUS.new()
+
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 
 ## 绯线视觉语言色值（docs/spec/20260726160500000 §1.2）
@@ -320,6 +323,7 @@ var ui_input_locked: bool = false:
         if value:
             _clear_action_buffer()
             jump_buffer_timer = 0.0
+            camera_focus.clear_look()
 var snare_timer := 0.0
 
 func apply_snare(seconds: float) -> void:
@@ -609,6 +613,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    camera_focus.clear_look()
     _clear_action_buffer()
     _stop_grapple()
     _interrupt_heal()
@@ -1035,8 +1040,34 @@ func _update_camera(delta: float) -> void:
         return
     # Feet remain in view during falls; world-owned limits and zoom are preserved.
     var strength := clampf(float(_accessibility().get("camera_lookahead", 1.0)), 0.0, 1.0)
-    var target := Vector2(clampf(velocity.x * 0.18, -90.0, 90.0) * strength, -55.0 + clampf(velocity.y * 0.10, -50.0, 90.0) * strength)
+    var look_up := Input.is_action_pressed("aim_up")
+    var look_down := Input.is_action_pressed("aim_down")
+    var direction := 0 if look_up == look_down else (-1 if look_up else 1)
+    var eligible := is_on_floor() and absf(velocity.x) < 12.0 and absf(_move_axis()) < 0.1 and land_timer <= 0.0 and _can_start_action()
+    var observation: float = camera_focus.update(camera, delta, direction, eligible, strength)
+    var target := Vector2(clampf(velocity.x * 0.18, -90.0, 90.0) * strength, -55.0 + clampf(velocity.y * 0.10, -50.0, 90.0) * strength + observation)
     camera.position = camera.position.lerp(target, 1.0 - exp(-delta * 5.0))
+
+
+func configure_camera_focus(bounds: Rect2) -> void:
+    var camera := get_node_or_null("Camera2D") as Camera2D
+    if camera != null:
+        camera_focus.configure(camera, bounds)
+
+
+func push_camera_lock(id: String, bounds: Rect2, priority: int = 0, prevent_up: bool = false, prevent_down: bool = false) -> bool:
+    var accepted: bool = camera_focus.push_lock(id, bounds, priority, prevent_up, prevent_down)
+    var camera := get_node_or_null("Camera2D") as Camera2D
+    if camera != null:
+        camera_focus.apply_limits(camera)
+    return accepted
+
+
+func remove_camera_lock(id: String) -> void:
+    camera_focus.remove_lock(id)
+    var camera := get_node_or_null("Camera2D") as Camera2D
+    if camera != null:
+        camera_focus.apply_limits(camera)
 
 
 func _apply_special_skill() -> void:
@@ -1871,6 +1902,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         return
     if amount <= 0:
         return
+    camera_focus.clear_look()
     _clear_action_buffer()
     var source_side := signf(source_position.x - global_position.x)
     if blockable and guard_timer > 0.0 and (source_side == 0.0 or int(source_side) == facing):
@@ -2017,6 +2049,7 @@ func respawn_at(position_value: Vector2) -> void:
 
 
 func reset_camera_after_arrival() -> void:
+    camera_focus.clear_look()
     var camera := get_node_or_null("Camera2D") as Camera2D
     if camera != null:
         camera.position = Vector2(0, -55)
