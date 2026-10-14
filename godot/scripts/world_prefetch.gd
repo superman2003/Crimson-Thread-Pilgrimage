@@ -45,6 +45,7 @@ var config_task: Dictionary = {}
 var config_validator: RefCounted
 var config_raw: Variant
 var config_cancellations := 0
+var config_entry_rechecks := 0
 var config_validation_steps := 0
 var config_validation_batches := 0
 var last_config_operations := 0
@@ -129,7 +130,16 @@ func _invalidate_configs() -> void:
         if current:
             var candidate: Dictionary = desired[region_id]
             var record: Dictionary = configs[region_id]
-            current = record.stamp == FileAccess.get_modified_time(candidate.path) and record.get("path", candidate.path) == candidate.path and record.get("entry", candidate.entry) == candidate.entry
+            current = record.stamp == FileAccess.get_modified_time(candidate.path) and record.get("path", candidate.path) == candidate.path
+            if current and record.get("entry", candidate.entry) != candidate.entry:
+                # Keep a fully validated region configuration across entrance
+                # changes. Detached geometry/gameplay have their own entry
+                # leases and still retire/rebuild below. A failed record has
+                # no validated world and must retry for the new entrance.
+                current = not record.raw.is_empty() and record.has("prepared") and CONFIG_VALIDATOR.entry_in_bounds(candidate.entry, record.prepared.world)
+                if current:
+                    record["entry"] = candidate.entry
+                    config_entry_rechecks += 1
         if current:
             continue
         _release_entities(region_id)
@@ -426,7 +436,7 @@ func snapshot() -> Dictionary:
         count += textures.size()
     return {"gameplay": gameplay.snapshot(), "rock_chunks": rocks, "terrain_polygons": polygons, "rock_hits": rock_hits, "terrain_hits": terrain_hits, "retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
         "config_pending": not config_task.is_empty(), "config_phase": "idle" if config_task.is_empty() else ("reading" if config_validator == null else "validating"),
-        "config_cancellations": config_cancellations, "config_validation_steps": config_validation_steps, "config_validation_batches": config_validation_batches,
+        "config_cancellations": config_cancellations, "config_entry_rechecks": config_entry_rechecks, "config_validation_steps": config_validation_steps, "config_validation_batches": config_validation_batches,
         "last_config_operations": last_config_operations, "max_config_operations": max_config_operations, "max_config_step_usec": max_config_step_usec,
         "config_operation_usec": config_operation_usec.duplicate(), "config_worker_usec": config_worker_usec, "config_bytes": config_bytes, "config_worker_is_main": config_worker_is_main,
         "regions": configs.size(), "textures": count, "jobs": jobs.size(), "queued": queue.size(),

@@ -2,6 +2,7 @@ extends SceneTree
 ## Configuration/ownership fixtures; not natural exploration or FPS evidence.
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
+const VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const SAVE := "user://world_neighbor_config_validation.json"
 const BAD := "user://world_neighbor_config_bad.json"
 const MISSING := "user://world_neighbor_config_missing.json"
@@ -48,6 +49,29 @@ func _run() -> void:
     var id := "demo_ch02_rain_foundry_canal"
     var path := ROUTES.config_path(id)
     var entry := Vector2(120, 500)
+    _target(id, path, entry)
+    await _ready(id)
+    var cached: Dictionary = pref.configs[id].prepared
+    var dimensions: Dictionary = cached.world
+    var cached_reads: int = pref.config_reads
+    var cached_steps: int = pref.config_validation_steps
+    var rechecks: int = pref.config_entry_rechecks
+    pref.desired[id].entry = entry + Vector2(120, 0)
+    pref.step(scene, 0)
+    _check(pref.config_reads == cached_reads and pref.config_validation_steps == cached_steps and pref.config_task.is_empty(), "published configuration survives a changed entrance without file read or full validation")
+    _check(pref.configs[id].entry == entry + Vector2(120, 0) and pref.configs[id].prepared == cached and pref.config_entry_rechecks == rechecks + 1, "new entrance reuses authored configuration after bounded landing check")
+    for point in [Vector2(-40, -120), Vector2(dimensions.width + 80, dimensions.height + 70)]:
+        _check(VALIDATOR.entry_in_bounds(point, dimensions), "landing recheck keeps original inclusive bounds")
+    for point in [Vector2(-41, 0), Vector2(dimensions.width + 81, 0), Vector2(0, -121), Vector2(0, dimensions.height + 71), Vector2(INF, 0), Vector2(NAN, 0)]:
+        _check(not VALIDATOR.entry_in_bounds(point, dimensions), "landing recheck rejects outside or nonfinite entrance")
+    pref.desired[id].entry = Vector2(dimensions.width + 81, 0)
+    pref.step(scene, 0)
+    _check(pref.cached_raw(path) == null and not pref.entities.has(id) and not pref.gameplay.regions.has(id), "out-of-bounds entrance cannot inherit published cache or prefabs")
+    await _ready(id)
+    _check(pref.configs[id].raw.is_empty(), "invalid changed entrance records failure")
+    pref.desired[id].entry = entry
+    await _ready(id)
+    _check(not pref.configs[id].raw.is_empty(), "failed entrance retries when replaced with a valid landing")
     _target(id, path, entry)
     pref.step(scene, 0)
     var abandoned: int = pref.config_task.ticket
