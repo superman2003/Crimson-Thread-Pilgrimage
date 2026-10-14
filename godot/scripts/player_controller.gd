@@ -1809,6 +1809,8 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     _stop_phase()
     _stop_grapple()
     guard_timer = 0.0
+    # A damaging hit interrupts dash motion so the next tick preserves knockback.
+    dash_timer = 0.0
     attack_timer = 0.0
     attack_shape.set_deferred("disabled", true)
     amount = maxi(1, int(ceil(float(amount) * float(build_profile.get("damage_taken_mult", 1.0)))))
@@ -1925,6 +1927,7 @@ func reset_camera_after_arrival() -> void:
 
 
 func _hard_respawn() -> void:
+    snare_timer = 0.0
     hp = max_hp
     energy = 0
     hp_changed.emit(hp)
@@ -1937,6 +1940,7 @@ func _hard_respawn() -> void:
 
 func restore_at_save_point() -> void:
     _reset_traversal_state()
+    snare_timer = 0.0
     hp = max_hp
     energy = max_energy
     hurt_timer = 0.0

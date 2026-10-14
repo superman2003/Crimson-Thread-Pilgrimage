@@ -2,6 +2,7 @@
 """Run isolated Godot suites; failures, engine errors and timeouts all fail CI."""
 from __future__ import annotations
 import argparse
+import math
 import os
 from pathlib import Path
 import re
@@ -18,7 +19,8 @@ DEFAULT_SUITES = (
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
     'player_upgrade_regression build_system world_upgrade upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign '
-    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation'
+    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation '
+    'world_resume_regression player_state_cleanup input_settings_regression'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 
@@ -37,9 +39,15 @@ def main():
     engine = shutil.which(args.engine)
     if not engine:
         parser.error(f'Godot executable not found: {args.engine}; set GODOT or --engine')
-    if args.timeout <= 0:
-        parser.error('--timeout must be positive')
+    if not math.isfinite(args.timeout) or args.timeout <= 0:
+        parser.error('--timeout must be finite and positive')
     suites = args.suite or DEFAULT_SUITES + NARRATIVE_SUITES
+    # Reject the whole request before running any suite or creating log files.
+    try:
+        for suite in suites:
+            suite_path(suite)
+    except ValueError as error:
+        parser.error(str(error))
     failures = []
     with tempfile.TemporaryDirectory(prefix='pilgrimage-regressions-') as scratch:
         logs = args.log_dir or Path(scratch) / 'logs'
@@ -75,3 +83,4 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
+

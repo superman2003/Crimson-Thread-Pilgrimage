@@ -578,6 +578,10 @@ var death_cache_area: Area2D
 var last_safe_ground := Vector2.ZERO
 var death_recorded := false
 var world_initial_error := ""
+# Command-line options belong to the initial launch, never slot switches or travel.
+var world_startup_options_enabled := true
+# Keep incompatible saved builds on disk until explicit recovery or a new journey.
+var world_save_blocked := false
 var subtitle_elapsed := 0.0
 var subtitle_seconds := 0.0
 var new_journey_dialog: ConfirmationDialog
@@ -617,10 +621,7 @@ func _ready() -> void:
     if world_mode:
         _restore_world_inventory_and_region()
     build_system = BUILD_SYSTEM_SCRIPT.new()
-    if world_mode and not world_state.data.get("build_state", {}).is_empty():
-        var restored: Dictionary = build_system.restore(world_state.data.build_state)
-        if not restored.get("ok", false):
-            world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑。"
+    _restore_saved_build()
     build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
     _bind_build_inputs()
     _bind_audio_settings_key()
@@ -636,6 +637,8 @@ func _ready() -> void:
     # 音频状态机运行时注入（契约 bind_runtime）：director 自驱轮询，这里只此一行。
     audio_director.bind_runtime(player, func() -> Array: return get_tree().get_nodes_in_group("enemy"))
     _build_hud()
+    if demo_complete:
+        _spawn_ending_gates()
     _show_chapter_entry_message()
     world_loading = false
     if world_mode:
@@ -645,6 +648,15 @@ func _ready() -> void:
         _save_world()
     if boss_trial_mode:
         call_deferred("_start_boss_trial")
+
+
+func _restore_saved_build() -> void:
+    if not world_mode or world_state == null or world_state.data.get("build_state", {}).is_empty():
+        return
+    var restored: Dictionary = build_system.restore(world_state.data.build_state)
+    if not restored.get("ok", false):
+        world_save_blocked = true
+        world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑，自动保存已暂停。请恢复备份或开始新旅途。"
 
 
 func _apply_cmdline_config_override() -> void:
@@ -668,6 +680,10 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(_delta: float) -> void:
+    if ui_shell != null and ui_shell.has_method("is_remapping_input") and ui_shell.is_remapping_input():
+        world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
+        world_map_key_held = Input.is_physical_key_pressed(KEY_TAB)
+        return
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
@@ -757,19 +773,17 @@ func _exit_tree() -> void:
 func _prepare_world_start() -> void:
     if not world_mode:
         return
-    for argument in OS.get_cmdline_user_args():
-        if argument.begins_with("--save-slot="):
-            world_slot = clampi(int(argument.trim_prefix("--save-slot=")), 1, 3)
-            world_save_path = WORLD_STATE_SCRIPT.slot_path(world_slot)
+    var startup_args := OS.get_cmdline_args()
+    startup_args.append_array(OS.get_cmdline_user_args())
+    var new_game_requested := _consume_world_startup_options(startup_args)
     if world_state == null:
         world_state = WORLD_STATE_SCRIPT.new()
-        var args := OS.get_cmdline_args()
-        args.append_array(OS.get_cmdline_user_args())
-        if args.has("--new-game"):
-            world_resume = false
-            if FileAccess.file_exists(world_save_path):
-                DirAccess.copy_absolute(ProjectSettings.globalize_path(world_save_path), ProjectSettings.globalize_path(world_save_path + ".previous"))
-                DirAccess.remove_absolute(ProjectSettings.globalize_path(world_save_path))
+        if new_game_requested:
+            if _preserve_previous_journey():
+                world_resume = false
+            else:
+                world_resume = true
+                world_initial_error = "旧旅途无法安全备份，未开始新旅途，原记录已保留。"
         if world_resume and world_state.read(world_save_path):
             var saved_path := WORLD_ROUTES_SCRIPT.config_path(String(world_state.data.current_region))
             if not saved_path.is_empty():
@@ -778,6 +792,17 @@ func _prepare_world_start() -> void:
                 entry_spawn_override = _vec2(world_state.data.entry)
         elif world_resume and world_state.last_error != "missing":
             world_initial_error = "归途记录无法读取，本次不会覆盖原记录。"
+
+
+func _consume_world_startup_options(arguments: PackedStringArray) -> bool:
+    if not world_startup_options_enabled:
+        return false
+    world_startup_options_enabled = false
+    for argument in arguments:
+        if argument.begins_with("--save-slot="):
+            world_slot = clampi(int(argument.trim_prefix("--save-slot=")), 1, 3)
+            world_save_path = WORLD_STATE_SCRIPT.slot_path(world_slot)
+    return arguments.has("--new-game")
 
 
 func _build_world_catalog() -> void:
@@ -843,6 +868,10 @@ func _save_world() -> void:
         "story_flags": story_flags, "current_region": region_id,
         "entry": active_spawn, "hp": player.hp, "energy": player.energy,
         "build_state": build_system.serialize() if build_system != null else {}}) and captured
+    # Continue carrying live progress between regions, but never replace the
+    # incompatible disk record with the temporary fallback build.
+    if world_save_blocked:
+        return
     if (not captured or not world_state.write(world_save_path)) and not world_write_error_shown:
         world_write_error_shown = true
         _toast("归途记录暂未写入，当前旅途进度仍保留。")
@@ -962,6 +991,10 @@ func _travel_world(next_path: String, entry: Vector2) -> void:
     next_scene.config_path = next_path
     next_scene.world_state = world_state
     next_scene.world_resume = false
+    next_scene.world_startup_options_enabled = false
+    next_scene.world_save_blocked = world_save_blocked
+    if world_save_blocked:
+        next_scene.world_initial_error = "原构筑记录已保留，自动保存仍暂停；请恢复备份或开始新旅途。"
     next_scene.world_save_path = world_save_path
     next_scene.world_slot = world_slot
     next_scene.entry_spawn_override_enabled = true
@@ -1123,17 +1156,26 @@ func _build_new_journey_dialog() -> void:
         _sync_ui_input_lock())
 
 
+func _preserve_previous_journey() -> bool:
+    if not FileAccess.file_exists(world_save_path):
+        return true
+    var absolute := ProjectSettings.globalize_path(world_save_path)
+    if DirAccess.dir_exists_absolute(absolute + ".previous"):
+        return false
+    if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
+        return false
+    return DirAccess.remove_absolute(absolute) == OK
+
+
 func _start_new_journey() -> void:
-    if FileAccess.file_exists(world_save_path):
-        var backup_error := DirAccess.copy_absolute(ProjectSettings.globalize_path(world_save_path), ProjectSettings.globalize_path(world_save_path + ".previous"))
-        if backup_error != OK:
-            _toast("旧旅途无法备份，当前记录已保留。")
-            active_overlay = ""
-            _sync_ui_input_lock()
-            return
-        DirAccess.remove_absolute(ProjectSettings.globalize_path(world_save_path))
+    if not _preserve_previous_journey():
+        _toast("旧旅途无法安全备份，当前记录已保留。")
+        active_overlay = ""
+        _sync_ui_input_lock()
+        return
     # Keep the old scene's shared snapshot valid until it has left the tree.
     world_state = WORLD_STATE_SCRIPT.new()
+    world_save_blocked = false
     world_loading = true
     _travel_world(DEFAULT_CONFIG_PATH, _vec2(_load_json(DEFAULT_CONFIG_PATH).get("player_start", [120, 500])))
 
@@ -4763,6 +4805,10 @@ func _spawn_ending_gates() -> void:
     var anchor := Vector2(world_width * 0.5, world_height * 0.5)
     if boss_actor != null and is_instance_valid(boss_actor):
         anchor = boss_actor.global_position
+    elif config.get("boss", {}).has("position"):
+        # Reloaded completed regions have no boss actor: keep the ending choice
+        # in the authored arena instead of moving it to the player checkpoint.
+        anchor = _vec2(config.boss.position)
     elif player != null and is_instance_valid(player):
         anchor = player.global_position
     for index in range(entries.size()):
@@ -5808,6 +5854,7 @@ func _replace_with_save_slot(index: int) -> void:
     var parent_node := get_parent()
     var scene: Node = load("res://scenes/World.tscn").instantiate()
     scene.world_slot = index
+    scene.world_startup_options_enabled = false
     scene.world_save_path = WORLD_STATE_SCRIPT.slot_path(index)
     var was_current := get_tree().current_scene == self
     parent_node.remove_child(self)
