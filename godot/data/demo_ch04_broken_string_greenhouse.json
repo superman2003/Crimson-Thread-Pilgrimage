@@ -145,8 +145,8 @@
       "danger": "落点干净，但花粉会盖住藤蔓的前摇。",
       "next": "西阶下行",
       "setpiece": "碎玻璃西门",
-      "traversal_focus": "安全试跳",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "在园丁旁观察西阶与树冠回访方向，再下探根须南廊",
+      "pacing_role": "arrival_and_orientation",
       "visit_rects": [
         [
           200,
@@ -165,7 +165,13 @@
           200,
           373
         ]
-      }
+      },
+      "camera_bounds": [
+        160,
+        1170,
+        480,
+        930
+      ]
     },
     {
       "id": "gate_descent",
@@ -194,8 +200,8 @@
       "danger": "台阶间落差大，别贪跳。",
       "next": "根须南廊",
       "setpiece": "苔垫西阶",
-      "traversal_focus": "纵向下探",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "顺阶下落时保持脚下下一块苗床可见",
+      "pacing_role": "readable_descent",
       "visit_rects": [
         [
           480,
@@ -203,6 +209,12 @@
           450,
           604
         ]
+      ],
+      "camera_bounds": [
+        440,
+        1480,
+        530,
+        1040
       ]
     },
     {
@@ -232,8 +244,8 @@
       "danger": "根笼猎手在苗床间巡行。",
       "next": "蜂蜡暗屋",
       "setpiece": "根须苗床长廊",
-      "traversal_focus": "地面战斗",
-      "pacing_role": "pressure",
+      "traversal_focus": "先看腐叶地床和孢囊，南廊出口花灵提供单独交战空间",
+      "pacing_role": "ground_hazards_then_bloom",
       "visit_rects": [
         [
           820,
@@ -241,6 +253,12 @@
           3780,
           320
         ]
+      ],
+      "camera_bounds": [
+        780,
+        1960,
+        3860,
+        780
       ]
     },
     {
@@ -270,8 +288,8 @@
       "danger": "蜂蜡地板黏脚，撤退要提前。",
       "next": "东藤壁",
       "setpiece": "蜂蜡商屋",
-      "traversal_focus": "补给暗室",
-      "pacing_role": "respite",
+      "traversal_focus": "与蜂蜡商人交谈、补给和寻找暗灯，再进东藤壁",
+      "pacing_role": "supply_and_hidden_respite",
       "visit_rects": [
         [
           4620,
@@ -290,7 +308,13 @@
           290,
           230
         ]
-      }
+      },
+      "camera_bounds": [
+        4580,
+        1820,
+        660,
+        850
+      ]
     },
     {
       "id": "vine_ascent",
@@ -319,8 +343,8 @@
       "danger": "蜂蜡蛾贴着墙面俯冲。",
       "next": "棚架东角",
       "setpiece": "东墙大藤",
-      "traversal_focus": "纵向攀爬",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "逐层观察藤壁两侧落脚枝，镜头跟随当前高度",
+      "pacing_role": "vertical_ascent",
       "visit_rects": [
         [
           5190,
@@ -328,6 +352,12 @@
           510,
           1302
         ]
+      ],
+      "camera_bounds": [
+        5150,
+        880,
+        590,
+        1710
       ]
     },
     {
@@ -366,6 +396,12 @@
           830,
           420
         ]
+      ],
+      "camera_bounds": [
+        4640,
+        570,
+        910,
+        900
       ]
     },
     {
@@ -404,6 +440,12 @@
           1190,
           288
         ]
+      ],
+      "camera_bounds": [
+        3560,
+        400,
+        1270,
+        790
       ]
     },
     {
@@ -442,6 +484,12 @@
           1100,
           288
         ]
+      ],
+      "camera_bounds": [
+        2460,
+        400,
+        1180,
+        790
       ]
     },
     {
@@ -491,7 +539,13 @@
           315,
           222
         ]
-      }
+      },
+      "camera_bounds": [
+        1770,
+        410,
+        710,
+        750
+      ]
     },
     {
       "id": "tree_crown",
@@ -520,8 +574,8 @@
       "danger": "跃入时留意断枝。",
       "next": "大树之心",
       "setpiece": "空心树冠",
-      "traversal_focus": "受控坠落",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "从树冠缺口坠回树心，保持下方枝台可判断",
+      "pacing_role": "controlled_return_drop",
       "visit_rects": [
         [
           2920,
@@ -529,6 +583,12 @@
           970,
           778
         ]
+      ],
+      "camera_bounds": [
+        2880,
+        550,
+        1050,
+        1150
       ]
     },
     {
@@ -558,8 +618,8 @@
       "danger": "树心开阔，也开阔给敌人。",
       "next": "根库 / 断弦辐桥",
       "setpiece": "大树之心",
-      "traversal_focus": "枢纽分流",
-      "pacing_role": "hub",
+      "traversal_focus": "先停在暖灯或听歌者，再进入猎手领地；根据根网前摇换位置",
+      "pacing_role": "respite_then_hunter",
       "visit_rects": [
         [
           2640,
@@ -578,7 +638,13 @@
           300,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        2600,
+        1130,
+        680,
+        850
+      ]
     },
     {
       "id": "root_vault",
@@ -607,8 +673,8 @@
       "danger": "库房狭窄，根笼囚徒的话别全信。",
       "next": "断弦辐桥",
       "setpiece": "根库绞盘",
-      "traversal_focus": "捷径解锁",
-      "pacing_role": "reward",
+      "traversal_focus": "先与囚徒交谈，向东处理猎手，再接通根库回环",
+      "pacing_role": "conversation_then_shortcut",
       "visit_rects": [
         [
           2320,
@@ -627,7 +693,13 @@
           265,
           403
         ]
-      }
+      },
+      "camera_bounds": [
+        2280,
+        1320,
+        610,
+        940
+      ]
     },
     {
       "id": "west_spoke",
@@ -665,6 +737,12 @@
           1720,
           576
         ]
+      ],
+      "camera_bounds": [
+        560,
+        1090,
+        1800,
+        1030
       ]
     },
     {
@@ -694,8 +772,8 @@
       "danger": "前廊风口敌人密集。",
       "next": "裂纹穹顶",
       "setpiece": "穹顶前廊",
-      "traversal_focus": "短促冲刺",
-      "pacing_role": "tension",
+      "traversal_focus": "在前廊暖灯休整，哨兵驻守之后的Boss门前平台",
+      "pacing_role": "respite_then_threshold_guard",
       "visit_rects": [
         [
           4720,
@@ -703,6 +781,12 @@
           850,
           278
         ]
+      ],
+      "camera_bounds": [
+        4680,
+        310,
+        930,
+        750
       ]
     },
     {
@@ -752,7 +836,13 @@
           360,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        5560,
+        340,
+        800,
+        760
+      ]
     },
     {
       "id": "victory_terrace",
@@ -801,7 +891,13 @@
           400,
           235
         ]
-      }
+      },
+      "camera_bounds": [
+        6310,
+        270,
+        1020,
+        800
+      ]
     }
   ],
   "ai_profiles": {
@@ -3201,7 +3297,7 @@
         "leave": null
       },
       "dialogue_topics": {
-        "route": "南边地床是长路，上面树冠是捷径。根笼亮起时换位置，别在同一块土上等它收紧。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "route": "西阶下面是根须南廊，沿苗床走到尽头才到蜂蜡暗屋。东藤壁能爬上树冠；若从树心回来，就找那盏还暖着的灯。",
         "wish": "把活壳脉络带回来让我摸摸。我想知道园子里的根还连着谁。"
       }
     },
@@ -3486,13 +3582,13 @@
       "id": "E05",
       "kind": "thorn_bloom_mote",
       "position": [
-        5020,
-        2260
+        4470,
+        2392
       ],
-      "platform_id": "bw_floor",
+      "platform_id": "south_run_i",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 35,
       "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
       "visual_scale": 0.26480836236933797,
       "visual_offset": [
@@ -3503,13 +3599,17 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 90,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 36,
       "clearance": 40,
       "locomotion": "flight",
-      "combat_identity": "花心投种，落点生刺；近处吐针"
+      "combat_identity": "花心投种，落点生刺；近处吐针",
+      "encounter_role": "south_exit_bloom",
+      "encounter_profile": {
+        "aggro_range": 220
+      }
     },
     {
       "id": "E06",
@@ -3660,13 +3760,13 @@
       "id": "E11",
       "kind": "root_cage_hunter",
       "position": [
-        3000,
+        2930,
         1562
       ],
       "platform_id": "heart_floor",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 30,
       "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
       "visual_scale": 0.33226837060702874,
       "visual_offset": [
@@ -3677,25 +3777,79 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 65,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 64,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "投出根网减速，再长距离扑刺"
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "encounter_role": "heart_hunter_between_respite_points",
+      "encounter_profile": {
+        "aggro_range": 180,
+        "attacks": [
+          {
+            "id": "cage_net",
+            "name": "根网投掷",
+            "type": "projectile",
+            "range": 360,
+            "windup": 0.7,
+            "active": 0.24,
+            "recover": 1.1,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "根网投掷",
+            "projectile_speed": 220,
+            "skin": "thorn",
+            "radius": 14,
+            "snare": 1.2,
+            "blockable": true,
+            "start_cooldown": 0.8
+          },
+          {
+            "id": "cage_pounce",
+            "name": "根笼扑刺",
+            "type": "vault",
+            "range": 280,
+            "windup": 0.55,
+            "active": 0.6,
+            "recover": 1.2000000000000002,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "根笼扑刺",
+            "jump_height": 100,
+            "lunge_speed": 290,
+            "blockable": false,
+            "start_cooldown": 1.5
+          }
+        ]
+      }
     },
     {
       "id": "E12",
       "kind": "root_cage_hunter",
       "position": [
-        2620,
+        2650,
         1942
       ],
       "platform_id": "vault_floor",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 15,
       "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
       "visual_scale": 0.33226837060702874,
       "visual_offset": [
@@ -3706,13 +3860,17 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 55,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 64,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "投出根网减速，再长距离扑刺"
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "encounter_role": "vault_hunter_away_from_prisoner",
+      "encounter_profile": {
+        "aggro_range": 160
+      }
     },
     {
       "id": "E13",
@@ -3747,13 +3905,13 @@
       "id": "E14",
       "kind": "thorn_sentinel",
       "position": [
-        5050,
-        722
+        5430,
+        754
       ],
-      "platform_id": "dome_deck",
+      "platform_id": "boss_threshold",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 0,
       "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
       "visual_scale": 0.33440514469453375,
       "visual_offset": [
@@ -3764,13 +3922,17 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 90,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 64,
       "clearance": 40,
       "locomotion": "stationary",
-      "combat_identity": "守住根床，放射荆针与横向根墙"
+      "combat_identity": "守住根床，放射荆针与横向根墙",
+      "encounter_role": "dome_threshold_sentinel",
+      "encounter_profile": {
+        "aggro_range": 240
+      }
     }
   ],
   "boss": {
