@@ -6020,6 +6020,9 @@ func _on_player_respawned() -> void:
         chapter_terrain.warm_focus(player.global_position)
     death_recorded = false
     _reset_encounters_after_player_death()
+    # Respawn first removes the old Boss event lock. Recompute the visible
+    # center after that release, before the next rendered frame.
+    player.reset_camera_after_arrival()
     _save_world()
 
 

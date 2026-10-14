@@ -126,8 +126,8 @@ func _healing_and_duel() -> void:
     enemy.configure(spawn,String(spawn.sprite),false,config.ai_profiles.moss_larva)
     enemy.position=Vector2(spawn.position[0],spawn.position[1])
     stage.add_child(enemy)
-    check(enemy.ai_commands.size()==1 and enemy.ai_commands[0].windup>=0.5,"First duel preserves species while making its first attack readable")
-    check(enemy.ai_commands[0].recover > player.heal_duration+0.2,"First duel has a genuine recovery window long enough to heal")
+    check(enemy.ai_commands.size()==2 and enemy.ai_commands[0].type=="melee" and enemy.ai_commands[1].type=="lunge" and enemy.ai_commands[0].windup>=0.5 and enemy.ai_commands[1].windup>=0.5,"First duel retains two distinct, readable species attacks")
+    check(minf(enemy.ai_commands[0].recover,enemy.ai_commands[1].recover) > player.heal_duration+0.2,"Both first-duel attacks have a genuine recovery window long enough to heal")
     player.global_position=Vector2(1140,3612)
     player.velocity=Vector2.ZERO
     player.hp=player.max_hp-1
@@ -150,6 +150,10 @@ func _healing_and_duel() -> void:
     await frames(38)
     check(player.hp < hp_before and player.heal_timer==0,"Actual enemy hit interrupts a greedy heal before completion")
     check(healing_events==["started","interrupted"],"Enemy interrupt settles once without a completion")
+    # Withdraw while the previous attack finishes; approach a fresh windup,
+    # rather than placing the player into a partially elapsed attack.
+    player.global_position=Vector2(950,3612)
+    player.velocity=Vector2.ZERO
     await frames(90)
     player.global_position=enemy.global_position+Vector2(-50,40)
     player.velocity=Vector2.ZERO
@@ -164,7 +168,8 @@ func _healing_and_duel() -> void:
             break
     check(reached_windup,"First enemy offers another readable attack without resetting its AI")
     Input.action_press("move_left")
-    await frames(18)
+    # The curl advances about 25 pixels and needs a longer retreat than a bite.
+    await frames(24)
     release()
     var reached_recovery := false
     for i in 40:
@@ -179,7 +184,7 @@ func _healing_and_duel() -> void:
     await frames(1)
     Input.action_release("heal")
     await frames(54)
-    check(player.hp==hp_before+1 and healing_events==["started","completed"],"Retreat then heal completes in the actual damage-enabled recovery window")
+    check(player.hp==hp_before+1 and healing_events==["started","completed"],"Retreat then heal completes in actual recovery: hp=%d->%d events=%s enemy=%s player=%s" % [hp_before,player.hp,healing_events,enemy.state,player.global_position])
     enemy.queue_free()
     await frames(4)
     player.respawn_at(Vector2(1000,3612))
@@ -281,5 +286,9 @@ func _first_court() -> void:
     check(world.player.camera_focus.active_lock=="boss_arena","Production Boss seal overrides first-court room view")
     world._set_boss_arena_locked(false)
     check(world.player.camera_focus.active_lock=="exploration_room","Production seal release restores first-court room view")
+    world._set_boss_arena_locked(true)
+    world.player.respawn_at(Vector2(350,3400))
+    check(world.player.camera_focus.active_lock=="exploration_room" and world.player.room_camera.current.id=="entry_bell","Actual respawn signal clears Boss event and selects the recovery room")
+    check(camera.get_screen_center_position().distance_to(world.player.global_position)<240,"Respawn visible center is correct immediately, before a render tick")
     world.queue_free()
     await frames(4)
