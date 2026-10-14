@@ -40,6 +40,8 @@ func snapshot(host: Node) -> Dictionary:
 
 func preflight(path: String, entry: Vector2, prefetch: RefCounted = null) -> Dictionary:
     last_error = ""
+    if prefetch != null:
+        prefetch.cancel_config()
     if not entry.is_finite() or not FileAccess.file_exists(path):
         last_error = "目标位置或区域文件无效。"
         return {}
@@ -61,6 +63,10 @@ func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionar
 
 func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: Node) -> Dictionary:
     last_error = ""
+    # Foreground travel owns the shared reader from here. A discarded neighbor
+    # read may still run; the existing frame loop waits for it before request.
+    if prefetch != null:
+        prefetch.cancel_config()
     var wall_started := Time.get_ticks_usec()
     var json_started := Time.get_ticks_usec()
     last_transition["preflight_cursor"] = 0

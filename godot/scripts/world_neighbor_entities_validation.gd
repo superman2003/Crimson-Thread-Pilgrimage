@@ -134,7 +134,7 @@ func _warm(pref: RefCounted) -> void:
         pref.step(scene, 0.25)
         _check(pref.entity_releases - released <= 2 and pref.snapshot().owned_bodies <= 48, "per-frame retirement and total ownership bounded")
         _check(pref.entity_builds - before <= 2, "per-frame build admission capped at two")
-        if not pref.entities.is_empty() and pref.entities.values().all(func(record): return record.pending.is_empty()) and pref.jobs.is_empty() and pref.queue.is_empty():
+        if not pref.entities.is_empty() and pref.configs.size() == pref.desired.size() and not pref.snapshot().config_pending and pref.entities.values().all(func(record): return record.pending.is_empty()) and pref.jobs.is_empty() and pref.queue.is_empty():
             return
         await process_frame
     _check(false, "warm cache finishes in bounded fixture time")

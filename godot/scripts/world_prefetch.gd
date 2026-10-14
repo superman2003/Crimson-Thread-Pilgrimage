@@ -8,6 +8,8 @@ const MAX_TERRAIN_POLYGONS := 6
 const MAX_ROCK_SHAPES := 32
 const MAX_POLYGON_POINTS := 256
 const GAMEPLAY := preload("res://scripts/world_gameplay_prefetch.gd")
+const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
+const MAX_CONFIG_OPERATIONS := 8
 var gameplay := GAMEPLAY.new()
 var rock_hits := 0
 var terrain_hits := 0
@@ -39,12 +41,27 @@ var cache_hits := 0
 var failures := 0
 var stale_results := 0
 var max_jobs_seen := 0
+var config_task: Dictionary = {}
+var config_validator: RefCounted
+var config_raw: Variant
+var config_cancellations := 0
+var config_validation_steps := 0
+var config_validation_batches := 0
+var last_config_operations := 0
+var max_config_operations := 0
+var max_config_step_usec := 0
+var config_operation_usec: Dictionary = {}
+var config_worker_usec := 0
+var config_bytes := 0
+var config_worker_is_main := true
 
 func step(host: Node, delta: float) -> void:
+    last_config_operations = 0
     if not is_instance_valid(host.player):
         return
     var started := Time.get_ticks_usec()
     if generation != host.world_loader.generation:
+        cancel_config()
         generation = host.world_loader.generation
         _clear_entities()
         desired.clear()
@@ -56,6 +73,9 @@ func step(host: Node, delta: float) -> void:
     if selection_elapsed >= 0.25:
         selection_elapsed = 0
         _select(host)
+    _invalidate_configs()
+    if not config_task.is_empty() and not _config_task_current():
+        cancel_config()
     gameplay.synchronize(desired, configs, generation)
     var retired := _retire_entities(started)
     gameplay.retire(started, 2 - retired)
@@ -80,32 +100,7 @@ func step(host: Node, delta: float) -> void:
             return
     if Time.get_ticks_usec() - started >= BUDGET_US:
         return
-    # One JSON read at most per frame; an individual read cannot be preempted.
-    for region_id in desired:
-        var candidate: Dictionary = desired[region_id]
-        if configs.has(region_id):
-            if configs[region_id].stamp == FileAccess.get_modified_time(candidate.path):
-                continue
-            _release_entities(region_id)
-            configs.erase(region_id)
-            retained.erase(region_id)
-            for index in range(queue.size() - 1, -1, -1):
-                if queue[index].region == region_id:
-                    queue.remove_at(index)
-        var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(candidate.path))
-        config_reads += 1
-        var prepared: Dictionary = host.world_loader.validate_config(parsed, candidate.path, candidate.entry)
-        if prepared.is_empty():
-            failures += 1
-            configs[region_id] = {"raw": {}, "stamp": FileAccess.get_modified_time(candidate.path)}
-        else:
-            configs[region_id] = {"raw": parsed, "prepared": prepared, "stamp": FileAccess.get_modified_time(candidate.path)}
-            var theme := String(parsed.get("art_theme", ""))
-            if theme == "moss_bell":
-                theme = "moss_cavern"
-            for filename in TEXTURES:
-                queue.append({"region": region_id, "path": "res://assets/sprites/flat_maps/%s/%s" % [theme, filename], "generation": generation, "stamp": configs[region_id].stamp})
-        break
+    _step_config(host, started)
     # Admission budget, not a guarantee that one engine operation takes <2ms.
     if not queue.is_empty() and jobs.size() < MAX_JOBS and Time.get_ticks_usec() - started < BUDGET_US:
         var job: Dictionary = queue.pop_front()
@@ -127,6 +122,114 @@ func step(host: Node, delta: float) -> void:
         gameplay.synchronize(desired, configs, generation)
         var built := _warm_entities(host, started)
         gameplay.warm(host, started, 2 - built)
+
+func _invalidate_configs() -> void:
+    for region_id in configs.keys():
+        var current := desired.has(region_id)
+        if current:
+            var candidate: Dictionary = desired[region_id]
+            var record: Dictionary = configs[region_id]
+            current = record.stamp == FileAccess.get_modified_time(candidate.path) and record.get("path", candidate.path) == candidate.path and record.get("entry", candidate.entry) == candidate.entry
+        if current:
+            continue
+        _release_entities(region_id)
+        configs.erase(region_id)
+        retained.erase(region_id)
+        for index in range(queue.size() - 1, -1, -1):
+            if queue[index].region == region_id:
+                queue.remove_at(index)
+
+func _config_task_current() -> bool:
+    if config_task.is_empty() or config_task.generation != generation or not desired.has(config_task.region):
+        return false
+    var candidate: Dictionary = desired[config_task.region]
+    return candidate.path == config_task.path and candidate.entry == config_task.entry and config_task.stamp == FileAccess.get_modified_time(config_task.path)
+
+func cancel_config() -> void:
+    if not config_task.is_empty():
+        # The loader owns and drains the shared reader. Discard never joins a
+        # running thread, and cannot erase a newer foreground ticket.
+        config_task.reader.discard(config_task.ticket)
+        config_cancellations += 1
+    config_task = {}
+    config_validator = null
+    config_raw = null
+
+func _step_config(host: Node, started: int) -> void:
+    if host.world_loader.phase != "idle" or host.world_loader.shutting_down:
+        cancel_config()
+        return
+    if config_task.is_empty():
+        var reader: RefCounted = host.world_loader.config_read_job
+        if reader.busy():
+            return
+        for region_id in desired:
+            if configs.has(region_id):
+                continue
+            var candidate: Dictionary = desired[region_id]
+            var ticket: int = reader.request(candidate.path)
+            if ticket == 0:
+                return
+            config_task = {"region": region_id, "path": candidate.path, "entry": candidate.entry,
+                "stamp": FileAccess.get_modified_time(candidate.path), "generation": generation,
+                "reader": reader, "ticket": ticket}
+            config_reads += 1
+            # Even an already completed tiny read is observed on a later frame.
+            return
+        return
+    if config_validator == null:
+        if config_task.reader.busy():
+            return
+        var read: Dictionary = config_task.reader.take(config_task.ticket)
+        config_worker_usec += int(read.get("worker_usec", 0))
+        config_bytes += int(read.get("bytes", 0))
+        config_worker_is_main = bool(read.get("worker_is_main", true))
+        if not String(read.get("error", "失效票据")).is_empty():
+            _publish_config({})
+            return
+        if int(read.get("stamp", -1)) != config_task.stamp:
+            cancel_config()
+            return
+        config_raw = read.get("raw")
+        config_validator = CONFIG_VALIDATOR.new()
+        config_validator.begin(config_raw, config_task.path, config_task.entry)
+    # This is an admission budget shared with retirement, textures and prefab
+    # warming. A validator step (including route overlay) is not preemptible.
+    while not config_validator.done and last_config_operations < MAX_CONFIG_OPERATIONS and Time.get_ticks_usec() - started < BUDGET_US:
+        var step_started := Time.get_ticks_usec()
+        config_validator.step()
+        var elapsed := Time.get_ticks_usec() - step_started
+        var operation := String(config_validator.operation_name)
+        config_operation_usec[operation] = int(config_operation_usec.get(operation, 0)) + elapsed
+        max_config_step_usec = maxi(max_config_step_usec, elapsed)
+        last_config_operations += 1
+        config_validation_steps += 1
+    if last_config_operations > 0:
+        config_validation_batches += 1
+        max_config_operations = maxi(max_config_operations, last_config_operations)
+    if config_validator.done:
+        _publish_config(config_validator.result)
+
+func _publish_config(prepared: Dictionary) -> void:
+    if not _config_task_current():
+        cancel_config()
+        return
+    var region_id := String(config_task.region)
+    var record := {"raw": {}, "stamp": config_task.stamp, "path": config_task.path, "entry": config_task.entry}
+    if prepared.is_empty():
+        failures += 1
+    else:
+        record.raw = config_raw
+        record["prepared"] = prepared
+        var theme := String(config_raw.get("art_theme", ""))
+        if theme == "moss_bell":
+            theme = "moss_cavern"
+        for filename in TEXTURES:
+            queue.append({"region": region_id, "path": "res://assets/sprites/flat_maps/%s/%s" % [theme, filename], "generation": generation, "stamp": record.stamp})
+    configs[region_id] = record
+    config_task = {}
+    config_validator = null
+    config_raw = null
 
 func _release_entities(region_id: String) -> void:
     if not entities.has(region_id):
@@ -322,11 +425,16 @@ func snapshot() -> Dictionary:
     for textures in retained.values():
         count += textures.size()
     return {"gameplay": gameplay.snapshot(), "rock_chunks": rocks, "terrain_polygons": polygons, "rock_hits": rock_hits, "terrain_hits": terrain_hits, "retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
+        "config_pending": not config_task.is_empty(), "config_phase": "idle" if config_task.is_empty() else ("reading" if config_validator == null else "validating"),
+        "config_cancellations": config_cancellations, "config_validation_steps": config_validation_steps, "config_validation_batches": config_validation_batches,
+        "last_config_operations": last_config_operations, "max_config_operations": max_config_operations, "max_config_step_usec": max_config_step_usec,
+        "config_operation_usec": config_operation_usec.duplicate(), "config_worker_usec": config_worker_usec, "config_bytes": config_bytes, "config_worker_is_main": config_worker_is_main,
         "regions": configs.size(), "textures": count, "jobs": jobs.size(), "queued": queue.size(),
         "config_reads": config_reads, "cache_hits": cache_hits, "failures": failures,
         "stale_results": stale_results, "max_jobs": max_jobs_seen, "generation": generation}
 
 func shutdown() -> void:
+    cancel_config()
     # Only whole-journey teardown may wait for the <=2 outstanding jobs.
     # Godot has no threaded-load cancellation; drain requests to release them.
     for job in jobs:
