@@ -6,7 +6,7 @@
 
 本分支只增加独立工具、导出预设和交付文档。没有更改运行控制器、World、配置校验/加载器、存档、输入设置、既有 Godot 验证脚本或现有 CI；不叠加 PR #35/#36，不合入 main。
 
-按用户 2026-10-14 的分工，CI 整合留给另一 agent。`tools/release-candidate.workflow.yml` 是**未启用草案**，不会触发工作流；待协调后才能移入 `.github/workflows/release-candidate.yml`。草案用两个原生 runner，只有各平台实际启动通过才上传候选包；不会创建 GitHub Release、打标签或部署。
+按用户 2026-10-14 的分工，CI 已接入 `.github/workflows/release-candidate.yml`，对相关 PR 和 main 的变更执行 Linux/Windows 双原生 runner 检查。工作流只上传候选包和日志，不创建 GitHub Release、打标签或部署。
 
 ## 已实现
 
@@ -54,7 +54,7 @@ python tools/build_release.py --target windows --engine C:/Godot/Godot_v4.6.1-st
 
 ## 2026-10-14 本地验证记录
 
-- 最终工具版本来自本地提交 `3fbfd20db7b1c38dfca2656f758b30bc9179d5c4`；远端等价提交 `c049a991aa7f444fba39279450bb2ebf5201aadd` 的 Git tree 同为 `605b19c8af35bd24b6955f406b248b450e08592e`。后续仅补充本验证记录。
+- 最终工具版本来自本地提交 `3fbfd20db7b1c38dfca2656f758b30bc9179d5c4`；远端等价提交 `c049a991aa7f444fba39279450bb2ebf5201aadd` 的 Git tree 同为 `605b19c8af35bd24b6955f406b248b450e08592e`。后续仅补充本验证记录；CI 工作流启用提交为本分支后续提交。
 - `python tools/test_release_builder.py` 的 15 项测试通过；`npm test` 与 `npm run test:campaign` 通过。
 - 官方 Godot 4.6.1 Linux 编辑器和匹配导出模板经过官方 SHA512 清单核验。最终构建完成导入、导出、引擎许可采集和真实 Linux release 二进制两次独立启动，相关日志未发现 ERROR。
 - 本地开发 ZIP 为 `CrimsonThreadPilgrimage-linux-3fbfd20db7b1.zip`，447,799,226 字节。构建开始时工作树曾有未跟踪的工作流草案副本，因此清单如实标为 `source_dirty=true`；该副本后来移出工作树，未提交或启用。不将此开发包称为 clean checkout 正式候选。
