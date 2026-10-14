@@ -25,6 +25,13 @@ DESIGNS = {
 }
 PHASES = ['notice','focus','locked']
 
+def assert_same_visible_rgba(actual, expected):
+ """Ignore hidden RGB at alpha zero, but compare every visible channel exactly."""
+ assert actual.size == expected.size
+ assert actual.getchannel('A').tobytes() == expected.getchannel('A').tobytes()
+ for left, right in zip(actual.getdata(), expected.getdata()):
+  assert left[3] == 0 or left == right
+
 def path(d, color, width, opacity=1):
  return f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{width}" opacity="{opacity}" stroke-linejoin="round" stroke-linecap="round"/>'
 
@@ -97,7 +104,7 @@ for p in sorted((OUT/'frames').glob('*.png'))+sorted((OUT/'sheets').glob('*.png'
  if p.parent.name=='sheets':
   for i,phase in enumerate(PHASES):
    expected=Image.open(OUT/'frames'/f'{p.stem.removesuffix("_sheet")}_{phase}.png').convert('RGBA')
-   assert im.crop((128*i,0,128*(i+1),128)).tobytes()==expected.tobytes()
+   assert_same_visible_rgba(im.crop((128*i,0,128*(i+1),128)), expected)
  report.append({'file':str(p.relative_to(ROOT)),'size':list(im.size),'alpha_range':list(a.getextrema()),'content_bbox':list(bbox),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
-(DOC/'validation.json').write_text(json.dumps({'checks':'PNG decode, expected dimensions from manifest, alpha range, transparent corners, no border crop, atlas cell equality. Visual review recorded separately in README.','files':report},indent=2)+'\n')
+(DOC/'validation.json').write_text(json.dumps({'checks':'PNG decode, expected dimensions from manifest, alpha range, transparent corners, no border crop, atlas alpha and visible RGBA equality (hidden RGB at alpha zero ignored). Visual review recorded separately in README.','files':report},indent=2)+'\n')
 print('Built 9 SVGs, 9 transparent frames, 3 atlases, 2 review boards, manifest and validation.')

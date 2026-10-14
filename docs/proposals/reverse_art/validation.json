@@ -1,5 +1,5 @@
 {
-  "checks": "PNG decode, expected dimensions from manifest, alpha range, transparent corners, no vertical crop; three separate semantic silhouettes manually reviewed",
+  "checks": "PNG decode, expected dimensions from manifest, alpha range, transparent corners, no border crop, atlas alpha and visible RGBA equality (hidden RGB at alpha zero ignored). Visual review recorded separately in README.",
   "files": [
     {
       "file": "assets/proposals/reverse_art/frames/evade_focus.png",
