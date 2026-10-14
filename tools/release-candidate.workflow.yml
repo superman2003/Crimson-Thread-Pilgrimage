@@ -1,0 +1,123 @@
+name: Desktop release candidates
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-candidate.yml'
+      - 'tools/build_release.py'
+      - 'tools/test_release_builder.py'
+      - 'tools/release_engine_licenses.gd'
+      - 'godot/**'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - 'docs/RELEASE_PLAYER_GUIDE.md'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-candidate.yml'
+      - 'tools/build_release.py'
+      - 'tools/test_release_builder.py'
+      - 'tools/release_engine_licenses.gd'
+      - 'godot/**'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - 'docs/RELEASE_PLAYER_GUIDE.md'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-candidate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: linux
+            editor: Godot_v4.6.1-stable_linux.x86_64
+            template: linux_release.x86_64
+          - os: windows-2022
+            target: windows
+            editor: Godot_v4.6.1-stable_win64.exe
+            template: windows_release_x86_64.exe
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run release gate regression tests
+        run: python tools/test_release_builder.py
+      - name: Hydrate project assets, including addon themes
+        run: git lfs pull --include='godot/**'
+      - name: Install verified Godot editor and matching release template
+        env:
+          EDITOR_FILE: ${{ matrix.editor }}
+          TEMPLATE_FILE: ${{ matrix.template }}
+        run: |
+          python - <<'PY'
+          import hashlib, os, pathlib, urllib.request, zipfile
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'release-engine'
+          root.mkdir()
+          base = 'https://github.com/godotengine/godot/releases/download/4.6.1-stable/'
+          sums = urllib.request.urlopen(base + 'SHA512-SUMS.txt').read().decode()
+          hashes = {line.split()[-1]: line.split()[0] for line in sums.splitlines() if line.strip()}
+          def download(name):
+              path = root / name
+              urllib.request.urlretrieve(base + name, path)
+              with path.open('rb') as source:
+                  digest = hashlib.file_digest(source, 'sha512').hexdigest()
+              if digest != hashes[name]:
+                  raise RuntimeError('Official SHA512 mismatch: ' + name)
+              return path
+          editor = os.environ['EDITOR_FILE']
+          archive = editor + '.zip'
+          with zipfile.ZipFile(download(archive)) as z:
+              binary = root / editor
+              binary.write_bytes(z.read(editor))
+              binary.chmod(0o755)
+          if os.name == 'nt':
+              data = pathlib.Path(os.environ['APPDATA']) / 'Godot'
+          else:
+              data = pathlib.Path(os.environ.get('XDG_DATA_HOME', str(pathlib.Path.home() / '.local/share'))) / 'godot'
+          templates = data / 'export_templates/4.6.1.stable'
+          templates.mkdir(parents=True, exist_ok=True)
+          template = os.environ['TEMPLATE_FILE']
+          with zipfile.ZipFile(download('Godot_v4.6.1-stable_export_templates.tpz')) as z:
+              path = templates / template
+              path.write_bytes(z.read('templates/' + template))
+              path.chmod(0o755)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as env:
+              env.write('GODOT=' + str(binary) + '\n')
+          PY
+      - name: Build and boot the actual release on its target OS
+        run: python tools/build_release.py --target '${{ matrix.target }}' --output dist/releases
+      - name: Upload validated candidate (no public Release is created)
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-candidate-${{ matrix.target }}-${{ github.sha }}
+          path: |
+            dist/releases/*.zip
+            dist/releases/*.sha256
+          if-no-files-found: error
+          retention-days: 14
+      - name: Preserve export and player logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-candidate-logs-${{ matrix.target }}-${{ github.sha }}
+          path: dist/releases/*-logs/
+          if-no-files-found: ignore
+          retention-days: 14
