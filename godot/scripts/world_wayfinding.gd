@@ -100,10 +100,13 @@ func _draw() -> void:
             _icon("lock" if gate_state == "far_side" else "ability",c+Vector2(0,39),0.65)
     if nearby and not key_hint.is_empty():
         var font := ThemeDB.fallback_font
-        var width := font.get_string_size(key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,14).x
+        # Small scene signs keep their interaction key at a readable size.
+        var text_scale := 1.0 / maxf(0.1, minf(scale.x, scale.y))
+        var font_size := ceili(14 * text_scale)
+        var width := font.get_string_size(key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
         var anchor := c+Vector2(-width/2,-44)
-        draw_style_box(_key_box(),Rect2(anchor-Vector2(6,16),Vector2(width+12,23)))
-        draw_string(font,anchor,key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,14,INK)
+        draw_style_box(_key_box(),Rect2(anchor-Vector2(6,16)*text_scale,Vector2(width+12*text_scale,23*text_scale)))
+        draw_string(font,anchor,key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
 
 func _key_box() -> StyleBoxFlat:
     var box := StyleBoxFlat.new()

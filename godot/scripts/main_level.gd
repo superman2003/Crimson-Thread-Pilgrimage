@@ -1021,6 +1021,7 @@ func _process(_delta: float) -> void:
         if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position):
             last_safe_ground = player.global_position
         _update_room_visit()
+        _update_first_journey_hint()
         if active_overlay == "map":
             _refresh_map_overlay()
 
@@ -1250,6 +1251,43 @@ func _show_first_interaction_hint(area: Area2D) -> void:
     _toast(String(hints[kind]))
     _save_world()
 
+
+func _update_first_journey_hint() -> void:
+    if not bool(config.get("first_journey_teaching", false)) or world_loading or not active_overlay.is_empty() or not is_instance_valid(ui_shell):
+        return
+    if not player.is_on_floor() or not player._can_start_action() or player.land_timer > 0.0 or ui_shell.toast_age < 5.5:
+        return
+    var lesson := ""
+    var text := ""
+    if current_room_id == "entry_bell" and player.global_position.x >= 340 and not bool(story_flags.get("tutorial_action_seen_jump", false)):
+        lesson = "jump"
+        text = "按 %s 跳跃；提前松开可跳得更低。" % ui_shell._short_binding("jump")
+    elif current_room_id == "moss_descent" and not bool(story_flags.get("tutorial_action_seen_attack", false)):
+        lesson = "attack"
+        text = "按 %s 挥刃，命中敌人可回充绯线。" % ui_shell._short_binding("attack")
+    elif player.hp < player.max_hp and player.energy >= player.heal_energy_cost and absf(player._move_axis()) < 0.1 and not bool(story_flags.get("tutorial_action_seen_heal", false)):
+        if not _first_journey_heal_safe():
+            return
+        lesson = "heal"
+        text = "站稳后按 %s 缝补；移动或受击会打断。" % ui_shell._short_binding("heal")
+    if lesson.is_empty():
+        return
+    story_flags["tutorial_action_seen_" + lesson] = true
+    _toast(text)
+    _save_world()
+
+
+func _first_journey_heal_safe() -> bool:
+    if _ground_is_hazardous(player.global_position) or is_instance_valid(boss_arena_lock_body):
+        return false
+    for enemy in get_tree().get_nodes_in_group("enemy"):
+        if not is_instance_valid(enemy) or enemy.get_parent() != self or enemy.dying or not enemy.world_residency_active():
+            continue
+        var distance: Vector2 = enemy.global_position - player.global_position
+        if absf(distance.y) < 150 and absf(distance.x) < 320:
+            return false
+    return true
+
 func _add_wayfinding(area: Area2D) -> void:
     if area.has_node("Wayfinding"):
         return
@@ -1262,6 +1300,7 @@ func _add_wayfinding(area: Area2D) -> void:
     if kind == "world_portal":
         marker.configure_portal(area.get_meta("world_portal_data", {}), String(config.id))
         marker.position.y = 20
+        marker.scale = Vector2(0.65, 0.65)
         marker.z_index = -1
     else:
         marker.visible = false
@@ -1285,6 +1324,9 @@ func _make_world_portal(data: Dictionary) -> Area2D:
     area.add_child(shape)
     var arch := Line2D.new()
     arch.name = "WorldPortalArch"
+    # Route status belongs on the physical sign; the old luminous outline
+    # duplicates it and makes each old connection look like a magic portal.
+    arch.visible = false
     arch.width = 5.0
     arch.default_color = Color(0.40, 0.80, 0.88) if _world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
     for index in range(17):
@@ -3536,6 +3578,7 @@ func _configure_player_camera() -> void:
     if camera == null:
         return
     player.configure_camera_focus(Rect2(-40, -120, world_width + 120.0, world_height + 190.0))
+    player.configure_room_camera(config.get("map_rooms", []))
     if is_instance_valid(boss_arena_lock_body):
         _lock_boss_camera()
     var feel := get_node_or_null("/root/FeelKit")
@@ -5977,6 +6020,9 @@ func _on_player_respawned() -> void:
         chapter_terrain.warm_focus(player.global_position)
     death_recorded = false
     _reset_encounters_after_player_death()
+    # Respawn first removes the old Boss event lock. Recompute the visible
+    # center after that release, before the next rendered frame.
+    player.reset_camera_after_arrival()
     _save_world()
 
 

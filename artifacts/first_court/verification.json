@@ -1,0 +1,645 @@
+{
+  "pr": 49,
+  "base_main": "be47690efdaf1bf4ef0eeadad70c4676551d0e4f",
+  "parent_pr48": "d2376f7efe6b66ec9328ef7e231a4c080f2d3167",
+  "initial_feature_commit": "ee20b913a386971382646df30cf8f5468e6d6fe9",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa 25.2.8 llvmpipe OpenGL 4.5",
+  "targeted": {
+    "first_court_experience": {
+      "checks": 173,
+      "failures": 0,
+      "fixture_scope": "real input and local damage; configured spawn/hp/energy"
+    },
+    "camera_focus": 86,
+    "player_action_buffer": 32,
+    "ch01_room_reconstruction": 65,
+    "world_host": 539
+  },
+  "full_regressions": {
+    "suites": 75,
+    "status": "all_final_suite_results_passed",
+    "final_failed_suites": 0,
+    "initial_sequence": {
+      "suites": 75,
+      "failures": 3,
+      "failed_suites": [
+        "all_chapters_demo",
+        "pilgrimage_overhaul",
+        "first_court_experience"
+      ]
+    },
+    "corrected_suites": [
+      "all_chapters_demo",
+      "pilgrimage_overhaul",
+      "first_court_experience"
+    ],
+    "results": [
+      {
+        "suite": "world_rim",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "bc5b02922476acd8a71d886490c2a4fed2d77cf3bb999fe3247d87c17a0795b6",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_wayfinding",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "206fab486f8c8212b8f861b847d20c810e2e30708e2fc5f678106acd07c28794",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_passage",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "97c7e2433a4c6367df5fb29461502e5c8ba4990c52830df3ecae08b85fdf360d",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "audio_retirement",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "3448771832f039c57dc131afabdf3c280bcbe9bc1ff870e6f2b669ea30ecca75",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_neighbor_collision",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "0abb07e6ead68c46ad0f173dd584d617329f422279fc9b314e591b6254a171c9",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_neighbor_entities",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "27aa756517fc3e477125ff0344f8a92e03c548ea88b25dc3788949acfafe95c9",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_neighbor_gameplay",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "105421044fd76afa2f9bdd24d8747261f5b7043498eb90801a711334553371f2",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_neighbor_gameplay_live",
+        "status": "passed",
+        "verification_run": "respawn-final",
+        "log_sha256": "ac13b418bfd1d40f71efbf8c10c3562bf8acafdfb42772bd9917d1d3522c4c78",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_neighbor_gameplay_stress",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "d332c887818fc6667c8136aabf168bcb9288cf5f370a6b560753f99eb89776df",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "terrain_collision_streaming",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "446faba41bc889e8ce23d1be4756979a72800f34118da8dad5d3bcec38cb4463",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_platform_streaming",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "695d4b084f5220c4810dd4551dbb3cad46ac05f294660df18352a17b5b3494df",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "cave_collision_streaming",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "db9a81aba6993a0356360c7209e72ba45d109aeab8e80170f4f6ef4de584fb44",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_async_loading",
+        "status": "passed",
+        "verification_run": "respawn-final",
+        "log_sha256": "2ad7659695f3bb640d8e501377ae80bb0b9d29dedd3577916362b126ad8209d7",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_streaming",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "0d104abafbda63a624356f2b8dd5304234b61e04395ba88bc840d8d86cc357d2",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_host",
+        "status": "passed",
+        "verification_run": "respawn-final",
+        "log_sha256": "4ce803057d0c514271d4f858156816f8c14f5b44e43edb9302e109ecaed1a82c",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_coordinates",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_interaction_residency",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b004301562421a7db2cffffc76e668a5d5ba2ce8a632133c34c0af15e5ce895e",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_enemy_residency",
+        "status": "passed",
+        "verification_run": "respawn-final",
+        "log_sha256": "8c6414a1cb866881034e52e08be60a1cd139371ba74a9d17b3ebf50ea5721c57",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "cartography",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "4948d367c38cf0cd14db690686618926193d5c570dfb30b4144e038d55fe5dcf",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_map",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "5dba07d9aa3d4f9e2f207116bc37cc90dfff57003c5c54674f0eea69c6c9d6f2",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_route_access",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "5a78428f8f0cdc9dde959f06ba616be5d1e8708fecb36f52929d27f6d35c0a3f",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_state",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_integration",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "3bfa09d5b2d45f08e3a6e80169f2d41385dfca7ac54ab7bbf7751cf28446eb60",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_route_walk",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "7213451af0637d8b80c028a89097c90191a9ff7e0264b1f73217bfc8a44963c1",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "ability_movement",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "8f157f166f98ec12f5dcef9fbf2e5f66147b9a2bb69a027823c3679aa509a170",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "enemy_lifecycle_regression",
+        "status": "passed",
+        "verification_run": "dual-move-final",
+        "log_sha256": "383196c992d5c769d5ab130b40c65febeb404c4fd8dee8285f92fc7e4af321e8",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "enemy_effect_lifetime",
+        "status": "passed",
+        "verification_run": "dual-move-final",
+        "log_sha256": "2fa9637a5b185f8a2156f48d9e01d2b8335b63ff4f487e7f1376bcfb3c0fef6c",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "enemy_visibility",
+        "status": "passed",
+        "verification_run": "dual-move-final",
+        "log_sha256": "4dc79146364827b262ad45e4db91edb4553c848d52d5af8376b7e36ec1de0e69",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_material",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b965a5a364606a4068dda998e693390f9170773d4df93e4181681a6e33ad7f6d",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "hero_animation",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "9eca37c3e6e5d8880ffb9ee66c07cec53c4d6ef15a023d89247ef818a8fd8cec",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "cave_exploration",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b9b9f7956e3be1514c569667a06680efb5bcb98e109c299adfedc7a1523d3bd1",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "cave_route_walk",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "40b77948a01b3e8a98b0de56994b425bf128307ed17ecf64dd8396ab33e4ff02",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "chapter_route_regression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "0c1d5a9ca2b41664ff1ff92ec8b7da9883e921e6a35ddef67ba7ab542c721398",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "ch01_room_reconstruction",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "89ab105b05efc836ebf52db72d95d2def4f2e36e5b0f5b91098d3a90be5d6496",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "pilgrimage_merge_regression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "6d6d43fd3cc51ad7ed8fa36bf97742e74362ca02a93d65c931edbfd41df70531",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "pilgrimage_review_regression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "c62e11212c024745cc075e517419e66066f716800f93850985b9179fc1cfc6bb",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "all_chapters_demo",
+        "status": "passed",
+        "verification_run": "dual-move-final",
+        "log_sha256": "55663922a27974447b5743aad8ea010bb63b378b9c4695a41c4de3683f906aa6",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "pilgrimage_overhaul",
+        "status": "passed",
+        "verification_run": "dual-move-final",
+        "log_sha256": "6dd8e863bcddcabef0abf8e4239ad0e1224dcb41db2508f691acfac399c51a81",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "demo",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "8d1d9bb1c6a15e249158111588734130277b1f5772ef73e47c735283a0ebce4d",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "ch02_demo",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "fedc58a4d34c96714d57a3c7fe722af7cd891e5f014653481c7177028460860b",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "inventory_map",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "344812a8febbc5ffcfcf7d33e8108b929c2ee7eb9ac0fa50447d5d35018daa34",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "boss_trial",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "70790236317723deeca4e40f1d9deb0659ce4171f200141a3c7353f2460c5157",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "combat",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "26448ac97b64457b57ebcd172ad82edfa3c3198e1d597d0e306d7bfcdb7f41c7",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "generated_runtime",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "a9f8386cd85f436d267317d10ea0d298ea936551d3710c422263022de3223b1e",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "chapter_registry",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "ac15b1e413b23b3f36823e8c9b8fbfc1818a40b9d2e63390cf85af0b76ac173a",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "story_guidance",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "f7d94f9532e529aabb2b4d4cff9bf165b387d7ef40a11b222bc5761e7c914323",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "chinese_story",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "60e019604817865598721426634a1415d31c34213f315a3aae122253c8c56a69",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "metsys",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "df31b7be25ef818264e413c5e23e76be6d6c15d9ae44af5cd85ede5985acac14",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "player_upgrade_regression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "11077cd9d943a9d93704a28d7f9dc1c47cb096fceff34e9e5f7fab3a858e3094",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "build_system",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "72b462d2a8e327913d5791c4756252ded3b641687bb35aa2db69d5b731c64c58",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_upgrade",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "69072530aed34ba5abca9d2e2da7772fff34a3002c874e05f43ceedf28c761ce",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "upgrade_integration",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b68503982f6ebc9fdde2eba1648423ef9003684fd8f5c009095789cef1d03b74",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "save_product",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "ui_build_accessibility",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "ui_world_integration",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "ui_redesign",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "1b80a37f0fcf10c305b8c39afa589ea48f12eaa6078278a9e5e151db8ac3b2b6",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "seal_system",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "cef83dc87e57ceb962bbf25848922c149d2d36bf5748cac6860c8afd53d62f80",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "seal_combat",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "1dea116e2a42f87ff23febecb37b06a8675784da4384994079c5ec41fd8b5224",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "seal_ui",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "516dca908abd34d42fc9a970f558382b3eb6d1a83cd9051e82c4b61fc9b6a4ea",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "seal_acceptance",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "32dc6c24d16dad94663f9a28bd348de3bbfbed11761e4298188399fdf9386da3",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "seal_acquisition",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "6823ea325dac404eb1aa8c9323a547d40bc4041c13301cc61c11edc2e918104f",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "seal_presentation",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "f45c6b6770a8b3736a5764539d7b5eca9ffbfe1615570a10f3103c2049a8c984",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_prepare_budget",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "13f7339c1846a4eca1e37ae536532fb709fc2ac30e5f5b3e562e1c9f6c13e869",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_preflight_budget",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "33bda4d71c10a2cf5ce510d64cb5f989329f4f6eb82cfef651f0e30838ecc133",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "world_resume_regression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "ae6afae9892882c4c74feab566c91aaf69fad393e5bfd556e05a3c4c7fe714e1",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "world_interaction_safety",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "44b06997a2b296ba34f5c8ad8b5ac209934569daaf442b445dec61a67b00c8b3",
+        "objectdb_warning": true
+      },
+      {
+        "suite": "player_state_cleanup",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b747edd5c6f5b74d7c63e2704f03f71ed5df4b116634abca240e2a3d4327e411",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "input_settings_regression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "b631720b5ec49a8e6e262d37da780f1c4b018ddd37a56f3777bf2c21022b50e2",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "player_action_buffer",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "564f5ff35d7eea86b33b6d346961ffdc32b91f6e25f408e838843c4682a3c49e",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "camera_focus",
+        "status": "passed",
+        "verification_run": "respawn-final",
+        "log_sha256": "6a94e3200c329f25b6b9cd60bc04e00a4660b92d552d395908e6c0cc191420e7",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "first_court_experience",
+        "status": "passed",
+        "verification_run": "final-experience",
+        "log_sha256": "0ffc13b1ee474340173bc536ab3d1b6980cf5a911749a842138c7dfddee76344",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "tests/verify_world_narrative",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "3ad61363b4f8f9b3b77d42bfc03e317b37f587e63851dbee98e7d20aa638dd53",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "tests/verify_narrative_ui",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "c40fe4dcce809317b59e0597059a1f7f63664920b3b4fcfc3ebc577b80a43228",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "tests/verify_narrative_progression",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8",
+        "objectdb_warning": false
+      },
+      {
+        "suite": "tests/verify_narrative_runtime",
+        "status": "passed",
+        "verification_run": "full-final",
+        "log_sha256": "816a1a409402febcdde1b94184220ae81bf45ac616bccc37d6b18098afc3aa7e",
+        "objectdb_warning": true
+      }
+    ]
+  },
+  "resource_import": {
+    "mode": "recovery",
+    "passes": 2,
+    "errors": 0,
+    "editor_plugins_verified": false
+  },
+  "ordinary_editor_import": "failed in this environment; Vulkan extension and shutdown RID errors retained",
+  "npm_test": "passed",
+  "campaign": "passed",
+  "source_sha256": {
+    "godot/scripts/room_camera.gd": "93ca8c894d9c64de797bafe005e7dbaa48b8a2f8a58e80a3855ccb3b75fbeb83",
+    "godot/scripts/camera_focus.gd": "4126853678a77b799cef7b19686a3bfe1a95441d2f490b1cf565476ff4ed1a36",
+    "godot/scripts/player_controller.gd": "ceca1907440553226bfe9f672eb42bd9c07a91e962a03a5edc03f675a18c460c",
+    "godot/scripts/main_level.gd": "ee6f25f8d56a9155a2d194745ab009ee710ea66494e4d9eb50247d8638d3ee20",
+    "godot/scripts/enemy_actor.gd": "3030540b87b72f94979253ea5890189936f93d6d084be00a01b694b73dce1d2d",
+    "godot/scripts/world_wayfinding.gd": "3b8e9182e92caf706a973108b3e7e81a82e26cacececd2885155743a707a5ae4",
+    "godot/scripts/first_court_experience_validation.gd": "d5f86e61bbc32c7b0d4cd7bdad20aee3d061ea0ee1c69a30ba9a21049b5d3def",
+    "godot/data/demo_ch01_moss_bell_court.json": "6fe3477bc108bf42f3ff8c171a28d622190876451842f6c294e13cfe2bf8c9e8",
+    "tools/run_godot_regressions.py": "300ef02267e802e3732ab7e25e9848e09c7d1c79bafca72a8a97a65d66b036c5"
+  },
+  "screenshots": [
+    {
+      "path": "artifacts/first_court/entry.webp",
+      "sha256": "5d5495db8fc5d8f30d4afcd88e6c2667daec0a25a39e5e69f3004618f7b8721c",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/first_duel.webp",
+      "sha256": "d8f85858af08bd424c936ed7873a2a957049fc4b06b59a3c80f64b78781f74b4",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/hub.webp",
+      "sha256": "da9829f282493e7ba346fa459f1a75aada4f5de0811e887467529ce742d60dbe",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/pre_boss.webp",
+      "sha256": "a41ef4dbbce5feb390fc8e20e94e09a592449753eded55fca9a483900b4cd8f6",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/shrine.webp",
+      "sha256": "194054259e565c932d818f76087ea9a23a11b693ba6b790e0cccb6138ab4f50c",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "remaining": [
+    "Other five regions and upgrade workshops room framing",
+    "Natural damage-enabled first-court and six-region completion",
+    "Long-duration memory and audio stability"
+  ],
+  "coverage_note": "The full sequence began with the room/sign implementation. Respawn center refresh was added during the sequence; five recovery suites plus first-court were rerun after it. E01 was restored to two readable species moves after two old breadth assertions failed; both failed suites and enemy lifecycle/effects/visibility were rerun. The first-court fixture now retreats far enough for the curl and observes a fresh windup; its final 173 checks passed. Final result is the latest passing result of all 75 distinct suites, not a single zero-failure initial run.",
+  "post_respawn_suites": [
+    "first_court_experience",
+    "camera_focus",
+    "world_host",
+    "world_neighbor_gameplay_live",
+    "world_enemy_residency",
+    "world_async_loading"
+  ],
+  "post_dual_move_suites": [
+    "first_court_experience",
+    "all_chapters_demo",
+    "pilgrimage_overhaul",
+    "enemy_lifecycle_regression",
+    "enemy_effect_lifetime",
+    "enemy_visibility"
+  ],
+  "screenshots_capture_note": "Five paused views were captured before the later respawn callback and enemy timing adjustments; scene framing, route art, HUD bindings and actor visuals were unchanged by those adjustments."
+}

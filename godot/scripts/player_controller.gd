@@ -211,6 +211,8 @@ const FOOTSTEP_STRIDE := 88.0
 const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
 const CAMERA_FOCUS := preload("res://scripts/camera_focus.gd")
 var camera_focus := CAMERA_FOCUS.new()
+const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
+var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 
@@ -859,6 +861,9 @@ func cast_selected_skill(slot: int = -1) -> bool:
 func _try_heal() -> bool:
     if not _can_start_action() or heal_cooldown > 0.0 or hp >= max_hp or energy < heal_energy_cost or not is_on_floor():
         return false
+    # Reject an already incompatible input before reserving any resource.
+    if absf(_move_axis()) > 0.1 or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"):
+        return false
     _clear_action_buffer()
     gain_energy(-heal_energy_cost)
     heal_reserved_cost = heal_energy_cost
@@ -1038,6 +1043,7 @@ func _update_camera(delta: float) -> void:
     var camera := get_node_or_null("Camera2D") as Camera2D
     if camera == null:
         return
+    room_camera.update(camera_focus, global_position, delta)
     # Feet remain in view during falls; world-owned limits and zoom are preserved.
     var strength := clampf(float(_accessibility().get("camera_lookahead", 1.0)), 0.0, 1.0)
     var look_up := Input.is_action_pressed("aim_up")
@@ -1053,6 +1059,15 @@ func configure_camera_focus(bounds: Rect2) -> void:
     var camera := get_node_or_null("Camera2D") as Camera2D
     if camera != null:
         camera_focus.configure(camera, bounds)
+        room_camera.configure([], camera_focus)
+
+
+func configure_room_camera(rooms: Array) -> void:
+    room_camera.configure(rooms, camera_focus)
+    room_camera.update(camera_focus, global_position)
+    var camera := get_node_or_null("Camera2D") as Camera2D
+    if camera != null:
+        camera_focus.apply_limits(camera)
 
 
 func push_camera_lock(id: String, bounds: Rect2, priority: int = 0, prevent_up: bool = false, prevent_down: bool = false) -> bool:
@@ -2052,6 +2067,8 @@ func reset_camera_after_arrival() -> void:
     camera_focus.clear_look()
     var camera := get_node_or_null("Camera2D") as Camera2D
     if camera != null:
+        room_camera.update(camera_focus, global_position)
+        camera_focus.apply_limits(camera)
         camera.position = Vector2(0, -55)
         camera.offset = Vector2.ZERO
         camera.rotation = 0.0

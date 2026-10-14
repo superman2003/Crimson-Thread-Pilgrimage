@@ -413,6 +413,11 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     var original_profile: Dictionary = ORIGINAL_ART.manifest("res://data/original_creature_combat.json").get(kind,{})
     if not original_profile.is_empty():
         ai_profile.merge(original_profile,true)
+    # Room pacing is an explicit spawn override, after the species identity.
+    # Tree-out prefabs and live actors use the same configure contract.
+    var encounter_profile: Variant = data.get("encounter_profile", {})
+    if encounter_profile is Dictionary:
+        ai_profile.merge(encounter_profile, true)
     locomotion = String(ai_profile.get("locomotion",data.get("locomotion","ground")))
     hover_height = float(ai_profile.get("hover_height",95)) if locomotion=="flight" else 0.0
     speed = float(ai_profile.get("move_speed",speed))
