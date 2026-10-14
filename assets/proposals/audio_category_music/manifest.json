@@ -1,0 +1,1612 @@
+{
+  "schema_version": 1,
+  "pack_id": "audio_category_music",
+  "kind": "music",
+  "title": "六城补全 · 战斗、安坐与见证候选音乐",
+  "items": [
+    {
+      "id": "ch01_combat_layer",
+      "title": "苔钟庭 · 交锋织层",
+      "region_id": "ch01",
+      "role": "combat_layer",
+      "bpm": 72,
+      "loop": true,
+      "description": "区域动机拆为节奏应答，保留探索曲调性与拍网；稀疏低声部，不要求运行时相位锁定。 与 reverse_music_v2/ch01_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch01_moss_bell_court_combat_layer.ogg",
+      "applicable_events": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "file": "audio/ch01_combat_layer.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 20.0,
+      "recommended_playback_gain_db": -6,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.5,
+        5.0,
+        7.5,
+        10.0,
+        12.5,
+        15.0,
+        17.5
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        5.0,
+        10.0,
+        15.0,
+        20.0
+      ],
+      "target_lufs": -24,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 960000
+    },
+    {
+      "id": "ch01_lullaby",
+      "title": "苔钟庭 · 钟龛息声",
+      "region_id": "ch01",
+      "role": "lullaby",
+      "bpm": 72,
+      "loop": true,
+      "description": "区域动机重写为慢呼吸问答；保留原拍网，移除战斗脉冲。 与 reverse_music_v2/ch01_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch01_moss_bell_court_shrine_lullaby.ogg",
+      "applicable_events": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "file": "audio/ch01_lullaby.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 20.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.5,
+        5.0,
+        7.5,
+        10.0,
+        12.5,
+        15.0,
+        17.5
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        5.0,
+        10.0,
+        15.0,
+        20.0
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 960000
+    },
+    {
+      "id": "ch02_combat_layer",
+      "title": "铸雨渠 · 交锋织层",
+      "region_id": "ch02",
+      "role": "combat_layer",
+      "bpm": 92,
+      "loop": true,
+      "description": "区域动机拆为节奏应答，保留探索曲调性与拍网；稀疏低声部，不要求运行时相位锁定。 与 reverse_music_v2/ch02_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_combat_layer.ogg",
+      "applicable_events": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "file": "audio/ch02_combat_layer.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 20.8695625,
+      "recommended_playback_gain_db": -6,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.608695652,
+        5.217391304,
+        7.826086957,
+        10.434782609,
+        13.043478261,
+        15.652173913,
+        18.260869565
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        5.217391304,
+        10.434782609,
+        15.652173913,
+        20.869565217
+      ],
+      "target_lufs": -24,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1001739
+    },
+    {
+      "id": "ch02_lullaby",
+      "title": "铸雨渠 · 钟龛息声",
+      "region_id": "ch02",
+      "role": "lullaby",
+      "bpm": 92,
+      "loop": true,
+      "description": "区域动机重写为慢呼吸问答；保留原拍网，移除战斗脉冲。 与 reverse_music_v2/ch02_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_shrine_lullaby.ogg",
+      "applicable_events": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "file": "audio/ch02_lullaby.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 20.8695625,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.608695652,
+        5.217391304,
+        7.826086957,
+        10.434782609,
+        13.043478261,
+        15.652173913,
+        18.260869565
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        5.217391304,
+        10.434782609,
+        15.652173913,
+        20.869565217
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1001739
+    },
+    {
+      "id": "ch03_combat_layer",
+      "title": "盐白书库 · 交锋织层",
+      "region_id": "ch03",
+      "role": "combat_layer",
+      "bpm": 60,
+      "loop": true,
+      "description": "区域动机拆为节奏应答，保留探索曲调性与拍网；稀疏低声部，不要求运行时相位锁定。 与 reverse_music_v2/ch03_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_combat_layer.ogg",
+      "applicable_events": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "file": "audio/ch03_combat_layer.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 32.0,
+      "recommended_playback_gain_db": -6,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        4.0,
+        8.0,
+        12.0,
+        16.0,
+        20.0,
+        24.0,
+        28.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        8.0,
+        16.0,
+        24.0,
+        32.0
+      ],
+      "target_lufs": -24,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1536000
+    },
+    {
+      "id": "ch03_lullaby",
+      "title": "盐白书库 · 钟龛息声",
+      "region_id": "ch03",
+      "role": "lullaby",
+      "bpm": 60,
+      "loop": true,
+      "description": "区域动机重写为慢呼吸问答；保留原拍网，移除战斗脉冲。 与 reverse_music_v2/ch03_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_shrine_lullaby.ogg",
+      "applicable_events": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "file": "audio/ch03_lullaby.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 32.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        4.0,
+        8.0,
+        12.0,
+        16.0,
+        20.0,
+        24.0,
+        28.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        8.0,
+        16.0,
+        24.0,
+        32.0
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1536000
+    },
+    {
+      "id": "ch04_combat_layer",
+      "title": "断弦温室 · 交锋织层",
+      "region_id": "ch04",
+      "role": "combat_layer",
+      "bpm": 58,
+      "loop": true,
+      "description": "区域动机拆为节奏应答，保留探索曲调性与拍网；稀疏低声部，不要求运行时相位锁定。 与 reverse_music_v2/ch04_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_combat_layer.ogg",
+      "applicable_events": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "file": "audio/ch04_combat_layer.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 45.51725,
+      "recommended_playback_gain_db": -6,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        5,
+        6,
+        5,
+        6,
+        5,
+        6,
+        5,
+        6
+      ],
+      "bar_start_seconds": [
+        0.0,
+        5.172413793,
+        11.379310345,
+        16.551724138,
+        22.75862069,
+        27.931034483,
+        34.137931034,
+        39.310344828
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        11.379310345,
+        22.75862069,
+        34.137931034,
+        45.517241379
+      ],
+      "target_lufs": -24,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 2184828
+    },
+    {
+      "id": "ch04_lullaby",
+      "title": "断弦温室 · 钟龛息声",
+      "region_id": "ch04",
+      "role": "lullaby",
+      "bpm": 58,
+      "loop": true,
+      "description": "区域动机重写为慢呼吸问答；保留原拍网，移除战斗脉冲。 与 reverse_music_v2/ch04_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_shrine_lullaby.ogg",
+      "applicable_events": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "file": "audio/ch04_lullaby.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 45.51725,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        5,
+        6,
+        5,
+        6,
+        5,
+        6,
+        5,
+        6
+      ],
+      "bar_start_seconds": [
+        0.0,
+        5.172413793,
+        11.379310345,
+        16.551724138,
+        22.75862069,
+        27.931034483,
+        34.137931034,
+        39.310344828
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        11.379310345,
+        22.75862069,
+        34.137931034,
+        45.517241379
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 2184828
+    },
+    {
+      "id": "ch05_combat_layer",
+      "title": "黑曜巡礼道 · 交锋织层",
+      "region_id": "ch05",
+      "role": "combat_layer",
+      "bpm": 100,
+      "loop": true,
+      "description": "区域动机拆为节奏应答，保留探索曲调性与拍网；稀疏低声部，不要求运行时相位锁定。 与 reverse_music_v2/ch05_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_combat_layer.ogg",
+      "applicable_events": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "file": "audio/ch05_combat_layer.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 19.2,
+      "recommended_playback_gain_db": -6,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12.0,
+        14.4,
+        16.8
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        4.8,
+        9.6,
+        14.4,
+        19.2
+      ],
+      "target_lufs": -24,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 921600
+    },
+    {
+      "id": "ch05_lullaby",
+      "title": "黑曜巡礼道 · 钟龛息声",
+      "region_id": "ch05",
+      "role": "lullaby",
+      "bpm": 100,
+      "loop": true,
+      "description": "区域动机重写为慢呼吸问答；保留原拍网，移除战斗脉冲。 与 reverse_music_v2/ch05_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_shrine_lullaby.ogg",
+      "applicable_events": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "file": "audio/ch05_lullaby.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 19.2,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.4,
+        4.8,
+        7.2,
+        9.6,
+        12.0,
+        14.4,
+        16.8
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        4.8,
+        9.6,
+        14.4,
+        19.2
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 921600
+    },
+    {
+      "id": "ch06_combat_layer",
+      "title": "无声王冠 · 交锋织层",
+      "region_id": "ch06",
+      "role": "combat_layer",
+      "bpm": 48,
+      "loop": true,
+      "description": "区域动机拆为节奏应答，保留探索曲调性与拍网；稀疏低声部，不要求运行时相位锁定。 与 reverse_music_v2/ch06_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_combat_layer.ogg",
+      "applicable_events": [
+        "enter_combat",
+        "exit_combat"
+      ],
+      "file": "audio/ch06_combat_layer.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 40.0,
+      "recommended_playback_gain_db": -6,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        5.0,
+        10.0,
+        15.0,
+        20.0,
+        25.0,
+        30.0,
+        35.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        10.0,
+        20.0,
+        30.0,
+        40.0
+      ],
+      "target_lufs": -24,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1920000
+    },
+    {
+      "id": "ch06_lullaby",
+      "title": "无声王冠 · 钟龛息声",
+      "region_id": "ch06",
+      "role": "lullaby",
+      "bpm": 48,
+      "loop": true,
+      "description": "区域动机重写为慢呼吸问答；保留原拍网，移除战斗脉冲。 与 reverse_music_v2/ch06_exploration 的音程与配器关联。",
+      "runtime_ids": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_shrine_lullaby.ogg",
+      "applicable_events": [
+        "engage_shrine",
+        "start_lullaby",
+        "stop_lullaby"
+      ],
+      "file": "audio/ch06_lullaby.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 40.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        5.0,
+        10.0,
+        15.0,
+        20.0,
+        25.0,
+        30.0,
+        35.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        10.0,
+        20.0,
+        30.0,
+        40.0
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1920000
+    },
+    {
+      "id": "final_mvt1",
+      "title": "王冠 · 封存",
+      "region_id": "ch06",
+      "role": "final_boss_movement",
+      "bpm": 72,
+      "loop": true,
+      "description": "第一乐章：D—降B空白动机与沉钟固定音。",
+      "runtime_ids": [
+        "silent_crown_core",
+        "set_boss_phase(1)"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt1.ogg",
+      "applicable_events": [
+        "silent_crown_core",
+        "set_boss_phase(1)"
+      ],
+      "file": "audio/final_mvt1.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667,
+        20.0,
+        23.333333333
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0,
+        26.666666667
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1280000
+    },
+    {
+      "id": "final_mvt2",
+      "title": "王冠 · 诸名相争",
+      "region_id": "ch06",
+      "role": "final_boss_movement",
+      "bpm": 72,
+      "loop": true,
+      "description": "第二乐章：五城动机交错进入，不同节奏构成证词冲突。",
+      "runtime_ids": [
+        "silent_crown_core",
+        "set_boss_phase(2)"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt2.ogg",
+      "applicable_events": [
+        "silent_crown_core",
+        "set_boss_phase(2)"
+      ],
+      "file": "audio/final_mvt2.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667,
+        20.0,
+        23.333333333
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0,
+        26.666666667
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1280000
+    },
+    {
+      "id": "final_mvt3",
+      "title": "王冠 · 未答之钥",
+      "region_id": "ch06",
+      "role": "final_boss_movement",
+      "bpm": 72,
+      "loop": true,
+      "description": "第三乐章：绯线下降句接管节奏，王冠双音以扩展时值反问。",
+      "runtime_ids": [
+        "silent_crown_core",
+        "set_boss_phase(3)"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt3.ogg",
+      "applicable_events": [
+        "silent_crown_core",
+        "set_boss_phase(3)"
+      ],
+      "file": "audio/final_mvt3.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667,
+        20.0,
+        23.333333333
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0,
+        26.666666667
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1280000
+    },
+    {
+      "id": "ending_a",
+      "title": "重鸣 · 名字仍在钟里",
+      "region_id": "global",
+      "role": "ending",
+      "bpm": 72,
+      "loop": false,
+      "description": "青铜重现苔钟庭动机，持续低音不解除旧契约；不是胜利大调。",
+      "runtime_ids": [
+        "ending_a",
+        "ending_a_done"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ending_a_rebell.ogg",
+      "applicable_events": [
+        "ending_a",
+        "ending_a_done"
+      ],
+      "file": "audio/ending_a.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667,
+        20.0,
+        23.333333333
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0,
+        26.666666667
+      ],
+      "target_lufs": -23
+    },
+    {
+      "id": "ending_b",
+      "title": "断冠 · 众声初醒",
+      "region_id": "global",
+      "role": "ending",
+      "bpm": 72,
+      "loop": false,
+      "description": "前半截断钟令，后半由分离的木笛与弦音回答；声音归还与黑潮代价并存。",
+      "runtime_ids": [
+        "ending_b",
+        "ending_b_done"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ending_b_severance.ogg",
+      "applicable_events": [
+        "ending_b",
+        "ending_b_done"
+      ],
+      "file": "audio/ending_b.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667,
+        20.0,
+        23.333333333
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0,
+        26.666666667
+      ],
+      "target_lufs": -23
+    },
+    {
+      "id": "ending_c",
+      "title": "绯线改写 · 自愿的守望",
+      "region_id": "global",
+      "role": "ending",
+      "bpm": 72,
+      "loop": false,
+      "description": "六区短句轮流回答同一绯线主题；最后六音共同收束，体现可退出的轮值。",
+      "runtime_ids": [
+        "ending_c",
+        "ending_c_done"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/ending_c_reweave.ogg",
+      "applicable_events": [
+        "ending_c",
+        "ending_c_done"
+      ],
+      "file": "audio/ending_c.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667,
+        20.0,
+        23.333333333
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0,
+        26.666666667
+      ],
+      "target_lufs": -23
+    },
+    {
+      "id": "bellway_transit",
+      "title": "钟道 · 候车的刻度",
+      "region_id": "global",
+      "role": "transit_loop",
+      "bpm": 80,
+      "loop": true,
+      "description": "苔钟庭钟音经盐页钢片音回答，六站交替但保持静候留白。",
+      "runtime_ids": [
+        "on_room_changed:transit"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/bellway_transit_loop.ogg",
+      "applicable_events": [
+        "on_room_changed:transit"
+      ],
+      "file": "audio/bellway_transit.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 18.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.0,
+        6.0,
+        9.0,
+        12.0,
+        15.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.0,
+        12.0,
+        18.0
+      ],
+      "target_lufs": -26,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 864000
+    },
+    {
+      "id": "bellway_depart",
+      "title": "离站 · 向下一声",
+      "region_id": "global",
+      "role": "transit_jingle",
+      "bpm": 80,
+      "loop": false,
+      "description": "离站为上行未决三音；到站为反向步进加主音停驻，非移调复用。",
+      "runtime_ids": [
+        "bellway_depart"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/bellway_depart_jingle.ogg",
+      "applicable_events": [
+        "bellway_depart"
+      ],
+      "file": "audio/bellway_depart.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 6.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.0
+      ],
+      "target_lufs": -23
+    },
+    {
+      "id": "bellway_arrive",
+      "title": "到站 · 落脚于此",
+      "region_id": "global",
+      "role": "transit_jingle",
+      "bpm": 80,
+      "loop": false,
+      "description": "离站为上行未决三音；到站为反向步进加主音停驻，非移调复用。",
+      "runtime_ids": [
+        "bellway_arrive"
+      ],
+      "existing_runtime_path": "res://assets/audio/bgm/generated/bellway_arrive_jingle.ogg",
+      "applicable_events": [
+        "bellway_arrive"
+      ],
+      "file": "audio/bellway_arrive.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 6.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.0
+      ],
+      "target_lufs": -23
+    },
+    {
+      "id": "bring_names_home",
+      "title": "把名字带回来",
+      "region_id": "global",
+      "role": "quest_theme",
+      "bpm": 72,
+      "loop": true,
+      "description": "雨渠切分经盐页逆行回到苔钟庭钟句；crimson印记在任务完成后授予。",
+      "runtime_ids": [
+        "npc_threadsmith_apprentice",
+        "npc_canal_child",
+        "npc_fugitive_scribe",
+        "bring_names_home",
+        "quest_bring_names_home_complete"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_threadsmith_apprentice",
+        "npc_canal_child",
+        "npc_fugitive_scribe",
+        "bring_names_home",
+        "quest_bring_names_home_complete"
+      ],
+      "file": "audio/bring_names_home.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 20.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.333333333,
+        6.666666667,
+        10.0,
+        13.333333333,
+        16.666666667
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.666666667,
+        13.333333333,
+        20.0
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 960000
+    },
+    {
+      "id": "root_rescue",
+      "title": "西门的灯",
+      "region_id": "ch04",
+      "role": "quest_theme",
+      "bpm": 70,
+      "loop": true,
+      "description": "玻璃长音间出现分段拨弦，结尾从半音束缚走向开放五度。",
+      "runtime_ids": [
+        "npc_root_prisoner",
+        "root_rescue",
+        "quest_root_rescue_complete"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_root_prisoner",
+        "root_rescue",
+        "quest_root_rescue_complete"
+      ],
+      "file": "audio/root_rescue.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 20.5714375,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.428571429,
+        6.857142857,
+        10.285714286,
+        13.714285714,
+        17.142857143
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.857142857,
+        13.714285714,
+        20.571428571
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 987429
+    },
+    {
+      "id": "wax_lamps",
+      "title": "补好检修灯",
+      "region_id": "ch04",
+      "role": "quest_theme",
+      "bpm": 88,
+      "loop": true,
+      "description": "蜂蜡工序以短长短拨弦交替，温室动机在第二句接合成完整回答。",
+      "runtime_ids": [
+        "npc_beeswax_vendor",
+        "wax_lamps",
+        "quest_wax_lamps_complete"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_beeswax_vendor",
+        "wax_lamps",
+        "quest_wax_lamps_complete"
+      ],
+      "file": "audio/wax_lamps.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 16.363645833333333,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.727272727,
+        5.454545455,
+        8.181818182,
+        10.909090909,
+        13.636363636
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        5.454545455,
+        10.909090909,
+        16.363636364
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 785455
+    },
+    {
+      "id": "lantern_watch",
+      "title": "灯不召兵",
+      "region_id": "ch05",
+      "role": "quest_theme",
+      "bpm": 80,
+      "loop": true,
+      "description": "将巡礼号角的重拍移至木笛弱拍，灯号脉冲保留明确间隙。",
+      "runtime_ids": [
+        "npc_lantern_sister",
+        "npc_obsidian_guide",
+        "lantern_watch",
+        "quest_lantern_watch_complete"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_lantern_sister",
+        "npc_obsidian_guide",
+        "lantern_watch",
+        "quest_lantern_watch_complete"
+      ],
+      "file": "audio/lantern_watch.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 18.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.0,
+        6.0,
+        9.0,
+        12.0,
+        15.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.0,
+        12.0,
+        18.0
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 864000
+    },
+    {
+      "id": "deserter_order",
+      "title": "不用回答的军号",
+      "region_id": "ch05",
+      "role": "quest_theme",
+      "bpm": 76,
+      "loop": true,
+      "description": "军号首句被休止截断；后句由独立弦音回应，不采用未实现的烧旗任务。",
+      "runtime_ids": [
+        "npc_deserter_flagbearer",
+        "npc_blind_bell_knight",
+        "deserter_order",
+        "quest_deserter_order_complete"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_deserter_flagbearer",
+        "npc_blind_bell_knight",
+        "deserter_order",
+        "quest_deserter_order_complete"
+      ],
+      "file": "audio/deserter_order.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 18.947375,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        3.157894737,
+        6.315789474,
+        9.473684211,
+        12.631578947,
+        15.789473684
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        6.315789474,
+        12.631578947,
+        18.947368421
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 909474
+    },
+    {
+      "id": "seal_restoration",
+      "title": "旧印归手",
+      "region_id": "global",
+      "role": "character_world_theme",
+      "bpm": 84,
+      "loop": true,
+      "description": "锻打三音与盐页增四度交替，尾句拼合为修复印记主题。",
+      "runtime_ids": [
+        "npc_rain_smith_liu",
+        "npc_salt_librarian_ye",
+        "seal_bell_repaired",
+        "seal_salt_restored"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_rain_smith_liu",
+        "npc_salt_librarian_ye",
+        "seal_bell_repaired",
+        "seal_salt_restored"
+      ],
+      "file": "audio/seal_restoration.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 17.142854166666666,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        2.857142857,
+        5.714285714,
+        8.571428571,
+        11.428571429,
+        14.285714286
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        5.714285714,
+        11.428571429,
+        17.142857143
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 822857
+    },
+    {
+      "id": "keepers_witness",
+      "title": "守门者的证词",
+      "region_id": "ch04",
+      "role": "character_world_theme",
+      "bpm": 60,
+      "loop": true,
+      "description": "断弦温室短拨声由纯合成元音延续，见证保持留白而无录制人声。",
+      "runtime_ids": [
+        "npc_old_gardener",
+        "npc_broken_singer",
+        "testimony_04"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_old_gardener",
+        "npc_broken_singer",
+        "testimony_04"
+      ],
+      "file": "audio/keepers_witness.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 24.0,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        4.0,
+        8.0,
+        12.0,
+        16.0,
+        20.0
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        8.0,
+        16.0,
+        24.0
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1152000
+    },
+    {
+      "id": "crown_confession",
+      "title": "第一百零一把钥匙",
+      "region_id": "ch06",
+      "role": "character_world_theme",
+      "bpm": 54,
+      "loop": true,
+      "description": "王冠双音与绯线下降动机各自独立成句，结尾悬置，避免提前暗示任一结局。",
+      "runtime_ids": [
+        "npc_first_pilgrim_echo",
+        "npc_crown_tongue",
+        "npc_six_mark_keeper",
+        "npc_black_tide_child",
+        "testimony_06"
+      ],
+      "existing_runtime_path": null,
+      "applicable_events": [
+        "npc_first_pilgrim_echo",
+        "npc_crown_tongue",
+        "npc_six_mark_keeper",
+        "npc_black_tide_child",
+        "testimony_06"
+      ],
+      "file": "audio/crown_confession.ogg",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_seconds": 26.666666666666668,
+      "recommended_playback_gain_db": -3,
+      "source": "Original deterministic additive synthesis; internal synthesis core adapted from tools/proposals/reverse_music_v2/build.py; no external recordings",
+      "license": "CC0-1.0",
+      "human_listening_review": "pending",
+      "integration_status": "proposal_only_not_runtime_wired",
+      "bar_beats": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "bar_start_seconds": [
+        0.0,
+        4.444444444,
+        8.888888889,
+        13.333333333,
+        17.777777778,
+        22.222222222
+      ],
+      "phrase_boundaries_seconds": [
+        0.0,
+        8.888888889,
+        17.777777778,
+        26.666666667
+      ],
+      "target_lufs": -23,
+      "loop_start_sample": 0,
+      "loop_end_sample_exclusive": 1280000
+    }
+  ]
+}

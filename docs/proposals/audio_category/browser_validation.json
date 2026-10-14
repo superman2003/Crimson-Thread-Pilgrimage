@@ -1,0 +1,1747 @@
+{
+  "schema_version": 1,
+  "url": "http://127.0.0.1:45031/docs/proposals/audio_category/",
+  "status": "pass",
+  "browser_muted": true,
+  "human_listening_review": "pending",
+  "checks": [
+    {
+      "name": "no_autoplay_and_catalog_counts",
+      "status": "pass",
+      "evidence": {
+        "snapshot": {
+          "running": false,
+          "voices": 0,
+          "cached": 0,
+          "music": null,
+          "musicStarts": 0,
+          "region": "ch06",
+          "contextState": "uninitialized",
+          "error": null
+        },
+        "paused": true,
+        "counts": {
+          "music": 41,
+          "sfx": 75,
+          "ambience": 24
+        }
+      }
+    },
+    {
+      "name": "all_140_actual_webaudio_decodes",
+      "status": "pass",
+      "evidence": {
+        "count": 140,
+        "tolerance_seconds": 0.04
+      }
+    },
+    {
+      "name": "native_player_advances_switch_stops_and_volume_persists",
+      "status": "pass",
+      "evidence": {
+        "playing": {
+          "time": 0.171772,
+          "paused": false,
+          "source": "http://127.0.0.1:45031/assets/proposals/reverse_music_v2/audio/ch06_exploration.ogg",
+          "volume": 0.27
+        },
+        "switched": {
+          "time": 0,
+          "paused": true,
+          "source": "http://127.0.0.1:45031/assets/proposals/reverse_music_v2/audio/ch06_boss.ogg",
+          "volume": 0.27
+        }
+      }
+    },
+    {
+      "name": "six_regions_four_music_states_and_same_track_continuity",
+      "status": "pass",
+      "evidence": [
+        {
+          "region": "ch01",
+          "states": {
+            "exploration": {
+              "running": true,
+              "voices": 3,
+              "cached": 3,
+              "music": "ch01_exploration",
+              "musicStarts": 1,
+              "region": "ch01",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 1,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "boss": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch01_boss",
+              "musicStarts": 2,
+              "region": "ch01",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.625,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "combat": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch01_combat_layer",
+              "musicStarts": 3,
+              "region": "ch01",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.625,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "lullaby": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch01_lullaby",
+              "musicStarts": 4,
+              "region": "ch01",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.625,
+              "musicBusGain": 1,
+              "error": null
+            }
+          },
+          "same_track": {
+            "starts": 4,
+            "started": 1.816
+          }
+        },
+        {
+          "region": "ch02",
+          "states": {
+            "exploration": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch02_exploration",
+              "musicStarts": 5,
+              "region": "ch02",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 1,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "boss": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch02_boss",
+              "musicStarts": 6,
+              "region": "ch02",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.800000011920929,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "combat": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch02_combat_layer",
+              "musicStarts": 7,
+              "region": "ch02",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.800000011920929,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "lullaby": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch02_lullaby",
+              "musicStarts": 8,
+              "region": "ch02",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.800000011920929,
+              "musicBusGain": 1,
+              "error": null
+            }
+          },
+          "same_track": {
+            "starts": 8,
+            "started": 4.570666666666667
+          }
+        },
+        {
+          "region": "ch03",
+          "states": {
+            "exploration": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch03_exploration",
+              "musicStarts": 9,
+              "region": "ch03",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 1,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "boss": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch03_boss",
+              "musicStarts": 10,
+              "region": "ch03",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.380952388048172,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "combat": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch03_combat_layer",
+              "musicStarts": 11,
+              "region": "ch03",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.380952388048172,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "lullaby": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch03_lullaby",
+              "musicStarts": 12,
+              "region": "ch03",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.380952388048172,
+              "musicBusGain": 1,
+              "error": null
+            }
+          },
+          "same_track": {
+            "starts": 12,
+            "started": 7.317333333333333
+          }
+        },
+        {
+          "region": "ch04",
+          "states": {
+            "exploration": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch04_exploration",
+              "musicStarts": 13,
+              "region": "ch04",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 1,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "boss": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch04_boss",
+              "musicStarts": 14,
+              "region": "ch04",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.6666666865348816,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "combat": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch04_combat_layer",
+              "musicStarts": 15,
+              "region": "ch04",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.6666666865348816,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "lullaby": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch04_lullaby",
+              "musicStarts": 16,
+              "region": "ch04",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.6666666865348816,
+              "musicBusGain": 1,
+              "error": null
+            }
+          },
+          "same_track": {
+            "starts": 16,
+            "started": 10.082666666666666
+          }
+        },
+        {
+          "region": "ch05",
+          "states": {
+            "exploration": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch05_exploration",
+              "musicStarts": 17,
+              "region": "ch05",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 1,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "boss": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch05_boss",
+              "musicStarts": 18,
+              "region": "ch05",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.875,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "combat": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch05_combat_layer",
+              "musicStarts": 19,
+              "region": "ch05",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.875,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "lullaby": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch05_lullaby",
+              "musicStarts": 20,
+              "region": "ch05",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.875,
+              "musicBusGain": 1,
+              "error": null
+            }
+          },
+          "same_track": {
+            "starts": 20,
+            "started": 12.757333333333333
+          }
+        },
+        {
+          "region": "ch06",
+          "states": {
+            "exploration": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch06_exploration",
+              "musicStarts": 21,
+              "region": "ch06",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 1,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "boss": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch06_boss",
+              "musicStarts": 22,
+              "region": "ch06",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.782608687877655,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "combat": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch06_combat_layer",
+              "musicStarts": 23,
+              "region": "ch06",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.782608687877655,
+              "musicBusGain": 1,
+              "error": null
+            },
+            "lullaby": {
+              "running": true,
+              "voices": 3,
+              "cached": 4,
+              "music": "ch06_lullaby",
+              "musicStarts": 24,
+              "region": "ch06",
+              "contextState": "running",
+              "filterHz": 20000,
+              "distanceGain": 0.782608687877655,
+              "musicBusGain": 1,
+              "error": null
+            }
+          },
+          "same_track": {
+            "starts": 24,
+            "started": 15.554666666666666
+          }
+        }
+      ]
+    },
+    {
+      "name": "spatial_distance_occlusion_pan_reverb_and_master",
+      "status": "pass",
+      "evidence": {
+        "near": {
+          "running": true,
+          "voices": 3,
+          "cached": 4,
+          "music": "ch03_exploration",
+          "musicStarts": 25,
+          "region": "ch03",
+          "contextState": "running",
+          "filterHz": 20000,
+          "distanceGain": 0.9523809552192688,
+          "musicBusGain": 1,
+          "error": null
+        },
+        "far": {
+          "running": true,
+          "voices": 3,
+          "cached": 4,
+          "music": "ch03_exploration",
+          "musicStarts": 25,
+          "region": "ch03",
+          "contextState": "running",
+          "filterHz": 20000,
+          "distanceGain": 0.19084107875823975,
+          "musicBusGain": 1,
+          "error": null
+        },
+        "blocked": {
+          "running": true,
+          "voices": 3,
+          "cached": 4,
+          "music": "ch03_exploration",
+          "musicStarts": 25,
+          "region": "ch03",
+          "contextState": "running",
+          "filterHz": 1808.3360595703125,
+          "distanceGain": 0.08513101190328598,
+          "musicBusGain": 1,
+          "error": null
+        },
+        "left": -0.7995719313621521,
+        "right": 0.6991419792175293,
+        "dry": 0,
+        "wet": 0.07997825741767883,
+        "master": 0.2199999988079071
+      }
+    },
+    {
+      "name": "warning_duck_then_recovers_to_three_voices",
+      "status": "pass",
+      "evidence": {
+        "duck": {
+          "music": 0.3590557277202606,
+          "environment": 0.359043687582016
+        },
+        "recovered": {
+          "running": true,
+          "voices": 3,
+          "cached": 4,
+          "music": "ch03_exploration",
+          "musicStarts": 25,
+          "region": "ch03",
+          "contextState": "running",
+          "filterHz": 20000,
+          "distanceGain": 0.190476194024086,
+          "musicBusGain": 0.9904736876487732,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "rapid_music_changes_last_selection_wins",
+      "status": "pass",
+      "evidence": {
+        "running": true,
+        "voices": 3,
+        "cached": 4,
+        "music": "ch03_lullaby",
+        "musicStarts": 26,
+        "region": "ch03",
+        "contextState": "running",
+        "filterHz": 20000,
+        "distanceGain": 0.190476194024086,
+        "musicBusGain": 0.9997789859771729,
+        "error": null
+      }
+    },
+    {
+      "name": "stop_during_delayed_resume_cannot_restart",
+      "status": "pass",
+      "evidence": {
+        "running": false,
+        "voices": 0,
+        "cached": 4,
+        "music": null,
+        "musicStarts": 26,
+        "region": "ch03",
+        "contextState": "running",
+        "filterHz": 20000,
+        "distanceGain": 0.190476194024086,
+        "musicBusGain": 1,
+        "error": null
+      }
+    },
+    {
+      "name": "return_to_current_track_cancels_delayed_boss",
+      "status": "pass",
+      "evidence": {
+        "running": true,
+        "voices": 3,
+        "cached": 4,
+        "music": "ch03_exploration",
+        "musicStarts": 27,
+        "region": "ch03",
+        "contextState": "running",
+        "filterHz": 20000,
+        "distanceGain": 0.190476194024086,
+        "musicBusGain": 1,
+        "error": null
+      }
+    },
+    {
+      "name": "stop_is_immediate_and_remains_silent",
+      "status": "pass",
+      "evidence": {
+        "immediate": {
+          "running": false,
+          "voices": 0,
+          "cached": 4,
+          "music": null,
+          "musicStarts": 27,
+          "region": "ch03",
+          "contextState": "running",
+          "filterHz": 20000,
+          "distanceGain": 0.190476194024086,
+          "musicBusGain": 1,
+          "error": null
+        },
+        "settled": {
+          "running": false,
+          "voices": 0,
+          "cached": 4,
+          "music": null,
+          "musicStarts": 27,
+          "region": "ch03",
+          "contextState": "running",
+          "filterHz": 20000,
+          "distanceGain": 0.190476194024086,
+          "musicBusGain": 1,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "mobile_390px_has_no_horizontal_overflow",
+      "status": "pass",
+      "evidence": [
+        {
+          "view": "libraryTab",
+          "viewport": 390,
+          "document": 390,
+          "body": 390
+        },
+        {
+          "view": "mixTab",
+          "viewport": 390,
+          "document": 390,
+          "body": 390
+        }
+      ]
+    },
+    {
+      "name": "no_script_errors_or_unexpected_failed_requests",
+      "status": "pass",
+      "evidence": {
+        "page_errors": 0,
+        "console_errors": 0,
+        "failed_requests": 0,
+        "bad_responses": 0,
+        "expected_media_cancellations": 0
+      }
+    }
+  ],
+  "decoded": [
+    {
+      "key": "reverse_music_v2:ch06_exploration",
+      "duration": 40,
+      "expected_duration": 40,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch06_boss",
+      "duration": 40,
+      "expected_duration": 40,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch05_exploration",
+      "duration": 38.4,
+      "expected_duration": 38.4,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch05_boss",
+      "duration": 38.4,
+      "expected_duration": 38.4,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch04_exploration",
+      "duration": 45.51725,
+      "expected_duration": 45.51725,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch04_boss",
+      "duration": 45.51725,
+      "expected_duration": 45.51725,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch03_exploration",
+      "duration": 32,
+      "expected_duration": 32,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch03_boss",
+      "duration": 32,
+      "expected_duration": 32,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch02_exploration",
+      "duration": 41.739125,
+      "expected_duration": 41.739125,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch02_boss",
+      "duration": 41.739125,
+      "expected_duration": 41.739125,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch01_exploration",
+      "duration": 40,
+      "expected_duration": 40,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_music_v2:ch01_boss",
+      "duration": 40,
+      "expected_duration": 40,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch01_combat_layer",
+      "duration": 20,
+      "expected_duration": 20,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch01_lullaby",
+      "duration": 20,
+      "expected_duration": 20,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch02_combat_layer",
+      "duration": 20.8695625,
+      "expected_duration": 20.8695625,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch02_lullaby",
+      "duration": 20.8695625,
+      "expected_duration": 20.8695625,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch03_combat_layer",
+      "duration": 32,
+      "expected_duration": 32,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch03_lullaby",
+      "duration": 32,
+      "expected_duration": 32,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch04_combat_layer",
+      "duration": 45.51725,
+      "expected_duration": 45.51725,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch04_lullaby",
+      "duration": 45.51725,
+      "expected_duration": 45.51725,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch05_combat_layer",
+      "duration": 19.2,
+      "expected_duration": 19.2,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch05_lullaby",
+      "duration": 19.2,
+      "expected_duration": 19.2,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch06_combat_layer",
+      "duration": 40,
+      "expected_duration": 40,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ch06_lullaby",
+      "duration": 40,
+      "expected_duration": 40,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:final_mvt1",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:final_mvt2",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:final_mvt3",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ending_a",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ending_b",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:ending_c",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:bellway_transit",
+      "duration": 18,
+      "expected_duration": 18,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:bellway_depart",
+      "duration": 6,
+      "expected_duration": 6,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:bellway_arrive",
+      "duration": 6,
+      "expected_duration": 6,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:bring_names_home",
+      "duration": 20,
+      "expected_duration": 20,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:root_rescue",
+      "duration": 20.5714375,
+      "expected_duration": 20.5714375,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:wax_lamps",
+      "duration": 16.363645833333333,
+      "expected_duration": 16.363645833333333,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:lantern_watch",
+      "duration": 18,
+      "expected_duration": 18,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:deserter_order",
+      "duration": 18.947375,
+      "expected_duration": 18.947375,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:seal_restoration",
+      "duration": 17.142854166666666,
+      "expected_duration": 17.142854166666666,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:keepers_witness",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_music:crown_confession",
+      "duration": 26.666666666666668,
+      "expected_duration": 26.666666666666668,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_crimson_started",
+      "duration": 0.76,
+      "expected_duration": 0.76,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_crimson_completed",
+      "duration": 0.52,
+      "expected_duration": 0.52,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_crimson_interrupted",
+      "duration": 0.22,
+      "expected_duration": 0.22,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_bell_started",
+      "duration": 0.76,
+      "expected_duration": 0.76,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_bell_completed",
+      "duration": 0.52,
+      "expected_duration": 0.52,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_bell_interrupted",
+      "duration": 0.22,
+      "expected_duration": 0.22,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_salt_started",
+      "duration": 0.76,
+      "expected_duration": 0.76,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_salt_completed",
+      "duration": 0.52,
+      "expected_duration": 0.52,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:heal_salt_interrupted",
+      "duration": 0.22,
+      "expected_duration": 0.22,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_cleave_cast",
+      "duration": 0.32,
+      "expected_duration": 0.32,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_cleave_hit",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_needle_cast",
+      "duration": 0.32,
+      "expected_duration": 0.32,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_needle_hit",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_snare_cast",
+      "duration": 0.32,
+      "expected_duration": 0.32,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_snare_hit",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_ward_cast",
+      "duration": 0.32,
+      "expected_duration": 0.32,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_ward_hit",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_shockwave_cast",
+      "duration": 0.32,
+      "expected_duration": 0.32,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_shockwave_hit",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_crosscut_cast",
+      "duration": 0.32,
+      "expected_duration": 0.32,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:skill_crosscut_hit",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_shard_use",
+      "duration": 0.26,
+      "expected_duration": 0.26,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_shard_effect",
+      "duration": 0.55,
+      "expected_duration": 0.55,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_mine_use",
+      "duration": 0.26,
+      "expected_duration": 0.26,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_mine_effect",
+      "duration": 0.55,
+      "expected_duration": 0.55,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_fog_use",
+      "duration": 0.26,
+      "expected_duration": 0.26,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_fog_effect",
+      "duration": 0.55,
+      "expected_duration": 0.55,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_lure_use",
+      "duration": 0.26,
+      "expected_duration": 0.26,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:tool_lure_effect",
+      "duration": 0.55,
+      "expected_duration": 0.55,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_jump",
+      "duration": 0.18,
+      "expected_duration": 0.18,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_dash",
+      "duration": 0.24,
+      "expected_duration": 0.24,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_land_soft",
+      "duration": 0.15,
+      "expected_duration": 0.15,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_land_hard",
+      "duration": 0.3,
+      "expected_duration": 0.3,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_pogo",
+      "duration": 0.25,
+      "expected_duration": 0.25,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_wall_grip_attach",
+      "duration": 0.19,
+      "expected_duration": 0.19,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_hook_latch",
+      "duration": 0.21,
+      "expected_duration": 0.21,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_hook_reel",
+      "duration": 0.38,
+      "expected_duration": 0.38,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_death_cocoon",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:player_respawn_weave",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:feedback_purchase",
+      "duration": 0.35,
+      "expected_duration": 0.35,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:feedback_reject",
+      "duration": 0.2,
+      "expected_duration": 0.2,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:feedback_quest",
+      "duration": 0.68,
+      "expected_duration": 0.68,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:feedback_shrine_wrap",
+      "duration": 0.4,
+      "expected_duration": 0.4,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:feedback_shrine_rest",
+      "duration": 0.75,
+      "expected_duration": 0.75,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:feedback_pickup",
+      "duration": 0.23,
+      "expected_duration": 0.23,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:npc_ch01_greeting",
+      "duration": 0.48,
+      "expected_duration": 0.48,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:npc_ch02_greeting",
+      "duration": 0.48,
+      "expected_duration": 0.48,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:npc_ch03_greeting",
+      "duration": 0.48,
+      "expected_duration": 0.48,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:npc_ch04_greeting",
+      "duration": 0.48,
+      "expected_duration": 0.48,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:npc_ch05_greeting",
+      "duration": 0.48,
+      "expected_duration": 0.48,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_sfx:npc_ch06_greeting",
+      "duration": 0.48,
+      "expected_duration": 0.48,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch01_moss_bed",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch01_moss_landmark",
+      "duration": 8,
+      "expected_duration": 8,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch01_moss_event_a",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch01_moss_event_b",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch02_foundry_bed",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch02_foundry_landmark",
+      "duration": 8,
+      "expected_duration": 8,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch02_foundry_event_a",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch02_foundry_event_b",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch03_archive_bed",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch03_archive_landmark",
+      "duration": 8,
+      "expected_duration": 8,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch03_archive_event_a",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch03_archive_event_b",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch04_glasshouse_bed",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch04_glasshouse_landmark",
+      "duration": 8,
+      "expected_duration": 8,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch04_glasshouse_event_a",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch04_glasshouse_event_b",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch05_obsidian_bed",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch05_obsidian_landmark",
+      "duration": 8,
+      "expected_duration": 8,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch05_obsidian_event_a",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch05_obsidian_event_b",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch06_crown_bed",
+      "duration": 24,
+      "expected_duration": 24,
+      "channels": 2,
+      "expected_channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch06_crown_landmark",
+      "duration": 8,
+      "expected_duration": 8,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch06_crown_event_a",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "audio_category_ambience:amb_ch06_crown_event_b",
+      "duration": 3.5,
+      "expected_duration": 3.5,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch06_warning",
+      "duration": 0.6,
+      "expected_duration": 0.6,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch06_attack_body",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch06_attack_detail",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch06_hurt",
+      "duration": 0.46,
+      "expected_duration": 0.46,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch05_warning",
+      "duration": 0.6,
+      "expected_duration": 0.6,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch05_attack_body",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch05_attack_detail",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch05_hurt",
+      "duration": 0.46,
+      "expected_duration": 0.46,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch04_warning",
+      "duration": 0.6,
+      "expected_duration": 0.6,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch04_attack_body",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch04_attack_detail",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch04_hurt",
+      "duration": 0.46,
+      "expected_duration": 0.46,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch03_warning",
+      "duration": 0.6,
+      "expected_duration": 0.6,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch03_attack_body",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch03_attack_detail",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch03_hurt",
+      "duration": 0.46,
+      "expected_duration": 0.46,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch02_warning",
+      "duration": 0.6,
+      "expected_duration": 0.6,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch02_attack_body",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch02_attack_detail",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch02_hurt",
+      "duration": 0.46,
+      "expected_duration": 0.46,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch01_warning",
+      "duration": 0.6,
+      "expected_duration": 0.6,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch01_attack_body",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch01_attack_detail",
+      "duration": 0.9,
+      "expected_duration": 0.9,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    },
+    {
+      "key": "reverse_audio:ch01_hurt",
+      "duration": 0.46,
+      "expected_duration": 0.46,
+      "channels": 1,
+      "expected_channels": 1,
+      "sample_rate": 48000
+    }
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "failed_requests": [],
+  "expected_media_cancellations": [],
+  "bad_responses": [],
+  "screenshots": [
+    "browser_archive_desktop.png",
+    "browser_mix_desktop.png",
+    "browser_mobile_390.png"
+  ],
+  "browser": "151.0.7922.34"
+}

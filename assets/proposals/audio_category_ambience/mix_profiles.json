@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "pack_id": "audio_category_ambience",
+  "status": "review_only_not_integrated",
+  "gain_semantics": "Absolute cue playback gains; profile gains repeat manifest values, never add both. Reverb and duck apply after cue gain.",
+  "global_voice_limit": 4,
+  "transition_crossfade_seconds": 2.5,
+  "profiles": [
+    {
+      "region_id": "ch01",
+      "title": "苔钟庭",
+      "bed_cue_id": "amb_ch01_moss_bed",
+      "landmark_cue_id": "amb_ch01_moss_landmark",
+      "bed_gain_db": -3,
+      "landmark_gain_db": -7,
+      "landmark_spatial": {
+        "near_distance_m": 2,
+        "far_distance_m": 18,
+        "attenuation": "linear_amplitude_from_near_to_zero_at_far",
+        "pan": "equal_power",
+        "occluded": {
+          "lowpass_hz": 1200,
+          "gain_db": -8
+        },
+        "position_note": "建议设施锚点；米为审阅器抽象单位，不映射既有像素坐标"
+      },
+      "reverb": {
+        "decay_seconds": 1.4,
+        "wet": 0.16,
+        "predelay_ms": 18
+      },
+      "warning_duck": {
+        "gain_db": -9,
+        "attack_ms": 45,
+        "release_ms": 900,
+        "hold_ms": 250,
+        "scope": [
+          "bed",
+          "landmark",
+          "events"
+        ],
+        "event_policy": "pause_new_events_during_warning"
+      },
+      "events": {
+        "cue_ids": [
+          "amb_ch01_moss_event_a",
+          "amb_ch01_moss_event_b"
+        ],
+        "interval_seconds": [
+          45,
+          120
+        ],
+        "voice_limit": 1,
+        "selection": "seeded_shuffle_no_immediate_repeat",
+        "gain_db": -9
+      }
+    },
+    {
+      "region_id": "ch02",
+      "title": "铸雨渠",
+      "bed_cue_id": "amb_ch02_foundry_bed",
+      "landmark_cue_id": "amb_ch02_foundry_landmark",
+      "bed_gain_db": -3,
+      "landmark_gain_db": -7,
+      "landmark_spatial": {
+        "near_distance_m": 3,
+        "far_distance_m": 28,
+        "attenuation": "linear_amplitude_from_near_to_zero_at_far",
+        "pan": "equal_power",
+        "occluded": {
+          "lowpass_hz": 850,
+          "gain_db": -10
+        },
+        "position_note": "建议设施锚点；米为审阅器抽象单位，不映射既有像素坐标"
+      },
+      "reverb": {
+        "decay_seconds": 2.2,
+        "wet": 0.13,
+        "predelay_ms": 24
+      },
+      "warning_duck": {
+        "gain_db": -9,
+        "attack_ms": 45,
+        "release_ms": 900,
+        "hold_ms": 250,
+        "scope": [
+          "bed",
+          "landmark",
+          "events"
+        ],
+        "event_policy": "pause_new_events_during_warning"
+      },
+      "events": {
+        "cue_ids": [
+          "amb_ch02_foundry_event_a",
+          "amb_ch02_foundry_event_b"
+        ],
+        "interval_seconds": [
+          48,
+          124
+        ],
+        "voice_limit": 1,
+        "selection": "seeded_shuffle_no_immediate_repeat",
+        "gain_db": -9
+      }
+    },
+    {
+      "region_id": "ch03",
+      "title": "盐白书库",
+      "bed_cue_id": "amb_ch03_archive_bed",
+      "landmark_cue_id": "amb_ch03_archive_landmark",
+      "bed_gain_db": -3,
+      "landmark_gain_db": -7,
+      "landmark_spatial": {
+        "near_distance_m": 1.5,
+        "far_distance_m": 12,
+        "attenuation": "linear_amplitude_from_near_to_zero_at_far",
+        "pan": "equal_power",
+        "occluded": {
+          "lowpass_hz": 1800,
+          "gain_db": -7
+        },
+        "position_note": "建议设施锚点；米为审阅器抽象单位，不映射既有像素坐标"
+      },
+      "reverb": {
+        "decay_seconds": 0.7,
+        "wet": 0.08,
+        "predelay_ms": 8
+      },
+      "warning_duck": {
+        "gain_db": -9,
+        "attack_ms": 45,
+        "release_ms": 900,
+        "hold_ms": 250,
+        "scope": [
+          "bed",
+          "landmark",
+          "events"
+        ],
+        "event_policy": "pause_new_events_during_warning"
+      },
+      "events": {
+        "cue_ids": [
+          "amb_ch03_archive_event_a",
+          "amb_ch03_archive_event_b"
+        ],
+        "interval_seconds": [
+          51,
+          128
+        ],
+        "voice_limit": 1,
+        "selection": "seeded_shuffle_no_immediate_repeat",
+        "gain_db": -9
+      }
+    },
+    {
+      "region_id": "ch04",
+      "title": "断弦温室",
+      "bed_cue_id": "amb_ch04_glasshouse_bed",
+      "landmark_cue_id": "amb_ch04_glasshouse_landmark",
+      "bed_gain_db": -3,
+      "landmark_gain_db": -7,
+      "landmark_spatial": {
+        "near_distance_m": 2,
+        "far_distance_m": 20,
+        "attenuation": "linear_amplitude_from_near_to_zero_at_far",
+        "pan": "equal_power",
+        "occluded": {
+          "lowpass_hz": 1400,
+          "gain_db": -8
+        },
+        "position_note": "建议设施锚点；米为审阅器抽象单位，不映射既有像素坐标"
+      },
+      "reverb": {
+        "decay_seconds": 1.8,
+        "wet": 0.19,
+        "predelay_ms": 19
+      },
+      "warning_duck": {
+        "gain_db": -9,
+        "attack_ms": 45,
+        "release_ms": 900,
+        "hold_ms": 250,
+        "scope": [
+          "bed",
+          "landmark",
+          "events"
+        ],
+        "event_policy": "pause_new_events_during_warning"
+      },
+      "events": {
+        "cue_ids": [
+          "amb_ch04_glasshouse_event_a",
+          "amb_ch04_glasshouse_event_b"
+        ],
+        "interval_seconds": [
+          54,
+          132
+        ],
+        "voice_limit": 1,
+        "selection": "seeded_shuffle_no_immediate_repeat",
+        "gain_db": -9
+      }
+    },
+    {
+      "region_id": "ch05",
+      "title": "黑曜巡礼道",
+      "bed_cue_id": "amb_ch05_obsidian_bed",
+      "landmark_cue_id": "amb_ch05_obsidian_landmark",
+      "bed_gain_db": -3,
+      "landmark_gain_db": -7,
+      "landmark_spatial": {
+        "near_distance_m": 4,
+        "far_distance_m": 36,
+        "attenuation": "linear_amplitude_from_near_to_zero_at_far",
+        "pan": "equal_power",
+        "occluded": {
+          "lowpass_hz": 700,
+          "gain_db": -11
+        },
+        "position_note": "建议设施锚点；米为审阅器抽象单位，不映射既有像素坐标"
+      },
+      "reverb": {
+        "decay_seconds": 2.6,
+        "wet": 0.11,
+        "predelay_ms": 33
+      },
+      "warning_duck": {
+        "gain_db": -9,
+        "attack_ms": 45,
+        "release_ms": 900,
+        "hold_ms": 250,
+        "scope": [
+          "bed",
+          "landmark",
+          "events"
+        ],
+        "event_policy": "pause_new_events_during_warning"
+      },
+      "events": {
+        "cue_ids": [
+          "amb_ch05_obsidian_event_a",
+          "amb_ch05_obsidian_event_b"
+        ],
+        "interval_seconds": [
+          57,
+          136
+        ],
+        "voice_limit": 1,
+        "selection": "seeded_shuffle_no_immediate_repeat",
+        "gain_db": -9
+      }
+    },
+    {
+      "region_id": "ch06",
+      "title": "寂冠核心",
+      "bed_cue_id": "amb_ch06_crown_bed",
+      "landmark_cue_id": "amb_ch06_crown_landmark",
+      "bed_gain_db": -3,
+      "landmark_gain_db": -7,
+      "landmark_spatial": {
+        "near_distance_m": 3,
+        "far_distance_m": 26,
+        "attenuation": "linear_amplitude_from_near_to_zero_at_far",
+        "pan": "equal_power",
+        "occluded": {
+          "lowpass_hz": 600,
+          "gain_db": -12
+        },
+        "position_note": "建议设施锚点；米为审阅器抽象单位，不映射既有像素坐标"
+      },
+      "reverb": {
+        "decay_seconds": 4.2,
+        "wet": 0.24,
+        "predelay_ms": 42
+      },
+      "warning_duck": {
+        "gain_db": -9,
+        "attack_ms": 45,
+        "release_ms": 900,
+        "hold_ms": 250,
+        "scope": [
+          "bed",
+          "landmark",
+          "events"
+        ],
+        "event_policy": "pause_new_events_during_warning"
+      },
+      "events": {
+        "cue_ids": [
+          "amb_ch06_crown_event_a",
+          "amb_ch06_crown_event_b"
+        ],
+        "interval_seconds": [
+          60,
+          140
+        ],
+        "voice_limit": 1,
+        "selection": "seeded_shuffle_no_immediate_repeat",
+        "gain_db": -9
+      }
+    }
+  ]
+}
