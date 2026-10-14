@@ -92,7 +92,11 @@ func run() -> void:
 	# One real melee input, admitted only when the player can act. Keep the same
 	# resident target at a stable relative offset while its normal AI continues,
 	# then observe the HP transition frame by frame instead of assuming a fixed
-	# animation delay implies a hit.
+	# animation delay implies a hit. Incoming damage can legitimately interrupt
+	# this one swing; protect only this HP-persistence fixture, then restore normal
+	# damage before the later melee kill/reward and player death/respawn probes.
+	var previous_invulnerability: bool = scene.player.debug_invulnerable
+	scene.player.debug_invulnerable = true
 	var attack_ready := false
 	var ready_frames := 0
 	while ready_frames < 120 and is_instance_valid(enemy):
@@ -118,6 +122,8 @@ func run() -> void:
 		await tick()
 		attack_frames += 1
 	var hp_after_attack := int(enemy.get("hp"))
+	scene.player.debug_invulnerable = previous_invulnerability
+	print("ENEMY_RESIDENCY_MELEE accepted=%s frames=%d hp_before=%d hp_after=%d" % [accepted_attack, attack_frames, hp_before_attack, hp_after_attack])
 	check(accepted_attack and hp_after_attack < hp_before_attack, "one accepted real player melee input damages resident enemy within the bounded observation window")
 	if hp_after_attack <= 0:
 		check(false, "first melee fixture hit is partial so HP persistence can be measured")

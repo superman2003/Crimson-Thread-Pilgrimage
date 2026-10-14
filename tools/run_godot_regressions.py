@@ -15,7 +15,7 @@ from software_gl import software_gl
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
     'world_rim world_wayfinding world_passage audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency world_enemy_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
-    'enemy_effect_lifetime enemy_visibility world_material hero_animation cave_exploration cave_route_walk '
+    'enemy_lifecycle_regression enemy_effect_lifetime enemy_visibility world_material hero_animation cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
@@ -75,9 +75,9 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
         print(f'Running {suite}', flush=True)
         try:
             with log.open('w') as output:
-                # Frame-counted ability/actuator probes use a fixed clock.
+                # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime suites must retain normal playback timing.
-                simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live'] else []
+                simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
                 # An intermittent CI shutdown leak needs the actual Resource
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []
