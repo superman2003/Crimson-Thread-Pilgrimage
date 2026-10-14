@@ -151,8 +151,20 @@ def smoke_package(binary: Path, logs: Path, timeout: float) -> None:
                 # second fresh start. This lives only in the temporary profile.
                 data.setdefault('story_flags', {})['release_resume_probe'] = True
                 save.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
-            elif data.get('story_flags', {}).get('release_resume_probe') is not True:
-                raise ValueError('Exported World did not preserve the isolated resume probe')
+                # World writes atomically, backing up the previous save on startup.
+                # Remove the first boot's backup so a passive second boot cannot
+                # pass by merely leaving our injected flag untouched on disk.
+                save.with_name(save.name + '.bak').unlink(missing_ok=True)
+            else:
+                if data.get('story_flags', {}).get('release_resume_probe') is not True:
+                    raise ValueError('Exported World did not preserve the isolated resume probe')
+                backup = save.with_name(save.name + '.bak')
+                if not backup.is_file():
+                    raise ValueError('Exported World did not write back the resumed save')
+                previous = json.loads(backup.read_text(encoding='utf-8'))
+                if previous.get('story_flags', {}).get('release_resume_probe') is not True:
+                    raise ValueError('Exported World did not back up the resumed save')
+        print('RELEASE_PLAYER_PASS first_start=true resume=true resume_writeback=true', flush=True)
 
 
 def sha256(path: Path) -> str:
@@ -172,6 +184,46 @@ def package_directory(payload: Path, archive: Path, manifest: dict) -> None:
             if path.is_file():
                 output.write(path, arcname=f'{payload.name}/{path.relative_to(payload).as_posix()}')
     (archive.parent / f'{archive.name}.sha256').write_text(f'{sha256(archive)}  {archive.name}\n', encoding='ascii')
+
+
+def unpack_verified_package(archive: Path, destination: Path) -> Path:
+    """Verify the delivered ZIP, then unpack it into an empty player directory."""
+    checksum = archive.with_name(archive.name + '.sha256').read_text(encoding='ascii').split()
+    if checksum != [sha256(archive), archive.name]:
+        raise ValueError('Candidate ZIP checksum mismatch')
+    if destination.exists():
+        raise ValueError('Candidate unpack directory must not already exist')
+    with zipfile.ZipFile(archive) as source:
+        members = source.infolist()
+        names = [member.filename for member in members]
+        prefix = archive.stem + '/'
+        if len(names) != len(set(names)):
+            raise ValueError('Duplicate candidate ZIP member')
+        for member in members:
+            name = member.filename
+            if (not name.startswith(prefix) or '\\' in name or ':' in name
+                    or any(part in {'', '.', '..'} for part in name.split('/'))
+                    or (member.external_attr >> 16) & 0o170000 == 0o120000):
+                raise ValueError(f'Invalid candidate ZIP member: {name}')
+        manifest = json.loads(source.read(prefix + 'BUILD_MANIFEST.json'))
+        expected = manifest['files']
+        if set(names) != {prefix + name for name in expected} | {prefix + 'BUILD_MANIFEST.json'}:
+            raise ValueError('Candidate ZIP contents differ from the build manifest')
+        for name, record in expected.items():
+            digest = hashlib.sha256()
+            size = 0
+            with source.open(prefix + name) as file:
+                for block in iter(lambda: file.read(1024 * 1024), b''):
+                    size += len(block)
+                    digest.update(block)
+            if size != record['bytes'] or digest.hexdigest() != record['sha256']:
+                raise ValueError(f'Candidate payload checksum mismatch: {name}')
+        source.extractall(destination)
+        if os.name != 'nt':
+            for member in members:
+                (destination / member.filename).chmod((member.external_attr >> 16) & 0o777)
+    print(f'RELEASE_ARCHIVE_PASS files={len(expected)}', flush=True)
+    return destination / archive.stem
 
 
 def main() -> int:
@@ -203,7 +255,7 @@ def main() -> int:
         dirty = bool(subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=normal'], cwd=ROOT, text=True).strip())
         name = f'CrimsonThreadPilgrimage-{args.target}-{commit[:12]}'
         logs = output / f'{name}-logs'
-        if logs.exists() or (output / f'{name}.zip').exists():
+        if logs.exists() or (output / f'{name}.zip').exists() or (output / f'{name}.zip.sha256').exists():
             raise ValueError(f'Refusing to overwrite an earlier candidate; choose a new --output: {name}')
         version = run_checked([engine, '--version'], logs / 'version.log', timeout=30, cwd=ROOT).strip()
         if not version.startswith('4.6.1.stable.'):
@@ -239,12 +291,20 @@ def main() -> int:
                 raise ValueError('Missing Godot engine and bundled-library license notices')
             # The player must work after the entire staged source and import cache disappear.
             shutil.rmtree(project)
-            smoke_package(binary, logs, args.timeout)
             manifest = {'schema_version': 1, 'source_commit': commit, 'source_dirty': dirty,
                         'target': args.target, 'engine': version,
-                        'validation': ['source-inputs', 'isolated-import', 'release-export', 'first-start', 'resume'],
+                        'validation': ['source-inputs', 'isolated-import', 'release-export', 'archive-integrity',
+                                       'unpacked-first-start', 'unpacked-resume-writeback'],
                         'qualification': 'candidate; headless startup is not full gameplay, visual, audio or ending acceptance'}
-            package_directory(payload, output / f'{name}.zip', manifest)
+            archive = work / f'{name}.zip'
+            package_directory(payload, archive, manifest)
+            # Only the ZIP survives into the smoke test: no original export or
+            # staged project can accidentally satisfy a missing package file.
+            shutil.rmtree(payload)
+            unpacked = unpack_verified_package(archive, work / 'unpacked')
+            smoke_package(unpacked / executable, logs, args.timeout)
+            shutil.copy2(archive, output / archive.name)
+            shutil.copy2(archive.with_name(archive.name + '.sha256'), output / (archive.name + '.sha256'))
         print(f'RELEASE_CANDIDATE_PASS {output / (name + ".zip")}', flush=True)
         return 0
     except (ValueError, RuntimeError, OSError, subprocess.SubprocessError) as error:

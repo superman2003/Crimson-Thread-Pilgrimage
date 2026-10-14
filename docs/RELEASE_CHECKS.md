@@ -1,28 +1,24 @@
-# T05 反向升级：独立桌面候选包
+# T05：桌面候选包与发布检查
 
-从 `docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md` 第四批末尾的 **T05 发布检查** 开始。基线为 main `3bd62d199662fcd3a248e8d7a849ab00cea6c26a`。这次完成发布工具基础，不将其标记为 T05 全部人工验收完成。
+本 PR 完成 Windows / Linux x86_64 的独立打包、最终 ZIP 校验、解压启动和读档写回检查，接入双平台原生 CI。范围属于 `docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md` 的 T05 发布工具；自然通关、实机手柄和混音仍按人工验收记录处理。
 
-## 并行边界
+## 打包与验证流程
 
-本分支只增加独立工具、导出预设和交付文档。没有更改运行控制器、World、配置校验/加载器、存档、输入设置、既有 Godot 验证脚本或现有 CI；不叠加 PR #35/#36，不合入 main。
+1. 检查 World 入口、章节配置、动态 JSON、许可和玩家说明；拒绝未水合 LFS 指针、受限目录与符号链接。
+2. 在临时工程中导入和 release 导出，只移除编辑器插件激活配置，保留运行时 autoload、插件类和 UID。
+3. 收集项目、素材、字体、插件及固定 Godot 引擎的许可；为每个随包文件生成大小和 SHA256 清单。
+4. 删除临时工程后生成 ZIP；校验 ZIP 的外部 SHA256、文件列表及清单中的每个文件，不允许重复、额外或越界成员。
+5. 删除原始导出目录，把最终 ZIP 解压到一个新目录，恢复 Linux 可执行权限，从解压包启动实际 release 二进制。用户数据、设置、缓存与工作目录全部隔离，不传源码 `--path` 或测试脚本。
+6. 首次启动必须生成有效旅途记录。在临时存档加入无游戏作用的探针标记，并删除首次启动留下的备份；重启必须保留标记，且产生包含标记的新 `.bak`，证明实际执行了读档后的写回。第二次启动仅留下原存档不动会被拒绝。
+7. 验证通过后才把 ZIP 与 `.sha256` 复制到输出目录；失败保留日志，不交付未验证的 ZIP，不覆盖旧候选或校验文件。
 
-按用户 2026-10-14 的分工，CI 已接入 `.github/workflows/release-candidate.yml`，对相关 PR 和 main 的变更执行 Linux/Windows 双原生 runner 检查。工作流只上传候选包和日志，不创建 GitHub Release、打标签或部署。
+所有引擎命令都有超时；非零退出与 ERROR、SCRIPT ERROR、Parse Error、USER ERROR 均失败，包括 ANSI 着色错误。构建清单记录源提交、dirty 状态、引擎、目标平台与具体验证范围。
 
-## 已实现
+运行时控制器、World、存档格式、输入设置和现有游戏回归脚本均不由本 PR 修改。候选包工作流只上传构建与日志，不创建公开 Release、打标签或部署。唯一生效工作流是 `.github/workflows/release-candidate.yml`，旧的 tools 工作流草案已移除。
 
-- Linux / Windows x86_64 的 Godot 4.6.1 导出预设；主入口仍为 World。
-- 把项目复制到临时目录，排除验证、截图、预览、缓存和临时文件；只在临时副本禁用编辑器插件，保留 runtime autoload、插件类和 UID。原工程不变。
-- 动态加载的 JSON、MapData 文本和素材清单纳入导出，避免仅导出场景依赖漏掉文件。
-- 输入检查拒绝未水合 LFS 指针、已登记受限素材路径、符号链接、缺失章节/许可/说明文档与非法 JSON。检查不是完整著作权审计，也不是所有动态引用的静态证明。
-- 导入和导出有超时；非零退出及日志中的 ERROR、SCRIPT ERROR、Parse Error、USER ERROR 均阻止通过，包括 ANSI 着色日志中的错误。
-- 使用实际 release 可执行文件，移除整个临时工程后，在另一个空目录运行，不传源码 `--path` 或测试脚本；用户数据、设置和缓存全部隔离。
-- 首次启动必须写出有效旅途记录；随后仅在临时存档插入一个无游戏作用的布尔标记，重启后必须保留，避免把“又开一局”误认作读档。
-- 随包附项目、素材、字体、插件许可；通过固定引擎的 `Engine.get_license_text/get_license_info/get_copyright_info` 导出引擎及其依赖署名。
-- ZIP 附 `BUILD_MANIFEST.json`（提交、dirty 状态、引擎、目标系统、验收范围及逐文件 SHA256）和外部 ZIP SHA256。保留失败日志，拒绝覆盖同名旧候选。
+## 使用
 
-## 本地使用
-
-需要 Python 3.10+、Git、Git LFS、Godot **4.6.1 stable** 及匹配的 release export template。工具在目标操作系统构建，以便验证真正的可执行文件；不要把交叉导出成功等同目标平台通过。
+需要 Python 3.10+、Git / Git LFS、Godot **4.6.1 stable** 和匹配的 release export template。在目标操作系统构建，以实际可执行文件验证该平台。
 
 ```sh
 git lfs pull --include='godot/**'
@@ -33,39 +29,33 @@ python tools/build_release.py --target linux --engine /absolute/path/to/godot --
 python tools/build_release.py --target windows --engine C:/Godot/Godot_v4.6.1-stable_win64.exe --output dist/releases
 ```
 
-`--check` 仅检查输入，不生成游戏包，也不宣称启动/玩法通过。实际包不需要玩家安装 Godot。失败后修正原因并换一个 `--output` 目录重试，保留此前日志；不能忽略错误重复运行到偶然通过。
+`--check` 只检查输入。实际游戏包不要求玩家安装 Godot。失败后保留日志，修正原因并使用新的输出目录重试。建议使用 clean checkout；本地改动会如实记录为 `source_dirty=true`。
 
-正式候选应从 clean checkout 构建；本地开发构建会在清单中明确标为 `source_dirty=true`。构建包含当前工作树允许的资源，不使用 `git archive` 丢弃尚未提交的改动。
+## 已核实的验证证据（2026-10-14）
 
-## T05 完成与剩余边界
-
-| 检查点 | 状态 / 证据 |
+| 检查 | 已核实结果 |
 |---|---|
-| 素材水合、受限目录、必要配置与许可证输入检查 | 已实现，真实仓库输入通过 |
-| 错误日志、超时、假读档、资源边界与校验和负面测试 | 15 项单元测试通过 |
-| Linux 独立导出与两次启动 | 最终工具版本已通过：移除临时源码后启动、写出存档、重启保留探针标记；见下方验证记录 |
-| Windows 原生导出与启动 | 工具和未启用 CI 草案就绪；本地 Linux 未宣称 Windows 通过 |
-| 玩家启动说明、操作入口、保存位置、已知限制 | 随包 `README.md`，源文件 `RELEASE_PLAYER_GUIDE.md` |
-| 整体剧情/终局/存档与设置流程验收 | 另一 agent 的 PR #35/#36 整合范围，本分支不替代 |
-| 六区自然带伤流程、三契印、手柄、视觉和混音 | 尚需真实体验；headless 启动不能替代 |
-| 所有素材的原创来源与第三方条款复核 | 保留已登记许可，完整来源审计仍待人工复核 |
-| 失效入口、占位文本全量清理 | 后续结合逐章评测/文案候选处理，不擅改运行数据 |
-| 正式发布 | 未进行；候选包与正式发布分开 |
+| 原分支完整 CI | `c2afa0a0039d9e617a6b882befccc24b7866e521` 的三个检查均成功 |
+| Linux 原生导出、首次启动、重启 | [桌面构建 run 38539036007](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38539036007)，Linux job 115768949429 成功 |
+| Windows 原生导出、首次启动、重启 | 同一 run 的 Windows job 115768949057 成功；不是 Linux 交叉导出 |
+| 完整游戏回归 | [run 38539035956](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38539035956)：71 套回归零失败，资源导入与后续 GPU 探针通过 |
+| 本次工具负面测试 | 20 项通过；新增不读不写的假重启、无关备份、ZIP 损坏、内部文件损坏和额外/越界成员检查 |
+| 本次真实 ZIP 解压验证 | 对上述 CI 的 Linux ZIP 校验 23 个随包文件，再启动解压出的二进制；首次保存、保留探针与生成新备份均通过，无引擎错误 |
 
-## 2026-10-14 本地验证记录
+原 CI 包测试的是合并预览提交 `db3d963ee4673b13722e02601903969843e29a81`，不是分支头提交。Linux 清单中的 `source_dirty=true` 保持原样，不把此包称为 clean release。本次在本地对该既有二进制复核了加强后的包校验及读档门禁；更新后的双平台完整重建由新一轮 CI 验证，旧 run 的成功不等同新提交已通过 CI。
 
-- 最终工具版本来自本地提交 `3fbfd20db7b1c38dfca2656f758b30bc9179d5c4`；远端等价提交 `c049a991aa7f444fba39279450bb2ebf5201aadd` 的 Git tree 同为 `605b19c8af35bd24b6955f406b248b450e08592e`。后续仅补充本验证记录；CI 工作流启用提交为本分支后续提交。
-- `python tools/test_release_builder.py` 的 15 项测试通过；`npm test` 与 `npm run test:campaign` 通过。
-- 官方 Godot 4.6.1 Linux 编辑器和匹配导出模板经过官方 SHA512 清单核验。最终构建完成导入、导出、引擎许可采集和真实 Linux release 二进制两次独立启动，相关日志未发现 ERROR。
-- 本地开发 ZIP 为 `CrimsonThreadPilgrimage-linux-3fbfd20db7b1.zip`，447,799,226 字节。构建开始时工作树曾有未跟踪的工作流草案副本，因此清单如实标为 `source_dirty=true`；该副本后来移出工作树，未提交或启用。不将此开发包称为 clean checkout 正式候选。
-- 这些检查没有覆盖 Windows、六区自然带伤通关、终局流程、手柄、视觉或实机混音；对应待验收项保持不变。
+此前本地开发构建 `3fbfd20` / 远端等价树 `c049a99` 的 Linux 导出和启动记录属于旧版本证据，不再作为当前 Windows 或最终解压门禁的通过证明。
 
-## 下一批
+## 玩家交付与验收边界
 
-按用户最新划定的保留区，暂不逆向修改 T03/T02/U06/N05 及控制器。下一批在独立分支交付美术、音频、剧情/教学文案和六章评测候选。资源先交付，不写运行数据，不合 main；接入时再与负责运行/整合的 agent 协调。
+随包 `README.md` 来自 `docs/RELEASE_PLAYER_GUIDE.md`，包含解压启动、操作设置、存档位置、问题入口和限制；`licenses/` 保留各类许可，代码 MIT 不替代素材条款。
+
+- 自动门禁验证打包、启动、保存和重启写回；不等同六区自然带伤通关、全部结局或实机手柄体验。
+- 正常尺寸视觉、混音和所有素材的完整原创来源复核仍需独立验收。
+- 转为正式 PR 表示可供代码审查；游戏仍是开发中的候选版本。
 
 ## 技术依据
 
-- Godot 4.6 导出预设与非资源文件过滤：https://docs.godotengine.org/en/4.6/tutorials/export/exporting_projects.html
-- Godot 4.6 CLI 参数与 release/extended 参数区别：https://docs.godotengine.org/en/4.6/tutorials/editor/command_line_tutorial.html
-- 官方固定版本发行和 SHA512 清单：https://github.com/godotengine/godot/releases/tag/4.6.1-stable
+- Godot 4.6 导出：https://docs.godotengine.org/en/4.6/tutorials/export/exporting_projects.html
+- Godot 4.6 CLI：https://docs.godotengine.org/en/4.6/tutorials/editor/command_line_tutorial.html
+- 固定引擎与校验清单：https://github.com/godotengine/godot/releases/tag/4.6.1-stable

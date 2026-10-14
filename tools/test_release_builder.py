@@ -120,10 +120,41 @@ class ReleaseBuilderTests(unittest.TestCase):
             save = user_data / 'pilgrimage_world.json'
             if not save.exists():
                 save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+            else:
+                # Match production's atomic save writeback after loading World.
+                contents = save.read_text()
+                save.with_name(save.name + '.bak').write_text(contents)
+                save.write_text(json.dumps(json.loads(contents)))
             return ''
         with patch.object(release, 'run_checked', side_effect=fake_engine) as runner:
             release.smoke_package(self.root / 'game', self.root, 5)
             self.assertEqual(2, runner.call_count)
+
+    def test_passive_second_boot_cannot_claim_resume(self):
+        def passive_boot(command, log, *, timeout, cwd, env):
+            user_data = Path(env['XDG_DATA_HOME'])
+            user_data.mkdir(exist_ok=True)
+            save = user_data / 'pilgrimage_world.json'
+            if not save.exists():
+                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+                # A leftover first-start backup must not count as resume evidence.
+                save.with_name(save.name + '.bak').write_text(save.read_text())
+        with patch.object(release, 'run_checked', side_effect=passive_boot):
+            with self.assertRaisesRegex(ValueError, 'write back'):
+                release.smoke_package(self.root / 'game', self.root, 5)
+
+    def test_unrelated_backup_cannot_claim_resume(self):
+        def wrong_backup(command, log, *, timeout, cwd, env):
+            user_data = Path(env['XDG_DATA_HOME'])
+            user_data.mkdir(exist_ok=True)
+            save = user_data / 'pilgrimage_world.json'
+            if not save.exists():
+                save.write_text(json.dumps({'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+            else:
+                save.with_name(save.name + '.bak').write_text(json.dumps({'story_flags': {}}))
+        with patch.object(release, 'run_checked', side_effect=wrong_backup):
+            with self.assertRaisesRegex(ValueError, 'back up'):
+                release.smoke_package(self.root / 'game', self.root, 5)
 
     def test_false_resume_rejected(self):
         def reset_save(command, log, *, timeout, cwd, env):
@@ -155,6 +186,55 @@ class ReleaseBuilderTests(unittest.TestCase):
             if sys.platform != 'win32':
                 self.assertTrue((z.getinfo('candidate/game').external_attr >> 16) & 0o111)
         self.assertEqual(release.sha256(archive), (self.root / 'candidate.zip.sha256').read_text().split()[0])
+        unpacked = release.unpack_verified_package(archive, self.root / 'unpacked')
+        self.assertEqual(b'candidate-binary', (unpacked / 'game').read_bytes())
+        if sys.platform != 'win32':
+            self.assertTrue((unpacked / 'game').stat().st_mode & 0o111)
+
+    def candidate(self):
+        payload = self.root / 'candidate'
+        payload.mkdir()
+        (payload / 'game').write_bytes(b'candidate-binary')
+        archive = self.root / 'candidate.zip'
+        release.package_directory(payload, archive, {'source_commit': 'test'})
+        return archive
+
+    def refresh_checksum(self, archive):
+        archive.with_name(archive.name + '.sha256').write_text(f'{release.sha256(archive)}  {archive.name}\n')
+
+    def test_corrupted_archive_rejected_before_unpacking(self):
+        archive = self.candidate()
+        with archive.open('ab') as file:
+            file.write(b'corrupted')
+        with self.assertRaisesRegex(ValueError, 'ZIP checksum'):
+            release.unpack_verified_package(archive, self.root / 'unpacked')
+        self.assertFalse((self.root / 'unpacked').exists())
+
+    def test_corrupted_payload_rejected_even_with_matching_zip_checksum(self):
+        archive = self.candidate()
+        with zipfile.ZipFile(archive) as file:
+            members = {name: file.read(name) for name in file.namelist()}
+        members['candidate/game'] = b'corrupted-binary'
+        with zipfile.ZipFile(archive, 'w') as file:
+            for name, data in members.items():
+                file.writestr(name, data)
+        self.refresh_checksum(archive)
+        with self.assertRaisesRegex(ValueError, 'payload checksum'):
+            release.unpack_verified_package(archive, self.root / 'unpacked')
+        self.assertFalse((self.root / 'unpacked').exists())
+
+    def test_unlisted_or_escaping_archive_member_rejected(self):
+        archive = self.candidate()
+        original = archive.read_bytes()
+        for name in ['candidate/extra', 'candidate/../escaped', 'candidate/\\escaped']:
+            with self.subTest(name=name):
+                archive.write_bytes(original)
+                with zipfile.ZipFile(archive, 'a') as file:
+                    file.writestr(name, b'not-in-manifest')
+                self.refresh_checksum(archive)
+                with self.assertRaises(ValueError):
+                    release.unpack_verified_package(archive, self.root / 'unpacked')
+                self.assertFalse((self.root / 'unpacked').exists())
 
     def test_invalid_timeout_rejected_before_source_scan(self):
         for value in ['nan', 'inf', '0', '-1']:
