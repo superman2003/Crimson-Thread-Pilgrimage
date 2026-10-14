@@ -75,9 +75,9 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
         print(f'Running {suite}', flush=True)
         try:
             with log.open('w') as output:
-                # Frame-counted ability/actuator probes use a fixed clock.
+                # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime suites must retain normal playback timing.
-                simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live'] else []
+                simulation = ['--fixed-fps', '60'] if suite in ['ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
                 # An intermittent CI shutdown leak needs the actual Resource
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []

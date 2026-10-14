@@ -31,3 +31,20 @@ Local verification used Godot **4.6.3** and an isolated minimal project containi
 - Full project import, six-region traversal, graphics/audio asset validation and device/gameplay acceptance were **not run** by this category. The partial source snapshot does not contain the complete assets/addons.
 
 This category requires no new main-level hooks or API changes. No publishing, merge or deployment was performed.
+
+## PR #46 integration correction (2026-10-14)
+
+The original Actions run `38530425686` completed 72 runtime suites with one failure: `world_enemy_residency` expected a single accepted player attack to damage the resident enemy. The other 71 suites, including all three enemy lifecycle/effect/visibility suites, passed.
+
+A diagnostic run with the real enemy AI at its last windup frame reproduced the same assertion failure: the lunge damaged the player, `attack_timer` became zero before the active hit, and enemy HP stayed at 2. This is a valid combat interruption; accepting input alone does not guarantee a hit.
+
+The residency fixture now temporarily enables the existing player debug invulnerability flag only around its first partial-hit measurement and restores the previous value immediately afterward. It still uses the production player attack, hitbox, line of sight, enemy `take_hit`, and residency checks. Later melee kill/reward and lethal player damage/respawn probes run with normal damage. The runner gives this frame-counted suite a fixed 60 FPS clock, and the fixture prints acceptance, observed frames, and before/after HP for diagnosis. No gameplay runtime or failure/error checks were changed by this correction.
+
+Complete-project local verification used Godot **4.6.1** with real Mesa software OpenGL:
+
+- Resource import: two passes, zero errors.
+- Corrected residency suite: **56/56**; the same adverse last-windup fixture also passed **56/56** (diagnostic timing code was removed afterward).
+- Lifecycle **31/31**, effect lifetime **29/29**, visibility **36/36**; all four targeted suites passed the strict runner with zero engine/script errors.
+- `npm test`, `npm run test:campaign`, Python regression-runner tests (**10/10**), and changed-file `git diff --check` passed.
+
+Existing intermittent audio ObjectDB exit warnings remain visible. The full 72-suite run and remaining GPU probes were not rerun locally; the updated PR triggers a new Actions run.
