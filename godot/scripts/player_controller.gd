@@ -225,6 +225,8 @@ const THREAD_T3_GLOW := Color(0.902, 0.224, 0.314, 0.35)
 @export var dash_speed: float = 780.0
 @export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.12
+## One pending combat command; seconds of simulation time, independent of FPS.
+@export_range(0.0, 0.25, 0.01) var action_buffer_time: float = 0.10
 @export var jump_cut_multiplier: float = 0.48
 @export var dash_time: float = 0.16
 @export var dash_cooldown_time: float = 0.60
@@ -264,6 +266,9 @@ var facing: int = 1
 var spawn_position: Vector2
 var coyote_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
+var buffered_action: StringName = &""
+var action_buffer_timer := 0.0
+var buffered_direction := Vector2.ZERO
 var dash_timer: float = 0.0
 var dash_cooldown: float = 0.0
 var land_timer: float = 0.0
@@ -309,7 +314,12 @@ var hook_reel_played: bool = false
 ## UI 输入闸（共享契约）：main_level 在任一 overlay（背包/地图/对话/设置）开合时
 ## 用 player.set("ui_input_locked", opened) 同步；为 true 时忽略 move_left/right
 ## 与 aim_up/down，不影响 Esc/UI 键与既有暂停逻辑。
-var ui_input_locked: bool = false
+var ui_input_locked: bool = false:
+    set(value):
+        ui_input_locked = value
+        if value:
+            _clear_action_buffer()
+            jump_buffer_timer = 0.0
 var snare_timer := 0.0
 
 func apply_snare(seconds: float) -> void:
@@ -363,6 +373,7 @@ func _physics_process(delta: float) -> void:
     if dash_timer>0:
         snare_timer=0
     if death_timer > 0.0:
+        _clear_action_buffer()
         wall_sliding = false
         _update_wall_slide_audio()
         death_timer -= delta
@@ -400,8 +411,9 @@ func _physics_process(delta: float) -> void:
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
     var input_axis := _move_axis()
+    _sample_action_input(delta)
 
-    if input_axis != 0.0 and attack_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0:
+    if input_axis != 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0:
         facing = signi(input_axis)
         sprite.flip_h = facing < 0
         _sync_attack_hitbox()
@@ -457,19 +469,7 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
 
-    if Input.is_action_just_pressed("dash") and dash_unlocked and dash_cooldown <= 0.0 and dash_timer <= 0.0 and attack_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0 and hurt_timer <= 0.0:
-        _stop_grapple()
-        ability_action.emit("thread_dash", global_position, Vector2(facing, 0))
-        dash_timer = dash_time
-        dash_cooldown = dash_cooldown_time
-        velocity.y = 0.0
-        velocity.x = dash_speed * facing
-        dash_ghost_tick = 0
-        dash_start_position = global_position
-        if feel != null:
-            _add_trauma(0.08)
-        _play(&"dash")
-        _play_sfx("dash", -7.0)
+    _consume_action_input(&"dash")
 
     if Input.is_action_just_pressed("bell_guard"):
         _try_guard()
@@ -478,8 +478,8 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed("heal"):
         _try_heal()
 
-    if Input.is_action_just_pressed("attack") and _can_start_action():
-        _start_attack(&"attack_1")
+    if _consume_action_input(&"attack"):
+        pass
     elif Input.is_action_just_pressed("hook") and _can_start_action():
         if not _try_start_grapple():
             _start_attack(&"hook_throw")
@@ -557,6 +557,7 @@ func _try_start_grapple() -> bool:
             best_score = score
     if best == null:
         return false
+    _clear_action_buffer()
     ability_action.emit("echo_hook", global_position, (best.global_position - origin).normalized())
     grapple_anchor = best
     grapple_timer = grapple_timeout
@@ -608,6 +609,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    _clear_action_buffer()
     _stop_grapple()
     _interrupt_heal()
     _stop_phase()
@@ -642,13 +644,14 @@ func _spawn_double_jump_vfx() -> void:
         tween.finished.connect(Callable(thread, "queue_free"))
 
 
-func _start_attack(animation: StringName, allow_traversal_action: bool = true) -> void:
+func _start_attack(animation: StringName, allow_traversal_action: bool = true, queued_direction: Vector2 = Vector2.ZERO) -> void:
+    _clear_action_buffer()
     grapple_recovery_timer = 0.0
     if animation == &"attack_1" and _crest() == "bell":
         animation = &"attack_2"
     active_skill.clear()
     current_attack = animation
-    current_attack_direction = _read_attack_direction()
+    current_attack_direction = _read_attack_direction() if queued_direction == Vector2.ZERO else queued_direction
     if animation == &"hook_throw":
         current_attack_direction = Vector2(float(facing), 0.0)
     if animation == &"hook_throw":
@@ -714,10 +717,73 @@ func _play_attack_swing_sfx() -> void:
     _play_sfx(key, -5.0, randf_range(0.96, 1.04), "player_attack")
 
 
-func _can_start_action() -> bool:
+func _clear_action_buffer() -> void:
+    buffered_action = &""
+    action_buffer_timer = 0.0
+    buffered_direction = Vector2.ZERO
+
+
+func _sample_action_input(delta: float) -> void:
+    action_buffer_timer = maxf(0.0, action_buffer_timer - delta)
+    if action_buffer_timer <= 0.0:
+        _clear_action_buffer()
+    # Latest command replaces the pending command; holding never repeats it.
+    # Preserve the existing dash priority when both buttons arrive in one tick.
+    var action: StringName = &""
+    if Input.is_action_just_pressed("dash") and dash_unlocked:
+        action = &"dash"
+    elif Input.is_action_just_pressed("attack"):
+        action = &"attack"
+    if action == &"":
+        return
+    buffered_action = action
+    action_buffer_timer = action_buffer_time
+    if action == &"attack":
+        buffered_direction = _read_attack_direction()
+    else:
+        var axis := _move_axis()
+        buffered_direction = Vector2(signf(axis) if absf(axis) > 0.1 else float(facing), 0.0)
+
+
+func _consume_action_input(action: StringName) -> bool:
+    if buffered_action != action or not _can_start_action(action == &"dash"):
+        return false
+    if action == &"dash" and (not dash_unlocked or dash_cooldown > 0.0):
+        return false
+    var direction := buffered_direction
+    # Consume before any signal/callback can re-enter action handling.
+    _clear_action_buffer()
+    if absf(direction.x) > 0.1:
+        facing = signi(direction.x)
+        sprite.flip_h = facing < 0
+    if action == &"attack":
+        _start_attack(&"attack_1", true, direction)
+    else:
+        _start_dash()
+    return true
+
+
+func _start_dash() -> void:
+    _clear_action_buffer()
+    _stop_grapple()
+    dash_timer = dash_time
+    dash_cooldown = dash_cooldown_time
+    velocity.y = 0.0
+    velocity.x = dash_speed * facing
+    dash_ghost_tick = 0
+    dash_start_position = global_position
+    _sync_attack_hitbox()
+    ability_action.emit("thread_dash", global_position, Vector2(facing, 0))
+    if feel != null:
+        _add_trauma(0.08)
+    _play(&"dash")
+    _play_sfx("dash", -7.0)
+
+
+func _can_start_action(allow_grapple: bool = false) -> bool:
     if get_parent().has_method("_walking_world_passage") and get_parent()._walking_world_passage():
         return false
-    return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and grapple_timer <= 0.0 and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
+    return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
 
 
 func configure_selected_skill(skill: Dictionary) -> void:
@@ -788,6 +854,7 @@ func cast_selected_skill(slot: int = -1) -> bool:
 func _try_heal() -> bool:
     if not _can_start_action() or heal_cooldown > 0.0 or hp >= max_hp or energy < heal_energy_cost or not is_on_floor():
         return false
+    _clear_action_buffer()
     gain_energy(-heal_energy_cost)
     heal_reserved_cost = heal_energy_cost
     _seal_present("heal", "prepare")
@@ -827,6 +894,7 @@ func _interrupt_heal() -> void:
 
 
 func apply_build_stats(stats: Dictionary) -> void:
+    _clear_action_buffer()
     if build_baseline.is_empty():
         build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed, "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost, "heal_amount": heal_amount, "heal_duration": heal_duration}
     line_stacks = 0
@@ -860,6 +928,7 @@ func apply_build_stats(stats: Dictionary) -> void:
 func _try_guard() -> bool:
     if not bell_guard_unlocked or not _can_start_action() or guard_cooldown > 0.0 or energy < 8:
         return false
+    _clear_action_buffer()
     gain_energy(-8)
     guard_timer = 0.42
     guard_initial_duration = guard_timer
@@ -1802,6 +1871,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         return
     if amount <= 0:
         return
+    _clear_action_buffer()
     var source_side := signf(source_position.x - global_position.x)
     if blockable and guard_timer > 0.0 and (source_side == 0.0 or int(source_side) == facing):
         var perfect := guard_timer >= guard_initial_duration - 0.14 and not guard_refunded
