@@ -20,7 +20,7 @@ DEFAULT_SUITES = (
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
     'player_upgrade_regression build_system world_upgrade upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign '
-    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget'
+    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 
