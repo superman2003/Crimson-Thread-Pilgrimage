@@ -182,8 +182,8 @@
       "danger": "落点干净，湿石打滑。",
       "next": "渡槽闸口",
       "setpiece": "排水钟管的出口铁唇",
-      "traversal_focus": "跨章入口",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "跨区入渠先观察渡槽落点与雨声，不安排入口追击",
+      "pacing_role": "arrival_and_observation",
       "visit_rects": [
         [
           100,
@@ -202,7 +202,13 @@
           325,
           230
         ]
-      }
+      },
+      "camera_bounds": [
+        80,
+        330,
+        740,
+        720
+      ]
     },
     {
       "id": "aqueduct_gate",
@@ -240,6 +246,12 @@
           700,
           294
         ]
+      ],
+      "camera_bounds": [
+        750,
+        420,
+        720,
+        680
       ]
     },
     {
@@ -269,8 +281,8 @@
       "danger": "钟坠从渠顶松脱。",
       "next": "闸锁台阶",
       "setpiece": "雨栅与吊钟坠",
-      "traversal_focus": "横越教学",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "先听纸船故事，再越过坠钟；炮手驻守后方高差平台",
+      "pacing_role": "conversation_then_artillery",
       "visit_rects": [
         [
           1500,
@@ -278,6 +290,12 @@
           650,
           316
         ]
+      ],
+      "camera_bounds": [
+        1480,
+        470,
+        700,
+        700
       ]
     },
     {
@@ -316,6 +334,12 @@
           340,
           242
         ]
+      ],
+      "camera_bounds": [
+        1560,
+        340,
+        380,
+        576
       ]
     },
     {
@@ -354,6 +378,12 @@
           630,
           322
         ]
+      ],
+      "camera_bounds": [
+        2140,
+        630,
+        680,
+        720
       ]
     },
     {
@@ -383,8 +413,8 @@
       "danger": "安全屋。",
       "next": "检修匍匐缝",
       "setpiece": "渡槽下的苔灯",
-      "traversal_focus": "存档教学",
-      "pacing_role": "respite",
+      "traversal_focus": "越过闸齿后休整，镜头同时保留苔灯与检修缝入口",
+      "pacing_role": "recover_before_hub",
       "visit_rects": [
         [
           2800,
@@ -403,7 +433,13 @@
           190,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        2780,
+        760,
+        420,
+        576
+      ]
     },
     {
       "id": "flume_crawl",
@@ -441,6 +477,12 @@
           740,
           676
         ]
+      ],
+      "camera_bounds": [
+        3180,
+        830,
+        800,
+        940
       ]
     },
     {
@@ -470,8 +512,8 @@
       "danger": "巨型水轮的剪影在腔底转动。",
       "next": "四方",
       "setpiece": "1600px 泵房竖腔",
-      "traversal_focus": "垂直枢纽分流",
-      "pacing_role": "hub",
+      "traversal_focus": "到达中庭先识别水表层、西岸长梯和下探泵井",
+      "pacing_role": "vertical_route_decision",
       "visit_rects": [
         [
           2430,
@@ -490,7 +532,13 @@
           400,
           540
         ]
-      }
+      },
+      "camera_bounds": [
+        2370,
+        1450,
+        1490,
+        2100
+      ]
     },
     {
       "id": "wish_board_landing",
@@ -528,6 +576,12 @@
           360,
           244
         ]
+      ],
+      "camera_bounds": [
+        2980,
+        1260,
+        400,
+        576
       ]
     },
     {
@@ -566,6 +620,12 @@
           1190,
           328
         ]
+      ],
+      "camera_bounds": [
+        2900,
+        1770,
+        1230,
+        720
       ]
     },
     {
@@ -604,6 +664,12 @@
           898,
           1580
         ]
+      ],
+      "camera_bounds": [
+        4060,
+        1910,
+        978,
+        1880
       ]
     },
     {
@@ -642,6 +708,12 @@
           420,
           250
         ]
+      ],
+      "camera_bounds": [
+        2020,
+        2140,
+        460,
+        576
       ]
     },
     {
@@ -680,6 +752,12 @@
           340,
           244
         ]
+      ],
+      "camera_bounds": [
+        1920,
+        1680,
+        380,
+        576
       ]
     },
     {
@@ -709,8 +787,8 @@
       "danger": "落下去就没有原路。",
       "next": "湿墙试炼间",
       "setpiece": "锈死的立管井盖",
-      "traversal_focus": "单向下探",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "西井落地先看到铁匠，潜兵守在更西侧，推进后再交战",
+      "pacing_role": "conversation_then_trial",
       "visit_rects": [
         [
           1250,
@@ -718,6 +796,12 @@
           1220,
           376
         ]
+      ],
+      "camera_bounds": [
+        1210,
+        2920,
+        1300,
+        800
       ]
     },
     {
@@ -747,8 +831,8 @@
       "danger": "守卫的巢就在井底正中。",
       "next": "立管井",
       "setpiece": "两面对峙的青铜湿墙",
-      "traversal_focus": "精英战与能力获取",
-      "pacing_role": "climax",
+      "traversal_focus": "轮盾与返刃保持双招式；利用收招窗口调整位置，再取攀墙能力",
+      "pacing_role": "elite_then_wall_grip",
       "visit_rects": [
         [
           920,
@@ -756,6 +840,12 @@
           500,
           254
         ]
+      ],
+      "camera_bounds": [
+        890,
+        3160,
+        560,
+        700
       ]
     },
     {
@@ -794,6 +884,12 @@
           450,
           2208
         ]
+      ],
+      "camera_bounds": [
+        900,
+        1270,
+        530,
+        2510
       ]
     },
     {
@@ -843,7 +939,13 @@
           325,
           540
         ]
-      }
+      },
+      "camera_bounds": [
+        1340,
+        1040,
+        710,
+        1550
+      ]
     },
     {
       "id": "high_water_tower",
@@ -881,6 +983,12 @@
           680,
           962
         ]
+      ],
+      "camera_bounds": [
+        520,
+        340,
+        760,
+        1360
       ]
     },
     {
@@ -919,6 +1027,12 @@
           440,
           716
         ]
+      ],
+      "camera_bounds": [
+        2790,
+        3240,
+        520,
+        1030
       ]
     },
     {
@@ -957,6 +1071,12 @@
           1040,
           546
         ]
+      ],
+      "camera_bounds": [
+        2720,
+        3850,
+        1120,
+        980
       ]
     },
     {
@@ -995,6 +1115,12 @@
           1130,
           378
         ]
+      ],
+      "camera_bounds": [
+        1620,
+        4180,
+        1210,
+        800
       ]
     },
     {
@@ -1033,6 +1159,12 @@
           640,
           342
         ]
+      ],
+      "camera_bounds": [
+        1320,
+        4400,
+        720,
+        760
       ]
     },
     {
@@ -1071,6 +1203,12 @@
           470,
           1114
         ]
+      ],
+      "camera_bounds": [
+        1100,
+        3400,
+        550,
+        1530
       ]
     },
     {
@@ -1120,7 +1258,13 @@
           400,
           334
         ]
-      }
+      },
+      "camera_bounds": [
+        3720,
+        3890,
+        1030,
+        850
+      ]
     },
     {
       "id": "drowned_archive_pod",
@@ -1158,6 +1302,12 @@
           680,
           484
         ]
+      ],
+      "camera_bounds": [
+        3120,
+        4150,
+        760,
+        850
       ]
     },
     {
@@ -1196,6 +1346,12 @@
           600,
           584
         ]
+      ],
+      "camera_bounds": [
+        4710,
+        3820,
+        680,
+        1040
       ]
     },
     {
@@ -1234,6 +1390,12 @@
           490,
           566
         ]
+      ],
+      "camera_bounds": [
+        5370,
+        3810,
+        570,
+        990
       ]
     },
     {
@@ -1272,6 +1434,12 @@
           320,
           242
         ]
+      ],
+      "camera_bounds": [
+        5410,
+        3660,
+        360,
+        576
       ]
     },
     {
@@ -1310,6 +1478,12 @@
           1080,
           346
         ]
+      ],
+      "camera_bounds": [
+        5170,
+        4170,
+        1160,
+        800
       ]
     },
     {
@@ -1348,6 +1522,12 @@
           1010,
           1362
         ]
+      ],
+      "camera_bounds": [
+        3800,
+        3000,
+        1090,
+        1730
       ]
     },
     {
@@ -1386,6 +1566,12 @@
           1010,
           648
         ]
+      ],
+      "camera_bounds": [
+        3750,
+        3020,
+        1090,
+        1000
       ]
     },
     {
@@ -1415,8 +1601,8 @@
       "danger": "门后就是执剪者的领域。",
       "next": "沉炉大厅",
       "setpiece": "炉前苔灯",
-      "traversal_focus": "战前存档",
-      "pacing_role": "tension",
+      "traversal_focus": "长堤遭遇后在炉前休整，先辨认Boss入口再封门",
+      "pacing_role": "respite_before_boss",
       "visit_rects": [
         [
           4780,
@@ -1435,7 +1621,13 @@
           200,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        4760,
+        3280,
+        440,
+        576
+      ]
     },
     {
       "id": "smith_arena",
@@ -1484,7 +1676,13 @@
           390,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        5180,
+        3320,
+        860,
+        720
+      ]
     },
     {
       "id": "echo_outfall",
@@ -1533,7 +1731,13 @@
           400,
           234
         ]
-      }
+      },
+      "camera_bounds": [
+        6000,
+        3310,
+        900,
+        720
+      ]
     },
     {
       "id": "pendulum_gantry",
@@ -1562,8 +1766,8 @@
       "danger": "攀升很长，别在中途松手。",
       "next": "钟摆车间",
       "setpiece": "静止的巨型钟摆",
-      "traversal_focus": "纵向攀爬",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "逐层跟随吊架落脚点，不以全井中心固定镜头",
+      "pacing_role": "vertical_hook_ascent",
       "visit_rects": [
         [
           6140,
@@ -1571,6 +1775,12 @@
           450,
           2020
         ]
+      ],
+      "camera_bounds": [
+        6100,
+        1540,
+        530,
+        2360
       ]
     },
     {
@@ -1620,7 +1830,13 @@
           230,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        5980,
+        1360,
+        500,
+        576
+      ]
     },
     {
       "id": "pendulum_vault",
@@ -1669,7 +1885,13 @@
           160,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        6540,
+        1300,
+        360,
+        576
+      ]
     },
     {
       "id": "hook_gallery",
@@ -1707,6 +1929,12 @@
           1260,
           886
         ]
+      ],
+      "camera_bounds": [
+        4660,
+        1160,
+        1340,
+        1290
       ]
     }
   ],
@@ -6805,7 +7033,7 @@
         }
       },
       "dialogue_topics": {
-        "route": "顺石渠缓坡到锈泵中庭。河两岸的桥可以走，管洞要低头；下层还有一条回路。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "route": "纸船过的闸下面是泵庭。往下听水声，往西找湿墙；要去炉前，先让水轮重新转起来。",
         "wish": "替我找一枚工人徽章。我想知道父亲以前穿的衣服到底是什么颜色。"
       }
     },
@@ -6998,10 +7226,10 @@
       "id": "E02",
       "kind": "pipe_thrower",
       "position": [
-        1760,
-        880
+        2020,
+        960
       ],
-      "platform_id": "rd_run",
+      "platform_id": "rd_step",
       "sprite": "res://assets/sprites/original_creatures/pipe_thrower/manifest.json",
       "visual_scale": 0.3096774193548387,
       "visual_offset": [
@@ -7013,13 +7241,70 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
-      "patrol": 80,
-      "leash_radius": 220,
+      "patrol": 0,
+      "leash_radius": 110,
       "spawn_half_width": 24,
       "spawn_visual_height": 56,
       "clearance": 40,
       "locomotion": "stationary",
-      "combat_identity": "向上抛射管弹，落地溅出短暂危险区"
+      "combat_identity": "向上抛射管弹，落地溅出短暂危险区",
+      "encounter_role": "artillery_after_clapper",
+      "encounter_profile": {
+        "aggro_range": 260,
+        "attack_desire_gain": 0.9,
+        "attacks": [
+          {
+            "id": "pipe_mortar",
+            "name": "管弹曲射",
+            "type": "mortar",
+            "range": 510,
+            "windup": 0.8,
+            "active": 0.24,
+            "recover": 0.85,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "管弹曲射",
+            "shot_count": 3,
+            "gravity": 540,
+            "projectile_speed": 185,
+            "skin": "metal",
+            "impact_pool": true,
+            "blockable": false,
+            "start_cooldown": 0.9
+          },
+          {
+            "id": "pipe_backblast",
+            "name": "近身蒸汽反喷",
+            "type": "beam",
+            "range": 145,
+            "windup": 0.65,
+            "active": 0.24,
+            "recover": 0.85,
+            "cooldown": 3.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "近身蒸汽反喷",
+            "beam_length": 160,
+            "radius": 17,
+            "hazard_life": 0.38,
+            "blockable": false,
+            "start_cooldown": 1.6
+          }
+        ]
+      }
     },
     {
       "id": "E03",
@@ -7295,7 +7580,7 @@
       "id": "E13",
       "kind": "rust_diver",
       "position": [
-        1740,
+        1620,
         3340
       ],
       "platform_id": "wa_floor",
@@ -7310,13 +7595,17 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
-      "patrol": 80,
-      "leash_radius": 220,
+      "patrol": 30,
+      "leash_radius": 65,
       "spawn_half_width": 24,
       "spawn_visual_height": 62,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "跳刺后落地水波，腾空时可绕到身后"
+      "combat_identity": "跳刺后落地水波，腾空时可绕到身后",
+      "encounter_role": "west_well_guard_away_from_smith",
+      "encounter_profile": {
+        "aggro_range": 150
+      }
     },
     {
       "id": "E14",
@@ -7337,13 +7626,67 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
-      "patrol": 80,
-      "leash_radius": 220,
+      "patrol": 45,
+      "leash_radius": 140,
       "spawn_half_width": 24,
       "spawn_visual_height": 68,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "轮盾冲锋，回旋刃飞出后返身"
+      "combat_identity": "轮盾冲锋，回旋刃飞出后返身",
+      "encounter_profile": {
+        "aggro_range": 220,
+        "attack_desire_gain": 0.9,
+        "attacks": [
+          {
+            "id": "wheel_charge",
+            "name": "轮盾推进",
+            "type": "lunge",
+            "range": 260,
+            "windup": 0.7,
+            "active": 0.4,
+            "recover": 1.15,
+            "cooldown": 2.1,
+            "hit_width": 124,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "轮盾推进",
+            "lunge_speed": 250,
+            "blockable": true,
+            "start_cooldown": 0.9
+          },
+          {
+            "id": "wheel_return",
+            "name": "返轮刃",
+            "type": "projectile",
+            "range": 410,
+            "windup": 0.75,
+            "active": 0.24,
+            "recover": 1.15,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "返轮刃",
+            "returning": true,
+            "projectile_speed": 270,
+            "skin": "wheel",
+            "radius": 17,
+            "blockable": true,
+            "start_cooldown": 1.6
+          }
+        ]
+      },
+      "encounter_role": "wall_grip_trial_recovery_window"
     },
     {
       "id": "E15",
