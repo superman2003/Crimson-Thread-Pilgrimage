@@ -1,0 +1,150 @@
+{
+  "base_pr50": "65a13a9e239a6d8f276a1895a7e70e1c0613f816",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa 25.2.8 llvmpipe OpenGL 4.5",
+  "original_rooms": 15,
+  "targeted": {
+    "checks": 130,
+    "failures": 0
+  },
+  "distinct_related_suites": 13,
+  "final_followup_suites": 5,
+  "suite_results": [
+    {
+      "suite": "salt_archive_experience",
+      "status": "passed",
+      "verification_run": "final_followup",
+      "log_sha256": "43131fd90bf295cbcc08fc93a15fcd2bf6e3966d3a704b9c4522065fab780547",
+      "objectdb_warning": true
+    },
+    {
+      "suite": "camera_focus",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "700fbdcc97aa245a2ecbc73ea0c2bc7b104d30b2cf0b7c2f53ef253dbebd74a5",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "rain_foundry_experience",
+      "status": "passed",
+      "verification_run": "final_followup",
+      "log_sha256": "355ac3aba09e515886a6c5eb21245dd1241b3be9d3cf366e4ce1002f4cf27a04",
+      "objectdb_warning": true
+    },
+    {
+      "suite": "first_court_experience",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "0ffc13b1ee474340173bc536ab3d1b6980cf5a911749a842138c7dfddee76344",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "all_chapters_demo",
+      "status": "passed",
+      "verification_run": "final_followup",
+      "log_sha256": "7041b31c488ad8acc77e86b29d51751335814a4036717f480642a3f7d409fd37",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "pilgrimage_overhaul",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "6dd8e863bcddcabef0abf8e4239ad0e1224dcb41db2508f691acfac399c51a81",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "chapter_route_regression",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "2be8e8fcf3d95dee2657b0345e90c6ae3cdcbc29796d6528e58c5991354d2475",
+      "objectdb_warning": true
+    },
+    {
+      "suite": "world_host",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "cc59d33656e74a7a84f2d52ecc9340497e47b7c00d231f89a7110b02380d2877",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "cartography",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "a79a2145157946544c835761096b9a6d6712872b69bc3bf907644d7424e26a18",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "world_map",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "5dba07d9aa3d4f9e2f207116bc37cc90dfff57003c5c54674f0eea69c6c9d6f2",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "enemy_lifecycle_regression",
+      "status": "passed",
+      "verification_run": "related_run",
+      "log_sha256": "569ab79511384060c8fb5324c83dd3bb32290c51f2a2e1969ed2a8c6cac69c2f",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "ui_world_integration",
+      "status": "passed",
+      "verification_run": "final_followup",
+      "log_sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "chapter_registry",
+      "status": "passed",
+      "verification_run": "final_followup",
+      "log_sha256": "ac15b1e413b23b3f36823e8c9b8fbfc1818a40b9d2e63390cf85af0b76ac173a",
+      "objectdb_warning": false
+    }
+  ],
+  "initial_related_sequence": {
+    "suites": 11,
+    "failed_suites": [
+      "rain_foundry_experience"
+    ],
+    "reason": "Old assertion expected no room cameras in the newly upgraded archive; replaced with actual archive entry, 15 destination rooms and Boss-lock cleanup."
+  },
+  "static_checks": {
+    "npm_test": "passed",
+    "campaign": "passed",
+    "npm_log_sha256": "39dd8493d7336830fecd64e46e0fa5949fbc66800568fc2930ec5ab39c7e1f7d",
+    "campaign_log_sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036"
+  },
+  "imports": {
+    "passes": 2,
+    "recovery_mode": true,
+    "editor_plugin_acceptance": false
+  },
+  "capture": {
+    "checks": 130,
+    "failures": 0,
+    "images": 5,
+    "fixture": "Positioned player; warmed terrain/actors; actors paused for view sampling; transient toast cleared. NPC/rest waiting enables only the actor under test and freezes Player.",
+    "log_sha256": "43131fd90bf295cbcc08fc93a15fcd2bf6e3966d3a704b9c4522065fab780547"
+  },
+  "source_sha256": {
+    "godot/data/demo_ch03_saltwhite_archive.json": "85f7cf8231d5ce8e32f23def0d5df614cbdf0469372b31a05344693a08ca0f65",
+    "godot/scripts/salt_archive_experience_validation.gd": "e02488918b881d64423f10e2bfa11591332ad47f92756b81842fecc952242637",
+    "godot/scripts/rain_foundry_experience_validation.gd": "760ad4e579b6ed5678cf598caee21ec3cc89bdb35d55ac0cf5ce33d82360db03",
+    "tools/run_godot_regressions.py": "9795aa96b96264343657527c10dabf25d8cf6462eb0b68710cc846b863e79603"
+  },
+  "images_sha256": {
+    "entry.webp": "d41d4fea1f049c3c638cd1600d7151df798647830a85c4caf9c80e3b0af30d9b",
+    "atrium.webp": "d59db24ebc5c727c75634a9b0b434b5c09e96b58ee02e0d7784425ea4f8e1dcf",
+    "reading_gallery.webp": "e06b219bb5c58cb0a2389a5c623b0a0abef19c9e0e3e9417b1b5dc420dbf4ae8",
+    "sliding_chute.webp": "150f77290a29c543412374f5f0371922f3f085e96b50b8040c32733848717ce3",
+    "court_rest.webp": "69f33239683dabd3d0ea337f061121b482b96bba8cf2a6b50864ae351e1b960d"
+  },
+  "limitations": [
+    "13 distinct related suites with a final 5-suite followup; not a full local 77-suite pass",
+    "Local combat uses a real floor with normalized enemy Y; production waiting positions are configured fixtures",
+    "No new-save natural campaign clear, no six-region continuous-world acceptance",
+    "Three remaining regions and upgrade workshops have not received authored room framing",
+    "Existing ObjectDB shutdown warnings retained; long-duration memory stability remains unverified"
+  ]
+}

@@ -140,8 +140,8 @@
       "danger": "落点干净，但盐屑会掩住书蠹的前摇。",
       "next": "白书脊长廊",
       "setpiece": "盐晶大门",
-      "traversal_focus": "安全试跳",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "盐晶门厅先辨认书脊长廊与低台阶，管理员身旁不进入交战",
+      "pacing_role": "arrival_and_orientation",
       "visit_rects": [
         [
           160,
@@ -160,7 +160,13 @@
           330,
           243
         ]
-      }
+      },
+      "camera_bounds": [
+        120,
+        2110,
+        740,
+        780
+      ]
     },
     {
       "id": "white_spine_hall",
@@ -189,8 +195,8 @@
       "danger": "书页决斗者会从架顶俯冲。",
       "next": "烛台夹层",
       "setpiece": "白书脊书墙",
-      "traversal_focus": "地面横越",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "观察低位书螨的纸壳前摇，再越过高书架进入烛台夹层",
+      "pacing_role": "read_then_traverse",
       "visit_rects": [
         [
           840,
@@ -198,6 +204,12 @@
           1400,
           322
         ]
+      ],
+      "camera_bounds": [
+        800,
+        2090,
+        1480,
+        790
       ]
     },
     {
@@ -227,8 +239,8 @@
       "danger": "孢蜡烛台会突然炸开。",
       "next": "中庭书塔",
       "setpiece": "长明烛台阵",
-      "traversal_focus": "夹层战斗",
-      "pacing_role": "pressure",
+      "traversal_focus": "夹层决斗者保留虚晃与双刺；落脚后观察，再利用收招反击",
+      "pacing_role": "land_then_duel",
       "visit_rects": [
         [
           1360,
@@ -236,6 +248,12 @@
           1090,
           518
         ]
+      ],
+      "camera_bounds": [
+        1320,
+        1750,
+        1170,
+        960
       ]
     },
     {
@@ -265,8 +283,8 @@
       "danger": "越往上盐晶越厚，落差越深。",
       "next": "阅览廊 / 反页廊",
       "setpiece": "中庭悬书塔",
-      "traversal_focus": "垂直枢纽",
-      "pacing_role": "hub",
+      "traversal_focus": "沿书塔逐层辨认左右阅览廊与上层反页廊，不固定全井中心",
+      "pacing_role": "vertical_route_decision",
       "visit_rects": [
         [
           2440,
@@ -285,7 +303,13 @@
           400,
           540
         ]
-      }
+      },
+      "camera_bounds": [
+        2400,
+        1080,
+        1160,
+        1800
+      ]
     },
     {
       "id": "mezz_reading_ledges",
@@ -314,8 +338,8 @@
       "danger": "沉默读者的迟影会复写你的直线。",
       "next": "秘阁暗格（上） / 回到书塔",
       "setpiece": "反光阅览桌",
-      "traversal_focus": "平台战斗",
-      "pacing_role": "pressure",
+      "traversal_focus": "读者所在书架留出交谈空间，索引书吏守在东端",
+      "pacing_role": "conversation_then_ranged_pressure",
       "visit_rects": [
         [
           1560,
@@ -323,6 +347,12 @@
           1095,
           496
         ]
+      ],
+      "camera_bounds": [
+        1520,
+        1310,
+        1175,
+        950
       ]
     },
     {
@@ -352,8 +382,8 @@
       "danger": "暗格狭窄，退路只有原路。",
       "next": "回到阅览廊",
       "setpiece": "偷名者的暗格",
-      "traversal_focus": "隐藏攀爬",
-      "pacing_role": "respite",
+      "traversal_focus": "攀到秘阁后休整、询问书记，再取可选盐晶奖励",
+      "pacing_role": "hidden_respite_and_evidence",
       "visit_rects": [
         [
           1250,
@@ -372,7 +402,13 @@
           228,
           358
         ]
-      }
+      },
+      "camera_bounds": [
+        1210,
+        1020,
+        535,
+        850
+      ]
     },
     {
       "id": "inverse_page_gallery",
@@ -410,6 +446,12 @@
           1350,
           310
         ]
+      ],
+      "camera_bounds": [
+        3500,
+        820,
+        1430,
+        790
       ]
     },
     {
@@ -459,7 +501,13 @@
           400,
           437
         ]
-      }
+      },
+      "camera_bounds": [
+        4540,
+        480,
+        930,
+        970
+      ]
     },
     {
       "id": "spine_chute",
@@ -488,8 +536,8 @@
       "danger": "坠得比看起来深，稳住呼吸。",
       "next": "封存书堆",
       "setpiece": "滑页坠井",
-      "traversal_focus": "受控坠落",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "盐桥尽头先看到下落书架，坠入滑页井时跟随落脚高度",
+      "pacing_role": "readable_drop",
       "visit_rects": [
         [
           5430,
@@ -497,6 +545,12 @@
           290,
           870
         ]
+      ],
+      "camera_bounds": [
+        5390,
+        550,
+        370,
+        1340
       ]
     },
     {
@@ -535,6 +589,12 @@
           840,
           986
         ]
+      ],
+      "camera_bounds": [
+        4610,
+        1340,
+        920,
+        1550
       ]
     },
     {
@@ -584,7 +644,13 @@
           210,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        4215,
+        2220,
+        500,
+        660
+      ]
     },
     {
       "id": "salt_gate_walk",
@@ -622,6 +688,12 @@
           1180,
           280
         ]
+      ],
+      "camera_bounds": [
+        3060,
+        2250,
+        1260,
+        640
       ]
     },
     {
@@ -651,8 +723,8 @@
       "danger": "厅内卫兵密集，冲刺保命。",
       "next": "契约法庭",
       "setpiece": "契约索道",
-      "traversal_focus": "短促冲刺",
-      "pacing_role": "tension",
+      "traversal_focus": "在盐灯处休整，蜡枪兵领地与档案员分开，再越过法庭门槛",
+      "pacing_role": "respite_before_court",
       "visit_rects": [
         [
           4695,
@@ -660,6 +732,12 @@
           865,
           284
         ]
+      ],
+      "camera_bounds": [
+        4655,
+        2140,
+        945,
+        740
       ]
     },
     {
@@ -709,7 +787,13 @@
           360,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        5540,
+        2180,
+        800,
+        710
+      ]
     },
     {
       "id": "salt_dock",
@@ -758,7 +842,13 @@
           400,
           230
         ]
-      }
+      },
+      "camera_bounds": [
+        6280,
+        2130,
+        1020,
+        750
+      ]
     }
   ],
   "ai_profiles": {
@@ -2914,7 +3004,7 @@
         "leave": null
       },
       "dialogue_topics": {
-        "route": "书脊长街可以走，上层是倒置书廊。管理员的指路也请在地图上核对，别全信我。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "route": "书脊长廊尽头就是中庭书塔。烛台和阅览廊叠在头顶，封存书堆却在另一侧向下延伸；先看书架，再信我的话。",
         "wish": "如果捡到契约原件碎片，请让我看一眼。我欠目录一个诚实的更正。"
       }
     },
@@ -3162,7 +3252,7 @@
       "platform_id": "candle_east_walk",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 35,
       "sprite": "res://assets/sprites/original_creatures/page_duelist/manifest.json",
       "visual_scale": 0.30153846153846153,
       "visual_offset": [
@@ -3173,13 +3263,62 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/page_duelist/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 95,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 58,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "虚晃短刺后退，双段追刺"
+      "combat_identity": "虚晃短刺后退，双段追刺",
+      "encounter_role": "candle_mezzanine_readable_duel",
+      "encounter_profile": {
+        "aggro_range": 190,
+        "attacks": [
+          {
+            "id": "page_feint",
+            "name": "虚晃退刺",
+            "type": "feint",
+            "range": 135,
+            "windup": 0.48,
+            "active": 0.26,
+            "recover": 1.05,
+            "cooldown": 2.1,
+            "hit_width": 118,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "虚晃退刺",
+            "blockable": false,
+            "start_cooldown": 0.8
+          },
+          {
+            "id": "page_combo",
+            "name": "双段追刺",
+            "type": "combo",
+            "range": 225,
+            "windup": 0.62,
+            "active": 0.55,
+            "recover": 1.15,
+            "cooldown": 2.1,
+            "hit_width": 128,
+            "hit_height": 70,
+            "offset": 75,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "双段追刺",
+            "lunge_speed": 175,
+            "blockable": false,
+            "start_cooldown": 1.6
+          }
+        ]
+      }
     },
     {
       "id": "E05",
@@ -3214,13 +3353,13 @@
       "id": "E06",
       "kind": "index_scribe",
       "position": [
-        2250,
+        2285,
         1712
       ],
       "platform_id": "mezz_gallery_floor",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 0,
       "sprite": "res://assets/sprites/original_creatures/index_scribe/manifest.json",
       "visual_scale": 0.2874251497005988,
       "visual_offset": [
@@ -3231,13 +3370,18 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/index_scribe/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 90,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 56,
       "clearance": 40,
       "locomotion": "stationary",
-      "combat_identity": "纸页横扇与脚下索引封印"
+      "combat_identity": "纸页横扇与脚下索引封印",
+      "encounter_role": "reading_gallery_east_scribe",
+      "encounter_profile": {
+        "aggro_range": 240,
+        "attack_desire_gain": 0.9
+      }
     },
     {
       "id": "E07",
@@ -3400,13 +3544,13 @@
       "id": "E12",
       "kind": "wax_lancer",
       "position": [
-        5055,
+        5030,
         2600
       ],
       "platform_id": "index_run_a",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 30,
       "sprite": "res://assets/sprites/original_creatures/wax_lancer/manifest.json",
       "visual_scale": 0.3241590214067278,
       "visual_offset": [
@@ -3417,13 +3561,17 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/wax_lancer/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 65,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 66,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "蜡枪冲刺留下地面烛蜡，需跃过尾迹"
+      "combat_identity": "蜡枪冲刺留下地面烛蜡，需跃过尾迹",
+      "encounter_role": "court_approach_lancer",
+      "encounter_profile": {
+        "aggro_range": 170
+      }
     },
     {
       "id": "E13",
@@ -4391,7 +4539,7 @@
       "shared_upper_loop_recovery_loop"
     ]
   },
-  "map_title": "盐白档案馆 · 巡礼地图",
+  "map_title": "盐白书库 · 巡礼地图",
   "environment_blocks": [
     {
       "id": "ch03_back_wall",
@@ -5005,7 +5153,7 @@
     "notes": "Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges.",
     "cave_envelope": true
   },
-  "chapter_name": "盐白档案馆",
+  "chapter_name": "盐白书库",
   "interaction_design": {
     "key": "F",
     "selection": "nearest_available",
