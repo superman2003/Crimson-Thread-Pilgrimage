@@ -1,0 +1,13 @@
+{
+  "status": "18 observation runs completed; not 18 validation passes",
+  "completed_runs": 18,
+  "exit_zero_runs": 18,
+  "runs_with_error_diagnostic": [
+    {
+      "run": "ch06-entry",
+      "stderr": "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).\n     at: cleanup (core/object/object.cpp:2641)\nERROR: 1 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:810)\n"
+    }
+  ],
+  "resource_error_reproducibility": "Not measured: CH06 entry was not rerun after final imported-resource observation. One recorded occurrence; no stability claim.",
+  "scope": "Observation only; lifecycle/integration belongs to the other owner. No fix applied."
+}
