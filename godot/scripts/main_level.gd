@@ -1300,6 +1300,7 @@ func _add_wayfinding(area: Area2D) -> void:
     if kind == "world_portal":
         marker.configure_portal(area.get_meta("world_portal_data", {}), String(config.id))
         marker.position.y = 20
+        marker.scale = Vector2(0.65, 0.65)
         marker.z_index = -1
     else:
         marker.visible = false
@@ -1323,6 +1324,9 @@ func _make_world_portal(data: Dictionary) -> Area2D:
     area.add_child(shape)
     var arch := Line2D.new()
     arch.name = "WorldPortalArch"
+    # Route status belongs on the physical sign; the old luminous outline
+    # duplicates it and makes each old connection look like a magic portal.
+    arch.visible = false
     arch.width = 5.0
     arch.default_color = Color(0.40, 0.80, 0.88) if _world_portal_missing(data).is_empty() else Color(0.93, 0.67, 0.30)
     for index in range(17):

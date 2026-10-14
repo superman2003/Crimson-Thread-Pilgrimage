@@ -1,0 +1,85 @@
+{
+  "pr": 49,
+  "base_main": "be47690efdaf1bf4ef0eeadad70c4676551d0e4f",
+  "parent_pr48": "d2376f7efe6b66ec9328ef7e231a4c080f2d3167",
+  "initial_feature_commit": "ee20b913a386971382646df30cf8f5468e6d6fe9",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa 25.2.8 llvmpipe OpenGL 4.5",
+  "targeted": {
+    "first_court_experience": {
+      "checks": 171,
+      "failures": 0,
+      "fixture_scope": "real input and local damage; configured spawn/hp/energy"
+    },
+    "camera_focus": 86,
+    "player_action_buffer": 32,
+    "ch01_room_reconstruction": 65,
+    "world_host": 539
+  },
+  "full_regressions": {
+    "planned_suites": 75,
+    "status": "in_progress"
+  },
+  "resource_import": {
+    "mode": "recovery",
+    "passes": 2,
+    "errors": 0,
+    "editor_plugins_verified": false
+  },
+  "ordinary_editor_import": "failed in this environment; Vulkan extension and shutdown RID errors retained",
+  "npm_test": "passed",
+  "campaign": "passed",
+  "source_sha256": {
+    "godot/scripts/room_camera.gd": "93ca8c894d9c64de797bafe005e7dbaa48b8a2f8a58e80a3855ccb3b75fbeb83",
+    "godot/scripts/camera_focus.gd": "4126853678a77b799cef7b19686a3bfe1a95441d2f490b1cf565476ff4ed1a36",
+    "godot/scripts/player_controller.gd": "ceca1907440553226bfe9f672eb42bd9c07a91e962a03a5edc03f675a18c460c",
+    "godot/scripts/main_level.gd": "bf8b57a3f80f3713b6b4c912b5547967282f38e2d5387d5788444b5ded6d8a91",
+    "godot/scripts/enemy_actor.gd": "3030540b87b72f94979253ea5890189936f93d6d084be00a01b694b73dce1d2d",
+    "godot/scripts/world_wayfinding.gd": "3b8e9182e92caf706a973108b3e7e81a82e26cacececd2885155743a707a5ae4",
+    "godot/scripts/first_court_experience_validation.gd": "bb45a546f833a60b58ef84430c3a03e02ab1bcd329e5787e1290740b80d3b861",
+    "godot/data/demo_ch01_moss_bell_court.json": "4d992f38116686f984d394a0980415dd31821757a09874aed252fbf57b46e550",
+    "tools/run_godot_regressions.py": "300ef02267e802e3732ab7e25e9848e09c7d1c79bafca72a8a97a65d66b036c5"
+  },
+  "screenshots": [
+    {
+      "path": "artifacts/first_court/entry.webp",
+      "sha256": "5d5495db8fc5d8f30d4afcd88e6c2667daec0a25a39e5e69f3004618f7b8721c",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/first_duel.webp",
+      "sha256": "d8f85858af08bd424c936ed7873a2a957049fc4b06b59a3c80f64b78781f74b4",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/hub.webp",
+      "sha256": "da9829f282493e7ba346fa459f1a75aada4f5de0811e887467529ce742d60dbe",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/pre_boss.webp",
+      "sha256": "a41ef4dbbce5feb390fc8e20e94e09a592449753eded55fca9a483900b4cd8f6",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "path": "artifacts/first_court/shrine.webp",
+      "sha256": "194054259e565c932d818f76087ea9a23a11b693ba6b790e0cccb6138ab4f50c",
+      "fixture": true,
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "remaining": [
+    "Other five regions and upgrade workshops room framing",
+    "Natural damage-enabled first-court and six-region completion",
+    "Long-duration memory and audio stability"
+  ]
+}

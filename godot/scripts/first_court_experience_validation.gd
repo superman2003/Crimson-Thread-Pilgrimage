@@ -220,11 +220,17 @@ func _first_court() -> void:
         var screen := Rect2(center-half,half*2)
         check(screen.has_point(world.player.global_position+Vector2(0,-40)),String(zone.id)+" camera contains player body at authored room center")
         check(camera.limit_left<camera.limit_right and camera.limit_top<camera.limit_bottom,String(zone.id)+" camera limits stay ordered")
-    for view in [["entry",Vector2(350,3400)],["first_duel",Vector2(1050,3612)],["shrine",Vector2(1700,3752)],["hub",Vector2(2580,3892)],["pre_boss",Vector2(5420,3920)]]:
+    for view in [["entry",Vector2(350,3400)],["first_duel",Vector2(1050,3612)],["shrine",Vector2(1810,3752)],["hub",Vector2(2580,3892)],["pre_boss",Vector2(5420,3920)]]:
         world.player.global_position=view[1]
         world.player.reset_camera_after_arrival()
+        world._update_room_visit()
         await frames(20)
         check(absf(camera.get_screen_center_position().y-world.player.global_position.y)<270,String(view[0])+" player footing stays in view")
+        if String(view[0]) == "entry":
+            for child in world.get_children():
+                if child.has_node("WorldPortalArch"):
+                    check(not child.get_node("WorldPortalArch").visible,"Legacy route has no luminous doorway overlay")
+                    check(child.get_node("Wayfinding").scale.x < 0.8,"Route sign remains compact beside the first landing")
         if capture:
             world.ui_shell.toast.text=""
             await RenderingServer.frame_post_draw
