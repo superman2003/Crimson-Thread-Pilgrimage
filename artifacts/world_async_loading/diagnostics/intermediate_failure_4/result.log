@@ -1,0 +1,36 @@
+Running world_async_loading
+PASS: world_async_loading
+ASYNC METRICS [{"batches":82,"jobs":257,"max_batch_usec":57855,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":85,"jobs":269,"max_batch_usec":282466,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":67,"jobs":120,"max_batch_usec":119493,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":48,"jobs":108,"max_batch_usec":112697,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":41,"jobs":94,"max_batch_usec":111001,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":38,"jobs":81,"max_batch_usec":102344,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 89 checks; six-region parity, budget limits, rollback, save isolation and teardown
+Running world_integration
+FAIL: world_integration: exit=1 engine_errors=1
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+线绷直了。从今往后，「够不着」要重新丈量。
+绯线冲刺
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+LORE_PICKUP 拾获「王冠裂片」——苔钟守母体内仍带余温的金属碎片，断面锋利如新。
+第一章闭环完成：苔钟庭清怪、Boss门和苔钟守母均已验证。
+前往下一片土地 · 锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。
+旧路重新接通 · 铸雨渠试玩章
+需要丝壁攀附。立管内壁太湿；沿雨栅长堤寻找检修者留下的丝壁攀附，再回来。
+丝壁攀附
+SCRIPT ERROR: Trying to assign invalid previously freed instance.
+          at: _evict_budgeted (res://scripts/world_region_loader.gd:210)
+          GDScript backtrace (most recent call first):
+              [0] _evict_budgeted (res://scripts/world_region_loader.gd:210)
+
+WORLD_INTEGRATION_FAIL wall grip opens real B to C transition
+WORLD_INTEGRATION_FAIL archive quest witness exists
+WORLD_INTEGRATION_FAIL archive testimony exists
+WORLD_INTEGRATION checks=30 failures=3
+Running world_route_walk
+PASS: world_route_walk
+PASS restart restores last region at its remembered bell shrine
+WORLD_ROUTE_WALK_VALIDATION steps=25 physics_frames=1853 failures=0 damage_suppression=true
+Running world_upgrade
+PASS: world_upgrade
+Leaked instance: RefCounted:9223375784230521689 - Reference count: 0
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+GODOT_REGRESSIONS suites=4 failures=1

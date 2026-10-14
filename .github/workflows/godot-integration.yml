@@ -2,7 +2,6 @@ name: Godot integration regressions
 
 on:
   pull_request:
-    branches: [main]
   push:
     branches: [main]
 
@@ -17,7 +16,9 @@ concurrency:
 jobs:
   runtime:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # The complete suite now renders through llvmpipe as well as the pixel
+    # probes. Individual suite timeouts and strict engine error checks remain.
+    timeout-minutes: 45
     steps:
       - name: Check out the exact commit and hydrate runtime assets
         env:
@@ -41,22 +42,47 @@ jobs:
           python3 -m pip install -r tools/requirements-hero.txt
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
-      - name: Import project resources
+      - name: Import resources without editor plugins
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          "$engine" --headless --path godot --editor --import --quit
-          # The first import registers resource UIDs used by the editor plugin.
-          "$engine" --headless --path godot --editor --import --quit
+          # Resource hydration only: editor-plugin behavior is not validated.
+          # Runtime suites below run normally, without recovery mode.
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Validate real GL rock boundaries
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libgl1-mesa-dri
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/rock-gpu"
-      - name: Run chapter, combat, dialogue and physics regressions
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/streaming-gpu" --script ../tools/validate_streaming_pixels.gd --success-marker "STREAMING_PIXELS probes=12 failures=0" --summary-path artifacts/world_streaming/gpu_pixels.json
+      - name: Validate physical pipe rendering and visible hero
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_godot_regressions.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/passage-gpu" --script ../tools/validate_passage_pixels.gd --success-marker 'PASSAGE_PIXELS probes=5 failures=0' --summary-path artifacts/world_passage/gpu_pipe.json
+      - name: Validate authored rock rims in all regions
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/room-rims-gpu" --script ../tools/validate_room_rim_pixels.gd --success-marker 'ROOM_RIM_PIXELS probes=12 failures=0' --summary-path artifacts/world_rims/gpu_rims.json
+      - name: Run chapter, preparation, combat, dialogue and physics regressions
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
+      - name: Validate fixed-coordinate world atlas rendering
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/atlas-gpu" --script ../tools/validate_world_atlas_pixels.gd --success-marker 'WORLD_ATLAS_PIXELS probes=5 failures=0' --summary-path artifacts/world_atlas/gpu_atlas.json
+      - name: Validate neighboring gameplay artwork parity
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-gpu" --script ../tools/validate_neighbor_gameplay_pixels.gd --success-marker 'NEIGHBOR_GAMEPLAY_PIXELS probes=6 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_gameplay.json
+      - name: Validate live neighboring gameplay and directional pipe approaches
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=44 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json --timeout 300
+      - name: Validate budgeted arrival UI against synchronous rendering
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/region-commit-gpu" --script ../tools/validate_region_commit_pixels.gd --success-marker 'REGION_COMMIT_PIXELS probes=10 failures=0' --summary-path artifacts/region_commit/gpu_ui.json
       - name: Preserve regression logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -64,3 +90,4 @@ jobs:
           name: godot-regression-logs
           path: ${{ runner.temp }}/regression-logs
           if-no-files-found: ignore
+

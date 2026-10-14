@@ -1,0 +1,573 @@
+{
+  "date": "2026-10-12",
+  "baseline_commit": "22ef9de8f8f049058596d991bceb4bb95618686d",
+  "runtime_checkpoint": "cc7f8de3bd57533ac0a8b80c5915e2f6899baef7",
+  "stage": "W00c partial",
+  "results": {
+    "full_suites": 58,
+    "full_failures": 0,
+    "full_passage_checks": 40,
+    "final_affected_suites": 3,
+    "final_affected_failures": 0,
+    "final_passage_checks": 52,
+    "route_steps": 25,
+    "route_physics_frames": 3728,
+    "route_damage_suppression": true,
+    "pipe_gl_probes": 3,
+    "rock_gl_probes": 12
+  },
+  "limits": [
+    "Independent transit physics; source frozen/hidden; terminal whole-region loading",
+    "Not seamless shared regional physics or continuous cartography",
+    "Fixture endpoint placement; no six-region damage-enabled playthrough",
+    "Existing editor import RID errors and runtime RefCounted warning retained"
+  ],
+  "logs": [
+    {
+      "name": "full_58",
+      "bytes": 17661,
+      "sha256": "42c6c556b445161c5acf393f09f68943c4cd9a759d6b8f04292b7c2ab13f3595",
+      "result_markers": [
+        "WORLD PASSAGE PASS: 40 checks; physical input roundtrip, reversal, save isolation and terminal continuity",
+        "WORLD_ROUTE_WALK_VALIDATION steps=25 physics_frames=3729 failures=0 damage_suppression=true",
+        "GODOT_REGRESSIONS suites=58 failures=0"
+      ]
+    },
+    {
+      "name": "final_affected",
+      "bytes": 612,
+      "sha256": "ceba8f911772a8621d3307d2fd2629674d221e37a9637cd4766538813ae5ebc7",
+      "result_markers": [
+        "WORLD PASSAGE PASS: 52 checks; physical input roundtrip, reversal, save isolation and terminal continuity",
+        "GODOT_REGRESSIONS suites=3 failures=0"
+      ]
+    },
+    {
+      "name": "passage_52",
+      "bytes": 544,
+      "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a",
+      "result_markers": [
+        "WORLD PASSAGE PASS: 52 checks; physical input roundtrip, reversal, save isolation and terminal continuity"
+      ]
+    },
+    {
+      "name": "world_upgrade_final",
+      "bytes": 616833,
+      "sha256": "cd9eeecad54a8eead37293da8b9873df998e2a681a6cf37813f78a29a8aff89e",
+      "result_markers": [
+        "WORLD_UPGRADE checks=403 failures=0 enemy_removal=true fixture_positioning=true"
+      ]
+    },
+    {
+      "name": "route_final",
+      "bytes": 5042,
+      "sha256": "0e5ca97ced73f6d43c6852c7cc51ee5ad18c6185e6daec8cc8c36aeb5dee6da2",
+      "result_markers": [
+        "WORLD_ROUTE_WALK_VALIDATION steps=25 physics_frames=3728 failures=0 damage_suppression=true"
+      ]
+    },
+    {
+      "name": "pipe_gl",
+      "bytes": 543,
+      "sha256": "7c15c5f3611950c92afbd225d9da79ee802178dfd0705087225f760f13afebe4",
+      "result_markers": [
+        "PASSAGE_PIXELS probes=3 failures=0"
+      ]
+    },
+    {
+      "name": "rock_gl",
+      "bytes": 407,
+      "sha256": "a28ce466635b1d7facf0ada5ca7f419cd7d469c9c024e9d0432371355221130b",
+      "result_markers": [
+        "ROCK_SEAMS probes=12 failures=0"
+      ]
+    },
+    {
+      "name": "npm",
+      "bytes": 2677,
+      "sha256": "4a4e4d04292f7e2929d1bc2b8be38ea0c83ec42c5c8a816f27b609fec397cadb",
+      "result_markers": [
+        "Ran 6 tests in 0.001s",
+        "Ran 6 tests in 0.387s"
+      ]
+    },
+    {
+      "name": "campaign",
+      "bytes": 1802,
+      "sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036",
+      "result_markers": []
+    },
+    {
+      "name": "passage_first_collision_failure",
+      "bytes": 1370,
+      "sha256": "cab2e6b11c803e2f90c844287d85516b67286d1c7a89cae9825ab9d2648bdb0b",
+      "result_markers": [
+        "FAIL no world-coordinate teleport during walking or terminal loading",
+        "FAIL full walk reaches demo_ch02_rain_foundry_canal",
+        "FAIL full 8540px connector traversed by physics",
+        "FAIL terminal rebase preserves world position",
+        "FAIL completed target is restartable",
+        "FAIL world distance is traversed rather than paired teleport"
+      ]
+    },
+    {
+      "name": "passage_first_continuity_failure",
+      "bytes": 1074,
+      "sha256": "988006fdd188452d404745165a43247699d5b6c99e10e023cb7a0948fe83bd4a",
+      "result_markers": [
+        "FAIL no world-coordinate teleport during walking or terminal loading",
+        "FAIL no world-coordinate teleport during walking or terminal loading"
+      ]
+    },
+    {
+      "name": "passage_initial_cancel_expectation_failure",
+      "bytes": 815,
+      "sha256": "30c8fb330137d4eac9eab71e659559d421d10bb345ff483863c451003a6b7402",
+      "result_markers": [
+        "FAIL rollback checkpoint stays inside source instead of far terminal"
+      ]
+    },
+    {
+      "name": "route_initial_input_failure",
+      "bytes": 4992,
+      "sha256": "6884d1bbfb2dec2644113677ae7141b416405289bb13c17ceb3831281112182f",
+      "result_markers": []
+    },
+    {
+      "name": "import",
+      "bytes": 18121,
+      "sha256": "87f871473c0b6af03e47055af805102860f0902956d9932dfae3a15d3b82fc93",
+      "result_markers": []
+    }
+  ],
+  "code_tree_sha": "a42900d81e223321cdcf3186d0d426420e1844ae",
+  "code_blob_shas": {
+    ".gitattributes": "82e2fa7f4f665c1595664722cd86d8187b094954",
+    ".github/workflows/godot-integration.yml": "e0a432a2ee162d0d8ad197e2e7796c133ba3de9e",
+    "artifacts/world_passage/gpu_pipe.json": "5cab8bb9f46da8bf63fd43784f13ee74fbb406ce",
+    "artifacts/world_passage/pipe_1000.jpg": "3b4245dbcacaf7f8c44901edbe9dd1cb1f5abe13",
+    "artifacts/world_passage/pipe_4200.jpg": "92c4786c39b7b29956f88fc0cb5dcbdbb99eb8a8",
+    "artifacts/world_passage/pipe_7600.jpg": "2d2d34762ae46f25d872ab40bd1bd4ab459478f1",
+    "godot/data/world_passages.json": "b4f7d98c47730ef2fd220fece70654f92a5fed3b",
+    "godot/scripts/main_level.gd": "726b1d33454b58df52a181958dc48135cf7d769a",
+    "godot/scripts/player_controller.gd": "7d13b9190904ba75fb181c801d19fecbf4e9b704",
+    "godot/scripts/world_integration_validation.gd": "3834251f19fac19e04bc5774d7652802df001b9a",
+    "godot/scripts/world_passage.gd": "d4d7906464a528b5e2b9da6db774e58db3ea01ec",
+    "godot/scripts/world_passage.gd.uid": "c67ec7dace0305af54346ab505e5533c39196ad2",
+    "godot/scripts/world_passage_validation.gd": "93344989524975eb682aa2fdd4b0d7c5a764d50a",
+    "godot/scripts/world_passage_validation.gd.uid": "030c08d47e7f27c937f3ee1a729ce4d547073af4",
+    "godot/scripts/world_region_loader.gd": "63f45b94f3d409e63725084dc5bee42faae84ce9",
+    "godot/scripts/world_route_walk_validation.gd": "692c6234f93e14ac2c0d1a5700b218daa0b2dafa",
+    "tools/run_godot_regressions.py": "ed49bb47c8802b9d6f41090dead8881aa62462ee",
+    "tools/validate_passage_pixels.gd": "d869883e5c56df5c238ef3bab848d2a841b85bc9"
+  },
+  "visual_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "396327cd4e20b7c4a1e6b7123185e5e2f1ed7028",
+    "baseline_ci": {
+      "run": 70,
+      "id": 38265570656,
+      "result": "success"
+    },
+    "source_asset": "godot/assets/sprites/flat_maps/moss_cavern/decor_atlas.png",
+    "source_asset_sha256": "c59c144d745ba80216da42c36d6048fce000059664c8b3ac267f849ace3cd01d",
+    "support_region": [
+      431,
+      46,
+      405,
+      581
+    ],
+    "lantern_region": [
+      984,
+      627,
+      144,
+      576
+    ],
+    "support_height": 284,
+    "lantern_height": 126,
+    "support_count": 14,
+    "lantern_count": 13,
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 3230,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1268,
+          "offset": 1000,
+          "ornament_pixels": 26237,
+          "passed": true,
+          "visible_samples": 5074
+        },
+        {
+          "distinct_colors": 3430,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1275,
+          "offset": 4200,
+          "ornament_pixels": 26316,
+          "passed": true,
+          "visible_samples": 5048
+        },
+        {
+          "distinct_colors": 3186,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1342,
+          "offset": 7600,
+          "ornament_pixels": 17509,
+          "passed": true,
+          "visible_samples": 5034
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "art_texture_ownership": "Per-passage texture ownership released on cleanup; no static ornament texture cache",
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl",
+        "bytes": 25980,
+        "sha256": "6cf5ec232939056295d34e1c67ebd65cfb7cb55f32141ed9c716a5b3e9c583e2"
+      },
+      {
+        "name": "initial_art_cache_gl",
+        "bytes": 667,
+        "sha256": "f57c4a0f4697616e4e4a877170d42cf4cfccf269422a48f5e004ec82067a2e5f"
+      },
+      {
+        "name": "import",
+        "bytes": 126384,
+        "sha256": "e98cc887e7f51bf8f63b71a28ae09707ee5c283e8225d6495ee9e46c92cb9c28"
+      }
+    ]
+  },
+  "layer_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "4ac48fcc1737c1c5c16e6e17289b7ebb1b8e4e64",
+    "baseline_ci": {
+      "run": 71,
+      "id": 38335867536,
+      "result": "success"
+    },
+    "material": "passage_support.gdshader shares moss stone sampling and preserves atlas alpha",
+    "support_z": -12,
+    "rock_z": -5,
+    "backdrop_z": -25,
+    "contact_shadow_z": -4,
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 2960,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1268,
+          "offset": 1000,
+          "ornament_pixels": 22018,
+          "passed": true,
+          "visible_samples": 5075
+        },
+        {
+          "distinct_colors": 3218,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1275,
+          "offset": 4200,
+          "ornament_pixels": 22053,
+          "passed": true,
+          "visible_samples": 5050
+        },
+        {
+          "distinct_colors": 3038,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1308,
+          "offset": 7600,
+          "ornament_pixels": 14659,
+          "passed": true,
+          "visible_samples": 5033
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl_final",
+        "bytes": 26037,
+        "sha256": "199dee465528ff0324611e4842b5db3e24a9496574c95d060845e3530b1ead8c"
+      },
+      {
+        "name": "real_gl_first_grade",
+        "bytes": 26037,
+        "sha256": "199dee465528ff0324611e4842b5db3e24a9496574c95d060845e3530b1ead8c"
+      }
+    ]
+  },
+  "semantic_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "578260fa95fa23cf32de645d718c951c741cc1da",
+    "support_region": [
+      96,
+      652,
+      249,
+      566
+    ],
+    "support_type": "Solid moss stone pillar; no doorway silhouette",
+    "exit_markers": "Only actual source and destination ends; horizontal direction follows travel",
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 2914,
+          "endpoint_pixels": 0,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1268,
+          "offset": 1000,
+          "ornament_pixels": 16579,
+          "passed": true,
+          "visible_samples": 5069
+        },
+        {
+          "distinct_colors": 3154,
+          "endpoint_pixels": 0,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1275,
+          "offset": 4200,
+          "ornament_pixels": 16570,
+          "passed": true,
+          "visible_samples": 5042
+        },
+        {
+          "distinct_colors": 3017,
+          "endpoint_pixels": 0,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1275,
+          "offset": 7600,
+          "ornament_pixels": 9541,
+          "passed": true,
+          "visible_samples": 5023
+        },
+        {
+          "distinct_colors": 2305,
+          "endpoint_pixels": 897,
+          "file": "pipe_8500.jpg",
+          "hero_pixels": 1279,
+          "offset": 8500,
+          "ornament_pixels": 8435,
+          "passed": true,
+          "visible_samples": 5022
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl_final",
+        "bytes": 26037,
+        "sha256": "6e9719b60ed6b4937a995123a4fe0947f096a78a523359eded12fa9a01e4f614"
+      }
+    ]
+  },
+  "background_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "90ae4ec7f0dc7c926ad01e51754ddafff84fa9f0",
+    "rear_wall_z": -20,
+    "ornament_relative_z": 1,
+    "rear_plinth_relative_z": 2,
+    "foreground_rock_z": -5,
+    "support_height": 208,
+    "support_bottom_above_lane": 52,
+    "plinth_top_above_lane": 56,
+    "lantern_height": 98,
+    "floor_contact_shadows": false,
+    "runtime_checks": 52,
+    "runtime_failures": 0,
+    "lane_probe_band": {
+      "above_player_feet": 40,
+      "below_player_feet": 16,
+      "required_ornament_pixels": 0
+    },
+    "gl_probes": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 2739,
+          "endpoint_pixels": 0,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1270,
+          "lane_ornament_pixels": 0,
+          "offset": 1000,
+          "ornament_pixels": 9185,
+          "passed": true,
+          "visible_samples": 5002
+        },
+        {
+          "distinct_colors": 2936,
+          "endpoint_pixels": 0,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1261,
+          "lane_ornament_pixels": 0,
+          "offset": 4200,
+          "ornament_pixels": 9242,
+          "passed": true,
+          "visible_samples": 4972
+        },
+        {
+          "distinct_colors": 2901,
+          "endpoint_pixels": 0,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1267,
+          "lane_ornament_pixels": 0,
+          "offset": 7600,
+          "ornament_pixels": 5233,
+          "passed": true,
+          "visible_samples": 4956
+        },
+        {
+          "distinct_colors": 2195,
+          "endpoint_pixels": 893,
+          "file": "pipe_8500.jpg",
+          "hero_pixels": 1265,
+          "lane_ornament_pixels": 0,
+          "offset": 8500,
+          "ornament_pixels": 4621,
+          "passed": true,
+          "visible_samples": 4973
+        }
+      ],
+      "renderer": "real_gl"
+    },
+    "logs": [
+      {
+        "name": "runtime_52",
+        "bytes": 544,
+        "sha256": "3898da153d9a5c40c35c5953b8aeac7911438a8dbbe98fa61df3399f6c15016a"
+      },
+      {
+        "name": "runtime_runner",
+        "bytes": 205,
+        "sha256": "e9db4ca5d8c96eb661e36beeb55b9904c63e7bf39750f9511db7bf70acae7ee2"
+      },
+      {
+        "name": "real_gl_final",
+        "bytes": 26037,
+        "sha256": "6e9719b60ed6b4937a995123a4fe0947f096a78a523359eded12fa9a01e4f614"
+      }
+    ]
+  },
+  "wayfinding_revision": {
+    "date": "2026-10-13",
+    "base_commit": "ab607e9e0ebd41bd6233688c1bfbb949c7070ff0",
+    "godot_suites": 6,
+    "godot_failures": 0,
+    "wayfinding_checks": 37,
+    "passage_checks": 52,
+    "route_access_checks": 553,
+    "cartography_checks": 4055,
+    "gpu_probes": 4,
+    "gpu_failures": 0,
+    "tutorial_scope": "once per interaction type; persisted story_flags; remapped keys",
+    "logs": [
+      {
+        "file": "wayfinding-revised-run.log",
+        "sha256": "b587451b90d1b849e75e7772f46f9b0d89508b56b4ca9aa05d525ae7e39014fc"
+      },
+      {
+        "file": "wayfinding-npm.log",
+        "sha256": "e62948ea2dc4def8c2cd0b1b9510e73c97426e3ad4add53f4f5d6aec46a2275d"
+      },
+      {
+        "file": "wayfinding-campaign.log",
+        "sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036"
+      },
+      {
+        "file": "gpu.log",
+        "sha256": "d03d034eb152e827d6c976ac9247eaf0d936d8d149913f7eed01083235d18653"
+      },
+      {
+        "file": "gpu.log",
+        "sha256": "6e9719b60ed6b4937a995123a4fe0947f096a78a523359eded12fa9a01e4f614"
+      }
+    ],
+    "limits": [
+      "Fixture captures, not natural playthrough",
+      "First standard GL run reported an ObjectDB exit warning; verbose follow-up had no engine ERROR or exit warning; existing editor RID errors remain outside runtime acceptance",
+      "Remote CI pending final commit"
+    ]
+  },
+  "ink_cave_revision": {
+    "date": "2026-10-13",
+    "parent_commit": "d67b3e27a154d2fc9c4d79c077c6cffcb197eb99",
+    "scope": "six-region rock family; independent ceiling/floor first pipe; four stable sign mounts",
+    "final_affected_suites": 3,
+    "final_failures": 0,
+    "wayfinding_checks": 40,
+    "passage_checks": 52,
+    "material_checks": 1589,
+    "earlier_platform_checks": 15877,
+    "earlier_collision_checks": 129452,
+    "gpu_probes": 5,
+    "gpu_failures": 0,
+    "rock_seam_probes": 12,
+    "source_images": "three separately generated raster assets, lossless WebP verified pixel-identical",
+    "limitations": [
+      "First pipe uses independent rims; other rooms not individually redrawn",
+      "Fixture captures, not natural playthrough",
+      "Existing editor RID exit errors retained; W00c and T03/T04 incomplete",
+      "Remote CI pending final commit"
+    ],
+    "logs": [
+      {
+        "name": "/tmp/ink-delivery-checks.log",
+        "sha256": "b2499f1303234942b46fb50951bd7709eafeb809e8e836c1f00f353f26cdb988"
+      },
+      {
+        "name": "/tmp/ink-cave-checks.log",
+        "sha256": "99ea8c9956bdf2b751ff9e8706a6cce2ace0d6f0a8e8fdc813052cc2ba948451"
+      },
+      {
+        "name": "/tmp/ink-delivery-gpu/gpu.log",
+        "sha256": "0913602e196e95609bc3cde7189fb6f0ee961a0ed937634c11cf39b68963b60e"
+      },
+      {
+        "name": "/tmp/ink-cave-seams-final/gpu.log",
+        "sha256": "a28ce466635b1d7facf0ada5ca7f419cd7d469c9c024e9d0432371355221130b"
+      }
+    ]
+  }
+}

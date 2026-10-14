@@ -19,6 +19,45 @@ func frames() -> void:
     for index in range(3):
         await process_frame
 
+func resident_npc(world: Node, npc_id: String) -> Area2D:
+    var authored: Dictionary = {}
+    for value in world.config.get("npcs", []):
+        if String(value.get("id", "")) == npc_id:
+            authored = value
+            break
+    check(not authored.is_empty(), "NPC fixture exists in authored region " + npc_id)
+    if authored.is_empty():
+        return null
+    var point := Vector2(float(authored.position[0]), float(authored.position[1]))
+    point = world._world_npc_residency_position(npc_id, point)
+    var prior_mode: int = world.process_mode
+    var prior_physics: bool = world.player.is_physics_processing()
+    var paused_enemies: Array[Dictionary] = []
+    for enemy in world.get_tree().get_nodes_in_group("enemy"):
+        if is_instance_valid(enemy):
+            paused_enemies.append({"node": enemy, "mode": enemy.process_mode})
+            enemy.process_mode = Node.PROCESS_MODE_DISABLED
+    world.process_mode = Node.PROCESS_MODE_ALWAYS
+    world.player.set_physics_process(false)
+    world.player.velocity = Vector2.ZERO
+    world.player.global_position = world.to_global(point)
+    for frame in range(120):
+        await process_frame
+        var npc := world.get_node_or_null(NodePath(npc_id)) as Area2D
+        var snapshot: Dictionary = world.world_gameplay_residency.snapshot()
+        if is_instance_valid(npc) and npc.is_inside_tree() and npc.get_parent() == world and String(npc.get_meta("npc_id", "")) == npc_id and world.player.global_position.distance_to(npc.global_position) <= 190.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+            world.player.set_physics_process(prior_physics)
+            world.process_mode = prior_mode
+            for paused in paused_enemies:
+                if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+            return npc
+    world.player.set_physics_process(prior_physics)
+    world.process_mode = prior_mode
+    for paused in paused_enemies:
+        if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+    check(false, "moving the test player into the active window constructs the requested NPC " + npc_id)
+    return null
+
 func spawn(chapter_path: String, resume: bool = false) -> Node:
     var world: Node = load("res://scenes/World.tscn").instantiate()
     world.config_path = chapter_path
@@ -48,8 +87,13 @@ func run_checks() -> void:
     cleanup_save()
     scene = spawn("res://data/demo_ch04_broken_string_greenhouse.json")
     await frames()
-    var prisoner: Area2D = scene.get_node_or_null("npc_root_prisoner")
+    var prisoner: Area2D = await resident_npc(scene, "npc_root_prisoner")
     check(prisoner != null, "Actual root prisoner is built")
+    if not is_instance_valid(prisoner):
+        scene.free()
+        cleanup_save()
+        quit(1)
+        return
     var original_position: Vector2 = prisoner.position
     hear_round(prisoner)
     check(not bool(scene.story_flags.get("quest_root_rescue_complete", false)), "Rescue cannot complete before ability acquisition")
@@ -71,14 +115,20 @@ func run_checks() -> void:
     scene.free()
     scene = spawn("res://data/demo_ch04_broken_string_greenhouse.json", true)
     await frames()
-    prisoner = scene.get_node_or_null("npc_root_prisoner")
-    check(prisoner.position == Vector2(320, 1740), "Save reload restores actual NPC migration")
+    prisoner = await resident_npc(scene, "npc_root_prisoner")
+    check(is_instance_valid(prisoner) and prisoner.position == Vector2(320, 1740), "Save reload restores actual NPC migration")
     check(scene.currency_count == before + 45, "Save reload retains one-time payment")
     scene.free()
     cleanup_save()
     scene = spawn("res://data/demo_ch05_obsidian_pilgrim_road.json")
     await frames()
-    var deserter: Area2D = scene.get_node_or_null("npc_deserter_flagbearer")
+    var deserter: Area2D = await resident_npc(scene, "npc_deserter_flagbearer")
+    check(is_instance_valid(deserter), "Actual deserter enters its active interaction window")
+    if not is_instance_valid(deserter):
+        scene.free()
+        cleanup_save()
+        quit(1)
+        return
     scene._add_inventory_item("silent_order", 1, false)
     before = scene.currency_count
     hear_round(deserter)

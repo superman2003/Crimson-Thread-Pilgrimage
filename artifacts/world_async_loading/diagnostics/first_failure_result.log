@@ -1,0 +1,47 @@
+Running world_async_loading
+FAIL: world_async_loading: exit=-6 engine_errors=3
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+旧路重新接通 · 苔钟庭
+旧路重新接通 · 苔钟庭
+旧路重新接通 · 铸雨渠试玩章
+旧路重新接通 · 铸雨渠试玩章
+旧路重新接通 · 盐白书库试玩章
+旧路重新接通 · 盐白书库试玩章
+旧路重新接通 · 断弦温室试玩章
+旧路重新接通 · 断弦温室试玩章
+旧路重新接通 · 黑曜巡礼道试玩章
+旧路重新接通 · 黑曜巡礼道试玩章
+旧路重新接通 · 无声王冠试玩章
+旧路重新接通 · 无声王冠试玩章
+已返回来路。
+已返回来路，旅途记录仍在。
+已返回来路。
+已返回来路，旅途记录仍在。
+ERROR: Parent node is busy adding/removing children, `remove_child()` can't be called at this time. Consider using `remove_child.call_deferred(child)` instead.
+   at: remove_child (scene/main/node.cpp:1738)
+   GDScript backtrace (most recent call first):
+       [0] _clear_loading_canvas (res://scripts/world_region_loader.gd:160)
+       [1] shutdown (res://scripts/world_region_loader.gd:155)
+       [2] _exit_tree (res://scripts/main_level.gd:771)
+       [3] _run (res://scripts/world_async_loading_validation.gd:105)
+       [4] _wait_idle (res://scripts/world_async_loading_validation.gd:146)
+ERROR: Condition "data.parent" is true.
+   at: ~Node (scene/main/node.cpp:4137)
+   GDScript backtrace (most recent call first):
+       [0] _clear_loading_canvas (res://scripts/world_region_loader.gd:160)
+       [1] shutdown (res://scripts/world_region_loader.gd:155)
+       [2] _exit_tree (res://scripts/main_level.gd:771)
+       [3] _run (res://scripts/world_async_loading_validation.gd:105)
+       [4] _wait_idle (res://scripts/world_async_loading_validation.gd:146)
+SCRIPT ERROR: Invalid type in function '_alive' in base 'RefCounted (world_region_loader.gd)'. The Object-derived class of argument 1 (previously freed) is not a subclass of the expected argument class.
+          at: _evict_budgeted (res://scripts/world_region_loader.gd:219)
+          GDScript backtrace (most recent call first):
+              [0] _evict_budgeted (res://scripts/world_region_loader.gd:219)
+ASYNC METRICS [{"batches":81,"jobs":257,"max_batch_usec":57512,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":86,"jobs":269,"max_batch_usec":267141,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":64,"jobs":120,"max_batch_usec":136986,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":48,"jobs":108,"max_batch_usec":106901,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":44,"jobs":94,"max_batch_usec":108625,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":39,"jobs":81,"max_batch_usec":112460,"max_build_operations":8,"max_unload_operations":8,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 89 checks; six-region parity, budget limits, rollback, save isolation and teardown
+double free or corruption (!prev)
+Running world_host
+PASS: world_host
+WORLD HOST METRICS: transitions=43 peak_region_nodes=259 initial_region_nodes=257 fixture_positioning=true
+WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles
+GODOT_REGRESSIONS suites=2 failures=1

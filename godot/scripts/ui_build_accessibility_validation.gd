@@ -132,6 +132,23 @@ func run() -> void:
     check(ui.remap_target.is_empty(),"Escape safely cancels an incomplete key remapping")
     ui._select_save_slot(2)
     check(runtime.selected_save_slot==2,"Save slot button adapter selects requested slot")
+    # Rebuilding the UI (e.g. on region travel) must not re-add a superseded
+    # default controller binding after loading the player's saved preference.
+    var binding_config:=ConfigFile.new()
+    var custom_interact:=InputEventJoypadButton.new()
+    custom_interact.button_index=JOY_BUTTON_RIGHT_SHOULDER
+    binding_config.set_value("bindings","interact",[custom_interact])
+    check(binding_config.save(ui.accessibility_path)==OK,"Controller remap fixture saves")
+    var rebuilt_ui:=UI.new()
+    rebuilt_ui.accessibility_path=ui.accessibility_path
+    runtime.add_child(rebuilt_ui)
+    rebuilt_ui.bind(runtime)
+    rebuilt_ui.set_process(false)
+    var old_interact:=InputEventJoypadButton.new()
+    old_interact.button_index=JOY_BUTTON_BACK
+    check(InputMap.event_is_action(custom_interact,"interact"),"UI rebuild preserves custom controller interaction")
+    check(not InputMap.event_is_action(old_interact,"interact"),"UI rebuild does not resurrect replaced controller interaction")
+    rebuilt_ui.free()
     InputMap.action_erase_events("heal")
     for old_event in old_events:InputMap.action_add_event("heal",old_event)
     runtime.free()

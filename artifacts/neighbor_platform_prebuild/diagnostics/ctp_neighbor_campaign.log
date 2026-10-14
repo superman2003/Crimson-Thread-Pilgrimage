@@ -1,0 +1,46 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:campaign
+> node tools/run_python_tool.mjs tools/validate_campaign_chapters.py && node tools/run_python_tool.mjs tools/validate_chapter_files.py && node tools/run_python_tool.mjs tools/validate_world_routes.py && node tools/run_python_tool.mjs tools/validate_world_narrative.py && node tools/run_python_tool.mjs tools/validate_world_upgrade.py
+
+CAMPAIGN_CHAPTER_VALIDATION_PASS chapters=6 npcs=23 enemy_concepts=45
+CHAPTER_FILES_VALIDATION_PASS files=5 rooms=37 npcs=20 enemy_points=26
+{
+  "checks": 657,
+  "errors": [],
+  "limitation": "Static geometry and paired routes only. Actual input-based traversal is a separate Godot test."
+}
+WORLD_NARRATIVE_DATA_PASS npcs=17 states=83 evidence=6 rewards=5
+{
+  "checks": 11013,
+  "errors": [],
+  "ability_return_counts": {
+    "thread_dash": 2,
+    "silk_wall_grip": 2,
+    "echo_hook": 2,
+    "double_thread_jump": 2,
+    "bell_guard": 2,
+    "thorn_downstrike": 2,
+    "lantern_phase": 2,
+    "crown_resonance": 2
+  },
+  "valid_first_visit_orders": [
+    [
+      "demo_ch01_moss_bell_court",
+      "demo_ch02_rain_foundry_canal",
+      "demo_ch03_saltwhite_archive",
+      "demo_ch04_broken_string_greenhouse",
+      "demo_ch05_obsidian_pilgrim_road",
+      "demo_ch06_silent_crown_core"
+    ],
+    [
+      "demo_ch01_moss_bell_court",
+      "demo_ch02_rain_foundry_canal",
+      "demo_ch03_saltwhite_archive",
+      "demo_ch05_obsidian_pilgrim_road",
+      "demo_ch06_silent_crown_core",
+      "demo_ch04_broken_string_greenhouse"
+    ]
+  ],
+  "limitation": "Static overlay structure, paired landing geometry, cave/hazard clearance and abstract progression graph. Physical route controls/combat require Godot suites."
+}

@@ -13,6 +13,7 @@ const LOCKED_PASSAGE_COLOR := Color(1.0, 0.68, 0.24, 1.0)
 const EXIT_PASSAGE_COLOR := Color(0.45, 0.76, 1.0, 1.0)
 const ROOM_COLOR := Color(0.12, 0.26, 0.21, 1.0)
 const CONNECTOR_COLOR := Color(0.08, 0.16, 0.16, 1.0)
+const PERSISTENT_INTERACTION_KINDS := ["save_point", "lever"]
 
 var metsys: Node
 var bridge_ready := false
@@ -306,7 +307,13 @@ func register_object(object: Object, object_id: String, room_id: String = "") ->
         object.set_meta("object_coords", room_coords[room_id])
     elif current_coords != Vector3i.MAX:
         object.set_meta("object_coords", current_coords)
-    metsys.register_storable_object(object)
+    # Stored collectibles use MetSys' default queue_free callback. Rest points
+    # and shortcut levers remain part of the authored world after being stored;
+    # residency may reconstruct them and re-register their existing stable ID.
+    var stored_callback := Callable()
+    if object is Node and String(object.get_meta("kind", "")) in PERSISTENT_INTERACTION_KINDS:
+        stored_callback = Callable(self, "_preserve_stored_interaction")
+    metsys.register_storable_object(object, stored_callback)
     var object_key := StringName(object_id)
     if metsys.save_data.stored_objects.has(object_key):
         registered_ids[object_id] = true
@@ -332,6 +339,13 @@ func store_object(object: Object) -> void:
         return
     metsys.store_object(object, -1)
     stored_ids[object_id] = true
+
+
+func _preserve_stored_interaction() -> void:
+    # MetSys invokes this callback when a stored object is registered again.
+    # Its stable stored marker remains authoritative, while the interaction
+    # node stays live for the active-region residency service.
+    pass
 
 
 func discover_room(room_id: String) -> void:

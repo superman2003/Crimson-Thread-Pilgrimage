@@ -24,13 +24,38 @@ func _release() -> void:
         if InputMap.has_action(action):
             Input.action_release(action)
 
+func _transition_busy() -> bool:
+    if not is_instance_valid(scene):
+        return false
+    var loader: Variant = scene.world_loader
+    return scene.world_portal_request_pending or scene.chapter_transitioning or scene.world_loading or (is_instance_valid(loader) and loader.phase != "idle")
+
+func _settle_transition() -> bool:
+    for frame in range(2000):
+        if is_instance_valid(current_scene) and current_scene.get("world_mode") == true:
+            scene = current_scene
+        if not _transition_busy():
+            return true
+        await process_frame
+    _assert(false, "budgeted portal request/preflight/transition did not settle before action probe")
+    _release()
+    quit(1)
+    await process_frame
+    return false
+
 func _tick(count: int = 1) -> void:
+    if not await _settle_transition():
+        return
     for unused in range(count):
         for actor in get_nodes_in_group("enemy"):
             actor.queue_free()
         await physics_frame
         if is_instance_valid(current_scene) and current_scene.get("world_mode") == true:
             scene = current_scene
+        # A held interaction can queue the request during the physics yield.
+        # Do not return control to assertions or fixture teardown mid-preflight.
+        if not await _settle_transition():
+            return
 
 func _clean() -> void:
     for suffix in ["", ".tmp", ".bak"]:
@@ -212,6 +237,7 @@ func _run() -> void:
     if is_instance_valid(scene):
         scene.queue_free()
         await process_frame
+    _assert(await preload("res://scripts/audio_retirement.gd").drain(self), "AudioServer releases retired seal playback before shutdown")
     _clean()
     print("WORLD_UPGRADE checks=%d failures=%d enemy_removal=true fixture_positioning=true" % [checks, failures])
     # Let the async test stack release its final saved-state Resource first.

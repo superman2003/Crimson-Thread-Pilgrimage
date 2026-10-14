@@ -1,0 +1,2047 @@
+{
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe real OpenGL",
+  "base_commit": "5dc74feb5de63a55a21b151dbe8f1d063c86ddca",
+  "source_sha256": {
+    "godot/scripts/world_gameplay_prefetch.gd": "3ccb6837805da0a9a2a660d7532080ac0f4c8cac2d1f3cd3507b68d0f92c79c8",
+    "godot/scripts/world_prefetch.gd": "67495f59dc07ef95568d6cad4b38614b1b233c2242306d849bdaa3f283b4cd68",
+    "godot/scripts/main_level.gd": "3744bdee4ca1cf3829dea23b8ed7e3651b6ce37055546e7922a21866e2eb1aea",
+    "godot/scripts/enemy_actor.gd": "1e79a8dfab675fc550411ab3730b6132ef4f294a7f7c078d2ef41cdc071f0226",
+    "godot/scripts/world_region_loader.gd": "13f083b740d91279c0810bf262a7184bec8bfba3e34de9eb888c2809aaf08639",
+    "godot/scripts/world_passage.gd": "850a0e9b26f8b2db9b711a41ded53d1c8382a36f923b67d665a176205e66d723",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "09c1a2019e19dfc22a19a697102a054ca71fc217d2fef9b12fa6c1745b803312",
+    "godot/scripts/world_neighbor_gameplay_live_validation.gd": "c4e8e0399809a2d079ca87f1e2b6d1230a78ddbf8b5d5bab20ff59e3d9cef204",
+    "godot/scripts/world_neighbor_gameplay_stress_validation.gd": "13b60561850f2a4cf49906cabfadf0ee065e578b64eeb64c3d8b47762fd4056f",
+    "tools/run_godot_regressions.py": "5f0a433f4aa376c2fe44ba971ae5db68c4add4889d2c946cd84404070c62054c",
+    "tools/software_gl.py": "9f5f42a732b145207486ee4aa7240ab0d03839d92916b45acaad6062d8b2a477",
+    "tools/test_regression_runner.py": "9f36fa107cf9d5a88df073390ee612b77e7b768b3e3f1fc003ad3c17bf57a8dd",
+    ".github/workflows/godot-integration.yml": "11f7d4a9e463e5861d34ba15eec1885fdc3643f9f7fc7bd38ae7f6a3901242fc"
+  },
+  "full_regressions": {
+    "suites": 63,
+    "failures": 0,
+    "engine_errors": 0,
+    "renderer": "real OpenGL",
+    "execution": "62 passed in complete GL run; world_upgrade passed targeted revalidation with real GL backend and draw loop disabled",
+    "full_run_log_sha256": "8955634d9193af7b7a9c5fea7906d9af499cbba38ff0e0cc47d30d8ec3c9fcd7",
+    "upgrade_revalidation_log_sha256": "5e88d62d272fd8cb719e8cd15760e9bb6b5a492d532aa1b32af30d3fdba6765b",
+    "results": [
+      {
+        "suite": "world_rim",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "dc4c357801fb9452b55546a95611114405491d6cd01e6b345628c9dd5fc3eef6"
+      },
+      {
+        "suite": "world_wayfinding",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "e4767d66461137f8406c0c731dec63c2f7fdd7f0f54e00c713241995fb23e9fa"
+      },
+      {
+        "suite": "world_passage",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "cbaaa945ed963edef3b0cf57e5c1a3da7343f6b04042f15222f37c9f909b94ec"
+      },
+      {
+        "suite": "audio_retirement",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "4453d662edd9811e2c7e65aa88c7ec189dd556f74f77b3acf65e7579308aab43"
+      },
+      {
+        "suite": "world_neighbor_collision",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "6015a04087679223b2610842a14d68c8095556771793c35a76f23c59cf13d330"
+      },
+      {
+        "suite": "world_neighbor_entities",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "c466f8f6378c69b2be835954a9895a1f5443eb59ab8ee00ec83a53f7edc8b413"
+      },
+      {
+        "suite": "world_neighbor_gameplay",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "c7aa4a59cf32b89c8f38adca12505d4fcaac8d9a126f079cdd93395dce77dfb4"
+      },
+      {
+        "suite": "world_neighbor_gameplay_live",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "dae92622eacfa72004cdc25b71a9bac48db0e666f33f80028d21fb29d2d78e5d"
+      },
+      {
+        "suite": "world_neighbor_gameplay_stress",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "081e7a5e12fdb28c0bb287e407fa65234266b4880b4f4e32f091e591f3527869"
+      },
+      {
+        "suite": "terrain_collision_streaming",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "177e2f5cb4ccb7e9f1747f3a33157ea6fd7a9009ce9c219668777aa1fbc31a50"
+      },
+      {
+        "suite": "world_platform_streaming",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "695d4b084f5220c4810dd4551dbb3cad46ac05f294660df18352a17b5b3494df"
+      },
+      {
+        "suite": "cave_collision_streaming",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "db9a81aba6993a0356360c7209e72ba45d109aeab8e80170f4f6ef4de584fb44"
+      },
+      {
+        "suite": "world_async_loading",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "9dc861dee89148188fdc32cb04b9099f632715672319cc46a45cc23bb0f9d627"
+      },
+      {
+        "suite": "world_streaming",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "838ae140ad70b90629994ff47cc3e5b52e0b72657e8bb53c9adf50f9d46ae2aa"
+      },
+      {
+        "suite": "world_host",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "5ff4367d6f45f0172032c4e9607c084e75d0bc7e8723bf7ae057901614ddc19e"
+      },
+      {
+        "suite": "world_coordinates",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467"
+      },
+      {
+        "suite": "cartography",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "a79a2145157946544c835761096b9a6d6712872b69bc3bf907644d7424e26a18"
+      },
+      {
+        "suite": "world_map",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "8b5861e8100d94fb85b5fada2be6ba9be4030e60e8c7087f91185f1cf5619096"
+      },
+      {
+        "suite": "world_route_access",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "fbe849524a3b329b833af5105afbff301de26137c99dcd99211da69fd349bd28"
+      },
+      {
+        "suite": "world_state",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1"
+      },
+      {
+        "suite": "world_integration",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "86439c782829f9bd764698c771c5f98e5df4498995453bef7ce213754342ea4f"
+      },
+      {
+        "suite": "world_route_walk",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "dd8c72db5518165751c5a7f62fe5207d02d730441ebb7cfcf1c2ece833daa247"
+      },
+      {
+        "suite": "ability_movement",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "8f157f166f98ec12f5dcef9fbf2e5f66147b9a2bb69a027823c3679aa509a170"
+      },
+      {
+        "suite": "enemy_effect_lifetime",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "2fa9637a5b185f8a2156f48d9e01d2b8335b63ff4f487e7f1376bcfb3c0fef6c"
+      },
+      {
+        "suite": "enemy_visibility",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "4dc79146364827b262ad45e4db91edb4553c848d52d5af8376b7e36ec1de0e69"
+      },
+      {
+        "suite": "world_material",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "4d6441b4305721502298c21516bee958f498efa916bad16a2a03e3199ee7adf5"
+      },
+      {
+        "suite": "hero_animation",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "9eca37c3e6e5d8880ffb9ee66c07cec53c4d6ef15a023d89247ef818a8fd8cec"
+      },
+      {
+        "suite": "cave_exploration",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "20d19d0c7be8b5bea50807e1a6f9c8a1b7e3ac2d83088663bb6984a292b8722d"
+      },
+      {
+        "suite": "cave_route_walk",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "40b77948a01b3e8a98b0de56994b425bf128307ed17ecf64dd8396ab33e4ff02"
+      },
+      {
+        "suite": "chapter_route_regression",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "2be8e8fcf3d95dee2657b0345e90c6ae3cdcbc29796d6528e58c5991354d2475"
+      },
+      {
+        "suite": "ch01_room_reconstruction",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "907670e83bab027b67522c9ae600788b503d1eda82d9c9213f1a56faa233ecd1"
+      },
+      {
+        "suite": "pilgrimage_merge_regression",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "6d6d43fd3cc51ad7ed8fa36bf97742e74362ca02a93d65c931edbfd41df70531"
+      },
+      {
+        "suite": "pilgrimage_review_regression",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "c62e11212c024745cc075e517419e66066f716800f93850985b9179fc1cfc6bb"
+      },
+      {
+        "suite": "all_chapters_demo",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "65ec6bd8fb56a5abcc0090fd542c8f577cef8f3b1f4ad2c5ca185c0948ca520d"
+      },
+      {
+        "suite": "pilgrimage_overhaul",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "6dd8e863bcddcabef0abf8e4239ad0e1224dcb41db2508f691acfac399c51a81"
+      },
+      {
+        "suite": "demo",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "8d1d9bb1c6a15e249158111588734130277b1f5772ef73e47c735283a0ebce4d"
+      },
+      {
+        "suite": "ch02_demo",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "f90091724cd1611abbb978c44c916d58e75db4b16073bdccba4e3a0ced02d47e"
+      },
+      {
+        "suite": "inventory_map",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "c55cbe2f83b79253295451f1a8cc0215393344459ef443f86272a504fc9b5c4e"
+      },
+      {
+        "suite": "boss_trial",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "efeb3492e89083ecf61e6f1bf77944a0648f40897befd6e13f401ae0e98e83d4"
+      },
+      {
+        "suite": "combat",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "26448ac97b64457b57ebcd172ad82edfa3c3198e1d597d0e306d7bfcdb7f41c7"
+      },
+      {
+        "suite": "generated_runtime",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "a9f8386cd85f436d267317d10ea0d298ea936551d3710c422263022de3223b1e"
+      },
+      {
+        "suite": "chapter_registry",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "ac15b1e413b23b3f36823e8c9b8fbfc1818a40b9d2e63390cf85af0b76ac173a"
+      },
+      {
+        "suite": "story_guidance",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "f7d94f9532e529aabb2b4d4cff9bf165b387d7ef40a11b222bc5761e7c914323"
+      },
+      {
+        "suite": "chinese_story",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "79bbbfcf1cb0de8fdb117e07c1e7e9a9f9f3aa964d8d1d5ab0859b05075c292f"
+      },
+      {
+        "suite": "metsys",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "db82f4c4a5d75d7e71107e0fc1e8e312495de2a9c7378560e7517673030f46ea"
+      },
+      {
+        "suite": "player_upgrade_regression",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "60a337448eff9c563739d2ac802c36a7c4e58a036a6231afa1003ad2fb6cdecb"
+      },
+      {
+        "suite": "build_system",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "bb26c2e169812b50a8ef84f14bf89195530705c94b69352ecee815cb703cb859"
+      },
+      {
+        "suite": "world_upgrade",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "upgrade-gl",
+        "draw_loop": false,
+        "warnings": 2,
+        "log_sha256": "11c086474512099d5f74b309cbe4fb33088cc65f91c8d20415dd4aeca35c8ae8"
+      },
+      {
+        "suite": "upgrade_integration",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "8fa33fadf267d9fcc9c8fdf32bd8a15f76c50ad50e5c3a90efe14d9c82cd18b5"
+      },
+      {
+        "suite": "save_product",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420"
+      },
+      {
+        "suite": "ui_build_accessibility",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832"
+      },
+      {
+        "suite": "ui_world_integration",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5"
+      },
+      {
+        "suite": "ui_redesign",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "6a43895743c3178a39ab059c82290b6fe17e35f6372312135946c96fc80e71e4"
+      },
+      {
+        "suite": "seal_system",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "cef83dc87e57ceb962bbf25848922c149d2d36bf5748cac6860c8afd53d62f80"
+      },
+      {
+        "suite": "seal_combat",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "1dea116e2a42f87ff23febecb37b06a8675784da4384994079c5ec41fd8b5224"
+      },
+      {
+        "suite": "seal_ui",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "516dca908abd34d42fc9a970f558382b3eb6d1a83cd9051e82c4b61fc9b6a4ea"
+      },
+      {
+        "suite": "seal_acceptance",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "32dc6c24d16dad94663f9a28bd348de3bbfbed11761e4298188399fdf9386da3"
+      },
+      {
+        "suite": "seal_acquisition",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "6823ea325dac404eb1aa8c9323a547d40bc4041c13301cc61c11edc2e918104f"
+      },
+      {
+        "suite": "seal_presentation",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "f45c6b6770a8b3736a5764539d7b5eca9ffbfe1615570a10f3103c2049a8c984"
+      },
+      {
+        "suite": "tests/verify_world_narrative",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "3ad61363b4f8f9b3b77d42bfc03e317b37f587e63851dbee98e7d20aa638dd53"
+      },
+      {
+        "suite": "tests/verify_narrative_ui",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "4a1edf74d3d9bdc80afa795d531dd18ee4f8781f876470dd0cf2012da1d02e44"
+      },
+      {
+        "suite": "tests/verify_narrative_progression",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 1,
+        "log_sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8"
+      },
+      {
+        "suite": "tests/verify_narrative_runtime",
+        "passed": true,
+        "engine_errors": 0,
+        "run": "full-gl",
+        "draw_loop": true,
+        "warnings": 2,
+        "log_sha256": "170b78aec2834c3dac467ae6b367f90393807a88ffeb173610dcc70801d94046"
+      }
+    ]
+  },
+  "landing_fixtures": {
+    "count": 76,
+    "adopted": 397,
+    "metrics": {
+      "churn": {},
+      "combat_acceptance": false,
+      "final": {
+        "cache_hits": 77,
+        "config_reads": 2,
+        "entity_bodies": 0,
+        "entity_builds": 1466,
+        "entity_hits": 721,
+        "entity_regions": 0,
+        "entity_releases": 96,
+        "failures": 0,
+        "gameplay": {
+          "builds": 433,
+          "cached": 0,
+          "hits": 400,
+          "max_children": 4,
+          "max_owned": 16,
+          "owned": 0,
+          "pending": 0,
+          "regions": 0,
+          "releases": 33,
+          "retiring": 0
+        },
+        "generation": 154,
+        "jobs": 0,
+        "max_entities": 47,
+        "max_jobs": 2,
+        "owned_bodies": 0,
+        "queued": 0,
+        "regions": 0,
+        "retiring_bodies": 0,
+        "rock_chunks": 0,
+        "rock_hits": 419,
+        "stale_results": 0,
+        "terrain_hits": 230,
+        "terrain_polygons": 0,
+        "textures": 0
+      },
+      "fixture_positioning": true,
+      "landings": [
+        {
+          "adopted": 5,
+          "entry": [
+            200.0,
+            3360.0
+          ],
+          "kinds": [
+            "world_portal:moss_salt_shortcut_lower",
+            "world_portal:moss_archive_return",
+            "world_portal:moss_salt_lift_lower",
+            "enemy:E01",
+            "enemy:E11"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            200.0,
+            720.0
+          ],
+          "kinds": [
+            "world_portal:rain_moss_pipe",
+            "enemy:E01",
+            "world_portal:rain_archive_riser",
+            "world_portal:upgrade_double_thread_jump_2_access_a"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            300.0,
+            2580.0
+          ],
+          "kinds": [
+            "world_portal:archive_rain_riser",
+            "npc:npc_salt_librarian_ye",
+            "enemy:E01",
+            "enemy:E03"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            330.0,
+            1740.0
+          ],
+          "kinds": [
+            "world_portal:world_4_3_back",
+            "npc:npc_old_gardener",
+            "enemy:E01",
+            "enemy:E13"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 9,
+          "entry": [
+            300.0,
+            2720.0
+          ],
+          "kinds": [
+            "world_portal:world_5_4_back",
+            "npc:npc_obsidian_guide",
+            "world_portal:upgrade_archive_obsidian_branch_b",
+            "world_portal:upgrade_lantern_phase_3_access_a",
+            "save_point:save_ch05_lower_loop",
+            "enemy:E07",
+            "npc:npc_blind_bell_knight",
+            "enemy:E01",
+            "enemy:E06"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 7,
+          "entry": [
+            2710.0,
+            660.0
+          ],
+          "kinds": [
+            "world_portal:world_6_5_back",
+            "world_portal:upgrade_crown_resonance_3_access_a",
+            "npc:npc_first_pilgrim_echo",
+            "enemy:E12",
+            "npc:npc_black_tide_child",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E11"
+          ],
+          "region": "demo_ch06_silent_crown_core"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            330.0,
+            720.0
+          ],
+          "kinds": [
+            "world_portal:rain_moss_pipe",
+            "enemy:E01",
+            "world_portal:rain_archive_riser",
+            "world_portal:upgrade_double_thread_jump_2_access_a",
+            "save_point:save_ch02_riser"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 11,
+          "entry": [
+            1610.0,
+            2200.0
+          ],
+          "kinds": [
+            "world_portal:archive_moss_return",
+            "enemy:E03",
+            "enemy:E02",
+            "enemy:E04",
+            "enemy:E14",
+            "world_portal:upgrade_echo_hook_2_access_a",
+            "npc:npc_quiet_reader",
+            "world_portal:upgrade_archive_obsidian_branch_a",
+            "npc:npc_fugitive_scribe",
+            "save_point:save_hidden_upper_respite",
+            "npc:npc_salt_librarian_ye"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            4850.0,
+            610.0
+          ],
+          "kinds": [
+            "world_portal:moss_salt_lift_upper",
+            "save_point:save_hidden_upper_respite",
+            "world_portal:moss_salt_shortcut_upper",
+            "enemy:E05",
+            "world_portal:upgrade_bell_guard_1_access_a",
+            "enemy:E04"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            410.0,
+            3360.0
+          ],
+          "kinds": [
+            "world_portal:moss_salt_lift_lower",
+            "world_portal:moss_archive_return",
+            "world_portal:moss_salt_shortcut_lower",
+            "enemy:E01",
+            "enemy:E11",
+            "npc:npc_threadsmith_apprentice"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            200.0,
+            3360.0
+          ],
+          "kinds": [
+            "world_portal:moss_salt_shortcut_lower",
+            "world_portal:moss_archive_return",
+            "world_portal:moss_salt_lift_lower",
+            "enemy:E01",
+            "enemy:E11"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            5340.0,
+            520.0
+          ],
+          "kinds": [
+            "world_portal:moss_salt_shortcut_upper",
+            "world_portal:moss_salt_lift_upper",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E05"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 2,
+          "entry": [
+            8010.0,
+            530.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thread_dash_1_access_b",
+            "world_portal:upgrade_silk_wall_grip_1_access_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 8,
+          "entry": [
+            1630.0,
+            3712.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thread_dash_1_access_a",
+            "npc:npc_threadsmith_apprentice",
+            "save_point:save_first_bell",
+            "world_portal:moss_rain_pipe",
+            "enemy:E01",
+            "world_portal:upgrade_silk_wall_grip_1_access_a",
+            "enemy:E11",
+            "enemy:E02"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8010.0,
+            1070.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_silk_wall_grip_1_access_b",
+            "world_portal:upgrade_echo_hook_1_access_b",
+            "world_portal:upgrade_thread_dash_1_access_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 7,
+          "entry": [
+            1600.0,
+            3120.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_silk_wall_grip_1_access_a",
+            "npc:npc_threadsmith_apprentice",
+            "world_portal:upgrade_thread_dash_1_access_a",
+            "save_point:save_first_bell",
+            "world_portal:moss_rain_pipe",
+            "enemy:E01",
+            "enemy:E02"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8010.0,
+            1610.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_echo_hook_1_access_b",
+            "world_portal:upgrade_double_thread_jump_1_access_b",
+            "world_portal:upgrade_silk_wall_grip_1_access_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            4580.0,
+            2750.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_echo_hook_1_access_a",
+            "enemy:E06",
+            "enemy:E07",
+            "enemy:E03"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8010.0,
+            2150.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_double_thread_jump_1_access_b",
+            "world_portal:upgrade_bell_guard_1_access_b",
+            "world_portal:upgrade_echo_hook_1_access_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            3140.0,
+            610.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_double_thread_jump_1_access_a",
+            "enemy:E05",
+            "world_portal:upgrade_bell_guard_1_access_a",
+            "enemy:E04"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8010.0,
+            2690.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_bell_guard_1_access_b",
+            "world_portal:upgrade_thorn_downstrike_1_access_b",
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_a"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            4030.0,
+            1170.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_bell_guard_1_access_a",
+            "enemy:E04",
+            "enemy:E05",
+            "save_point:save_hidden_upper_respite",
+            "world_portal:moss_salt_lift_upper",
+            "world_portal:upgrade_double_thread_jump_1_access_a"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8010.0,
+            3090.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_1_access_b",
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            2840.0,
+            5820.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_1_access_a",
+            "enemy:E10",
+            "lever:shortcut_lever",
+            "npc:npc_backdoor_sacristan",
+            "enemy:E09"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8320.0,
+            3290.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_b",
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_1_access_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8130.0,
+            3090.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_1_access_b",
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8010.0,
+            3770.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_crown_resonance_1_access_b",
+            "world_portal:upgrade_thorn_downstrike_1_well_lift_b",
+            "world_portal:upgrade_thorn_downstrike_1_access_b"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            6600.0,
+            3880.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_crown_resonance_1_access_a",
+            "boss_gate:boss_gate",
+            "npc:npc_runback_scout",
+            "save_point:save_late_runback"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 8,
+          "entry": [
+            1790.0,
+            3712.0
+          ],
+          "kinds": [
+            "world_portal:moss_rain_pipe",
+            "save_point:save_first_bell",
+            "world_portal:upgrade_thread_dash_1_access_a",
+            "npc:npc_threadsmith_apprentice",
+            "world_portal:upgrade_silk_wall_grip_1_access_a",
+            "enemy:E01",
+            "enemy:E11",
+            "enemy:E02"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            430.0,
+            2580.0
+          ],
+          "kinds": [
+            "world_portal:archive_rain_riser",
+            "npc:npc_salt_librarian_ye",
+            "enemy:E01",
+            "enemy:E03",
+            "world_portal:archive_moss_return",
+            "enemy:E02"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 11,
+          "entry": [
+            220.0,
+            1870.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_obsidian_rain_return_a",
+            "world_portal:upgrade_lantern_phase_3_access_a",
+            "save_point:save_ch05_lower_loop",
+            "enemy:E07",
+            "npc:npc_blind_bell_knight",
+            "npc:npc_deserter_flagbearer",
+            "save_point:save_hidden_upper_respite",
+            "world_portal:world_5_4_back",
+            "npc:npc_obsidian_guide",
+            "enemy:E06",
+            "enemy:E01"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 2,
+          "entry": [
+            7550.0,
+            530.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thread_dash_2_access_b",
+            "world_portal:upgrade_silk_wall_grip_2_access_b"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 9,
+          "entry": [
+            4240.0,
+            4430.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thread_dash_2_access_a",
+            "enemy:E10",
+            "npc:npc_drowned_foreman",
+            "enemy:E11",
+            "enemy:E06",
+            "enemy:E08",
+            "lever:waterwheel_shortcut_lever",
+            "save_point:save_ch02_forge",
+            "boss_gate:sunken_hammer_gate"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7550.0,
+            1070.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_silk_wall_grip_2_access_b",
+            "world_portal:upgrade_double_thread_jump_2_access_b",
+            "world_portal:upgrade_thread_dash_2_access_b"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            2870.0,
+            3280.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_silk_wall_grip_2_access_a",
+            "npc:npc_sluice_nun",
+            "enemy:E12",
+            "npc:npc_rain_smith_liu",
+            "enemy:E13"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7550.0,
+            1610.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_double_thread_jump_2_access_b",
+            "world_portal:upgrade_bell_guard_2_access_b",
+            "world_portal:upgrade_silk_wall_grip_2_access_b"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 8,
+          "entry": [
+            1470.0,
+            1500.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_double_thread_jump_2_access_a",
+            "save_point:save_ch02_riser",
+            "npc:npc_canal_child",
+            "enemy:E02",
+            "world_portal:rain_archive_riser",
+            "enemy:E01",
+            "world_portal:upgrade_bell_guard_2_access_a",
+            "enemy:E03"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7550.0,
+            2150.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_bell_guard_2_access_b",
+            "world_portal:upgrade_double_thread_jump_2_access_b",
+            "world_portal:upgrade_lantern_phase_1_access_b"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            2200.0,
+            2120.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_bell_guard_2_access_a",
+            "save_point:save_ch02_riser",
+            "world_portal:upgrade_double_thread_jump_2_access_a",
+            "world_portal:upgrade_obsidian_rain_return_b",
+            "enemy:E04"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 2,
+          "entry": [
+            7550.0,
+            2690.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_lantern_phase_1_access_b",
+            "world_portal:upgrade_bell_guard_2_access_b"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            1760.0,
+            4910.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_lantern_phase_1_access_a",
+            "save_point:save_ch02_tide",
+            "enemy:E09"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 8,
+          "entry": [
+            1350.0,
+            796.0
+          ],
+          "kinds": [
+            "world_portal:rain_archive_riser",
+            "npc:npc_canal_child",
+            "enemy:E01",
+            "enemy:E02",
+            "world_portal:upgrade_double_thread_jump_2_access_a",
+            "save_point:save_ch02_riser",
+            "enemy:E03",
+            "world_portal:rain_moss_pipe"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            280.0,
+            3360.0
+          ],
+          "kinds": [
+            "world_portal:moss_archive_return",
+            "world_portal:moss_salt_shortcut_lower",
+            "world_portal:moss_salt_lift_lower",
+            "enemy:E01",
+            "enemy:E11"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            460.0,
+            1740.0
+          ],
+          "kinds": [
+            "world_portal:world_4_3_back",
+            "npc:npc_old_gardener",
+            "enemy:E01",
+            "enemy:E13"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 10,
+          "entry": [
+            710.0,
+            2672.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_archive_obsidian_branch_b",
+            "npc:npc_obsidian_guide",
+            "world_portal:world_5_4_back",
+            "enemy:E01",
+            "enemy:E06",
+            "npc:npc_blind_bell_knight",
+            "enemy:E07",
+            "world_portal:upgrade_lantern_phase_3_access_a",
+            "save_point:save_ch05_lower_loop",
+            "enemy:E05"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 2,
+          "entry": [
+            7930.0,
+            530.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_echo_hook_2_access_b",
+            "world_portal:upgrade_bell_guard_3_access_b"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 10,
+          "entry": [
+            1990.0,
+            1712.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_echo_hook_2_access_a",
+            "npc:npc_quiet_reader",
+            "enemy:E06",
+            "enemy:E14",
+            "enemy:E04",
+            "world_portal:upgrade_archive_obsidian_branch_a",
+            "npc:npc_fugitive_scribe",
+            "world_portal:upgrade_crown_resonance_2_access_a",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E03"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7930.0,
+            1070.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_bell_guard_3_access_b",
+            "world_portal:upgrade_thorn_downstrike_2_access_b",
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_a"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 8,
+          "entry": [
+            4480.0,
+            2640.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_bell_guard_3_access_a",
+            "lever:ch03_saltwhite_archive_shortcut_lever",
+            "npc:npc_sealed_archivist",
+            "enemy:E12",
+            "save_point:save_late_runback",
+            "enemy:E11",
+            "enemy:E13",
+            "boss_gate:ch03_saltwhite_archive_boss_gate"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7930.0,
+            1470.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_2_access_b",
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_b"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            3250.0,
+            2672.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_2_access_a",
+            "enemy:E05",
+            "enemy:E13",
+            "world_portal:upgrade_archive_obsidian_branch_a",
+            "world_portal:upgrade_bell_guard_3_access_a",
+            "enemy:E04"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8240.0,
+            1670.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_b",
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_2_access_b"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8050.0,
+            1470.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_2_access_b",
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_b"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7930.0,
+            2150.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_crown_resonance_2_access_b",
+            "world_portal:upgrade_thorn_downstrike_2_well_lift_b",
+            "world_portal:upgrade_thorn_downstrike_2_access_b"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 10,
+          "entry": [
+            1490.0,
+            1358.0
+          ],
+          "kinds": [
+            "npc:npc_fugitive_scribe",
+            "world_portal:upgrade_crown_resonance_2_access_a",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E14",
+            "world_portal:upgrade_echo_hook_2_access_a",
+            "npc:npc_quiet_reader",
+            "enemy:E06",
+            "enemy:E03",
+            "world_portal:archive_moss_return",
+            "enemy:E04"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 2,
+          "entry": [
+            7110.0,
+            2608.0
+          ],
+          "kinds": [
+            "world_portal:world_3_4_out",
+            "world_portal:upgrade_crown_resonance_2_access_b"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 9,
+          "entry": [
+            430.0,
+            2720.0
+          ],
+          "kinds": [
+            "world_portal:world_5_4_back",
+            "npc:npc_obsidian_guide",
+            "world_portal:upgrade_archive_obsidian_branch_b",
+            "enemy:E01",
+            "enemy:E07",
+            "npc:npc_blind_bell_knight",
+            "world_portal:upgrade_lantern_phase_3_access_a",
+            "save_point:save_ch05_lower_loop",
+            "enemy:E06"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            4615.0,
+            1540.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_greenhouse_crown_branch_b",
+            "enemy:E04",
+            "enemy:E03",
+            "enemy:E01",
+            "enemy:E02"
+          ],
+          "region": "demo_ch06_silent_crown_core"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7960.0,
+            390.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_3_access_b",
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_b"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 10,
+          "entry": [
+            2720.0,
+            1562.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_3_access_a",
+            "save_point:save_ch04_lower_loop",
+            "enemy:E11",
+            "npc:npc_broken_singer",
+            "enemy:E12",
+            "lever:ch04_broken_string_greenhouse_shortcut_lever",
+            "npc:npc_root_prisoner",
+            "world_portal:upgrade_greenhouse_crown_branch_a",
+            "enemy:E10",
+            "enemy:E09"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8270.0,
+            590.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_b",
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_3_access_b"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            8080.0,
+            390.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_a",
+            "world_portal:upgrade_thorn_downstrike_3_access_b",
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_b"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7960.0,
+            1070.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_lantern_phase_2_access_b",
+            "world_portal:upgrade_thorn_downstrike_3_well_lift_b",
+            "world_portal:upgrade_thorn_downstrike_3_access_b"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            5070.0,
+            2260.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_lantern_phase_2_access_a",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E05",
+            "npc:npc_beeswax_vendor",
+            "enemy:E06",
+            "enemy:E04"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 3,
+          "entry": [
+            7140.0,
+            752.0
+          ],
+          "kinds": [
+            "world_portal:world_4_5_out",
+            "world_portal:upgrade_lantern_phase_2_access_b",
+            "world_portal:upgrade_thorn_downstrike_3_access_b"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 7,
+          "entry": [
+            2870.0,
+            660.0
+          ],
+          "kinds": [
+            "world_portal:world_6_5_back",
+            "world_portal:upgrade_crown_resonance_3_access_a",
+            "npc:npc_first_pilgrim_echo",
+            "enemy:E12",
+            "npc:npc_black_tide_child",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E11"
+          ],
+          "region": "demo_ch06_silent_crown_core"
+        },
+        {
+          "adopted": 10,
+          "entry": [
+            2340.0,
+            2118.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_archive_obsidian_branch_a",
+            "enemy:E04",
+            "enemy:E06",
+            "npc:npc_quiet_reader",
+            "world_portal:upgrade_echo_hook_2_access_a",
+            "enemy:E05",
+            "world_portal:archive_moss_return",
+            "enemy:E02",
+            "npc:npc_fugitive_scribe",
+            "save_point:save_hidden_upper_respite"
+          ],
+          "region": "demo_ch03_saltwhite_archive"
+        },
+        {
+          "adopted": 6,
+          "entry": [
+            3090.0,
+            1700.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_obsidian_rain_return_b",
+            "save_point:save_ch02_aqueduct",
+            "enemy:E04",
+            "world_portal:upgrade_bell_guard_2_access_a",
+            "enemy:E03",
+            "enemy:E05"
+          ],
+          "region": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "adopted": 1,
+          "entry": [
+            7500.0,
+            530.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_lantern_phase_3_access_b"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 11,
+          "entry": [
+            240.0,
+            1870.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_lantern_phase_3_access_a",
+            "world_portal:upgrade_obsidian_rain_return_a",
+            "save_point:save_ch05_lower_loop",
+            "enemy:E07",
+            "npc:npc_blind_bell_knight",
+            "npc:npc_deserter_flagbearer",
+            "save_point:save_hidden_upper_respite",
+            "world_portal:world_5_4_back",
+            "npc:npc_obsidian_guide",
+            "enemy:E06",
+            "enemy:E01"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 2,
+          "entry": [
+            6675.0,
+            2682.0
+          ],
+          "kinds": [
+            "world_portal:world_5_6_out",
+            "enemy:E14"
+          ],
+          "region": "demo_ch05_obsidian_pilgrim_road"
+        },
+        {
+          "adopted": 10,
+          "entry": [
+            2400.0,
+            1942.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_greenhouse_crown_branch_a",
+            "npc:npc_root_prisoner",
+            "enemy:E12",
+            "lever:ch04_broken_string_greenhouse_shortcut_lever",
+            "world_portal:upgrade_thorn_downstrike_3_access_a",
+            "enemy:E02",
+            "save_point:save_ch04_lower_loop",
+            "enemy:E11",
+            "npc:npc_broken_singer",
+            "enemy:E03"
+          ],
+          "region": "demo_ch04_broken_string_greenhouse"
+        },
+        {
+          "adopted": 4,
+          "entry": [
+            5900.0,
+            530.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_crown_resonance_3_access_b",
+            "enemy:E02",
+            "enemy:E01",
+            "enemy:E04"
+          ],
+          "region": "demo_ch06_silent_crown_core"
+        },
+        {
+          "adopted": 7,
+          "entry": [
+            2960.0,
+            660.0
+          ],
+          "kinds": [
+            "world_portal:upgrade_crown_resonance_3_access_a",
+            "npc:npc_first_pilgrim_echo",
+            "world_portal:world_6_5_back",
+            "enemy:E12",
+            "npc:npc_black_tide_child",
+            "save_point:save_hidden_upper_respite",
+            "enemy:E11"
+          ],
+          "region": "demo_ch06_silent_crown_core"
+        },
+        {
+          "adopted": 7,
+          "entry": [
+            2460.0,
+            5620.0
+          ],
+          "kinds": [
+            "lever:shortcut_lever",
+            "npc:npc_backdoor_sacristan",
+            "world_portal:upgrade_thorn_downstrike_1_access_a",
+            "enemy:E10",
+            "save_point:save_maze_respite",
+            "enemy:E08",
+            "enemy:E09"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        },
+        {
+          "adopted": 5,
+          "entry": [
+            5760.0,
+            3940.0
+          ],
+          "kinds": [
+            "boss_gate:boss_gate",
+            "npc:npc_runback_scout",
+            "save_point:save_late_runback",
+            "enemy:E14",
+            "world_portal:upgrade_crown_resonance_1_access_a"
+          ],
+          "region": "demo_ch01_moss_bell_court"
+        }
+      ]
+    }
+  },
+  "lifecycle_stress": {
+    "builds": 1320,
+    "cycles": 80,
+    "final": {
+      "cache_hits": 0,
+      "config_reads": 32,
+      "entity_bodies": 0,
+      "entity_builds": 3760,
+      "entity_hits": 0,
+      "entity_regions": 0,
+      "entity_releases": 3760,
+      "failures": 0,
+      "gameplay": {
+        "builds": 1320,
+        "cached": 0,
+        "hits": 0,
+        "max_children": 4,
+        "max_owned": 17,
+        "owned": 0,
+        "pending": 0,
+        "regions": 0,
+        "releases": 1320,
+        "retiring": 0
+      },
+      "generation": 2,
+      "jobs": 0,
+      "max_entities": 47,
+      "max_jobs": 2,
+      "owned_bodies": 0,
+      "queued": 0,
+      "regions": 0,
+      "retiring_bodies": 0,
+      "rock_chunks": 0,
+      "rock_hits": 0,
+      "stale_results": 0,
+      "terrain_hits": 0,
+      "terrain_polygons": 0,
+      "textures": 0
+    },
+    "memory_soak": false,
+    "releases": 1320
+  },
+  "live_input": {
+    "combat": {
+      "actor_id": 184197059136,
+      "direct_damage_calls": false,
+      "hp_after_hit": 1,
+      "hp_before": 4,
+      "killed": true,
+      "reward_delta": 8
+    },
+    "crossings": [
+      {
+        "damage_suppression": false,
+        "distance": 8573.86938619614,
+        "reused": 5,
+        "target": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "damage_suppression": false,
+        "distance": 8573.81296110153,
+        "reused": 8,
+        "target": "demo_ch01_moss_bell_court"
+      }
+    ],
+    "damage_suppression": false,
+    "failures": 0,
+    "initial_checkpoint_fixture": true,
+    "physics_frames": 4510,
+    "renderer": "real OpenGL",
+    "six_region_playthrough": false
+  },
+  "graphics": {
+    "neighbor_art": {
+      "combat_acceptance": false,
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch01_moss_bell_court",
+          "visible_actors": 5
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch02_rain_foundry_canal",
+          "visible_actors": 4
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch03_saltwhite_archive",
+          "visible_actors": 4
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch04_broken_string_greenhouse",
+          "visible_actors": 4
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "visible_actors": 5
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch06_silent_crown_core",
+          "visible_actors": 5
+        }
+      ],
+      "renderer": "Mesa llvmpipe real GL"
+    },
+    "live_input": {
+      "combat": {
+        "actor_id": 184197059136,
+        "direct_damage_calls": false,
+        "hp_after_hit": 1,
+        "hp_before": 4,
+        "killed": true,
+        "reward_delta": 8
+      },
+      "crossings": [
+        {
+          "damage_suppression": false,
+          "distance": 8573.86938619614,
+          "reused": 5,
+          "target": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "damage_suppression": false,
+          "distance": 8573.81296110153,
+          "reused": 8,
+          "target": "demo_ch01_moss_bell_court"
+        }
+      ],
+      "damage_suppression": false,
+      "failures": 0,
+      "initial_checkpoint_fixture": true,
+      "physics_frames": 4510,
+      "renderer": "real OpenGL",
+      "six_region_playthrough": false
+    },
+    "pipe": {
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "distinct_colors": 1750,
+          "endpoint_pixels": 4946,
+          "file": "pipe_40.jpg",
+          "hero_pixels": 1275,
+          "lane_ornament_pixels": 0,
+          "offset": 40,
+          "ornament_pixels": 3479,
+          "passed": true,
+          "visible_samples": 5076
+        },
+        {
+          "distinct_colors": 1732,
+          "endpoint_pixels": 0,
+          "file": "pipe_1000.jpg",
+          "hero_pixels": 1267,
+          "lane_ornament_pixels": 0,
+          "offset": 1000,
+          "ornament_pixels": 8531,
+          "passed": true,
+          "visible_samples": 5053
+        },
+        {
+          "distinct_colors": 1601,
+          "endpoint_pixels": 0,
+          "file": "pipe_4200.jpg",
+          "hero_pixels": 1293,
+          "lane_ornament_pixels": 0,
+          "offset": 4200,
+          "ornament_pixels": 8450,
+          "passed": true,
+          "visible_samples": 5060
+        },
+        {
+          "distinct_colors": 1643,
+          "endpoint_pixels": 0,
+          "file": "pipe_7600.jpg",
+          "hero_pixels": 1292,
+          "lane_ornament_pixels": 0,
+          "offset": 7600,
+          "ornament_pixels": 5009,
+          "passed": true,
+          "visible_samples": 5077
+        },
+        {
+          "distinct_colors": 1775,
+          "endpoint_pixels": 2865,
+          "file": "pipe_8500.jpg",
+          "hero_pixels": 1276,
+          "lane_ornament_pixels": 0,
+          "offset": 8500,
+          "ornament_pixels": 3759,
+          "passed": true,
+          "visible_samples": 5108
+        }
+      ],
+      "renderer": "real_gl"
+    }
+  },
+  "other_checks": {
+    "npm_test": true,
+    "campaign_audits": true,
+    "hero_assets_and_extraction": true,
+    "runner_tests": 7,
+    "missing_display_fails_without_fallback": true
+  },
+  "prior_attempt": {
+    "renderer": "headless dummy",
+    "suites": 63,
+    "passed": 62,
+    "failures": 1,
+    "failed_suite": "world_neighbor_gameplay_stress",
+    "error": "Parameter \"t\" is null at dummy texture_2d_initialize",
+    "log_sha256": "bc61616393f904ed110e5219b89f6bb9382b756b0eeb5840aa04b878bae25972",
+    "resolution": "All CI suites use real software GL; strict error and timeout checks unchanged"
+  },
+  "initial_gl_attempt": {
+    "suites": 63,
+    "passed": 62,
+    "failures": 1,
+    "failed_suite": "world_upgrade",
+    "error": "timeout after 180s while rasterizing twenty workshop fixtures",
+    "resolution": "Only world_upgrade uses --disable-render-loop; its 403 assertions, live physics/audio, real GL resource backend and 180s timeout retained"
+  },
+  "acceptance_boundaries": {
+    "initial_checkpoint_fixture": true,
+    "damage_suppression": false,
+    "six_region_combat_playthrough": false,
+    "whole_game_memory_soak": false,
+    "W00b2b": "partial",
+    "W00c": "partial",
+    "T03": "pending",
+    "T04": "pending"
+  }
+}
