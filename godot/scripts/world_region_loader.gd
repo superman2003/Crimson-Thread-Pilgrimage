@@ -4,6 +4,8 @@ extends RefCounted
 ## This is a coarse active-region chunk, not yet distance-based room streaming.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+const CONFIG_READ_JOB := preload("res://scripts/world_config_read_job.gd")
+var config_read_job := CONFIG_READ_JOB.new()
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_startup_options_enabled", "world_save_blocked",
@@ -61,14 +63,6 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     last_error = ""
     var wall_started := Time.get_ticks_usec()
     var json_started := Time.get_ticks_usec()
-    var parsed: Variant = null
-    if not entry.is_finite() or not FileAccess.file_exists(path):
-        last_error = "目标位置或区域文件无效。"
-    else:
-        parsed = prefetch.cached_raw(path) if prefetch != null else null
-        if parsed == null:
-            parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
-    last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
     last_transition["preflight_cursor"] = 0
     last_transition["preflight_batches"] = 0
     last_transition["preflight_work_usec"] = 0
@@ -80,6 +74,51 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     last_transition["preflight_progress"] = 0.0
     last_transition["preflight_max_operations"] = 0
     last_transition["preflight_max_batch_usec"] = 0
+    var parsed: Variant = null
+    last_transition["json_background"] = false
+    last_transition["json_wait_frames"] = 0
+    last_transition["json_worker_is_main"] = true
+    last_transition["json_worker_usec"] = 0
+    last_transition["json_bytes"] = 0
+    if not entry.is_finite() or not FileAccess.file_exists(path):
+        last_error = "目标位置或区域文件无效。"
+    else:
+        parsed = prefetch.cached_raw(path) if prefetch != null else null
+        if parsed == null:
+            # A cancelled read still owns its thread until completion. Wait in
+            # frames before admitting the next one, never queue unbounded work.
+            var ticket := 0
+            while true:
+                if ticket == 0 and not config_read_job.busy():
+                    ticket = config_read_job.request(path)
+                    if ticket == 0:
+                        last_error = "无法启动区域后台读取。"
+                        break
+                last_transition["json_background"] = true
+                # Yield even when a tiny file has already completed: the caller
+                # always gets a cancellation window before validator/handoff.
+                await host.get_tree().process_frame
+                last_transition["json_wait_frames"] += 1
+                if not _alive(host):
+                    config_read_job.discard(ticket)
+                    return {}
+                _cancel_input()
+                if cancel_requested:
+                    config_read_job.discard(ticket)
+                    last_transition["preflight_cancelled"] = true
+                    last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
+                    last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+                    return {}
+                if ticket != 0 and not config_read_job.busy():
+                    break
+            if ticket != 0:
+                var read: Dictionary = config_read_job.take(ticket)
+                last_error = String(read.get("error", "目标区域后台读取已失效。"))
+                parsed = read.get("raw")
+                last_transition["json_worker_usec"] = int(read.get("worker_usec", 0))
+                last_transition["json_bytes"] = int(read.get("bytes", 0))
+                last_transition["json_worker_is_main"] = read.get("worker_is_main", true)
+    last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
     if not last_error.is_empty():
         last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
         return {}
@@ -207,6 +246,7 @@ func cancel_transition() -> void:
 func shutdown() -> void:
     shutting_down = true
     cancel_requested = true
+    config_read_job.shutdown()
     _clear_loading_canvas()
 
 

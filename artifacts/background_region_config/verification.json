@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-14",
+  "baseline": "52670258b03a16694dc4309a56fd4c9bd2e7e196",
+  "engine": "Godot 4.6.1 stable",
+  "renderer": "Mesa llvmpipe OpenGL",
+  "distinct_related_suites_passed": 9,
+  "checks": {
+    "world_config_background": 38,
+    "world_preflight_budget": 4016,
+    "world_async_loading": 424,
+    "world_prepare_budget": 172,
+    "world_resume_regression": 38,
+    "world_host": 539,
+    "world_passage": 52,
+    "world_neighbor_gameplay": 7087,
+    "save_product": 23
+  },
+  "runs": [
+    {
+      "name": "initial nine-suite batch",
+      "suite_count": 9,
+      "failures": 1,
+      "failure": "world_neighbor_gameplay timeout after 180 seconds; other eight passed"
+    },
+    {
+      "name": "neighbor retry",
+      "suite_count": 1,
+      "failures": 0,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "stale discard boundary final",
+      "suite_count": 1,
+      "failures": 0,
+      "checks": 38
+    }
+  ],
+  "early_fixture_failure": "Malformed JSON assertion expected the wrong legacy diagnostic; corrected test only, final passes. Log retained.",
+  "strict_error_gate": "ERROR, SCRIPT ERROR, nonzero exit and timeout fail; none suppressed",
+  "resource_import": {
+    "passes": 2,
+    "failures": 0,
+    "recovery_mode": true,
+    "editor_plugin_behavior_verified": false
+  },
+  "static_checks": [
+    "npm test",
+    "npm run test:campaign",
+    "new command --help",
+    "git diff --check"
+  ],
+  "warnings": [
+    "V-Sync environment warning in real GL suites",
+    "Existing ObjectDB exit warnings in world_async_loading and world_prepare_budget, not attributed"
+  ],
+  "limitations": [
+    "No complete local default-suite run or final remote CI result",
+    "No FPS/load-time benchmark or hard 2ms per-frame guarantee",
+    "Neighbor JSON preparation, cache deep copies, route overlays, synchronous APIs and first region remain synchronous",
+    "Cancelled read may stay retained until next request/teardown; only whole-host teardown joins a running worker",
+    "Native runtime tested; all export platforms not verified"
+  ],
+  "source_sha256": {
+    "godot/scripts/world_config_read_job.gd": "43ff02216172b812966c7cb66939da85f7f569f8c940102adf381f9fbcb79060",
+    "godot/scripts/world_config_read_job.gd.uid": "b3b5ab8ad39d6099fde997f4ce4c86e0212b5679119bc63e4c7700091cf0a5fe",
+    "godot/scripts/world_config_background_validation.gd": "0d8ef4ed2e84288843e76581e42464e6f80b00773d50adcacd513460901e4fd2",
+    "godot/scripts/world_config_background_validation.gd.uid": "eae508c8ee2f6835afb45623d38de7f35e55bf70884ab093f06d4b6953da2acc",
+    "godot/scripts/world_region_loader.gd": "6b8cb91936e7817821abee6ac09b70b1f99f36f557233a8d12328626a2f44a7a",
+    "tools/run_godot_regressions.py": "822f777895f538d162134c861a943d3580716da2bb258d9365a11905c570ba9c",
+    "package.json": "98c382af194503f7ce44182ff718b5db12d2968c181cf438643c78f9504f6915",
+    "docs/UPGRADE_PROGRESS.md": "6b5610fb7084ad927597052525e8f75e96fcf297899e178bc84dc83882d8c8fc"
+  },
+  "logs": [
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_save_product.log.gz",
+      "sha256": "29cecac96429629a2cc5c36019ae5383b2a6b00211de2b754a5a146ae7503215",
+      "raw_sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_async_loading.log.gz",
+      "sha256": "6d6c740f6576f34a75ed42ba058f0105d3ce8e0ffe19e11a0aab30bc6dbc6958",
+      "raw_sha256": "c8000a3765c402b742213f0e00d8e90133589494a6e1537f7925416d25c63b0e"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_config_background.log.gz",
+      "sha256": "58e496c8708f2b60cb43a0e1c90d77ad61096277de5ae5b06eefed7c05512e44",
+      "raw_sha256": "5f2404d6b78dad7e160199a8eb5a92612526b145cb61fe192e8fcc1567cd8f54"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_host.log.gz",
+      "sha256": "34a4f6bb641f96358fd9189f76e2e6da27ac5f525f0a99608d7ac2f325828e2b",
+      "raw_sha256": "cc59d33656e74a7a84f2d52ecc9340497e47b7c00d231f89a7110b02380d2877"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_neighbor_gameplay.log.gz",
+      "sha256": "91c221ad5211a12ac8c94f48e3e29caa04bea2e9ba1cf979fe31c267682ec385",
+      "raw_sha256": "8b31a69aa3f0223720dd22a6e92b1838002f5aae58090f2e36a0bf8a891c537f"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_passage.log.gz",
+      "sha256": "3ce75c5519dd0390a3cfbd4b3696461c23f7e0802b23fa6bf0ed87586b57106f",
+      "raw_sha256": "f726d3cc00306cc0b463bee51860b0a337ca88d1fb1aca9a3f1ee1cafe44711a"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_preflight_budget.log.gz",
+      "sha256": "ccbb6f680f9f1a3e25c9f7ac2c89f63ec8c2ff6478d88ccf0c378ad3860159b4",
+      "raw_sha256": "2329dd6934526f6995f7ec85fad929984ce0dec1fdb903d4f4384e267abd764b"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_prepare_budget.log.gz",
+      "sha256": "4aba0f2e951ac98326598574c170e89901e6be81d25371eb6db2a80ead3a1cad",
+      "raw_sha256": "3e7784a14428985f4709ce4e99d86a3404807a034eb87bd6d732187d7510a4d7"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/batch_world_resume_regression.log.gz",
+      "sha256": "613b84ef5e797393684473e87ade711881dcf1897cdc7aa97150771c58202e4f",
+      "raw_sha256": "a675fbe336afdec9f428466979703bd6c5a92d9564d87249f5797cc225ec9926"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/ticket_final_world_config_background.log.gz",
+      "sha256": "58e496c8708f2b60cb43a0e1c90d77ad61096277de5ae5b06eefed7c05512e44",
+      "raw_sha256": "5f2404d6b78dad7e160199a8eb5a92612526b145cb61fe192e8fcc1567cd8f54"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/retry_world_neighbor_gameplay.log.gz",
+      "sha256": "b461c8d427ecc0aa6a70a968de1083631e77d9a629778338b080e9d0fe1fb878",
+      "raw_sha256": "bc925a2930ea5daf6258eac747655e20c287d1b0fc0dbb75c0211a28095e77b1"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/initial_fixture_failure.log.gz",
+      "sha256": "d9a0e4b72913f73cd6bd93f4eed914e0b203fec75972090a7b36a552c00dc284",
+      "raw_sha256": "c979b92a70e7590545b761d2dd56946cd9e3b718e0df44331adda6dbbc2e7ff8"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/import-1.log.gz",
+      "sha256": "5cabec9f2c9b8d3413e9626e31e0aa13e722f924b64bc25148c3bc688336dea7",
+      "raw_sha256": "3e636d7a82525ef22a30b0cb2a23854c2010a45ac3de78d85b60ce5e13a9f149"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/import-2.log.gz",
+      "sha256": "124beeb9ba85a635b69cf5c5d64776f28029cfe76760782445b1874aaa1faa63",
+      "raw_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/npm-test.log.gz",
+      "sha256": "3115c6ef2ec2702ee57711d410cd419879305158d4505f5d41bd1341f8e1bd76",
+      "raw_sha256": "421eac785617811c8872e94bc2f2297600a2f869dc95cb5de5051bf5418d8108"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/campaign.log.gz",
+      "sha256": "2bdf366ae04d478243d51f968b775dd0cdbcf53f6600203d024b6b161c74427e",
+      "raw_sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036"
+    },
+    {
+      "path": "artifacts/background_region_config/diagnostics/command.log.gz",
+      "sha256": "a55ec4d15e1fa86d20782d42118828870c4d7ff112937bbcd507e3ebc129e445",
+      "raw_sha256": "b495873c5dd8c22e9608bad3e268ba1fa1f4be248d54b10bcda975a5a3817fd4"
+    }
+  ]
+}
