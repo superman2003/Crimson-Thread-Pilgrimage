@@ -1,0 +1,143 @@
+{
+  "base_pr49": "4fc2c8571a2d70e03edc67fdbbf5cc58cd815863",
+  "synced_main": "dc2dbf1d58ad3e19e7862ac39f3dc7ca9e127073",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa 25.2.8 llvmpipe OpenGL 4.5",
+  "authored_original_rooms": 38,
+  "new_suite": {
+    "checks": 256,
+    "failures": 0
+  },
+  "related_suites": 13,
+  "after_arrival_banner_fix_rerun_suites": 8,
+  "suites": [
+    {
+      "suite": "rain_foundry_experience",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "355ac3aba09e515886a6c5eb21245dd1241b3be9d3cf366e4ce1002f4cf27a04",
+      "objectdb_warning": true
+    },
+    {
+      "suite": "ch02_demo",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "f90091724cd1611abbb978c44c916d58e75db4b16073bdccba4e3a0ced02d47e",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "camera_focus",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "700fbdcc97aa245a2ecbc73ea0c2bc7b104d30b2cf0b7c2f53ef253dbebd74a5",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "first_court_experience",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "0ffc13b1ee474340173bc536ab3d1b6980cf5a911749a842138c7dfddee76344",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "all_chapters_demo",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "55663922a27974447b5743aad8ea010bb63b378b9c4695a41c4de3683f906aa6",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "pilgrimage_overhaul",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "6dd8e863bcddcabef0abf8e4239ad0e1224dcb41db2508f691acfac399c51a81",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "world_neighbor_gameplay_live",
+      "status": "passed",
+      "verification_run": "affected_regressions",
+      "log_sha256": "7ceb254e2053bc215e534d832a34e18219acff94717136173ba9cfbafe11b36f",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "chapter_route_regression",
+      "status": "passed",
+      "verification_run": "affected_regressions",
+      "log_sha256": "2be8e8fcf3d95dee2657b0345e90c6ae3cdcbc29796d6528e58c5991354d2475",
+      "objectdb_warning": true
+    },
+    {
+      "suite": "world_host",
+      "status": "passed",
+      "verification_run": "affected_regressions",
+      "log_sha256": "4ce803057d0c514271d4f858156816f8c14f5b44e43edb9302e109ecaed1a82c",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "cartography",
+      "status": "passed",
+      "verification_run": "affected_regressions",
+      "log_sha256": "a79a2145157946544c835761096b9a6d6712872b69bc3bf907644d7424e26a18",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "world_map",
+      "status": "passed",
+      "verification_run": "affected_regressions",
+      "log_sha256": "5dba07d9aa3d4f9e2f207116bc37cc90dfff57003c5c54674f0eea69c6c9d6f2",
+      "objectdb_warning": false
+    },
+    {
+      "suite": "world_interaction_safety",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "3d283171043135c039db69d003bf79c01d2b9f1872565cb66d209a3795e22518",
+      "objectdb_warning": true
+    },
+    {
+      "suite": "world_wayfinding",
+      "status": "passed",
+      "verification_run": "after_arrival_banner_fix",
+      "log_sha256": "206fab486f8c8212b8f861b847d20c810e2e30708e2fc5f678106acd07c28794",
+      "objectdb_warning": false
+    }
+  ],
+  "checks": [
+    "npm test",
+    "npm run test:campaign",
+    "two recovery-mode imports"
+  ],
+  "capture": {
+    "checks": 256,
+    "failures": 0,
+    "fixture": "positioned player; warmed residency; paused actors; transient toast cleared; no ending banner suppression",
+    "log_sha256": "355ac3aba09e515886a6c5eb21245dd1241b3be9d3cf366e4ce1002f4cf27a04"
+  },
+  "source_sha256": {
+    "godot/data/demo_ch02_rain_foundry_canal.json": "d406cf042956eb5bf1c53082b59043048f6d72ab317ada5e44530688f5bb5b2b",
+    "godot/scripts/main_level.gd": "c2c2f733f887704f6ae2b3f2f9c3fc2f93f5fd50e39fd0ef31ab7c575a6fe7c5",
+    "godot/scripts/rain_foundry_experience_validation.gd": "6c50041ba02becda71a39296d24ca2b3a95c01e513e7ef4da7bd5a7ebc27b687",
+    "tools/run_godot_regressions.py": "d8b919cd790718966040f0ec4d819b85626bd3890184ee91bbfab08065244a61"
+  },
+  "images_sha256": {
+    "entry.webp": "2b202902e0bb19662bdfb31a3c63f755d56b92d2f249284b04c44c5112c641d2",
+    "rain_deck.webp": "9ec7521dd92931b889d4ff6506c992528e77b9e7885cf41594639998ecba83fa",
+    "forge_shrine.webp": "9e4b11fd5da307f4e3de2c44355ec05bc7981c57b91f117d6c89122dd1322a46",
+    "pump_atrium.webp": "e065b700c89254c16f588c455b2d6d7aa60164046cbff54ff626df8c324d8cf8",
+    "wall_trial.webp": "73df84858a7021442514a0d8842195dad877fbfd211b9e9dd71a164f27e8dc06"
+  },
+  "limitations": [
+    "13 distinct related suites with final 8-suite rerun, not the full 76-suite CI",
+    "ordinary rooms only; upgrade workshops and other four regions remain pending",
+    "positioned camera/local combat fixtures, not a natural new-save clear",
+    "existing ObjectDB shutdown warnings retained; not a long-duration memory acceptance"
+  ],
+  "initial_failures": [
+    "first import timeout at 92%; resumed with 600-second initial-import budget",
+    "Xvfb missing compiler path; fixed local runner installation",
+    "trial recovery 0.9 seconds insufficient for heal margin; increased to 1.15",
+    "fixture old-position contact; synchronize player before adding next actor",
+    "arrival name toast replaced by nearby sign; inspect production adapter immediately"
+  ]
+}

@@ -2017,9 +2017,10 @@ func _show_chapter_entry_message() -> void:
     if message.is_empty():
         _toast(_chapter_objective_text())
         return
-    if win_label != null:
-        win_label.text = message
-        win_label.visible = true
+    # Arrival is a short notification. The persistent label belongs to
+    # completion/ending events; using it here left a banner over exploration.
+    if world_mode and message.begins_with("旧路重新接通"):
+        message = String(current_campaign_chapter.get("name", message))
     _toast(message)
 
 
