@@ -1,0 +1,246 @@
+{
+  "date": "2026-10-14",
+  "base_commit": "b63daaff50985770f7341381efad029e107d7572",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe OpenGL compatibility, Xvfb",
+  "scope": "Positioned production camera/waiting fixtures and normalized local combat; not natural campaign clear, long-session stability, or full local default collection.",
+  "final_obsidian": {
+    "sha256": "14d72df611833514d26c089046effe6bf07c505d42e95666bbf88c1df9c6813a",
+    "engine_errors": 0,
+    "warnings": 2,
+    "objectdb_warnings": 1,
+    "host_lookup_diagnostics": 0,
+    "markers": [
+      "OBSIDIAN_EXPERIENCE checks=147 failures=0 fixture_scope=positioned_camera_and_live_local_combat"
+    ],
+    "exit_code": 0,
+    "checks": 147,
+    "failures": 0,
+    "capture_ground_contact_checks": 5
+  },
+  "related_gl": {
+    "story_guidance": {
+      "sha256": "f7d94f9532e529aabb2b4d4cff9bf165b387d7ef40a11b222bc5761e7c914323",
+      "engine_errors": 0,
+      "warnings": 2,
+      "objectdb_warnings": 1,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "all_chapters_demo": {
+      "sha256": "c49a75f811d3ea21f5a35ceb5427a720c0414c73e28f65db74e7a1a6302633ca",
+      "engine_errors": 0,
+      "warnings": 2,
+      "objectdb_warnings": 1,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "ALL_CHAPTERS_DEMO_VALIDATION_PASS chapters=6 complete=true"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "obsidian_experience": {
+      "sha256": "993637f4b20b756f66215c49d3e9272122d097047cb9f0be6edf25d36442112f",
+      "engine_errors": 0,
+      "warnings": 2,
+      "objectdb_warnings": 1,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "OBSIDIAN_EXPERIENCE checks=142 failures=0 fixture_scope=positioned_camera_and_live_local_combat"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "enemy_lifecycle_regression": {
+      "sha256": "569ab79511384060c8fb5324c83dd3bb32290c51f2a2e1969ed2a8c6cac69c2f",
+      "engine_errors": 0,
+      "warnings": 1,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "world_map": {
+      "sha256": "5dba07d9aa3d4f9e2f207116bc37cc90dfff57003c5c54674f0eea69c6c9d6f2",
+      "engine_errors": 0,
+      "warnings": 1,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "WORLD_MAP checks=657 failures=0"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "greenhouse_experience": {
+      "sha256": "af5b0d38b6e6d35605aafe75eea8124cea72b448cf6313c60dd433f794f6e8ef",
+      "engine_errors": 0,
+      "warnings": 2,
+      "objectdb_warnings": 1,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "GREENHOUSE_EXPERIENCE checks=144 failures=0 fixture_scope=positioned_camera_and_live_local_combat"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "camera_focus": {
+      "sha256": "ce54e3e331355bf7644a3890489cc68f5d7e9fb8f260289b75b11e7c7245c60f",
+      "engine_errors": 0,
+      "warnings": 2,
+      "objectdb_warnings": 1,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "CAMERA_FOCUS checks=86 failures=0"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "world_host": {
+      "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "engine_errors": 0,
+      "warnings": 2,
+      "objectdb_warnings": 1,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    }
+  },
+  "imports_final": {
+    "import-1.log": {
+      "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "engine_errors": 0,
+      "warnings": 0,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [],
+      "exit_code": 0,
+      "status": "passed_resource_import_only"
+    },
+    "import-2.log": {
+      "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "engine_errors": 0,
+      "warnings": 0,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [],
+      "exit_code": 0,
+      "status": "passed_resource_import_only"
+    }
+  },
+  "static": {
+    "npm_test": {
+      "sha256": "55397eb9dc45aafb9f81188902b279f3ed35c6fbe459654d7c0dd2f90356dd66",
+      "engine_errors": 0,
+      "warnings": 0,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [],
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "campaign": {
+      "sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036",
+      "engine_errors": 0,
+      "warnings": 0,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "CAMPAIGN_CHAPTER_VALIDATION_PASS chapters=6 npcs=23 enemy_concepts=45",
+        "CHAPTER_FILES_VALIDATION_PASS files=5 rooms=37 npcs=20 enemy_points=26",
+        "WORLD_NARRATIVE_DATA_PASS npcs=17 states=83 evidence=6 rewards=5"
+      ],
+      "exit_code": 0,
+      "status": "passed"
+    }
+  },
+  "earlier_attempts": {
+    "initial_headless": {
+      "sha256": "4635f1b0d633c0c961626aaf23af24952570e54a288647469d6b37b01c0e4984",
+      "engine_errors": 4,
+      "warnings": 0,
+      "objectdb_warnings": 0,
+      "host_lookup_diagnostics": 0,
+      "markers": [
+        "OBSIDIAN_EXPERIENCE checks=138 failures=4 fixture_scope=positioned_camera_and_live_local_combat"
+      ],
+      "exit_code": 1,
+      "checks": 138,
+      "failures": 4,
+      "reason": "Species defaults replaced region timing; arrival used chapter name while map used alternate name. Fixed spawn encounter_profile and unified names."
+    },
+    "gl_missing_keyboard": {
+      "suites": 8,
+      "failures": 8,
+      "reason": "X display startup lacked xkbcomp; no runtime results accepted."
+    },
+    "gl_missing_keyboard_library": {
+      "failures": 1,
+      "reason": "Xvfb exited before suites because xkbcomp lacked libxkbfile."
+    },
+    "initial_imports": {
+      "import-1.log": {
+        "sha256": "e660ec95fb23f0111039ccb4e2531cba489be97808de6e309cee50cba8c828a8",
+        "engine_errors": 0,
+        "warnings": 0,
+        "objectdb_warnings": 0,
+        "host_lookup_diagnostics": 0,
+        "markers": []
+      },
+      "import-2.log": {
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+        "engine_errors": 0,
+        "warnings": 0,
+        "objectdb_warnings": 0,
+        "host_lookup_diagnostics": 0,
+        "markers": []
+      }
+    }
+  },
+  "source_sha256": {
+    ".gitattributes": "6cd7e4c7f900b3a8ff7f65c07bb7b9ea8e30b04616ca35ec5fbc848d6f5cc82a",
+    "package.json": "59ea78dde04361575e5878cdeff1d8ac577b0b5686e17dce9521e6837883bdd9",
+    "godot/data/demo_ch05_obsidian_pilgrim_road.json": "d58b7fe937caa27f5ecf0402653cf8d0f97d48006a45ee7232389833ce5a111e",
+    "godot/scripts/obsidian_experience_validation.gd": "0edfc679a31950dad454b59a2b1e62ad16336518d506a5efc50c7c23265076cf",
+    "godot/scripts/obsidian_experience_validation.gd.uid": "96a618dceab2f7afae3beac40323d38b66fdc4443774ec0e13ad3f54893a142b",
+    "godot/scripts/greenhouse_experience_validation.gd": "6d68e46d20815e47292790f8568cd16169a4920617715258c8b461c3643d93a9",
+    "tools/run_godot_regressions.py": "977ea49b3b5782fb2a3f5857d952afbe49752ed4db995aa2a7f5880e8d632a83"
+  },
+  "captures": {
+    "camp.webp": {
+      "sha256": "225f5a3ec16dd3defd4457b51ea0e12a16f5053aa5e5104f4cc62849fd9cc2a8",
+      "bytes": 131742,
+      "scope": "Positioned Player grounded on production collision; actors paused."
+    },
+    "entry.webp": {
+      "sha256": "900d6042ec4faaf3670ba8c02b2190d444c7e55918a3e9470d29219d442c348d",
+      "bytes": 116588,
+      "scope": "Positioned Player grounded on production collision; actors paused."
+    },
+    "graves.webp": {
+      "sha256": "902067311fba314faa080ff2f93d6c93f5671cc1ae918cf2b83511aebd6026bb",
+      "bytes": 113608,
+      "scope": "Positioned Player grounded on production collision; actors paused."
+    },
+    "mirror_rest.webp": {
+      "sha256": "471434989cba4bdb8e29412ebad61f84c4a87108ec3e6a74f5b14cb618b52ff5",
+      "bytes": 115810,
+      "scope": "Positioned Player grounded on production collision; actors paused."
+    },
+    "tower.webp": {
+      "sha256": "4ccd405cc416a94397e306934fc0ef502fab0332caef13e7636a0eddfd98f651",
+      "bytes": 109950,
+      "scope": "Positioned Player grounded on production collision; actors paused."
+    }
+  }
+}
