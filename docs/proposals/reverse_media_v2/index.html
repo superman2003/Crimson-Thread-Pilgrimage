@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>绯线巡礼 · 资源审阅室</title>
+  <link rel="stylesheet" href="review.css">
+  <script src="catalog.js" defer></script>
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="thread" aria-hidden="true"></span><div><span class="eyebrow">CRIMSON THREAD PILGRIMAGE</span><h1>资源审阅室</h1></div></div>
+    <div class="status"><span></span>第二批资源 · 待接入</div>
+  </header>
+  <main>
+    <div class="intro"><p>从终章向起点，检查动作、空间与声音。</p><span>这些是独立素材预览，非游戏实机画面。</span></div>
+    <nav class="tabs" aria-label="素材类型">
+      <button type="button" data-kind="animation" aria-pressed="true">01 <span>动作研究</span></button>
+      <button type="button" data-kind="layers" aria-pressed="false">02 <span>六区场景</span></button>
+      <button type="button" data-kind="audio" aria-pressed="false">03 <span>探索与 Boss 音乐</span></button>
+    </nav>
+    <div class="workspace">
+      <aside class="library" aria-label="素材库">
+        <div class="library-top"><label for="filter">筛选</label><span id="count"></span></div>
+        <select id="filter" aria-label="按契印或地区筛选"></select>
+        <div id="items" class="items"></div>
+      </aside>
+      <section class="preview" aria-labelledby="item-title">
+        <div class="preview-top"><div><span class="eyebrow" id="item-category"></span><h2 id="item-title">正在载入素材目录</h2></div><a id="source-link" hidden download>原始素材 ↗</a></div>
+        <div id="message" role="status" aria-live="polite"></div>
+        <div id="visual-panel">
+          <div class="stage" id="stage"><canvas id="canvas" width="768" height="512" aria-label="素材画面"></canvas><span id="stage-label">独立动作研究</span></div>
+          <div id="motion-controls" class="controls" hidden>
+            <button type="button" id="play">播放</button><button type="button" id="previous" aria-label="上一帧">‹</button><button type="button" id="next" aria-label="下一帧">›</button>
+            <input id="frame" type="range" min="0" max="7" value="0" aria-label="当前动画帧"><output id="frame-label" for="frame"></output>
+            <label class="compact">速度<select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+            <label class="check"><input id="repeat" type="checkbox">循环预览</label>
+          </div>
+          <div id="scene-controls" class="controls" hidden><div id="layer-options"></div><label class="pan-label" for="pan">视差位置</label><input id="pan" type="range" min="-100" max="100" value="0"><button id="reset-pan" type="button">归中</button></div>
+        </div>
+        <div id="audio-panel" hidden>
+          <div class="sound-art" aria-hidden="true"><div class="sound-rings"></div><span id="sound-region"></span><div class="sound-caption">EXPLORATION / ENCOUNTER</div></div>
+          <audio id="audio" controls preload="auto" aria-label="音乐试听"></audio>
+          <div class="controls audio-controls"><label class="check"><input id="audio-loop" type="checkbox" checked>循环播放</label><label for="volume">试听音量</label><input id="volume" type="range" min="0" max="100" value="40"><output id="volume-label" for="volume">40%</output></div>
+          <p class="small-note">点击播放后才会出声。切换曲目会停止当前音乐；此页不模拟游戏中的分句切换或混音。</p>
+        </div>
+        <div class="details"><div id="facts" class="facts"></div><p id="description"></p><div id="events" class="events"></div></div>
+      </section>
+    </div>
+    <footer><span>动作时序、视差与音乐切换均以最终运行配置为准。</span><span>原创候选 · 未修改游戏控制器、存档或设置</span></footer>
+  </main>
+</body>
+</html>
