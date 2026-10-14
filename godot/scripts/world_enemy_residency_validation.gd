@@ -14,6 +14,10 @@ const REGIONS := [
 var scene: Node
 var checks := 0
 var failures: Array[String] = []
+var observed_enemy_deaths: Array[Dictionary] = []
+
+func _record_enemy_death(spawn_id: String, is_boss: bool, kind: String) -> void:
+	observed_enemy_deaths.append({"spawn_id": spawn_id, "is_boss": is_boss, "kind": kind})
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -153,22 +157,32 @@ func run() -> void:
 		"focus movement leaves real Boss active and its AI processing intact")
 
 	# Move back and finish the partially damaged normal enemy with the same real
-	# attack path. Death signal, counter and material/currency reward are one-shot.
+	# attack path. Observe its signal directly because the death dissolve frees the
+	# actor shortly afterward, and attribute the reward to this exact spawn.
 	await focus_at(enemy.global_position + Vector2(-64, 40))
 	await wait_for_residency(enemy_id, true)
+	observed_enemy_deaths.clear()
+	enemy.died.connect(_record_enemy_death)
 	var wallet_before := int(scene.currency_count)
 	var defeated_before := int(scene.enemy_defeated)
 	var drop := String(scene.config.get("enemy_drop_item", "moss_chitin"))
 	var item_before := int(scene.inventory_counts.get(drop, 0))
 	var kill_frames := 0
-	while is_instance_valid(enemy) and not bool(enemy.get("dying")) and kill_frames < 160:
+	var final_attack_inputs := 0
+	while is_instance_valid(enemy) and observed_enemy_deaths.is_empty() and not bool(enemy.get("dying")) and kill_frames < 480:
 		scene.player.global_position = enemy.global_position + Vector2(-64, 40)
 		scene.player.velocity = Vector2.ZERO
 		scene.player.facing = 1
-		if scene.player._can_start_action(): scene.player._start_attack(&"attack_1")
-		await tick(16)
-		kill_frames += 16
-	check(is_instance_valid(enemy) and bool(enemy.get("dying")), "resident enemy death still runs through EnemyActor death signal")
+		if scene.player._can_start_action():
+			scene.player._start_attack(&"attack_1")
+			final_attack_inputs += 1
+		await tick()
+		kill_frames += 1
+	var exact_target_death := (observed_enemy_deaths.size() == 1 and
+		String(observed_enemy_deaths[0].get("spawn_id", "")) == enemy_id and
+		not bool(observed_enemy_deaths[0].get("is_boss", true)))
+	check(final_attack_inputs > 0 and exact_target_death,
+		"real player melee kills the resident enemy and emits one death signal for its spawn ID")
 	check(int(scene.currency_count) == wallet_before + 8 and int(scene.enemy_defeated) == defeated_before + 1 and int(scene.inventory_counts.get(drop, 0)) == item_before + 1,
 		"one death grants exactly one configured drop, one count and eight fragments")
 	var saved := STATE.new()
