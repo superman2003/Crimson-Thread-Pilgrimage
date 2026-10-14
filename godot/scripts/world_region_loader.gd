@@ -4,6 +4,7 @@ extends RefCounted
 ## This is a coarse active-region chunk, not yet distance-based room streaming.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
     "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch", "world_passage",
@@ -39,127 +40,93 @@ func preflight(path: String, entry: Vector2, prefetch: RefCounted = null) -> Dic
     if not entry.is_finite() or not FileAccess.file_exists(path):
         last_error = "目标位置或区域文件无效。"
         return {}
+    var json_started := Time.get_ticks_usec()
     var parsed: Variant = prefetch.cached_raw(path) if prefetch != null else null
     if parsed == null:
         parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
+    last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
     return validate_config(parsed, path, entry)
 
 func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionary:
     last_error = ""
-    if not entry.is_finite():
-        last_error = "目标位置无效。"
+    var validator = CONFIG_VALIDATOR.new()
+    validator.begin(parsed, path, entry)
+    while not validator.done:
+        validator.step()
+    last_error = validator.error
+    return validator.result
+
+func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: Node) -> Dictionary:
+    last_error = ""
+    var wall_started := Time.get_ticks_usec()
+    var json_started := Time.get_ticks_usec()
+    var parsed: Variant = null
+    if not entry.is_finite() or not FileAccess.file_exists(path):
+        last_error = "目标位置或区域文件无效。"
+    else:
+        parsed = prefetch.cached_raw(path) if prefetch != null else null
+        if parsed == null:
+            parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
+    last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
+    last_transition["preflight_cursor"] = 0
+    last_transition["preflight_batches"] = 0
+    last_transition["preflight_work_usec"] = 0
+    last_transition["preflight_wall_usec"] = 0
+    last_transition["preflight_operation_usec"] = {}
+    last_transition["preflight_batch_operations"] = []
+    last_transition["preflight_cancelled"] = false
+    last_transition["preflight_done"] = false
+    last_transition["preflight_progress"] = 0.0
+    last_transition["preflight_max_operations"] = 0
+    last_transition["preflight_max_batch_usec"] = 0
+    if not last_error.is_empty():
+        last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
         return {}
-    if not parsed is Dictionary:
-        last_error = "目标区域记录无法读取。"
-        return {}
-    var id := String(parsed.get("id", ""))
-    if not COORDINATES.has_region(id) or ROUTES.config_path(id) != path:
-        last_error = "目标区域不属于当前巡礼世界。"
-        return {}
-    if not parsed.get("world") is Dictionary or not parsed.get("map_rooms") is Array or parsed.map_rooms.is_empty():
-        last_error = "目标区域缺少地形与房间记录。"
-        return {}
-    if not parsed.get("inventory", {}) is Dictionary:
-        last_error = "目标区域的物品记录无效。"
-        return {}
-    for field in ["map_rooms", "platforms", "terrain", "locked_gates", "collectibles", "interactives", "npcs", "enemy_spawns", "save_points", "hazards", "grapple_anchors", "cave_lifts", "environment_blocks"]:
-        if not parsed.get(field, []) is Array:
-            last_error = "目标区域的%s记录无效。" % field
+    var validator = CONFIG_VALIDATOR.new()
+    validator.begin(parsed, path, entry)
+    while not validator.done:
+        var batch_started := Time.get_ticks_usec()
+        var operations := 0
+        while not validator.done and operations < MAX_OPERATIONS_PER_FRAME:
+            # The budget admits the next bounded validator step; one step is
+            # indivisible and may itself exceed the nominal 2ms admission.
+            if operations > 0 and Time.get_ticks_usec() - batch_started >= FRAME_BUDGET_USEC:
+                break
+            var operation_started := Time.get_ticks_usec()
+            validator.step()
+            var operation_usec := Time.get_ticks_usec() - operation_started
+            var opname := String(validator.operation_name)
+            var timings: Dictionary = last_transition["preflight_operation_usec"]
+            timings[opname] = int(timings.get(opname, 0)) + operation_usec
+            last_transition["preflight_work_usec"] = int(last_transition["preflight_work_usec"]) + operation_usec
+            last_transition["preflight_cursor"] = int(last_transition["preflight_cursor"]) + 1
+            last_transition["preflight_operation_usec"] = timings
+            operations += 1
+        last_transition["preflight_batches"] = int(last_transition["preflight_batches"]) + 1
+        var batch_usec := Time.get_ticks_usec() - batch_started
+        last_transition["preflight_max_operations"] = maxi(int(last_transition["preflight_max_operations"]), operations)
+        last_transition["preflight_max_batch_usec"] = maxi(int(last_transition["preflight_max_batch_usec"]), batch_usec)
+        var counts: Array = last_transition["preflight_batch_operations"]
+        counts.append(operations)
+        last_transition["preflight_batch_operations"] = counts
+        last_transition["preflight_done"] = validator.done
+        last_transition["preflight_progress"] = validator.progress
+        if is_instance_valid(loading_label):
+            loading_label.text = "正在检查旧路… %d%%\nEsc 返回来路" % int(validator.progress * 100.0)
+        # Yield on the final batch too. The source is not handed off until the
+        # caller resumes here and observes that cancellation was not requested.
+        await host.get_tree().process_frame
+        last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+        if not _alive(host):
+            last_transition["preflight_cancelled"] = true
             return {}
-        for item in parsed.get(field, []):
-            if not item is Dictionary:
-                last_error = "目标区域的%s条目无效。" % field
-                return {}
-            for key in ["position", "rect"]:
-                if item.has(key) and not _finite_tuple(item[key], 2 if key == "position" else 4):
-                    last_error = "目标区域的%s坐标无效。" % field
-                    return {}
-            if field == "terrain":
-                if not item.get("surface", []) is Array:
-                    last_error = "目标区域地形轮廓无效。"
-                    return {}
-                for point in item.get("surface", []):
-                    if not _finite_tuple(point, 2):
-                        last_error = "目标区域地形轮廓坐标无效。"
-                        return {}
-    # Gameplay prefabs use exact identities and size descriptors. Reject bad
-    # leases before allocation so duplicate keys cannot orphan detached nodes.
-    for field in ["enemy_spawns", "npcs", "save_points", "interactives"]:
-        var identities: Dictionary = {}
-        for item in parsed.get(field, []):
-            var item_id: Variant = item.get("id")
-            if not item_id is String or String(item_id).is_empty() or identities.has(item_id):
-                last_error = "目标区域的%s身份无效或重复。" % field
-                return {}
-            identities[item_id] = true
-            if not _finite_tuple(item.get("position"), 2):
-                last_error = "目标区域的%s落点无效。" % field
-                return {}
-            for size_field in ["interaction_size", "body_size", "hurtbox_size"]:
-                if not item.has(size_field): continue
-                # Empty enemy body/hurtbox tuples request authored defaults;
-                # an interaction rectangle has no such fallback.
-                if size_field != "interaction_size" and item[size_field] == []: continue
-                if not _finite_tuple(item[size_field], 2) or float(item[size_field][0]) <= 0 or float(item[size_field][1]) <= 0:
-                    last_error = "目标区域的%s尺寸无效。" % size_field
-                    return {}
-    var profiles: Variant = parsed.get("ai_profiles", {})
-    if not profiles is Dictionary:
-        last_error = "目标区域的敌人行为记录无效。"
-        return {}
-    for enemy in parsed.get("enemy_spawns", []):
-        if not profiles.get(String(enemy.get("kind", "moss_larva")), {}) is Dictionary:
-            last_error = "目标区域的敌人行为条目无效。"
+        _cancel_input()
+        if cancel_requested:
+            last_transition["preflight_cancelled"] = true
             return {}
-    # Prefetch and arrival share these descriptors. Reject malformed geometry
-    # before either detached allocation or eviction of the current region.
-    var terrain_ids: Dictionary = {}
-    for landform in parsed.get("terrain", []):
-        var terrain_id: Variant = landform.get("id")
-        var depth: Variant = landform.get("depth", 104)
-        if not terrain_id is String or String(terrain_id).is_empty() or terrain_ids.has(terrain_id):
-            last_error = "目标区域地形身份无效或重复。"
-            return {}
-        if typeof(depth) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(depth)) or float(depth) <= 0:
-            last_error = "目标区域地形厚度无效。"
-            return {}
-        terrain_ids[terrain_id] = true
-    var cave: Variant = parsed.get("cave_world", {})
-    if not cave is Dictionary or not cave.get("solid_rects", []) is Array:
-        last_error = "目标区域岩层记录无效。"
-        return {}
-    for rect in cave.get("solid_rects", []):
-        if not _finite_tuple(rect, 4) or float(rect[2]) <= 0 or float(rect[3]) <= 0:
-            last_error = "目标区域岩层坐标或尺寸无效。"
-            return {}
-    var config := ROUTES.apply_to(parsed)
-    var platform_ids: Dictionary = {}
-    for platform in config.get("platforms", []):
-        var id_value: Variant = platform.get("id")
-        var rect: Variant = platform.get("rect")
-        if not id_value is String or String(id_value).is_empty() or not _finite_tuple(rect, 4) or float(rect[2]) <= 0 or float(rect[3]) <= 0:
-            last_error = "目标区域的平台身份或尺寸无效。"
-            return {}
-        if platform_ids.has(id_value):
-            last_error = "目标区域的平台身份重复。"
-            return {}
-        platform_ids[id_value] = true
-    var world: Variant = config.get("world")
-    if not world is Dictionary:
-        last_error = "目标区域缺少世界边界。"
-        return {}
-    for dimension in ["width", "height"]:
-        var value: Variant = world.get(dimension)
-        if typeof(value) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value)) or float(value) <= 0:
-            last_error = "目标区域世界边界无效。"
-            return {}
-    if Vector2(world.width, world.height) != COORDINATES.region_bounds(id).size:
-        last_error = "目标区域边界与世界坐标记录不一致。"
-        return {}
-    if entry.x < -40 or entry.x > float(world.width) + 80 or entry.y < -120 or entry.y > float(world.height) + 70:
-        last_error = "目标落点超出区域边界。"
-        return {}
-    return config
+    last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+    last_error = validator.error
+    return validator.result
 
 func _finite_tuple(value: Variant, length: int) -> bool:
     if not value is Array or value.size() != length:
@@ -232,7 +199,7 @@ func _reset_region_fields(host: Node) -> void:
 ## progress is restored from the settled departure snapshot; transient attacks
 ## are cancelled and source enemies are reconstructed, as on ordinary revisit.
 func cancel_transition() -> void:
-    if phase in ["unloading", "loading", "committing"]:
+    if phase in ["preflight", "unloading", "loading", "committing"]:
         cancel_requested = true
 
 
@@ -478,19 +445,34 @@ func _set_destination(host: Node, path: String, entry: Vector2, previous_id: Str
     host.transition_entry_message = "旧路重新接通 · " + String(target.get("name", ""))
 
 
-func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF) -> bool:
+func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF, publish_flags: Dictionary = {}) -> bool:
     if phase != "idle" or not _alive(host) or not is_instance_valid(host.player):
         last_error = "区域正在装载。"
         return false
     phase = "preflight"
-    var target := preflight(path, entry, host.world_prefetch)
-    if target.is_empty():
-        phase = "idle"
+    cancel_requested = false
+    last_error = ""
+    last_transition = {"source": String(host.config.get("id", "")), "target_path": path, "rolled_back": false}
+    var previous_mode: int = host.process_mode
+    host.process_mode = Node.PROCESS_MODE_DISABLED
+    _show_loading_canvas(host)
+    var target: Dictionary = await _preflight_async(path, entry, host.world_prefetch, host)
+    if not _alive(host):
+        _clear_loading_canvas()
         return false
+    if target.is_empty():
+        if last_transition.get("preflight_cancelled", false):
+            last_error = "区域预检已取消。"
+        host.process_mode = previous_mode
+        _clear_loading_canvas()
+        phase = "idle"
+        cancel_requested = false
+        return false
+    # Preserve the source through validation. Capture settled departure data only
+    # after the final validator batch has yielded and survived cancellation.
     var source_config: Dictionary = host.config.duplicate(true)
     var source_path: String = host.config_path
     var source_position: Vector2 = host.player.global_position
-    var previous_mode: int = host.process_mode
     var player_layer: int = host.player.collision_layer
     var player_mask: int = host.player.collision_mask
     host.player.collision_layer = 0
@@ -508,8 +490,8 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     host._release_region_platforms()
     generation += 1 # invalidate departing callbacks before the first yield
     cancel_requested = false
-    last_transition = {"source": source_id, "target": String(target.id), "rolled_back": false}
-    _show_loading_canvas(host)
+    last_transition["source"] = source_id
+    last_transition["target"] = String(target.id)
     phase = "unloading"
     if not await _evict_budgeted(host):
         _clear_loading_canvas()
@@ -546,6 +528,10 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     # destination. Rollback retires even partially constructed arrival/UI nodes.
     phase = "publishing"
     var committed_at := Time.get_ticks_usec()
+    if built and not publish_flags.is_empty():
+        for flag in publish_flags:
+            host.story_flags[String(flag)] = publish_flags[flag]
+        host._refresh_world_portals()
     host._publish_region()
     last_transition["publish_usec"] = Time.get_ticks_usec() - committed_at
     last_transition["commit_usec"] = int(last_transition.get("commit_work_usec", 0)) + int(last_transition.publish_usec)
