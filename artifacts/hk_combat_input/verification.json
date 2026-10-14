@@ -1,0 +1,612 @@
+{
+  "tested_commit": "57373a9f06b7518cb327a196066fae859ce439c9",
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "027042144c8d09d7cbf7cf090ffb3d7bc3cc66cb2061d799601aac31d1cdfd67",
+    "godot/scripts/player_action_buffer_validation.gd": "0a3e591ea0d1ed6918728ee7dcf95c7fb317537f0faa904108d378dbfc29df76",
+    "godot/scripts/enemy_actor.gd": "40f60d8feceee5b962ac3320b7f95e32fc39a2daf68eab6a754cb56bbeac99e9",
+    "godot/scripts/enemy_attack_effect.gd": "2edba9ac30a1624f61beb7b33cf4545b74e1484baeca96cd73a6c33c1704984c",
+    "godot/scripts/enemy_dummy.gd": "4607ecca1b5d618dc5ff28dd19633fcec38ae21ec3da6238f4f4c04edd075a91",
+    "godot/scripts/enemy_lifecycle_regression_validation.gd": "79c1f35127da47fb1d7ffef76c45c96037f70ad7b023ba160513e2a405d6c783",
+    "tools/run_godot_regressions.py": "5d323fdc275e6e1d76c747d12dab4f915f943b069373ce8be3b28eac039981b0"
+  },
+  "main_base": "278aec8a5df8ee94097878d0c80e961a0e4f78a2",
+  "continued_pr": 46,
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa 25.2.8 llvmpipe OpenGL 4.5",
+  "npm_test": "passed",
+  "campaign": "passed",
+  "import_passes": 2,
+  "full_suites": 73,
+  "failed_suites": 0,
+  "suites": [
+    {
+      "suite": "world_rim",
+      "status": "passed",
+      "checks": 9791,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "dc4c357801fb9452b55546a95611114405491d6cd01e6b345628c9dd5fc3eef6"
+    },
+    {
+      "suite": "world_wayfinding",
+      "status": "passed",
+      "checks": 25,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "206fab486f8c8212b8f861b847d20c810e2e30708e2fc5f678106acd07c28794"
+    },
+    {
+      "suite": "world_passage",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "cbaaa945ed963edef3b0cf57e5c1a3da7343f6b04042f15222f37c9f909b94ec"
+    },
+    {
+      "suite": "audio_retirement",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "cc45f4623a4a7c0a12af6fa42da8380d98fbf8868c8baa1cf1be6f1ffff95a14"
+    },
+    {
+      "suite": "world_neighbor_collision",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "49d2995f95f88e14ee04bd8c2cb4ccb45ee7e85feea2628c346ec8553fc3becf"
+    },
+    {
+      "suite": "world_neighbor_entities",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "d57a97416d71c1f9e41e0dbfda62410908fa8476f70524f90f5ede2c309d32f9"
+    },
+    {
+      "suite": "world_neighbor_gameplay",
+      "status": "passed",
+      "checks": 7012,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "7a4384b34fddd19874bbcb2fa2d5e7767cffae3a10178c118a4496fa2a0101f4"
+    },
+    {
+      "suite": "world_neighbor_gameplay_live",
+      "status": "passed",
+      "checks": 44,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "d9f034f41c0959523d85f9b023ca55fa1c9bb3c7cdde1dc3e78cfc884bb26a82"
+    },
+    {
+      "suite": "world_neighbor_gameplay_stress",
+      "status": "passed",
+      "checks": 8790,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "c126ec91c099d442fba2fe18809dfd569834d0cee97dc9c9fa46fa091c000f91"
+    },
+    {
+      "suite": "terrain_collision_streaming",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "446faba41bc889e8ce23d1be4756979a72800f34118da8dad5d3bcec38cb4463"
+    },
+    {
+      "suite": "world_platform_streaming",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "695d4b084f5220c4810dd4551dbb3cad46ac05f294660df18352a17b5b3494df"
+    },
+    {
+      "suite": "cave_collision_streaming",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "db9a81aba6993a0356360c7209e72ba45d109aeab8e80170f4f6ef4de584fb44"
+    },
+    {
+      "suite": "world_async_loading",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "8dad2c4ade33b7b98c69b24bba58ce59edaf30c86dedfe2fba9b5d66460c3298"
+    },
+    {
+      "suite": "world_streaming",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "59f78aaa94141028d1bed4e192f1cbc753ab6ba98b20abf157150e979e91fc28"
+    },
+    {
+      "suite": "world_host",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "4ce803057d0c514271d4f858156816f8c14f5b44e43edb9302e109ecaed1a82c"
+    },
+    {
+      "suite": "world_coordinates",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467"
+    },
+    {
+      "suite": "world_interaction_residency",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "8b070c32b7ee1cc0c801cedd9a3b9e14a134f213d29b914b6e9221140092c199"
+    },
+    {
+      "suite": "world_enemy_residency",
+      "status": "passed",
+      "checks": 56,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "37bdf2543012ed163051e5594aac95743dd9b59373bcd1f8c8c5d59395b22c1f"
+    },
+    {
+      "suite": "cartography",
+      "status": "passed",
+      "checks": 4055,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "a79a2145157946544c835761096b9a6d6712872b69bc3bf907644d7424e26a18"
+    },
+    {
+      "suite": "world_map",
+      "status": "passed",
+      "checks": 657,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "5dba07d9aa3d4f9e2f207116bc37cc90dfff57003c5c54674f0eea69c6c9d6f2"
+    },
+    {
+      "suite": "world_route_access",
+      "status": "passed",
+      "checks": 553,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "fbe849524a3b329b833af5105afbff301de26137c99dcd99211da69fd349bd28"
+    },
+    {
+      "suite": "world_state",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1"
+    },
+    {
+      "suite": "world_integration",
+      "status": "passed",
+      "checks": 65,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "3bfa09d5b2d45f08e3a6e80169f2d41385dfca7ac54ab7bbf7751cf28446eb60"
+    },
+    {
+      "suite": "world_route_walk",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "cb139fa0f4f34f840880b5698bdd5e7e2b29f9b0c1846ad334cb834bd4369ede"
+    },
+    {
+      "suite": "ability_movement",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "8f157f166f98ec12f5dcef9fbf2e5f66147b9a2bb69a027823c3679aa509a170"
+    },
+    {
+      "suite": "enemy_lifecycle_regression",
+      "status": "passed",
+      "checks": 31,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "569ab79511384060c8fb5324c83dd3bb32290c51f2a2e1969ed2a8c6cac69c2f"
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "status": "passed",
+      "checks": 29,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "2fa9637a5b185f8a2156f48d9e01d2b8335b63ff4f487e7f1376bcfb3c0fef6c"
+    },
+    {
+      "suite": "enemy_visibility",
+      "status": "passed",
+      "checks": 36,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "4dc79146364827b262ad45e4db91edb4553c848d52d5af8376b7e36ec1de0e69"
+    },
+    {
+      "suite": "world_material",
+      "status": "passed",
+      "checks": 1463,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "9f4c12a9170a835e52e363c3cc7ec022f81fc72dee2ab5a5fd31004976f8a3a0"
+    },
+    {
+      "suite": "hero_animation",
+      "status": "passed",
+      "checks": 25,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "9eca37c3e6e5d8880ffb9ee66c07cec53c4d6ef15a023d89247ef818a8fd8cec"
+    },
+    {
+      "suite": "cave_exploration",
+      "status": "passed",
+      "checks": 170,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "20d19d0c7be8b5bea50807e1a6f9c8a1b7e3ac2d83088663bb6984a292b8722d"
+    },
+    {
+      "suite": "cave_route_walk",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "3a6b070d61c8ec67be2ef9d30e0ecd2f9d86c2aad6c3f2ee82f087f72aab354c"
+    },
+    {
+      "suite": "chapter_route_regression",
+      "status": "passed",
+      "checks": 270,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "0c1d5a9ca2b41664ff1ff92ec8b7da9883e921e6a35ddef67ba7ab542c721398"
+    },
+    {
+      "suite": "ch01_room_reconstruction",
+      "status": "passed",
+      "checks": 65,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "89ab105b05efc836ebf52db72d95d2def4f2e36e5b0f5b91098d3a90be5d6496"
+    },
+    {
+      "suite": "pilgrimage_merge_regression",
+      "status": "passed",
+      "checks": 12,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "6d6d43fd3cc51ad7ed8fa36bf97742e74362ca02a93d65c931edbfd41df70531"
+    },
+    {
+      "suite": "pilgrimage_review_regression",
+      "status": "passed",
+      "checks": 133,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "c62e11212c024745cc075e517419e66066f716800f93850985b9179fc1cfc6bb"
+    },
+    {
+      "suite": "all_chapters_demo",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "55663922a27974447b5743aad8ea010bb63b378b9c4695a41c4de3683f906aa6"
+    },
+    {
+      "suite": "pilgrimage_overhaul",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "6dd8e863bcddcabef0abf8e4239ad0e1224dcb41db2508f691acfac399c51a81"
+    },
+    {
+      "suite": "demo",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "46e132983e86266e20bbf49a9dd27868903c7970c894dfaa3e507f0004579110"
+    },
+    {
+      "suite": "ch02_demo",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "fedc58a4d34c96714d57a3c7fe722af7cd891e5f014653481c7177028460860b"
+    },
+    {
+      "suite": "inventory_map",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "344812a8febbc5ffcfcf7d33e8108b929c2ee7eb9ac0fa50447d5d35018daa34"
+    },
+    {
+      "suite": "boss_trial",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "efeb3492e89083ecf61e6f1bf77944a0648f40897befd6e13f401ae0e98e83d4"
+    },
+    {
+      "suite": "combat",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "26448ac97b64457b57ebcd172ad82edfa3c3198e1d597d0e306d7bfcdb7f41c7"
+    },
+    {
+      "suite": "generated_runtime",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "a9f8386cd85f436d267317d10ea0d298ea936551d3710c422263022de3223b1e"
+    },
+    {
+      "suite": "chapter_registry",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "ac15b1e413b23b3f36823e8c9b8fbfc1818a40b9d2e63390cf85af0b76ac173a"
+    },
+    {
+      "suite": "story_guidance",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "3aa70e7aa0cf0157f9ccd0fd982478793621a25055f9159abda6d2b7b1366e52"
+    },
+    {
+      "suite": "chinese_story",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "79bbbfcf1cb0de8fdb117e07c1e7e9a9f9f3aa964d8d1d5ab0859b05075c292f"
+    },
+    {
+      "suite": "metsys",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "db82f4c4a5d75d7e71107e0fc1e8e312495de2a9c7378560e7517673030f46ea"
+    },
+    {
+      "suite": "player_upgrade_regression",
+      "status": "passed",
+      "checks": 46,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "60a337448eff9c563739d2ac802c36a7c4e58a036a6231afa1003ad2fb6cdecb"
+    },
+    {
+      "suite": "build_system",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "bb26c2e169812b50a8ef84f14bf89195530705c94b69352ecee815cb703cb859"
+    },
+    {
+      "suite": "world_upgrade",
+      "status": "passed",
+      "checks": 403,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "59f600b194c1b1d03c97f5404ed9c0c67bfe7a3cc87b489fae9d1de833dc9435"
+    },
+    {
+      "suite": "upgrade_integration",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "b68503982f6ebc9fdde2eba1648423ef9003684fd8f5c009095789cef1d03b74"
+    },
+    {
+      "suite": "save_product",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420"
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832"
+    },
+    {
+      "suite": "ui_world_integration",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5"
+    },
+    {
+      "suite": "ui_redesign",
+      "status": "passed",
+      "checks": 30,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "6a43895743c3178a39ab059c82290b6fe17e35f6372312135946c96fc80e71e4"
+    },
+    {
+      "suite": "seal_system",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "cef83dc87e57ceb962bbf25848922c149d2d36bf5748cac6860c8afd53d62f80"
+    },
+    {
+      "suite": "seal_combat",
+      "status": "passed",
+      "checks": 70,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "1dea116e2a42f87ff23febecb37b06a8675784da4384994079c5ec41fd8b5224"
+    },
+    {
+      "suite": "seal_ui",
+      "status": "passed",
+      "checks": 23,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "516dca908abd34d42fc9a970f558382b3eb6d1a83cd9051e82c4b61fc9b6a4ea"
+    },
+    {
+      "suite": "seal_acceptance",
+      "status": "passed",
+      "checks": 32,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "32dc6c24d16dad94663f9a28bd348de3bbfbed11761e4298188399fdf9386da3"
+    },
+    {
+      "suite": "seal_acquisition",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "6823ea325dac404eb1aa8c9323a547d40bc4041c13301cc61c11edc2e918104f"
+    },
+    {
+      "suite": "seal_presentation",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "f45c6b6770a8b3736a5764539d7b5eca9ffbfe1615570a10f3103c2049a8c984"
+    },
+    {
+      "suite": "world_prepare_budget",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "214ee8f3046db431c9f9bec71c90bf50e25cde92248a199347c7562b22bb5309"
+    },
+    {
+      "suite": "world_preflight_budget",
+      "status": "passed",
+      "checks": 4016,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "a4264422983abd14654201e1bec4a24c746c4a4409f796f229ce2d8c3e35103a"
+    },
+    {
+      "suite": "world_resume_regression",
+      "status": "passed",
+      "checks": 38,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "ae6afae9892882c4c74feab566c91aaf69fad393e5bfd556e05a3c4c7fe714e1"
+    },
+    {
+      "suite": "world_interaction_safety",
+      "status": "passed",
+      "checks": 24,
+      "engine_errors": 0,
+      "warning_lines": 2,
+      "log_sha256": "44b06997a2b296ba34f5c8ad8b5ac209934569daaf442b445dec61a67b00c8b3"
+    },
+    {
+      "suite": "player_state_cleanup",
+      "status": "passed",
+      "checks": 9,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "b747edd5c6f5b74d7c63e2704f03f71ed5df4b116634abca240e2a3d4327e411"
+    },
+    {
+      "suite": "input_settings_regression",
+      "status": "passed",
+      "checks": 23,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "b631720b5ec49a8e6e262d37da780f1c4b018ddd37a56f3777bf2c21022b50e2"
+    },
+    {
+      "suite": "player_action_buffer",
+      "status": "passed",
+      "checks": 32,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "564f5ff35d7eea86b33b6d346961ffdc32b91f6e25f408e838843c4682a3c49e"
+    },
+    {
+      "suite": "tests/verify_world_narrative",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "3ad61363b4f8f9b3b77d42bfc03e317b37f587e63851dbee98e7d20aa638dd53"
+    },
+    {
+      "suite": "tests/verify_narrative_ui",
+      "status": "passed",
+      "checks": null,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "c40fe4dcce809317b59e0597059a1f7f63664920b3b4fcfc3ebc577b80a43228"
+    },
+    {
+      "suite": "tests/verify_narrative_progression",
+      "status": "passed",
+      "checks": 78,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8"
+    },
+    {
+      "suite": "tests/verify_narrative_runtime",
+      "status": "passed",
+      "checks": 27,
+      "engine_errors": 0,
+      "warning_lines": 1,
+      "log_sha256": "2ed1981a2dee56d7a87905c8b7897650646a71c858676c53fc64bc9021daa94a"
+    }
+  ],
+  "limitations": [
+    "Automated fixtures; not natural six-region completion or manual feel/audio acceptance.",
+    "ObjectDB exit warnings remain; no long-term memory-stability claim."
+  ],
+  "evidence_scope": "Public summary contains suite names, outcomes, check counts, warning counts, and hashes; raw log contents are retained locally."
+}
