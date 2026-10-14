@@ -1,0 +1,13 @@
+Running world_streaming
+PASS: world_streaming
+WORLD PREFETCH METRICS {"cache_hits":5,"config_reads":5,"entity_bodies":0,"entity_builds":44,"entity_hits":17,"entity_regions":0,"entity_releases":27,"failures":0,"generation":3,"jobs":0,"max_entities":27,"max_jobs":2,"queued":0,"regions":0,"stale_results":2,"textures":0}
+WORLD STREAMING PASS: 1991 checks; six-region visual coverage, unchanged collisions, bounded prefetch and stale-job retirement
+Running world_async_loading
+PASS: world_async_loading
+ASYNC METRICS [{"batches":74,"commit_usec":292884,"jobs":285,"max_batch_usec":72235,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":15480,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":77,"commit_usec":152311,"jobs":293,"max_batch_usec":457470,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":16287,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":56,"commit_usec":166293,"jobs":139,"max_batch_usec":90074,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":16784,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":50,"commit_usec":158245,"jobs":131,"max_batch_usec":68125,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":11807,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":46,"commit_usec":159928,"jobs":115,"max_batch_usec":63158,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":12003,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":42,"commit_usec":196464,"jobs":97,"max_batch_usec":66617,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":15029,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 94 checks; six-region parity, budget limits, rollback, save isolation and teardown
+Running world_host
+PASS: world_host
+WORLD HOST METRICS: transitions=43 peak_region_nodes=131 initial_region_nodes=136 fixture_positioning=true
+WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles
+GODOT_REGRESSIONS suites=3 failures=0

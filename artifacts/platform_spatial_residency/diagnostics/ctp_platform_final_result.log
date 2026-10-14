@@ -1,0 +1,17 @@
+Running world_platform_streaming
+PASS: world_platform_streaming
+PLATFORM RESIDENCY METRICS [{"arrival_resident":17,"ordinary_authored":147,"region":"demo_ch01_moss_bell_court","sweep_peak":90},{"arrival_resident":29,"ordinary_authored":169,"region":"demo_ch02_rain_foundry_canal","sweep_peak":118},{"arrival_resident":8,"ordinary_authored":48,"region":"demo_ch03_saltwhite_archive","sweep_peak":34},{"arrival_resident":11,"ordinary_authored":50,"region":"demo_ch04_broken_string_greenhouse","sweep_peak":33},{"arrival_resident":7,"ordinary_authored":41,"region":"demo_ch05_obsidian_pilgrim_road","sweep_peak":30},{"arrival_resident":23,"ordinary_authored":31,"region":"demo_ch06_silent_crown_core","sweep_peak":28}]
+WORLD PLATFORM STREAMING PASS: 15837 checks; authored physics/visual parity, pins, blockers, arrival and teardown
+Running world_async_loading
+PASS: world_async_loading
+ASYNC METRICS [{"batches":73,"commit_usec":322442,"jobs":285,"max_batch_usec":71446,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":15573,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch01_moss_bell_court"},{"batches":75,"commit_usec":188908,"jobs":293,"max_batch_usec":824506,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":24925,"rolled_back":false,"source":"demo_ch01_moss_bell_court","target":"demo_ch02_rain_foundry_canal"},{"batches":54,"commit_usec":138219,"jobs":139,"max_batch_usec":92187,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":12227,"rolled_back":false,"source":"demo_ch02_rain_foundry_canal","target":"demo_ch03_saltwhite_archive"},{"batches":50,"commit_usec":150838,"jobs":131,"max_batch_usec":76757,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":11843,"rolled_back":false,"source":"demo_ch03_saltwhite_archive","target":"demo_ch04_broken_string_greenhouse"},{"batches":45,"commit_usec":142036,"jobs":115,"max_batch_usec":60541,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":9867,"rolled_back":false,"source":"demo_ch04_broken_string_greenhouse","target":"demo_ch05_obsidian_pilgrim_road"},{"batches":40,"commit_usec":134002,"jobs":97,"max_batch_usec":82423,"max_build_operations":8,"max_unload_operations":8,"prepare_usec":12211,"rolled_back":false,"source":"demo_ch05_obsidian_pilgrim_road","target":"demo_ch06_silent_crown_core"}]
+WORLD ASYNC LOADING PASS: 94 checks; six-region parity, budget limits, rollback, save isolation and teardown
+Running world_host
+PASS: world_host
+WORLD HOST METRICS: transitions=43 peak_region_nodes=119 initial_region_nodes=127 fixture_positioning=true
+WORLD HOST PASS: 497 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles
+Running world_route_walk
+PASS: world_route_walk
+PASS restart restores last region at its remembered bell shrine
+WORLD_ROUTE_WALK_VALIDATION steps=25 physics_frames=1853 failures=0 damage_suppression=true
+GODOT_REGRESSIONS suites=4 failures=0

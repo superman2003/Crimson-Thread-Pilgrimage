@@ -1,4 +1,5 @@
 extends SceneTree
+const STATE := preload("res://scripts/world_state.gd")
 const SAVE_PATH := "user://upgrade_integration.json"
 var scene: Node
 var failures: Array[String] = []
@@ -78,7 +79,7 @@ func _run() -> void:
     scene._void_respawn()
     _check(scene.player.hp == 2 and scene.player.energy < scene.player.max_energy, "fall costs health and does not fully restore energy")
     scene._save_world()
-    _check(scene.world_state.data.version == 2 and not scene.world_state.data.build_state.is_empty(), "world saves build v2")
+    _check(scene.world_state.data.version == STATE.VERSION and not scene.world_state.data.build_state.is_empty(), "world saves build in current schema")
     _check(scene.select_save_slot(2), "second slot can be opened from real scene")
     await _frames(8)
     scene = current_scene
