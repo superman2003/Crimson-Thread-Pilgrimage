@@ -19,6 +19,7 @@
     "test:browser": "node tests/browser-cdp-smoke.test.mjs",
     "test:map-quality:all": "node tools/run_python_tool.mjs tools/audit_platform_geometry.py --scope all --strict && node tools/run_python_tool.mjs tools/audit_map_uniqueness.py --scope all --strict",
     "test:godot": "node tools/run_python_tool.mjs tools/run_godot_regressions.py",
+    "test:world-prepare-budget": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite world_prepare_budget",
     "test:campaign": "node tools/run_python_tool.mjs tools/validate_campaign_chapters.py && node tools/run_python_tool.mjs tools/validate_chapter_files.py && node tools/run_python_tool.mjs tools/validate_world_routes.py && node tools/run_python_tool.mjs tools/validate_world_narrative.py && node tools/run_python_tool.mjs tools/validate_world_upgrade.py",
     "test:runner": "node tools/run_python_tool.mjs tools/test_regression_runner.py"
   }

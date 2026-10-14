@@ -6,7 +6,9 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
-    "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch", "world_passage"]
+    "world_catalog", "world_narrative", "world_write_error_shown", "world_prefetch", "world_passage",
+    "world_shared_metadata_cache", "world_shared_metadata_reads", "world_shared_metadata_probes",
+    "world_shared_metadata_bytes", "world_shared_metadata_parses", "world_shared_metadata_failures"]
 var generation := 0
 var active_region_id := ""
 var phase := "idle"
@@ -310,9 +312,75 @@ func _evict_budgeted(host: Node) -> bool:
 
 
 func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> bool:
-    var prepared_at := Time.get_ticks_usec()
-    host._prepare_region(target)
-    last_transition["prepare_usec"] = Time.get_ticks_usec() - prepared_at
+    var prepare_wall_started := Time.get_ticks_usec()
+    var prepare_jobs: Array = host._region_prepare_jobs(target)
+    last_transition["prepare_plan_usec"] = Time.get_ticks_usec() - prepare_wall_started
+    var prepare_role := "target" if cancellable else "rollback"
+    var prepare_cursor := 0
+    last_transition["prepare_jobs"] = prepare_jobs.size()
+    last_transition["prepare_cursor"] = 0
+    last_transition["prepare_batches"] = 0
+    last_transition["prepare_batch_operations"] = []
+    last_transition["prepare_work_usec"] = 0
+    last_transition["prepare_wall_usec"] = 0
+    last_transition["max_prepare_operations"] = 0
+    last_transition["max_prepare_batch_usec"] = 0
+    last_transition["max_prepare_job_usec"] = 0
+    last_transition["prepare_operation_usec"] = {}
+    while prepare_cursor < prepare_jobs.size():
+        if cancellable and cancel_requested:
+            _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+            return false
+        var prepare_batch_started := Time.get_ticks_usec()
+        var prepare_operations := 0
+        while prepare_cursor < prepare_jobs.size() and prepare_operations < MAX_OPERATIONS_PER_FRAME:
+            # The budget admits the next job; one job itself cannot be
+            # preempted and may exceed the nominal frame budget.
+            if prepare_operations > 0 and Time.get_ticks_usec() - prepare_batch_started >= FRAME_BUDGET_USEC:
+                break
+            var prepare_job: Dictionary = prepare_jobs[prepare_cursor]
+            var prepare_method := String(prepare_job.get("method", ""))
+            var prepare_args: Array = prepare_job.get("args", [])
+            var job_started := Time.get_ticks_usec()
+            var prepare_result: Variant = host.callv(prepare_method, prepare_args)
+            var job_usec := Time.get_ticks_usec() - job_started
+            # Keep one duration per operation index, rather than a per-method
+            # aggregate, so reports can identify expensive individual jobs.
+            var operation_key := "%d:%s" % [prepare_cursor, prepare_method]
+            var operation_timings: Dictionary = last_transition["prepare_operation_usec"]
+            operation_timings[operation_key] = maxi(int(operation_timings.get(operation_key, 0)), job_usec)
+            last_transition["prepare_operation_usec"] = operation_timings
+            last_transition["max_prepare_job_usec"] = maxi(int(last_transition["max_prepare_job_usec"]), job_usec)
+            last_transition["prepare_work_usec"] = int(last_transition["prepare_work_usec"]) + job_usec
+            # The catalog index job expands into one measured job per authored
+            # route. Insert them before the plan's catalog commit job.
+            if prepare_method == "_prepare_world_catalog_jobs" and prepare_result is Array:
+                var expanded_jobs: Array = prepare_result
+                for expanded_index in range(expanded_jobs.size()):
+                    prepare_jobs.insert(prepare_cursor + 1 + expanded_index, expanded_jobs[expanded_index])
+                last_transition["prepare_jobs"] = prepare_jobs.size()
+            prepare_cursor += 1
+            prepare_operations += 1
+            last_transition["prepare_cursor"] = prepare_cursor
+        var prepare_batch_usec := Time.get_ticks_usec() - prepare_batch_started
+        last_transition["prepare_batches"] = int(last_transition["prepare_batches"]) + 1
+        var batch_operation_counts: Array = last_transition["prepare_batch_operations"]
+        batch_operation_counts.append(prepare_operations)
+        last_transition["prepare_batch_operations"] = batch_operation_counts
+        last_transition["max_prepare_operations"] = maxi(int(last_transition["max_prepare_operations"]), prepare_operations)
+        last_transition["max_prepare_batch_usec"] = maxi(int(last_transition["max_prepare_batch_usec"]), prepare_batch_usec)
+        if is_instance_valid(loading_label):
+            loading_label.text = ("正在接通旧路… 准备 %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… 准备 %d / %d") % [prepare_cursor, prepare_jobs.size()]
+        # Yield after every batch, including the final one, so Escape and host
+        # teardown can be observed before any build jobs are created.
+        await host.get_tree().process_frame
+        if not _alive(host):
+            _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+            return false
+        _cancel_input()
+    _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+    if cancellable and cancel_requested:
+        return false
     var jobs: Array = host._region_build_jobs()
     var cursor := 0
     last_transition["jobs"] = jobs.size()
@@ -336,6 +404,24 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             return false
         _cancel_input()
     return not (cancellable and cancel_requested)
+
+
+func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
+    last_transition["prepare_wall_usec"] = Time.get_ticks_usec() - wall_started
+    # Compatibility metric: prepare_usec retains the old synchronous-work
+    # meaning and excludes yielded frame time.
+    last_transition["prepare_usec"] = int(last_transition.get("prepare_work_usec", 0))
+    var metric_keys := ["prepare_jobs", "prepare_cursor", "prepare_batches", "prepare_batch_operations",
+        "prepare_work_usec", "prepare_wall_usec", "prepare_plan_usec", "prepare_usec",
+        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec"]
+    var attempt: Dictionary = {"role": role}
+    for key in metric_keys:
+        var value: Variant = last_transition.get(key, null)
+        attempt[key] = value.duplicate(true) if value is Array or value is Dictionary else value
+    var attempts: Array = last_transition.get("prepare_attempts", [])
+    attempts.append(attempt)
+    last_transition["prepare_attempts"] = attempts
+    last_transition["%s_prepare" % role] = attempt.duplicate(true)
 
 
 func _finish_budgeted(host: Node, cancellable: bool) -> bool:
