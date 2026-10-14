@@ -1,0 +1,158 @@
+{
+  "baseline_commit": "3bd62d199662",
+  "purpose": "Verify existing real audio and characterize timing/levels; not a judgment of subjective quality. OGG decoded to mono 48k PCM16 for comparable measurement. No baseline sample reused in synthesis.",
+  "assets": [
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_windup_light.ogg",
+      "source_sha256": "a2f9d70066259ce698bd479a033ba5e0db536bc75e20197b5926950b3ae4de18",
+      "decoded_pcm_measurements": {
+        "duration_s": 0.5021458333333333,
+        "sample_peak_dbfs": -4.234,
+        "true_peak_4x_dbfs_estimate": -4.229,
+        "integrated_lufs": -20.63,
+        "ffmpeg_true_peak_dbtp": -4.23,
+        "rms_dbfs": -21.832,
+        "dc_offset": 9.31e-06,
+        "digital_zero_percent": 0.033,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 0.542,
+        "trailing_below_minus60_ms": 0.375,
+        "first_sample": -3.0517578125e-05,
+        "last_sample": -0.00018310546875
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_windup_lethal.ogg",
+      "source_sha256": "7770901dc0c94329bb159ce3534c70b8cb6747655838475e8862dc203ae4b0d0",
+      "decoded_pcm_measurements": {
+        "duration_s": 0.7971041666666666,
+        "sample_peak_dbfs": -8.654,
+        "true_peak_4x_dbfs_estimate": -8.648,
+        "integrated_lufs": -14.84,
+        "ffmpeg_true_peak_dbtp": -8.65,
+        "rms_dbfs": -11.964,
+        "dc_offset": 0.00179607,
+        "digital_zero_percent": 0.0,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 0.125,
+        "trailing_below_minus60_ms": 0.0,
+        "first_sample": -0.000579833984375,
+        "last_sample": 0.16143798828125
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_ch06_atk_heavy.ogg",
+      "source_sha256": "24dca77dd7958f2cd368083d5c6e64ba39bd74165afd78f8f477004b6c11a7c4",
+      "decoded_pcm_measurements": {
+        "duration_s": 0.9971041666666667,
+        "sample_peak_dbfs": -6.149,
+        "true_peak_4x_dbfs_estimate": -6.144,
+        "integrated_lufs": -20.27,
+        "ffmpeg_true_peak_dbtp": -6.15,
+        "rms_dbfs": -21.432,
+        "dc_offset": 0.00072117,
+        "digital_zero_percent": 10.976,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 4.562,
+        "trailing_below_minus60_ms": 126.521,
+        "first_sample": 0.0,
+        "last_sample": 0.0
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_ch05_atk_heavy.ogg",
+      "source_sha256": "cfa8fde9389ebb8c3833382c83525350f00e1b01d1a8bf868d303f1a63a75e34",
+      "decoded_pcm_measurements": {
+        "duration_s": 0.9971041666666667,
+        "sample_peak_dbfs": -1.399,
+        "true_peak_4x_dbfs_estimate": -1.394,
+        "integrated_lufs": -19.98,
+        "ffmpeg_true_peak_dbtp": -1.4,
+        "rms_dbfs": -21.132,
+        "dc_offset": 0.0008593,
+        "digital_zero_percent": 10.269,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 1.0,
+        "trailing_below_minus60_ms": 127.104,
+        "first_sample": 0.0,
+        "last_sample": 0.0
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_ch04_atk_heavy.ogg",
+      "source_sha256": "43dcc311f1b0c1dd066a522d3cf0a7bd9e8cbdb32af2813584db39a281314b80",
+      "decoded_pcm_measurements": {
+        "duration_s": 1.0,
+        "sample_peak_dbfs": -3.382,
+        "true_peak_4x_dbfs_estimate": -3.35,
+        "integrated_lufs": -18.85,
+        "ffmpeg_true_peak_dbtp": -3.35,
+        "rms_dbfs": -20.109,
+        "dc_offset": 0.00174331,
+        "digital_zero_percent": 10.146,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 3.542,
+        "trailing_below_minus60_ms": 128.875,
+        "first_sample": 0.0,
+        "last_sample": 0.0
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_ch03_atk_heavy.ogg",
+      "source_sha256": "4190d66ba32593e14150b04870c8e5b72560f7418c17f90d64e275a1a62b19c9",
+      "decoded_pcm_measurements": {
+        "duration_s": 1.0,
+        "sample_peak_dbfs": -1.746,
+        "true_peak_4x_dbfs_estimate": -1.595,
+        "integrated_lufs": -18.71,
+        "ffmpeg_true_peak_dbtp": -1.6,
+        "rms_dbfs": -22.068,
+        "dc_offset": 0.00025415,
+        "digital_zero_percent": 12.754,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 1.875,
+        "trailing_below_minus60_ms": 127.604,
+        "first_sample": 0.0,
+        "last_sample": 0.0
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_ch02_atk_heavy.ogg",
+      "source_sha256": "57d7f0a42d0071169850dc5d7dcd735219697b1766b67f7a7d5ecb1d2139efd9",
+      "decoded_pcm_measurements": {
+        "duration_s": 0.9971041666666667,
+        "sample_peak_dbfs": -2.977,
+        "true_peak_4x_dbfs_estimate": -2.971,
+        "integrated_lufs": -17.99,
+        "ffmpeg_true_peak_dbtp": -2.98,
+        "rms_dbfs": -19.237,
+        "dc_offset": 0.00096189,
+        "digital_zero_percent": 11.12,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 3.375,
+        "trailing_below_minus60_ms": 127.104,
+        "first_sample": 0.0,
+        "last_sample": 0.0
+      }
+    },
+    {
+      "path": "godot/assets/audio/sfx/generated/boss_ch01_atk_heavy.ogg",
+      "source_sha256": "54b4b656b5889aeca8422afc2f5028e544e2b6d0503c7b72228fbc8afc41c023",
+      "decoded_pcm_measurements": {
+        "duration_s": 0.9971041666666667,
+        "sample_peak_dbfs": -2.752,
+        "true_peak_4x_dbfs_estimate": -2.611,
+        "integrated_lufs": -20.95,
+        "ffmpeg_true_peak_dbtp": -2.61,
+        "rms_dbfs": -22.792,
+        "dc_offset": 0.00066351,
+        "digital_zero_percent": 10.376,
+        "clipped_samples": 0,
+        "leading_below_minus60_ms": 1.542,
+        "trailing_below_minus60_ms": 109.458,
+        "first_sample": 0.0,
+        "last_sample": 0.0
+      }
+    }
+  ]
+}
