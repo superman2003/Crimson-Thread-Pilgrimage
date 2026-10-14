@@ -481,6 +481,12 @@ var campaign: Dictionary = {}
 var current_campaign_chapter: Dictionary = {}
 var chapter_file_configs: Array = []
 var audio_visual_manifest: Dictionary = {}
+var world_shared_metadata_cache: Dictionary = {}
+var world_shared_metadata_reads: Dictionary = {}
+var world_shared_metadata_probes: Dictionary = {}
+var world_shared_metadata_bytes: Dictionary = {}
+var world_shared_metadata_parses: Dictionary = {}
+var world_shared_metadata_failures: Dictionary = {}
 var player: CharacterBody2D
 var ui_canvas: CanvasLayer
 var hud_label: Label
@@ -640,10 +646,10 @@ func _prepare_region(prepared_config: Dictionary = {}) -> void:
     if config.is_empty():
         push_error("Missing demo config: " + config_path)
         return
-    campaign = _load_json(CAMPAIGN_PATH)
+    campaign = _load_world_shared_json(CAMPAIGN_PATH)
     chapter_file_configs = _load_chapter_file_configs()
-    audio_visual_manifest = _load_json(AV_MANIFEST_PATH)
-    item_lore = _load_json(ITEM_LORE_PATH).get("items", {})
+    audio_visual_manifest = _load_world_shared_json(AV_MANIFEST_PATH)
+    item_lore = _load_world_shared_json(ITEM_LORE_PATH).get("items", {})
     current_campaign_chapter = _campaign_chapter_for_id(String(config.get("id", "")))
     var world: Dictionary = config.get("world", {})
     world_width = float(world.get("width", 4096.0))
@@ -844,6 +850,7 @@ func _exit_tree() -> void:
         world_gameplay_residency.shutdown()
     npc_residency_memory.clear()
     save_point_residency_memory.clear()
+    world_shared_metadata_cache.clear()
     _stop_region_tweens()
     _release_region_audio()
 
@@ -1367,6 +1374,65 @@ func _load_json(path: String) -> Dictionary:
     return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
 
 
+## Immutable campaign presentation data is reused only by a persistent World
+## host. Dynamic region configs, saves and progression never enter this cache.
+## The returned deep copy keeps mutable scene consumers from altering the host
+## snapshot. Empty dictionaries are valid JSON; open/parse/type failures are
+## deliberately not cached, so a repaired source can succeed on the next call.
+func _load_world_shared_json(path: String) -> Dictionary:
+    if not world_mode:
+        return _load_json(path)
+    var canonical_path := _world_shared_metadata_key(path)
+    world_shared_metadata_probes[canonical_path] = int(world_shared_metadata_probes.get(canonical_path, 0)) + 1
+    var stat_file := FileAccess.open(canonical_path, FileAccess.READ)
+    if stat_file == null:
+        world_shared_metadata_cache.erase(canonical_path)
+        world_shared_metadata_failures[canonical_path] = int(world_shared_metadata_failures.get(canonical_path, 0)) + 1
+        return {}
+    var source_size := stat_file.get_length()
+    stat_file.close()
+    var source_mtime := FileAccess.get_modified_time(canonical_path)
+    var cached: Variant = world_shared_metadata_cache.get(canonical_path)
+    if cached is Dictionary and int(cached.get("size", -1)) == source_size and int(cached.get("mtime", -1)) == source_mtime:
+        return (cached.get("data", {}) as Dictionary).duplicate(true)
+
+    # A changed or unreadable source must never fall back to a stale snapshot.
+    world_shared_metadata_cache.erase(canonical_path)
+    var file := FileAccess.open(canonical_path, FileAccess.READ)
+    if file == null:
+        world_shared_metadata_failures[canonical_path] = int(world_shared_metadata_failures.get(canonical_path, 0)) + 1
+        return {}
+    var read_size := file.get_length()
+    var text := file.get_as_text()
+    file.close()
+    var bytes_read := read_size
+    world_shared_metadata_reads[canonical_path] = int(world_shared_metadata_reads.get(canonical_path, 0)) + 1
+    world_shared_metadata_bytes[canonical_path] = int(world_shared_metadata_bytes.get(canonical_path, 0)) + bytes_read
+    world_shared_metadata_parses[canonical_path] = int(world_shared_metadata_parses.get(canonical_path, 0)) + 1
+    var parser := JSON.new()
+    var parse_error := parser.parse(text)
+    var parsed: Variant = parser.data
+    if parse_error != OK or not parsed is Dictionary:
+        world_shared_metadata_failures[canonical_path] = int(world_shared_metadata_failures.get(canonical_path, 0)) + 1
+        return {}
+    world_shared_metadata_cache[canonical_path] = {"mtime": FileAccess.get_modified_time(canonical_path),
+        "size": read_size, "data": parsed.duplicate(true)}
+    return parsed.duplicate(true)
+
+
+func world_shared_metadata_snapshot() -> Dictionary:
+    return {"cache_paths": world_shared_metadata_cache.keys().duplicate(),
+        "probes": world_shared_metadata_probes.duplicate(true),
+        "reads": world_shared_metadata_reads.duplicate(true),
+        "bytes": world_shared_metadata_bytes.duplicate(true),
+        "parses": world_shared_metadata_parses.duplicate(true),
+        "failures": world_shared_metadata_failures.duplicate(true)}
+
+
+func _world_shared_metadata_key(path: String) -> String:
+    return ProjectSettings.localize_path(ProjectSettings.globalize_path(path).simplify_path())
+
+
 func _art_theme_id() -> String:
     var theme_id := String(config.get("art_theme", ""))
     if not theme_id.is_empty():
@@ -1720,7 +1786,8 @@ func _load_chapter_file_configs() -> Array:
     dir.list_dir_end()
     files.sort()
     for name in files:
-        var chapter := _load_json(CHAPTER_DATA_DIR + "/" + String(name))
+        var path := CHAPTER_DATA_DIR + "/" + String(name)
+        var chapter := _load_world_shared_json(path)
         if not chapter.is_empty():
             loaded.append(chapter)
     return loaded
