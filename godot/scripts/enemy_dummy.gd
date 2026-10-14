@@ -6,6 +6,7 @@ extends Area2D
 
 var start_x: float
 var direction: int = 1
+var dying := false
 
 
 func _ready() -> void:
@@ -15,6 +16,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    if dying or is_queued_for_deletion():
+        return
+    var player := get_tree().get_first_node_in_group("player")
+    if player != null and (player.get("ui_input_locked") == true):
+        return
     position.x += direction * speed * delta
     if absf(global_position.x - start_x) > patrol_distance:
         direction *= -1
@@ -22,13 +28,22 @@ func _physics_process(delta: float) -> void:
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
+    if dying or is_queued_for_deletion() or amount <= 0:
+        return
     hp -= amount
     position.x += hit_direction * 18.0
     modulate = Color(1.0, 0.72, 0.55)
     if hp <= 0:
+        dying = true
+        remove_from_group("enemy")
+        set_deferred("monitoring", false)
+        set_deferred("monitorable", false)
+        set_physics_process(false)
         queue_free()
 
 
 func _on_body_entered(body: Node) -> void:
+    if dying or is_queued_for_deletion() or not is_instance_valid(body) or body.is_queued_for_deletion() or (body.get("ui_input_locked") == true):
+        return
     if body.has_method("take_damage"):
         body.take_damage(1, global_position)

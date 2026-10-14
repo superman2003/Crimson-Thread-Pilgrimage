@@ -22,21 +22,28 @@ var owner_actor: Node2D
 var travelled := 0.0
 var impact_pool := false
 var cancelled := false
+var owner_required := false
 
 func _ready() -> void:
+    owner_required = is_instance_valid(owner_actor)
     add_to_group("hostile_attack")
     z_index = 7
 
 func _physics_process(delta: float) -> void:
-    if cancelled or (is_instance_valid(owner_actor) and (owner_actor.is_queued_for_deletion() or bool(owner_actor.get("dying")))):
+    if cancelled or is_queued_for_deletion() or (owner_required and not is_instance_valid(owner_actor)):
+        cancel()
+        return
+    if is_instance_valid(owner_actor) and (not owner_actor.is_inside_tree() or owner_actor.is_queued_for_deletion() or (owner_actor.get("dying") == true) or (owner_actor.has_method("world_residency_active") and not owner_actor.world_residency_active())):
         cancel()
         return
     var target := get_tree().get_first_node_in_group("player") as CharacterBody2D
-    if target != null and bool(target.get("ui_input_locked")):
+    if target != null and target.is_queued_for_deletion():
+        target = null
+    if target != null and (target.get("ui_input_locked") == true):
         return
     age += delta
     if age >= duration:
-        queue_free()
+        cancel()
         return
     if age < arm_delay:
         queue_redraw()
@@ -80,14 +87,15 @@ func _physics_process(delta: float) -> void:
                     duration=1.4
                     queue_redraw()
                     return
-                queue_free()
+                cancel()
                 return
     if reflected:
         for actor in get_tree().get_nodes_in_group("enemy"):
+            if not is_instance_valid(actor) or actor.is_queued_for_deletion() or (actor.get("dying") == true): continue
             if actor.has_method("world_residency_active") and not actor.world_residency_active(): continue
             if actor is Node2D and actor.has_method("take_hit") and actor.global_position.distance_to(global_position)<44:
+                cancel()
                 actor.take_hit(1,1 if velocity.x>0 else -1)
-                queue_free()
                 return
     elif target != null:
         var center := target.global_position-Vector2(0,42)
@@ -99,13 +107,14 @@ func _physics_process(delta: float) -> void:
                 velocity=Vector2(facing*maxf(250,velocity.length()),velocity.y*.35)
                 tint=Color(0.94,0.86,0.61)
         if not reflected and not hit_player and _hits_player(center):
+            # Consume before callbacks: damage can synchronously re-enter or cancel us.
+            hit_player=true
             if target.has_method("take_damage"):
                 target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
-            if snare>0 and target.has_method("apply_snare"):
+            if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):
                 target.apply_snare(snare)
-            hit_player=true
             if effect_kind=="projectile":
-                queue_free()
+                cancel()
     queue_redraw()
 
 func _hits_player(center: Vector2) -> bool:
@@ -170,7 +179,10 @@ func _draw() -> void:
             draw_line(-axis*radius,axis*radius*1.4,Color(.95,.87,.67,active_color.a),1,true)
 
 func cancel() -> void:
+    if cancelled:
+        return
     cancelled = true
+    hide()
     set_physics_process(false)
     remove_from_group("hostile_attack")
     queue_free()

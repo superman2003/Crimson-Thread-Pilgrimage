@@ -102,6 +102,8 @@ func _update_locomotion(delta: float, target: CharacterBody2D) -> void:
             global_position.y=floor_y-40
 
 func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Dictionary, warning: float, lifetime: float) -> Node2D:
+    if dying or is_queued_for_deletion() or not is_inside_tree() or not world_residency_active():
+        return null
     var effect := ATTACK_EFFECT.new()
     effect.effect_kind=effect_kind
     effect.position=point
@@ -337,10 +339,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-    if dying:
+    if dying or is_queued_for_deletion() or not world_residency_active():
         return
-    var player_node := _target_player()
-    var ui_locked := player_node != null and bool(player_node.get("ui_input_locked"))
+    # UI pause must not depend on lure/interference target selection.
+    var player_node := get_tree().get_first_node_in_group("player")
+    var ui_locked: bool = player_node != null and (player_node.get("ui_input_locked") == true)
     _set_combat_visuals_paused(ui_locked)
     if ui_locked:
         return
@@ -374,7 +377,8 @@ func _physics_process(delta: float) -> void:
         _update_recover(delta)
     else:
         _update_patrol_or_aggro(delta, target)
-    _update_locomotion(delta,target)
+    if not dying and not is_queued_for_deletion():
+        _update_locomotion(delta,target)
 
 
 func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, profile: Dictionary = {}) -> void:
@@ -438,7 +442,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
-    if dying:
+    if dying or is_queued_for_deletion() or not world_residency_active() or amount <= 0:
         return
     if bool(ai_profile.get("front_guard",false)) and String(active_attack.get("type",""))=="guard" and state in ["windup","active"] and hit_direction==-direction:
         attack_desire+=.6
@@ -483,10 +487,15 @@ func take_hit(amount: int, hit_direction: int) -> void:
 ## 死亡溶解（规格 §3.4 简化通用版）：died 当帧发出、立即离开 enemy 组，
 ## 之后表现层溶解 0.45s（Boss 0.9s）再 queue_free——计数/掉落逻辑不受影响。
 func _begin_death_dissolve() -> void:
+    if dying or is_queued_for_deletion():
+        return
     dying = true
+    active_attack = {}
+    state = "dead"
     _cancel_attack_effects()
-    monitoring = false
-    monitorable = false
+    # Death may be triggered by an Area callback during physics flushing.
+    set_deferred("monitoring", false)
+    set_deferred("monitorable", false)
     remove_from_group("enemy")
     knockback_velocity = 0.0
     # 材质化死亡音（音频规格 §4.3）：挂到父节点播放，避免溶解 queue_free 截断尾音。
@@ -499,6 +508,8 @@ func _begin_death_dissolve() -> void:
     _pose_sprite("death")
     _clear_telegraph()
     died.emit(spawn_id, is_boss, kind)
+    if is_queued_for_deletion():
+        return
     if sprite == null or not is_instance_valid(sprite):
         queue_free()
         return
@@ -610,8 +621,24 @@ func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
 
 
 func reset_for_respawn() -> void:
-    if dying:
+    if dying or is_queued_for_deletion():
         return
+    _cancel_attack_effects()
+    _clear_telegraph()
+    for tween in combat_tweens:
+        if is_instance_valid(tween) and tween.is_valid():
+            tween.kill()
+    combat_tweens.clear()
+    for child in get_children():
+        if (child is Line2D and String(child.name).begins_with("OriginalAttack")) or child.name in ["EnemyWindupVfx", "BossAttackBurstVfx", "EnemyAttackBurstVfx", "HitSpark"]:
+            child.queue_free()
+    battle_phase = 1
+    phase_pause = 0.0
+    attack_elapsed = 0.0
+    trail_clock = 0.0
+    cooldowns.clear()
+    for command in ai_commands:
+        cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
     hp = max_hp
     knockback_velocity = 0.0
     _set_flash_amount(0.0)
@@ -1197,6 +1224,8 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
 
 
 func _begin_attack(command: Dictionary) -> void:
+    if dying or is_queued_for_deletion() or not world_residency_active():
+        return
     active_attack = command
     attack_elapsed=0
     trail_clock=0
@@ -1268,6 +1297,8 @@ func _update_active(delta: float) -> void:
 
     if attack_type in ["melee","aoe","lunge","retreat","feint","combo","guard","dive"] or (attack_type=="vault" and progress>.6):
         _try_damage_player(active_attack)
+    if dying or is_queued_for_deletion():
+        return
     if bool(active_attack.get("trail",false)):
         trail_clock+=delta
         if trail_clock>.16:
@@ -1300,10 +1331,10 @@ func _update_recover(delta: float) -> void:
 
 
 func _try_damage_player(command: Dictionary) -> void:
-    if attack_has_hit:
+    if attack_has_hit or dying or is_queued_for_deletion() or not world_residency_active():
         return
     var target := _target_player()
-    if target == null or not _has_line_of_sight(target):
+    if target == null or target.is_queued_for_deletion() or (target.get("ui_input_locked") == true) or not _has_line_of_sight(target):
         return
 
     var attack_type := String(command.get("type", "melee"))
@@ -1325,9 +1356,9 @@ func _try_damage_player(command: Dictionary) -> void:
     var attack_rect := Rect2(center - size * 0.5, size)
     var player_rect := Rect2(target.global_position - Vector2(24.0, 84.0), Vector2(48.0, 88.0))
     if attack_rect.intersects(player_rect):
-        target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
         attack_has_hit = true
-        if bool(command.get("leech",false)):
+        target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
+        if not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
             hp=mini(max_hp,hp+1)
 
 
@@ -1384,7 +1415,9 @@ func _clear_telegraph() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-    if contact_timer > 0.0:
+    if dying or is_queued_for_deletion() or not world_residency_active() or contact_timer > 0.0:
+        return
+    if not is_instance_valid(body) or body.is_queued_for_deletion() or (body.get("ui_input_locked") == true):
         return
     if body.has_method("can_ignore_enemy_contact") and body.can_ignore_enemy_contact(global_position):
         contact_timer = 0.12
