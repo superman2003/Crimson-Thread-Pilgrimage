@@ -2,7 +2,8 @@ extends RefCounted
 ## One shared instance is retained by Main's parent between region scenes.
 ## Positions are JSON arrays; scene objects and Vector2 never enter disk data.
 
-const VERSION := 2
+const COORDINATES := preload("res://scripts/world_coordinates.gd")
+const VERSION := 3
 const DEFAULT_PATH := "user://pilgrimage_world.json"
 const MAX_BYTES := 4 * 1024 * 1024
 var last_error := ""
@@ -11,7 +12,7 @@ var data: Dictionary = fresh_data()
 static func fresh_data() -> Dictionary:
     return {"version": VERSION, "inventory_counts": {}, "currency": 0,
         "story_flags": {}, "regions": {}, "current_region": "", "entry": [0, 0],
-        "hp": 5, "energy": 100, "build_state": {}, "death_cache": {}}
+        "hp": 5, "energy": 100, "build_state": {}, "death_cache": {}, "world_location": {}}
 
 static func fresh_region() -> Dictionary:
     return {"collected_ids": {}, "opened_shortcuts": {}, "visited_rooms": {},
@@ -45,11 +46,25 @@ func capture_global(snapshot: Dictionary) -> bool:
         if key == "version" or key == "regions" or not candidate.has(key):
             return _fail("unknown or reserved global field: %s" % key)
         candidate[key] = _position(snapshot[key]) if key == "entry" else snapshot[key]
+    # A local checkpoint is the existing save contract. Derive its campaign
+    # position atomically; never allow one frame to update only half the pair.
+    if not snapshot.has("world_location") and _point(candidate.entry):
+        candidate.world_location = COORDINATES.location(String(candidate.current_region), Vector2(candidate.entry[0], candidate.entry[1]))
     if not _valid_data(candidate):
         return _fail("invalid global snapshot")
     data = candidate
     last_error = ""
     return true
+
+func resume_local_position() -> Vector2:
+    if not data.world_location.is_empty():
+        var point: Array = data.world_location.position
+        return COORDINATES.to_local(String(data.current_region), Vector2(point[0], point[1]))
+    return Vector2(data.entry[0], data.entry[1])
+
+func checkpoint_world_position(region_id: String) -> Vector2:
+    var checkpoint: Array = get_region(region_id).checkpoint
+    return COORDINATES.to_world(region_id, Vector2(checkpoint[0], checkpoint[1]))
 
 func read(path: String = DEFAULT_PATH) -> bool:
     last_error = ""
@@ -177,6 +192,10 @@ static func _valid_region(value: Variant) -> bool:
 static func _valid_data(value: Variant) -> bool:
     if not value is Dictionary or not _whole(value.get("version")) or int(value.version) != VERSION:
         return false
+    if not value.get("current_region") is String or not _point(value.get("entry")):
+        return false
+    if not COORDINATES.valid_location(value.get("world_location"), value.current_region, Vector2(value.entry[0], value.entry[1])):
+        return false
     if not value.get("build_state") is Dictionary or not _valid_death_cache(value.get("death_cache")):
         return false
     if not value.get("inventory_counts") is Dictionary or not value.get("story_flags") is Dictionary or not value.get("regions") is Dictionary:
@@ -199,9 +218,13 @@ static func _migrate(value: Variant) -> Variant:
         return value
     var migrated: Dictionary = value.duplicate(true)
     if int(migrated.version) == 1:
-        migrated.version = VERSION
+        migrated.version = 2
         migrated["build_state"] = {}
         migrated["death_cache"] = {}
+    if int(migrated.version) == 2:
+        migrated.version = VERSION
+        if migrated.get("current_region") is String and _point(migrated.get("entry")):
+            migrated["world_location"] = COORDINATES.location(migrated.current_region, Vector2(migrated.entry[0], migrated.entry[1]))
     return migrated
 
 static func _valid_death_cache(value: Variant) -> bool:

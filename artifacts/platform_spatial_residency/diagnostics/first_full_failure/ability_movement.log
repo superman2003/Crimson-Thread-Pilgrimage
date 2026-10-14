@@ -1,0 +1,23 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PASS: fixture starts on solid ground
+PASS: first jump still uses the existing movement
+PASS: locked double jump cannot create upward impulse
+PASS: held first jump does not spend the second jump
+PASS: fresh airborne press performs double jump
+PASS: third press cannot create an infinite jump
+PASS: landing restores the air jump
+ABILITY_PEAK locked=175.028 unlocked=57.458
+PASS: double jump reaches a high ledge that a single jump cannot reach
+PASS: locked grapple ignores a reachable anchor
+PASS: unlocked grapple latches an explicit visible anchor
+PASS: grapple moves the actual collision body toward the anchor
+PASS: dash cancels active grapple
+PASS: solid wall prevents latching through terrain
+PASS: disabled anchor cannot be targeted
+PASS: out of range anchor cannot be targeted
+PASS: hidden anchor cannot be targeted
+PASS: reachable anchor is available again
+PASS: freed anchor cancels without retaining an invalid reference
+PASS: respawn resets traversal impulses and air jump
+ABILITY_MOVEMENT_VALIDATION failures=0

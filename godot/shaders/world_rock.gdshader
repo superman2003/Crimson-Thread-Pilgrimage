@@ -1,6 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
 uniform sampler2D stone_atlas : source_color, filter_linear, repeat_enable;
+uniform vec3 stone_tint = vec3(1.0);
 uniform vec2 tile_size = vec2(4096.0,4096.0);
 // False is retained only for reproducible before/after rendering.
 uniform bool mirror_repeat = true;
@@ -18,5 +19,5 @@ void fragment() {
         uv = clamp(uv, half_texel, vec2(1.0) - half_texel);
     }
     // UVs never reset at collision or visible-draw subdivisions.
-    COLOR = vec4(texture(stone_atlas,uv).rgb,1.0)*COLOR;
+    COLOR = vec4(texture(stone_atlas,uv).rgb * stone_tint,1.0)*COLOR;
 }

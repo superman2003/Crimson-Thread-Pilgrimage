@@ -17,7 +17,7 @@ func _run() -> void:
     _put(PATH, JSON.stringify(old))
     var world := WORLD.new()
     _check(world.read(PATH), "v1 save migrates")
-    _check(world.data.version == 2 and world.data.currency == 77, "migration preserves progress")
+    _check(world.data.version == WORLD.VERSION and world.data.currency == 77, "migration preserves progress")
     _check(world.data.build_state.is_empty() and world.data.death_cache.is_empty(), "v1 receives empty optional systems")
     var build := BUILD.new()
     build.sync_progress({"echo_hook": 1, "bell_guard": 1}, "rain", {"skill_needle_learned": true})

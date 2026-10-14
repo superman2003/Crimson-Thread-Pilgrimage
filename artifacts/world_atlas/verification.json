@@ -1,0 +1,481 @@
+{
+  "date": "2026-10-13",
+  "base": "c61b82287fcb88f31c615d406a47ad96c52d25c5",
+  "runtime_checkpoint": "97d0b75fc9c8609790361d93b4a7f98c7b5be846",
+  "godot": "4.6.1",
+  "full_regressions": {
+    "suites": 60,
+    "failures": 0,
+    "engine_errors": 0
+  },
+  "final_world_map": {
+    "checks": 548,
+    "failures": 0,
+    "log_sha256": "4633ef6a90448464f3c78fe56657af8d4004bca7c4d8ce58b0bc3946b53935f7"
+  },
+  "streaming": {
+    "checks": 2545,
+    "failures": 0
+  },
+  "cartography": {
+    "checks": 4055,
+    "failures": 0
+  },
+  "route_access": {
+    "checks": 553,
+    "failures": 0
+  },
+  "npm_test": "passed",
+  "campaign": "passed",
+  "gpu_atlas": {
+    "renderer": "Mesa 25.2.8 llvmpipe OpenGL 4.5",
+    "fixtures": 3,
+    "failures": 0,
+    "log_sha256": "ba9b47c52ae73506af5d9e767c96141708869e97e4bec0696b32766608aa5bbc"
+  },
+  "runtime_assets": {
+    "runtime_asset_files": 7260,
+    "mismatches": []
+  },
+  "source_checksums": {
+    "godot/scripts/world_atlas.gd": "9343d2a7b68195739ed90f897fa8801ad37fabf81474a80ff5a0fde5295afaae",
+    "godot/scripts/main_level.gd": "51a4d04bba59f5f4bbba89869b58ae9ef0e3c169f45cd93c0ca0bfb7cd0d4b9b",
+    "godot/scripts/cartography_runtime.gd": "d2f2edec3f6be0824691b6c1411a7c71727949d5c3daf1bdccc051e2d850d8d6",
+    "godot/scripts/hand_drawn_map_room.gd": "cd3a767457f9d3c04420e03c066ec1d76e98d49d04cad705d99da8b3b0f6fc4c",
+    "godot/scripts/world_map_validation.gd": "b2b0993563869facc251a2913c6c5527802ff1b80d48143b244d1c709cc1e090",
+    "godot/scripts/world_streaming_validation.gd": "befe58fc1e25f34aeb696197d16e8f7684a5299683445de279271ad80bce497d"
+  },
+  "failures_before_final": [
+    "First map probe launched before import completed: resource errors, rejected.",
+    "First streaming test revision had uninferred PackedVector2Array type: corrected; final suite rerun.",
+    "Initial X11 setup missing xkbcomp/libxkbfile: corrected; final real GL run passed."
+  ],
+  "limits": [
+    "Full suite used runtime checkpoint; subsequent changes extend validation/report only, final 548-check map separately passed.",
+    "Map screenshots pause gameplay; not natural combat acceptance.",
+    "Existing editor RID shutdown errors and runtime ObjectDB/RefCounted warnings remain; T03/T04 incomplete.",
+    "W00c shared mouths, simultaneous neighboring gameplay residency, other connectors and terminal loading removal remain incomplete."
+  ],
+  "logs": [
+    {
+      "suite": "metsys",
+      "sha256": "e56e5b40848eeb4888fc5c71fac3bd04c932b2cd1b2ed7c9efeb36c8362f4260",
+      "bytes": 1154,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "cave_exploration",
+      "sha256": "b273cf2de097c81c514d3491b1a410182b2b6267fde6b7683e1ad51b75f4e6aa",
+      "bytes": 1144,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_map",
+      "sha256": "4fbfc5d37961c550722aea20075364493f9cf2d6128c4bc045dec3ab772cd974",
+      "bytes": 238,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "seal_presentation",
+      "sha256": "5d3099a9202c7afc50fb967f4cdfb00a01499ae6056a4c14dc713ec1ad8239d9",
+      "bytes": 126,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "ui_world_integration",
+      "sha256": "ccc5802d50abf4f00c3b5989822b9e10f737a9c0f80aeacd6766dd59eee911c8",
+      "bytes": 254,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_coordinates",
+      "sha256": "5b4416e98f8108b70b5819d802b5cde5cdea0c8d8c29b16eaab537b0b23774cb",
+      "bytes": 199,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "combat",
+      "sha256": "655fdfce573430289488b394897100254397ad3616caba50d71e040c64ce882a",
+      "bytes": 2174,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_route_access",
+      "sha256": "19b6e991febc8fac325a7d40a94511c5d2c3337ffa1fef9fd1eb7981aa2ab1d4",
+      "bytes": 318,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "cave_collision_streaming",
+      "sha256": "10670029f4bf054bc9cc0f37412b0c03847cc5aafa12d6142727fd096bf3ee60",
+      "bytes": 809,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "save_product",
+      "sha256": "5c407edece5b9f0728da07254d54c97e10bc0db5b26d917574aa048a2e7197bf",
+      "bytes": 171,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "sha256": "f68496249262351852db218a15899663cba613b899dd88cbd2e41f514617118e",
+      "bytes": 1565,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "tests_verify_narrative_ui",
+      "sha256": "bc2a4c02d716b7265f3c527ea2e2e5e2867f67da8c701324ff28298dd6ad1ce5",
+      "bytes": 285,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "build_system",
+      "sha256": "73f97442b9d1e6cadd4f1bd06b2b018ecbd8be252a57237112563c00fc4675f7",
+      "bytes": 102,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "upgrade_integration",
+      "sha256": "d760bfe450d704ebff2e29302c68297d702a93608ef51d1fb963dfaa2342b8eb",
+      "bytes": 741,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "chapter_route_regression",
+      "sha256": "65e9883b280d8ea961f87f510cc2a4a1466acd02d4e213521f9b0825650ace4c",
+      "bytes": 28540,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "chapter_registry",
+      "sha256": "c860d6039aab6cb6ac77102eba68ceb01de1358ec1e0e365eee1b4d367ee808d",
+      "bytes": 711,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "tests_verify_narrative_progression",
+      "sha256": "73a8d26200578f099c8df05f74473b33e173e6ac41ebb59b5762985c9c177099",
+      "bytes": 121,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_state",
+      "sha256": "aeef1a130e123a129f44956bccf9570c816444b3dfac383b94c70ab7f2c3de05",
+      "bytes": 160,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_wayfinding",
+      "sha256": "e5e0bd3b299efc4e75d53646a6287e9473862b1eeb91e08870fd780e53944ff8",
+      "bytes": 385,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "terrain_collision_streaming",
+      "sha256": "56573208cafa64fab126834c976425e7771b9149ce1132e1beb1e2147b6be9a8",
+      "bytes": 1732,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_material",
+      "sha256": "c90de596e73dd3abb9f5572850bbbce78c54a9be380576d87b528ddbba89ac82",
+      "bytes": 742,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_async_loading",
+      "sha256": "874273b4a60956529f9ddfab2e37fd28c1c41fe40299b037b937368c91e21d67",
+      "bytes": 2403,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "generated_runtime",
+      "sha256": "6af66c646e4820db6e4d004ccded2024a43b2c9c105933d740ca126fb5f09f6a",
+      "bytes": 238,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_neighbor_entities",
+      "sha256": "764baface868c5e107d7c96ce0c7db49a533e56a222d51ef0b84ef76e2ae0916",
+      "bytes": 797,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_host",
+      "sha256": "f81ef6caff70743937927e94abddbfcf3680b5a4c5846d4cbcce0e7e011c9e60",
+      "bytes": 2615,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "player_upgrade_regression",
+      "sha256": "29926a22a7c01fa3bec45e14549ff92f740e4c4dcf5907ebe573475a8e003b63",
+      "bytes": 125,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_route_walk",
+      "sha256": "1c9988216c4da1b8d25f0436c0a2a6c03c7208b05f8a77c9cbc2230a25f9f2f6",
+      "bytes": 3777,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "pilgrimage_overhaul",
+      "sha256": "1ddd7a8d6684cd88def53d65e6455b95ba1f012def06129289a74e60e24636c4",
+      "bytes": 1422,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "pilgrimage_merge_regression",
+      "sha256": "2df562fc7e8372b19b806db6f9a7bd56277a247821e2fd5a5c5ad6537be26a71",
+      "bytes": 726,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "hero_animation",
+      "sha256": "4f4e870395b3d2aa86ce4ca3259ab38e2ae435dc6229166dddd8099b0e652606",
+      "bytes": 120,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_passage",
+      "sha256": "4e0ff9713ff3e8f8b0f12b7f9a71ab0970b1f87b526bcf709896efe5d7f9a6cc",
+      "bytes": 528,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "seal_system",
+      "sha256": "8259d73b1314ce8d3aec34ce10a3a62b3fb1bfee2342c0011b926eec6af10d4f",
+      "bytes": 101,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "sha256": "16149db18d994816737b1aad8b3347785dbadf100ca55cc98d87a05597853383",
+      "bytes": 123,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "story_guidance",
+      "sha256": "354c98141ed4f6dadd25567882ba28a023ecbecaeefc2830ebad95aec4973f75",
+      "bytes": 13612,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "all_chapters_demo",
+      "sha256": "f91e0551a104799b202083990135385646444aaadeaec817fcc0509cb3ba8092",
+      "bytes": 168977,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "inventory_map",
+      "sha256": "3552c1ecd4975f010f27af64ed68e813e82306415dcc895635ea0497d6efa727",
+      "bytes": 1321,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_platform_streaming",
+      "sha256": "2c39a6373b5cde2c038f05f865dbcd17a436488ad90a971252316b07e88db01d",
+      "bytes": 1341,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "tests_verify_narrative_runtime",
+      "sha256": "984f8ea4751af05df5abdc547039252cbbaa365126c0468f26d0676a9dcf8dcc",
+      "bytes": 1434,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "seal_combat",
+      "sha256": "6ab176d740a0aa79df40c599b853f1257d02750e560c1c5aa34fe6afb2599ac7",
+      "bytes": 122,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_neighbor_collision",
+      "sha256": "fa517ef257cd4b6dce7bae7f01d2fb471524b3ad26c3464c3be76a91ad831c39",
+      "bytes": 4713,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "ability_movement",
+      "sha256": "03a05d4f469512bfe69083e2b46d8b29ce90c2c49463d89c0afb807267d9d7a5",
+      "bytes": 1095,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_upgrade",
+      "sha256": "91708cc32e1739a16f7eb37d3f80c36038d313aeffd098d7de5eb08eb747934c",
+      "bytes": 612997,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "ch01_room_reconstruction",
+      "sha256": "de556bec8cef3e5297aecb44ff527bf8eed7d5d7952866fa834db75aeeff1216",
+      "bytes": 556,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_rim",
+      "sha256": "82eb0a4ee80cdb65f2ea56925b82ed38db0c6bc3158d112e3ddfd514a553a224",
+      "bytes": 2238,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "pilgrimage_review_regression",
+      "sha256": "61dff6de13c0fa8c7c01035a9db999ccb86dccfbeaf413a1dbe99d176f209f67",
+      "bytes": 307,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "ch02_demo",
+      "sha256": "d43c0cf405791528c32fe1630deaa381844e433d7b9bb7446110179ad4f7a9ef",
+      "bytes": 9414,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "demo",
+      "sha256": "2c28b888d595697e44bcdd88f4516e4fe970118651ad0e8c81f17eee7cec390e",
+      "bytes": 3581,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "audio_retirement",
+      "sha256": "af4a2611f73dfea4b3253e7eeb811d2327b1618ef4b9504330f3188fcba32f20",
+      "bytes": 206,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "ui_redesign",
+      "sha256": "53a0126742116033972a7ab3ee0211b78c9df04eede28f9b7243f612f9c52b9c",
+      "bytes": 280,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "cave_route_walk",
+      "sha256": "3d8ba4e0f292177d0617e003ed75f9b60e26ece6b3a1e4ad277f0f21b64e161c",
+      "bytes": 677,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "seal_acceptance",
+      "sha256": "e172f63b8a47fa7fb63e2fdac69d8f645c698f36cf1d609fdc24d4499bb81b2a",
+      "bytes": 675,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "chinese_story",
+      "sha256": "4257da01e5a856fcf40d6018d99d1fe1f49a4a29f1357e4a575ffe772da7bc43",
+      "bytes": 1167,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "tests_verify_world_narrative",
+      "sha256": "f4661c16e9f50ec55013af978926f322f76c83240b679ab4895b4ba758228b0e",
+      "bytes": 113,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_streaming",
+      "sha256": "e4252fa8d239886768c8e916700fc7f91c4f95fd2cfa1cec6eace6c1969bd207",
+      "bytes": 1698,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "seal_ui",
+      "sha256": "a4dd7af6c8383c564e5a3f8fd86b868ee10213d674673c35f236315492dc465c",
+      "bytes": 118,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "world_integration",
+      "sha256": "7e78583a51a6d89b04f818b7bcfafea4dd3ac75960dc9834815a69827e582c57",
+      "bytes": 1480,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "enemy_visibility",
+      "sha256": "f418b6f83a26fb56cd604728a9c257a7d69e2bb26fb2a753154435b4e9c2345f",
+      "bytes": 122,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "boss_trial",
+      "sha256": "40ca5fe01f796833f86df9349d995c79331a0df70b1f9b9f124ec2b1cb7b8046",
+      "bytes": 576,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "seal_acquisition",
+      "sha256": "050e0ab21764d415aa7fb2cfcf3e416829aa7e144086e3cdfa034411889b6210",
+      "bytes": 124,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    {
+      "suite": "cartography",
+      "sha256": "8908eacc99e55db129e09fd3817dabaa601f7e389532fa467ec752d70ba0a02d",
+      "bytes": 1455,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    }
+  ]
+}

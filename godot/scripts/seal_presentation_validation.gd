@@ -12,6 +12,11 @@ func _check(condition: bool, label: String) -> void:
 func _run() -> void:
     var presentation := PRESENTATION.new()
     root.add_child(presentation)
+    presentation.play_action("cleave", "active")
+    var evicted_voice: AudioStreamPlayer2D = presentation._voices.back()
+    for unused in range(PRESENTATION.MAX_VOICES):
+        presentation.play_action("needle", "active")
+    _check(evicted_voice.is_queued_for_deletion() and not evicted_voice.playing and evicted_voice.stream == null, "voice cap releases playback before queued deletion")
     for action in PRESENTATION.IDS:
         var icon := load("res://assets/ui/seals/" + action + ".svg") as Texture2D
         _check(icon != null and icon.get_width() == 64 and icon.get_height() == 64, action + " distinct icon imports")
@@ -41,7 +46,16 @@ func _run() -> void:
     presentation.play_action("needle", "active")
     _check(presentation._voices.size() == voice_count, "mute produces no audio player")
     await create_timer(0.4).timeout
-    presentation.queue_free()
+    # Retire while the cue is still playing; waiting for completion hid the
+    # shutdown race seen by world_upgrade on fast headless CI runners.
+    presentation.muted = false
+    presentation.play_action("cleave", "active")
+    var retiring_voice: AudioStreamPlayer2D = presentation._voices.back()
+    _check(retiring_voice.playing, "cleave cue active before retirement")
+    root.remove_child(presentation)
+    _check(not retiring_voice.playing and retiring_voice.stream == null, "retirement releases live playback and stream")
+    _check(presentation._streams.is_empty() and presentation._voices.is_empty(), "retirement clears local audio ownership")
+    presentation.free()
     await process_frame
     print("SEAL_PRESENTATION_VALIDATION: %d checks, %d failures" % [checks, failures])
     quit(0 if failures == 0 else 1)

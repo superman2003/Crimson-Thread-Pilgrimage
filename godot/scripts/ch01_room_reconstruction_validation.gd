@@ -21,6 +21,44 @@ func place(point: Vector2) -> void:
     world.player.coyote_timer = 0.0
     await tick(10)
     check(world.player.is_on_floor(),"Landing settles at "+str(point))
+func resident_save_point(id: String) -> Area2D:
+    var authored: Dictionary = {}
+    for value in world.config.get("save_points", []):
+        if String(value.get("id", "")) == id:
+            authored = value
+            break
+    if authored.is_empty():
+        check(false, "save point exists in authored region " + id)
+        return null
+    var point := Vector2(float(authored.position[0]), float(authored.position[1]))
+    var prior_mode: int = world.process_mode
+    var prior_physics: bool = world.player.is_physics_processing()
+    var paused_enemies: Array[Dictionary] = []
+    for enemy in get_nodes_in_group("enemy"):
+        if is_instance_valid(enemy):
+            paused_enemies.append({"node": enemy, "mode": enemy.process_mode})
+            enemy.process_mode = Node.PROCESS_MODE_DISABLED
+    world.process_mode = Node.PROCESS_MODE_ALWAYS
+    world.player.set_physics_process(false)
+    world.player.velocity = Vector2.ZERO
+    world.player.global_position = world.to_global(point)
+    var marker: Area2D
+    for frame in 120:
+        await physics_frame
+        marker = world.get_node_or_null(NodePath(id)) as Area2D
+        var snapshot: Dictionary = world.world_gameplay_residency.snapshot()
+        if is_instance_valid(marker) and marker.is_inside_tree() and marker.get_parent() == world and String(marker.get_meta("kind", "")) == "save_point" and marker.global_position.distance_to(world.to_global(point)) <= 4.0 and bool(snapshot.window_ready) and int(snapshot.pending_build) == 0:
+            world.player.set_physics_process(prior_physics)
+            world.process_mode = prior_mode
+            for paused in paused_enemies:
+                if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+            return marker
+    world.player.set_physics_process(prior_physics)
+    world.process_mode = prior_mode
+    for paused in paused_enemies:
+        if is_instance_valid(paused.node): paused.node.process_mode = int(paused.mode)
+    check(false, "approaching save point makes its active-window interaction resident " + id)
+    return null
 func walk(a: Vector2,b: Vector2,label: String) -> void:
     for direction in [1,-1]:
         await place(a if direction == 1 else b)
@@ -87,7 +125,13 @@ func run() -> void:
     release_inputs()
     check(world.player.global_position.x<3680,"Basic jump cannot bypass deep gallery dash gate")
     for name in ["save_maze_respite","save_late_runback"]:
-        var marker: Node2D = world.get_node(name)
+        var marker: Area2D = await resident_save_point(name)
+        check(marker != null, name+" becomes resident at player focus")
+        if marker == null:
+            world.queue_free()
+            await tick(3)
+            quit(1)
+            return
         await place(marker.global_position+Vector2(0,40))
         check(absf(world.player.global_position.y-marker.global_position.y-40)<4,name+" unchanged recovery floor")
     var portal: Node2D = world.get_node("upgrade_echo_hook_1_access_a")
