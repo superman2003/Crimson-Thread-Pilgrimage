@@ -59,10 +59,16 @@ func _physics_process(delta: float) -> void:
                 if is_finite(floor_y):
                     global_position.y=floor_y-18
         else:
+            if get_parent().has_method("_ensure_collision_segment"):
+                get_parent()._ensure_collision_segment(previous, global_position)
             var query := PhysicsRayQueryParameters2D.create(previous,global_position,1)
             query.collide_with_areas=false
             var wall := get_world_2d().direct_space_state.intersect_ray(query)
-            if not wall.is_empty() and wall.get("collider") is StaticBody2D:
+            if get_parent().has_method("_rock_ray_hit"):
+                var rock: Dictionary = get_parent()._rock_ray_hit(previous, global_position)
+                if not rock.is_empty() and (wall.is_empty() or previous.distance_squared_to(rock.position) < previous.distance_squared_to(wall.position)):
+                    wall = rock
+            if not wall.is_empty() and (bool(wall.get("authored_rock", false)) or bool(wall.get("authored_static", false)) or wall.get("collider") is StaticBody2D):
                 if impact_pool:
                     global_position=wall.position-Vector2(0,5)
                     effect_kind="pool"
@@ -78,6 +84,7 @@ func _physics_process(delta: float) -> void:
                 return
     if reflected:
         for actor in get_tree().get_nodes_in_group("enemy"):
+            if actor.has_method("world_residency_active") and not actor.world_residency_active(): continue
             if actor is Node2D and actor.has_method("take_hit") and actor.global_position.distance_to(global_position)<44:
                 actor.take_hit(1,1 if velocity.x>0 else -1)
                 queue_free()

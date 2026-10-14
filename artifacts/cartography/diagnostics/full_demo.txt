@@ -1,0 +1,82 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PASS: config loads
+PASS: chapter world is expanded
+PASS: runtime map has expanded rooms
+PASS: runtime map has expanded platforms
+PASS: normal enemy spawn count expanded
+PASS: hazard count >= 6
+PASS: chapter uses combat-clear progression
+PASS: collectibles are ability/reward items only (no route tokens)
+PASS: boxgarden exposes ability gates for revisits
+PASS: thread_dash ability pickup exists
+PASS: chapter declares ability-gated start (dash locked)
+PASS: chapter has parkour segment
+PASS: map has a see-then-return one-way drop
+PASS: map has an unlockable back-door shortcut
+PASS: main route platforms reachable under player physics
+PASS: ascent parkour segment guarantees jump headroom
+PASS: boss config exists
+PASS: chapter exit config exists
+第1章 苔钟庭：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: scene spawned configured normal enemies
+PASS: scene spawned hazards
+PASS: scene spawned exactly the configured ability/reward items
+PASS: scene spawned sparse save points (2-4)
+PASS: scene spawned a hidden save point
+PASS: dash starts locked before thread_dash pickup
+PASS: boss waits behind gate
+PASS: scene spawned interactive npc
+PASS: scene loads required runtime audio visual events
+PASS: scene loads CH01-CH06 audio visual beats
+PASS: trap exists
+假苔地板轰然塌陷——下面还有路。
+PASS: trap costs 1 hp
+PASS: trap does not teleport the player
+PASS: thread_dash pickup spawned at the broken branch altar
+PASS: dash gate is sealed before pickup
+PASS: future-ability gate is sealed before pickup
+线绷直了。从今往后，「够不着」要重新丈量。
+绯线冲刺
+PASS: thread_dash pickup unlocks the dash
+PASS: dash gates open after pickup
+PASS: all dash gates open after pickup
+PASS: future-ability gates stay sealed for revisits
+PASS: hidden save point exists
+PASS: save point uses open sprite
+PASS: save point has animated halo
+安坐钟龛 · 已记下归途，恢复生命与绯线。
+PASS: F interaction activates save point
+PASS: save point restores hp
+PASS: save point restores energy
+PASS: save point activation state is marked
+F: 隐苔存档点
+归途重新开始，敌群与守门者已经归位。
+PASS: death respawns at activated save point
+PASS: death respawn restores hp
+归途重新开始，敌群与守门者已经归位。
+绯线牵你回到了上一处钟龛。
+PASS: void fall respawns at activated save point after death
+PASS: threadsmith npc exists
+PASS: F interaction advances npc dialogue
+PASS: shortcut lever exists
+捷径已通（1/1）。钟门前可以先在钟龛休息。
+PASS: combat clear opens boss route
+PASS: combat clear unlocks boss
+PASS: boss gate exists
+钟门深处 · 苔钟守母
+钟门已合，战斗开始。
+PASS: F interaction spawns boss
+PASS: boss has four distinct authored attacks
+PASS: boss has melee attack
+PASS: boss has wave attack
+PASS: boss has fan attack
+PASS: boss has rootline attack
+LORE_PICKUP 拾获「王冠裂片」——苔钟守母体内仍带余温的金属碎片，断面锋利如新。
+第一章闭环完成：苔钟庭清怪、Boss门和苔钟守母均已验证。
+前往下一片土地 · 锈冠殿后方的排水钟管被打开，潮湿铁声把你带向铸雨渠。
+PASS: demo can complete
+PASS: chapter exit exists after boss
+PASS: chapter exit points to CH02
+DEMO_VALIDATION_PASS enemies=14 hazards=9 keys=0 boss=1 combat_clear=true complete=true
+殿里的锈味很旧，旧得像一句守了太久的诺言。

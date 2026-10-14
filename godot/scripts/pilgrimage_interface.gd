@@ -2,6 +2,7 @@ extends Control
 
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const FONT := preload("res://assets/fonts/NotoSansSC.ttf")
+static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
 const IVORY := Color("eee3ce")
 const GOLD := Color("bda176")
@@ -71,8 +72,10 @@ var energy_status: Label
 var healing_bar: ProgressBar
 var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
-var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":true}
+var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false}
 var remap_target := ""
+# Polling Input ignores handled events; keep captured input out of the level loop.
+var remap_capture_frame := -1
 var remap_buttons: Dictionary={}
 var remap_status: Label
 var last_overlay := ""
@@ -81,10 +84,32 @@ var last_build_signature := ""
 var applied_player: Node
 var save_slot_buttons: Dictionary={}
 var journal_selection := 0
+var construction_complete := false
+var inventory_build_selection := ""
 
 const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动"}
 
 func bind(runtime: Node) -> void:
+    begin_bind(runtime)
+    for method in build_steps():
+        call(method)
+    finish_bind()
+
+static func build_steps() -> Array[String]:
+    return ["_build_hud", "_build_bag", "_build_dialogue", "_build_settings", "_build_build_panel"]
+
+static func survey_font() -> FontFile:
+    # Keep the zoomable map's glyph cache across region-owned HUD lifetimes.
+    # The shared font retains no level, node or signal references.
+    if _survey_font==null:
+        _survey_font=FONT.duplicate()
+        _survey_font.multichannel_signed_distance_field=true
+    return _survey_font
+
+func begin_bind(runtime: Node) -> void:
+    construction_complete=false
+    set_process(false)
+    set_process_input(false)
     level=runtime
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -100,15 +125,17 @@ func bind(runtime: Node) -> void:
     modal_shade.mouse_filter=Control.MOUSE_FILTER_IGNORE
     modal_shade.visible=false
     add_child(modal_shade)
-    _load_accessibility()
-    _build_hud()
-    _build_bag()
-    _build_dialogue()
-    _build_settings()
-    _build_build_panel()
+    # Install navigation defaults first; saved bindings then replace them.
     _bind_ui_navigation()
-    get_viewport().size_changed.connect(_fit_viewport)
+    _load_accessibility()
+
+func finish_bind() -> void:
+    if not get_viewport().size_changed.is_connected(_fit_viewport):
+        get_viewport().size_changed.connect(_fit_viewport)
     _fit_viewport()
+    construction_complete=true
+    set_process(true)
+    set_process_input(true)
 
 func _label(parent: Node, text: String, position_value: Vector2, size_value: Vector2, font_size: int=18, tint: Color=IVORY) -> Label:
     var label:=Label.new()
@@ -396,30 +423,39 @@ func _matches(category: String) -> bool:
 
 func refresh_inventory() -> void:
     if bag_grid==null:return
+    begin_inventory_refresh()
+    if bag_category=="旅记":
+        _refresh_journal()
+        return
+    for item_id in _visible_inventory_ids():
+        append_inventory_item(item_id)
+    finish_inventory_refresh()
+
+func begin_inventory_refresh() -> void:
     for node in bag_grid.get_children():
         bag_grid.remove_child(node)
         node.queue_free()
     bag_currency.text=str(level.currency_count)
-    if bag_category=="旅记":
-        _refresh_journal()
-        return
     bag_grid.columns=6
-    var selected := _reconcile_inventory_selection()
-    for item_value in _visible_inventory_ids():
-        var item_id:=String(item_value)
-        var button:=_button(bag_grid,"",Vector2.ZERO,Vector2(94,98),func():
-            level.backpack_selection=level.backpack_entry_ids.find(item_id)
-            level._refresh_backpack_detail()
-            refresh_inventory())
-        button.set_meta("item_id",item_id)
-        button.custom_minimum_size=Vector2(94,98)
-        if item_id==selected:
-            button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
-        _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
-        var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
-        var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
-        name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-        _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+    inventory_build_selection=_reconcile_inventory_selection()
+
+func append_inventory_item(item_id: String) -> void:
+    var button:=_button(bag_grid,"",Vector2.ZERO,Vector2(94,98),func():
+        level.backpack_selection=level.backpack_entry_ids.find(item_id)
+        level._refresh_backpack_detail()
+        refresh_inventory())
+    button.set_meta("item_id",item_id)
+    button.custom_minimum_size=Vector2(94,98)
+    if item_id==inventory_build_selection:
+        button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
+    _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
+    var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
+    var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
+    name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+    _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+
+func finish_inventory_refresh() -> void:
+    var selected := inventory_build_selection
     for tab in bag_tabs:
         tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     bag_pin.disabled=selected.is_empty()
@@ -619,19 +655,59 @@ func get_accessibility(key: String, fallback: Variant=null) -> Variant:
 func _load_accessibility() -> void:
     var config:=ConfigFile.new()
     if config.load(accessibility_path)!=OK:return
-    for key in accessibility:
-        accessibility[key]=config.get_value("accessibility",key,accessibility[key])
-    accessibility["subtitle_size"]=clampi(int(accessibility["subtitle_size"]),17,26)
-    accessibility["subtitle_speed"]=clampf(float(accessibility["subtitle_speed"]),0.5,2.0)
-    accessibility["camera_shake"]=clampf(float(accessibility["camera_shake"]),0,1)
-    accessibility["camera_lookahead"]=clampf(float(accessibility["camera_lookahead"]),0,1)
+    # A malformed preference must not prevent the settings screen from opening.
+    for key in ["flash_enabled","vibration_enabled","tutorial_hints"]:
+        var value: Variant=config.get_value("accessibility",key,accessibility[key])
+        if value is bool:accessibility[key]=value
+    accessibility["subtitle_size"]=int(_finite_setting(config,"subtitle_size",17,26))
+    accessibility["subtitle_speed"]=_finite_setting(config,"subtitle_speed",0.5,2.0)
+    accessibility["camera_shake"]=_finite_setting(config,"camera_shake",0,1)
+    accessibility["camera_lookahead"]=_finite_setting(config,"camera_lookahead",0,1)
     for action in REMAPPABLE_ACTIONS:
         if not InputMap.has_action(action):continue
         var events: Variant=config.get_value("bindings",action,[])
-        if events is Array and not events.is_empty():
-            InputMap.action_erase_events(action)
-            for event in events:
-                if event is InputEvent:InputMap.action_add_event(action,event)
+        if not events is Array:continue
+        var restored: Array[InputEvent]=[]
+        for event in events:
+            var binding:=_normalized_binding(event)
+            if binding!=null:restored.append(binding)
+        # Do not erase working defaults for an empty or corrupt binding list.
+        if restored.is_empty():continue
+        InputMap.action_erase_events(action)
+        for event in restored:InputMap.action_add_event(action,event)
+
+func _finite_setting(config: ConfigFile, key: String, minimum: float, maximum: float) -> float:
+    var value: Variant=config.get_value("accessibility",key,accessibility[key])
+    if not (value is int or value is float) or not is_finite(float(value)):
+        return float(accessibility[key])
+    return clampf(float(value),minimum,maximum)
+
+func _normalized_binding(value: Variant) -> InputEvent:
+    if not value is InputEvent:return null
+    var event:=value.duplicate() as InputEvent
+    if event is InputEventKey:
+        if event.physical_keycode==0 and event.keycode==0:return null
+        event.pressed=false
+        event.echo=false
+    elif event is InputEventMouseButton:
+        if event.button_index<=0 or event.button_index>MOUSE_BUTTON_XBUTTON2:return null
+        event.pressed=false
+        event.double_click=false
+    elif event is InputEventJoypadButton:
+        if event.button_index<0 or event.button_index>=JOY_BUTTON_MAX:return null
+        event.pressed=false
+        event.pressure=0.0
+    elif event is InputEventJoypadMotion:
+        if event.axis<0 or event.axis>=JOY_AXIS_MAX or not is_finite(event.axis_value) or absf(event.axis_value)<0.5:return null
+        event.axis_value=1.0 if event.axis_value>0 else -1.0
+    else:
+        return null
+    # A binding is a control, not the transient device index from one connection.
+    event.device=-1
+    return event
+
+func is_remapping_input() -> bool:
+    return settings!=null and settings.visible and (not remap_target.is_empty() or Engine.get_process_frames()<=remap_capture_frame)
 
 func _save_accessibility() -> void:
     var config:=ConfigFile.new()
@@ -662,15 +738,16 @@ func _refresh_remap_labels() -> void:
         remap_buttons[action].tooltip_text=remap_buttons[action].text
 
 func _input(event: InputEvent) -> void:
-    if level==null:return
+    if level==null or not construction_complete:return
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
-        if event is InputEventKey and event.pressed and event.keycode==KEY_ESCAPE:
+        remap_capture_frame=Engine.get_process_frames()+1
+        if event is InputEventKey and event.pressed and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE):
             remap_target=""
             remap_status.text="已取消重映射。"
             get_viewport().set_input_as_handled()
         elif (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventJoypadButton and event.pressed) or (event is InputEventJoypadMotion and absf(event.axis_value)>0.7):
-            if event is InputEventKey and event.physical_keycode in [KEY_B,KEY_TAB,KEY_I,KEY_M,KEY_V]:
+            if event is InputEventKey and event.physical_keycode in [KEY_B,KEY_TAB,KEY_I,KEY_M,KEY_V,KEY_F9]:
                 remap_status.text="此输入保留给界面快捷键，请换一个输入或 Esc 取消。"
                 get_viewport().set_input_as_handled()
                 return
@@ -678,8 +755,10 @@ func _input(event: InputEvent) -> void:
                 remap_status.text="此手柄按钮保留给界面入口，请换一个按钮或 Esc 取消。"
                 get_viewport().set_input_as_handled()
                 return
-            var accepted:=event.duplicate() as InputEvent
-            if accepted is InputEventJoypadMotion:accepted.axis_value=1.0 if accepted.axis_value>0 else -1.0
+            var accepted:=_normalized_binding(event)
+            if accepted==null:
+                get_viewport().set_input_as_handled()
+                return
             var action:=remap_target
             var conflicts: Array[String]=[]
             # Only reject a duplicate on another gameplay action on the same device;
@@ -967,7 +1046,7 @@ func _refresh_save_slots() -> void:
         button.tooltip_text="读取失败：%s。原文件会保留，请恢复备份。" % String(entry.get("error","未知错误")) if bool(entry.get("exists",false)) and not bool(entry.get("valid",false)) else "切换前会保存当前进度。\n"+status
 
 func _process(delta: float) -> void:
-    if level==null:return
+    if level==null or not construction_complete:return
     modal_shade.visible=not String(level.active_overlay).is_empty()
     hud_card.visible=not modal_shade.visible
     mechanism_status.visible=not modal_shade.visible
@@ -1020,15 +1099,9 @@ func _process(delta: float) -> void:
         toast_age=0
     toast.visible=not toast.text.is_empty()
     toast.modulate.a=clampf(5.5-toast_age,0,1)
-    prompt.visible=level.active_overlay==""
-    if prompt.visible:
-        var area: Area2D=level._nearest_interactable(140)
-        if area==null:
-            prompt.text=""
-            prompt.visible=false
-        else:
-            var kind:=String(area.get_meta("kind",""))
-            prompt.text=_short_binding("interact")+" · "+String(area.get_meta("interaction_label",("与 "+String(area.get_meta("label",area.name))+" 交谈") if kind=="npc" else area.get_meta("label","触碰旧机关")))
+    # Interaction is shown at the object by WorldWayfinding.
+    prompt.visible=false
+    prompt.text=""
     var actor: Node=level.boss_actor
     var show_boss: bool = actor!=null and is_instance_valid(actor) and not level.demo_complete and level.active_overlay==""
     boss_name.visible=show_boss

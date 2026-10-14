@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-13",
+  "parent_commit": "2499f1624f6d68a720927f09804b457c752ef782",
+  "regions": 6,
+  "world_room_views": 160,
+  "room_rim_checks": 11914,
+  "failures": 0,
+  "material_checks": 1589,
+  "async_checks": 358,
+  "passage_checks": 52,
+  "platform_checks": 15877,
+  "cave_collision_checks": 129452,
+  "terrain_collision_checks": 2289,
+  "room_gpu_probes": 12,
+  "streaming_gpu_probes": 12,
+  "metrics": [
+    {
+      "cave_edges": 334,
+      "peak_resident_rims": 66,
+      "region": "demo_ch01_moss_bell_court",
+      "rim_chunks": 431,
+      "room_views": 49,
+      "stone_platforms": 13,
+      "terrain_rims": 738,
+      "views_with_cave_rims": 42
+    },
+    {
+      "cave_edges": 293,
+      "peak_resident_rims": 52,
+      "region": "demo_ch02_rain_foundry_canal",
+      "rim_chunks": 372,
+      "room_views": 43,
+      "stone_platforms": 17,
+      "terrain_rims": 763,
+      "views_with_cave_rims": 38
+    },
+    {
+      "cave_edges": 144,
+      "peak_resident_rims": 51,
+      "region": "demo_ch03_saltwhite_archive",
+      "rim_chunks": 211,
+      "room_views": 19,
+      "stone_platforms": 6,
+      "terrain_rims": 358,
+      "views_with_cave_rims": 16
+    },
+    {
+      "cave_edges": 159,
+      "peak_resident_rims": 50,
+      "region": "demo_ch04_broken_string_greenhouse",
+      "rim_chunks": 231,
+      "room_views": 18,
+      "stone_platforms": 8,
+      "terrain_rims": 468,
+      "views_with_cave_rims": 17
+    },
+    {
+      "cave_edges": 174,
+      "peak_resident_rims": 57,
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "rim_chunks": 241,
+      "room_views": 15,
+      "stone_platforms": 6,
+      "terrain_rims": 358,
+      "views_with_cave_rims": 15
+    },
+    {
+      "cave_edges": 164,
+      "peak_resident_rims": 52,
+      "region": "demo_ch06_silent_crown_core",
+      "rim_chunks": 212,
+      "room_views": 16,
+      "stone_platforms": 7,
+      "terrain_rims": 320,
+      "views_with_cave_rims": 16
+    }
+  ],
+  "limits": [
+    "Fixture positioning and frozen actors; not natural combat playthrough",
+    "Rim resident peak is node count, not FPS or memory claim",
+    "Geometry preparation/commit can exceed the existing frame admission budget; no frame time guarantee",
+    "Existing editor RID exit errors and T03/T04 issues retained",
+    "Remote CI pending final commit"
+  ],
+  "logs": [
+    {
+      "name": "/tmp/all-rims-delivery-validation/world_rim.log",
+      "sha256": "82eb0a4ee80cdb65f2ea56925b82ed38db0c6bc3158d112e3ddfd514a553a224"
+    },
+    {
+      "name": "/tmp/all-rims-delivery-validation/world_material.log",
+      "sha256": "c90de596e73dd3abb9f5572850bbbce78c54a9be380576d87b528ddbba89ac82"
+    },
+    {
+      "name": "/tmp/all-rims-async-delivery/world_async_loading.log",
+      "sha256": "e51472f4b1a8af2064949f4e917994adee7f14f21391b6f0e8ddd680edca8b83"
+    },
+    {
+      "name": "/tmp/all-rims-regressions/world_passage.log",
+      "sha256": "4e0ff9713ff3e8f8b0f12b7f9a71ab0970b1f87b526bcf709896efe5d7f9a6cc"
+    },
+    {
+      "name": "/tmp/all-rims-regressions/world_platform_streaming.log",
+      "sha256": "2c39a6373b5cde2c038f05f865dbcd17a436488ad90a971252316b07e88db01d"
+    },
+    {
+      "name": "/tmp/all-rims-regressions/cave_collision_streaming.log",
+      "sha256": "10670029f4bf054bc9cc0f37412b0c03847cc5aafa12d6142727fd096bf3ee60"
+    },
+    {
+      "name": "/tmp/all-rims-regressions/terrain_collision_streaming.log",
+      "sha256": "56573208cafa64fab126834c976425e7771b9149ce1132e1beb1e2147b6be9a8"
+    },
+    {
+      "name": "/tmp/all-room-rims-delivery-gpu/gpu.log",
+      "sha256": "29395712adcc95c65cd7a39894c8a7c6cc712532a38aff68104366606e3c79e9"
+    },
+    {
+      "name": "/tmp/all-rims-stream-gpu/gpu.log",
+      "sha256": "48e5098d170ffabb37b5cbd258cd696a8ba4f68db7b65301e657982ae1be1332"
+    }
+  ]
+}

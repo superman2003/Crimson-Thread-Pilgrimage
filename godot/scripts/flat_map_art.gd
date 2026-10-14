@@ -188,6 +188,14 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
         var half := dimensions * 0.5
         var fill := ROCK.face(parent,PackedVector2Array([Vector2(-half.x,-half.y+14),Vector2(half.x,-half.y+14),Vector2(half.x,half.y),Vector2(-half.x,half.y)]),theme)
         fill.z_index = -5
+    if family_variant == 2 and not material_name.contains("gate") and not material_name.contains("wall"):
+        var half := dimensions*0.5
+        var body := ROCK.face(parent,PackedVector2Array([Vector2(-half.x,-half.y+minf(12,half.y)),Vector2(half.x,-half.y+minf(12,half.y)),Vector2(half.x,half.y-minf(12,half.y)),Vector2(-half.x,half.y-minf(12,half.y))]),theme)
+        body.z_index = -2
+        for ceiling in [false,true]:
+            var y := half.y if ceiling else -half.y
+            var rim := ROCK.surface_rim(parent,Vector2(-half.x,y),Vector2(half.x,y),theme,ceiling,minf(half.y,96))
+            rim.z_index = -1
     var edge := Line2D.new()
     edge.name = "WalkableEdge"
     edge.points = PackedVector2Array([Vector2(-dimensions.x * 0.5, top), Vector2(dimensions.x * 0.5, top)])

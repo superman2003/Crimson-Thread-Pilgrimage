@@ -39,7 +39,7 @@ func _run() -> void:
     var npc: Area2D = scene.get_node_or_null("npc_gate_pilgrim")
     _assert(npc != null, "gate pilgrim npc spawned")
     scene._on_interactable_entered(scene.player, npc)
-    _assert(String(scene.toast_label.text) == "按F交谈", "NPC prompt is Chinese")
+    _assert(npc.has_node("Wayfinding"), "NPC uses proximity pictogram")
     scene.player.global_position = npc.global_position
     scene._try_interact()
     _assert(scene.dialogue_panel.visible, "NPC dialogue opens panel")
