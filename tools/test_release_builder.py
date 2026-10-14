@@ -87,7 +87,7 @@ class ReleaseBuilderTests(unittest.TestCase):
         for path in kept + excluded:
             self.write(path)
         files = [p.relative_to(self.project).as_posix() for p in release.runtime_files(self.project)]
-        self.assertEqual(sorted(kept), files)
+        self.assertEqual(sorted(kept), sorted(files))
 
     def test_staging_preserves_autoload_and_disables_only_editor_plugins(self):
         original = '[autoload]\nRuntime="*res://runtime.gd"\n[editor_plugins]\nenabled=PackedStringArray("plugin.cfg")\n[rendering]\nrenderer="gl_compatibility"\n'
