@@ -89,13 +89,37 @@ func run() -> void:
 		await tick()
 	check(int(enemy.get("command_read_count")) > reads_before, "near enemy continues normal AI command sampling")
 
-	# A genuine player attack lowers HP before the actor leaves the active area.
-	scene.player.facing = 1
-	scene.player._start_attack(&"attack_1")
-	await tick(16)
+	# One real melee input, admitted only when the player can act. Keep the same
+	# resident target at a stable relative offset while its normal AI continues,
+	# then observe the HP transition frame by frame instead of assuming a fixed
+	# animation delay implies a hit.
+	var attack_ready := false
+	var ready_frames := 0
+	while ready_frames < 120 and is_instance_valid(enemy):
+		scene.player.global_position = enemy.global_position + Vector2(-64, 40)
+		scene.player.velocity = Vector2.ZERO
+		if scene.player._can_start_action():
+			attack_ready = true
+			break
+		await tick()
+		ready_frames += 1
+	check(attack_ready, "player becomes ready for the bounded resident-enemy attack probe")
+	var hp_before_attack := int(enemy.get("hp"))
+	var accepted_attack := false
+	if attack_ready:
+		scene.player.facing = 1
+		scene.player._start_attack(&"attack_1")
+		accepted_attack = float(scene.player.get("attack_timer")) > 0.0
+	var attack_frames := 0
+	while accepted_attack and is_instance_valid(enemy) and int(enemy.get("hp")) == hp_before_attack and attack_frames < 60:
+		scene.player.global_position = enemy.global_position + Vector2(-64, 40)
+		scene.player.velocity = Vector2.ZERO
+		scene.player.facing = 1
+		await tick()
+		attack_frames += 1
 	var hp_after_attack := int(enemy.get("hp"))
-	check(hp_after_attack < int(enemy.get("max_hp")), "real player melee input path damages resident enemy")
-	if int(enemy.get("hp")) <= 0:
+	check(accepted_attack and hp_after_attack < hp_before_attack, "one accepted real player melee input damages resident enemy within the bounded observation window")
+	if hp_after_attack <= 0:
 		check(false, "first melee fixture hit is partial so HP persistence can be measured")
 		await finish()
 		return

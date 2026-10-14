@@ -271,7 +271,12 @@ func _frames() -> void:
     # A real portal now rebuilds across frames. Keep the existing assertions,
     # but await completion rather than assuming two render frames are enough.
     for frame in range(2000):
-        if not is_instance_valid(current_scene) or not current_scene.chapter_transitioning:
+        if not is_instance_valid(current_scene):
+            return
+        var loader: Variant = current_scene.get("world_loader")
+        var portal_pending := bool(current_scene.get("world_portal_request_pending"))
+        var chapter_transitioning := bool(current_scene.get("chapter_transitioning"))
+        if not chapter_transitioning and not portal_pending and (loader == null or String(loader.phase) == "idle"):
             return
         await process_frame
     _check(false, "budgeted portal transition did not settle")

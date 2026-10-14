@@ -150,16 +150,27 @@ func _interact(portal_id: String, target_region: String, spawn: Vector2) -> void
         _release()
         _check(not scene.world_passage.active, "full pipe walked with collision and input")
     for frame in range(2000):
-        if not scene.chapter_transitioning:
+        if not _transition_busy():
             break
         await process_frame
-    _check(not scene.chapter_transitioning, "budgeted physical portal settles")
+    _check(not _transition_busy(), "budgeted physical portal settles including deferred request and preflight")
+    if _transition_busy():
+        _release()
+        quit(1)
+        await process_frame
+        return
     await _tick(15)
     _check(str(scene.config.id) == target_region and scene.player.global_position.distance_to(spawn) < 90, "physical portal %s arrives at destination" % portal_id)
     if failures > 0:
         print("WORLD_ROUTE_WALK_VALIDATION aborted actual=%s %s" % [str(scene.config.id),str(scene.player.global_position)])
         quit(1)
         await process_frame
+
+func _transition_busy() -> bool:
+    if not is_instance_valid(scene):
+        return false
+    var loader: Variant = scene.world_loader
+    return scene.world_portal_request_pending or scene.chapter_transitioning or scene.world_loading or (is_instance_valid(loader) and loader.phase != "idle")
 
 func _axis(direction: float) -> void:
     if direction > 0:

@@ -526,6 +526,7 @@ var boss_spawned := false
 var demo_complete := false
 var post_boss_route_open := false
 var chapter_transitioning := false
+var world_portal_request_pending := false
 var entry_spawn_override_enabled := false
 var entry_spawn_override := Vector2.ZERO
 var entered_from_config_id := ""
@@ -1338,7 +1339,7 @@ func _refresh_world_portals() -> void:
 
 
 func _activate_world_portal(area: Area2D) -> void:
-    if not world_mode or chapter_transitioning or area == null or player.hp <= 0 or player.death_timer > 0.0:
+    if not world_mode or chapter_transitioning or world_portal_request_pending or area == null or player.hp <= 0 or player.death_timer > 0.0:
         return
     var data: Dictionary = area.get_meta("world_portal_data", {})
     if not WORLD_PASSAGE.endpoint(String(config.id), String(data.get("id", ""))).is_empty():
@@ -1349,23 +1350,16 @@ func _activate_world_portal(area: Area2D) -> void:
         _toast(missing)
         return
     var next_path := WORLD_ROUTES_SCRIPT.config_path(String(data.get("target_config_id", "")))
-    if next_path.is_empty():
+    var entry := _vec2(data.get("target_spawn", [120, 500]))
+    if next_path.is_empty() or not entry.is_finite() or not FileAccess.file_exists(next_path):
         _toast("这条旧路尚未接通。")
         return
-    var entry := _vec2(data.get("target_spawn", [120, 500]))
-    if world_loader == null or world_loader.preflight(next_path, entry, world_prefetch).is_empty():
-        _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
+    if world_loader == null or world_loader.phase != "idle":
+        _toast("旧路暂未接通，仍留在当前区域。")
         return
     var shortcut := String(data.get("unlock_shortcut_id", ""))
-    if not shortcut.is_empty():
-        story_flags["world_shortcut_" + shortcut] = true
-    chapter_transitioning = true
-    _close_overlays()
-    _save_world()
-    if audio_director != null:
-        audio_director.begin_chapter_transition()
-    _play_sfx_persistent("chapter_transition", -9.0)
-    _defer_region_call("_travel_world_async", [next_path, entry])
+    world_portal_request_pending = true
+    _defer_region_call("_travel_world_async", [next_path, entry, shortcut])
 
 
 func _travel_world(next_path: String, entry: Vector2) -> void:
@@ -1379,8 +1373,19 @@ func _travel_world(next_path: String, entry: Vector2) -> void:
         _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
 
 
-func _travel_world_async(next_path: String, entry: Vector2) -> void:
-    world_loader.start_region_transition(self, next_path, entry)
+func _travel_world_async(next_path: String, entry: Vector2, shortcut: String = "") -> void:
+    if world_loader == null or world_loader.phase != "idle":
+        world_portal_request_pending = false
+        return
+    var publish_flags: Dictionary = {}
+    if not shortcut.is_empty():
+        publish_flags["world_shortcut_" + shortcut] = true
+    var ok: bool = await world_loader.replace_region_async(self, next_path, entry, Vector2.INF, publish_flags)
+    if not is_instance_valid(self) or not is_inside_tree():
+        return
+    world_portal_request_pending = false
+    if not ok:
+        _toast("旧路暂未接通，仍留在当前区域。" + world_loader.last_error)
 
 
 func _region_tween() -> Tween:
@@ -1405,9 +1410,14 @@ func _defer_region_call(method: StringName, arguments: Array = []) -> void:
 
 
 func _run_region_deferred(generation: int, method: StringName, arguments: Array) -> void:
+    var portal_request := method == "_travel_world_async"
     if _walking_world_passage():
+        if portal_request:
+            world_portal_request_pending = false
         return
     if world_loader != null and world_loader.generation != generation:
+        if portal_request:
+            world_portal_request_pending = false
         return
     for argument in arguments:
         if typeof(argument) == TYPE_OBJECT and not is_instance_valid(argument):

@@ -64,7 +64,7 @@ func bind(owner_host: Node) -> void:
     z_index = 0
 
 func try_walk_entry() -> void:
-    if active or settling or host.world_loading or host.chapter_transitioning or not host.active_overlay.is_empty() or host.player.hp <= 0:
+    if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or not host.active_overlay.is_empty() or host.player.hp <= 0:
         return
     for passage in routes():
         for side in ["a", "b"]:
@@ -85,7 +85,7 @@ func try_walk_entry() -> void:
                 return
 
 func begin(portal_id: String) -> bool:
-    if active or settling or host.world_loading or host.chapter_transitioning or host.world_loader.phase != "idle" or host.player.hp <= 0 or host.player.death_timer > 0:
+    if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or host.world_loader.phase != "idle" or host.player.hp <= 0 or host.player.death_timer > 0:
         return false
     var connection := endpoint(String(host.config.id), portal_id)
     if connection.is_empty():
@@ -103,9 +103,13 @@ func begin(portal_id: String) -> bool:
         return false
     destination_id = String(connection.target.region)
     var target: Dictionary = connection.target_portal
-    var entry := Vector2(target.position[0], target.position[1])
-    if host.world_loader.preflight(ROUTES.config_path(destination_id), entry, host.world_prefetch).is_empty():
-        host._toast(host.world_loader.last_error)
+    var target_config_path := ROUTES.config_path(destination_id)
+    if target.is_empty() or not target.get("position", []) is Array or target.position.size() < 2:
+        host._toast("旧路目标入口记录无效。")
+        return false
+    var entry := Vector2(float(target.position[0]), float(target.position[1]))
+    if target_config_path.is_empty() or not entry.is_finite() or not FileAccess.file_exists(target_config_path):
+        host._toast("旧路目标区域暂不可用。")
         return false
     route = connection.passage.duplicate(true)
     source_id = String(host.config.id)
@@ -285,14 +289,20 @@ func _arrive() -> void:
     var entry := COORDINATES.to_local(destination_id, world_point)
     # Keep the tube until target construction commits. The source remains the
     # saved checkpoint on cancellation/error; no half-built destination is saved.
-    host.player.collision_layer = original_layer
-    host.player.collision_mask = original_mask
-    host.world_loading = false
+    # Keep the player on TRANSIT collision and the host input gate closed while
+    # the loader performs its budgeted target preflight. No source handoff occurs
+    # until that preflight succeeds.
+    host.world_loading = true
     var ok: bool = await host.world_loader.replace_region_async(host, ROUTES.config_path(destination_id), entry, source_point)
     if not is_instance_valid(host) or not host.is_inside_tree():
         return
     if ok:
         last_result = {"arrived": true, "distance": travelled, "world_position": world_point}
+        # The loader snapshots collision after preflight, which is TRANSIT while
+        # riding the passage. Restore the source player's normal collision at
+        # the same non-yielding arrival boundary before retiring the tube.
+        host.player.collision_layer = original_layer
+        host.player.collision_mask = original_mask
         _clear()
         host._configure_player_camera()
         host.player.reset_camera_after_arrival()
