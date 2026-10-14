@@ -39,15 +39,34 @@ var cache_hits := 0
 var failures := 0
 var stale_results := 0
 var max_jobs_seen := 0
+# A physical passage can pin its terminal while the player walks the tube. This
+# keeps detached gameplay/texture work alive for delayed activation at arrival.
+var pinned_region: Dictionary = {}
+
+func pin_region(region_id: String, path: String, entry: Vector2) -> void:
+    if region_id.is_empty() or path.is_empty() or not entry.is_finite():
+        return
+    pinned_region = {region_id: {"path": path, "entry": entry, "distance": 0.0}}
+    desired = pinned_region.duplicate(true)
+    selection_elapsed = 0.0
+
+func unpin_region(region_id: String = "") -> void:
+    if not region_id.is_empty() and not pinned_region.has(region_id):
+        return
+    pinned_region.clear()
+    desired.clear()
+    selection_elapsed = 1.0
+
 
 func step(host: Node, delta: float) -> void:
     if not is_instance_valid(host.player):
         return
     var started := Time.get_ticks_usec()
     if generation != host.world_loader.generation:
+        var preserved_pin := pinned_region.duplicate(true)
         generation = host.world_loader.generation
         _clear_entities()
-        desired.clear()
+        desired = preserved_pin
         configs.clear()
         retained.clear()
         queue.clear()
@@ -55,7 +74,10 @@ func step(host: Node, delta: float) -> void:
     selection_elapsed += maxf(delta, 0)
     if selection_elapsed >= 0.25:
         selection_elapsed = 0
-        _select(host)
+        if pinned_region.is_empty():
+            _select(host)
+        else:
+            desired = pinned_region.duplicate(true)
     gameplay.synchronize(desired, configs, generation)
     var retired := _retire_entities(started)
     gameplay.retire(started, 2 - retired)
@@ -266,6 +288,9 @@ func take_platform(region_id: String, data: Dictionary) -> StaticBody2D:
     return record.body
 
 func _select(host: Node) -> void:
+    if not pinned_region.is_empty():
+        desired = pinned_region.duplicate(true)
+        return
     var nearest: Dictionary = {}
     for portal in host.config.get("interactives", []):
         if String(portal.get("kind", "")) != "world_portal":
@@ -324,7 +349,8 @@ func snapshot() -> Dictionary:
     return {"gameplay": gameplay.snapshot(), "rock_chunks": rocks, "terrain_polygons": polygons, "rock_hits": rock_hits, "terrain_hits": terrain_hits, "retiring_bodies": retiring.size(), "owned_bodies": _entity_count() + retiring.size(), "entity_regions": entities.size(), "entity_bodies": _entity_count(), "entity_builds": entity_builds, "entity_hits": entity_hits, "entity_releases": entity_releases, "max_entities": max_entities,
         "regions": configs.size(), "textures": count, "jobs": jobs.size(), "queued": queue.size(),
         "config_reads": config_reads, "cache_hits": cache_hits, "failures": failures,
-        "stale_results": stale_results, "max_jobs": max_jobs_seen, "generation": generation}
+        "stale_results": stale_results, "max_jobs": max_jobs_seen, "generation": generation,
+        "pinned_region": String(pinned_region.keys()[0]) if not pinned_region.is_empty() else ""}
 
 func shutdown() -> void:
     # Only whole-journey teardown may wait for the <=2 outstanding jobs.
@@ -341,3 +367,4 @@ func shutdown() -> void:
     retained.clear()
     desired.clear()
     paths.clear()
+    pinned_region.clear()
