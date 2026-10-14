@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>六城声场 · 绯线巡礼音频审阅</title><link rel="stylesheet" href="review.css"></head>
+<body>
+<header><div class="eyebrow">CRIMSON THREAD PILGRIMAGE · SOUND ARCHIVE</div><h1>六城声场<span>听见路径，辨认危险。</span></h1><p>音乐、动作与环境的统一审阅室。全部声音为原创合成；游戏内接入与人工听感验收仍待完成。</p><div class="totals" id="totals"></div></header>
+<nav aria-label="审阅模式"><button id="libraryTab" class="selected" aria-pressed="true">声音档案</button><button id="mixTab" aria-pressed="false">场景混音台</button><a href="README.md">交付与验证说明 ↗</a></nav>
+<main>
+<section id="libraryView" aria-label="声音档案">
+<div class="filters"><label>类别<select id="kind"><option value="all">全部声音</option><option value="music">音乐</option><option value="sfx">动作 / 交互</option><option value="ambience">环境 / 地标</option></select></label><label>地区<select id="region"><option value="all">全部地区</option></select></label><label class="search">检索<input id="search" type="search" placeholder="名称、事件或声音 ID"></label></div>
+<div class="archive"><div class="track-list" id="trackList" aria-label="声音列表"></div><article class="detail"><div class="eyebrow" id="detailKind"></div><h2 id="detailTitle">选择一条声音</h2><p id="detailDescription"></p><audio id="audition" controls preload="none"></audio><label class="check"><input type="checkbox" id="auditionLoop">循环试听</label><dl id="detailMetadata"></dl><a id="sourceLink" download>下载原始音频 ↗</a><p class="note">逐条试听与混音台互斥。切换声音会停止上一条，音量保留。系统音量仍由设备控制。</p></article></div>
+</section>
+<section id="mixView" hidden aria-label="场景混音台">
+<div class="mix-heading"><div><div class="eyebrow">A ROOM IN THREE LAYERS</div><h2>让声音退到正确的位置。</h2><p>把环境、地标与音乐叠在一起，检查遮挡、距离和预警让位。</p></div><label>地区<select id="mixRegion"></select></label></div>
+<div class="mix-grid"><article class="soundstage"><div class="stage-label"><span id="stageRegion">无声王冠</span><span id="stageMode">空间试听</span></div><div class="stage-art" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="listener">你</div><div class="landmark">声源</div><div class="wall"></div></div><div class="stage-bottom"><span id="distanceLabel">距离 8 米</span><span id="occlusionLabel">无遮挡</span></div><p id="mixStatus" role="status">按下播放才会加载和发声。</p><div class="actions"><button class="primary" id="mixPlay">开始场景</button><button id="mixStop">停止全部</button></div></article>
+<article class="mix-controls"><label>音乐情境<select id="musicState"><option value="exploration">探索</option><option value="combat">战斗层独听</option><option value="boss">首领</option><option value="lullaby">钟龛休息</option></select></label><label>总音量 <output id="masterValue">35%</output><input id="master" type="range" min="0" max="70" value="35"></label><label>声源距离 <output id="distanceValue">8 m</output><input id="distance" type="range" min="0" max="40" value="8"></label><label>左右位置 <output id="panValue">0</output><input id="pan" type="range" min="-100" max="100" value="0"></label><label class="check"><input id="occluded" type="checkbox">隔墙遮挡</label><label class="check"><input id="reverb" type="checkbox" checked>房间反射</label><button id="warning">播放区域预警 · 环境与音乐让位</button><p class="note">音乐情境切换做短交叉淡化；相同情境保持播放位置。距离、遮挡与混响只作用于可定位地标，预警不被自身压低。</p><p class="note">这是浏览器独立混音模型，参数与引擎声场可能不同，不能代替游戏内测试。</p></article></div>
+</section>
+<p id="error" role="alert" hidden></p>
+</main><footer>RESOURCE REVIEW · S01 / S02 / S03 <span>没有自动播放 · 离开页面停止声音</span></footer>
+<script src="catalog.js"></script><script src="review.js"></script>
+</body></html>
