@@ -138,7 +138,7 @@ func _step_identity() -> void:
 	if not _finite_tuple(item.get("position"), 2): return _fail("目标区域的%s落点无效。" % field)
 	for size_field in ["interaction_size", "body_size", "hurtbox_size"]:
 		if not item.has(size_field): continue
-		if size_field != "interaction_size" and item[size_field] == []: continue
+		if size_field != "interaction_size" and item[size_field] is Array and item[size_field].is_empty(): continue
 		var size: Variant = item[size_field]
 		if not _finite_tuple(size, 2) or float(size[0]) <= 0 or float(size[1]) <= 0: return _fail("目标区域的%s尺寸无效。" % size_field)
 	_record_i += 1

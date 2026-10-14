@@ -110,6 +110,11 @@ func _validator_fixed_errors() -> void:
 	if not overlay.get("platforms", []).is_empty():
 		bad = base.duplicate(true); bad.platforms.append(overlay.platforms[0].duplicate(true))
 		cases.append({"raw": bad, "error": "目标区域的平台身份重复。", "name": "post-overlay duplicate platform identity"})
+	for size_field in ["body_size", "hurtbox_size"]:
+		bad = base.duplicate(true)
+		bad["enemy_spawns"][0][size_field] = {}
+		cases.append({"raw": bad, "name": "dictionary " + size_field,
+			"error": "目标区域的%s尺寸无效。" % size_field})
 	for item in cases:
 		_fixed_case(item.raw, item.error, item.name, path, entry)
 	# Route overlays are applied before world size and platform identity checks.
@@ -178,6 +183,11 @@ func _loader_preflight_checks() -> void:
 	scene.currency_count += 17
 	scene._toggle_map()
 	_check(scene.active_overlay == "map" and bool(scene.player.get("ui_input_locked")), "overlay fixture opens real source map and locks gameplay input")
+	# Map opening queues its real SFX attachment. Settle fixture setup before
+	# taking exact node identities; do not exclude audio nodes from isolation.
+	await process_frame
+	await process_frame
+	_check(scene.pending_sfx_players.is_empty(), "source map fixture finishes deferred audio attachment before snapshot")
 	var baseline := _source_snapshot(scene)
 	var invalid_path := "res://data/not_a_region.json"
 	var invalid_ok: bool = await loader.replace_region_async(scene, invalid_path, Vector2(120,500))
