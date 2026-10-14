@@ -1,0 +1,68 @@
+{
+  "status": "candidate_not_integrated",
+  "version": 1,
+  "authorship": "Original hand-authored SVG paths; rasterized with Inkscape. Not AI image generation.",
+  "canvas": [
+    128,
+    128
+  ],
+  "pivot": [
+    64,
+    64
+  ],
+  "alpha": "straight RGBA, transparent exterior",
+  "frame_order": [
+    "notice",
+    "focus",
+    "locked"
+  ],
+  "loop": false,
+  "timing": "Drive by existing windup progress, not fixed FPS. See README.",
+  "assets": [
+    {
+      "id": "parry",
+      "color": "#FFB847",
+      "sheet": "sheets/parry_sheet.png",
+      "size": [
+        384,
+        128
+      ],
+      "frames": 3,
+      "cell": [
+        128,
+        128
+      ],
+      "semantic": "PARRY / shield"
+    },
+    {
+      "id": "evade",
+      "color": "#E63950",
+      "sheet": "sheets/evade_sheet.png",
+      "size": [
+        384,
+        128
+      ],
+      "frames": 3,
+      "cell": [
+        128,
+        128
+      ],
+      "semantic": "EVADE / split diamond"
+    },
+    {
+      "id": "impact",
+      "color": "#7FD6CA",
+      "sheet": "sheets/impact_sheet.png",
+      "size": [
+        384,
+        128
+      ],
+      "frames": 3,
+      "cell": [
+        128,
+        128
+      ],
+      "semantic": "IMPACT / landing target"
+    }
+  ]
+}
