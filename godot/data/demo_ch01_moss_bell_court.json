@@ -137,8 +137,8 @@
       "danger": "落点干净，但苔藓机关和敌人前摇仍会要命。",
       "next": "苔落走廊",
       "setpiece": "塌半边的朝圣旧阶",
-      "traversal_focus": "安全试跳",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "单跳与可变跳高；敌人不进入断阶",
+      "pacing_role": "safe_arrival",
       "visit_rects": [
         [
           90,
@@ -157,7 +157,13 @@
           400,
           540
         ]
-      }
+      },
+      "camera_bounds": [
+        90,
+        2900,
+        900,
+        718
+      ]
     },
     {
       "id": "moss_descent",
@@ -186,8 +192,8 @@
       "danger": "湿苔打滑，坠口无回头路。",
       "next": "初鸣钟龛",
       "setpiece": "断钟舌吊在走廊尽头",
-      "traversal_focus": "下劈教学",
-      "pacing_role": "explore_and_loop",
+      "traversal_focus": "孤立庭兽，先看蜷头前摇，再利用收招挥刃",
+      "pacing_role": "single_enemy_read_and_punish",
       "visit_rects": [
         [
           970,
@@ -195,6 +201,12 @@
           560,
           316
         ]
+      ],
+      "camera_bounds": [
+        970,
+        3136,
+        560,
+        700
       ]
     },
     {
@@ -224,8 +236,8 @@
       "danger": "安全屋，稍作歇息。",
       "next": "窄苔缝",
       "setpiece": "第一座苔灯",
-      "traversal_focus": "存档教学",
-      "pacing_role": "respite",
+      "traversal_focus": "受伤且绯线足够时首次提示缝补，随后以苔灯图标引导休息",
+      "pacing_role": "recover_and_record",
       "visit_rects": [
         [
           1520,
@@ -244,7 +256,13 @@
           190,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        1520,
+        3256,
+        380,
+        576
+      ]
     },
     {
       "id": "crawl_gate",
@@ -282,6 +300,12 @@
           500,
           402
         ]
+      ],
+      "camera_bounds": [
+        1920,
+        3324,
+        500,
+        576
       ]
     },
     {
@@ -311,8 +335,8 @@
       "danger": "开阔中庭利于机动，也利于敌人合围。",
       "next": "四方",
       "setpiece": "倒悬巨钟的空腔",
-      "traversal_focus": "垂直枢纽分流",
-      "pacing_role": "hub",
+      "traversal_focus": "入庭先观察上下分叉；庭兽在西岸远端，保留入口缓冲",
+      "pacing_role": "decision_then_encounter",
       "visit_rects": [
         [
           2420,
@@ -331,7 +355,13 @@
           400,
           540
         ]
-      }
+      },
+      "camera_bounds": [
+        2360,
+        1910,
+        1740,
+        2080
+      ]
     },
     {
       "id": "bellbone_station",
@@ -369,6 +399,12 @@
           420,
           250
         ]
+      ],
+      "camera_bounds": [
+        2020,
+        2664,
+        420,
+        576
       ]
     },
     {
@@ -407,6 +443,12 @@
           1500,
           290
         ]
+      ],
+      "camera_bounds": [
+        2940,
+        2244,
+        1500,
+        576
       ]
     },
     {
@@ -445,6 +487,12 @@
           360,
           246
         ]
+      ],
+      "camera_bounds": [
+        1520,
+        2664,
+        360,
+        576
       ]
     },
     {
@@ -483,6 +531,12 @@
           450,
           1268
         ]
+      ],
+      "camera_bounds": [
+        3560,
+        848,
+        450,
+        1268
       ]
     },
     {
@@ -521,6 +575,12 @@
           440,
           252
         ]
+      ],
+      "camera_bounds": [
+        3840,
+        502,
+        440,
+        576
       ]
     },
     {
@@ -559,6 +619,12 @@
           340,
           246
         ]
+      ],
+      "camera_bounds": [
+        3920,
+        714,
+        340,
+        576
       ]
     },
     {
@@ -608,7 +674,13 @@
           400,
           365
         ]
-      }
+      },
+      "camera_bounds": [
+        2790,
+        326,
+        1100,
+        576
+      ]
     },
     {
       "id": "hidden_attic",
@@ -646,6 +718,12 @@
           330,
           338
         ]
+      ],
+      "camera_bounds": [
+        4300,
+        324,
+        330,
+        576
       ]
     },
     {
@@ -684,6 +762,12 @@
           730,
           336
         ]
+      ],
+      "camera_bounds": [
+        4680,
+        154,
+        730,
+        576
       ]
     },
     {
@@ -722,6 +806,12 @@
           900,
           382
         ]
+      ],
+      "camera_bounds": [
+        2240,
+        284,
+        900,
+        576
       ]
     },
     {
@@ -760,6 +850,12 @@
           300,
           240
         ]
+      ],
+      "camera_bounds": [
+        1910,
+        204,
+        300,
+        576
       ]
     },
     {
@@ -824,7 +920,13 @@
         "reward_ids": [
           "upgrade_echo_hook_1_access_a"
         ]
-      }
+      },
+      "camera_bounds": [
+        4490,
+        2294,
+        440,
+        576
+      ]
     },
     {
       "id": "moth_roost",
@@ -862,6 +964,12 @@
           860,
           298
         ]
+      ],
+      "camera_bounds": [
+        4950,
+        2234,
+        860,
+        576
       ]
     },
     {
@@ -922,7 +1030,13 @@
         ],
         "enemy_ids": [],
         "reward_ids": []
-      }
+      },
+      "camera_bounds": [
+        5750,
+        2294,
+        640,
+        576
+      ]
     },
     {
       "id": "bell_gap_crossing",
@@ -960,6 +1074,12 @@
           620,
           240
         ]
+      ],
+      "camera_bounds": [
+        6300,
+        2244,
+        620,
+        576
       ]
     },
     {
@@ -998,6 +1118,12 @@
           450,
           696
         ]
+      ],
+      "camera_bounds": [
+        2800,
+        4010,
+        450,
+        696
       ]
     },
     {
@@ -1036,6 +1162,12 @@
           1040,
           546
         ]
+      ],
+      "camera_bounds": [
+        2780,
+        4624,
+        1040,
+        576
       ]
     },
     {
@@ -1076,7 +1208,13 @@
         ]
       ],
       "visibility": "dark",
-      "vision_radius": 360
+      "vision_radius": 360,
+      "camera_bounds": [
+        3120,
+        4924,
+        500,
+        576
+      ]
     },
     {
       "id": "underway",
@@ -1114,6 +1252,12 @@
           760,
           304
         ]
+      ],
+      "camera_bounds": [
+        2320,
+        5064,
+        760,
+        576
       ]
     },
     {
@@ -1176,7 +1320,13 @@
         "reward_ids": [
           "col_energy_spindle"
         ]
-      }
+      },
+      "camera_bounds": [
+        3720,
+        4924,
+        400,
+        576
+      ]
     },
     {
       "id": "sluice_hall",
@@ -1214,6 +1364,12 @@
           480,
           256
         ]
+      ],
+      "camera_bounds": [
+        2100,
+        5164,
+        480,
+        576
       ]
     },
     {
@@ -1252,6 +1408,12 @@
           470,
           2534
         ]
+      ],
+      "camera_bounds": [
+        2080,
+        3118,
+        470,
+        2534
       ]
     },
     {
@@ -1301,7 +1463,13 @@
           330,
           285
         ]
-      }
+      },
+      "camera_bounds": [
+        2560,
+        5364,
+        660,
+        576
+      ]
     },
     {
       "id": "well_throat",
@@ -1339,6 +1507,12 @@
           1170,
           336
         ]
+      ],
+      "camera_bounds": [
+        3260,
+        5524,
+        1170,
+        576
       ]
     },
     {
@@ -1377,6 +1551,12 @@
           640,
           674
         ]
+      ],
+      "camera_bounds": [
+        340,
+        3610,
+        640,
+        674
       ]
     },
     {
@@ -1415,6 +1595,12 @@
           680,
           464
         ]
+      ],
+      "camera_bounds": [
+        1040,
+        3824,
+        680,
+        576
       ]
     },
     {
@@ -1453,6 +1639,12 @@
           450,
           794
         ]
+      ],
+      "camera_bounds": [
+        1520,
+        4310,
+        450,
+        794
       ]
     },
     {
@@ -1491,6 +1683,12 @@
           340,
           244
         ]
+      ],
+      "camera_bounds": [
+        2030,
+        4152,
+        340,
+        576
       ]
     },
     {
@@ -1553,7 +1751,13 @@
         "reward_ids": [
           "save_maze_respite"
         ]
-      }
+      },
+      "camera_bounds": [
+        1300,
+        4624,
+        440,
+        576
+      ]
     },
     {
       "id": "broken_branch_altar",
@@ -1591,6 +1795,12 @@
           1260,
           426
         ]
+      ],
+      "camera_bounds": [
+        840,
+        5024,
+        1260,
+        576
       ]
     },
     {
@@ -1629,6 +1839,12 @@
           360,
           246
         ]
+      ],
+      "camera_bounds": [
+        480,
+        4984,
+        360,
+        576
       ]
     },
     {
@@ -1667,6 +1883,12 @@
           760,
           288
         ]
+      ],
+      "camera_bounds": [
+        4040,
+        3444,
+        760,
+        576
       ]
     },
     {
@@ -1705,6 +1927,12 @@
           510,
           434
         ]
+      ],
+      "camera_bounds": [
+        4820,
+        3384,
+        510,
+        576
       ]
     },
     {
@@ -1734,8 +1962,8 @@
       "danger": "钟龛内可整备；门后才是守母的领域。",
       "next": "锈冠殿",
       "setpiece": "三钟祈愿碑与殿前烛台",
-      "traversal_focus": "无遮挡的短重试路线",
-      "pacing_role": "respite_before_boss",
+      "traversal_focus": "歇脚、构筑与观察钟门；守卫不进入钟龛",
+      "pacing_role": "safe_boss_retry",
       "visit_rects": [
         [
           5220,
@@ -1767,7 +1995,13 @@
         "reward_ids": [
           "save_late_runback"
         ]
-      }
+      },
+      "camera_bounds": [
+        5170,
+        3424,
+        500,
+        576
+      ]
     },
     {
       "id": "rust_crown_hall",
@@ -1816,7 +2050,13 @@
           390,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        5660,
+        3484,
+        780,
+        576
+      ]
     },
     {
       "id": "crown_treasury",
@@ -1865,7 +2105,13 @@
           210,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        6480,
+        3424,
+        420,
+        576
+      ]
     },
     {
       "id": "drain_bellpipe",
@@ -1914,7 +2160,13 @@
           200,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        6940,
+        3464,
+        400,
+        576
+      ]
     }
   ],
   "ai_profiles": {
@@ -6329,12 +6581,12 @@
       "role": "threadsmith",
       "dialogue": [
         "先把手伸过来。你的线还热，能缝伤口，也能割断旧锁。别急着把它用光。",
-        "沿苔土路往下走，穿过矮洞就到外庭。F 交谈，右键缝补；冲刺要去断枝祭坛找。"
+        "先站稳，再缝伤口。庭兽收住口的时候，你也能收住自己的线。断枝祭坛那边，还留着一段绷直的线。"
       ],
       "story_dialogue": {
         "first_meet": [
           "先把手伸过来。你的线还热，能缝伤口，也能割断旧锁。别急着把它用光。",
-          "沿苔土路往下走，穿过矮洞就到外庭。F 交谈，右键缝补；冲刺要去断枝祭坛找。"
+          "先站稳，再缝伤口。庭兽收住口的时候，你也能收住自己的线。断枝祭坛那边，还留着一段绷直的线。"
         ],
         "repeat": [
           "我每缝好一个结，就记起一点旧事。今天记起的是姐姐的手，她总比我稳。"
@@ -6369,7 +6621,7 @@
         3712
       ],
       "dialogue_topics": {
-        "route": "沿苔土路往下走，穿过矮洞就到外庭。F 交谈，右键缝补；冲刺要去断枝祭坛找。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "route": "穿过矮洞就是钟庭。高处有钟塔，西面的苔脉通向断枝祭坛；要歇脚，就找亮着的苔灯。",
         "wish": "如果路上捡到完整的心结，回来给我看看。我想知道城外的人怎么收针。"
       }
     },
@@ -6585,7 +6837,7 @@
       "id": "E01",
       "kind": "moss_larva",
       "position": [
-        1140,
+        1190,
         3572
       ],
       "platform_id": "md_run",
@@ -6599,20 +6851,50 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/moss_larva/atlas.png",
-      "patrol": 90,
-      "leash_radius": 220,
+      "patrol": 32,
+      "leash_radius": 110,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 30,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "短促咬击；蜷壳蓄力后扑身"
+      "combat_identity": "短促咬击；蜷壳蓄力后扑身",
+      "hp": 3,
+      "encounter_role": "first_readable_duel",
+      "encounter_profile": {
+        "move_speed": 38,
+        "aggro_range": 160,
+        "attack_desire_gain": 0.85,
+        "attacks": [
+          {
+            "id": "larva_snap",
+            "name": "抬头咬击",
+            "type": "melee",
+            "range": 85,
+            "windup": 0.55,
+            "active": 0.24,
+            "recover": 1.15,
+            "cooldown": 2.3,
+            "hit_width": 66,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "抬头咬击",
+            "blockable": true,
+            "start_cooldown": 0.8
+          }
+        ]
+      }
     },
     {
       "id": "E02",
       "kind": "moss_larva",
       "position": [
-        2620,
+        2840,
         3852
       ],
       "platform_id": "hub_floor_w",
@@ -6626,14 +6908,18 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/moss_larva/atlas.png",
-      "patrol": 90,
-      "leash_radius": 220,
+      "patrol": 65,
+      "leash_radius": 150,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 30,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "短促咬击；蜷壳蓄力后扑身"
+      "combat_identity": "短促咬击；蜷壳蓄力后扑身",
+      "encounter_role": "hub_far_bank_guard",
+      "encounter_profile": {
+        "aggro_range": 180
+      }
     },
     {
       "id": "E03",
@@ -6951,13 +7237,14 @@
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/gear_sentinel/atlas.png",
       "patrol": 100,
-      "leash_radius": 230,
+      "leash_radius": 150,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 62,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "架盾诱击后盾突，长矛保持距离"
+      "combat_identity": "架盾诱击后盾突，长矛保持距离",
+      "encounter_role": "terrace_guard_before_respite"
     }
   ],
   "boss": {
@@ -14390,5 +14677,6 @@
     "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
   },
   "boss_route_via_exploration": true,
-  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。"
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "first_journey_teaching": true
 }

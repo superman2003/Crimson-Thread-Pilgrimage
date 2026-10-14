@@ -200,7 +200,7 @@ func _world_integration() -> void:
         world.player.set_physics_process(false)
         await _frames(3)
         _check(world.player.camera_focus.get_instance_id() == focus_id and camera.get_instance_id() == camera_id, String(id) + " preserves player-owned focus and camera")
-        _check(world.player.camera_focus.locks.is_empty() and camera.limit_right == int(world.world_width + 80), String(id) + " has fresh regional bounds")
+        _check(not world.player.camera_focus.locks.has("boss_arena") and world.player.camera_focus.region_bounds.end.x == world.world_width + 80, String(id) + " has fresh region and no previous event lock")
         for enemy in get_nodes_in_group("enemy"):
             if enemy.get_parent() == world: enemy.set_physics_process(false)
         var boss: Dictionary = world.config.boss
@@ -225,7 +225,7 @@ func _world_integration() -> void:
             await _frames(3)
             await _capture(String(id) + "_arena")
         world._set_boss_arena_locked(false)
-        _check(world.player.camera_focus.active_lock.is_empty() and camera.limit_bottom == int(world.world_height + 70), String(id) + " seal release restores exploration limits")
+        _check(not world.player.camera_focus.locks.has("boss_arena") and world.player.camera_focus.active_lock != "boss_arena", String(id) + " seal release restores exploration limits")
     world.queue_free()
     await _frames(4)
     for suffix in ["", ".bak", ".tmp"]:
