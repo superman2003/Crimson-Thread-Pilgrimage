@@ -52,7 +52,7 @@ def runtime_files(project: Path) -> list[Path]:
                 if source.read(len(LFS_POINTER)) == LFS_POINTER:
                     raise ValueError(f"Unhydrated Git LFS asset: {relative}; run git lfs pull --include='godot/**'")
             files.append(path)
-    return files
+    return sorted(files)
 
 
 def notice_files(root: Path) -> list[Path]:
