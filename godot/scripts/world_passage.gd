@@ -14,6 +14,7 @@ const PATH := "res://data/world_passages.json"
 const TRANSIT_LAYER := 64
 static var definitions: Array = []
 static var connections: Dictionary = {}
+static var connection_generation := -1
 var active := false
 var settling := false
 var retry_blocked := false
@@ -45,6 +46,13 @@ static func routes() -> Array:
     return definitions.duplicate(true)
 
 static func endpoint(region: String, portal: String) -> Dictionary:
+    var current_generation := ROUTES.cached_generation()
+    if current_generation < 0:
+        return {}
+    if connection_generation != current_generation:
+        definitions.clear()
+        connections.clear()
+        connection_generation = current_generation
     if connections.is_empty():
         for passage in routes():
             for side in ["a", "b"]:
@@ -52,8 +60,8 @@ static func endpoint(region: String, portal: String) -> Dictionary:
                 var other: Dictionary = passage["b" if side == "a" else "a"]
                 connections[String(data.region) + ":" + String(data.portal)] = {
                     "passage": passage, "source": data, "target": other,
-                    "source_portal": ROUTES.portal(String(data.region), String(data.portal)),
-                    "target_portal": ROUTES.portal(String(other.region), String(other.portal))}
+                    "source_portal": ROUTES.cached_portal(String(data.region), String(data.portal)),
+                    "target_portal": ROUTES.cached_portal(String(other.region), String(other.portal))}
     return connections.get(region + ":" + portal, {}).duplicate(true)
 
 static func glyph(region: String, portal: String) -> String:
@@ -67,6 +75,9 @@ func bind(owner_host: Node) -> void:
 
 func try_walk_entry() -> void:
     if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or not host.active_overlay.is_empty() or host.player.hp <= 0:
+        return
+    if not ROUTES.cache_is_current():
+        host.world_loader.request_manifest_refresh(host)
         return
     for passage in routes():
         for side in ["a", "b"]:
@@ -89,6 +100,9 @@ func try_walk_entry() -> void:
 func begin(portal_id: String) -> bool:
     if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or host.world_loader.phase != "idle" or host.player.hp <= 0 or host.player.death_timer > 0:
         return false
+    if not ROUTES.cache_is_current():
+        host.world_loader.request_manifest_refresh(host)
+        return false
     var connection := endpoint(String(host.config.id), portal_id)
     if connection.is_empty():
         return false
@@ -105,7 +119,7 @@ func begin(portal_id: String) -> bool:
         return false
     destination_id = String(connection.target.region)
     var target: Dictionary = connection.target_portal
-    var target_config_path := ROUTES.config_path(destination_id)
+    var target_config_path := ROUTES.cached_config_path(destination_id)
     if target.is_empty() or not target.get("position", []) is Array or target.position.size() < 2:
         host._toast("旧路目标入口记录无效。")
         return false
@@ -366,7 +380,7 @@ func _arrive() -> void:
     # held towards the exit cannot move the body off the finite tube during IO.
     var previous_player_mode: ProcessMode = host.player.process_mode
     host.player.process_mode = Node.PROCESS_MODE_DISABLED
-    var ok: bool = await host.world_loader.replace_region_async(host, ROUTES.config_path(destination_id), entry, source_point)
+    var ok: bool = await host.world_loader.replace_region_async(host, ROUTES.cached_config_path(destination_id), entry, source_point)
     if not is_instance_valid(host) or not host.is_inside_tree():
         return
     host.player.process_mode = previous_player_mode

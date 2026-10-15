@@ -46,7 +46,10 @@ func _run() -> void:
         var copy: Variant = pref.cached_raw(path)
         if copy is Dictionary:
             copy.map_rooms.clear()
-        _check(not pref.cached_raw(path).map_rooms.is_empty(), "published cache retains detached caller ownership")
+            var reread: Variant = pref.cached_raw(path)
+            _check(reread is Dictionary and not reread.map_rooms.is_empty(), "published cache retains detached caller ownership")
+        else:
+            _check(false, "published cache retains detached caller ownership")
     var id := "demo_ch02_rain_foundry_canal"
     var path := ROUTES.config_path(id)
     var entry := Vector2(120, 500)

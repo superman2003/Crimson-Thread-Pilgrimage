@@ -12,6 +12,7 @@ const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 static var configurations: Dictionary = {}
 static var geometry: Dictionary = {}
 static var room_contours: Dictionary = {}
+static var route_generation := -1
 
 static func world_bounds() -> Rect2:
     var bounds := Rect2()
@@ -30,9 +31,20 @@ static func project(point: Vector2, layout: Dictionary) -> Vector2:
     return layout.offset + (point - layout.bounds.position) * layout.scale
 
 static func configuration(id: String) -> Dictionary:
+    var current_generation := ROUTES.cached_generation()
+    if current_generation < 0:
+        return {}
+    if route_generation != current_generation:
+        configurations.clear()
+        geometry.clear()
+        room_contours.clear()
+        route_generation = current_generation
     if not configurations.has(id):
-        var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))
-        configurations[id] = ROUTES.apply_to(raw)
+        var path := ROUTES.cached_config_path(id)
+        if path.is_empty():
+            return {}
+        var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+        configurations[id] = ROUTES.apply_to_owned_cached(raw)
     return configurations[id]
 
 static func terrain(id: String) -> Array[PackedVector2Array]:
@@ -52,6 +64,9 @@ static func terrain(id: String) -> Array[PackedVector2Array]:
     return polygons
 
 static func render(level: Node) -> void:
+    if not ROUTES.cache_is_current():
+        level.world_loader.request_manifest_refresh(level)
+        return
     var host: Control = level.map_draw_root
     var layout := frame(host.size)
     host.set_meta("world_atlas_frame", layout)
@@ -124,7 +139,7 @@ static func render(level: Node) -> void:
         for portal in data.get("interactives", []):
             if String(portal.get("kind", "")) != "world_portal": continue
             var target := String(portal.get("target_config_id", ""))
-            var peer := ROUTES.portal(target, String(portal.get("target_portal_id", "")))
+            var peer := ROUTES.cached_portal(target, String(portal.get("target_portal_id", "")))
             if peer.is_empty(): continue
             var a_key := id + ":" + String(portal.id)
             var b_key := target + ":" + String(peer.id)
