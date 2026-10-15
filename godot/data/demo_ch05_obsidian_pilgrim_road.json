@@ -160,7 +160,13 @@
           350,
           242
         ]
-      }
+      },
+      "camera_bounds": [
+        80,
+        2150,
+        860,
+        930
+      ]
     },
     {
       "id": "base_road",
@@ -198,6 +204,12 @@
           2070,
           312
         ]
+      ],
+      "camera_bounds": [
+        800,
+        2090,
+        2230,
+        900
       ]
     },
     {
@@ -247,7 +259,13 @@
           370,
           256
         ]
-      }
+      },
+      "camera_bounds": [
+        2910,
+        2180,
+        900,
+        1000
+      ]
     },
     {
       "id": "funicular_shaft",
@@ -285,6 +303,12 @@
           935,
           1124
         ]
+      ],
+      "camera_bounds": [
+        2580,
+        1300,
+        1095,
+        1660
       ]
     },
     {
@@ -323,6 +347,12 @@
           2150,
           868
         ]
+      ],
+      "camera_bounds": [
+        440,
+        1390,
+        2310,
+        1480
       ]
     },
     {
@@ -347,9 +377,9 @@
         236,
         168
       ],
-      "objective": "以营地为枢纽：东上段砌道通山顶，东侧缆车井connects山根，头顶是旗桥。",
+      "objective": "以营火为枢纽：东侧砌道通向瞭望塔，升降笼回山根，头顶旗桥通往军墓。",
       "guide": "盲钟骑士守着营火，听他讲完再走。",
-      "danger": "营地开阔，军阵合围也快。",
+      "danger": "钟轮守着营地东口；听完骑士的话，再越过石台迎战。",
       "next": "上段砌道",
       "setpiece": "盲钟营地",
       "traversal_focus": "枢纽分流",
@@ -372,7 +402,13 @@
           400,
           230
         ]
-      }
+      },
+      "camera_bounds": [
+        0,
+        1300,
+        1140,
+        950
+      ]
     },
     {
       "id": "upper_switchback",
@@ -410,6 +446,12 @@
           1860,
           750
         ]
+      ],
+      "camera_bounds": [
+        960,
+        700,
+        2020,
+        1420
       ]
     },
     {
@@ -448,6 +490,12 @@
           660,
           776
         ]
+      ],
+      "camera_bounds": [
+        2830,
+        150,
+        820,
+        1440
       ]
     },
     {
@@ -497,7 +545,13 @@
           400,
           540
         ]
-      }
+      },
+      "camera_bounds": [
+        260,
+        140,
+        3060,
+        1750
+      ]
     },
     {
       "id": "war_graves",
@@ -546,7 +600,13 @@
           195,
           272
         ]
-      }
+      },
+      "camera_bounds": [
+        0,
+        790,
+        510,
+        1000
+      ]
     },
     {
       "id": "mirror_approach",
@@ -572,10 +632,10 @@
       ],
       "objective": "穿过前庭直达镜池，死亡回跑很短。",
       "guide": "前庭中段有灯影存档点。",
-      "danger": "前庭军阵密集，冲刺保命。",
+      "danger": "暖灯之后，战车守在镜池门前；灰钉未熄时不要急着缝补。",
       "next": "镜池",
       "setpiece": "镜池前庭",
-      "traversal_focus": "短促冲刺",
+      "traversal_focus": "观察与门前交战",
       "pacing_role": "tension",
       "visit_rects": [
         [
@@ -584,6 +644,12 @@
           1060,
           284
         ]
+      ],
+      "camera_bounds": [
+        3500,
+        0,
+        1220,
+        970
       ]
     },
     {
@@ -610,7 +676,7 @@
       ],
       "objective": "击败镜池新娘，取回沉默军令，打开缆降索道。",
       "guide": "入口会在战斗时封闭。",
-      "danger": "新娘的枪阵与军令定身圈覆盖全场。",
+      "danger": "镜刃斜射后侧移影刺，半血后的迟影留在旧落点。",
       "next": "缆降索道",
       "setpiece": "山顶镜池",
       "traversal_focus": "首领战",
@@ -633,7 +699,13 @@
           360,
           220
         ]
-      }
+      },
+      "camera_bounds": [
+        4600,
+        80,
+        880,
+        920
+      ]
     },
     {
       "id": "cable_descent",
@@ -671,6 +743,12 @@
           560,
           2046
         ]
+      ],
+      "camera_bounds": [
+        5340,
+        240,
+        720,
+        2670
       ]
     },
     {
@@ -720,7 +798,13 @@
           400,
           230
         ]
-      }
+      },
+      "camera_bounds": [
+        5760,
+        2060,
+        1150,
+        950
+      ]
     }
   ],
   "ai_profiles": {
@@ -3114,7 +3198,7 @@
       "role": "route_hint",
       "dialogue": [
         "把灰抖掉再看路。灰会把平地和断崖涂成一个颜色，脚不信它就对了。",
-        "底层是巡礼长街，上山有碎石缓坡；塔内才需要连续攀登。别把每一处高地都当跳台。"
+        "从破旗哨站沿山根向东，灰烬绞盘接通升降笼；西侧砌道绕回营火，再沿上段石路登瞭望塔。塔顶暖灯之后才是镜池门。"
       ],
       "identity": "黑曜哨站的匿名向导，可能是未完全编队的前代巡礼者。",
       "motive": "想让主角保持违抗能力。",
@@ -3122,7 +3206,7 @@
       "story_dialogue": {
         "first_meet": [
           "把灰抖掉再看路。灰会把平地和断崖涂成一个颜色，脚不信它就对了。",
-          "底层是巡礼长街，上山有碎石缓坡；塔内才需要连续攀登。别把每一处高地都当跳台。"
+          "从破旗哨站沿山根向东，灰烬绞盘接通升降笼；西侧砌道绕回营火，再沿上段石路登瞭望塔。塔顶暖灯之后才是镜池门。"
         ],
         "repeat": [
           "我不保证路上没有危险，只保证指给你看的那条，是真有人走过的。"
@@ -3147,7 +3231,7 @@
         "leave": null
       },
       "dialogue_topics": {
-        "route": "底层是巡礼长街，上山有碎石缓坡；塔内才需要连续攀登。别把每一处高地都当跳台。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "route": "从破旗哨站沿山根向东，灰烬绞盘接通升降笼；西侧砌道绕回营火，再沿上段石路登瞭望塔。塔顶暖灯之后才是镜池门。",
         "wish": "看到反插的旗，请替它扶正。旗正了，迷路的人才能知道那里有人等过。"
       }
     },
@@ -3490,13 +3574,13 @@
       "id": "E07",
       "kind": "obsidian_bellwheel",
       "position": [
-        470,
-        1870
+        955,
+        1838
       ],
-      "platform_id": "camp_floor",
+      "platform_id": "camp_east_dock",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 20,
       "sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
       "visual_scale": 0.32989690721649484,
       "visual_offset": [
@@ -3507,13 +3591,64 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 55,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 56,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "钟轮冲身，双向低波逼迫起跳"
+      "combat_identity": "钟轮冲身，双向低波逼迫起跳",
+      "encounter_role": "camp_exit_guard",
+      "encounter_profile": {
+        "attacks": [
+          {
+            "id": "bellwheel_roll",
+            "name": "黑钟滚撞",
+            "type": "lunge",
+            "range": 330,
+            "windup": 0.7,
+            "active": 0.55,
+            "recover": 1.2,
+            "cooldown": 2.1,
+            "hit_width": 130,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "黑钟滚撞",
+            "lunge_speed": 300,
+            "blockable": true,
+            "start_cooldown": 0.9
+          },
+          {
+            "id": "bellwheel_waves",
+            "name": "双向钟涟",
+            "type": "wave",
+            "range": 390,
+            "windup": 0.82,
+            "active": 0.24,
+            "recover": 1.1,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "双向钟涟",
+            "shot_count": 2,
+            "projectile_speed": 265,
+            "radius": 19,
+            "blockable": false,
+            "start_cooldown": 1.5
+          }
+        ]
+      }
     },
     {
       "id": "E08",
@@ -3664,13 +3799,13 @@
       "id": "E13",
       "kind": "pilgrim_chariot",
       "position": [
-        3770,
-        622
+        4510,
+        616
       ],
-      "platform_id": "mirror_walk_a",
+      "platform_id": "boss_threshold",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 25,
       "sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
       "visual_scale": 0.3741935483870968,
       "visual_offset": [
@@ -3681,13 +3816,64 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 60,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 76,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "战车重冲，抛出灰钉形成暂时路障"
+      "combat_identity": "战车重冲，抛出灰钉形成暂时路障",
+      "encounter_role": "mirror_threshold_guard",
+      "encounter_profile": {
+        "attacks": [
+          {
+            "id": "chariot_charge",
+            "name": "巡礼战车",
+            "type": "lunge",
+            "range": 380,
+            "windup": 0.95,
+            "active": 0.65,
+            "recover": 1.15,
+            "cooldown": 2.1,
+            "hit_width": 158,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "巡礼战车",
+            "lunge_speed": 350,
+            "blockable": true
+          },
+          {
+            "id": "chariot_caltrops",
+            "name": "灰钉阵",
+            "type": "pool",
+            "range": 380,
+            "windup": 0.8,
+            "active": 0.24,
+            "recover": 1.2,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "灰钉阵",
+            "shot_count": 3,
+            "spacing": 90,
+            "radius": 28,
+            "warning": 0.8,
+            "hazard_life": 2.1,
+            "blockable": false
+          }
+        ]
+      }
     },
     {
       "id": "E14",
@@ -4594,7 +4780,7 @@
       "shared_upper_loop_recovery_loop"
     ]
   },
-  "map_title": "黑曜巡礼路 · 巡礼地图",
+  "map_title": "黑曜巡礼道 · 巡礼地图",
   "environment_blocks": [
     {
       "id": "ch05_back_wall",
@@ -5292,7 +5478,7 @@
     "notes": "Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges.",
     "cave_envelope": true
   },
-  "chapter_name": "黑曜巡礼路",
+  "chapter_name": "黑曜巡礼道",
   "interaction_design": {
     "key": "F",
     "selection": "nearest_available",

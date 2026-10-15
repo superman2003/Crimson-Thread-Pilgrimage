@@ -193,7 +193,7 @@ func room_views() -> void:
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
     pause_world(world)
-    check(world.player.room_camera.zones.is_empty() and not world.player.camera_focus.locks.has("exploration_room"), "Leaving greenhouse clears its room limits")
+    check(world.player.room_camera.zones.size() == 14 and world.player.room_camera.current.id == "ravine_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving greenhouse selects the obsidian entry and replaces its room limits")
     world._travel_world(PATH, Vector2(330, 1740))
     pause_world(world)
     check(world.player.room_camera.zones.size() == 16 and world.player.room_camera.current.id == "west_gate", "Returning rebuilds greenhouse framing without stale locks")

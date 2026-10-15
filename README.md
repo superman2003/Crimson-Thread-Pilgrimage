@@ -261,3 +261,11 @@ npm start
 [W02 第一批：苔钟庭五间原房间重构](docs/CH01_ROOM_RECONSTRUCTION.md) · [实机前后对比](docs/gallery/20261011_ch01_rooms.md)。全清单仍分批推进，验收范围见文档。
 
 [六区岩壁与整块结构材质修复：实机对比](docs/WORLD_MATERIALS.md)。
+
+## 黑曜巡礼道体验升级（2026-10-14）
+
+第五区14间房接入独立构图，缆车井、瞭望塔和下降索道随高度跟随；营地钟轮与镜池门前战车让出交谈／休息位置，保留正常伤害和双招。最终147项专项、8套相关真实GL回归与5处已落地取样通过，完整CI单独按新提交核对。第六区、工房和六区自然通关仍待验收。
+
+![巡礼营地实际GL定位取样，角色已落地、敌人暂停](artifacts/obsidian/camp.webp)
+
+[本批报告与五处画面](docs/report/20261014_obsidian_experience.md) · [验证摘要](artifacts/obsidian/verification.json)。
