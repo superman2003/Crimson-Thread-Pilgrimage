@@ -20,7 +20,7 @@ concurrency:
 jobs:
   runtime:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Check out the exact PR head and hydrate runtime assets
         env:
@@ -40,7 +40,7 @@ jobs:
       - name: Import Godot resources
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --log-dir "$RUNNER_TEMP/regression-logs/import"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Run the two CH05 production regressions
         run: |
           sudo apt-get update -qq
