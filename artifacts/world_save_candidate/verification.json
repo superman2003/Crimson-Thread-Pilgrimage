@@ -1,0 +1,227 @@
+{
+  "tested_base_commit": "21d93993fdd8ada4e4163779dbf0cbdd2584506a",
+  "engine": "Godot4.6.1 stable software OpenGL",
+  "registered_default_suites": 98,
+  "local_distinct_suites": 13,
+  "full_local_suite_run": false,
+  "strict_focused_runners_exit": 0,
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "70f8456933df477f8790b8cf9e3d9f5309360d7bfd30d201b16c7e7309e2ad32",
+    "godot/scripts/world_state.gd": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528",
+    "godot/scripts/world_save_candidate_validation.gd": "9414ba7489b3b4bc6aa6dbf291f0249af6927421db939f5a296c356c66c3131a",
+    "tools/run_godot_regressions.py": "5cb41edaea6e34b39b440a212fa103d0d6f53e27a9f2667dd1e636c0e0665a80",
+    "tools/godot_suite_success_markers.json": "3f4116d0aac54796cbd6e2e1aff54644406397598cb68a69698eb741c070ab6d",
+    "tools/test_regression_runner.py": "b2ebe31292403048470b043590ffa065ba83cbe8d4b15e3944ecc715e3f9095f"
+  },
+  "accepted_logs": [
+    {
+      "owner": "agent",
+      "suite": "world_save_candidate",
+      "sha256": "b414e5794c68a0143976548234ab75eef9e9ff1d8b7b9475305bfff5a4ab0638",
+      "completion_markers": [
+        "WORLD SAVE CANDIDATE PASS checks=70"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "observations": [
+        "SAVE CANDIDATE OBSERVATION regions=6 legacy_capture_usec=39745 candidate_prepare_usec=40370; timing only, no threshold",
+        "SAVE BUILD REPRESENTATION json_equal=true type_differences=[\"$.active_skill_slot:float->int\", \"$.active_tool_slot:float->int\", \"$.skill_levels.cleave:float->int\", \"$.skill_levels.crosscut:float->int\", \"$.skill_levels.needle:float->int\", \"$.skill_levels.shockwave:float->int\", \"$.skill_levels.snare:float->int\", \"$.skill_levels.ward:float->int\", \"$.tool_counts.fog:float->int\", \"$.tool_counts.lure:float->int\", \"$.tool_counts.mine:float->int\", \"$.tool_counts.shard:float->int\", \"$.version:float->int\"]"
+      ]
+    },
+    {
+      "owner": "agent",
+      "suite": "save_product",
+      "sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7",
+      "completion_markers": [
+        "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "agent",
+      "suite": "build_transaction_runtime",
+      "sha256": "91f3884208455d083b38546877570bc6f1ce42f55ec7d47265e60e0313fbc9c4",
+      "completion_markers": [
+        "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "observations": []
+    },
+    {
+      "owner": "agent",
+      "suite": "world_departure_snapshot",
+      "sha256": "97b7d19a57aeeaadc56982a11db6a447e6d80f9b81fb617a8f47d3332bd0746c",
+      "completion_markers": [
+        "WORLD DEPARTURE SNAPSHOT PASS checks=71"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_save_candidate",
+      "sha256": "fda898a1052b5a9de022be76670ff7c1719158ed9f4ae6a5627b507168f02249",
+      "completion_markers": [
+        "WORLD SAVE CANDIDATE PASS checks=70"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": [
+        "SAVE CANDIDATE OBSERVATION regions=6 legacy_capture_usec=44114 candidate_prepare_usec=42135; timing only, no threshold",
+        "SAVE BUILD REPRESENTATION json_equal=true type_differences=[\"$.active_skill_slot:float->int\", \"$.active_tool_slot:float->int\", \"$.skill_levels.cleave:float->int\", \"$.skill_levels.crosscut:float->int\", \"$.skill_levels.needle:float->int\", \"$.skill_levels.shockwave:float->int\", \"$.skill_levels.snare:float->int\", \"$.skill_levels.ward:float->int\", \"$.tool_counts.fog:float->int\", \"$.tool_counts.lure:float->int\", \"$.tool_counts.mine:float->int\", \"$.tool_counts.shard:float->int\", \"$.version:float->int\"]"
+      ]
+    },
+    {
+      "owner": "root",
+      "suite": "world_state",
+      "sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1",
+      "completion_markers": [
+        "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_coordinates",
+      "sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467",
+      "completion_markers": [
+        "WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_resume_regression",
+      "sha256": "2f8733e9acade740a08431d403c80c751e85e8db22af3b4b5f40afff9c8372ac",
+      "completion_markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_async_loading",
+      "sha256": "a37a0bf70b8cb00c0056656051bc70487a5781d5590b03b1db2443aa6bb0d4f1",
+      "completion_markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_host",
+      "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "completion_markers": [
+        "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "narrative_outcomes",
+      "sha256": "13bc01ffd461d56ff518fe48926ab6f97e1447ad075259a7cc60020869a973b3",
+      "completion_markers": [
+        "NARRATIVE_OUTCOMES checks=187 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_death_cache_flush",
+      "sha256": "f01a319ef58a119d972913a120e081fa8322d294687497f5e3e544c8b544f0ea",
+      "completion_markers": [
+        "WORLD_DEATH_CACHE_FLUSH checks=5 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "build_slots",
+      "sha256": "4289e1715f25fecb2c5efdb039e599d648d86bb875e7118f151a8d8cf7cf0217",
+      "completion_markers": [
+        "BUILD SLOTS PASS: 48 checks"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "observations": []
+    },
+    {
+      "owner": "root",
+      "suite": "world_passage",
+      "sha256": "ba02176143a2e91a1fb509e71317696719741a3b805463392d3303d5bb47f865",
+      "completion_markers": [
+        "WORLD PASSAGE PASS: 62 checks; physical input roundtrip, reversal, save isolation and terminal continuity"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "observations": []
+    }
+  ],
+  "earlier_rejected_attempts": [
+    {
+      "log_sha256": "af65a8135a31a0add9390bcd1ed580669051f6a4a9837e93f076726404840efa",
+      "strict_runner_exit": 1,
+      "error_count": 1,
+      "reason": "Full persisted/live build Dictionary equality rejected JSON float/int representation. Final recursive diagnostic identifies13 numeric type differences (active slots, six skill levels, four tool counts, version); whole build is compared against a JSON-normalized oracle with all fields retained."
+    }
+  ],
+  "other_checks": [
+    {
+      "check": "save-candidate-root-npm-final.log",
+      "sha256": "29bd82d1e206f055d0d01dca2d9f3a0c66e80958737329a68df65d37fba2e4a5"
+    },
+    {
+      "check": "save-candidate-root-campaign.log",
+      "sha256": "4c1daa557f6c7d872cde18f1d1917da58e1881f8bc1e2cb04a0a4c1a9a68be19"
+    },
+    {
+      "check": "import-1.log",
+      "sha256": "cf59bd5fd1792414e10d089c94b02a7b236a864a09c3275ef446165489b47bb8"
+    },
+    {
+      "check": "import-2.log",
+      "sha256": "62ff7b3cbc57fbda0f85e1c585b5e5364f367c356ddea4be8050dfb8e8611e8f"
+    }
+  ],
+  "roadmap": {
+    "task_ids": 46,
+    "optimistic_delivery_batches_at_start_including_this_batch": 22,
+    "realistic_delivery_batch_range": [
+      28,
+      36
+    ],
+    "additional_ci_repair_batches_included": false,
+    "estimate_is_not_a_guarantee": true
+  },
+  "limitations": [
+    "One complete checkpoint defensive copy, build serialization, validation, JSON/disk/tmp readback/migration remain synchronous.",
+    "Observation timings are synthetic and do not establish speedup, FPS or a hard frame budget.",
+    "ObjectDB warnings remain unattributed; no leak-resolution claim.",
+    "Remote full98-suite CI is a separate gate.",
+    "No new operating-system flush/rename fault injection was performed; the existing atomic file protocol is unchanged."
+  ],
+  "base_ci_at_publication_check": {
+    "run_id": 38714601455,
+    "head_sha": "21d93993fdd8ada4e4163779dbf0cbdd2584506a",
+    "status": "in_progress",
+    "conclusion": null
+  }
+}
