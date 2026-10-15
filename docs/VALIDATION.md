@@ -6,6 +6,7 @@
 npm test
 npm run test:campaign
 GODOT=/path/to/Godot_v4.6.1-stable_linux.x86_64 npm run test:godot
+GODOT=/path/to/Godot_v4.6.1-stable_linux.x86_64 npm run test:world-neighbor-config -- --software-gl
 ```
 
 Import Godot resources before the runtime suites (`--headless --path godot --editor --import --quit`). Every suite has its own temporary save directory. The runner fails on a missing script, timeout, nonzero process exit, `SCRIPT ERROR:` or `ERROR:` even when the engine exits with code zero. `--suite NAME` can select one suite, and `--log-dir DIRECTORY` preserves engine output. CI uploads these logs even when a regression fails.
@@ -22,6 +23,7 @@ Repeated collision silhouettes are visible review warnings. Different names alon
 - Runtime route suites that inject scene positions, suppress damage or disable enemies verify the indicated route segment or state transition. Their output is not a damage-enabled campaign completion.
 - Enemy visibility validation uses real static-body physics to block sight and damage through a wall, then removes the wall and verifies that damage resumes. It also checks warning Tween cancellation, status expiry, cooldown timing and respawn cleanup.
 - The process-runner negative fixtures exercise real subprocess failures, zero-exit script errors, absent scripts, timeouts and signal termination. A killed Python validator must fail the caller.
+- `world_neighbor_config` reads all six authored configurations through the loader's shared worker and incrementally validates them before publishing. It covers foreground priority, completed-ticket ownership, changed entrances/file leases, generation/range cancellation, failed-file retry, source/save isolation and teardown. Its frozen source and explicit target descriptors establish those contracts, not natural exploration, FPS or a hard 2 ms frame limit.
 
 ## Outstanding product acceptance
 

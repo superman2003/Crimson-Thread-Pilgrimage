@@ -1,0 +1,260 @@
+{
+  "date": "2026-10-14",
+  "base_commit": "5fec0134cf3a460624f057a26fd43085def8de51",
+  "base_tree": "29b7cfb9f965af77e54fe651906c44e72d70483f",
+  "scope": "W00b2b neighbor configuration preparation",
+  "environment": {
+    "godot": "4.6.1.stable.official.14d19694e",
+    "renderer": "OpenGL 4.5 / Mesa 25.2.8 / llvmpipe LLVM 20.1.2"
+  },
+  "runtime_suites": [
+    {
+      "suite": "world_neighbor_config",
+      "status": "passed",
+      "checks": 69,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "c358144cc7296c2766d14aff6081649530d00fd39738bededb70e607ded70f5f"
+    },
+    {
+      "suite": "world_config_background",
+      "status": "passed",
+      "checks": 38,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "5f2404d6b78dad7e160199a8eb5a92612526b145cb61fe192e8fcc1567cd8f54"
+    },
+    {
+      "suite": "world_neighbor_entities",
+      "status": "passed",
+      "checks": 1069,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "f3409f448b161ff19728c45b8f57864d97bf829b1d5e4c013e630e2ef954f3b8"
+    },
+    {
+      "suite": "world_neighbor_gameplay_live",
+      "status": "passed",
+      "checks": 44,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "b0df217a189390eacf373b96fbf3c4a07609fa96060d509029c99f9a47065305"
+    },
+    {
+      "suite": "world_preflight_budget",
+      "status": "passed",
+      "checks": 4016,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "e9ed766fe42ad6e50871f8e73954334d1cc2ea619a1be3a919ac2368e549b806"
+    },
+    {
+      "suite": "world_async_loading",
+      "status": "passed",
+      "checks": 424,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "582ec4343682afd68c83d40a0bc80d658298527d85c1a1396ff1b9a92185c959"
+    },
+    {
+      "suite": "world_prepare_budget",
+      "status": "passed",
+      "checks": 172,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "967d48689217779070c2d573bd5084f65e0a2f0eb1fe091317bd9d6caf02e685"
+    },
+    {
+      "suite": "world_host",
+      "status": "passed",
+      "checks": 539,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "cc59d33656e74a7a84f2d52ecc9340497e47b7c00d231f89a7110b02380d2877"
+    },
+    {
+      "suite": "world_streaming",
+      "status": "passed",
+      "checks": 2545,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "bccbdf2b446e79bf8c00d9ad2661151ebe11c9220318a8b0c7619700b2994c7e"
+    },
+    {
+      "suite": "world_neighbor_collision",
+      "status": "passed",
+      "checks": 3391,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "342e0fa4ea1a5081d0a12b9daddf6c21c068865390c4eb13d70d4bca2169a47a"
+    },
+    {
+      "suite": "world_neighbor_gameplay",
+      "status": "passed",
+      "checks": 7429,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "443218c80f627a5cb87dc07021133dc555a0659940f97782974c1cb5a1235b55"
+    },
+    {
+      "suite": "world_passage",
+      "status": "passed",
+      "checks": 52,
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "log_sha256": "b36df6476c3920051dd6359feaec3ee4cc3e5e90e8a1f5a8e4879405409d4246"
+    },
+    {
+      "suite": "world_resume_regression",
+      "status": "passed",
+      "checks": 38,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "a675fbe336afdec9f428466979703bd6c5a92d9564d87249f5797cc225ec9926"
+    },
+    {
+      "suite": "save_product",
+      "status": "passed",
+      "checks": 23,
+      "engine_errors": 0,
+      "objectdb_exit_warning": false,
+      "log_sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420"
+    }
+  ],
+  "runtime_suite_count": 14,
+  "runtime_assertion_failures": 0,
+  "config_metrics_single_fixture_run": {
+    "config_reads": 17,
+    "config_validation_steps": 7401,
+    "config_validation_batches": 949,
+    "config_cancellations": 5,
+    "max_config_operations": 8,
+    "max_config_step_usec": 8751,
+    "config_worker_is_main": false,
+    "config_worker_usec": 63471,
+    "config_bytes": 3068304
+  },
+  "expected_invalid_file_failure_records": 2,
+  "live_fixture": {
+    "checkpoint_positioned": true,
+    "damage_suppression": false,
+    "physics_frames": 4851,
+    "reused_actors_each_crossing": [
+      5,
+      8
+    ],
+    "combat": {
+      "direct_damage_calls": false,
+      "hp_before": 4,
+      "hp_after_hit": 1,
+      "killed": true,
+      "reward_delta": 8
+    },
+    "six_region_playthrough": false
+  },
+  "source_sha256": {
+    "godot/scripts/world_prefetch.gd": "b5560bc35a69b3ec556983675be2117b25e8837a5923f34cb9d3ddc6b056abb9",
+    "godot/scripts/world_region_loader.gd": "df4dbd137d0e0f95bff83f2ded8540970e66e863b120d337702d139782b10e12",
+    "godot/scripts/world_config_read_job.gd": "89ac04d8271534c520b5dbd13353f712f6bed0e5b6072c49b193672f5357e50b",
+    "godot/scripts/world_config_validator.gd": "f99d9f6fe4dbd01dc23b9531aae8fb20c99ed192ed98ce8e9075d9628e4293be",
+    "godot/scripts/world_neighbor_config_validation.gd": "9812eba193fdbf8e0e6b387cbf1bddd1e65253eb91ceb4b6f8812f60150f1d72",
+    "godot/scripts/world_neighbor_config_validation.gd.uid": "b6398a0c2097623903565fc205dc974d63f230e9deb570b4862e140aa4b09eea",
+    "godot/scripts/world_neighbor_entities_validation.gd": "fe6f109e38a17f66ec8bab063f76b708933b67717417233760bb6bfb03181113",
+    "tools/run_godot_regressions.py": "7e6c7cb887a71583b9a665db45e7ff43ee89e08d45a6da905561e90e6cd51ce1",
+    "package.json": "8d503ce6733ebe1e35ce9a46379ebd5d8e2a95bb7ddd1051c8c37bdbe17e34db"
+  },
+  "static_checks": {
+    "npm_test": {
+      "status": "passed",
+      "log_sha256": "0c309e57c2648da2f73f2cc66b67cae17d60d484551e09b1d6c30a54fb874219"
+    },
+    "campaign": {
+      "status": "passed",
+      "log_sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036"
+    },
+    "runner_help": {
+      "status": "passed",
+      "log_sha256": "eebe48d664c105f7d6c57ac8906657f2300146eb24ebc6eb854eeb59105e7193"
+    },
+    "prefetch_parse": {
+      "status": "passed",
+      "log_sha256": "f4c12d2bacb9c3dc42732906e2c8ca54d21c793344083599a8429b044159ebc4"
+    },
+    "new_suite_parse": {
+      "status": "passed",
+      "log_sha256": "f4c12d2bacb9c3dc42732906e2c8ca54d21c793344083599a8429b044159ebc4"
+    }
+  },
+  "diff_check": "passed",
+  "resource_import": {
+    "mode": "recovery",
+    "editor_plugin_acceptance": false,
+    "initial_timeout_seconds": 180,
+    "initial_status": "failed_timeout",
+    "initial_log_sha256": "ddc7cceea8783d6499697b2c5ea4ecea7262f37733f9c361b7f6e001662a0904",
+    "retry_timeout_seconds": 600,
+    "final_passes": [
+      {
+        "pass": 1,
+        "status": "passed",
+        "engine_errors": 0,
+        "log_sha256": "4fef279010fe890b39660a23a001e72016c3d09ef9c5ea24bd3e023279f2bb86"
+      },
+      {
+        "pass": 2,
+        "status": "passed",
+        "engine_errors": 0,
+        "log_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      }
+    ]
+  },
+  "earlier_runtime_attempt": {
+    "world_config_background": {
+      "status": "rejected_as_evidence_incomplete_resource_import",
+      "engine_errors": 80,
+      "log_sha256": "15e2d526c8235a85e98dcfc54c53ee1d7b232166ba16c9b3198631f65aed6018"
+    },
+    "world_neighbor_config": {
+      "status": "rejected_as_evidence_incomplete_resource_import",
+      "engine_errors": 82,
+      "log_sha256": "8a8bbb2c0f680a0437360b4b5d8a925d973fcea3019aa7fec11e076d73f08914"
+    },
+    "world_neighbor_entities": {
+      "status": "rejected_as_evidence_incomplete_resource_import",
+      "engine_errors": 136,
+      "log_sha256": "4250cb66704b43beebf4e98380ac116b818d25aa5d9ace731b966fc9caea966c"
+    },
+    "world_neighbor_gameplay_live": {
+      "status": "rejected_as_evidence_incomplete_resource_import",
+      "engine_errors": 22,
+      "log_sha256": "ce451a4c5af618ec38b13f3ee8747a96fba45d333bd23eadfa1888bd8b11ab24"
+    }
+  },
+  "parallel_display_attempt": {
+    "status": "failed_before_any_suite",
+    "reason": "display already active",
+    "log_sha256": "01ad5f9300f7c3d76334638cf2e80b4440c46f4f85a987b23509ad699c0c7b30"
+  },
+  "local_full_default_suite_run": false,
+  "default_suite_count": 80,
+  "base_pr_ci": {
+    "pr": 53,
+    "head": "5fec0134cf3a460624f057a26fd43085def8de51",
+    "runtime": "success",
+    "linux_desktop": "success",
+    "windows_desktop": "success",
+    "runtime_run": 38575336851,
+    "desktop_run": 38575336626
+  },
+  "limits": [
+    "2ms is an admission budget; individual steps are not preemptible",
+    "route lookup/overlay, raw cache copies, initial region and landing plans retain synchronous work",
+    "no target hardware FPS or sustained memory stability result",
+    "no natural damage-enabled new-save six-region playthrough"
+  ],
+  "publication": {
+    "evidence": "reviewed summary and hashes",
+    "raw_logs": "not uploaded",
+    "raw_log_upload_review": "rejected because compressed diagnostics may include local paths or test data"
+  }
+}
