@@ -37,6 +37,7 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 		await _dispose(tree)
 		return
 
+	_check(not _player_state().is_empty(), "Live workshop diagnostics remain readable")
 	# Practice assumes only the newly obtained lantern ability. Each tier is
 	# within one normal jump, so the route must not depend on double jump.
 	scene._add_inventory_item("lantern_phase", 1, false)
@@ -171,6 +172,7 @@ func _walk_to(target: Vector2, allow_jump: bool = true) -> bool:
 				jump_hold = 42
 		await _tick(tree_ref, 1)
 	_release()
+	push_warning("Lantern workshop walk timed out target=" + str(target) + " actual=" + _player_state())
 	return false
 
 func _pulse(action: String, count: int) -> void:
@@ -201,6 +203,7 @@ func _release() -> void:
 			Input.action_release(action)
 
 func _check(ok: bool, label: String) -> void:
+	if not ok:label += " actual=" + _player_state()
 	checker.call(ok, label)
 
 func _dispose(tree: SceneTree) -> void:
@@ -223,3 +226,10 @@ func _numbers_match(value: Variant, expected: Array) -> bool:
 		if not (value[index] is int or value[index] is float):return false
 		if not is_finite(float(value[index])) or float(value[index]) != float(expected[index]):return false
 	return true
+
+func _player_state() -> String:
+	if not is_instance_valid(scene) or not is_instance_valid(scene.player):return "<missing player>"
+	var player: CharacterBody2D = scene.player
+	return "pos=%s velocity=%s floor=%s wall=%s room=%s collected=%s currency=%s" % [
+		str(player.global_position), str(player.velocity), str(player.is_on_floor()), str(player.is_on_wall()),
+		str(scene.get("current_room_id")), str(scene.world_collected_ids), str(scene.currency_count)]
