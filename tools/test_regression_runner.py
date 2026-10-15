@@ -6,6 +6,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+import run_godot_regressions as runner
 from run_godot_regressions import suite_path, render_loop_args, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
 import re
 from run_godot_regressions import run_suites
@@ -59,7 +61,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 92)
+        self.assertEqual(len(all_suites), 93)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():
@@ -102,6 +104,34 @@ class RunnerTests(unittest.TestCase):
                     self.assertIn('--rendering-method', args)
                     self.assertIn('gl_compatibility', args)
                     self.assertEqual('--disable-render-loop' in args, should_disable)
+
+    def test_catalog_fault_fixture_restores_content_and_stamp_on_error_and_timeout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'godot/data/world_routes.json'
+            source.parent.mkdir(parents=True)
+            source.write_bytes(b'{"fixture": "original"}')
+            os.utime(source, ns=(123000000000, 456000000000))
+            original, stamp = source.read_bytes(), source.stat().st_mtime_ns
+            script = root / 'godot/scripts/world_catalog_background_validation.gd'
+            script.parent.mkdir(parents=True)
+            script.write_text('fixture')
+            logs = root / 'logs'
+            logs.mkdir()
+            engine = root / 'fake-godot'
+            for body, timeout in [('raise RuntimeError("fixture failure")', 2),
+                                  ('import time; time.sleep(2)', 0.05)]:
+                with self.subTest(body=body):
+                    engine.write_text('#!' + sys.executable + '\n'
+                                      + f'open({str(source)!r}, "wb").write(b"changed")\n'
+                                      + body + '\n')
+                    engine.chmod(0o755)
+                    with patch.object(runner, 'ROOT', root):
+                        failures = runner.run_suites(str(engine), ['world_catalog_background'],
+                                                     timeout, logs, root / 'scratch', False, {})
+                    self.assertEqual(len(failures), 1)
+                    self.assertEqual(source.read_bytes(), original)
+                    self.assertEqual(source.stat().st_mtime_ns, stamp)
 
     def test_invalid_timeout_never_launches_engine(self):
         with tempfile.TemporaryDirectory() as directory:
