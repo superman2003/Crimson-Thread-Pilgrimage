@@ -4,6 +4,8 @@ class TestPlayer extends "res://scripts/player_controller.gd":
     func _ready() -> void:
         _ensure_input_actions()
         set_physics_process(false)
+    func _should_play_sfx() -> bool:
+        return false
     func _play(_name: StringName, _restart: bool = false) -> void:
         pass
     func _spawn_thread_snap_vfx(_source_position: Vector2) -> void:
@@ -57,6 +59,8 @@ func _run() -> void:
     player.apply_snare(5.0)
     player._hard_respawn()
     _check(player.snare_timer == 0.0 and player.hp == player.max_hp and player.energy == 0, "Death respawn clears snare and retains normal restoration rules")
+    var haptics_validation := preload("res://scripts/player_haptics_validation.gd").new()
+    await haptics_validation.run(self,player,_check)
     player.queue_free()
     await process_frame
     print("PLAYER_STATE_CLEANUP_%s checks=%d failures=%d" % ["PASS" if failures == 0 else "FAIL", checks, failures])
