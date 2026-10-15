@@ -1,0 +1,70 @@
+name: CH06 hidden route validation
+
+on:
+  pull_request:
+    paths:
+      - 'godot/data/chapters/ch06_silent_crown_core.json'
+      - 'godot/data/demo_ch06_silent_crown_core.json'
+      - 'godot/scripts/ch06_hidden_route_validation.gd'
+      - 'docs/CH06_HIDDEN_ROUTE_UPGRADE.md'
+      - '.github/workflows/ch06-hidden-route.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'godot/data/chapters/ch06_silent_crown_core.json'
+      - 'godot/data/demo_ch06_silent_crown_core.json'
+      - 'godot/scripts/ch06_hidden_route_validation.gd'
+      - 'docs/CH06_HIDDEN_ROUTE_UPGRADE.md'
+      - '.github/workflows/ch06-hidden-route.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ch06-hidden-route-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact commit and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot 4.6.1 and software rendering support
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate chapter data and import runtime resources
+        run: |
+          npm run test:campaign
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --log-dir "$RUNNER_TEMP/ch06-route-logs/import"
+      - name: Walk the optional vault route and verify saved reward uniqueness
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py \
+            --engine "$engine" \
+            --log-dir "$RUNNER_TEMP/ch06-route-logs/runtime" \
+            --script res://scripts/ch06_hidden_route_validation.gd \
+            --success-marker 'CH06_HIDDEN_ROUTE_VALIDATION failures=0' \
+            --summary-path artifacts/ch06_hidden_route/ci.json \
+            --timeout 240
+      - name: Preserve CH06 validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ch06-hidden-route-logs
+          path: ${{ runner.temp }}/ch06-route-logs
+          if-no-files-found: ignore
