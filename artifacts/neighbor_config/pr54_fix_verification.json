@@ -1,0 +1,242 @@
+{
+  "date": "2026-10-14",
+  "pr": 54,
+  "base_commit": "cf492da4d739fb3f105290d500a7d409a85e3036",
+  "environment": {
+    "godot": "4.6.1.stable.official.14d19694e",
+    "renderer": "OpenGL 4.5 / Mesa 25.2.8 / llvmpipe LLVM 20.1.2"
+  },
+  "remote_baseline": {
+    "run": 38581909924,
+    "job": 115913705993,
+    "runtime_suites": 80,
+    "passed": 79,
+    "failed": [
+      {
+        "suite": "world_neighbor_gameplay_stress",
+        "reason": "timeout",
+        "timeout_seconds": 180,
+        "source_log_sha256": "df1d7b442a061cb58692c98fe1963576c54b28ad5c0fdc9667c13ca4b7a8f25b"
+      }
+    ],
+    "linux_desktop": "success",
+    "windows_desktop": "success",
+    "desktop_run": 38581909818
+  },
+  "runtime_suites": [
+    {
+      "suite": "world_neighbor_config",
+      "status": "passed",
+      "checks": 85,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "126d1eca2b18852be1589e547b6773042b8df030f26d6eee814b3d7bbc76e3bb",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_neighbor_gameplay_stress",
+      "status": "passed",
+      "checks": 16403,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "ce259b37e2c7234afa0e943c9c0a979eeb4470056662ea3eb08d3e56c25a8008",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_neighbor_entities",
+      "status": "passed",
+      "checks": 1071,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "2209ea6939b38eb48a42082d8425ada283c2106377a59024ffcf34c0bce4d032",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_neighbor_collision",
+      "status": "passed",
+      "checks": 3392,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "094ef8ca6ca9914c2eec12814fa71c0a48d8127990230d8a95de04b9e9ea6d3b",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_neighbor_gameplay",
+      "status": "passed",
+      "checks": 7438,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "f25304f1b72f2a25feda3d4204da896d88e24f7321c2a21b2e47d1ba085033e4",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_preflight_budget",
+      "status": "passed",
+      "checks": 4016,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "348e710c0e37ea9ca68b32b1a44817dedc0840dedb380e019912d329e95ba188",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_async_loading",
+      "status": "passed",
+      "checks": 424,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "ab0b11ed9d91d585b0208056912a55a6be089c5633eec20735e3c949cef70f25",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_config_background",
+      "status": "passed",
+      "checks": 38,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "2485f82d0e08acda92750a73fd60080db5530a6a14efa2880caf2e054ecb4723",
+      "objectdb_exit_warning": true
+    },
+    {
+      "suite": "world_neighbor_gameplay_live",
+      "status": "passed",
+      "checks": 44,
+      "timeout_seconds": 180,
+      "engine_errors": 0,
+      "log_sha256": "8db1384cab0e443272968512891a9ce0e2a31d998e355904da12f816fe0527fd",
+      "objectdb_exit_warning": false
+    }
+  ],
+  "runtime_suite_count": 9,
+  "assertion_failures": 0,
+  "runner_unchanged": true,
+  "render_loop_unchanged": true,
+  "default_timeout_unchanged_seconds": 180,
+  "churn": {
+    "cycles": 80,
+    "config_reads": 32,
+    "validation_steps": 22096,
+    "entry_rechecks": 128,
+    "elapsed_usec": 82118917,
+    "builds": 1320,
+    "releases": 1320,
+    "memory_soak": false
+  },
+  "churn_progress": [
+    {
+      "config_reads": 4,
+      "cycles": 10,
+      "elapsed_usec": 10648205,
+      "entry_rechecks": 16,
+      "validation_steps": 2762
+    },
+    {
+      "config_reads": 8,
+      "cycles": 20,
+      "elapsed_usec": 21049334,
+      "entry_rechecks": 32,
+      "validation_steps": 5524
+    },
+    {
+      "config_reads": 12,
+      "cycles": 30,
+      "elapsed_usec": 31325230,
+      "entry_rechecks": 48,
+      "validation_steps": 8286
+    },
+    {
+      "config_reads": 16,
+      "cycles": 40,
+      "elapsed_usec": 41432394,
+      "entry_rechecks": 64,
+      "validation_steps": 11048
+    },
+    {
+      "config_reads": 20,
+      "cycles": 50,
+      "elapsed_usec": 51402597,
+      "entry_rechecks": 80,
+      "validation_steps": 13810
+    },
+    {
+      "config_reads": 24,
+      "cycles": 60,
+      "elapsed_usec": 60961842,
+      "entry_rechecks": 96,
+      "validation_steps": 16572
+    },
+    {
+      "config_reads": 28,
+      "cycles": 70,
+      "elapsed_usec": 71701618,
+      "entry_rechecks": 112,
+      "validation_steps": 19334
+    },
+    {
+      "config_reads": 32,
+      "cycles": 80,
+      "elapsed_usec": 82105664,
+      "entry_rechecks": 128,
+      "validation_steps": 22096
+    }
+  ],
+  "retained_after_churn": {
+    "bodies": 0,
+    "gameplay_actors": 0
+  },
+  "expected_negative_config_failures": 3,
+  "old_read_count": {
+    "value": 160,
+    "kind": "inferred_from_80_cycles_and_two_invalidated_region_configs_not_measured_at_timeout"
+  },
+  "resource_import": {
+    "mode": "recovery",
+    "passes": [
+      {
+        "pass": 1,
+        "status": "passed",
+        "log_sha256": "9687e52b1aea04b9faaac31084d411cab005b43c4cb25171977473140d49f234"
+      },
+      {
+        "pass": 2,
+        "status": "passed",
+        "log_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      }
+    ],
+    "editor_plugin_acceptance": false
+  },
+  "static_checks": {
+    "npm_test": {
+      "status": "passed",
+      "log_sha256": "b94fac3860b51194e1a647b8ba520eab3fcecb5ffa8b987b03d47cc4d11aed03"
+    },
+    "campaign": {
+      "status": "passed",
+      "log_sha256": "c0c971eed729d341cec9d69ce15a3e3a32ce11adbf76a1de38b6813461540036"
+    },
+    "config_parse": {
+      "status": "passed",
+      "log_sha256": "f4c12d2bacb9c3dc42732906e2c8ca54d21c793344083599a8429b044159ebc4"
+    },
+    "stress_parse": {
+      "status": "passed",
+      "log_sha256": "f4c12d2bacb9c3dc42732906e2c8ca54d21c793344083599a8429b044159ebc4"
+    }
+  },
+  "source_sha256": {
+    "godot/scripts/world_prefetch.gd": "5223fa687178729dd34ef2aa268174e54cb21f8e448d63e7bb915ee3fdc30163",
+    "godot/scripts/world_config_validator.gd": "d652b00361540fbf7af2d8bb9f0a5d421482a01d7e42be868e04754b17f15dfd",
+    "godot/scripts/world_neighbor_config_validation.gd": "972bf635aa9173b86d8e72ae29234aed33864baa37f277077f7b29857355c8fa",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "6c419a8979d4a2fa64db27f1246206f253dcbd67626de103deef392847198186",
+    "godot/scripts/world_neighbor_gameplay_stress_validation.gd": "13b60561850f2a4cf49906cabfadf0ee065e578b64eeb64c3d8b47762fd4056f",
+    "tools/run_godot_regressions.py": "7e6c7cb887a71583b9a665db45e7ff43ee89e08d45a6da905561e90e6cd51ce1",
+    "tools/test_regression_runner.py": "d8144641f97a49d31797571001101191e7bd0a386ee9b03572aaee6203232e74"
+  },
+  "diff_check": "passed",
+  "local_full_80_suite_run": false,
+  "limits": [
+    "80-cycle frozen-world cache fixture; not natural exploration or sustained memory soak",
+    "no target hardware FPS or frame-time conclusion",
+    "new remote full CI is reported separately"
+  ],
+  "evidence_publication": "Reviewed status/count/timing/hash summary; raw diagnostics are not republished"
+}
