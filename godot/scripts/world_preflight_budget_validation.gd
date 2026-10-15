@@ -22,6 +22,7 @@ var _observer_saw_final := false
 var _observer_mode := "mid"
 var _operation_done := false
 var _operation_result := false
+var _synthetic_source_size := -1
 
 func _initialize() -> void:
 	call_deferred("_run")
@@ -242,7 +243,9 @@ func _validator_synthetic_cursor() -> void:
 
 func _make_synthetic_config(region_id: String) -> Dictionary:
 	var path := ROUTES.config_path(region_id)
-	var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+	var source_bytes := FileAccess.get_file_as_bytes(path)
+	_synthetic_source_size = source_bytes.size()
+	var raw: Dictionary = JSON.parse_string(source_bytes.get_string_from_utf8())
 	for index in range(240):
 		raw.map_rooms.append({"id":"synthetic_room_%d" % index, "rect":[index * 10, 20, 80, 60]})
 		raw.platforms.append({"id":"synthetic_platform_%d" % index, "rect":[index * 10, 800, 80, 12]})
@@ -259,7 +262,7 @@ func _loader_preflight_checks() -> void:
 	var target := ROUTES.config_path(REGIONS[1])
 	var synthetic := _make_synthetic_config(REGIONS[1])
 	scene.world_prefetch.desired[REGIONS[1]] = {"path":target, "entry":Vector2(120,500)}
-	scene.world_prefetch.configs[REGIONS[1]] = {"raw":synthetic, "stamp":FileAccess.get_modified_time(target)}
+	scene.world_prefetch.configs[REGIONS[1]] = {"raw":synthetic, "stamp":FileAccess.get_modified_time(target), "size":_synthetic_source_size}
 	# An unsaved currency delta proves that preflight cancellation cannot eagerly
 	# commit the departure checkpoint before target validation succeeds.
 	scene.currency_count += 17

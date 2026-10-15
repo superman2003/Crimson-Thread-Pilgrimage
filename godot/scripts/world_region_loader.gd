@@ -121,7 +121,8 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         host.process_mode = restore_process_mode
         return false
     var startup_config_lease: Dictionary = last_transition.startup_config_lease
-    var built := await _construct_budgeted(host, prepared, false)
+    var prepared_source_lease := {"path": startup_config_lease.path, "mtime": startup_config_lease.stamp, "size": last_transition.startup_config_bytes}
+    var built := await _construct_budgeted(host, prepared, false, prepared_source_lease)
     if not _startup_config_context_valid(host, tree, startup_config_lease) or ROUTES.cached_generation() != startup_route_generation:
         built = false
         last_error = "区域路线清单在初始构建期间发生变化。"
@@ -409,6 +410,8 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     last_transition["preflight_copy_batch_work_usec"] = []
     last_transition["preflight_copy_batch_wall_usec"] = []
     var parsed: Variant = null
+    var source_lease: Dictionary = {}
+    last_transition.erase("preflight_source_lease")
     last_transition["json_background"] = false
     last_transition["json_wait_frames"] = 0
     last_transition["json_worker_is_main"] = true
@@ -432,6 +435,12 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
             last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
             return {}
         last_transition["preflight_route_generation"] = ROUTES.cached_generation()
+        source_lease = _metadata_source_stat(path)
+        if source_lease.is_empty():
+            last_error = "目标区域来源无法读取。"
+            return {}
+        source_lease["path"] = path
+        last_transition["preflight_source_lease"] = source_lease
         var borrowed: Variant = prefetch._cached_raw_borrow(path) if prefetch != null else null
         if borrowed != null:
             var copy_job = VARIANT_COPY_JOB.new()
@@ -518,6 +527,8 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
                 last_transition["json_worker_usec"] = int(read.get("worker_usec", 0))
                 last_transition["json_bytes"] = int(read.get("bytes", 0))
                 last_transition["json_worker_is_main"] = read.get("worker_is_main", true)
+                if int(read.get("stamp", -1)) != int(source_lease.mtime) or int(read.get("bytes", -1)) != int(source_lease.size):
+                    last_error = "目标区域来源在读取期间已变化。"
     last_transition["preflight_json_usec"] = Time.get_ticks_usec() - json_started
     if not last_error.is_empty():
         last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
@@ -569,6 +580,9 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     var validated_route_generation: int = int(validator._manifest_generation)
     if not validator.result.is_empty() and ROUTES.cached_generation() != validated_route_generation:
         last_error = "巡礼路线版本在预检完成时已变化，请重试。"
+        return {}
+    if not _prepared_source_current(source_lease):
+        last_error = "目标区域来源在验证期间已变化。"
         return {}
     last_transition["preflight_route_generation"] = validated_route_generation
     return validator.result
@@ -941,11 +955,62 @@ func _accept_shared_metadata(host: Node, method: String, data: Dictionary) -> vo
         "_prepare_item_lore_metadata": host.item_lore = data.get("items", {})
 
 
-func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> bool:
+func _prepared_source_current(source_lease: Dictionary) -> bool:
+    if source_lease.is_empty(): return true # Settled rollback snapshot, not disk.
+    return _metadata_source_stat(String(source_lease.path)) == {"mtime": source_lease.mtime, "size": source_lease.size}
+
+func _prepared_copy_context_valid(host: Variant, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, selection: Dictionary, source_lease: Dictionary) -> bool:
+    return _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) and String(host.config_path) == String(selection.path) and host.entry_spawn_override_enabled == selection.entry_enabled and host.entry_spawn_override == selection.entry and _prepared_source_current(source_lease)
+
+## Copy privately and publish only once. The accepted input remains read-only
+## throughout this coroutine; no partial destination escapes through the host.
+func _copy_prepared_config_async(host: Node, prepared: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, source_lease: Dictionary = {}) -> Dictionary:
+    var wall_started := Time.get_ticks_usec()
+    var selection := {"path": String(host.config_path), "entry_enabled": host.entry_spawn_override_enabled, "entry": host.entry_spawn_override}
+    var metric := {"batches": 0, "edges": 0, "max_step_edges": 0, "work_usec": 0,
+        "begin_usec": 0, "max_step_usec": 0, "wall_usec": 0, "complete": false,
+        "path": selection.path, "generation": expected_generation, "route_generation": route_generation,
+        "source_lease": source_lease.duplicate()}
+    last_transition["prepared_config_copy"] = metric
+    if not _prepared_copy_context_valid(host, tree, expected_generation, route_generation, cancellable, selection, source_lease): return {"complete": false}
+    var copy = VARIANT_COPY_JOB.new()
+    var begin_started := Time.get_ticks_usec()
+    copy.begin(prepared)
+    metric.begin_usec = Time.get_ticks_usec() - begin_started
+    metric.work_usec = metric.begin_usec
+    while not copy.done:
+        var step_started := Time.get_ticks_usec()
+        var edges: int = copy.step(512)
+        var work := Time.get_ticks_usec() - step_started
+        metric.batches += 1
+        metric.edges += edges
+        metric.max_step_edges = maxi(metric.max_step_edges, edges)
+        metric.work_usec += work
+        metric.max_step_usec = maxi(metric.max_step_usec, work)
+        await tree.process_frame
+        metric.wall_usec = Time.get_ticks_usec() - wall_started
+        _cancel_input()
+        if not _prepared_copy_context_valid(host, tree, expected_generation, route_generation, cancellable, selection, source_lease):
+            last_error = "区域配置在分帧交接期间失效。"
+            return {"complete": false}
+    # Even an empty tree offers a lifecycle window before atomic acceptance.
+    # Production reaches this path only for already validated nonempty configs.
+    await tree.process_frame
+    metric.wall_usec = Time.get_ticks_usec() - wall_started
+    _cancel_input()
+    if not _prepared_copy_context_valid(host, tree, expected_generation, route_generation, cancellable, selection, source_lease):
+        last_error = "区域配置在接受前失效。"
+        return {"complete": false}
+    metric.complete = true
+    return {"complete": true, "data": copy.result}
+
+
+func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool, prepared_source_lease: Dictionary = {}) -> bool:
     var prepare_wall_started := Time.get_ticks_usec()
     var prepare_tree := host.get_tree()
     var prepare_generation := generation
     var prepare_route_generation := ROUTES.cached_generation()
+    last_transition.erase("prepared_config_copy")
     last_transition["catalog_reads"] = []
     last_transition["metadata_reads"] = []
     var prepare_jobs: Array = host._region_prepare_jobs(target)
@@ -978,12 +1043,22 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             var prepare_method := String(prepare_job.get("method", ""))
             var prepare_args: Array = prepare_job.get("args", [])
             var metadata_path := _shared_metadata_path(host, prepare_method, prepare_args) if host.world_mode else ""
-            var asynchronous_job := prepare_method == "_prepare_world_catalog_region" or not metadata_path.is_empty()
+            var prepared_copy_job: bool = host.world_mode and prepare_method == "_prepare_config_and_route" and not prepare_args[0].is_empty()
+            var asynchronous_job: bool = prepared_copy_job or prepare_method == "_prepare_world_catalog_region" or not metadata_path.is_empty()
             if asynchronous_job and prepare_operations > 0:
                 break
             var job_started := Time.get_ticks_usec()
             var prepare_result: Variant
-            if not metadata_path.is_empty():
+            if prepared_copy_job:
+                var copied: Dictionary = await _copy_prepared_config_async(host, prepare_args[0], prepare_tree, prepare_generation, prepare_route_generation, cancellable, prepared_source_lease)
+                if not copied.get("complete", false):
+                    _discard_catalog_staging(host)
+                    _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+                    return false
+                host._accept_owned_prepared_config(copied.data)
+                prepare_batch_started = Time.get_ticks_usec()
+                job_started = prepare_batch_started
+            elif not metadata_path.is_empty():
                 var metadata: Dictionary = await _prepare_shared_metadata_async(host, metadata_path, prepare_tree, prepare_generation, prepare_route_generation, cancellable)
                 if not metadata.get("complete", false):
                     _discard_catalog_staging(host)
@@ -1013,6 +1088,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
                             return false
                 prepare_result = host.callv(prepare_method, prepare_args)
             var job_usec := Time.get_ticks_usec() - job_started
+            if prepared_copy_job:
+                job_usec += int(last_transition.prepared_config_copy.work_usec)
             if prepare_method == "_prepare_world_catalog_region":
                 var catalog_reads: Array = last_transition.catalog_reads
                 var catalog_read: Dictionary = catalog_reads.back()
@@ -1096,7 +1173,7 @@ func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
     last_transition["prepare_usec"] = int(last_transition.get("prepare_work_usec", 0))
     var metric_keys := ["prepare_jobs", "prepare_cursor", "prepare_batches", "prepare_batch_operations",
         "prepare_work_usec", "prepare_wall_usec", "prepare_plan_usec", "prepare_usec",
-        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec", "catalog_reads", "metadata_reads"]
+        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec", "catalog_reads", "metadata_reads", "prepared_config_copy"]
     var attempt: Dictionary = {"role": role}
     for key in metric_keys:
         var value: Variant = last_transition.get(key, null)
@@ -1231,7 +1308,7 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         return false
     _set_destination(host, path, entry, source_id, target)
     phase = "loading"
-    var built := await _construct_budgeted(host, target, true)
+    var built := await _construct_budgeted(host, target, true, last_transition.get("preflight_source_lease", {}))
     if ROUTES.cached_generation() != route_generation:
         built = false
         last_error = "区域路线清单在目标区域构建期间发生变化。"

@@ -1,0 +1,157 @@
+{
+  "base_commit": "193427eb8baf43b4d70caf92ee105ff80ad9be48",
+  "engine": "Godot 4.6.1 stable, software GL llvmpipe",
+  "scope": "13 focused local suites; full 96-suite remote CI separate",
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "a6390700e424620bd875162a2f3c9d99d4a5e9fdb1052b39e2b8dec9204c45b8",
+    "godot/scripts/world_async_loading_validation.gd": "cfd8fe0817ccb2f5fb81345a84c73a5a7e63580afcf4ee00543885b0f993969f",
+    "godot/scripts/world_neighbor_collision_validation.gd": "ca85ee912d9c34c97e7153c7ce519281091ad34ddafaf34b727deb5f20dd92e0",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "bbc3521ec87e72c34d751abac2408dd153df7f6644e088ee3f86a4a975e7c130",
+    "godot/scripts/world_prefetch.gd": "4394d85f3910e747cc67abd2810249e3e533024a5ba6fdbfca1276d1785204a0",
+    "godot/scripts/world_preflight_budget_validation.gd": "57780cd87f355dc115dfa22573d44f91be1835c8a70556475cd90499d6d23dc5",
+    "godot/scripts/world_region_loader.gd": "423840edba0e099bad2b24d868ce91b65d2a48e7c523fc3ba84aa055aae1d19b",
+    "godot/scripts/world_startup_config_background_validation.gd": "833d003571d55b9e13affa9645ed0d77f1dfc8199614df69bc43dbb29fcf0867",
+    "tools/godot_suite_success_markers.json": "b668e76770a7b4b5c6b1a848ea33992e0701952a241c5769523e8d5e847e8249",
+    "tools/run_godot_regressions.py": "65a04c65e167a742d910afdcdecfbbd71770cc05d8b6817c5763c7d635f5568c",
+    "tools/test_regression_runner.py": "3a6ae1b06a21d413d3e1dad2ff3a6d8dd2ab9af80f3a893c26f7b88bfd3467a5",
+    "godot/scripts/world_prepared_handoff_validation.gd": "cbf761b15b67f5ad372c8d296507bb1ad09425e669a2a0dfe664efa2366f466b"
+  },
+  "accepted_suites": {
+    "world_startup_config_background": {
+      "result": "pass",
+      "owner": "implementation subagent; independently reviewed",
+      "completion_marker": "WORLD STARTUP CONFIG BACKGROUND PASS checks=89",
+      "sha256": "5aa04a7750646e842061fbc39fbdfd6a60583c96660a3a81a7f7828092d1f403",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "world_prepare_budget": {
+      "result": "pass",
+      "owner": "implementation subagent; independently reviewed",
+      "completion_marker": "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown",
+      "sha256": "c82e04ade722d20f481f690c5b3466d46a23ba4bb4a232f6536418aa63525f97",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "world_config_background": {
+      "result": "pass",
+      "owner": "implementation subagent; independently reviewed",
+      "completion_marker": "WORLD CONFIG BACKGROUND PASS checks=38",
+      "sha256": "2485f82d0e08acda92750a73fd60080db5530a6a14efa2880caf2e054ecb4723",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "world_neighbor_config": {
+      "result": "pass",
+      "owner": "implementation subagent; independently reviewed",
+      "completion_marker": "WORLD NEIGHBOR CONFIG PASS checks=93",
+      "sha256": "630e3c5a7b3554d3346eb1fb4da14609c393cc9ab32151754e56567b4b94e430",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "world_prepared_handoff": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD PREPARED HANDOFF PASS checks=55",
+      "sha256": "976b01f59bb69b703d9b13903656a6e71598e77f8843ffdd86e11977e0c6db25",
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    "world_startup_budget": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD_STARTUP_BUDGET_VALIDATION_PASS",
+      "sha256": "e666e4dc88aae8288d8daf7a222d0d76de7b0242fd8ee4ce1215c3928349f03c",
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    "world_preflight_budget": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD PREFLIGHT BUDGET PASS checks=4290",
+      "sha256": "803e7c46923b1d89ddc57be970712442b019b9c67454b409ba337304b2c56679",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "world_metadata_background": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD METADATA BACKGROUND PASS checks=86",
+      "sha256": "322aff026615bd67b7ba5c2d302fde2ba31de6fa11ec37e310d4ee572f0cb013",
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    "world_async_loading": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "sha256": "c3e9ea23f8cb243c0b4428043f6be76d3905f60bde3c975fdcde9448da2abdcc",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "world_host": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles",
+      "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    },
+    "save_product": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+      "sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7",
+      "engine_errors": 0,
+      "objectdb_exit_warning": false
+    },
+    "world_neighbor_gameplay": {
+      "result": "pass",
+      "owner": "root",
+      "completion_marker": "WORLD_NEIGHBOR_GAMEPLAY checks=7471 failures=0",
+      "sha256": "639856f794024ff73229fa75f45888fdde5c54dae927c086dc8b766654b5336d",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true,
+      "landings": 76
+    },
+    "world_neighbor_collision": {
+      "result": "pass",
+      "owner": "root after fixture-only correction",
+      "completion_marker": "WORLD NEIGHBOR COLLISION PASS: 3392 checks",
+      "sha256": "094ef8ca6ca9914c2eec12814fa71c0a48d8127990230d8a95de04b9e9ea6d3b",
+      "engine_errors": 0,
+      "objectdb_exit_warning": true
+    }
+  },
+  "retained_failed_attempts": [
+    {
+      "suite_log": "world_prepared_handoff.log",
+      "sha256": "6d5bb46dfbaa7eb16ee1c4056002e4e3625e6f3892fbbe1d654a52ddb71f39f5",
+      "result": "fail",
+      "reason": "Rejected initial compilation: two flags needed explicit bool; group subsequently interrupted"
+    },
+    {
+      "suite_log": "world_neighbor_collision.log",
+      "sha256": "48245ccea44e1a20b7f6b9a3fdad94fdac00867996a559bc9200156a8188559b",
+      "result": "fail",
+      "reason": "Rejected fixture compilation: source_bytes was out of scope; first root nine-suite aggregate failed"
+    }
+  ],
+  "checks": {
+    "npm_test": "pass (includes 16 runner and 11 import-tool unit tests)",
+    "campaign_audits": "pass",
+    "resource_imports": "two recovery-mode resource-only passes; not a runtime script compilation gate",
+    "git_diff_check": "pass",
+    "independent_review": "pass; separate read-only subagent reviewed runtime, new and adapted fixtures, and final corrections"
+  },
+  "ownership": "Prepared input private/read-only during copy; completed consumer detached; no arbitrary concurrent input-mutation guarantee",
+  "freshness": "Original read mtime+size pinned from preflight through handoff; equal-time/equal-size replacements remain undetected",
+  "remaining_synchronous_costs": [
+    "departure config and world-state snapshots",
+    "coordinate first read",
+    "explicit synchronous compatibility paths",
+    "key enumeration and leaf copy operations",
+    "file probes and other indivisible preparation calls"
+  ],
+  "metrics": "Per-attempt copy begin/step work; wall interval sampled after yields before next probes; aborted copy work remains in record, outside completed-job aggregate"
+}

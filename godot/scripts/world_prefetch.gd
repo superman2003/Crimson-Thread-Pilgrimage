@@ -228,6 +228,7 @@ func _step_config(host: Node, started: int) -> void:
         if int(read.get("stamp", -1)) != config_task.stamp:
             cancel_config()
             return
+        config_task["size"] = int(read.get("bytes", -1))
         config_raw = read.get("raw")
         config_validator = CONFIG_VALIDATOR.new()
         config_validator.begin(config_raw, config_task.path, config_task.entry)
@@ -253,7 +254,7 @@ func _publish_config(prepared: Dictionary) -> void:
         cancel_config()
         return
     var region_id := String(config_task.region)
-    var record := {"raw": {}, "stamp": config_task.stamp, "path": config_task.path, "entry": config_task.entry}
+    var record := {"raw": {}, "stamp": config_task.stamp, "size": config_task.get("size", -1), "path": config_task.path, "entry": config_task.entry}
     if prepared.is_empty():
         failures += 1
     else:
@@ -454,6 +455,13 @@ func _cached_raw_borrow(path: String) -> Variant:
             continue
         if record.stamp != FileAccess.get_modified_time(path) or record.raw.is_empty():
             return null
+        # A cached body belongs to its original read, not a newly observed file
+        # of equal second-resolution mtime. Legacy records must reread safely.
+        var file := FileAccess.open(path, FileAccess.READ)
+        if file == null: return null
+        var size := file.get_length()
+        file.close()
+        if int(record.get("size", -1)) != size: return null
         cache_hits += 1
         return record.raw
     return null

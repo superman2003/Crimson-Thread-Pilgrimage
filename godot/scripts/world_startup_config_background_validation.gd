@@ -19,6 +19,9 @@ class ProbeWorld extends "res://scripts/main_level.gd":
     func _prepare_config_and_route(prepared: Dictionary) -> void:
         received_prepared = not prepared.is_empty()
         super._prepare_config_and_route(prepared)
+    func _accept_owned_prepared_config(prepared: Dictionary) -> void:
+        received_prepared = not prepared.is_empty()
+        super._accept_owned_prepared_config(prepared)
 
 class FaultReader extends "res://scripts/world_config_read_job.gd":
     var fault := ""

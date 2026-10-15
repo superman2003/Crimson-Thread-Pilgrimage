@@ -97,11 +97,12 @@ func _seed(id: String, entry: Vector2) -> RefCounted:
     scene.world_prefetch = pref
     pref.generation = scene.world_loader.generation
     var path := ROUTES.config_path(id)
-    var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+    var source_bytes := FileAccess.get_file_as_bytes(path)
+    var raw: Dictionary = JSON.parse_string(source_bytes.get_string_from_utf8())
     var prepared: Dictionary = scene.world_loader.validate_config(raw, path, entry)
     _check(not prepared.is_empty(), id + " valid landing fixture")
     pref.desired[id] = {"path": path, "entry": entry, "distance": 0}
-    pref.configs[id] = {"raw": raw, "prepared": prepared, "stamp": FileAccess.get_modified_time(path)}
+    pref.configs[id] = {"raw": raw, "prepared": prepared, "stamp": FileAccess.get_modified_time(path), "size": source_bytes.size()}
     return pref
 
 func _warm(pref: RefCounted) -> void:
