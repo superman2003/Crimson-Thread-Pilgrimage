@@ -5,6 +5,7 @@ const ROUTES_PATH := "res://data/world_routes.json"
 static var _cached_stamp := -1
 static var _cached_data: Dictionary = {}
 static var _cache_generation := 0
+static var sync_manifest_parses := 0
 
 static func _ensure_manifest_cache() -> void:
     var stamp := FileAccess.get_modified_time(ROUTES_PATH)
@@ -16,6 +17,7 @@ static func _ensure_manifest_cache() -> void:
         _cached_data = {}
         return
     var parsed = JSON.parse_string(file.get_as_text())
+    sync_manifest_parses += 1
     _cached_data = parsed if parsed is Dictionary else {}
     _cached_stamp = stamp
     _cache_generation += 1
@@ -33,11 +35,47 @@ static func manifest_generation() -> int:
     _ensure_manifest_cache()
     return _cache_generation
 
+## Production World code uses these cache-only calls after the shared loader has
+## published a complete worker result. They never parse or repair the cache.
+static func cache_is_current() -> bool:
+    return _cached_stamp >= 0 and _cached_stamp == FileAccess.get_modified_time(ROUTES_PATH)
+
+static func cached_generation() -> int:
+    return _cache_generation if cache_is_current() else -1
+
+static func cached_config_path(region_id: String) -> String:
+    if not cache_is_current():
+        return ""
+    return "res://data/%s.json" % region_id if _cached_data.get("chapters", {}).has(region_id) else ""
+
+static func cached_overlay_bundle(region_id: String) -> Dictionary:
+    if not cache_is_current():
+        return {}
+    return {"generation": _cache_generation, "stamp": _cached_stamp,
+        "version": _cached_data.get("version", 1),
+        "overlay": _cached_data.get("chapters", {}).get(region_id, {})}
+
+static func cached_chapters() -> Dictionary:
+    if not cache_is_current():
+        return {}
+    return _cached_data.get("chapters", {})
+
+static func cached_portal(region_id: String, portal_id: String) -> Dictionary:
+    if not cache_is_current():
+        return {}
+    for candidate in _cached_data.get("chapters", {}).get(region_id, {}).get("portals", []):
+        if str(candidate.get("id", "")) == portal_id:
+            return candidate.duplicate(true)
+    return {}
+
+static func cached_data() -> Dictionary:
+    return _cached_data.duplicate(true) if cache_is_current() else {}
+
 static func overlay_bundle(region_id: String) -> Dictionary:
     _ensure_manifest_cache()
     return {"generation": _cache_generation, "stamp": _cached_stamp,
-		"version": _cached_data.get("version", 1),
-		"overlay": _cached_data.get("chapters", {}).get(region_id, {})}
+        "version": _cached_data.get("version", 1),
+        "overlay": _cached_data.get("chapters", {}).get(region_id, {})}
 
 ## Worker-friendly ticket payload. The shared CONFIG_READ_JOB owns the actual
 ## file/JSON operation; callers validate its ticket and stamp before commit.
@@ -45,7 +83,9 @@ static func manifest_ticket(read_result: Dictionary, generation: int) -> Diction
     if str(read_result.get("error", "")) != "" or not read_result.get("raw") is Dictionary:
         return {}
     return {"generation": generation, "stamp": int(read_result.get("stamp", -1)),
-        "manifest": read_result.raw.duplicate(true)}
+        # Ownership transfers from the completed worker ticket. The loader
+        # incrementally clones this private tree before publishing the cache.
+        "manifest": read_result.raw}
 
 static func accept_manifest_ticket(ticket: Dictionary, generation: int) -> bool:
     if int(ticket.get("generation", -1)) != generation or int(ticket.get("stamp", -1)) != FileAccess.get_modified_time(ROUTES_PATH):
@@ -53,7 +93,9 @@ static func accept_manifest_ticket(ticket: Dictionary, generation: int) -> bool:
     var manifest: Variant = ticket.get("manifest")
     if not manifest is Dictionary:
         return false
-    _cached_data = manifest.duplicate(true)
+    # `manifest` must be a fully detached loader-owned copy. Never expose the
+    # worker's mutable result as the shared cache.
+    _cached_data = manifest
     _cached_stamp = int(ticket.stamp)
     _cache_generation += 1
     return true
@@ -95,9 +137,22 @@ static func apply_to_owned(source: Dictionary) -> Dictionary:
     _apply_owned(source)
     return source
 
+static func apply_to_owned_cached(source: Dictionary) -> Dictionary:
+    if not cache_is_current():
+        return {}
+    _apply_owned_cached(source)
+    return source
+
+static func _apply_owned_cached(config: Dictionary) -> void:
+    if not cache_is_current():
+        return
+    _apply_overlay(config, _cached_data)
+
 static func _apply_owned(config: Dictionary) -> void:
     _ensure_manifest_cache()
-    var manifest: Dictionary = _cached_data
+    _apply_overlay(config, _cached_data)
+
+static func _apply_overlay(config: Dictionary, manifest: Dictionary) -> void:
     var overlay: Dictionary = manifest.get("chapters", {}).get(str(config.get("id", "")), {})
     if overlay.is_empty():
         return

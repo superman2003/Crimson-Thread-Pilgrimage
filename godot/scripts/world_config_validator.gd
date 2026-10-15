@@ -75,11 +75,13 @@ func begin(parsed: Variant, path: String, entry: Vector2) -> void:
 	route_overlay_steps = 0
 	max_route_overlay_step_usec = 0
 	max_route_overlay_begin_usec = 0
-	_manifest_generation = ROUTES.manifest_generation()
+	_manifest_generation = ROUTES.cached_generation()
+	if _manifest_generation < 0:
+		_fail("巡礼路线尚未由世界读取器准备好。")
 
 func step() -> bool:
 	if done: return true
-	if ROUTES.manifest_generation() != _manifest_generation:
+	if _manifest_generation < 0 or ROUTES.cached_generation() != _manifest_generation:
 		_fail("巡礼路线版本已变化，请重试。")
 		return true
 	match _stage:
@@ -111,7 +113,7 @@ func _step_header() -> void:
 	if not _entry.is_finite(): return _fail("目标位置无效。")
 	if not _parsed is Dictionary: return _fail("目标区域记录无法读取。")
 	var id := String(_parsed.get("id", ""))
-	if not COORDINATES.has_region(id) or ROUTES.config_path(id) != _path: return _fail("目标区域不属于当前巡礼世界。")
+	if not COORDINATES.has_region(id) or ROUTES.cached_config_path(id) != _path: return _fail("目标区域不属于当前巡礼世界。")
 	if not _parsed.get("world") is Dictionary or not _parsed.get("map_rooms") is Array or _parsed.map_rooms.is_empty(): return _fail("目标区域缺少地形与房间记录。")
 	if not _parsed.get("inventory", {}) is Dictionary: return _fail("目标区域的物品记录无效。")
 	_stage = "records"
@@ -236,7 +238,7 @@ func _step_apply_routes() -> void:
 		operation_name = "route_overlay_begin"
 		var overlay_begin_started := Time.get_ticks_usec()
 		_route_overlay_job = ROUTE_OVERLAY_JOB.new()
-		var bundle: Dictionary = ROUTES.overlay_bundle(String(_parsed.get("id", "")))
+		var bundle: Dictionary = ROUTES.cached_overlay_bundle(String(_parsed.get("id", "")))
 		if int(bundle.get("generation", -1)) != _manifest_generation:
 			_fail("巡礼路线版本已变化，请重试。")
 			return

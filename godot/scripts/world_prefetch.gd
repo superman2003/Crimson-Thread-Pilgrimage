@@ -9,6 +9,7 @@ const MAX_ROCK_SHAPES := 32
 const MAX_POLYGON_POINTS := 256
 const GAMEPLAY := preload("res://scripts/world_gameplay_prefetch.gd")
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
+const ROUTES := preload("res://scripts/world_routes.gd")
 const MAX_CONFIG_OPERATIONS := 8
 var gameplay := GAMEPLAY.new()
 var rock_hits := 0
@@ -55,11 +56,38 @@ var config_operation_usec: Dictionary = {}
 var config_worker_usec := 0
 var config_bytes := 0
 var config_worker_is_main := true
+var route_cache_generation := -2
+var route_cache_seen := false
 
 func step(host: Node, delta: float) -> void:
     last_config_operations = 0
     if not is_instance_valid(host.player):
         return
+    var current_route_generation := ROUTES.cached_generation()
+    if current_route_generation < 0:
+        if route_cache_seen and route_cache_generation != -2:
+            cancel_config()
+            _clear_entities()
+            configs.clear()
+            retained.clear()
+            paths.clear()
+            route_cache_generation = -2
+        if host.world_loader != null and host.world_loader.has_method("request_manifest_refresh"):
+            host.world_loader.request_manifest_refresh(host)
+    elif not route_cache_seen:
+        # The first cache publication must not invalidate a caller's current
+        # desired lease; fixtures and startup can seed it before this first
+        # process poll. Only a later generation change requires reselection.
+        route_cache_seen = true
+        route_cache_generation = current_route_generation
+    elif route_cache_generation != current_route_generation:
+        cancel_config()
+        _clear_entities()
+        configs.clear()
+        retained.clear()
+        paths.clear()
+        route_cache_generation = current_route_generation
+        selection_elapsed = 1.0
     var started := Time.get_ticks_usec()
     if generation != host.world_loader.generation:
         cancel_config()
@@ -392,8 +420,10 @@ func _select(host: Node) -> void:
             continue
         var entry: Array = portal.get("target_spawn", [0, 0])
         if not paths.has(region_id):
-            paths[region_id] = host.WORLD_ROUTES_SCRIPT.config_path(region_id)
+            paths[region_id] = host.WORLD_ROUTES_SCRIPT.cached_config_path(region_id)
         if String(paths[region_id]).is_empty():
+            if host.world_loader != null and host.world_loader.has_method("request_manifest_refresh"):
+                host.world_loader.request_manifest_refresh(host)
             continue
         nearest[region_id] = {"path": paths[region_id], "entry": Vector2(entry[0], entry[1]), "distance": distance}
     var ids: Array = nearest.keys()
