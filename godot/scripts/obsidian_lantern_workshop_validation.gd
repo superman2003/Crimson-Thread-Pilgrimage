@@ -58,6 +58,11 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 
 	var reached_lower := await _walk_to(Vector2(7800, 490))
 	_check(reached_lower, "Player climbs the lower service platform with collision actual=" + _player_state())
+	# The upper gallery starts to the right of the lower step. Jumping straight
+	# up at x=7800 hits the solid upper step's underside, so return to the left
+	# side of the lower landing before making the real, single jump.
+	var back_at_lower_takeoff := await _walk_to(Vector2(7758, 490))
+	_check(back_at_lower_takeoff, "Player returns to the lower-step jump approach actual=" + _player_state())
 	var reached_upper := await _walk_to(Vector2(7890, 380))
 	_check(reached_upper, "Player climbs the upper lantern gallery with collision actual=" + _player_state())
 	var crossed_gallery := await _walk_to(Vector2(7954, 380))

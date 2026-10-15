@@ -9,6 +9,7 @@ var scene: Node
 var checks := 0
 var failures := 0
 var inputs := ["move_left", "move_right", "jump", "dash", "attack", "aim_down", "aim_up", "hook", "bell_guard", "lantern_phase", "crown_resonance", "interact"]
+var jump_diag_emitted := false
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -130,6 +131,28 @@ func _jump_to_landing(target_x: float, target_y: float, jump_hold_frames: int) -
     if not player.is_on_floor():
         return _step_timeout("takeoff was not grounded", Vector2(target_x, target_y))
 
+    # Let released ability inputs and the physics/collision state settle before
+    # this ordinary jump. Player physics returns early while collision chunks
+    # synchronize or UI input is locked, which can consume just_pressed.
+    var stable_takeoff_frames := 0
+    for unused in range(90):
+        await _tick()
+        var collision_ready := not scene.has_method("_world_collision_ready") or bool(scene._world_collision_ready())
+        if player.is_on_floor() and collision_ready and not player.ui_input_locked:
+            stable_takeoff_frames += 1
+            if stable_takeoff_frames >= 3:
+                break
+        else:
+            stable_takeoff_frames = 0
+    var takeoff_ready := not scene.has_method("_world_collision_ready") or bool(scene._world_collision_ready())
+    if stable_takeoff_frames < 3:
+        return _step_timeout("takeoff state did not stabilize " + _takeoff_state(takeoff_ready), Vector2(target_x, target_y))
+    if not jump_diag_emitted:
+        push_warning("CH05 jump diagnostic before press " + _player_state() + " collision_ready=%s phase=%s jump_pressed=%s jump_just_pressed=%s jump_buffer=%.3f coyote=%.3f dash=%.3f attack=%.3f hurt=%.3f ui_locked=%s" % [
+            str(takeoff_ready),
+            str(player.phase_active), str(Input.is_action_pressed("jump")), str(Input.is_action_just_pressed("jump")),
+            player.jump_buffer_timer, player.coyote_timer, player.dash_timer, player.attack_timer, player.hurt_timer, str(player.ui_input_locked)])
+
     Input.action_press("jump")
     for frame in range(180):
         var dx: float = target_x - player.global_position.x
@@ -140,6 +163,12 @@ func _jump_to_landing(target_x: float, target_y: float, jump_hold_frames: int) -
         else:
             _set_horizontal_axis(signf(dx))
         await _tick()
+        if not jump_diag_emitted and frame < 3:
+            push_warning("CH05 jump diagnostic physics_frame=%d " % (frame + 1) + _player_state() + " collision_ready=%s phase=%s jump_pressed=%s jump_just_pressed=%s jump_buffer=%.3f coyote=%.3f ui_locked=%s" % [
+                str(scene._world_collision_ready()), str(player.phase_active), str(Input.is_action_pressed("jump")),
+                str(Input.is_action_just_pressed("jump")), player.jump_buffer_timer, player.coyote_timer, str(player.ui_input_locked)])
+            if frame == 2:
+                jump_diag_emitted = true
         if frame > jump_hold_frames and player.is_on_floor() and absf(player.global_position.x - target_x) < 18.0 and absf(player.global_position.y - target_y) < 5.0:
             _release()
             return true
@@ -164,6 +193,11 @@ func _step_timeout(stage: String, target: Vector2) -> bool:
 func _player_state() -> String:
     var player: CharacterBody2D = scene.player
     return "pos=%s velocity=%s floor=%s wall=%s" % [str(player.global_position), str(player.velocity), str(player.is_on_floor()), str(player.is_on_wall())]
+
+func _takeoff_state(collision_ready: bool) -> String:
+    var player: CharacterBody2D = scene.player
+    return "actual=%s collision_ready=%s phase=%s ui_locked=%s" % [
+        _player_state(), str(collision_ready), str(player.phase_active), str(player.ui_input_locked)]
 
 func _pulse(action: String, frames: int = 2) -> void:
     Input.action_press(action)
