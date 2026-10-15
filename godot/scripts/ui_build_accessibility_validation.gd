@@ -1,6 +1,7 @@
 extends SceneTree
 
 const UI = preload("res://scripts/pilgrimage_interface.gd")
+const FEEL_ACCESSIBILITY = preload("res://scripts/feel_accessibility_validation.gd")
 const BUILD = preload("res://scripts/build_system.gd")
 var failures := 0
 
@@ -113,6 +114,8 @@ func run() -> void:
     restored._load_accessibility()
     check(int(restored.accessibility.subtitle_size)==26 and not bool(restored.accessibility.flash_enabled),"Accessibility preferences persist through ConfigFile reload")
     restored.free()
+    var feel_validation := FEEL_ACCESSIBILITY.new()
+    failures += await feel_validation.run(self, ui)
     ui.settings.visible=true
     ui._begin_remap("heal")
     var old_events:=InputMap.action_get_events("heal")
