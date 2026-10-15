@@ -24,6 +24,7 @@
     "test:world-prepare-budget": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite world_prepare_budget",
     "test:campaign": "node tools/run_python_tool.mjs tools/validate_campaign_chapters.py && node tools/run_python_tool.mjs tools/validate_chapter_files.py && node tools/run_python_tool.mjs tools/validate_world_routes.py && node tools/run_python_tool.mjs tools/validate_world_narrative.py && node tools/run_python_tool.mjs tools/validate_world_upgrade.py",
     "test:runner": "node tools/run_python_tool.mjs tools/test_regression_runner.py && node tools/run_python_tool.mjs tools/test_godot_import.py",
-    "test:obsidian-experience": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite obsidian_experience"
+    "test:obsidian-experience": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite obsidian_experience",
+    "test:combat-upgrade": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite melee_recovery --suite build_slots --suite build_transaction_runtime --suite enemy_encounter_roles --suite build_slots_ui --suite narrative_outcomes"
   }
 }

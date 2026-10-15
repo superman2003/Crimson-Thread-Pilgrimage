@@ -33,7 +33,7 @@ func _initialize() -> void:
     _check(build.cycle_skill().ok and build.state.skill == "cleave", "cycle preserves active alias")
     _check(build.select_tool("mine", 1).ok and build.cycle_tool().ok and build.state.tool == "shard", "two tools and active alias")
     _check(not build.refill_tools(false).ok, "refill requires shrine")
-    _check(build.refill_tools(true).ok and build.state.tool_counts == {"shard": 3, "mine": 2, "fog": 2, "lure": 2}, "free finite shrine refill")
+    _check(not build.refill_tools(true).ok and build.state.tool_counts == {"shard": 3, "mine": 2, "fog": 2, "lure": 2}, "legacy refill cannot create free stock")
     before = build.serialize()
     _check(not build.switch_crest("bell", false).ok and build.serialize() == before, "switch cannot occur away from shrine")
     for id in ["crimson", "bell", "salt"]:
@@ -64,13 +64,24 @@ func _initialize() -> void:
         _check(build.use_tool().ok, "finite tool consumption")
     _check(not build.use_tool().ok and build.state.tool_counts.shard == 0, "no infinite tools")
     before = build.serialize()
-    _check(not build.transact("refill_shard", wallet).ok and build.serialize() == before, "no paid supply economy")
+    _check(not build.transact("refill_shard", wallet).ok and build.serialize() == before, "refill is not a crafting recipe")
     _check(build.equip_passives(["needlecase"]).ok and build.state.tool_counts.shard == 0, "capacity increase never adds stock")
-    _check(build.refill_tools(true).ok and build.state.tool_counts.shard == 4 and build.state.tool_counts.mine == 3 and build.state.tool_counts.fog == 2, "needlecase designated capacities only")
-    _check(build.equip_passives([]).ok and build.state.tool_counts.shard == 4, "unequip no stock creation or destructive subtraction")
+    var broke := {"currency": 3, "inventory_counts": {"moss_chitin": 1}}
+    var broke_before := build.serialize()
+    var broke_quote := build.quote_resupply(broke)
+    _check(not broke_quote.ok and broke_quote.charges.is_empty() and build.serialize() == broke_before and broke.currency == 3, "unaffordable supply quote has no side effects")
+    var partial_wallet := {"currency": 5, "inventory_counts": {"moss_chitin": 1}}
+    var partial_quote := build.quote_resupply(partial_wallet)
+    _check(partial_quote.ok and partial_quote.charges == {"shard": 1} and partial_quote.cost == {"currency": 4, "materials": {"moss_chitin": 1}}, "preview offers only one affordable shard charge")
+    var off_bell := build.resupply_tools(partial_wallet, false)
+    _check(not off_bell.ok and build.state.tool_counts.shard == 0 and partial_wallet.currency == 5, "road supply rejected without mutation")
+    var partial_purchase := build.resupply_tools(partial_wallet, true)
+    _check(partial_purchase.ok and partial_purchase.wallet.currency == 1 and partial_purchase.wallet.inventory_counts.moss_chitin == 0 and build.state.tool_counts.shard == 1, "paid partial purchase commits exact costs and stock")
+    _check(build.state.tool_counts.mine == 0 and build.state.tool_counts.fog == 0, "partial wallet cannot refill unaffordable tools")
+    _check(build.equip_passives([]).ok and build.state.tool_counts.shard == 1, "unequip leaves paid stock unchanged")
     var world := WORLD.new()
     _check(world.capture_global({"build_state": build.serialize()}), "strict global JSON captures build")
-    _check(restart.restore(JSON.parse_string(JSON.stringify(build.serialize()))).ok and restart.serialize() == build.serialize(), "v2 exact JSON roundtrip")
+    _check(restart.restore(JSON.parse_string(JSON.stringify(build.serialize()))).ok and restart.serialize() == build.serialize(), "v3 exact JSON roundtrip")
     for corrupt_kind in ["negative", "fractional", "duplicate", "cooldown", "unknown", "alias"]:
         var corrupt := build.serialize()
         match corrupt_kind:
