@@ -789,6 +789,9 @@ func _save_accessibility() -> void:
     if result!=OK and toast!=null:toast.text="设置保存失败（%d），当前设置仍有效。" % result
 
 func _apply_accessibility() -> void:
+    var feel := get_node_or_null("/root/FeelKit")
+    if feel != null and feel.has_method("set_accessibility"):
+        feel.set_accessibility(accessibility)
     if dialogue_body!=null:dialogue_body.add_theme_font_size_override("font_size",int(accessibility["subtitle_size"]))
     if build_detail!=null:build_detail.add_theme_font_size_override("normal_font_size",int(accessibility["subtitle_size"]))
     if level!=null and is_instance_valid(level.player):
