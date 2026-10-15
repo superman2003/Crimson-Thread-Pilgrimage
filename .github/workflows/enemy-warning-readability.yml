@@ -55,19 +55,13 @@ jobs:
             --suite enemy_visibility \
             --suite obsidian_experience \
             --log-dir "$RUNNER_TEMP/regression-logs"
-      - name: Validate existing audio and visual regression
+      - name: Validate registered audio lifetime regression
         if: always() && !cancelled()
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          mkdir -p "$RUNNER_TEMP/regression-logs/audio-visual"
-          printf '{"suite":"audio_visual_validation"}\n' > "$RUNNER_TEMP/audio_visual_summary.json"
-          python3 tools/run_rock_gpu_validation.py \
-            --engine "$engine" \
-            --log-dir "$RUNNER_TEMP/regression-logs/audio-visual" \
-            --script res://scripts/audio_visual_validation.gd \
-            --success-marker 'AUDIO_VISUAL_VALIDATION_PASS audio=' \
-            --summary-path "$RUNNER_TEMP/audio_visual_summary.json" \
-            --timeout 180
+          npm run test:godot -- --engine "$engine" --software-gl \
+            --suite audio_retirement \
+            --log-dir "$RUNNER_TEMP/regression-logs"
       - name: Preserve focused regression logs
         if: always()
         uses: actions/upload-artifact@v4
