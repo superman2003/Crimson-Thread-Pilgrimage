@@ -31,6 +31,9 @@ def main():
     # Choose an unused TCP display and keep Xvfb and Godot in one process tree.
     display = None
     for candidate in range(90, 110):
+        # TCP namespaces may differ while parallel workers share X lockfiles.
+        if Path(f"/tmp/.X{candidate}-lock").exists():
+            continue
         with socket.socket() as probe:
             try:
                 probe.bind(('127.0.0.1', 6000 + candidate))

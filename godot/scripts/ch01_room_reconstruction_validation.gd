@@ -98,6 +98,7 @@ func run() -> void:
     world.world_resume = false
     world.world_save_path = "user://room_validation.json"
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     await tick(15)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
     world.player.debug_invulnerable = true

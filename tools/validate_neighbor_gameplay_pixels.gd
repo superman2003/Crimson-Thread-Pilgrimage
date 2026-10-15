@@ -48,6 +48,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = "user://neighbor_gameplay_pixels.json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     var title := Label.new()
     title.position = Vector2(48,48)
     title.add_theme_font_override("font",load("res://assets/fonts/NotoSansSC.ttf"))

@@ -16,6 +16,7 @@ const PLAYER_SCENE := preload("res://scenes/Player.tscn")
 const ENEMY_ACTOR_SCRIPT := preload("res://scripts/enemy_actor.gd")
 const METSYS_BRIDGE_SCRIPT := preload("res://scripts/metroidvania_bridge.gd")
 const AUDIO_DIRECTOR_SCRIPT := preload("res://scripts/audio_director.gd")
+const AUDIO_RETIREMENT_SCRIPT := preload("res://scripts/audio_retirement.gd")
 const BUILD_SYSTEM_SCRIPT := preload("res://scripts/build_system.gd")
 const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_PASSAGE := preload("res://scripts/world_passage.gd")
@@ -599,6 +600,7 @@ var world_write_error_shown := false
 ## Narrow failure seam for transaction validations; simulates the storage boundary failing after capture.
 var world_save_failure_injected_for_validation := false
 var world_loading := true
+var initial_region_ready := false
 var build_system: RefCounted
 var world_slot := 1
 var death_cache_area: Area2D
@@ -633,7 +635,12 @@ func _ready() -> void:
         world_passage = WORLD_PASSAGE.new()
         add_child(world_passage)
         world_passage.bind(self)
-    _initialize_region()
+    if world_mode:
+        var previous_mode := process_mode
+        process_mode = Node.PROCESS_MODE_DISABLED
+        world_loader.request_startup_region(self, previous_mode)
+    else:
+        _initialize_region()
 
 
 func _initialize_region(prepared_config: Dictionary = {}) -> void:
@@ -715,7 +722,7 @@ func _chapter_metadata_paths() -> Array:
 func _prepare_config_and_route(prepared_config: Dictionary) -> void:
     config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
     if world_mode and prepared_config.is_empty():
-        config = WORLD_ROUTES_SCRIPT.apply_to(config)
+        config = WORLD_ROUTES_SCRIPT.apply_to_owned(config)
     if config.is_empty():
         push_error("Missing demo config: " + config_path)
 
@@ -900,6 +907,7 @@ func _publish_region() -> void:
         world_initial_error = "原构筑记录已保留，自动保存仍暂停；请恢复备份或开始新旅途。"
     _show_chapter_entry_message()
     world_loading = false
+    initial_region_ready = true
     if world_mode:
         if not world_initial_error.is_empty():
             _toast(world_initial_error)
@@ -933,6 +941,8 @@ func _apply_cmdline_config_override() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+    if world_mode and not initial_region_ready:
+        return
     if is_instance_valid(world_passage) and world_passage.active:
         world_passage.step()
         return
@@ -952,6 +962,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(_delta: float) -> void:
+    if world_mode and not initial_region_ready:
+        return
     if is_instance_valid(world_passage) and world_passage.active:
         return
     if world_mode and not world_loading and world_prefetch != null:
@@ -1046,6 +1058,10 @@ func _exit_tree() -> void:
 
 
 func _release_region_audio() -> void:
+    # Snapshot weak playback/stream handles before stopping and detaching any
+    # owned players. AudioServer can retain a completed Ogg voice until its next
+    # mix tick, so the shutdown probe drains these exact objects afterward.
+    AUDIO_RETIREMENT_SCRIPT.retire_tree(self)
     if bgm_player != null:
         bgm_player.stop()
         bgm_player.stream = null
@@ -1064,6 +1080,11 @@ func _release_region_audio() -> void:
     if live_director != null and live_director != audio_director:
         return
     _set_bgm_bus_volume_db(float(AUDIO_BUS_DEFAULT_VOLUME_DB.get("BGM", 0.0)))
+    # Stream caching is useful across regions while this director owns the mix,
+    # but must not pin decoded Ogg streams past the final owning scene.
+    if live_director == null or live_director == audio_director:
+        AUDIO_DIRECTOR_SCRIPT._stream_cache.clear()
+        AUDIO_DIRECTOR_SCRIPT._npc_voice_cache.clear()
 
 
 func _prepare_world_start() -> void:
@@ -1277,7 +1298,10 @@ func _update_first_journey_hint() -> void:
         return
     var lesson := ""
     var text := ""
-    if current_room_id == "entry_bell" and player.global_position.x >= 340 and not bool(story_flags.get("tutorial_action_seen_jump", false)):
+    if current_room_id == "entry_bell" and player.global_position.x < 340 and not bool(story_flags.get("tutorial_action_seen_move", false)):
+        lesson = "move"
+        text = "用 %s / %s 移动，沿苔灯走向断阶。" % [ui_shell._short_binding("move_left"), ui_shell._short_binding("move_right")]
+    elif current_room_id == "entry_bell" and player.global_position.x >= 340 and not bool(story_flags.get("tutorial_action_seen_jump", false)):
         lesson = "jump"
         text = "按 %s 跳跃；提前松开可跳得更低。" % ui_shell._short_binding("jump")
     elif current_room_id == "moss_descent" and not bool(story_flags.get("tutorial_action_seen_attack", false)):
@@ -1288,6 +1312,20 @@ func _update_first_journey_hint() -> void:
             return
         lesson = "heal"
         text = "站稳后按 %s 缝补；移动或受击会打断。" % ui_shell._short_binding("heal")
+    elif current_room_id == "court_hub" and player.hp == player.max_hp and not bool(story_flags.get("tutorial_action_seen_thread", false)):
+        if not _first_journey_heal_safe():
+            return
+        lesson = "thread"
+        text = "挥刃命中会回充绯线；留一些给缝补和战技。"
+    elif player.dash_unlocked and current_room_id in ["threadmakers_cache", "bell_gap_crossing"] and not bool(story_flags.get("tutorial_action_seen_dash", false)):
+        lesson = "dash"
+        text = "按 %s 冲刺越过缺口；空中也能使用。" % ui_shell._short_binding("dash")
+    elif current_room_id in ["first_bell_shrine", "maze_respite", "pre_boss_shrine"] and player.hp == player.max_hp and build_system != null and not bool(story_flags.get("tutorial_action_seen_tool", false)):
+        var tool_id := String(build_system.state.get("tool", ""))
+        if tool_id.is_empty() or int(build_system.state.get("tool_counts", {}).get(tool_id, 0)) <= 0 or not _first_journey_heal_safe():
+            return
+        lesson = "tool"
+        text = "按 %s 使用战具；在钟龛休息可补满次数。" % ui_shell._short_binding("tool_cast")
     if lesson.is_empty():
         return
     story_flags["tutorial_action_seen_" + lesson] = true
@@ -1450,7 +1488,7 @@ func _activate_world_portal(area: Area2D) -> void:
         return
     var shortcut := String(data.get("unlock_shortcut_id", ""))
     world_portal_request_pending = true
-    _defer_region_call("_travel_world_async", [next_path, entry, shortcut])
+    _defer_region_call("_request_world_travel", [next_path, entry, shortcut])
 
 
 func _travel_world(next_path: String, entry: Vector2) -> void:
@@ -1462,6 +1500,19 @@ func _travel_world(next_path: String, entry: Vector2) -> void:
         if is_instance_valid(audio_director):
             audio_director.cancel_chapter_transition()
         _toast("旧路暂未接通，仍留在当前区域。" + (world_loader.last_error if world_loader != null else ""))
+
+
+
+func _request_world_travel(next_path: String, entry: Vector2, shortcut: String = "") -> void:
+    if world_loader == null or world_loader.phase != "idle":
+        world_portal_request_pending = false
+        return
+    var publish_flags: Dictionary = {}
+    if not shortcut.is_empty():
+        publish_flags["world_shortcut_" + shortcut] = true
+    var token: RefCounted = world_loader.request_region_transition(self, next_path, entry, publish_flags)
+    if token == null:
+        world_portal_request_pending = false
 
 
 func _travel_world_async(next_path: String, entry: Vector2, shortcut: String = "") -> void:
@@ -1501,7 +1552,7 @@ func _defer_region_call(method: StringName, arguments: Array = []) -> void:
 
 
 func _run_region_deferred(generation: int, method: StringName, arguments: Array) -> void:
-    var portal_request := method == "_travel_world_async"
+    var portal_request := method in ["_request_world_travel", "_travel_world_async"]
     if _walking_world_passage():
         if portal_request:
             world_portal_request_pending = false
@@ -6146,7 +6197,8 @@ func _on_hp_changed(value: int) -> void:
     # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
     _set_low_hp_audio(value == 1)
     if value <= 0:
-        _record_death_cache()
+        # Enemy body-entered callbacks run during physics query flushing.
+        _defer_region_call("_record_death_cache")
         # 玩家死亡（规格 §5.3/§5.5）：director 在场时全总线 300Hz 低通 + duck 自清；
         # 缺席时保持旧 duck 行为。
         if audio_director != null:

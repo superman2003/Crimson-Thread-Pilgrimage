@@ -8,6 +8,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await frames(2)
     await cache_churn()

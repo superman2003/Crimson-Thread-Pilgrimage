@@ -29,6 +29,7 @@ func _run() -> void:
         var scene: Node=load("res://scenes/Main.tscn").instantiate()
         scene.config_path="res://data/"+String(id)+".json"
         root.add_child(scene)
+        await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
         for i in range(15):await physics_frame
         check(scene.cave_world!=null,String(id)+" cave installed")
         check(scene.cave_world.solid_rects.size()>80,String(id)+" solid rock envelope")

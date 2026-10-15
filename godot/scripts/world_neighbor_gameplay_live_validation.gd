@@ -119,6 +119,7 @@ func crossing(target: String, direction: int) -> Dictionary:
     # Inspect adoption before active destination AI has time to despawn actors.
     check(entered and String(scene.config.id) == target and scene.world_loader.phase == "idle","directional input completes authored pipe crossing")
     check(float(scene.world_passage.last_result.get("distance",0)) >= 8500,"natural mouth approach traverses full pipe")
+    check(not String(scene.world_passage.last_result.get("landing_support", "")).is_empty(),"crossing walks through the prefetched landing floor seam")
     check(scene.player.get_instance_id() == player_id and scene.player.hp == hp and scene.player.energy == energy and scene.currency_count == wallet,"crossing preserves player resources and identity")
     var expected_inventory: Dictionary = inventory.duplicate(true)
     var starting: Dictionary = scene.config.get("inventory",{})
@@ -212,6 +213,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await tick(4)
     scene._travel_world(ROUTES.config_path(MOSS),Vector2(1610,3712)) # initial checkpoint fixture only
@@ -240,6 +242,7 @@ func run() -> void:
     scene.world_resume = true
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await tick(4)
     check(String(scene.config.id) == String(persisted.current_region) and scene.inventory_counts == final_inventory and scene.currency_count == final_wallet,"restart restores live arrival rewards and checkpoint")

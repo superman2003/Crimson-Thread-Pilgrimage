@@ -14,6 +14,7 @@ func _run() -> void:
 
     var scene: Node = load(MAIN_SCENE).instantiate()
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await process_frame
     await process_frame
 

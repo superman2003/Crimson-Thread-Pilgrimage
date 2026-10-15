@@ -31,6 +31,7 @@ func _run() -> void:
 	scene.world_resume = false
 	scene.world_save_path = SAVE
 	root.add_child(scene)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
 	current_scene = scene
 	await _frames(3)
 	if not is_instance_valid(scene.player):
@@ -108,7 +109,7 @@ func _run() -> void:
 	var cold_target_path := ROUTES.config_path(cold_target_id)
 	var cold_target_config: Dictionary = _read_json(cold_target_path)
 	var cold_entry := _entry_for(cold_target_config)
-	scene._travel_world_async(cold_target_path, cold_entry)
+	scene._request_world_travel(cold_target_path, cold_entry)
 	var saw_staged_catalog := false
 	for frame in range(4000):
 		if scene.world_loader.phase == "loading" and scene.world_catalog_prepare_staging.size() > 0:
@@ -128,7 +129,7 @@ func _run() -> void:
 
 	# Host teardown during preparation must retire the root-owned loading canvas
 	# and let the suspended transition coroutine observe that the host is gone.
-	scene._travel_world_async(cold_target_path, cold_entry)
+	scene._request_world_travel(cold_target_path, cold_entry)
 	var saw_prepare := false
 	for frame in range(4000):
 		if scene.world_loader.phase == "loading" and int(scene.world_loader.last_transition.get("prepare_jobs", 0)) > 0 and int(scene.world_loader.last_transition.get("prepare_cursor", 0)) > 0:
@@ -141,6 +142,9 @@ func _run() -> void:
 	current_scene = null
 	await _frames(3)
 	_check(loader.shutting_down and loader.loading_canvas == null, "host teardown shuts down loader and removes loading canvas")
+	_check(loader.phase == "idle" and not loader.config_read_job.busy() and loader.transition_token == null,
+		"host teardown leaves loader idle with reader and transition owner released")
+	_check(loader.startup_token == null, "completed startup owner token is released before travel teardown")
 	loader = null
 
 	for suffix in ["", ".bak", ".tmp"]:
@@ -158,7 +162,7 @@ func _cancel_during_prepare(boundary: String, target_id: String, target_path: St
 	_check(int(source_state.get("currency", -1)) == 317, boundary + " fixture records the settled departure currency")
 	var source_catalog: Dictionary = scene.world_catalog.duplicate(true)
 	var source_generation: int = scene.world_loader.generation
-	scene._travel_world_async(target_path, target_entry)
+	scene._request_world_travel(target_path, target_entry)
 	var reached := false
 	for frame in range(5000):
 		if scene.world_loader.phase == "loading" and String(scene.world_loader.last_transition.get("source", "")) == source_id and String(scene.world_loader.last_transition.get("target", "")) == target_id:

@@ -106,6 +106,7 @@ func room_views() -> void:
     world.world_resume = false
     world.world_save_path = SAVE_PATH
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene = world
     await frames(8)
     pause_world(world)
@@ -120,7 +121,7 @@ func room_views() -> void:
     world._show_chapter_entry_message() # Inspect the actual adapter before nearby signs replace the toast.
     check(world.toast_label.text == "铸雨渠", "Foundry arrival uses its player-facing region name")
     check(world.player.get_instance_id() == player_id and camera.get_instance_id() == camera_id, "Arrival preserves Player and Camera instances")
-    check(world.player.room_camera.zones.size() == 38, "All 38 original foundry rooms have authored camera ranges")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 38, "All 38 original foundry rooms have authored camera ranges")
     var zoom := camera.zoom
     var half := Vector2(root.size) / zoom * 0.5
     for room in world.config.map_rooms:
@@ -166,10 +167,10 @@ func room_views() -> void:
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the shrine")
     world._travel_world("res://data/demo_ch03_saltwhite_archive.json", Vector2(300, 2580))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 15 and world.player.room_camera.current.id == "salt_gatehouse" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving foundry replaces its room limits with archive framing")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 15 and world.player.room_camera.current.id == "salt_gatehouse" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving foundry replaces its room limits with archive framing")
     world._travel_world(PATH, Vector2(200, 720))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 38 and world.player.room_camera.current.id == "upper_sluice", "Returning rebuilds foundry framing without stale locks")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 38 and world.player.room_camera.current.id == "upper_sluice", "Returning rebuilds foundry framing without stale locks")
     world.queue_free()
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:

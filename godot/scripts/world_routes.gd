@@ -2,19 +2,63 @@ class_name PilgrimageWorldRoutes
 extends RefCounted
 
 const ROUTES_PATH := "res://data/world_routes.json"
+static var _cached_stamp := -1
+static var _cached_data: Dictionary = {}
+static var _cache_generation := 0
 
-static func _data() -> Dictionary:
+static func _ensure_manifest_cache() -> void:
+    var stamp := FileAccess.get_modified_time(ROUTES_PATH)
+    if stamp == _cached_stamp:
+        return
     var file := FileAccess.open(ROUTES_PATH, FileAccess.READ)
     if file == null:
-        return {}
+        _cached_stamp = stamp
+        _cached_data = {}
+        return
     var parsed = JSON.parse_string(file.get_as_text())
-    return parsed if parsed is Dictionary else {}
+    _cached_data = parsed if parsed is Dictionary else {}
+    _cached_stamp = stamp
+    _cache_generation += 1
+
+## Callers receive a snapshot; nested mutable cache data never escapes.
+static func _data() -> Dictionary:
+    _ensure_manifest_cache()
+    return _cached_data.duplicate(true)
+
+static func manifest_stamp() -> int:
+    _ensure_manifest_cache()
+    return _cached_stamp
+
+static func manifest_generation() -> int:
+    _ensure_manifest_cache()
+    return _cache_generation
+
+## Worker-friendly ticket payload. The shared CONFIG_READ_JOB owns the actual
+## file/JSON operation; callers validate its ticket and stamp before commit.
+static func manifest_ticket(read_result: Dictionary, generation: int) -> Dictionary:
+    if str(read_result.get("error", "")) != "" or not read_result.get("raw") is Dictionary:
+        return {}
+    return {"generation": generation, "stamp": int(read_result.get("stamp", -1)),
+        "manifest": read_result.raw.duplicate(true)}
+
+static func accept_manifest_ticket(ticket: Dictionary, generation: int) -> bool:
+    if int(ticket.get("generation", -1)) != generation or int(ticket.get("stamp", -1)) != FileAccess.get_modified_time(ROUTES_PATH):
+        return false
+    var manifest: Variant = ticket.get("manifest")
+    if not manifest is Dictionary:
+        return false
+    _cached_data = manifest.duplicate(true)
+    _cached_stamp = int(ticket.stamp)
+    _cache_generation += 1
+    return true
 
 static func config_path(region_id: String) -> String:
-    return "res://data/%s.json" % region_id if _data().get("chapters", {}).has(region_id) else ""
+    _ensure_manifest_cache()
+    return "res://data/%s.json" % region_id if _cached_data.get("chapters", {}).has(region_id) else ""
 
 static func portal(region_id: String, portal_id: String) -> Dictionary:
-    for candidate in _data().get("chapters", {}).get(region_id, {}).get("portals", []):
+    _ensure_manifest_cache()
+    for candidate in _cached_data.get("chapters", {}).get(region_id, {}).get("portals", []):
         if str(candidate.get("id", "")) == portal_id:
             return candidate.duplicate(true)
     return {}
@@ -36,9 +80,21 @@ static func access(data: Dictionary, inventory: Dictionary, flags: Dictionary) -
 ## Apply ONLY in world mode. Standalone chapter demos retain their original data.
 static func apply_to(source: Dictionary) -> Dictionary:
     var config := source.duplicate(true)
-    var overlay: Dictionary = _data().get("chapters", {}).get(str(config.get("id", "")), {})
+    _apply_owned(config)
+    return config
+
+## Only use when source is freshly loaded or otherwise uniquely owned. This
+## avoids duplicating the entire chapter snapshot before applying its overlay.
+static func apply_to_owned(source: Dictionary) -> Dictionary:
+    _apply_owned(source)
+    return source
+
+static func _apply_owned(config: Dictionary) -> void:
+    _ensure_manifest_cache()
+    var manifest: Dictionary = _cached_data
+    var overlay: Dictionary = manifest.get("chapters", {}).get(str(config.get("id", "")), {})
     if overlay.is_empty():
-        return config
+        return
     # Optional return workshops extend the authored region instead of placing
     # solid gates across its mandatory route. Camera/fall bounds use this too.
     if not overlay.get("world_overrides", {}).is_empty():
@@ -80,5 +136,4 @@ static func apply_to(source: Dictionary) -> Dictionary:
         if not config["inventory"].has("catalog"):
             config["inventory"]["catalog"] = {}
         config["inventory"]["catalog"].merge(overlay["inventory_catalog"].duplicate(true), true)
-    config["world_routes_version"] = _data().get("version", 1)
-    return config
+    config["world_routes_version"] = manifest.get("version", 1)

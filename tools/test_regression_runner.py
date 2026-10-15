@@ -6,7 +6,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from run_godot_regressions import run_suites, suite_path
+from run_godot_regressions import suite_path, render_loop_args, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
+import re
+from run_godot_regressions import run_suites
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,8 +44,34 @@ class RunnerTests(unittest.TestCase):
         self.assertIn('timeout after', result.stdout)
 
     def test_success_is_success(self):
-        result = self.run_engine('print("FIXTURE_PASS checks=1")\n')
+        result = self.run_engine('print("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 0)
+
+    def test_zero_exit_without_completion_is_failure(self):
+        result = self.run_engine('print("PASS: first assertion only")\n')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('completion_marker=False', result.stdout)
+
+    def test_different_suite_marker_is_not_completion(self):
+        result = self.run_engine('print("WORLD_MAP checks=1 failures=0")\n')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('completion_marker=False', result.stdout)
+
+    def test_default_suites_all_have_compilable_completion_contracts(self):
+        all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
+        self.assertEqual(len(all_suites), 92)
+        self.assertEqual(len(all_suites), len(set(all_suites)))
+        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
+        for marker in SUCCESS_MARKERS.values():
+            self.assertTrue(marker.startswith('^') and marker.endswith('$'))
+            re.compile(marker)
+
+    def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
+        self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(True, 'world_upgrade'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_live'), [])
+        self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay'), [])
+        self.assertEqual(render_loop_args(False, 'world_neighbor_gameplay_stress'), [])
 
     def test_only_non_visual_neighbor_stress_disables_render_loop(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -52,6 +80,8 @@ class RunnerTests(unittest.TestCase):
             captured = root / 'args'
             engine.write_text(
                 '#!' + sys.executable + '\nimport sys\n'
+                + 'print("WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=1 failures=0")\n'
+                + 'print("WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=1 failures=0")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)

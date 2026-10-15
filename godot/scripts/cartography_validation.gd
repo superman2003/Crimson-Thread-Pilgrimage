@@ -31,6 +31,7 @@ func run() -> void:
     scene.world_save_path=SAVE
     scene.world_resume=false
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     scene.set_process(false)
     scene.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
@@ -101,6 +102,7 @@ func run() -> void:
     scene.world_save_path=SAVE
     scene.world_resume=true
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     scene.set_process(false)
     scene.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
@@ -119,6 +121,7 @@ func run() -> void:
         test_scene.world_resume=false
         test_scene.world_save_path=SAVE
         root.add_child(test_scene)
+        await preload("res://scripts/world_ready_validation_helper.gd").wait_for(test_scene)
         test_scene.set_process(false)
         test_scene.player.set_physics_process(false)
         for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)

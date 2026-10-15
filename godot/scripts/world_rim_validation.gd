@@ -26,6 +26,7 @@ func run() -> void:
         scene.world_resume = false
         scene.world_save_path = "user://world_rim_fixture.json"
         root.add_child(scene)
+        await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
         if String(scene.config.id)!=id:
             var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))
             scene._travel_world(ROUTES.config_path(id),Vector2(config.player_start[0],config.player_start[1]))

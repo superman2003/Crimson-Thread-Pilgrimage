@@ -26,6 +26,7 @@ func run() -> void:
         var scene: Node = load("res://scenes/Main.tscn").instantiate()
         scene.config_path = ROUTES.config_path(id)
         root.add_child(scene)
+        await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
         current_scene = scene
         await process_frame
         # Retire audio before the accelerated graphics-only fixture freezes AI.

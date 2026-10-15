@@ -14,6 +14,7 @@ func _run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE_PATH
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _frames()
     _check(scene.build_system != null and scene.player.build_system == scene.build_system, "real world injects build into player")
@@ -91,6 +92,7 @@ func _run() -> void:
     _check(scene.select_save_slot(2), "second slot can be opened from real scene")
     await _frames(8)
     scene = current_scene
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     _check(scene.world_slot == 2 and scene.world_save_path.ends_with("slot_2.json"), "slot change creates actual isolated World")
     _check(scene.currency_count == 0 and int(scene.build_system.state.tool_counts.shard) == 3, "new slot does not inherit old wallet or consumables")
     scene.queue_free()

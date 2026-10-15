@@ -59,6 +59,7 @@ func run() -> void:
 	scene.world_resume = false
 	scene.world_save_path = SAVE
 	root.add_child(scene)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
 	current_scene = scene
 	await tick(4)
 	var config_path := ROUTES.config_path(REGION)
@@ -226,6 +227,9 @@ func run() -> void:
 	scene.player.arrival_guard_timer = 0.0
 	scene.player.hurt_timer = 0.0
 	scene.player.take_damage(999, scene.player.global_position + Vector2(80, 0), false)
+	# Death-cache creation is deferred out of physics-query callbacks. Let the
+	# deferred region call settle before asserting the saved recovery state.
+	await process_frame
 	check(float(scene.player.get("death_timer")) > 0.0, "lethal player damage enters the production death timer")
 	var cache: Dictionary = scene.world_state.data.get("death_cache", {})
 	check(int(scene.currency_count) == reward_wallet - expected_lost and int(cache.get("currency", -1)) == expected_lost and String(cache.get("region_id", "")) == REGION and is_instance_valid(scene.death_cache_area),

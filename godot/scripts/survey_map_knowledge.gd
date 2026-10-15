@@ -1,0 +1,56 @@
+extends RefCounted
+## Pure knowledge and map-marker rules shared by regional and world maps.
+const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
+
+static func owner_room(config: Dictionary, area: Rect2) -> Dictionary:
+	var center := area.get_center()
+	var best: Dictionary = {}
+	var best_area := INF
+	for room in config.get("map_rooms", []):
+		var rect: Rect2 = _room_rect(room)
+		if rect.size.x <= 0.0 or rect.size.y <= 0.0: continue
+		# The whole feature must belong to a room. A center-only lookup leaks
+		# features that straddle a nested room boundary.
+		if rect.encloses(area) and rect.get_area() < best_area:
+			best = room
+			best_area = rect.get_area()
+	return best
+
+static func visible(flags: Dictionary, region_id: String, config: Dictionary, area: Rect2) -> bool:
+	if not JOURNAL.owned(flags, region_id): return false
+	var room := owner_room(config, area)
+	return not room.is_empty() and JOURNAL.charted(flags, region_id, String(room.get("id", "")))
+
+static func gate_open(gate: Dictionary, inventory: Dictionary, flags: Dictionary) -> bool:
+	var ability := String(gate.get("required_ability", ""))
+	if ability.is_empty(): return false
+	var action := String(gate.get("requires_action", ""))
+	if not action.is_empty():
+		var unlock_id := String(gate.get("permanent_action_unlock_id", gate.get("id", "")))
+		return not unlock_id.is_empty() and bool(flags.get("action_gate_" + unlock_id, false))
+	return int(inventory.get(ability, 0)) > 0
+
+static func marker_text(gate: Dictionary, inventory: Dictionary, flags: Dictionary) -> String:
+	return "▢" if gate_open(gate, inventory, flags) else "▣"
+
+static func marker_records(config: Dictionary, flags: Dictionary, region_id: String, inventory: Dictionary) -> Array[Dictionary]:
+	var records: Array[Dictionary] = []
+	for hazard in config.get("hazards", []):
+		var rect := _data_rect(hazard)
+		if visible(flags, region_id, config, rect):
+			var room := owner_room(config, rect)
+			records.append({"kind":"hazard", "id":String(hazard.get("id", "")), "rect":rect, "room_id":String(room.id), "text":"!", "tooltip":String(hazard.get("name", "危险"))})
+	for gate in config.get("locked_gates", []):
+		var rect := _data_rect(gate)
+		if visible(flags, region_id, config, rect):
+			var room := owner_room(config, rect)
+			records.append({"kind":"gate", "id":String(gate.get("id", "")), "rect":rect, "room_id":String(room.id), "text":marker_text(gate, inventory, flags), "tooltip":String(gate.get("required_ability_name", gate.get("required_ability", "能力门")))})
+	return records
+
+static func _room_rect(room: Dictionary) -> Rect2:
+	var value: Array = room.get("layout_rect", room.get("play_rect", []))
+	return Rect2(value[0], value[1], value[2], value[3]) if value.size() >= 4 else Rect2()
+
+static func _data_rect(data: Dictionary) -> Rect2:
+	var value: Array = data.get("rect", [])
+	return Rect2(value[0], value[1], value[2], value[3]) if value.size() >= 4 else Rect2()

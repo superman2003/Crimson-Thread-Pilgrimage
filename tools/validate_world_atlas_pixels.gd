@@ -36,6 +36,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = "user://atlas_pixels.json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await process_frame
     for voice in scene.find_children("*","AudioStreamPlayer",true,false)+scene.find_children("*","AudioStreamPlayer2D",true,false):
         voice.stop()

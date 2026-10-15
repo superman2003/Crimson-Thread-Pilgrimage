@@ -127,6 +127,7 @@ func room_views() -> void:
     world.world_resume = false
     world.world_save_path = SAVE_PATH
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene = world
     await frames(8)
     pause_world(world)
@@ -142,7 +143,7 @@ func room_views() -> void:
     world._show_chapter_entry_message()
     check(world.toast_label.text == "黑曜巡礼道", "Arrival uses the player-facing region name")
     check(world.player.get_instance_id() == player_id and camera.get_instance_id() == camera_id, "Arrival preserves Player and Camera instances")
-    check(world.player.room_camera.zones.size() == 14, "All 14 original pilgrim rooms have authored camera ranges")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 14, "All 14 original pilgrim rooms have authored camera ranges")
     check(not world.player.debug_invulnerable, "Production waiting fixtures keep ordinary damage rules")
     for encounter in [["E07", Vector2(510, 1870)], ["E07", Vector2(190, 1870)], ["E13", Vector2(4150, 578)], ["E10", Vector2(3350, 650)], ["E12", Vector2(230, 1352)]]:
         var actor: Area2D = null
@@ -216,10 +217,10 @@ func room_views() -> void:
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
     pause_world(world)
-    check(world.player.room_camera.zones.is_empty() and not world.player.camera_focus.locks.has("exploration_room"), "Leaving pilgrim road clears its room limits")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 15 and world.player.camera_focus.locks.has("exploration_room") and not world.player.camera_focus.locks.has("boss_arena"), "Leaving pilgrim road replaces its room limits with 15 crown rooms")
     world._travel_world(PATH, Vector2(300, 2720))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 14 and world.player.room_camera.current.id == "ravine_gate", "Returning rebuilds entry framing without stale locks")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 14 and world.player.room_camera.current.id == "ravine_gate", "Returning rebuilds entry framing without stale locks")
     world.queue_free()
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:

@@ -438,6 +438,7 @@ func verify_restart_checkpoint() -> void:
 	scene.world_resume = true
 	scene.world_save_path = SAVE
 	root.add_child(scene)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
 	current_scene = scene
 	await tick(5)
 	check(String(scene.config.get("id", "")) == String(saved.data.current_region), "restart restores the checkpoint region")
@@ -451,6 +452,7 @@ func run() -> void:
 	scene.world_resume = false
 	scene.world_save_path = SAVE
 	root.add_child(scene)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
 	current_scene = scene
 	await tick(4)
 	await check_six_windows()

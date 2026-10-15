@@ -12,6 +12,7 @@ func run() -> void:
     world.world_resume=false
     world.world_save_path="user://ui_redesign_validation.json"
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     await process_frame
     world.set_process(false)
     world.player.set_physics_process(false)

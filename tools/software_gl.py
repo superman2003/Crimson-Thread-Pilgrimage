@@ -14,6 +14,10 @@ def software_gl(log_dir: Path):
     log_dir.mkdir(parents=True, exist_ok=True)
     display = None
     for candidate in range(90, 110):
+        # Parallel containers may isolate TCP while sharing X server lockfiles.
+        # Respect the lock without removing or terminating another display.
+        if Path(f"/tmp/.X{candidate}-lock").exists():
+            continue
         with socket.socket() as probe:
             try:
                 probe.bind(('127.0.0.1', 6000 + candidate))

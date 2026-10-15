@@ -85,6 +85,7 @@ var remap_capture_frame := -1
 var remap_buttons: Dictionary={}
 var remap_status: Label
 var last_overlay := ""
+var overlay_focus_memory: Dictionary = {}
 var build_refresh_elapsed := 0.0
 var last_build_signature := ""
 var applied_player: Node
@@ -138,6 +139,10 @@ func begin_bind(runtime: Node) -> void:
 func finish_bind() -> void:
     if not get_viewport().size_changed.is_connected(_fit_viewport):
         get_viewport().size_changed.connect(_fit_viewport)
+    if not get_viewport().gui_focus_changed.is_connected(_remember_gui_focus):
+        get_viewport().gui_focus_changed.connect(_remember_gui_focus)
+    if not Input.joy_connection_changed.is_connected(_on_joy_connection_changed):
+        Input.joy_connection_changed.connect(_on_joy_connection_changed)
     _fit_viewport()
     construction_complete=true
     set_process(true)
@@ -195,6 +200,7 @@ func _button(parent: Node, text: String, position_value: Vector2, size_value: Ve
     button.add_theme_color_override("font_disabled_color",MUTED.darkened(0.3))
     button.add_theme_stylebox_override("disabled",_style(Color("182025"),Color("303c3d")))
     button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
+    button.focus_mode=Control.FOCUS_ALL
     button.pressed.connect(action)
     parent.add_child(button)
     return button
@@ -713,7 +719,66 @@ func _normalized_binding(value: Variant) -> InputEvent:
     return event
 
 func is_remapping_input() -> bool:
-    return settings!=null and settings.visible and (not remap_target.is_empty() or Engine.get_process_frames()<=remap_capture_frame)
+    return settings!=null and settings.visible and (not remap_target.is_empty() or Engine.get_process_frames()==remap_capture_frame)
+
+func _remember_gui_focus(_focused: Control) -> void:
+    if level==null or not is_instance_valid(level):return
+    var focused:=get_viewport().gui_get_focus_owner()
+    if not _is_navigable_focus(focused):return
+    for overlay in ["settings","backpack","map","dialogue","build"]:
+        var controls:=_overlay_controls(overlay)
+        for control in controls:
+            if control==focused or control.is_ancestor_of(focused):
+                overlay_focus_memory[overlay]=weakref(focused)
+                return
+    var overlay:=String(level.active_overlay)
+    if not overlay.is_empty():overlay_focus_memory[overlay]=weakref(focused)
+
+func _is_navigable_focus(control: Control) -> bool:
+    if not is_instance_valid(control) or not control.is_inside_tree() or not control.is_visible_in_tree():return false
+    if control.focus_mode!=Control.FOCUS_ALL:return false
+    if control is BaseButton and (control as BaseButton).disabled:return false
+    return true
+
+func _overlay_controls(overlay: String) -> Array[Control]:
+    var root: Node=null
+    match overlay:
+        "settings":root=settings
+        "backpack":root=bag
+        "map":root=level.get("map_panel") if level!=null else null
+        "dialogue":root=dialogue
+        "build":root=build_panel
+    var result: Array[Control]=[]
+    if root is Control and is_instance_valid(root):_collect_navigable(root,result)
+    return result
+
+func _collect_navigable(node: Node, result: Array[Control]) -> void:
+    for child in node.get_children():
+        if child is Control:
+            var control:=child as Control
+            if _is_navigable_focus(control):result.append(control)
+        _collect_navigable(child,result)
+
+func _focus_overlay(overlay: String, restore: bool=true) -> void:
+    var controls:=_overlay_controls(overlay)
+    if controls.is_empty():return
+    if restore and overlay_focus_memory.has(overlay):
+        var reference: Variant=overlay_focus_memory[overlay]
+        var remembered:=reference.get_ref() as Control if reference is WeakRef else null
+        if controls.has(remembered) and _is_navigable_focus(remembered):
+            remembered.grab_focus()
+            return
+    controls[0].grab_focus()
+
+func _on_joy_connection_changed(_device: int, connected: bool) -> void:
+    if not connected and not remap_target.is_empty():
+        remap_target=""
+        remap_capture_frame=Engine.get_process_frames()
+        if is_instance_valid(remap_status):remap_status.text="手柄已断开，重映射已取消。"
+    elif connected and level!=null and is_instance_valid(level):
+        var overlay:=String(level.active_overlay)
+        if not overlay.is_empty() and not _is_navigable_focus(get_viewport().gui_get_focus_owner()):
+            call_deferred("_focus_overlay",overlay,true)
 
 func _save_accessibility() -> void:
     var config:=ConfigFile.new()
@@ -747,7 +812,7 @@ func _input(event: InputEvent) -> void:
     if level==null or not construction_complete:return
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
-        remap_capture_frame=Engine.get_process_frames()+1
+        remap_capture_frame=Engine.get_process_frames()
         if event is InputEventKey and event.pressed and (event.keycode==KEY_ESCAPE or event.physical_keycode==KEY_ESCAPE):
             remap_target=""
             remap_status.text="已取消重映射。"
@@ -1407,12 +1472,13 @@ func _process(delta: float) -> void:
     if applied_player!=level.player:_apply_accessibility()
     if last_overlay!=String(level.active_overlay):
         last_overlay=String(level.active_overlay)
-        if last_overlay=="build":refresh_build()
+        if last_overlay=="build":
+            refresh_build()
+            _focus_overlay(last_overlay)
         elif last_overlay=="settings":
             _refresh_save_slots()
-            settings_sliders.values()[0].grab_focus()
-        elif last_overlay=="backpack" and not bag_tabs.is_empty():bag_tabs[0].grab_focus()
-        elif last_overlay=="dialogue":dialogue_quest_button.grab_focus()
+            _focus_overlay(last_overlay)
+        elif last_overlay in ["backpack","map","dialogue","build"]:_focus_overlay(last_overlay)
         elif last_overlay=="":
             var focused:=get_viewport().gui_get_focus_owner()
             if focused!=null:focused.release_focus()

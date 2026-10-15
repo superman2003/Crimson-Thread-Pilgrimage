@@ -8,6 +8,7 @@ const SURVEY := preload("res://scripts/cartography_runtime.gd")
 const INK := preload("res://scripts/hand_drawn_map_room.gd")
 const SURFACE := preload("res://scripts/survey_map_surface.gd")
 const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
+const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 static var configurations: Dictionary = {}
 static var geometry: Dictionary = {}
 static var room_contours: Dictionary = {}
@@ -103,6 +104,19 @@ static func render(level: Node) -> void:
             outline.tooltip_text = String(room.get("name", room_id)) if detailed or SURVEY.public_room(room) else ""
             host.add_child(outline)
         surface.prepare()
+        # Every region is evaluated against its own config. Ability inventory
+        # is shared, while permanent action gates read their authored unlock id.
+        for record in KNOWLEDGE.marker_records(data, level.story_flags, id, level.inventory_counts):
+            var world_point: Vector2 = COORD.to_world(id, record.rect.get_center())
+            var marker := Label.new()
+            marker.name = ("WorldHazard_" if record.kind == "hazard" else "WorldGate_") + id + "_" + String(record.id)
+            marker.position = project(world_point, layout) - Vector2(6, 9)
+            marker.mouse_filter = Control.MOUSE_FILTER_PASS
+            marker.text = String(record.text)
+            marker.tooltip_text = String(record.tooltip)
+            marker.add_theme_font_size_override("font_size", 11)
+            marker.add_theme_color_override("font_color", Color("b44e43") if record.kind == "hazard" else SURFACE.GOLD)
+            host.add_child(marker)
     var drawn: Dictionary = {}
     for id_value in COORD.manifest().regions:
         var id := String(id_value)

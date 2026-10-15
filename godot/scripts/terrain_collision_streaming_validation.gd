@@ -133,6 +133,7 @@ func _host() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     for id in COORDINATES.manifest().regions:
         var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))

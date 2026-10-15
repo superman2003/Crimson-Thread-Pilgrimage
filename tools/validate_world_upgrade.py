@@ -21,6 +21,37 @@ def validate():
 
     counts = Counter(v['ability_id'] for v in routes['ability_backtracks'] if v.get('role') == 'backtrack')
     check(len(counts) == 8 and all(v >= 2 for v in counts.values()), 'eight abilities need two real return targets')
+    ch06 = 'demo_ch06_silent_crown_core'
+    check(len(bases[ch06]['map_rooms']) == 15, 'sixth region retains its 15 authored main rooms')
+    check(all(len(room.get('camera_bounds', [])) == 4 for room in bases[ch06]['map_rooms']), 'all 15 sixth-region main rooms have independent camera bounds')
+    check(len({tuple(room.get('camera_bounds', [])) for room in bases[ch06]['map_rooms']}) == 15, 'sixth-region main-room camera bounds are individually authored')
+    workshops = [room for region in chapters.values() for room in region.get('map_rooms', [])]
+    for practice in routes.get('seal_practice_plan', []):
+        room = next((r for r in chapters[practice['region_id']]['map_rooms'] if r['id'] == practice['room_id']), {})
+        check(room.get('combat_practice') == practice, practice['room_id'] + ': regeneration retains equipment training metadata')
+        check(practice['label'] in room.get('guide', ''), practice['room_id'] + ': map retains equipment training guidance')
+    check(len(workshops) == 20, 'world upgrade authors 20 action workshop rooms')
+    check(all(len(room.get('camera_bounds', [])) == 4 for room in workshops), 'all workshops have independent camera bounds')
+    check(len({tuple(room.get('camera_bounds', [])) for room in workshops}) == 20, 'workshop camera bounds are individually authored')
+    check(all(len(room.get('movement_combo', [])) >= 2 and len(room.get('entry_point', [])) == 2
+              and len(room.get('action_point', [])) == 2 and len(room.get('reward_landing', [])) == 2
+              for room in workshops), 'all workshops declare action-specific movement and production landmarks')
+    gate_offsets = {}
+    for target in routes['ability_backtracks']:
+        if target.get('role') != 'backtrack':
+            continue
+        gate = next((g for g in chapters[target['region_id']]['locked_gates'] if g['id'] == target['gate_id']), {})
+        room = next((r for r in chapters[target['region_id']]['map_rooms'] if r['id'] == target['room_id']), {})
+        origin_x = room.get('layout_rect', [0])[0]
+        gate_offsets.setdefault(target['ability_id'], set()).add(gate.get('rect', [0])[0] - origin_x)
+    check(len({min(v) for v in gate_offsets.values() if v}) == 8, 'eight ability gate offsets differ')
+    combo_by_action = {}
+    for target in routes['ability_backtracks']:
+        room = next((r for r in chapters[target['region_id']]['map_rooms'] if r['id'] == target['room_id']), {})
+        combo_by_action.setdefault(target['ability_id'], set()).add(tuple(room.get('movement_combo', [])))
+    check(len(combo_by_action) == 8 and all(len(combos) == 1 for combos in combo_by_action.values())
+          and len({next(iter(combos)) for combos in combo_by_action.values() if combos}) == 8,
+          'each ability uses its own consistent movement combo')
     for reg, overlay in chapters.items():
         all_ids = [v['id'] for key in ['collectibles', 'platforms', 'locked_gates', 'map_rooms', 'portals'] for v in overlay.get(key, [])]
         check(len(all_ids) == len(set(all_ids)), reg + ': overlay IDs must be unique')
@@ -28,6 +59,9 @@ def validate():
         for room in overlay.get('map_rooms', []):
             x, y, w, h = room['layout_rect']
             check(x >= 0 and y >= 0 and x + w <= bounds['width'] and y + h <= bounds['height'], room['id'] + ': workshop camera bounds')
+            if room.get('id', '').startswith('upgrade_'):
+                cx, cy, cw, ch = room.get('camera_bounds', [0, 0, 0, 0])
+                check(cx >= 0 and cy >= 0 and cw > 0 and ch > 0 and cx + cw <= bounds['width'] and cy + ch <= bounds['height'], room['id'] + ': camera bounds fit world')
         for portal in overlay['portals']:
             if not portal['id'].startswith('upgrade_'):
                 continue

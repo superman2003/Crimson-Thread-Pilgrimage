@@ -2,6 +2,7 @@ extends RefCounted
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 const SURFACE := preload("res://scripts/survey_map_surface.gd")
 const INK := preload("res://scripts/hand_drawn_map_room.gd")
+const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 static func setup(level: Node) -> void:
     var sellers: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/cartography_sellers.json"))
     var seller: Dictionary = sellers.get(String(level.config.id),{})
@@ -208,6 +209,16 @@ static func render(level: Node) -> void:
         marker.position=map_position(level,room,point,bounds,draw_size)-Vector2(6,9)
         marker.text="◇" if kind=="world_portal" else "◎" if kind=="save_point" else "×"
         marker.add_theme_color_override("font_color",SURFACE.GOLD)
+        host.add_child(marker)
+    for record in KNOWLEDGE.marker_records(level.config, level.story_flags, id, level.inventory_counts):
+        var room: Dictionary = KNOWLEDGE.owner_room(level.config, record.rect)
+        var marker := Label.new()
+        marker.name = ("SurveyHazard_" if record.kind == "hazard" else "SurveyGate_") + String(record.id)
+        marker.mouse_filter = Control.MOUSE_FILTER_PASS
+        marker.tooltip_text = String(record.tooltip) # Legend and conditions stay in hover text.
+        marker.text = String(record.text)
+        marker.position = map_position(level, room, record.rect.get_center(), bounds, draw_size) - Vector2(7, 10)
+        marker.add_theme_color_override("font_color", Color("b44e43") if record.kind == "hazard" else SURFACE.GOLD)
         host.add_child(marker)
     # Position is a navigation aid, not a newly inked room outline.
     var current: Dictionary=level._room_for_position(level.player.global_position)

@@ -33,6 +33,7 @@ func run() -> void:
     scene.world_resume=false
     scene.world_save_path="user://route_access_validation.json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     scene.set_process(false)
     scene.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)

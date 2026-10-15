@@ -83,7 +83,7 @@ func _test_ending_restore() -> void:
     saved.capture_region(FINAL_REGION, {"boss_defeated": true, "boss_unlocked": true,
         "checkpoint": checkpoint, "checkpoint_id": "resume_fixture"})
     _check(saved.write(SAVE), "completed final-region fixture saved")
-    _spawn()
+    await _spawn()
     await _frames()
     _check(scene.demo_complete and scene.post_boss_route_open, "completed final region restores boss and exit")
     _check(scene.ending_gates_spawned, "completed final region restores ending gates")
@@ -108,6 +108,7 @@ func _test_ending_restore() -> void:
     scene = load("res://scenes/Main.tscn").instantiate()
     scene.config_path = "res://data/" + FINAL_REGION + ".json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _frames()
     scene._spawn_ending_gates()
@@ -121,7 +122,7 @@ func _test_incompatible_build() -> void:
         "build_state": {"version": 999, "future_progress": "retain exactly"}})
     _check(saved.write(SAVE), "outer save accepts opaque future build fixture")
     var before := FileAccess.get_file_as_string(SAVE)
-    _spawn()
+    await _spawn()
     await _frames()
     _check(scene.world_save_blocked and not scene.world_initial_error.is_empty(), "incompatible build suspends saving with explanation")
     _check(FileAccess.get_file_as_string(SAVE) == before, "initial autosave preserves incompatible primary")
@@ -140,6 +141,7 @@ func _test_incompatible_build() -> void:
     _check(FileAccess.get_file_as_string(SAVE) == before, "async publication never overwrites incompatible disk progress")
     scene._start_new_journey()
     scene = current_scene
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await _frames()
     _check(not scene.world_save_blocked, "explicit new journey clears incompatible-build protection")
     _check(FileAccess.get_file_as_string(SAVE + ".previous") == before, "explicit new journey archives incompatible original")
@@ -153,6 +155,7 @@ func _spawn() -> void:
     scene.world_save_path = SAVE
     scene.world_startup_options_enabled = false
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
 
 func _ending_count() -> int:
