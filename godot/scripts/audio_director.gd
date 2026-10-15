@@ -47,6 +47,7 @@ const SILENT_DB := -60.0
 const BUS_DEFAULT_DB := {"Master": 0.0, "BGM": 0.0, "SFX": 0.0, "Ambience": -14.0, "UI": -10.0}
 const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "ambience": "Ambience"}
 const SETTINGS_PATH := "user://audio_settings.cfg"
+var settings_path := SETTINGS_PATH
 
 const DIALOGUE_MUSIC_DUCK_DB := -4.0
 const DIALOGUE_AMBIENCE_DUCK_DB := -6.0
@@ -1001,7 +1002,7 @@ func _clear_death_lowpass() -> void:
 # ---- 用户音量（持久化 user://audio_settings.cfg）----
 
 func set_user_volume(which: String, percent: float) -> void:
-    if not USER_VOLUME_BUS.has(which):
+    if not USER_VOLUME_BUS.has(which) or not is_finite(percent):
         return
     user_volumes[which] = clampf(percent, 0.0, 100.0)
     _apply_user_volume(which)
@@ -1022,12 +1023,29 @@ func _apply_user_volume(which: String) -> void:
             duck_tween.kill()
     elif which == "ambience":
         target = _ambience_rest_db()
+    # A user edit owns the new level, including a dialogue/transition envelope
+    # that was created with a previous slider value.
+    var envelope: Tween = bus_tweens.get(bus_name)
+    if envelope != null and envelope.is_valid():
+        envelope.kill()
+    bus_tweens.erase(bus_name)
     _set_bus_db(bus_name, target)
+    _set_user_mute(bus_name, get_user_volume(which) <= 0.0)
+    if which == "sfx":
+        # Heartbeats stay dry (send -> Master), but still obey the SFX slider.
+        _set_bus_db("SFXDry", _user_db("sfx"))
+        _set_user_mute("SFXDry", get_user_volume("sfx") <= 0.0)
+
+
+func _set_user_mute(bus_name: String, muted: bool) -> void:
+    var index := AudioServer.get_bus_index(bus_name)
+    if index >= 0:
+        AudioServer.set_bus_mute(index, muted)
 
 
 func _load_user_volumes() -> void:
     var cfg := ConfigFile.new()
-    if cfg.load(SETTINGS_PATH) == OK:
+    if cfg.load(settings_path) == OK:
         for which in user_volumes.keys():
             # cfg 容错：仅接受有限 float/int，非法值保持默认 100 且不回写污染存档。
             var raw: Variant = cfg.get_value("volumes", String(which), float(user_volumes[which]))
@@ -1041,7 +1059,7 @@ func _save_user_volumes() -> void:
     var cfg := ConfigFile.new()
     for which in user_volumes.keys():
         cfg.set_value("volumes", String(which), float(user_volumes[which]))
-    cfg.save(SETTINGS_PATH)
+    cfg.save(settings_path)
 
 
 # ---- 电平/混响工具 ----

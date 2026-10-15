@@ -67,7 +67,14 @@ func _run() -> void:
     for ref in ogg_stream_refs:
         if ref.get_ref() != null:
             failures += 1
+    var volume_checks := preload("res://scripts/audio_user_volume_validation.gd").new()
+    await volume_checks.run(self, _check_volume)
     if failures > 0:
-        push_error("retired playback/WAV ownership did not drain")
+        push_error("audio retirement or user-volume regression failed")
     print("AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=%d" % failures)
     call_deferred("quit", 1 if failures > 0 else 0)
+
+func _check_volume(ok: bool, label: String) -> void:
+    if not ok:
+        failures += 1
+        push_error("FAIL: " + label)
