@@ -236,11 +236,16 @@ func _step_world_bounds() -> void:
 
 func _step_entry() -> void:
 	operation_name = "entry"
-	if _entry.x < -40 or _entry.x > float(_world.width) + 80 or _entry.y < -120 or _entry.y > float(_world.height) + 70: return _fail("目标落点超出区域边界。")
+	if not entry_in_bounds(_entry, _world): return _fail("目标落点超出区域边界。")
 	result = _config
 	done = true
 	progress = 1.0
 	_stage = "done"
+
+## Call only with previously validated world dimensions. A different entrance
+## does not change authored region data; it only needs this landing check.
+static func entry_in_bounds(entry: Vector2, world: Dictionary) -> bool:
+	return entry.is_finite() and entry.x >= -40 and entry.x <= float(world.width) + 80 and entry.y >= -120 and entry.y <= float(world.height) + 70
 
 func _fail(message: String) -> void:
 	error = message
