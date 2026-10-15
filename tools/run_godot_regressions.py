@@ -23,7 +23,7 @@ DEFAULT_SUITES = (
     'player_upgrade_regression build_system world_upgrade upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign '
     'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_catalog_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience '
-    'world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush '
+    'world_startup_budget world_startup_config_background world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush '
     'melee_recovery build_slots build_transaction_runtime enemy_encounter_roles build_slots_ui narrative_outcomes'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
