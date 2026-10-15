@@ -61,6 +61,10 @@ func _run() -> void:
 	var attach_started := Time.get_ticks_usec()
 	root.add_child(host)
 	var first_frame_usec := Time.get_ticks_usec() - attach_started
+	_check(host.world_loader.phase == "startup" and host.world_loader.startup_token != null,
+		"startup reserves its owned task before leaving scene attachment")
+	_check(not is_instance_valid(host.world_loader.loading_canvas),
+		"startup waits for scene attachment before adding the root loading canvas")
 	var total_started := Time.get_ticks_usec()
 	var last_frame := Time.get_ticks_usec()
 	var max_observed_frame_gap := 0
@@ -85,6 +89,7 @@ func _run() -> void:
 	# hosts must make their coroutine exit through its liveness guard.
 	await _teardown_probe(false)
 	await _teardown_probe(true)
+	await _early_teardown_probe()
 	await _failure_recovery_probe()
 	if is_instance_valid(host):
 		root.remove_child(host)
@@ -95,6 +100,23 @@ func _run() -> void:
 	else:
 		push_error("WORLD_STARTUP_BUDGET_VALIDATION_FAIL failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
+
+func _early_teardown_probe() -> void:
+	var probe: Node = load(WORLD_SCENE).instantiate()
+	probe.world_resume = false
+	probe.world_save_path = SAVE
+	root.add_child(probe)
+	var loader: RefCounted = probe.world_loader
+	var token: RefCounted = loader.startup_token
+	_check(loader.request_startup_region(probe, Node.PROCESS_MODE_INHERIT) == null,
+		"a startup waiting for scene attachment rejects duplicate requests")
+	probe.free()
+	await process_frame
+	await process_frame
+	_check(token.finished and token.cancelled and loader.startup_token == null,
+		"teardown before the first startup frame releases the owned task")
+	_check(loader.phase == "idle" and not is_instance_valid(loader.loading_canvas) and not loader.config_read_job.busy(),
+		"early teardown starts no loading canvas or background read")
 
 func _failure_recovery_probe() -> void:
 	var probe := FailedStartupHost.new()

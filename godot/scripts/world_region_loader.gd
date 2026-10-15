@@ -40,11 +40,17 @@ func request_startup_region(host: Node, previous_mode: int) -> RefCounted:
     token.serial = transition_serial + 1
     transition_serial = token.serial
     startup_token = token
+    phase = "startup"
     _run_owned_startup(token, host, previous_mode)
     return token
 
 func _run_owned_startup(token: RefCounted, host: Node, previous_mode: int) -> void:
-    if not token.cancelled and _alive(host):
+    # The engine can still be attaching the main scene to the root while its
+    # _ready runs. Reserve ownership now, but attach the root loading canvas
+    # only after that scene-tree operation has finished.
+    var tree: SceneTree = host.get_tree()
+    await tree.process_frame
+    if not token.cancelled and _alive(host) and host.get_tree() == tree:
         await initialize_startup_region(host, previous_mode)
     token.finished = true
     if startup_token == token:
