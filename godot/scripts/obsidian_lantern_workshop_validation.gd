@@ -56,24 +56,27 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 		await _dispose(tree)
 		return
 
-	_check(await _walk_to(Vector2(7800, 450)), "Player climbs the lower service platform with collision")
-	_check(await _walk_to(Vector2(7890, 340)), "Player climbs the upper lantern gallery with collision")
-	_check(await _walk_to(Vector2(7954, 340)), "Player crosses the gallery to the second cache")
+	var reached_lower := await _walk_to(Vector2(7800, 490))
+	_check(reached_lower, "Player climbs the lower service platform with collision actual=" + _player_state())
+	var reached_upper := await _walk_to(Vector2(7890, 380))
+	_check(reached_upper, "Player climbs the upper lantern gallery with collision actual=" + _player_state())
+	var crossed_gallery := await _walk_to(Vector2(7954, 380))
+	_check(crossed_gallery, "Player crosses the gallery to the second cache actual=" + _player_state())
 	await _tick(tree, 8)
 	var evidence := ROOM + "_evidence"
 	var resin := ROOM + "_resin"
-	_check(scene.world_collected_ids.has(evidence), "Upper gallery awards the unique maintenance record")
-	_check(scene.world_collected_ids.has(resin), "Upper gallery awards the resin cache")
-	_check(scene.currency_count > currency_before, "Workshop cache grants spendable currency")
+	_check(scene.world_collected_ids.has(evidence), "Upper gallery awards the unique maintenance record collected=" + str(scene.world_collected_ids))
+	_check(scene.world_collected_ids.has(resin), "Upper gallery awards the resin cache collected=" + str(scene.world_collected_ids))
+	_check(scene.currency_count > currency_before, "Workshop cache grants spendable currency before=%d actual=%d" % [currency_before, scene.currency_count])
 	var room: Dictionary = _find_room()
-	_check(room.get("layout_rect", []) == [7390, 220, 664, 470], "Workshop keeps its original physical room rectangle")
-	_check(room.get("map_rect", []) == [2920, 0, 236, 168], "Workshop keeps its original atlas map rectangle")
+	_check(_same_coords(room.get("layout_rect"), [7390, 220, 664, 470]), "Workshop keeps its original physical room rectangle actual=" + str(room.get("layout_rect", "<missing>")) + " type=" + type_string(typeof(room.get("layout_rect", null))))
+	_check(_same_coords(room.get("map_rect"), [2920, 0, 236, 168]), "Workshop keeps its original atlas map rectangle actual=" + str(room.get("map_rect", "<missing>")) + " type=" + type_string(typeof(room.get("map_rect", null))))
 	var guide := String(room.get("guide", ""))
 	_check(guide.contains("低台") and guide.contains("高台"), "Room guidance describes both platform tiers")
 	var entry_data := ROUTES.portal(REGION, ROOM + "_access_a")
 	var exit_data := ROUTES.portal(REGION, ROOM + "_access_b")
-	_check(entry_data.get("position", []) == [240, 1870] and entry_data.get("target_spawn", []) == [7500, 530], "Workshop entry keeps its camp-to-room boundary contract")
-	_check(exit_data.get("position", []) == [7500, 530] and exit_data.get("target_spawn", []) == [240, 1870], "Workshop exit keeps its room-to-camp boundary contract")
+	_check(_same_coords(entry_data.get("position"), [240, 1870]) and _same_coords(entry_data.get("target_spawn"), [7500, 530]), "Workshop entry keeps its camp-to-room boundary contract actual=" + str(entry_data))
+	_check(_same_coords(exit_data.get("position"), [7500, 530]) and _same_coords(exit_data.get("target_spawn"), [240, 1870]), "Workshop exit keeps its room-to-camp boundary contract actual=" + str(exit_data))
 
 	_check(await _walk_to(Vector2(7500, 530)), "Player can drop from the gallery and return to the foyer")
 	var exit_portal: Node = scene.get_node_or_null("upgrade_lantern_phase_3_access_b")
@@ -82,10 +85,10 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 		scene._activate_world_portal(exit_portal)
 		await _settle_transition(tree)
 		_check(scene.player.global_position.distance_to(Vector2(240, 1870)) < 85, "Workshop exits to the original pilgrim-camp platform")
-		_check(scene.world_collected_ids.has(evidence) and scene.world_collected_ids.has(resin), "Collected optional rewards persist after returning")
+		_check(scene.world_collected_ids.has(evidence) and scene.world_collected_ids.has(resin), "Collected optional rewards persist after returning actual=" + str(scene.world_collected_ids))
 	else:
 		_check(false, "Workshop missing its supported return portal node")
-	_check(scene.currency_count >= currency_before + 65, "Two tier rewards remain optional but collectible")
+	_check(scene.currency_count >= currency_before + 65, "Two tier rewards remain optional but collectible before=%d actual=%d" % [currency_before, scene.currency_count])
 	await _dispose(tree)
 
 func _find_room() -> Dictionary:
@@ -93,6 +96,16 @@ func _find_room() -> Dictionary:
 		if value is Dictionary and String(value.get("id", "")) == ROOM:
 			return value
 	return {}
+
+func _same_coords(actual: Variant, expected: Array) -> bool:
+	if not actual is Array or actual.size() != expected.size():
+		return false
+	for index in expected.size():
+		if typeof(actual[index]) not in [TYPE_INT, TYPE_FLOAT]:
+			return false
+		if not is_equal_approx(float(actual[index]), float(expected[index])):
+			return false
+	return true
 
 func _settle_transition(tree: SceneTree) -> void:
 	for unused in range(1600):
@@ -136,7 +149,16 @@ func _walk_to(target: Vector2) -> bool:
 			jump_hold = 32
 		await _tick(tree_ref, 1)
 	_release()
+	push_warning("Lantern workshop walk timed out target=" + str(target) + " actual=" + _player_state())
 	return false
+
+func _player_state() -> String:
+	if not is_instance_valid(scene) or not is_instance_valid(scene.player):
+		return "<missing player>"
+	var player: CharacterBody2D = scene.player
+	return "pos=%s velocity=%s floor=%s wall=%s room=%s collected=%s currency=%s" % [
+		str(player.global_position), str(player.velocity), str(player.is_on_floor()), str(player.is_on_wall()),
+		str(scene.room_camera.current), str(scene.world_collected_ids), str(scene.currency_count)]
 
 func _pulse(action: String, count: int) -> void:
 	Input.action_press(action)
