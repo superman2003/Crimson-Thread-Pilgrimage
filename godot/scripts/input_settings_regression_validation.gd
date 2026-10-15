@@ -166,6 +166,7 @@ func _run() -> void:
     _check(normalized.device==-1 and normalized.axis_value==1.0,"Axis binding is device independent and normalized")
     motion.axis_value = NAN
     _check(ui._normalized_binding(motion)==null,"Non-finite controller axis is rejected")
+    _test_binding_recovery(ui)
     ui.settings.hide()
     _check(not ui.is_remapping_input(),"Hidden settings never hold the input capture gate")
     for action in original_events:
@@ -181,3 +182,118 @@ func _run() -> void:
     for failure in failures:push_error(failure)
     print("INPUT_SETTINGS_REGRESSION checks=%d failures=%d" % [checks,failures.size()])
     quit(0 if failures.is_empty() else 1)
+
+func _joy(button: JoyButton, device: int = -1) -> InputEventJoypadButton:
+    var event := InputEventJoypadButton.new()
+    event.button_index = button
+    event.device = device
+    event.pressed = true
+    return event
+
+func _mouse(button: MouseButton) -> InputEventMouseButton:
+    var event := InputEventMouseButton.new()
+    event.button_index = button
+    event.pressed = true
+    return event
+
+func _set_events(action: String, events: Array) -> void:
+    if not InputMap.has_action(action):InputMap.add_action(action)
+    InputMap.action_erase_events(action)
+    for event in events:InputMap.action_add_event(action,event)
+
+func _load_bindings(ui: Control, bindings: Dictionary) -> void:
+    var config := ConfigFile.new()
+    for action in bindings:config.set_value("bindings",action,bindings[action])
+    _check(config.save(PATH)==OK,"Binding recovery fixture saves")
+    ui._load_accessibility()
+
+func _binding_defaults() -> void:
+    for action in UI.REMAPPABLE_ACTIONS:_set_events(action,[])
+    _set_events("heal",[_key(KEY_H),_joy(JOY_BUTTON_LEFT_SHOULDER),_mouse(MOUSE_BUTTON_RIGHT)])
+    _set_events("jump",[_key(KEY_SPACE)])
+    _set_events("attack",[_key(KEY_J),_mouse(MOUSE_BUTTON_LEFT)])
+
+func _test_binding_recovery(ui: Control) -> void:
+    var before: Dictionary = UI.BINDING_POLICY.snapshot()
+    _binding_defaults()
+    for code in UI.BINDING_POLICY.RESERVED_KEYS:
+        var logical := _key(code)
+        logical.physical_keycode = 0
+        _load_bindings(ui,{"heal":[logical]})
+        _check(InputMap.event_is_action(_key(KEY_H),"heal") and not InputMap.event_is_action(logical,"heal"),"Reserved logical key cannot enter through config: %s" % code)
+        _check(not ui.binding_recovery_notice.is_empty(),"Rejected config reports recovery")
+        if code != KEY_ESCAPE:
+            ui._begin_remap("heal")
+            ui._input(logical)
+            _check(ui.remap_target=="heal","Capture rejects the same reserved logical key: %s" % code)
+            ui._input(_key(KEY_ESCAPE))
+    _set_events("heal",[_key(KEY_H),_joy(JOY_BUTTON_LEFT_SHOULDER,4)])
+    _load_bindings(ui,{"heal":[_key(KEY_P)]})
+    var preserved_device := -99
+    for event in InputMap.action_get_events("heal"):
+        if event is InputEventJoypadButton:preserved_device=event.device
+    _check(preserved_device==4,"Missing family preserves the exact existing device binding")
+    _binding_defaults()
+    for button in UI.BINDING_POLICY.RESERVED_BUTTONS:
+        _load_bindings(ui,{"heal":[_joy(button,9)]})
+        _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER,2),"heal"),"Reserved controller config preserves working controller")
+    _load_bindings(ui,{"heal":[_key(KEY_P),_joy(JOY_BUTTON_START),null]})
+    _check(InputMap.event_is_action(_key(KEY_P),"heal") and not InputMap.event_is_action(_key(KEY_H),"heal"),"Valid keyboard family restores independently")
+    _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER,5),"heal") and InputMap.event_is_action(_mouse(MOUSE_BUTTON_RIGHT),"heal"),"Corrupt or absent families preserve controller and mouse")
+    ui._save_accessibility()
+    _binding_defaults()
+    ui._load_accessibility()
+    _check(InputMap.event_is_action(_key(KEY_P),"heal") and InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER,7),"heal"),"Recovered bindings survive save and fresh-map reload")
+    _binding_defaults()
+    _load_bindings(ui,{"heal":[_key(KEY_P)],"jump":[_key(KEY_P)]})
+    _check(InputMap.event_is_action(_key(KEY_H),"heal") and InputMap.event_is_action(_key(KEY_SPACE),"jump"),"Both sides of an ambiguous duplicate keep usable defaults")
+    _load_bindings(ui,{"heal":[_key(KEY_SPACE)],"jump":[_key(KEY_H)]})
+    _check(InputMap.event_is_action(_key(KEY_SPACE),"heal") and InputMap.event_is_action(_key(KEY_H),"jump"),"Simultaneous valid swaps restore without action-order dependence")
+    ui._save_accessibility()
+    _binding_defaults()
+    ui._load_accessibility()
+    _check(InputMap.event_is_action(_key(KEY_SPACE),"heal") and InputMap.event_is_action(_key(KEY_H),"jump"),"Swapped bindings persist after a fresh InputMap")
+    _binding_defaults()
+    _set_events("remap_policy_probe",[_key(KEY_P)])
+    _load_bindings(ui,{"heal":[_key(KEY_SPACE)],"jump":[_key(KEY_J)],"attack":[_key(KEY_P)]})
+    _check(InputMap.event_is_action(_key(KEY_H),"heal") and InputMap.event_is_action(_key(KEY_SPACE),"jump") and InputMap.event_is_action(_key(KEY_J),"attack"),"Fallback conflicts propagate until the whole candidate is safe")
+    InputMap.erase_action("remap_policy_probe")
+    var logical_p := _key(KEY_P)
+    logical_p.physical_keycode = 0
+    _load_bindings(ui,{"heal":[logical_p],"jump":[_key(KEY_P)]})
+    _check(InputMap.event_is_action(_key(KEY_H),"heal") and InputMap.event_is_action(_key(KEY_SPACE),"jump"),"Logical and physical versions of the same key conflict")
+    _load_bindings(ui,{"heal":[_key(KEY_P),_key(KEY_P)]})
+    var key_count := 0
+    for event in InputMap.action_get_events("heal"):
+        if event is InputEventKey:key_count+=1
+    _check(key_count==1,"Repeated config events are deduplicated")
+    _load_bindings(ui,{"heal":{},"jump":[]})
+    _check(InputMap.event_is_action(_key(KEY_P),"heal") and InputMap.event_is_action(_key(KEY_SPACE),"jump"),"Malformed and empty arrays preserve controls")
+    ui._begin_remap("heal")
+    ui._input(_mouse(MOUSE_BUTTON_LEFT))
+    _check(ui.remap_target=="heal","Mouse capture rejects an occupied attack button")
+    ui._input(_mouse(MOUSE_BUTTON_XBUTTON1))
+    _check(ui.remap_target.is_empty() and InputMap.event_is_action(_mouse(MOUSE_BUTTON_XBUTTON1),"heal"),"Mouse capture accepts a free button")
+    _check(InputMap.event_is_action(_key(KEY_P),"heal") and InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER,8),"heal"),"Mouse replacement preserves keyboard and controller")
+    _check(not InputMap.event_is_action(_mouse(MOUSE_BUTTON_RIGHT),"heal"),"Mouse replacement removes the previous mouse binding")
+    _binding_defaults()
+    ui._load_accessibility()
+    _check(InputMap.event_is_action(_mouse(MOUSE_BUTTON_XBUTTON1),"heal") and InputMap.event_is_action(_key(KEY_P),"heal"),"Mouse binding persists alongside other devices")
+    var negative := InputEventJoypadMotion.new()
+    negative.axis = JOY_AXIS_TRIGGER_RIGHT
+    negative.axis_value = -1.0
+    var positive := InputEventJoypadMotion.new()
+    positive.axis = JOY_AXIS_TRIGGER_RIGHT
+    positive.axis_value = 0.8
+    positive.device = 9
+    _set_events("remap_policy_probe",[negative])
+    _load_bindings(ui,{"heal":[positive]})
+    positive.device = 3
+    _check(InputMap.event_is_action(positive,"heal"),"Opposite axis directions are independent and device normalized")
+    InputMap.erase_action("remap_policy_probe")
+    _set_events("remap_policy_probe",[positive])
+    _binding_defaults()
+    _load_bindings(ui,{"heal":[positive]})
+    _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER),"heal"),"Same axis direction cannot shadow a fixed gameplay action")
+    InputMap.erase_action("remap_policy_probe")
+    for action in before:_set_events(action,before[action])
