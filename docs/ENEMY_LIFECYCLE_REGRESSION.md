@@ -1,5 +1,7 @@
 # Enemy attack and effect lifecycle hardening
 
+> 文档状态校准（2026-10-15）：本文保留敌人生命周期专项的历史版本、引擎和检查数。当前默认回归范围以[验证指南](VALIDATION.md)为准；它不等同全部敌种、全部遭遇、长期内存或自然六区战斗验收。
+
 Baseline: main `278aec8a5df8ee94097878d0c80e961a0e4f78a2`. The three changed runtime files were reviewed against that exact revision; the older local snapshot was not used as the runtime baseline. Open PRs #38, #44 and #45 were reviewed for scope separation. No resource proposal, shared controller or audio director changes are included.
 
 ## Contract and fixes

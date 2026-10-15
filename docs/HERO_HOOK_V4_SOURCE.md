@@ -1,5 +1,7 @@
 # 钩索独立源表检查点（2026-10-12）
 
+> 文档状态校准（2026-10-15）：本文包含钩索源素材准备与后续集成两个历史阶段；早期“尚未接入”只指素材检查点，后文集成结果不追溯改写早期状态。当前钩索需已取得能力，默认K／X，操作以[玩家指南](RELEASE_PLAYER_GUIDE.md)为准。
+
 恢复基线：PR #15 `97550d6`，该提交远端 CI 已通过。
 
 使用内置 imagegen，参考既有 movement.png（身份与服装）和 traversal.png（动作用途），新增版本化源表 `godot/assets/sprites/player/generated_hero_v3/sources/actions/hook_throw_v4.png`。旧源表保留。先保存源图与制作说明，再接入透明帧、验证和实机证据。
