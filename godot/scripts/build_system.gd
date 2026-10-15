@@ -173,7 +173,8 @@ func _active_accessory_count(families: Dictionary, crest: String) -> int:
     for family in ["combat_accessory", "travel_accessory"]:
         var values: Array = families.get(family, [])
         for slot in range(values.size()):
-            if not String(values[slot]).is_empty() and _slot_unlocked(family, slot, crest): count += 1
+            var id := String(values[slot])
+            if not id.is_empty() and _slot_unlocked(family, slot, crest) and _slot_accepts(family, slot, id, crest): count += 1
     return count
 
 func equip_family_slot(item_id: String, family: String, slot: int, at_bell: bool = true) -> Dictionary:
@@ -756,6 +757,8 @@ func restore(snapshot: Dictionary) -> Dictionary:
         candidate.state.loadouts[name] = candidate.state.loadouts[name].duplicate(true)
         candidate.state.loadouts[name].active_skill_slot = int(candidate.state.loadouts[name].active_skill_slot)
         candidate.state.loadouts[name].active_tool_slot = int(candidate.state.loadouts[name].active_tool_slot)
+    candidate.state.active_skill_slot = int(candidate.state.active_skill_slot)
+    candidate.state.active_tool_slot = int(candidate.state.active_tool_slot)
     state = candidate.state.duplicate(true)
     cooldowns = restored_cooldowns.duplicate(true)
     _normalize_active_slots()

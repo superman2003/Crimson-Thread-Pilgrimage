@@ -132,9 +132,12 @@ func _run() -> void:
     _check(ui.build_slot_buttons.size()==2 and ui.build_slot_buttons[1].disabled==false,"Skill family exposes both unlocked typed slots")
     ui.build_slot_buttons[0].grab_focus()
     var nav_right:=InputEventJoypadButton.new()
+    nav_right.device=-1
     nav_right.button_index=JOY_BUTTON_DPAD_RIGHT
     nav_right.pressed=true
-    Input.parse_input_event(nav_right)
+    # Push the actual joypad event into the UI viewport. Input.parse_input_event
+    # filters joypad events when no physical device is connected in the fixture.
+    ui.get_viewport().push_input(nav_right)
     await process_frame
     _check(ui.get_viewport().gui_get_focus_owner()==ui.build_slot_buttons[1],"Injected controller d-pad input moves focus between typed equipment slots")
     ui.build_slot_buttons[1].pressed.emit()

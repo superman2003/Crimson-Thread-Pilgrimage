@@ -33,7 +33,8 @@ func _initialize() -> void:
     _check(build.cycle_skill().ok and build.state.skill == "cleave", "cycle preserves active alias")
     _check(build.select_tool("mine", 1).ok and build.cycle_tool().ok and build.state.tool == "shard", "two tools and active alias")
     _check(not build.refill_tools(false).ok, "refill requires shrine")
-    _check(not build.refill_tools(true).ok and build.state.tool_counts == {"shard": 3, "mine": 2, "fog": 2, "lure": 2}, "legacy refill cannot create free stock")
+    var stock_before_rest: Dictionary = build.state.tool_counts.duplicate(true)
+    _check(not build.refill_tools(true).ok and build.state.tool_counts == stock_before_rest, "legacy refill cannot create free stock")
     before = build.serialize()
     _check(not build.switch_crest("bell", false).ok and build.serialize() == before, "switch cannot occur away from shrine")
     for id in ["crimson", "bell", "salt"]:
@@ -53,6 +54,7 @@ func _initialize() -> void:
     _check(build.state.skills == ["cleave", "needle"] and build.state.passives == ["shell", "stride"] and stock == build.state.tool_counts and cds == build.cooldowns, "loadout preserves stock/CD")
     var wallet := {"currency": 200, "inventory_counts": {"echo_hook": 1}}
     var wallet_before := wallet.duplicate(true)
+    _check(build.switch_crest("crimson").ok, "return to a crest whose open skill slot accepts needle")
     _check(build.select_skill("needle", 1).ok, "upgrade target")
     var zero := build.selected_skill()
     var purchase := build.transact("upgrade_needle", wallet)
@@ -81,7 +83,8 @@ func _initialize() -> void:
     _check(build.equip_passives([]).ok and build.state.tool_counts.shard == 1, "unequip leaves paid stock unchanged")
     var world := WORLD.new()
     _check(world.capture_global({"build_state": build.serialize()}), "strict global JSON captures build")
-    _check(restart.restore(JSON.parse_string(JSON.stringify(build.serialize()))).ok and restart.serialize() == build.serialize(), "v3 exact JSON roundtrip")
+    var roundtrip: Dictionary = restart.restore(JSON.parse_string(JSON.stringify(build.serialize())))
+    _check(roundtrip.ok and restart.serialize() == build.serialize(), "v3 exact JSON roundtrip")
     for corrupt_kind in ["negative", "fractional", "duplicate", "cooldown", "unknown", "alias"]:
         var corrupt := build.serialize()
         match corrupt_kind:

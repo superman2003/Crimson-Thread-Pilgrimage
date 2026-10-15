@@ -949,6 +949,8 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         button.disabled=not bool(slot.get("unlocked",true))
         button.tooltip_text="此槽位尚未解锁" if button.disabled else "兼容："+"、".join(slot.get("compatible",[]))
         button.add_theme_stylebox_override("normal",_tab_style(index==build_assign_slot))
+        button.focus_neighbor_left=button.get_path_to(build_slot_buttons[index-1]) if index>0 else NodePath("")
+        button.focus_neighbor_right=button.get_path_to(build_slot_buttons[index+1]) if index+1<build_slot_buttons.size() else NodePath("")
     for index in range(slots.size(),build_slot_buttons.size()):build_slot_buttons[index].hide()
 
 func _family_count_summary(snapshot: Dictionary, family_id: String, slots: Array) -> String:

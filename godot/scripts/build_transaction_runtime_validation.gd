@@ -91,8 +91,7 @@ func _run() -> void:
 		_check(player.hp == 3 and player.energy == 47 and is_equal_approx(player.skill_cooldown, 1.25),
 			"failed craft preserves HP, thread, and player cooldown")
 
-	# The same durability boundary applies to paid resupply: no stock or money is
-	# committed when the real save writer cannot install its transaction.
+	# The same durability boundary applies to paid resupply and tool use.
 	player.global_position = shrine.global_position
 	for tool_id in build.state.tool_counts:
 		build.state.tool_counts[tool_id] = 0
@@ -112,6 +111,30 @@ func _run() -> void:
 	_check(player.hp == 3 and player.energy == 47 and is_equal_approx(player.skill_cooldown, 1.25),
 		"failed supply preserves HP, thread, and player cooldown")
 
+	# A tool effect must not spawn until its consumed charge is durable. The
+	# injected failure must leave both stock and action recovery exactly intact.
+	build.state.tool_counts["shard"] = 1
+	var tool_stock_before := int(build.state.tool_counts.shard)
+	var tool_state_before: Dictionary = build.serialize()
+	var effect_count_before := _tool_effect_count()
+	var tool_attack_timer_before := float(player.attack_timer)
+	var tool_skill_cooldown_before := float(player.skill_cooldown)
+	var failed_use: Dictionary = scene.perform_build_action("use_tool")
+	_check(not failed_use.get("ok", false) and String(failed_use.get("reason", "")).begins_with("归途记录未能写入"),
+		"failed tool use reports persistence failure before casting")
+	_check(build.serialize() == tool_state_before and int(build.state.tool_counts.shard) == tool_stock_before,
+		"failed tool use preserves stock and build cooldown state")
+	_check(_tool_effect_count() == effect_count_before, "failed tool use creates no effect node")
+	_check(is_equal_approx(float(player.attack_timer), tool_attack_timer_before)
+		and is_equal_approx(float(player.skill_cooldown), tool_skill_cooldown_before),
+		"failed tool use preserves player recovery timers")
+	scene.world_save_failure_injected_for_validation = false
+	var successful_use: Dictionary = scene.perform_build_action("use_tool")
+	_check(successful_use.get("ok", false), "tool use succeeds after persistence is available")
+	_check(int(build.state.tool_counts.shard) == tool_stock_before - 1
+		and _tool_effect_count() == effect_count_before + 1,
+		"successful tool use spends exactly one charge for one effect")
+
 	_finish()
 
 func _find_area(kind: String, id: String) -> Area2D:
@@ -128,6 +151,13 @@ func _total(values: Variant) -> int:
 	var total := 0
 	for value in values.values():
 		total += int(value)
+	return total
+
+func _tool_effect_count() -> int:
+	var total := 0
+	for child in scene.get_children():
+		if child is Node2D and child.get_script() != null and child.get_script().resource_path == "res://scripts/player_tool_effect.gd":
+			total += 1
 	return total
 
 func _frames(count: int) -> void:

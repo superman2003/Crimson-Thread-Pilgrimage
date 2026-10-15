@@ -53,8 +53,8 @@ func _run() -> void:
 	# One swing may hit multiple accepted enemies. Each target keeps its authored
 	# per-hit reward, but the pogo impulse and feedback happen once for the swing.
 	player.energy = 0
-	var first := _spawn_enemy(Vector2(128, 140), 4)
-	var second := _spawn_enemy(Vector2(160, 140), 4)
+	var first := _spawn_enemy(Vector2(155, 140), 4)
+	var second := _spawn_enemy(Vector2(190, 140), 4)
 	await _input_attack(player, Vector2(100, 180), 1, false)
 	_check(first.hp < 4 and second.hp < 4, "real attack input hits both enemies inside the active arc")
 	_check(player.energy == player.energy_per_hit * 2, "separate accepted targets each retain one per-target energy reward")
@@ -68,12 +68,13 @@ func _run() -> void:
 	player.global_position = Vector2(100, 95)
 	player.velocity = Vector2(0, 220)
 	player.thorn_downstrike_unlocked = true
-	var guard := _spawn_enemy(Vector2(120, 105), 4)
+	var guard := _spawn_enemy(Vector2(145, 145), 4)
 	guard.ai_profile["front_guard"] = true
 	guard.active_attack = {"type": "guard"}
 	guard.state = "active"
 	guard.direction = -1
 	await _input_attack(player, player.global_position, 1, true)
+	_check(player.current_attack_direction.y > 0.5, "real aim-down input is captured for the guarded attack")
 	_check(guard.hp == 4, "front guard rejects the real downstrike hit")
 	_check(player.energy == 0, "rejected guarded hit grants no energy")
 	_check(player.velocity.y > 0.0, "rejected guarded hit does not pogo the player")
@@ -84,8 +85,9 @@ func _run() -> void:
 	player.global_position = Vector2(100, 95)
 	player.velocity = Vector2(0, 220)
 	player.pogo_chain = 0
-	var air_target := _spawn_enemy(Vector2(120, 105), 4)
+	var air_target := _spawn_enemy(Vector2(145, 145), 4)
 	await _input_attack(player, player.global_position, 1, true)
+	_check(player.current_attack_direction.y > 0.5, "real aim-down input is captured for airborne pogo")
 	_check(air_target.hp < 4, "real downslash input and physics hit the airborne enemy")
 	_check(player.velocity.y < 0.0, "accepted airborne enemy hit produces downward pogo recovery")
 	_check(player.pogo_chain == 1, "one accepted target advances the pogo chain once")
@@ -113,6 +115,9 @@ func _run() -> void:
 		Input.action_release("move_right")
 		_check(player.heal_timer == 0.0 and player.heal_reserved_cost == 0, crest + " movement input interrupts and clears heal reservation")
 		_check(player.hp == 3 and player.energy == 100 - player.heal_energy_cost, crest + " interrupted heal grants no HP and retains authored interruption charge")
+		# Allow the production 0.3s post-interrupt cooldown to expire naturally
+		# before starting the next crest's independent reservation.
+		await _frames(20)
 
 	if failures > 0:
 		quit(1)
@@ -132,12 +137,15 @@ func _input_attack(player: CharacterBody2D, start: Vector2, face: int, down: boo
 	player.enemy_contact_guard_timer = 0.0
 	if down:
 		Input.action_press("aim_down")
+		# Keep the aim held through its own sampled physics tick before issuing
+		# attack, so the attack buffer must capture the actual directional input.
+		await _frames(1)
 	Input.action_press("attack")
 	await _frames(1)
 	Input.action_release("attack")
 	if down:
 		Input.action_release("aim_down")
-	await _frames(18)
+	await _frames(10 if down else 18)
 
 
 func _spawn_enemy(position_value: Vector2, health: int) -> Area2D:

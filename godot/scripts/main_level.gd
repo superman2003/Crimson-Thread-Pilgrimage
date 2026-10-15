@@ -1200,7 +1200,7 @@ func player_world_position() -> Vector2:
 func _save_world() -> bool:
     if not world_mode:
         return true
-    if world_loading or world_state == null or player == null or world_save_blocked:
+    if world_loading or world_state == null or player == null:
         return false
     var previous_state: Dictionary = world_state.data.duplicate(true)
     var region_id := String(config.get("id", ""))
@@ -1215,8 +1215,20 @@ func _save_world() -> bool:
         "story_flags": story_flags, "current_region": region_id,
         "entry": active_spawn, "hp": player.hp, "energy": player.energy,
         "build_state": build_system.serialize() if build_system != null else {}}) and captured
-    var wrote: bool = captured and not world_save_failure_injected_for_validation and world_state.write(world_save_path)
-    if not wrote:
+    if not captured:
+        world_state.data = previous_state
+        if not world_write_error_shown:
+            world_write_error_shown = true
+            _toast("归途记录暂未写入，当前旅途进度仍保留。")
+        return false
+    # A blocked incompatible save still carries the live region/global snapshot
+    # in memory for world travel, while withholding all disk writes.
+    if world_save_blocked:
+        if not world_write_error_shown:
+            world_write_error_shown = true
+            _toast("归途记录暂未写入，当前旅途进度仍保留。")
+        return false
+    if world_save_failure_injected_for_validation or not world_state.write(world_save_path):
         world_state.data = previous_state
         if not world_write_error_shown:
             world_write_error_shown = true
@@ -6711,15 +6723,32 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                 if result.get("ok", false):
                     _set_build_wallet(result.wallet)
         "use_tool":
-            if not active_overlay.is_empty() or player.attack_timer > 0.0 or player.dash_timer > 0.0 or player.hurt_timer > 0.0:
+            if not active_overlay.is_empty() or not player._can_start_action():
                 return {"ok": false, "reason": "请在动作结束后使用战具"}
-            var before: Dictionary = build_system.serialize()
+            var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
+            if selected_tool_id == "mine":
+                var owned_traps := 0
+                for effect in get_tree().get_nodes_in_group("player_trap"):
+                    if effect.get("owner_player") == player:
+                        owned_traps += 1
+                if owned_traps >= 2:
+                    return {"ok": false, "reason": "场上已有两枚布置中的地雷"}
             result = build_system.use_tool()
-            if result.get("ok", false) and not player.cast_tool(result):
-                build_system.restore(before)
-                result = {"ok": false, "reason": "当前无法使用战具，次数已保留"}
     if result.get("ok", false):
         result = _finish_build_transaction(result, build_before, wallet_before, materials_before)
+        if result.get("ok", false) and action == "use_tool" and not player.cast_tool(result):
+            # Stock is durable before effects exist. If the effect cannot start,
+            # persist a refund; if that write fails, retain the spent state so
+            # memory and disk still agree and no free effect can be created.
+            var spent_build: Dictionary = build_system.serialize()
+            build_system.restore(build_before)
+            if _save_world():
+                _sync_player_build()
+                result = {"ok": false, "reason": "当前无法使用战具；已退还次数"}
+            else:
+                build_system.restore(spent_build)
+                _sync_player_build()
+                result = {"ok": false, "reason": "战具未能启动且退款暂未写入；本次次数已消耗"}
     elif not String(result.get("reason", "")).is_empty():
         _toast(String(result.reason))
     return result
