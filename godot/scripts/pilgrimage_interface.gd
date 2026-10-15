@@ -1717,6 +1717,16 @@ func _ending_status_label(entry: Dictionary) -> String:
     if bool(entry.get("available",false)):return "可以选择"
     return "准备中"
 
+func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dictionary:
+    var cost := maxi(0, int(item.get("energy_cost", 0)))
+    var energy := int(level.player.energy) if level != null and is_instance_valid(level.player) else 0
+    var detail := "需要 %d 绯线；当前 %d。" % [cost, energy]
+    if remaining > 0.0:
+        return {"text":"%.1fs" % remaining, "available":false, "detail":"冷却中。" + detail}
+    if energy < cost:
+        return {"text":"缺%d" % (cost - energy), "available":false, "detail":"绯线不足。" + detail}
+    return {"text":_short_binding("skill_1") if active else "待切换", "available":true, "detail":detail}
+
 func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, system: Variant) -> void:
     var crest_id:=String(build_state.get("crest","crimson"))
     if hud_crest.get_meta("crest_id","")!=crest_id:
@@ -1752,8 +1762,10 @@ func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, syst
                 break
             if is_skill:
                 var remaining:=float(system.cooldowns.get(id,0)) if system!=null else 0.0
-                tactical_values[index].text="%.1fs" % remaining if remaining>0 else _short_binding("skill_1") if active else "待切换"
-                tactical_icons[index].modulate=Color(0.45,0.45,0.45) if remaining>0 else Color.WHITE
+                var readiness := _skill_readiness(item,remaining,active)
+                tactical_values[index].text=String(readiness.text)
+                tactical_cards[index].tooltip_text=item_name+" · "+String(readiness.detail)
+                tactical_icons[index].modulate=Color.WHITE if readiness.available else Color(0.45,0.45,0.45)
             else:
                 tactical_values[index].text="× %d" % int(item.get("count",0))
                 tactical_icons[index].modulate=Color.WHITE if int(item.get("count",0))>0 else Color(0.45,0.45,0.45)
