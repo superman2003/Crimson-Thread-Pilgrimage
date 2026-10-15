@@ -1,5 +1,6 @@
 extends Control
 
+const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const FONT := preload("res://assets/fonts/NotoSansSC.ttf")
 static var _survey_font: FontFile
@@ -524,7 +525,9 @@ func _build_dialogue() -> void:
     dialogue_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     dialogue_body.custom_minimum_size=Vector2(825,0)
     dialogue_body.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    dialogue_hint=_label(dialogue,"F 继续  ·  Esc 离开",Vector2(24,270),Vector2(180,24),13,MUTED)
+    dialogue_hint=_label(dialogue,_dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),13,MUTED)
+    dialogue_hint.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+    dialogue_hint.mouse_filter=Control.MOUSE_FILTER_PASS
     _button(dialogue,"继续交谈",Vector2(221,250),Vector2(147,34),func():
         if is_instance_valid(dialogue_area):
             if level.world_mode:level._try_interact()
@@ -536,7 +539,8 @@ func show_speaker(area: Area2D) -> void:
     dialogue_area=area
     dialogue_scroll.scroll_vertical=0
     dialogue_portrait.texture=ART.portrait(String(area.get_meta("npc_id","")))
-    dialogue_hint.text="F 继续  ·  Esc 离开"
+    dialogue_hint.text=_dialogue_binding_hint()
+    dialogue_hint.tooltip_text=dialogue_hint.text
     var topics: Dictionary=area.get_meta("dialogue_topics",{})
     var quest: Dictionary=topics.get("quest",{})
     dialogue_quest_button.text="询问心愿"
@@ -795,6 +799,7 @@ func _refresh_remap_labels() -> void:
 
 func _input(event: InputEvent) -> void:
     if level==null or not construction_complete:return
+    PROMPT_BINDINGS.observe(event)
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
         remap_capture_frame=Engine.get_process_frames()
@@ -1442,6 +1447,9 @@ func _refresh_save_slots() -> void:
 
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
+    if dialogue.visible:
+        dialogue_hint.text=_dialogue_binding_hint()
+        dialogue_hint.tooltip_text=dialogue_hint.text
     modal_shade.visible=not String(level.active_overlay).is_empty()
     hud_card.visible=not modal_shade.visible
     mechanism_status.visible=not modal_shade.visible
@@ -1556,24 +1564,13 @@ func refresh_settings_selection() -> void:
         settings_labels[key].add_theme_color_override("font_color",GOLD if selected else IVORY)
 
 func _binding_name(event: InputEvent) -> String:
-    if event is InputEventJoypadMotion:
-        if event.axis==JOY_AXIS_TRIGGER_LEFT:return "手柄 L2" if event.axis_value>0 else "手柄 L2 反向"
-        if event.axis==JOY_AXIS_TRIGGER_RIGHT:return "手柄 R2" if event.axis_value>0 else "手柄 R2 反向"
-        return "手柄轴 %d %s" % [event.axis,"＋" if event.axis_value>0 else "－"]
-    if event is InputEventKey:return OS.get_keycode_string(event.physical_keycode if event.physical_keycode else event.keycode)
-    if event is InputEventMouseButton:return {MOUSE_BUTTON_LEFT:"鼠标左键",MOUSE_BUTTON_RIGHT:"鼠标右键",MOUSE_BUTTON_MIDDLE:"鼠标中键"}.get(event.button_index,"鼠标%d" % event.button_index)
-    if event is InputEventJoypadButton:return {JOY_BUTTON_A:"手柄 A",JOY_BUTTON_B:"手柄 B",JOY_BUTTON_X:"手柄 X",JOY_BUTTON_Y:"手柄 Y",JOY_BUTTON_LEFT_SHOULDER:"手柄 LB",JOY_BUTTON_RIGHT_SHOULDER:"手柄 RB",JOY_BUTTON_DPAD_DOWN:"十字键 ↓",JOY_BUTTON_DPAD_UP:"十字键 ↑",JOY_BUTTON_DPAD_LEFT:"十字键 ←",JOY_BUTTON_DPAD_RIGHT:"十字键 →"}.get(event.button_index,"手柄 %d" % event.button_index)
-    return event.as_text()
+    return PROMPT_BINDINGS.binding_label(event)
 
 func _short_binding(action: String) -> String:
-    if InputMap.has_action(action):
-        var events:=InputMap.action_get_events(action)
-        if not events.is_empty():
-            var event: InputEvent=events[0]
-            if event is InputEventKey:return OS.get_keycode_string(event.physical_keycode if event.physical_keycode else event.keycode)
-            if event is InputEventMouseButton:return {MOUSE_BUTTON_LEFT:"鼠标左键",MOUSE_BUTTON_RIGHT:"鼠标右键",MOUSE_BUTTON_MIDDLE:"鼠标中键"}.get(event.button_index,"鼠标%d" % event.button_index)
-            return _binding_name(event)
-    return "未设置"
+    return PROMPT_BINDINGS.action_label(action)
+
+func _dialogue_binding_hint() -> String:
+    return "%s 继续\n%s 离开" % [_short_binding("interact"), _short_binding("close_overlay")]
 
 func _refresh_combat_status(player: Node) -> void:
     var state: Dictionary={}
