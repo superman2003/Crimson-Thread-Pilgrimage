@@ -267,3 +267,5 @@ npm start
 ![巡礼营地实际GL定位取样，角色已落地、敌人暂停](artifacts/obsidian/camp.webp)
 
 [本批报告与五处画面](docs/report/20261014_obsidian_experience.md) · [验证摘要](artifacts/obsidian/verification.json)。
+
+2026-10-15 第一份任务的整合交付、验证和剩余：[连续世界、探索操作与工程稳定](docs/report/20261015_world_exploration_stability.md)。

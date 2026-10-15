@@ -19,6 +19,7 @@ func _run() -> void:
     scene.world_resume = false
     scene.world_startup_options_enabled = false
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _frames()
     scene._close_overlays()

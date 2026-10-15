@@ -66,6 +66,7 @@ func run() -> void:
     main.world_save_path = "user://verify_narrative_ui.json"
     main.world_resume = false
     root.add_child(main)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(main)
     main.set_physics_process(false)
     main.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):

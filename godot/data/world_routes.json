@@ -206,7 +206,7 @@
         {
           "id": "upgrade_thread_dash_1_action_gate",
           "rect": [
-            8206,
+            8180,
             260,
             36,
             420
@@ -227,7 +227,7 @@
         {
           "id": "upgrade_silk_wall_grip_1_action_gate",
           "rect": [
-            8206,
+            8190,
             800,
             36,
             420
@@ -248,7 +248,7 @@
         {
           "id": "upgrade_echo_hook_1_action_gate",
           "rect": [
-            8206,
+            8200,
             1340,
             36,
             420
@@ -269,7 +269,7 @@
         {
           "id": "upgrade_double_thread_jump_1_action_gate",
           "rect": [
-            8206,
+            8210,
             1880,
             36,
             420
@@ -290,7 +290,7 @@
         {
           "id": "upgrade_bell_guard_1_action_gate",
           "rect": [
-            8206,
+            8220,
             2420,
             36,
             420
@@ -311,9 +311,9 @@
         {
           "id": "upgrade_thorn_downstrike_1_action_gate",
           "rect": [
-            8244,
+            8218,
             3118,
-            298,
+            324,
             30
           ],
           "color": "b58a48",
@@ -332,7 +332,7 @@
         {
           "id": "upgrade_crown_resonance_1_action_gate",
           "rect": [
-            8206,
+            8240,
             3500,
             36,
             420
@@ -1275,6 +1275,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7882,
+            190,
+            700,
+            540
+          ],
           "map_rect": [
             1800,
             0,
@@ -1289,13 +1295,29 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。 绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
+          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。",
+          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回first_bell_shrine",
           "setpiece": "排水计时闸",
           "traversal_focus": "Shift 冲刺拨开计时栅闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            530
+          ],
+          "action_point": [
+            8132,
+            528
+          ],
+          "reward_landing": [
+            8420,
+            530
+          ],
+          "movement_combo": [
+            "approach",
+            "dash_through_gate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1306,20 +1328,6 @@
               120,
               160
             ]
-          },
-          "combat_practice": {
-            "skill_id": "cleave",
-            "region_id": "demo_ch01_moss_bell_court",
-            "room_id": "upgrade_thread_dash_1",
-            "position": [
-              8045,
-              540
-            ],
-            "label": "绯线穿刺：直线突刺不穿墙，不自带无敌；练习准备与收势。",
-            "training_id": "seal_training_cleave",
-            "safe": true,
-            "requires_equipment": false,
-            "damage_to_player": 0
           }
         },
         {
@@ -1344,6 +1352,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7882,
+            730,
+            700,
+            540
+          ],
           "map_rect": [
             1800,
             210,
@@ -1358,13 +1372,30 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。 断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
+          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。",
+          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回threadmakers_cache",
           "setpiece": "纺线检修仓",
           "traversal_focus": "贴住门壁按跳跃，墙跳拨开检修闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            1070
+          ],
+          "action_point": [
+            8142,
+            1068
+          ],
+          "reward_landing": [
+            8420,
+            1070
+          ],
+          "movement_combo": [
+            "jump_to_wall",
+            "wall_grip",
+            "wall_jump"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1375,20 +1406,6 @@
               120,
               160
             ]
-          },
-          "combat_practice": {
-            "skill_id": "crosscut",
-            "region_id": "demo_ch01_moss_bell_court",
-            "room_id": "upgrade_silk_wall_grip_1",
-            "position": [
-              8045,
-              1080
-            ],
-            "label": "断弦回斩：原地前后交叉斩，无位移；线势回能仍低于消耗。",
-            "training_id": "seal_training_crosscut",
-            "safe": true,
-            "requires_equipment": false,
-            "damage_to_player": 0
           }
         },
         {
@@ -1413,6 +1430,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7882,
+            1270,
+            700,
+            540
+          ],
           "map_rect": [
             1800,
             420,
@@ -1434,6 +1457,23 @@
           "setpiece": "钟骨吊运台",
           "traversal_focus": "在门前按 K 钩住铜环，牵引检修闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            1610
+          ],
+          "action_point": [
+            8152,
+            1608
+          ],
+          "reward_landing": [
+            8420,
+            1610
+          ],
+          "movement_combo": [
+            "target_ring",
+            "hook_pull",
+            "land_beyond_gate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1468,6 +1508,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7882,
+            1810,
+            700,
+            540
+          ],
           "map_rect": [
             1800,
             630,
@@ -1489,6 +1535,23 @@
           "setpiece": "钟冠双线仓",
           "traversal_focus": "在门前腾空，再按一次跳跃，接通双线锁。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            2150
+          ],
+          "action_point": [
+            8162,
+            2148
+          ],
+          "reward_landing": [
+            8420,
+            2150
+          ],
+          "movement_combo": [
+            "jump",
+            "air_jump",
+            "clear_gate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1523,6 +1586,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7882,
+            2350,
+            700,
+            540
+          ],
           "map_rect": [
             1800,
             840,
@@ -1544,6 +1613,22 @@
           "setpiece": "钟髓封蜡室",
           "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            2690
+          ],
+          "action_point": [
+            8172,
+            2688
+          ],
+          "reward_landing": [
+            8420,
+            2690
+          ],
+          "movement_combo": [
+            "approach",
+            "bell_guard_pulse"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1578,6 +1663,12 @@
             664,
             530
           ],
+          "camera_bounds": [
+            7882,
+            2890,
+            700,
+            600
+          ],
           "map_rect": [
             1800,
             1050,
@@ -1599,6 +1690,23 @@
           "setpiece": "棘根深井",
           "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            3090
+          ],
+          "action_point": [
+            8218,
+            3088
+          ],
+          "reward_landing": [
+            8420,
+            3290
+          ],
+          "movement_combo": [
+            "jump",
+            "down_attack",
+            "drop_through_seal"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1633,6 +1741,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7882,
+            3430,
+            700,
+            540
+          ],
           "map_rect": [
             1800,
             1260,
@@ -1654,6 +1768,22 @@
           "setpiece": "无名钟契库",
           "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            8010,
+            3770
+          ],
+          "action_point": [
+            8192,
+            3768
+          ],
+          "reward_landing": [
+            8420,
+            3770
+          ],
+          "movement_combo": [
+            "approach",
+            "resonate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -1866,7 +1996,7 @@
         {
           "id": "upgrade_thread_dash_2_action_gate",
           "rect": [
-            7746,
+            7720,
             260,
             36,
             420
@@ -1887,7 +2017,7 @@
         {
           "id": "upgrade_silk_wall_grip_2_action_gate",
           "rect": [
-            7746,
+            7730,
             800,
             36,
             420
@@ -1908,7 +2038,7 @@
         {
           "id": "upgrade_double_thread_jump_2_action_gate",
           "rect": [
-            7746,
+            7750,
             1340,
             36,
             420
@@ -1929,7 +2059,7 @@
         {
           "id": "upgrade_bell_guard_2_action_gate",
           "rect": [
-            7746,
+            7760,
             1880,
             36,
             420
@@ -1950,7 +2080,7 @@
         {
           "id": "upgrade_lantern_phase_1_action_gate",
           "rect": [
-            7746,
+            7770,
             2420,
             36,
             420
@@ -2488,6 +2618,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7422,
+            190,
+            700,
+            540
+          ],
           "map_rect": [
             2080,
             0,
@@ -2502,13 +2638,29 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。 钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
+          "objective": "获得能力后回访旧区，练习绯线冲刺，打开封口取回物资与反证。",
+          "guide": "Shift 冲刺拨开计时栅闩。单纯持有能力不会开门。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回silt_vault",
           "setpiece": "淤泥排压室",
           "traversal_focus": "Shift 冲刺拨开计时栅闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7550,
+            530
+          ],
+          "action_point": [
+            7672,
+            528
+          ],
+          "reward_landing": [
+            7960,
+            530
+          ],
+          "movement_combo": [
+            "approach",
+            "dash_through_gate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -2519,20 +2671,6 @@
               120,
               160
             ]
-          },
-          "combat_practice": {
-            "skill_id": "shockwave",
-            "region_id": "demo_ch02_rain_foundry_canal",
-            "room_id": "upgrade_thread_dash_2",
-            "position": [
-              7585,
-              540
-            ],
-            "label": "钟鸣震波：必须站在地面；钟压增强冲击但不击碎探索地形。",
-            "training_id": "seal_training_shockwave",
-            "safe": true,
-            "requires_equipment": false,
-            "damage_to_player": 0
           }
         },
         {
@@ -2557,6 +2695,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7422,
+            730,
+            700,
+            540
+          ],
           "map_rect": [
             2080,
             210,
@@ -2571,13 +2715,30 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。 守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
+          "objective": "获得能力后回访旧区，练习丝壁攀附，打开封口取回物资与反证。",
+          "guide": "贴住门壁按跳跃，墙跳拨开检修闩。单纯持有能力不会开门。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回pump_atrium",
           "setpiece": "泵房上检修舱",
           "traversal_focus": "贴住门壁按跳跃，墙跳拨开检修闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7550,
+            1070
+          ],
+          "action_point": [
+            7682,
+            1068
+          ],
+          "reward_landing": [
+            7960,
+            1070
+          ],
+          "movement_combo": [
+            "jump_to_wall",
+            "wall_grip",
+            "wall_jump"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -2588,20 +2749,6 @@
               120,
               160
             ]
-          },
-          "combat_practice": {
-            "skill_id": "ward",
-            "region_id": "demo_ch02_rain_foundry_canal",
-            "room_id": "upgrade_silk_wall_grip_2",
-            "position": [
-              7585,
-              1080
-            ],
-            "label": "守钟架势：面对练针架；精准窗口结束后不能继续硬接攻击。",
-            "training_id": "seal_training_ward",
-            "safe": true,
-            "requires_equipment": false,
-            "damage_to_player": 0
           }
         },
         {
@@ -2626,6 +2773,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7422,
+            1270,
+            700,
+            540
+          ],
           "map_rect": [
             2080,
             420,
@@ -2647,6 +2800,23 @@
           "setpiece": "双层水位记录室",
           "traversal_focus": "在门前腾空，再按一次跳跃，接通双线锁。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7550,
+            1610
+          ],
+          "action_point": [
+            7702,
+            1608
+          ],
+          "reward_landing": [
+            7960,
+            1610
+          ],
+          "movement_combo": [
+            "jump",
+            "air_jump",
+            "clear_gate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -2681,6 +2851,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7422,
+            1810,
+            700,
+            540
+          ],
           "map_rect": [
             2080,
             630,
@@ -2702,6 +2878,22 @@
           "setpiece": "旧铸工证物柜",
           "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7550,
+            2150
+          ],
+          "action_point": [
+            7712,
+            2148
+          ],
+          "reward_landing": [
+            7960,
+            2150
+          ],
+          "movement_combo": [
+            "approach",
+            "bell_guard_pulse"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -2736,6 +2928,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7422,
+            2350,
+            700,
+            540
+          ],
           "map_rect": [
             2080,
             840,
@@ -2757,6 +2955,22 @@
           "setpiece": "潮影检修室",
           "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7550,
+            2690
+          ],
+          "action_point": [
+            7722,
+            2688
+          ],
+          "reward_landing": [
+            7960,
+            2690
+          ],
+          "movement_combo": [
+            "approach",
+            "hold_phase"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -2975,7 +3189,7 @@
         {
           "id": "upgrade_echo_hook_2_action_gate",
           "rect": [
-            8126,
+            8120,
             260,
             36,
             420
@@ -2996,7 +3210,7 @@
         {
           "id": "upgrade_bell_guard_3_action_gate",
           "rect": [
-            8126,
+            8140,
             800,
             36,
             420
@@ -3017,9 +3231,9 @@
         {
           "id": "upgrade_thorn_downstrike_2_action_gate",
           "rect": [
-            8164,
+            8138,
             1498,
-            298,
+            324,
             30
           ],
           "color": "b58a48",
@@ -3038,7 +3252,7 @@
         {
           "id": "upgrade_crown_resonance_2_action_gate",
           "rect": [
-            8126,
+            8160,
             1880,
             36,
             420
@@ -3712,6 +3926,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7802,
+            190,
+            700,
+            540
+          ],
           "map_rect": [
             2360,
             0,
@@ -3726,13 +3946,30 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习回声钩索，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "在门前按 K 钩住铜环，牵引检修闩。单纯持有能力不会开门。 回声针：单次单目标，碰墙即止；校录命中施加盐记。",
+          "objective": "获得能力后回访旧区，练习回声钩索，打开封口取回物资与反证。",
+          "guide": "在门前按 K 钩住铜环，牵引检修闩。单纯持有能力不会开门。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回mezz_reading_ledges",
           "setpiece": "运书吊篮仓",
           "traversal_focus": "在门前按 K 钩住铜环，牵引检修闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7930,
+            530
+          ],
+          "action_point": [
+            8072,
+            528
+          ],
+          "reward_landing": [
+            8340,
+            530
+          ],
+          "movement_combo": [
+            "target_ring",
+            "hook_pull",
+            "land_beyond_gate"
+          ],
           "landmark_art": {
             "motif": "pages",
             "position": [
@@ -3743,20 +3980,6 @@
               120,
               160
             ]
-          },
-          "combat_practice": {
-            "skill_id": "needle",
-            "region_id": "demo_ch03_saltwhite_archive",
-            "room_id": "upgrade_echo_hook_2",
-            "position": [
-              7965,
-              540
-            ],
-            "label": "回声针：单次单目标，碰墙即止；校录命中施加盐记。",
-            "training_id": "seal_training_needle",
-            "safe": true,
-            "requires_equipment": false,
-            "damage_to_player": 0
           }
         },
         {
@@ -3781,6 +4004,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7802,
+            730,
+            700,
+            540
+          ],
           "map_rect": [
             2360,
             210,
@@ -3795,13 +4024,29 @@
               470
             ]
           ],
-          "objective": "在安全工房练习刚取得的钟壳格挡，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。 盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+          "objective": "在安全工房练习刚取得的钟壳格挡，打开封口取回物资与反证。",
+          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。",
           "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
           "next": "检修设施返回wax_seal_vault",
           "setpiece": "钟壳格挡练习工房",
           "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7930,
+            1070
+          ],
+          "action_point": [
+            8092,
+            1068
+          ],
+          "reward_landing": [
+            8340,
+            1070
+          ],
+          "movement_combo": [
+            "approach",
+            "bell_guard_pulse"
+          ],
           "landmark_art": {
             "motif": "pages",
             "position": [
@@ -3812,20 +4057,6 @@
               120,
               160
             ]
-          },
-          "combat_practice": {
-            "skill_id": "snare",
-            "region_id": "demo_ch03_saltwhite_archive",
-            "room_id": "upgrade_bell_guard_3",
-            "position": [
-              7965,
-              1080
-            ],
-            "label": "盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
-            "training_id": "seal_training_snare",
-            "safe": true,
-            "requires_equipment": false,
-            "damage_to_player": 0
           }
         },
         {
@@ -3850,6 +4081,12 @@
             664,
             530
           ],
+          "camera_bounds": [
+            7802,
+            1270,
+            700,
+            600
+          ],
           "map_rect": [
             2360,
             420,
@@ -3871,6 +4108,23 @@
           "setpiece": "盐脊碎板井",
           "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7930,
+            1470
+          ],
+          "action_point": [
+            8138,
+            1468
+          ],
+          "reward_landing": [
+            8340,
+            1670
+          ],
+          "movement_combo": [
+            "jump",
+            "down_attack",
+            "drop_through_seal"
+          ],
           "landmark_art": {
             "motif": "pages",
             "position": [
@@ -3905,6 +4159,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7802,
+            1810,
+            700,
+            540
+          ],
           "map_rect": [
             2360,
             630,
@@ -3926,6 +4186,22 @@
           "setpiece": "删名契约暗柜",
           "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7930,
+            2150
+          ],
+          "action_point": [
+            8112,
+            2148
+          ],
+          "reward_landing": [
+            8340,
+            2150
+          ],
+          "movement_combo": [
+            "approach",
+            "resonate"
+          ],
           "landmark_art": {
             "motif": "pages",
             "position": [
@@ -4045,9 +4321,9 @@
         {
           "id": "upgrade_thorn_downstrike_3_action_gate",
           "rect": [
-            8194,
+            8168,
             418,
-            298,
+            324,
             30
           ],
           "color": "b58a48",
@@ -4066,7 +4342,7 @@
         {
           "id": "upgrade_lantern_phase_2_action_gate",
           "rect": [
-            8156,
+            8180,
             800,
             36,
             420
@@ -4414,6 +4690,12 @@
             664,
             530
           ],
+          "camera_bounds": [
+            7832,
+            190,
+            700,
+            600
+          ],
           "map_rect": [
             2640,
             0,
@@ -4435,6 +4717,23 @@
           "setpiece": "棘线下劈练习工房",
           "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7960,
+            390
+          ],
+          "action_point": [
+            8168,
+            388
+          ],
+          "reward_landing": [
+            8370,
+            590
+          ],
+          "movement_combo": [
+            "jump",
+            "down_attack",
+            "drop_through_seal"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -4469,6 +4768,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7832,
+            730,
+            700,
+            540
+          ],
           "map_rect": [
             2640,
             210,
@@ -4490,6 +4795,22 @@
           "setpiece": "蜂蜡影闩室",
           "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7960,
+            1070
+          ],
+          "action_point": [
+            8132,
+            1068
+          ],
+          "reward_landing": [
+            8370,
+            1070
+          ],
+          "movement_combo": [
+            "approach",
+            "hold_phase"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -4589,7 +4910,7 @@
         {
           "id": "upgrade_lantern_phase_3_action_gate",
           "rect": [
-            7696,
+            7720,
             260,
             36,
             420
@@ -4807,6 +5128,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            7372,
+            190,
+            700,
+            540
+          ],
           "map_rect": [
             2920,
             0,
@@ -4828,6 +5155,22 @@
           "setpiece": "灯影相位练习工房",
           "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            7500,
+            530
+          ],
+          "action_point": [
+            7672,
+            528
+          ],
+          "reward_landing": [
+            7910,
+            530
+          ],
+          "movement_combo": [
+            "approach",
+            "hold_phase"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -4847,7 +5190,7 @@
         {
           "id": "pilgrim_camp",
           "guide": "盲钟骑士守着营火，听他讲完再走。 可见旧检修入口：「灯影相位练习工房」。靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
-          "objective": "以营地为枢纽：东上段砌道通山顶，东侧缆车井connects山根，头顶是旗桥。 可选：灯影相位练习工房。",
+          "objective": "以营火为枢纽：东侧砌道通向瞭望塔，升降笼回山根，头顶旗桥通往军墓。 可选：灯影相位练习工房。",
           "generated_by": "world_upgrade"
         }
       ],
@@ -4916,7 +5259,7 @@
         {
           "id": "upgrade_crown_resonance_3_action_gate",
           "rect": [
-            6096,
+            6130,
             260,
             36,
             420
@@ -5089,6 +5432,12 @@
             664,
             470
           ],
+          "camera_bounds": [
+            5772,
+            190,
+            700,
+            540
+          ],
           "map_rect": [
             3200,
             0,
@@ -5110,6 +5459,22 @@
           "setpiece": "王冠共鸣练习工房",
           "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
           "pacing_role": "optional_reward",
+          "entry_point": [
+            5900,
+            530
+          ],
+          "action_point": [
+            6082,
+            528
+          ],
+          "reward_landing": [
+            6310,
+            530
+          ],
+          "movement_combo": [
+            "approach",
+            "resonate"
+          ],
           "landmark_art": {
             "motif": "bell",
             "position": [
@@ -5167,9 +5532,17 @@
         1630,
         3712
       ],
-      "approach_position": [
-        8158,
+      "reward_landing": [
+        8420,
         530
+      ],
+      "approach_position": [
+        8132,
+        528
+      ],
+      "action_position": [
+        8132,
+        528
       ],
       "clue": "Shift 冲刺拨开计时栅闩。",
       "required_action": "thread_dash",
@@ -5190,9 +5563,17 @@
         4240,
         4430
       ],
-      "approach_position": [
-        7698,
+      "reward_landing": [
+        7960,
         530
+      ],
+      "approach_position": [
+        7672,
+        528
+      ],
+      "action_position": [
+        7672,
+        528
       ],
       "clue": "Shift 冲刺拨开计时栅闩。",
       "required_action": "thread_dash",
@@ -5213,9 +5594,17 @@
         1600,
         3120
       ],
-      "approach_position": [
-        8158,
+      "reward_landing": [
+        8420,
         1070
+      ],
+      "approach_position": [
+        8142,
+        1068
+      ],
+      "action_position": [
+        8142,
+        1068
       ],
       "clue": "贴住门壁按跳跃，墙跳拨开检修闩。",
       "required_action": "silk_wall_grip",
@@ -5236,9 +5625,17 @@
         2870,
         3280
       ],
-      "approach_position": [
-        7698,
+      "reward_landing": [
+        7960,
         1070
+      ],
+      "approach_position": [
+        7682,
+        1068
+      ],
+      "action_position": [
+        7682,
+        1068
       ],
       "clue": "贴住门壁按跳跃，墙跳拨开检修闩。",
       "required_action": "silk_wall_grip",
@@ -5259,9 +5656,17 @@
         4580,
         2750
       ],
-      "approach_position": [
-        8158,
+      "reward_landing": [
+        8420,
         1610
+      ],
+      "approach_position": [
+        8152,
+        1608
+      ],
+      "action_position": [
+        8152,
+        1608
       ],
       "clue": "在门前按 K 钩住铜环，牵引检修闩。",
       "required_action": "echo_hook",
@@ -5282,9 +5687,17 @@
         1990,
         1712
       ],
-      "approach_position": [
-        8078,
+      "reward_landing": [
+        8340,
         530
+      ],
+      "approach_position": [
+        8072,
+        528
+      ],
+      "action_position": [
+        8072,
+        528
       ],
       "clue": "在门前按 K 钩住铜环，牵引检修闩。",
       "required_action": "echo_hook",
@@ -5305,9 +5718,17 @@
         3140,
         610
       ],
-      "approach_position": [
-        8158,
+      "reward_landing": [
+        8420,
         2150
+      ],
+      "approach_position": [
+        8162,
+        2148
+      ],
+      "action_position": [
+        8162,
+        2148
       ],
       "clue": "在门前腾空，再按一次跳跃，接通双线锁。",
       "required_action": "double_thread_jump",
@@ -5328,9 +5749,17 @@
         1470,
         1500
       ],
-      "approach_position": [
-        7698,
+      "reward_landing": [
+        7960,
         1610
+      ],
+      "approach_position": [
+        7702,
+        1608
+      ],
+      "action_position": [
+        7702,
+        1608
       ],
       "clue": "在门前腾空，再按一次跳跃，接通双线锁。",
       "required_action": "double_thread_jump",
@@ -5351,9 +5780,17 @@
         4030,
         1170
       ],
-      "approach_position": [
-        8158,
+      "reward_landing": [
+        8420,
         2690
+      ],
+      "approach_position": [
+        8172,
+        2688
+      ],
+      "action_position": [
+        8172,
+        2688
       ],
       "clue": "在门前按 Q，钟壳震动拨开封蜡闩。",
       "required_action": "bell_guard",
@@ -5374,9 +5811,17 @@
         2200,
         2120
       ],
-      "approach_position": [
-        7698,
+      "reward_landing": [
+        7960,
         2150
+      ],
+      "approach_position": [
+        7712,
+        2148
+      ],
+      "action_position": [
+        7712,
+        2148
       ],
       "clue": "在门前按 Q，钟壳震动拨开封蜡闩。",
       "required_action": "bell_guard",
@@ -5397,9 +5842,17 @@
         4480,
         2640
       ],
-      "approach_position": [
-        8078,
+      "reward_landing": [
+        8340,
         1070
+      ],
+      "approach_position": [
+        8092,
+        1068
+      ],
+      "action_position": [
+        8092,
+        1068
       ],
       "clue": "在门前按 Q，钟壳震动拨开封蜡闩。",
       "required_action": "bell_guard",
@@ -5420,9 +5873,17 @@
         2840,
         5820
       ],
+      "reward_landing": [
+        8420,
+        3290
+      ],
       "approach_position": [
         8158,
         3090
+      ],
+      "action_position": [
+        8218,
+        3088
       ],
       "clue": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
       "required_action": "thorn_downstrike",
@@ -5443,9 +5904,17 @@
         3250,
         2672
       ],
+      "reward_landing": [
+        8340,
+        1670
+      ],
       "approach_position": [
         8078,
         1470
+      ],
+      "action_position": [
+        8138,
+        1468
       ],
       "clue": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
       "required_action": "thorn_downstrike",
@@ -5466,9 +5935,17 @@
         2720,
         1562
       ],
+      "reward_landing": [
+        8370,
+        590
+      ],
       "approach_position": [
         8108,
         390
+      ],
+      "action_position": [
+        8168,
+        388
       ],
       "clue": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
       "required_action": "thorn_downstrike",
@@ -5489,9 +5966,17 @@
         1760,
         4910
       ],
-      "approach_position": [
-        7698,
+      "reward_landing": [
+        7960,
         2690
+      ],
+      "approach_position": [
+        7722,
+        2688
+      ],
+      "action_position": [
+        7722,
+        2688
       ],
       "clue": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
       "required_action": "lantern_phase",
@@ -5512,9 +5997,17 @@
         5070,
         2260
       ],
-      "approach_position": [
-        8108,
+      "reward_landing": [
+        8370,
         1070
+      ],
+      "approach_position": [
+        8132,
+        1068
+      ],
+      "action_position": [
+        8132,
+        1068
       ],
       "clue": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
       "required_action": "lantern_phase",
@@ -5535,9 +6028,17 @@
         240,
         1870
       ],
-      "approach_position": [
-        7648,
+      "reward_landing": [
+        7910,
         530
+      ],
+      "approach_position": [
+        7672,
+        528
+      ],
+      "action_position": [
+        7672,
+        528
       ],
       "clue": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
       "required_action": "lantern_phase",
@@ -5558,9 +6059,17 @@
         6600,
         3880
       ],
-      "approach_position": [
-        8158,
+      "reward_landing": [
+        8420,
         3770
+      ],
+      "approach_position": [
+        8192,
+        3768
+      ],
+      "action_position": [
+        8192,
+        3768
       ],
       "clue": "靠近旧钟门按 R，消耗能量重接契约锁。",
       "required_action": "crown_resonance",
@@ -5581,9 +6090,17 @@
         1490,
         1358
       ],
-      "approach_position": [
-        8078,
+      "reward_landing": [
+        8340,
         2150
+      ],
+      "approach_position": [
+        8112,
+        2148
+      ],
+      "action_position": [
+        8112,
+        2148
       ],
       "clue": "靠近旧钟门按 R，消耗能量重接契约锁。",
       "required_action": "crown_resonance",
@@ -5604,9 +6121,17 @@
         2960,
         660
       ],
-      "approach_position": [
-        6048,
+      "reward_landing": [
+        6310,
         530
+      ],
+      "approach_position": [
+        6082,
+        528
+      ],
+      "action_position": [
+        6082,
+        528
       ],
       "clue": "靠近旧钟门按 R，消耗能量重接契约锁。",
       "required_action": "crown_resonance",

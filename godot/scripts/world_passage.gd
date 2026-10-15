@@ -3,6 +3,7 @@ extends Node2D
 ## fixed; destination gameplay is still loaded at the terminal, not seamless.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
 const ROCK := preload("res://scripts/world_rock_material.gd")
 const SUPPORT_SHADER := preload("res://shaders/passage_support.gdshader")
 const DECOR_ATLAS := "res://assets/sprites/flat_maps/moss_cavern/decor_atlas.png"
@@ -35,6 +36,7 @@ var previous_position := Vector2.ZERO
 var travelled := 0.0
 var return_progress := -30.0
 var last_result: Dictionary = {}
+var landing_support_key := ""
 
 static func routes() -> Array:
     if definitions.is_empty():
@@ -218,6 +220,65 @@ func _build_tube() -> void:
     var direction := signf(destination_point.x - source_point.x)
     _endpoint_marker(source_point, source_id, -direction)
     _endpoint_marker(destination_point, destination_id, direction)
+    _build_landing_support()
+
+func _build_landing_support() -> void:
+    landing_support_key = ""
+    # Borrow only numeric geometry from a published, matching landing lease.
+    # The detached cached body remains owned by prefetch until normal adoption.
+    var pref: RefCounted = host.world_prefetch
+    if pref == null or not pref.configs.has(destination_id) or not pref.entities.has(destination_id):
+        return
+    var cache: Dictionary = pref.configs[destination_id]
+    var request: Dictionary = pref.desired.get(destination_id, {})
+    var record: Dictionary = pref.entities[destination_id]
+    var target := COORDINATES.to_local(destination_id, COORDINATES.to_world(source_id, destination_point))
+    if cache.get("prepared", {}).is_empty() or request.is_empty() or cache.get("stamp", -1) != FileAccess.get_modified_time(String(request.get("path", ""))):
+        return
+    if not target.is_finite() or record.get("entry", Vector2.INF).distance_to(target) > 1.0 or request.get("entry", Vector2.INF).distance_to(target) > 1.0:
+        return
+    var window := Rect2(target - Vector2(128, 80), Vector2(256, 240))
+    var offset := COORDINATES.to_local(source_id, COORDINATES.to_world(destination_id, Vector2.ZERO))
+    for key in record.collisions:
+        if not String(key).begins_with("terrain:"):
+            continue
+        var data: Dictionary = record.collisions[key].data
+        if not Geometry2D.is_point_in_polygon(target + Vector2(0, 50), data.polygon):
+            continue
+        var clips := Geometry2D.intersect_polygons(data.polygon, PackedVector2Array([window.position, Vector2(window.end.x, window.position.y), window.end, Vector2(window.position.x, window.end.y)]))
+        if clips.is_empty():
+            continue
+        var support := StaticBody2D.new()
+        support.name = "PassageLanding"
+        support.position = offset
+        support.collision_layer = TRANSIT_LAYER
+        support.collision_mask = 0
+        for clip in clips:
+            var shape := CollisionPolygon2D.new()
+            shape.polygon = clip
+            shape.one_way_collision = bool(data.get("one_way", false))
+            shape.one_way_collision_margin = 2.0
+            support.add_child(shape)
+        support.set_meta("passage_landing_support", true)
+        add_child(support)
+        landing_support_key = String(key)
+        return
+    for key in record.bodies:
+        var data: Dictionary = record.bodies[key].data
+        if String(data.get("collision_role", "")) in ["decorative", "no_collision"]:
+            continue
+        var value: Array = data.rect
+        var bounds := Rect2(value[0], value[1], value[2], value[3])
+        if not bounds.has_point(target + Vector2(0, 50)):
+            continue
+        var support := PLATFORM_BODY.create("PassageLanding", bounds.intersection(window), String(data.get("collision_role", "")))
+        support.position += offset
+        support.collision_layer = TRANSIT_LAYER
+        support.collision_mask = 0
+        support.set_meta("passage_landing_support", true)
+        add_child(support)
+        landing_support_key = String(key)
+        return
 
 func _endpoint_marker(point: Vector2, region_id: String, direction: float) -> void:
     var marker := WAYFINDING.new()
@@ -293,11 +354,16 @@ func _arrive() -> void:
     # the loader performs its budgeted target preflight. No source handoff occurs
     # until that preflight succeeds.
     host.world_loading = true
+    # Keep the terminal position fixed while the loader validates/builds. Input
+    # held towards the exit cannot move the body off the finite tube during IO.
+    var previous_player_mode: ProcessMode = host.player.process_mode
+    host.player.process_mode = Node.PROCESS_MODE_DISABLED
     var ok: bool = await host.world_loader.replace_region_async(host, ROUTES.config_path(destination_id), entry, source_point)
     if not is_instance_valid(host) or not host.is_inside_tree():
         return
+    host.player.process_mode = previous_player_mode
     if ok:
-        last_result = {"arrived": true, "distance": travelled, "world_position": world_point}
+        last_result = {"arrived": true, "distance": travelled, "world_position": world_point, "landing_support": landing_support_key}
         # The loader snapshots collision after preflight, which is TRANSIT while
         # riding the passage. Restore the source player's normal collision at
         # the same non-yielding arrival boundary before retiring the tube.
@@ -366,6 +432,7 @@ func _clear() -> void:
     ornament_texture = null
     support_material = null
     rear_wall = null
+    landing_support_key = ""
     for child in get_children():
         remove_child(child)
         child.queue_free()

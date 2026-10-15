@@ -26,6 +26,23 @@ ABILITIES = {
     'lantern_phase': ('灯影相位', '靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。'),
     'crown_resonance': ('王冠共鸣', '靠近旧钟门按 R，消耗能量重接契约锁。'),
 }
+MOVEMENT_COMBOS = {
+    'thread_dash': ['approach', 'dash_through_gate'],
+    'silk_wall_grip': ['jump_to_wall', 'wall_grip', 'wall_jump'],
+    'echo_hook': ['target_ring', 'hook_pull', 'land_beyond_gate'],
+    'double_thread_jump': ['jump', 'air_jump', 'clear_gate'],
+    'bell_guard': ['approach', 'bell_guard_pulse'],
+    'thorn_downstrike': ['jump', 'down_attack', 'drop_through_seal'],
+    'lantern_phase': ['approach', 'hold_phase'],
+    'crown_resonance': ['approach', 'resonate'],
+}
+# Each gate sits at a distinct, walkable point in the room. These offsets leave
+# a clear approach from the portal landing and retain enough room to act.
+GATE_OFFSETS = {
+    'thread_dash': 280, 'silk_wall_grip': 290, 'echo_hook': 300,
+    'double_thread_jump': 310, 'bell_guard': 320, 'thorn_downstrike': 318,
+    'lantern_phase': 330, 'crown_resonance': 340,
+}
 # Two actual old-area targets per ability, with different physical source rooms.
 # platform IDs keep entrances on supported, existing ground, away from hazards.
 TARGETS = {
@@ -137,6 +154,7 @@ def build():
             floor_y = y + 390 if floor_break else y + 330
             approach_y = y + 190 if floor_break else floor_y
             landing = [x + 110, approach_y - 40]
+            action_point = [x + (GATE_OFFSETS[ability] if floor_break else GATE_OFFSETS[ability] - 48), approach_y - 42]
             # Solid rectangular shells are independent of cave terrain, and never
             # have terrain_id (Main would otherwise omit their physical collider).
             platforms = [
@@ -154,7 +172,8 @@ def build():
                     color='385357' if ability in ['bell_guard', 'crown_resonance'] else '4c4b3e',
                     material='bronze_bridge', route_role='branch'))
             gate_id = room_id + '_action_gate'
-            gate = [x + 344, approach_y - 12, 298, 30] if floor_break else [x + 306, y + 20, 36, floor_y - y + 90]
+            gate = ([x + GATE_OFFSETS[ability], approach_y - 12, x + 642 - (x + GATE_OFFSETS[ability]), 30]
+                    if floor_break else [x + GATE_OFFSETS[ability], y + 20, 36, floor_y - y + 90])
             overlay['locked_gates'].append(dict(id=gate_id, rect=gate, color='b58a48', material='bronze_bridge',
                 required_ability=ability, required_ability_name=name, requires_action=ability,
                 permanent_action_unlock_id=gate_id, action_range=175 if floor_break else 155,
@@ -165,6 +184,7 @@ def build():
                 depth=slot, kind='branch', archetype='ability_backtrack',
                 layout_rect=[x, y - 20, 664, floor_y - y + 140],
                 play_rect=[x, y - 20, 664, floor_y - y + 140],
+                camera_bounds=[x - 18, y - 50, 700, floor_y - y + 210],
                 map_rect=[1800 + (index - 1) * 280, slot * 210, 236, 168],
                 visit_rects=[[x, y - 20, 664, floor_y - y + 140]],
                 objective=('在安全工房练习刚取得的' if practice else '获得能力后回访旧区，练习') + name + '，打开封口取回物资与反证。',
@@ -172,6 +192,9 @@ def build():
                 danger='安全检修空间，无敌群压迫；封口外可随时原路退出。',
                 next='检修设施返回' + source_room, setpiece=title,
                 traversal_focus=hint, pacing_role='optional_reward',
+                entry_point=landing, action_point=action_point,
+                reward_landing=[x + 520, floor_y - 40],
+                movement_combo=MOVEMENT_COMBOS[ability],
                 landmark_art=dict(motif='pages' if index == 3 else 'bell', position=[x + 464, y + 80], size=[120, 160])))
             entrance, exit_id = paired((r, source_room, source), (r, room_id, landing), room_id.removeprefix(PREFIX) + '_access',
                 label='检修支线 → ' + title)
@@ -203,7 +226,9 @@ def build():
             backtracks.append(dict(ability_id=ability, region_id=r, source_room_id=source_room,
                 room_id=room_id, entry_portal_id=entrance, gate_id=gate_id,
                 reward_ids=[evidence_id, room_id + '_resin'], source_position=source,
-                approach_position=[x + 258, approach_y - 40], clue=hint, required_action=ability,
+                reward_landing=[x + 520, floor_y - 40],
+                approach_position=([x + 258, approach_y - 40] if floor_break else action_point), action_position=action_point,
+                clue=hint, required_action=ability,
                 role='practice' if practice else 'backtrack'))
             existing = next(v for v in base['map_rooms'] if v['id'] == source_room)
             override = next((v for v in overlay['map_room_overrides'] if v['id'] == source_room), None)

@@ -113,6 +113,8 @@ func crossing(target: String, direction: int) -> Dictionary:
     for unused in 3600:
         await tick()
         entered = entered or scene.world_passage.active
+        if unused in [120, 600] and not entered:
+            print("PIPE_ENTRY_DIAGNOSTIC ", JSON.stringify({"target":target,"position":str(scene.player.position),"hp":scene.player.hp,"floor":scene.player.is_on_floor(),"axis":scene.player._move_axis(),"ready":scene.initial_region_ready,"loading":scene.world_loading,"pending":scene.world_portal_request_pending,"overlay":scene.active_overlay,"phase":scene.world_loader.phase,"host_mode":scene.process_mode,"player_mode":scene.player.process_mode,"settling":scene.world_passage.settling}))
         if entered and not scene.world_passage.active and not scene.chapter_transitioning:
             break
     release_input()
@@ -212,6 +214,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await tick(4)
     scene._travel_world(ROUTES.config_path(MOSS),Vector2(1610,3712)) # initial checkpoint fixture only
@@ -240,6 +243,7 @@ func run() -> void:
     scene.world_resume = true
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await tick(4)
     check(String(scene.config.id) == String(persisted.current_region) and scene.inventory_counts == final_inventory and scene.currency_count == final_wallet,"restart restores live arrival rewards and checkpoint")

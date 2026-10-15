@@ -108,6 +108,7 @@ func _test_ending_restore() -> void:
     scene = load("res://scenes/Main.tscn").instantiate()
     scene.config_path = "res://data/" + FINAL_REGION + ".json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _frames()
     scene._spawn_ending_gates()
@@ -153,6 +154,7 @@ func _spawn() -> void:
     scene.world_save_path = SAVE
     scene.world_startup_options_enabled = false
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
 
 func _ending_count() -> int:

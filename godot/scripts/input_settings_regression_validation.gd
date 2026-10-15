@@ -2,6 +2,9 @@ extends SceneTree
 ## Exercises the actual settings/remap adapter without world or combat fixtures.
 const UI = preload("res://scripts/pilgrimage_interface.gd")
 const PATH := "user://input_settings_regression.cfg"
+class FixtureLevel extends Node:
+    var map_panel: Control
+    var active_overlay := ""
 var failures: Array[String] = []
 var checks := 0
 var original_events: Dictionary = {}
@@ -30,17 +33,41 @@ func _run() -> void:
     ui.accessibility_path = PATH
     root.add_child(ui)
     ui.set_process(false)
-    ui.level = Node.new()
+    ui.level = FixtureLevel.new()
     root.add_child(ui.level)
     ui.settings = ColorRect.new()
     ui.add_child(ui.settings)
+    var setting_control:=Button.new()
+    setting_control.focus_mode=Control.FOCUS_ALL
+    ui.settings.add_child(setting_control)
     ui.remap_status = Label.new()
     ui.add_child(ui.remap_status)
     ui.bag = ColorRect.new()
     ui.add_child(ui.bag)
     ui.bag.hide()
+    ui.settings.show()
+    ui.bag_tabs=[Button.new(),Button.new()]
+    for button in ui.bag_tabs:
+        button.focus_mode=Control.FOCUS_ALL
+        ui.bag.add_child(button)
+    ui.build_panel=ColorRect.new()
+    ui.add_child(ui.build_panel)
+    ui.build_panel.hide()
+    ui.dialogue=ColorRect.new()
+    ui.add_child(ui.dialogue)
+    ui.dialogue.hide()
+    ui.level.map_panel=ColorRect.new()
+    ui.level.add_child(ui.level.map_panel)
+    var map_first:=Button.new()
+    map_first.focus_mode=Control.FOCUS_ALL
+    ui.level.map_panel.add_child(map_first)
+    var map_second:=Button.new()
+    map_second.focus_mode=Control.FOCUS_ALL
+    ui.level.map_panel.add_child(map_second)
     # This adapter fixture supplies its controls directly, so finish staging.
     ui.construction_complete = true
+    ui.finish_bind()
+    ui.set_process(false)
     var config := ConfigFile.new()
     config.set_value("accessibility", "subtitle_size", {"broken":true})
     config.set_value("accessibility", "subtitle_speed", "fast")
@@ -60,7 +87,40 @@ func _run() -> void:
     _check(ui._finite_setting(config,"subtitle_speed",0.5,2.0)==1.0,"NaN preference does not reach a UI slider")
     config.set_value("accessibility","subtitle_speed",INF)
     _check(ui._finite_setting(config,"subtitle_speed",0.5,2.0)==1.0,"Infinite preference does not reach a UI slider")
-    ui.settings.show()
+    # Focus is tested against real viewport controls and the viewport signal.
+    ui.level.active_overlay="map"
+    ui._focus_overlay("map",false)
+    _check(root.get_viewport().gui_get_focus_owner()==map_first,"Opening map focuses its first navigable control")
+    map_second.grab_focus()
+    await process_frame
+    _check(ui.overlay_focus_memory.has("map") and ui.overlay_focus_memory.map.get_ref()==map_second,"Viewport focus signal remembers a valid map control")
+    map_second.free()
+    await process_frame
+    ui._focus_overlay("map",true)
+    _check(root.get_viewport().gui_get_focus_owner()==map_first,"Released remembered controls fall back to the first live control")
+    var click_only:=Button.new()
+    click_only.focus_mode=Control.FOCUS_CLICK
+    ui.level.map_panel.add_child(click_only)
+    ui.overlay_focus_memory["map"]=weakref(click_only)
+    ui._focus_overlay("map",true)
+    _check(root.get_viewport().gui_get_focus_owner()==map_first,"FOCUS_CLICK controls are excluded from keyboard/controller navigation")
+    click_only.free()
+    await process_frame
+    ui.level.active_overlay="settings"
+    ui._focus_overlay("settings",false)
+    _check(ui._is_navigable_focus(root.get_viewport().gui_get_focus_owner()),"Settings opens with a navigable focus owner")
+    ui._begin_remap("heal")
+    Input.emit_signal("joy_connection_changed",7,false)
+    _check(ui.remap_target.is_empty(),"Disconnecting a controller cancels pending remapping")
+    _check(ui.is_remapping_input(),"Disconnect cancellation protects only the current input frame")
+    await process_frame
+    _check(not ui.is_remapping_input(),"Disconnect input protection expires after one frame")
+    Input.emit_signal("joy_connection_changed",7,true)
+    root.get_viewport().gui_release_focus()
+    await process_frame
+    Input.emit_signal("joy_connection_changed",7,true)
+    await process_frame
+    _check(ui._is_navigable_focus(root.get_viewport().gui_get_focus_owner()),"Controller reconnect restores focus to an active overlay")
     ui._begin_remap("heal")
     _check(ui.is_remapping_input(),"Beginning capture blocks level polling")
     var escape := _key(KEY_ESCAPE)

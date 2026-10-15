@@ -7,6 +7,8 @@ const ROUTES := preload("res://scripts/world_routes.gd")
 const CONFIG_READ_JOB := preload("res://scripts/world_config_read_job.gd")
 var config_read_job := CONFIG_READ_JOB.new()
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
+const VARIANT_COPY_JOB := preload("res://scripts/world_variant_copy_job.gd")
+const TRANSITION_TOKEN := preload("res://scripts/world_transition_token.gd")
 const SESSION_FIELDS := ["player", "world_mode", "world_resume", "world_save_path",
     "world_startup_options_enabled", "world_save_blocked",
     "world_state", "world_slot", "world_loader", "build_system", "applied_build_profile",
@@ -25,6 +27,109 @@ var shutting_down := false
 var loading_canvas: CanvasLayer
 var loading_label: Label
 var last_transition: Dictionary = {}
+var transition_token: RefCounted
+var transition_serial := 0
+var startup_token: RefCounted
+
+## Scene `_ready` must be fire-and-forget; this token gives the startup
+## coroutine an owner that survives until success or host teardown.
+func request_startup_region(host: Node, previous_mode: int) -> RefCounted:
+    if shutting_down or not _alive(host) or phase != "idle":
+        return null
+    var token = TRANSITION_TOKEN.new()
+    token.serial = transition_serial + 1
+    transition_serial = token.serial
+    startup_token = token
+    _run_owned_startup(token, host, previous_mode)
+    return token
+
+func _run_owned_startup(token: RefCounted, host: Node, previous_mode: int) -> void:
+    if not token.cancelled and _alive(host):
+        await initialize_startup_region(host, previous_mode)
+    token.finished = true
+    if startup_token == token:
+        startup_token = null
+    if not _alive(host):
+        phase = "idle"
+        return
+    host.process_mode = previous_mode
+
+## Initial world boot uses the same bounded preparation/build/finish plan as
+## travel. The synchronous initializer remains available to explicit fixtures.
+func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROCESS_MODE_INHERIT) -> bool:
+    if not _alive(host):
+        return false
+    var tree: SceneTree = host.get_tree()
+    phase = "startup"
+    _show_loading_canvas(host)
+    # Share the bounded JSON worker with foreground config reads. The ticket
+    # ties the result to this startup generation and the manifest mtime.
+    if not await _prepare_routes_manifest(host, tree):
+        if not _alive(host):
+            phase = "idle"
+            return false
+        if last_error.is_empty():
+            last_error = "区域路线清单后台读取或校验失败。"
+        host.world_initial_error = "旅途初始化失败：" + last_error
+        push_error("WORLD STARTUP FAILED: " + last_error)
+        _clear_loading_canvas()
+        host.process_mode = restore_process_mode
+        phase = "idle"
+        return false
+    var built := await _construct_budgeted(host, {}, false)
+    if not _alive(host) or host.get_tree() != tree or shutting_down:
+        _clear_loading_canvas()
+        phase = "idle"
+        return false
+    if built:
+        built = await _finish_budgeted(host, false)
+    if not _alive(host) or host.get_tree() != tree or shutting_down:
+        _clear_loading_canvas()
+        phase = "idle"
+        return false
+    if built:
+        host._publish_region()
+    else:
+        last_error = "初始区域准备或构建任务未能完成。"
+        host.world_initial_error = "旅途初始化失败：" + last_error
+        push_error("WORLD STARTUP FAILED: " + last_error)
+    _clear_loading_canvas()
+    if _alive(host) and host.get_tree() == tree:
+        host.process_mode = restore_process_mode
+    phase = "idle"
+    return built
+
+func _prepare_routes_manifest(host: Node, tree: SceneTree) -> bool:
+    if not _alive(host) or host.get_tree() != tree or shutting_down:
+        return false
+    var ticket_generation := generation + 1
+    var ticket := config_read_job.request(ROUTES.ROUTES_PATH)
+    if ticket == 0:
+        last_error = "无法启动区域路线清单后台读取。"
+        return false
+    # Always provide one cancellation window even if this small worker happens
+    # to finish before the first status poll.
+    await tree.process_frame
+    if not _alive(host) or host.get_tree() != tree or shutting_down:
+        config_read_job.discard(ticket)
+        return false
+    while config_read_job.busy():
+        await tree.process_frame
+        if not _alive(host) or host.get_tree() != tree or shutting_down:
+            config_read_job.discard(ticket)
+            return false
+    if not _alive(host) or host.get_tree() != tree or shutting_down:
+        config_read_job.discard(ticket)
+        return false
+    var result: Dictionary = config_read_job.take(ticket)
+    if not String(result.get("error", "")).is_empty():
+        last_error = String(result.error)
+        return false
+    var route_ticket: Dictionary = ROUTES.manifest_ticket(result, ticket_generation)
+    if not ROUTES.accept_manifest_ticket(route_ticket, ticket_generation):
+        last_error = "区域路线清单校验未通过。"
+        return false
+    return true
 
 func register_region(host: Node) -> void:
     active_region_id = String(host.config.get("id", ""))
@@ -80,6 +185,17 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     last_transition["preflight_progress"] = 0.0
     last_transition["preflight_max_operations"] = 0
     last_transition["preflight_max_batch_usec"] = 0
+    last_transition["preflight_copy_steps"] = 0
+    last_transition["preflight_copy_edges"] = 0
+    last_transition["preflight_copy_batches"] = 0
+    last_transition["preflight_copy_work_usec"] = 0
+    last_transition["preflight_copy_wall_usec"] = 0
+    last_transition["preflight_copy_max_step_edges"] = 0
+    last_transition["preflight_copy_max_batch_usec"] = 0
+    last_transition["preflight_copy_batch_steps"] = []
+    last_transition["preflight_copy_batch_edges"] = []
+    last_transition["preflight_copy_batch_work_usec"] = []
+    last_transition["preflight_copy_batch_wall_usec"] = []
     var parsed: Variant = null
     last_transition["json_background"] = false
     last_transition["json_wait_frames"] = 0
@@ -89,7 +205,58 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     if not entry.is_finite() or not FileAccess.file_exists(path):
         last_error = "目标位置或区域文件无效。"
     else:
-        parsed = prefetch.cached_raw(path) if prefetch != null else null
+        var borrowed: Variant = prefetch._cached_raw_borrow(path) if prefetch != null else null
+        if borrowed != null:
+            var copy_job = VARIANT_COPY_JOB.new()
+            copy_job.begin(borrowed)
+            var copy_wall_started := Time.get_ticks_usec()
+            while not copy_job.done:
+                var batch_started := Time.get_ticks_usec()
+                var steps := 0
+                var batch_edges := 0
+                var batch_work_usec := 0
+                while not copy_job.done and steps < MAX_OPERATIONS_PER_FRAME:
+                    if steps > 0 and Time.get_ticks_usec() - batch_started >= FRAME_BUDGET_USEC:
+                        break
+                    var copy_step_started := Time.get_ticks_usec()
+                    var copied := copy_job.step(512)
+                    var copy_step_usec := Time.get_ticks_usec() - copy_step_started
+                    if copied <= 0:
+                        break
+                    steps += 1
+                    last_transition["preflight_copy_steps"] = int(last_transition["preflight_copy_steps"]) + 1
+                    last_transition["preflight_copy_edges"] = int(last_transition["preflight_copy_edges"]) + copied
+                    last_transition["preflight_copy_work_usec"] = int(last_transition["preflight_copy_work_usec"]) + copy_step_usec
+                    last_transition["preflight_copy_max_step_edges"] = maxi(int(last_transition["preflight_copy_max_step_edges"]), copied)
+                    batch_edges += copied
+                    batch_work_usec += copy_step_usec
+                var batch_wall_usec := Time.get_ticks_usec() - batch_started
+                last_transition["preflight_copy_max_batch_usec"] = maxi(int(last_transition["preflight_copy_max_batch_usec"]), batch_wall_usec)
+                var batch_steps_list: Array = last_transition["preflight_copy_batch_steps"]
+                batch_steps_list.append(steps)
+                last_transition["preflight_copy_batch_steps"] = batch_steps_list
+                var batch_edges_list: Array = last_transition["preflight_copy_batch_edges"]
+                batch_edges_list.append(batch_edges)
+                last_transition["preflight_copy_batch_edges"] = batch_edges_list
+                var batch_work_list: Array = last_transition["preflight_copy_batch_work_usec"]
+                batch_work_list.append(batch_work_usec)
+                last_transition["preflight_copy_batch_work_usec"] = batch_work_list
+                var batch_wall_list: Array = last_transition["preflight_copy_batch_wall_usec"]
+                batch_wall_list.append(batch_wall_usec)
+                last_transition["preflight_copy_batch_wall_usec"] = batch_wall_list
+                last_transition["preflight_copy_batches"] = int(last_transition["preflight_copy_batches"]) + 1
+                await host.get_tree().process_frame
+                last_transition["preflight_copy_wall_usec"] = Time.get_ticks_usec() - copy_wall_started
+                if not _alive(host):
+                    last_transition["preflight_cancelled"] = true
+                    return {}
+                _cancel_input()
+                if cancel_requested:
+                    last_transition["preflight_cancelled"] = true
+                    return {}
+            parsed = copy_job.result
+        else:
+            parsed = null
         if parsed == null:
             # A cancelled read still owns its thread until completion. Wait in
             # frames before admitting the next one, never queue unbounded work.
@@ -252,7 +419,12 @@ func cancel_transition() -> void:
 func shutdown() -> void:
     shutting_down = true
     cancel_requested = true
+    if transition_token != null:
+        transition_token.cancel()
+    if startup_token != null:
+        startup_token.cancel()
     config_read_job.shutdown()
+    phase = "idle"
     _clear_loading_canvas()
 
 
@@ -594,14 +766,31 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
 
 
 func start_region_transition(host: Node, path: String, entry: Vector2) -> void:
-    if phase != "idle":
-        return
-    _run_transition(host, path, entry)
+    request_region_transition(host, path, entry)
 
+func request_region_transition(host: Node, path: String, entry: Vector2, publish_flags: Dictionary = {}) -> RefCounted:
+    if phase != "idle" or shutting_down or not _alive(host):
+        return null
+    transition_serial += 1
+    var token = TRANSITION_TOKEN.new()
+    token.serial = transition_serial
+    transition_token = token
+    _run_owned_transition(token, host, path, entry, publish_flags)
+    return token
 
-func _run_transition(host: Node, path: String, entry: Vector2) -> void:
-    var result := await replace_region_async(host, path, entry)
-    if not _alive(host):
+func _run_owned_transition(token: RefCounted, host: Node, path: String, entry: Vector2, publish_flags: Dictionary) -> void:
+    var result := false
+    if not token.cancelled and _alive(host):
+        result = await replace_region_async(host, path, entry, Vector2.INF, publish_flags)
+    token.succeeded = result
+    token.finished = true
+    if transition_token == token:
+        transition_token = null
+    if _alive(host):
+        host.world_portal_request_pending = false
+    if token.cancelled or not _alive(host):
+        phase = "idle"
+        cancel_requested = false
         return
     if not result:
         host.chapter_transitioning = false

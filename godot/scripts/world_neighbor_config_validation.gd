@@ -21,6 +21,7 @@ func _run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     for unused in 4: await process_frame
     pref = scene.world_prefetch
     var source_ids := _node_ids()

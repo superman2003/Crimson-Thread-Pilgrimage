@@ -64,6 +64,7 @@ func spawn(chapter_path: String, resume: bool = false) -> Node:
     world.world_resume = resume
     world.world_save_path = SAVE
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene = world
     return world
 

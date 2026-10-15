@@ -215,6 +215,7 @@ func _validate_runtime_unlocks(path: String, config: Dictionary) -> void:
     var scene: Node = load(MAIN_SCENE).instantiate()
     scene.set("config_path", path)
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await process_frame
     await process_frame
     var state: Dictionary = scene.get_demo_state()

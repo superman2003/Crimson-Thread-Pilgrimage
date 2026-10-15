@@ -56,6 +56,7 @@ func _validate_chapter(config_path: String) -> void:
     var scene: Node = load(MAIN_SCENE).instantiate()
     scene.set("config_path", config_path)
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     scene.set_process(false)
     # This suite keeps the legacy combat-gated contract; cave progression is
     # exercised separately by cave_exploration_validation.

@@ -14,6 +14,7 @@ var failures: Array[String] = []
 var metrics: Array = []
 var observed: Dictionary = {}
 var churn: Dictionary = {}
+var runtime_probe: RefCounted
 var shared_metadata_baseline: Dictionary = {}
 var shared_metadata_signature: Dictionary = {}
 func _initialize() -> void: call_deferred("run")
@@ -39,6 +40,7 @@ func _seed_cache(id: String, entry: Vector2) -> RefCounted:
 func warm(pref: RefCounted) -> void:
     var deadline := Time.get_ticks_msec() + 15000
     while Time.get_ticks_msec() < deadline:
+        if runtime_probe != null: runtime_probe.frame()
         var built: int = pref.entity_builds + pref.gameplay.builds
         var retired: int = pref.entity_releases + pref.gameplay.releases
         pref.step(scene,0)
@@ -288,7 +290,7 @@ func cancellation() -> void:
     var source := String(scene.config.id)
     var state: Dictionary = scene.story_flags.duplicate(true)
     var wallet: int = scene.currency_count
-    scene._travel_world_async(ROUTES.config_path(id),Vector2(330,720))
+    scene._request_world_travel(ROUTES.config_path(id),Vector2(330,720))
     for unused in 2000:
         if pref.gameplay.hits > before_hits or scene.world_loader.phase == "idle": break
         await process_frame
@@ -324,6 +326,8 @@ func cache_churn() -> void:
     var before_validation_steps: int = pref.config_validation_steps
     var before_entry_rechecks: int = pref.config_entry_rechecks
     var churn_started := Time.get_ticks_usec()
+    runtime_probe = preload("res://scripts/world_runtime_probe.gd").new()
+    runtime_probe.capture("baseline", scene)
     # Repeated two-neighbor, changed-entry and leave-range leases in one host.
     # Retirements deliberately overlap new plans; no per-cycle shutdown.
     for cycle in 80:
@@ -353,6 +357,7 @@ func cache_churn() -> void:
                 if pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0: break
                 await process_frame
             check(old_actors.all(func(x): return not is_instance_valid(x)), "leave-range lease drains during churn")
+        runtime_probe.capture("cycle_%d" % (cycle + 1), scene)
         if cycle % 10 == 9:
             print("NEIGHBOR CHURN PROGRESS ", JSON.stringify({"cycles":cycle + 1,"config_reads":pref.config_reads - before_config_reads,"validation_steps":pref.config_validation_steps - before_validation_steps,"entry_rechecks":pref.config_entry_rechecks - before_entry_rechecks,"elapsed_usec":Time.get_ticks_usec() - churn_started}))
     pref.shutdown()
@@ -397,7 +402,11 @@ func cache_churn() -> void:
     check(pref.gameplay.builds - before_builds == pref.gameplay.releases - before_releases, "every churn-built gameplay actor retired exactly once")
     check(scene.get_child_count() == baseline_nodes and get_nodes_in_group("enemy").size() == baseline_enemies and scene.story_flags == baseline_state, "80 cache cycles leave source tree groups and progress untouched")
     check(pref.config_reads - before_config_reads == 32 and pref.config_entry_rechecks - before_entry_rechecks == 128, "80 cycles reload only after 16 leave-range batches and recheck other entrances")
-    churn = {"cycles":80,"builds":pref.gameplay.builds-before_builds,"releases":pref.gameplay.releases-before_releases,"config_reads":pref.config_reads-before_config_reads,"validation_steps":pref.config_validation_steps-before_validation_steps,"entry_rechecks":pref.config_entry_rechecks-before_entry_rechecks,"elapsed_usec":Time.get_ticks_usec()-churn_started,"final":pref.snapshot(),"memory_soak":false}
+    runtime_probe.capture("settled", scene)
+    check(runtime_probe.samples.size() == 82, "trend records baseline, all 80 cycles and settled retirement")
+    var trend: Dictionary = runtime_probe.summary()
+    runtime_probe = null
+    churn = {"runtime_trend":trend,"cycles":80,"builds":pref.gameplay.builds-before_builds,"releases":pref.gameplay.releases-before_releases,"config_reads":pref.config_reads-before_config_reads,"validation_steps":pref.config_validation_steps-before_validation_steps,"entry_rechecks":pref.config_entry_rechecks-before_entry_rechecks,"elapsed_usec":Time.get_ticks_usec()-churn_started,"final":pref.snapshot(),"memory_soak":false}
 func run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
@@ -405,6 +414,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await frames(2)
     invalid_descriptors()

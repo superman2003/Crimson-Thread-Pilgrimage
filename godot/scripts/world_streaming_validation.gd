@@ -117,6 +117,7 @@ func _prefetch_checks() -> void:
     scene.world_resume = false
     scene.world_save_path = PATH
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await process_frame
     var host_id := scene.get_instance_id()
@@ -161,7 +162,24 @@ func _prefetch_checks() -> void:
     var hits: int = scene.world_prefetch.cache_hits
     var data: Dictionary = archive.get_meta("world_portal_data")
     var point: Array = data.target_spawn
-    _check(not scene.world_loader.preflight(path, Vector2(point[0], point[1]), scene.world_prefetch).is_empty(), "entry validation consumes cached config")
+    var cached_result: Dictionary = await scene.world_loader._preflight_async(path, Vector2(point[0], point[1]), scene.world_prefetch, scene)
+    _check(not cached_result.is_empty(), "entry validation consumes cached config")
+    var copy_metrics: Dictionary = scene.world_loader.last_transition
+    _check(int(copy_metrics.get("preflight_copy_edges", 0)) > 0 and int(copy_metrics.get("preflight_copy_batches", 0)) > 1, "cached raw deep copy yields across measured batches")
+    var batch_steps: Array = copy_metrics.get("preflight_copy_batch_steps", [])
+    var batch_edges: Array = copy_metrics.get("preflight_copy_batch_edges", [])
+    var batch_work: Array = copy_metrics.get("preflight_copy_batch_work_usec", [])
+    var batch_wall: Array = copy_metrics.get("preflight_copy_batch_wall_usec", [])
+    var copy_steps_sum := 0
+    var copy_edges_sum := 0
+    var copy_work_sum := 0
+    for value in batch_steps: copy_steps_sum += int(value)
+    for value in batch_edges: copy_edges_sum += int(value)
+    for value in batch_work: copy_work_sum += int(value)
+    _check(batch_steps.size() == int(copy_metrics.get("preflight_copy_batches", -1)) and batch_steps.all(func(value): return int(value) <= 8), "cached raw copy records bounded steps per frame")
+    _check(batch_edges.size() == batch_steps.size() and batch_edges.all(func(value): return int(value) <= 8 * 512) and int(copy_metrics.get("preflight_copy_max_step_edges", 999)) <= 512, "cached raw copy records bounded edges per step and frame")
+    _check(copy_steps_sum == int(copy_metrics.get("preflight_copy_steps", -1)) and copy_edges_sum == int(copy_metrics.get("preflight_copy_edges", -1)), "cached raw copy step and edge counters reconcile")
+    _check(copy_work_sum == int(copy_metrics.get("preflight_copy_work_usec", -1)) and batch_wall.size() == batch_steps.size() and batch_wall.all(func(value): return int(value) >= 0) and int(copy_metrics.get("preflight_copy_wall_usec", 0)) >= int(copy_metrics.get("preflight_copy_work_usec", 0)), "cached raw copy work and elapsed frame timing reconcile")
     _check(scene.world_prefetch.cache_hits > hits, "preflight is a real warm-cache hit")
     scene._activate_world_portal(archive)
     _check(String(scene.config.id) == source and not scene.chapter_transitioning, "warm cache cannot bypass missing jump ability")
@@ -174,15 +192,35 @@ func _prefetch_checks() -> void:
     _check(scene.world_prefetch.generation == scene.world_loader.generation and not scene.world_prefetch.configs.has(target), "arrival invalidates old source-generation cache")
     # Transition with one outstanding job to prove stale completions are drained.
     deadline = Time.get_ticks_msec() + 2000
+    var stale_request_queued := false
     while scene.world_prefetch.jobs.is_empty() and Time.get_ticks_msec() < deadline:
+        # A fully warmed neighbor may have no natural texture work left. Queue
+        # one normal prefetch descriptor for a currently selected, validated
+        # neighbor so the fixture observes an actual ResourceLoader request.
+        if not stale_request_queued:
+            for region_id in scene.world_prefetch.desired:
+                if not scene.world_prefetch.configs.has(region_id):
+                    continue
+                var record: Dictionary = scene.world_prefetch.configs[region_id]
+                var theme := String(record.raw.get("art_theme", ""))
+                if theme == "moss_bell":
+                    theme = "moss_cavern"
+                var texture_path := "res://assets/sprites/flat_maps/%s/%s" % [theme, scene.world_prefetch.TEXTURES[0]]
+                scene.world_prefetch.queue.append({"region": region_id, "path": texture_path,
+                    "generation": scene.world_prefetch.generation, "stamp": record.stamp})
+                stale_request_queued = true
+                break
         scene.world_prefetch.step(scene, 1.0 / 60)
         await process_frame
     _check(not scene.world_prefetch.jobs.is_empty(), "stale-completion fixture has an outstanding request")
+    var stale_before: int = scene.world_prefetch.stale_results
     scene._travel_world(ROUTES.config_path(source), Vector2(280, 3360))
-    await process_frame
-    scene.world_prefetch.step(scene, 1.0 / 60)
+    deadline = Time.get_ticks_msec() + 2000
+    while scene.world_prefetch.stale_results == stale_before and Time.get_ticks_msec() < deadline:
+        scene.world_prefetch.step(scene, 1.0 / 60)
+        await process_frame
     _check(scene.world_prefetch.snapshot().regions <= 2 and scene.world_prefetch.snapshot().textures <= 10, "retained warm cache bounded after return")
-    _check(scene.world_prefetch.stale_results > 0, "departed-generation texture completion discarded")
+    _check(scene.world_prefetch.stale_results > stale_before, "departed-generation texture completion discarded")
     scene.player.global_position = Vector2(8000, 6000)
     for unused in range(80):
         scene.world_prefetch.step(scene, 1.0 / 60)

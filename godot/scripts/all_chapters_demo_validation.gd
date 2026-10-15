@@ -347,6 +347,7 @@ func _validate_chapter(config_path: String) -> void:
     var scene: Node = load(MAIN_SCENE).instantiate()
     scene.set("config_path", config_path)
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await process_frame
     await process_frame
 

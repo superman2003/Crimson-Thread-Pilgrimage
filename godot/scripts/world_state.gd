@@ -259,15 +259,44 @@ func restore_backup(path: String = DEFAULT_PATH) -> bool:
         return _fail("backup missing or damaged")
     var temporary := path + ".restore"
     var absolute := ProjectSettings.globalize_path(path)
-    if DirAccess.copy_absolute(ProjectSettings.globalize_path(backup), ProjectSettings.globalize_path(temporary)) != OK:
+    var temporary_absolute := ProjectSettings.globalize_path(temporary)
+    # Validate the exact bytes that will be installed, not just the source.
+    if DirAccess.copy_absolute(ProjectSettings.globalize_path(backup), temporary_absolute) != OK:
         return _fail("cannot prepare backup recovery")
+    candidate = _read_valid_file(temporary)
+    if candidate == null:
+        DirAccess.remove_absolute(temporary_absolute)
+        return _fail("copied backup failed validation")
+    var preserved := ""
     if FileAccess.file_exists(path):
-        var preserved := absolute + ".before_restore_" + str(Time.get_unix_time_from_system()).replace(".", "_")
-        if DirAccess.rename_absolute(absolute, preserved) != OK:
+        preserved = _unique_restore_backup(absolute)
+        if DirAccess.copy_absolute(absolute, preserved) != OK:
             DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
             return _fail("cannot preserve original save")
-    if DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), absolute) != OK:
-        return _fail("cannot install recovered save; original was preserved")
+        # Keep the original's path free for the install. The preserved copy is
+        # independent, so a failed rename can be rolled back without relying on
+        # a successful rename of the original.
+        if DirAccess.remove_absolute(absolute) != OK:
+            DirAccess.remove_absolute(temporary_absolute)
+            return _fail("cannot replace original save; preserved copy retained")
+    if DirAccess.rename_absolute(temporary_absolute, absolute) != OK:
+        if not preserved.is_empty():
+            # If installation failed after removing the original, restore its
+            # bytes from the preservation copy. Leave that copy intact either way.
+            if DirAccess.copy_absolute(preserved, absolute) != OK:
+                DirAccess.remove_absolute(temporary_absolute)
+                return _fail("cannot install recovered save or roll back original")
+        DirAccess.remove_absolute(temporary_absolute)
+        return _fail("cannot install recovered save; original restored")
     data = candidate.duplicate(true)
     last_error = ""
-    return read(path)
+    return true
+
+func _unique_restore_backup(absolute: String) -> String:
+    var stem := absolute + ".before_restore_" + str(Time.get_unix_time_from_system()) + "_" + str(Time.get_ticks_usec())
+    var candidate := stem
+    var suffix := 0
+    while FileAccess.file_exists(candidate):
+        suffix += 1
+        candidate = stem + "_" + str(suffix)
+    return candidate

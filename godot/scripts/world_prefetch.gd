@@ -412,6 +412,12 @@ func _select(host: Node) -> void:
             queue.remove_at(index)
 
 func cached_raw(path: String) -> Variant:
+    var raw: Variant = _cached_raw_borrow(path)
+    return raw.duplicate(true) if raw != null else null
+
+## Loader-only lease: treat this Variant as immutable and copy it incrementally.
+## Public cache access always returns detached caller-owned data.
+func _cached_raw_borrow(path: String) -> Variant:
     for region_id in configs:
         var record: Dictionary = configs[region_id]
         if not desired.has(region_id) or desired[region_id].path != path:
@@ -419,7 +425,7 @@ func cached_raw(path: String) -> Variant:
         if record.stamp != FileAccess.get_modified_time(path) or record.raw.is_empty():
             return null
         cache_hits += 1
-        return record.raw.duplicate(true)
+        return record.raw
     return null
 
 func snapshot() -> Dictionary:

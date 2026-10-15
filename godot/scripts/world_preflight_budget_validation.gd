@@ -433,7 +433,13 @@ func _new_scene() -> Node:
 	result.world_save_path = SAVE
 	root.add_child(result)
 	current_scene = result
-	for frame in range(4): await process_frame
+	var startup_deadline := Time.get_ticks_msec() + 15000
+	while is_instance_valid(result) and not bool(result.get("initial_region_ready")) and Time.get_ticks_msec() < startup_deadline:
+		await process_frame
+	var startup_ready := is_instance_valid(result) and bool(result.get("initial_region_ready")) and is_instance_valid(result.get("player"))
+	_check(startup_ready, "world fixture waits for the actual budgeted startup to publish its player")
+	if not startup_ready:
+		return null
 	result.process_mode = Node.PROCESS_MODE_DISABLED
 	return result
 

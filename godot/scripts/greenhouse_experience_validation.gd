@@ -106,6 +106,7 @@ func room_views() -> void:
     world.world_resume = false
     world.world_save_path = SAVE_PATH
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene = world
     await frames(8)
     pause_world(world)
@@ -121,7 +122,7 @@ func room_views() -> void:
     world._show_chapter_entry_message() # Inspect the actual adapter before nearby signs replace the toast.
     check(world.toast_label.text == "断弦温室", "Greenhouse arrival uses its player-facing region name")
     check(world.player.get_instance_id() == player_id and camera.get_instance_id() == camera_id, "Arrival preserves Player and Camera instances")
-    check(world.player.room_camera.zones.size() == 16, "All 16 original greenhouse rooms have authored camera ranges")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16, "All 16 original greenhouse rooms have authored camera ranges")
     check(not world.player.debug_invulnerable, "Production waiting fixtures keep ordinary damage rules")
     for encounter in [["E05", Vector2(4950, 2300)], ["E05", Vector2(5100, 2300)], ["E11", Vector2(3090, 1602)], ["E11", Vector2(2750, 1602)], ["E12", Vector2(2440, 1982)], ["E14", Vector2(5110, 762)]]:
         var actor: Area2D = null
@@ -193,10 +194,10 @@ func room_views() -> void:
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 14 and world.player.room_camera.current.id == "ravine_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving greenhouse selects the obsidian entry and replaces its room limits")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 14 and world.player.room_camera.current.id == "ravine_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving greenhouse selects the obsidian entry and replaces its room limits")
     world._travel_world(PATH, Vector2(330, 1740))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 16 and world.player.room_camera.current.id == "west_gate", "Returning rebuilds greenhouse framing without stale locks")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16 and world.player.room_camera.current.id == "west_gate", "Returning rebuilds greenhouse framing without stale locks")
     world.queue_free()
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:

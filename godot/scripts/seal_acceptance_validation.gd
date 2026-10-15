@@ -39,6 +39,7 @@ func _run() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE_PATH
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _frames()
     _freeze_world()
@@ -177,6 +178,7 @@ func _run() -> void:
     scene.world_save_path = SAVE_PATH
     scene.world_resume = true
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     _freeze_world()
     _check(scene.build_system.serialize() == preserved, "disk restart preserves complete build and all cooldowns")

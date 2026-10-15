@@ -210,12 +210,13 @@ func _first_court() -> void:
     world.world_resume=false
     world.world_save_path="user://first_court_experience.json"
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene=world
     await frames(8)
     world.set_process(false)
     world.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"): enemy.set_physics_process(false)
-    check(world.player.room_camera.zones.size()==42,"All 42 authored first-court rooms have dedicated framing")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world)==42,"All 42 authored first-court rooms have dedicated framing")
     var camera: Camera2D = world.player.get_node("Camera2D")
     for zone in world.player.room_camera.zones:
         world.player.global_position=zone.triggers[0].get_center()
@@ -278,6 +279,25 @@ func _first_court() -> void:
     var saved = SAVE.new()
     check(saved.read(world.world_save_path) and bool(saved.data.story_flags.get("tutorial_action_seen_heal",false)),"First lesson persists through the actual save adapter")
     world.player.hp=world.player.max_hp
+    world.story_flags.erase("tutorial_action_seen_tool")
+    world.ui_shell.toast_age=6
+    world._update_first_journey_hint()
+    check(bool(world.story_flags.get("tutorial_action_seen_tool",false)),"Safe shrine introduces the equipped tool once")
+    check(world.toast_label.text.contains(world.ui_shell._short_binding("tool_cast")),"Tool lesson follows current remapping")
+    world.toast_label.text="sentinel"
+    world.ui_shell.toast_age=6
+    world._update_first_journey_hint()
+    check(world.toast_label.text=="sentinel","Second shrine stop does not repeat tool instruction")
+    world.player.respawn_at(Vector2(250,3400))
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    await frames(15)
+    world.current_room_id="entry_bell"
+    world.story_flags.erase("tutorial_action_seen_move")
+    world.ui_shell.toast_age=6
+    world._update_first_journey_hint()
+    check(bool(world.story_flags.get("tutorial_action_seen_move",false)),"Entry teaches movement before its jump obstacle")
     world.player.global_position=Vector2(5800,3980)
     world.player.reset_camera_after_arrival()
     world._set_boss_arena_locked(true)

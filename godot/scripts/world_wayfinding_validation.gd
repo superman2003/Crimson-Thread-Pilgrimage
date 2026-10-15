@@ -14,6 +14,7 @@ func run() -> void:
     scene.world_resume = false
     scene.world_save_path = "user://wayfinding_validation.json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await process_frame
     scene.set_process(false)
     scene.player.set_physics_process(false)

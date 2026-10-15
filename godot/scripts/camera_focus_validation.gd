@@ -162,6 +162,7 @@ func _world_integration() -> void:
     world.world_resume = false
     world.world_save_path = SAVE_PATH
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene = world
     await _frames(5)
     if capture:

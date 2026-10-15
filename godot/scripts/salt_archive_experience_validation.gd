@@ -111,6 +111,7 @@ func room_views() -> void:
     world.world_resume = false
     world.world_save_path = SAVE_PATH
     root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     current_scene = world
     await frames(8)
     pause_world(world)
@@ -126,7 +127,7 @@ func room_views() -> void:
     world._show_chapter_entry_message() # Inspect the actual adapter before nearby signs replace the toast.
     check(world.toast_label.text == "盐白书库", "Archive arrival uses its player-facing region name")
     check(world.player.get_instance_id() == player_id and camera.get_instance_id() == camera_id, "Arrival preserves Player and Camera instances")
-    check(world.player.room_camera.zones.size() == 15, "All 15 original archive rooms have authored camera ranges")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 15, "All 15 original archive rooms have authored camera ranges")
     for encounter in [["E06", Vector2(2030, 1752)], ["E12", Vector2(4795, 2640)], ["E12", Vector2(5180, 2606)]]:
         var actor: Area2D = null
         for candidate in get_nodes_in_group("enemy"):
@@ -192,10 +193,10 @@ func room_views() -> void:
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the index rest")
     world._travel_world("res://data/demo_ch04_broken_string_greenhouse.json", Vector2(330, 1740))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 16 and world.player.room_camera.current.id == "west_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving archive replaces its limits with greenhouse framing")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16 and world.player.room_camera.current.id == "west_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving archive replaces its limits with greenhouse framing")
     world._travel_world(PATH, Vector2(300, 2580))
     pause_world(world)
-    check(world.player.room_camera.zones.size() == 15 and world.player.room_camera.current.id == "salt_gatehouse", "Returning rebuilds archive framing without stale locks")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 15 and world.player.room_camera.current.id == "salt_gatehouse", "Returning rebuilds archive framing without stale locks")
     world.queue_free()
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:

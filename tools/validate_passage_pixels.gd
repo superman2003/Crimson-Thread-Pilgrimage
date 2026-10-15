@@ -17,6 +17,7 @@ func _run() -> void:
     scene.world_resume = false
     scene.world_save_path = "user://passage_pixels_fixture.json"
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await process_frame
     scene.process_mode = Node.PROCESS_MODE_DISABLED

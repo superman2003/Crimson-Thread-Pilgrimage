@@ -75,6 +75,7 @@ func _spawn(region: String, point: Vector2) -> void:
     scene.entry_spawn_override_enabled = true
     scene.entry_spawn_override = point
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     scene._close_overlays()
     await _tick(5)

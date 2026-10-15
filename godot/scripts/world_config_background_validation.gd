@@ -73,6 +73,7 @@ func _source_cancel() -> void:
     scene.world_resume = false
     scene.world_save_path = SAVE
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     for frame in range(4): await process_frame
     scene.process_mode = Node.PROCESS_MODE_DISABLED
     scene.world_prefetch.configs.clear()

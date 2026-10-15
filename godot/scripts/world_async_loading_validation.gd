@@ -20,6 +20,7 @@ func _run() -> void:
     scene.world_resume = false
     scene.world_save_path = PATH
     root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _frames(3)
     var player_id: int = scene.player.get_instance_id()
@@ -86,7 +87,7 @@ func _run() -> void:
     scene.world_prefetch.configs[target_id] = {"raw": target_config, "stamp": FileAccess.get_modified_time(target_path)}
     for cancel_at in ["unloading", "loading", "committing", "partial_hud", "ready_hud"]:
         var cancel_phase: String = "committing" if cancel_at in ["partial_hud", "ready_hud"] else cancel_at
-        scene._travel_world_async(target_path, target_entry)
+        scene._request_world_travel(target_path, target_entry)
         _check(scene.world_loader.phase != "idle", "travel starts asynchronously")
         _check(not scene.world_loader.replace_region(scene, target_path, target_entry), "sync reentrant travel blocked")
         _check(not await scene.world_loader.replace_region_async(scene, target_path, target_entry), "async reentrant travel blocked")
@@ -148,7 +149,7 @@ func _run() -> void:
     # Teardown of partial and fully prepared UI must retire root-owned loading
     # UI and resume awaiting coroutines without touching the freed host.
     for teardown_at in ["unloading", "partial_hud", "ready_hud"]:
-        scene._travel_world_async(target_path, target_entry)
+        scene._request_world_travel(target_path, target_entry)
         for frame in range(2000):
             if _reached_boundary(teardown_at): break
             await process_frame
@@ -164,6 +165,7 @@ func _run() -> void:
             scene.world_resume = false
             scene.world_save_path = PATH
             root.add_child(scene)
+            await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
             current_scene = scene
             await _frames(3)
     for suffix in ["", ".bak", ".tmp"]:

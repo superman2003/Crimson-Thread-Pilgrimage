@@ -59,6 +59,7 @@ func run() -> void:
 	scene.world_resume = false
 	scene.world_save_path = SAVE
 	root.add_child(scene)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
 	current_scene = scene
 	await tick(4)
 	var config_path := ROUTES.config_path(REGION)
