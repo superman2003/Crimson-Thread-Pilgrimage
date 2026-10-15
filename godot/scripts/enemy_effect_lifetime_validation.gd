@@ -12,6 +12,7 @@ func _run() -> void:
     var enemy = ENEMY_SCRIPT.new()
     stage.add_child(enemy)
     enemy.set_physics_process(false)
+    await _verify_beam_channel(enemy)
     for round_index in range(5):
         var effect: Node2D = enemy._effect("projectile", Vector2(100, 100), Vector2.RIGHT * 30.0, {}, 0.0, 0.02)
         _assert(is_instance_valid(effect), "round %d spawns after prior effects expire" % round_index)
@@ -38,8 +39,50 @@ func _run() -> void:
     _assert(not is_instance_valid(last), "enemy removal cancels its live attack effects")
     stage.queue_free()
     await _frames(2)
-    print("ENEMY_EFFECT_LIFETIME_VALIDATION checks=29 failures=%d" % failures)
+    print("ENEMY_EFFECT_LIFETIME_VALIDATION checks=46 failures=%d" % failures)
     quit(0 if failures == 0 else 1)
+
+func _verify_beam_channel(enemy) -> void:
+    var heading := Vector2(3.0, 4.0).normalized()
+    var beam: Node2D = enemy._effect(
+        "beam",
+        Vector2(180.0, 240.0),
+        heading * 420.0,
+        {"radius": 12.0, "beam_length": 180.0, "damage": 2},
+        0.5,
+        0.4
+    )
+    _assert(is_instance_valid(beam), "configured beam is created through the enemy attack path")
+    if not is_instance_valid(beam):
+        return
+
+    _assert(beam.get("effect_kind") == "beam", "beam effect kind is preserved")
+    _assert(beam.get("heading").distance_to(heading) < 0.001, "beam channel follows configured attack direction")
+    _assert(is_equal_approx(float(beam.get("radius")), 12.0), "beam visual half-width uses configured radius")
+    _assert(is_equal_approx(float(beam.get("length")), 180.0), "beam channel ends at configured length")
+    _assert(is_equal_approx(float(beam.get("damage")), 2), "visual geometry leaves configured damage unchanged")
+    _assert(is_equal_approx(float(beam.get("arm_delay")), 0.5), "beam warning duration remains unchanged")
+    _assert(is_equal_approx(float(beam.get("duration")), 0.9), "beam total lifetime remains unchanged")
+
+    var corners: PackedVector2Array = beam.call("_beam_channel_corners")
+    var side := heading.orthogonal() * 12.0
+    var endpoint := heading * 180.0
+    _assert(corners.size() == 4, "beam channel geometry has four corners")
+    if corners.size() == 4:
+        _assert(corners[0].distance_to(-side) < 0.001, "beam channel begins at negative radius edge")
+        _assert(corners[1].distance_to(side) < 0.001, "beam channel begins at positive radius edge")
+        _assert(corners[2].distance_to(endpoint + side) < 0.001, "beam channel ends at positive radius edge")
+        _assert(corners[3].distance_to(endpoint - side) < 0.001, "beam channel ends at negative radius edge")
+
+    var axis_center := beam.global_position + heading * 90.0
+    var player_half_width_and_tolerance := 19.0
+    var visual_radius := float(beam.get("radius"))
+    _assert(beam.call("_hits_player", axis_center + heading.orthogonal() * (visual_radius + player_half_width_and_tolerance - 0.1)), "beam player-center hit threshold includes player half-width and tolerance")
+    _assert(not beam.call("_hits_player", axis_center + heading.orthogonal() * (visual_radius + player_half_width_and_tolerance + 0.1)), "beam player-center threshold remains separate from visual radius")
+    beam.call("cancel")
+    _assert(beam.is_queued_for_deletion(), "beam test fixture uses the production cancellation path")
+    await _frames(2)
+    _assert(not is_instance_valid(beam), "cancelled beam is freed before lifetime rounds begin")
 
 func _frames(count: int) -> void:
     for index in range(count):

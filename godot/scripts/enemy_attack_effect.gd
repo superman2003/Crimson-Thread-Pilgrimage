@@ -131,7 +131,10 @@ func _draw() -> void:
         var pulse := .35+.35*sin(age*18)
         var warning := Color(0.96,0.72,0.36,pulse)
         if effect_kind=="beam":
-            draw_line(Vector2.ZERO,heading*length,warning,2.0,true)
+            var channel := _beam_channel_corners()
+            draw_colored_polygon(channel,Color(warning,warning.a*.22))
+            _draw_beam_channel_outline(channel,warning,2.0)
+            draw_line(Vector2.ZERO,heading*length,Color(1.0,0.91,0.71,pulse),2.0,true)
         elif effect_kind=="eruption":
             draw_arc(Vector2.ZERO,radius,PI,TAU,24,warning,2.0,true)
             draw_line(Vector2(-radius,0),Vector2(radius,0),warning,2.0,true)
@@ -144,6 +147,7 @@ func _draw() -> void:
         draw_line(Vector2.ZERO,heading*length,Color(active_color,.15),radius*2+9,true)
         draw_line(Vector2.ZERO,heading*length,active_color,radius*2,true)
         draw_line(Vector2.ZERO,heading*length,Color(0.95,0.85,0.62,active_color.a),1.5,true)
+        _draw_beam_channel_outline(_beam_channel_corners(),Color(0.99,0.91,0.71,active_color.a*.9),1.5)
     elif effect_kind=="eruption":
         for i in range(5):
             var x := (i-2)*radius*.36
@@ -177,6 +181,19 @@ func _draw() -> void:
         else:
             draw_colored_polygon(PackedVector2Array([axis*radius*1.5,-axis*radius+side*radius*.45,-axis*radius-side*radius*.45]),active_color)
             draw_line(-axis*radius,axis*radius*1.4,Color(.95,.87,.67,active_color.a),1,true)
+
+func _beam_channel_corners() -> PackedVector2Array:
+    var axis := heading.normalized() if heading.length_squared() > 0.0001 else Vector2.RIGHT
+    var side := axis.orthogonal() * maxf(radius, 0.0)
+    var endpoint := axis * maxf(length, 0.0)
+    return PackedVector2Array([-side, side, endpoint + side, endpoint - side])
+
+func _draw_beam_channel_outline(corners: PackedVector2Array, color: Color, width: float) -> void:
+    if corners.size() < 3:
+        return
+    var outline := corners.duplicate()
+    outline.append(corners[0])
+    draw_polyline(outline, color, width, true)
 
 func cancel() -> void:
     if cancelled:
