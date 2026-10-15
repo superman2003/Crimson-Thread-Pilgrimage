@@ -47,7 +47,8 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           # Resource hydration only: editor-plugin behavior is not validated.
           # Runtime suites below run normally, without recovery mode.
-          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --log-dir "$RUNNER_TEMP/regression-logs/import"
+          # A cold checkout imports thousands of assets; retain a bounded 10m budget.
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Validate real GL rock boundaries
         run: |
           sudo apt-get update -qq
