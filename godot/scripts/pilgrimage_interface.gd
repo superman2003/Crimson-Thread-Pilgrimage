@@ -94,6 +94,9 @@ var journal_selection := 0
 var construction_complete := false
 var inventory_build_selection := ""
 
+const BINDING_POLICY = preload("res://scripts/input_binding_policy.gd")
+var binding_recovery_notice := ""
+
 const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动"}
 
 func bind(runtime: Node) -> void:
@@ -620,6 +623,7 @@ func _build_settings() -> void:
         remap_buttons[action_id]=button
         action_index+=1
     remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,532),Vector2(927,35),13,MUTED)
+    if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     for slot_index in 3:
         var slot:=slot_index+1
@@ -675,18 +679,17 @@ func _load_accessibility() -> void:
     accessibility["subtitle_speed"]=_finite_setting(config,"subtitle_speed",0.5,2.0)
     accessibility["camera_shake"]=_finite_setting(config,"camera_shake",0,1)
     accessibility["camera_lookahead"]=_finite_setting(config,"camera_lookahead",0,1)
+    var saved := {}
     for action in REMAPPABLE_ACTIONS:
-        if not InputMap.has_action(action):continue
-        var events: Variant=config.get_value("bindings",action,[])
-        if not events is Array:continue
-        var restored: Array[InputEvent]=[]
-        for event in events:
-            var binding:=_normalized_binding(event)
-            if binding!=null:restored.append(binding)
-        # Do not erase working defaults for an empty or corrupt binding list.
-        if restored.is_empty():continue
+        if config.has_section_key("bindings",action):saved[action]=config.get_value("bindings",action)
+    var result: Dictionary=BINDING_POLICY.restore(BINDING_POLICY.snapshot(),saved,REMAPPABLE_ACTIONS)
+    for action in REMAPPABLE_ACTIONS:
+        if not result.bindings.has(action):continue
         InputMap.action_erase_events(action)
-        for event in restored:InputMap.action_add_event(action,event)
+        for event in result.bindings[action]:InputMap.action_add_event(action,event)
+    binding_recovery_notice="部分输入设置无效或冲突，已保留对应设备的可用绑定。" if result.rejected>0 else ""
+    if remap_status!=null:
+        remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。"
 
 func _finite_setting(config: ConfigFile, key: String, minimum: float, maximum: float) -> float:
     var value: Variant=config.get_value("accessibility",key,accessibility[key])
@@ -695,28 +698,7 @@ func _finite_setting(config: ConfigFile, key: String, minimum: float, maximum: f
     return clampf(float(value),minimum,maximum)
 
 func _normalized_binding(value: Variant) -> InputEvent:
-    if not value is InputEvent:return null
-    var event:=value.duplicate() as InputEvent
-    if event is InputEventKey:
-        if event.physical_keycode==0 and event.keycode==0:return null
-        event.pressed=false
-        event.echo=false
-    elif event is InputEventMouseButton:
-        if event.button_index<=0 or event.button_index>MOUSE_BUTTON_XBUTTON2:return null
-        event.pressed=false
-        event.double_click=false
-    elif event is InputEventJoypadButton:
-        if event.button_index<0 or event.button_index>=JOY_BUTTON_MAX:return null
-        event.pressed=false
-        event.pressure=0.0
-    elif event is InputEventJoypadMotion:
-        if event.axis<0 or event.axis>=JOY_AXIS_MAX or not is_finite(event.axis_value) or absf(event.axis_value)<0.5:return null
-        event.axis_value=1.0 if event.axis_value>0 else -1.0
-    else:
-        return null
-    # A binding is a control, not the transient device index from one connection.
-    event.device=-1
-    return event
+    return BINDING_POLICY.normalize(value)
 
 func is_remapping_input() -> bool:
     return settings!=null and settings.visible and (not remap_target.is_empty() or Engine.get_process_frames()==remap_capture_frame)
@@ -797,7 +779,7 @@ func _apply_accessibility() -> void:
 
 func _begin_remap(action: String) -> void:
     remap_target=action
-    remap_status.text="请为「%s」按一个键或手柄按钮；Esc 取消。" % REMAPPABLE_ACTIONS[action]
+    remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc 取消。" % REMAPPABLE_ACTIONS[action]
 
 func _refresh_remap_labels() -> void:
     for action in remap_buttons:
@@ -817,38 +799,31 @@ func _input(event: InputEvent) -> void:
             remap_target=""
             remap_status.text="已取消重映射。"
             get_viewport().set_input_as_handled()
-        elif (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventJoypadButton and event.pressed) or (event is InputEventJoypadMotion and absf(event.axis_value)>0.7):
-            if event is InputEventKey and event.physical_keycode in [KEY_B,KEY_TAB,KEY_I,KEY_M,KEY_V,KEY_F9]:
-                remap_status.text="此输入保留给界面快捷键，请换一个输入或 Esc 取消。"
-                get_viewport().set_input_as_handled()
-                return
-            if event is InputEventJoypadButton and event.button_index in [JOY_BUTTON_START,JOY_BUTTON_LEFT_STICK,JOY_BUTTON_RIGHT_STICK]:
-                remap_status.text="此手柄按钮保留给界面入口，请换一个按钮或 Esc 取消。"
-                get_viewport().set_input_as_handled()
-                return
+        elif (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventJoypadButton and event.pressed) or (event is InputEventMouseButton and event.pressed) or (event is InputEventJoypadMotion and absf(event.axis_value)>0.7):
             var accepted:=_normalized_binding(event)
             if accepted==null:
                 get_viewport().set_input_as_handled()
                 return
+            if BINDING_POLICY.is_reserved(accepted):
+                remap_status.text="此输入保留给界面快捷键，请换一个输入或 Esc 取消。"
+                get_viewport().set_input_as_handled()
+                return
             var action:=remap_target
             var conflicts: Array[String]=[]
-            # Only reject a duplicate on another gameplay action on the same device;
-            # keyboard and controller bindings for one action remain independent.
-            for other in InputMap.get_actions():
-                if other==action or String(other).begins_with("ui_") or other=="close_overlay":continue
-                if InputMap.event_is_action(accepted,other):conflicts.append(String(REMAPPABLE_ACTIONS.get(other,"其他动作")))
+            for other in BINDING_POLICY.conflicts(accepted,action,BINDING_POLICY.snapshot()):
+                conflicts.append(String(REMAPPABLE_ACTIONS.get(other,"其他动作")))
             if not conflicts.is_empty():
                 remap_status.text="此输入已用于「%s」，请换一个输入或 Esc 取消。" % "、".join(conflicts)
                 get_viewport().set_input_as_handled()
                 return
             if not InputMap.has_action(action):InputMap.add_action(action)
             for old in InputMap.action_get_events(action):
-                if (old is InputEventKey and accepted is InputEventKey) or ((old is InputEventJoypadButton or old is InputEventJoypadMotion) and (accepted is InputEventJoypadButton or accepted is InputEventJoypadMotion)):InputMap.action_erase_event(action,old)
+                if BINDING_POLICY.family(old)==BINDING_POLICY.family(accepted):InputMap.action_erase_event(action,old)
             InputMap.action_add_event(action,accepted)
             remap_target=""
             _save_accessibility()
             _refresh_remap_labels()
-            remap_status.text="已保存「%s」的新输入；另一种设备的绑定继续可用。" % REMAPPABLE_ACTIONS[action]
+            remap_status.text="已保存「%s」的新输入；其余设备的绑定继续可用。" % REMAPPABLE_ACTIONS[action]
             get_viewport().set_input_as_handled()
         return
     if bag.visible and event is InputEventKey and event.pressed and event.physical_keycode in [KEY_UP,KEY_DOWN]:
