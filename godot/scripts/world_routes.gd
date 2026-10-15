@@ -33,6 +33,12 @@ static func manifest_generation() -> int:
     _ensure_manifest_cache()
     return _cache_generation
 
+static func overlay_bundle(region_id: String) -> Dictionary:
+    _ensure_manifest_cache()
+    return {"generation": _cache_generation, "stamp": _cached_stamp,
+		"version": _cached_data.get("version", 1),
+		"overlay": _cached_data.get("chapters", {}).get(region_id, {})}
+
 ## Worker-friendly ticket payload. The shared CONFIG_READ_JOB owns the actual
 ## file/JSON operation; callers validate its ticket and stamp before commit.
 static func manifest_ticket(read_result: Dictionary, generation: int) -> Dictionary:

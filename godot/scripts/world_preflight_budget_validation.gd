@@ -7,6 +7,8 @@ const COORD := preload("res://scripts/world_coordinates.gd")
 const VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const LOADER := preload("res://scripts/world_region_loader.gd")
 const STATE := preload("res://scripts/world_state.gd")
+const INCREMENTAL_COPY := preload("res://scripts/world_variant_copy_job.gd")
+const ROUTE_OVERLAY_JOB := preload("res://scripts/world_route_overlay_job.gd")
 const SAVE := "user://world_preflight_budget_validation.json"
 const REGIONS := ["demo_ch01_moss_bell_court", "demo_ch02_rain_foundry_canal",
 	"demo_ch03_saltwhite_archive", "demo_ch04_broken_string_greenhouse",
@@ -29,6 +31,8 @@ func _run() -> void:
 		_validator_production_region(region_id)
 	_validator_fixed_errors()
 	_validator_synthetic_cursor()
+	_incremental_copy_pathological()
+	_route_overlay_pathological()
 	await _loader_preflight_checks()
 	await _pending_gap_check()
 	await _passage_preflight_check()
@@ -50,22 +54,100 @@ func _validator_production_region(region_id: String) -> void:
 	var validator = VALIDATOR.new()
 	validator.begin(raw, path, entry)
 	var sync_loader = LOADER.new()
+	var legacy_started := Time.get_ticks_usec()
 	var legacy_result: Dictionary = sync_loader.validate_config(raw, path, entry)
+	var legacy_usec := Time.get_ticks_usec() - legacy_started
 	var legacy_error: String = sync_loader.last_error
 	var steps := 0
 	var previous := 0.0
+	var incremental_started := Time.get_ticks_usec()
 	while true:
 		var finished: bool = validator.step()
-		if finished: break
-		steps += 1
 		_check(validator.progress >= previous, region_id + " validator progress is monotonic")
 		previous = validator.progress
+		if finished: break
+		steps += 1
+	var incremental_usec := Time.get_ticks_usec() - incremental_started
 	_check(validator.error.is_empty(), region_id + " production raw config validates")
 	_check(validator.result == legacy_result and validator.error == legacy_error, region_id + " sync loader validator matches incremental plan")
 	_check(validator.progress == 1.0 and validator.done, region_id + " terminal validator progress is 1")
 	_check(validator.result == ROUTES.apply_to(raw), region_id + " production config preserves route overlay")
 	_check(Vector2(validator.result.world.width, validator.result.world.height) == COORD.region_bounds(region_id).size, region_id + " post-overlay dimensions match world coordinate manifest")
 	_check(steps > 10, region_id + " validation traverses incremental operations")
+	_check(validator.route_copy_steps > 10 and validator.max_route_copy_step_usec >= 0, region_id + " route snapshot copying yields across incremental batches")
+	_check(validator.route_overlay_steps > 10 and validator.max_route_overlay_step_usec >= 0, region_id + " route overlay scans and appends over multiple validator steps")
+	if region_id == REGIONS[0]:
+		print("ROUTE CONFIG METRICS legacy_usec=%d incremental_cpu_usec=%d validator_steps=%d copy_batches=%d copy_begin_max_usec=%d copy_batch_max_usec=%d overlay_operations=%d overlay_begin_max_usec=%d overlay_batch_max_usec=%d" % [legacy_usec, incremental_usec, steps, validator.route_copy_steps, validator.max_route_copy_begin_usec, validator.max_route_copy_step_usec, validator.route_overlay_steps, validator.max_route_overlay_begin_usec, validator.max_route_overlay_step_usec])
+
+func _incremental_copy_pathological() -> void:
+	var rows: Array = []
+	for row_index in range(90):
+		var row: Array = []
+		for column_index in range(80):
+			row.append({"id": "%d:%d" % [row_index, column_index], "value": [row_index, column_index]})
+		rows.append(row)
+	var source := {"rows": rows, "metadata": {"flags": [true, false], "nested": {"name": "route-copy-fixture"}}}
+	var copier: RefCounted = INCREMENTAL_COPY.new()
+	copier.begin(source)
+	var batches := 0
+	while not copier.done:
+		var visited: int = copier.step(512)
+		_check(visited <= 512, "incremental copy respects its per-step edge limit")
+		batches += 1
+	var copied: Dictionary = copier.result
+	_check(batches > 10 and copier.edge_count > 7000, "large nested dictionary/array snapshot spans bounded edge batches")
+	_check(copied == source, "incremental nested snapshot preserves exact values")
+	copied.rows[0][0].value[0] = -1
+	copied.metadata.nested.name = "changed-copy"
+	_check(source.rows[0][0].value[0] == 0 and source.metadata.nested.name == "route-copy-fixture", "incremental snapshot has detached nested ownership")
+
+func _route_overlay_pathological() -> void:
+	var rooms: Array = []
+	var interactives: Array = []
+	var room_overrides: Array = []
+	var portals: Array = []
+	var catalog: Dictionary = {}
+	for index in range(64):
+		rooms.append({"id": "room_%d" % index, "name": "base_%d" % index})
+		room_overrides.append({"id": "room_%d" % index, "nested": {"rank": index}})
+		interactives.append({"id": "remove_%d" % index})
+		portals.append({"id": "portal_%d" % index, "destination": {"x": index, "y": -index}})
+		catalog["item_%d" % index] = {"kind": "upgrade", "cost": [index, index + 1]}
+	rooms.append({"id": "room_0", "name": "duplicate target"})
+	interactives.append({"id": "5"})
+	var config := {"world": {"base": true}, "map_rooms": rooms, "terrain": [], "platforms": [],
+		"locked_gates": [], "collectibles": [], "grapple_anchors": [], "save_points": [],
+		"interactives": interactives, "inventory": {"catalog": {"old": {"kind": "keep"}}}}
+	var wide_world: Dictionary = {}
+	for index in range(96): wide_world["bound_%d" % index] = index
+	var overlay := {"world_overrides": wide_world, "map_room_overrides": room_overrides,
+		"remove_interactives": ["remove_0", "remove_1", "remove_2", 5, "portal_0"], "portals": portals,
+		"inventory_catalog": catalog}
+	var job: RefCounted = ROUTE_OVERLAY_JOB.new()
+	job.begin(config, overlay, 7)
+	var steps := 0
+	var max_step_usec := 0
+	while not job.done:
+		var step_started := Time.get_ticks_usec()
+		job.step()
+		max_step_usec = maxi(max_step_usec, Time.get_ticks_usec() - step_started)
+		steps += 1
+	var result: Dictionary = job.result
+	_check(job.total_operations > 1000 and steps < job.total_operations and job.max_batch_operations <= 32 and job.edge_steps > 1000, "large overlay traverses bounded target lookup, arrays and nested values")
+	_check(result.world.size() == 97 and result.world.get("bound_95") == 95, "wide world override is fully applied")
+	_check(result.map_rooms[63].nested.rank == 63 and result.map_rooms[64].nested.rank == 0, "room overrides reach every matching identifier")
+	_check(result.interactives.size() == 126 and result.interactives[61].id == "5" and result.interactives[62].id == "portal_0" and result.interactives[125].id == "portal_63", "interactive removals and portal append preserve legacy typed matching and order")
+	_check(result.inventory.catalog.size() == 65 and result.inventory.catalog.item_63.cost == [63, 64], "nested inventory catalog overlay is copied")
+	result.map_rooms[0].nested.rank = -1
+	_check(result.map_rooms[64].nested.rank == 0, "multiple matching targets receive independent nested copies")
+	_check(config == result, "overlay job returns the uniquely owned config it updated")
+	_check(overlay.portals[63].destination.x == 63 and overlay.inventory_catalog.item_63.cost == [63, 64], "overlay output does not mutate the source manifest")
+	_check(result.world_routes_version == 7, "nonempty overlay writes its manifest version")
+	var empty_config := {"id": "outside_world", "world": {}, "interactives": []}
+	var empty_job: RefCounted = ROUTE_OVERLAY_JOB.new()
+	empty_job.begin(empty_config, {}, 7)
+	_check(empty_job.done and empty_job.result == empty_config and not empty_job.result.has("world_routes_version"), "empty overlay is a legacy no-op")
+	print("ROUTE OVERLAY PATHOLOGICAL batches=%d operations=%d max_ops_per_batch=%d max_batch_usec=%d edges=%d" % [steps, job.total_operations, job.max_batch_operations, max_step_usec, job.edge_steps])
 
 func _validator_fixed_errors() -> void:
 	var region_id := REGIONS[0]
@@ -149,7 +231,7 @@ func _validator_synthetic_cursor() -> void:
 		steps += 1
 	_check(validator.error.is_empty(), "large synthetic validation succeeds")
 	_check(steps > 1500 and validator.progress == 1.0, "record, point and identity cursor traverses large plan")
-	for operation in ["records", "identity", "terrain", "cave_rectangle", "apply_routes", "platform", "world_dimension", "entry"]:
+	for operation in ["records", "identity", "terrain", "cave_rectangle", "route_snapshot_copy", "route_lookup", "route_merge", "platform", "world_dimension", "entry"]:
 		_check(seen.has(operation), "synthetic cursor measured " + operation)
 	var invalid: Dictionary = raw.duplicate(true)
 	invalid.terrain[-1].surface[2] = [0, NAN]

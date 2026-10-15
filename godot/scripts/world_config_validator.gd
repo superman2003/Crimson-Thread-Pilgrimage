@@ -4,6 +4,8 @@ extends RefCounted
 ## from inside a partially processed item.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+const INCREMENTAL_COPY := preload("res://scripts/world_variant_copy_job.gd")
+const ROUTE_OVERLAY_JOB := preload("res://scripts/world_route_overlay_job.gd")
 const FIELDS := ["map_rooms", "platforms", "terrain", "locked_gates", "collectibles", "interactives", "npcs", "enemy_spawns", "save_points", "hazards", "grapple_anchors", "cave_lifts", "environment_blocks"]
 const ID_FIELDS := ["enemy_spawns", "npcs", "save_points", "interactives"]
 var done := true
@@ -30,6 +32,15 @@ var _config: Dictionary = {}
 var _profiles: Dictionary = {}
 var _cave: Dictionary = {}
 var _world: Dictionary = {}
+var _route_copy: RefCounted
+var route_copy_steps := 0
+var max_route_copy_step_usec := 0
+var max_route_copy_begin_usec := 0
+var _route_overlay_job: RefCounted
+var route_overlay_steps := 0
+var max_route_overlay_step_usec := 0
+var max_route_overlay_begin_usec := 0
+var _manifest_generation := -1
 
 func begin(parsed: Variant, path: String, entry: Vector2) -> void:
 	_parsed = parsed
@@ -56,9 +67,21 @@ func begin(parsed: Variant, path: String, entry: Vector2) -> void:
 	_profiles = {}
 	_cave = {}
 	_world = {}
+	_route_copy = null
+	route_copy_steps = 0
+	max_route_copy_step_usec = 0
+	max_route_copy_begin_usec = 0
+	_route_overlay_job = null
+	route_overlay_steps = 0
+	max_route_overlay_step_usec = 0
+	max_route_overlay_begin_usec = 0
+	_manifest_generation = ROUTES.manifest_generation()
 
 func step() -> bool:
 	if done: return true
+	if ROUTES.manifest_generation() != _manifest_generation:
+		_fail("巡礼路线版本已变化，请重试。")
+		return true
 	match _stage:
 		"header": _step_header()
 		"records": _step_records()
@@ -195,8 +218,40 @@ func _step_cave_rect() -> void:
 
 func _step_apply_routes() -> void:
 	operation_name = "apply_routes"
-	_config = ROUTES.apply_to(_parsed)
-	_stage = "platforms"
+	if _route_copy == null:
+		operation_name = "route_snapshot_begin"
+		var begin_started := Time.get_ticks_usec()
+		_route_copy = INCREMENTAL_COPY.new()
+		_route_copy.begin(_parsed)
+		max_route_copy_begin_usec = maxi(max_route_copy_begin_usec, Time.get_ticks_usec() - begin_started)
+		return
+	if not _route_copy.done:
+		operation_name = "route_snapshot_copy"
+		var copy_started := Time.get_ticks_usec()
+		_route_copy.step(512)
+		route_copy_steps += 1
+		max_route_copy_step_usec = maxi(max_route_copy_step_usec, Time.get_ticks_usec() - copy_started)
+		return
+	if _route_overlay_job == null:
+		operation_name = "route_overlay_begin"
+		var overlay_begin_started := Time.get_ticks_usec()
+		_route_overlay_job = ROUTE_OVERLAY_JOB.new()
+		var bundle: Dictionary = ROUTES.overlay_bundle(String(_parsed.get("id", "")))
+		if int(bundle.get("generation", -1)) != _manifest_generation:
+			_fail("巡礼路线版本已变化，请重试。")
+			return
+		_route_overlay_job.begin(_route_copy.result, bundle.overlay, bundle.version)
+		max_route_overlay_begin_usec = maxi(max_route_overlay_begin_usec, Time.get_ticks_usec() - overlay_begin_started)
+		return
+	var overlay_started := Time.get_ticks_usec()
+	var overlay_done: bool = _route_overlay_job.step(32, 1200)
+	operation_name = String(_route_overlay_job.operation_name)
+	route_overlay_steps += int(_route_overlay_job.last_batch_operations)
+	max_route_overlay_step_usec = maxi(max_route_overlay_step_usec, Time.get_ticks_usec() - overlay_started)
+	if overlay_done:
+		_config = _route_overlay_job.result
+		_route_overlay_job = null
+		_stage = "platforms"
 
 func _step_platform() -> void:
 	operation_name = "platform"
