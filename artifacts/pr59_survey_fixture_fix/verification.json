@@ -1,0 +1,52 @@
+{
+  "base_commit": "ee17998cdd585a83afb3d8ecb8a78c40cb51e820",
+  "recorded_utc": "2026-10-15T07:29:08.273288+00:00",
+  "failed_remote_run": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38695136471",
+  "remote_result_before_fix": {
+    "suites": 92,
+    "failures": 1,
+    "failed_suite": "survey_map_knowledge",
+    "checks": 17,
+    "failed_checks": 2
+  },
+  "original_reproduction_sha256": "a886bc7f353bb3ff3a54011d5f7fd5aa764fb39a6b7e2f9d1dd9c9377ea62483",
+  "engine": "Godot 4.6.1",
+  "renderer": "software GL (Mesa llvmpipe)",
+  "source_sha256": {
+    "godot/scripts/survey_map_knowledge_validation.gd": "a561ae589047e04f8af27d188b295135ae7881a85531da29905e662d27c630e7"
+  },
+  "suites": {
+    "survey_map_knowledge": {
+      "status": "passed",
+      "completion": "SURVEY_MAP_KNOWLEDGE checks=20 failures=0",
+      "log_sha256": "8bb50a3d1aa838da4c88fcda6ebf0aabfc381c5f80746115ffd5ad4621ef8b33",
+      "objectdb_exit_warning": true
+    },
+    "cartography": {
+      "status": "passed",
+      "completion": "CARTOGRAPHY checks=4055 failures=0 fixture_positioning=true",
+      "log_sha256": "13ad4bb769d682928a539d52a41443a075ff7af866769a565c50c33be8b71ea4",
+      "objectdb_exit_warning": true
+    },
+    "world_route_access": {
+      "status": "passed",
+      "completion": "WORLD_ROUTE_ACCESS checks=553 failures=0 fixture_positioning=true",
+      "log_sha256": "fbe849524a3b329b833af5105afbff301de26137c99dcd99211da69fd349bd28",
+      "objectdb_exit_warning": false
+    },
+    "world_map": {
+      "status": "passed",
+      "completion": "WORLD_MAP checks=657 failures=0",
+      "log_sha256": "909673d41ff30e0554dab2d273f9c03d405a6197dc40a094a4851f24934b904f",
+      "objectdb_exit_warning": false
+    },
+    "world_startup_budget": {
+      "status": "passed",
+      "completion": "WORLD_STARTUP_BUDGET_VALIDATION_PASS",
+      "log_sha256": "58d4f9a0fb97451f90cdf292f8b8b5eeaf5d64fc7eceaf7f97283d43c2a60646",
+      "objectdb_exit_warning": false
+    }
+  },
+  "independent_review": "completed; fixture lifecycle fix approved, original assertions preserved",
+  "scope": "Fixture-only repair. Production atlas, 92-suite gate, timeout, and original knowledge assertions unchanged. Fresh full CI is a separate gate."
+}
