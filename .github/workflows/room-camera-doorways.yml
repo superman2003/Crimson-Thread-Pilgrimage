@@ -1,0 +1,63 @@
+name: Room camera doorways
+
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/room_camera.gd'
+      - 'godot/scripts/room_camera_doorway_validation.gd'
+      - 'godot/scripts/first_court_experience_validation.gd'
+      - 'docs/ROOM_CAMERA_DOORWAYS.md'
+      - '.github/workflows/room-camera-doorways.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: room-camera-doorways-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate JavaScript and campaign structure
+        run: |
+          npm test
+          npm run test:campaign
+      - name: Import resources with strict error checks
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/room-camera-doorways-logs/import"
+      - name: Validate doorway framing, actual camera scroll and workshop transitions
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite first_court_experience --suite camera_focus \
+            --suite ch06_workshop_experience \
+            --log-dir "$RUNNER_TEMP/room-camera-doorways-logs"
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: room-camera-doorways-logs
+          path: ${{ runner.temp }}/room-camera-doorways-logs
+          if-no-files-found: ignore
