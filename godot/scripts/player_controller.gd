@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const HAPTICS = preload("res://scripts/player_haptics.gd")
+
 signal hp_changed(value: int)
 signal player_respawned
 signal energy_changed(value: int, maximum: int)
@@ -292,6 +294,7 @@ var current_attack_direction: Vector2 = Vector2.RIGHT
 var enemy_contact_guard_timer: float = 0.0
 var hit_targets: Dictionary = {}
 var attack_pogo_paid := false
+var haptics: Node
 var feel: Node = null
 var flash_material: ShaderMaterial = null
 var self_flash_timer: float = 0.0
@@ -324,6 +327,7 @@ var ui_input_locked: bool = false:
     set(value):
         ui_input_locked = value
         if value:
+            _stop_haptics()
             _clear_action_buffer()
             jump_buffer_timer = 0.0
             camera_focus.clear_look()
@@ -341,6 +345,9 @@ func _ready() -> void:
     attack_shape.disabled = true
     _sync_attack_hitbox()
     feel = get_node_or_null("/root/FeelKit")
+    haptics = HAPTICS.new()
+    haptics.name = "PlayerHaptics"
+    add_child(haptics)
     sprite_base_scale = sprite.scale
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
@@ -616,6 +623,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    _stop_haptics()
     camera_focus.clear_look()
     _clear_action_buffer()
     _stop_grapple()
@@ -1252,6 +1260,7 @@ func _apply_attack_hits() -> void:
 
 ## 命中反馈分档（规格 §2.1/§2.2）：hitstop + trauma + 击杀闪帧。
 func _trigger_hit_feedback(killed: bool) -> void:
+    if is_instance_valid(haptics):haptics.pulse("kill" if killed else "hit")
     if feel == null:
         return
     var is_downslash := current_attack != &"hook_throw" and current_attack_direction.y > 0.5
@@ -1961,6 +1970,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     _play_sfx("hurt", -6.0, 1.0, "", 0)
     _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
+        _stop_haptics()
         bell_pressure = 0
         heal_speed_timer = 0.0
         heal_stability_timer = 0.0
@@ -1979,6 +1989,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             _black_frame(global_position, 3)
         _play(&"death")
         return
+    if is_instance_valid(haptics):haptics.pulse("hurt")
     if feel != null:
         feel.hitstop(110.0)
         _add_trauma(0.45)
@@ -2314,6 +2325,10 @@ func _bind_joy(action_name: StringName, button: JoyButton) -> void:
     var joy := InputEventJoypadButton.new()
     joy.button_index = button
     InputMap.action_add_event(action_name, joy)
+
+
+func _stop_haptics() -> void:
+    if is_instance_valid(haptics):haptics.stop()
 
 
 func _accessibility() -> Dictionary:
