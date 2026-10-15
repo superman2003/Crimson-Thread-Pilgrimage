@@ -587,5 +587,135 @@
     "passed": 1,
     "failed": 0,
     "log_sha256": "e4cfafcb9b8c3640a3109592cbd231e49b56f7dc1a885d7e0c6e158602513e58"
+  },
+  "post_merge": {
+    "main_commit": "04812a460bf06199a5ff972ed6489d44cb65bfd0",
+    "source_tree": "5fed8bb435862b5aae9504c8d1987ae0bdb397c3",
+    "remote_merge_commit": "9f6d8fd60a9e8fb4fc5ee2b3caf0d6abf25d4941",
+    "reason": "PR54 merged independently during publication; merged official main without altering its production implementation",
+    "default_suites": 87,
+    "focused_real_gl": {
+      "suites": 22,
+      "passed": 22,
+      "failed": 0,
+      "logs": {
+        "build_slots.log": {
+          "sha256": "4289e1715f25fecb2c5efdb039e599d648d86bb875e7118f151a8d8cf7cf0217",
+          "engine_errors": 0
+        },
+        "build_slots_ui.log": {
+          "sha256": "8a6d697d9c8be524014b5211a5af68098528d7c8ddbe0eda30c62e857a2e12fe",
+          "engine_errors": 0
+        },
+        "build_system.log": {
+          "sha256": "d236afcdb27f1dd7c6842c3d097cdc860cc24eac2a955ffdbdc65d8596b44a4d",
+          "engine_errors": 0
+        },
+        "build_transaction_runtime.log": {
+          "sha256": "fe0cb1d5de4d4afe3efe5a01466758cd0c2834b0fe22e5a42cd8fea7db1251d8",
+          "engine_errors": 0
+        },
+        "enemy_encounter_roles.log": {
+          "sha256": "dca2b6e925ae23758f6932f8b6534baa34e91c23c44289d0d1d790879f52d56c",
+          "engine_errors": 0
+        },
+        "melee_recovery.log": {
+          "sha256": "ec4adf8a55cdc7c2765cc417efdf116acda177e2e4fed01f9f58f310837f114d",
+          "engine_errors": 0
+        },
+        "narrative_outcomes.log": {
+          "sha256": "13bc01ffd461d56ff518fe48926ab6f97e1447ad075259a7cc60020869a973b3",
+          "engine_errors": 0
+        },
+        "seal_acceptance.log": {
+          "sha256": "4cea6e948daf3543ca4e749ca47b171c81b80076cf4aeee0e2a60fa16b366d48",
+          "engine_errors": 0
+        },
+        "seal_system.log": {
+          "sha256": "566fd0cc01acf3cd1b6ef39833c9454cc1f433ebfc36b3b458297a68fc0d9b81",
+          "engine_errors": 0
+        },
+        "seal_ui.log": {
+          "sha256": "49196910e84dcc1590e7d3b703a99f631e299a2a4a620b7dcb9f1612b0f510ad",
+          "engine_errors": 0
+        },
+        "tests_verify_narrative_progression.log": {
+          "sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8",
+          "engine_errors": 0
+        },
+        "tests_verify_narrative_runtime.log": {
+          "sha256": "0c3062f6c2ef96f179273c351faf0cb71c01e11fe73ff0ad521f30cb3d5cb6a6",
+          "engine_errors": 0
+        },
+        "ui_build_accessibility.log": {
+          "sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832",
+          "engine_errors": 0
+        },
+        "ui_world_integration.log": {
+          "sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5",
+          "engine_errors": 0
+        },
+        "upgrade_integration.log": {
+          "sha256": "f5ece428cd14031c3d07fef97deea85b8cfe653cbed544e380569d2733f4143e",
+          "engine_errors": 0
+        },
+        "world_interaction_residency.log": {
+          "sha256": "05c1d85ddac475dba8bc5284c6aed088b0db981c8da64f0636e0859a4d6d0490",
+          "engine_errors": 0
+        },
+        "world_neighbor_config.log": {
+          "sha256": "671ca2ce7c75df1629235c811fa525b12f8b461c9ec4ad6d31a8fd59b36760bd",
+          "engine_errors": 0
+        },
+        "world_neighbor_entities.log": {
+          "sha256": "97268f4c126972a5bc671360f9fb4731f0229daf4aa5dbfb729c88ade525c44f",
+          "engine_errors": 0
+        },
+        "world_neighbor_gameplay.log": {
+          "sha256": "4d08b098e0275325623de607adf132caf1d6dafe319786c9395620b62ca6d581",
+          "engine_errors": 0
+        },
+        "world_neighbor_gameplay_live.log": {
+          "sha256": "7e32a5eab822d453f8bfafe62a1a2e22e786328fdaec69777f92eb2fc15ecbaf",
+          "engine_errors": 0
+        },
+        "world_neighbor_gameplay_stress.log": {
+          "sha256": "5808ac6e585c832a4ec80ae34ffc9d150fe763f2d5a8598e68527aac7dc5936b",
+          "engine_errors": 0
+        },
+        "world_streaming.log": {
+          "sha256": "da75cb3c36939064f188f02ab6d1c86c7c2a0940ee5d65823248bb4e1b57cd0e",
+          "engine_errors": 0
+        }
+      }
+    },
+    "resource_import": {
+      "passes": 2,
+      "failed": 0,
+      "recovery_mode": true,
+      "logs": {
+        "import-1.log": {
+          "sha256": "854473bccc6e21225efee45de0a7d7891cea67cb665bf14ccdd81758e74dfaad",
+          "engine_errors": 0
+        },
+        "import-2.log": {
+          "sha256": "4d679488db8d85bee32aea7f7735d7f9295b258e4fa8e0edef4d7ce204824f47",
+          "engine_errors": 0
+        }
+      }
+    },
+    "npm_test": "PASS",
+    "npm_campaign": "PASS",
+    "release_input_files": 14198,
+    "stress": {
+      "cycles": 80,
+      "elapsed_usec": 82212052,
+      "checks": 16388,
+      "failed": 0,
+      "memory_soak": false
+    },
+    "ci": "Pending final branch publication; no full87 green claim",
+    "published_merge_tree": "ffabefd38e9e9aeec5730a5a6d084c7a7144bc6a",
+    "provenance": "Parallel upstream merge differs from locally tested merge only in README wording; production code and regression runner are identical."
   }
 }
