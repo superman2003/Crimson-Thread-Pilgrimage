@@ -82,10 +82,9 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []
                 renderer = ['--display-driver', 'x11', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility'] if real_gl else ['--headless']
-                # This input/action/state suite rebuilds twenty full workshops
-                # but never samples pixels. Keep the real GL resource backend
-                # and live physics/audio; avoid rasterizing every fixture frame.
-                drawing = ['--disable-render-loop'] if real_gl and suite == 'world_upgrade' else []
+                # These lifecycle/state fixtures retain real GL resource loading
+                # but never sample pixels. Avoid rasterizing every fixture frame.
+                drawing = ['--disable-render-loop'] if real_gl and suite in ['world_upgrade', 'world_neighbor_gameplay_stress'] else []
                 result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
             output = log.read_text(errors='replace')
             errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
