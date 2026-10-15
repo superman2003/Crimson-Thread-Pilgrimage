@@ -16,6 +16,8 @@ var _camera: Camera2D = null
 var _noise_x := FastNoiseLite.new()
 var _noise_y := FastNoiseLite.new()
 var _noise_time := 0.0
+var _flash_enabled := true
+var _shake_enabled := true
 var _overlay_layer: CanvasLayer
 
 
@@ -40,13 +42,35 @@ func _process(delta: float) -> void:
         _trauma = maxf(0.0, _trauma - TRAUMA_DECAY * real_delta)
         _noise_time += real_delta * 18.0
         _apply_camera_shake()
-    elif _camera != null and is_instance_valid(_camera) and _camera.offset != Vector2.ZERO:
-        _camera.offset = Vector2.ZERO
-        _camera.rotation = 0.0
+    else:
+        _clear_camera_shake()
 
 
 func register_camera(camera: Camera2D) -> void:
+    if _camera == camera:
+        return
+    _clear_camera_shake()
+    _trauma = 0.0
     _camera = camera
+
+
+func set_accessibility(preferences: Dictionary) -> void:
+    _flash_enabled = bool(preferences.get("flash_enabled", true))
+    # Player already scales nonzero trauma by the slider; do not scale it twice.
+    _shake_enabled = float(preferences.get("camera_shake", 1.0)) > 0.0
+    if not _shake_enabled:
+        _trauma = 0.0
+        _clear_camera_shake()
+    if not _flash_enabled and is_instance_valid(_overlay_layer):
+        for effect in _overlay_layer.get_children():
+            _overlay_layer.remove_child(effect)
+            effect.queue_free()
+
+
+func _clear_camera_shake() -> void:
+    if is_instance_valid(_camera):
+        _camera.offset = Vector2.ZERO
+        _camera.rotation = 0.0
 
 
 ## 冻结世界 ms 毫秒（真实时间）。不叠加：与剩余冻结取较大者，单次上限 250ms。
@@ -62,12 +86,13 @@ func hitstop(ms: float, time_scale: float = 0.05) -> void:
 
 ## trauma 模型：振幅 = trauma^2 × 14px，线性衰减 2.2/s，叠加上限 1.0。
 func add_trauma(amount: float) -> void:
-    _trauma = minf(1.0, _trauma + amount)
+    if _shake_enabled:
+        _trauma = clampf(_trauma + amount, 0.0, 1.0)
 
 
 ## 全屏纯色闪帧（击杀提亮/完美格挡等）。frames 按 60fps 真实帧计。
 func flash_screen(color: Color, alpha: float, frames: int = 1) -> void:
-    if _is_headless() or _overlay_layer == null:
+    if not _flash_enabled or _is_headless() or _overlay_layer == null:
         return
     var rect := ColorRect.new()
     rect.name = "FeelKitFlash"
@@ -80,7 +105,7 @@ func flash_screen(color: Color, alpha: float, frames: int = 1) -> void:
 
 ## 受击黑屏帧：全屏压暗 2 帧，只在受击世界坐标处留一个径向亮孔。
 func black_frame(world_position: Vector2, frames: int = 2) -> void:
-    if _is_headless() or _overlay_layer == null:
+    if not _flash_enabled or _is_headless() or _overlay_layer == null:
         return
     var rect := ColorRect.new()
     rect.name = "FeelKitBlackFrame"
