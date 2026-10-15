@@ -732,6 +732,12 @@ func _prepare_config_and_route(prepared_config: Dictionary) -> void:
         push_error("Missing demo config: " + config_path)
 
 
+## The asynchronous World loader transfers a fully copied private tree here.
+## Explicit synchronous callers retain `_prepare_config_and_route` isolation.
+func _accept_owned_prepared_config(prepared_config: Dictionary) -> void:
+    config = prepared_config
+
+
 func _prepare_narrative_config() -> void:
     if world_mode and world_narrative == null:
         world_narrative = WORLD_NARRATIVE_SCRIPT.new()

@@ -77,14 +77,15 @@ func _run() -> void:
     _check(scene.world_loader.validate_config(bad_surface, scene.config_path, source_position).is_empty(), "reject nonnumeric terrain before unloading")
     var target_id: String = COORDINATES.manifest().regions.keys()[0]
     var target_path := ROUTES.config_path(target_id)
-    var target_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(target_path))
+    var target_bytes := FileAccess.get_file_as_bytes(target_path)
+    var target_config: Dictionary = JSON.parse_string(target_bytes.get_string_from_utf8())
     var target_entry := Vector2(target_config.player_start[0], target_config.player_start[1])
     # A completed destination wish is an explicit fixture. Its reward must not
     # leak out of any cancellable phase, even when the entire UI already exists.
     target_config.wish_board = [{"id": "async_commit_reward", "title": "提交隔离夹具", "desc": "",
         "target_flag": "async_fixture", "reward_currency": 200}]
     scene.world_prefetch.desired[target_id] = {"path": target_path}
-    scene.world_prefetch.configs[target_id] = {"raw": target_config, "stamp": FileAccess.get_modified_time(target_path)}
+    scene.world_prefetch.configs[target_id] = {"raw": target_config, "stamp": FileAccess.get_modified_time(target_path), "size": target_bytes.size()}
     for cancel_at in ["unloading", "loading", "committing", "partial_hud", "ready_hud"]:
         var cancel_phase: String = "committing" if cancel_at in ["partial_hud", "ready_hud"] else cancel_at
         scene._request_world_travel(target_path, target_entry)
