@@ -291,6 +291,7 @@ var attack_forward_offset: float = 48.0
 var current_attack_direction: Vector2 = Vector2.RIGHT
 var enemy_contact_guard_timer: float = 0.0
 var hit_targets: Dictionary = {}
+var attack_pogo_paid := false
 var feel: Node = null
 var flash_material: ShaderMaterial = null
 var self_flash_timer: float = 0.0
@@ -701,6 +702,7 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
     attack_timer = attack_duration
     enemy_contact_guard_timer = maxf(enemy_contact_guard_timer, enemy_contact_guard_time)
     hit_targets.clear()
+    attack_pogo_paid = false
     hook_latch_played = false
     hook_reel_played = false
     _sync_attack_hitbox()
@@ -1155,9 +1157,13 @@ func cast_tool(payload: Dictionary) -> bool:
 
 
 func _attack_line_clear(target: Vector2) -> bool:
-    var query := PhysicsRayQueryParameters2D.create(global_position + Vector2(0, -42), target, collision_mask, [get_rid()])
+    # Terrain occupies collision bit 1 (the same layer used by projectile and
+    # placement rays). Actor hurtboxes must not turn a blocked melee ray into a
+    # hit-through-wall result.
+    var query := PhysicsRayQueryParameters2D.create(global_position + Vector2(0, -42), target, 1, [get_rid()])
+    query.collide_with_areas = false
     var hit := get_world_2d().direct_space_state.intersect_ray(query)
-    return hit.is_empty() or hit.collider.is_in_group("enemy")
+    return hit.is_empty()
 
 
 func _update_attack(delta: float) -> void:
@@ -1215,6 +1221,9 @@ func _apply_attack_hits() -> void:
             hit_targets[id] = true
             var target_hp_before := int(node.get("hp"))
             node.take_hit(attack_damage, _attack_hit_direction())
+            var accepted := is_instance_valid(node) and int(node.get("hp")) < target_hp_before
+            if not accepted:
+                continue
             if current_attack == &"hook_throw" and not hook_latch_played:
                 # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
                 hook_latch_played = true
@@ -1224,7 +1233,7 @@ func _apply_attack_hits() -> void:
                 if footstep_material == "copper":
                     _play_sfx("ch02_beat_echo_hook", -10.0)
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
-            if active_skill.is_empty() and (not is_instance_valid(node) or int(node.get("hp")) < target_hp_before):
+            if active_skill.is_empty():
                 gain_energy(energy_per_hit)
                 _basic_seal_hit()
             elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
@@ -1234,7 +1243,9 @@ func _apply_attack_hits() -> void:
                 if node.has_method("apply_stagger"):
                     node.apply_stagger(bell_pressure * 0.3)
                 bell_pressure = 0
-            _apply_downslash_bounce(node.global_position)
+            if not attack_pogo_paid:
+                _apply_downslash_bounce(node.global_position)
+                attack_pogo_paid = true
             _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack)
 

@@ -33,6 +33,9 @@ func run() -> void:
     model.state.unlocked_skills=model.catalog.skills.keys()
     model.state.unlocked_tools=model.catalog.tools.keys()
     model.state.unlocked_passives=model.catalog.passives.keys()
+    model.state.mechanisms=["bell"]
+    model.state.crest="bell"
+    model._normalize_active_slots()
     var ui:=UI.new()
     ui.accessibility_path="user://seal_ui_validation.cfg"
     runtime.add_child(ui)
@@ -53,21 +56,31 @@ func run() -> void:
     ui.build_category="战具"
     ui.refresh_build()
     check(ui.build_grid.get_child_count()==4,"Four finite-use tools have actual UI entries")
+    check(ui.build_slot_buttons.size()==2 and not ui.build_slot_buttons[0].disabled and not ui.build_slot_buttons[1].disabled,"Bell mechanism unlocks two compatible equipment locations")
+    check(click_id(ui,"fog"),"First tool slot accepts a catalog-compatible fog tool by actual button")
     ui.build_slot_buttons[1].pressed.emit()
-    click_id(ui,"fog")
-    check(model.state.tools[1]=="fog","Second tool slot stores selected tool")
+    click_id(ui,"mine")
+    check(model.state.tools[0]=="fog" and model.state.tools[1]=="mine","Compatible tools occupy separate persistent family slots")
     check(ui.build_detail.text.contains("免费补满") and ui.build_detail.text.contains("不会补充"),"Refill rules distinguish shrine rest from loadout switching")
     ui.build_category="契印"
     ui.refresh_build()
-    check(not ui.build_slot_buttons[0].visible,"Single seal page hides two-slot selector")
+    check(ui.build_slot_buttons.is_empty(),"Seal page removes typed slot selectors that do not apply")
+    check(click_id(ui,"crimson"),"Crest selection uses the real button to switch to a mechanism-locked seal")
     check(ui.build_detail.text.contains("来源") and ui.build_detail.text.contains("专属机制") and ui.build_detail.text.contains("治疗完成"),"Seal page shows source, unique mechanism, and healing effect")
     check(ui.build_detail.text.contains("专属机制尚未修复"),"Initial seal presents its mechanism as locked while retaining basic combat")
+    check(click_id(ui,"bell"),"Returning to the Bell crest uses the real selector button")
     ui.build_category="铭饰"
+    ui.build_assign_slot=0
     ui.refresh_build()
-    check(ui.build_grid.get_child_count()==6,"Six capacity-consuming ornaments exist")
-    model.state.passives=["reflux","shell"]
+    check(ui.build_grid.get_child_count()==3,"Combat accessory page shows its three typed family options")
+    check(click_id(ui,"reflux"),"Combat accessory slot accepts an unlocked ornament by actual button")
+    ui.build_slot_buttons[1].pressed.emit()
+    check(click_id(ui,"shell"),"Second combat accessory slot accepts a compatible ornament")
+    ui.family_selector_buttons[1].pressed.emit()
+    check(ui.build_grid.get_child_count()==3 and click_id(ui,"stride"),"Travel accessory family exposes and equips its own compatible option")
+    check(model.state.passives.size()==3,"Family API includes the equipped combat and travel accessories")
     ui._show_build_detail(model.catalog.passives.needlecase)
-    check(ui.build_detail.text.contains("容量不足"),"Capacity failure uses explicit text in addition to a visual marker")
+    check(ui.build_detail.text.contains("容量不足") and ui.build_detail.text.contains("容量比较"),"Family-based capacity failure compares replacement cost and displays the rejection")
     ui.build_category="构筑"
     ui.refresh_build()
     check(ui.build_detail.text.contains("当前整体配置") and ui.build_detail.text.contains("钟鸣震波") and ui.build_detail.text.contains("盐雾瓶"),"Build page previews both tactical slots and passive composition")

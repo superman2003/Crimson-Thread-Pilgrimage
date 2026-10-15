@@ -22,6 +22,14 @@ func run() -> void:
     main.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
     var ui: Control=main.ui_shell
+    var shrine: Area2D
+    for child in main.get_children():
+        if child is Area2D and String(child.get_meta("kind",""))=="save_point":
+            shrine=child
+            break
+    check(shrine!=null,"Live fixture locates an actual world save point for workstation-only build actions")
+    if shrine!=null:main.player.global_position=shrine.global_position
+    check(main.is_near_shrine(),"Production shrine proximity adapter enables workstation editing")
     main._toggle_build()
     check(main.active_overlay=="build" and ui.build_panel.visible,"B runtime adapter opens exclusive live build panel")
     check(main.player.ui_input_locked,"Live build overlay locks gameplay input")
@@ -29,6 +37,7 @@ func run() -> void:
     main.inventory_counts["relic_tool_mine"]=1
     main.build_system.sync_progress(main.inventory_counts,String(main.config.get("id","")),main.story_flags)
     ui.build_category="战具"
+    ui.build_assign_slot=0
     ui.refresh_build()
     check(click_id(ui,"mine"),"Tool button is accessible by real build ID")
     check(main.build_system.state.tool=="mine","Click changes actual selected tool")
@@ -45,8 +54,13 @@ func run() -> void:
     main._toggle_backpack()
     ui.bag_category="旅记"
     main.story_flags["quest_bring_names_started"]=true
+    main.story_flags["evidence_known_testimony_01"]=true
     ui.refresh_inventory()
-    check(ui.bag_grid.get_child_count()>=7,"Live journal displays accepted quest plus six evidence records")
+    var journal_text:=""
+    for record in ui.bag_grid.get_children():journal_text+=String((record as Button).text)+"\n"
+    journal_text+="\n"+ui.bag_description.text
+    check(ui.bag_grid.get_child_count()==2 and journal_text.contains("把名字带回来") and journal_text.contains("苔钟庭的自愿抵押"),"Live journal shows the encountered quest and explicitly known evidence row")
+    check(not journal_text.contains("雨铸渠的工匠名字") and not journal_text.contains("雨泵侧室的锤语"),"Live journal withholds unencountered evidence titles and location hints")
     check(ui.bag_description.text.length()>0,"Journal selection supplies readable clue or task phase")
     main._close_overlays()
     main._toggle_audio_settings()

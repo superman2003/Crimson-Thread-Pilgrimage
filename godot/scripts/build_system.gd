@@ -2,6 +2,10 @@ extends RefCounted
 ## Persistent, JSON-only loadout model. Main owns wallet and checkpoint proximity;
 ## Player owns action timing and calls tick exactly once per physics frame.
 const CATALOG_PATH := "res://data/build_catalog.json"
+const FAMILY_KEYS := ["tool", "combat_accessory", "travel_accessory", "thread_skill"]
+const FAMILY_TABLES := {"tool": "tools", "combat_accessory": "passives", "travel_accessory": "passives", "thread_skill": "skills"}
+const FAMILY_CAPACITIES := {"tool": 2, "combat_accessory": 3, "travel_accessory": 3, "thread_skill": 2}
+const FAMILY_NAMES := {"tool": "战具", "combat_accessory": "战斗饰件", "travel_accessory": "行旅饰件", "thread_skill": "线技"}
 var catalog: Dictionary = {}
 var state: Dictionary = {}
 var cooldowns: Dictionary = {}
@@ -13,8 +17,10 @@ func _init() -> void:
     reset()
 
 func reset() -> void:
-    state = {"version": 2, "crest": "crimson", "skill": "cleave", "tool": "shard",
+    state = {"version": 3, "crest": "crimson", "skill": "cleave", "tool": "shard",
         "skills": ["cleave", ""], "tools": ["shard", ""], "active_skill_slot": 0, "active_tool_slot": 0,
+        "equipped_families": {"tool": ["shard", ""], "combat_accessory": ["", "", ""],
+            "travel_accessory": ["", "", ""], "thread_skill": ["cleave", ""]},
         "passives": [], "unlocked_crests": ["crimson"], "unlocked_skills": ["cleave"],
         "unlocked_tools": ["shard"], "unlocked_passives": ["stride"], "mechanisms": [],
         "tool_counts": {}, "skill_levels": {}, "loadouts": {}}
@@ -69,55 +75,157 @@ func switch_crest(id: String, at_bell: bool = true) -> Dictionary:
     if id == state.crest:
         return _ok()
     state.crest = id
-    # A lower slot capacity trims the last equipped item deterministically.
-    while slots_used() > slots_total():
-        state.passives.pop_back()
+    # Keep items in locked expansion slots dormant. If the new crest has less
+    # accessory capacity, remove the last active accessory deterministically.
+    while not _validate_passives(_active_accessories(state.equipped_families, id), id).is_empty():
+        var removed := false
+        for family in ["travel_accessory", "combat_accessory"]:
+            for slot in range(state.equipped_families[family].size() - 1, -1, -1):
+                if _slot_unlocked(family, slot, id) and not String(state.equipped_families[family][slot]).is_empty():
+                    state.equipped_families[family][slot] = ""
+                    removed = true
+                    break
+            if removed: break
+        if not removed: break
+    _normalize_active_slots()
     return _ok()
 
 func _slot(slot: int, field: String) -> int:
     return int(state["active_" + field + "_slot"]) if slot == -1 else slot
 
 func _sync_aliases() -> void:
+    state.tools = state.equipped_families.tool.duplicate()
+    state.skills = state.equipped_families.thread_skill.duplicate()
+    state.passives = _active_accessories(state.equipped_families, state.crest)
     state.skill = state.skills[int(state.active_skill_slot)]
     state.tool = state.tools[int(state.active_tool_slot)]
 
-func select_skill(id: String, slot: int = -1) -> Dictionary:
-    slot = _slot(slot, "skill")
-    if slot < 0 or slot > 1:
-        return _fail("技能槽位无效")
-    if not id.is_empty() and (not state.unlocked_skills.has(id) or not catalog.skills.has(id)):
-        return _fail("先通过人物传授或遗物发现学习技能")
-    if not id.is_empty() and state.skills[1 - slot] == id:
-        return _fail("同一技能不能占据两个槽位")
-    state.skills[slot] = id
-    state.active_skill_slot = slot
+func _layout_specs(crest: String = "") -> Dictionary:
+    if crest.is_empty(): crest = String(state.get("crest", "crimson"))
+    return catalog.crests.get(crest, {}).get("slot_layout", {})
+
+func _slot_spec(family: String, slot: int, crest: String = "") -> Dictionary:
+    var specs: Dictionary = _layout_specs(crest)
+    var family_slots: Array = specs.get(family, [])
+    if slot < 0 or slot >= family_slots.size() or not family_slots[slot] is Dictionary: return {}
+    return family_slots[slot]
+
+func _slot_unlocked(family: String, slot: int, crest: String = "") -> bool:
+    var spec := _slot_spec(family, slot, crest)
+    if spec.is_empty(): return false
+    var requirement := String(spec.get("requires_mechanism", ""))
+    return requirement.is_empty() or state.get("mechanisms", []).has(requirement)
+
+func _slot_accepts(family: String, slot: int, item_id: String, crest: String = "") -> bool:
+    if item_id.is_empty(): return true
+    return _slot_spec(family, slot, crest).get("compatible", []).has(item_id)
+
+func _active_accessories(families: Dictionary, crest: String) -> Array:
+    var active: Array = []
+    for family in ["combat_accessory", "travel_accessory"]:
+        var equipped: Array = families.get(family, [])
+        for slot in range(equipped.size()):
+            var id := String(equipped[slot])
+            if id.is_empty() or not _slot_unlocked(family, slot, crest): continue
+            if _slot_accepts(family, slot, id, crest) and not active.has(id): active.append(id)
+    return active
+
+func _normalize_active_slots() -> void:
+    for pair in [["skill", "thread_skill"], ["tool", "tool"]]:
+        var field := String(pair[0])
+        var family := String(pair[1])
+        var active_key := "active_%s_slot" % field
+        var values: Array = state.equipped_families[family]
+        var active := int(state.get(active_key, 0))
+        if active >= values.size() or not _slot_unlocked(family, active) or not _slot_accepts(family, active, String(values[active])):
+            active = 0
+            for slot in range(values.size()):
+                if _slot_unlocked(family, slot) and not String(values[slot]).is_empty() and _slot_accepts(family, slot, String(values[slot])):
+                    active = slot
+                    break
+            state[active_key] = active
     _sync_aliases()
+
+func _validate_family_arrays(families: Variant, crest: String, strict: bool = false) -> String:
+    if not families is Dictionary: return "构筑家族槽位数据损坏"
+    for family in FAMILY_KEYS:
+        if not families.get(family) is Array or families[family].size() != int(FAMILY_CAPACITIES[family]):
+            return "构筑家族槽位数据损坏"
+        var seen := {}
+        var table := String(FAMILY_TABLES[family])
+        for slot in range(families[family].size()):
+            var item: Variant = families[family][slot]
+            if not item is String: return "构筑家族装备数据损坏"
+            if item.is_empty(): continue
+            if not catalog[table].has(item) or not state["unlocked_" + table].has(item) or seen.has(item):
+                return "构筑家族装备尚未获得或重复"
+            if table == "passives" and String(catalog[table][item].get("family", "")) != family:
+                return "饰件与装备家族不匹配"
+            if strict and _slot_unlocked(family, slot, crest) and not _slot_accepts(family, slot, item, crest):
+                return "装备与当前契印槽位不兼容"
+            seen[item] = true
+    var active_passives: Array = _active_accessories(families, crest)
+    if active_passives.size() != _active_accessory_count(families, crest): return "饰件槽位兼容数据无效"
+    return _validate_passives(active_passives, crest)
+
+func _active_accessory_count(families: Dictionary, crest: String) -> int:
+    var count := 0
+    for family in ["combat_accessory", "travel_accessory"]:
+        var values: Array = families.get(family, [])
+        for slot in range(values.size()):
+            var id := String(values[slot])
+            if not id.is_empty() and _slot_unlocked(family, slot, crest) and _slot_accepts(family, slot, id, crest): count += 1
+    return count
+
+func equip_family_slot(item_id: String, family: String, slot: int, at_bell: bool = true) -> Dictionary:
+    if not at_bell: return _fail("请在钟龛调整构筑")
+    if not FAMILY_KEYS.has(family) or slot < 0 or slot >= int(FAMILY_CAPACITIES.get(family, 0)):
+        return _fail("家族槽位无效")
+    if _slot_spec(family, slot).is_empty() or not _slot_unlocked(family, slot):
+        return _fail("此槽位尚未解锁")
+    var table := String(FAMILY_TABLES[family])
+    if not item_id.is_empty():
+        if not catalog[table].has(item_id) or not state["unlocked_" + table].has(item_id):
+            return _fail("装备尚未获得")
+        if not _slot_accepts(family, slot, item_id): return _fail("装备与此槽位不兼容")
+    var next: Dictionary = state.equipped_families.duplicate(true)
+    for index in range(next[family].size()):
+        if index != slot and next[family][index] == item_id and not item_id.is_empty():
+            return _fail("同一装备不能占据两个槽位")
+    next[family][slot] = item_id
+    var reason := _validate_family_arrays(next, String(state.crest))
+    if not reason.is_empty(): return _fail(reason)
+    state.equipped_families = next
+    if family == "tool": state.active_tool_slot = slot
+    elif family == "thread_skill": state.active_skill_slot = slot
+    _normalize_active_slots()
     return _ok()
 
-func select_tool(id: String, slot: int = -1) -> Dictionary:
+func select_skill(id: String, slot: int = -1, at_bell: bool = true) -> Dictionary:
+    slot = _slot(slot, "skill")
+    return equip_family_slot(id, "thread_skill", slot, at_bell)
+
+func select_tool(id: String, slot: int = -1, at_bell: bool = true) -> Dictionary:
     slot = _slot(slot, "tool")
-    if slot < 0 or slot > 1:
-        return _fail("战具槽位无效")
-    if not id.is_empty() and (not catalog.tools.has(id) or not state.unlocked_tools.has(id)):
-        return _fail("战具尚未获得")
-    if not id.is_empty() and state.tools[1 - slot] == id:
-        return _fail("同一战具不能占据两个槽位")
-    state.tools[slot] = id
-    state.active_tool_slot = slot
-    _sync_aliases()
-    return _ok()
+    return equip_family_slot(id, "tool", slot, at_bell)
 
 func cycle_skill() -> Dictionary:
-    if not String(state.skills[1 - int(state.active_skill_slot)]).is_empty():
-        state.active_skill_slot = 1 - int(state.active_skill_slot)
+    state.active_skill_slot = _cycle_family_slot("thread_skill", int(state.active_skill_slot))
     _sync_aliases()
     return _ok()
 
 func cycle_tool() -> Dictionary:
-    if not String(state.tools[1 - int(state.active_tool_slot)]).is_empty():
-        state.active_tool_slot = 1 - int(state.active_tool_slot)
+    state.active_tool_slot = _cycle_family_slot("tool", int(state.active_tool_slot))
     _sync_aliases()
     return _ok()
+
+func _cycle_family_slot(family: String, active: int) -> int:
+    var values: Array = state.equipped_families[family]
+    for offset in range(1, values.size() + 1):
+        var slot := posmod(active + offset, values.size())
+        if _slot_unlocked(family, slot) and not String(values[slot]).is_empty() and _slot_accepts(family, slot, String(values[slot])):
+            return slot
+    return active
 
 func slots_total() -> int:
     return int(catalog.crests.get(state.crest, {}).get("slots", 0))
@@ -150,13 +258,29 @@ func _validate_passives(ids: Array, crest: String) -> String:
     return ""
 
 func equip_passives(ids: Array) -> Dictionary:
-    var reason := _validate_passives(ids, state.crest)
-    if not reason.is_empty():
-        return _fail(reason)
-    state.passives = ids.duplicate()
+    if not _validate_passives(ids, String(state.crest)).is_empty():
+        return _fail(_validate_passives(ids, String(state.crest)))
+    var next: Dictionary = state.equipped_families.duplicate(true)
+    next.combat_accessory = ["", "", ""]
+    next.travel_accessory = ["", "", ""]
+    for id_value in ids:
+        var id := String(id_value)
+        var family := String(catalog.passives[id].family)
+        var placed := false
+        for slot in range(next[family].size()):
+            if _slot_unlocked(family, slot) and _slot_accepts(family, slot, id):
+                next[family][slot] = id
+                placed = true
+                break
+        if not placed: return _fail("当前契印没有兼容的饰件槽位")
+    var family_reason := _validate_family_arrays(next, String(state.crest))
+    if not family_reason.is_empty(): return _fail(family_reason)
+    state.equipped_families = next
+    _sync_aliases()
     return _ok()
 
-func equip_passive(id: String, toggle: bool = true) -> Dictionary:
+func equip_passive(id: String, toggle: bool = true, at_bell: bool = true) -> Dictionary:
+    if not at_bell: return _fail("请在钟龛调整构筑")
     var ids: Array = state.passives.duplicate()
     if ids.has(id) and toggle:
         ids.erase(id)
@@ -195,10 +319,10 @@ func stats() -> Dictionary:
 
 func selected_skill(slot: int = -1) -> Dictionary:
     slot = _slot(slot, "skill")
-    if slot < 0 or slot > 1:
+    if slot < 0 or slot > 1 or not _slot_unlocked("thread_skill", slot):
         return {}
     var id := String(state.skills[slot])
-    if not catalog.skills.has(id):
+    if not catalog.skills.has(id) or not _slot_accepts("thread_skill", slot, id):
         return {}
     var skill: Dictionary = catalog.skills[id].duplicate(true)
     var level := int(state.skill_levels.get(id, 0))
@@ -244,13 +368,13 @@ func tool_capacity(id: String) -> int:
 
 func use_tool(slot: int = -1) -> Dictionary:
     slot = _slot(slot, "tool")
-    if slot < 0 or slot > 1:
+    if slot < 0 or slot > 1 or not _slot_unlocked("tool", slot):
         return _fail("战具槽位无效")
     var id := String(state.tools[slot])
-    if not catalog.tools.has(id) or not state.unlocked_tools.has(id):
+    if not catalog.tools.has(id) or not state.unlocked_tools.has(id) or not _slot_accepts("tool", slot, id):
         return _fail("此战具槽位为空")
     if int(state.tool_counts.get(id, 0)) <= 0:
-        return _fail("战具已用尽，请在钟龛免费补给")
+        return _fail("战具已用尽，请在钟龛补给")
     state.tool_counts[id] = int(state.tool_counts[id]) - 1
     var tool: Dictionary = catalog.tools[id].duplicate(true)
     tool.id = id
@@ -265,9 +389,81 @@ func refund_tool(id: String) -> void:
 func refill_tools(at_bell: bool = false) -> Dictionary:
     if not at_bell:
         return _fail("请在钟龛补给战具")
-    for id in state.unlocked_tools:
-        state.tool_counts[id] = tool_capacity(id)
-    return _ok()
+    return _fail("战具补给需消耗碎钱与材料")
+
+func quote_resupply(wallet: Dictionary) -> Dictionary:
+    if not wallet.get("inventory_counts") is Dictionary or not _counter(wallet.get("currency")):
+        return _resupply_result(false, "无效钱包", wallet, {}, {"currency": 0, "materials": {}})
+    var next_wallet: Dictionary = wallet.duplicate(true)
+    var charges := {}
+    var total_cost := {"currency": 0, "materials": {}}
+    var deficits := {}
+    for id in catalog.tools:
+        var remaining := maxi(0, tool_capacity(String(id)) - int(state.tool_counts.get(id, 0)))
+        deficits[id] = remaining
+    var unaffordable_reason := "材料或碎钱不足"
+    for id_value in catalog.tools:
+        var id := String(id_value)
+        if not state.unlocked_tools.has(id) or int(deficits[id]) <= 0: continue
+        var unit: Dictionary = catalog.tools[id].get("resupply", {})
+        var unit_currency := int(unit.get("currency", -1))
+        var unit_materials: Dictionary = unit.get("materials", {})
+        if unit_currency <= 0 or unit_materials.is_empty():
+            unaffordable_reason = "战具补给方案无效"
+            continue
+        var bought := 0
+        while bought < int(deficits[id]):
+            if int(next_wallet.currency) < unit_currency:
+                unaffordable_reason = "碎钱不足：每份需要%d" % unit_currency
+                break
+            var can_pay := true
+            for material in unit_materials:
+                var amount: Variant = unit_materials[material]
+                if not _counter(amount) or int(amount) <= 0 or not _counter(next_wallet.inventory_counts.get(material, 0)) or int(next_wallet.inventory_counts.get(material, 0)) < int(amount):
+                    can_pay = false
+                    unaffordable_reason = "材料不足：%s" % String(material)
+                    break
+            if not can_pay: break
+            next_wallet.currency = int(next_wallet.currency) - unit_currency
+            total_cost.currency = int(total_cost.currency) + unit_currency
+            for material in unit_materials:
+                var amount := int(unit_materials[material])
+                next_wallet.inventory_counts[material] = int(next_wallet.inventory_counts.get(material, 0)) - amount
+                total_cost.materials[material] = int(total_cost.materials.get(material, 0)) + amount
+            bought += 1
+        if bought > 0: charges[id] = bought
+    if charges.is_empty():
+        var any_deficit := false
+        for amount in deficits.values():
+            if int(amount) > 0: any_deficit = true
+        var reason := "携带量已满" if not any_deficit else unaffordable_reason
+        return _resupply_result(false, reason, wallet, {}, {"currency": 0, "materials": {}})
+    return _resupply_result(true, "", wallet, charges, total_cost, next_wallet)
+
+func resupply_tools(wallet: Dictionary, at_bell: bool) -> Dictionary:
+    if not at_bell:
+        return _resupply_result(false, "请在钟龛补给战具", wallet, {}, {"currency": 0, "materials": {}})
+    var quote := quote_resupply(wallet)
+    if not bool(quote.get("ok", false)): return quote
+    # The quote's detached wallet is committed only after every charge and
+    # material has been validated; no stock changes on an affordability error.
+    for id in quote.charges:
+        state.tool_counts[id] = int(state.tool_counts.get(id, 0)) + int(quote.charges[id])
+    quote.wallet = quote.remaining_wallet.duplicate(true)
+    return quote
+
+func _resupply_result(ok: bool, reason: String, wallet: Dictionary, charges: Dictionary, cost: Dictionary, remaining_wallet: Variant = null) -> Dictionary:
+    var remaining: Dictionary = wallet if not remaining_wallet is Dictionary else remaining_wallet
+    var deficits := {}
+    var after := {}
+    for id in catalog.tools:
+        var current := int(state.tool_counts.get(id, 0))
+        var bought := int(charges.get(id, 0))
+        deficits[id] = maxi(0, tool_capacity(String(id)) - current)
+        after[id] = current + bought
+    return {"ok": ok, "reason": reason, "wallet": wallet.duplicate(true),
+        "remaining_wallet": remaining.duplicate(true), "charges": charges.duplicate(true),
+        "deficits": deficits, "remaining": after, "cost": cost.duplicate(true)}
 
 func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
     # Validate every precondition before spending; failure never mutates either owner.
@@ -307,54 +503,63 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
         state.skill_levels[target] = int(state.skill_levels[target]) + 1
     return _ok({"wallet": next_wallet, "currency_spent": cost, "recipe_id": recipe_id})
 
-func save_loadout(name: String) -> Dictionary:
+func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
+    if not at_bell: return _fail("请在钟龛保存构筑方案")
     name = name.strip_edges().left(24)
-    if name.is_empty():
-        return _fail("方案名称不能为空")
-    if state.loadouts.size() >= 8 and not state.loadouts.has(name):
-        return _fail("最多保存8个构筑方案")
-    state.loadouts[name] = {"crest": state.crest, "skills": state.skills.duplicate(), "tools": state.tools.duplicate(), "passives": state.passives.duplicate(), "active_skill_slot": state.active_skill_slot, "active_tool_slot": state.active_tool_slot}
+    if name.is_empty(): return _fail("方案名称不能为空")
+    if state.loadouts.size() >= 8 and not state.loadouts.has(name): return _fail("最多保存8个构筑方案")
+    state.loadouts[name] = {"crest": state.crest, "skills": state.skills.duplicate(), "tools": state.tools.duplicate(),
+        "passives": state.passives.duplicate(), "active_skill_slot": state.active_skill_slot,
+        "active_tool_slot": state.active_tool_slot, "equipped_families": state.equipped_families.duplicate(true)}
     return _ok()
 
 func restore_loadout(name: String, at_bell: bool = true) -> Dictionary:
-    if not at_bell:
-        return _fail("请在钟龛恢复构筑")
-    if not state.loadouts.has(name):
-        return _fail("方案不存在")
+    if not at_bell: return _fail("请在钟龛恢复构筑")
+    if not state.loadouts.has(name): return _fail("方案不存在")
     var build: Dictionary = state.loadouts[name]
     var reason := _validate_loadout(build)
-    if not reason.is_empty():
-        return _fail(reason)
-    for key in ["crest", "skills", "tools", "passives", "active_skill_slot", "active_tool_slot"]:
-        state[key] = build[key].duplicate() if build[key] is Array else build[key]
+    if not reason.is_empty(): return _fail(reason)
+    state.crest = String(build.crest)
+    state.equipped_families = build.equipped_families.duplicate(true)
+    state.active_skill_slot = int(build.active_skill_slot)
+    state.active_tool_slot = int(build.active_tool_slot)
     _sync_aliases()
     return _ok()
 
 func _validate_slots(ids: Variant, table: String) -> bool:
-    if not ids is Array or ids.size() != 2:
-        return false
+    if not ids is Array or ids.size() != 2: return false
     var seen := {}
     for id in ids:
-        if not id is String:
-            return false
-        if id.is_empty():
-            continue
-        if not catalog[table].has(id) or not state["unlocked_" + table].has(id) or seen.has(id):
-            return false
+        if not id is String: return false
+        if id.is_empty(): continue
+        if not catalog[table].has(id) or not state["unlocked_" + table].has(id) or seen.has(id): return false
         seen[id] = true
     return true
 
 func _validate_loadout(build: Dictionary) -> String:
     if not build.get("crest") is String or not state.unlocked_crests.has(build.get("crest")):
         return "方案引用未获得的契印"
-    if not _validate_slots(build.get("skills"), "skills") or not _validate_slots(build.get("tools"), "tools"):
-        return "方案双槽数据无效或引用未获得内容"
+    if not build.get("equipped_families") is Dictionary:
+        return "方案家族槽位数据无效"
+    var families: Dictionary = build.equipped_families
+    # Unselected slots may retain a dormant item across crest layouts. The
+    # active slots below must always be compatible with the saved crest.
+    var reason := _validate_family_arrays(families, String(build.crest), false)
+    if not reason.is_empty(): return reason
     for key in ["active_skill_slot", "active_tool_slot"]:
-        if not _counter(build.get(key), 1):
-            return "活动槽位无效"
-    if not build.get("passives") is Array:
-        return "铭饰容量数据无效"
-    return _validate_passives(build.passives, build.crest)
+        if not _counter(build.get(key), 1): return "活动槽位无效"
+    var skills: Array = families.thread_skill
+    var tools: Array = families.tool
+    var active_skill := int(build.active_skill_slot)
+    var active_tool := int(build.active_tool_slot)
+    if not _slot_unlocked("thread_skill", active_skill, String(build.crest)) or not _slot_accepts("thread_skill", active_skill, String(skills[active_skill]), String(build.crest)):
+        return "活动线技槽位无效"
+    if not _slot_unlocked("tool", active_tool, String(build.crest)) or not _slot_accepts("tool", active_tool, String(tools[active_tool]), String(build.crest)):
+        return "活动战具槽位无效"
+    var expected_passives: Array = _active_accessories(families, String(build.crest))
+    if build.get("skills") != skills or build.get("tools") != tools or build.get("passives") != expected_passives:
+        return "方案兼容装备别名不一致"
+    return ""
 
 func serialize() -> Dictionary:
     var snapshot := state.duplicate(true)
@@ -364,116 +569,210 @@ func serialize() -> Dictionary:
 func _counter(value: Variant, maximum: int = 1000000) -> bool:
     return (value is int or value is float) and is_finite(float(value)) and float(value) >= 0.0 and float(value) <= maximum and float(value) == floor(float(value))
 
+func _legacy_family_arrays(crest: String, skills: Array, tools: Array, passives: Array) -> Dictionary:
+    var families := {"tool": ["", ""], "combat_accessory": ["", "", ""],
+        "travel_accessory": ["", "", ""], "thread_skill": ["", ""]}
+    _legacy_assign_family(families, "tool", tools, crest)
+    _legacy_assign_family(families, "thread_skill", skills, crest)
+    for id_value in passives:
+        if not id_value is String or not catalog.passives.has(id_value): continue
+        var family := String(catalog.passives[id_value].get("family", ""))
+        if not families.has(family): continue
+        _legacy_assign_family(families, family, [String(id_value)], crest)
+    return families
+
+func _legacy_assign_family(families: Dictionary, family: String, ids: Array, crest: String) -> void:
+    var values: Array = families[family]
+    for id_value in ids:
+        var id := String(id_value)
+        if id.is_empty() or values.has(id): continue
+        var target := -1
+        for slot in range(values.size()):
+            if String(values[slot]).is_empty() and _slot_unlocked(family, slot, crest) and _slot_accepts(family, slot, id, crest):
+                target = slot
+                break
+        if target < 0:
+            for slot in range(values.size()):
+                if String(values[slot]).is_empty() and _slot_accepts(family, slot, id, crest):
+                    target = slot
+                    break
+        if target >= 0: values[target] = id
+
+func _migration_active_slot(family: String, requested: int, values: Array, crest: String) -> int:
+    if requested >= 0 and requested < values.size() and _slot_unlocked(family, requested, crest) \
+            and not String(values[requested]).is_empty() and _slot_accepts(family, requested, String(values[requested]), crest):
+        return requested
+    for slot in range(values.size()):
+        if _slot_unlocked(family, slot, crest) and not String(values[slot]).is_empty() \
+                and _slot_accepts(family, slot, String(values[slot]), crest):
+            return slot
+    return 0
+
+func _loadout_from_legacy(old: Dictionary, version: int, crest_fallback: String) -> Dictionary:
+    var crest := String(old.get("crest", crest_fallback))
+    var skills: Array = old.get("skills", [old.get("skill", ""), ""])
+    var tools: Array = old.get("tools", [old.get("tool", ""), ""])
+    var passives: Array = old.get("passives", [])
+    if version == 1:
+        skills = [old.get("skill", ""), ""]
+        tools = [old.get("tool", ""), ""]
+    var families := _legacy_family_arrays(crest, skills, tools, passives)
+    var active_skill := int(old.get("active_skill_slot", 0))
+    var active_tool := int(old.get("active_tool_slot", 0))
+    if active_skill < 0 or active_skill > 1: active_skill = 0
+    if active_tool < 0 or active_tool > 1: active_tool = 0
+    var skill_id := String(skills[active_skill]) if active_skill < skills.size() else ""
+    var tool_id := String(tools[active_tool]) if active_tool < tools.size() else ""
+    active_skill = _migration_active_slot("thread_skill", active_skill, families.thread_skill, crest)
+    active_tool = _migration_active_slot("tool", active_tool, families.tool, crest)
+    var migrated_passives: Array = _active_accessories(families, crest)
+    return {"crest": crest, "skills": families.thread_skill.duplicate(), "tools": families.tool.duplicate(),
+        "passives": migrated_passives, "active_skill_slot": active_skill, "active_tool_slot": active_tool,
+        "equipped_families": families}
+
 func restore(snapshot: Dictionary) -> Dictionary:
-    # Strict transactional migration: unknown IDs/fields fail without replacing live state.
+    # Strict transactional migration. Parse into an isolated candidate and commit
+    # only after all IDs, slot layouts, stock and cooldowns pass validation.
     var version: Variant = snapshot.get("version")
-    if not _counter(version, 2) or int(version) not in [1, 2]:
-        return _fail("不支持的构筑存档版本")
+    if not _counter(version, 3) or int(version) not in [1, 2, 3]: return _fail("不支持的构筑存档版本")
     var allowed := ["version", "crest", "skill", "tool", "passives", "unlocked_crests", "unlocked_skills", "unlocked_passives", "tool_counts", "skill_levels", "loadouts", "cooldowns"]
-    if int(version) == 2:
-        allowed.append_array(["skills", "tools", "active_skill_slot", "active_tool_slot", "unlocked_tools", "mechanisms"])
+    if int(version) >= 2: allowed.append_array(["skills", "tools", "active_skill_slot", "active_tool_slot", "unlocked_tools", "mechanisms"])
+    if int(version) >= 3: allowed.append("equipped_families")
     for field in snapshot:
-        if not allowed.has(field):
-            return _fail("未知构筑存档字段")
+        if not allowed.has(field): return _fail("未知构筑存档字段")
     var candidate := get_script().new() as RefCounted
-    var migrated := snapshot.duplicate(true)
+    var migrated: Dictionary = snapshot.duplicate(true)
     for field in ["unlocked_crests", "unlocked_skills", "unlocked_passives", "passives"]:
-        if not migrated.get(field) is Array:
-            return _fail("构筑列表数据损坏")
+        if not migrated.get(field) is Array: return _fail("构筑列表数据损坏")
     for field in ["tool_counts", "skill_levels", "loadouts"]:
-        if not migrated.get(field) is Dictionary:
-            return _fail("构筑计数数据损坏")
+        if not migrated.get(field) is Dictionary: return _fail("构筑计数数据损坏")
     if int(version) == 1:
-        if not migrated.get("skill") is String or not migrated.get("tool") is String:
-            return _fail("旧构筑引用无效")
+        if not migrated.get("skill") is String or not migrated.get("tool") is String: return _fail("旧构筑引用无效")
         for id in ["shard", "mine"]:
-            if not migrated.tool_counts.has(id):
-                return _fail("旧战具计数缺失")
+            if not migrated.tool_counts.has(id): return _fail("旧战具计数缺失")
         for id in ["cleave", "needle", "snare", "ward"]:
-            if not migrated.skill_levels.has(id):
-                return _fail("旧技能等级缺失")
+            if not migrated.skill_levels.has(id): return _fail("旧技能等级缺失")
         migrated["skills"] = [migrated.skill, ""]
         migrated["tools"] = [migrated.tool, ""]
         migrated["active_skill_slot"] = 0
         migrated["active_tool_slot"] = 0
         migrated["unlocked_tools"] = ["shard", "mine"]
-        migrated["mechanisms"] = [] # Old possession does not invent completed story events.
+        migrated["mechanisms"] = []
         for id in catalog.tools:
-            if not migrated.tool_counts.has(id):
-                migrated.tool_counts[id] = 0
+            if not migrated.tool_counts.has(id): migrated.tool_counts[id] = 0
         for id in catalog.skills:
-            if not migrated.skill_levels.has(id):
-                migrated.skill_levels[id] = 0
-        # Old tools could hold six shards / three mines. Clamp downward, never refill.
+            if not migrated.skill_levels.has(id): migrated.skill_levels[id] = 0
+        # A migration clamps legacy overstock down to modern capacity; it never adds charges.
         for id in migrated.tool_counts:
-            if not catalog.tools.has(id) or not _counter(migrated.tool_counts[id], 6):
-                return _fail("旧战具携带量无效")
+            if not catalog.tools.has(id) or not _counter(migrated.tool_counts[id], 6): return _fail("旧战具携带量无效")
             migrated.tool_counts[id] = mini(int(migrated.tool_counts[id]), int(catalog.tools[id].capacity))
+    else:
+        if not migrated.get("skills") is Array or not migrated.get("tools") is Array or not migrated.get("unlocked_tools") is Array or not migrated.get("mechanisms") is Array:
+            return _fail("构筑列表数据损坏")
+        if migrated.skills.size() != 2 or migrated.tools.size() != 2 or not _counter(migrated.get("active_skill_slot"), 1) or not _counter(migrated.get("active_tool_slot"), 1):
+            return _fail("旧构筑槽位数据无效")
+        if int(version) == 2 and migrated.has("equipped_families"):
+            return _fail("版本二构筑字段无效")
+    if not catalog.crests.has(migrated.get("crest", "")): return _fail("未知契印")
+    if not migrated.get("unlocked_tools") is Array: return _fail("构筑列表数据损坏")
+    candidate.state = migrated.duplicate(true)
+    if int(version) < 3:
+        if not candidate._validate_slots(migrated.skills, "skills") or not candidate._validate_slots(migrated.tools, "tools"):
+            return _fail("旧构筑引用无效")
+        var old_passive_reason: String = candidate._validate_passives(migrated.passives, String(migrated.crest))
+        if not old_passive_reason.is_empty(): return _fail(old_passive_reason)
+        migrated["equipped_families"] = candidate._legacy_family_arrays(String(migrated.crest), migrated.skills, migrated.tools, migrated.passives)
+        migrated["active_skill_slot"] = candidate._migration_active_slot("thread_skill", int(migrated.active_skill_slot), migrated.equipped_families.thread_skill, String(migrated.crest))
+        migrated["active_tool_slot"] = candidate._migration_active_slot("tool", int(migrated.active_tool_slot), migrated.equipped_families.tool, String(migrated.crest))
+        migrated["version"] = 3
         for name in migrated.loadouts:
             var old: Variant = migrated.loadouts[name]
-            if not old is Dictionary or old.size() != 4 or not old.get("skill") is String or not old.get("tool") is String:
+            if not old is Dictionary: return _fail("旧构筑方案无效")
+            var expected_old_size := 4 if int(version) == 1 else 6
+            if old.size() != expected_old_size: return _fail("旧构筑方案无效")
+            if int(version) == 1 and (not old.get("skill") is String or not old.get("tool") is String or not old.get("passives") is Array):
                 return _fail("旧构筑方案无效")
-            migrated.loadouts[name] = {"crest": old.get("crest"), "skills": [old.skill, ""], "tools": [old.tool, ""], "passives": old.get("passives"), "active_skill_slot": 0, "active_tool_slot": 0}
+            if int(version) == 2 and (not old.get("skills") is Array or not old.get("tools") is Array or not old.get("passives") is Array or old.skills.size() != 2 or old.tools.size() != 2):
+                return _fail("旧构筑方案无效")
+            migrated.loadouts[name] = candidate._loadout_from_legacy(old, int(version), String(migrated.crest))
+    candidate.state = migrated.duplicate(true)
     var tables := {"unlocked_crests": "crests", "unlocked_skills": "skills", "unlocked_tools": "tools", "unlocked_passives": "passives", "mechanisms": "crests"}
     for field in tables:
-        if not migrated.get(field) is Array:
-            return _fail("构筑列表数据损坏")
+        if not migrated.get(field) is Array: return _fail("构筑列表数据损坏")
         var seen := {}
         for id in migrated[field]:
-            if not id is String or not catalog[tables[field]].has(id) or seen.has(id):
-                return _fail("未知或重复构筑条目")
+            if not id is String or not catalog[tables[field]].has(id) or seen.has(id): return _fail("未知或重复构筑条目")
             seen[id] = true
+    if not candidate.state.get("equipped_families") is Dictionary:
+        return _fail("构筑家族槽位数据损坏")
+    migrated["version"] = 3
+    if int(version) == 3:
+        var expected_passives: Array = candidate._active_accessories(migrated.equipped_families, String(migrated.crest))
+        if migrated.get("skills") != migrated.equipped_families.get("thread_skill") or migrated.get("tools") != migrated.equipped_families.get("tool") or migrated.get("passives") != expected_passives:
+            return _fail("构筑家族装备别名不一致")
+        if not migrated.get("skills") is Array or not migrated.get("tools") is Array or migrated.get("skill") != migrated.skills[int(migrated.get("active_skill_slot", 0))] or migrated.get("tool") != migrated.tools[int(migrated.get("active_tool_slot", 0))]:
+            return _fail("活动槽位与引用不一致")
+    else:
+        migrated["skills"] = migrated.equipped_families.get("thread_skill", [])
+        migrated["tools"] = migrated.equipped_families.get("tool", [])
+        migrated["passives"] = candidate._active_accessories(migrated.equipped_families, String(migrated.crest))
+        migrated["skill"] = migrated.skills[int(migrated.get("active_skill_slot", 0))]
+        migrated["tool"] = migrated.tools[int(migrated.get("active_tool_slot", 0))]
     candidate.state = migrated.duplicate(true)
-    var reason: String = candidate._validate_loadout(migrated)
-    if not reason.is_empty():
-        return _fail(reason)
-    if migrated.get("skill") != migrated.skills[int(migrated.active_skill_slot)] or migrated.get("tool") != migrated.tools[int(migrated.active_tool_slot)]:
-        return _fail("活动槽位与引用不一致")
-    if migrated.tool_counts.size() != catalog.tools.size() or migrated.skill_levels.size() != catalog.skills.size():
-        return _fail("构筑计数条目数量无效")
+    var family_reason: String = candidate._validate_family_arrays(migrated.equipped_families, String(migrated.crest), false)
+    if not family_reason.is_empty(): return _fail(family_reason)
+    var loadout_reason: String = candidate._validate_loadout({"crest": migrated.crest, "skills": migrated.skills, "tools": migrated.tools,
+        "passives": migrated.passives, "active_skill_slot": migrated.active_skill_slot, "active_tool_slot": migrated.active_tool_slot,
+        "equipped_families": migrated.equipped_families})
+    if not loadout_reason.is_empty(): return _fail(loadout_reason)
+    if migrated.tool_counts.size() != catalog.tools.size() or migrated.skill_levels.size() != catalog.skills.size(): return _fail("构筑计数条目数量无效")
     for id in catalog.tools:
-        # Stock previously supplied with an owned needlecase survives unequipping.
         var stock_bonus := 1 if id in ["shard", "mine"] and migrated.unlocked_passives.has("needlecase") else 0
-        if not _counter(migrated.tool_counts.get(id), int(catalog.tools[id].capacity) + stock_bonus):
-            return _fail("战具携带量无效")
+        if not _counter(migrated.tool_counts.get(id), int(catalog.tools[id].capacity) + stock_bonus): return _fail("战具携带量无效")
     for id in catalog.skills:
-        if not _counter(migrated.skill_levels.get(id), 2):
-            return _fail("技能强化等级无效")
-    if migrated.loadouts.size() > 8:
-        return _fail("方案数量超限")
+        if not _counter(migrated.skill_levels.get(id), 2): return _fail("技能强化等级无效")
+    if migrated.loadouts.size() > 8: return _fail("方案数量超限")
     for name in migrated.loadouts:
-        if not name is String or name.is_empty() or name.length() > 24 or not migrated.loadouts[name] is Dictionary or migrated.loadouts[name].size() != 6:
+        var saved: Variant = migrated.loadouts[name]
+        if not name is String or name.is_empty() or name.length() > 24 or not saved is Dictionary:
             return _fail("构筑方案格式无效")
-        reason = candidate._validate_loadout(migrated.loadouts[name])
-        if not reason.is_empty():
-            return _fail(reason)
+        var normalized: Dictionary = saved
+        if not normalized.has("equipped_families"):
+            normalized = candidate._loadout_from_legacy(normalized, 2, String(migrated.crest))
+            migrated.loadouts[name] = normalized
+        if normalized.size() != 7: return _fail("构筑方案格式无效")
+        var saved_reason: String = candidate._validate_loadout(normalized)
+        if not saved_reason.is_empty(): return _fail(saved_reason)
     var restored_cooldowns: Variant = migrated.get("cooldowns", {})
-    if not restored_cooldowns is Dictionary:
-        return _fail("冷却数据无效")
+    if not restored_cooldowns is Dictionary: return _fail("冷却数据无效")
     for id in restored_cooldowns:
         var value: Variant = restored_cooldowns[id]
         if not catalog.skills.has(id) or not (value is int or value is float) or not is_finite(float(value)) or float(value) < 0 or float(value) > 60:
             return _fail("冷却时间无效")
-    candidate.state.erase("cooldowns")
-    candidate.state.version = 2
-    for key in ["active_skill_slot", "active_tool_slot"]:
-        candidate.state[key] = int(candidate.state[key])
-    for id in catalog.tools:
-        candidate.state.tool_counts[id] = int(candidate.state.tool_counts[id])
-    for id in catalog.skills:
-        candidate.state.skill_levels[id] = int(candidate.state.skill_levels[id])
+    candidate.state = migrated.duplicate(true)
+    candidate.state.version = 3
+    for id in catalog.tools: candidate.state.tool_counts[id] = int(candidate.state.tool_counts[id])
+    for id in catalog.skills: candidate.state.skill_levels[id] = int(candidate.state.skill_levels[id])
     for name in candidate.state.loadouts:
+        candidate.state.loadouts[name] = candidate.state.loadouts[name].duplicate(true)
         candidate.state.loadouts[name].active_skill_slot = int(candidate.state.loadouts[name].active_skill_slot)
         candidate.state.loadouts[name].active_tool_slot = int(candidate.state.loadouts[name].active_tool_slot)
+    candidate.state.active_skill_slot = int(candidate.state.active_skill_slot)
+    candidate.state.active_tool_slot = int(candidate.state.active_tool_slot)
     state = candidate.state.duplicate(true)
     cooldowns = restored_cooldowns.duplicate(true)
+    _normalize_active_slots()
     return _ok()
 
-func get_snapshot() -> Dictionary:
+func get_snapshot(wallet: Variant = null) -> Dictionary:
     var result := {"crest": state.crest, "skill": state.skill, "tool": state.tool,
         "passives": state.passives.duplicate(), "slots_used": slots_used(), "slots_total": slots_total(),
         "crests": [], "skills": [], "tools": [], "passive_options": [], "recipes": [],
-        "loadouts": state.loadouts.keys(), "stats": profile(), "skills_equipped": state.skills.duplicate(), "tools_equipped": state.tools.duplicate(), "active_skill_slot": state.active_skill_slot, "active_tool_slot": state.active_tool_slot}
+        "loadouts": state.loadouts.keys(), "stats": profile(), "skills_equipped": state.skills.duplicate(), "tools_equipped": state.tools.duplicate(),
+        "active_skill_slot": state.active_skill_slot, "active_tool_slot": state.active_tool_slot,
+        "equipped_families": state.equipped_families.duplicate(true), "slot_layout": {}, "slot_families": [],
+        "tool_deficits": {}, "can_refill_tools": false,
+        "resupply_quote": quote_resupply(wallet) if wallet is Dictionary else {}}
     for id in catalog.crests:
         var entry: Dictionary = catalog.crests[id].duplicate(true)
         entry.merge({"id": id, "unlocked": state.unlocked_crests.has(id), "selected": state.crest == id, "mechanism_unlocked": state.mechanisms.has(id)}, true)
@@ -492,6 +791,43 @@ func get_snapshot() -> Dictionary:
         var entry: Dictionary = catalog.passives[id].duplicate(true)
         entry.merge({"id": id, "unlocked": state.unlocked_passives.has(id), "selected": state.passives.has(id)}, true)
         result.passive_options.append(entry)
+    # Keep family options aligned with the public canonical option rows above.
+    # Those rows include derived state (tool stock/capacity, scaled skill cost,
+    # learned level and cooldown) that raw catalog clones do not carry.
+    var canonical_options: Dictionary = {"skills": {}, "tools": {}, "passives": {}}
+    for entry in result.skills: canonical_options.skills[String(entry.id)] = entry
+    for entry in result.tools: canonical_options.tools[String(entry.id)] = entry
+    for entry in result.passive_options: canonical_options.passives[String(entry.id)] = entry
+    for family in FAMILY_KEYS:
+        var table := String(FAMILY_TABLES[family])
+        var slots: Array = []
+        var options: Array = []
+        var equipped: Array = state.equipped_families[family]
+        for slot in range(int(FAMILY_CAPACITIES[family])):
+            var spec := _slot_spec(family, slot)
+            if spec.is_empty(): continue
+            var compatibility: Array = spec.get("compatible", []).duplicate()
+            slots.append({"id": "%s:%d" % [family, slot], "family": family, "index": slot,
+                "compatible": compatibility, "unlocked": _slot_unlocked(family, slot),
+                "requires_mechanism": String(spec.get("requires_mechanism", "")), "equipped_id": String(equipped[slot])})
+        for id in catalog[table]:
+            if table == "passives" and String(catalog[table][id].get("family", "")) != family: continue
+            var compatible_slots: Array[int] = []
+            for slot in range(int(FAMILY_CAPACITIES[family])):
+                if _slot_spec(family, slot).get("compatible", []).has(String(id)):
+                    compatible_slots.append(slot)
+            var entry: Dictionary = canonical_options[table][String(id)].duplicate(true)
+            entry.merge({"id": String(id), "slot_family": family,
+                "unlocked": state["unlocked_" + table].has(id), "equipped_slots": _equipped_slots(equipped, String(id)),
+                "compatible_slots": compatible_slots}, true)
+            options.append(entry)
+        result.slot_layout[family] = slots
+        result.slot_families.append({"id": family, "name": String(FAMILY_NAMES[family]), "slots": slots, "options": options})
+    for id in catalog.tools:
+        result.tool_deficits[id] = maxi(0, tool_capacity(String(id)) - int(state.tool_counts.get(id, 0)))
+        result.can_refill_tools = bool(result.can_refill_tools) or int(result.tool_deficits[id]) > 0
+    if wallet is Dictionary: result.resupply_quote = quote_resupply(wallet)
+    result.can_resupply_tools = bool(result.resupply_quote.get("ok", false))
     for id in catalog.recipes:
         var entry: Dictionary = catalog.recipes[id].duplicate(true)
         entry.id = id

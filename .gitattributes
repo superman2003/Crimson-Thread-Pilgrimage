@@ -76,3 +76,6 @@ artifacts/obsidian/*.webp -filter -diff -merge -text
 
 # Small verification images travel with the recoverable upgrade commit bundle.
 artifacts/world_exploration_stability/*.jpg -text -filter
+
+# Combat build review captures are ordinary Git blobs.
+artifacts/combat_build/*.webp -filter -diff -merge -text

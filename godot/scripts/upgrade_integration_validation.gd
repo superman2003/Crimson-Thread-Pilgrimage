@@ -29,16 +29,6 @@ func _run() -> void:
     scene._add_inventory_item("silk_wall_grip", 1, false)
     scene._add_inventory_item("bell_guard", 1, false)
     scene._refresh_ability_gates()
-    _check(not scene.perform_build_action("select_skill", "snare").ok, "exploration abilities do not grant equipment")
-    scene.story_flags["skill_snare_learned"] = true
-    scene.story_flags["seal_bell_repaired"] = true
-    scene._sync_player_build()
-    _check(scene.player.bell_guard_unlocked, "new ability is synchronized")
-    _check(scene.perform_build_action("select_skill", "snare").ok, "explicit learned event unlocks actual control skill")
-    scene.player.global_position = Vector2(1000, 400)
-    var initial_crest := String(scene.build_system.state.crest)
-    _check(not scene.perform_build_action("switch_crest", "bell").ok, "crest denied outside shrine")
-    _check(scene.build_system.state.crest == initial_crest, "denied crest preserves state")
     var shrine: Area2D
     for child in scene.get_children():
         if child is Area2D and child.get_meta("kind", "") == "save_point":
@@ -47,8 +37,25 @@ func _run() -> void:
     _check(shrine != null, "world has a shrine")
     if shrine != null:
         scene.player.global_position = shrine.global_position
+        _check(not scene.perform_build_action("select_skill", "needle", 0).ok,
+            "unlearned compatible skill cannot be equipped at shrine")
+        scene.story_flags["skill_snare_learned"] = true
+        scene.story_flags["seal_bell_repaired"] = true
+        scene._sync_player_build()
+        _check(scene.player.bell_guard_unlocked, "new ability is synchronized")
+        var initial_crest := String(scene.build_system.state.crest)
+        scene.player.global_position = Vector2(1000, 400)
+        _check(not scene.perform_build_action("switch_crest", "bell").ok, "crest denied outside shrine")
+        _check(scene.build_system.state.crest == initial_crest, "denied crest preserves state")
+        scene.player.global_position = shrine.global_position
         _check(scene.perform_build_action("switch_crest", "bell").ok, "crest changes at physical shrine")
         _check(scene.player.max_hp == int(scene.build_system.profile().max_hp), "player stats match chosen crest")
+        _check(scene.perform_build_action("select_skill", "snare", 0).ok,
+            "explicit learned event equips compatible control skill at shrine")
+        _check(scene.perform_build_action("select_tool", "", 0).ok,
+            "incompatible starting tool slot can be cleared at shrine")
+        _check(scene.perform_build_action("select_tool", "shard", 1).ok,
+            "compatible tool slot is configured at shrine before casting")
     var wallet_before := int(scene.currency_count)
     _check(not scene.perform_build_action("transact", "refill_shard").ok, "craft cannot run outside artisan")
     _check(scene.currency_count == wallet_before, "failed crafting never spends")
@@ -56,6 +63,7 @@ func _run() -> void:
     scene._toggle_build()
     _check(not scene.perform_build_action("use_tool").ok and int(scene.build_system.state.tool_counts.shard) == tools_before, "overlay cannot consume tool")
     scene._close_overlays()
+    scene.player.global_position = Vector2(1000, 400)
     scene.player.hp = scene.player.max_hp
     scene.player.hurt_timer = 0
     scene.player.attack_timer = 0

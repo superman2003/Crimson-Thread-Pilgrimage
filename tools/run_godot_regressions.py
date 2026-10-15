@@ -22,7 +22,9 @@ DEFAULT_SUITES = (
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
     'player_upgrade_regression build_system world_upgrade upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign '
-    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush'
+    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience '
+    'world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush '
+    'melee_recovery build_slots build_transaction_runtime enemy_encounter_roles build_slots_ui narrative_outcomes'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 SUCCESS_MARKERS = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text())
@@ -92,7 +94,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             with log.open('w') as output:
                 # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime suites must retain normal playback timing.
-                simulation = ['--fixed-fps', '60'] if suite in ['ch06_workshop_experience', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
+                simulation = ['--fixed-fps', '60'] if suite in ['ch06_workshop_experience', 'melee_recovery', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
                 # An intermittent CI shutdown leak needs the actual Resource
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []
