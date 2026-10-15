@@ -37,9 +37,53 @@ func _seed_cache(id: String, entry: Vector2) -> RefCounted:
     pref.desired = {id: {"path": path, "entry": entry, "distance": 0}}
     pref.configs = {id: {"raw": raw, "prepared": prepared, "stamp": FileAccess.get_modified_time(path)}}
     return pref
-func warm(pref: RefCounted) -> void:
+func _warm_lease(pref: RefCounted) -> Dictionary:
+    var targets := {}
+    for id in pref.desired:
+        var target: Dictionary = pref.desired[id]
+        targets[id] = {"path": target.path, "entry": target.entry, "stamp": FileAccess.get_modified_time(target.path)}
+    return {"targets": targets, "loader_generation": scene.world_loader.generation, "route_generation": ROUTES.cached_generation()}
+
+func _warm_lease_current(pref: RefCounted, expected: Dictionary) -> bool:
+    if expected.is_empty(): return true
+    if scene.world_loader.generation != expected.loader_generation or pref.generation != expected.loader_generation or ROUTES.cached_generation() != expected.route_generation:
+        return false
+    if pref.desired.size() != expected.targets.size(): return false
+    for id in expected.targets:
+        if not pref.desired.has(id): return false
+        var wanted: Dictionary = expected.targets[id]
+        var actual: Dictionary = pref.desired[id]
+        if actual.path != wanted.path or actual.entry != wanted.entry or FileAccess.get_modified_time(wanted.path) != wanted.stamp:
+            return false
+    return true
+
+func _warm_ready(pref: RefCounted, expected: Dictionary = {}) -> bool:
+    if not _warm_lease_current(pref, expected) or pref.desired.is_empty(): return false
+    if pref.entities.size() != pref.desired.size() or pref.gameplay.regions.size() != pref.desired.size(): return false
+    for id in pref.desired:
+        if not pref.entities.has(id) or not pref.gameplay.regions.has(id) or not pref.configs.has(id): return false
+        var target: Dictionary = pref.desired[id]
+        var body: Dictionary = pref.entities[id]
+        var actors: Dictionary = pref.gameplay.regions[id]
+        var config: Dictionary = pref.configs[id]
+        if not body.pending.is_empty() or not actors.pending.is_empty(): return false
+        if body.entry != target.entry or actors.entry != target.entry or actors.path != target.path or actors.stamp != config.stamp or config.stamp != FileAccess.get_modified_time(target.path): return false
+    return true
+
+func _warm_diagnostic(pref: RefCounted, expected: Dictionary) -> String:
+    return str({"expected": expected, "loader_generation": scene.world_loader.generation,
+        "pref_generation": pref.generation, "route_generation": ROUTES.cached_generation(),
+        "pref_route_generation": pref.route_cache_generation, "route_seen": pref.route_cache_seen,
+        "selection_elapsed": pref.selection_elapsed, "desired": pref.desired,
+        "config_ids": pref.configs.keys(), "entity_ids": pref.entities.keys(), "gameplay_ids": pref.gameplay.regions.keys(),
+        "host_can_process": scene.can_process(), "host_process_mode": scene.process_mode, "root_process_mode": root.process_mode})
+
+func warm(pref: RefCounted, expected: Dictionary = {}) -> bool:
     var deadline := Time.get_ticks_msec() + 15000
     while Time.get_ticks_msec() < deadline:
+        if not _warm_lease_current(pref, expected):
+            check(false, "warming lost requested lease before step: " + _warm_diagnostic(pref, expected))
+            return false
         if runtime_probe != null: runtime_probe.frame()
         var built: int = pref.entity_builds + pref.gameplay.builds
         var retired: int = pref.entity_releases + pref.gameplay.releases
@@ -47,10 +91,45 @@ func warm(pref: RefCounted) -> void:
         check(pref.entity_builds + pref.gameplay.builds - built <= 2, "shared geometry/gameplay creation admission <=2")
         check(pref.entity_releases + pref.gameplay.releases - retired <= 2, "shared retirement admission <=2")
         check(pref.snapshot().owned_bodies <= 48 and pref.gameplay.owned() <= 24, "owned + pending retirement capacity bounded")
-        var ready: bool = pref.entities.values().all(func(x): return x.pending.is_empty()) and pref.gameplay.regions.values().all(func(x): return x.pending.is_empty())
-        if not pref.gameplay.regions.is_empty() and pref.gameplay.regions.size() == pref.desired.size() and ready: return
+        if not _warm_lease_current(pref, expected):
+            check(false, "warming lost requested lease after step: " + _warm_diagnostic(pref, expected))
+            return false
+        if _warm_ready(pref, expected): return true
         await process_frame
-    check(false, "warming finishes before fixture deadline")
+    check(false, "warming finishes before fixture deadline: " + _warm_diagnostic(pref, expected))
+    return false
+
+func verify_warm_lease_contract() -> void:
+    # Numeric-only records reproduce the old same-count false positive without
+    # loading, changing a production route lease, or allocating detached actors.
+    var pref = preload("res://scripts/world_prefetch.gd").new()
+    var id := String(scene.config.id)
+    var path := ROUTES.cached_config_path(id)
+    var entry := Vector2(200, 500)
+    var stamp := FileAccess.get_modified_time(path)
+    pref.generation = scene.world_loader.generation
+    pref.desired = {id: {"path": path, "entry": entry}}
+    pref.configs = {id: {"stamp": stamp}}
+    pref.entities = {id: {"entry": entry, "pending": []}}
+    pref.gameplay.regions = {"wrong_region": {"entry": entry, "path": path, "stamp": stamp, "pending": []}}
+    var expected := _warm_lease(pref)
+    check(pref.gameplay.regions.size() == pref.desired.size() and not _warm_ready(pref, expected), "same-count wrong-region cache is never ready")
+    pref.gameplay.regions = {id: {"entry": entry + Vector2.ONE, "path": path, "stamp": stamp, "pending": []}}
+    check(not _warm_ready(pref, expected), "same-region wrong-entry cache is never ready")
+    pref.gameplay.regions[id].entry = entry
+    check(_warm_ready(pref, expected), "matching region, entry and source stamp are ready")
+    pref.desired = {"wrong_region": {"path": path, "entry": entry}}
+    check(not _warm_lease_current(pref, expected) and not _warm_ready(pref, expected), "same-count target replacement invalidates requested lease")
+    pref.desired = {id: {"path": path, "entry": entry}}
+    pref.generation -= 1
+    check(not _warm_lease_current(pref, expected), "loader-generation drift invalidates requested lease")
+    pref.generation = scene.world_loader.generation
+    expected.route_generation -= 1
+    check(not _warm_lease_current(pref, expected), "route-generation drift invalidates requested lease")
+    pref.entities.clear()
+    pref.gameplay.regions.clear()
+    pref.shutdown()
+
 func live(kind: String, data: Dictionary) -> Area2D:
     if kind != "enemy": return scene.get_node_or_null(NodePath(String(data.id)))
     for child in scene.get_children():
@@ -158,7 +237,11 @@ func landing(id: String, entry: Vector2) -> void:
     var wallet: int = scene.currency_count
     var enemy_count := get_nodes_in_group("enemy").size()
     var node_count: int = scene.get_child_count()
-    await warm(pref)
+    var expected := _warm_lease(pref)
+    if not await warm(pref, expected): return
+    if not _warm_ready(pref, expected):
+        check(false, "requested lease changed before landing inspection: " + _warm_diagnostic(pref, expected))
+        return
     check(scene.story_flags == state and scene.inventory_counts == inventory and scene.currency_count == wallet and get_nodes_in_group("enemy").size() == enemy_count and scene.get_child_count() == node_count, "prebuild leaves active progression/inventory/groups/tree unchanged")
     var records: Dictionary = pref.gameplay.regions[id].actors.duplicate()
     check(records.size() <= GAMEPLAY.MAX_PER_REGION, "per-region actor limit")
@@ -418,6 +501,7 @@ func run() -> void:
     current_scene = scene
     await frames(2)
     invalid_descriptors()
+    verify_warm_lease_contract()
     verify_shared_metadata_cache()
     for id in COORD.manifest().regions:
         var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))

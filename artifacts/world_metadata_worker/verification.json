@@ -1,0 +1,124 @@
+{
+  "base_commit": "543f5ffb965478d4d162d1b3f51b7bcead05c4f4",
+  "engine": "Godot 4.6.1 stable, software GL llvmpipe",
+  "scope": "Focused local verification; full 95-suite remote CI is a separate gate",
+  "source_sha256": {
+    "godot/scripts/world_region_loader.gd": "091dd0cf4d7bb2ae244a48fcccf08b80e426bcebeb8427b418d7ffe057adbaeb",
+    "godot/scripts/world_coordinates.gd": "953251addcf510e10c00d114f4aad2f6eaaa8ce4fa31a3fafa71ddd608a96532",
+    "godot/scripts/world_metadata_background_validation.gd": "97d7ca7436733ce90f9b013d37f574d180bcd1aeb391ef2566cb8e885499ce40",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "44332139883456bd5155545e82140a217c675aaf85a7d29e36376835a00c4ac3",
+    "tools/run_godot_regressions.py": "f194aae4fb81a9f9ee279298237716726b40eedb869a0a6b94d5ea0f20948e92",
+    "tools/godot_suite_success_markers.json": "f511d11fa871cd29bb61ed89555e0105d5847580a174fc596e34cb6d24810a83",
+    "tools/test_regression_runner.py": "223a38c34c35f87868fb192d4c0c9012f77372a3e6ed49337f1f33ae2baa0351"
+  },
+  "accepted_suites": {
+    "world_neighbor_gameplay": {
+      "result": "pass",
+      "sha256": "a6b6bc6a7045ab4a7c0c759fed8388fddb5dcac5de62d2584e93a5b07b46face",
+      "completion_marker": "WORLD_NEIGHBOR_GAMEPLAY checks=7483 failures=0",
+      "objectdb_exit_warning": false,
+      "landings": 76
+    },
+    "world_metadata_background": {
+      "result": "pass",
+      "sha256": "322aff026615bd67b7ba5c2d302fde2ba31de6fa11ec37e310d4ee572f0cb013",
+      "completion_marker": "WORLD METADATA BACKGROUND PASS checks=86",
+      "objectdb_exit_warning": false
+    },
+    "world_prepare_budget": {
+      "result": "pass",
+      "sha256": "451a178fdfbf969bfd08578e4c6f22658cbc1deb975f76f9063a5291d56e278e",
+      "completion_marker": "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown",
+      "objectdb_exit_warning": true
+    },
+    "world_startup_budget": {
+      "result": "pass",
+      "sha256": "936c77c2f461546fd7ea5111ce3af5e385f4ef83b6806f224d2420501549cb08",
+      "completion_marker": "WORLD_STARTUP_BUDGET_VALIDATION_PASS",
+      "objectdb_exit_warning": true
+    },
+    "world_startup_config_background": {
+      "result": "pass",
+      "sha256": "a526ffccee6d922c2cd0b616c93d429de60bb5418705454289076f60162983a5",
+      "completion_marker": "WORLD STARTUP CONFIG BACKGROUND PASS checks=89",
+      "objectdb_exit_warning": false
+    },
+    "world_preflight_budget": {
+      "result": "pass",
+      "sha256": "1630c69ec7cc2e55291dd8458dbd5a32185d32833971a3b18abbe209b24dda01",
+      "completion_marker": "WORLD PREFLIGHT BUDGET PASS checks=4290",
+      "objectdb_exit_warning": false
+    },
+    "world_catalog_background": {
+      "result": "pass",
+      "sha256": "6599e694f07ae5f9f33dad326f473aaa57a248586b101797b9a33c0dd0548aa3",
+      "completion_marker": "WORLD CATALOG BACKGROUND PASS checks=50",
+      "objectdb_exit_warning": false
+    },
+    "world_coordinates": {
+      "result": "pass",
+      "sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467",
+      "completion_marker": "WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves",
+      "objectdb_exit_warning": false
+    },
+    "world_state": {
+      "result": "pass",
+      "sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1",
+      "completion_marker": "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves",
+      "objectdb_exit_warning": false
+    },
+    "save_product": {
+      "result": "pass",
+      "sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7",
+      "completion_marker": "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+      "objectdb_exit_warning": false
+    },
+    "world_host": {
+      "result": "pass",
+      "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "completion_marker": "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles",
+      "objectdb_exit_warning": true
+    },
+    "world_async_loading": {
+      "result": "pass",
+      "sha256": "9a8371b50af5e6e444526ab7d58fb19a912d27208be503a82c8fae81136569dc",
+      "completion_marker": "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "objectdb_exit_warning": true
+    },
+    "world_map": {
+      "result": "pass",
+      "sha256": "909673d41ff30e0554dab2d273f9c03d405a6197dc40a094a4851f24934b904f",
+      "completion_marker": "WORLD_MAP checks=657 failures=0",
+      "objectdb_exit_warning": false
+    },
+    "survey_map_knowledge": {
+      "result": "pass",
+      "sha256": "8bb50a3d1aa838da4c88fcda6ebf0aabfc381c5f80746115ffd5ad4621ef8b33",
+      "completion_marker": "SURVEY_MAP_KNOWLEDGE checks=20 failures=0",
+      "objectdb_exit_warning": true
+    }
+  },
+  "checks": {
+    "npm_test": "pass (includes 16 runner and 11 import-tool unit tests)",
+    "campaign_audits": "pass",
+    "resource_import_passes": 2,
+    "git_diff_check": "pass",
+    "independent_review": "pass; separate read-only subagent reviewed runtime and final fixture diff"
+  },
+  "retained_failed_run": {
+    "suite": "world_neighbor_gameplay",
+    "sha256": "e3778ed66dbc72831ab897d0daf1511d91eda616955448b53c0c698f58b0fd0f",
+    "result": "strict failure: missing original target at landing line 163, despite zero-failure marker",
+    "trigger": "unconfirmed; instrumented replay did not reproduce",
+    "change": "fixture exact lease/readiness validation and six deterministic contract checks; no inferred production workaround"
+  },
+  "remaining_costs": [
+    "coordinate first read",
+    "public manifest defensive copies",
+    "prepared-region handoff whole copy",
+    "direct synchronous compatibility API",
+    "file stat and key enumeration",
+    "indivisible leaf operations"
+  ],
+  "freshness_limit": "same mtime and same length replacement remains undetected by existing policy"
+}

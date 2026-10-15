@@ -4,21 +4,24 @@ extends RefCounted
 const PATH := "res://data/world_layout.json"
 static var _manifest: Dictionary = {}
 
-static func manifest() -> Dictionary:
+static func _data() -> Dictionary:
     if _manifest.is_empty():
         var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(PATH))
         if parsed is Dictionary:
             _manifest = parsed
-    return _manifest.duplicate(true)
+    return _manifest
+
+static func manifest() -> Dictionary:
+    return _data().duplicate(true)
 
 static func layout_version() -> int:
-    return int(manifest().get("version", 0))
+    return int(_data().get("version", 0))
 
 static func has_region(region_id: String) -> bool:
-    return manifest().get("regions", {}).has(region_id)
+    return _data().get("regions", {}).has(region_id)
 
 static func to_world(region_id: String, local_position: Vector2) -> Vector2:
-    var region: Dictionary = manifest().get("regions", {}).get(region_id, {})
+    var region: Dictionary = _data().get("regions", {}).get(region_id, {})
     if region.is_empty():
         return Vector2.INF
     var origin: Array = region.origin
@@ -29,7 +32,7 @@ static func to_local(region_id: String, world_position: Vector2) -> Vector2:
     return world_position - origin if origin.is_finite() else Vector2.INF
 
 static func region_bounds(region_id: String) -> Rect2:
-    var region: Dictionary = manifest().get("regions", {}).get(region_id, {})
+    var region: Dictionary = _data().get("regions", {}).get(region_id, {})
     if region.is_empty():
         return Rect2()
     return Rect2(to_world(region_id, Vector2.ZERO), Vector2(region.size[0], region.size[1]))
