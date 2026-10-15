@@ -11,3 +11,11 @@ The existing `enemy_effect_lifetime` regression creates a beam through the real 
 ```sh
 node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite enemy_effect_lifetime
 ```
+
+## CI repair — 2026-10-15
+
+The first integration run passed 91 of its 92 regression suites, but `enemy_effect_lifetime` could not parse: the dynamically obtained beam made the inferred `axis_center` expression untyped. The fixture now declares the beam as `Node2D`, so its `global_position` and derived vector expression have known types. This repair changes no production beam code or assertions.
+
+Godot 4.6.1 / llvmpipe reproduced the original parse error. After the fix and full runtime asset hydration, `enemy_effect_lifetime` passed all 46 checks, `enemy_visibility` passed all 36 checks, and `enemy_lifecycle_regression` passed all 31 checks. The lifecycle suite still emits an existing ObjectDB exit warning. An initial local lifecycle attempt with incomplete audio assets failed decoding; it was not counted as a pass. The remote full workflow is rerun on the repair commit.
+
+The separate Codex Review failures report exhausted code-review usage and insufficient security-review credits, rather than source findings. This code repair does not resolve those account limits.

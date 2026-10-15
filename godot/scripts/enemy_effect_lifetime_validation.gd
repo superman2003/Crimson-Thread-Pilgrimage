@@ -44,7 +44,7 @@ func _run() -> void:
 
 func _verify_beam_channel(enemy) -> void:
     var heading := Vector2(3.0, 4.0).normalized()
-    var beam = enemy._effect(
+    var beam: Node2D = enemy._effect(
         "beam",
         Vector2(180.0, 240.0),
         heading * 420.0,
