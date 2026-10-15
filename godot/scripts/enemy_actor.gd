@@ -48,7 +48,7 @@ func apply_stagger(seconds: float) -> void:
 func apply_trip(seconds: float) -> void:
     if not bool(combat_resistance.get("trip_immune", is_boss)):
         trip_timer = maxf(trip_timer, minf(1.0, seconds))
-        _cancel_attack_effects()
+        _cancel_unarmed_attack_effects()
         state = "recover"
         state_timer = maxf(state_timer, trip_timer)
 
@@ -86,7 +86,14 @@ func _update_locomotion(delta: float, target: CharacterBody2D) -> void:
             return
         flight_clock+=delta
         var desired := spawn_position.y+sin(flight_clock*2.8+start_x*.01)*11
-        if target!=null and state not in ["windup","active"]:
+        var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
+        var target_engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range) and _has_line_of_sight(target)
+        var returning_home := not is_boss and leash_radius > 0.0 and (absf(global_position.x - spawn_position.x) > leash_radius or _should_return_to_spawn(target, aggro_range))
+        # Keep the authored boss tracking rule intact. Ordinary flyers only
+        # follow a visible target inside their territory, so remote/rest targets
+        # cannot pull them away from their home pocket while horizontal patrol idles.
+        var should_track_target := target != null if is_boss else target_engaged and not returning_home
+        if should_track_target and state not in ["windup","active"]:
             desired=clampf(target.global_position.y-90,spawn_position.y-65,spawn_position.y+75)+sin(flight_clock*3)*8
         var candidate := Vector2(global_position.x,move_toward(global_position.y,desired,85*delta))
         var level := get_parent()
@@ -480,7 +487,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
         boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
         boss_press_timer = 0.0
     if not is_boss and hp > 0:
-        _cancel_attack_effects()
+        _cancel_unarmed_attack_effects()
         active_attack = {}
         state = "recover"
         state_timer = 0.16
@@ -787,7 +794,10 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
         position.x += movement_direction * chase_speed * delta
         moved = true
         last_ai_decision = "advance"
-    elif distance < desired - 18.0 and not pressured:
+    elif distance < desired - 18.0 and (not pressured or (not is_boss and preferred >= 120.0)):
+        # Ordinary profiles authored with a long preferred_range (ranged/air
+        # roles) keep their standoff under pressure. Boss spacing remains on
+        # its original pressure-forward rule.
         movement_direction = -signf(dx)
         position.x += movement_direction * _movement_speed() * 0.55 * delta
         moved = true
@@ -2064,6 +2074,19 @@ func _cancel_attack_effects() -> void:
         if is_instance_valid(effect) and not effect.is_queued_for_deletion():
             effect.cancel()
     owned_attack_effects.clear()
+
+func _cancel_unarmed_attack_effects() -> void:
+    # Interruptions cancel owned effect objects only while age < arm_delay.
+    # This includes visible warning shapes and delayed floor hazards; a
+    # projectile/wave with arm_delay == 0 is already emerged and remains live.
+    # Death, respawn and owner retirement still use _cancel_attack_effects().
+    for index in range(owned_attack_effects.size() - 1, -1, -1):
+        var effect := owned_attack_effects[index]
+        if not is_instance_valid(effect) or effect.is_queued_for_deletion():
+            owned_attack_effects.remove_at(index)
+        elif float(effect.get("age")) < float(effect.get("arm_delay")):
+            effect.cancel()
+            owned_attack_effects.remove_at(index)
 
 func _exit_tree() -> void:
     _clear_telegraph()

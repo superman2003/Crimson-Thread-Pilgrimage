@@ -32,14 +32,19 @@ class MockRuntime extends Node:
     var last_action := ""
     var last_id := ""
     var last_slot := -1
+    var last_extra: Variant
     var selected_save_slot := 0
     func get_build_system() -> RefCounted:return build_system
-    func perform_build_action(action: String,id: String,_slot: int) -> Dictionary:
+    func perform_build_action(action: String,id: String,extra: Variant=null) -> Dictionary:
         last_action=action
         last_id=id
-        last_slot=_slot
-        if action=="select_skill":return build_system.select_skill(id,_slot)
-        if action=="select_tool":return build_system.select_tool(id,_slot)
+        last_extra=extra
+        last_slot=int(extra.get("slot",-1)) if extra is Dictionary else int(extra) if extra is int or extra is float else -1
+        if action=="equip_family_slot" and extra is Dictionary:
+            return build_system.equip_family_slot(id,String(extra.get("family","")),last_slot,true)
+        if action=="switch_crest":return build_system.switch_crest(id,true)
+        if action=="select_skill":return build_system.select_skill(id,last_slot)
+        if action=="select_tool":return build_system.select_tool(id,last_slot)
         return {"ok":true,"reason":"已执行测试事务"}
     func _toggle_build() -> void:active_overlay="build" if active_overlay=="" else ""
     func _close_overlays() -> void:active_overlay=""
@@ -82,7 +87,8 @@ func run() -> void:
     ui.refresh_build()
     check(ui.build_detail.text.contains("消耗绯线") and ui.build_detail.text.contains("冷却"),"Skill preview shows actual resource cost and cooldown")
     (ui.build_grid.get_child(0) as Button).pressed.emit()
-    check(runtime.last_action=="select_skill","Skill confirm routes to runtime selection")
+    check(runtime.last_action=="equip_family_slot" and runtime.last_extra is Dictionary and runtime.last_extra.get("family")=="thread_skill" and runtime.last_extra.get("slot")==0,"Skill confirm uses the typed family-slot runtime action")
+    check(runtime.build_system.state.skill=="cleave","Pressed skill button updates the persistent model")
     ui.build_category="强化"
     ui.refresh_build()
     (ui.build_grid.get_child(0) as Button).pressed.emit()

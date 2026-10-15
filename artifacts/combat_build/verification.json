@@ -1,0 +1,721 @@
+{
+  "date": "2026-10-15",
+  "baseline": "e3f2427e12bead3dbb90b23e82ca0b5d381b94bf",
+  "scope": "second workstream only; PR54 and unpublished first-workstream changes excluded",
+  "validated_source_tree": "1aaca27fc77282b4a0d615ab4f1abc3584f9bbe4",
+  "validated_source_remote_commit": "9bc521fbd0333d324ec6d15558007c1f0b4aab31",
+  "source_sha256": {
+    "godot/data/build_catalog.json": "922294b60da2fbc0bd0230dc77ca08804911da65027db29ac1d8dd518c944b32",
+    "godot/scripts/build_slots_ui_validation.gd": "8656f0f59f4953bbdb6b733821953d148609e07de0b4eea45555df081101a770",
+    "godot/scripts/build_slots_ui_validation.gd.uid": "07ac4b54e7e3f185e6ac6d26c0c10509006663b36862edfb3a603841ce9a0964",
+    "godot/scripts/build_slots_validation.gd": "5dc11c265762ee85fd16165246f435b17342b5c3cd77adec96965993d1d2bb02",
+    "godot/scripts/build_slots_validation.gd.uid": "10d718f4597e733c2da583668883ee77377e1c426a9a151553dc555012236597",
+    "godot/scripts/build_system.gd": "cf4da29c1e83c3bac456794520d2d46a3100b07c1a37c5c4e01128b307b475b1",
+    "godot/scripts/build_system_validation.gd": "2c4b514d29100a6ec0482c47548cf62c9ac043e718edd52884355bdea6cea359",
+    "godot/scripts/build_transaction_runtime_validation.gd": "544ea2639b8c5a7da6e0868fb7ab8d808d0e99bbcbb69961f8280a82b913df53",
+    "godot/scripts/build_transaction_runtime_validation.gd.uid": "25480d1f322dfa4cfe3ad76f4ed446d4398414865fb48796466fc5637e108f99",
+    "godot/scripts/capture_combat_build.gd": "02507a42027e59425440c078874bfd7e0e5640182ea9ce5de5e1433ceeeff40e",
+    "godot/scripts/capture_combat_build.gd.uid": "85d6fef1a0fa2a04b9b95c1a630221b40b2f9f5046f3d099a54c725da577f78d",
+    "godot/scripts/enemy_actor.gd": "63d8fdf5da4de44d12c5f048e356a786fbd9923f1219edf88a4a399c68de1e6b",
+    "godot/scripts/enemy_encounter_roles_validation.gd": "b39b1324c855e0cd26a47f98d5b32c8ec14aa7135b12fded48b66186d28a5d0d",
+    "godot/scripts/enemy_encounter_roles_validation.gd.uid": "9ed880a0f275c0ba119a28e47c06194ae62ae4c1362f66a696397dfc0dd5e270",
+    "godot/scripts/main_level.gd": "47c5709a1bf5af08b982aa0af0df3d3a1aa063abd1b47e65068b7549e816571a",
+    "godot/scripts/melee_recovery_validation.gd": "fa30ab7766e0fff1765bfd28c2d7dbe31f79638f07548b61f4d5ade429eb5c94",
+    "godot/scripts/melee_recovery_validation.gd.uid": "74aff8ab2c8459d9e068c2da2d967da8caacb736e4ff15808e7e16f970955c03",
+    "godot/scripts/narrative_outcomes_validation.gd": "fcc326312483a07e5d461c70624191d42620828e7ab7fde5c016e8f161b37cd8",
+    "godot/scripts/narrative_outcomes_validation.gd.uid": "799e2084c512d73cd578378de94a16380ec91de5e4a2c5fe9bc777c40e320222",
+    "godot/scripts/pilgrimage_interface.gd": "8031e4d14e6670f5ec3015a60c3c351683f89ae440f5c26b0970f6baf6d9ce05",
+    "godot/scripts/player_controller.gd": "b7ce9632476490f434dc09d11b4d51eea8109849b8ef9f6cda480de087f99e64",
+    "godot/scripts/seal_acceptance_validation.gd": "59a71eaf02732294aaa73b37310ccca679c2c6066a89e25b047feacd9906a8f2",
+    "godot/scripts/seal_system_validation.gd": "ef6dff52fc6da6da0723d1c5333874ddc12fb037db70d3e0dbfbe8dc05db6c94",
+    "godot/scripts/seal_ui_validation.gd": "8d2e3b433fda2afe703443024e4284361e17836ded7698f2db616f81a1c8da7c",
+    "godot/scripts/ui_build_accessibility_validation.gd": "d1558731cf05b58b85dde11323e94a813042735580fc76a5ea01bcb7fe87f1af",
+    "godot/scripts/ui_world_integration_validation.gd": "c75fb669cec46790b7eb4d36b3af7a69e42162cac98b7a841ba68341c272bb71",
+    "godot/scripts/upgrade_integration_validation.gd": "dd6806bb0de7d1c6923ebe285da328a51327bf9b4578ade6fdf398db256c3672",
+    "godot/scripts/world_interaction_residency_validation.gd": "6181b651580d62b7f00c14aff7b14cf4d318920a3a43c8144fd2f0c96394e3a2",
+    "godot/scripts/world_narrative.gd": "8205c50fbada18497a34dcb2acb1b6922b5bafd35b2cc8048a5113f6f2fa532a",
+    "package.json": "2a2750d57fb5f1a2a2c6d587292530a669af37864314eb11e004e47b471e3a85",
+    "tools/run_godot_regressions.py": "4b3a3be53d884102073a1be3fbaf3f970cc8fe84cdf49181a48a2b7a744faf6b"
+  },
+  "engine": "Godot 4.6.1 stable / llvmpipe real OpenGL",
+  "guards": {
+    "timeout_seconds": 180,
+    "error_and_script_error_gate": true,
+    "original_stress_cycles": 80
+  },
+  "full_initial": {
+    "suites": 86,
+    "passed": 80,
+    "failed": 6,
+    "failed_suites": [
+      "world_interaction_residency",
+      "upgrade_integration",
+      "ui_build_accessibility",
+      "ui_world_integration",
+      "seal_ui",
+      "tests/verify_narrative_progression"
+    ],
+    "seal_ui_timed_out_after_script_error": true,
+    "logs": {
+      "ability_movement.log": {
+        "sha256": "8f157f166f98ec12f5dcef9fbf2e5f66147b9a2bb69a027823c3679aa509a170",
+        "engine_errors": 0
+      },
+      "all_chapters_demo.log": {
+        "sha256": "81bf6c7eb6ebb2ed3820a4d7ee85c276aedf10b2ec940d011da1a55394cff2a7",
+        "engine_errors": 0
+      },
+      "audio_retirement.log": {
+        "sha256": "542535ea01d232cd0f4a830b7f19921fcc5103c6bcf254c58681c17c2f2822bb",
+        "engine_errors": 0
+      },
+      "boss_trial.log": {
+        "sha256": "70790236317723deeca4e40f1d9deb0659ce4171f200141a3c7353f2460c5157",
+        "engine_errors": 0
+      },
+      "build_slots.log": {
+        "sha256": "4289e1715f25fecb2c5efdb039e599d648d86bb875e7118f151a8d8cf7cf0217",
+        "engine_errors": 0
+      },
+      "build_slots_ui.log": {
+        "sha256": "8a6d697d9c8be524014b5211a5af68098528d7c8ddbe0eda30c62e857a2e12fe",
+        "engine_errors": 0
+      },
+      "build_system.log": {
+        "sha256": "d236afcdb27f1dd7c6842c3d097cdc860cc24eac2a955ffdbdc65d8596b44a4d",
+        "engine_errors": 0
+      },
+      "build_transaction_runtime.log": {
+        "sha256": "fe0cb1d5de4d4afe3efe5a01466758cd0c2834b0fe22e5a42cd8fea7db1251d8",
+        "engine_errors": 0
+      },
+      "camera_focus.log": {
+        "sha256": "700fbdcc97aa245a2ecbc73ea0c2bc7b104d30b2cf0b7c2f53ef253dbebd74a5",
+        "engine_errors": 0
+      },
+      "cartography.log": {
+        "sha256": "4948d367c38cf0cd14db690686618926193d5c570dfb30b4144e038d55fe5dcf",
+        "engine_errors": 0
+      },
+      "cave_collision_streaming.log": {
+        "sha256": "db9a81aba6993a0356360c7209e72ba45d109aeab8e80170f4f6ef4de584fb44",
+        "engine_errors": 0
+      },
+      "cave_exploration.log": {
+        "sha256": "483536b2b531eae228cc825d4e03e2c7b7805178aeef9003f24fc02f265b76a7",
+        "engine_errors": 0
+      },
+      "cave_route_walk.log": {
+        "sha256": "a03f994036d31018a568b4e040c69f0b7a0c4541fbdbc26046bd37209cae9f5b",
+        "engine_errors": 0
+      },
+      "ch01_room_reconstruction.log": {
+        "sha256": "89ab105b05efc836ebf52db72d95d2def4f2e36e5b0f5b91098d3a90be5d6496",
+        "engine_errors": 0
+      },
+      "ch02_demo.log": {
+        "sha256": "fedc58a4d34c96714d57a3c7fe722af7cd891e5f014653481c7177028460860b",
+        "engine_errors": 0
+      },
+      "chapter_registry.log": {
+        "sha256": "953cb0345cd002fac33b59690aedafbeff6bd8b200d21022dcdb2af7a6708755",
+        "engine_errors": 0
+      },
+      "chapter_route_regression.log": {
+        "sha256": "c90fb953304ffa9d8310d9176a14bef946a43bb131f29318656b11628320fca3",
+        "engine_errors": 0
+      },
+      "chinese_story.log": {
+        "sha256": "60e019604817865598721426634a1415d31c34213f315a3aae122253c8c56a69",
+        "engine_errors": 0
+      },
+      "combat.log": {
+        "sha256": "26448ac97b64457b57ebcd172ad82edfa3c3198e1d597d0e306d7bfcdb7f41c7",
+        "engine_errors": 0
+      },
+      "demo.log": {
+        "sha256": "46e132983e86266e20bbf49a9dd27868903c7970c894dfaa3e507f0004579110",
+        "engine_errors": 0
+      },
+      "enemy_effect_lifetime.log": {
+        "sha256": "2fa9637a5b185f8a2156f48d9e01d2b8335b63ff4f487e7f1376bcfb3c0fef6c",
+        "engine_errors": 0
+      },
+      "enemy_encounter_roles.log": {
+        "sha256": "dca2b6e925ae23758f6932f8b6534baa34e91c23c44289d0d1d790879f52d56c",
+        "engine_errors": 0
+      },
+      "enemy_lifecycle_regression.log": {
+        "sha256": "383196c992d5c769d5ab130b40c65febeb404c4fd8dee8285f92fc7e4af321e8",
+        "engine_errors": 0
+      },
+      "enemy_visibility.log": {
+        "sha256": "4dc79146364827b262ad45e4db91edb4553c848d52d5af8376b7e36ec1de0e69",
+        "engine_errors": 0
+      },
+      "first_court_experience.log": {
+        "sha256": "0ffc13b1ee474340173bc536ab3d1b6980cf5a911749a842138c7dfddee76344",
+        "engine_errors": 0
+      },
+      "generated_runtime.log": {
+        "sha256": "a9f8386cd85f436d267317d10ea0d298ea936551d3710c422263022de3223b1e",
+        "engine_errors": 0
+      },
+      "greenhouse_experience.log": {
+        "sha256": "af5b0d38b6e6d35605aafe75eea8124cea72b448cf6313c60dd433f794f6e8ef",
+        "engine_errors": 0
+      },
+      "hero_animation.log": {
+        "sha256": "9eca37c3e6e5d8880ffb9ee66c07cec53c4d6ef15a023d89247ef818a8fd8cec",
+        "engine_errors": 0
+      },
+      "input_settings_regression.log": {
+        "sha256": "b631720b5ec49a8e6e262d37da780f1c4b018ddd37a56f3777bf2c21022b50e2",
+        "engine_errors": 0
+      },
+      "inventory_map.log": {
+        "sha256": "c55cbe2f83b79253295451f1a8cc0215393344459ef443f86272a504fc9b5c4e",
+        "engine_errors": 0
+      },
+      "melee_recovery.log": {
+        "sha256": "ec4adf8a55cdc7c2765cc417efdf116acda177e2e4fed01f9f58f310837f114d",
+        "engine_errors": 0
+      },
+      "metsys.log": {
+        "sha256": "db82f4c4a5d75d7e71107e0fc1e8e312495de2a9c7378560e7517673030f46ea",
+        "engine_errors": 0
+      },
+      "narrative_outcomes.log": {
+        "sha256": "1b3a34c65be2d9dc2384ccf5bf292073373b579ccc56f553ecaf11af8b3b46c0",
+        "engine_errors": 0
+      },
+      "obsidian_experience.log": {
+        "sha256": "14d72df611833514d26c089046effe6bf07c505d42e95666bbf88c1df9c6813a",
+        "engine_errors": 0
+      },
+      "pilgrimage_merge_regression.log": {
+        "sha256": "6d6d43fd3cc51ad7ed8fa36bf97742e74362ca02a93d65c931edbfd41df70531",
+        "engine_errors": 0
+      },
+      "pilgrimage_overhaul.log": {
+        "sha256": "2b922042d4403f397ae89ded3ee687d17e8e4bde1e6679c89d43dccd3362f718",
+        "engine_errors": 0
+      },
+      "pilgrimage_review_regression.log": {
+        "sha256": "c62e11212c024745cc075e517419e66066f716800f93850985b9179fc1cfc6bb",
+        "engine_errors": 0
+      },
+      "player_action_buffer.log": {
+        "sha256": "564f5ff35d7eea86b33b6d346961ffdc32b91f6e25f408e838843c4682a3c49e",
+        "engine_errors": 0
+      },
+      "player_state_cleanup.log": {
+        "sha256": "b747edd5c6f5b74d7c63e2704f03f71ed5df4b116634abca240e2a3d4327e411",
+        "engine_errors": 0
+      },
+      "player_upgrade_regression.log": {
+        "sha256": "11077cd9d943a9d93704a28d7f9dc1c47cb096fceff34e9e5f7fab3a858e3094",
+        "engine_errors": 0
+      },
+      "rain_foundry_experience.log": {
+        "sha256": "355ac3aba09e515886a6c5eb21245dd1241b3be9d3cf366e4ce1002f4cf27a04",
+        "engine_errors": 0
+      },
+      "salt_archive_experience.log": {
+        "sha256": "43131fd90bf295cbcc08fc93a15fcd2bf6e3966d3a704b9c4522065fab780547",
+        "engine_errors": 0
+      },
+      "save_product.log": {
+        "sha256": "55b0e3d05220afa636ed015beef9e5df305ee345c51078be947d6d6af139e420",
+        "engine_errors": 0
+      },
+      "seal_acceptance.log": {
+        "sha256": "37b1b4d13c2b66049c6dc57c6a80732ff40beadab9def84cd91e693ce8a209d6",
+        "engine_errors": 0
+      },
+      "seal_acquisition.log": {
+        "sha256": "6823ea325dac404eb1aa8c9323a547d40bc4041c13301cc61c11edc2e918104f",
+        "engine_errors": 0
+      },
+      "seal_combat.log": {
+        "sha256": "1dea116e2a42f87ff23febecb37b06a8675784da4384994079c5ec41fd8b5224",
+        "engine_errors": 0
+      },
+      "seal_presentation.log": {
+        "sha256": "f45c6b6770a8b3736a5764539d7b5eca9ffbfe1615570a10f3103c2049a8c984",
+        "engine_errors": 0
+      },
+      "seal_system.log": {
+        "sha256": "566fd0cc01acf3cd1b6ef39833c9454cc1f433ebfc36b3b458297a68fc0d9b81",
+        "engine_errors": 0
+      },
+      "seal_ui.log": {
+        "sha256": "1df89afb707e04a189d3b431a059f1bc407f0b3611abc1db540fcc7eb02bd2b8",
+        "engine_errors": 4
+      },
+      "story_guidance.log": {
+        "sha256": "f7d94f9532e529aabb2b4d4cff9bf165b387d7ef40a11b222bc5761e7c914323",
+        "engine_errors": 0
+      },
+      "terrain_collision_streaming.log": {
+        "sha256": "704c5c35ad651db6ee27d75b8efdf8e1a65f16963b392fd6b2ac9e8c7a24b4e8",
+        "engine_errors": 0
+      },
+      "tests_verify_narrative_progression.log": {
+        "sha256": "ed29a9c5a9fa0b1a379979f7176bd2c1ab99ee0ad30a02727488f077aca8b086",
+        "engine_errors": 1
+      },
+      "tests_verify_narrative_runtime.log": {
+        "sha256": "0c3062f6c2ef96f179273c351faf0cb71c01e11fe73ff0ad521f30cb3d5cb6a6",
+        "engine_errors": 0
+      },
+      "tests_verify_narrative_ui.log": {
+        "sha256": "c40fe4dcce809317b59e0597059a1f7f63664920b3b4fcfc3ebc577b80a43228",
+        "engine_errors": 0
+      },
+      "tests_verify_world_narrative.log": {
+        "sha256": "3ad61363b4f8f9b3b77d42bfc03e317b37f587e63851dbee98e7d20aa638dd53",
+        "engine_errors": 0
+      },
+      "ui_build_accessibility.log": {
+        "sha256": "6e9227e80bda459167e96736ca583991afc7e25fec566048433ccc913026526a",
+        "engine_errors": 2
+      },
+      "ui_redesign.log": {
+        "sha256": "6a43895743c3178a39ab059c82290b6fe17e35f6372312135946c96fc80e71e4",
+        "engine_errors": 0
+      },
+      "ui_world_integration.log": {
+        "sha256": "959e6e27161a1edb2d542eef8e25f23229c19294703843c09ced9a5cc1919121",
+        "engine_errors": 5
+      },
+      "upgrade_integration.log": {
+        "sha256": "926cd94d81ff1403b2a7025ab4810ed9424949ce9557adf663dcbf7173ad9dcb",
+        "engine_errors": 3
+      },
+      "world_async_loading.log": {
+        "sha256": "e1553183d47da58e5abfdacee6bcaa1eca22858df86ccdae89ed037d3abda9ff",
+        "engine_errors": 0
+      },
+      "world_config_background.log": {
+        "sha256": "5f2404d6b78dad7e160199a8eb5a92612526b145cb61fe192e8fcc1567cd8f54",
+        "engine_errors": 0
+      },
+      "world_coordinates.log": {
+        "sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467",
+        "engine_errors": 0
+      },
+      "world_enemy_residency.log": {
+        "sha256": "81b4a3e3063149e6ee081d210a5b9bdd2073998654089cbce51a9c2338e2b53a",
+        "engine_errors": 0
+      },
+      "world_host.log": {
+        "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+        "engine_errors": 0
+      },
+      "world_integration.log": {
+        "sha256": "32b4d2244aa7ca99cb8bd0b734ed96a869a5401f1af6656289bfc98d2328c465",
+        "engine_errors": 0
+      },
+      "world_interaction_residency.log": {
+        "sha256": "1511051ffbae50a00db5f05929497d23d54b6123011ae8718dc52b287ef70be2",
+        "engine_errors": 1
+      },
+      "world_interaction_safety.log": {
+        "sha256": "3d283171043135c039db69d003bf79c01d2b9f1872565cb66d209a3795e22518",
+        "engine_errors": 0
+      },
+      "world_map.log": {
+        "sha256": "8b5861e8100d94fb85b5fada2be6ba9be4030e60e8c7087f91185f1cf5619096",
+        "engine_errors": 0
+      },
+      "world_material.log": {
+        "sha256": "efb6834ceb781b945737576027dfff88fd653720952e447279deb666b58bfdf2",
+        "engine_errors": 0
+      },
+      "world_neighbor_collision.log": {
+        "sha256": "4285e7f637cfa8ef3b363a00b6e1a9b6934aebbb67911233e4dcbcad7a454a0a",
+        "engine_errors": 0
+      },
+      "world_neighbor_entities.log": {
+        "sha256": "a9f8a6c09af1c92a7ed1d45450f75e049c0d17082df1cba725f4ec5751042af7",
+        "engine_errors": 0
+      },
+      "world_neighbor_gameplay.log": {
+        "sha256": "843cdfd125d316d919524e162f9cede31f6507dead555b341510e13234c9752d",
+        "engine_errors": 0
+      },
+      "world_neighbor_gameplay_live.log": {
+        "sha256": "cdc108671b55a3a4a2ebd8ed21274961260a5dcf510a49b4efe8574d9f9e8eaf",
+        "engine_errors": 0
+      },
+      "world_neighbor_gameplay_stress.log": {
+        "sha256": "55ed62a811cdd87e2e7d9b394ac9d26a735e140ceda3010bfc179e6b8693a624",
+        "engine_errors": 0
+      },
+      "world_passage.log": {
+        "sha256": "b36df6476c3920051dd6359feaec3ee4cc3e5e90e8a1f5a8e4879405409d4246",
+        "engine_errors": 0
+      },
+      "world_platform_streaming.log": {
+        "sha256": "e8b16da92aace775286fffe28dc705dbec2714bab80c2631c45d1ce5b1a5d8de",
+        "engine_errors": 0
+      },
+      "world_preflight_budget.log": {
+        "sha256": "72119feb35279dfa91b881d142ba9ae50ca28e76d1704be468db0a92f20c313b",
+        "engine_errors": 0
+      },
+      "world_prepare_budget.log": {
+        "sha256": "6ae4b676036cd8bdf85dc24124495f6c259cb5f3c10148db633476d769647f04",
+        "engine_errors": 0
+      },
+      "world_resume_regression.log": {
+        "sha256": "300771c1bba205f7a2360608669e31fea1f49823e61ca6e69df288c8605f80b3",
+        "engine_errors": 0
+      },
+      "world_rim.log": {
+        "sha256": "fef4abd85337c0121ab4e7be33dc14eef182e8ddd124bc31be3d1225cb01ca73",
+        "engine_errors": 0
+      },
+      "world_route_access.log": {
+        "sha256": "5a78428f8f0cdc9dde959f06ba616be5d1e8708fecb36f52929d27f6d35c0a3f",
+        "engine_errors": 0
+      },
+      "world_route_walk.log": {
+        "sha256": "e3e4d1cace3560e2134ca7b85aa76e52553b68950cfd430041698647ea229132",
+        "engine_errors": 0
+      },
+      "world_state.log": {
+        "sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1",
+        "engine_errors": 0
+      },
+      "world_streaming.log": {
+        "sha256": "20398fe3642095a060b942613f506914f108ae0fde621c55cf0cfd6653a78193",
+        "engine_errors": 0
+      },
+      "world_upgrade.log": {
+        "sha256": "2723b9d49e1411eb0c68c6a66f9cbcd0213563a746758553306fd4c557e061e9",
+        "engine_errors": 0
+      },
+      "world_wayfinding.log": {
+        "sha256": "a6da0bd09a5a1fb624c7e5edf8ed70858372d93172696bab1ff00e8a34895a13",
+        "engine_errors": 0
+      }
+    }
+  },
+  "focused_final": {
+    "suites": 16,
+    "passed": 16,
+    "failed": 0,
+    "logs": {
+      "build_slots.log": {
+        "sha256": "4289e1715f25fecb2c5efdb039e599d648d86bb875e7118f151a8d8cf7cf0217",
+        "engine_errors": 0
+      },
+      "build_slots_ui.log": {
+        "sha256": "8a6d697d9c8be524014b5211a5af68098528d7c8ddbe0eda30c62e857a2e12fe",
+        "engine_errors": 0
+      },
+      "build_system.log": {
+        "sha256": "d236afcdb27f1dd7c6842c3d097cdc860cc24eac2a955ffdbdc65d8596b44a4d",
+        "engine_errors": 0
+      },
+      "build_transaction_runtime.log": {
+        "sha256": "4199c8761a1704c9c4dec109507107a1ab216177767cbcb17510037a03b5466c",
+        "engine_errors": 0
+      },
+      "enemy_encounter_roles.log": {
+        "sha256": "979514e1735335a864bb11c312dbf839d34a75ee455c96dfb26b7e0034b67eca",
+        "engine_errors": 0
+      },
+      "melee_recovery.log": {
+        "sha256": "8a3b8b76eff09da0578514395162040a36cc361be220adc397dd6a52ddb4ae56",
+        "engine_errors": 0
+      },
+      "narrative_outcomes.log": {
+        "sha256": "13bc01ffd461d56ff518fe48926ab6f97e1447ad075259a7cc60020869a973b3",
+        "engine_errors": 0
+      },
+      "seal_acceptance.log": {
+        "sha256": "37b1b4d13c2b66049c6dc57c6a80732ff40beadab9def84cd91e693ce8a209d6",
+        "engine_errors": 0
+      },
+      "seal_system.log": {
+        "sha256": "566fd0cc01acf3cd1b6ef39833c9454cc1f433ebfc36b3b458297a68fc0d9b81",
+        "engine_errors": 0
+      },
+      "seal_ui.log": {
+        "sha256": "49196910e84dcc1590e7d3b703a99f631e299a2a4a620b7dcb9f1612b0f510ad",
+        "engine_errors": 0
+      },
+      "tests_verify_narrative_progression.log": {
+        "sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8",
+        "engine_errors": 0
+      },
+      "tests_verify_narrative_runtime.log": {
+        "sha256": "0c3062f6c2ef96f179273c351faf0cb71c01e11fe73ff0ad521f30cb3d5cb6a6",
+        "engine_errors": 0
+      },
+      "ui_build_accessibility.log": {
+        "sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832",
+        "engine_errors": 0
+      },
+      "ui_world_integration.log": {
+        "sha256": "4ce5d7d4710fc3133a240308d06304e0cc4c61387239bb9f98f2e858b12aeb20",
+        "engine_errors": 0
+      },
+      "upgrade_integration.log": {
+        "sha256": "a36d1cf8ed54966d4039528859687a74daa22546d660308e7cf915e6c248ba83",
+        "engine_errors": 0
+      },
+      "world_interaction_residency.log": {
+        "sha256": "b653e3bba1f7afb25f584dd455d1bcf2a1d4ecdbebecefdbff247210f36aef1e",
+        "engine_errors": 0
+      }
+    }
+  },
+  "new_suites_checks": {
+    "melee_recovery": 35,
+    "build_slots": 48,
+    "build_transaction_runtime": 29,
+    "enemy_encounter_roles": 19,
+    "build_slots_ui": 30,
+    "narrative_outcomes": 187
+  },
+  "imports": {
+    "passes": 2,
+    "failed": 0,
+    "recovery_mode": true,
+    "editor_plugin_qa": false,
+    "logs": {
+      "import-1.log": {
+        "sha256": "826eb3d5647b01affd331d4bb9febcff40c591d6f92c27448eb41a4b59688993",
+        "engine_errors": 0
+      },
+      "import-2.log": {
+        "sha256": "4d679488db8d85bee32aea7f7735d7f9295b258e4fa8e0edef4d7ce204824f47",
+        "engine_errors": 0
+      }
+    }
+  },
+  "additional_checks": {
+    "npm_test": "PASS",
+    "npm_test_campaign": "PASS",
+    "release_input_files": 14198,
+    "release_builder_unit_tests": 20
+  },
+  "capture": {
+    "actual_world": true,
+    "screenshots": 9,
+    "engine_errors": 0,
+    "fixture_acquisition": true,
+    "natural_playthrough": false,
+    "log_sha256": "7dbc02d4b82b9e94ad4f521dfb4d5ae3cdba0411ad73a05cfc787e44f1708c61",
+    "images": {
+      "tools.webp": "3d90eb3ad94fb02d9dd76ed397cd155d530e50b6dc0d86383187d2b462444089",
+      "combat_accessory.webp": "71843298092e2b1cbe3434b264c2516690f983f69c8643bafc3605531a28ef00",
+      "travel_accessory.webp": "22715defdaa7ab4df1c55874a98ff362f824a66fe1d8fe0c3206d68cb3a823e1"
+    }
+  },
+  "prior_failures_preserved": {
+    "initial_focused": {
+      "build_slots.log": {
+        "sha256": "0005e265d971335af2ced89a815aee722fe83907ec6bc692a958b3e83beb0644",
+        "engine_errors": 2
+      },
+      "build_slots_ui.log": {
+        "sha256": "3488f605ba0d62b81c94158b0374923e1d0fa3737a3abeade192e4453ca96a5b",
+        "engine_errors": 1
+      },
+      "build_system.log": {
+        "sha256": "46e8e84e4436db94f84a036bea877dd48f6f92c14dd3f8a13fd395af5c26efa0",
+        "engine_errors": 13
+      },
+      "build_transaction_runtime.log": {
+        "sha256": "f3496b2bce72c8a96d0b7594d65ab487da53c98ea0f228d73d8f6985654dbbb2",
+        "engine_errors": 0
+      },
+      "enemy_encounter_roles.log": {
+        "sha256": "dca2b6e925ae23758f6932f8b6534baa34e91c23c44289d0d1d790879f52d56c",
+        "engine_errors": 0
+      },
+      "melee_recovery.log": {
+        "sha256": "a126354611e9273a457d5c1404e89d54da59eb89d597efae70362d8d53bd2b0e",
+        "engine_errors": 12
+      },
+      "narrative_outcomes.log": {
+        "sha256": "ec2c712cee537b23ef08f8370c3265790833a553437def2684c69fcec8dc0784",
+        "engine_errors": 0
+      },
+      "seal_acceptance.log": {
+        "sha256": "555f013221d1c0c9e85d2bbe608a0548f234d70333431fb3d075fcdbae62508a",
+        "engine_errors": 0
+      },
+      "seal_system.log": {
+        "sha256": "5d8c597c14afd34fa6cdbb91dab88a473fc2fe594c20835670e40ee098b01451",
+        "engine_errors": 1
+      }
+    },
+    "unhydrated_import": {
+      "import-1.log": {
+        "sha256": "df8e1f75011ade7aaea0bd4a4fdfcbd20cfbe94a7dbece78b6e0ee40da6380e3",
+        "engine_errors": 15226
+      }
+    },
+    "capture_exit_before_deferred_cleanup": {
+      "capture.log": {
+        "sha256": "e4cd3b5789d8597e90f9b47c497de31ce66d3ede8bc06dfeb18898ce636843d9",
+        "engine_errors": 1
+      },
+      "xvfb.log": {
+        "sha256": "4a1eec0c6cfa2e4329479db1c6b9d2351ce661ee4fe844097ba8946397136895",
+        "engine_errors": 0
+      }
+    }
+  },
+  "limits": [
+    "Full initial run was not green; six failures were fixed and all rerun in the 16-suite final group.",
+    "Full run began before final source freeze; final affected suites rerun after freeze.",
+    "ObjectDB/StringName exit warnings remain unassigned; no long-term stability claim.",
+    "Injected write failure tests the World commit boundary, not OS-level rename failure.",
+    "MockRuntime UI and granted showcase inventory are fixtures, not natural acquisition.",
+    "T04 damage-enabled natural six-region playthrough, physical controller QA and listening review remain pending.",
+    "Final candidate acceptance includes settings/endings/licenses/known issues; CI packaging smoke alone is insufficient."
+  ],
+  "residency_repeat": {
+    "suites": 1,
+    "passed": 1,
+    "failed": 0,
+    "log_sha256": "e4cfafcb9b8c3640a3109592cbd231e49b56f7dc1a885d7e0c6e158602513e58"
+  },
+  "post_merge": {
+    "main_commit": "04812a460bf06199a5ff972ed6489d44cb65bfd0",
+    "source_tree": "5fed8bb435862b5aae9504c8d1987ae0bdb397c3",
+    "remote_merge_commit": "9f6d8fd60a9e8fb4fc5ee2b3caf0d6abf25d4941",
+    "reason": "PR54 merged independently during publication; merged official main without altering its production implementation",
+    "default_suites": 87,
+    "focused_real_gl": {
+      "suites": 22,
+      "passed": 22,
+      "failed": 0,
+      "logs": {
+        "build_slots.log": {
+          "sha256": "4289e1715f25fecb2c5efdb039e599d648d86bb875e7118f151a8d8cf7cf0217",
+          "engine_errors": 0
+        },
+        "build_slots_ui.log": {
+          "sha256": "8a6d697d9c8be524014b5211a5af68098528d7c8ddbe0eda30c62e857a2e12fe",
+          "engine_errors": 0
+        },
+        "build_system.log": {
+          "sha256": "d236afcdb27f1dd7c6842c3d097cdc860cc24eac2a955ffdbdc65d8596b44a4d",
+          "engine_errors": 0
+        },
+        "build_transaction_runtime.log": {
+          "sha256": "fe0cb1d5de4d4afe3efe5a01466758cd0c2834b0fe22e5a42cd8fea7db1251d8",
+          "engine_errors": 0
+        },
+        "enemy_encounter_roles.log": {
+          "sha256": "dca2b6e925ae23758f6932f8b6534baa34e91c23c44289d0d1d790879f52d56c",
+          "engine_errors": 0
+        },
+        "melee_recovery.log": {
+          "sha256": "ec4adf8a55cdc7c2765cc417efdf116acda177e2e4fed01f9f58f310837f114d",
+          "engine_errors": 0
+        },
+        "narrative_outcomes.log": {
+          "sha256": "13bc01ffd461d56ff518fe48926ab6f97e1447ad075259a7cc60020869a973b3",
+          "engine_errors": 0
+        },
+        "seal_acceptance.log": {
+          "sha256": "4cea6e948daf3543ca4e749ca47b171c81b80076cf4aeee0e2a60fa16b366d48",
+          "engine_errors": 0
+        },
+        "seal_system.log": {
+          "sha256": "566fd0cc01acf3cd1b6ef39833c9454cc1f433ebfc36b3b458297a68fc0d9b81",
+          "engine_errors": 0
+        },
+        "seal_ui.log": {
+          "sha256": "49196910e84dcc1590e7d3b703a99f631e299a2a4a620b7dcb9f1612b0f510ad",
+          "engine_errors": 0
+        },
+        "tests_verify_narrative_progression.log": {
+          "sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8",
+          "engine_errors": 0
+        },
+        "tests_verify_narrative_runtime.log": {
+          "sha256": "0c3062f6c2ef96f179273c351faf0cb71c01e11fe73ff0ad521f30cb3d5cb6a6",
+          "engine_errors": 0
+        },
+        "ui_build_accessibility.log": {
+          "sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832",
+          "engine_errors": 0
+        },
+        "ui_world_integration.log": {
+          "sha256": "795b87e9ad9ea5044bb477922644786759b80104ecb4608d353dc789c6633ac5",
+          "engine_errors": 0
+        },
+        "upgrade_integration.log": {
+          "sha256": "f5ece428cd14031c3d07fef97deea85b8cfe653cbed544e380569d2733f4143e",
+          "engine_errors": 0
+        },
+        "world_interaction_residency.log": {
+          "sha256": "05c1d85ddac475dba8bc5284c6aed088b0db981c8da64f0636e0859a4d6d0490",
+          "engine_errors": 0
+        },
+        "world_neighbor_config.log": {
+          "sha256": "671ca2ce7c75df1629235c811fa525b12f8b461c9ec4ad6d31a8fd59b36760bd",
+          "engine_errors": 0
+        },
+        "world_neighbor_entities.log": {
+          "sha256": "97268f4c126972a5bc671360f9fb4731f0229daf4aa5dbfb729c88ade525c44f",
+          "engine_errors": 0
+        },
+        "world_neighbor_gameplay.log": {
+          "sha256": "4d08b098e0275325623de607adf132caf1d6dafe319786c9395620b62ca6d581",
+          "engine_errors": 0
+        },
+        "world_neighbor_gameplay_live.log": {
+          "sha256": "7e32a5eab822d453f8bfafe62a1a2e22e786328fdaec69777f92eb2fc15ecbaf",
+          "engine_errors": 0
+        },
+        "world_neighbor_gameplay_stress.log": {
+          "sha256": "5808ac6e585c832a4ec80ae34ffc9d150fe763f2d5a8598e68527aac7dc5936b",
+          "engine_errors": 0
+        },
+        "world_streaming.log": {
+          "sha256": "da75cb3c36939064f188f02ab6d1c86c7c2a0940ee5d65823248bb4e1b57cd0e",
+          "engine_errors": 0
+        }
+      }
+    },
+    "resource_import": {
+      "passes": 2,
+      "failed": 0,
+      "recovery_mode": true,
+      "logs": {
+        "import-1.log": {
+          "sha256": "854473bccc6e21225efee45de0a7d7891cea67cb665bf14ccdd81758e74dfaad",
+          "engine_errors": 0
+        },
+        "import-2.log": {
+          "sha256": "4d679488db8d85bee32aea7f7735d7f9295b258e4fa8e0edef4d7ce204824f47",
+          "engine_errors": 0
+        }
+      }
+    },
+    "npm_test": "PASS",
+    "npm_campaign": "PASS",
+    "release_input_files": 14198,
+    "stress": {
+      "cycles": 80,
+      "elapsed_usec": 82212052,
+      "checks": 16388,
+      "failed": 0,
+      "memory_soak": false
+    },
+    "ci": "Pending final branch publication; no full87 green claim",
+    "published_merge_tree": "ffabefd38e9e9aeec5730a5a6d084c7a7144bc6a",
+    "provenance": "Parallel upstream merge differs from locally tested merge only in README wording; production code and regression runner are identical."
+  }
+}

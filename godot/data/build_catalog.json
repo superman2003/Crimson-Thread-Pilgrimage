@@ -34,7 +34,92 @@
       "heal_mark_extension": 0.0,
       "attack_description": "短距离快速针击；高反弹下劈。",
       "mechanism": "线势：连续命中三层强化下一技能；受击清空。",
-      "unlock_hint": "苔钟庭学徒重新缀合被带回的名字。"
+      "unlock_hint": "苔钟庭学徒重新缀合被带回的名字。",
+      "slot_layout": {
+        "tool": [
+          {
+            "compatible": [
+              "shard",
+              "mine"
+            ]
+          },
+          {
+            "compatible": [
+              "mine",
+              "fog",
+              "lure"
+            ],
+            "requires_mechanism": "crimson"
+          }
+        ],
+        "combat_accessory": [
+          {
+            "compatible": [
+              "reflux",
+              "shell",
+              "mender"
+            ]
+          },
+          {
+            "compatible": [
+              "shell",
+              "mender",
+              "reflux"
+            ]
+          },
+          {
+            "compatible": [
+              "reflux",
+              "shell",
+              "mender"
+            ],
+            "requires_mechanism": "crimson"
+          }
+        ],
+        "travel_accessory": [
+          {
+            "compatible": [
+              "stride",
+              "spur",
+              "needlecase"
+            ]
+          },
+          {
+            "compatible": [
+              "needlecase",
+              "spur",
+              "stride"
+            ],
+            "requires_mechanism": "crimson"
+          },
+          {
+            "compatible": [
+              "spur",
+              "stride",
+              "needlecase"
+            ],
+            "requires_mechanism": "crimson"
+          }
+        ],
+        "thread_skill": [
+          {
+            "compatible": [
+              "cleave",
+              "needle"
+            ]
+          },
+          {
+            "compatible": [
+              "needle",
+              "snare",
+              "ward",
+              "shockwave",
+              "crosscut"
+            ],
+            "requires_mechanism": "crimson"
+          }
+        ]
+      }
     },
     "bell": {
       "name": "司铸契印",
@@ -69,7 +154,93 @@
       "heal_mark_extension": 0.0,
       "attack_description": "范围较宽的承力重击；后摇较长，低反弹。",
       "mechanism": "钟压：精准防御积累两层，下一重击消耗并增强冲击。",
-      "unlock_hint": "铸雨渠工匠修复无名工人的铜徽章与承力线结。"
+      "unlock_hint": "铸雨渠工匠修复无名工人的铜徽章与承力线结。",
+      "slot_layout": {
+        "tool": [
+          {
+            "compatible": [
+              "mine",
+              "fog"
+            ]
+          },
+          {
+            "compatible": [
+              "shard",
+              "mine",
+              "lure"
+            ],
+            "requires_mechanism": "bell"
+          }
+        ],
+        "combat_accessory": [
+          {
+            "compatible": [
+              "shell",
+              "mender",
+              "reflux"
+            ]
+          },
+          {
+            "compatible": [
+              "reflux",
+              "shell",
+              "mender"
+            ]
+          },
+          {
+            "compatible": [
+              "mender",
+              "reflux",
+              "shell"
+            ],
+            "requires_mechanism": "bell"
+          }
+        ],
+        "travel_accessory": [
+          {
+            "compatible": [
+              "spur",
+              "needlecase",
+              "stride"
+            ]
+          },
+          {
+            "compatible": [
+              "stride",
+              "needlecase",
+              "spur"
+            ],
+            "requires_mechanism": "bell"
+          },
+          {
+            "compatible": [
+              "spur",
+              "stride",
+              "needlecase"
+            ],
+            "requires_mechanism": "bell"
+          }
+        ],
+        "thread_skill": [
+          {
+            "compatible": [
+              "ward",
+              "shockwave",
+              "snare",
+              "needle",
+              "cleave"
+            ]
+          },
+          {
+            "compatible": [
+              "cleave",
+              "needle",
+              "crosscut"
+            ],
+            "requires_mechanism": "bell"
+          }
+        ]
+      }
     },
     "salt": {
       "name": "校录契印",
@@ -104,7 +275,91 @@
       "heal_mark_extension": 2.0,
       "attack_description": "远距离线针刺击；普攻速度及回能较低。",
       "mechanism": "盐记：回声针施加，盐印缚线消耗；治疗仅延长一次。",
-      "unlock_hint": "盐白书库核对删名记录后复原的校录印记。"
+      "unlock_hint": "盐白书库核对删名记录后复原的校录印记。",
+      "slot_layout": {
+        "tool": [
+          {
+            "compatible": [
+              "fog",
+              "lure",
+              "shard"
+            ]
+          },
+          {
+            "compatible": [
+              "shard",
+              "mine"
+            ],
+            "requires_mechanism": "salt"
+          }
+        ],
+        "combat_accessory": [
+          {
+            "compatible": [
+              "reflux",
+              "mender"
+            ]
+          },
+          {
+            "compatible": [
+              "shell",
+              "mender",
+              "reflux"
+            ],
+            "requires_mechanism": "salt"
+          },
+          {
+            "compatible": [
+              "shell",
+              "reflux",
+              "mender"
+            ],
+            "requires_mechanism": "salt"
+          }
+        ],
+        "travel_accessory": [
+          {
+            "compatible": [
+              "spur",
+              "stride",
+              "needlecase"
+            ]
+          },
+          {
+            "compatible": [
+              "needlecase",
+              "stride",
+              "spur"
+            ]
+          },
+          {
+            "compatible": [
+              "stride",
+              "spur",
+              "needlecase"
+            ],
+            "requires_mechanism": "salt"
+          }
+        ],
+        "thread_skill": [
+          {
+            "compatible": [
+              "cleave",
+              "needle",
+              "snare",
+              "ward"
+            ]
+          },
+          {
+            "compatible": [
+              "cleave",
+              "shockwave",
+              "crosscut"
+            ],
+            "requires_mechanism": "salt"
+          }
+        ]
+      }
     }
   },
   "skills": {
@@ -274,7 +529,7 @@
   "tools": {
     "shard": {
       "name": "铜铃投罐",
-      "description": "抛物线投掷，落地后提示再爆裂；不穿墙。 钟龛免费补满。",
+      "description": "抛物线投掷，落地后提示再爆裂；不穿墙。 钟龛可用碎钱与苔壳补给。",
       "kind": "bomb",
       "damage": 2,
       "range": 360,
@@ -284,16 +539,22 @@
       "boss_immune_control": true,
       "unlock_flag": "tool_shard_found",
       "unlock_item": "relic_tool_shard",
-      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "refill_rule": "钟龛补给：每份消耗4松脂碎片与1苔壳",
       "icon": "res://assets/ui/seals/shard.svg",
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
-      "risk": "抛物线投掷，落地后提示再爆裂；不穿墙。 钟龛免费补满。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "risk": "抛物线投掷，落地后提示再爆裂；不穿墙。 补给消耗碎钱与材料。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "resupply": {
+        "currency": 4,
+        "materials": {
+          "moss_chitin": 1
+        }
+      }
     },
     "mine": {
       "name": "绊线钉",
-      "description": "地面陷阱，最多两个；Boss不被定身。 钟龛免费补满。",
+      "description": "地面陷阱，最多两个；Boss不被定身。 钟龛可用碎钱与湿壳补给。",
       "kind": "trap",
       "damage": 3,
       "range": 180,
@@ -303,16 +564,22 @@
       "boss_immune_control": true,
       "unlock_flag": "tool_mine_found",
       "unlock_item": "relic_tool_mine",
-      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "refill_rule": "钟龛补给：每份消耗6松脂碎片与1湿壳",
       "icon": "res://assets/ui/seals/mine.svg",
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
-      "risk": "地面陷阱，最多两个；Boss不被定身。 钟龛免费补满。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "risk": "地面陷阱，最多两个；Boss不被定身。 补给消耗碎钱与材料。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "resupply": {
+        "currency": 6,
+        "materials": {
+          "wet_chitin": 1
+        }
+      }
     },
     "fog": {
       "name": "盐雾瓶",
-      "description": "干扰普通远程敌人索敌；不影响已发射弹体。 钟龛免费补满。",
+      "description": "干扰普通远程敌人索敌；不影响已发射弹体。 钟龛可用碎钱与盐晶补给。",
       "kind": "fog",
       "damage": 0,
       "range": 180,
@@ -322,16 +589,22 @@
       "boss_immune_control": true,
       "unlock_flag": "tool_fog_found",
       "unlock_item": "relic_tool_fog",
-      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "refill_rule": "钟龛补给：每份消耗5松脂碎片与1盐晶碎片",
       "icon": "res://assets/ui/seals/fog.svg",
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
-      "risk": "干扰普通远程敌人索敌；不影响已发射弹体。 钟龛免费补满。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "risk": "干扰普通远程敌人索敌；不影响已发射弹体。 补给消耗碎钱与材料。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "resupply": {
+        "currency": 5,
+        "materials": {
+          "salt_crystal_shard": 1
+        }
+      }
     },
     "lure": {
       "name": "回响诱铃",
-      "description": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 钟龛免费补满。",
+      "description": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 钟龛可用碎钱与花蜡补给。",
       "kind": "lure",
       "damage": 0,
       "range": 180,
@@ -341,12 +614,18 @@
       "boss_immune_control": true,
       "unlock_flag": "tool_lure_found",
       "unlock_item": "relic_tool_lure",
-      "refill_rule": "钟龛免费补满，不消耗材料或货币",
+      "refill_rule": "钟龛补给：每份消耗5松脂碎片与1花蜡",
       "icon": "res://assets/ui/seals/lure.svg",
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
-      "risk": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 钟龛免费补满。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "risk": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 补给消耗碎钱与材料。",
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "resupply": {
+        "currency": 5,
+        "materials": {
+          "pollen_wax": 1
+        }
+      }
     }
   },
   "passives": {
@@ -365,7 +644,8 @@
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "普攻回能提高20%，技能伤害降低10%。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "family": "combat_accessory"
     },
     "spur": {
       "name": "盐页书签",
@@ -382,7 +662,8 @@
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "远程触及增加20%，近战回能降低15%。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "family": "travel_accessory"
     },
     "shell": {
       "name": "铜背扣",
@@ -399,7 +680,8 @@
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "击退降低25%，治疗准备时间增加15%。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "family": "combat_accessory"
     },
     "stride": {
       "name": "巡礼鞋结",
@@ -415,7 +697,8 @@
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "地面移动提高8%；不增加跳高。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "family": "travel_accessory"
     },
     "mender": {
       "name": "静钟碎片",
@@ -431,7 +714,8 @@
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "治疗完成后短暂降低状态积累，不清除已有状态。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "family": "combat_accessory"
     },
     "needlecase": {
       "name": "余声针匣",
@@ -448,7 +732,8 @@
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "铜铃投罐与绊线钉容量增加一次，技能消耗增加10%。",
-      "synergy": "效果由契印统一计算，不影响永久探索能力。"
+      "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "family": "travel_accessory"
     }
   },
   "recipes": {

@@ -596,6 +596,8 @@ var world_collected_ids: Dictionary = {}
 var world_catalog: Dictionary = {}
 var world_catalog_prepare_staging: Dictionary = {}
 var world_write_error_shown := false
+## Narrow failure seam for transaction validations; simulates the storage boundary failing after capture.
+var world_save_failure_injected_for_validation := false
 var world_loading := true
 var build_system: RefCounted
 var world_slot := 1
@@ -1195,9 +1197,12 @@ func player_world_position() -> Vector2:
     return WORLD_COORDINATES.to_world(String(config.get("id", "")), player.global_position)
 
 
-func _save_world() -> void:
-    if not world_mode or world_loading or world_state == null or player == null:
-        return
+func _save_world() -> bool:
+    if not world_mode:
+        return true
+    if world_loading or world_state == null or player == null:
+        return false
+    var previous_state: Dictionary = world_state.data.duplicate(true)
     var region_id := String(config.get("id", ""))
     var captured := world_state.capture_region(region_id, {
         "collected_ids": world_collected_ids, "opened_shortcuts": opened_shortcuts,
@@ -1210,13 +1215,26 @@ func _save_world() -> void:
         "story_flags": story_flags, "current_region": region_id,
         "entry": active_spawn, "hp": player.hp, "energy": player.energy,
         "build_state": build_system.serialize() if build_system != null else {}}) and captured
-    # Continue carrying live progress between regions, but never replace the
-    # incompatible disk record with the temporary fallback build.
+    if not captured:
+        world_state.data = previous_state
+        if not world_write_error_shown:
+            world_write_error_shown = true
+            _toast("归途记录暂未写入，当前旅途进度仍保留。")
+        return false
+    # A blocked incompatible save still carries the live region/global snapshot
+    # in memory for world travel, while withholding all disk writes.
     if world_save_blocked:
-        return
-    if (not captured or not world_state.write(world_save_path)) and not world_write_error_shown:
-        world_write_error_shown = true
-        _toast("归途记录暂未写入，当前旅途进度仍保留。")
+        if not world_write_error_shown:
+            world_write_error_shown = true
+            _toast("归途记录暂未写入，当前旅途进度仍保留。")
+        return false
+    if world_save_failure_injected_for_validation or not world_state.write(world_save_path):
+        world_state.data = previous_state
+        if not world_write_error_shown:
+            world_write_error_shown = true
+            _toast("归途记录暂未写入，当前旅途进度仍保留。")
+        return false
+    return true
 
 
 const WAYFINDING := preload("res://scripts/world_wayfinding.gd")
@@ -1520,8 +1538,9 @@ func _commit_world_dialogue() -> void:
     # Keep legacy saves from claiming the same homecoming gift under a new key.
     if bool(story_flags.get("quest_bring_names_rewarded", false)):
         story_flags["reward_returned_names_claimed"] = true
-    var rewards := WORLD_NARRATIVE_SCRIPT.completion_rewards(result, displayed_index, story_flags)
-    var fresh_flags := WORLD_NARRATIVE_SCRIPT.completion_flags(result, displayed_index, story_flags)
+    var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
+    var rewards: Dictionary = completion.get("rewards", {})
+    var fresh_flags: Array = completion.get("flags", [])
     if int(rewards.get("currency", 0)) > 0:
         _add_currency(int(rewards.currency))
     for flag in fresh_flags:
@@ -5561,8 +5580,6 @@ func _activate_save_point(area: Area2D) -> void:
     _play_save_point_activation(area)
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
-    if build_system != null:
-        build_system.refill_tools(true)
     _save_world()
     _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
     _refresh_hud()
@@ -5746,13 +5763,21 @@ func _activate_ending_gate(area: Area2D) -> void:
         return
     var evaluated: Dictionary = {}
     var missing: Array[String] = []
+    var gate_available := false
     if world_mode and world_narrative != null:
         evaluated = world_narrative.evaluate_ending(ending, inventory_counts, story_flags)
-        for requirement in evaluated.get("missing", []):
+        gate_available = bool(evaluated.get("available", false))
+        for requirement in evaluated.get("known_missing", []):
             missing.append(String(requirement.get("label", requirement.get("id", ""))))
+        var hidden_missing_count := int(evaluated.get("hidden_missing_count", 0))
+        if hidden_missing_count > 0:
+            missing.append("尚有%d条未发现证言" % hidden_missing_count)
+        if not gate_available and missing.is_empty():
+            missing.append("仍有未完成要求")
     else:
         missing = _ending_gate_missing_requirements(area.get_meta("requires", {}))
-    if not missing.is_empty():
+        gate_available = missing.is_empty()
+    if not gate_available:
         var reject := String(area.get_meta("reject_message", ""))
         if reject.is_empty():
             reject = "此门未应：缺少 " + "、".join(missing)
@@ -6612,19 +6637,70 @@ func _near_workstation(crafting: bool = false) -> bool:
                 return true
     return false
 
+## Read-only proximity query used by UI affordances and explicit quote actions.
+func is_near_shrine() -> bool:
+    return _near_workstation(false)
+
+func _build_wallet_snapshot() -> Dictionary:
+    return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
+
+func _set_build_wallet(wallet: Dictionary) -> void:
+    currency_count = int(wallet.get("currency", currency_count))
+    inventory_counts = wallet.get("inventory_counts", inventory_counts).duplicate(true)
+    inventory_materials.clear()
+    for item_id in inventory_counts:
+        if String(_item_data(String(item_id)).get("category", "Materials")) == "Materials":
+            inventory_materials[item_id] = int(inventory_counts[item_id])
+
+func _rollback_build_transaction(build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> void:
+    if build_system != null:
+        build_system.restore(build_before)
+    currency_count = int(wallet_before.get("currency", currency_count))
+    inventory_counts = wallet_before.get("inventory_counts", inventory_counts).duplicate(true)
+    inventory_materials = materials_before.duplicate(true)
+
+func _finish_build_transaction(result: Dictionary, build_before: Dictionary, wallet_before: Dictionary, materials_before: Dictionary) -> Dictionary:
+    if not _save_world():
+        _rollback_build_transaction(build_before, wallet_before, materials_before)
+        result.ok = false
+        result.reason = "归途记录未能写入；本次购买或制作已回滚。"
+        _toast(String(result.reason))
+        _refresh_hud()
+        return result
+    # Apply derived player stats only after the save transaction commits. A
+    # failed disk write therefore cannot disturb HP, thread or action cooldowns.
+    _sync_player_build()
+    _refresh_hud()
+    return result
+
 func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
     if build_system == null or not world_mode:
         return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
-    if player == null or player.hp <= 0 or chapter_transitioning:
+    if player == null or player.hp <= 0 or chapter_transitioning or world_loading:
         return {"ok": false, "reason": "当前无法更换构筑"}
+    if action == "quote_resupply":
+        if not _near_workstation():
+            return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
+        return build_system.quote_resupply(_build_wallet_snapshot())
+    if action in ["resupply_tools", "paid_resupply"] and not _near_workstation():
+        return {"ok": false, "reason": "请在钟龛补给战具"}
+    if world_save_blocked:
+        return {"ok": false, "reason": "构筑存档不兼容，当前不能保存交易"}
+    var build_before: Dictionary = build_system.serialize()
+    var wallet_before := _build_wallet_snapshot()
+    var materials_before: Dictionary = inventory_materials.duplicate(true)
     var result: Dictionary = {"ok": false, "reason": "未知构筑操作"}
     match action:
         "switch_crest", "crest":
             result = build_system.switch_crest(id, _near_workstation())
         "select_skill", "skill":
-            result = build_system.select_skill(id, int(extra) if extra is int or extra is float else -1)
+            result = build_system.select_skill(id, int(extra) if extra is int or extra is float else -1) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整技能位置"}
         "select_tool", "tool":
-            result = build_system.select_tool(id, int(extra) if extra is int or extra is float else -1)
+            result = build_system.select_tool(id, int(extra) if extra is int or extra is float else -1) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整战具位置"}
+        "equip_family_slot":
+            var family := String(extra.get("family", "")) if extra is Dictionary else ""
+            var slot := int(extra.get("slot", -1)) if extra is Dictionary else -1
+            result = build_system.equip_family_slot(id, family, slot, _near_workstation())
         "cycle_skill":
             result = build_system.cycle_skill()
         "cycle_tool":
@@ -6635,30 +6711,44 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             result = build_system.save_loadout(id)
         "restore_loadout", "load_loadout":
             result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
+        "resupply_tools", "paid_resupply":
+            result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation())
+            if result.get("ok", false):
+                _set_build_wallet(result.wallet)
         "transact", "craft":
             if not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化；战具在钟龛免费补满"}
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化"}
             else:
-                result = build_system.transact(id, {"currency": currency_count, "inventory_counts": inventory_counts})
+                result = build_system.transact(id, _build_wallet_snapshot())
                 if result.get("ok", false):
-                    currency_count = int(result.wallet.currency)
-                    inventory_counts = result.wallet.inventory_counts.duplicate(true)
-                    inventory_materials.clear()
-                    for item_id in inventory_counts:
-                        if String(_item_data(String(item_id)).get("category", "Materials")) == "Materials":
-                            inventory_materials[item_id] = int(inventory_counts[item_id])
+                    _set_build_wallet(result.wallet)
         "use_tool":
-            if not active_overlay.is_empty() or player.attack_timer > 0.0 or player.dash_timer > 0.0 or player.hurt_timer > 0.0:
+            if not active_overlay.is_empty() or not player._can_start_action():
                 return {"ok": false, "reason": "请在动作结束后使用战具"}
-            var before: Dictionary = build_system.serialize()
+            var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
+            if selected_tool_id == "mine":
+                var owned_traps := 0
+                for effect in get_tree().get_nodes_in_group("player_trap"):
+                    if effect.get("owner_player") == player:
+                        owned_traps += 1
+                if owned_traps >= 2:
+                    return {"ok": false, "reason": "场上已有两枚布置中的地雷"}
             result = build_system.use_tool()
-            if result.get("ok", false) and not player.cast_tool(result):
-                build_system.restore(before)
-                result = {"ok": false, "reason": "当前无法使用战具，次数已保留"}
     if result.get("ok", false):
-        _sync_player_build()
-        _save_world()
-        _refresh_hud()
+        result = _finish_build_transaction(result, build_before, wallet_before, materials_before)
+        if result.get("ok", false) and action == "use_tool" and not player.cast_tool(result):
+            # Stock is durable before effects exist. If the effect cannot start,
+            # persist a refund; if that write fails, retain the spent state so
+            # memory and disk still agree and no free effect can be created.
+            var spent_build: Dictionary = build_system.serialize()
+            build_system.restore(build_before)
+            if _save_world():
+                _sync_player_build()
+                result = {"ok": false, "reason": "当前无法使用战具；已退还次数"}
+            else:
+                build_system.restore(spent_build)
+                _sync_player_build()
+                result = {"ok": false, "reason": "战具未能启动且退款暂未写入；本次次数已消耗"}
     elif not String(result.get("reason", "")).is_empty():
         _toast(String(result.reason))
     return result

@@ -80,6 +80,11 @@ func settle_residency(focus: Vector2) -> void:
 	scene.player.set_physics_process(false)
 	scene.player.global_position = world_focus
 	scene.player.velocity = Vector2.ZERO
+	# This is an off-map teleport fixture. Drain the old Area2D overlap signals
+	# before clearing its remote proximity pointer; a late body_entered must not
+	# repin the old actor while we test the residency release queue.
+	await physics_frame
+	await process_frame
 	if is_instance_valid(scene.nearby_interactable) and scene.nearby_interactable.global_position.distance_to(world_focus) > 190.0:
 		scene.nearby_interactable = null
 	var deadline := Time.get_ticks_msec() + 10000

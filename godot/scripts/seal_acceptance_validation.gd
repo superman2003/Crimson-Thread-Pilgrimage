@@ -76,12 +76,32 @@ func _run() -> void:
         quit(1)
         return
     player.global_position = shrine.global_position
-    build.state.tool_counts.shard = 0
-    build.state.tool_counts.mine = 0
+    for tool_id in build.state.tool_counts:
+        build.state.tool_counts[tool_id] = 0
+    player.hp = maxi(1, player.max_hp - 2)
+    player.energy = maxi(0, player.max_energy - 31)
     build.cooldowns["cleave"] = 2.75
+    var stock_before_rest: Dictionary = build.state.tool_counts.duplicate(true)
     scene._activate_save_point(shrine)
-    _check(build.state.tool_counts.shard == 3 and build.state.tool_counts.mine == 2, "actual shrine callback refills acquired tools")
-    _check(build.cooldowns.cleave == 2.75, "actual shrine refill does not reset skill cooldown")
+    _check(player.hp == player.max_hp and player.energy == player.max_energy, "actual shrine restores HP and thread")
+    _check(build.state.tool_counts == stock_before_rest, "actual shrine rest does not refill tool stock")
+    _check(build.cooldowns.cleave == 2.75, "actual shrine rest does not reset skill cooldown")
+    scene.currency_count = 5
+    scene.inventory_counts["moss_chitin"] = 1
+    var partial_quote: Dictionary = scene.perform_build_action("quote_resupply")
+    _check(partial_quote.get("ok", false) and int(partial_quote.get("charges", {}).get("shard", 0)) == 1
+        and int(partial_quote.get("cost", {}).get("currency", 0)) == 4
+        and int(partial_quote.get("cost", {}).get("materials", {}).get("moss_chitin", 0)) == 1,
+        "actual shrine quotes one affordable partial charge with its material cost")
+    var partial_currency := int(scene.currency_count)
+    var quoted_cost := int(partial_quote.get("cost", {}).get("currency", 0))
+    var partial_supply: Dictionary = scene.perform_build_action("resupply_tools")
+    _check(partial_supply.get("ok", false) and scene.currency_count == partial_currency - quoted_cost
+        and int(scene.inventory_counts.get("moss_chitin", 0)) == 0
+        and int(build.state.tool_counts.shard) == 1 and int(build.state.tool_counts.mine) == 0,
+        "paid partial resupply charges exactly the previewed cost")
+    _check(int(build.state.tool_counts.shard) <= build.tool_capacity("shard") and int(build.state.tool_counts.mine) <= build.tool_capacity("mine"),
+        "paid resupply never exceeds tool capacity")
     var cycle_keys: Array = InputMap.action_get_events("skill_cycle").filter(func(event): return event is InputEventKey)
     var hook_keys: Array = InputMap.action_get_events("hook").filter(func(event): return event is InputEventKey)
     _check(cycle_keys.all(func(cycle): return hook_keys.all(func(hook): return cycle.physical_keycode != hook.physical_keycode)), "default skill cycle does not collide with permanent hook")
