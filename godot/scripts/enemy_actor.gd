@@ -1477,11 +1477,41 @@ func _add_attack_type_signature(parent: Node2D, command: Dictionary, center: Vec
                 center + Vector2(0.0, -mark_height),
                 center + Vector2(mark_width, mark_height)
             ])
-        _:
+        "projectile":
+            signature.points = PackedVector2Array([Vector2(-1, 0), Vector2(1, 0), Vector2(0.4, -0.6), Vector2(1, 0), Vector2(0.4, 0.6)])
+        "fan":
+            signature.points = PackedVector2Array([Vector2(1, -1), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 1)])
+        "combo":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-0.3, -1), Vector2(0.3, 1), Vector2(1, -1)])
+        "guard":
+            signature.points = PackedVector2Array([Vector2(-1, -1), Vector2(1, -1), Vector2(0.7, 0.5), Vector2(0, 1), Vector2(-0.7, 0.5), Vector2(-1, -1)])
+        "dive":
+            signature.points = PackedVector2Array([Vector2(-1, -1), Vector2(1, 1), Vector2(0.2, 0.8), Vector2(1, 1), Vector2(0.8, 0.2)])
+        "vault":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-0.5, -0.5), Vector2(0, -1), Vector2(0.5, -0.5), Vector2(1, 1)])
+        "rootline":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(0, -1), Vector2(0, 0), Vector2(1, 0), Vector2(1, 1)])
+        "pool":
+            signature.points = PackedVector2Array([Vector2(-1, 0), Vector2(-0.5, -0.7), Vector2(0.5, -0.7), Vector2(1, 0), Vector2(0.5, 0.7), Vector2(-0.5, 0.7), Vector2(-1, 0)])
+        "mortar":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-0.5, -0.6), Vector2(0, -1), Vector2(0.5, -0.6), Vector2(1, 1), Vector2(0.5, 1)])
+        "beam":
+            signature.points = PackedVector2Array([Vector2(-1, -0.4), Vector2(1, -0.4), Vector2(1, 0.4), Vector2(-1, 0.4)])
+        "nova":
+            signature.points = PackedVector2Array([Vector2(0, -1), Vector2(0.3, -0.3), Vector2(1, 0), Vector2(0.3, 0.3), Vector2(0, 1), Vector2(-0.3, 0.3), Vector2(-1, 0), Vector2(-0.3, -0.3), Vector2(0, -1)])
+        "blink":
+            signature.points = PackedVector2Array([Vector2(-1, -1), Vector2(-0.3, -1), Vector2(-0.3, 1), Vector2(0.3, -1), Vector2(0.3, 1), Vector2(1, 1)])
+        "melee":
             signature.points = PackedVector2Array([
                 center + Vector2(-mark_width, mark_height),
                 center + Vector2(mark_width, -mark_height)
             ])
+        _:
+            # Neutral dot for future/unknown types; never imply a melee attack.
+            signature.points = PackedVector2Array([Vector2(-0.12, 0), Vector2(0.12, 0)])
+    if String(command.get("type", "melee")) not in ["melee", "lunge", "aoe", "wave", "shockwave", "retreat", "feint"]:
+        for index in range(signature.points.size()):
+            signature.set_point_position(index, center + signature.points[index] * Vector2(mark_width * dir, mark_height))
     parent.add_child(signature)
     return signature
 
@@ -1940,7 +1970,7 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
 
 func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     var type := String(command.get("type", "melee"))
-    if type in ["beam", "pool", "rootline"]: return
+    if type in ["beam", "pool", "rootline"] and not warning: return
     var line := Line2D.new()
     line.name = "OriginalAttackWarning" if warning else "OriginalAttackArc"
     line.width = 1.6 if warning else 3.5
@@ -1948,7 +1978,10 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     line.z_index = 8
     var points := PackedVector2Array()
     var reach := float(command.get("hit_width",80))*.62
-    if type in ["projectile", "fan", "mortar", "nova"]:
+    if type in ["beam", "pool", "rootline"]:
+        # These attacks keep their specialized range cues; add only the type mark.
+        points = PackedVector2Array()
+    elif type in ["projectile", "fan", "mortar", "nova"]:
         var aim := (attack_target-global_position-Vector2(0,-22)).normalized()
         points=PackedVector2Array([Vector2(0,-22),Vector2(0,-22)+aim*48,Vector2(0,-22)+aim*40+aim.orthogonal()*8])
     else:

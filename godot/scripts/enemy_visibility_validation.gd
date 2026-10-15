@@ -77,10 +77,21 @@ func _run() -> void:
         ["res://data/demo_ch01_boss_trial.json", "bronze_moth", "dust_tackle", "aoe"],
         ["res://data/demo_ch06_silent_crown_core.json", "echo_waterwheel_knight", "echo_wheel_wave", "wave"],
         ["res://data/demo_ch05_obsidian_pilgrim_road.json", "ash_banner_imp", "imp_retreat", "retreat"],
-        ["res://data/demo_ch03_saltwhite_archive.json", "page_duelist", "page_feint", "feint"]
+        ["res://data/demo_ch03_saltwhite_archive.json", "page_duelist", "page_feint", "feint"],
+        ["res://data/demo_ch01_boss_trial.json", "rust_crown_guardian", "boss_moss_spores", "fan"],
+        ["res://data/demo_ch01_boss_trial.json", "rust_crown_guardian", "boss_moss_roots", "rootline"],
+        ["res://data/demo_ch01_moss_bell_court.json", "bronze_moth", "moth_dive", "dive"],
+        ["res://data/demo_ch01_moss_bell_court.json", "spore_bellmaker", "bell_fungus", "pool"],
+        ["res://data/demo_ch01_moss_bell_court.json", "gear_sentinel", "gear_guard", "guard"],
+        ["res://data/demo_ch02_rain_foundry_canal.json", "drain_leech", "leech_leap", "vault"],
+        ["res://data/demo_ch02_rain_foundry_canal.json", "pipe_thrower", "pipe_mortar", "mortar"],
+        ["res://data/demo_ch02_rain_foundry_canal.json", "pipe_thrower", "pipe_backblast", "beam"],
+        ["res://data/demo_ch02_rain_foundry_canal.json", "bell_mote", "mote_seek", "projectile"],
+        ["res://data/demo_ch03_saltwhite_archive.json", "page_duelist", "page_combo", "combo"],
+        ["res://data/demo_ch03_saltwhite_archive.json", "summoned_page", "page_orbit", "nova"],
+        ["res://data/demo_ch05_obsidian_pilgrim_road.json", "phase_censor", "censor_blink", "blink"]
     ]
     var authored_commands: Array[Dictionary] = []
-    var signatures: Array[PackedVector2Array] = []
     for entry in authored_cases:
         var authored: Dictionary = _authored_attack(String(entry[0]), String(entry[1]), String(entry[2]))
         _assert(not authored.is_empty(), "authored attack command loads: " + String(entry[2]))
@@ -111,10 +122,16 @@ func _run() -> void:
             var authored_rect := Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
             for point in signature.points:
                 _assert(authored_rect.has_point(point), "type signature stays inside authored hitbox bounds: " + String(entry[2]))
-            for previous in signatures:
-                _assert(signature.points != previous, "attack type has a distinct warning shape: " + String(entry[2]))
-            signatures.append(signature.points.duplicate())
+        enemy.original_visual = true
+        enemy._begin_attack(authored)
+        var original_type_mark: Line2D = null
+        if is_instance_valid(enemy.windup_vfx):
+            original_type_mark = enemy.windup_vfx.get_node_or_null("AttackTypeSignature") as Line2D
+        _assert(original_type_mark != null, "original-visual windup has type marker: " + String(entry[2]))
+        enemy._clear_telegraph()
         await _frames(1)
+        _assert(not is_instance_valid(original_type_mark), "original-visual type marker cleans up: " + String(entry[2]))
+        enemy.original_visual = false
 
     var shockwave_fixture: Dictionary = authored_commands[0].duplicate(true) if not authored_commands.is_empty() else command.duplicate(true)
     shockwave_fixture["id"] = "validation_shockwave"
@@ -127,9 +144,23 @@ func _run() -> void:
     if is_instance_valid(enemy.telegraph):
         shockwave_signature = enemy.telegraph.get_node_or_null("AttackTypeSignature") as Line2D
     _assert(shockwave_signature != null and shockwave_signature.points.size() == 5, "supported shockwave branch draws its low double-ridge marker")
-    if shockwave_signature != null:
-        for previous in signatures:
-            _assert(shockwave_signature.points != previous, "shockwave signature stays distinct from authored attack shapes")
+    await _frames(1)
+
+    var geometry_commands: Array[Dictionary] = authored_commands.duplicate()
+    geometry_commands.append(shockwave_fixture)
+    geometry_commands.append({"type": "validation_unknown"})
+    for direction in [-1, 1]:
+        var equal_shapes: Array[PackedVector2Array] = []
+        var shape_types: Array[String] = []
+        for geometry_command in geometry_commands:
+            var type_name := String(geometry_command.get("type", "melee"))
+            # Equal center/extent prevents offset and hitbox size from masking duplicates.
+            var equal_signature: Line2D = enemy._add_attack_type_signature(stage, geometry_command, Vector2(100, 100), 100.0, 60.0, direction)
+            for previous_index in range(equal_shapes.size()):
+                _assert(equal_signature.points != equal_shapes[previous_index], "equal-size signature distinct: %s vs %s facing %d" % [type_name, shape_types[previous_index], direction])
+            equal_shapes.append(equal_signature.points.duplicate())
+            shape_types.append(type_name)
+            equal_signature.queue_free()
     await _frames(1)
 
     if not authored_commands.is_empty():
