@@ -113,14 +113,13 @@ func crossing(target: String, direction: int) -> Dictionary:
     for unused in 3600:
         await tick()
         entered = entered or scene.world_passage.active
-        if unused in [120, 600] and not entered:
-            print("PIPE_ENTRY_DIAGNOSTIC ", JSON.stringify({"target":target,"position":str(scene.player.position),"hp":scene.player.hp,"floor":scene.player.is_on_floor(),"axis":scene.player._move_axis(),"ready":scene.initial_region_ready,"loading":scene.world_loading,"pending":scene.world_portal_request_pending,"overlay":scene.active_overlay,"phase":scene.world_loader.phase,"host_mode":scene.process_mode,"player_mode":scene.player.process_mode,"settling":scene.world_passage.settling}))
         if entered and not scene.world_passage.active and not scene.chapter_transitioning:
             break
     release_input()
     # Inspect adoption before active destination AI has time to despawn actors.
     check(entered and String(scene.config.id) == target and scene.world_loader.phase == "idle","directional input completes authored pipe crossing")
     check(float(scene.world_passage.last_result.get("distance",0)) >= 8500,"natural mouth approach traverses full pipe")
+    check(not String(scene.world_passage.last_result.get("landing_support", "")).is_empty(),"crossing walks through the prefetched landing floor seam")
     check(scene.player.get_instance_id() == player_id and scene.player.hp == hp and scene.player.energy == energy and scene.currency_count == wallet,"crossing preserves player resources and identity")
     var expected_inventory: Dictionary = inventory.duplicate(true)
     var starting: Dictionary = scene.config.get("inventory",{})

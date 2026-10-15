@@ -26,6 +26,10 @@ def validate():
     check(all(len(room.get('camera_bounds', [])) == 4 for room in bases[ch06]['map_rooms']), 'all 15 sixth-region main rooms have independent camera bounds')
     check(len({tuple(room.get('camera_bounds', [])) for room in bases[ch06]['map_rooms']}) == 15, 'sixth-region main-room camera bounds are individually authored')
     workshops = [room for region in chapters.values() for room in region.get('map_rooms', [])]
+    for practice in routes.get('seal_practice_plan', []):
+        room = next((r for r in chapters[practice['region_id']]['map_rooms'] if r['id'] == practice['room_id']), {})
+        check(room.get('combat_practice') == practice, practice['room_id'] + ': regeneration retains equipment training metadata')
+        check(practice['label'] in room.get('guide', ''), practice['room_id'] + ': map retains equipment training guidance')
     check(len(workshops) == 20, 'world upgrade authors 20 action workshop rooms')
     check(all(len(room.get('camera_bounds', [])) == 4 for room in workshops), 'all workshops have independent camera bounds')
     check(len({tuple(room.get('camera_bounds', [])) for room in workshops}) == 20, 'workshop camera bounds are individually authored')

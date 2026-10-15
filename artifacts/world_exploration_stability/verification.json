@@ -1,0 +1,1072 @@
+{
+  "code_checkpoint": "795727ba68c263579fedd83758563584ad4ba054",
+  "code_tree": "2fe7827c1119f9cff04ecb2526e42613b85638e1",
+  "godot_version": "4.6.1",
+  "renderer": "real OpenGL / Mesa llvmpipe",
+  "default_suites": 86,
+  "final_failures": 0,
+  "execution_note": "85-suite initial batch plus live gameplay and affected-suite reruns; every retained final log is independently checked against the committed completion regex and strict engine-error predicate. This is not a claim of one clean 86-suite invocation or remote CI.",
+  "initial_batch": {
+    "suites": 85,
+    "runner_failures": 6,
+    "additional_incomplete_logs": [
+      "world_route_walk",
+      "pilgrimage_merge_regression"
+    ]
+  },
+  "remote_ci": "Recorded separately in PR checks; this artifact certifies local validation only.",
+  "results": [
+    {
+      "suite": "world_rim",
+      "log": "full/world_rim.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 2508,
+      "sha256": "1ea51ccaa1375cf46c52bbb37f9981b2c0957028e6fda4a3ae85fea7ba7f3822"
+    },
+    {
+      "suite": "world_wayfinding",
+      "log": "full/world_wayfinding.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 836,
+      "sha256": "5c9ca9e4cb3375cbcfdf8015b3cc907bdecd7d2b3f50b95e497c355d3f2b18cd"
+    },
+    {
+      "suite": "world_passage",
+      "log": "passage-final/world_passage.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 777,
+      "sha256": "f726d3cc00306cc0b463bee51860b0a337ca88d1fb1aca9a3f1ee1cafe44711a"
+    },
+    {
+      "suite": "audio_retirement",
+      "log": "full/audio_retirement.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 597,
+      "sha256": "7c22bafb7f2064fb73db0233a39e624d4b306890c7deaa244c4e52f6eef54fb3"
+    },
+    {
+      "suite": "world_neighbor_collision",
+      "log": "full/world_neighbor_collision.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 4298,
+      "sha256": "8078b74c0d6b53eb63c619931bdd507a6976b501fcd451f8b9064681b9c2172c"
+    },
+    {
+      "suite": "world_neighbor_entities",
+      "log": "full/world_neighbor_entities.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1866,
+      "sha256": "859221b574ad78eb064b05e3bf7ab6b90e27f1d1067061f246b364691a891151"
+    },
+    {
+      "suite": "world_neighbor_gameplay",
+      "log": "full/world_neighbor_gameplay.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 22727,
+      "sha256": "e108d539d2a950f6fc6420ffefa112e56573fd7b1d15e6af00af0af0c318b2c4"
+    },
+    {
+      "suite": "world_neighbor_gameplay_live",
+      "log": "live-final/world_neighbor_gameplay_live.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1516,
+      "sha256": "733012aca281a4a09773d8dde7e44e1d0ac6da2390e7089c0db53c1e84d8fbb7"
+    },
+    {
+      "suite": "world_neighbor_gameplay_stress",
+      "log": "full/world_neighbor_gameplay_stress.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 16689,
+      "sha256": "482708464d618699ee33adc7de9a31463dc5ca1d1e961e139d9bbf84c7414696"
+    },
+    {
+      "suite": "terrain_collision_streaming",
+      "log": "full/terrain_collision_streaming.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1982,
+      "sha256": "704c5c35ad651db6ee27d75b8efdf8e1a65f16963b392fd6b2ac9e8c7a24b4e8"
+    },
+    {
+      "suite": "world_platform_streaming",
+      "log": "full/world_platform_streaming.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1589,
+      "sha256": "e8b16da92aace775286fffe28dc705dbec2714bab80c2631c45d1ce5b1a5d8de"
+    },
+    {
+      "suite": "cave_collision_streaming",
+      "log": "full/cave_collision_streaming.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1111,
+      "sha256": "db9a81aba6993a0356360c7209e72ba45d109aeab8e80170f4f6ef4de584fb44"
+    },
+    {
+      "suite": "world_async_loading",
+      "log": "reentrant-final/world_async_loading.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 34797,
+      "sha256": "278e5f85cbd9eb360d0f90ec1c660aea236bc9734c7990cb7aa6f3e1fe0c3618"
+    },
+    {
+      "suite": "world_streaming",
+      "log": "full/world_streaming.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 2765,
+      "sha256": "6750fe19e788a92da42f8c4ad9d244519b4861c1e9e42d52c05a6d7356cb6612"
+    },
+    {
+      "suite": "world_host",
+      "log": "reentrant-final/world_host.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1647,
+      "sha256": "cc59d33656e74a7a84f2d52ecc9340497e47b7c00d231f89a7110b02380d2877"
+    },
+    {
+      "suite": "world_coordinates",
+      "log": "full/world_coordinates.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 501,
+      "sha256": "b79782d71d8ac55fca38f499ea01e2d9d81192c80fa97a30b3060e6fa3600467"
+    },
+    {
+      "suite": "world_interaction_residency",
+      "log": "full/world_interaction_residency.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 3894,
+      "sha256": "cbc17ac4f29fe4d6883f17f24a2801494b3ae98058928e612b5ed343c94cae94"
+    },
+    {
+      "suite": "world_enemy_residency",
+      "log": "enemy-final/world_enemy_residency.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 54947,
+      "sha256": "0efcc0010f4f469863303f914ff3db066d666634899f1b7f1ae2a32a574b02c9"
+    },
+    {
+      "suite": "cartography",
+      "log": "full/cartography.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1794,
+      "sha256": "a24f9d84dc95211b5d61d68c2298bf63e2452e8fb890dfbd35bf329ef4047cad"
+    },
+    {
+      "suite": "world_map",
+      "log": "full/world_map.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 565,
+      "sha256": "909673d41ff30e0554dab2d273f9c03d405a6197dc40a094a4851f24934b904f"
+    },
+    {
+      "suite": "world_route_access",
+      "log": "full/world_route_access.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 620,
+      "sha256": "fbe849524a3b329b833af5105afbff301de26137c99dcd99211da69fd349bd28"
+    },
+    {
+      "suite": "world_state",
+      "log": "full/world_state.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 462,
+      "sha256": "ea1380db7eabcaba3a54ec5a28686e50d364049788f570cde5e6d1aa964a9eb1"
+    },
+    {
+      "suite": "world_integration",
+      "log": "full/world_integration.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1878,
+      "sha256": "32b4d2244aa7ca99cb8bd0b734ed96a869a5401f1af6656289bfc98d2328c465"
+    },
+    {
+      "suite": "world_route_walk",
+      "log": "route-final/world_route_walk_verbose.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 77721,
+      "sha256": "cb2ac6fe4c5167822c3da35787c1bd3825e94e6bbaf066ea693aa7ca0dc8d2d4"
+    },
+    {
+      "suite": "ability_movement",
+      "log": "full/ability_movement.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1521,
+      "sha256": "8f157f166f98ec12f5dcef9fbf2e5f66147b9a2bb69a027823c3679aa509a170"
+    },
+    {
+      "suite": "enemy_lifecycle_regression",
+      "log": "full/enemy_lifecycle_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 2116,
+      "sha256": "569ab79511384060c8fb5324c83dd3bb32290c51f2a2e1969ed2a8c6cac69c2f"
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "log": "full/enemy_effect_lifetime.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1867,
+      "sha256": "2fa9637a5b185f8a2156f48d9e01d2b8335b63ff4f487e7f1376bcfb3c0fef6c"
+    },
+    {
+      "suite": "enemy_visibility",
+      "log": "full/enemy_visibility.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 424,
+      "sha256": "4dc79146364827b262ad45e4db91edb4553c848d52d5af8376b7e36ec1de0e69"
+    },
+    {
+      "suite": "world_material",
+      "log": "full/world_material.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1196,
+      "sha256": "57150d315c3faf1223c3128c9881e1a417bf9c30d4ca746c9b074ee1fd5269b3"
+    },
+    {
+      "suite": "hero_animation",
+      "log": "full/hero_animation.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 422,
+      "sha256": "9eca37c3e6e5d8880ffb9ee66c07cec53c4d6ef15a023d89247ef818a8fd8cec"
+    },
+    {
+      "suite": "cave_exploration",
+      "log": "full/cave_exploration.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1493,
+      "sha256": "0201b6ac8f315158cadf2848b1c2a8567a787106c271fb90b030891cf270a538"
+    },
+    {
+      "suite": "cave_route_walk",
+      "log": "full/cave_route_walk.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 976,
+      "sha256": "ef4b62c4e0f42108e38d5efc905d8ab23e03ad7ffa5c5afec9037dbdd0773031"
+    },
+    {
+      "suite": "chapter_route_regression",
+      "log": "full/chapter_route_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 28839,
+      "sha256": "dad5879a235e4a97dfb666002bb3885cbbe3051cace8bf4559121236f512519c"
+    },
+    {
+      "suite": "ch01_room_reconstruction",
+      "log": "full/ch01_room_reconstruction.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 982,
+      "sha256": "db4fd090539bf4caecdd543dc04878551024a963dc8dc7fe92b1768029360bee"
+    },
+    {
+      "suite": "pilgrimage_merge_regression",
+      "log": "completion-final/pilgrimage_merge_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1028,
+      "sha256": "6d6d43fd3cc51ad7ed8fa36bf97742e74362ca02a93d65c931edbfd41df70531"
+    },
+    {
+      "suite": "pilgrimage_review_regression",
+      "log": "full/pilgrimage_review_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 733,
+      "sha256": "c62e11212c024745cc075e517419e66066f716800f93850985b9179fc1cfc6bb"
+    },
+    {
+      "suite": "all_chapters_demo",
+      "log": "full/all_chapters_demo.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 169400,
+      "sha256": "c49a75f811d3ea21f5a35ceb5427a720c0414c73e28f65db74e7a1a6302633ca"
+    },
+    {
+      "suite": "pilgrimage_overhaul",
+      "log": "full/pilgrimage_overhaul.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1721,
+      "sha256": "42b51983e11de7fc42b05b80f6b449c474d44b56b1a59d3a3f23ed1b45eb35c5"
+    },
+    {
+      "suite": "demo",
+      "log": "full/demo.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 3883,
+      "sha256": "8d1d9bb1c6a15e249158111588734130277b1f5772ef73e47c735283a0ebce4d"
+    },
+    {
+      "suite": "ch02_demo",
+      "log": "full/ch02_demo.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 9716,
+      "sha256": "f90091724cd1611abbb978c44c916d58e75db4b16073bdccba4e3a0ced02d47e"
+    },
+    {
+      "suite": "inventory_map",
+      "log": "full/inventory_map.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1747,
+      "sha256": "c55cbe2f83b79253295451f1a8cc0215393344459ef443f86272a504fc9b5c4e"
+    },
+    {
+      "suite": "boss_trial",
+      "log": "boss-final/boss_trial.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 887,
+      "sha256": "70790236317723deeca4e40f1d9deb0659ce4171f200141a3c7353f2460c5157"
+    },
+    {
+      "suite": "combat",
+      "log": "full/combat.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 2600,
+      "sha256": "26448ac97b64457b57ebcd172ad82edfa3c3198e1d597d0e306d7bfcdb7f41c7"
+    },
+    {
+      "suite": "generated_runtime",
+      "log": "full/generated_runtime.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 540,
+      "sha256": "a9f8386cd85f436d267317d10ea0d298ea936551d3710c422263022de3223b1e"
+    },
+    {
+      "suite": "chapter_registry",
+      "log": "full/chapter_registry.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1137,
+      "sha256": "953cb0345cd002fac33b59690aedafbeff6bd8b200d21022dcdb2af7a6708755"
+    },
+    {
+      "suite": "story_guidance",
+      "log": "full/story_guidance.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 14038,
+      "sha256": "f7d94f9532e529aabb2b4d4cff9bf165b387d7ef40a11b222bc5761e7c914323"
+    },
+    {
+      "suite": "chinese_story",
+      "log": "full/chinese_story.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1469,
+      "sha256": "60e019604817865598721426634a1415d31c34213f315a3aae122253c8c56a69"
+    },
+    {
+      "suite": "metsys",
+      "log": "full/metsys.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1580,
+      "sha256": "db82f4c4a5d75d7e71107e0fc1e8e312495de2a9c7378560e7517673030f46ea"
+    },
+    {
+      "suite": "player_upgrade_regression",
+      "log": "full/player_upgrade_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 427,
+      "sha256": "11077cd9d943a9d93704a28d7f9dc1c47cb096fceff34e9e5f7fab3a858e3094"
+    },
+    {
+      "suite": "build_system",
+      "log": "full/build_system.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 404,
+      "sha256": "bb26c2e169812b50a8ef84f14bf89195530705c94b69352ecee815cb703cb859"
+    },
+    {
+      "suite": "world_upgrade",
+      "log": "workshop-final/world_upgrade.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 555830,
+      "sha256": "793b9d28b70f05d256c3ca7b712161ca79bbd9c377255d6bffcb4607e472adf5"
+    },
+    {
+      "suite": "upgrade_integration",
+      "log": "completion-final/upgrade_integration.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1043,
+      "sha256": "b68503982f6ebc9fdde2eba1648423ef9003684fd8f5c009095789cef1d03b74"
+    },
+    {
+      "suite": "save_product",
+      "log": "full/save_product.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 473,
+      "sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7"
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "log": "full/ui_build_accessibility.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 425,
+      "sha256": "8a902c381cf2754ed91ebddb01690a8e169cda10b4a3ba1143f9d5c5303e3832"
+    },
+    {
+      "suite": "ui_world_integration",
+      "log": "full/ui_world_integration.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 581,
+      "sha256": "c8c9469829ac889df6bc23db84fe52832a09e5764685a36f263318650977868e"
+    },
+    {
+      "suite": "ui_redesign",
+      "log": "full/ui_redesign.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 706,
+      "sha256": "6a43895743c3178a39ab059c82290b6fe17e35f6372312135946c96fc80e71e4"
+    },
+    {
+      "suite": "seal_system",
+      "log": "full/seal_system.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 403,
+      "sha256": "cef83dc87e57ceb962bbf25848922c149d2d36bf5748cac6860c8afd53d62f80"
+    },
+    {
+      "suite": "seal_combat",
+      "log": "full/seal_combat.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 424,
+      "sha256": "1dea116e2a42f87ff23febecb37b06a8675784da4384994079c5ec41fd8b5224"
+    },
+    {
+      "suite": "seal_ui",
+      "log": "full/seal_ui.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 420,
+      "sha256": "516dca908abd34d42fc9a970f558382b3eb6d1a83cd9051e82c4b61fc9b6a4ea"
+    },
+    {
+      "suite": "seal_acceptance",
+      "log": "full/seal_acceptance.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 946,
+      "sha256": "db51261d7d49240f8846d34a8798fa2ffde1ddb1d40d347882f290fe73925255"
+    },
+    {
+      "suite": "seal_acquisition",
+      "log": "workshop-final/seal_acquisition.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 426,
+      "sha256": "6823ea325dac404eb1aa8c9323a547d40bc4041c13301cc61c11edc2e918104f"
+    },
+    {
+      "suite": "seal_presentation",
+      "log": "full/seal_presentation.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 428,
+      "sha256": "f45c6b6770a8b3736a5764539d7b5eca9ffbfe1615570a10f3103c2049a8c984"
+    },
+    {
+      "suite": "world_prepare_budget",
+      "log": "full/world_prepare_budget.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1108,
+      "sha256": "481a045a88febacc7efd3f0aa931f3c401eb1327f0d00ea4674da45b0f5069a4"
+    },
+    {
+      "suite": "world_preflight_budget",
+      "log": "reentrant-final/world_preflight_budget.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1691,
+      "sha256": "8f81b209b3057b616eb5b3d6f368fa08930ef86da4cf2f36b7b2360e6360bc44"
+    },
+    {
+      "suite": "world_config_background",
+      "log": "full/world_config_background.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 696,
+      "sha256": "2485f82d0e08acda92750a73fd60080db5530a6a14efa2880caf2e054ecb4723"
+    },
+    {
+      "suite": "world_neighbor_config",
+      "log": "full/world_neighbor_config.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1757,
+      "sha256": "7e5e25f5028bd01a1304828139d2e3becac4c0e8cc49f4b6154a08dfe1693d9e"
+    },
+    {
+      "suite": "world_resume_regression",
+      "log": "resume-final/world_resume_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1619,
+      "sha256": "bc9ec4cb798e909f06f194ad305a738d43c286fc5a351185fd06ec9dc58c6695"
+    },
+    {
+      "suite": "world_interaction_safety",
+      "log": "resume-final/world_interaction_safety.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1262,
+      "sha256": "3d283171043135c039db69d003bf79c01d2b9f1872565cb66d209a3795e22518"
+    },
+    {
+      "suite": "player_state_cleanup",
+      "log": "full/player_state_cleanup.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 421,
+      "sha256": "b747edd5c6f5b74d7c63e2704f03f71ed5df4b116634abca240e2a3d4327e411"
+    },
+    {
+      "suite": "input_settings_regression",
+      "log": "full/input_settings_regression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 422,
+      "sha256": "4453e1968a0f4e06dd155524c022ee1c29b99b24f1e7c88d2419bf458baafc0b"
+    },
+    {
+      "suite": "player_action_buffer",
+      "log": "full/player_action_buffer.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 541,
+      "sha256": "7394d7f662673912ab457f408c60a67dce44a961936b9e2ed73204c56cc187a9"
+    },
+    {
+      "suite": "camera_focus",
+      "log": "full/camera_focus.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 886,
+      "sha256": "700fbdcc97aa245a2ecbc73ea0c2bc7b104d30b2cf0b7c2f53ef253dbebd74a5"
+    },
+    {
+      "suite": "first_court_experience",
+      "log": "full/first_court_experience.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1389,
+      "sha256": "8fbbed3e63281adec8d056ba961f1bbacc8871c3dae4ee587692f93485082a1c"
+    },
+    {
+      "suite": "rain_foundry_experience",
+      "log": "full/rain_foundry_experience.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1012,
+      "sha256": "8f06319a4fc1badebed896fc516b9acb699108b7c053a2936943e20c9d2d7822"
+    },
+    {
+      "suite": "salt_archive_experience",
+      "log": "full/salt_archive_experience.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 926,
+      "sha256": "8608818f69557d0fbb9b8e14a83bf6b699f08324c3699a4db94ec34c2aa0943b"
+    },
+    {
+      "suite": "greenhouse_experience",
+      "log": "full/greenhouse_experience.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 984,
+      "sha256": "e6fcccd1f61e586d1fcebbd13c075755569bfc420d35b6d19f794c6be81f36c8"
+    },
+    {
+      "suite": "obsidian_experience",
+      "log": "full/obsidian_experience.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 1002,
+      "sha256": "b6f0a3ba87f2e102d7e4b148ce35ab1dcf9e1fb86bb986e188537c0b821fe242"
+    },
+    {
+      "suite": "world_startup_budget",
+      "log": "full/world_startup_budget.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 929,
+      "sha256": "6107b5fe4964bc40dace4773577d3c3e69c8f40d428af01228214e718197efed"
+    },
+    {
+      "suite": "world_variant_copy",
+      "log": "full/world_variant_copy.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 428,
+      "sha256": "500216b9561e3e22a77df921a6c64475b2a4aeaeb0db09d8f09f98c10ac8fe01"
+    },
+    {
+      "suite": "survey_map_knowledge",
+      "log": "full/survey_map_knowledge.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 575,
+      "sha256": "d6a247516820d17265f5962ea13e1a91dedc6c4fc6b9294e807981c617e5e946"
+    },
+    {
+      "suite": "ch06_workshop_experience",
+      "log": "workshop-final/ch06_workshop_experience.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 763,
+      "sha256": "0012909b754426884f968351345bb47f214f1acf3e69a5eaaece1154d1949d9f"
+    },
+    {
+      "suite": "world_death_cache_flush",
+      "log": "full/world_death_cache_flush.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 789,
+      "sha256": "4508c4a6c8004006b57fa48e52bc6b5f1fe49131b483aa17cc0c388e34c91bc1"
+    },
+    {
+      "suite": "tests/verify_world_narrative",
+      "log": "full/tests_verify_world_narrative.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 415,
+      "sha256": "3ad61363b4f8f9b3b77d42bfc03e317b37f587e63851dbee98e7d20aa638dd53"
+    },
+    {
+      "suite": "tests/verify_narrative_ui",
+      "log": "full/tests_verify_narrative_ui.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "raw_bytes": 711,
+      "sha256": "4a1edf74d3d9bdc80afa795d531dd18ee4f8781f876470dd0cf2012da1d02e44"
+    },
+    {
+      "suite": "tests/verify_narrative_progression",
+      "log": "full/tests_verify_narrative_progression.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 423,
+      "sha256": "797670968cc3e3340771fe4038c1a4cb9d2a02ce416ebd03b5d92a3c548f7dd8"
+    },
+    {
+      "suite": "tests/verify_narrative_runtime",
+      "log": "narrative-final/tests_verify_narrative_runtime.log",
+      "completion_marker": true,
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "raw_bytes": 1786,
+      "sha256": "2ed1981a2dee56d7a87905c8b7897650646a71c858676c53fc64bc9021daa94a"
+    }
+  ],
+  "imports": {
+    "passes": 2,
+    "failures": 0,
+    "resource_only": true,
+    "logs": [
+      {
+        "log": "import-1.log",
+        "engine_errors": 0,
+        "sha256": "0b33d0743f38abf253c0f8fa83165bdddf3fc1c954880e59afcfae22405302fd"
+      },
+      {
+        "log": "import-2.log",
+        "engine_errors": 0,
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      }
+    ]
+  },
+  "pixels": [
+    {
+      "suite": "rock",
+      "probes": 12,
+      "failures": 0
+    },
+    {
+      "suite": "streaming",
+      "probes": 12,
+      "failures": 0
+    },
+    {
+      "suite": "passage",
+      "probes": 5,
+      "failures": 0
+    },
+    {
+      "suite": "roomrims",
+      "probes": 12,
+      "failures": 0
+    },
+    {
+      "suite": "atlas",
+      "probes": 5,
+      "failures": 0
+    },
+    {
+      "suite": "neighborartwork",
+      "probes": 6,
+      "failures": 0
+    },
+    {
+      "suite": "regioncommit",
+      "probes": 10,
+      "failures": 0
+    }
+  ],
+  "other_checks": [
+    "npm test (13 regression runner + 11 import runner tests included)",
+    "npm run test:campaign",
+    "hero assets and two pose extraction tests",
+    "20 release builder gate tests"
+  ],
+  "actual_desktop_exports": "not run locally; Linux/Windows CI remains unverified",
+  "reconnect_integration": {
+    "base_main": "04812a460bf06199a5ff972ed6489d44cb65bfd0",
+    "pr55_head": "300f2068e36a268dcf2e2631bc715e482b5264fa",
+    "code_checkpoint": "b4748940d34a001cff38043dfd95f7bdf673d8cc",
+    "affected_suite": "world_streaming",
+    "completion_marker": true,
+    "engine_errors": 0,
+    "log_sha256": "298c59c381cafe65ad0814e938a95328acd18f214db1b5ae0995e198599c8bba",
+    "note": "Latest main changed the streaming fixture only; retain its per-job assertions and preparation allowance, along with the real-request fallback. Regression runner suite-list merge retains the same 86 suites and completion contracts."
+  }
+}

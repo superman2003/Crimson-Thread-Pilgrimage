@@ -73,3 +73,6 @@ artifacts/greenhouse/*.webp -filter -diff -merge -text
 
 # Fifth-region captures are ordinary Git blobs.
 artifacts/obsidian/*.webp -filter -diff -merge -text
+
+# Small verification images travel with the recoverable upgrade commit bundle.
+artifacts/world_exploration_stability/*.jpg -text -filter

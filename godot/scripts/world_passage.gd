@@ -256,7 +256,11 @@ func _build_landing_support() -> void:
         for clip in clips:
             var shape := CollisionPolygon2D.new()
             shape.polygon = clip
-            shape.one_way_collision = bool(data.get("one_way", false))
+            # Clipping an otherwise continuous floor creates artificial vertical
+            # cut edges. During transit only its landing face participates: a
+            # subpixel tube slope must not catch the player on that cut edge.
+            # Normal adoption retains the destination's original solid geometry.
+            shape.one_way_collision = true
             shape.one_way_collision_margin = 2.0
             support.add_child(shape)
         support.set_meta("passage_landing_support", true)
@@ -275,6 +279,10 @@ func _build_landing_support() -> void:
         support.position += offset
         support.collision_layer = TRANSIT_LAYER
         support.collision_mask = 0
+        for shape in support.get_children():
+            if shape is CollisionShape2D:
+                shape.one_way_collision = true
+                shape.one_way_collision_margin = 2.0
         support.set_meta("passage_landing_support", true)
         add_child(support)
         landing_support_key = String(key)

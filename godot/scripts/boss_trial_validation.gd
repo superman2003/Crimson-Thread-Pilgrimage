@@ -18,6 +18,10 @@ var boss_trial_config: Dictionary = {}
 
 
 func _init() -> void:
+    call_deferred("_run")
+
+
+func _run() -> void:
     var scene := MAIN_SCENE.instantiate()
     scene.set("config_path", BOSS_TRIAL_CONFIG_PATH)
     scene.set("boss_trial_mode", true)

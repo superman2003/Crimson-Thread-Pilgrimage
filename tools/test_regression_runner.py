@@ -6,7 +6,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from run_godot_regressions import suite_path
+from run_godot_regressions import suite_path, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,8 +43,24 @@ class RunnerTests(unittest.TestCase):
         self.assertIn('timeout after', result.stdout)
 
     def test_success_is_success(self):
-        result = self.run_engine('print("FIXTURE_PASS checks=1")\n')
+        result = self.run_engine('print("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 0)
+
+    def test_zero_exit_without_completion_is_failure(self):
+        result = self.run_engine('print("PASS: first assertion only")\n')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('completion_marker=False', result.stdout)
+
+    def test_different_suite_marker_is_not_completion(self):
+        result = self.run_engine('print("WORLD_MAP checks=1 failures=0")\n')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('completion_marker=False', result.stdout)
+
+    def test_default_suites_all_have_compilable_completion_contracts(self):
+        self.assertEqual(set(DEFAULT_SUITES + NARRATIVE_SUITES), set(SUCCESS_MARKERS))
+        for marker in SUCCESS_MARKERS.values():
+            self.assertTrue(marker.startswith('^') and marker.endswith('$'))
+            re.compile(marker)
 
     def test_invalid_timeout_never_launches_engine(self):
         with tempfile.TemporaryDirectory() as directory:

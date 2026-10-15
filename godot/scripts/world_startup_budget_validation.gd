@@ -19,6 +19,23 @@ class SynchronousWorld:
 
 var failures := 0
 
+class FailedStartupHost:
+	extends Node
+	var world_initial_error := ""
+	var world_slot := 2
+	var world_save_path := "user://startup_failure_preserved.json"
+	var retried_slot := 0
+	var retried_path := ""
+	func _replace_with_save_slot(slot: int, path: String) -> void:
+		retried_slot = slot
+		retried_path = path
+
+class FailedManifestLoader:
+	extends "res://scripts/world_region_loader.gd"
+	func _prepare_routes_manifest(_host: Node, _tree: SceneTree) -> bool:
+		last_error = "fixture unreadable route manifest"
+		return false
+
 func _initialize() -> void:
 	call_deferred("_run")
 
@@ -68,6 +85,7 @@ func _run() -> void:
 	# hosts must make their coroutine exit through its liveness guard.
 	await _teardown_probe(false)
 	await _teardown_probe(true)
+	await _failure_recovery_probe()
 	if is_instance_valid(host):
 		root.remove_child(host)
 		host.free()
@@ -77,6 +95,26 @@ func _run() -> void:
 	else:
 		push_error("WORLD_STARTUP_BUDGET_VALIDATION_FAIL failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
+
+func _failure_recovery_probe() -> void:
+	var probe := FailedStartupHost.new()
+	root.add_child(probe)
+	var loader := FailedManifestLoader.new()
+	var file := FileAccess.open(probe.world_save_path, FileAccess.WRITE)
+	file.store_string("original save bytes")
+	file.close()
+	_check(not await loader.initialize_startup_region(probe), "unreadable manifest refuses initial publication")
+	_check(loader.phase == "startup_error" and is_instance_valid(loader.loading_label) and loader.loading_label.text.contains("fixture unreadable"), "startup failure keeps a visible actionable error")
+	var retry: Button = loader.loading_canvas.get_node("StartupRetry")
+	_check(retry.has_focus() and not retry.disabled, "startup recovery is keyboard and controller focusable")
+	retry.pressed.emit()
+	await process_frame
+	_check(probe.retried_slot == 2 and probe.retried_path == probe.world_save_path, "retry replaces the failed host using the same save slot")
+	_check(FileAccess.get_file_as_string(probe.world_save_path) == "original save bytes", "startup failure and retry do not overwrite the save")
+	loader.shutdown()
+	probe.free()
+	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://startup_failure_preserved.json"))
+	await process_frame
 
 func _teardown_probe(free_host: bool) -> void:
 	var probe: Node = load(WORLD_SCENE).instantiate()

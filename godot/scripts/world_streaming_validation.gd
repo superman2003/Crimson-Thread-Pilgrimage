@@ -5,6 +5,7 @@ const ROUTES := preload("res://scripts/world_routes.gd")
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const PATH := "user://world_streaming_validation.json"
+const PREFETCH_READY_MSEC := 8000
 var checks := 0
 var failures: Array[String] = []
 var metrics: Array = []
@@ -131,7 +132,7 @@ func _prefetch_checks() -> void:
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
     var nodes := scene.get_child_count()
     var max_reads := 0
-    var deadline := Time.get_ticks_msec() + 8000
+    var deadline := Time.get_ticks_msec() + PREFETCH_READY_MSEC
     while Time.get_ticks_msec() < deadline:
         var before: int = scene.world_prefetch.config_reads
         scene.world_prefetch.step(scene, 1.0 / 60)
@@ -190,8 +191,12 @@ func _prefetch_checks() -> void:
     _check(scene.config.map_rooms.size() == ROUTES.apply_to(JSON.parse_string(FileAccess.get_file_as_string(path))).map_rooms.size(), "cached raw config is not overlaid twice")
     scene.world_prefetch.step(scene, 1.0 / 60)
     _check(scene.world_prefetch.generation == scene.world_loader.generation and not scene.world_prefetch.configs.has(target), "arrival invalidates old source-generation cache")
-    # Transition with one outstanding job to prove stale completions are drained.
-    deadline = Time.get_ticks_msec() + 2000
+    # A texture request is admitted only after the background read and bounded
+    # configuration validation. Use the same preparation allowance as the first
+    # warmup; the old 2s assumed synchronous validation and raced CI frame rate.
+    # Stop as soon as a real request is admitted, before stepping can drain it.
+    var preparation_started := Time.get_ticks_msec()
+    deadline = preparation_started + PREFETCH_READY_MSEC
     var stale_request_queued := false
     while scene.world_prefetch.jobs.is_empty() and Time.get_ticks_msec() < deadline:
         # A fully warmed neighbor may have no natural texture work left. Queue
@@ -211,16 +216,30 @@ func _prefetch_checks() -> void:
                 stale_request_queued = true
                 break
         scene.world_prefetch.step(scene, 1.0 / 60)
-        await process_frame
+        if scene.world_prefetch.jobs.is_empty():
+            await process_frame
     _check(not scene.world_prefetch.jobs.is_empty(), "stale-completion fixture has an outstanding request")
+    var pending: Array = scene.world_prefetch.jobs.duplicate(true)
     var stale_before: int = scene.world_prefetch.stale_results
+    var departed_generation: int = scene.world_prefetch.generation
+    for job in pending:
+        _check(job.generation == departed_generation and scene.world_prefetch.configs.has(job.region), "outstanding request belongs to validated departing generation")
+    print("WORLD STREAMING STALE SETUP " + JSON.stringify({"elapsed_msec": Time.get_ticks_msec() - preparation_started,
+        "pending": pending.size(), "config_phase": scene.world_prefetch.snapshot().config_phase}))
     scene._travel_world(ROUTES.config_path(source), Vector2(280, 3360))
+    await process_frame
+    scene.world_prefetch.step(scene, 1.0 / 60)
+    # The engine can complete a request after the handoff. Poll without blocking
+    # load_threaded_get, and require every captured request to be discarded.
     deadline = Time.get_ticks_msec() + 2000
-    while scene.world_prefetch.stale_results == stale_before and Time.get_ticks_msec() < deadline:
-        scene.world_prefetch.step(scene, 1.0 / 60)
+    while pending.any(func(job): return scene.world_prefetch.jobs.has(job)) and Time.get_ticks_msec() < deadline:
         await process_frame
+        scene.world_prefetch.step(scene, 1.0 / 60)
+    _check(scene.world_prefetch.generation > departed_generation, "return advances beyond departing request generation")
+    _check(pending.all(func(job): return not scene.world_prefetch.jobs.has(job)), "all departed-generation requests drained after return")
     _check(scene.world_prefetch.snapshot().regions <= 2 and scene.world_prefetch.snapshot().textures <= 10, "retained warm cache bounded after return")
-    _check(scene.world_prefetch.stale_results > stale_before, "departed-generation texture completion discarded")
+    _check(not pending.is_empty() and scene.world_prefetch.stale_results >= stale_before + pending.size(), "every departed-generation texture completion discarded")
+    _check(scene.world_prefetch.retained.is_empty(), "departed-generation textures cannot publish into arrival cache")
     scene.player.global_position = Vector2(8000, 6000)
     for unused in range(80):
         scene.world_prefetch.step(scene, 1.0 / 60)

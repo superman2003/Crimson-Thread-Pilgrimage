@@ -78,7 +78,7 @@ jobs:
       - name: Validate live neighboring gameplay and directional pipe approaches
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=44 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json --timeout 300
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=46 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json --timeout 300
       - name: Validate budgeted arrival UI against synchronous rendering
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

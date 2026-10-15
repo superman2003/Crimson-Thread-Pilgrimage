@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse
 import math
+import json
 from contextlib import nullcontext
 import os
 from pathlib import Path
@@ -24,6 +25,7 @@ DEFAULT_SUITES = (
     'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
+SUCCESS_MARKERS = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text())
 
 def suite_path(name):
     if not re.fullmatch(r'(?:tests/)?[a-z0-9_]+', name):
@@ -71,6 +73,11 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             failures.append(f'{suite}: missing validation script')
             print('FAIL: ' + failures[-1], flush=True)
             continue
+        marker = SUCCESS_MARKERS.get(suite)
+        if marker is None:
+            failures.append(f'{suite}: missing completion marker contract')
+            print('FAIL: ' + failures[-1], flush=True)
+            continue
         env = dict(os.environ, **renderer_env, XDG_DATA_HOME=str(scratch / name))
         print(f'Running {suite}', flush=True)
         try:
@@ -89,8 +96,9 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
                 result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
             output = log.read_text(errors='replace')
             errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
-            if result.returncode != 0 or errors:
-                failures.append(f'{suite}: exit={result.returncode} engine_errors={len(errors)}')
+            completed = re.search(marker, output, re.MULTILINE) is not None
+            if result.returncode != 0 or errors or not completed:
+                failures.append(f'{suite}: exit={result.returncode} engine_errors={len(errors)} completion_marker={completed}')
                 print('FAIL: ' + failures[-1] + '\n' + '\n'.join(output.splitlines()[-40:]), flush=True)
             else:
                 print('PASS: ' + suite + '\n' + '\n'.join(output.splitlines()[-2:]), flush=True)

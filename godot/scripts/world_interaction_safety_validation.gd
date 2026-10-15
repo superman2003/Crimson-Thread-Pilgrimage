@@ -102,6 +102,7 @@ func _run() -> void:
     _check(scene.active_overlay == "settings", "settings remain accessible during death")
     scene._start_new_journey()
     scene = current_scene
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     await _frames()
     _check(not scene.demo_complete and scene.player.hp > 0, "explicit new journey remains available during death")
     _finish()

@@ -70,11 +70,8 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
             return false
         if last_error.is_empty():
             last_error = "区域路线清单后台读取或校验失败。"
-        host.world_initial_error = "旅途初始化失败：" + last_error
-        push_error("WORLD STARTUP FAILED: " + last_error)
-        _clear_loading_canvas()
+        _show_startup_error(host)
         host.process_mode = restore_process_mode
-        phase = "idle"
         return false
     var built := await _construct_budgeted(host, {}, false)
     if not _alive(host) or host.get_tree() != tree or shutting_down:
@@ -91,13 +88,42 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         host._publish_region()
     else:
         last_error = "初始区域准备或构建任务未能完成。"
-        host.world_initial_error = "旅途初始化失败：" + last_error
-        push_error("WORLD STARTUP FAILED: " + last_error)
-    _clear_loading_canvas()
+        _show_startup_error(host)
+    if built:
+        _clear_loading_canvas()
     if _alive(host) and host.get_tree() == tree:
         host.process_mode = restore_process_mode
-    phase = "idle"
+    phase = "idle" if built else "startup_error"
     return built
+
+func _show_startup_error(host: Node) -> void:
+    phase = "startup_error"
+    host.world_initial_error = "旅途初始化失败：" + last_error
+    printerr("WORLD STARTUP FAILED: " + last_error)
+    # Region process loops deliberately remain gated. Recovery controls belong
+    # to the root canvas, so they work even before a Player/UI was constructed.
+    if not is_instance_valid(loading_canvas):
+        _show_loading_canvas(host)
+    loading_canvas.process_mode = Node.PROCESS_MODE_ALWAYS
+    loading_label.text = host.world_initial_error + "\n请检查游戏文件后重试。"
+    var retry := Button.new()
+    retry.name = "StartupRetry"
+    retry.text = "重试加载"
+    retry.add_theme_font_override("font", loading_label.get_theme_font("font"))
+    retry.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+    retry.offset_left = -100
+    retry.offset_right = 100
+    retry.offset_top = 70
+    retry.offset_bottom = 114
+    var slot: int = host.world_slot
+    var save_path: String = host.world_save_path
+    retry.pressed.connect(func():
+        retry.disabled = true
+        # Replace the failed host; partial construction cannot be reused. This
+        # path reads the same slot and never saves the incomplete world.
+        host.call_deferred("_replace_with_save_slot", slot, save_path))
+    loading_canvas.add_child(retry)
+    retry.grab_focus()
 
 func _prepare_routes_manifest(host: Node, tree: SceneTree) -> bool:
     if not _alive(host) or host.get_tree() != tree or shutting_down:
@@ -351,7 +377,11 @@ func _finite_tuple(value: Variant, length: int) -> bool:
 
 
 func replace_region(host: Node, path: String, entry: Vector2) -> bool:
-    if phase != "idle" or not is_instance_valid(host.player):
+    # A rejected second request must not overwrite the in-flight preflight's
+    # error field while its cache copy/reader is yielding between frames.
+    if phase != "idle":
+        return false
+    if not is_instance_valid(host.player):
         last_error = "区域正在装载。"
         return false
     phase = "preflight"
@@ -665,7 +695,9 @@ func _set_destination(host: Node, path: String, entry: Vector2, previous_id: Str
 
 
 func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF, publish_flags: Dictionary = {}) -> bool:
-    if phase != "idle" or not _alive(host) or not is_instance_valid(host.player):
+    if phase != "idle":
+        return false
+    if not _alive(host) or not is_instance_valid(host.player):
         last_error = "区域正在装载。"
         return false
     phase = "preflight"

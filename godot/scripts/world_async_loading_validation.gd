@@ -89,8 +89,10 @@ func _run() -> void:
         var cancel_phase: String = "committing" if cancel_at in ["partial_hud", "ready_hud"] else cancel_at
         scene._request_world_travel(target_path, target_entry)
         _check(scene.world_loader.phase != "idle", "travel starts asynchronously")
+        var active_error: String = scene.world_loader.last_error
         _check(not scene.world_loader.replace_region(scene, target_path, target_entry), "sync reentrant travel blocked")
         _check(not await scene.world_loader.replace_region_async(scene, target_path, target_entry), "async reentrant travel blocked")
+        _check(scene.world_loader.last_error == active_error, "rejected reentrant requests do not poison the active preflight")
         for frame in range(2000):
             if _reached_boundary(cancel_at):
                 break

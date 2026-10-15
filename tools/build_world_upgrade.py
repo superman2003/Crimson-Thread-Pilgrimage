@@ -5,6 +5,7 @@ Standalone chapter data is intentionally untouched. Re-running replaces only
 objects bearing this generator's upgrade_ prefix and keeps prior overlay work.
 """
 import json
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -70,6 +71,9 @@ EVIDENCE = {
 def build():
     routes = json.loads(PATH.read_text())
     chapters = routes['chapters']
+    previous_rooms = {(region, room['id']): deepcopy(room)
+                      for region, overlay in chapters.items() for room in overlay.get('map_rooms', [])}
+    practices = {(item['region_id'], item['room_id']): item for item in routes.get('seal_practice_plan', [])}
     bases = {r: json.loads((DATA / f'{r}.json').read_text()) for r in REGIONS}
     for overlay in chapters.values():
         for key in ['portals', 'platforms', 'locked_gates', 'collectibles', 'map_rooms', 'grapple_anchors', 'save_points', 'map_room_overrides']:
@@ -196,6 +200,23 @@ def build():
                 reward_landing=[x + 520, floor_y - 40],
                 movement_combo=MOVEMENT_COMBOS[ability],
                 landmark_art=dict(motif='pages' if index == 3 else 'bell', position=[x + 464, y + 80], size=[120, 160])))
+            authored_room = overlay['map_rooms'][-1]
+            previous_room = previous_rooms.get((r, room_id), {})
+            for field in ['guide', 'objective']:
+                if previous_room.get(field, '').startswith(authored_room[field]):
+                    authored_room[field] = previous_room[field]
+            # Combat practice is a separate equipment system layered onto these
+            # exploration workshops. Rebuild its metadata from the retained plan
+            # so regeneration cannot silently erase the six training stations.
+            combat_practice = practices.get((r, room_id), previous_room.get('combat_practice'))
+            if combat_practice:
+                authored_room['combat_practice'] = deepcopy(combat_practice)
+                label = combat_practice['label']
+                if label not in authored_room['guide']:
+                    authored_room['guide'] += ' ' + label
+                objective = '门外练针架提供特殊技能练习，不消耗永久探索能力。'
+                if objective not in authored_room['objective']:
+                    authored_room['objective'] += ' ' + objective
             entrance, exit_id = paired((r, source_room, source), (r, room_id, landing), room_id.removeprefix(PREFIX) + '_access',
                 label='检修支线 → ' + title)
             peer = next(p for p in overlay['portals'] if p['id'] == exit_id)
