@@ -49,6 +49,7 @@ func apply_trip(seconds: float) -> void:
     if not bool(combat_resistance.get("trip_immune", is_boss)):
         trip_timer = maxf(trip_timer, minf(1.0, seconds))
         _cancel_unarmed_attack_effects()
+        _clear_telegraph()
         state = "recover"
         state_timer = maxf(state_timer, trip_timer)
 
@@ -311,6 +312,8 @@ var sprite: Node2D
 var animated_sprite: AnimatedSprite2D
 var telegraph: Polygon2D
 var telegraph_tween: Tween
+var windup_vfx: Line2D
+var windup_vfx_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
 var flash_materials: Array = []
@@ -1262,8 +1265,8 @@ func _begin_attack(command: Dictionary) -> void:
     _set_enemy_animation(String(command.get("animation", "attack")))
     _pose_sprite("windup", command)
     _play_attack_sfx("windup")
-    _spawn_windup_vfx(command)
     _show_telegraph(command)
+    _spawn_windup_vfx(command)
     if not bool(command.get("blockable", true)) and ResourceLoader.exists("res://scripts/seal_presentation.gd"):
         var presentation := Node2D.new()
         presentation.set_script(load("res://scripts/seal_presentation.gd"))
@@ -1414,10 +1417,103 @@ func _show_telegraph(command: Dictionary) -> void:
     telegraph.color = color
     telegraph.z_index = 8
     add_child(telegraph)
+    _add_attack_type_signature(telegraph, command, Vector2(offset, -26.0), width, height, dir)
     telegraph_tween = _combat_tween()
     telegraph_tween.set_loops(3)
     telegraph_tween.tween_property(telegraph, "scale", Vector2(1.08, 1.08), 0.08)
     telegraph_tween.tween_property(telegraph, "scale", Vector2(1.0, 1.0), 0.08)
+
+
+func _add_attack_type_signature(parent: Node2D, command: Dictionary, center: Vector2, width: float, height: float, dir: int) -> Line2D:
+    var signature := Line2D.new()
+    signature.name = "AttackTypeSignature"
+    signature.width = 2.0
+    signature.default_color = Color(1.0, 0.93, 0.72, 0.92)
+    signature.z_index = 1
+    var mark_width := minf(width * 0.18, 24.0)
+    var mark_height := minf(height * 0.18, 14.0)
+    match String(command.get("type", "melee")):
+        "aoe":
+            signature.points = PackedVector2Array([
+                center + Vector2(0.0, -mark_height),
+                center + Vector2(mark_width, 0.0),
+                center + Vector2(0.0, mark_height),
+                center + Vector2(-mark_width, 0.0),
+                center + Vector2(0.0, -mark_height)
+            ])
+        "wave":
+            signature.points = PackedVector2Array([
+                center + Vector2(-mark_width, 0.0),
+                center + Vector2(-mark_width * 0.5, -mark_height),
+                center,
+                center + Vector2(mark_width * 0.5, mark_height),
+                center + Vector2(mark_width, 0.0)
+            ])
+        "shockwave":
+            signature.points = PackedVector2Array([
+                center + Vector2(-mark_width, mark_height * 0.35),
+                center + Vector2(-mark_width * 0.5, -mark_height * 0.35),
+                center + Vector2(0.0, mark_height * 0.35),
+                center + Vector2(mark_width * 0.5, -mark_height * 0.35),
+                center + Vector2(mark_width, mark_height * 0.35)
+            ])
+        "lunge":
+            signature.points = PackedVector2Array([
+                center + Vector2(-dir * mark_width, -mark_height),
+                center + Vector2(dir * mark_width, 0.0),
+                center + Vector2(-dir * mark_width, mark_height)
+            ])
+        "retreat":
+            signature.points = PackedVector2Array([
+                center + Vector2(-mark_width, -mark_height),
+                center + Vector2(-mark_width * 0.5, mark_height),
+                center + Vector2(0.0, -mark_height),
+                center + Vector2(mark_width * 0.5, mark_height),
+                center + Vector2(mark_width, -mark_height)
+            ])
+        "feint":
+            signature.points = PackedVector2Array([
+                center + Vector2(-mark_width, mark_height),
+                center + Vector2(0.0, -mark_height),
+                center + Vector2(mark_width, mark_height)
+            ])
+        "projectile":
+            signature.points = PackedVector2Array([Vector2(-1, 0), Vector2(1, 0), Vector2(0.4, -0.6), Vector2(1, 0), Vector2(0.4, 0.6)])
+        "fan":
+            signature.points = PackedVector2Array([Vector2(1, -1), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 1)])
+        "combo":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-0.3, -1), Vector2(0.3, 1), Vector2(1, -1)])
+        "guard":
+            signature.points = PackedVector2Array([Vector2(-1, -1), Vector2(1, -1), Vector2(0.7, 0.5), Vector2(0, 1), Vector2(-0.7, 0.5), Vector2(-1, -1)])
+        "dive":
+            signature.points = PackedVector2Array([Vector2(-1, -1), Vector2(1, 1), Vector2(0.2, 0.8), Vector2(1, 1), Vector2(0.8, 0.2)])
+        "vault":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-0.5, -0.5), Vector2(0, -1), Vector2(0.5, -0.5), Vector2(1, 1)])
+        "rootline":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(0, -1), Vector2(0, 0), Vector2(1, 0), Vector2(1, 1)])
+        "pool":
+            signature.points = PackedVector2Array([Vector2(-1, 0), Vector2(-0.5, -0.7), Vector2(0.5, -0.7), Vector2(1, 0), Vector2(0.5, 0.7), Vector2(-0.5, 0.7), Vector2(-1, 0)])
+        "mortar":
+            signature.points = PackedVector2Array([Vector2(-1, 1), Vector2(-0.5, -0.6), Vector2(0, -1), Vector2(0.5, -0.6), Vector2(1, 1), Vector2(0.5, 1)])
+        "beam":
+            signature.points = PackedVector2Array([Vector2(-1, -0.4), Vector2(1, -0.4), Vector2(1, 0.4), Vector2(-1, 0.4)])
+        "nova":
+            signature.points = PackedVector2Array([Vector2(0, -1), Vector2(0.3, -0.3), Vector2(1, 0), Vector2(0.3, 0.3), Vector2(0, 1), Vector2(-0.3, 0.3), Vector2(-1, 0), Vector2(-0.3, -0.3), Vector2(0, -1)])
+        "blink":
+            signature.points = PackedVector2Array([Vector2(-1, -1), Vector2(-0.3, -1), Vector2(-0.3, 1), Vector2(0.3, -1), Vector2(0.3, 1), Vector2(1, 1)])
+        "melee":
+            signature.points = PackedVector2Array([
+                center + Vector2(-mark_width, mark_height),
+                center + Vector2(mark_width, -mark_height)
+            ])
+        _:
+            # Neutral dot for future/unknown types; never imply a melee attack.
+            signature.points = PackedVector2Array([Vector2(-0.12, 0), Vector2(0.12, 0)])
+    if String(command.get("type", "melee")) not in ["melee", "lunge", "aoe", "wave", "shockwave", "retreat", "feint"]:
+        for index in range(signature.points.size()):
+            signature.set_point_position(index, center + signature.points[index] * Vector2(mark_width * dir, mark_height))
+    parent.add_child(signature)
+    return signature
 
 
 func _clear_telegraph() -> void:
@@ -1427,6 +1523,12 @@ func _clear_telegraph() -> void:
     if telegraph != null and is_instance_valid(telegraph):
         telegraph.queue_free()
     telegraph = null
+    if windup_vfx_tween != null and is_instance_valid(windup_vfx_tween) and windup_vfx_tween.is_valid():
+        windup_vfx_tween.kill()
+    windup_vfx_tween = null
+    if windup_vfx != null and is_instance_valid(windup_vfx):
+        windup_vfx.queue_free()
+    windup_vfx = null
 
 
 func _on_body_entered(body: Node) -> void:
@@ -1868,7 +1970,7 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
 
 func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     var type := String(command.get("type", "melee"))
-    if type in ["beam", "pool", "rootline"]: return
+    if type in ["beam", "pool", "rootline"] and not warning: return
     var line := Line2D.new()
     line.name = "OriginalAttackWarning" if warning else "OriginalAttackArc"
     line.width = 1.6 if warning else 3.5
@@ -1876,7 +1978,10 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     line.z_index = 8
     var points := PackedVector2Array()
     var reach := float(command.get("hit_width",80))*.62
-    if type in ["projectile", "fan", "mortar", "nova"]:
+    if type in ["beam", "pool", "rootline"]:
+        # These attacks keep their specialized range cues; add only the type mark.
+        points = PackedVector2Array()
+    elif type in ["projectile", "fan", "mortar", "nova"]:
         var aim := (attack_target-global_position-Vector2(0,-22)).normalized()
         points=PackedVector2Array([Vector2(0,-22),Vector2(0,-22)+aim*48,Vector2(0,-22)+aim*40+aim.orthogonal()*8])
     else:
@@ -1884,10 +1989,35 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
             var angle := lerpf(-1.25,1.25,float(i)/17)
             points.append(Vector2(attack_direction*(20+cos(angle)*reach),-26+sin(angle)*float(command.get("hit_height",70))*.55))
     line.points=points
+    if warning:
+        var attack_type := String(command.get("type", "melee"))
+        var width := float(command.get("hit_width", 80.0))
+        var height := float(command.get("hit_height", 70.0))
+        var center := Vector2(attack_direction * float(command.get("offset", 44.0)), -26.0)
+        if attack_type == "aoe":
+            center.x = 0.0
+            width = float(command.get("hit_width", 150.0))
+            height = float(command.get("hit_height", 88.0))
+        elif attack_type == "shockwave":
+            center.x = attack_direction * float(command.get("offset", 102.0))
+            width = float(command.get("hit_width", 220.0))
+            height = float(command.get("hit_height", 42.0))
+        elif attack_type == "retreat":
+            center.x = attack_direction * float(command.get("offset", 64.0))
+            width = float(command.get("hit_width", 118.0))
+            height = float(command.get("hit_height", 64.0))
+        elif attack_type == "feint":
+            center.x = attack_direction * float(command.get("offset", 54.0))
+            width = float(command.get("hit_width", 104.0))
+            height = float(command.get("hit_height", 72.0))
+        _add_attack_type_signature(line, command, center, width, height, attack_direction)
     add_child(line)
     var tween := _combat_tween()
     tween.tween_property(line,"modulate:a",0.0,float(command.get("windup",.5)) if warning else .22)
     tween.finished.connect(line.queue_free)
+    if warning:
+        windup_vfx = line
+        windup_vfx_tween = tween
 
 func _spawn_windup_vfx(command: Dictionary) -> void:
     if original_visual:
@@ -1895,6 +2025,7 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
         return
     var warning := Line2D.new()
     warning.name = "EnemyWindupVfx"
+    windup_vfx = warning
     var width := float(command.get("hit_width", 84.0))
     var height := float(command.get("hit_height", 58.0))
     var dir := attack_direction if _is_attack_state() else direction
@@ -1925,10 +2056,10 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
     warning.default_color = Color(1.0, 0.72, 0.28, 0.92)
     warning.z_index = 22
     add_child(warning)
-    var tween := _combat_tween()
-    tween.tween_property(warning, "scale", Vector2(1.16, 1.16), float(command.get("windup", 0.25)))
-    tween.parallel().tween_property(warning, "modulate:a", 0.0, float(command.get("windup", 0.25)))
-    tween.finished.connect(Callable(warning, "queue_free"))
+    windup_vfx_tween = _combat_tween()
+    windup_vfx_tween.tween_property(warning, "scale", Vector2(1.16, 1.16), float(command.get("windup", 0.25)))
+    windup_vfx_tween.parallel().tween_property(warning, "modulate:a", 0.0, float(command.get("windup", 0.25)))
+    windup_vfx_tween.finished.connect(Callable(warning, "queue_free"))
 
 
 func _spawn_attack_burst_vfx(command: Dictionary) -> void:
