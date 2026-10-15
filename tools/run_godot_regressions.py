@@ -32,6 +32,14 @@ def suite_path(name):
         raise ValueError(f'invalid suite name: {name}')
     return f'res://{name}.gd' if name.startswith('tests/') else f'res://scripts/{name}_validation.gd'
 
+def render_loop_args(real_gl, suite):
+    # These lifecycle/state suites never sample pixels. Keep the real GL
+    # resource backend, but avoid automatic rasterization on every churn frame.
+    # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
+    if real_gl and suite in ['world_upgrade', 'world_neighbor_gameplay_stress']:
+        return ['--disable-render-loop']
+    return []
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
@@ -89,10 +97,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []
                 renderer = ['--display-driver', 'x11', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility'] if real_gl else ['--headless']
-                # This input/action/state suite rebuilds twenty full workshops
-                # but never samples pixels. Keep the real GL resource backend
-                # and live physics/audio; avoid rasterizing every fixture frame.
-                drawing = ['--disable-render-loop'] if real_gl and suite == 'world_upgrade' else []
+                drawing = render_loop_args(real_gl, suite)
                 result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
             output = log.read_text(errors='replace')
             errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)

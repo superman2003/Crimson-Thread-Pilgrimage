@@ -37,6 +37,8 @@
 
 源码检查点 `795727ba68c263579fedd83758563584ad4ba054`，树 `2fe7827c1119f9cff04ecb2526e42613b85638e1`。默认86套的最终日志均通过结束标记与严格引擎错误复核，最终失败0。执行组成是85套初轮、单独真实玩法及受影响套复测；初轮有6套失败，另有两份不完整日志，不称一次命令干净跑过86套。逐套日志、SHA256、警告和来源见[验证摘要](../../artifacts/world_exploration_stability/verification.json)，完整初轮和最终日志见[压缩原始日志](../../artifacts/world_exploration_stability/validation_logs.tar.gz)。
 
+CI运行器为 `world_neighbor_gameplay_stress` 加入有限的绘制隔离：它仍用GL renderer和同一80轮场景/租约生命周期操作，核对音频/资源计数和全部断言；该fixture暂停常规场景处理，不代表实时物理战斗，只不自动栅格化每一帧。此套不做像素断言；workflow的岩缝、管道、全区岩边、世界图、邻区美术、46项实时邻区玩法和区域UI专项继续使用开启的真实GL绘制循环。上文82点帧间隔和末600帧p95来自此前绘制开启的llvmpipe本地记录，仅作为该次环境观测；绘制隔离后的压力套耗时或帧间隔不作为渲染性能证据，不能与此前数值混读。
+
 `npm test`、战役/地图结构审计、角色素材与姿态检查、20项发布门禁自身测试通过。Linux/Windows实际导出与启动仍须远端desktop矩阵验收；本地自身测试不替代该矩阵。资源恢复导入保持每轮180秒上限，不启用编辑器插件。
 
 ObjectDB警告未被过滤。路线verbose退出仍列出 `AudioStreamPlaybackOggVorbis`、`AudioStreamOggVorbis`、`OggPacketSequence` 和 `RefCounted`；当前证据尚未锁定保留者，不据此断言音频缓存或RID已修复。80轮趋势的完整82点采样见[运行趋势](../../artifacts/world_exploration_stability/runtime_trend.json)。

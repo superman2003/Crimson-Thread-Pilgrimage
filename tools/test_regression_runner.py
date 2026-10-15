@@ -6,7 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from run_godot_regressions import suite_path, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
+from run_godot_regressions import suite_path, render_loop_args, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,6 +61,13 @@ class RunnerTests(unittest.TestCase):
         for marker in SUCCESS_MARKERS.values():
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)
+
+    def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
+        self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(True, 'world_upgrade'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_live'), [])
+        self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay'), [])
+        self.assertEqual(render_loop_args(False, 'world_neighbor_gameplay_stress'), [])
 
     def test_invalid_timeout_never_launches_engine(self):
         with tempfile.TemporaryDirectory() as directory:
