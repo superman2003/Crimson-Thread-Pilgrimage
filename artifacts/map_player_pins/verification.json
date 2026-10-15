@@ -1,0 +1,256 @@
+{
+  "tested_base_commit": "a5dfb8ff8649a7f6c8e9c211374bcb1e12728020",
+  "base_tree": "816f97b502c11fe736500cacf14c24af4ae87e5c",
+  "engine": "Godot4.6.1 stable, software OpenGL",
+  "registered_default_suites": 99,
+  "local_distinct_suites": 13,
+  "full_local_suite_run": false,
+  "root_acceptance": "One strict capture-enabled suite plus nine-suite strict runner, both exit0; subagent four strict suites exit0.",
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "a73bd6018155e1501713a8ef0ac1c87e341a0529bf6197e3c66465145a2f2529",
+    "godot/scripts/survey_map_view.gd": "d9afe2e5924c68ae4a14accc060c911dff6d19a37403ccf76cb9b51a07d70aeb",
+    "godot/scripts/map_player_pins.gd": "e6ac8876fdc6b92dd3e150d8e0fd5a3fa9d8b9dbcee7b20a3aa4617561619019",
+    "godot/scripts/map_player_pins_runtime.gd": "fb031de4e6dc936372d1663ca4c31f9b63d05322beb1686a2172c86ad221d21f",
+    "godot/scripts/map_player_pins_validation.gd": "2335c5ebe374461a5e462267215aaa3335174a445e67f1706b31e121dfc848e9",
+    "tools/run_godot_regressions.py": "7faa41141ea24055800ba2afc19b39ccc0fe8db7820364e98be5571eda862740",
+    "tools/godot_suite_success_markers.json": "8819cb6e5d75ba406e54f1d48b66ca03f87a149937df0cdc7bec329ffc869d2d",
+    "tools/test_regression_runner.py": "cae7b01ee03fe8c6925ee1d5834fb37776da920cb443138ac92474eb3defc351"
+  },
+  "accepted_logs": [
+    {
+      "owner": "agent",
+      "suite": "map_player_pins",
+      "sha256": "341d0c5d2a64cdab3799a83b8a2e13621774517dc9df087706b8fe24027597c8",
+      "completion_markers": [
+        "MAP PLAYER PINS PASS checks=64"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": false
+    },
+    {
+      "owner": "agent",
+      "suite": "cartography",
+      "sha256": "a24f9d84dc95211b5d61d68c2298bf63e2452e8fb890dfbd35bf329ef4047cad",
+      "completion_markers": [
+        "CARTOGRAPHY checks=4055 failures=0 fixture_positioning=true"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    },
+    {
+      "owner": "agent",
+      "suite": "world_map",
+      "sha256": "d71bc1059bbed0912598612c2cc6325226ce650bd4d81fb4dbc4ddec22bc2e66",
+      "completion_markers": [
+        "WORLD_MAP checks=657 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": false
+    },
+    {
+      "owner": "agent",
+      "suite": "survey_map_knowledge",
+      "sha256": "adef26c0701c923b2ed7d47191ce45032aa897cb0ff0f48ce2971aa7a709aa39",
+      "completion_markers": [
+        "SURVEY_MAP_KNOWLEDGE checks=20 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "map_player_pins",
+      "sha256": "40af7a11a514f11888a065fe5ebade5ea0ba2860dff75bd40b99706665699085",
+      "completion_markers": [
+        "MAP PLAYER PINS PASS checks=66"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_integration",
+      "sha256": "32b4d2244aa7ca99cb8bd0b734ed96a869a5401f1af6656289bfc98d2328c465",
+      "completion_markers": [
+        "WORLD_INTEGRATION checks=65 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "world_resume_regression",
+      "sha256": "2f8733e9acade740a08431d403c80c751e85e8db22af3b4b5f40afff9c8372ac",
+      "completion_markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "world_async_loading",
+      "sha256": "bb5ffc41e06d1cf7bcabdfa3108a66032bc21789694107cacf179ce1e7bf4213",
+      "completion_markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "world_host",
+      "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "completion_markers": [
+        "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "world_save_candidate",
+      "sha256": "214f9fb243e5085264edae65b6b9c2fdb13fa0056e0c88fc4b60e0070cd590ed",
+      "completion_markers": [
+        "WORLD SAVE CANDIDATE PASS checks=70"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "save_product",
+      "sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7",
+      "completion_markers": [
+        "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "ui_world_integration",
+      "sha256": "c8c9469829ac889df6bc23db84fe52832a09e5764685a36f263318650977868e",
+      "completion_markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "input_settings_regression",
+      "sha256": "4453e1968a0f4e06dd155524c022ee1c29b99b24f1e7c88d2419bf458baafc0b",
+      "completion_markers": [
+        "INPUT_SETTINGS_REGRESSION checks=32 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    },
+    {
+      "owner": "root",
+      "suite": "narrative_outcomes",
+      "sha256": "13bc01ffd461d56ff518fe48926ab6f97e1447ad075259a7cc60020869a973b3",
+      "completion_markers": [
+        "NARRATIVE_OUTCOMES checks=187 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false,
+      "capture_enabled": false
+    }
+  ],
+  "earlier_rejected_attempts": [
+    {
+      "log_sha256": "71992674e550f6dd596e6700797fc8bf7de51a0e8cb2447dd5b156aba4584c87",
+      "error_count": 4,
+      "completion_markers": [],
+      "accepted": false,
+      "reason": "Fixture StringName keys were removed by legacy JSON journal normalization; three assertions and one cascading missing-records script error. Fixed explicit String keys, then reran full model."
+    },
+    {
+      "log_sha256": "ceb9239a1dfdd4497e3084b1fa786f39b184bf2148640b6222a1be73ec751676",
+      "error_count": 2,
+      "completion_markers": [
+        "MAP PLAYER PINS PASS checks=64"
+      ],
+      "accepted": false,
+      "reason": "Whole-host-free negative test exposed lambdas capturing freed Nodes before liveness guards. Even exit0 plus marker64 remained strict failure. All closures now capture WeakRefs and resolve current owners before dispatch."
+    },
+    {
+      "log_sha256": "7d4dff3b853bddce0856d3005dc3d68153c40ee5805f0a3276a7c9afcffa74fa",
+      "error_count": 10,
+      "completion_markers": [
+        "MAP PLAYER PINS PASS checks=28"
+      ],
+      "accepted": false,
+      "reason": "Inferred weakref variables caused warning-as-error compile cascades; check-only exit0 was insufficient. Explicit WeakRef types and strict parser log scans preceded clean final replay."
+    }
+  ],
+  "other_checks": [
+    {
+      "check": "map-pins-root-npm-final.log",
+      "sha256": "150bf59e5b035d2d86ca9d385e3bd88c3120a45d1524520ea89e53ef18046acf"
+    },
+    {
+      "check": "map-pins-root-campaign.log",
+      "sha256": "4c1daa557f6c7d872cde18f1d1917da58e1881f8bc1e2cb04a0a4c1a9a68be19"
+    },
+    {
+      "check": "import-1.log",
+      "sha256": "ff2a1a493c9bca495bb87e100a835e87053ddd438df9122789700fe236329b77"
+    },
+    {
+      "check": "import-2.log",
+      "sha256": "62ff7b3cbc57fbda0f85e1c585b5e5364f367c356ddea4be8050dfb8e8611e8f"
+    }
+  ],
+  "images": [
+    {
+      "path": "region.webp",
+      "sha256": "40233ce184c07cc24a8bb03efd71641691c610532c8c20dca3a9800134eed766",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "bytes": 32456,
+      "root_visual_review": true
+    },
+    {
+      "path": "world.webp",
+      "sha256": "1cdeeef9370c67ed906736e79bdc38e0d5d458bb0e3760f2bf5c876ad082943e",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "bytes": 37016,
+      "root_visual_review": true
+    }
+  ],
+  "capture_manifest_sha256": "3498ba4fb7e3ee86b3470db444478d36f59d5de6f395a62458a73ed6f1b4adf8",
+  "parallel_work_reserved_paths_unmodified": [
+    "godot/data/chapters/ch06_silent_crown_core.json",
+    "godot/scripts/ch06_hidden_route_validation.gd",
+    "docs/CH06_HIDDEN_ROUTE_UPGRADE.md"
+  ],
+  "reserved_ch06_json_sha256": "0096cb7338b503322fddaa62cd0257ae5f65ec68af9e85cb3da1c6e53413b295",
+  "limits": [
+    "Known charted rooms only; fixture state is not natural exploration.",
+    "Standard UI focus/input automation is not physical gamepad hardware acceptance.",
+    "Dense-marker collision avoidance, floors/navigation/marker acquisition economy and fullU04 remain unfinished.",
+    "ObjectDB warnings remain recorded; no leak-resolution claim.",
+    "No local full99-suite acceptance; remote exact-head CI is separate."
+  ]
+}
