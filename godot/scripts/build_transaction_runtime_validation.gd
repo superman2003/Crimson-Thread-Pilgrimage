@@ -15,7 +15,11 @@ func _run() -> void:
 	scene.world_save_path = SAVE_PATH
 	root.add_child(scene)
 	current_scene = scene
-	await _frames(5)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+	_check(scene.initial_region_ready, "initial World publishes before shrine transaction checks")
+	if not scene.initial_region_ready:
+		_finish()
+		return
 	var build: RefCounted = scene.build_system
 	var player: CharacterBody2D = scene.player
 	var shrine: Area2D = _find_area("save_point", "")
