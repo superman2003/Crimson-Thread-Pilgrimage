@@ -1,0 +1,77 @@
+{
+  "base_commit": "ee17998cdd585a83afb3d8ecb8a78c40cb51e820",
+  "recorded_utc": "2026-10-15T07:09:26.190960+00:00",
+  "engine": "Godot 4.6.1",
+  "renderer": "software GL (Mesa llvmpipe)",
+  "independent_review": "completed; no blocking findings remain",
+  "suites": {
+    "world_catalog_background": {
+      "status": "passed",
+      "completion": "WORLD CATALOG BACKGROUND PASS checks=50",
+      "log_sha256": "6599e694f07ae5f9f33dad326f473aaa57a248586b101797b9a33c0dd0548aa3",
+      "objectdb_exit_warning": false
+    },
+    "world_prepare_budget": {
+      "status": "passed",
+      "completion": "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown",
+      "log_sha256": "1539a61f3723200e9ba6658f62014dedd6c16cdcf8f8b24f7d2674502608f6de",
+      "objectdb_exit_warning": true
+    },
+    "world_startup_budget": {
+      "status": "passed",
+      "completion": "WORLD_STARTUP_BUDGET_VALIDATION_PASS",
+      "log_sha256": "670b9362eef9a97227a1e4613cfca251a5d044658f94c18d97b75060b09c3e71",
+      "objectdb_exit_warning": false
+    },
+    "world_preflight_budget": {
+      "status": "passed",
+      "completion": "WORLD PREFLIGHT BUDGET PASS checks=4290",
+      "log_sha256": "f09256c5472d87277e2a590e71cdde20abd72f449c2dbf755c02b37c3ac0d99a",
+      "objectdb_exit_warning": false
+    },
+    "world_host": {
+      "status": "passed",
+      "completion": "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles",
+      "log_sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "objectdb_exit_warning": true
+    },
+    "save_product": {
+      "status": "passed",
+      "completion": "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+      "log_sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7",
+      "objectdb_exit_warning": false
+    },
+    "world_async_loading": {
+      "status": "passed",
+      "completion": "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "log_sha256": "2c4a5061d02ba5fbf499056d154720a9d1b9781c366e2c0c267c9d4aba6473a3",
+      "objectdb_exit_warning": true
+    },
+    "world_config_background": {
+      "status": "passed",
+      "completion": "WORLD CONFIG BACKGROUND PASS checks=38",
+      "log_sha256": "2485f82d0e08acda92750a73fd60080db5530a6a14efa2880caf2e054ecb4723",
+      "objectdb_exit_warning": true
+    },
+    "world_neighbor_config": {
+      "status": "passed",
+      "completion": "WORLD NEIGHBOR CONFIG PASS checks=93",
+      "log_sha256": "34fb6dfe8724c95894df8232c9eb257663fdf6a9d5ff54224ff74676d687ed52",
+      "objectdb_exit_warning": false
+    }
+  },
+  "source_sha256": {
+    "godot/scripts/world_region_loader.gd": "c73c53ff58916e792dacbeccf1eeea6a8f89b7203712e08c8c340cab5fb8dfcc",
+    "godot/scripts/world_catalog_background_validation.gd": "4d1f7de2011ce6301ab9dccb1ee19a37d5c10b47342a880ac30f4d48cfba4182",
+    "tools/run_godot_regressions.py": "03bdb9a067fab9ec79bbc99a184236419b13d0e9280fc6de044358e6fa655c2e",
+    "tools/godot_suite_success_markers.json": "8605badbc7c1672c8da583aa7e48404ea9c5836c084eb35dfa24c2dd3b5aa70d",
+    "tools/test_regression_runner.py": "643e9e751ef967283edab25275d855c66f07d2b65702db9104886e8b04e5e610"
+  },
+  "other_validation": {
+    "npm_test": "passed",
+    "campaign_static_audits": "passed",
+    "resource_import_passes": 2,
+    "runner_unit_tests": 16
+  },
+  "scope": "Focused 9-suite regression, not the full 93-suite remote CI gate. No hard frame-time or natural six-region playthrough claim."
+}
