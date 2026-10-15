@@ -828,12 +828,126 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
     return true
 
 
+
+func _shared_metadata_path(host: Node, method: String, args: Array) -> String:
+    match method:
+        "_prepare_campaign_metadata": return host.CAMPAIGN_PATH
+        "_prepare_chapter_metadata": return String(args[0])
+        "_prepare_av_metadata": return host.AV_MANIFEST_PATH
+        "_prepare_item_lore_metadata": return host.ITEM_LORE_PATH
+    return ""
+
+func _metadata_source_stat(path: String) -> Dictionary:
+    var file := FileAccess.open(path, FileAccess.READ)
+    if file == null: return {}
+    var size := file.get_length()
+    file.close()
+    return {"mtime": FileAccess.get_modified_time(path), "size": size}
+
+func _metadata_failure(host: Variant, path: String) -> Dictionary:
+    if is_instance_valid(host):
+        host.world_shared_metadata_cache.erase(path)
+        host.world_shared_metadata_failures[path] = int(host.world_shared_metadata_failures.get(path, 0)) + 1
+    return {"complete": true, "data": {}}
+
+## The worker owns cold parsed data; a bounded copy becomes the private cache.
+## Warm consumers receive their own bounded copy of that immutable cache tree.
+func _prepare_shared_metadata_async(host: Node, path: String, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> Dictionary:
+    var started := Time.get_ticks_usec()
+    path = host._world_shared_metadata_key(path)
+    host.world_shared_metadata_probes[path] = int(host.world_shared_metadata_probes.get(path, 0)) + 1
+    var stat := _metadata_source_stat(path)
+    if stat.is_empty(): return _metadata_failure(host, path)
+    var record := {"path": path, "mtime": stat.mtime, "size": stat.size, "cache_hit": false,
+        "worker_used": false, "worker_is_main": false, "worker_usec": 0, "wait_frames": 0, "copy_batches": 0,
+        "copy_edges": 0, "max_copy_edges": 0, "copy_work_usec": 0, "max_copy_step_usec": 0, "wall_usec": 0}
+    var records: Array = last_transition.get("metadata_reads", [])
+    records.append(record)
+    last_transition["metadata_reads"] = records
+    var cached: Variant = host.world_shared_metadata_cache.get(path)
+    var source: Variant
+    var cold := not (cached is Dictionary and int(cached.get("size", -1)) == int(stat.size) and int(cached.get("mtime", -1)) == int(stat.mtime))
+    record.cache_hit = not cold
+    if cold:
+        host.world_shared_metadata_cache.erase(path)
+        var ticket := 0
+        while ticket == 0:
+            if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable): return {"complete": false}
+            if not config_read_job.busy():
+                ticket = config_read_job.request(path)
+                if ticket == 0: return _metadata_failure(host, path)
+            await tree.process_frame
+            record.wait_frames += 1
+            _cancel_input()
+            if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+                config_read_job.discard(ticket)
+                return {"complete": false}
+        while config_read_job.busy():
+            await tree.process_frame
+            record.wait_frames += 1
+            _cancel_input()
+            if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+                config_read_job.discard(ticket)
+                return {"complete": false}
+        var read: Dictionary = config_read_job.take(ticket)
+        if read.has("raw"):
+            host.world_shared_metadata_reads[path] = int(host.world_shared_metadata_reads.get(path, 0)) + 1
+            host.world_shared_metadata_bytes[path] = int(host.world_shared_metadata_bytes.get(path, 0)) + int(read.get("bytes", 0))
+            host.world_shared_metadata_parses[path] = int(host.world_shared_metadata_parses.get(path, 0)) + 1
+        record.worker_used = true
+        record.worker_is_main = read.get("worker_is_main", true)
+        record.worker_usec = read.get("worker_usec", 0)
+        source = read.get("raw")
+        if not String(read.get("error", "共享元数据读取票据已失效。")).is_empty() or not source is Dictionary:
+            return _metadata_failure(host, path)
+        if int(read.get("stamp", -1)) != int(stat.mtime) or int(read.get("bytes", -1)) != int(stat.size):
+            return _metadata_failure(host, path)
+    else:
+        source = cached.get("data", {})
+    var copy = VARIANT_COPY_JOB.new()
+    var copy_started := Time.get_ticks_usec()
+    copy.begin(source)
+    record["copy_begin_usec"] = Time.get_ticks_usec() - copy_started
+    while not copy.done:
+        var step_started := Time.get_ticks_usec()
+        var edges: int = copy.step(512)
+        var work := Time.get_ticks_usec() - step_started
+        record.copy_batches += 1
+        record.copy_edges += edges
+        record.max_copy_edges = maxi(record.max_copy_edges, edges)
+        record.copy_work_usec += work
+        record.max_copy_step_usec = maxi(record.max_copy_step_usec, work)
+        await tree.process_frame
+        _cancel_input()
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable): return {"complete": false}
+        if _metadata_source_stat(path) != stat: return _metadata_failure(host, path)
+    # Empty Dictionaries are valid and cacheable, and still get a cancellation
+    # window. Publication never exposes a partial copy or an obsolete stamp.
+    await tree.process_frame
+    _cancel_input()
+    if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable): return {"complete": false}
+    if _metadata_source_stat(path) != stat: return _metadata_failure(host, path)
+    if cold:
+        host.world_shared_metadata_cache[path] = {"mtime": stat.mtime, "size": stat.size, "data": copy.result}
+    record.wall_usec = Time.get_ticks_usec() - started
+    return {"complete": true, "data": source if cold else copy.result}
+
+func _accept_shared_metadata(host: Node, method: String, data: Dictionary) -> void:
+    match method:
+        "_prepare_campaign_metadata": host.campaign = data
+        "_prepare_chapter_metadata":
+            if not data.is_empty(): host.chapter_file_configs.append(data)
+        "_prepare_av_metadata": host.audio_visual_manifest = data
+        "_prepare_item_lore_metadata": host.item_lore = data.get("items", {})
+
+
 func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> bool:
     var prepare_wall_started := Time.get_ticks_usec()
     var prepare_tree := host.get_tree()
     var prepare_generation := generation
     var prepare_route_generation := ROUTES.cached_generation()
     last_transition["catalog_reads"] = []
+    last_transition["metadata_reads"] = []
     var prepare_jobs: Array = host._region_prepare_jobs(target)
     last_transition["prepare_plan_usec"] = Time.get_ticks_usec() - prepare_wall_started
     var prepare_role := "target" if cancellable else "rollback"
@@ -863,11 +977,22 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             var prepare_job: Dictionary = prepare_jobs[prepare_cursor]
             var prepare_method := String(prepare_job.get("method", ""))
             var prepare_args: Array = prepare_job.get("args", [])
-            if prepare_method == "_prepare_world_catalog_region" and prepare_operations > 0:
+            var metadata_path := _shared_metadata_path(host, prepare_method, prepare_args) if host.world_mode else ""
+            var asynchronous_job := prepare_method == "_prepare_world_catalog_region" or not metadata_path.is_empty()
+            if asynchronous_job and prepare_operations > 0:
                 break
             var job_started := Time.get_ticks_usec()
             var prepare_result: Variant
-            if prepare_method == "_prepare_world_catalog_region":
+            if not metadata_path.is_empty():
+                var metadata: Dictionary = await _prepare_shared_metadata_async(host, metadata_path, prepare_tree, prepare_generation, prepare_route_generation, cancellable)
+                if not metadata.get("complete", false):
+                    _discard_catalog_staging(host)
+                    _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+                    return false
+                _accept_shared_metadata(host, prepare_method, metadata.data)
+                prepare_batch_started = Time.get_ticks_usec()
+                job_started = prepare_batch_started
+            elif prepare_method == "_prepare_world_catalog_region":
                 if not await _prepare_catalog_region_async(host, String(prepare_args[0]), prepare_args[1], prepare_tree, prepare_generation, prepare_route_generation, cancellable):
                     _finalize_prepare_metrics(prepare_role, prepare_wall_started)
                     return false
@@ -892,6 +1017,12 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
                 var catalog_reads: Array = last_transition.catalog_reads
                 var catalog_read: Dictionary = catalog_reads.back()
                 job_usec += int(catalog_read.merge_work_usec)
+            if not metadata_path.is_empty():
+                var metadata_records: Array = last_transition.metadata_reads
+                if not metadata_records.is_empty():
+                    var metadata_record: Dictionary = metadata_records.back()
+                    if metadata_record.path == host._world_shared_metadata_key(metadata_path):
+                        job_usec += int(metadata_record.copy_work_usec) + int(metadata_record.get("copy_begin_usec", 0))
             # Keep one duration per operation index, rather than a per-method
             # aggregate, so reports can identify expensive individual jobs.
             var operation_key := "%d:%s" % [prepare_cursor, prepare_method]
@@ -910,7 +1041,7 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             prepare_cursor += 1
             prepare_operations += 1
             last_transition["prepare_cursor"] = prepare_cursor
-            if prepare_method == "_prepare_world_catalog_region":
+            if asynchronous_job:
                 break
         var prepare_batch_usec := Time.get_ticks_usec() - prepare_batch_started
         last_transition["prepare_batches"] = int(last_transition["prepare_batches"]) + 1
@@ -965,7 +1096,7 @@ func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
     last_transition["prepare_usec"] = int(last_transition.get("prepare_work_usec", 0))
     var metric_keys := ["prepare_jobs", "prepare_cursor", "prepare_batches", "prepare_batch_operations",
         "prepare_work_usec", "prepare_wall_usec", "prepare_plan_usec", "prepare_usec",
-        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec", "catalog_reads"]
+        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec", "catalog_reads", "metadata_reads"]
     var attempt: Dictionary = {"role": role}
     for key in metric_keys:
         var value: Variant = last_transition.get(key, null)

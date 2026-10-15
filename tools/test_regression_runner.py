@@ -61,7 +61,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 94)
+        self.assertEqual(len(all_suites), 95)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():
