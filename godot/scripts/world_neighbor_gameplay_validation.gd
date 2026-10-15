@@ -320,6 +320,10 @@ func cache_churn() -> void:
     var old_actors: Array = []
     var before_builds: int = pref.gameplay.builds
     var before_releases: int = pref.gameplay.releases
+    var before_config_reads: int = pref.config_reads
+    var before_validation_steps: int = pref.config_validation_steps
+    var before_entry_rechecks: int = pref.config_entry_rechecks
+    var churn_started := Time.get_ticks_usec()
     # Repeated two-neighbor, changed-entry and leave-range leases in one host.
     # Retirements deliberately overlap new plans; no per-cycle shutdown.
     for cycle in 80:
@@ -329,7 +333,11 @@ func cache_churn() -> void:
                 portal.target_spawn[0] += (cycle % 2) * 120
         scene.player.position = focus
         pref.selection_elapsed = 1
+        var cycle_reads: int = pref.config_reads
+        var cycle_steps: int = pref.config_validation_steps
         await warm(pref)
+        if cycle % 5 != 0:
+            check(pref.config_reads == cycle_reads and pref.config_validation_steps == cycle_steps, "changed entrance reuses validated region data during churn")
         check(old_actors.all(func(x): return not is_instance_valid(x)), "changed entry releases previous gameplay lease")
         old_actors = []
         for cache in pref.gameplay.regions.values():
@@ -345,6 +353,8 @@ func cache_churn() -> void:
                 if pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0: break
                 await process_frame
             check(old_actors.all(func(x): return not is_instance_valid(x)), "leave-range lease drains during churn")
+        if cycle % 10 == 9:
+            print("NEIGHBOR CHURN PROGRESS ", JSON.stringify({"cycles":cycle + 1,"config_reads":pref.config_reads - before_config_reads,"validation_steps":pref.config_validation_steps - before_validation_steps,"entry_rechecks":pref.config_entry_rechecks - before_entry_rechecks,"elapsed_usec":Time.get_ticks_usec() - churn_started}))
     pref.shutdown()
     scene.config.interactives = source_portals
     scene.player.position = source_position
@@ -386,7 +396,8 @@ func cache_churn() -> void:
     check(old_actors.all(func(x): return not is_instance_valid(x)) and pref.gameplay.owned() == 0 and pref.snapshot().owned_bodies == 0, "churn teardown releases all detached objects")
     check(pref.gameplay.builds - before_builds == pref.gameplay.releases - before_releases, "every churn-built gameplay actor retired exactly once")
     check(scene.get_child_count() == baseline_nodes and get_nodes_in_group("enemy").size() == baseline_enemies and scene.story_flags == baseline_state, "80 cache cycles leave source tree groups and progress untouched")
-    churn = {"cycles":80,"builds":pref.gameplay.builds-before_builds,"releases":pref.gameplay.releases-before_releases,"final":pref.snapshot(),"memory_soak":false}
+    check(pref.config_reads - before_config_reads == 32 and pref.config_entry_rechecks - before_entry_rechecks == 128, "80 cycles reload only after 16 leave-range batches and recheck other entrances")
+    churn = {"cycles":80,"builds":pref.gameplay.builds-before_builds,"releases":pref.gameplay.releases-before_releases,"config_reads":pref.config_reads-before_config_reads,"validation_steps":pref.config_validation_steps-before_validation_steps,"entry_rechecks":pref.config_entry_rechecks-before_entry_rechecks,"elapsed_usec":Time.get_ticks_usec()-churn_started,"final":pref.snapshot(),"memory_soak":false}
 func run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))

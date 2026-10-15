@@ -21,7 +21,7 @@ DEFAULT_SUITES = (
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
     'player_upgrade_regression build_system world_upgrade upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign '
-    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience'
+    'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 

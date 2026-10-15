@@ -10,7 +10,7 @@ func busy() -> bool:
     return _thread != null and _thread.is_alive()
 
 func request(path: String) -> int:
-    if closed or busy():
+    if closed or busy() or _accepted != 0:
         return 0
     # Reap an abandoned result before admitting another task. At most one
     # worker/result is retained, including after cancellation.
@@ -65,5 +65,5 @@ static func _read(path: String) -> Dictionary:
         return {"error": "目标区域文件读取失败或已改变。"}
     var json := JSON.new()
     var parsed: Variant = json.data if json.parse(text) == OK else null
-    return {"raw": parsed, "bytes": bytes, "worker_usec": Time.get_ticks_usec() - started,
+    return {"raw": parsed, "stamp": stamp, "bytes": bytes, "worker_usec": Time.get_ticks_usec() - started,
         "worker_is_main": Thread.is_main_thread(), "error": ""}
