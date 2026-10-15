@@ -74,6 +74,8 @@ def build():
     previous_rooms = {(region, room['id']): deepcopy(room)
                       for region, overlay in chapters.items() for room in overlay.get('map_rooms', [])}
     practices = {(item['region_id'], item['room_id']): item for item in routes.get('seal_practice_plan', [])}
+    room_layouts = {(item['region_id'], item['room_id']): item
+                    for item in routes.get('workshop_layouts', [])}
     bases = {r: json.loads((DATA / f'{r}.json').read_text()) for r in REGIONS}
     for overlay in chapters.values():
         for key in ['portals', 'platforms', 'locked_gates', 'collectibles', 'map_rooms', 'grapple_anchors', 'save_points', 'map_room_overrides']:
@@ -152,6 +154,7 @@ def build():
             slots[r] += 1
             x, y = base['world']['width'] + 240, 240 + slot * 540
             room_id = f'{PREFIX}{ability}_{target_index + 1}'
+            room_layout = room_layouts.get((r, room_id), {})
             name, hint = ABILITIES[ability]
             practice = target_index >= 2
             floor_break = ability == 'thorn_downstrike'
@@ -171,6 +174,11 @@ def build():
                     ('approach', [x, approach_y, 346, 26], 'floor'),
                     ('well_wall', [x + 318, approach_y, 28, floor_y - approach_y + 10], 'wall'),
                 ]
+            for step in room_layout.get('platforms', []):
+                offset = step['offset']
+                size = step['size']
+                platforms.append((step['id_suffix'], [x + offset[0], y + offset[1], size[0], size[1]],
+                                  step.get('collision_role', 'floor')))
             for suffix, rect, role in platforms:
                 overlay['platforms'].append(dict(id=room_id + '_' + suffix, rect=rect, collision_role=role,
                     color='385357' if ability in ['bell_guard', 'crown_resonance'] else '4c4b3e',
@@ -184,6 +192,7 @@ def build():
                 from_room=room_id, to_room=room_id, map_marker='ability_gate',
                 gate_kind='fragile_terrain' if floor_break else ('phase_gate' if ability == 'lantern_phase' else 'action_gate'),
                 action_hint=hint))
+            reward_offset = room_layout.get('reward_offset', [520, floor_y - y - 40])
             overlay['map_rooms'].append(dict(id=room_id, name=title, range=[x, x + 664],
                 depth=slot, kind='branch', archetype='ability_backtrack',
                 layout_rect=[x, y - 20, 664, floor_y - y + 140],
@@ -191,14 +200,15 @@ def build():
                 camera_bounds=[x - 18, y - 50, 700, floor_y - y + 210],
                 map_rect=[1800 + (index - 1) * 280, slot * 210, 236, 168],
                 visit_rects=[[x, y - 20, 664, floor_y - y + 140]],
-                objective=('在安全工房练习刚取得的' if practice else '获得能力后回访旧区，练习') + name + '，打开封口取回物资与反证。',
-                guide=hint + '单纯持有能力不会开门。',
-                danger='安全检修空间，无敌群压迫；封口外可随时原路退出。',
+                objective=room_layout.get('objective',
+                    ('在安全工房练习刚取得的' if practice else '获得能力后回访旧区，练习') + name + '，打开封口取回物资与反证。'),
+                guide=room_layout.get('guide', hint + '单纯持有能力不会开门。'),
+                danger=room_layout.get('danger', '安全检修空间，无敌群压迫；封口外可随时原路退出。'),
                 next='检修设施返回' + source_room, setpiece=title,
-                traversal_focus=hint, pacing_role='optional_reward',
+                traversal_focus=room_layout.get('traversal_focus', hint), pacing_role='optional_reward',
                 entry_point=landing, action_point=action_point,
-                reward_landing=[x + 520, floor_y - 40],
-                movement_combo=MOVEMENT_COMBOS[ability],
+                reward_landing=[x + reward_offset[0], y + reward_offset[1]],
+                movement_combo=room_layout.get('movement_combo', MOVEMENT_COMBOS[ability]),
                 landmark_art=dict(motif='pages' if index == 3 else 'bell', position=[x + 464, y + 80], size=[120, 160])))
             authored_room = overlay['map_rooms'][-1]
             previous_room = previous_rooms.get((r, room_id), {})
@@ -221,15 +231,17 @@ def build():
                 label='检修支线 → ' + title)
             peer = next(p for p in overlay['portals'] if p['id'] == exit_id)
             peer['label'] = '检修设施 → 返回原通路'
-            reward_y = floor_y - 40
+            reward_offset = room_layout.get('reward_offset', [520, floor_y - y - 40])
+            reward_y = y + reward_offset[1]
+            reward_platform = room_layout.get('reward_platform', room_id + '_foundation')
             evidence_id = room_id + '_evidence'
             evidence_item = room_id + '_record'
             overlay['collectibles'].extend([
                 dict(id=evidence_id, kind='item', item_id=evidence_item, position=[x + 494, reward_y],
-                     room_id=room_id, platform_id=room_id + '_foundation', label='旧检修操作手册' if practice else EVIDENCE[ability][target_index],
+                     room_id=room_id, platform_id=reward_platform, label='旧检修操作手册' if practice else EVIDENCE[ability][target_index],
                      note='能力回访反证；可选，不代替六区主线证词。'),
                 dict(id=room_id + '_resin', kind='currency', item_id='currency', amount=45 + index * 5,
-                     position=[x + 564, reward_y], room_id=room_id, platform_id=room_id + '_foundation', label='检修物资 · 松脂碎片'),
+                     position=[x + 564, reward_y], room_id=room_id, platform_id=reward_platform, label='检修物资 · 松脂碎片'),
             ])
             overlay['inventory_catalog'][evidence_item] = dict(name=name + '检修手册' if practice else EVIDENCE[ability][target_index], category='Relics',
                 description=title + '保存的工作记录：设施曾为居民维护，后来改为输送契约、军令和被抹去的声音。')
@@ -247,7 +259,7 @@ def build():
             backtracks.append(dict(ability_id=ability, region_id=r, source_room_id=source_room,
                 room_id=room_id, entry_portal_id=entrance, gate_id=gate_id,
                 reward_ids=[evidence_id, room_id + '_resin'], source_position=source,
-                reward_landing=[x + 520, floor_y - 40],
+                reward_landing=[x + reward_offset[0], reward_y],
                 approach_position=([x + 258, approach_y - 40] if floor_break else action_point), action_position=action_point,
                 clue=hint, required_action=ability,
                 role='practice' if practice else 'backtrack'))

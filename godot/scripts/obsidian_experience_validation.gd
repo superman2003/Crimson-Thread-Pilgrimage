@@ -1,5 +1,6 @@
 extends SceneTree
 ## Production World, camera and actors; positioned fixtures, not a natural clear.
+const AUDIO := preload("res://scripts/audio_retirement.gd")
 const PATH := "res://data/demo_ch05_obsidian_pilgrim_road.json"
 const SAVE_PATH := "user://obsidian_experience.json"
 var checks := 0
@@ -115,8 +116,10 @@ func encounters() -> void:
         for effect in effects:
             if is_instance_valid(effect) and not effect.is_queued_for_deletion(): surviving += 1
         check(surviving > 0, eid + " retreat leaves existing wave/pool alive")
+        AUDIO.retire_tree(enemy)
         enemy.queue_free()
         await frames(8)
+    AUDIO.retire_tree(stage)
     stage.queue_free()
     await frames(6)
 
@@ -221,7 +224,11 @@ func room_views() -> void:
     world._travel_world(PATH, Vector2(300, 2720))
     pause_world(world)
     check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 14 and world.player.room_camera.current.id == "ravine_gate", "Returning rebuilds entry framing without stale locks")
+    AUDIO.retire_tree(world)
     world.queue_free()
     await frames(6)
+    check(await AUDIO.drain(self), "CH05 camera fixture releases playback before workshop checks")
+    var workshop_validation = preload("res://scripts/obsidian_lantern_workshop_validation.gd").new()
+    await workshop_validation.run(self, Callable(self, "check"))
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
