@@ -31,6 +31,7 @@ var transition_token: RefCounted
 var transition_serial := 0
 var startup_token: RefCounted
 var manifest_refresh_running := false
+var departure_dirty := false
 var manifest_refresh_retry_after_msec := 0
 
 func request_manifest_refresh(host: Node) -> void:
@@ -662,7 +663,7 @@ func _reset_region_fields(host: Node) -> void:
 ## progress is restored from the settled departure snapshot; transient attacks
 ## are cancelled and source enemies are reconstructed, as on ordinary revisit.
 func cancel_transition() -> void:
-    if phase in ["preflight", "unloading", "loading", "committing"]:
+    if phase in ["preflight", "departure_snapshot", "unloading", "loading", "committing"]:
         cancel_requested = true
 
 
@@ -1241,6 +1242,190 @@ func _set_destination(host: Node, path: String, entry: Vector2, previous_id: Str
     host.transition_entry_message = "旧路重新接通 · " + String(target.get("name", ""))
 
 
+
+## Normal source business may still arrive through queued signals/deferred work
+## while process is frozen. Preserve it, but never accept a mixed checkpoint.
+func mark_departure_dirty(reason: String) -> void:
+    if phase != "departure_snapshot": return
+    departure_dirty = true
+    var metric: Dictionary = last_transition.get("departure_snapshot", {})
+    metric["dirty"] = true
+    if String(metric.get("dirty_reason", "")).is_empty(): metric["dirty_reason"] = reason
+
+func _departure_same_owner(host: Variant, lease: Dictionary) -> bool:
+    return is_instance_valid(host) and is_instance_valid(lease.player) and host.world_loader == self and host.player == lease.player and transition_token == lease.owner
+
+func _departure_identity_current(host: Variant, lease: Dictionary) -> bool:
+    return _departure_same_owner(host, lease) and host.config_path == lease.path and String(host.config.get("id", "")) == lease.id and host.world_state == lease.state and host.build_system == lease.build and host.world_save_path == lease.save_path and host.world_save_blocked == lease.save_blocked and host.world_mode == lease.world_mode
+
+func _departure_context_valid(host: Variant, tree: SceneTree, lease: Dictionary, route_generation: int) -> bool:
+    if not _alive(host) or host.get_tree() != tree or phase != "departure_snapshot" or cancel_requested or departure_dirty: return false
+    if transition_token != lease.owner or (lease.owner != null and lease.owner.cancelled): return false
+    if generation != lease.generation or ROUTES.cached_generation() != route_generation or route_generation < 0: return false
+    if not _departure_identity_current(host, lease): return false
+    if not is_same(host.config, lease.config) or not is_same(host.world_state.data, lease.state_data): return false
+    if not is_same(host.build_system.state, lease.build_state) or not is_same(host.build_system.cooldowns, lease.cooldowns): return false
+    if not is_same(host.inventory_counts, lease.inventory) or not is_same(host.story_flags, lease.flags): return false
+    return host.world_loading and host.chapter_transitioning and host.process_mode == Node.PROCESS_MODE_DISABLED and host.player.process_mode == Node.PROCESS_MODE_DISABLED and host.player.collision_layer == 0 and host.player.collision_mask == 0 and host.player.ui_input_locked and host.active_spawn == lease.spawn and host.entry_spawn_override_enabled == lease.entry_enabled and host.entry_spawn_override == lease.entry and host.player.global_position == lease.position and host.player.hp == lease.hp and host.player.energy == lease.energy and host.currency_count == lease.currency
+
+func _restore_departure_source(host: Variant, lease: Dictionary, paused: Array, previous_mode: int, dirty: bool) -> void:
+    # Liveness for control restoration deliberately permits detached/shutdown
+    # sources. Persistence below requires a still-attached, unchanged owner.
+    var same_owner := _departure_same_owner(host, lease)
+    if same_owner:
+        host.world_loading = lease.world_loading
+        host.chapter_transitioning = lease.chapter_transitioning
+        host.world_portal_request_pending = lease.portal_pending
+        host.player.collision_layer = lease.player_layer
+        host.player.collision_mask = lease.player_mask
+        host.player.process_mode = lease.player_mode
+        host.player.ui_input_locked = lease.ui_locked
+        host.process_mode = previous_mode
+        if dirty: host._sync_ui_input_lock()
+        for tween in paused:
+            if tween.is_valid(): tween.play()
+    if transition_token == lease.owner:
+        _clear_loading_canvas()
+        phase = "idle"
+        if not shutting_down: cancel_requested = false
+    # A real event must retain its original source-save semantics. Never write
+    # to a changed slot, different host identity, or after whole-host shutdown.
+    if dirty and same_owner and not shutting_down and _alive(host) and _departure_identity_current(host, lease) and lease.has("config") and is_same(host.config, lease.config):
+        var metric: Dictionary = last_transition.get("departure_snapshot", {})
+        metric["dirty_save_attempted"] = true
+        metric["dirty_save_succeeded"] = _save_departure_checkpoint(host)
+
+## A physical passage legitimately arrives with its source input gate closed.
+## Only that settled, same-source owner may temporarily open the save guard;
+## no await or target publication occurs inside this checkpoint boundary.
+func _save_departure_checkpoint(host: Node) -> bool:
+    var original_loading: bool = host.world_loading
+    var passage: Variant = host.world_passage
+    var settled_passage: bool = original_loading and is_instance_valid(passage) and passage.host == host and passage.active and passage.settling and passage.source_id == String(host.config.get("id", ""))
+    if settled_passage: host.world_loading = false
+    var saved: bool = host._save_world()
+    if settled_passage: host.world_loading = original_loading
+    return saved
+
+func _prepare_departure_snapshot(host: Node, tree: SceneTree, route_generation: int, previous_mode: int, expected_generation: int) -> Dictionary:
+    departure_dirty = false
+    var wall_started := Time.get_ticks_usec()
+    var metric := {"complete": false, "dirty": false, "dirty_reason": "", "stage": "settling",
+        "generation": generation, "route_generation": route_generation, "work_usec": 0, "wall_usec": 0,
+        "save_usec": 0, "build_serialize_usec": 0, "copies": {}, "error": ""}
+    last_transition["departure_snapshot"] = metric
+    var attempts: Array = last_transition.get("departure_snapshot_attempts", [])
+    attempts.append(metric)
+    last_transition["departure_snapshot_attempts"] = attempts
+    if not _alive(host) or host.get_tree() != tree or not is_instance_valid(host.player) or generation != expected_generation or route_generation < 0 or ROUTES.cached_generation() != route_generation or cancel_requested or (transition_token != null and transition_token.cancelled):
+        metric.error = "出发准备已取消或源租约失效。"
+        last_error = metric.error
+        if is_instance_valid(host) and host.world_loader == self: host.process_mode = previous_mode
+        _clear_loading_canvas()
+        phase = "idle"
+        if not shutting_down: cancel_requested = false
+        return {"complete": false}
+    var lease := {"player": host.player, "state": host.world_state, "build": host.build_system,
+        "owner": transition_token, "generation": generation, "path": String(host.config_path), "id": String(host.config.get("id", "")),
+        "save_path": String(host.world_save_path), "save_blocked": host.world_save_blocked, "world_mode": host.world_mode,
+        "position": host.player.global_position, "world_loading": host.world_loading,
+        "chapter_transitioning": host.chapter_transitioning, "portal_pending": host.world_portal_request_pending,
+        "player_layer": host.player.collision_layer, "player_mask": host.player.collision_mask,
+        "player_mode": host.player.process_mode, "ui_locked": host.player.ui_input_locked}
+    host.player.process_mode = Node.PROCESS_MODE_DISABLED
+    host.player.collision_layer = 0
+    host.player.collision_mask = 0
+    # This synchronous settlement/save boundary is intentionally retained.
+    host.player.prepare_region_handoff()
+    var save_started := Time.get_ticks_usec()
+    var saved: bool = _save_departure_checkpoint(host)
+    metric.save_usec = Time.get_ticks_usec() - save_started
+    metric["saved"] = saved
+    metric["capture_ok"] = host.world_save_capture_ok
+    if not saved and not (host.world_save_blocked and host.world_save_capture_ok):
+        metric.error = "出发检查点未能保存，仍留在来路。"
+        metric.wall_usec = Time.get_ticks_usec() - wall_started
+        last_error = metric.error
+        _restore_departure_source(host, lease, [], previous_mode, false)
+        return {"complete": false}
+    phase = "departure_snapshot"
+    host.world_loading = true
+    host.chapter_transitioning = true
+    host.player.ui_input_locked = true
+    var paused: Array = []
+    for tween in host.region_tweens:
+        if tween.is_valid() and tween.is_running():
+            tween.pause()
+            paused.append(tween)
+    # The source inputs are borrowed only while the guarded departure phase
+    # remains unchanged. Each complete output is private staging until commit.
+    lease["config"] = host.config
+    lease["state_data"] = host.world_state.data
+    lease["build_state"] = host.build_system.state
+    lease["cooldowns"] = host.build_system.cooldowns
+    lease["inventory"] = host.inventory_counts
+    lease["flags"] = host.story_flags
+    lease["hp"] = host.player.hp
+    lease["energy"] = host.player.energy
+    lease["currency"] = host.currency_count
+    lease["spawn"] = host.active_spawn
+    lease["entry_enabled"] = host.entry_spawn_override_enabled
+    lease["entry"] = host.entry_spawn_override
+    var build_started := Time.get_ticks_usec()
+    var source_build: Dictionary = host.build_system.serialize()
+    metric.build_serialize_usec = Time.get_ticks_usec() - build_started
+    var snapshots := {}
+    for name in ["config", "state"]:
+        metric.stage = name
+        var record := {"complete": false, "batches": 0, "edges": 0, "max_step_edges": 0,
+            "begin_usec": 0, "work_usec": 0, "max_step_usec": 0, "wall_usec": 0}
+        metric.copies[name] = record
+        if not _departure_context_valid(host, tree, lease, route_generation): break
+        var copy = VARIANT_COPY_JOB.new()
+        var copy_wall := Time.get_ticks_usec()
+        var begin_started := Time.get_ticks_usec()
+        copy.begin(lease.config if name == "config" else lease.state_data)
+        record.begin_usec = Time.get_ticks_usec() - begin_started
+        record.work_usec = record.begin_usec
+        metric.work_usec += record.begin_usec
+        while not copy.done:
+            var step_started := Time.get_ticks_usec()
+            var edges: int = copy.step(512)
+            var work := Time.get_ticks_usec() - step_started
+            record.batches += 1
+            record.edges += edges
+            record.max_step_edges = maxi(record.max_step_edges, edges)
+            record.work_usec += work
+            record.max_step_usec = maxi(record.max_step_usec, work)
+            metric.work_usec += work
+            await tree.process_frame
+            record.wall_usec = Time.get_ticks_usec() - copy_wall
+            if not _departure_context_valid(host, tree, lease, route_generation): break
+            _cancel_input()
+            if cancel_requested: break
+        if not copy.done or not _departure_context_valid(host, tree, lease, route_generation): break
+        record.complete = true
+        snapshots[name] = copy.result
+    metric.wall_usec = Time.get_ticks_usec() - wall_started
+    var target_source_current := _prepared_source_current(last_transition.get("preflight_source_lease", {}))
+    if snapshots.size() != 2 or not _departure_context_valid(host, tree, lease, route_generation) or not target_source_current:
+        metric.error = "出发快照已取消或源状态发生变化。"
+        last_error = metric.error
+        _restore_departure_source(host, lease, paused, previous_mode, departure_dirty)
+        return {"complete": false}
+    # No more departure yield: return to the existing unload commit boundary.
+    for tween in paused:
+        if tween.is_valid(): tween.play()
+    host.player.process_mode = lease.player_mode
+    # A committed handoff retires the source overlay. Only an in-place abort
+    # restores its input lock; the retained player enters target/rollback free.
+    host.player.ui_input_locked = false
+    metric.complete = true
+    metric.stage = "complete"
+    return {"complete": true, "config": snapshots.config, "state": snapshots.state, "build": source_build,
+        "path": lease.path, "position": lease.position, "player_layer": lease.player_layer, "player_mask": lease.player_mask}
+
+
 func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF, publish_flags: Dictionary = {}) -> bool:
     if phase != "idle":
         return false
@@ -1252,6 +1437,7 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     last_error = ""
     last_transition = {"source": String(host.config.get("id", "")), "target_path": path, "rolled_back": false}
     var previous_mode: int = host.process_mode
+    var source_generation := generation
     host.process_mode = Node.PROCESS_MODE_DISABLED
     _show_loading_canvas(host)
     var target: Dictionary = await _preflight_async(path, entry, host.world_prefetch, host)
@@ -1277,24 +1463,19 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         phase = "idle"
         cancel_requested = false
         return false
-    # Preserve the source through validation. Capture settled departure data only
-    # after the final validator batch has yielded and survived cancellation.
+    # Source settlement and private snapshots precede any retirement. An abort
+    # restores this same live region; it never rebuilds from a partial snapshot.
     var source_catalog: Dictionary = host.world_catalog
-    var source_config: Dictionary = host.config.duplicate(true)
-    var source_path: String = host.config_path
-    var source_position: Vector2 = host.player.global_position
-    var player_layer: int = host.player.collision_layer
-    var player_mask: int = host.player.collision_mask
-    host.player.collision_layer = 0
-    host.player.collision_mask = 0
-    host.player.prepare_region_handoff()
-    host._save_world()
-    var source_state: Dictionary = host.world_state.data.duplicate(true)
-    var source_build: Dictionary = host.build_system.serialize()
+    var departure: Dictionary = await _prepare_departure_snapshot(host, host.get_tree(), route_generation, previous_mode, source_generation)
+    if not departure.get("complete", false): return false
+    var source_config: Dictionary = departure.config
+    var source_state: Dictionary = departure.state
+    var source_build: Dictionary = departure.build
+    var source_path: String = departure.path
+    var source_position: Vector2 = departure.position
+    var player_layer: int = departure.player_layer
+    var player_mask: int = departure.player_mask
     var source_id := String(source_config.id)
-    host.world_loading = true
-    host.chapter_transitioning = true
-    host.process_mode = Node.PROCESS_MODE_DISABLED
     host._stop_region_tweens()
     host._release_region_audio()
     host._release_region_platforms()

@@ -164,12 +164,18 @@ func _walk(direction: int, arrival: bool) -> void:
     scene.player.process_mode = Node.PROCESS_MODE_ALWAYS
     var previous: Vector2 = scene.player_world_position()
     var max_step := 0.0
+    var snapshot_seen := false
     for frame in range(3600):
         await _frames()
         if not scene.world_passage.settling:
             scene.world_passage.step()
         if scene.world_passage.settling:
-            scene.player.process_mode = Node.PROCESS_MODE_INHERIT
+            if scene.world_loader.phase == "departure_snapshot":
+                if not snapshot_seen:
+                    snapshot_seen = true
+                    _check(scene.player.process_mode == Node.PROCESS_MODE_DISABLED, "terminal snapshot retains loader-owned player process gate")
+            else:
+                scene.player.process_mode = Node.PROCESS_MODE_INHERIT
         var position: Vector2 = scene.player_world_position()
         max_step = maxf(max_step, position.distance_to(previous))
         previous = position
@@ -182,6 +188,7 @@ func _walk(direction: int, arrival: bool) -> void:
     _check(max_step < 35, "no world-coordinate teleport during walking or terminal loading")
     if arrival:
         _check(scene.world_loader.phase == "idle", "terminal loader finishes")
+        _check(snapshot_seen, "terminal observes departure snapshot before arrival")
 
 func _frames(count: int = 1) -> void:
     for i in range(count):

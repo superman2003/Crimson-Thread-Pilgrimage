@@ -1,0 +1,210 @@
+{
+  "base_commit": "2bed841166a8197919b913083c620ee8d61fbfb9",
+  "engine": "Godot 4.6.1 stable, software OpenGL",
+  "default_registered_suites": 97,
+  "local_distinct_suites": 13,
+  "local_full_suite_run": false,
+  "strict_runner_exit": 0,
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "159be135e8c9b91cf008f5c74c028093bdcadced307ba19b2872fcfccd6e8428",
+    "godot/scripts/world_region_loader.gd": "28466c66fc08ae0a445264719f587a7be4683d787149626ae9ffe2388a4f8df0",
+    "godot/scripts/world_departure_snapshot_validation.gd": "35c217ce00ab46274cd973ee6c9f7d174eee2842c9706b6a8f25caf2cf6af499",
+    "godot/scripts/world_passage_validation.gd": "487ec73e0eb3a8125cb5dd260a978e8d826f741772e2c22bdcf412d036adb699",
+    "tools/run_godot_regressions.py": "5ef44fdf6b2006181e69410a9d294b6167bb4352c36e743d818c22248487a334",
+    "tools/test_regression_runner.py": "5c18d30d1ca1f930546533689f7cdbe2deaca2f54fb56f1c6a1218edd21d3326",
+    "tools/godot_suite_success_markers.json": "5f24bd9b92f0389452f0f113e55498bbfc1dce81719cbb68f817e345d41a86fd"
+  },
+  "accepted_logs": [
+    {
+      "owner": "agent",
+      "suite": "world_departure_snapshot",
+      "sha256": "97b7d19a57aeeaadc56982a11db6a447e6d80f9b81fb617a8f47d3332bd0746c",
+      "completion_markers": [
+        "WORLD DEPARTURE SNAPSHOT PASS checks=71"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "agent",
+      "suite": "world_prepared_handoff",
+      "sha256": "976b01f59bb69b703d9b13903656a6e71598e77f8843ffdd86e11977e0c6db25",
+      "completion_markers": [
+        "WORLD PREPARED HANDOFF PASS checks=55"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false
+    },
+    {
+      "owner": "agent",
+      "suite": "world_prepare_budget",
+      "sha256": "09b585b304e1938a0ce5404d4e65ca2002c4bc74a3aa0a417f7c5743f9892b9c",
+      "completion_markers": [
+        "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "agent",
+      "suite": "world_resume_regression",
+      "sha256": "2f8733e9acade740a08431d403c80c751e85e8db22af3b4b5f40afff9c8372ac",
+      "completion_markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false
+    },
+    {
+      "owner": "agent",
+      "suite": "save_product",
+      "sha256": "848456193a471152236a5f15f7fe1d304b3ffbfef1be9630ebee67c3099f05e7",
+      "completion_markers": [
+        "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false
+    },
+    {
+      "owner": "agent",
+      "suite": "world_passage",
+      "sha256": "71689d8df3ae5c44a0e35831b731d8b352018b03466fecd879738f5f8ae74fda",
+      "completion_markers": [
+        "WORLD PASSAGE PASS: 62 checks; physical input roundtrip, reversal, save isolation and terminal continuity"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false
+    },
+    {
+      "owner": "root",
+      "suite": "world_departure_snapshot",
+      "sha256": "97b7d19a57aeeaadc56982a11db6a447e6d80f9b81fb617a8f47d3332bd0746c",
+      "completion_markers": [
+        "WORLD DEPARTURE SNAPSHOT PASS checks=71"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_preflight_budget",
+      "sha256": "0029621cb37ff2bf7d4c2057672afdd476c5e0b02e711221beabdb13402f3f2a",
+      "completion_markers": [
+        "WORLD PREFLIGHT BUDGET PASS checks=4290"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_async_loading",
+      "sha256": "9ca6f7ba7a25b212b8c236472cce594bd15facdb2a8fb9e8f01df278b01a8e69",
+      "completion_markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_host",
+      "sha256": "a66d73ce70f42aa9c06851c9faf31e1c3e83cbd97cff77c3fd268944b9b800bd",
+      "completion_markers": [
+        "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_interaction_safety",
+      "sha256": "3d283171043135c039db69d003bf79c01d2b9f1872565cb66d209a3795e22518",
+      "completion_markers": [
+        "WORLD_INTERACTION_SAFETY checks=24 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_death_cache_flush",
+      "sha256": "4508c4a6c8004006b57fa48e52bc6b5f1fe49131b483aa17cc0c388e34c91bc1",
+      "completion_markers": [
+        "WORLD_DEATH_CACHE_FLUSH checks=5 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": true
+    },
+    {
+      "owner": "root",
+      "suite": "world_neighbor_gameplay_live",
+      "sha256": "dc80e287b5284fae9f2cddb74c7ff0d6dfd441d15943bbcbd70a607ebd5c63e8",
+      "completion_markers": [
+        "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=46 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false
+    },
+    {
+      "owner": "root",
+      "suite": "world_neighbor_gameplay",
+      "sha256": "a8e7fc03745f663a12e05a268419720ed7479f0927e35d284d074e3469e3b902",
+      "completion_markers": [
+        "WORLD_NEIGHBOR_GAMEPLAY checks=7474 failures=0"
+      ],
+      "error_count": 0,
+      "objectdb_warning": false
+    }
+  ],
+  "earlier_rejected_attempts": [
+    {
+      "log_sha256": "79af4eeb994f0a3db445d32cd15f998378f749a56f4ec466bc92c2d424e8c356",
+      "reason": "Initial check-only fixture rejected inferred Tween declarations; fixed explicit types before execution."
+    },
+    {
+      "log_sha256": "86ea18457337aee844afa24748f927c535ac20d6838adb9f05c8dcbe4c754643",
+      "reason": "First passage fixture overwrote the loader process gate. Original movement assertions failed; fixed fixture ownership and reran."
+    },
+    {
+      "log_sha256": "6c6f1d71f9b2eda45162e0d6e5892de48c71e8dd2cd632e90c582bbda3a2492f",
+      "reason": "Diagnostic replay confirmed fixture process-mode override; interrupted, not an accepted pass."
+    },
+    {
+      "log_sha256": "cce8b2ae50e210caef4b21102c1cb2d1f26b3dce7ea97db9a49cdd2a1e8036e8",
+      "reason": "Two new overlay-lock assertions failed against old commit behavior. Corrected commit unlock; both assertions pass in frozen suite."
+    }
+  ],
+  "other_checks": [
+    {
+      "check": "departure-snapshot-root-campaign.log",
+      "sha256": "4c1daa557f6c7d872cde18f1d1917da58e1881f8bc1e2cb04a0a4c1a9a68be19"
+    },
+    {
+      "check": "departure-snapshot-root-npm.log",
+      "sha256": "4077d83272b7fd468731f484fd796625109e0e00c795042cb6c70147aa8f3f8e"
+    },
+    {
+      "check": "import-1.log",
+      "sha256": "1573fca69e52bc6740f2081d1513d725750c98a82cfd54c33603e2a3d228b2f9"
+    },
+    {
+      "check": "import-2.log",
+      "sha256": "62ff7b3cbc57fbda0f85e1c585b5e5364f367c356ddea4be8050dfb8e8611e8f"
+    }
+  ],
+  "base_ci": {
+    "run_id": 38707837787,
+    "head_sha": "2bed841166a8197919b913083c620ee8d61fbfb9",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "limitations": [
+    "ObjectDB exit warnings remain; preparation suite warning has an existing baseline, new suite warning is not attributed.",
+    "Capture/validation, build/JSON serialization, disk writes, coordinate first read, key enumeration and indivisible leaf work remain synchronous.",
+    "512-edge cap is not a hard frame-time guarantee; W00b2b remains partial.",
+    "Remote full 97-suite CI is a separate gate."
+  ],
+  "neighbor_landings": 76,
+  "publication_parent": "2dac49d76bc7a32e9994d4394514ed1153309ff5",
+  "tested_and_publication_base_tree": "0f357a113efb67e630bfb2866d533a23ed672553"
+}
