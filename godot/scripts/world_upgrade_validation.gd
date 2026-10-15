@@ -210,6 +210,10 @@ func _run() -> void:
         if scene.locked_gate_bodies.has(gate_id):
             print("ACTION_DEBUG %s pos=%s locked=%s hurt=%s attack=%s" % [ability, str(scene.player.position), str(scene.player.ui_input_locked), str(scene.player.hurt_timer), str(scene.player.attack_timer)])
             continue
+        if String(target.room_id) == "upgrade_lantern_phase_3":
+            var traversal = preload("res://scripts/obsidian_lantern_workshop_validation.gd").new()
+            _assert(await traversal.walk_to_landing(scene,self,Vector2(7800,490)), gate_id + ": single jump reaches lower service platform")
+            _assert(await traversal.walk_to_landing(scene,self,Vector2(7890,380)), gate_id + ": single jump reaches upper reward gallery")
         for reward_id in target.reward_ids:
             if reward_positions.has(String(reward_id)):
                 _assert(await _walk_x(reward_positions[String(reward_id)].x), gate_id + ": opened gate permits reward approach")
