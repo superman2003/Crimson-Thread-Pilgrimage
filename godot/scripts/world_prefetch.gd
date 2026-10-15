@@ -67,6 +67,7 @@ func step(host: Node, delta: float) -> void:
     if current_route_generation < 0:
         if route_cache_seen and route_cache_generation != -2:
             cancel_config()
+            _clear_entities()
             configs.clear()
             retained.clear()
             paths.clear()
@@ -81,6 +82,7 @@ func step(host: Node, delta: float) -> void:
         route_cache_generation = current_route_generation
     elif route_cache_generation != current_route_generation:
         cancel_config()
+        _clear_entities()
         configs.clear()
         retained.clear()
         paths.clear()

@@ -23,6 +23,7 @@ var source_id := ""
 var source_point := Vector2.ZERO
 var destination_point := Vector2.ZERO
 var destination_id := ""
+var destination_config_path := ""
 var route: Dictionary = {}
 var frozen: Array[Dictionary] = []
 var original_mask := 0
@@ -127,6 +128,9 @@ func begin(portal_id: String) -> bool:
     if target_config_path.is_empty() or not entry.is_finite() or not FileAccess.file_exists(target_config_path):
         host._toast("旧路目标区域暂不可用。")
         return false
+    # Keep the admitted path so terminal preflight can refresh a stale manifest
+    # before validating this destination against the newly published routes.
+    destination_config_path = target_config_path
     route = connection.passage.duplicate(true)
     source_id = String(host.config.id)
     source_point = Vector2(portal.position[0], portal.position[1])
@@ -380,7 +384,7 @@ func _arrive() -> void:
     # held towards the exit cannot move the body off the finite tube during IO.
     var previous_player_mode: ProcessMode = host.player.process_mode
     host.player.process_mode = Node.PROCESS_MODE_DISABLED
-    var ok: bool = await host.world_loader.replace_region_async(host, ROUTES.cached_config_path(destination_id), entry, source_point)
+    var ok: bool = await host.world_loader.replace_region_async(host, destination_config_path, entry, source_point)
     if not is_instance_valid(host) or not host.is_inside_tree():
         return
     host.player.process_mode = previous_player_mode
