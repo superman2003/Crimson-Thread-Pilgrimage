@@ -56,6 +56,13 @@ func capture() -> void:
     world.perform_build_action("resupply_tools")
     world._sync_player_build()
     world.currency_count = 120
+    var fixture_label := Label.new()
+    fixture_label.text = "展示存档 · 装备与材料由夹具授予，非自然流程"
+    fixture_label.position = Vector2(85, 26)
+    fixture_label.z_index = 100
+    fixture_label.add_theme_font_size_override("font_size", 14)
+    fixture_label.add_theme_color_override("font_color", Color("ffd580"))
+    world.ui_shell.add_child(fixture_label)
     world.ui_shell.toast.text = "展示存档：授予装备与材料，仅作实际 World 界面验收"
     await shot("world_hud")
     world._toggle_build()
@@ -64,6 +71,9 @@ func capture() -> void:
     for index in pages.size():
         world.ui_shell.build_category = pages[index]
         world.ui_shell.build_family = "travel_accessory" if index == 4 else "combat_accessory"
+        if index == 2:
+            world.build_system.state.tool_counts["shard"] = 0
+            world.build_system.state.tool_counts["mine"] = 0
         world.ui_shell.refresh_build()
         if index == 2: world.ui_shell._preview_tool_resupply()
         await shot(names[index])
@@ -81,7 +91,10 @@ func capture() -> void:
     paused = true
     await shot("skill_action")
     paused = false
-    print("COMBAT_BUILD_CAPTURE_PASS screenshots=9 isolated_showcase_progress=true")
     world.queue_free()
-    await frames(2)
+    world = null
+    # Let deferred frees, render commands and retiring audio complete before exit.
+    await frames(10)
+    await create_timer(0.5).timeout
+    print("COMBAT_BUILD_CAPTURE_PASS screenshots=9 isolated_showcase_progress=true")
     quit()

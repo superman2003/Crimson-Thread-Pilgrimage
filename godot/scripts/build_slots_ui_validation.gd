@@ -7,6 +7,8 @@ var failures: Array[String]=[]
 
 class MockBuild extends RefCounted:
     var snapshot: Dictionary={}
+    var state: Dictionary={"crest":"crimson","skills":["cleave","needle"],"tools":["shard","mine"],"active_skill_slot":0,"active_tool_slot":0}
+    var cooldowns: Dictionary={}
     func get_snapshot() -> Dictionary:return snapshot.duplicate(true)
 
 class MockNarrative extends RefCounted:
@@ -100,7 +102,7 @@ func _run() -> void:
         "tools":[_option("shard","碎片","tool"),_option("mine","线雷","tool")],
         "passive_options":[_option("stride","疾行铭饰","combat_accessory",1),_option("mender","愈线铭饰","combat_accessory",2),_option("wayfinder","引路铭饰","travel_accessory",1)],
         "slot_layout":{
-            "tool":[_slot("tool_0","tool",0,["shard","mine"],true,"shard"),_slot("tool_1","tool",1,["mine"],false,"")],
+            "tool":[_slot("tool_0","tool",0,["shard","mine"],true,"shard"),_slot("tool_1","tool",1,["mine"],false,"mine")],
             "combat_accessory":[_slot("combat_accessory_0","combat_accessory",0,["stride","mender"],true,"stride"),_slot("combat_accessory_1","combat_accessory",1,["stride","mender"],true,""),_slot("combat_accessory_2","combat_accessory",2,["stride","mender"],true,"")],
             "travel_accessory":[_slot("travel_accessory_0","travel_accessory",0,["wayfinder"],true,"")],
             "thread_skill":[_slot("thread_skill_0","thread_skill",0,["cleave","needle"],true,"cleave"),_slot("thread_skill_1","thread_skill",1,["cleave"],true,"")]
@@ -128,6 +130,7 @@ func _run() -> void:
     ui.refresh_build()
     _check(ui.build_tabs.size()==6,"Production build panel retains its six reachable top-level pages")
     _check(ui.build_summary.text.contains("战具 1/2") and ui.build_summary.text.contains("绯线技 1/2"),"Header reports active versus available typed slot counts")
+    _check(ui.build_summary.text.contains("休眠 1"),"Header separates a stored dormant item from active equipment counts")
     ui.build_tabs[1].pressed.emit()
     _check(ui.build_slot_buttons.size()==2 and ui.build_slot_buttons[1].disabled==false,"Skill family exposes both unlocked typed slots")
     ui.build_slot_buttons[0].grab_focus()
@@ -152,6 +155,7 @@ func _run() -> void:
     ui.build_tabs[3].pressed.emit()
     _check(ui.family_selector_buttons[0].visible and ui.family_selector_buttons[1].visible,"铭饰 page offers separate combat and travel accessory families")
     _check(ui.build_slot_buttons.size()==3,"Three-slot accessory family renders all typed slot controls")
+    _check(ui.build_slot_buttons[0].tooltip_text.contains("疾行铭饰") and ui.build_slot_buttons[0].tooltip_text.contains("愈线铭饰"),"Compatibility tooltip uses localized equipment names instead of catalog IDs")
     var panel_bounds:=Rect2(Vector2.ZERO,ui.build_panel.size)
     var every_slot_fits:=true
     for slot_button in ui.build_slot_buttons:
@@ -171,11 +175,14 @@ func _run() -> void:
     _check(ui.build_family=="travel_accessory" and ui.build_grid.get_child_count()==1,"Travel accessory selector shows only its own family options")
     ui.build_tabs[2].pressed.emit()
     _check(ui.build_slot_buttons.size()==2 and ui.build_slot_buttons[1].disabled,"Locked typed tool slot is visible and cannot receive equipment")
+    _check(ui.build_slot_buttons[1].text.contains("休眠") and ui.build_slot_buttons[1].tooltip_text.contains("未激活：槽位未解锁"),"Stored equipment in a locked slot is explicitly labeled dormant")
     ui.build_slot_buttons[0].grab_focus()
     _check(ui.get_viewport().gui_get_focus_owner()==ui.build_slot_buttons[0] and ui.build_slot_buttons[0].focus_mode==Control.FOCUS_ALL,"Typed slot selector participates in keyboard/controller focus navigation")
+    ui._refresh_tactical_cards(ui._build_snapshot(),runtime.build_system.state,runtime.build_system)
+    _check(ui.tactical_names[3].text=="休眠 · 线雷" and ui.tactical_values[3].text=="槽位未解锁","HUD does not present a locked dormant tool as ready")
     ui.resupply_preview_button.pressed.emit()
     _check(runtime.last_action=="quote_resupply" and runtime.currency_count==120,"Paid supply preview reads a quote without spending currency")
-    _check(ui.build_detail.text.contains("碎钱：12") and ui.build_detail.text.contains("+1") and not ui.resupply_confirm_button.disabled,"Partial refill preview displays charge gains and exact cost before confirmation")
+    _check(ui.build_heading.text=="战具补给报价" and ui.build_detail.text.contains("碎钱：12") and ui.build_detail.text.contains("碎片 +1") and ui.build_detail.text.contains("线雷 +1") and not ui.resupply_confirm_button.disabled,"Partial refill preview uses localized tool names and shows gains plus exact cost before confirmation")
     ui.resupply_confirm_button.pressed.emit()
     _check(runtime.last_action=="resupply_tools","Paid resupply requires the separate confirmation signal")
     runtime.build_system.snapshot.at_workstation=false

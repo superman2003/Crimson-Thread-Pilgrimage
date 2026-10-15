@@ -164,6 +164,7 @@ func _test_variable_quest_order() -> void:
 func _test_ending_world_phase() -> void:
 	var selected_flags: Dictionary = {
 		"ending_chosen": "ending_b",
+		"boss_down_ch06": true,
 		"ending_a_done": true,
 		"ending_c_done": true
 	}
@@ -172,6 +173,9 @@ func _test_ending_world_phase() -> void:
 	var progress: Dictionary = narrative.evaluate_progress({}, selected_flags)
 	var chosen_row: Dictionary = _ending_row(progress.get("endings", []), "ending_b")
 	_check(String(chosen_row.get("status", "")) == "chosen", "the journal derives the selected phase from ending_chosen")
+	var selected_eval: Dictionary = narrative.evaluate_ending("ending_b", {}, selected_flags)
+	_check(bool(selected_eval.get("available", false)) and selected_eval.get("grant_flags", []).is_empty(),
+		"a reopened chosen ending remains readable without re-emitting consequence commits")
 	var closed_row: Dictionary = _ending_row(progress.get("endings", []), "ending_c")
 	_check(String(closed_row.get("status", "")) == "closed", "other encountered choices close after a persistent selection")
 	var legacy_flags: Dictionary = {"ending_c_done": true}

@@ -240,7 +240,9 @@ func _evaluate_ending(ending_id: String, inventory: Dictionary, flags: Dictionar
         else:
             hidden_missing_count += 1
     var grant_flags: Array = []
-    if missing.is_empty() and (chosen.is_empty() or chosen == ending_id):
+    # A saved choice is already committed. Readiness remains queryable for the
+    # selected branch, but only an unchosen branch emits its first commit flags.
+    if missing.is_empty() and chosen.is_empty():
         if not bool(flags.get(ending_id + "_done", false)):
             grant_flags.append(ending_id + "_done")
         for flag in entry.get("consequence_flags", []):

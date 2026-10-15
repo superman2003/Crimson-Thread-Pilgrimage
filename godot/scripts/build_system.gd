@@ -791,6 +791,13 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
         var entry: Dictionary = catalog.passives[id].duplicate(true)
         entry.merge({"id": id, "unlocked": state.unlocked_passives.has(id), "selected": state.passives.has(id)}, true)
         result.passive_options.append(entry)
+    # Keep family options aligned with the public canonical option rows above.
+    # Those rows include derived state (tool stock/capacity, scaled skill cost,
+    # learned level and cooldown) that raw catalog clones do not carry.
+    var canonical_options: Dictionary = {"skills": {}, "tools": {}, "passives": {}}
+    for entry in result.skills: canonical_options.skills[String(entry.id)] = entry
+    for entry in result.tools: canonical_options.tools[String(entry.id)] = entry
+    for entry in result.passive_options: canonical_options.passives[String(entry.id)] = entry
     for family in FAMILY_KEYS:
         var table := String(FAMILY_TABLES[family])
         var slots: Array = []
@@ -809,7 +816,7 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
             for slot in range(int(FAMILY_CAPACITIES[family])):
                 if _slot_spec(family, slot).get("compatible", []).has(String(id)):
                     compatible_slots.append(slot)
-            var entry: Dictionary = catalog[table][id].duplicate(true)
+            var entry: Dictionary = canonical_options[table][String(id)].duplicate(true)
             entry.merge({"id": String(id), "slot_family": family,
                 "unlocked": state["unlocked_" + table].has(id), "equipped_slots": _equipped_slots(equipped, String(id)),
                 "compatible_slots": compatible_slots}, true)

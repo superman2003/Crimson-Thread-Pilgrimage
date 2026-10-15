@@ -901,6 +901,20 @@ func _family_slots(snapshot: Dictionary, family_id: String) -> Array:
     var row:=_family_row(snapshot,family_id)
     return row.get("slots",[]) if row.get("slots",[]) is Array else []
 
+func _slot_dormancy_reason(slot: Dictionary, item_id: String) -> String:
+    if item_id.is_empty():return ""
+    if not bool(slot.get("unlocked",true)):return "槽位未解锁"
+    var compatible: Array=slot.get("compatible",[])
+    if not compatible.is_empty() and not compatible.has(item_id):return "装备与槽位不兼容"
+    return ""
+
+func _family_slot_dormancy_reason(snapshot: Dictionary,family_id: String,slot_index: int,item_id: String) -> String:
+    if item_id.is_empty():return ""
+    for slot_value in _family_slots(snapshot,family_id):
+        var slot: Dictionary=slot_value
+        if int(slot.get("index",-1))==slot_index:return _slot_dormancy_reason(slot,item_id)
+    return ""
+
 func _family_options(snapshot: Dictionary, family_id: String) -> Array:
     var row:=_family_row(snapshot,family_id)
     var options: Variant=row.get("options",[])
@@ -919,6 +933,14 @@ func _family_entry(snapshot: Dictionary, family_id: String, id: String) -> Dicti
     for value in _family_options(snapshot,family_id):
         if value is Dictionary and String(value.get("id",""))==id:return value
     return {}
+
+func _family_option_names(snapshot: Dictionary,family_id: String,ids: Array) -> Array[String]:
+    var names: Array[String]=[]
+    for value in ids:
+        var id:=String(value)
+        var entry: Dictionary=_family_entry(snapshot,family_id,id)
+        names.append(String(entry.get("name",id)))
+    return names
 
 func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots: Array) -> void:
     if not slots.is_empty():build_assign_slot=clampi(build_assign_slot,0,slots.size()-1)
@@ -945,15 +967,28 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         button.visible=true
         var equipped_id:=String(slot.get("equipped_id",""))
         var equipped:=_family_entry(snapshot,family_id,equipped_id)
+        var dormant_reason:=_slot_dormancy_reason(slot,equipped_id)
         var label:=String(slot.get("name","位置 %d" % (index+1)))
         if label.is_empty():label="位置 %d" % (index+1)
         if not bool(slot.get("unlocked",true)):label="🔒 "+label
-        elif not equipped_id.is_empty():label+=" · "+String(equipped.get("name",equipped_id))
+        if not equipped_id.is_empty():
+            label+=" · "+String(equipped.get("name",equipped_id))
+            if not dormant_reason.is_empty():label+=" · 休眠"
         else:label+=" · 空"
         button.text=("▶ " if index==build_assign_slot else "○ ")+label
         button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         button.disabled=not bool(slot.get("unlocked",true))
-        button.tooltip_text=label+"\n"+("此槽位尚未解锁" if button.disabled else "当前装备："+(String(equipped.get("name",equipped_id)) if not equipped_id.is_empty() else "空")+"\n兼容："+"、".join(slot.get("compatible",[])))
+        var compatible_ids: Array=slot.get("compatible",[])
+        var compatible_names:=_family_option_names(snapshot,family_id,compatible_ids)
+        var tooltip:=label+"\n"
+        if button.disabled:
+            tooltip+="此槽位尚未解锁"
+            if not dormant_reason.is_empty():tooltip+="\n休眠装备："+String(equipped.get("name",equipped_id))+"\n未激活："+dormant_reason
+        else:
+            tooltip+="当前装备："+(String(equipped.get("name",equipped_id)) if not equipped_id.is_empty() else "空")
+            if not dormant_reason.is_empty():tooltip+="\n未激活："+dormant_reason
+            tooltip+="\n兼容："+("、".join(compatible_names) if not compatible_names.is_empty() else "不限")
+        button.tooltip_text=tooltip
         button.add_theme_stylebox_override("normal",_tab_style(index==build_assign_slot))
         button.focus_neighbor_left=button.get_path_to(build_slot_buttons[index-1]) if index>0 else NodePath("")
         button.focus_neighbor_right=button.get_path_to(build_slot_buttons[index+1]) if index+1<build_slot_buttons.size() else NodePath("")
@@ -962,12 +997,16 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
 func _family_count_summary(snapshot: Dictionary, family_id: String, slots: Array) -> String:
     var active:=0
     var unlocked:=0
+    var dormant:=0
     for slot_value in slots:
         var slot: Dictionary=slot_value
         if bool(slot.get("unlocked",true)):unlocked+=1
-        if not String(slot.get("equipped_id","")).is_empty():active+=1
+        var item_id:=String(slot.get("equipped_id",""))
+        if item_id.is_empty():continue
+        if _slot_dormancy_reason(slot,item_id).is_empty():active+=1
+        else:dormant+=1
     var row:=_family_row(snapshot,family_id)
-    return "%s 已装备 %d / %d（已解锁 %d 槽）" % [String(row.get("name",family_id)),active,slots.size(),unlocked]
+    return "%s 有效 %d / %d（已解锁 %d 槽 · 休眠 %d）" % [String(row.get("name",family_id)),active,slots.size(),unlocked,dormant]
 
 func _all_family_count_summary(snapshot: Dictionary) -> String:
     var parts: Array[String]=[]
@@ -975,23 +1014,36 @@ func _all_family_count_summary(snapshot: Dictionary) -> String:
         var slots:=_family_slots(snapshot,family_id)
         if slots.is_empty():continue
         var active:=0
+        var dormant:=0
         for value in slots:
-            if not String(value.get("equipped_id","")).is_empty():active+=1
+            var slot: Dictionary=value
+            var item_id:=String(slot.get("equipped_id",""))
+            if item_id.is_empty():continue
+            if _slot_dormancy_reason(slot,item_id).is_empty():active+=1
+            else:dormant+=1
         var family:=_family_row(snapshot,family_id)
-        parts.append("%s %d/%d" % [String(family.get("name",family_id)),active,slots.size()])
+        parts.append("%s %d/%d%s" % [String(family.get("name",family_id)),active,slots.size()," · 休眠 %d" % dormant if dormant>0 else ""])
     return " · ".join(parts)
 
 func _preview_tool_resupply() -> void:
     resupply_quote={}
     if level==null or not level.has_method("perform_build_action"):
-        build_detail.text+="\n\n补给报价不可用。"
+        build_heading.text="战具补给报价"
+        build_detail.text="补给报价不可用。"
+        build_detail.scroll_to_line(0)
+        resupply_confirm_button.disabled=true
         return
     var quote: Variant=level.call("perform_build_action","quote_resupply")
     if not quote is Dictionary:
-        build_detail.text+="\n\n补给报价暂不可用。"
+        build_heading.text="战具补给报价"
+        build_detail.text="补给报价暂不可用。"
+        build_detail.scroll_to_line(0)
+        resupply_confirm_button.disabled=true
         return
     resupply_quote=quote.duplicate(true)
-    build_detail.text+="\n\n"+_resupply_quote_text(resupply_quote)
+    build_heading.text="战具补给报价"
+    build_detail.text=_resupply_quote_text(resupply_quote)
+    build_detail.scroll_to_line(0)
     resupply_confirm_button.disabled=not bool(resupply_quote.get("ok",false))
 
 func _resupply_quote_text(quote: Dictionary) -> String:
@@ -1003,7 +1055,7 @@ func _resupply_quote_text(quote: Dictionary) -> String:
         for id in charges:
             var amount: Variant=charges[id]
             if amount is Dictionary:amount=amount.get("amount",amount.get("charges",0))
-            if int(amount)>0:lines.append("%s +%d" % [level._item_display_name(String(id)) if level.has_method("_item_display_name") else String(id),int(amount)])
+            if int(amount)>0:lines.append("%s +%d" % [_resupply_tool_name(String(id)),int(amount)])
     var cost: Variant=quote.get("cost",{})
     if cost is Dictionary:
         if int(cost.get("currency",0))>0:lines.append("碎钱：%d" % int(cost.currency))
@@ -1013,17 +1065,30 @@ func _resupply_quote_text(quote: Dictionary) -> String:
                 lines.append("%s：%d" % [level._item_display_name(String(material)) if level.has_method("_item_display_name") else String(material),int(materials[material])])
     return "\n".join(lines)
 
+func _resupply_tool_name(item_id: String) -> String:
+    var snapshot: Dictionary=_build_snapshot()
+    var entry: Dictionary=_family_entry(snapshot,"tool",item_id)
+    var localized_name:=String(entry.get("name",""))
+    if not localized_name.is_empty():return localized_name
+    if level!=null and level.has_method("_item_display_name"):
+        return String(level.call("_item_display_name",item_id))
+    return item_id
+
 func _confirm_tool_resupply() -> void:
     if resupply_quote.is_empty() or not bool(resupply_quote.get("ok",false)):return
     var current: Variant=level.call("perform_build_action","quote_resupply") if level!=null and level.has_method("perform_build_action") else {}
     if not current is Dictionary or not bool(current.get("ok",false)):
         resupply_quote=current if current is Dictionary else {}
-        build_detail.text+="\n\n"+_resupply_quote_text(resupply_quote)
+        build_heading.text="战具补给报价"
+        build_detail.text="先前报价已失效。\n\n"+_resupply_quote_text(resupply_quote)
+        build_detail.scroll_to_line(0)
         resupply_confirm_button.disabled=true
         return
     if current.get("charges",{})!=resupply_quote.get("charges",{}) or current.get("cost",{})!=resupply_quote.get("cost",{}):
         resupply_quote=current.duplicate(true)
-        build_detail.text+="\n\n钱包或库存已变化，请复核最新报价后再次确认。\n"+_resupply_quote_text(resupply_quote)
+        build_heading.text="战具补给报价"
+        build_detail.text="钱包或库存已变化，请复核最新报价后再次确认。\n\n"+_resupply_quote_text(resupply_quote)
+        build_detail.scroll_to_line(0)
         resupply_confirm_button.disabled=false
         return
     resupply_quote={}
@@ -1172,11 +1237,24 @@ func refresh_build() -> void:
 func _entry_equipped_slots(snapshot: Dictionary, id: String) -> String:
     var family_id:=_build_family_for_page()
     if family_id.is_empty():return ""
+    var layout: Variant=snapshot.get("slot_layout",{})
+    var family_slots:=_family_slots(snapshot,family_id)
+    if layout is Dictionary and layout.has(family_id):
+        var active_positions: Array[String]=[]
+        var dormant_positions: Array[String]=[]
+        for slot_value in family_slots:
+            var slot: Dictionary=slot_value
+            if String(slot.get("equipped_id",""))!=id:continue
+            var position:=str(int(slot.get("index",0))+1)
+            if _slot_dormancy_reason(slot,id).is_empty():active_positions.append(position)
+            else:dormant_positions.append(position)
+        var result:="/".join(active_positions)
+        if not dormant_positions.is_empty():result+=(" · " if not result.is_empty() else "")+"休眠 "+"/".join(dormant_positions)
+        return result
     var equipped: Array=[]
-    for slot_value in _family_slots(snapshot,family_id):
+    for slot_value in family_slots:
         var slot: Dictionary=slot_value
         if String(slot.get("equipped_id",""))==id:equipped.append(int(slot.get("index",equipped.size())))
-    if equipped.is_empty() and snapshot.get("slot_layout",{}).get(family_id,[]) is Array and not snapshot.get("slot_layout",{}).get(family_id,[]).is_empty():return ""
     if equipped.is_empty():
         var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
         if system!=null:
@@ -1212,7 +1290,10 @@ func _show_build_detail(entry: Dictionary) -> void:
     var family_id:=_build_family_for_page()
     if not family_id.is_empty() and snapshot.get("slot_layout",{}) is Dictionary and snapshot.slot_layout.get(family_id) is Array:
         var slots: Array=snapshot.slot_layout[family_id]
-        lines.append("\n装备类别：%s" % String(entry.get("slot_family",family_id)))
+        var family_info:=_family_row(snapshot,family_id)
+        var family_names: Dictionary={"tool":"战具","combat_accessory":"战斗饰件","travel_accessory":"行旅饰件","thread_skill":"线技"}
+        var family_name:=String(family_info.get("name",family_names.get(family_id,family_id)))
+        lines.append("\n装备类别：%s" % family_name)
         lines.append(_family_count_summary(snapshot,family_id,slots))
         if build_assign_slot<slots.size():
             var target_slot: Dictionary=slots[build_assign_slot]
@@ -1223,7 +1304,7 @@ func _show_build_detail(entry: Dictionary) -> void:
             if not bool(target_slot.get("unlocked",false)):
                 lines.append("该槽位尚未解锁，无法装备。")
             var compatible: Array=target_slot.get("compatible",[])
-            if not compatible.is_empty():lines.append("兼容条目："+"、".join(compatible))
+            if not compatible.is_empty():lines.append("兼容条目："+"、".join(_family_option_names(snapshot,family_id,compatible)))
             if not compatible.is_empty() and not compatible.has(String(entry.get("id",""))):
                 lines.append("此条目与目标位置不兼容，装备请求会被拒绝。")
             if entry.has("cost"):
@@ -1466,13 +1547,17 @@ func _refresh_combat_status(player: Node) -> void:
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))!=id:continue
             var remaining:=float(system.cooldowns.get(id,0)) if system!=null else float(state.get("skill_cooldown",0))
-            var status:="%.1fs" % remaining if remaining>0 else "就绪"
-            skill_lines.append("%s%d %s %s" % ["▶" if slot==int(build_state.get("active_skill_slot",0)) else "○",slot+1,String(skill.get("name",id)),status])
+            var dormant_reason:=_family_slot_dormancy_reason(snapshot,"thread_skill",slot,id)
+            var status:=("休眠："+dormant_reason) if not dormant_reason.is_empty() else "%.1fs" % remaining if remaining>0 else "就绪"
+            skill_lines.append("%s%d %s %s" % ["▶" if slot==int(build_state.get("active_skill_slot",0)) and dormant_reason.is_empty() else "○",slot+1,String(skill.get("name",id)),status])
     for slot in equipped_tools.size():
         var id:=String(equipped_tools[slot])
         if id.is_empty():tool_lines.append("○%d 未携带战具" % (slot+1));continue
         for tool in snapshot.get("tools",[]):
-            if String(tool.get("id",""))==id:tool_lines.append("%s%d %s %d次" % ["▶" if slot==int(build_state.get("active_tool_slot",0)) else "○",slot+1,String(tool.get("name",id)),int(tool.get("count",0))])
+            if String(tool.get("id",""))==id:
+                var dormant_reason:=_family_slot_dormancy_reason(snapshot,"tool",slot,id)
+                var status:="休眠："+dormant_reason if not dormant_reason.is_empty() else "%d次" % int(tool.get("count",0))
+                tool_lines.append("%s%d %s %s" % ["▶" if slot==int(build_state.get("active_tool_slot",0)) and dormant_reason.is_empty() else "○",slot+1,String(tool.get("name",id)),status])
     combat_status.text=" · ".join(skill_lines)+"\n"+" · ".join(tool_lines)
     if player.has_method("get_seal_mechanism_snapshot"):
         var mechanism: Dictionary=player.call("get_seal_mechanism_snapshot")
@@ -1602,20 +1687,28 @@ func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, syst
         var slot:=index%2
         var equipped: Array=build_state.get("skills" if is_skill else "tools",[])
         var id:=String(equipped[slot]) if slot<equipped.size() else ""
+        var family_id:="thread_skill" if is_skill else "tool"
+        var dormant_reason:=_family_slot_dormancy_reason(snapshot,family_id,slot,id)
         var path:="res://assets/ui/seals/%s.svg" % id
         if tactical_icons[index].get_meta("asset_id","")!=id:
             tactical_icons[index].set_meta("asset_id",id)
             tactical_icons[index].texture=load(path) if not id.is_empty() and ResourceLoader.exists(path) else null
         tactical_names[index].text="未装备" if is_skill else "未携带"
         tactical_values[index].text="—"
-        var active:=slot==int(build_state.get("active_skill_slot" if is_skill else "active_tool_slot",0))
-        var signature:=id+str(active)
+        var active:=slot==int(build_state.get("active_skill_slot" if is_skill else "active_tool_slot",0)) and dormant_reason.is_empty()
+        var signature:=id+str(active)+dormant_reason
         if tactical_signatures[index]!=signature:
             tactical_signatures[index]=signature
             tactical_cards[index].add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.94),GOLD if active else Color("454d43")))
         for item in snapshot.get("skills" if is_skill else "tools",[]):
             if String(item.get("id",""))!=id:continue
-            tactical_names[index].text=String(item.get("name",id))
+            var item_name:=String(item.get("name",id))
+            tactical_names[index].text=("休眠 · "+item_name) if not dormant_reason.is_empty() else item_name
+            tactical_cards[index].tooltip_text="未激活："+dormant_reason if not dormant_reason.is_empty() else item_name
+            if not dormant_reason.is_empty():
+                tactical_values[index].text=dormant_reason
+                tactical_icons[index].modulate=Color(0.45,0.45,0.45)
+                break
             if is_skill:
                 var remaining:=float(system.cooldowns.get(id,0)) if system!=null else 0.0
                 tactical_values[index].text="%.1fs" % remaining if remaining>0 else _short_binding("skill_1") if active else "待切换"

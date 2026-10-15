@@ -49,8 +49,17 @@ func _initialize() -> void:
 	var purchase := build.resupply_tools(wallet, true)
 	_check(purchase.ok and build.state.tool_counts.shard == int(saved.tool_counts.shard) + 1 and purchase.wallet.currency == 1, "purchase adds only paid charges")
 	var stock: Dictionary = build.state.tool_counts.duplicate(true)
+	build.state.skill_levels.needle = 3
+	build.cooldowns.needle = 7.25
 	var cooldowns: Dictionary = build.cooldowns.duplicate(true)
 	_check(build.switch_crest("bell").ok and build.state.tool_counts == stock and build.cooldowns == cooldowns, "crest reconfiguration does not refresh stock or cooldown")
+	var derived := build.get_snapshot()
+	var shard_row := _row_by_id(derived.tools, "shard")
+	var family_shard := _family_option(derived, "tool", "shard")
+	_check(family_shard.get("count", -1) == shard_row.get("count", -2) and family_shard.get("capacity", -1) == shard_row.get("capacity", -2), "family tool option preserves canonical stock and capacity")
+	var needle_row := _row_by_id(derived.skills, "needle")
+	var family_needle := _family_option(derived, "thread_skill", "needle")
+	_check(family_needle.get("energy_cost", -1) == needle_row.get("energy_cost", -2) and family_needle.get("level", -1) == needle_row.get("level", -2) and is_equal_approx(float(family_needle.get("cooldown_remaining", -1.0)), float(needle_row.get("cooldown_remaining", -2.0))), "family skill option preserves scaled cost, level, and cooldown")
 	_check(build.equip_family_slot("cleave", "thread_skill", 0, false).ok == false, "full family edit remains shrine-only")
 	if failures.is_empty():
 		print("BUILD SLOTS PASS: %d checks" % checks)
@@ -64,3 +73,15 @@ func _check(condition: bool, label: String) -> void:
 	checks += 1
 	if not condition:
 		failures.append(label)
+
+func _row_by_id(rows: Array, id: String) -> Dictionary:
+	for row in rows:
+		if String(row.get("id", "")) == id: return row
+	return {}
+
+func _family_option(snapshot: Dictionary, family: String, id: String) -> Dictionary:
+	for family_row in snapshot.slot_families:
+		if String(family_row.get("id", "")) != family: continue
+		for option in family_row.options:
+			if String(option.get("id", "")) == id: return option
+	return {}
