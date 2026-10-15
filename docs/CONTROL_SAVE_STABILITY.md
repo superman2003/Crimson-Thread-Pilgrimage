@@ -1,5 +1,7 @@
 # Control and save-lifecycle stability upgrade
 
+> 文档状态校准（2026-10-15）：本文为当时控制／存档修复与环境故障记录，Godot4.6.3、缺素材及旧CI失败均属于所列版本，不是当前环境检查。现行CI固定4.6.1，保存已继续引入私有候选；请结合[验证指南](VALIDATION.md)及[保存候选报告](report/20261015_world_save_candidate.md)阅读，旧失败不被新版局部通过抹除。
+
 This consolidation preserves main `3bd62d199662fcd3a248e8d7a849ab00cea6c26a`, the
 World preparation/preflight stack through corrected PR #35 commit `4c1b1d2`, and
 the independent control/save upgrade from PR #36. It uses a two-parent merge;

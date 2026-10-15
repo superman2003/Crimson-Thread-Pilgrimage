@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-24.04
     # The complete suite now renders through llvmpipe as well as the pixel
     # probes. Individual suite timeouts and strict engine error checks remain.
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Check out the exact commit and hydrate runtime assets
         env:
