@@ -599,6 +599,8 @@ var world_catalog_prepare_staging: Dictionary = {}
 var world_write_error_shown := false
 ## Narrow failure seam for transaction validations; simulates the storage boundary failing after capture.
 var world_save_failure_injected_for_validation := false
+# Distinguish a settled blocked-save memory checkpoint from capture failure.
+var world_save_capture_ok := false
 var world_loading := true
 var initial_region_ready := false
 var build_system: RefCounted
@@ -1237,6 +1239,7 @@ func player_world_position() -> Vector2:
 
 
 func _save_world() -> bool:
+    world_save_capture_ok = false
     if not world_mode:
         return true
     if world_loading or world_state == null or player == null:
@@ -1260,6 +1263,7 @@ func _save_world() -> bool:
             world_write_error_shown = true
             _toast("归途记录暂未写入，当前旅途进度仍保留。")
         return false
+    world_save_capture_ok = true
     # A blocked incompatible save still carries the live region/global snapshot
     # in memory for world travel, while withholding all disk writes.
     if world_save_blocked:
@@ -1571,6 +1575,12 @@ func _defer_region_call(method: StringName, arguments: Array = []) -> void:
     call_deferred("_run_region_deferred", generation, method, arguments)
 
 
+
+func _mark_departure_dirty(reason: String) -> void:
+    if world_loader != null:
+        world_loader.mark_departure_dirty(reason)
+
+
 func _run_region_deferred(generation: int, method: StringName, arguments: Array) -> void:
     var portal_request := method in ["_request_world_travel", "_travel_world_async"]
     if _walking_world_passage():
@@ -1584,10 +1594,12 @@ func _run_region_deferred(generation: int, method: StringName, arguments: Array)
     for argument in arguments:
         if typeof(argument) == TYPE_OBJECT and not is_instance_valid(argument):
             return
+    _mark_departure_dirty("deferred:" + String(method))
     callv(method, arguments)
 
 
 func _commit_world_dialogue() -> void:
+    _mark_departure_dirty("dialogue")
     if not world_mode or active_overlay != "dialogue" or ui_shell == null or dialogue_text_label == null:
         return
     if dialogue_text_label.visible_characters >= 0 and dialogue_text_label.visible_characters < dialogue_text_label.text.length():
@@ -2152,6 +2164,7 @@ func _chapter_file_ids() -> Array:
 
 
 func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true) -> void:
+    _mark_departure_dirty("inventory")
     var data := _item_data(item_id)
     var category := String(data.get("category", "Materials"))
     inventory_counts[item_id] = int(inventory_counts.get(item_id, 0)) + amount
@@ -2174,6 +2187,7 @@ func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true
 
 
 func _add_currency(amount: int) -> void:
+    _mark_departure_dirty("currency")
     currency_count += amount
     if active_overlay == "backpack":
         _refresh_backpack_overlay()
@@ -5987,6 +6001,7 @@ func _chapter_story_id() -> String:
 func _set_story_flag(flag: String) -> void:
     if flag.is_empty():
         return
+    _mark_departure_dirty("story")
     story_flags[flag] = true
     _check_wish_board_rewards()
     _save_world()
@@ -6063,6 +6078,7 @@ func _show_dialogue(area: Area2D, line: String) -> void:
 
 
 func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
+    _mark_departure_dirty("enemy_death")
     if is_boss:
         if demo_complete:
             return
@@ -6111,6 +6127,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
 
 
 func _on_player_respawned() -> void:
+    _mark_departure_dirty("respawn")
     if world_platforms != null and is_instance_valid(player):
         world_platforms.warm(self, player.global_position)
     if is_instance_valid(cave_world) and is_instance_valid(player):
@@ -6216,6 +6233,7 @@ func _spawn_route_open_effect(position_value: Vector2) -> void:
 
 
 func _on_hp_changed(value: int) -> void:
+    _mark_departure_dirty("hp")
     # 濒死混音态（规格 §5.5）：HP==1 挂低通，回升或死亡即摘除。
     _set_low_hp_audio(value == 1)
     if value <= 0:
@@ -6231,6 +6249,7 @@ func _on_hp_changed(value: int) -> void:
 
 
 func _on_energy_changed(_value: int, _maximum: int) -> void:
+    _mark_departure_dirty("energy")
     _refresh_hud()
 
 
@@ -6859,6 +6878,7 @@ func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2)
         if ability_id == "thorn_downstrike" and (direction.y < 0.5 or origin.y > rect.end.y):
             continue
         var unlock_id := String(gate.get("permanent_action_unlock_id", id))
+        _mark_departure_dirty("ability_action")
         changed = true
         story_flags["action_gate_" + unlock_id] = true
         _spawn_route_open_effect(rect.get_center())
@@ -6917,6 +6937,7 @@ func _ground_is_hazardous(position_value: Vector2) -> bool:
     return false
 
 func _record_death_cache() -> void:
+    _mark_departure_dirty("death_cache")
     if not world_mode or death_recorded or world_state == null:
         return
     death_recorded = true
