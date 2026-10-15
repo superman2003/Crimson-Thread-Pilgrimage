@@ -4969,10 +4969,10 @@
           "item_id": "upgrade_lantern_phase_3_record",
           "position": [
             7884,
-            530
+            340
           ],
           "room_id": "upgrade_lantern_phase_3",
-          "platform_id": "upgrade_lantern_phase_3_foundation",
+          "platform_id": "upgrade_lantern_phase_3_upper_step",
           "label": "旧检修操作手册",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -4983,10 +4983,10 @@
           "amount": 70,
           "position": [
             7954,
-            530
+            340
           ],
           "room_id": "upgrade_lantern_phase_3",
-          "platform_id": "upgrade_lantern_phase_3_foundation",
+          "platform_id": "upgrade_lantern_phase_3_upper_step",
           "label": "检修物资 · 松脂碎片"
         }
       ],
@@ -5187,6 +5187,32 @@
           "color": "4c4b3e",
           "material": "bronze_bridge",
           "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_lower_step",
+          "rect": [
+            7750,
+            490,
+            164,
+            18
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_3_upper_step",
+          "rect": [
+            7844,
+            380,
+            170,
+            18
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
         }
       ],
       "map_rooms": [
@@ -5232,12 +5258,12 @@
               470
             ]
           ],
-          "objective": "在安全工房练习刚取得的灯影相位，打开封口取回物资与反证。",
-          "guide": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "用灯影相位拨开下层闩门，沿两级检修台登上灯廊，取回旧操作手册与物资。",
+          "guide": "闩门只封住下层通道；开启后先跳上低台，再登高台。奖励台可原路落回出口。",
+          "danger": "无敌群压力；高台可从边缘安全落回工房入口。",
           "next": "检修设施返回pilgrim_camp",
           "setpiece": "灯影相位练习工房",
-          "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "traversal_focus": "近门相位开闩 → 两级跳台 → 上层双奖励 → 落回出口",
           "pacing_role": "optional_reward",
           "entry_point": [
             7500,
@@ -5249,7 +5275,7 @@
           ],
           "reward_landing": [
             7910,
-            530
+            340
           ],
           "movement_combo": [
             "approach",
@@ -6114,7 +6140,7 @@
       ],
       "reward_landing": [
         7910,
-        530
+        340
       ],
       "approach_position": [
         7672,
@@ -6328,6 +6354,48 @@
       "safe": true,
       "requires_equipment": false,
       "damage_to_player": 0
+    }
+  ],
+  "workshop_layouts": [
+    {
+      "region_id": "demo_ch05_obsidian_pilgrim_road",
+      "room_id": "upgrade_lantern_phase_3",
+      "variant": "phase_tiered_gallery",
+      "platforms": [
+        {
+          "id_suffix": "lower_step",
+          "offset": [
+            360,
+            250
+          ],
+          "size": [
+            164,
+            18
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "upper_step",
+          "offset": [
+            454,
+            140
+          ],
+          "size": [
+            170,
+            18
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_lantern_phase_3_upper_step",
+      "reward_offset": [
+        520,
+        100
+      ],
+      "objective": "用灯影相位拨开下层闩门，沿两级检修台登上灯廊，取回旧操作手册与物资。",
+      "guide": "闩门只封住下层通道；开启后先跳上低台，再登高台。奖励台可原路落回出口。",
+      "danger": "无敌群压力；高台可从边缘安全落回工房入口。",
+      "traversal_focus": "近门相位开闩 → 两级跳台 → 上层双奖励 → 落回出口"
     }
   ]
 }

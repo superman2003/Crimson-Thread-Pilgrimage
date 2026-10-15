@@ -223,5 +223,7 @@ func room_views() -> void:
     check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 14 and world.player.room_camera.current.id == "ravine_gate", "Returning rebuilds entry framing without stale locks")
     world.queue_free()
     await frames(6)
+    var workshop_validation = preload("res://scripts/obsidian_lantern_workshop_validation.gd").new()
+    await workshop_validation.run(self, Callable(self, "check"))
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
