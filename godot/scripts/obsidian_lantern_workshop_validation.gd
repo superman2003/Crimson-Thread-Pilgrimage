@@ -75,6 +75,8 @@ func run(tree: SceneTree, check_callback: Callable) -> void:
 		return
 
 	_check(await _walk_to(Vector2(7800, 490)), "Player climbs the lower service platform with collision")
+	# Keep the upstream takeoff approach while retaining separated jump edges.
+	_check(await _walk_to(Vector2(7758, 490), false), "Player returns to the lower-step jump approach")
 	_check(await _walk_to(Vector2(7890, 380)), "Player climbs the upper lantern gallery with collision")
 	_check(await _walk_to(Vector2(7954, 380), false), "Player crosses the gallery to the second cache")
 	await _tick(tree, 8)

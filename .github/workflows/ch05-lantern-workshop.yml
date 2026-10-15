@@ -1,0 +1,58 @@
+name: CH05 lantern workshop regressions
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/ch05-lantern-workshop.yml'
+      - 'godot/data/world_routes.json'
+      - 'godot/scripts/world_upgrade_validation.gd'
+      - 'godot/scripts/obsidian_experience_validation.gd'
+      - 'godot/scripts/obsidian_lantern_workshop_validation.gd'
+      - 'tools/build_world_upgrade.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ch05-lantern-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Import Godot resources
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --log-dir "$RUNNER_TEMP/regression-logs/import"
+      - name: Run the two CH05 production regressions
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          npm run test:godot -- --engine "$engine" --software-gl \
+            --log-dir "$RUNNER_TEMP/regression-logs" --timeout 240 \
+            --suite world_upgrade --suite obsidian_experience
+      - name: Preserve focused regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ch05-lantern-workshop-regression-logs
+          path: ${{ runner.temp }}/regression-logs
+          if-no-files-found: ignore
