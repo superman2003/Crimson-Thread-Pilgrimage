@@ -110,8 +110,19 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         _show_startup_error(host)
         host.process_mode = restore_process_mode
         return false
-    var built := await _construct_budgeted(host, {}, false)
-    if ROUTES.cached_generation() != startup_route_generation:
+    var prepared: Dictionary = await _prepare_startup_config(host, tree)
+    if not _alive(host) or host.get_tree() != tree:
+        _clear_loading_canvas()
+        phase = "idle"
+        return false
+    if prepared.is_empty():
+        if last_error.is_empty(): last_error = "初始区域读取或验证期间发生变化。"
+        _show_startup_error(host)
+        host.process_mode = restore_process_mode
+        return false
+    var startup_config_lease: Dictionary = last_transition.startup_config_lease
+    var built := await _construct_budgeted(host, prepared, false)
+    if not _startup_config_context_valid(host, tree, startup_config_lease) or ROUTES.cached_generation() != startup_route_generation:
         built = false
         last_error = "区域路线清单在初始构建期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
@@ -120,7 +131,7 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         return false
     if built:
         built = await _finish_budgeted(host, false)
-    if ROUTES.cached_generation() != startup_route_generation:
+    if not _startup_config_context_valid(host, tree, startup_config_lease) or ROUTES.cached_generation() != startup_route_generation:
         built = false
         last_error = "区域路线清单在初始交接期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
@@ -140,6 +151,74 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         host.process_mode = restore_process_mode
     phase = "idle" if built else "startup_error"
     return built
+
+
+## Startup has no travel entry until the route overlay is complete. The shared
+## validator resolves the authored default then, or checks the saved override.
+func _startup_config_context_valid(host: Variant, tree: SceneTree, lease: Dictionary) -> bool:
+    return _alive(host) and host.get_tree() == tree and generation == int(lease.generation) and ROUTES.cached_generation() == int(lease.route_generation) and int(lease.route_generation) >= 0 and String(host.config_path) == String(lease.path) and host.entry_spawn_override_enabled == bool(lease.entry_enabled) and host.entry_spawn_override == lease.entry and (not lease.has("stamp") or FileAccess.get_modified_time(String(lease.path)) == int(lease.stamp))
+
+func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
+    last_error = ""
+    var wall_started := Time.get_ticks_usec()
+    var lease := {"path": String(host.config_path), "generation": generation, "route_generation": ROUTES.cached_generation(),
+        "entry_enabled": bool(host.entry_spawn_override_enabled), "entry": host.entry_spawn_override}
+    last_transition["startup_config_lease"] = lease
+    last_transition["startup_config_wait_frames"] = 0
+    last_transition["startup_config_validator_batches"] = 0
+    last_transition["startup_config_validator_work_usec"] = 0
+    last_transition["startup_config_validator_max_operations"] = 0
+    last_transition["startup_config_validator_max_batch_usec"] = 0
+    var ticket := 0
+    while ticket == 0:
+        if not _startup_config_context_valid(host, tree, lease): return {}
+        if not config_read_job.busy():
+            ticket = config_read_job.request(String(lease.path))
+            if ticket == 0:
+                last_error = "无法启动初始区域后台读取。"
+                return {}
+        await tree.process_frame
+        last_transition.startup_config_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+    while config_read_job.busy():
+        await tree.process_frame
+        last_transition.startup_config_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+    var read: Dictionary = config_read_job.take(ticket)
+    last_error = String(read.get("error", "初始区域读取票据已失效。"))
+    if not last_error.is_empty(): return {}
+    lease["stamp"] = int(read.get("stamp", -1))
+    last_transition["startup_config_worker_is_main"] = read.get("worker_is_main", true)
+    last_transition["startup_config_worker_usec"] = read.get("worker_usec", 0)
+    last_transition["startup_config_bytes"] = read.get("bytes", 0)
+    if not _startup_config_context_valid(host, tree, lease): return {}
+    var validator = CONFIG_VALIDATOR.new()
+    validator.begin(read.get("raw"), String(lease.path), lease.entry if lease.entry_enabled else Vector2.ZERO, not lease.entry_enabled)
+    var validator_wall_started := Time.get_ticks_usec()
+    while not validator.done:
+        var started := Time.get_ticks_usec()
+        var operations := 0
+        while not validator.done and operations < MAX_OPERATIONS_PER_FRAME:
+            if operations > 0 and Time.get_ticks_usec() - started >= FRAME_BUDGET_USEC: break
+            validator.step()
+            operations += 1
+        var work_usec := Time.get_ticks_usec() - started
+        last_transition.startup_config_validator_batches += 1
+        last_transition.startup_config_validator_work_usec += work_usec
+        last_transition.startup_config_validator_max_operations = maxi(last_transition.startup_config_validator_max_operations, operations)
+        last_transition.startup_config_validator_max_batch_usec = maxi(last_transition.startup_config_validator_max_batch_usec, work_usec)
+        last_transition["startup_config_validator_operation"] = validator.operation_name
+        await tree.process_frame
+        if not _startup_config_context_valid(host, tree, lease): return {}
+    last_transition["startup_config_validator_wall_usec"] = Time.get_ticks_usec() - validator_wall_started
+    last_transition["startup_config_wall_usec"] = Time.get_ticks_usec() - wall_started
+    last_error = validator.error
+    return validator.result
+
 
 func _show_startup_error(host: Node) -> void:
     phase = "startup_error"
@@ -658,7 +737,7 @@ func _evict_budgeted(host: Node) -> bool:
 ## Sequential cold-catalog reads share the loader's single ticket service.
 ## Parsed region trees are worker-owned; only catalog entries survive handoff.
 func _catalog_context_valid(host: Variant, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
-    return _alive(host) and host.get_tree() == tree and generation == expected_generation and route_generation >= 0 and ROUTES.cached_generation() == route_generation and (not cancellable or not cancel_requested)
+    return _alive(host) and (phase != "startup" or not last_transition.has("startup_config_lease") or _startup_config_context_valid(host, tree, last_transition.startup_config_lease)) and host.get_tree() == tree and generation == expected_generation and route_generation >= 0 and ROUTES.cached_generation() == route_generation and (not cancellable or not cancel_requested)
 
 func _discard_catalog_staging(host: Variant) -> void:
     if is_instance_valid(host):
@@ -872,7 +951,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
         if is_instance_valid(loading_label):
             loading_label.text = ("正在接通旧路… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
         await host.get_tree().process_frame
-        if not _alive(host):
+        if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+            _discard_catalog_staging(host)
             return false
         _cancel_input()
     return not (cancellable and cancel_requested)
@@ -897,11 +977,13 @@ func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
 
 
 func _finish_budgeted(host: Node, cancellable: bool) -> bool:
+    var finish_tree := host.get_tree()
     var jobs: Array = host._region_finish_jobs()
     var cursor := 0
     var wall_started := Time.get_ticks_usec()
     last_transition["commit_jobs"] = jobs.size()
     while cursor < jobs.size():
+        if phase == "startup" and not _startup_config_context_valid(host, finish_tree, last_transition.startup_config_lease): return false
         if cancellable and cancel_requested:
             return false
         var started := Time.get_ticks_usec()
@@ -934,6 +1016,7 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
         await host.get_tree().process_frame
         if not _alive(host):
             return false
+        if phase == "startup" and not _startup_config_context_valid(host, finish_tree, last_transition.startup_config_lease): return false
         _cancel_input()
     last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
     return not (cancellable and cancel_requested)
