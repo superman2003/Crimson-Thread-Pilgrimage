@@ -158,7 +158,7 @@ func _player_state() -> String:
 	var player: CharacterBody2D = scene.player
 	return "pos=%s velocity=%s floor=%s wall=%s room=%s collected=%s currency=%s" % [
 		str(player.global_position), str(player.velocity), str(player.is_on_floor()), str(player.is_on_wall()),
-		str(scene.room_camera.current), str(scene.world_collected_ids), str(scene.currency_count)]
+		str(scene.config.get("id", "<unknown>")), str(scene.world_collected_ids), str(scene.currency_count)]
 
 func _pulse(action: String, count: int) -> void:
 	Input.action_press(action)

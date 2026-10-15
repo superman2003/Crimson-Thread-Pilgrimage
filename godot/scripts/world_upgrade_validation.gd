@@ -98,6 +98,73 @@ func _walk_x(target: float, limit: int = 150) -> bool:
     _release()
     return false
 
+func _walk_lantern_workshop_tier(target_x: float) -> bool:
+    # This workshop has two solid collision platforms. Reach them with normal
+    # movement input; horizontal-only _walk_x cannot climb their side walls.
+    var player: CharacterBody2D = scene.player
+    if player.is_on_floor() and absf(player.global_position.y - 380.0) < 5.0:
+        return await _walk_x(target_x)
+
+    if not (player.is_on_floor() and absf(player.global_position.y - 490.0) < 5.0):
+        # Start from the foyer side of the lower ledge, with room to rise before
+        # the player's 17px half-width reaches its solid left edge.
+        if not await _walk_x(7670.0):
+            return _step_timeout("lower takeoff", Vector2(7670.0, 490.0))
+        if not await _jump_to_landing(7800.0, 490.0, 12):
+            return false
+
+    # Move back to the low step's left side. This gives the player enough
+    # horizontal run to clear the upper step's underside during the jump.
+    if not await _walk_x(7758.0):
+        return _step_timeout("upper takeoff", Vector2(7758.0, 490.0))
+    return await _jump_to_landing(target_x, 380.0, 20)
+
+func _jump_to_landing(target_x: float, target_y: float, jump_hold_frames: int) -> bool:
+    _release()
+    var player: CharacterBody2D = scene.player
+    if not player.is_on_floor():
+        for unused in range(90):
+            await _tick()
+            if player.is_on_floor():
+                break
+    if not player.is_on_floor():
+        return _step_timeout("takeoff was not grounded", Vector2(target_x, target_y))
+
+    Input.action_press("jump")
+    for frame in range(180):
+        var dx: float = target_x - player.global_position.x
+        if frame == jump_hold_frames:
+            Input.action_release("jump")
+        if absf(dx) < 7.0:
+            _release()
+        else:
+            _set_horizontal_axis(signf(dx))
+        await _tick()
+        if frame > jump_hold_frames and player.is_on_floor() and absf(player.global_position.x - target_x) < 18.0 and absf(player.global_position.y - target_y) < 5.0:
+            _release()
+            return true
+    _release()
+    return _step_timeout("landing timeout", Vector2(target_x, target_y))
+
+func _set_horizontal_axis(direction: float) -> void:
+    if direction > 0:
+        Input.action_release("move_left")
+        Input.action_press("move_right")
+    elif direction < 0:
+        Input.action_release("move_right")
+        Input.action_press("move_left")
+    else:
+        Input.action_release("move_left")
+        Input.action_release("move_right")
+
+func _step_timeout(stage: String, target: Vector2) -> bool:
+    push_warning("CH05 workshop " + stage + " target=" + str(target) + " actual=" + _player_state())
+    return false
+
+func _player_state() -> String:
+    var player: CharacterBody2D = scene.player
+    return "pos=%s velocity=%s floor=%s wall=%s" % [str(player.global_position), str(player.velocity), str(player.is_on_floor()), str(player.is_on_wall())]
+
 func _pulse(action: String, frames: int = 2) -> void:
     Input.action_press(action)
     await _tick(frames)
@@ -212,7 +279,12 @@ func _run() -> void:
             continue
         for reward_id in target.reward_ids:
             if reward_positions.has(String(reward_id)):
-                _assert(await _walk_x(reward_positions[String(reward_id)].x), gate_id + ": opened gate permits reward approach")
+                var reached_reward := false
+                if String(target.room_id) == "upgrade_lantern_phase_3":
+                    reached_reward = await _walk_lantern_workshop_tier(float(reward_positions[String(reward_id)].x))
+                else:
+                    reached_reward = await _walk_x(reward_positions[String(reward_id)].x)
+                _assert(reached_reward, gate_id + ": opened gate permits reward approach")
                 await _tick(5)
                 _assert(bool(scene.world_collected_ids.get(String(reward_id), false)), gate_id + ": reward collection persists unique ID")
         _assert(scene.currency_count > currency_before, gate_id + ": reward grants spendable currency")
