@@ -251,7 +251,7 @@ func _evaluate_ending(ending_id: String, inventory: Dictionary, flags: Dictionar
 
 func _resolved_ending_choice(flags: Dictionary) -> String:
     var chosen := String(flags.get("ending_chosen", ""))
-    if not chosen.is_empty():
+    if chosen in ["ending_a", "ending_b", "ending_c"]:
         return chosen
     var done_choices: Array[String] = []
     for ending_id in ["ending_a", "ending_b", "ending_c"]:
@@ -266,6 +266,8 @@ func _effective_flags(flags: Dictionary) -> Dictionary:
         effective["ending_chosen"] = selected
         for ending_id in ["ending_a", "ending_b", "ending_c"]:
             effective[ending_id + "_done"] = ending_id == selected
+    else:
+        effective.erase("ending_chosen")
     return effective
 
 ## A physical relocation is staged by the level; this state remains saveable

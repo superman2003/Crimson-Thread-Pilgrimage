@@ -31,6 +31,10 @@ func _run() -> void:
 	player.global_position = Vector2(100, 180)
 	player.velocity = Vector2.ZERO
 	await _frames(4)
+	# Keep gameplay physics and input live while suppressing only cinematic
+	# hitstop; it changes Engine.time_scale and makes fixed-frame input probes
+	# depend on presentation feedback timing.
+	player.feel = null
 	_check(player.is_on_floor(), "player reaches the real static terrain floor")
 	_check(player.collision_mask & 1 == 1, "player body collides with terrain bit one")
 
@@ -137,15 +141,29 @@ func _input_attack(player: CharacterBody2D, start: Vector2, face: int, down: boo
 	player.enemy_contact_guard_timer = 0.0
 	if down:
 		Input.action_press("aim_down")
-		# Keep the aim held through its own sampled physics tick before issuing
-		# attack, so the attack buffer must capture the actual directional input.
+		# Ensure the player has observed the held aim input before sampling attack.
 		await _frames(1)
 	Input.action_press("attack")
-	await _frames(1)
+	var attack_started := false
+	# `physics_frame` resumes this SceneTree after the corresponding player
+	# physics callback. Keep attack and aim held until that callback actually
+	# consumes the real InputMap action; releasing on the first signal can race
+	# ahead of `_physics_process` and leave the attack unstarted.
+	for _attempt in 4:
+		await _frames(1)
+		if player.attack_timer > 0.0:
+			attack_started = true
+			break
+	_check(attack_started, "real InputMap attack press starts player attack")
 	Input.action_release("attack")
 	if down:
 		Input.action_release("aim_down")
-	await _frames(10 if down else 18)
+		# Active-frame hit acceptance and bounce occur by the third frame. End
+		# here so the rejected-hit probe observes downward velocity before the
+		# player later lands and physics correctly zeros it.
+		await _frames(3)
+	else:
+		await _frames(18)
 
 
 func _spawn_enemy(position_value: Vector2, health: int) -> Area2D:

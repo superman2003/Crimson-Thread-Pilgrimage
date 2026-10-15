@@ -177,6 +177,12 @@ func _test_ending_world_phase() -> void:
 	var legacy_flags: Dictionary = {"ending_c_done": true}
 	_check(narrative.resolve("npc_black_tide_child", [], [], legacy_flags).get("state", "") == "aftermath_rewritten",
 		"a unique legacy ending marker restores its matching world phase")
+	var invalid_choice_flags: Dictionary = {"ending_chosen": "ending_unknown", "boss_down_ch06": true}
+	_check(bool(narrative.evaluate_ending("ending_a", {}, invalid_choice_flags).get("available", false)),
+		"an invalid saved choice cannot lock valid endings")
+	var invalid_with_legacy_flags: Dictionary = {"ending_chosen": "ending_unknown", "ending_c_done": true}
+	_check(narrative.resolve("npc_black_tide_child", [], [], invalid_with_legacy_flags).get("state", "") == "aftermath_rewritten",
+		"an invalid saved choice falls back to a unique valid legacy ending marker")
 
 func _ending_row(rows: Array, ending_id: String) -> Dictionary:
 	for row_value in rows:

@@ -932,11 +932,16 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         var old: Button=build_slot_buttons.pop_back()
         old.queue_free()
     var offset_y:=212 if build_category=="铭饰" else 174
+    var slot_left:=640.0
+    var slot_gap:=8.0
+    var slot_width:=minf(207.0,(float(build_panel.size.x)-26.0-slot_left-slot_gap*maxi(0,slots.size()-1))/maxi(1,slots.size()))
     var options:=_family_options(snapshot,family_id)
     for index in build_slot_buttons.size():
         var slot: Dictionary=slots[index]
         var button: Button=build_slot_buttons[index]
-        button.position=Vector2(640+index*216,offset_y)
+        button.position=Vector2(slot_left+index*(slot_width+slot_gap),offset_y)
+        button.size.x=slot_width
+        button.custom_minimum_size.x=slot_width
         button.visible=true
         var equipped_id:=String(slot.get("equipped_id",""))
         var equipped:=_family_entry(snapshot,family_id,equipped_id)
@@ -946,8 +951,9 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         elif not equipped_id.is_empty():label+=" · "+String(equipped.get("name",equipped_id))
         else:label+=" · 空"
         button.text=("▶ " if index==build_assign_slot else "○ ")+label
+        button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         button.disabled=not bool(slot.get("unlocked",true))
-        button.tooltip_text="此槽位尚未解锁" if button.disabled else "兼容："+"、".join(slot.get("compatible",[]))
+        button.tooltip_text=label+"\n"+("此槽位尚未解锁" if button.disabled else "当前装备："+(String(equipped.get("name",equipped_id)) if not equipped_id.is_empty() else "空")+"\n兼容："+"、".join(slot.get("compatible",[])))
         button.add_theme_stylebox_override("normal",_tab_style(index==build_assign_slot))
         button.focus_neighbor_left=button.get_path_to(build_slot_buttons[index-1]) if index>0 else NodePath("")
         button.focus_neighbor_right=button.get_path_to(build_slot_buttons[index+1]) if index+1<build_slot_buttons.size() else NodePath("")

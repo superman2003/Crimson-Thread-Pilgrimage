@@ -101,7 +101,7 @@ func _run() -> void:
         "passive_options":[_option("stride","疾行铭饰","combat_accessory",1),_option("mender","愈线铭饰","combat_accessory",2),_option("wayfinder","引路铭饰","travel_accessory",1)],
         "slot_layout":{
             "tool":[_slot("tool_0","tool",0,["shard","mine"],true,"shard"),_slot("tool_1","tool",1,["mine"],false,"")],
-            "combat_accessory":[_slot("combat_accessory_0","combat_accessory",0,["stride","mender"],true,"stride")],
+            "combat_accessory":[_slot("combat_accessory_0","combat_accessory",0,["stride","mender"],true,"stride"),_slot("combat_accessory_1","combat_accessory",1,["stride","mender"],true,""),_slot("combat_accessory_2","combat_accessory",2,["stride","mender"],true,"")],
             "travel_accessory":[_slot("travel_accessory_0","travel_accessory",0,["wayfinder"],true,"")],
             "thread_skill":[_slot("thread_skill_0","thread_skill",0,["cleave","needle"],true,"cleave"),_slot("thread_skill_1","thread_skill",1,["cleave"],true,"")]
         },
@@ -151,6 +151,14 @@ func _run() -> void:
     _check(runtime.last_action=="equip_family_slot" and runtime.last_id.is_empty() and runtime.last_extra.get("family")=="thread_skill","Clear-slot control routes an explicit empty assignment through the runtime adapter")
     ui.build_tabs[3].pressed.emit()
     _check(ui.family_selector_buttons[0].visible and ui.family_selector_buttons[1].visible,"铭饰 page offers separate combat and travel accessory families")
+    _check(ui.build_slot_buttons.size()==3,"Three-slot accessory family renders all typed slot controls")
+    var panel_bounds:=Rect2(Vector2.ZERO,ui.build_panel.size)
+    var every_slot_fits:=true
+    for slot_button in ui.build_slot_buttons:
+        if not panel_bounds.encloses(slot_button.get_rect()):every_slot_fits=false
+    _check(every_slot_fits,"Every accessory slot button remains inside the production build panel")
+    ui.build_slot_buttons[2].grab_focus()
+    _check(ui.get_viewport().gui_get_focus_owner()==ui.build_slot_buttons[2] and not ui.build_slot_buttons[2].disabled,"Unlocked third accessory slot remains reachable by keyboard and controller focus")
     var accessory_option:=ui.build_grid.get_child(0) as Button
     ui._show_build_detail(_option("mender","愈线铭饰","combat_accessory",2))
     _check(ui.build_detail.text.contains("容量比较") and ui.build_summary.text.contains("旅行饰品 0/1"),"Accessory preview compares cost and real typed-family counts")
