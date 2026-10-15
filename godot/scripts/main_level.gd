@@ -1,5 +1,7 @@
 extends Node2D
 
+const INTERACTION_REACH := 150.0
+
 const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
 const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
 const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
@@ -5463,7 +5465,7 @@ func _on_interactable_exited(body: Node, area: Area2D) -> void:
 
 
 func _can_interact_with_world(allow_dialogue: bool = false) -> bool:
-    if player == null or not is_instance_valid(player) or chapter_transitioning:
+    if player == null or not is_instance_valid(player) or chapter_transitioning or world_loading:
         return false
     if player.hp <= 0 or player.death_timer > 0.0:
         return false
@@ -5483,13 +5485,13 @@ func _try_interact() -> void:
         var speaker: Area2D = null
         if ui_shell != null and is_instance_valid(ui_shell.dialogue_area):
             speaker = ui_shell.dialogue_area
-        if speaker != null and not speaker.is_queued_for_deletion() and player.global_position.distance_to(speaker.global_position) <= 150.0:
+        if speaker != null and not speaker.is_queued_for_deletion() and player.global_position.distance_to(speaker.global_position) <= INTERACTION_REACH:
             nearby_interactable = speaker
         else:
             _close_overlays()
     # Overlapping Areas cannot choose the target through body-enter order.
     if active_overlay != "dialogue":
-        nearby_interactable = _nearest_interactable(150.0)
+        nearby_interactable = interaction_target()
     if nearby_interactable == null or not is_instance_valid(nearby_interactable):
         for lift in cave_lifts:
             if lift.request(player.global_position):
@@ -5521,32 +5523,52 @@ func _try_interact() -> void:
         _activate_ending_gate(nearby_interactable)
 
 
+func interaction_target(prompt_candidate: Area2D = null) -> Area2D:
+    # Both the prompt and the actual interaction use this availability/range.
+    if not _can_interact_with_world():
+        return null
+    # Distant markers reject themselves before the shared candidate scan.
+    # Actual dispatch omits this optional hint and queries the complete range.
+    if prompt_candidate != null:
+        if prompt_candidate.is_queued_for_deletion() or not prompt_candidate.is_visible_in_tree():
+            return null
+        if player.global_position.distance_squared_to(prompt_candidate.global_position) > INTERACTION_REACH * INTERACTION_REACH:
+            return null
+    return _nearest_interactable(INTERACTION_REACH)
+
+
 func _nearest_interactable(radius: float) -> Area2D:
-    if player == null or not is_instance_valid(player):
+    if player == null or not is_instance_valid(player) or not player.global_position.is_finite() or not is_finite(radius) or radius < 0.0:
         return null
     var best: Area2D = null
-    var best_distance := radius
+    var best_distance := radius * radius
     var preferred_best: Area2D = null
-    var preferred_distance := radius
+    var preferred_distance := best_distance
     for child in get_children():
         var area := child as Area2D
-        if area == null or not is_instance_valid(area) or area.is_queued_for_deletion():
+        if area == null or not is_instance_valid(area) or area.is_queued_for_deletion() or not area.is_visible_in_tree():
             continue
         var kind := String(area.get_meta("kind", ""))
         if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache"].has(kind):
             continue
         if kind == "item" and not bool(area.get_meta("manual_pickup", false)):
             continue
-        var distance := player.global_position.distance_to(area.global_position)
-        if distance > radius:
+        var distance: float = player.global_position.distance_squared_to(area.global_position)
+        if not is_finite(distance) or distance > radius * radius:
             continue
-        if (kind == "chapter_exit" or kind == "ending_exit") and _chapter_exit_can_open(area) and distance < preferred_distance:
+        if kind in ["chapter_exit", "ending_exit"] and _chapter_exit_can_open(area) and _better_interaction_target(area, distance, preferred_best, preferred_distance):
             preferred_best = area
             preferred_distance = distance
-        if distance < best_distance:
+        if _better_interaction_target(area, distance, best, best_distance):
             best = area
             best_distance = distance
     return preferred_best if preferred_best != null else best
+
+
+func _better_interaction_target(area: Area2D, distance: float, current: Area2D, current_distance: float) -> bool:
+    # Authored IDs are sibling node names; identical distances must not depend
+    # on body-enter callbacks, cached actor adoption or child insertion order.
+    return current == null or distance < current_distance or (distance == current_distance and String(area.name) < String(current.name))
 
 
 func _activate_lever(area: Area2D) -> void:

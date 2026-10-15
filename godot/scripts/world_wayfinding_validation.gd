@@ -69,6 +69,8 @@ func run() -> void:
             var marker: Node = child.get_node("Wayfinding")
             marker._process(0)
             check(marker.symbol == "map" and not child.has_node("MapSellerMarker"), "map seller uses distinct book-map glyph without price caption")
+    var targeting_checks := preload("res://scripts/interaction_targeting_validation.gd").new()
+    await targeting_checks.run(scene, check)
     scene.ui_shell._process(0)
     check(not scene.ui_shell.prompt.visible and scene.ui_shell.prompt.text.is_empty(), "HUD does not duplicate interaction prose")
     scene.player.global_position = portal.global_position
