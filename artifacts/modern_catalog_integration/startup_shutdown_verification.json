@@ -1,0 +1,147 @@
+{
+  "commit": "9542cd2050c89fbee7e29e492085fb3bd7b74235",
+  "tree": "94b475d53893dfb64a21ef2402b6e9836a2988cf",
+  "scope": "Linux official Godot 4.6.1 focused validation; Windows acceptance pending exact new-head CI",
+  "files": {
+    "godot/scripts/world_region_loader.gd": "ca9dff7701c607c0b942b4e8071f82d9895bb8aa1b687e35965e9e3e1da5348e",
+    "godot/scripts/world_startup_budget_validation.gd": "b99db051c8b266b5d0b07da85f68763c99a241988675769696f25a73f26fdad0"
+  },
+  "regressions": [
+    {
+      "suite": "world_startup_budget",
+      "exit": 0,
+      "timeout_seconds": 180,
+      "renderer": "software OpenGL / llvmpipe",
+      "marker": "WORLD_STARTUP_BUDGET_VALIDATION_PASS",
+      "marker_present": true,
+      "error_lines": [],
+      "log": "world_startup_budget.log",
+      "sha256": "cc23fa44180c95a15404df69f6e9e2dc60727b81ad2f703907571e5d9b8edcf4"
+    },
+    {
+      "suite": "world_catalog_background",
+      "exit": 0,
+      "timeout_seconds": 180,
+      "renderer": "software OpenGL / llvmpipe",
+      "marker": "WORLD CATALOG BACKGROUND PASS checks=71",
+      "marker_present": true,
+      "error_lines": [],
+      "log": "world_catalog_background.log",
+      "sha256": "131f82720873d0dd341410e17ab6cee0609f8d8518a6bdb8963bb9b6ddcf9ade"
+    }
+  ],
+  "microfixture": {
+    "scope": "microfixture only; not Windows or full-game acceptance",
+    "results": [
+      {
+        "mode": "baseline",
+        "returncode": 0,
+        "engine_errors": [
+          "ERROR: 1 resources still in use at exit."
+        ],
+        "leaks": [
+          "Leaked instance: GDScriptNativeClass:9223372052340147072 - Reference count: 1",
+          "Leaked instance: RefCounted:9223372063614436783 - Reference count: 1",
+          "Leaked instance: GDScript:9223372063245338037 - Reference count: 1",
+          "Leaked instance: GDScriptFunctionState:9223372063698322871 - Reference count: 1",
+          "Resource still in use: res://world_transition_token.gd (GDScript)"
+        ],
+        "probe_lines": [
+          "PROBE_STARTED cancel_gate=false",
+          "PROBE_SHUTDOWN token_alive=true loader_alive=false"
+        ],
+        "native_godot_4_6_1": true,
+        "bytes": 3210,
+        "sha256": "deb7953cfcae1bf06ef7f3d3316a1f91848fd49f68e096b4a34528e29a576367"
+      },
+      {
+        "mode": "cancel-gate",
+        "returncode": 0,
+        "engine_errors": [],
+        "leaks": [],
+        "probe_lines": [
+          "PROBE_STARTED cancel_gate=true",
+          "PROBE_SHUTDOWN token_alive=false loader_alive=false"
+        ],
+        "native_godot_4_6_1": true,
+        "bytes": 1906,
+        "sha256": "5a2af4b2e3c23fe5a7d341ddc8795746807e1e7a712d718c9fd20283c76c60f2"
+      }
+    ]
+  },
+  "real_loader_probes": {
+    "scope": "Real loader ownership and frame gate with only asset-heavy initialize_startup_region overridden by bounded frame waits; actual World preparation/build/final-finish are separately covered by world_startup_budget.",
+    "results": [
+      {
+        "label": "early",
+        "exit": 0,
+        "errors": [],
+        "lines": [
+          "REAL_LOADER_STARTED",
+          "REAL_LOADER_SHUTDOWN token_alive=false token_slot_empty=true frame_disconnected=true",
+          "REAL_LOADER_RELEASED token_alive=false loader_alive=false reader_alive=false"
+        ],
+        "sha256": "0e90bed329295481a2078c19204bba1c15390136978c73a2cf85f1a6735b10a1"
+      },
+      {
+        "label": "nested",
+        "exit": 0,
+        "errors": [],
+        "lines": [
+          "REAL_LOADER_STARTED",
+          "REAL_LOADER_SHUTDOWN token_alive=false token_slot_empty=true frame_disconnected=true",
+          "REAL_LOADER_RELEASED token_alive=false loader_alive=false reader_alive=false"
+        ],
+        "sha256": "0e90bed329295481a2078c19204bba1c15390136978c73a2cf85f1a6735b10a1"
+      }
+    ]
+  },
+  "python_release_builder_tests": {
+    "count": 21,
+    "result": "pass"
+  },
+  "retained_failed_attempts": [
+    {
+      "phase": "prelaunch environment",
+      "result": "runner rejected software GL because Xvfb was not on PATH; Godot not launched",
+      "message": "RuntimeError: --software-gl requires Xvfb; no headless fallback",
+      "resolution": "used existing tooling/xvfb/usr/bin/Xvfb via PATH; no headless fallback"
+    },
+    {
+      "phase": "new test script parse",
+      "result": "6 Variant-inference parse errors plus script-load ERROR, exit 1",
+      "log": "world_startup_budget.log",
+      "resolution": "explicit WeakRef type for six new local declarations; reran full unchanged 180-second strict gate"
+    }
+  ],
+  "engine_window": "released to parent after both focused regressions completed",
+  "regression_evidence": {
+    "windows_before_fix": {
+      "head": "fe842d39a58fd8f8f93d46c32a3a8bbfeb779df6",
+      "test_merge": "217effb7807595a1a7bdfd2c05490c6caff9b362",
+      "job_url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38896326688/job/116957559749",
+      "resource": "res://scripts/world_transition_token.gd",
+      "resource_errors": 1,
+      "refcounted_instances": 1,
+      "function_states": 2,
+      "first_start_failed": true,
+      "resume_executed": false
+    },
+    "current_windows": "PENDING exact fix head; Linux focused success is not Windows acceptance"
+  },
+  "startup_observation": {
+    "frames": 120,
+    "budgeted_total_usec": 6602234,
+    "route_copy_batches": 14,
+    "route_copy_edges": 6906,
+    "interpretation": "Close to unchanged release smoke 120-frame bound. Cleanup fix does not prove readiness/writeback passes on Windows; original save and backup challenge remain required."
+  },
+  "unchanged_gates": {
+    "release_quit_after_frames": 120,
+    "godot_suite_timeout_seconds": 180,
+    "max_build_operations": 8,
+    "nominal_admission_budget_usec": 2000,
+    "engine_errors_fail_even_when_exit_zero": true,
+    "retry_failures": false
+  }
+}

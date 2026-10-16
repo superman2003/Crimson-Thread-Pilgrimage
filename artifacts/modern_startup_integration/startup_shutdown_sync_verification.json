@@ -1,0 +1,67 @@
+{
+  "head": "6d32468fc7f887b4969c9c80aba2a2491cf33ab2",
+  "tree": "0fca274e0ec7695772d8aecb3623410f1a111067",
+  "engine_sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e",
+  "source_sha256_before": {
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/world_state.gd": "07735945ebf9660063bfe61f291745e140a7ae9fbd3ba1aa410005f72800ab30",
+    "godot/scripts/world_region_loader.gd": "4389e2aa34e5659630776ee143d879557420307b8cee8107ff9db8f3ecc7fc82",
+    "godot/scripts/world_config_validator.gd": "e50f1de0298c4e88f21d0310518364faa00c7a38be1a5ed64d57c4027e3ea924",
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/data/world_routes.json": "738a44774bb4911c1df567d3388e66f98630719057e55deaa4dac0ddabfb6bba",
+    "tools/run_godot_regressions.py": "116479be0950444f38b07fd52efe8941ed10a68c67ba178db983d3d687a4f37f",
+    "tools/godot_suite_success_markers.json": "b7d7f5badcaf8367d5161a98fae689069f47e5781c242dbf2501c8d24912ed13",
+    "tools/run_godot_import.py": "4d25baf5114a937c58d2931cb45e4fa25deffdb9f531b6e128d235b0f67e0150",
+    "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+    "godot/scripts/world_startup_config_background_validation.gd": "d3b9828bfc3d65a4e0e3cc7ee446c68d2e459877b541ce7f0d09e4438f9ff45f"
+  },
+  "source_sha256_after": {
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/world_state.gd": "07735945ebf9660063bfe61f291745e140a7ae9fbd3ba1aa410005f72800ab30",
+    "godot/scripts/world_region_loader.gd": "4389e2aa34e5659630776ee143d879557420307b8cee8107ff9db8f3ecc7fc82",
+    "godot/scripts/world_config_validator.gd": "e50f1de0298c4e88f21d0310518364faa00c7a38be1a5ed64d57c4027e3ea924",
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/data/world_routes.json": "738a44774bb4911c1df567d3388e66f98630719057e55deaa4dac0ddabfb6bba",
+    "tools/run_godot_regressions.py": "116479be0950444f38b07fd52efe8941ed10a68c67ba178db983d3d687a4f37f",
+    "tools/godot_suite_success_markers.json": "b7d7f5badcaf8367d5161a98fae689069f47e5781c242dbf2501c8d24912ed13",
+    "tools/run_godot_import.py": "4d25baf5114a937c58d2931cb45e4fa25deffdb9f531b6e128d235b0f67e0150",
+    "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+    "godot/scripts/world_startup_config_background_validation.gd": "d3b9828bfc3d65a4e0e3cc7ee446c68d2e459877b541ce7f0d09e4438f9ff45f"
+  },
+  "exit_code": 0,
+  "duration_seconds": 103.3104388379943,
+  "source_unchanged": true,
+  "updated_dependency": "ccc0d23d31a12961da65c8520f6b166c81d6adc0",
+  "prior_head": "c9421bd0541705e8c7aec29745df517f9eabdbf9",
+  "main": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+  "default_suite_count": 104,
+  "integration": "Retain modern first-frame cancellation recovery and complete catalog/startup lease guards; include upstream private startup frame relay and convert all three additional startup configuration waits. No shared-metadata #62 implementation.",
+  "regressions": [
+    {
+      "suite": "world_startup_budget",
+      "status": "PASS",
+      "sha256": "87014a71671ccfa67bcb7a6da7b6277c42da15e284f6f49186179009c4c0a6a7",
+      "objectdb_warnings": 0,
+      "marker": "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+    },
+    {
+      "suite": "world_startup_config_background",
+      "status": "PASS",
+      "sha256": "7ee92a0b212be6fafdd1fd0380041a3cf5b3613795cf5cc4f703f35d2e1d92da",
+      "objectdb_warnings": 0,
+      "marker": "WORLD STARTUP CONFIG BACKGROUND PASS checks=223"
+    }
+  ],
+  "unit_tests": {
+    "runner": 24,
+    "release_builder": 21
+  },
+  "remote_ci": "PENDING exact new head; old c942 test-merge with8d0 is not this dependency combination",
+  "unchanged_release_quit_after_frames": 120,
+  "unchanged_suite_timeout_seconds": 180,
+  "unit_log_sha256": {
+    "shutdown-runner-unit.log": "7090b9cee6011977f595bb9dd0c760f723bc90876b5437ebf27575134072ac54",
+    "shutdown-release-unit.log": "1ca0baf4d3872a2f7264b65367a70c7ecd89eb5ed55cf15d2de5c228a3268362"
+  },
+  "startup_budget_validation_postrun_sha256": "b99db051c8b266b5d0b07da85f68763c99a241988675769696f25a73f26fdad0"
+}

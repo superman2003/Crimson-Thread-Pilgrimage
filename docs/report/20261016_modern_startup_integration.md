@@ -1,5 +1,11 @@
 # W00b2b：首区配置共享后台准备的现代整合
 
+## 2026-10-16：同步上游 Windows 退出令牌清理
+
+依赖 #95 新头 `ccc0d23d`：同步 owned startup 私有帧唤醒，并把本批新增 `_prepare_startup_config` 三个等待点接到同一 helper。两处 loader 冲突保留现代首帧取消恢复与完整 catalog/startup 租约校验，未降级回只判断 host 存活。普通旅行/后台刷新及 120 帧/180 秒/严格错误门禁不变；不包含 #62 共享 metadata。
+
+新组合在显式 4.6.1 的启动预算/退出生命周期及首区配置 223 项两套严格 GL 全通过，总 103.310 秒，登记源码不变、无引擎 ERROR 或 ObjectDB 警告；24 runner 与 21 release 工具单测通过。实际来源 tree `0fca274e`，精确 hash/log 见 `artifacts/modern_startup_integration/startup_shutdown_sync_verification.json`。此前 c942 对旧依赖8d0的CI不是此组合，新 head 远端/Windows仍需终态验收。
+
 2026-10-16 依赖同步：#95已推进到`8d0a73ae`并纳入main `07ae21d4`工坊。本#96保留首区worker/validator/专项原字节，合入全部工坊路线与门禁，四处文档/计数冲突取并集，默认104套。npm/campaign与24项runner通过；冲突修复先推，新组合本地GL及远端新head CI继续验收，旧848c/旧base结果不代替新组合。原180秒、绘制模式和断言保持。[同步证据](../../artifacts/modern_startup_integration/workshop_base_sync_verification.json)。
 
 本批以正式#95 `defb5dde` 为依赖，仅续接原#61 startup-region-worker `1751fe15→543f5ffb` 未进入现代树的真实差量，不夹带#62元数据worker。原现代首区构建/prepare、路线覆盖分片与manifest worker都保留，不重写或重复计为本批成果。
