@@ -4,6 +4,7 @@ const MAIN := preload("res://scripts/main_level.gd")
 const LOADER := preload("res://scripts/world_region_loader.gd")
 const READER := preload("res://scripts/world_config_read_job.gd")
 const VALIDATOR := preload("res://scripts/world_config_validator.gd")
+const OVERLAY := preload("res://scripts/world_route_overlay_job.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const STATE := preload("res://scripts/world_state.gd")
@@ -37,6 +38,7 @@ class FaultReader extends "res://scripts/world_config_read_job.gd":
     var fault := ""
     func request_validation(raw: Variant, path: String, entry: Vector2, use_default_entry: bool, route_context: Dictionary) -> int:
         if fault == "validation_launch": return 0
+        if fault == "overlay_type": route_context.bundle.overlay = {"world_overrides": 42}
         return super.request_validation(raw, path, entry, use_default_entry, route_context)
     func take(ticket: int) -> Dictionary:
         var read := super.take(ticket)
@@ -55,6 +57,8 @@ func _run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     await _new_game_and_resume()
     await _background_validation_oracle()
+    _malformed_overlay_steps()
+    await _malformed_validation_workers()
     await _default_entry_oracle()
     await _reader_ownership()
     await _early_startup_cancellation()
@@ -171,6 +175,147 @@ func _background_validation_oracle() -> void:
     _check(not reader.take(ticket).get("error", "").is_empty(), "worker refuses missing private context instead of reading a live cache")
     reader.shutdown()
     _check(reader.request_validation({}, "", Vector2.ZERO, true, {}) == 0, "closed reader refuses new validation tasks")
+
+
+func _overlay_type_cases() -> Array[Dictionary]:
+    # Ordinary, syntactically valid JSON author mistakes. No source manifest
+    # or save is edited. Every actual overlay consumer is represented.
+    var cases: Array[Dictionary] = []
+    var scalars: Array = [null, false, 42, 1.5, "wrong"]
+    for value in scalars + [[]]:
+        cases.append({"label": "overlay root " + str(value), "overlay": value})
+        for field in ["world_overrides", "inventory_catalog"]:
+            cases.append({"label": field + " container " + str(value), "overlay": {field: value}})
+    var record_fields: Array = OVERLAY.APPEND_FIELDS.duplicate()
+    record_fields.append("portals")
+    for pair in OVERLAY.OVERRIDE_FIELDS: record_fields.append(pair[0])
+    for field in record_fields + ["remove_interactives"]:
+        for value in scalars + [{}]:
+            cases.append({"label": field + " container " + str(value), "overlay": {field: value}})
+    for field in record_fields:
+        for value in scalars + [[]]:
+            cases.append({"label": field + " record " + str(value), "overlay": {field: [{}, value]}})
+    for value in scalars + [[]]:
+        cases.append({"label": "inventory_catalog record " + str(value), "overlay": {"inventory_catalog": {"valid": {}, "invalid": value}}})
+    return cases
+
+func _malformed_overlay_steps() -> void:
+    var job := OVERLAY.new()
+    # The originally reported path reaches a terminal state in exactly one
+    # operation, without a worker or an unbounded error/retry loop.
+    job.begin({"world": {}}, {"world_overrides": 42}, 1)
+    job.step(1, 1)
+    _check(job.done and not job.error.is_empty() and job.result.is_empty() and job.total_operations == 1, "numeric world_overrides terminates after one checked operation")
+    for sample in _overlay_type_cases():
+        job.begin({"world": {}}, sample.overlay, 1)
+        for _operation in range(256):
+            if job.done: break
+            job.step(1, 1)
+        _check(job.done and not job.error.is_empty() and job.result.is_empty(), sample.label + " explicitly fails in bounded overlay steps")
+    # Reusing a failed job must not retain its error, partial merge or cursor.
+    job.begin({"world": {}}, {"world_overrides": {"width": 20}, "inventory_catalog": {"item": {"name": "valid"}}}, 2)
+    for _operation in range(256):
+        if job.done: break
+        job.step(1, 1)
+    _check(job.done and job.error.is_empty() and job.result.world.width == 20 and job.result.inventory.catalog.item.name == "valid", "failed overlay can restart with a valid detached config")
+    job.begin({"world": {}}, {}, 3)
+    _check(job.done and job.error.is_empty() and job.result == {"world": {}}, "empty overlay remains an immediate legacy no-op after failure")
+
+func _malformed_validation_workers() -> void:
+    var path := ROUTES.cached_config_path(REGION)
+    var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+    var reader := READER.new()
+    var samples: Array[Dictionary] = []
+    # One real background task for every container/record consumer. The full
+    # JSON type matrix above stays a cheap, explicitly bounded overlay test.
+    samples.append({"label": "overlay root", "overlay": 42})
+    for field in ["world_overrides", "inventory_catalog", "remove_interactives"]:
+        samples.append({"label": field, "overlay": {field: 42}})
+    for pair in OVERLAY.OVERRIDE_FIELDS:
+        samples.append({"label": pair[0] + " container", "overlay": {pair[0]: 42}})
+        samples.append({"label": pair[0] + " record", "overlay": {pair[0]: [42]}})
+    for field in OVERLAY.APPEND_FIELDS + ["portals"]:
+        samples.append({"label": field + " container", "overlay": {field: 42}})
+        samples.append({"label": field + " record", "overlay": {field: [42]}})
+    samples.append({"label": "inventory_catalog entry", "overlay": {"inventory_catalog": {"item": 42}}})
+    samples.append({"label": "raw catalog container", "raw_field": "catalog"})
+    samples.append({"label": "raw region identity", "raw_field": "id"})
+    samples.append({"label": "raw enemy kind", "raw_field": "kind"})
+    for sample in samples:
+        var input := raw.duplicate(true)
+        var context := _validation_context(REGION)
+        if sample.has("overlay"): context.bundle.overlay = sample.overlay
+        match sample.get("raw_field", ""):
+            "catalog": input.inventory.catalog = 42
+            "id": input.id = 42
+            "kind": input.enemy_spawns[0].kind = 42
+        var before := input.duplicate(true)
+        var context_before := context.duplicate(true)
+        var ticket := reader.request_validation(input, path, Vector2.ZERO, true, context)
+        _check(ticket != 0, sample.label + " gets sole validation ticket")
+        var finished: bool = await _wait_validation_worker(reader)
+        _check(finished, sample.label + " worker reaches terminal state within test deadline")
+        if not finished:
+            # Do not join a regressed infinite worker from the main thread.
+            # The outer regression runner's existing timeout remains intact.
+            quit(1)
+            return
+        _check(reader.has_pending_ticket() and reader.request(path) == 0, sample.label + " failed result retains ticket until its owner takes it")
+        var validated := reader.take(ticket)
+        _check(not validated.get("worker_is_main", true) and not validated.get("error", "").is_empty() and validated.get("prepared", {}).is_empty(), sample.label + " propagates explicit worker error with no prepared config")
+        if sample.has("overlay"):
+            var expected_field: String = sample.overlay.keys()[0] if sample.overlay is Dictionary else "区域覆盖"
+            _check(str(validated.get("error", "")).contains(expected_field), sample.label + " reports the rejected overlay field")
+        _check(not reader.busy() and not reader.has_pending_ticket() and reader._thread == null, sample.label + " take reaps thread and releases ticket")
+        _check(input == before and context == context_before, sample.label + " failure leaves raw input and private context unchanged")
+    # A large valid overlay has no artificial operation/time cutoff. Numeric
+    # removal IDs keep the established exact-type matching behavior.
+    var context := _validation_context(REGION)
+    var wide: Dictionary = {}
+    for index in range(4096): wide["fixture_%d" % index] = {"nested": [index, {"value": index}]}
+    context.bundle.overlay.world_overrides.merge(wide, true)
+    context.bundle.overlay.remove_interactives.append(42)
+    var ticket := reader.request_validation(raw, path, Vector2.ZERO, true, context)
+    var finished: bool = await _wait_validation_worker(reader)
+    _check(finished, "large valid overlay reaches a terminal worker state")
+    if not finished:
+        quit(1)
+        return
+    var validated := reader.take(ticket)
+    _check(validated.error.is_empty() and validated.prepared.world.fixture_4095.nested[1].value == 4095 and validated.validator_steps > 1000, "large valid overlay is accepted without a fixed validation step cutoff")
+    context = _validation_context(REGION)
+    context.bundle.overlay = {"world_overrides": 42}
+    ticket = reader.request_validation(raw, path, Vector2.ZERO, true, context)
+    reader.discard(ticket)
+    _check(not reader.has_pending_ticket(), "discard immediately relinquishes failed validation ticket")
+    finished = await _wait_validation_worker(reader)
+    _check(finished, "discarded malformed validation still terminates")
+    if not finished:
+        quit(1)
+        return
+    # Admission must reap a completed abandoned result and recover normally.
+    ticket = reader.request_validation(raw, path, Vector2.ZERO, true, _validation_context(REGION))
+    finished = await _wait_validation_worker(reader)
+    _check(ticket != 0 and finished, "reader can retry after discarding malformed validation")
+    if not finished:
+        quit(1)
+        return
+    _check(reader.take(ticket).get("error", "missing").is_empty(), "valid retry after malformed validation succeeds")
+    reader.shutdown()
+    _check(reader.closed and not reader.busy() and not reader.has_pending_ticket() and reader._thread == null, "failed-validation reader shutdown releases every owned resource")
+    # Shutdown is also safe immediately after accepting the invalid task;
+    # no intervening frame or successful take can hide a stuck worker.
+    reader = READER.new()
+    ticket = reader.request_validation(raw, path, Vector2.ZERO, true, context)
+    _check(ticket != 0, "immediate malformed shutdown owns a validation ticket")
+    reader.shutdown()
+    _check(reader.closed and not reader.busy() and not reader.has_pending_ticket() and reader._thread == null, "shutdown joins malformed validation and clears ownership synchronously")
+
+func _wait_validation_worker(reader: RefCounted) -> bool:
+    var deadline := Time.get_ticks_msec() + 5000
+    while reader.busy() and Time.get_ticks_msec() < deadline:
+        await process_frame
+    return not reader.busy()
 
 func _validation_teardown_ownership() -> void:
     var host := ProbeWorld.new()
@@ -326,7 +471,7 @@ func _early_startup_cancellation() -> void:
         await process_frame
 
 func _teardown_and_faults() -> void:
-    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel", "context_copy_path", "context_copy_entry", "context_copy_generation", "context_copy_route", "context_copy_cancel", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
+    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "overlay_type", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel", "context_copy_path", "context_copy_entry", "context_copy_generation", "context_copy_route", "context_copy_cancel", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
         var host := ProbeWorld.new()
         host.world_mode = true
         host.world_resume = false

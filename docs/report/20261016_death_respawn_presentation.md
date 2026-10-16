@@ -1,5 +1,9 @@
 # Death-to-respawn presentation: finite playback and checkpoint reveal
 
+## 2026-10-16：首区错误守卫与图钉输入修复的最终链组合
+
+同步最新#98 `37b479aa`（#97 a0dc6846→#96 48b15872→main d4a4a8e0），保留图钉146项修复。唯一startup fixture冲突取并集：旧8种context_copy取消/退树/退出场景全部保留，同时加入overlay_type；生产错误守卫与上游逐字节一致，Player/死亡呈现未改。显式4.6.1真实GL原180秒三个必要组合通过，startup最终911项、图钉146、World死亡复活17完整marker；错误/warning实际计数见 `artifacts/death_respawn_presentation/overlay_guard_chain_sync_verification.json`。局部通过不代替新head全110、视觉及双平台真实发行CI，当前仍待远端终态。
+
 ## Startup overlap repair after the Windows failure
 
 The follow-up keeps the sole JSON reader, source stamps, route/generation leases, authored first-region-wins order and all final cancellation yields. Initial JSON reading overlaps the existing private route-context copy. Each catalog read is taken and validated before the same reader starts only the immediately following catalog; that pending ticket is owned by this construction and overlaps the current merge. Every invalidation/return drains its own pending ticket, never another task's completed work. There is no current-region inventory reuse or #62 metadata functionality in this repair.
