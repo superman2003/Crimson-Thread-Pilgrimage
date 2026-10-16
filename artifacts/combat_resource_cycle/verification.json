@@ -1,0 +1,52 @@
+{
+  "engine": "Godot 4.6.1 / llvmpipe",
+  "base": "ee87dddda33978b3ef12c7fb02ec730cb61d7555",
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "9e18253398ea95c7ed76c09bc8f070ea2a1d65e6e1f6413c95752120bec26e4e",
+    "godot/scripts/pilgrimage_interface.gd": "ef190e219891cea32f40bdbde310f60f580c43cea6d10efcfff120f9f936a32d",
+    "godot/scripts/combat_resource_cycle_validation.gd": "d1971f730706c4fa05f1dd7df7dfed88d5e9a91d776f2bc536a4fea979da68cc",
+    "tools/run_godot_regressions.py": "a3c80e69a807ca04b3577e02c183c2a4e93fab5d2c978505a1265167d0dea5af",
+    "tools/godot_suite_success_markers.json": "049dd80e50f527f6207ce58b3b41a504ca1fc5a3d679321426802ac8a4cf84f3"
+  },
+  "final_cycle": {
+    "checks": 119,
+    "failures": 0,
+    "log_sha256": "8485ac069a6dec840cb7586a7cf4e0f864f05d6fbc7acd2b535e552e6dd10f3b"
+  },
+  "compatibility_suites": [
+    "melee_recovery",
+    "seal_combat",
+    "combat",
+    "player_state_cleanup",
+    "player_upgrade_regression",
+    "seal_ui",
+    "seal_acceptance",
+    "seal_system",
+    "build_system",
+    "build_transaction_runtime",
+    "build_slots_ui",
+    "ui_world_integration",
+    "input_prompt",
+    "player_action_buffer"
+  ],
+  "compatibility_result": "14 existing suites passed across two runs",
+  "other_checks": {
+    "runner_tests": 15,
+    "npm": "PASS",
+    "campaign": "PASS",
+    "strict_import_passes": 2,
+    "diff_check": "PASS"
+  },
+  "captures": [
+    "bell_world_hud.webp",
+    "crimson_world_hud.webp",
+    "salt_world_hud.webp"
+  ],
+  "limits": [
+    "Enemy AI/contact disabled in isolated real-hit cycle; damage interruption uses actual Player.take_damage",
+    "Equipment, upgrade levels and local shrine start are explicit fixtures, not natural acquisition or boss playthrough",
+    "Intermediate parse/expectation/grounding failures corrected and rerun separately; see design doc",
+    "Existing ObjectDB exit warnings remain in some compatibility suites",
+    "Remote CI pending formal PR"
+  ]
+}
