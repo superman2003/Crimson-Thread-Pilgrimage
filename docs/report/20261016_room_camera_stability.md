@@ -1,5 +1,9 @@
 # A02：普通跳跃的稳定房间镜头与纵向视野
 
+## 2026-10-16：同步已验证治疗/动作依赖
+
+接入#90 `0cdd867f`，保留main `c6dce193`治疗、实时HUD与#88 `7c638832`路线成果。Player为双方三方自动合并，UI等新依赖；镜头算法及78项真实Player验证源码不变。默认102套，npm/campaign通过。新增组合真实GL：治疗149项/23.25秒、实际Player镜头78项/7.41秒、camera_focus86项/20.34秒，总51.18秒；exit0、无ERROR/ObjectDB警告，原180秒和正常绘制不变。源码/日志hash见`artifacts/room_camera_stability/combat_main_sync_verification.json`。新head远端CI另核，以下保留各自来源旧结果；不提升待机素材、自然过门或全部跨区平滑验收边界。
+
 日期：2026-10-16。独立堆叠在动作反馈 PR #90 head `cfdd983f569a5d779aeb8f9c78f2263ea50290ce`。保留 #88 的路线和 main #87 planner，不含 #89 治疗或 #91 工房；只计本批镜头差量。
 
 ## 玩家改善与原因

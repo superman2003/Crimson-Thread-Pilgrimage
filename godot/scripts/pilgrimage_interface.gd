@@ -77,6 +77,7 @@ var resupply_quote: Dictionary={}
 var combat_status: Label
 var energy_status: Label
 var healing_bar: ProgressBar
+var healing_status: Label
 var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
 var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false}
@@ -330,10 +331,13 @@ func _build_hud() -> void:
     prompt.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),GOLD))
     combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),13,IVORY)
     combat_status.visible=false
-    mechanism_status=_label(self,"",Vector2(30,141),Vector2(320,26),13,GOLD)
+    mechanism_status=_label(self,"",Vector2(30,141),Vector2(360,26),13,GOLD)
+    healing_status=_label(self,"",Vector2(30,169),Vector2(360,24),13,MUTED)
+    healing_status.mouse_filter=Control.MOUSE_FILTER_PASS
+    healing_status.add_theme_stylebox_override("normal",_meter_style(Color(0.04,0.07,0.08,0.9)))
     healing_bar=ProgressBar.new()
-    healing_bar.position=Vector2(108,180)
-    healing_bar.size=Vector2(220,6)
+    healing_bar.position=Vector2(30,197)
+    healing_bar.size=Vector2(300,6)
     healing_bar.show_percentage=false
     healing_bar.add_theme_font_size_override("font_size",1)
     healing_bar.add_theme_constant_override("outline_size",0)
@@ -342,11 +346,11 @@ func _build_hud() -> void:
     healing_bar.add_theme_stylebox_override("background",_meter_style(Color("233039")))
     healing_bar.add_theme_stylebox_override("fill",_meter_style(IVORY))
     healing_bar.visible=false
-    healing_bar.size=Vector2(220,6)
+    healing_bar.size=Vector2(300,6)
     add_child(healing_bar)
     healing_bar.update_minimum_size()
-    healing_bar.size=Vector2(220,6)
-    pinned=_label(self,"",Vector2(30,195),Vector2(300,45),13,MUTED)
+    healing_bar.size=Vector2(300,6)
+    pinned=_label(self,"",Vector2(30,212),Vector2(300,45),13,MUTED)
     pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     for index in 4:
         var card:=Panel.new()
@@ -1607,7 +1611,23 @@ func _refresh_combat_status(player: Node) -> void:
         var maximum:=int(mechanism.get("max_stacks",mechanism.get("max",3)))
         var amount:=int(mechanism.get("stacks",mechanism.get("value",0)))
         mechanism_status.text=String(mechanism.get("label",mechanism.get("name","契印")))+"  "+("%d / %d" % [amount,maximum] if maximum>0 else "%d 个目标" % amount)
+        if not bool(mechanism.get("unlocked",true)):
+            mechanism_status.text=String(mechanism.get("label","契印"))+" · 尚未修复"
+        elif float(mechanism.get("remaining",0.0))>0.0 and amount>0:
+            mechanism_status.text+=" · %.1fs" % float(mechanism.remaining)
+        if float(mechanism.get("heal_remaining",0.0))>0.0:
+            mechanism_status.text+=" · %s %.1fs" % [String(mechanism.get("heal_effect","治疗效果")),float(mechanism.heal_remaining)]
         combat_status.text+="\n"+mechanism_status.text
+    var heal: Dictionary=state.get("heal",{})
+    healing_status.visible=not heal.is_empty() and level.active_overlay==""
+    if not heal.is_empty():
+        var reason := String(heal.get("reason","busy"))
+        var status: String = {"ready":"可用 +%d" % int(heal.get("amount",1)),"channeling":"治疗中 %.1fs" % float(heal.get("remaining",0.0)),
+            "dead":"等待复生","busy":"动作中","full_health":"生命已满","energy":"缺 %d 绯线" % int(heal.get("missing_energy",0)),
+            "airborne":"落地后可用","moving":"停稳后可用","cooldown":"冷却 %.1fs" % float(heal.get("cooldown",0.0))}.get(reason,"动作中")
+        healing_status.text="[%s] 治疗 %d · %s" % [_short_binding("heal"),int(heal.get("cost",0)),status]
+        healing_status.tooltip_text="消耗 %d 绯线 · 恢复 %d 生命 · %.2f秒\n中断损失 %d 绯线；移动、跳跃、冲刺或受击会中断。" % [int(heal.get("cost",0)),int(heal.get("amount",0)),float(heal.get("duration",0.0)),int(heal.get("interrupt_loss",0))]
+        healing_status.add_theme_color_override("font_color",GOLD if bool(heal.get("available",false)) else IVORY if reason=="channeling" else MUTED)
     healing_bar.visible=bool(state.get("heal_active",false)) and level.active_overlay==""
     healing_bar.value=clampf(float(state.get("heal_progress",0)),0,1)
     if healing_bar.visible:combat_status.text+=" · 治疗中"

@@ -1,5 +1,9 @@
 # 待机注册改善、地面步态与克制近战反馈（视觉循环仍待修复）
 
+## 2026-10-16：同步#88与治疗main
+
+本分支接入#88 `7c638832`（含main `c6dce193`），Player/UI精确保留两边三方合并成果，近战helper与FeelKit未改。默认101套。新增组合真实GL：治疗149、动作958、近战107、输入96及UI/world均严格通过，总40.69秒，无ERROR/ObjectDB警告；npm/campaign通过，原每套180秒和正常绘制保留。源码/日志hash见`artifacts/motion_melee_feedback/combat_main_sync_verification.json`。旧cfdd983已8/8工作流全绿（含完整100套），仅作为旧来源证据，新head CI另核。待机视觉仍OPEN，本次没有新增素材；模拟震动不等于实体手柄触感验收。
+
 ## 依赖同步（#88 head611b68a5）
 
 #88已同步main54863ec7，本PR保留其全部路线/planner成果，默认套件更新至100。Player/FeelKit/melee helper/UI/输入验证与已通过18套及设备修复2套的源码保持字节一致；只合并marker/count与文档，静态门禁另跑。既有本地99套注册和远端ac04ac7专项记录保留为历史；新head必须单独CI。#88的76落点本地180秒仍OPEN，不据此声明本批整体性能通过；用户指出的待机视觉缺陷也仍OPEN。
