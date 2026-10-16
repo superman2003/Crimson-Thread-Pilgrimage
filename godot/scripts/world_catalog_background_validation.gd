@@ -20,6 +20,32 @@ class FailedStartReader extends "res://scripts/world_config_read_job.gd":
         attempts += 1
         return 0
 
+
+# Isolate the scheduler from worker timing: the catalog callback has already
+# crossed its final cancellation window when the next prepare job is admitted.
+class SchedulingHost extends Node:
+    var world_catalog_prepare_staging: Dictionary = {}
+    var catalog_resumed_frame := -1
+    var next_prepare_frame := -1
+    var build_plan_frame := -1
+    func _region_prepare_jobs(_target: Dictionary) -> Array:
+        return [{"method": "_prepare_world_catalog_region", "args": ["fixture", {}]},
+            {"method": "_mark_after_catalog", "args": []}]
+    func _mark_after_catalog() -> void:
+        next_prepare_frame = Engine.get_process_frames()
+    func _region_build_jobs() -> Array:
+        build_plan_frame = Engine.get_process_frames()
+        return []
+
+class SchedulingLoader extends "res://scripts/world_region_loader.gd":
+    func _prepare_catalog_region_async(host: Node, _region_id: String, _route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, _source_path: String = "") -> bool:
+        await _next_process_frame(tree)
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+            return false
+        host.catalog_resumed_frame = Engine.get_process_frames()
+        last_transition.catalog_reads.append({"merge_work_usec": 0})
+        return true
+
 func _initialize() -> void:
     call_deferred("_run")
 
@@ -40,6 +66,10 @@ func _run() -> void:
     for read in reads:
         _check(not read.worker_is_main and read.bytes > 0 and read.wait_frames >= 1, "region read and parse used background worker")
         _check(read.max_merge_edges <= 64 and read.route_generation == ROUTES.cached_generation(), "catalog merge bounded and generation pinned")
+        _check(read.merge_frame_batches >= 1 and read.max_merge_operations >= 1 and read.max_merge_operations <= 8, "catalog source batches preserve operation cap and final yield")
+    var startup_metric: Dictionary = scene.world_loader.last_transition
+    _check(startup_metric.route_manifest_copy_max_operations >= 1 and startup_metric.route_manifest_copy_max_operations <= 8 and startup_metric.route_manifest_copy_max_step_edges <= 512, "manifest batches preserve operation and copy-edge caps")
+    await _catalog_scheduler_probe()
     var reader_id: int = scene.world_loader.config_read_job.get_instance_id()
     var path := ROUTES.cached_config_path("demo_ch02_rain_foundry_canal")
     var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -83,6 +113,17 @@ func _run() -> void:
         for failure in failures: push_error(failure)
         quit(1)
 
+
+
+func _catalog_scheduler_probe() -> void:
+    var host := SchedulingHost.new()
+    root.add_child(host)
+    var loader := SchedulingLoader.new()
+    var ok: bool = await loader._construct_budgeted(host, {}, false)
+    _check(ok and host.next_prepare_frame == host.catalog_resumed_frame, "catalog completion admits next prepare job without an empty frame")
+    _check(host.build_plan_frame == host.next_prepare_frame + 1, "synchronous final prepare batch still yields before build planning")
+    loader.shutdown()
+    host.free()
 
 func _manifest_change(scene: Node, invalid: bool) -> void:
     var original := FileAccess.get_file_as_string(ROUTES.ROUTES_PATH)
@@ -243,6 +284,7 @@ func _faults() -> void:
     result = await _read(loader, host, {})
     var large_read: Dictionary = loader.last_transition.catalog_reads.back()
     _check(result and host.world_catalog_prepare_staging.size() == 193 and large_read.merge_batches == 4 and large_read.max_merge_edges == 64, "large catalog transfers in bounded merge batches")
+    _check(large_read.merge_frame_batches >= 1 and large_read.max_merge_operations <= 8, "multi-chunk catalog honors per-frame operation cap")
     for bad in ["{broken", "[]", '{"inventory":{"catalog":[]}}']:
         _write(bad)
         host.world_catalog_prepare_staging = {"partial": {}}
