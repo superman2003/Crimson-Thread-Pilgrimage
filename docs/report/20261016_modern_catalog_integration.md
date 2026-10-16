@@ -1,5 +1,10 @@
 # W00b2b：World物品目录共享后台准备的现代整合
 
+## 2026-10-16：同步已合入 main 的 #94 动作/镜头/待机
+
+维护者将 #94 合入 `main 2d60b550`（与已验 `51ff9e98` 同树），本分支保留目录 reader 与 Windows 退出清理，纳入全部动作/镜头/分层待机及独立 runtime/visual CI。五处冲突仅在三份进度文档、默认集合和计数测试；取双方并集后默认107套。目录 loader/reader/专项与 `ccc0d23d` 原字节相同，Main/Player/待机与新main原字节相同。29 runner、5 workflow完整性、npm/campaign通过。冲突修复先交付，受影响新组合本地GL及新head完整CI继续验证；旧ccc全绿只归属旧main组合，不替代本次。原120帧、180秒、严格ERROR/marker与所有视觉OPEN保持。
+
+
 ## 2026-10-16：Windows 启动中退出的令牌释放修复
 
 新同步后 Windows 发布烟测真实失败；verbose 提交 `fe842d39` 精确指出 `world_transition_token.gd`、一个 RefCounted 和两个 GDScriptFunctionState 残留。Linux 4.6.1 微夹具重现了宿主已释放但等待下一帧的局部令牌仍活着；仅同步唤醒后，退出错误和残留消失。
