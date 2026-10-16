@@ -92,5 +92,6 @@
   "tests/verify_narrative_progression": "^NARRATIVE_PROGRESSION_PASS checks=\\d+ failures=0$",
   "tests/verify_narrative_runtime": "^NARRATIVE_RUNTIME_PASS checks=\\d+ failures=0$",
   "input_prompt": "^INPUT_PROMPT_VALIDATION checks=\\d+ failures=0$",
-  "world_passage_network": "^WORLD_PASSAGE_NETWORK checks=\\d+ failures=0 physical_roundtrips=5$"
+  "world_passage_network": "^WORLD_PASSAGE_NETWORK checks=\\d+ failures=0 physical_roundtrips=5$",
+  "world_ability_acquisition": "^WORLD_ABILITY_ACQUISITION checks=[0-9]+ failures=0 actual_pickups=8 local_approach_fixture=true$"
 }

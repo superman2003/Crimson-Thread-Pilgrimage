@@ -106,7 +106,7 @@ func run(host: Node, scene_tree: SceneTree, room: Dictionary, callback: Callable
         # Batch suite disables automatic rendering; force one real frame per room.
         RenderingServer.force_draw()
         var image: Image=tree.root.get_texture().get_image()
-        var output := ProjectSettings.globalize_path("res://../artifacts/workshop_group_one")
+        var output := ProjectSettings.globalize_path("res://../artifacts/"+("workshop_group_two" if room.get("layout_group","")=="movement_group_two" else "workshop_group_one"))
         DirAccess.make_dir_recursive_absolute(output)
         check.call(image.save_webp(output.path_join(String(room.id)+"_"+String(world.config.id)+".webp"))==OK,String(room.id)+": actual route arrival capture saved")
     print("WORKSHOP_ROUTE room=",room.id," region=",world.config.id," passed=",ok," actions=",observed)

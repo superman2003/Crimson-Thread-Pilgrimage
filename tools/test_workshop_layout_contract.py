@@ -7,7 +7,16 @@ class LayoutContracts(unittest.TestCase):
     def setUp(self):self.data=json.loads((ROOT/'godot/data/world_routes.json').read_text())
     def invalid(self,text):return any(not ok and text in label for ok,label in contracts(self.data))
     def selected(self):return next(l for l in self.data['workshop_layouts'] if l.get('layout_group')=='movement_group_one')
-    def test_authored_routes(self):self.assertFalse(any(not ok for ok,_ in contracts(self.data)))
+    def test_authored_routes(self):
+        for group in ['movement_group_one','movement_group_two']:
+            self.assertFalse(any(not ok for ok,_ in contracts(self.data,group)))
+    def test_group_two_missing_room(self):
+        self.data['workshop_layouts']=[l for l in self.data['workshop_layouts'] if l['room_id']!='upgrade_crown_resonance_3']
+        self.assertTrue(any(not ok for ok,_ in contracts(self.data,'movement_group_two')))
+    def test_group_two_floating_reward(self):
+        t=next(t for t in self.data['ability_backtracks'] if t['room_id']=='upgrade_thorn_downstrike_1')
+        reward=next(r for r in self.data['chapters'][t['region_id']]['collectibles'] if r['id']==t['reward_ids'][0]);reward['position'][1]-=10
+        self.assertTrue(any(not ok and 'standing clearance' in label for ok,label in contracts(self.data,'movement_group_two')))
     def test_duplicate_recipe(self):
         self.data['workshop_layouts'].append(self.selected().copy())
         self.assertTrue(self.invalid('recipes are unique'))
