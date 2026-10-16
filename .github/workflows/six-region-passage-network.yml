@@ -1,0 +1,75 @@
+name: Six-region passage network
+
+on:
+  pull_request:
+    paths:
+      - 'godot/data/world_passages.json'
+      - 'godot/scripts/world_passage*.gd'
+      - 'godot/scripts/world_integration_validation.gd'
+      - 'godot/scripts/world_map_validation.gd'
+      - 'godot/scripts/world_upgrade_validation.gd'
+      - 'tools/*world_passages.py'
+      - 'tools/validate_passage_network_pixels.gd'
+      - 'tools/run_godot_regressions.py'
+      - 'tools/godot_suite_success_markers.json'
+      - '.github/workflows/six-region-passage-network.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: six-region-passage-network-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate JavaScript and campaign structure
+        run: |
+          npm test
+          npm run test:campaign
+      - name: Import resources with strict error checks
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/six-region-passage-network-logs/import"
+      - name: Validate passage network, rollback, progression and loading
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite world_passage_network --suite world_passage --suite world_upgrade \
+            --suite world_map --suite world_integration --suite world_preflight_budget --suite world_async_loading \
+            --log-dir "$RUNNER_TEMP/six-region-passage-network-logs"
+      - name: Validate actual rendered network mouths and lanes
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/test_world_passages.py
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/six-region-passage-network-logs/pixels" --script ../tools/validate_passage_network_pixels.gd --success-marker 'PASSAGE_NETWORK_PIXELS probes=15 failures=0' --summary-path artifacts/passage_network/gpu_network.json
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: six-region-passage-network-logs
+          path: |
+            ${{ runner.temp }}/six-region-passage-network-logs
+            artifacts/passage_network
+          if-no-files-found: ignore

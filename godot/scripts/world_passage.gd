@@ -1,5 +1,5 @@
 extends Node2D
-## First physical connector content block. World-coordinate endpoints remain
+## Registered physical connector network. World-coordinate endpoints remain
 ## fixed; destination gameplay is still loaded at the terminal, not seamless.
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
@@ -58,7 +58,12 @@ static func endpoint(region: String, portal: String) -> Dictionary:
 
 static func glyph(region: String, portal: String) -> String:
     var link := endpoint(region, portal)
-    return "F" if link.is_empty() else "→" if String(link.source.region) == String(link.passage.a.region) else "←"
+    if link.is_empty(): return "F"
+    var a: Array = link.source_portal.position
+    var b: Array = link.target_portal.position
+    var source := COORDINATES.to_world(region, Vector2(a[0],a[1]))
+    var target := COORDINATES.to_world(String(link.target.region),Vector2(b[0],b[1]))
+    return "→" if target.x > source.x else "←"
 
 func bind(owner_host: Node) -> void:
     host = owner_host
@@ -160,6 +165,9 @@ func _build_tube() -> void:
     var floor_a := a + Vector2(0, 40)
     var floor_b := b + Vector2(0, 40)
     var length := b.x - a.x
+    var slope := (floor_b.y-floor_a.y)/length
+    var cap_a := floor_a - Vector2(96,96*slope)
+    var cap_b := floor_b + Vector2(96,96*slope)
     var theme := String(route.get("material", "moss_cavern"))
     var stone_material := ROCK.for_theme(theme)
     support_material = ShaderMaterial.new()
@@ -179,20 +187,19 @@ func _build_tube() -> void:
     body.collision_mask = 0
     add_child(body)
     # Two continuous polygon faces, one material throughout each structure.
-    for points in [PackedVector2Array([floor_a + Vector2(-96, 0), floor_b + Vector2(96, 0), floor_b + Vector2(96, 400), floor_a + Vector2(-96, 400)]),
-        PackedVector2Array([floor_a + Vector2(-96, -580), floor_b + Vector2(96, -580), floor_b + Vector2(96, -260), floor_a + Vector2(-96, -260)])]:
+    for points in [PackedVector2Array([cap_a, cap_b, cap_b + Vector2(0,400), cap_a + Vector2(0,400)]),
+        PackedVector2Array([cap_a + Vector2(0,-580), cap_b + Vector2(0,-580), cap_b + Vector2(0,-260), cap_a + Vector2(0,-260)])]:
         var collision := CollisionPolygon2D.new()
         collision.polygon = points
         body.add_child(collision)
     # Independent authored silhouettes; collision polygons remain authoritative.
-    var slope := (floor_b.y-floor_a.y)/length
     var edge_a := floor_a-Vector2(640,640*slope)
     var edge_b := floor_b+Vector2(640,640*slope)
     var floor_face := ROCK.authored_edge(self,edge_a,edge_b,theme,false)
     floor_face.z_index = -5
     var ceiling_face := ROCK.authored_edge(self,edge_a-Vector2(0,260),edge_b-Vector2(0,260),theme,true)
     ceiling_face.z_index = -5
-    for point in [floor_a + Vector2(-96, -130), floor_b + Vector2(96, -130)]:
+    for point in [cap_a + Vector2(0,-130), cap_b + Vector2(0,-130)]:
         var cap := CollisionShape2D.new()
         var shape := RectangleShape2D.new()
         shape.size = Vector2(16, 260)
@@ -211,8 +218,8 @@ func _build_tube() -> void:
                 Vector2(x + 320, lamp_y - 246), 98.0, "lantern", false)
     # Continuous rear-wall plinth covers the pilaster feet 56px above the lane.
     var plinth := ROCK.face(rear_wall, PackedVector2Array([
-        floor_a + Vector2(-640, -56), floor_b + Vector2(640, -56),
-        floor_b + Vector2(640, 0), floor_a + Vector2(-640, 0)]), theme)
+        edge_a + Vector2(0,-56), edge_b + Vector2(0,-56),
+        edge_b, edge_a]), theme)
     plinth.name = "RearWallPlinth"
     plinth.color = Color(0.19, 0.25, 0.23)
     plinth.z_index = 2

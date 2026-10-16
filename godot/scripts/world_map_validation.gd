@@ -98,8 +98,8 @@ func _run() -> void:
         _check(child.points[0].is_equal_approx(ATLAS.project(child.get_meta("source_world"), layout)) and child.points[1].is_equal_approx(ATLAS.project(child.get_meta("target_world"), layout)), "route ends align with actual world portals")
         if child.get_meta("physical_passage"):
             physical_routes += 1
-            _check(child.get_meta("source_world").distance_to(child.get_meta("target_world")) > 8500, "pipe keeps real world length")
-    _check(physical_routes == 1, "one real pipe drawn once in both directions")
+            _check(child.get_meta("source_world").distance_to(child.get_meta("target_world")) > 7000, "physical connection retains its authored world span")
+    _check(physical_routes == preload("res://scripts/world_passage.gd").routes().size(), "every registered physical link is drawn once in both directions")
     _check(not scene.map_text.text.contains("\n"), "world map instructions occupy one line")
     for child in scene.map_draw_root.get_children():
         if child is Line2D and not bool(child.get_meta("physical_passage")):

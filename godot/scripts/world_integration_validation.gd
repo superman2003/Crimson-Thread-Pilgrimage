@@ -147,6 +147,7 @@ func _run() -> void:
     _check(scene.player.wall_grip_unlocked, "pickup unlocks player wall grip")
     scene.player.global_position = riser.global_position
     scene._activate_world_portal(riser)
+    _check(await preload("res://scripts/world_passage_terminal_fixture.gd").finish(scene), "riser terminal fixture completes state transition")
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == "demo_ch03_saltwhite_archive", "wall grip opens real B to C transition")
@@ -177,6 +178,7 @@ func _run() -> void:
         return
     scene.player.global_position = archive_return.global_position
     scene._activate_world_portal(archive_return)
+    _check(await preload("res://scripts/world_passage_terminal_fixture.gd").finish(scene), "return riser terminal fixture completes state transition")
     await _frames()
     scene = current_scene
     _check(String(scene.config.id) == "demo_ch02_rain_foundry_canal", "C returns to B")

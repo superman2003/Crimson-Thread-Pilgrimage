@@ -15,7 +15,7 @@ from software_gl import software_gl
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
-    'world_rim world_wayfinding world_passage audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency world_enemy_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
+    'world_rim world_wayfinding world_passage world_passage_network audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency world_enemy_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement '
     'enemy_lifecycle_regression enemy_effect_lifetime enemy_visibility world_material hero_animation cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
@@ -35,10 +35,10 @@ def suite_path(name):
     return f'res://{name}.gd' if name.startswith('tests/') else f'res://scripts/{name}_validation.gd'
 
 def render_loop_args(real_gl, suite):
-    # These lifecycle/state suites never sample pixels. Keep the real GL
+    # These non-pixel suites keep physics/state checks. Keep the real GL
     # resource backend, but avoid automatic rasterization on every churn frame.
     # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
-    if real_gl and suite in ['world_upgrade', 'world_neighbor_gameplay_stress']:
+    if real_gl and suite in ['world_upgrade', 'world_neighbor_gameplay_stress', 'world_passage_network']:
         return ['--disable-render-loop']
     return []
 
@@ -94,7 +94,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             with log.open('w') as output:
                 # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime suites must retain normal playback timing.
-                simulation = ['--fixed-fps', '60'] if suite in ['ch06_workshop_experience', 'melee_recovery', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
+                simulation = ['--fixed-fps', '60'] if suite in ['world_passage_network', 'ch06_workshop_experience', 'melee_recovery', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
                 # An intermittent CI shutdown leak needs the actual Resource
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []
