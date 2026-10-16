@@ -14,6 +14,7 @@ const PATH := "res://data/world_passages.json"
 const TRANSIT_LAYER := 64
 static var definitions: Array = []
 static var connections: Dictionary = {}
+static var connection_generation := -1
 var active := false
 var settling := false
 var retry_blocked := false
@@ -22,6 +23,7 @@ var source_id := ""
 var source_point := Vector2.ZERO
 var destination_point := Vector2.ZERO
 var destination_id := ""
+var destination_config_path := ""
 var route: Dictionary = {}
 var frozen: Array[Dictionary] = []
 var original_mask := 0
@@ -37,6 +39,8 @@ var travelled := 0.0
 var return_progress := -30.0
 var last_result: Dictionary = {}
 var landing_support_key := ""
+var arrival_token: RefCounted
+var arrival_previous_player_mode: ProcessMode = Node.PROCESS_MODE_INHERIT
 
 static func routes() -> Array:
     if definitions.is_empty():
@@ -45,6 +49,13 @@ static func routes() -> Array:
     return definitions.duplicate(true)
 
 static func endpoint(region: String, portal: String) -> Dictionary:
+    var current_generation := ROUTES.cached_generation()
+    if current_generation < 0:
+        return {}
+    if connection_generation != current_generation:
+        definitions.clear()
+        connections.clear()
+        connection_generation = current_generation
     if connections.is_empty():
         for passage in routes():
             for side in ["a", "b"]:
@@ -52,8 +63,8 @@ static func endpoint(region: String, portal: String) -> Dictionary:
                 var other: Dictionary = passage["b" if side == "a" else "a"]
                 connections[String(data.region) + ":" + String(data.portal)] = {
                     "passage": passage, "source": data, "target": other,
-                    "source_portal": ROUTES.portal(String(data.region), String(data.portal)),
-                    "target_portal": ROUTES.portal(String(other.region), String(other.portal))}
+                    "source_portal": ROUTES.cached_portal(String(data.region), String(data.portal)),
+                    "target_portal": ROUTES.cached_portal(String(other.region), String(other.portal))}
     return connections.get(region + ":" + portal, {}).duplicate(true)
 
 static func glyph(region: String, portal: String) -> String:
@@ -70,8 +81,21 @@ func bind(owner_host: Node) -> void:
     name = "WorldPassage"
     z_index = 0
 
+func _exit_tree() -> void:
+    # Disconnect even on removal without freeing. The loader independently
+    # owns cancellation and completion after the passage leaves the tree.
+    _release_arrival_token()
+
+func _release_arrival_token() -> void:
+    if arrival_token != null and arrival_token.completed.is_connected(_finish_arrival):
+        arrival_token.completed.disconnect(_finish_arrival)
+    arrival_token = null
+
 func try_walk_entry() -> void:
     if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or not host.active_overlay.is_empty() or host.player.hp <= 0:
+        return
+    if not ROUTES.cache_is_current():
+        host.world_loader.request_manifest_refresh(host)
         return
     for passage in routes():
         for side in ["a", "b"]:
@@ -94,6 +118,9 @@ func try_walk_entry() -> void:
 func begin(portal_id: String) -> bool:
     if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or host.world_loader.phase != "idle" or host.player.hp <= 0 or host.player.death_timer > 0:
         return false
+    if not ROUTES.cache_is_current():
+        host.world_loader.request_manifest_refresh(host)
+        return false
     var connection := endpoint(String(host.config.id), portal_id)
     if connection.is_empty():
         return false
@@ -110,7 +137,7 @@ func begin(portal_id: String) -> bool:
         return false
     destination_id = String(connection.target.region)
     var target: Dictionary = connection.target_portal
-    var target_config_path := ROUTES.config_path(destination_id)
+    var target_config_path := ROUTES.cached_config_path(destination_id)
     if target.is_empty() or not target.get("position", []) is Array or target.position.size() < 2:
         host._toast("旧路目标入口记录无效。")
         return false
@@ -118,6 +145,9 @@ func begin(portal_id: String) -> bool:
     if target_config_path.is_empty() or not entry.is_finite() or not FileAccess.file_exists(target_config_path):
         host._toast("旧路目标区域暂不可用。")
         return false
+    # Keep the admitted path so terminal preflight can refresh a stale manifest
+    # before validating this destination against the newly published routes.
+    destination_config_path = target_config_path
     route = connection.passage.duplicate(true)
     source_id = String(host.config.id)
     source_point = Vector2(portal.position[0], portal.position[1])
@@ -234,7 +264,9 @@ func _build_landing_support() -> void:
     # Borrow only numeric geometry from a published, matching landing lease.
     # The detached cached body remains owned by prefetch until normal adoption.
     var pref: RefCounted = host.world_prefetch
-    if pref == null or not pref.configs.has(destination_id) or not pref.entities.has(destination_id):
+    if pref == null or not pref.synchronize_route_cache():
+        return
+    if not pref.configs.has(destination_id) or not pref.entities.has(destination_id):
         return
     var cache: Dictionary = pref.configs[destination_id]
     var request: Dictionary = pref.desired.get(destination_id, {})
@@ -371,12 +403,23 @@ func _arrive() -> void:
     host.world_loading = true
     # Keep the terminal position fixed while the loader validates/builds. Input
     # held towards the exit cannot move the body off the finite tube during IO.
-    var previous_player_mode: ProcessMode = host.player.process_mode
+    arrival_previous_player_mode = host.player.process_mode
     host.player.process_mode = Node.PROCESS_MODE_DISABLED
-    var ok: bool = await host.world_loader.replace_region_async(host, ROUTES.config_path(destination_id), entry, source_point)
+    arrival_token = host.world_loader.request_passage_transition(host, destination_config_path, entry, source_point)
+    if arrival_token == null or arrival_token.finished:
+        _finish_arrival()
+        return
+    # A synchronous signal preserves the loader's atomic publishing boundary,
+    # even while the host is disabled. No scene-owned coroutine retains token.
+    arrival_token.completed.connect(_finish_arrival, CONNECT_ONE_SHOT)
+
+func _finish_arrival() -> void:
+    var ok: bool = arrival_token != null and arrival_token.succeeded
+    _release_arrival_token()
     if not is_instance_valid(host) or not host.is_inside_tree():
         return
-    host.player.process_mode = previous_player_mode
+    var world_point := terminal_world_point
+    host.player.process_mode = arrival_previous_player_mode
     if ok:
         last_result = {"arrived": true, "distance": travelled, "world_position": world_point, "landing_support": landing_support_key}
         # The loader snapshots collision after preflight, which is TRANSIT while
@@ -441,6 +484,7 @@ func _return_to_source(cancelled: bool) -> void:
     host._save_world()
 
 func _clear() -> void:
+    _release_arrival_token()
     active = false
     settling = false
     frozen.clear()

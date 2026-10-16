@@ -2,6 +2,7 @@ extends SceneTree
 ## Real Player input along the full connector, with fixture endpoint placement.
 ## The tube has no encounters; this is not six-region combat acceptance.
 const SAVE := "user://world_passage_validation.json"
+const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
 const STATE := preload("res://scripts/world_state.gd")
 var scene: Node
@@ -88,7 +89,14 @@ func _run() -> void:
             await _frames()
         _check(passage.active, "directional step enters " + portal_id)
         scene.player.process_mode = Node.PROCESS_MODE_INHERIT
+        # Invalidate after admission while ordinary prefetch is suspended.
+        var route_generation := ROUTES._cache_generation
+        ROUTES._cached_stamp = -1
+        ROUTES.sync_manifest_parses = 0
+        _check(ROUTES.cached_config_path(passage.destination_id).is_empty(), "stale terminal destination cannot be resolved from cache")
         await _walk(direction, true)
+        _check(ROUTES.cache_is_current() and ROUTES.cached_generation() > route_generation, "terminal refreshes routes without abandoning the connector")
+        _check(ROUTES.sync_manifest_parses == 0 and not bool(scene.world_loader.last_transition.get("route_manifest_worker_is_main", true)), "terminal route refresh stays on the sole worker")
         var target := "demo_ch02_rain_foundry_canal" if direction > 0 else origin_id
         _check(String(scene.config.id) == target, "full walk reaches " + target)
         _check(bool(passage.last_result.get("arrived", false)) and float(passage.last_result.get("distance", 0)) >= 8500, "full 8540px connector traversed by physics")

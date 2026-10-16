@@ -92,5 +92,8 @@
   "tests/verify_narrative_progression": "^NARRATIVE_PROGRESSION_PASS checks=\\d+ failures=0$",
   "tests/verify_narrative_runtime": "^NARRATIVE_RUNTIME_PASS checks=\\d+ failures=0$",
   "input_prompt": "^INPUT_PROMPT_VALIDATION checks=\\d+ failures=0$",
-  "world_passage_network": "^WORLD_PASSAGE_NETWORK checks=\\d+ failures=0 physical_roundtrips=5$"
+  "world_passage_network": "^WORLD_PASSAGE_NETWORK checks=\\d+ failures=0 physical_roundtrips=5$",
+  "world_route_manifest_walk_lower": "^WORLD_ROUTE_MANIFEST_WALK_LOWER checks=\\d+ failures=0 physical_crossings=6$",
+  "world_route_manifest_walk_upper": "^WORLD_ROUTE_MANIFEST_WALK_UPPER checks=\\d+ failures=0 physical_crossings=4$",
+  "world_route_manifest_integration": "^WORLD_ROUTE_MANIFEST_INTEGRATION checks=\\d+ failures=0$"
 }

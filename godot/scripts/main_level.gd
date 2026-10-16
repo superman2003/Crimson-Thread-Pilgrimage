@@ -620,6 +620,7 @@ var world_new_key_held := false
 var world_map_view := false
 var world_map_key_held := false
 var applied_build_profile: Dictionary = {}
+var world_start_region_id := ""
 
 @export var config_path := DEFAULT_CONFIG_PATH
 
@@ -724,7 +725,11 @@ func _chapter_metadata_paths() -> Array:
 func _prepare_config_and_route(prepared_config: Dictionary) -> void:
     config = prepared_config.duplicate(true) if not prepared_config.is_empty() else _load_json(config_path)
     if world_mode and prepared_config.is_empty():
-        config = WORLD_ROUTES_SCRIPT.apply_to_owned(config)
+        if not WORLD_ROUTES_SCRIPT.cache_is_current():
+            config = {}
+            world_initial_error = "巡礼路线在区域准备期间已过期。"
+            return
+        config = WORLD_ROUTES_SCRIPT.apply_to_owned_cached(config)
     if config.is_empty():
         push_error("Missing demo config: " + config_path)
 
@@ -739,7 +744,7 @@ func _begin_world_catalog_prepare() -> void:
 
 
 func _prepare_world_catalog_jobs() -> Array:
-    var routes := _load_json("res://data/world_routes.json")
+    var routes := {"chapters": WORLD_ROUTES_SCRIPT.cached_chapters()}
     var jobs: Array = []
     for region_id in routes.get("chapters", {}):
         var route: Dictionary = routes.chapters[region_id]
@@ -1104,13 +1109,20 @@ func _prepare_world_start() -> void:
                 world_resume = true
                 world_initial_error = "旧旅途无法安全备份，未开始新旅途，原记录已保留。"
         if world_resume and world_state.read(world_save_path):
-            var saved_path := WORLD_ROUTES_SCRIPT.config_path(String(world_state.data.current_region))
-            if not saved_path.is_empty():
-                config_path = saved_path
-                entry_spawn_override_enabled = true
-                entry_spawn_override = world_state.resume_local_position()
+            world_start_region_id = String(world_state.data.current_region)
+            entry_spawn_override_enabled = true
+            entry_spawn_override = world_state.resume_local_position()
         elif world_resume and world_state.last_error != "missing":
             world_initial_error = "归途记录无法读取，本次不会覆盖原记录。"
+
+func _resolve_world_start_route() -> bool:
+    if world_start_region_id.is_empty():
+        return true
+    var saved_path := WORLD_ROUTES_SCRIPT.cached_config_path(world_start_region_id)
+    if saved_path.is_empty():
+        return false
+    config_path = saved_path
+    return true
 
 
 func _consume_world_startup_options(arguments: PackedStringArray) -> bool:
@@ -1128,7 +1140,7 @@ func _build_world_catalog() -> void:
     # Cross-region items keep their category and description on every visit.
     var routes := _load_json("res://data/world_routes.json")
     for region_id in routes.get("chapters", {}):
-        var region_config := WORLD_ROUTES_SCRIPT.apply_to(_load_json(WORLD_ROUTES_SCRIPT.config_path(String(region_id))))
+        var region_config := WORLD_ROUTES_SCRIPT.apply_to_owned_cached(_load_json(WORLD_ROUTES_SCRIPT.cached_config_path(String(region_id))))
         world_catalog.merge(region_config.get("inventory", {}).get("catalog", {}), false)
 
 
@@ -1482,7 +1494,9 @@ func _activate_world_portal(area: Area2D) -> void:
     if not missing.is_empty():
         _toast(missing)
         return
-    var next_path := WORLD_ROUTES_SCRIPT.config_path(String(data.get("target_config_id", "")))
+    var next_path := WORLD_ROUTES_SCRIPT.cached_config_path(String(data.get("target_config_id", "")))
+    if next_path.is_empty() and world_loader != null:
+        world_loader.request_manifest_refresh(self)
     var entry := _vec2(data.get("target_spawn", [120, 500]))
     if next_path.is_empty() or not entry.is_finite() or not FileAccess.file_exists(next_path):
         _toast("这条旧路尚未接通。")
@@ -3459,7 +3473,7 @@ func _finish_region_geometry() -> void:
 
 
 func _spawn_seal_practice_targets() -> void:
-    for entry in WORLD_ROUTES_SCRIPT._data().get("seal_practice_plan", []):
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("seal_practice_plan", []):
         if String(entry.get("region_id", "")) != String(config.get("id", "")):
             continue
         var target := Area2D.new()
@@ -5093,7 +5107,9 @@ func _spawn_normal_enemies() -> void:
 
 
 func _take_gameplay_prefab(kind: String, data: Dictionary, profile: Dictionary = {}) -> Area2D:
-    return world_prefetch.gameplay.take(String(config.id), kind, data, profile) if world_mode and world_prefetch != null else null
+    if not world_mode or world_prefetch == null or not world_prefetch.synchronize_route_cache():
+        return null
+    return world_prefetch.gameplay.take(String(config.id), kind, data, profile)
 
 func _make_enemy_prefab(data: Dictionary, profile: Dictionary) -> Area2D:
     var enemy := Area2D.new()
@@ -5719,8 +5735,10 @@ func _transition_to_next_chapter(next_config_path: String) -> void:
         return
     if world_mode:
         var next_config_id := String(_load_json(next_config_path).get("id", ""))
-        var path := WORLD_ROUTES_SCRIPT.config_path(next_config_id)
+        var path := WORLD_ROUTES_SCRIPT.cached_config_path(next_config_id)
         if path.is_empty():
+            if world_loader != null:
+                world_loader.request_manifest_refresh(self)
             chapter_transitioning = false
             return
         var legacy_entry: Dictionary = _load_json(path).get("entry_from_previous", {})

@@ -30,6 +30,36 @@ var last_transition: Dictionary = {}
 var transition_token: RefCounted
 var transition_serial := 0
 var startup_token: RefCounted
+var manifest_refresh_running := false
+var manifest_refresh_retry_after_msec := 0
+
+func request_manifest_refresh(host: Node) -> void:
+    if manifest_refresh_running or shutting_down or not _alive(host):
+        return
+    if Time.get_ticks_msec() < manifest_refresh_retry_after_msec:
+        return
+    if ROUTES.cache_is_current():
+        return
+    manifest_refresh_running = true
+    _run_background_manifest_refresh(host)
+
+func _run_background_manifest_refresh(host: Node) -> void:
+    var tree := host.get_tree()
+    while _alive(host) and host.get_tree() == tree and not shutting_down and phase == "idle" and config_read_job.busy():
+        await tree.process_frame
+    if not _alive(host) or host.get_tree() != tree or shutting_down or phase != "idle":
+        manifest_refresh_running = false
+        return
+    manifest_refresh_running = false
+    var refreshed: bool = await _prepare_routes_manifest(host, tree, true)
+    if not _alive(host) or host.get_tree() != tree or phase != "idle":
+        return
+    if not refreshed:
+        manifest_refresh_retry_after_msec = Time.get_ticks_msec() + 500
+    elif host.has_method("_refresh_map_overlay") and host.get("active_overlay") == "map" and bool(host.get("world_map_view")):
+        # A stale atlas intentionally draws nothing. Repaint the still-open
+        # world view after publication, preserving its existing navigation state.
+        host._refresh_map_overlay()
 
 ## Scene `_ready` must be fire-and-forget; this token gives the startup
 ## coroutine an owner that survives until success or host teardown.
@@ -79,13 +109,25 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         _show_startup_error(host)
         host.process_mode = restore_process_mode
         return false
+    var startup_route_generation := ROUTES.cached_generation()
+    if host.has_method("_resolve_world_start_route") and not host._resolve_world_start_route():
+        last_error = "归途区域不在当前巡礼路线中。"
+        _show_startup_error(host)
+        host.process_mode = restore_process_mode
+        return false
     var built := await _construct_budgeted(host, {}, false)
+    if ROUTES.cached_generation() != startup_route_generation:
+        built = false
+        last_error = "区域路线清单在初始构建期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
         _clear_loading_canvas()
         phase = "idle"
         return false
     if built:
         built = await _finish_budgeted(host, false)
+    if ROUTES.cached_generation() != startup_route_generation:
+        built = false
+        last_error = "区域路线清单在初始交接期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
         _clear_loading_canvas()
         phase = "idle"
@@ -131,36 +173,113 @@ func _show_startup_error(host: Node) -> void:
     loading_canvas.add_child(retry)
     retry.grab_focus()
 
-func _prepare_routes_manifest(host: Node, tree: SceneTree) -> bool:
+func _manifest_refresh_cancelled(background: bool) -> bool:
+    if background:
+        return phase != "idle"
+    if phase != "preflight":
+        return false
+    _cancel_input()
+    if cancel_requested:
+        last_transition["preflight_cancelled"] = true
+    return cancel_requested
+
+func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = false) -> bool:
     if not _alive(host) or host.get_tree() != tree or shutting_down:
         return false
+    manifest_refresh_running = true
     var ticket_generation := generation + 1
-    var ticket := config_read_job.request(ROUTES.ROUTES_PATH)
+    var ticket := 0
+    while ticket == 0 and _alive(host) and host.get_tree() == tree and not shutting_down:
+        if _manifest_refresh_cancelled(background):
+            manifest_refresh_running = false
+            return false
+        if config_read_job.closed:
+            break
+        if config_read_job.busy() or config_read_job.has_pending_ticket():
+            await tree.process_frame
+            continue
+        # With no worker or accepted owner, a rejected request is a launch
+        # failure, not contention. Surface recovery instead of waiting forever.
+        ticket = config_read_job.request(ROUTES.ROUTES_PATH)
+        if ticket == 0:
+            break
     if ticket == 0:
+        manifest_refresh_running = false
         last_error = "无法启动区域路线清单后台读取。"
         return false
     # Always provide one cancellation window even if this small worker happens
     # to finish before the first status poll.
     await tree.process_frame
-    if not _alive(host) or host.get_tree() != tree or shutting_down:
+    if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
         config_read_job.discard(ticket)
+        manifest_refresh_running = false
         return false
     while config_read_job.busy():
         await tree.process_frame
-        if not _alive(host) or host.get_tree() != tree or shutting_down:
+        if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
             config_read_job.discard(ticket)
+            manifest_refresh_running = false
             return false
-    if not _alive(host) or host.get_tree() != tree or shutting_down:
+    if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
         config_read_job.discard(ticket)
+        manifest_refresh_running = false
         return false
     var result: Dictionary = config_read_job.take(ticket)
     if not String(result.get("error", "")).is_empty():
+        manifest_refresh_running = false
         last_error = String(result.error)
         return false
     var route_ticket: Dictionary = ROUTES.manifest_ticket(result, ticket_generation)
-    if not ROUTES.accept_manifest_ticket(route_ticket, ticket_generation):
+    if route_ticket.is_empty():
+        manifest_refresh_running = false
         last_error = "区域路线清单校验未通过。"
         return false
+    # Transfer the worker-owned parsed tree through the existing bounded copy
+    # job. This keeps both recursive copying and cache publication off the
+    # single synchronous handoff point. Each frame revalidates the file stamp.
+    var copy_job := VARIANT_COPY_JOB.new()
+    var copy_begin_started := Time.get_ticks_usec()
+    copy_job.begin(route_ticket.manifest)
+    var copy_begin_usec := Time.get_ticks_usec() - copy_begin_started
+    var copy_started := Time.get_ticks_usec()
+    var copy_batches := 0
+    var copy_edges := 0
+    var copy_max_step_usec := 0
+    var copy_max_step_edges := 0
+    while not copy_job.done:
+        var step_started := Time.get_ticks_usec()
+        var copied_edges: int = copy_job.step(512)
+        var step_usec := Time.get_ticks_usec() - step_started
+        copy_edges += copied_edges
+        copy_max_step_edges = maxi(copy_max_step_edges, copied_edges)
+        copy_max_step_usec = maxi(copy_max_step_usec, step_usec)
+        copy_batches += 1
+        await tree.process_frame
+        if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
+            manifest_refresh_running = false
+            return false
+        if ticket_generation != generation + 1 or int(route_ticket.stamp) != FileAccess.get_modified_time(ROUTES.ROUTES_PATH):
+            manifest_refresh_running = false
+            last_error = "区域路线清单在交接期间发生变化。"
+            return false
+    route_ticket.manifest = copy_job.result
+    if _manifest_refresh_cancelled(background):
+        manifest_refresh_running = false
+        return false
+    if not ROUTES.accept_manifest_ticket(route_ticket, ticket_generation):
+        manifest_refresh_running = false
+        last_error = "区域路线清单校验未通过。"
+        return false
+    last_transition["route_manifest_worker_is_main"] = bool(result.get("worker_is_main", true))
+    last_transition["route_manifest_worker_usec"] = int(result.get("worker_usec", 0))
+    last_transition["route_manifest_bytes"] = int(result.get("bytes", 0))
+    last_transition["route_manifest_copy_batches"] = copy_batches
+    last_transition["route_manifest_copy_edges"] = copy_edges
+    last_transition["route_manifest_copy_begin_usec"] = copy_begin_usec
+    last_transition["route_manifest_copy_max_step_usec"] = copy_max_step_usec
+    last_transition["route_manifest_copy_max_step_edges"] = copy_max_step_edges
+    last_transition["route_manifest_copy_wall_usec"] = Time.get_ticks_usec() - copy_started
+    manifest_refresh_running = false
     return true
 
 func register_region(host: Node) -> void:
@@ -176,6 +295,7 @@ func snapshot(host: Node) -> Dictionary:
         "world_bounds": COORDINATES.region_bounds(active_region_id)}
 
 func preflight(path: String, entry: Vector2, prefetch: RefCounted = null) -> Dictionary:
+    ROUTES.manifest_generation() # Explicit synchronous compatibility/oracle path.
     last_error = ""
     if prefetch != null:
         prefetch.cancel_config()
@@ -191,6 +311,7 @@ func preflight(path: String, entry: Vector2, prefetch: RefCounted = null) -> Dic
 
 func validate_config(parsed: Variant, path: String, entry: Vector2) -> Dictionary:
     last_error = ""
+    ROUTES.manifest_generation() # Explicit synchronous compatibility/oracle path.
     var validator = CONFIG_VALIDATOR.new()
     validator.begin(parsed, path, entry)
     while not validator.done:
@@ -237,6 +358,21 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
     if not entry.is_finite() or not FileAccess.file_exists(path):
         last_error = "目标位置或区域文件无效。"
     else:
+        # Foreground preflight owns the same sole reader used by neighbor
+        # requests. Refresh a cold/stale route manifest before config parsing
+        # or the cache-only validator starts; background staging observes the
+        # foreground phase and drops its unpublished result.
+        if not ROUTES.cache_is_current():
+            if not await _prepare_routes_manifest(host, host.get_tree()):
+                if last_error.is_empty():
+                    last_error = "区域路线清单尚未准备好。"
+                last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+                return {}
+        if not ROUTES.cache_is_current():
+            last_error = "区域路线清单在预检开始前已失效。"
+            last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
+            return {}
+        last_transition["preflight_route_generation"] = ROUTES.cached_generation()
         var borrowed: Variant = prefetch._cached_raw_borrow(path) if prefetch != null else null
         if borrowed != null:
             var copy_job = VARIANT_COPY_JOB.new()
@@ -371,6 +507,11 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
             return {}
     last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
     last_error = validator.error
+    var validated_route_generation: int = int(validator._manifest_generation)
+    if not validator.result.is_empty() and ROUTES.cached_generation() != validated_route_generation:
+        last_error = "巡礼路线版本在预检完成时已变化，请重试。"
+        return {}
+    last_transition["preflight_route_generation"] = validated_route_generation
     return validator.result
 
 func _finite_tuple(value: Variant, length: int) -> bool:
@@ -725,6 +866,17 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         phase = "idle"
         cancel_requested = false
         return false
+    # Pin the exact manifest generation accepted by the completed validator.
+    # Capturing before _preflight_async would reject a legitimate cold-cache
+    # refresh (and could validate against an uninitialized generation).
+    var route_generation := int(last_transition.get("preflight_route_generation", -1))
+    if route_generation < 0 or ROUTES.cached_generation() != route_generation:
+        last_error = "区域路线清单在目标预检后已变化，请重试。"
+        host.process_mode = previous_mode
+        _clear_loading_canvas()
+        phase = "idle"
+        cancel_requested = false
+        return false
     # Preserve the source through validation. Capture settled departure data only
     # after the final validator batch has yielded and survived cancellation.
     var source_config: Dictionary = host.config.duplicate(true)
@@ -756,9 +908,15 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     _set_destination(host, path, entry, source_id, target)
     phase = "loading"
     var built := await _construct_budgeted(host, target, true)
+    if ROUTES.cached_generation() != route_generation:
+        built = false
+        last_error = "区域路线清单在目标区域构建期间发生变化。"
     if built:
         phase = "committing"
         built = await _finish_budgeted(host, true)
+    if ROUTES.cached_generation() != route_generation:
+        built = false
+        last_error = "区域路线清单在目标区域交接期间发生变化。"
     if not _alive(host):
         _clear_loading_canvas()
         return false
@@ -801,6 +959,35 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     _clear_loading_canvas()
     last_error = "已返回来路，旅途记录仍在。" if not built else ""
     return built
+
+
+## Passage observers can leave the tree while their terminal load is yielding.
+## Keep the async owner here; the passage observes its independent token and
+## retains its existing collision, retry and source-mouth rollback behavior.
+func request_passage_transition(host: Node, path: String, entry: Vector2, rollback_entry: Vector2) -> RefCounted:
+    if phase != "idle" or shutting_down or not _alive(host):
+        return null
+    transition_serial += 1
+    var token = TRANSITION_TOKEN.new()
+    token.serial = transition_serial
+    transition_token = token
+    _run_owned_passage_transition(token, host, path, entry, rollback_entry)
+    return token
+
+func _run_owned_passage_transition(token: RefCounted, host: Node, path: String, entry: Vector2, rollback_entry: Vector2) -> void:
+    var result := false
+    if not token.cancelled and _alive(host):
+        result = await replace_region_async(host, path, entry, rollback_entry)
+    token.succeeded = result
+    token.finished = true
+    if transition_token == token:
+        transition_token = null
+    if token.cancelled or not _alive(host):
+        phase = "idle"
+        cancel_requested = false
+    # Finish the passage in this same non-yielding publishing boundary. Frame
+    # polling would expose a committed save while the passage is still active.
+    token.completed.emit()
 
 
 func start_region_transition(host: Node, path: String, entry: Vector2) -> void:

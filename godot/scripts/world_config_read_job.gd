@@ -9,6 +9,11 @@ var closed := false
 func busy() -> bool:
     return _thread != null and _thread.is_alive()
 
+## A completed worker still belongs to its accepted ticket until its owner
+## takes or discards it; another caller must never steal that result.
+func has_pending_ticket() -> bool:
+    return _accepted != 0
+
 func request(path: String) -> int:
     if closed or busy() or _accepted != 0:
         return 0

@@ -1,0 +1,838 @@
+{
+  "status": "local_component_gates_passed_remote_ci_pending",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "base_commit": "b8d6698504f52d53a2b6ceea87b78dc7f0610806",
+  "complete_historical_source_commit": "fcc1b73b97d28fcaf8a9f327911a0ca893ecdfb8",
+  "source_chain": [
+    "c82bb27",
+    "ee17998",
+    "fcc1b73"
+  ],
+  "source_sha256": {
+    ".github/workflows/route-manifest-integration.yml": "ae00c8b9e3d02ee9e571c031b0bd1b685df6c60db268d2a68fcc5f839525dcd2",
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/survey_map_knowledge_validation.gd": "a561ae589047e04f8af27d188b295135ae7881a85531da29905e662d27c630e7",
+    "godot/scripts/world_atlas.gd": "00c38dfb07546e90ce866e1c52c4411ddb5b7b804cae1750a818d5d7445312b9",
+    "godot/scripts/world_config_read_job.gd": "00096c76f535370d916472c997633d4f8ac9b44a42b9c4d3b1b68c96be03d525",
+    "godot/scripts/world_config_validator.gd": "1a61d92a387896be20a639d3d26b881fb5b3af30ed24726b6a7fd81eb9364cec",
+    "godot/scripts/world_neighbor_config_validation.gd": "bd7a6e19e5e9a1d1fe391f67bbb27842c531d10c793fc2f70434b08d3c0faf0c",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "5f5e02804c1c57469754ebaf8c187867a5dc62e1355102802a1e1cd958329d5a",
+    "godot/scripts/world_passage.gd": "592a3f24101d2d3ef72ef3fbce5d29d985b668cf283e359ad819b9950586efe6",
+    "godot/scripts/world_passage_validation.gd": "d707e48448c0778661ae7f1ed38414ffd5e8db10894507f719def10d79493937",
+    "godot/scripts/world_prefetch.gd": "671d3d4a8340e79664d00f989dfd2287ad3547b35cd3171e3b5b5d3f49c1b472",
+    "godot/scripts/world_region_loader.gd": "8cfc70632a59c2c669b72688941b8f6278a535c9269f30a8972a330d313b7bd0",
+    "godot/scripts/world_route_manifest_integration_validation.gd": "ba3fe6923e5c7e86bfda88b4170d2bdc901c08f78f5ef597fba5fa37dc68194a",
+    "godot/scripts/world_route_manifest_walk_helper.gd": "8bae89bd73e2571899469ac199a55f8cd4262ad73ea275ab4aae56da9018228e",
+    "godot/scripts/world_route_manifest_walk_lower_validation.gd": "1adf5e0f1a09b6ba292d3e8e408db037a7fb8a04e3c55a364b9266350123cdf2",
+    "godot/scripts/world_route_manifest_walk_upper_validation.gd": "924fc6a9383a535813e001f6fb6c80d794fc5e8a7d55f101e03c33fbb47ee7ae",
+    "godot/scripts/world_routes.gd": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b",
+    "godot/scripts/world_startup_budget_validation.gd": "a0a18d73fc65c327fb7607e60e9eab4d3c6596316bd1807dc275b9ea98af224b",
+    "tools/godot_suite_success_markers.json": "3e8be6ed355741c76f67fd77b2af28b96b52b04c15c67cd0717b013e37365378",
+    "tools/run_godot_regressions.py": "185ea3dcf520076cb1ffb7164c130c982c6bfd4e2ffff6b6ad4edf8f6485f92b",
+    "tools/test_regression_runner.py": "59314f05205ec17f67c4d43e5f277e1a433abe80b4dda8cbf144874338575212",
+    "godot/scripts/world_transition_token.gd": "7ca935350ef5c32535628cd312128800ef5d4015192f791b1011aff0ea4946b1",
+    "tools/run_rock_gpu_validation.py": "dd7ea8468371a24d6591a96ff6fb7ee14d23d9fd380ee38b43d24c87daa53530",
+    "tools/test_rock_gpu_validation.py": "013cab88eb629917cbffa0aea64fd60ee8299142b5f08d5e5b485e4afcc8f541",
+    "package.json": "3ad9043dde82baa3a756fcebd178012a6d506f88013f6a9b15ebcd71e58ee888",
+    "tools/validate_passage_network_pixels.gd": "11755f5549151f7f3228eac72c9d2ad38bae49cfd5ed93305197bec421349b06"
+  },
+  "acceptance_boundaries": [
+    "Passage fixtures use explicit initial ability and mouth positioning; ten actual Input/physics crossings are not a natural six-region campaign.",
+    "Neighbor gameplay is canonical landing/cache parity, including 76 landings; eighty-cycle lifecycle stress is a separate suite.",
+    "Recovery-mode import validates runtime resources, not editor-plugin behavior.",
+    "512 edges per manifest handoff frame and shared 2ms next-operation admission are distinct; neither promises hard target-hardware frame latency.",
+    "Prior historical source evidence is not reused as final modern-main acceptance."
+  ],
+  "unresolved": [
+    "Exact new PR head and matching test-merge CI pending publication.",
+    "Natural six-region wounded completion, long-term soak, shared physical mouths/co-resident whole neighbors and target-hardware acceptance remain outside this component batch.",
+    "Eight component exit ObjectDB warnings remain unassigned."
+  ],
+  "terminal_and_walk_regressions": {
+    "observed_process_exit_code": 0,
+    "runner_log": "../qa-logs/route-atomic-positive-v8-runner.log",
+    "runner_log_sha256": "2ba6bb756378e03e7b198cddc2da6255c44af10d547eab430bd007b3a48a88bf",
+    "runner_terminal_markers": [
+      "GODOT_REGRESSIONS suites=3 failures=0"
+    ],
+    "suites": [
+      {
+        "suite": "world_route_manifest_integration",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "cbb68e3c143d31a593dd5f0d0c53e590b4e3ddc460c6c46131958c435f4c5d57",
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": [
+          "MANIFEST_TERMINAL_RELEASE loader_alive=false reader_alive=false token_alive=false"
+        ]
+      },
+      {
+        "suite": "world_route_manifest_walk_lower",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "4d8d87a7db6d6dd7878ad85aebe23f016522fb4a70c6e2b2cae235375090a969",
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_WALK_LOWER checks=134 failures=0 physical_crossings=6"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [
+          "MANIFEST_PHYSICAL_WALK route=moss_rain_drainpipe side=a frames=2052 distance=8542.17 generation=2",
+          "MANIFEST_PHYSICAL_WALK route=moss_rain_drainpipe side=b frames=2036 distance=8541.36 generation=3",
+          "MANIFEST_PHYSICAL_WALK route=rain_archive_conduit side=a frames=2104 distance=9256.06 generation=5",
+          "MANIFEST_PHYSICAL_WALK route=rain_archive_conduit side=b frames=2194 distance=9258.94 generation=6",
+          "MANIFEST_PHYSICAL_WALK route=archive_obsidian_gallery side=a frames=1971 distance=8624.49 generation=8",
+          "MANIFEST_PHYSICAL_WALK route=archive_obsidian_gallery side=b frames=1963 distance=8623.61 generation=9"
+        ],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_route_manifest_walk_upper",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "b42484f4d8a5b20c5d212550e228a962ac83e5eddbcb00f7a3120401bc0533ae",
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_WALK_UPPER checks=90 failures=0 physical_crossings=4"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [
+          "MANIFEST_PHYSICAL_WALK route=obsidian_crown_causeway side=a frames=1757 distance=7695.51 generation=2",
+          "MANIFEST_PHYSICAL_WALK route=obsidian_crown_causeway side=b frames=1758 distance=7672.41 generation=3",
+          "MANIFEST_PHYSICAL_WALK route=greenhouse_crown_roots side=a frames=2762 distance=12493.29 generation=5",
+          "MANIFEST_PHYSICAL_WALK route=greenhouse_crown_roots side=b frames=2780 distance=12495.27 generation=6"
+        ],
+        "terminal_release": []
+      }
+    ]
+  },
+  "verification_date_utc": "2026-10-16",
+  "final_related_regressions": {
+    "observed_process_exit_code": 0,
+    "runner_log": "../qa-logs/route-atomic-related-v9-runner.log",
+    "runner_log_sha256": "1f84cf043f6f53d076b50e036fcc38e7b37f2f5007427e471481c1ad29175bf7",
+    "runner_terminal_markers": [
+      "GODOT_REGRESSIONS suites=23 failures=0"
+    ],
+    "suites": [
+      {
+        "suite": "world_passage",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "2093ec55aed3d7df609ac0681803762a021d6bbf1e1870b1ad04f734bbaa6696",
+        "completion_markers": [
+          "WORLD PASSAGE PASS: 58 checks; physical input roundtrip, reversal, save isolation and terminal continuity"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_passage_network",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "53b18f2d600d92ece93b749e906a4913e8c9fe66a2143f2a8f456c88742196f4",
+        "completion_markers": [
+          "WORLD_PASSAGE_NETWORK checks=140 failures=0 physical_roundtrips=5"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_startup_budget",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "ac291dca1b5afeff196a68febe6409a4ac15858b519964a00f7cd1493fc9ca6e",
+        "completion_markers": [
+          "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_preflight_budget",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "5d78593a357aa042e3d02f8bcb66f30aecddc2393e298573030d3ad9bf33de2f",
+        "completion_markers": [
+          "WORLD PREFLIGHT BUDGET PASS checks=4292"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_config_background",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "73c39bb855258fccbb17921b171c4c34f0999ed0efb9f240fdd5acce3553b3b4",
+        "completion_markers": [
+          "WORLD CONFIG BACKGROUND PASS checks=38"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_neighbor_config",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "57eb43032ca05d18f6fdc1808fa369e842881502f745dd09cb3eb5b9e3373c8a",
+        "completion_markers": [
+          "WORLD NEIGHBOR CONFIG PASS checks=93"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_map",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "8263241a6e11383b33cfee967df0f349358575f5590c0a8a955d4990f66fbad4",
+        "completion_markers": [
+          "WORLD_MAP checks=671 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "survey_map_knowledge",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "5a78117bdd70080b10ee332bb6505d836fabc14bc97d14d8e4900f917b90edd6",
+        "completion_markers": [
+          "SURVEY_MAP_KNOWLEDGE checks=20 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_async_loading",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "742a7a65af3d30bc8f0c79e56543183eeaf4c8a144d5e6b9e08fd12ab1ad61eb",
+        "completion_markers": [
+          "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_host",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+        "completion_markers": [
+          "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "narrative_outcomes",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "020cbfb72db1112aad42de288a2b31484b84705ac4ab2e4b6ef6d8b1b921cf16",
+        "completion_markers": [
+          "NARRATIVE_OUTCOMES checks=9751 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "save_product",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "907b0d6b30dd349baad730394749a1444d5eb1b5283f2a73739bfb1fe9eddce7",
+        "completion_markers": [
+          "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_state",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "55497654d1e4db8a8b9e56332763ec7fc6ef0e9a525aa38589905e8942e54308",
+        "completion_markers": [
+          "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "cartography",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "4707ef90c597adcbf73d7f5376420bc3845c63eeadf5e361c5fe168e657108b7",
+        "completion_markers": [
+          "CARTOGRAPHY checks=4063 failures=0 fixture_positioning=true"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_route_access",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "c37c3b5ed3b90ed98cde75768d82b6cec2dec4330c8ba659b10ebf9866a365b5",
+        "completion_markers": [
+          "WORLD_ROUTE_ACCESS checks=553 failures=0 fixture_positioning=true"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_resume_regression",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "4aeaa372c958b6a43063d741ff77ec108859f30d1731e5d83f102b7839030eac",
+        "completion_markers": [
+          "WORLD_RESUME_REGRESSION checks=38 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_neighbor_entities",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "e9ae1c837226d4ed59d19842423a099f05dac03c3c1bf691e592501c06f1b503",
+        "completion_markers": [
+          "WORLD NEIGHBOR ENTITIES PASS: 1181 checks"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_neighbor_collision",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "b9df2eaf816cf1c11a72e644c571a5d87b2b9390a5eb964c5d37c3ef5c28d9b2",
+        "completion_markers": [
+          "WORLD NEIGHBOR COLLISION PASS: 3399 checks"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_neighbor_gameplay",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "6aa768273bd4dc22570739a644f8a17a607701b1471f03fa785b810c6ac1fea7",
+        "completion_markers": [
+          "WORLD_NEIGHBOR_GAMEPLAY checks=7594 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_neighbor_gameplay_stress",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "19bce652c1d4fc4c8e28b828dd877384f8a20c1c318db6a610a37211c317ed37",
+        "completion_markers": [
+          "WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=17730 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_neighbor_gameplay_live",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "d15ca5f7ae971651cf73df821375bbf54fa0de0903a6218cd1b7fc107acb0ae2",
+        "completion_markers": [
+          "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=46 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_streaming",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "aa179a3dde061bed299eb3a32a954dd5b2931b426dca21fa480e665e9f3a3fa6",
+        "completion_markers": [
+          "WORLD STREAMING PASS: 2554 checks; six-region visual coverage, unchanged collisions, bounded prefetch and stale-job retirement"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "tests/verify_narrative_runtime",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "912f5b1a4c567c786dcca898fce50c29763860793eb1928fe3e04927de2ad165",
+        "completion_markers": [
+          "NARRATIVE_RUNTIME_PASS checks=27 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      }
+    ]
+  },
+  "historical_processes": {
+    "route_initial_import": {
+      "exit_code": 0,
+      "log": "qa-logs/route-integration-initial-import-runner.log",
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5"
+    },
+    "route_frozen_runtime_import": {
+      "exit_code": 0,
+      "log": "qa-logs/route-integration-final-import-runner.log",
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5"
+    },
+    "route_new_v1": {
+      "exit_code": 1,
+      "log": "qa-logs/route-integration-new-v1-runner.log",
+      "boundary": "initial fixture failures and two-resource engine exit error",
+      "log_sha256": "c4c6983a0a64346937dbd332b213b2820400df64e574c86d2eacaa37a6f06e51"
+    },
+    "route_focused_v2": {
+      "exit_code": 1,
+      "log": "qa-logs/route-integration-final-v2-runner.log",
+      "boundary": "14 suites pass; integration 131/0 assertions but strict engine exit error",
+      "log_sha256": "62e8e3d674cfd63874f330304cbe087b4661a5a883e5b0372088cd3628271f3c"
+    },
+    "route_runner_unit_final": {
+      "exit_code": 0,
+      "log": "qa-logs/route-integration-runner-unit-final.log",
+      "tests": 17,
+      "log_sha256": "bbeab8327e513f6ec2f5f5b40e872650a7a1a41d0c45a1720403f750e6d86754"
+    },
+    "route_npm": {
+      "exit_code": 0,
+      "log": "qa-logs/route-integration-npm.log",
+      "log_sha256": "e48c354181d08f273c85cbe8ad2f94136fa9d7ee53658397e1d70c84372382f7"
+    },
+    "route_campaign": {
+      "exit_code": 0,
+      "log": "qa-logs/route-integration-campaign.log",
+      "log_sha256": "c5ecbc3b66dc70491a9b5106eac930cefde1b708898b3b1b21b7a7ad29dca29f"
+    },
+    "route_extended_v3": {
+      "exit_code": 1,
+      "log": "qa-logs/route-integration-extended-v3-runner.log",
+      "note": "Seven component/live/narrative suites passed; integration business checks 131/0 but retained reader/loader resources are fatal; neighbor_gameplay reached original 180s timeout, no final assertion count.",
+      "log_sha256": "ae42eee0a5e191ced6b5f85e5d95753d0bb0b22c2b2978644ea8e4b146e7aafd"
+    },
+    "route_terminal_weak_baseline": {
+      "exit_code": 1,
+      "log": "qa-logs/route-integration-weak-baseline-runner.log",
+      "note": "133 checks, two weakref release failures. Exact loader/reader instance IDs match retained RefCounteds modulo 2^64. Negative control prior to loader-owned passage coroutine fix.",
+      "log_sha256": "e256d1ce202cf82899928853a00b6b3a23ff20ef51a9ec27c2d980e44bf40536"
+    },
+    "route_ownership_import": {
+      "exit_code": 0,
+      "passes": 2,
+      "log": "qa-logs/route-ownership-import-runner.log",
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5"
+    },
+    "route_ownership_and_gameplay_v4": {
+      "exit_code": 1,
+      "log": "qa-logs/route-ownership-and-gameplay-v4-runner.log",
+      "log_sha256": "34f91a6af7b43f2c7ffddef74898ff10be281b344f657e9f75a51c7e1e8736bd",
+      "integration": {
+        "checks": 133,
+        "failures": 0,
+        "loader_alive": false,
+        "reader_alive": false,
+        "engine_errors": 1,
+        "resource": "world_transition_token.gd"
+      },
+      "gameplay": {
+        "checks": 7594,
+        "failures": 0,
+        "landings": 76,
+        "elapsed_ms": 167024,
+        "strict_timeout_seconds": 180,
+        "engine_errors": 0,
+        "stress_cycles_executed_in_this_suite": 0,
+        "timing_ms": {
+          "landings_total": 146003,
+          "warm_arrival": 52696,
+          "cold_arrival": 49954,
+          "warm_frames_and_work": 21879,
+          "warm_step_cpu": 1659,
+          "settle": 18111,
+          "seed": 2808
+        },
+        "completed_warm_steps": 944,
+        "runtime_route_generations": [
+          1,
+          1
+        ],
+        "stress_suite_pending": true
+      }
+    },
+    "route_token_negative_v5": {
+      "exit_code": 1,
+      "log": "qa-logs/route-token-negative-v5-runner.log",
+      "log_sha256": "192693e92e42a090d24aabf07cf9fb6e69d0c09b4cd5f6fc23c7ec67be116343",
+      "checks": 134,
+      "failures": 1,
+      "loader_alive": false,
+      "reader_alive": false,
+      "token_alive": true,
+      "signed_token_id": -9223371545819214143,
+      "leaked_unsigned_token_id": 9223372527890337473,
+      "note": "Exact unsigned instance identity; same 134 assertions and wait budget later used for positive control."
+    },
+    "route_final_owner_import": {
+      "exit_code": 0,
+      "log": "qa-logs/route-final-owner-import-runner.log",
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "passes": 2
+    },
+    "route_token_positive_v6": {
+      "exit_code": 0,
+      "log": "qa-logs/route-token-positive-v6-runner.log",
+      "log_sha256": "b10025fd6312b1e06ba3a7eff5ff2c6051ab5a4d37357764bd9286a103889c6b",
+      "checks": 134,
+      "failures": 0,
+      "loader_alive": false,
+      "reader_alive": false,
+      "token_alive": false,
+      "engine_errors": 0,
+      "objectdb_warnings": 0
+    },
+    "route_final_regressions_v7_negative": {
+      "exit_code": 130,
+      "intentionally_interrupted": true,
+      "reason": "Confirmed publication/observer ordering regression in asynchronous per-frame passage token polling; stopped before unrelated suites, do not count unfinished suites as passes.",
+      "log": "qa-logs/route-final-regressions-v7-runner.log",
+      "log_sha256": "6e713501ac938926716907d4ceeaf3154525dde51192c90d045f3279a32c3a53",
+      "completed_lower": {
+        "checks": 134,
+        "failures": 12,
+        "actual_physical_crossings": 6,
+        "error_labels": [
+          "original source save survives every unpublished transit frame",
+          "published landing preserves the final world position"
+        ]
+      },
+      "upper": "partial run, same failure class observed; interrupted with no final completion marker"
+    },
+    "route_ansi_runner": {
+      "exit_code": 0,
+      "tests": 20,
+      "log": "qa-logs/route-ansi-runner-unit.log",
+      "log_sha256": "e08ab6ca2595c4abd50188badf99ba21d6b90cb557d05ea049fab2d49a761672"
+    }
+  },
+  "final_processes": {
+    "route_atomic_positive_v8": {
+      "exit_code": 0,
+      "log": "qa-logs/route-atomic-positive-v8-runner.log",
+      "log_sha256": "2ba6bb756378e03e7b198cddc2da6255c44af10d547eab430bd007b3a48a88bf",
+      "suites": 3,
+      "physical_crossings": 10
+    },
+    "route_atomic_import": {
+      "exit_code": 0,
+      "log": "qa-logs/route-atomic-import-runner.log",
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "passes": 2
+    },
+    "route_atomic_related_v9": {
+      "exit_code": 0,
+      "log": "qa-logs/route-atomic-related-v9-runner.log",
+      "log_sha256": "1f84cf043f6f53d076b50e036fcc38e7b37f2f5007427e471481c1ad29175bf7",
+      "suites": 23
+    },
+    "route_final_pixels": {
+      "exit_code": 0,
+      "log": "qa-logs/route-final-pixels-runner.log",
+      "log_sha256": "7d6d3b5194b57d1ee6f9fb3f25c43cce2648fcecf1c15fe5c70c32ab56f21ce1",
+      "probes": 15,
+      "failures": 0
+    },
+    "route_final_npm": {
+      "exit_code": 0,
+      "log": "qa-logs/route-gates-final-npm.log",
+      "log_sha256": "62e63badd663957b4f1ee2303d6edecf37263fdaad01bb287b06b9b10f205c6f",
+      "runner_unit_tests": 20,
+      "import_unit_tests": 11,
+      "gpu_unit_tests": 11
+    },
+    "route_final_campaign": {
+      "exit_code": 0,
+      "log": "qa-logs/route-gates-final-campaign.log",
+      "log_sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    },
+    "route_final_passages": {
+      "exit_code": 0,
+      "log": "qa-logs/route-gates-final-passages.log",
+      "log_sha256": "bd8b6e98c3fde35b63ab6d268fdd3a11412f774f5efed5e707ad2bef28c91f16",
+      "tests": 7
+    }
+  },
+  "final_pixels": {
+    "failures": 0,
+    "fixture_positioning": true,
+    "probes": [
+      {
+        "colors": 2065,
+        "file": "moss_rain_drainpipe_005.webp",
+        "fraction": 0.005,
+        "hero_pixels": 1282,
+        "lit_samples": 6289,
+        "passed": true,
+        "route": "moss_rain_drainpipe"
+      },
+      {
+        "colors": 1988,
+        "file": "moss_rain_drainpipe_500.webp",
+        "fraction": 0.5,
+        "hero_pixels": 1280,
+        "lit_samples": 6283,
+        "passed": true,
+        "route": "moss_rain_drainpipe"
+      },
+      {
+        "colors": 2078,
+        "file": "moss_rain_drainpipe_995.webp",
+        "fraction": 0.995,
+        "hero_pixels": 1266,
+        "lit_samples": 6301,
+        "passed": true,
+        "route": "moss_rain_drainpipe"
+      },
+      {
+        "colors": 1975,
+        "file": "rain_archive_conduit_005.webp",
+        "fraction": 0.005,
+        "hero_pixels": 1289,
+        "lit_samples": 6305,
+        "passed": true,
+        "route": "rain_archive_conduit"
+      },
+      {
+        "colors": 1841,
+        "file": "rain_archive_conduit_500.webp",
+        "fraction": 0.5,
+        "hero_pixels": 1289,
+        "lit_samples": 6265,
+        "passed": true,
+        "route": "rain_archive_conduit"
+      },
+      {
+        "colors": 1888,
+        "file": "rain_archive_conduit_995.webp",
+        "fraction": 0.995,
+        "hero_pixels": 1275,
+        "lit_samples": 6241,
+        "passed": true,
+        "route": "rain_archive_conduit"
+      },
+      {
+        "colors": 2057,
+        "file": "archive_obsidian_gallery_005.webp",
+        "fraction": 0.005,
+        "hero_pixels": 1285,
+        "lit_samples": 6312,
+        "passed": true,
+        "route": "archive_obsidian_gallery"
+      },
+      {
+        "colors": 1994,
+        "file": "archive_obsidian_gallery_500.webp",
+        "fraction": 0.5,
+        "hero_pixels": 1283,
+        "lit_samples": 6305,
+        "passed": true,
+        "route": "archive_obsidian_gallery"
+      },
+      {
+        "colors": 2141,
+        "file": "archive_obsidian_gallery_995.webp",
+        "fraction": 0.995,
+        "hero_pixels": 1322,
+        "lit_samples": 6310,
+        "passed": true,
+        "route": "archive_obsidian_gallery"
+      },
+      {
+        "colors": 1756,
+        "file": "obsidian_crown_causeway_005.webp",
+        "fraction": 0.005,
+        "hero_pixels": 1293,
+        "lit_samples": 6249,
+        "passed": true,
+        "route": "obsidian_crown_causeway"
+      },
+      {
+        "colors": 1795,
+        "file": "obsidian_crown_causeway_500.webp",
+        "fraction": 0.5,
+        "hero_pixels": 1296,
+        "lit_samples": 6303,
+        "passed": true,
+        "route": "obsidian_crown_causeway"
+      },
+      {
+        "colors": 1788,
+        "file": "obsidian_crown_causeway_995.webp",
+        "fraction": 0.995,
+        "hero_pixels": 1295,
+        "lit_samples": 6279,
+        "passed": true,
+        "route": "obsidian_crown_causeway"
+      },
+      {
+        "colors": 1832,
+        "file": "greenhouse_crown_roots_005.webp",
+        "fraction": 0.005,
+        "hero_pixels": 1298,
+        "lit_samples": 6326,
+        "passed": true,
+        "route": "greenhouse_crown_roots"
+      },
+      {
+        "colors": 1889,
+        "file": "greenhouse_crown_roots_500.webp",
+        "fraction": 0.5,
+        "hero_pixels": 1268,
+        "lit_samples": 6327,
+        "passed": true,
+        "route": "greenhouse_crown_roots"
+      },
+      {
+        "colors": 1875,
+        "file": "greenhouse_crown_roots_995.webp",
+        "fraction": 0.995,
+        "hero_pixels": 1272,
+        "lit_samples": 6319,
+        "passed": true,
+        "route": "greenhouse_crown_roots"
+      }
+    ],
+    "renderer": "real_gl",
+    "log_sha256": "7d6d3b5194b57d1ee6f9fb3f25c43cce2648fcecf1c15fe5c70c32ab56f21ce1",
+    "capture_sha256": {
+      "moss_rain_drainpipe_005.webp": "1d1981acdb7d56b723470f9589086de4a969939635182e6fcadf9737a13f7b69",
+      "moss_rain_drainpipe_500.webp": "e97b1d24b0cc7c2c1ec166611100737e0b34634e98e2105a4f3d676cee2b0c5d",
+      "moss_rain_drainpipe_995.webp": "a4439bfddf34a8c2ee5d8ed2d7ccd3145ecf2f7b9701ed87d46e65d70fecc4cb",
+      "rain_archive_conduit_005.webp": "0ec46e36176dcca44f9097071e599a404828f76c4ddc2f9682b9bb0bee319865",
+      "rain_archive_conduit_500.webp": "2810e9d000744d5d3cd7f7e8401d01fc81b91e1cf73bde87e353d4c47106c2b2",
+      "rain_archive_conduit_995.webp": "7fef0a53bf17389044db0d03aa0fffe910455d5834b52e25c9ba2762e4957079",
+      "archive_obsidian_gallery_005.webp": "2c0ff8ea9570f781b24b2268ede80b87d502e1a07a33275db8d000150711baa3",
+      "archive_obsidian_gallery_500.webp": "6be87e3e71d5d698b3ef6c23e1696ef9591821550280f894649a4ec18eab61c7",
+      "archive_obsidian_gallery_995.webp": "4be902afc60e7e6b0ae5a234498c6dc42569f59985ef15fdce428b2a8fccdb02",
+      "obsidian_crown_causeway_005.webp": "3c0270470f39be1ecae98213a818716139bc56818d6abeec53e51d31025e77cf",
+      "obsidian_crown_causeway_500.webp": "ec554126b53e0127f1fd4bb3782c2666f90b7fdf73ab7b86e622284d224c001a",
+      "obsidian_crown_causeway_995.webp": "1297e8b6d8f50c6613b295ca855413e00121e9f4af75b63abe2b3944bfe97c12",
+      "greenhouse_crown_roots_005.webp": "613fd0f82f6a2d0205dd5f0e71ca16cac5b6adc99955fbd7852cf68647311bc0",
+      "greenhouse_crown_roots_500.webp": "a3eb105886a25d18415edbbe2237a7f3ea8e94d6c8e17357e347b3b400b6f0bd",
+      "greenhouse_crown_roots_995.webp": "8fd863184e596af58280b610c9d7d91336b0c07e7cbbaa3edca39d3310e24bcf"
+    },
+    "visual_review": {
+      "reviewed_files": [
+        "moss_rain_drainpipe_500.webp",
+        "rain_archive_conduit_500.webp",
+        "archive_obsidian_gallery_500.webp",
+        "obsidian_crown_causeway_500.webp",
+        "greenhouse_crown_roots_500.webp"
+      ],
+      "finding": "Five route midpoint captures inspected: player and textured passage visible. Existing distant/exterior texture stretching remains; this batch does not change artwork or claim overall art acceptance."
+    }
+  },
+  "warning_summary": {
+    "final_new_three_suites_objectdb": 0,
+    "final_related_suites_objectdb": 8,
+    "engine_errors": 0,
+    "note": "Eight pre-existing component exit ObjectDB warnings remain unassigned; environment VSync warnings retained. No global leak-free claim."
+  },
+  "old_pr_recheck": {
+    "checked_at_utc": "2026-10-16T07:04:45Z",
+    "only_open_pr": 87,
+    "head": "b6da8ed9574d9ae101da50b4cdc588407dcba22f",
+    "workflow_runs": [
+      38856906006,
+      38856906063,
+      38856906066,
+      38856906028,
+      38856906036
+    ],
+    "workflows": 5,
+    "jobs": 6,
+    "conclusion": "success",
+    "main": "b8d6698504f52d53a2b6ceea87b78dc7f0610806"
+  }
+}

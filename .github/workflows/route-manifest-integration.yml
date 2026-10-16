@@ -1,0 +1,99 @@
+name: Route manifest integration
+
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/world_routes.gd'
+      - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/world_transition_token.gd'
+      - 'godot/scripts/world_prefetch.gd'
+      - 'godot/scripts/world_atlas.gd'
+      - 'godot/scripts/world_config_validator.gd'
+      - 'godot/scripts/world_config_read_job.gd'
+      - 'godot/scripts/world_passage*.gd'
+      - 'godot/scripts/world_route_manifest*.gd'
+      - 'godot/scripts/world_startup_budget_validation.gd'
+      - 'godot/scripts/world_neighbor_config_validation.gd'
+      - 'godot/scripts/survey_map_knowledge_validation.gd'
+      - 'tools/validate_passage_network_pixels.gd'
+      - 'tools/run_rock_gpu_validation.py'
+      - 'tools/test_rock_gpu_validation.py'
+      - 'package.json'
+      - 'tools/run_godot_regressions.py'
+      - 'tools/godot_suite_success_markers.json'
+      - 'tools/test_regression_runner.py'
+      - 'tools/run_godot_import.py'
+      - 'tools/test_godot_import.py'
+      - 'tools/software_gl.py'
+      - '.github/workflows/route-manifest-integration.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: route-manifest-integration-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate static contracts and runner gates
+        run: |
+          npm test
+          npm run test:campaign
+          python3 tools/test_world_passages.py
+      - name: Strict two-pass resource import
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/route-manifest-logs/import"
+      - name: Validate modern passage and transaction integration
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite world_route_manifest_integration \
+            --suite world_route_manifest_walk_lower --suite world_route_manifest_walk_upper \
+            --suite world_startup_budget --suite world_preflight_budget \
+            --suite world_config_background --suite world_neighbor_config \
+            --suite world_passage --suite world_passage_network \
+            --suite world_map --suite survey_map_knowledge \
+            --suite world_async_loading --suite world_host \
+            --suite narrative_outcomes --suite save_product \
+            --log-dir "$RUNNER_TEMP/route-manifest-logs"
+      - name: Validate all five passage artwork samples
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_rock_gpu_validation.py --engine "$engine" \
+            --script ../tools/validate_passage_network_pixels.gd \
+            --success-marker 'PASSAGE_NETWORK_PIXELS probes=15 failures=0' \
+            --summary-path artifacts/passage_network/gpu_network.json \
+            --log-dir "$RUNNER_TEMP/route-manifest-logs/passages"
+      - name: Preserve validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: route-manifest-integration-logs
+          path: |
+            ${{ runner.temp }}/route-manifest-logs
+            artifacts/passage_network
+          if-no-files-found: ignore
