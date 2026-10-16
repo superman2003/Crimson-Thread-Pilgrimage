@@ -234,6 +234,8 @@ var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
+const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
+var layered_idle: Node2D
 
 ## 绯线视觉语言色值（docs/spec/20260726160500000 §1.2）
 const THREAD_T1_CORE := Color(1.0, 0.957, 0.902, 0.92)
@@ -370,6 +372,10 @@ func _ready() -> void:
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
     sprite.material = flash_material
+    layered_idle = LAYERED_IDLE.new()
+    if not layered_idle.attach(sprite):
+        layered_idle.free()
+        layered_idle = null
     build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed,
         "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost,
         "heal_amount": heal_amount, "heal_duration": heal_duration}
@@ -1449,6 +1455,8 @@ func _sync_sprite_pose_anchor() -> void:
     if sprite.animation == &"idle" and sprite.frame < IDLE_FOOT_CENTER_X.size():
         var correction: float = IDLE_FOOT_CENTER_X[0] - IDLE_FOOT_CENTER_X[sprite.frame]
         sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
+    if is_instance_valid(layered_idle):
+        layered_idle.sync_pose()
 
 
 func _update_animation(_input_axis: float) -> void:

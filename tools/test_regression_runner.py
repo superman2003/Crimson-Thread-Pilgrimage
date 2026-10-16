@@ -73,8 +73,9 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 102)
+        self.assertEqual(len(all_suites), 103)
         self.assertIn("room_camera_stability", DEFAULT_SUITES)
+        self.assertIn("player_layered_idle", DEFAULT_SUITES)
         self.assertIn("input_prompt", DEFAULT_SUITES)
         self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
@@ -168,6 +169,41 @@ class RunnerTests(unittest.TestCase):
             arguments = captured.read_text().splitlines()
             self.assertEqual(arguments[-2:], ['--', '--player'])
             self.assertNotIn('--disable-render-loop', arguments)
+            self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+            self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
+
+    def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
+        for marker in [
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=false pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=199 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=1 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=false',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true',
+        ]:
+            with self.subTest(marker=marker):
+                result = self.run_engine(f'print({marker!r})\n', suite='player_layered_idle')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_layered_idle_keeps_real_gl_drawing_and_fixed_clock(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            failures = run_suites(str(engine), ['player_layered_idle'], 2, logs, root / 'scratch', True,
+                                  {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+            self.assertEqual(failures, [])
+            arguments = captured.read_text().splitlines()
+            self.assertNotIn('--disable-render-loop', arguments)
+            self.assertNotIn('--headless', arguments)
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
             self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
 
