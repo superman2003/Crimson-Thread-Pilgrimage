@@ -1,10 +1,26 @@
 # Death-to-respawn presentation: finite playback and checkpoint reveal
 
+## Startup overlap repair after the Windows failure
+
+The follow-up keeps the sole JSON reader, source stamps, route/generation leases, authored first-region-wins order and all final cancellation yields. Initial JSON reading overlaps the existing private route-context copy. Each catalog read is taken and validated before the same reader starts only the immediately following catalog; that pending ticket is owned by this construction and overlaps the current merge. Every invalidation/return drains its own pending ticket, never another task's completed work. There is no current-region inventory reuse or #62 metadata functionality in this repair.
+
+The final frozen combination passed strict Godot4.6.1 double import (14.852s), catalog177 (105.252s), startup469 (64.405s), and57 runner/release/workflow unit tests. Original60 startup and50 catalog assertion source lines remain. All475 registered sources were stable and these game checks had no engine ERROR/ObjectDB warning. A malformed local unittest invocation initially omitted tools from PYTHONPATH; its two import errors were retained, and the corrected invocation changed no code.
+
+The actual Linux release builder passed isolated import/export/archive verification and the original headless120-frame first-start/resume/backup-writeback checks (288.490s total builder time). The package accurately declares base e3e7 plus dirty tested sources, rather than claiming to be a future commit build. Windows and full CI must run on the new published head. Source-only smoke also passed120, but a separate lightweight stage-sampling resume observed122 frames; this variability remains explicit. Observed catalog overlap covers five/six wait frames, not an unconditional startup-frame guarantee. Eight-operation, nominal2ms admission,512-edge copy,64-edge merge,120-frame desktop and180s suite gates are unchanged. Overlap counts are already included in wait_frames and must not be added twice; wall_usec retains helper-invocation scope. Full local evidence: `artifacts/death_respawn_presentation/startup_overlap_verification.json`.
+
+## Published-head CI and retained blocker (2026-10-16 14:45 UTC)
+
+PR #99 head `e3e7d0a6c243ce45b9f9aae19aecc084e596d112`, tree `0b2296b73793f85f7e3d2a2ac74cbe240ccf9513`, has terminal results: 12 of 13 workflows and 14 of 15 jobs succeeded. The failing Windows desktop job remains a blocker. GitHub test merge `af1532653c065724cd24bf8e67c0559e2703994c` has the same tree. The full110 runtime, eight GPU checks and exact-head20 motion suites passed, with respectively48,3 and5 unattributed ObjectDB warnings and no engine ERROR. These warnings are not long-term stability acceptance.
+
+The Windows export passed first start but did not finish resumed World publication/writeback inside the original120-frame headless process window; the required `.bak` was absent. Linux passed both checks. All four startup/resume verbose logs have no engine ERROR, ObjectDB or leaked-resource error. Startup had reached UI construction; death-code causality is not established. No gate was extended, no early save was added, and Linux success cannot replace Windows. See `artifacts/death_respawn_presentation/published_e3e7_ci.json` and [the failed Windows job](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38914083535/job/117016953523).
+
+A later11.73-second inspection-view recording clearly shows the original prone pose, terminal hold, fade, real shrine relocation/reveal and restored movement/attack. It uses a fixed inspection camera and hides the HUD only, with scripted framing and lethal damage. It keeps the original four frames and production timing, is silent and has no interpolation or retiming. Actual FPS median23; the reveal has only two captured draws, so smoothness is not accepted. This clearer clip does not erase the earlier low-FPS/HUD-occluded evidence below. See `artifacts/death_respawn_presentation/inspection_capture_verification.json`.
+
 ## Current dependency-chain verification
 
 This change is stacked directly on #98 `2a6fc492` (tree `3230fca2`), preserving #95→#96→#97→#98 and the exact 110-suite default set. Only Player, the hit-flash shader and three existing tests differ inside `godot/`; no asset is added or rewritten. The Player/shader hashes are unchanged from the earlier frozen eleven-suite evidence.
 
-The final combination reran actual motion (1128), layered-idle real pixels (212) and World death/respawn (17): all passed the original 180-second strict gates with no engine ERROR or ObjectDB warning. All 231 registered script/shader/scene/data/bus hashes are unchanged across those game checks. Runner29, release-builder23 and integration-workflow5 unit tests passed. New-head full110/visual/Windows/Linux CI is pending publication.
+The final combination reran actual motion (1128), layered-idle real pixels (212) and World death/respawn (17): all passed the original 180-second strict gates with no engine ERROR or ObjectDB warning. All 231 registered script/shader/scene/data/bus hashes are unchanged across those game checks. Runner29, release-builder23 and integration-workflow5 unit tests passed. Published e3e7 CI is terminal: full110, visual and focused motion pass; Windows resumed-save writeback fails. The precise head and limits are recorded above.
 
 Two strict double-import attempts each passed both engine/error gates. Both subsequent source guards separately caught the editor serializing `default_bus_layout.tres` with a UID/default-field reorder. Both rewrites and failed guards are retained. Only that file was restored from the index, then all231 original hashes were verified before and after the game tests. This does not claim that editor import itself preserved every source byte, and no bus change is submitted. There was no third import/retry loop.
 
@@ -26,7 +42,7 @@ Explicit Godot 4.6.1, strict double import and 11 affected real-GL suites passed
 
 Motion cases cover 30/60/120 Hz, both facings, exact and crossed expiry, one-shot completion/last-frame hold, fade/reveal, consecutive deaths, UI pause, handoff resets and normal damage/input during reveal. World checks retain the original five assertions and verify the real shrine signal's exact position before gravity resolves the elevated anchor, recovery to grounded idle and movement/attack. The shader is checked with both facings at alpha zero, half and one using rendered pixels; neutral-background actual Player capture independently found zero-alpha identical to background and half-alpha difference approximately 0.506 of full-alpha. The focused workflow retains all prior 18 suites and adds the existing layered-idle and World-death suites. Original 180-second limits and strict markers/ERROR rejection remain.
 
-Runner (28) and workflow (5) unit tests passed. The new exact layered-idle marker is 212; the old 200 marker is explicitly rejected. Full new-head CI has not yet run for this unpublished batch.
+Runner (28) and workflow (5) unit tests passed. The new exact layered-idle marker is 212; the old 200 marker is explicitly rejected. This paragraph records the earlier frozen local checkpoint; published-head remote results are recorded above.
 
 ## Retained failures and honest evidence boundaries
 

@@ -92,6 +92,7 @@ func _new_game_and_resume() -> void:
     _check(not metric.startup_config_validation_worker_is_main and metric.startup_config_validation_steps > 900 and metric.startup_config_validation_wait_frames >= 1, "complete scalar validation and route overlay run on the sole worker")
     _check(metric.startup_config_context_copy_batches >= 1 and metric.startup_config_context_copy_max_operations <= 8 and metric.startup_config_context_max_step_edges <= 512, "private route snapshot uses bounded main-thread copy operations")
     _check(metric.route_manifest_copy_max_operations <= 8, "manifest handoff preserves main-thread operation cap")
+    _check(metric.startup_config_context_overlap_frames == metric.startup_config_context_copy_batches and metric.startup_config_wait_frames >= metric.startup_config_context_overlap_frames, "private context copy shares owned read waits without double-counting serial frames")
     for catalog_read in metric.catalog_reads:
         _check(catalog_read.max_merge_operations <= 8 and catalog_read.max_merge_edges <= 64, "catalog source scheduling preserves both operation and chunk caps")
     _check(host.active_spawn == Vector2(expected.player_start[0], expected.player_start[1]), "new game uses authored final player_start")
@@ -325,7 +326,7 @@ func _early_startup_cancellation() -> void:
         await process_frame
 
 func _teardown_and_faults() -> void:
-    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel"]:
+    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel", "context_copy_path", "context_copy_entry", "context_copy_generation", "context_copy_route", "context_copy_cancel", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
         var host := ProbeWorld.new()
         host.world_mode = true
         host.world_resume = false
@@ -343,6 +344,22 @@ func _teardown_and_faults() -> void:
         var inject := func():
             var metric: Dictionary = loader.last_transition
             if injected.done: return
+            if fault.begins_with("context_copy_"):
+                if int(metric.get("startup_config_context_copy_batches", 0)) == 0: return
+                _check(reader.has_pending_ticket() and not metric.has("startup_config_worker_is_main"), fault + " reaches private copy while its read ticket remains unconsumed")
+                injected.done = true
+                match fault:
+                    "context_copy_path": host.config_path = ROUTES.cached_config_path("demo_ch01_moss_bell_court")
+                    "context_copy_entry": host.entry_spawn_override_enabled = not host.entry_spawn_override_enabled
+                    "context_copy_generation": loader.generation += 1
+                    "context_copy_route": ROUTES._cache_generation += 1
+                    "context_copy_cancel": loader.startup_token.cancel()
+                    "context_copy_detach": root.remove_child(host)
+                    "context_copy_free": host.free()
+                    "context_copy_shutdown": loader.shutdown()
+                if fault in ["context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
+                    _check(loader.startup_token == null and loader._startup_frame_tree == null and not reader.busy() and not reader.has_pending_ticket(), fault + " releases owned task and read synchronously before another frame")
+                return
             if fault.begins_with("validation_wait_"):
                 if not metric.has("startup_config_validation_wait_frames"): return
                 injected.done = true
@@ -392,7 +409,7 @@ func _teardown_and_faults() -> void:
         _check(injected.done, fault + " reaches its declared fault boundary")
         _check(not is_instance_valid(host) or not host.initial_region_ready, fault + " cannot publish region")
         _check(FileAccess.get_file_as_bytes(SAVE) == before_save, fault + " preserves existing save bytes")
-        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown"]:
+        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
             _check(loader.phase == "startup_error" and is_instance_valid(loader.loading_canvas) and loader.loading_canvas.get_node("StartupRetry") is Button, fault + " exposes retry recovery")
             if not fault.begins_with("post_"): _check(not is_instance_valid(host.player), fault + " fails before any region construction")
         if is_instance_valid(host):

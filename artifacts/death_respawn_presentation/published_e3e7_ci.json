@@ -1,0 +1,357 @@
+{
+  "checked_at": "2026-10-16T14:45:02.555Z",
+  "pr": 99,
+  "head": "e3e7d0a6c243ce45b9f9aae19aecc084e596d112",
+  "tree": "0b2296b73793f85f7e3d2a2ac74cbe240ccf9513",
+  "base": "2a6fc492710eda60893e22d1ea6503cbf88cfa04",
+  "testmerge": "af1532653c065724cd24bf8e67c0559e2703994c",
+  "testmerge_tree_verified": true,
+  "conclusion": "failure",
+  "checkout_verified": true,
+  "remote_complete_suites_verified": true,
+  "workflow_count": 13,
+  "job_count": 15,
+  "all_job_conclusions": [
+    {
+      "run_id": 38914083038,
+      "job_id": 117016952012,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914082921,
+      "job_id": 117016952298,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914082981,
+      "job_id": 117016951591,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083168,
+      "job_id": 117016953186,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083104,
+      "job_id": 117016952350,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914082999,
+      "job_id": 117016952382,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083535,
+      "job_id": 117016953523,
+      "name": "desktop (windows-2022, windows, Godot_v4.6.1-stable_win64.exe, windows_release_x86_64.exe)",
+      "conclusion": "failure"
+    },
+    {
+      "run_id": 38914083535,
+      "job_id": 117016953868,
+      "name": "desktop (ubuntu-24.04, linux, Godot_v4.6.1-stable_linux.x86_64, linux_release.x86_64)",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083750,
+      "job_id": 117016954921,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914082863,
+      "job_id": 117016951190,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914082931,
+      "job_id": 117016951296,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083597,
+      "job_id": 117016953629,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083070,
+      "job_id": 117016951971,
+      "name": "focused-regressions",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083107,
+      "job_id": 117016952446,
+      "name": "runtime",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 38914083107,
+      "job_id": 117016952890,
+      "name": "visual",
+      "conclusion": "success"
+    }
+  ],
+  "desktop_release": {
+    "run_id": 38914083535,
+    "conclusion": "failure",
+    "actual_checkout": "af1532653c065724cd24bf8e67c0559e2703994c",
+    "tree": "0b2296b73793f85f7e3d2a2ac74cbe240ccf9513",
+    "windows": {
+      "job_id": 117016953523,
+      "conclusion": "failure",
+      "failure_at": "2026-10-16T14:21:13.4563648Z",
+      "message": "RELEASE_FAILED: Exported World did not write back the resumed save",
+      "first_start": true,
+      "resume_probe_preserved": true,
+      "resume_writeback": false,
+      "artifact_id": 12052027088
+    },
+    "linux": {
+      "job_id": 117016953868,
+      "conclusion": "success",
+      "first_start": true,
+      "resume": true,
+      "resume_writeback": true,
+      "artifact_id": 12051727286
+    },
+    "source": "tools/build_release.py:163-164, strict missing resumed-save .bak",
+    "verbose_engine_errors": 0,
+    "verbose_leak_warnings": 0,
+    "windows_resume_progress": "274 lines: crimson.svg then normal XR exit, no survey_paper or full World gameplay UI; startup timing attribution remains open."
+  },
+  "runtime": {
+    "job_id": 117016952446,
+    "run_id": 38914083107,
+    "conclusion": "success",
+    "checkout": [
+      "2026-10-16T14:14:05.5199464Z HEAD is now at af15326 Merge e3e7d0a6c243ce45b9f9aae19aecc084e596d112 into 2a6fc492710eda60893e22d1ea6503cbf88cfa04"
+    ],
+    "summary": [
+      "2026-10-16T14:42:25.8194924Z GODOT_REGRESSIONS suites=110 failures=0"
+    ],
+    "objectdb_warnings": 48,
+    "engine_errors": [],
+    "actual_checkout": "af1532653c065724cd24bf8e67c0559e2703994c",
+    "tree": "0b2296b73793f85f7e3d2a2ac74cbe240ccf9513"
+  },
+  "visual": {
+    "pr": 99,
+    "run": 38914083107,
+    "name": "visual",
+    "job": 117016952890,
+    "conclusion": "success",
+    "checkout": [
+      "2026-10-16T14:14:14.5126567Z HEAD is now at af15326 Merge e3e7d0a6c243ce45b9f9aae19aecc084e596d112 into 2a6fc492710eda60893e22d1ea6503cbf88cfa04"
+    ],
+    "summary": [
+      "2026-10-16T14:17:25.5453818Z ROCK_SEAMS probes=12 failures=0",
+      "2026-10-16T14:17:27.9917688Z STREAMING_PIXELS probes=12 failures=0",
+      "2026-10-16T14:17:37.5132852Z PASSAGE_PIXELS probes=5 failures=0",
+      "2026-10-16T14:17:47.6398543Z ROOM_RIM_PIXELS probes=12 failures=0",
+      "2026-10-16T14:17:57.2628296Z WORLD_ATLAS_PIXELS probes=5 failures=0",
+      "2026-10-16T14:18:14.1761535Z NEIGHBOR_GAMEPLAY_PIXELS probes=6 failures=0",
+      "2026-10-16T14:20:26.2559869Z WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=48 failures=0",
+      "2026-10-16T14:20:57.2791231Z REGION_COMMIT_PIXELS probes=10 failures=0"
+    ],
+    "warnings": 3,
+    "errors": [],
+    "actual_checkout": "af1532653c065724cd24bf8e67c0559e2703994c",
+    "tree": "0b2296b73793f85f7e3d2a2ac74cbe240ccf9513",
+    "all_eight_markers_verified": true,
+    "objectdb_warnings": 3,
+    "engine_errors": 0
+  },
+  "focused_logs_verified": [
+    {
+      "pr": 99,
+      "run": 38914083038,
+      "name": "Layered idle presentation",
+      "job": 117016952012,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:18.6712336Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:17:02.9635799Z GODOT_REGRESSIONS suites=8 failures=0"
+      ],
+      "warnings": 1,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914083168,
+      "name": "World private checkpoints and map pins",
+      "job": 117016953186,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:07.0328992Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:18:54.3993048Z GODOT_REGRESSIONS suites=10 failures=0"
+      ],
+      "warnings": 4,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914082981,
+      "name": "Input prompt readability",
+      "job": 117016951591,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:11.2610804Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:18:26.6165000Z GODOT_REGRESSIONS suites=4 failures=0"
+      ],
+      "warnings": 1,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914082921,
+      "name": "Stable room camera follow",
+      "job": 117016952298,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:06.6824554Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:17:44.3015040Z GODOT_REGRESSIONS suites=5 failures=0"
+      ],
+      "warnings": 1,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914083104,
+      "name": "World catalog and startup preparation",
+      "job": 117016952350,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:08.6474121Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:20:15.0876448Z GODOT_REGRESSIONS suites=8 failures=0"
+      ],
+      "warnings": 2,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914082999,
+      "name": "Grounded motion and melee feedback",
+      "job": 117016952382,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:17:18.5176995Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:20:46.5632745Z PLAYER_MOTION_CONTINUITY checks=1128 failures=0",
+        "2026-10-16T14:21:52.7798619Z GODOT_REGRESSIONS suites=20 failures=0"
+      ],
+      "warnings": 5,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914082931,
+      "name": "Six-region passage network",
+      "job": 117016951296,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:06.7166460Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:24:42.3751615Z GODOT_REGRESSIONS suites=7 failures=0"
+      ],
+      "warnings": 5,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914083070,
+      "name": "Budgeted neighbor gameplay plans",
+      "job": 117016951971,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:18.7397168Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:24:36.1651850Z GODOT_REGRESSIONS suites=11 failures=0"
+      ],
+      "warnings": 7,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914082863,
+      "name": "Modern ability workshop integration",
+      "job": 117016951190,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:14:06.1480866Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:22:41.3750083Z GODOT_REGRESSIONS suites=9 failures=0"
+      ],
+      "warnings": 3,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914083750,
+      "name": "Modern combat resource integration",
+      "job": 117016954921,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:17:57.4339966Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:22:53.3164258Z GODOT_REGRESSIONS suites=16 failures=0"
+      ],
+      "warnings": 5,
+      "errors": []
+    },
+    {
+      "pr": 99,
+      "run": 38914083597,
+      "name": "Route manifest integration",
+      "job": 117016953629,
+      "conclusion": "success",
+      "checkout": [
+        "2026-10-16T14:16:33.7812568Z HEAD is now at e3e7d0a fix(player): hold death pose and reveal checkpoint respawn"
+      ],
+      "summary": [
+        "2026-10-16T14:27:36.0492069Z GODOT_REGRESSIONS suites=15 failures=0"
+      ],
+      "warnings": 11,
+      "errors": []
+    }
+  ],
+  "notes": "All runs terminal. 12 workflows success, one desktop workflow failure; 14 jobs success, Windows resume-writeback job failure. Full110 and8GPU do not override the failure. Attribution to new death changes remains unproven.",
+  "limits": {
+    "engine": "Godot 4.6.1",
+    "desktop_mode": "actual exported executable, headless",
+    "desktop_frame_limit": 120,
+    "suite_timeout_seconds": 180,
+    "windows_cause": "Startup had not completed World publication inside the fixed frame window; no proof of a death-code-specific cause."
+  },
+  "run_links": {
+    "full_and_visual": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38914083107",
+    "motion": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38914082999",
+    "desktop": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/38914083535"
+  }
+}

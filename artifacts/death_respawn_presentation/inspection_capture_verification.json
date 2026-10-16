@@ -1,0 +1,204 @@
+{
+  "duration_seconds": 11.733333,
+  "resolution": [
+    960,
+    540
+  ],
+  "original_captured_frames": 343,
+  "fps_all": {
+    "min": 6.0,
+    "median": 23.0,
+    "max": 26.0
+  },
+  "fps_by_phase": {
+    "pre_death": {
+      "min": 24.0,
+      "median": 25.0,
+      "max": 26.0
+    },
+    "death_hold_fade": {
+      "min": 25.0,
+      "median": 25.0,
+      "max": 25.0
+    },
+    "reveal_landing": {
+      "min": 22.0,
+      "median": 22.0,
+      "max": 22.0
+    },
+    "input_recovery": {
+      "min": 14.0,
+      "median": 21.0,
+      "max": 24.0
+    },
+    "final_idle": {
+      "min": 6.0,
+      "median": 6.0,
+      "max": 14.0
+    }
+  },
+  "checks": {
+    "real_world": true,
+    "authored_shrine": "save_first_bell",
+    "all_passage_inactive": true,
+    "all_inspection_camera_current": true,
+    "hud_draw_hidden_only": true,
+    "original_four_death_cels": true,
+    "stationary_death_world_position": [
+      [
+        1550.0,
+        3775.97924804688
+      ]
+    ],
+    "terminal_pose_after_animation_stop": [
+      3
+    ],
+    "single_respawn_exact_checkpoint": true,
+    "normal_landed_idle": true,
+    "ordinary_attack_recovered": true,
+    "ordinary_movement_recovered": true
+  },
+  "sample_counts": {
+    "dead": 19,
+    "fade": 2,
+    "reveal": 2
+  },
+  "fade_samples": [
+    {
+      "alpha": 0.624999999999993,
+      "animation": "death",
+      "death_timer": 0.0999999999999989,
+      "energy": 100,
+      "engine_fps": 25.0,
+      "game_hud_visible": false,
+      "grounded": true,
+      "hp": 0,
+      "input": 0.0,
+      "inspection_camera_current": true,
+      "layered_idle_active": false,
+      "ms": 3834,
+      "passage_active": false,
+      "physics_frame": 591,
+      "playing": false,
+      "pose": 3,
+      "position": [
+        1550.0,
+        3775.97924804688
+      ],
+      "render_frame": 247,
+      "reveal_timer": 0.0,
+      "time_scale": 1.0,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "world_loading": false
+    },
+    {
+      "alpha": 0.312499999999993,
+      "animation": "death",
+      "death_timer": 0.0499999999999989,
+      "energy": 100,
+      "engine_fps": 25.0,
+      "game_hud_visible": false,
+      "grounded": true,
+      "hp": 0,
+      "input": 0.0,
+      "inspection_camera_current": true,
+      "layered_idle_active": false,
+      "ms": 3892,
+      "passage_active": false,
+      "physics_frame": 594,
+      "playing": false,
+      "pose": 3,
+      "position": [
+        1550.0,
+        3775.97924804688
+      ],
+      "render_frame": 248,
+      "reveal_timer": 0.0,
+      "time_scale": 1.0,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "world_loading": false
+    }
+  ],
+  "reveal_samples": [
+    {
+      "alpha": 0.0,
+      "animation": "idle",
+      "death_timer": -1.06165076729781e-15,
+      "energy": 0,
+      "engine_fps": 25.0,
+      "game_hud_visible": false,
+      "grounded": true,
+      "hp": 5,
+      "input": 0.0,
+      "inspection_camera_current": true,
+      "layered_idle_active": true,
+      "ms": 3943,
+      "passage_active": false,
+      "physics_frame": 597,
+      "playing": true,
+      "pose": 0,
+      "position": [
+        1710.0,
+        3712.0
+      ],
+      "render_frame": 249,
+      "reveal_timer": 0.18,
+      "time_scale": 1.0,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "world_loading": false
+    },
+    {
+      "alpha": 0.740740740740741,
+      "animation": "fall",
+      "death_timer": -1.06165076729781e-15,
+      "energy": 0,
+      "engine_fps": 25.0,
+      "game_hud_visible": false,
+      "grounded": false,
+      "hp": 5,
+      "input": 0.0,
+      "inspection_camera_current": true,
+      "layered_idle_active": false,
+      "ms": 4169,
+      "passage_active": false,
+      "physics_frame": 605,
+      "playing": true,
+      "pose": 0,
+      "position": [
+        1710.0,
+        3726.38891601562
+      ],
+      "render_frame": 250,
+      "reveal_timer": 0.0466666666666667,
+      "time_scale": 1.0,
+      "velocity": [
+        0.0,
+        215.83332824707
+      ],
+      "world_loading": false
+    }
+  ],
+  "native_audio": "silent",
+  "limitations": [
+    "Fixed inspection camera and HUD drawing hidden, explicitly labelled; not the default gameplay camera view.",
+    "Reveal has only two rendered state samples; no blanket smoothness or full-boundary acceptance.",
+    "All FPS claims refer to real Engine telemetry, not the capture target."
+  ],
+  "raw_sha256": "e7a0dd3328bd7551495f0abfff9b517ee92138900f49ae5176ebcf0601454dc7",
+  "actual_source_head": "e3e7d0a6c243ce45b9f9aae19aecc084e596d112",
+  "source_tree": "0b2296b73793f85f7e3d2a2ac74cbe240ccf9513",
+  "logical_candidate": "f531e2c3c82783ddedfa569ce71d402ba4b5bafa has the same approved tree; demo-events.json retains that logical candidate label.",
+  "visual_review": "Complete death silhouette is visible, with no HUD or caption overlap. Actual original frame136 has no player pixels; frame137 shows partial reveal. Shrine/NPC foreground can naturally occlude parts of the respawned player and later attack. No product actor or scenery was hidden.",
+  "delivered_sha256": "e7a0dd3328bd7551495f0abfff9b517ee92138900f49ae5176ebcf0601454dc7",
+  "identical_to_raw_capture": true,
+  "scope": "Inspection-only camera and hidden HUD; real ordinary World shrine, scripted framing/lethal damage, original four death frames and production timings. Source capture is not a natural-playthrough or smooth-animation acceptance."
+}
