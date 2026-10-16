@@ -36,7 +36,7 @@ func _run() -> void:
     var inventory: Dictionary = scene.inventory_counts.duplicate(true)
     var nodes := scene.get_child_count()
     scene.player.global_position = (scene.get_node("moss_rain_pipe").global_position + scene.get_node("moss_archive_return").global_position) * 0.5
-    await _warm(pref)
+    await _warm(pref, "initial_two_neighbors")
     var before: Dictionary = pref.snapshot()
     _check(before.entity_regions == 2 and before.entity_bodies > 0, "two landing caches contain real detached bodies")
     _check(before.entity_bodies <= 48 and before.max_entities <= 48, "two regions and 24 bodies each bounded")
@@ -95,13 +95,13 @@ func _run() -> void:
     scene._travel_world(ROUTES.config_path(source), Vector2(120, 500))
     await _frames(2)
     scene.player.global_position = scene.get_node("moss_rain_pipe").global_position
-    await _warm(pref)
+    await _warm(pref, "reload_source_neighbor")
     var region: String = pref.entities.keys()[0]
     var item: Dictionary = pref.entities[region].bodies.values()[0]
     var stale: Variant = item.body
     pref.configs[region].stamp = -1
     _check(pref.take_platform(region, item.data) == null and not pref.entities.has(region), "timestamp mismatch invalidates stale geometry before adoption")
-    await _warm(pref)
+    await _warm(pref, "stale_config_rebuild")
     _check(not is_instance_valid(stale), "stale geometry retires while fresh cache warms")
     _check(pref.configs[region].stamp != -1 and pref.entities.has(region), "timestamp change rebuilds fresh cache")
     var retired: Array = []
@@ -127,18 +127,47 @@ func _run() -> void:
             push_error(message)
         call_deferred("quit", 1)
 
-func _warm(pref: RefCounted) -> void:
-    var deadline := Time.get_ticks_msec() + 10000
+func _warm(pref: RefCounted, label: String) -> void:
+    var started := Time.get_ticks_msec()
+    var deadline := started + 10000
+    var steps := 0
     while Time.get_ticks_msec() < deadline:
         var released: int = pref.entity_releases
         var before: int = pref.entity_builds
         pref.step(scene, 0.25)
+        steps += 1
         _check(pref.entity_releases - released <= 2 and pref.snapshot().owned_bodies <= 48, "per-frame retirement and total ownership bounded")
         _check(pref.entity_builds - before <= 2, "per-frame build admission capped at two")
         if not pref.entities.is_empty() and pref.configs.size() == pref.desired.size() and not pref.snapshot().config_pending and pref.entities.values().all(func(record): return record.pending.is_empty()) and pref.jobs.is_empty() and pref.queue.is_empty():
+            _warm_report(pref, label, started, steps, true)
             return
         await process_frame
-    _check(false, "warm cache finishes in bounded fixture time")
+    _warm_report(pref, label, started, steps, false)
+    _check(false, "warm cache finishes in bounded fixture time (%s)" % label)
+
+func _warm_report(pref: RefCounted, label: String, started: int, steps: int, complete: bool) -> void:
+    # Counts and at most two region summaries; never dump source configs or nodes.
+    var regions: Array = []
+    for id in pref.entities.keys().slice(0, 2):
+        var record: Dictionary = pref.entities[id]
+        regions.append({"id": id, "pending": record.pending.size(),
+            "bodies": record.bodies.size(), "collisions": record.collisions.size()})
+    var gameplay_phases: Array = []
+    for id in pref.gameplay.regions.keys().slice(0, 2):
+        var cache: Dictionary = pref.gameplay.regions[id]
+        var planner: Variant = cache.get("plan_job")
+        gameplay_phases.append({"id": id,
+            "phase": "idle" if planner == null else String(planner.phase),
+            "pending": cache.pending.size(), "actors": cache.actors.size()})
+    print("NEIGHBOR ENTITY WARM ", JSON.stringify({"label": label, "complete": complete,
+        "elapsed_ms": Time.get_ticks_msec() - started, "steps": steps,
+        "loader_phase": String(scene.world_loader.phase),
+        "desired_regions": pref.desired.keys().slice(0, 2),
+        "config_regions": pref.configs.keys().slice(0, 2),
+        "config_region": String(pref.config_task.get("region", "")),
+        "validation_operation": "idle" if pref.config_validator == null else String(pref.config_validator.operation_name),
+        "entities": regions, "gameplay_phases": gameplay_phases,
+        "snapshot": pref.snapshot()}))
 
 func _retire(pref: RefCounted) -> void:
     for frame in range(100):
