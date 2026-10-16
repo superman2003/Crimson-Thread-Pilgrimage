@@ -20,7 +20,7 @@ DEFAULT_SUITES = (
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
-    'player_upgrade_regression build_system world_upgrade upgrade_integration save_product '
+    'player_upgrade_regression build_system world_upgrade world_workshop_group_one world_workshop_group_two world_ability_acquisition upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign '
     'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression input_prompt player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience '
     'world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush '
@@ -38,7 +38,7 @@ def render_loop_args(real_gl, suite):
     # These non-pixel suites keep physics/state checks. Keep the real GL
     # resource backend, but avoid automatic rasterization on every churn frame.
     # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
-    if real_gl and suite in ['world_upgrade', 'world_neighbor_gameplay_stress', 'world_passage_network']:
+    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network']:
         return ['--disable-render-loop']
     return []
 
@@ -94,10 +94,10 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             with log.open('w') as output:
                 # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime suites must retain normal playback timing.
-                simulation = ['--fixed-fps', '60'] if suite in ['world_passage_network', 'world_route_manifest_walk_lower', 'world_route_manifest_walk_upper', 'ch06_workshop_experience', 'melee_recovery', 'combat_resource_cycle', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
+                simulation = ['--fixed-fps', '60'] if suite in ['world_passage_network', 'world_route_manifest_walk_lower', 'world_route_manifest_walk_upper', 'ch06_workshop_experience', 'melee_recovery', 'combat_resource_cycle', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
                 # An intermittent CI shutdown leak needs the actual Resource
                 # identity; verbose keeps that evidence without hiding errors.
-                diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency', 'world_route_manifest_integration'] else []
+                diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_enemy_residency', 'world_route_manifest_integration'] else []
                 renderer = ['--display-driver', 'x11', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility'] if real_gl else ['--headless']
                 drawing = render_loop_args(real_gl, suite)
                 result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
