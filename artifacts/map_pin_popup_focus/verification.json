@@ -1,0 +1,90 @@
+{
+  "finished_utc": "2026-10-16T15:59:37.295111+00:00",
+  "head": "6dee412dc904cb4e7781329197f8303e71b5a689",
+  "upstream_base": "effc0d80908ac8cc73a6f2205ed85033ce370461",
+  "branch": "codex/u04-map-pins-modern-integration",
+  "final_files_sha256": {
+    "godot/scripts/map_player_pins_runtime.gd": "f22aad68529278a1b6320ea91266ccc3574ab5c2e82feffad135db3945de0a3c",
+    "godot/scripts/map_player_pins_validation.gd": "f77ce11f2137ed2dc4fc26a5dba4eaee911f5f158c4c78b87b972de73d5a8490"
+  },
+  "patch": "/workspace/shared/pin-popup-focus-fix/final.patch",
+  "patch_sha256": "71728bd1b4abc47146aea33478735f35afc39faa4cdbeb49ad02e35113d77c9d",
+  "original_validation_preserved_verbatim": true,
+  "runner_unchanged": true,
+  "suite_timeout_seconds": 180,
+  "engine": "Godot_v4.6.1-stable_linux.x86_64",
+  "renderer": "x11 / llvmpipe OpenGL compatibility, real render loop",
+  "fixed": {
+    "log": "/workspace/shared/pin-popup-focus-fix/fixed-v2-gl/map_player_pins.log",
+    "log_sha256": "4abfa444bc2a1d17af96170ad33095857d65065a108262b46cbc17781885e4e2",
+    "runner_log": "/workspace/shared/pin-popup-focus-fix/fixed-v2-gl-runner.log",
+    "exit_code": 0,
+    "checks": 146,
+    "engine_error_lines": [],
+    "objectdb_leak_warning": false,
+    "engine_error_count": 0,
+    "objectdb_leak_warning_count": 0,
+    "objectdb_occurrence_count": 0,
+    "repository_log": "artifacts/map_pin_popup_focus/fixed-map-player-pins.txt"
+  },
+  "old_runtime_counterexample": {
+    "command": [
+      "python3",
+      "tools/run_godot_regressions.py",
+      "--engine",
+      "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+      "--software-gl",
+      "--suite",
+      "map_player_pins",
+      "--timeout",
+      "180",
+      "--log-dir",
+      "/workspace/shared/pin-popup-focus-fix/old-runtime-gl"
+    ],
+    "old_runtime_sha256": "ee34cbd69bf8ae16a115e94ce5b4d5e9785e3f5c2cc5d3046dc0d110eee60f15",
+    "fixed_runtime_sha256": "f22aad68529278a1b6320ea91266ccc3574ab5c2e82feffad135db3945de0a3c",
+    "validation_sha256": "f77ce11f2137ed2dc4fc26a5dba4eaee911f5f158c4c78b87b972de73d5a8490",
+    "exit_code": 1,
+    "seconds": 34.98311749500135,
+    "fixed_runtime_restored": true,
+    "repository_log": "artifacts/map_pin_popup_focus/old-runtime-negative-proof.txt"
+  },
+  "old_runtime_failures": [
+    "ERROR: keyboard: real accept opens the pin popup on its uncommitted prompt during normal Main processing",
+    "ERROR: keyboard: first down focus survives redraw without committing a pin",
+    "ERROR: keyboard: a second down reaches the next pin across real redraw frames",
+    "ERROR: keyboard: real popup accept commits the navigated pin and enables delete",
+    "ERROR: keyboard: real focused delete removes only the chosen pin and restores the prompt",
+    "ERROR: controller: real accept opens the pin popup on its uncommitted prompt during normal Main processing",
+    "ERROR: controller: first down focus survives redraw without committing a pin",
+    "ERROR: controller: a second down reaches the next pin across real redraw frames",
+    "ERROR: controller: real popup accept commits the navigated pin and enables delete",
+    "ERROR: controller: real focused delete removes only the chosen pin and restores the prompt"
+  ],
+  "scope": {
+    "changed_files": [
+      "godot/scripts/map_player_pins_runtime.gd",
+      "godot/scripts/map_player_pins_validation.gd"
+    ],
+    "new_repository_files": [],
+    "committed": true,
+    "pushed": false,
+    "godot_resource_window_released": true
+  },
+  "iteration_notes": [
+    "First launch stopped before engine launch because Xvfb was not on PATH. Retained fixed-v1-runner.log.",
+    "First actual GL run v1 passed all keyboard checks but five controller checks failed because device 5 did not match actual UI bindings. Fixture changed only to primary device 0; no assertion weakened. Retained fixed-v1-gl logs.",
+    "Final v2 fixed run passed 146 checks. Same final validation against old exact runtime failed only ten new keyboard/controller popup assertions. Fixed runtime restored byte-for-byte by finally block."
+  ],
+  "tested_base_head": "2a6fc492710eda60893e22d1ea6503cbf88cfa04",
+  "commit_parent": "2a6fc492710eda60893e22d1ea6503cbf88cfa04",
+  "commit_changed_paths": [
+    "godot/scripts/map_player_pins_runtime.gd",
+    "godot/scripts/map_player_pins_validation.gd"
+  ],
+  "committed_source_sha256": {
+    "godot/scripts/map_player_pins_runtime.gd": "f22aad68529278a1b6320ea91266ccc3574ab5c2e82feffad135db3945de0a3c",
+    "godot/scripts/map_player_pins_validation.gd": "f77ce11f2137ed2dc4fc26a5dba4eaee911f5f158c4c78b87b972de73d5a8490"
+  },
+  "local_fix_commit": "6dee412dc904cb4e7781329197f8303e71b5a689"
+}

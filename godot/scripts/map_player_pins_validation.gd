@@ -195,6 +195,7 @@ func _world() -> void:
     await _mouse(MOUSE_BUTTON_LEFT, false, drag_at - Vector2(30, 20))
     _check(level.map_draw_root.position != before_pan and not level.survey_map_view.dragging and _count() == 2, "left drag and release still pan without creating a pin")
     await _navigation_with_pins()
+    await _popup_with_live_refresh(second)
     var list: OptionButton = toolbar.get_node("PinList")
     list.select(0)
     list.item_selected.emit(0)
@@ -302,6 +303,80 @@ func _world() -> void:
     _check(FileAccess.get_file_as_bytes(SAVE) == freed_disk, "retained control callbacks after whole-host free do not error or write")
     freed_toolbar.free()
     freed_view.free()
+
+func _pin_menu_input(controller: bool, accept: bool, pressed: bool) -> void:
+    var event: InputEvent
+    if controller:
+        var button := InputEventJoypadButton.new()
+        button.button_index = JOY_BUTTON_A if accept else JOY_BUTTON_DPAD_DOWN
+        button.device = 0
+        button.pressed = pressed
+        event = button
+    else:
+        var key := InputEventKey.new()
+        key.keycode = KEY_ENTER if accept else KEY_DOWN
+        key.physical_keycode = key.keycode
+        key.pressed = pressed
+        var popup: PopupMenu = _toolbar().get_node("PinList").get_popup()
+        key.window_id = popup.get_window_id() if popup.visible and not popup.is_embedded() else root.get_window_id()
+        event = key
+    Input.parse_input_event(event)
+    Input.flush_buffered_events()
+
+func _pin_menu_tap(controller: bool, accept: bool) -> void:
+    _pin_menu_input(controller, accept, true)
+    await _frames()
+    _pin_menu_input(controller, accept, false)
+    await _frames()
+
+func _popup_with_live_refresh(second: Vector2) -> void:
+    # Keep actors paused, but restore the normal Main _process loop: this
+    # regression must cross real redraw frames while PopupMenu owns input.
+    # No select(), item_selected/pressed emit, or manual _process calls here.
+    level.set_process(true)
+    var list: OptionButton = _toolbar().get_node("PinList")
+    var popup := list.get_popup()
+    var delete_button: Button = _toolbar().get_node("PinDelete")
+    for controller in [false, true]:
+        var source := "controller" if controller else "keyboard"
+        list.grab_focus()
+        await _pin_menu_tap(controller, true)
+        _check(popup.visible and popup.get_focused_item() == 0 and list.get_selected_id() == 0, source + ": real accept opens the pin popup on its uncommitted prompt during normal Main processing")
+        await _pin_menu_tap(controller, false)
+        var marker_id: int = level.map_draw_root.get_node("PlayerMapPin_1").get_instance_id()
+        await _frames(3)
+        _check(level.is_processing() and marker_id != level.map_draw_root.get_node("PlayerMapPin_1").get_instance_id(), source + ": normal Main frames really redraw pin markers while the popup is open")
+        _check(popup.visible and popup.get_focused_item() == 1 and list.get_selected_id() == 0 and delete_button.disabled, source + ": first down focus survives redraw without committing a pin")
+        await _pin_menu_tap(controller, false)
+        _check(popup.visible and popup.get_focused_item() == 2 and list.get_selected_id() == 0, source + ": a second down reaches the next pin across real redraw frames")
+        await _pin_menu_tap(controller, true)
+        _check(not popup.visible and list.get_selected_id() == 2 and not delete_button.disabled, source + ": real popup accept commits the navigated pin and enables delete")
+        _sample(source + " popup selection", {"selected_pin_id": list.get_selected_id(), "main_processing": level.is_processing()})
+        # Keep later failures diagnostic even when a broken menu never closes.
+        if popup.visible: popup.hide()
+        delete_button.grab_focus()
+        await _pin_menu_tap(controller, true)
+        _check(_count() == 1 and int(_records()[0].id) == 1 and list.item_count == 2 and list.get_selected_id() == 0 and delete_button.disabled, source + ": real focused delete removes only the chosen pin and restores the prompt")
+        await _right(A, second)
+        _check(_count() == 2 and int(_records()[1].id) == 2 and _records()[1].kind == "warning", source + ": real right-click restores the second fixture pin after deletion")
+    # Contents, rather than just item count, decide whether a rebuild is needed.
+    var original: Variant = level.story_flags[PINS.KEY]
+    var changed: Array = original.duplicate(true)
+    changed.reverse()
+    changed[0].kind = "return"
+    level.story_flags[PINS.KEY] = changed
+    await _frames(3)
+    _check(list.item_count == 3 and list.get_item_id(1) == 2 and list.get_item_id(2) == 1 and list.get_item_text(1).begins_with("回访2"), "live list refresh notices same-count reordering and type-label changes")
+    var journal: Dictionary = JOURNAL.region(level.story_flags, A)
+    var charted: Variant = journal.charted
+    journal.charted = {}
+    await _frames(3)
+    _check(list.item_count == 1 and list.get_selected_id() == 0 and delete_button.disabled and list.get_item_text(0).begins_with("图钉 0 / 12"), "live loss of room knowledge removes pin labels and retains the empty-list prompt")
+    journal.charted = charted
+    level.story_flags[PINS.KEY] = original
+    await _frames(3)
+    _check(list.item_count == 3 and list.get_item_id(1) == 1 and list.get_item_id(2) == 2 and list.get_item_text(2).begins_with("留意2"), "live knowledge restoration restores original labels and order")
+    level.set_process(false)
 
 func _sample(action: String, details: Dictionary = {}) -> void:
     var view: Control = level.survey_map_view
