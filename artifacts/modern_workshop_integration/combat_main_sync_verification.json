@@ -1,0 +1,80 @@
+{
+  "scope": "Synchronize externally merged combat/healing main without dropping this PR changes",
+  "previous_head": "a24657cd19213b2a3792f287fb1bd89b05a7f387",
+  "main_commit": "c6dce193ceb27c94ee8443111fc2b10fb00ce125",
+  "default_suite_count": 99,
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/scripts/pilgrimage_interface.gd": "e41e7e8b030e588cf4cf24d828d2a291136e6608d104e23b08a62fd5a59b7985",
+    "godot/scripts/world_host_validation.gd": "0eaef28b99c4d0dab1bd8a2a4e2d145376da6eb598b87c1dab3da2c3984256bd",
+    "godot/scripts/combat_resource_cycle_validation.gd": "a721e9d39f6f9d8ded92da07d6ed7b9f6f9d95b7cb383d5d9cb81c3fed1e5720",
+    "tools/run_godot_regressions.py": "9f5bf09527b2bc2afc3b29e6cb0ce214e4ea724aae07a51109041b5ce4c4930c",
+    "tools/godot_suite_success_markers.json": "e4f0f76d80375661ca1d3d699a02d6a9818678164857ee1b145aeef8cfb7c68a",
+    "tools/test_regression_runner.py": "d67a5259b4e9c93508f432881e1dbdf91af5663d33fb484fc5a3834616259c3a"
+  },
+  "static_checks": {
+    "npm": {
+      "exit_code": 0,
+      "log_sha256": "00d7f3b818525999b80c312add03b9f1b5b47753ffaaab19c7fd5a12aec3770f"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log_sha256": "aa9e034d767ebd0e86b1565ee2aab281040798ed234fdb5eba43f5aebe084b58"
+    }
+  },
+  "gl_combination": [
+    {
+      "label": "workshop",
+      "started_at_utc": "2026-10-16T09:22:00.089965+00:00",
+      "finished_at_utc": "2026-10-16T09:24:42.903405+00:00",
+      "elapsed_seconds": 162.813,
+      "exit_code": 0,
+      "suites": [
+        {
+          "suite": "combat_resource_cycle",
+          "log_sha256": "b75f948d1c181c9cc463f3dc8e7680ea9cf8955d73158555ab57555e9b9c25a3",
+          "engine_errors": [],
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_markers": [
+            "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true"
+          ],
+          "runner_pass": true,
+          "elapsed_seconds": 19.496,
+          "drawing_mode": "normal_drawing",
+          "timeout_seconds": 180
+        },
+        {
+          "suite": "world_upgrade",
+          "log_sha256": "4970b99898eacc5f847dc3931be8a3df99a94e3763a861dbc14e5f7747e939a4",
+          "engine_errors": [],
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_markers": [
+            "WORLD_UPGRADE checks=548 failures=0 enemy_removal=true fixture_positioning=true"
+          ],
+          "runner_pass": true,
+          "elapsed_seconds": 143.105,
+          "drawing_mode": "original_runner_disable_render_loop",
+          "timeout_seconds": 180
+        }
+      ],
+      "runtime_source_unchanged": true,
+      "source_after_set_sha256": "cc8c7d1ddd8e3bb711ea82241897dea9112a71cb26c77b053046152a576fefd0",
+      "runner_log_sha256": "441c48628645e6e13ea577a80f2dd9f5c417aca77841111a6591b5d232a53f6a",
+      "runner_completion_marker": [
+        "GODOT_REGRESSIONS suites=2 failures=0"
+      ],
+      "import_rerun": false,
+      "import_reason": "Existing resource/class cache; only non-class combat validation and existing runtime scripts changed. Actual engine startup and strict error/marker gates retained."
+    }
+  ],
+  "boundaries": [
+    "Only affected combination suites rerun; original branch evidence remains attached to its original source.",
+    "Original 180 second per-suite gate and drawing modes unchanged.",
+    "No natural campaign completion, target-hardware FPS, or physical controller acceptance claim.",
+    "New head remote CI remains pending at publication."
+  ]
+}

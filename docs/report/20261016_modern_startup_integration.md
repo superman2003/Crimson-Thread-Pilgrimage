@@ -1,5 +1,7 @@
 # W00b2b：首区配置共享后台准备的现代整合
 
+2026-10-16 依赖同步：#95已推进到`8d0a73ae`并纳入main `07ae21d4`工坊。本#96保留首区worker/validator/专项原字节，合入全部工坊路线与门禁，四处文档/计数冲突取并集，默认104套。npm/campaign与24项runner通过；冲突修复先推，新组合本地GL及远端新head CI继续验收，旧848c/旧base结果不代替新组合。原180秒、绘制模式和断言保持。[同步证据](../../artifacts/modern_startup_integration/workshop_base_sync_verification.json)。
+
 本批以正式#95 `defb5dde` 为依赖，仅续接原#61 startup-region-worker `1751fe15→543f5ffb` 未进入现代树的真实差量，不夹带#62元数据worker。原现代首区构建/prepare、路线覆盖分片与manifest worker都保留，不重写或重复计为本批成果。
 
 ## 玩家改善及正确性

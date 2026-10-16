@@ -95,9 +95,12 @@
   "tests/verify_narrative_runtime": "^NARRATIVE_RUNTIME_PASS checks=\\d+ failures=0$",
   "input_prompt": "^INPUT_PROMPT_VALIDATION checks=\\d+ failures=0$",
   "world_passage_network": "^WORLD_PASSAGE_NETWORK checks=\\d+ failures=0 physical_roundtrips=5$",
+  "world_ability_acquisition": "^WORLD_ABILITY_ACQUISITION checks=[0-9]+ failures=0 actual_pickups=8 local_approach_fixture=true$",
+  "world_workshop_group_one": "^WORLD_WORKSHOP_GROUP_ONE checks=\\d+ failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=\\d+$",
+  "world_workshop_group_two": "^WORLD_WORKSHOP_GROUP_TWO checks=\\d+ failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=\\d+$",
+  "world_gameplay_plan": "^WORLD_GAMEPLAY_PLAN checks=\\d+ failures=0$",
+  "combat_resource_cycle": "^COMBAT_RESOURCE_CYCLE checks=[0-9]+ failures=0 crests=3 actual_input=true$",
   "world_route_manifest_walk_lower": "^WORLD_ROUTE_MANIFEST_WALK_LOWER checks=\\d+ failures=0 physical_crossings=6$",
   "world_route_manifest_walk_upper": "^WORLD_ROUTE_MANIFEST_WALK_UPPER checks=\\d+ failures=0 physical_crossings=4$",
-  "world_route_manifest_integration": "^WORLD_ROUTE_MANIFEST_INTEGRATION checks=\\d+ failures=0$",
-  "world_gameplay_plan": "^WORLD_GAMEPLAY_PLAN checks=\\d+ failures=0$",
-  "combat_resource_cycle": "^COMBAT_RESOURCE_CYCLE checks=[0-9]+ failures=0 crests=3 actual_input=true$"
+  "world_route_manifest_integration": "^WORLD_ROUTE_MANIFEST_INTEGRATION checks=\\d+ failures=0$"
 }

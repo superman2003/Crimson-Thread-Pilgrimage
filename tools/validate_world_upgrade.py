@@ -3,6 +3,7 @@
 import json
 from collections import Counter, deque
 from pathlib import Path
+from workshop_layout_contract import contracts
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -95,6 +96,9 @@ def validate():
             check(len(peers) == 2 and sum(bool(p.get('requires_shortcut')) for p in peers) == 1, gate['id'] + ': floor seal safe far-side return lift')
         else:
             check(gy <= roof[1] + roof[3] and gy + gh >= foundation[1] + foundation[3] - 10, gate['id'] + ': sealed against jumps, wall climb and downward bypass')
+
+    for condition, label in contracts(routes) + contracts(routes, "movement_group_two"):
+        check(condition, label)
 
     # Search the region progression graph with ability pickup/shortcut state. This
     # proves no abstract acquisition cycle, not every physical room's reachability.
