@@ -1,0 +1,376 @@
+{
+  "status": "Implemented and locally verified; exact published-head remote CI is pending",
+  "local_owned_commit": "d41c68c018dde87bc958bf8e1b343cbd9ff937a5",
+  "local_owned_tree": "83b499aca27cdba9827bed3ea5eb4255467dd98a",
+  "base_commit": "defb5dde8ba52be297db321722cd3ac6f00876f7",
+  "scope_audit": {
+    "modern_base_commit": "defb5dde8ba52be297db321722cd3ac6f00876f7",
+    "modern_base_tree": "affb2fa46195fde8db6493ce07fd93826cee88ca",
+    "modern_dependency_pr": 95,
+    "original_pr": 61,
+    "original_title": "Read and validate initial World regions through the shared worker",
+    "original_base": "1751fe15c6facc930eacfee46da34c57bca47b87",
+    "original_head": "543f5ffb965478d4d162d1b3f51b7bcead05c4f4",
+    "original_merge": "e9200307ad462a70dcf2fe681a908091c24026a4",
+    "original_delta_files": [
+      "artifacts/startup_region_worker/verification.json",
+      "docs/UPGRADE_PROGRESS.md",
+      "docs/UPGRADE_TASK_LEDGER.md",
+      "docs/report/20261015_startup_region_worker.md",
+      "godot/scripts/world_config_validator.gd",
+      "godot/scripts/world_region_loader.gd",
+      "godot/scripts/world_startup_config_background_validation.gd",
+      "tools/godot_suite_success_markers.json",
+      "tools/run_godot_regressions.py",
+      "tools/test_regression_runner.py"
+    ],
+    "owned_files": [
+      "godot/scripts/world_region_loader.gd",
+      "godot/scripts/world_config_validator.gd",
+      "godot/scripts/world_startup_config_background_validation.gd",
+      "godot/scripts/world_startup_config_background_validation.gd.uid"
+    ],
+    "net_missing_before_integration": [
+      "Initial region read/JSON parse through sole shared reader",
+      "Incremental validator with authored default-entry selection after route overlay",
+      "Complete startup selection/source/loader/route lease through preparation, build and handoff"
+    ],
+    "already_present_not_rewritten": [
+      "Initial prepare/build/finish frame budgets",
+      "Route manifest worker and incremental copy",
+      "Modern catalog worker, foreign ticket ownership and source snapshot recovery",
+      "Five passage network, narrative transaction and neighbor gameplay planner"
+    ],
+    "modern_defect_fixes": [
+      "Wait for completed unclaimed foreign reader ticket and reject closed reader promptly",
+      "Observe returned startup token cancellation before first frame and during manifest wait/copy and config/build/finish lease checks"
+    ],
+    "limits": [
+      "Prepared config deep copy at construction remains synchronous",
+      "No #62 metadata worker imported",
+      "No full W00b2b, shared physical aperture, multi-region complete residency or natural damage-enabled campaign claim",
+      "No hard 2ms bound; original per-suite 180-second gate retained",
+      "Recovery import does not validate editor plugins"
+    ],
+    "original_patch_sha256": "8340bf7f3f9a7ea37925e4ac028bf15d256ceaf598c3c592d7f127dcb7ad0609"
+  },
+  "assertion_preservation": {
+    "old_static_check_statements": 20,
+    "original_check_statements_missing": [],
+    "old_recorded_dynamic_count": 89,
+    "final_dynamic_count": 223
+  },
+  "final_source_sha256": {
+    "godot/scripts/world_region_loader.gd": "94886f12ddf37b4925d99f8ede7f6791ec0e6a84a5561b30d26324b95f2c33e2",
+    "godot/scripts/world_config_validator.gd": "e50f1de0298c4e88f21d0310518364faa00c7a38be1a5ed64d57c4027e3ea924",
+    "godot/scripts/world_startup_config_background_validation.gd": "d3b9828bfc3d65a4e0e3cc7ee446c68d2e459877b541ce7f0d09e4438f9ff45f",
+    "godot/scripts/world_startup_config_background_validation.gd.uid": "737e7f0ec243dbaa77732767f930a11523e34d315cbd97c794452bd3110a9e3b",
+    "tools/run_godot_regressions.py": "661b278f4f2a379db4388f06cc1e30a6b2818552f1a11804ecd9cca97af25159",
+    "tools/godot_suite_success_markers.json": "99687457afaf217bcaa6c0b9aa70f6372620c9bf5cdcd4380e05ce7f814d186b",
+    "tools/test_regression_runner.py": "c6725f2d82e6f15bf58b36ea063dbc68b3a437df0c23b6f0411b7497e9b749aa"
+  },
+  "focused_final_startup": {
+    "suite": "world_startup_config_background",
+    "duration_seconds": 59.533,
+    "returncode": 0,
+    "log_sha256": "7ee92a0b212be6fafdd1fd0380041a3cf5b3613795cf5cc4f703f35d2e1d92da",
+    "source_unchanged": true,
+    "source_sha256": {
+      "godot/scripts/world_region_loader.gd": "94886f12ddf37b4925d99f8ede7f6791ec0e6a84a5561b30d26324b95f2c33e2",
+      "godot/scripts/world_config_validator.gd": "e50f1de0298c4e88f21d0310518364faa00c7a38be1a5ed64d57c4027e3ea924",
+      "godot/scripts/world_startup_config_background_validation.gd": "d3b9828bfc3d65a4e0e3cc7ee446c68d2e459877b541ce7f0d09e4438f9ff45f",
+      "godot/scripts/world_startup_config_background_validation.gd.uid": "737e7f0ec243dbaa77732767f930a11523e34d315cbd97c794452bd3110a9e3b",
+      "tools/run_godot_regressions.py": "661b278f4f2a379db4388f06cc1e30a6b2818552f1a11804ecd9cca97af25159",
+      "tools/godot_suite_success_markers.json": "99687457afaf217bcaa6c0b9aa70f6372620c9bf5cdcd4380e05ce7f814d186b",
+      "tools/test_regression_runner.py": "c6725f2d82e6f15bf58b36ea063dbc68b3a437df0c23b6f0411b7497e9b749aa"
+    },
+    "default_bus_sha256": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf"
+  },
+  "focused_runtime_combo": [
+    {
+      "suite": "world_startup_config_background",
+      "duration_seconds": 52.153,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "d35ccb021e97bc5e0b6c2603781d4cf4e2d300d1c272b7ba045ae4a0b3ff1c22",
+      "completion": [
+        "WORLD STARTUP CONFIG BACKGROUND PASS checks=222"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_startup_config_background.log"
+    },
+    {
+      "suite": "world_startup_budget",
+      "duration_seconds": 37.889,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "3ed5c7c67f0ae6b76b9dc215999785b14a48988299f33f47e06149ce9bf1e352",
+      "completion": [
+        "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 1,
+      "log_path": "final-combo/world_startup_budget.log"
+    },
+    {
+      "suite": "world_catalog_background",
+      "duration_seconds": 59.491,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "131f82720873d0dd341410e17ab6cee0609f8d8518a6bdb8963bb9b6ddcf9ade",
+      "completion": [
+        "WORLD CATALOG BACKGROUND PASS checks=71"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_catalog_background.log"
+    },
+    {
+      "suite": "world_prepare_budget",
+      "duration_seconds": 54.222,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "4101458d510472b42838be4c565a11c7c1ff7819990c5bf9c5b5ef32a280cbec",
+      "completion": [
+        "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 1,
+      "log_path": "final-combo/world_prepare_budget.log"
+    },
+    {
+      "suite": "world_preflight_budget",
+      "duration_seconds": 78.363,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "dabbff7bfac42da57f4608db414ce5f7f0ebe0a20a5c4e3e31a2a568ae83cd77",
+      "completion": [
+        "WORLD PREFLIGHT BUDGET PASS checks=4292"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_preflight_budget.log"
+    },
+    {
+      "suite": "world_config_background",
+      "duration_seconds": 14.841,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "73c39bb855258fccbb17921b171c4c34f0999ed0efb9f240fdd5acce3553b3b4",
+      "completion": [
+        "WORLD CONFIG BACKGROUND PASS checks=38"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_config_background.log"
+    },
+    {
+      "suite": "world_neighbor_config",
+      "duration_seconds": 44.965,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "09c13ff71e4ab5ced07626d0b64aeaca92a519885213032ec61f5e8fa3869b35",
+      "completion": [
+        "WORLD NEIGHBOR CONFIG PASS checks=93"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 1,
+      "log_path": "final-combo/world_neighbor_config.log"
+    },
+    {
+      "suite": "world_async_loading",
+      "duration_seconds": 131.077,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "3b2041dee30c626670d6c9957b6384732a6d20803d2934a75124f2f3f2449d1d",
+      "completion": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 1,
+      "log_path": "final-combo/world_async_loading.log"
+    },
+    {
+      "suite": "world_host",
+      "duration_seconds": 67.125,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+      "completion": [
+        "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_host.log"
+    },
+    {
+      "suite": "save_product",
+      "duration_seconds": 0.921,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "907b0d6b30dd349baad730394749a1444d5eb1b5283f2a73739bfb1fe9eddce7",
+      "completion": [
+        "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/save_product.log"
+    },
+    {
+      "suite": "boss_trial",
+      "duration_seconds": 3.235,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "8f729646eeb2950844fc38f15c4ab8b198743c219572a0bf65ef7bc3b15d2142",
+      "completion": [
+        "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1017.6240234375, 720.0] boss_spawned=true"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 1,
+      "log_path": "final-combo/boss_trial.log"
+    },
+    {
+      "suite": "world_route_manifest_integration",
+      "duration_seconds": 38.257,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "49f3ea9cbe94b6c1867a0eb968ba86b75df02ee24e4b2d93d9944c16bbd09974",
+      "completion": [
+        "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_route_manifest_integration.log"
+    },
+    {
+      "suite": "world_passage_network",
+      "duration_seconds": 66.228,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "398850f99ac2140a241573f91b03ce0f8c9bd8d65e667902f7749401a1a0a27e",
+      "completion": [
+        "WORLD_PASSAGE_NETWORK checks=140 failures=0 physical_roundtrips=5"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 1,
+      "log_path": "final-combo/world_passage_network.log"
+    },
+    {
+      "suite": "world_gameplay_plan",
+      "duration_seconds": 6.684,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "7f7470f55434884d928b6ead9a93d05be7c279a766867515d52382ba09e69de3",
+      "completion": [
+        "WORLD_GAMEPLAY_PLAN checks=1219 failures=0"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_gameplay_plan.log"
+    },
+    {
+      "suite": "world_route_manifest_walk_lower",
+      "duration_seconds": 97.662,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "5da2ee4a87c46aa82b6a721ad148889ff0dcd4a42f629de54180596fd0db9d7c",
+      "completion": [
+        "WORLD_ROUTE_MANIFEST_WALK_LOWER checks=134 failures=0 physical_crossings=6"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_route_manifest_walk_lower.log"
+    },
+    {
+      "suite": "world_route_manifest_walk_upper",
+      "duration_seconds": 59.208,
+      "failures": [],
+      "source_unchanged": true,
+      "log_sha256": "9fb1aa74d517eb22bb634f33e156de6414882c59bc31b8d67b95e76076d063aa",
+      "completion": [
+        "WORLD_ROUTE_MANIFEST_WALK_UPPER checks=90 failures=0 physical_crossings=4"
+      ],
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "log_path": "final-combo/world_route_manifest_walk_upper.log"
+    }
+  ],
+  "static_checks": {
+    "npm_test": "PASS (before bounded early-cancellation correction; unrelated JS/static/tool checks unchanged)",
+    "campaign_static": "PASS (data/config files unchanged)",
+    "strict_recovery_imports": "PASS x2 on final production runtime, prior to test-only barrier strengthening",
+    "runner_unit_tests": "PASS 21, parent-owned runner integration",
+    "scoped_git_diff_check": "PASS, owned four-file commit only"
+  },
+  "logs_sha256": {
+    "npm-test.log": "b234d993cd443c574379b71fafca53f51cfcf1a2f220dbeb31d5e7d6a481f353",
+    "campaign.log": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0",
+    "import-runner.log": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+    "import-final-runner.log": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+    "runner-lead-applied.log": "5a34299dab6752d1532acdd7d4447cc3ae6c2f6046017680d3e95b294e8e47ae",
+    "final-combo-runner.log": "6304ade272a2db2fa9a7de4726ec768417c0fbad559aea48584906568c5d87ff",
+    "startup-first-runner.log": "d0dc23aa515a7efd4d475e385d5b2cb405ee729d3d4183752070955995b610d7",
+    "startup-barrier-final-runner.log": "7536dda965f18a7e638dbb38b8067089740f9a5b3232fb267f920d64811832e2"
+  },
+  "objectdb_warnings": {
+    "count": 6,
+    "suites": [
+      "world_startup_budget",
+      "world_prepare_budget",
+      "world_neighbor_config",
+      "world_async_loading",
+      "boss_trial",
+      "world_passage_network"
+    ],
+    "attribution": "unresolved; no claim of pre-existing-only cause or long-term memory stability"
+  },
+  "test_history": [
+    {
+      "point": "initial integration before full startup-token cancel correction",
+      "loader_sha256": "6953d4dc22a36bee69c76659673131e099b544095b9672edc9d5e92efc1be9af",
+      "suite_sha256": "34e46fde18c6b928e4530dbfd7c05d5aed6b2b3291b7ab6941d4a237706eb8ab",
+      "result": "GL PASS 201; superseded for final implementation"
+    },
+    {
+      "point": "final production runtime; original early manifest-wait fixture",
+      "loader_sha256": "94886f12ddf37b4925d99f8ede7f6791ec0e6a84a5561b30d26324b95f2c33e2",
+      "suite_sha256": "6b89cafa5b678aaad6f455e826c3586e228c06f9b755049e98f2f05011f5043c",
+      "result": "GL PASS 222 + 15 related suites; all seven frozen source hashes unchanged"
+    },
+    {
+      "point": "test-only explicit manifest wait barrier, original default bus restored",
+      "suite_sha256": "d3b9828bfc3d65a4e0e3cc7ee446c68d2e459877b541ce7f0d09e4438f9ff45f",
+      "result": "GL PASS 223; 0 engine/script errors and 0 ObjectDB warnings; final production unchanged"
+    }
+  ],
+  "import_side_effect": {
+    "path": "godot/default_bus_layout.tres",
+    "description": "Godot editor reserialized uid/default fields/order with unchanged audio semantics; parent restored original HEAD bytes after combo",
+    "final_sha256": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+    "diff_evidence": "default_bus_import_side_effect.patch",
+    "claim": "Do not state entire repository bytes stayed unchanged; only explicit frozen source set was checked throughout"
+  },
+  "review": {
+    "report_sha256": "00d6cf5bf84ea812d1d2e229d0facafdce2639f7c3f795e22c2b519954de7ba8",
+    "open_P0_P1_P2": 0,
+    "boundary": "Read-only source review; final test-only wait barrier separately re-executed successfully."
+  },
+  "not_run": [
+    "Full default 101-suite CI",
+    "Natural damage-enabled six-region playthrough",
+    "New visual screenshots/pixel presentation audit",
+    "Long-duration memory stability",
+    "Strict per-frame 2ms proof"
+  ],
+  "publication": "Formal dependency PR targeting codex/w00-catalog-modern-integration (#95); no PR merge performed.",
+  "default_suite_count": 101,
+  "workflow": {
+    "file": ".github/workflows/world-catalog-preparation.yml",
+    "sha256": "9a1b52d1e6ba53678a2919214a72c366fd6c41390db8bd19848fa39cad31a1f3",
+    "focused_suite_count": 8,
+    "exact_head_checkout": true
+  },
+  "planner_count_boundary": "1219 is the actual dynamic check count for this run. Existing budget-sensitive zero-actor loop counts each iteration; script and assertions were unchanged, no count-based completion claim.",
+  "legacy_performance_open": "Historical local 76-landing 180-second performance gate remains OPEN."
+}

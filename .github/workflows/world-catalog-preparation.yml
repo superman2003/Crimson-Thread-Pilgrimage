@@ -1,10 +1,12 @@
-name: World catalog preparation
+name: World catalog and startup preparation
 
 on:
   pull_request:
     paths:
       - 'godot/scripts/world_region_loader.gd'
       - 'godot/scripts/world_catalog_background_validation.gd'
+      - 'godot/scripts/world_startup_config_background_validation.gd'
+      - 'godot/scripts/world_config_validator.gd'
       - 'godot/scripts/world_config_read_job.gd'
       - 'godot/scripts/world_routes.gd'
       - 'godot/scripts/main_level.gd'
@@ -54,11 +56,12 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
             --timeout 600 --log-dir "$RUNNER_TEMP/world-catalog-preparation-logs/import"
-      - name: Validate catalog leases and modern host integration
+      - name: Validate catalog and startup leases with the modern host
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
-            --suite world_catalog_background --suite world_prepare_budget --suite world_startup_budget \
+            --suite world_catalog_background --suite world_startup_config_background \
+            --suite world_prepare_budget --suite world_startup_budget \
             --suite world_host --suite save_product --suite world_route_manifest_integration \
             --suite world_gameplay_plan \
             --log-dir "$RUNNER_TEMP/world-catalog-preparation-logs"

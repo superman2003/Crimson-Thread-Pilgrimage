@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Release gates must fail closed even when the engine returns zero."""
+import fnmatch
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -270,6 +272,31 @@ class ReleaseBuilderTests(unittest.TestCase):
                 with self.assertRaises(SystemExit) as error:
                     release.main()
                 self.assertEqual(2, error.exception.code)
+
+
+class ReleaseWorkflowTests(unittest.TestCase):
+    def branches(self, event):
+        workflow = (Path(__file__).resolve().parents[1] /
+                    '.github/workflows/release-candidate.yml').read_text(encoding='utf-8')
+        section = workflow.split(f'  {event}:\n', 1)[1].split('\n  push:', 1)[0].split('\n\n', 1)[0]
+        # Branch filters are kept inline; tolerate explanatory comments above them.
+        match = re.search(r'branches: \[([^\]]+)\]', section)
+        self.assertIsNotNone(match)
+        return [value.strip().strip("'\"") for value in match.group(1).split(',')]
+
+    def test_pull_requests_cover_main_and_stacked_upgrade_bases(self):
+        patterns = self.branches('pull_request')
+        for branch in ('main', 'codex/w00-catalog-modern-integration',
+                       'codex/w00-startup-config-modern-integration',
+                       'codex/w00-private-save-modern-integration'):
+            with self.subTest(branch=branch):
+                self.assertTrue(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
+        for branch in ('feature/unrelated', 'codex/w00-catalog-experiment', 'release'):
+            with self.subTest(branch=branch):
+                self.assertFalse(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
+
+    def test_push_filter_remains_main_only(self):
+        self.assertEqual(self.branches('push'), ['main'])
 
 
 if __name__ == '__main__':

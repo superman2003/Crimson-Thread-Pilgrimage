@@ -1,0 +1,69 @@
+{
+  "previous_head": "568a25f443482e14e4342f07e8b83bc7d2b28966",
+  "base_pr95": "2bf90970ee3c4fb13287f4034ccdc35fbbb0d089",
+  "main": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+  "source_proof": {
+    "godot/scripts/world_region_loader.gd": {
+      "source": "HEAD",
+      "identical": true,
+      "sha256": "014de713cbc8a3d9cc0b85ff81a7e5f0baf61d19b4335067939912ddb9a9036f"
+    },
+    "godot/scripts/world_config_read_job.gd": {
+      "source": "HEAD",
+      "identical": true,
+      "sha256": "c67bc54b48d6124ae914ce0ddb2197efae2ef0d2531d6d27f66c009b078b5082"
+    },
+    "godot/scripts/world_config_validator.gd": {
+      "source": "HEAD",
+      "identical": true,
+      "sha256": "ec4d0b76c0d77b79d542ef6bfae9e1a931d107a64ecf42d4e0f7e02380d4c951"
+    },
+    "godot/scripts/world_startup_config_background_validation.gd": {
+      "source": "HEAD",
+      "identical": true,
+      "sha256": "6f9e23e82a01316088cbbcdf4e4d32d52f8746815374a061da0964705de93cec"
+    },
+    "godot/scripts/main_level.gd": {
+      "source": "origin/main",
+      "identical": true,
+      "sha256": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99"
+    },
+    "godot/scripts/player_controller.gd": {
+      "source": "origin/main",
+      "identical": true,
+      "sha256": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058"
+    }
+  },
+  "default_suites": 108,
+  "static_tests": {
+    "runner": 29,
+    "workflow_integrity": 5,
+    "release": 23,
+    "npm_campaign": "same JS/data as newly verified PR95 combination"
+  },
+  "local_new_combination_gl": {
+    "status": "PASS",
+    "engine": "4.6.1.stable.official.14d19694e",
+    "import_passes": 2,
+    "suites": [
+      "world_startup_config_background",
+      "world_startup_budget",
+      "player_layered_idle"
+    ],
+    "engine_errors": 0,
+    "objectdb_warnings": {
+      "world_startup_budget": 1
+    },
+    "warning_attribution": "OPEN"
+  },
+  "remote_new_head_ci": "PENDING",
+  "old_baseline_desktop": "568a on ccc0: Windows/Linux real first_start/resume/writeback PASS; does not substitute current combination",
+  "local_log_sha256": {
+    "console.log": "30ae1897f64580a2efa0d0d733f8ab3f9b900899d022d4aa2ef208f253cb7c95",
+    "regressions/world_startup_config_background.log": "897390e02e50b90eacaec9625b228204066d88ef042a7ea156279398644563a0",
+    "regressions/player_layered_idle.log": "d95a88ab90638b3104b681bd9735533b5c2b7590872989716a6a22d98c160cc0",
+    "regressions/world_startup_budget.log": "984f0ceafd2b03d1a092889acdaec3965e4d422da3fa61442abcc2b6c520009f",
+    "import/import-2.log": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+    "import/import-1.log": "32083c589df5d24bc40f1adfe127ebeb024fb48db3e87830dff0304a3d4fe080"
+  }
+}

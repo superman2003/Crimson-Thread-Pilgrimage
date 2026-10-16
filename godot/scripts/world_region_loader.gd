@@ -75,6 +75,8 @@ func request_startup_region(host: Node, previous_mode: int) -> RefCounted:
     transition_serial = token.serial
     startup_token = token
     phase = "startup"
+    last_transition["startup_requested_frame"] = Engine.get_process_frames()
+    last_transition["startup_requested_usec"] = Time.get_ticks_usec()
     _run_owned_startup(token, host, previous_mode)
     return token
 
@@ -84,8 +86,12 @@ func _run_owned_startup(token: RefCounted, host: Node, previous_mode: int) -> vo
     # only after that scene-tree operation has finished.
     var tree: SceneTree = host.get_tree()
     await _next_process_frame(tree)
-    if not token.cancelled and _alive(host) and host.get_tree() == tree:
-        await initialize_startup_region(host, previous_mode)
+    if _alive(host) and host.get_tree() == tree:
+        if token.cancelled:
+            last_error = "初始区域加载已取消。"
+            _show_startup_error(host)
+        else:
+            await initialize_startup_region(host, previous_mode)
     token.finished = true
     if startup_token == token:
         startup_token = null
@@ -121,8 +127,19 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         _show_startup_error(host)
         host.process_mode = restore_process_mode
         return false
-    var built := await _construct_budgeted(host, {}, false)
-    if ROUTES.cached_generation() != startup_route_generation:
+    var prepared: Dictionary = await _prepare_startup_config(host, tree)
+    if not _alive(host) or host.get_tree() != tree:
+        _clear_loading_canvas()
+        phase = "idle"
+        return false
+    if prepared.is_empty():
+        if last_error.is_empty(): last_error = "初始区域读取或验证期间发生变化。"
+        _show_startup_error(host)
+        host.process_mode = restore_process_mode
+        return false
+    var startup_config_lease: Dictionary = last_transition.startup_config_lease
+    var built := await _construct_budgeted(host, prepared, false)
+    if not _startup_config_context_valid(host, tree, startup_config_lease) or ROUTES.cached_generation() != startup_route_generation:
         built = false
         last_error = "区域路线清单在初始构建期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
@@ -134,7 +151,7 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         return false
     if built:
         built = await _finish_budgeted(host, false)
-    if ROUTES.cached_generation() != startup_route_generation:
+    if not _startup_config_context_valid(host, tree, startup_config_lease) or ROUTES.cached_generation() != startup_route_generation:
         built = false
         last_error = "区域路线清单在初始交接期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
@@ -157,6 +174,124 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         host.process_mode = restore_process_mode
     phase = "idle" if built else "startup_error"
     return built
+
+
+## Startup has no travel entry until the route overlay is complete. The shared
+## validator resolves the authored default then, or checks the saved override.
+func _startup_config_context_valid(host: Variant, tree: SceneTree, lease: Dictionary) -> bool:
+    return _alive(host) and (startup_token == null or not startup_token.cancelled) and host.get_tree() == tree and generation == int(lease.generation) and ROUTES.cached_generation() == int(lease.route_generation) and int(lease.route_generation) >= 0 and String(host.config_path) == String(lease.path) and host.entry_spawn_override_enabled == bool(lease.entry_enabled) and host.entry_spawn_override == lease.entry and (not lease.has("stamp") or FileAccess.get_modified_time(String(lease.path)) == int(lease.stamp))
+
+func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
+    last_error = ""
+    var wall_started := Time.get_ticks_usec()
+    var lease := {"path": String(host.config_path), "generation": generation, "route_generation": ROUTES.cached_generation(),
+        "entry_enabled": bool(host.entry_spawn_override_enabled), "entry": host.entry_spawn_override}
+    last_transition["startup_config_lease"] = lease
+    last_transition["startup_config_wait_frames"] = 0
+    last_transition["startup_config_context_copy_batches"] = 0
+    last_transition["startup_config_context_overlap_frames"] = 0
+    last_transition["startup_config_context_copy_work_usec"] = 0
+    last_transition["startup_config_context_copy_max_operations"] = 0
+    last_transition["startup_config_context_copy_max_batch_usec"] = 0
+    var ticket := 0
+    while ticket == 0:
+        if not _startup_config_context_valid(host, tree, lease): return {}
+        if config_read_job.closed:
+            last_error = "初始区域后台读取服务已关闭。"
+            return {}
+        # A completed but unclaimed read still belongs to its accepted owner.
+        # Match the modern manifest/catalog admission path without stealing it.
+        if not config_read_job.busy() and not config_read_job.has_pending_ticket():
+            ticket = config_read_job.request(String(lease.path))
+            if ticket == 0:
+                last_error = "无法启动初始区域后台读取。"
+                return {}
+            # The read owns only its JSON data. Copy the fixed route context
+            # while it runs instead of spending a separate idle read frame.
+            break
+        await _next_process_frame(tree)
+        last_transition.startup_config_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+    # The record-level validator contains hundreds of scalar checks. Running
+    # eight on each main-thread frame adds over 120 frames before any build.
+    # Give the sole reader a detached route context instead: it runs exactly
+    # the same validator/overlay over private data without touching live caches.
+    var region_id := String(lease.path).get_file().get_basename()
+    var context := {"generation": int(lease.route_generation), "region_id": region_id,
+        "known_region": COORDINATES.has_region(region_id), "path": ROUTES.cached_config_path(region_id),
+        "world_size": COORDINATES.region_bounds(region_id).size,
+        "bundle": ROUTES.cached_overlay_bundle(region_id)}
+    var context_copy := VARIANT_COPY_JOB.new()
+    context_copy.begin(context)
+    last_transition["startup_config_context_copy_edges"] = 0
+    last_transition["startup_config_context_max_step_edges"] = 0
+    var validator_wall_started := Time.get_ticks_usec()
+    while not context_copy.done:
+        var started := Time.get_ticks_usec()
+        var operations := 0
+        while not context_copy.done and operations < MAX_OPERATIONS_PER_FRAME:
+            if operations > 0 and Time.get_ticks_usec() - started >= FRAME_BUDGET_USEC: break
+            var edges: int = context_copy.step(512)
+            last_transition.startup_config_context_copy_edges += edges
+            last_transition.startup_config_context_max_step_edges = maxi(last_transition.startup_config_context_max_step_edges, edges)
+            operations += 1
+        var work_usec := Time.get_ticks_usec() - started
+        last_transition.startup_config_context_copy_batches += 1
+        last_transition.startup_config_context_copy_work_usec += work_usec
+        last_transition.startup_config_context_copy_max_operations = maxi(last_transition.startup_config_context_copy_max_operations, operations)
+        last_transition.startup_config_context_copy_max_batch_usec = maxi(last_transition.startup_config_context_copy_max_batch_usec, work_usec)
+        last_transition["startup_config_validator_operation"] = "route_context_copy"
+        # This final-copy yield is also the read's cancellation window.
+        # Keep its accepted ticket until both the read and private copy finish.
+        await _next_process_frame(tree)
+        last_transition.startup_config_context_overlap_frames += 1
+        last_transition.startup_config_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+    while config_read_job.busy():
+        await _next_process_frame(tree)
+        last_transition.startup_config_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+    var read: Dictionary = config_read_job.take(ticket)
+    last_error = String(read.get("error", "初始区域读取票据已失效。"))
+    if not last_error.is_empty(): return {}
+    lease["stamp"] = int(read.get("stamp", -1))
+    last_transition["startup_config_worker_is_main"] = read.get("worker_is_main", true)
+    last_transition["startup_config_worker_usec"] = read.get("worker_usec", 0)
+    last_transition["startup_config_bytes"] = read.get("bytes", 0)
+    if not _startup_config_context_valid(host, tree, lease): return {}
+    # No other task can acquire the reader between take and this admission:
+    # phase=startup excludes background work, and no await follows the guard.
+    ticket = config_read_job.request_validation(read.get("raw"), String(lease.path),
+        lease.entry if lease.entry_enabled else Vector2.ZERO, not lease.entry_enabled, context_copy.result)
+    if ticket == 0:
+        last_error = "无法启动初始区域后台校验。"
+        return {}
+    last_transition["startup_config_validation_wait_frames"] = 0
+    while true:
+        # Always leave a cancellation window, even for an already-finished job.
+        await _next_process_frame(tree)
+        last_transition.startup_config_validation_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+        if not config_read_job.busy(): break
+    var validated: Dictionary = config_read_job.take(ticket)
+    last_transition["startup_config_validation_worker_is_main"] = validated.get("worker_is_main", true)
+    last_transition["startup_config_validation_worker_usec"] = validated.get("worker_usec", 0)
+    last_transition["startup_config_validation_steps"] = validated.get("validator_steps", 0)
+    last_transition["startup_config_validator_operation"] = validated.get("validator_operation", "")
+    last_transition["startup_config_validator_wall_usec"] = Time.get_ticks_usec() - validator_wall_started
+    last_transition["startup_config_wall_usec"] = Time.get_ticks_usec() - wall_started
+    last_error = String(validated.get("error", "初始区域校验票据已失效。"))
+    return validated.get("prepared", {}) if last_error.is_empty() else {}
+
+
 
 func _show_startup_error(host: Node) -> void:
     phase = "startup_error"
@@ -190,6 +325,9 @@ func _show_startup_error(host: Node) -> void:
 func _manifest_refresh_cancelled(background: bool) -> bool:
     if background:
         return phase != "idle"
+    if phase == "startup" and startup_token != null and startup_token.cancelled:
+        last_error = "初始区域加载已取消。"
+        return true
     if phase != "preflight":
         return false
     _cancel_input()
@@ -634,7 +772,57 @@ func _disconnect_startup_frames() -> void:
         _startup_frame_tree.process_frame.disconnect(_wake_startup_frame)
     _startup_frame_tree = null
 
+## A scalar-only exit snapshot keeps verbose release failures diagnosable even
+## when the frame deadline stops startup before publication. Never emit the
+## lease, config, save, paths, or token payload from last_transition.
+func _startup_exit_snapshot() -> Dictionary:
+    var stage := "manifest"
+    if last_transition.has("startup_config_context_copy_batches"): stage = "config_read_context"
+    if last_transition.has("startup_config_validation_wait_frames"): stage = "config_validation"
+    if last_transition.has("prepare_jobs"): stage = "prepare"
+    if last_transition.has("jobs"): stage = "build"
+    if last_transition.has("commit_jobs"): stage = "finish"
+    if not active_region_id.is_empty() and startup_token == null: stage = "published"
+    var snapshot := {
+        "phase": phase if phase in ["idle", "startup", "startup_error"] else "other",
+        "stage": stage, "generation": generation,
+        "elapsed_frames": maxi(0, Engine.get_process_frames() - int(last_transition.get("startup_requested_frame", Engine.get_process_frames()))),
+        "elapsed_usec": maxi(0, Time.get_ticks_usec() - int(last_transition.get("startup_requested_usec", Time.get_ticks_usec()))),
+        "startup_pending": startup_token != null,
+        "startup_cancelled": startup_token != null and startup_token.cancelled,
+        "shutting_down": shutting_down, "cancel_requested": cancel_requested,
+        "reader_busy": config_read_job.busy(),
+        "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed}
+    for key in ["route_manifest_copy_batches", "route_manifest_worker_usec", "route_manifest_copy_wall_usec",
+            "startup_config_wait_frames", "startup_config_worker_usec", "startup_config_context_copy_batches",
+            "startup_config_context_overlap_frames", "startup_config_context_copy_work_usec",
+            "startup_config_validation_wait_frames", "startup_config_validation_worker_usec", "startup_config_wall_usec",
+            "prepare_cursor", "prepare_jobs", "prepare_batches", "prepare_work_usec", "prepare_wall_usec",
+            "jobs", "build_cursor", "build_batches", "commit_cursor", "commit_jobs", "commit_batches",
+            "commit_work_usec", "commit_wall_usec", "max_build_operations", "max_commit_operations", "max_batch_usec"]:
+        var value: Variant = last_transition.get(key, 0)
+        snapshot[key] = value if value is int or value is float else -1
+    snapshot["catalog_read_count"] = 0
+    for key in ["wait_frames", "read_overlap_frames", "worker_usec", "merge_frame_batches"]:
+        snapshot["catalog_" + key] = 0
+    var reads: Variant = last_transition.get("catalog_reads", [])
+    if reads is Array:
+        for read in reads:
+            if not read is Dictionary: continue
+            snapshot.catalog_read_count += 1
+            for key in ["wait_frames", "read_overlap_frames", "worker_usec", "merge_frame_batches"]:
+                var value: Variant = read.get(key, 0)
+                if value is int or value is float: snapshot["catalog_" + key] += value
+    return snapshot
+
+func _write_startup_exit_snapshot(snapshot: Dictionary) -> void:
+    print("WORLD_STARTUP_EXIT " + JSON.stringify(snapshot))
+
 func shutdown() -> void:
+    # Observe the live owner before cancellation/join/clear. The existing
+    # shutdown latch also makes repeated teardown emit at most once.
+    if not shutting_down and OS.is_stdout_verbose() and last_transition.has("startup_requested_frame"):
+        _write_startup_exit_snapshot(_startup_exit_snapshot())
     shutting_down = true
     cancel_requested = true
     if transition_token != null:
@@ -724,24 +912,42 @@ func _evict_budgeted(host: Node) -> bool:
 ## Sequential cold-catalog reads share the loader's single ticket service.
 ## Parsed region trees are worker-owned; only catalog entries survive handoff.
 func _catalog_context_valid(host: Variant, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
-    return _alive(host) and host.get_tree() == tree and generation == expected_generation and route_generation >= 0 and ROUTES.cached_generation() == route_generation and (not cancellable or not cancel_requested)
+    return _alive(host) and (phase != "startup" or not last_transition.has("startup_config_lease") or _startup_config_context_valid(host, tree, last_transition.startup_config_lease)) and host.get_tree() == tree and generation == expected_generation and route_generation >= 0 and ROUTES.cached_generation() == route_generation and (not cancellable or not cancel_requested)
 
-func _discard_catalog_staging(host: Variant) -> void:
+func _discard_catalog_lookahead(read_ahead: Dictionary) -> void:
+    if not read_ahead.is_empty():
+        config_read_job.discard(int(read_ahead.ticket))
+        read_ahead.clear()
+
+func _discard_catalog_staging(host: Variant, read_ahead: Dictionary = {}) -> void:
+    _discard_catalog_lookahead(read_ahead)
     if is_instance_valid(host):
         host.world_catalog_prepare_staging = {}
 
-func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, source_path: String = "") -> bool:
+func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, source_path: String = "", read_ahead: Dictionary = {}, next_region_id: String = "") -> bool:
     var path := source_path if not source_path.is_empty() else "res://data/%s.json" % region_id
     var wall_started := Time.get_ticks_usec()
     var wait_frames := 0
     var ticket := 0
+    var overlap_frames := 0
+    if not read_ahead.is_empty():
+        # Only the adjacent catalog job may claim this construct-owned ticket.
+        # Its predecessor must have crossed a real merge cancellation window.
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or String(read_ahead.path) != path or String(read_ahead.region_id) != region_id or int(read_ahead.host_id) != host.get_instance_id() or int(read_ahead.tree_id) != tree.get_instance_id() or int(read_ahead.generation) != expected_generation or int(read_ahead.route_generation) != route_generation or int(read_ahead.yield_frames) < 1:
+            last_error = "物品目录预读归属已失效。"
+            _discard_catalog_staging(host, read_ahead)
+            return false
+        ticket = int(read_ahead.ticket)
+        overlap_frames = int(read_ahead.yield_frames)
+        wait_frames = overlap_frames
+        read_ahead.clear()
     while ticket == 0:
         if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
-            _discard_catalog_staging(host)
+            _discard_catalog_staging(host, read_ahead)
             return false
         if config_read_job.closed:
             last_error = "物品目录后台读取服务已关闭。"
-            _discard_catalog_staging(host)
+            _discard_catalog_staging(host, read_ahead)
             return false
         # A completed ticket still belongs to its current owner. Wait for
         # take/discard just as the modern manifest path does; never steal it.
@@ -749,7 +955,7 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
             ticket = config_read_job.request(path)
             if ticket == 0:
                 last_error = "无法启动物品目录后台读取。"
-                _discard_catalog_staging(host)
+                _discard_catalog_staging(host, read_ahead)
                 return false
         # Even a tiny completed read must offer a cancellation window.
         await _next_process_frame(tree)
@@ -757,7 +963,7 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
         _cancel_input()
         if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
             config_read_job.discard(ticket)
-            _discard_catalog_staging(host)
+            _discard_catalog_staging(host, read_ahead)
             return false
     while config_read_job.busy():
         await _next_process_frame(tree)
@@ -765,19 +971,19 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
         _cancel_input()
         if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
             config_read_job.discard(ticket)
-            _discard_catalog_staging(host)
+            _discard_catalog_staging(host, read_ahead)
             return false
     var read: Dictionary = config_read_job.take(ticket)
     var raw: Variant = read.get("raw")
     if not String(read.get("error", "物品目录读取票据已失效。")).is_empty() or not raw is Dictionary:
         last_error = String(read.get("error", "物品目录读取票据已失效。"))
         if last_error.is_empty(): last_error = "物品目录记录无法读取。"
-        _discard_catalog_staging(host)
+        _discard_catalog_staging(host, read_ahead)
         return false
     var stamp := int(read.get("stamp", -1))
     var record := {"region_id": region_id, "path": path, "stamp": stamp, "bytes": read.get("bytes", 0),
         "worker_is_main": read.get("worker_is_main", true), "worker_usec": read.get("worker_usec", 0),
-        "generation": expected_generation, "route_generation": route_generation, "merged_entries": 0, "merge_work_usec": 0, "max_merge_step_usec": 0, "merge_batches": 0, "max_merge_edges": 0, "wait_frames": wait_frames, "wall_usec": 0}
+        "generation": expected_generation, "route_generation": route_generation, "merged_entries": 0, "merge_work_usec": 0, "max_merge_step_usec": 0, "merge_batches": 0, "max_merge_edges": 0, "wait_frames": wait_frames, "read_overlap_frames": overlap_frames, "wall_usec": 0}
     var reads: Array = last_transition.get("catalog_reads", [])
     reads.append(record)
     last_transition["catalog_reads"] = reads
@@ -785,8 +991,25 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
     var catalog: Variant = inventory.get("catalog", {}) if inventory is Dictionary else null
     if not catalog is Dictionary:
         last_error = "物品目录格式无效。"
-        _discard_catalog_staging(host)
+        _discard_catalog_staging(host, read_ahead)
         return false
+    if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
+        last_error = "物品目录在预读交接前发生变化。"
+        _discard_catalog_staging(host, read_ahead)
+        return false
+    var merge_batch_started := Time.get_ticks_usec()
+    if not next_region_id.is_empty():
+        # The current result has been taken; the sole reader is free. Keep the
+        # next raw result private while this source merges in authored order.
+        var next_path := "res://data/%s.json" % next_region_id
+        var next_ticket: int = config_read_job.request(next_path)
+        if next_ticket == 0:
+            last_error = "无法启动下一物品目录后台读取。"
+            _discard_catalog_staging(host, read_ahead)
+            return false
+        read_ahead.merge({"ticket": next_ticket, "path": next_path, "region_id": next_region_id,
+            "host_id": host.get_instance_id(), "tree_id": tree.get_instance_id(),
+            "generation": expected_generation, "route_generation": route_generation, "yield_frames": 0})
     # Avoid cloning the whole region. Region and route dictionaries already
     # have private ownership; route entries overwrite local entries, then the
     # first route in authored order wins the global key.
@@ -797,13 +1020,14 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
     record["merge_frame_batches"] = 0
     record["max_merge_operations"] = 0
     while source_index < sources.size():
-        var frame_started := Time.get_ticks_usec()
+        # Include next-thread admission in this first merge frame's budget.
+        var frame_started := merge_batch_started
         var operations := 0
         while source_index < sources.size() and operations < MAX_OPERATIONS_PER_FRAME:
             if operations > 0 and Time.get_ticks_usec() - frame_started >= FRAME_BUDGET_USEC: break
             if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
                 last_error = "物品目录在交接期间发生变化。"
-                _discard_catalog_staging(host)
+                _discard_catalog_staging(host, read_ahead)
                 return false
             if cursor >= keys.size():
                 source_index += 1
@@ -832,9 +1056,11 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
         # Still yield after the last chunk so cancellation/stamp changes cannot
         # publish populated staging without their normal observation window.
         await _next_process_frame(tree)
+        if not read_ahead.is_empty(): read_ahead.yield_frames += 1
         _cancel_input()
+        merge_batch_started = Time.get_ticks_usec()
     if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
-        _discard_catalog_staging(host)
+        _discard_catalog_staging(host, read_ahead)
         return false
     record.wall_usec = Time.get_ticks_usec() - wall_started
     return true
@@ -846,6 +1072,9 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     var prepare_generation := generation
     var prepare_route_generation := ROUTES.cached_generation()
     last_transition["catalog_reads"] = []
+    # One optional next-read ticket is owned by this invocation, never a
+    # shared cache or a second reader. Every failure path drains its ownership.
+    var catalog_read_ahead := {}
     var prepare_jobs: Array = host._region_prepare_jobs(target)
     last_transition["prepare_plan_usec"] = Time.get_ticks_usec() - prepare_wall_started
     var prepare_role := "target" if cancellable else "rollback"
@@ -862,7 +1091,7 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     last_transition["prepare_operation_usec"] = {}
     while prepare_cursor < prepare_jobs.size():
         if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
-            _discard_catalog_staging(host)
+            _discard_catalog_staging(host, catalog_read_ahead)
             _finalize_prepare_metrics(prepare_role, prepare_wall_started)
             return false
         var prepare_batch_started := Time.get_ticks_usec()
@@ -881,7 +1110,13 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             var job_started := Time.get_ticks_usec()
             var prepare_result: Variant
             if prepare_method == "_prepare_world_catalog_region":
-                if not await _prepare_catalog_region_async(host, String(prepare_args[0]), prepare_args[1], prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+                var next_region_id := ""
+                if prepare_cursor + 1 < prepare_jobs.size():
+                    var next_job: Dictionary = prepare_jobs[prepare_cursor + 1]
+                    if String(next_job.get("method", "")) == "_prepare_world_catalog_region":
+                        next_region_id = String(next_job.args[0])
+                if not await _prepare_catalog_region_async(host, String(prepare_args[0]), prepare_args[1], prepare_tree, prepare_generation, prepare_route_generation, cancellable, "", catalog_read_ahead, next_region_id):
+                    _discard_catalog_staging(host, catalog_read_ahead)
                     _finalize_prepare_metrics(prepare_role, prepare_wall_started)
                     return false
                 # The final merge already yielded and checked the lease.
@@ -892,14 +1127,14 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
                 job_started = prepare_batch_started
             else:
                 if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
-                    _discard_catalog_staging(host)
+                    _discard_catalog_staging(host, catalog_read_ahead)
                     _finalize_prepare_metrics(prepare_role, prepare_wall_started)
                     return false
                 if prepare_method == "_commit_world_catalog_prepare":
                     for read in last_transition.get("catalog_reads", []):
                         if FileAccess.get_modified_time(String(read.path)) != int(read.stamp):
                             last_error = "物品目录在发布前发生变化。"
-                            _discard_catalog_staging(host)
+                            _discard_catalog_staging(host, catalog_read_ahead)
                             _finalize_prepare_metrics(prepare_role, prepare_wall_started)
                             return false
                 prepare_result = host.callv(prepare_method, prepare_args)
@@ -943,16 +1178,23 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
         if not catalog_yielded:
             await _next_process_frame(prepare_tree)
         if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
-            _discard_catalog_staging(host)
+            _discard_catalog_staging(host, catalog_read_ahead)
             _finalize_prepare_metrics(prepare_role, prepare_wall_started)
             return false
         _cancel_input()
     _finalize_prepare_metrics(prepare_role, prepare_wall_started)
     if cancellable and cancel_requested:
+        _discard_catalog_staging(host, catalog_read_ahead)
+        return false
+    if not catalog_read_ahead.is_empty():
+        last_error = "物品目录预读未完成交接。"
+        _discard_catalog_staging(host, catalog_read_ahead)
         return false
     var jobs: Array = host._region_build_jobs()
     var cursor := 0
     last_transition["jobs"] = jobs.size()
+    last_transition["build_cursor"] = 0
+    last_transition["build_batches"] = 0
     while cursor < jobs.size():
         if cancellable and cancel_requested:
             return false
@@ -966,10 +1208,13 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             cursor += 1
             operations += 1
         _measure_batch(operations, started, "max_build_operations")
+        last_transition["build_cursor"] = cursor
+        last_transition["build_batches"] += 1
         if is_instance_valid(loading_label):
             loading_label.text = ("正在接通旧路… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
         await _next_process_frame(host.get_tree())
-        if not _alive(host):
+        if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+            _discard_catalog_staging(host, catalog_read_ahead)
             return false
         _cancel_input()
     return not (cancellable and cancel_requested)
@@ -994,11 +1239,13 @@ func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
 
 
 func _finish_budgeted(host: Node, cancellable: bool) -> bool:
+    var finish_tree := host.get_tree()
     var jobs: Array = host._region_finish_jobs()
     var cursor := 0
     var wall_started := Time.get_ticks_usec()
     last_transition["commit_jobs"] = jobs.size()
     while cursor < jobs.size():
+        if phase == "startup" and not _startup_config_context_valid(host, finish_tree, last_transition.startup_config_lease): return false
         if cancellable and cancel_requested:
             return false
         var started := Time.get_ticks_usec()
@@ -1031,6 +1278,7 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
         await _next_process_frame(host.get_tree())
         if not _alive(host):
             return false
+        if phase == "startup" and not _startup_config_context_valid(host, finish_tree, last_transition.startup_config_lease): return false
         _cancel_input()
     last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
     return not (cancellable and cancel_requested)
