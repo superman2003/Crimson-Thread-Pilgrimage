@@ -1,5 +1,13 @@
 # U04: modern personal map pins integration result
 
+## 2026-10-16：修复真实地图刷新时的键盘/手柄图钉菜单
+
+独立审查发现旧 `2a6fc492` 在每帧重画地图时无条件 clear OptionButton，丢失打开菜单中尚未确认的焦点；原图钉夹具暂停 Main 并直接 select，因此未覆盖。现仅当完整 ID、标签或顺序改变时重建列表；未变化时保留 PopupMenu 自己的未提交焦点。实际知识丢失/恢复、同数量换序/类型标签变化仍实时重建，不改变图钉存档或删除事务。
+
+显式 Godot 4.6.1、真实 llvmpipe GL、原180秒门禁：原127项全部保留，新增19项，共146项通过，0 engine ERROR / ObjectDB warning。新测试恢复 Main 自然 `_process`，通过真实 InputEvent 键盘和主手柄打开菜单、两次向下导航跨帧、确认并删除；marker实例随自然帧变化证明真的发生地图刷新。相同最终夹具配旧精确runtime在34.98秒准确失败10项菜单行为，固定runtime已恢复并核hash。早期夹具误用device5导致五项手柄失败也保留，最终改为项目真实UI绑定device0，没有降低断言。
+
+本地修复commit见 `artifacts/map_pin_popup_focus/verification.json`。runtime SHA-256 `f22aad68529278a1b6320ea91266ccc3574ab5c2e82feffad135db3945de0a3c`；validation `f77ce11f2137ed2dc4fc26a5dba4eaee911f5f158c4c78b87b972de73d5a8490`。旧head远端全绿不能代表本修复；新head完整/桌面/十套地图组合CI待运行。本轮未改runner、workflow、Main或任何素材，没有实体手柄触感验收。
+
 ## 2026-10-16：#98 串接最新 #95→#96→#97 依赖链（当前本地结论）
 
 原 #98 `9ceabd98` 先合准确 #97 `bdb8a778`，生成实测检查点 `5ddb8871`（tree `8d95300d`），再合最终 #97 `effc0d80`（tree `5a7761bf`；#96 `8ce445a7` → #95 `ae9e249b` → main `2d60b550`）。初轮五处文档/runner、末轮三处台账冲突均保留双方并集。默认 **110 套** = 原 104 与上游 109 的精确并集；22 个 workflow、全部原完成标记、180 秒上限、绘制模式与独立 runtime/visual CI 保留。原十套 checkpoint/map workflow 原字节保留，其余均与最终 #97 一致。

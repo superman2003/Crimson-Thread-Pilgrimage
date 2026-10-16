@@ -90,17 +90,8 @@ static func refresh(level: Node) -> void:
     var configs := configurations(level)
     var known := PINS.visible(level.story_flags, configs)
     var list: OptionButton = toolbar.get_node("PinList")
-    var selected := list.get_selected_id() if list.item_count > 0 else -1
-    list.clear()
-    list.add_item("图钉 %d / %d · 请选择" % [known.size(), PINS.LIMIT], -1)
-    # OptionButton replaces negative explicit IDs with the index. Reserve zero
-    # for the prompt and keep positive stored pin IDs unambiguous.
-    list.set_item_id(0, 0)
+    _refresh_list(list, known, configs)
     for record in known:
-        var room: Dictionary = PINS.owner(configs[record.region_id], Vector2(record.position[0], record.position[1]))
-        var title := String(configs[record.region_id].get("chapter_name", record.region_id)) + " · " + String(room.get("name", room.id))
-        list.add_item(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + " · " + title, int(record.id))
-        if int(record.id) == selected: list.select(list.item_count - 1)
         if not level.world_map_view and record.region_id != String(level.config.id): continue
         var marker := Label.new()
         marker.name = "PlayerMapPin_" + str(record.id)
@@ -117,6 +108,30 @@ static func refresh(level: Node) -> void:
     toolbar.get_node("PinDelete").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     level.map_text.text += "    右键标记 · 上方按钮支持手柄"
+
+## Main redraws the map every frame. Clearing an unchanged OptionButton also
+## clears its open PopupMenu's uncommitted keyboard/controller focus.
+static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs: Dictionary) -> void:
+    var labels: Array[String] = ["图钉 %d / %d · 请选择" % [known.size(), PINS.LIMIT]]
+    # Reserve zero for the prompt; stored pin IDs are always positive.
+    var ids: Array[int] = [0]
+    for record in known:
+        var room: Dictionary = PINS.owner(configs[record.region_id], Vector2(record.position[0], record.position[1]))
+        var title := String(configs[record.region_id].get("chapter_name", record.region_id)) + " · " + String(room.get("name", room.id))
+        labels.append(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + " · " + title)
+        ids.append(int(record.id))
+    var unchanged := list.item_count == ids.size()
+    if unchanged:
+        for index in ids.size():
+            if list.get_item_id(index) != ids[index] or list.get_item_text(index) != labels[index]:
+                unchanged = false
+                break
+    if unchanged: return
+    var selected := list.get_selected_id() if list.item_count > 0 else -1
+    list.clear()
+    for index in ids.size():
+        list.add_item(labels[index], ids[index])
+        if ids[index] == selected: list.select(index)
 
 static func project(level: Node, region: String, point: Vector2) -> Vector2:
     if level.world_map_view: return ATLAS.project(COORD.to_world(region, point), ATLAS.frame(level.map_draw_root.size))
