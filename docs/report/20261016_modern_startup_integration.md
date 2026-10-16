@@ -48,3 +48,9 @@ World首区/读档所需区域JSON的读取和解析使用唯一后台配置read
 ## 保留边界
 
 W00b2b仍部分完成：同步prepared-config深拷贝、最终metadata探针/复杂单项、硬2ms帧预算仍未解决；历史76落点本地180秒性能OPEN保留。没有以夹具证明伤害开启自然六区、共享物理洞口/邻区完整共同驻留或长期稳定。完整101套远端CI只按本次发布head再核验。此PR叠在#95，审查仅计算本批差量，不把#95尚未进main当作已合入。
+
+## 2026-10-16：补齐依赖分支的桌面发布候选检查
+
+#96 的 base 为 `codex/w00-catalog-modern-integration`，现有桌面工作流仅匹配目标 `main`，因此前述专项和完整回归的绿灯不能证明这个组合在 Windows 打包恢复通过。本次仅将该现有工作流的 `pull_request` base 匹配扩至 `codex/w00-*-modern-integration`，`push` 仍仅 `main`，权限、路径过滤、120 帧启动、恢复写回、ERROR 判定及所有时间限制不变。增加两条配置回归，`python tools/test_release_builder.py` 共 23 条通过。此增量不改任何生产 GDScript、素材或既有运行参数。
+
+继承 c6b0e74c 的同源本地结果：startup budget 与 startup config 223 检查两套严格 Godot 4.6.1 GL 均通过，总耗时 103.310 秒；源 hash 未变。局部 startup config 测试观测 259 帧/8.247 秒并非 120 帧打包启动证明，因此新 head 必须独立等待 Windows/Linux 实际打包 smoke，不以 #95 的通过替代，也不放宽 120 帧门禁。
