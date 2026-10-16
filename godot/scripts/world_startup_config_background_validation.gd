@@ -34,6 +34,17 @@ class FailedStartReader extends "res://scripts/world_config_read_job.gd":
         attempts += 1
         return 0
 
+class ExitDiagnosticsLoader extends "res://scripts/world_region_loader.gd":
+    var exit_snapshots: Array = []
+    var pre_shutdown_states: Array = []
+    func _write_startup_exit_snapshot(snapshot: Dictionary) -> void:
+        exit_snapshots.append(snapshot)
+        pre_shutdown_states.append({"phase": phase, "shutting_down": shutting_down,
+            "cancel_requested": cancel_requested, "reader_closed": config_read_job.closed,
+            "reader_pending": config_read_job.has_pending_ticket(),
+            "token_cancelled": startup_token != null and startup_token.cancelled})
+        super._write_startup_exit_snapshot(snapshot)
+
 class FaultReader extends "res://scripts/world_config_read_job.gd":
     var fault := ""
     func request_validation(raw: Variant, path: String, entry: Vector2, use_default_entry: bool, route_context: Dictionary) -> int:
@@ -55,6 +66,15 @@ func _initialize() -> void:
 
 func _run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
+    _startup_exit_diagnostics_contract()
+    if "--startup-exit-diagnostics-only" in OS.get_cmdline_user_args():
+        if failures.is_empty():
+            print("WORLD STARTUP EXIT DIAGNOSTICS PASS checks=%d verbose=%s" % [checks, OS.is_stdout_verbose()])
+            quit(0)
+        else:
+            for failure in failures: push_error(failure)
+            quit(1)
+        return
     await _new_game_and_resume()
     await _background_validation_oracle()
     _malformed_overlay_steps()
@@ -72,6 +92,45 @@ func _run() -> void:
     else:
         for failure in failures: push_error(failure)
         quit(1)
+
+func _startup_exit_diagnostics_contract() -> void:
+    for complete in [false, true]:
+        var loader := ExitDiagnosticsLoader.new()
+        loader.phase = "idle" if complete else "startup"
+        loader.active_region_id = "fixture" if complete else ""
+        var token = preload("res://scripts/world_transition_token.gd").new()
+        if not complete:
+            loader.startup_token = token
+            loader.config_read_job._accepted = 7
+        loader.last_transition = {"startup_requested_frame": Engine.get_process_frames(),
+            "startup_requested_usec": Time.get_ticks_usec(), "jobs": 42, "build_cursor": 17,
+            "build_batches": 3, "max_build_operations": 8, "prepare_wall_usec": "SECRET_NUMBER_FIELD",
+            "catalog_reads": [{"wait_frames": 2, "read_overlap_frames": 1, "worker_usec": 42,
+                "merge_frame_batches": 3, "path": "SECRET_CATALOG_PATH"}],
+            "startup_config_lease": {"path": "SECRET_USER_PATH", "payload": "SECRET_SAVE_CONTENT"},
+            "untrusted_extra": "SECRET_TOKEN_PAYLOAD"}
+        var before := loader.last_transition.duplicate(true)
+        var snapshot: Dictionary = loader._startup_exit_snapshot()
+        _check(loader.last_transition == before and not loader.shutting_down and not loader.cancel_requested and not token.cancelled, "exit snapshot does not mutate metrics or cancellation state")
+        _check(loader.config_read_job.has_pending_ticket() == (not complete) and not loader.config_read_job.closed, "exit snapshot does not consume reader ownership")
+        _check(snapshot.stage == ("published" if complete else "build") and snapshot.startup_pending == (not complete), "exit snapshot distinguishes publication from unfinished build")
+        _check(snapshot.jobs == 42 and snapshot.build_cursor == 17 and snapshot.build_batches == 3 and snapshot.max_build_operations == 8, "exit snapshot retains numeric build diagnostics")
+        _check(snapshot.catalog_read_count == 1 and snapshot.catalog_wait_frames == 2 and snapshot.catalog_read_overlap_frames == 1 and snapshot.catalog_worker_usec == 42 and snapshot.catalog_merge_frame_batches == 3, "exit snapshot aggregates only numeric catalog diagnostics")
+        _check(snapshot.elapsed_frames >= 0 and snapshot.elapsed_usec >= 0, "exit snapshot records bounded scalar elapsed diagnostics")
+        _check(not JSON.stringify(snapshot).contains("SECRET") and not snapshot.has("startup_config_lease") and not snapshot.has("untrusted_extra") and snapshot.prepare_wall_usec == -1, "exit snapshot excludes save contents paths and private payloads")
+        loader.shutdown()
+        loader.shutdown()
+        _check(loader.exit_snapshots.size() == (1 if OS.is_stdout_verbose() else 0), "verbose shutdown emits once and quiet shutdown emits nothing")
+        _check(loader.last_transition == before, "shutdown logging leaves transition metrics unchanged")
+        _check(loader.config_read_job.closed and not loader.config_read_job.has_pending_ticket(), "diagnostic teardown still drains reader ownership")
+        if OS.is_stdout_verbose():
+            var emitted: Dictionary = loader.exit_snapshots[0]
+            var state: Dictionary = loader.pre_shutdown_states[0]
+            _check(not state.shutting_down and not state.cancel_requested and not state.reader_closed and not state.token_cancelled, "exit logging occurs before cancel join and clear")
+            _check(state.reader_pending == (not complete) and emitted.reader_pending == (not complete) and emitted.phase == ("idle" if complete else "startup"), "exit logging captures original owner and phase")
+    var unused := ExitDiagnosticsLoader.new()
+    unused.shutdown()
+    _check(unused.exit_snapshots.is_empty(), "non-startup loader does not emit startup diagnostics")
 
 func _new_game_and_resume() -> void:
     # Prime through the explicit synchronous oracle, then make production cold.
@@ -96,6 +155,7 @@ func _new_game_and_resume() -> void:
     _check(not metric.startup_config_validation_worker_is_main and metric.startup_config_validation_steps > 900 and metric.startup_config_validation_wait_frames >= 1, "complete scalar validation and route overlay run on the sole worker")
     _check(metric.startup_config_context_copy_batches >= 1 and metric.startup_config_context_copy_max_operations <= 8 and metric.startup_config_context_max_step_edges <= 512, "private route snapshot uses bounded main-thread copy operations")
     _check(metric.route_manifest_copy_max_operations <= 8, "manifest handoff preserves main-thread operation cap")
+    _check(metric.startup_config_context_overlap_frames == metric.startup_config_context_copy_batches and metric.startup_config_wait_frames >= metric.startup_config_context_overlap_frames, "private context copy shares owned read waits without double-counting serial frames")
     for catalog_read in metric.catalog_reads:
         _check(catalog_read.max_merge_operations <= 8 and catalog_read.max_merge_edges <= 64, "catalog source scheduling preserves both operation and chunk caps")
     _check(host.active_spawn == Vector2(expected.player_start[0], expected.player_start[1]), "new game uses authored final player_start")
@@ -470,7 +530,7 @@ func _early_startup_cancellation() -> void:
         await process_frame
 
 func _teardown_and_faults() -> void:
-    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "overlay_type", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel"]:
+    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "overlay_type", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel", "context_copy_path", "context_copy_entry", "context_copy_generation", "context_copy_route", "context_copy_cancel", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
         var host := ProbeWorld.new()
         host.world_mode = true
         host.world_resume = false
@@ -488,6 +548,22 @@ func _teardown_and_faults() -> void:
         var inject := func():
             var metric: Dictionary = loader.last_transition
             if injected.done: return
+            if fault.begins_with("context_copy_"):
+                if int(metric.get("startup_config_context_copy_batches", 0)) == 0: return
+                _check(reader.has_pending_ticket() and not metric.has("startup_config_worker_is_main"), fault + " reaches private copy while its read ticket remains unconsumed")
+                injected.done = true
+                match fault:
+                    "context_copy_path": host.config_path = ROUTES.cached_config_path("demo_ch01_moss_bell_court")
+                    "context_copy_entry": host.entry_spawn_override_enabled = not host.entry_spawn_override_enabled
+                    "context_copy_generation": loader.generation += 1
+                    "context_copy_route": ROUTES._cache_generation += 1
+                    "context_copy_cancel": loader.startup_token.cancel()
+                    "context_copy_detach": root.remove_child(host)
+                    "context_copy_free": host.free()
+                    "context_copy_shutdown": loader.shutdown()
+                if fault in ["context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
+                    _check(loader.startup_token == null and loader._startup_frame_tree == null and not reader.busy() and not reader.has_pending_ticket(), fault + " releases owned task and read synchronously before another frame")
+                return
             if fault.begins_with("validation_wait_"):
                 if not metric.has("startup_config_validation_wait_frames"): return
                 injected.done = true
@@ -537,7 +613,7 @@ func _teardown_and_faults() -> void:
         _check(injected.done, fault + " reaches its declared fault boundary")
         _check(not is_instance_valid(host) or not host.initial_region_ready, fault + " cannot publish region")
         _check(FileAccess.get_file_as_bytes(SAVE) == before_save, fault + " preserves existing save bytes")
-        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown"]:
+        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
             _check(loader.phase == "startup_error" and is_instance_valid(loader.loading_canvas) and loader.loading_canvas.get_node("StartupRetry") is Button, fault + " exposes retry recovery")
             if not fault.begins_with("post_"): _check(not is_instance_valid(host.player), fault + " fails before any region construction")
         if is_instance_valid(host):
