@@ -601,6 +601,8 @@ var world_catalog_prepare_staging: Dictionary = {}
 var world_write_error_shown := false
 ## Narrow failure seam for transaction validations; simulates the storage boundary failing after capture.
 var world_save_failure_injected_for_validation := false
+# Distinguish a settled blocked-save memory checkpoint from capture failure.
+var world_save_capture_ok := false
 var world_loading := true
 var initial_region_ready := false
 var build_system: RefCounted
@@ -1235,42 +1237,43 @@ func player_world_position() -> Vector2:
 
 
 func _save_world() -> bool:
+    world_save_capture_ok = false
     if not world_mode:
         return true
     if world_loading or world_state == null or player == null:
         return false
-    var previous_state: Dictionary = world_state.data.duplicate(true)
     var region_id := String(config.get("id", ""))
-    var captured := world_state.capture_region(region_id, {
+    var prepared: Dictionary = world_state.prepare_checkpoint(region_id, {
         "collected_ids": world_collected_ids, "opened_shortcuts": opened_shortcuts,
         "visited_rooms": visited_rooms, "boss_defeated": demo_complete,
         "boss_unlocked": boss_unlocked, "shortcut_open": shortcut_open,
         "bell_count": bell_count, "checkpoint": active_spawn,
-        "checkpoint_id": active_save_point_id})
-    captured = world_state.capture_global({
+        "checkpoint_id": active_save_point_id}, {
         "inventory_counts": inventory_counts, "currency": currency_count,
         "story_flags": story_flags, "current_region": region_id,
         "entry": active_spawn, "hp": player.hp, "energy": player.energy,
-        "build_state": build_system.serialize() if build_system != null else {}}) and captured
-    if not captured:
-        world_state.data = previous_state
+        "build_state": build_system.serialize() if build_system != null else {}})
+    if not prepared.ok:
         if not world_write_error_shown:
             world_write_error_shown = true
             _toast("归途记录暂未写入，当前旅途进度仍保留。")
         return false
+    world_save_capture_ok = true
+    var candidate: Dictionary = prepared.candidate
     # A blocked incompatible save still carries the live region/global snapshot
     # in memory for world travel, while withholding all disk writes.
     if world_save_blocked:
+        world_state.data = candidate
         if not world_write_error_shown:
             world_write_error_shown = true
             _toast("归途记录暂未写入，当前旅途进度仍保留。")
         return false
-    if world_save_failure_injected_for_validation or not world_state.write(world_save_path):
-        world_state.data = previous_state
+    if world_save_failure_injected_for_validation or not world_state.write_candidate(candidate, world_save_path):
         if not world_write_error_shown:
             world_write_error_shown = true
             _toast("归途记录暂未写入，当前旅途进度仍保留。")
         return false
+    world_state.data = candidate # transfer the fully persisted, privately owned tree.
     return true
 
 

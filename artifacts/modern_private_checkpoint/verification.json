@@ -1,0 +1,1102 @@
+{
+  "generated_utc": "2026-10-16T11:27:27.409982+00:00",
+  "status": "PASS",
+  "base": "1806e0cf98a12f1d2b7a2cf175803cfe42de0746",
+  "source_parent": "21d93993fdd8ada4e4163779dbf0cbdd2584506a",
+  "source_head": "3841ae1d9b7151c291fec11caa262c947dce942d",
+  "worker_commit": "c1838acafa4685a04c9aaf3bc369063536d6c373",
+  "observed_integration_head": "3e23b5e785e9a93d695db7c56f39e33f3d9aad4e",
+  "production_scope": [
+    "godot/scripts/world_state.gd",
+    "godot/scripts/main_level.gd"
+  ],
+  "worker_committed_files": [
+    "godot/scripts/world_state.gd",
+    "godot/scripts/world_save_candidate_validation.gd",
+    "godot/scripts/world_save_candidate_validation.gd.uid"
+  ],
+  "source_sha256": {
+    "godot/scripts/world_state.gd": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528",
+    "godot/scripts/world_save_candidate_validation.gd": "0c8edd25e36f0cb657da845e06b7681d6b0f6ed831654186dc97c513d7f529c6",
+    "godot/scripts/world_save_candidate_validation.gd.uid": "21ddcd51e06eb9dbafedb06ea83d1ec5796b1aa2e09da4d44e033d30f662750a",
+    "godot/scripts/main_level.gd": "d202e458f9db283c8926f7acac15b183abf8590ee099b35743cc90405664a860",
+    "godot/default_bus_layout.tres": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+    "tools/run_godot_regressions.py": "d90f78fed8edafbfdb63d7fc2a14dbed582a40a09301f8dcee57c8f9896a49e4",
+    "tools/godot_suite_success_markers.json": "9157bf315961248321f0047b0f29f1a5477ebcfbe8b6abf5e4a7d09f2de4b4e7",
+    "tools/test_regression_runner.py": "0c184053c4866b6e39d022ad07a971d6b64b3786b909825412ffa3c1c27332c1",
+    "tools/run_narrative_return_journey.py": "f27096104fd6e58f7156d1d9b7e14025536d91ef2aab3915a8d18957171d6463",
+    "tools/run_godot_import.py": "4d25baf5114a937c58d2931cb45e4fa25deffdb9f531b6e128d235b0f67e0150"
+  },
+  "old_assertion_preservation": {
+    "original_check_statement_lines": 47,
+    "all_original_statements_preserved_verbatim": true,
+    "old_run_checks_not_reused": 70,
+    "new_actual_candidate_checks": 103
+  },
+  "static_checks": [
+    {
+      "name": "npm test",
+      "status": "PASS",
+      "exit_code": 0,
+      "evidence": {
+        "file": "npm-test.log",
+        "sha256": "7c14e626bde5694a8544d538cf323c1702c5037c3ade0e1422c0eab96a189e38"
+      }
+    },
+    {
+      "name": "npm run test:campaign",
+      "status": "PASS",
+      "exit_code": 0,
+      "evidence": {
+        "file": "npm-campaign.log",
+        "sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "import",
+      "status": "PASS",
+      "elapsed_seconds": 216.2259538219987,
+      "exit_code": 0,
+      "source_unchanged": true,
+      "runtime_mode": "0o700",
+      "evidence": [
+        {
+          "file": "import-process.json",
+          "sha256": "bd910a98268161e8f744659e4e21ebf4f2e67befa59d4cd3978856911ad9dbc1"
+        },
+        {
+          "file": "import-runner.log",
+          "sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5"
+        }
+      ],
+      "engine_binary_name": "godot",
+      "recovery_mode": true,
+      "passes": [
+        {
+          "pass": 1,
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "engine_error_lines": [],
+          "evidence": {
+            "file": "initial-import/import-1.log",
+            "sha256": "086bf30588a39ea1907def644f824f5c5f6c7b9fe06ab2dffe51dcd1e1dbc556"
+          }
+        },
+        {
+          "pass": 2,
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "engine_error_lines": [],
+          "evidence": {
+            "file": "initial-import/import-2.log",
+            "sha256": "9572934ad4d57fbab2c09b2c82f3821584fba7ba71d7e1dec5055bc7fa531f3f"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "candidate",
+      "status": "PASS",
+      "elapsed_seconds": 30.52621118499883,
+      "exit_code": 0,
+      "source_unchanged": true,
+      "runtime_mode": "0o700",
+      "evidence": [
+        {
+          "file": "candidate-process.json",
+          "sha256": "6a3979b6457741b185e054b2142f33dbf96c0fab1cac797ddc1e388adefc8fa7"
+        },
+        {
+          "file": "candidate-runner.log",
+          "sha256": "9976605e1910248f24575082f4b1f8146416939ce6fde93b688daf521af6cc45"
+        }
+      ],
+      "engine_binary_name": "godot",
+      "suites": [
+        {
+          "suite": "world_save_candidate",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 29.959855,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD SAVE CANDIDATE PASS checks=\\d+$",
+          "completion_marker_match": "WORLD SAVE CANDIDATE PASS checks=103",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_save_candidate_validation.gd",
+            "sha256": "0c8edd25e36f0cb657da845e06b7681d6b0f6ed831654186dc97c513d7f529c6"
+          },
+          "evidence": {
+            "file": "initial-candidate/world_save_candidate.log",
+            "sha256": "4fe08e66684336df792ed66fc0ab596fdfd25a1c01f5aee3efff734e6b26e0e0"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "combination",
+      "status": "PASS",
+      "elapsed_seconds": 646.9102244830028,
+      "exit_code": 0,
+      "source_unchanged": true,
+      "runtime_mode": "0o700",
+      "evidence": [
+        {
+          "file": "combination-process.json",
+          "sha256": "09feda2e8d96634173b63cae373ff4ba22c15a03dce006edb3a5d315666f689c"
+        },
+        {
+          "file": "combination-runner.log",
+          "sha256": "ceccc395e648c060d97b512b823aadc53a840710de0d768cab624f9089a679db"
+        }
+      ],
+      "engine_binary_name": "godot",
+      "suites": [
+        {
+          "suite": "world_state",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.888901,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves$",
+          "completion_marker_match": "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_state_validation.gd",
+            "sha256": "40cccaab69ad2e961df2bb7b873b977b69147eb152e42e5e6d520066f593c6ff"
+          },
+          "evidence": {
+            "file": "combination/world_state.log",
+            "sha256": "1dbaacc43cec6ca6016b8ffa54c7f32fe3f9b0059764dfd1ed62939bcb7faf40"
+          }
+        },
+        {
+          "suite": "world_coordinates",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.854486,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD COORDINATES PASS: \\d+ checks;.*$",
+          "completion_marker_match": "WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_coordinates_validation.gd",
+            "sha256": "246850d4ba48eed4eef3b1bdf4c1849964dd84b29f9bdcc99fd4e5c65f95c371"
+          },
+          "evidence": {
+            "file": "combination/world_coordinates.log",
+            "sha256": "720bd4bf0ebc15d774d9121d691d9d40f0e4d854d60e704dc0af878e480d237c"
+          }
+        },
+        {
+          "suite": "save_product",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.874176,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^SAVE PRODUCT PASS: \\d+ checks,.*$",
+          "completion_marker_match": "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/save_product_validation.gd",
+            "sha256": "e055abdf005f633ed0081e4dcf8c9abd82f22b72141552a147628ad86b31ee26"
+          },
+          "evidence": {
+            "file": "combination/save_product.log",
+            "sha256": "754c173bd8d581067a2222fd76d5ed12da515d69ddc4736b5ace186652b8415b"
+          }
+        },
+        {
+          "suite": "world_resume_regression",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 32.147843,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD_RESUME_REGRESSION checks=\\d+ failures=0$",
+          "completion_marker_match": "WORLD_RESUME_REGRESSION checks=38 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_resume_regression_validation.gd",
+            "sha256": "e34438d778fde09494497b1a224f801ebaffbe39d2a10f36293e34a35fbbb404"
+          },
+          "evidence": {
+            "file": "combination/world_resume_regression.log",
+            "sha256": "5b29d55e2d3c44455a51d9b1e8e6a96cc9c71d9e6de5fff32435a788e319e142"
+          }
+        },
+        {
+          "suite": "world_host",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 70.21966,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD HOST PASS: \\d+ checks;.*$",
+          "completion_marker_match": "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_host_validation.gd",
+            "sha256": "0eaef28b99c4d0dab1bd8a2a4e2d145376da6eb598b87c1dab3da2c3984256bd"
+          },
+          "evidence": {
+            "file": "combination/world_host.log",
+            "sha256": "5edc42c2edd93aa3bfeba6a74a58ba25117162e35b51f79e48095d6feb1eb988"
+          }
+        },
+        {
+          "suite": "world_async_loading",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 156.671003,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD ASYNC LOADING PASS: \\d+ checks;.*$",
+          "completion_marker_match": "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_async_loading_validation.gd",
+            "sha256": "91083768608d998a3f83604d6a25b913999e9bc92586e2a0e5e93c0808cff51e"
+          },
+          "evidence": {
+            "file": "combination/world_async_loading.log",
+            "sha256": "4d54749b4953f3efdd44d51fb8307e8b022f9208069b976e1f22f47290637368"
+          }
+        },
+        {
+          "suite": "world_death_cache_flush",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 7.01596,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD_DEATH_CACHE_FLUSH checks=\\d+ failures=0$",
+          "completion_marker_match": "WORLD_DEATH_CACHE_FLUSH checks=5 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_death_cache_flush_validation.gd",
+            "sha256": "a7f7424b5faa077083cc42ccfdd885ffd3b44d9c2732e74df1807663681e00e5"
+          },
+          "evidence": {
+            "file": "combination/world_death_cache_flush.log",
+            "sha256": "957d757c620a3886118033a4294ce7856b2bec37660a5ebb430a6859fb7f16da"
+          }
+        },
+        {
+          "suite": "world_route_manifest_walk_lower",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 91.383482,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD_ROUTE_MANIFEST_WALK_LOWER checks=\\d+ failures=0 physical_crossings=6$",
+          "completion_marker_match": "WORLD_ROUTE_MANIFEST_WALK_LOWER checks=134 failures=0 physical_crossings=6",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_route_manifest_walk_lower_validation.gd",
+            "sha256": "1adf5e0f1a09b6ba292d3e8e408db037a7fb8a04e3c55a364b9266350123cdf2"
+          },
+          "evidence": {
+            "file": "combination/world_route_manifest_walk_lower.log",
+            "sha256": "5ef95e3eddea63be68465f3780a2d881a0447ebf57f04df85b4c732981a68ca3"
+          }
+        },
+        {
+          "suite": "world_route_manifest_walk_upper",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 59.967673,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD_ROUTE_MANIFEST_WALK_UPPER checks=\\d+ failures=0 physical_crossings=4$",
+          "completion_marker_match": "WORLD_ROUTE_MANIFEST_WALK_UPPER checks=90 failures=0 physical_crossings=4",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_route_manifest_walk_upper_validation.gd",
+            "sha256": "924fc6a9383a535813e001f6fb6c80d794fc5e8a7d55f101e03c33fbb47ee7ae"
+          },
+          "evidence": {
+            "file": "combination/world_route_manifest_walk_upper.log",
+            "sha256": "756cf4de73361bcf25eea014fb5177dfdabd7bb332def56ab97c0156d7b59898"
+          }
+        },
+        {
+          "suite": "world_route_manifest_integration",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 31.691838,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD_ROUTE_MANIFEST_INTEGRATION checks=\\d+ failures=0$",
+          "completion_marker_match": "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_route_manifest_integration_validation.gd",
+            "sha256": "117f425e7cf4b9fbd5b392022e7ba547c58110b364174abb305d35687b68fc5f"
+          },
+          "evidence": {
+            "file": "combination/world_route_manifest_integration.log",
+            "sha256": "7461213a8ebfbe5843d31c4db8f8010af597545935d11563fbbb250d1360bc40"
+          }
+        },
+        {
+          "suite": "world_passage",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 107.735398,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD PASSAGE PASS: \\d+ checks;.*$",
+          "completion_marker_match": "WORLD PASSAGE PASS: 58 checks; physical input roundtrip, reversal, save isolation and terminal continuity",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_passage_validation.gd",
+            "sha256": "d707e48448c0778661ae7f1ed38414ffd5e8db10894507f719def10d79493937"
+          },
+          "evidence": {
+            "file": "combination/world_passage.log",
+            "sha256": "3b1a1af3f456b0de4857a3e555705e7aefe8e8875ed9e8ba3e403df6efd62701"
+          }
+        },
+        {
+          "suite": "world_passage_network",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 51.34372,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD_PASSAGE_NETWORK checks=\\d+ failures=0 physical_roundtrips=5$",
+          "completion_marker_match": "WORLD_PASSAGE_NETWORK checks=140 failures=0 physical_roundtrips=5",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_passage_network_validation.gd",
+            "sha256": "831b5f07c1f586c35482fea08de79cc1a8766fd2a11bbf5f073fdc652bc2132e"
+          },
+          "evidence": {
+            "file": "combination/world_passage_network.log",
+            "sha256": "48b8f17b5f5c363ac7e37325adb0171f7e485054342792b017af44604bcd8046"
+          }
+        },
+        {
+          "suite": "combat_resource_cycle",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 20.423887,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^COMBAT_RESOURCE_CYCLE checks=[0-9]+ failures=0 crests=3 actual_input=true$",
+          "completion_marker_match": "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/combat_resource_cycle_validation.gd",
+            "sha256": "a721e9d39f6f9d8ded92da07d6ed7b9f6f9d95b7cb383d5d9cb81c3fed1e5720"
+          },
+          "evidence": {
+            "file": "combination/combat_resource_cycle.log",
+            "sha256": "782de5100cd85fb9121240d34f3b59d351d3aac8ae7a253bf1fdf0646947793a"
+          }
+        },
+        {
+          "suite": "build_system",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.711997,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^BUILD SYSTEM PASS: \\d+ checks$",
+          "completion_marker_match": "BUILD SYSTEM PASS: 77 checks",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/build_system_validation.gd",
+            "sha256": "2c4b514d29100a6ec0482c47548cf62c9ac043e718edd52884355bdea6cea359"
+          },
+          "evidence": {
+            "file": "combination/build_system.log",
+            "sha256": "3dda8eeb236f875fe277af548b50fa093230228ded3047d748be4229faace316"
+          }
+        },
+        {
+          "suite": "build_slots",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.719996,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^BUILD SLOTS PASS: \\d+ checks$",
+          "completion_marker_match": "BUILD SLOTS PASS: 48 checks",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/build_slots_validation.gd",
+            "sha256": "5dc11c265762ee85fd16165246f435b17342b5c3cd77adec96965993d1d2bb02"
+          },
+          "evidence": {
+            "file": "combination/build_slots.log",
+            "sha256": "2c642b700bef358e926e67732648c6dcf9c82a4be5d5f0e87ab82d4db6658fa6"
+          }
+        },
+        {
+          "suite": "build_slots_ui",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 1.415992,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=\\d+ failures=0 capture=user://build_slots_ui_validation_fixture.png$",
+          "completion_marker_match": "BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=30 failures=0 capture=user://build_slots_ui_validation_fixture.png",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/build_slots_ui_validation.gd",
+            "sha256": "8656f0f59f4953bbdb6b733821953d148609e07de0b4eea45555df081101a770"
+          },
+          "evidence": {
+            "file": "combination/build_slots_ui.log",
+            "sha256": "efd00acf7f5b837b32eddd0e63937263f37d43b4820fac6bc3679a3994afb6d8"
+          }
+        },
+        {
+          "suite": "seal_system",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.655997,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^SEAL SYSTEM PASS: \\d+ checks$",
+          "completion_marker_match": "SEAL SYSTEM PASS: 16 checks",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/seal_system_validation.gd",
+            "sha256": "ef6dff52fc6da6da0723d1c5333874ddc12fb037db70d3e0dbfbe8dc05db6c94"
+          },
+          "evidence": {
+            "file": "combination/seal_system.log",
+            "sha256": "5fc68369e9291707a5fa475dad7bd235f440a73cdcbfe3a8d629a95d1f3ae380"
+          }
+        },
+        {
+          "suite": "ui_world_integration",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 6.563961,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0$",
+          "completion_marker_match": "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/ui_world_integration_validation.gd",
+            "sha256": "33aa198b8111f5cedf1a0a49ed6a6d3f146b4d650b5b92392a51744510aa40d4"
+          },
+          "evidence": {
+            "file": "combination/ui_world_integration.log",
+            "sha256": "c4e215250990635337aae148ac9808aa9ef6ef0a4d4a24675090d77006fe72c7"
+          }
+        },
+        {
+          "suite": "player_state_cleanup",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.827996,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^PLAYER_STATE_CLEANUP_PASS checks=\\d+ failures=0$",
+          "completion_marker_match": "PLAYER_STATE_CLEANUP_PASS checks=9 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/player_state_cleanup_validation.gd",
+            "sha256": "8e949fb77e607e6855f7c38527b89dbd338d8f141f5687ded1251fdd64469ed0"
+          },
+          "evidence": {
+            "file": "combination/player_state_cleanup.log",
+            "sha256": "b603aaae8303d9f455446ebf1414cbf35d5e9bc2668c168d15b4f0e1a693c6b9"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "import-target",
+      "status": "PASS",
+      "elapsed_seconds": 14.190799648000393,
+      "exit_code": 0,
+      "source_unchanged": true,
+      "runtime_mode": "0o700",
+      "evidence": [
+        {
+          "file": "import-target-process.json",
+          "sha256": "20e5a99613e71024bdcc7cddfd9f06e7777090d8fc15fa7923ba1d3d855d3ea5"
+        },
+        {
+          "file": "import-target-runner.log",
+          "sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5"
+        }
+      ],
+      "engine_binary_name": "Godot_v4.6.1-stable_linux.x86_64",
+      "recovery_mode": true,
+      "passes": [
+        {
+          "pass": 1,
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "engine_error_lines": [],
+          "evidence": {
+            "file": "target-4.6.1-import/import-1.log",
+            "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+          }
+        },
+        {
+          "pass": 2,
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "engine_error_lines": [],
+          "evidence": {
+            "file": "target-4.6.1-import/import-2.log",
+            "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "candidate-target",
+      "status": "PASS",
+      "elapsed_seconds": 33.882367799997155,
+      "exit_code": 0,
+      "source_unchanged": true,
+      "runtime_mode": "0o700",
+      "evidence": [
+        {
+          "file": "candidate-target-process.json",
+          "sha256": "ed29fd23cc423aa4fb4ce6e7d5b53ca2686eaeea988a1d49cd4ecd5e4435cfbe"
+        },
+        {
+          "file": "candidate-target-runner.log",
+          "sha256": "9976605e1910248f24575082f4b1f8146416939ce6fde93b688daf521af6cc45"
+        }
+      ],
+      "engine_binary_name": "Godot_v4.6.1-stable_linux.x86_64",
+      "suites": [
+        {
+          "suite": "world_save_candidate",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 33.503828,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^WORLD SAVE CANDIDATE PASS checks=\\d+$",
+          "completion_marker_match": "WORLD SAVE CANDIDATE PASS checks=103",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/world_save_candidate_validation.gd",
+            "sha256": "0c8edd25e36f0cb657da845e06b7681d6b0f6ed831654186dc97c513d7f529c6"
+          },
+          "evidence": {
+            "file": "target-4.6.1-candidate/world_save_candidate.log",
+            "sha256": "d95eb76250b082091a3b9534e75b3359eb84ffed9ea9aafb548a3e3bd31ec51c"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "narrative",
+      "status": "PASS",
+      "elapsed_seconds": 71.334380641998,
+      "exit_code": 0,
+      "source_unchanged": true,
+      "runtime_mode": "0o700",
+      "evidence": [
+        {
+          "file": "narrative-process.json",
+          "sha256": "00dd1fedd1cde1653b54939a0da3433a4410d894d85712fcd6616717779262f0"
+        },
+        {
+          "file": "narrative-runner.log",
+          "sha256": "3f61c0211d88a03c5611abe4544ea38e79e3195674b718a48e8b92b3b4015cf8"
+        }
+      ],
+      "engine_binary_name": "Godot_v4.6.1-stable_linux.x86_64",
+      "suites": [
+        {
+          "suite": "narrative_outcomes",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 1.99599,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^NARRATIVE_OUTCOMES checks=\\d+ failures=0$",
+          "completion_marker_match": "NARRATIVE_OUTCOMES checks=9751 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/narrative_outcomes_validation.gd",
+            "sha256": "a758db0a16365306ada2fbf0632cfa383f263dbc26809d6df47c07b6d98e8f5f"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/narrative_outcomes.log",
+            "sha256": "020cbfb72db1112aad42de288a2b31484b84705ac4ab2e4b6ef6d8b1b921cf16"
+          }
+        },
+        {
+          "suite": "narrative_return_runtime",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 14.031932,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^NARRATIVE_RETURN_RUNTIME_PASS checks=\\d+ failures=0$",
+          "completion_marker_match": "NARRATIVE_RETURN_RUNTIME_PASS checks=25 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/narrative_return_runtime_validation.gd",
+            "sha256": "eb62071fb23a06974aa2e7f7fc6f31d9adb8f4622148d87839eb6f36408871b6"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/narrative_return_runtime.log",
+            "sha256": "dad27cd07d0d674e743744a28730cfb8de85681a509f7a592ec1577d59c5e0d8"
+          }
+        },
+        {
+          "suite": "tests/verify_world_narrative",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 1.223995,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^Narrative/audio checks: \\d+, failures: 0$",
+          "completion_marker_match": "Narrative/audio checks: 28, failures: 0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/tests/verify_world_narrative.gd",
+            "sha256": "6e54295acac0a9781edf92de57aca0017bcc333730b52b5535092567fea8c1f8"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/tests_verify_world_narrative.log",
+            "sha256": "211339c47ca826ac76f2b04bad4fb1adf94dc20ad447b042c2f02c46f7aa5143"
+          }
+        },
+        {
+          "suite": "tests/verify_narrative_ui",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 10.907947,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^Narrative UI failures: 0$",
+          "completion_marker_match": "Narrative UI failures: 0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/tests/verify_narrative_ui.gd",
+            "sha256": "485a31aef3c86bf0daf961e892cc6eaff7aad4db8feb9667543b3fd2fca9ca6c"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/tests_verify_narrative_ui.log",
+            "sha256": "9eae0c1d0d5c66bc5e3c0d6f956da5f8be781e84a15b0db9e73bf51865a83a5d"
+          }
+        },
+        {
+          "suite": "tests/verify_narrative_progression",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.763997,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^NARRATIVE_PROGRESSION_PASS checks=\\d+ failures=0$",
+          "completion_marker_match": "NARRATIVE_PROGRESSION_PASS checks=78 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/tests/verify_narrative_progression.gd",
+            "sha256": "8857c44ffd27f685d79c8d616019cd16ac0a51ba86992011d8a545b5ea7f34e2"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/tests_verify_narrative_progression.log",
+            "sha256": "31cbb842b04bf455049272dc65c7f35bdbc1402708eb64932130bb0d808cb218"
+          }
+        },
+        {
+          "suite": "tests/verify_narrative_runtime",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 32.175844,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^NARRATIVE_RUNTIME_PASS checks=\\d+ failures=0$",
+          "completion_marker_match": "NARRATIVE_RUNTIME_PASS checks=27 failures=0",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/tests/verify_narrative_runtime.gd",
+            "sha256": "891605f6be729183c440b7cc4ba8178173e299ab32e7a53afc22f17dacf7cdcf"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/tests_verify_narrative_runtime.log",
+            "sha256": "912f5b1a4c567c786dcca898fce50c29763860793eb1928fe3e04927de2ad165"
+          }
+        },
+        {
+          "suite": "build_transaction_runtime",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 7.623963,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^BUILD TRANSACTION RUNTIME PASS: \\d+ checks, real shrine, paid partial resupply and failed-save rollback$",
+          "completion_marker_match": "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/build_transaction_runtime_validation.gd",
+            "sha256": "ea213878df37b4a10f886e58a41a279f8995a50ebef85d6f680006fc5d1b23bf"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/build_transaction_runtime.log",
+            "sha256": "5266c2a3a222fe2b45b3df94125c64ce525ffcb2726bc807684dff037a515636"
+          }
+        },
+        {
+          "suite": "seal_acquisition",
+          "status": "PASS",
+          "elapsed_seconds": null,
+          "elapsed_note": "The original strict runner does not record exact per-suite process duration; no duration was invented.",
+          "log_written_span_seconds": 0.815996,
+          "log_span_note": "Filesystem creation to last write interval only; not exact process elapsed.",
+          "completion_marker_regex": "^SEAL_ACQUISITION_VALIDATION: \\d+ checks; 0 failures$",
+          "completion_marker_match": "SEAL_ACQUISITION_VALIDATION: 66 checks; 0 failures",
+          "engine_error_lines": [],
+          "objectdb_warning_lines": [],
+          "warning_lines": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "engine_header": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+          "renderer_header": "OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)",
+          "timeout_seconds": 180,
+          "validation_source": {
+            "file": "godot/scripts/seal_acquisition_validation.gd",
+            "sha256": "7cf328ec4874b6dc570da6703921c9d69aef1b6a0fd7befe9955fa2a05744f91"
+          },
+          "evidence": {
+            "file": "target-4.6.1-narrative/seal_acquisition.log",
+            "sha256": "bba2d9aae049e2b7d9e05ed88120ed0aad003558926d3c548d4d9d216db8e66c"
+          }
+        }
+      ]
+    }
+  ],
+  "historical_failed_attempts": [
+    {
+      "stage": "candidate environment preflight",
+      "status": "FAIL before Godot launch",
+      "reason": "Xvfb was installed in the existing local tooling directory but absent from initial PATH. Strict runner refused fallback. Existing tooling path was added; no source/assertion/timeout change.",
+      "evidence": [
+        {
+          "file": "candidate-environment-first-runner.log",
+          "sha256": "e8d8bc846535a7bc360849abe1162611bb289ba83b9a48d7f1abf154a2042e2c"
+        },
+        {
+          "file": "candidate-environment-first-process.json",
+          "sha256": "66dc48e741d9b72f8561fac89ac23837be40f0170f7dcdfd27d76a43445bff31"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Godot 4.6.3 combination results remain 4.6.3 compatibility evidence; only target stages establish direct Godot 4.6.1 validation.",
+    "WorldState and _save_world failure preserve published identity at their boundary. Existing #83 narrative rollback callers may replace it with an equal deep copy.",
+    "Original backup-copy then rename persistence protocol is unchanged. Disk and backup preservation assertions cover their tested validation/damaged-primary/temporary-open/temporary-validation failures, not every possible later rename or disk failure.",
+    "The existing loader still ignores the departure save result; #64 failed-save departure safety is OPEN and not claimed.",
+    "Candidate preparation and persistence remain synchronous; no asynchronous saving or hard frame budget is claimed.",
+    "ObjectDB exit warnings, when present, are recorded per suite and remain OPEN.",
+    "No new UI, custom map pins, natural six-region completion, visual screenshot acceptance, merge, or remote CI is claimed."
+  ],
+  "result_summary": {
+    "local_validation_status": "PASS",
+    "runtime_suite_invocations": 29,
+    "unique_suites": 28,
+    "engine_error_count": 0,
+    "target_4_6_1_suites": 9,
+    "compatibility_4_6_3_suites": 20,
+    "candidate_checks_each_engine": 103,
+    "objectdb_warnings_open": [
+      {
+        "suite": "world_async_loading",
+        "engine": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org",
+        "lines": [
+          "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "suite": "tests/verify_narrative_ui",
+        "engine": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "lines": [
+          "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "suite": "build_transaction_runtime",
+        "engine": "Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org",
+        "lines": [
+          "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+        ]
+      }
+    ],
+    "recovery_import_passes": 4,
+    "no_claim_of_editor_plugin_validation": true
+  },
+  "source_provenance": {
+    "world_state_base_blob": "1065709b2b4eb54c0df2aa123ecb3346fed1937c",
+    "world_state_current_blob": "d514b6189841e58cd34f8c050fbc695d69909258",
+    "world_state_matches_original_65_blob": true,
+    "default_bus_restored_sha256": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+    "owned_files_clean": true,
+    "no_worker_push_or_pr": true
+  },
+  "lead_checks": {
+    "runner_unit_tests": {
+      "status": "PASS",
+      "tests": 20,
+      "file": "runner-lead.log",
+      "sha256": "e907dd111610f2f9144509d2e3c332ed286001709e59590d7176e3defcb70b84"
+    },
+    "independent_static_review": {
+      "status": "No new P0/P1/P2 found at documented frozen sources",
+      "report_sha256": "e903334fd06b66e61788dca4106ed2c988de487bee87faf41cf093535dc9bf21",
+      "runtime_execution_by_reviewer": false
+    },
+    "default_suite_count": 100,
+    "focused_exact_head_suite_count": 6,
+    "original_suite_timeout_seconds": 180,
+    "remote_ci": "PENDING on new published commit",
+    "old_pr_current_head_review": {
+      "91": {
+        "head": "8f62eb14ee894e81290938578511b67ff1f9a731",
+        "state": "all checks passed; 102 default suites and post-render gates"
+      },
+      "93": {
+        "head": "633602df519f86b6debc97e4d02c602b5542a515",
+        "state": "all checks passed; visual smoothness remains OPEN"
+      },
+      "94": {
+        "head": "11cd317a5190c08a3b948d227eecdbaa6e683c0a",
+        "state": "all checks passed; 102 default suites and post-render gates"
+      },
+      "95": {
+        "head": "defb5dde8ba52be297db321722cd3ac6f00876f7",
+        "state": "all checks passed; 100 default suites and post-render gates"
+      },
+      "96": {
+        "head": "848c4ca801aecd78925817897aed2104d88f4d4f",
+        "state": "current head CI still running"
+      }
+    }
+  },
+  "default_bus_import_side_effect": {
+    "scope": "Automatic default-field/order/uid serialization from first import; restored to original HEAD bytes before accepted candidate and combinations. Target4.6.1 import did not change it.",
+    "restored_sha256": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+    "diagnostic_patch_sha256": "8e91cb71e3cdb8a9926561a5ac8f76bd947466b8f995ef72520434c72e69fd1c"
+  },
+  "lead_source_sha256": {
+    ".github/workflows/world-private-checkpoint.yml": "80c25a9a0510babf33c0b174cc85aa781dc142fa1b3eaab351c22eddc9a1de83",
+    "tools/test_regression_runner.py": "0c184053c4866b6e39d022ad07a971d6b64b3786b909825412ffa3c1c27332c1"
+  },
+  "worker_final_draft_sha256": "d967de5649d6d08f94004d02b20119eb293d731b83c9b2f8a1dc3f3de26f4487"
+}
