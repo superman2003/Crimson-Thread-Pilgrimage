@@ -1,0 +1,85 @@
+{
+  "base": "f6b1d42ff3d64df8cfda034e9c03fbdae95d0aec",
+  "group": "movement_group_one",
+  "rebuilt_rooms": 10,
+  "unchanged_other_workshops": 10,
+  "generated_sha256": "5a6b87b2049dcb9288edd2f22f2f8abdf0eaa13d3ccb5b59dd879299961d6ef0",
+  "changed_objects": 52,
+  "unrelated_object_changes": 0,
+  "suites": {
+    "world_upgrade": {
+      "completion": "WORLD_UPGRADE checks=596 failures=0 enemy_removal=true fixture_positioning=true",
+      "sha256": "5bde7f1a3b82c5c39e587acb45781cd550e11cff6ab4c3310b92b23ce35cf4d8",
+      "warnings": 1
+    },
+    "ability_movement": {
+      "completion": "ABILITY_MOVEMENT_VALIDATION failures=0",
+      "sha256": "8f157f166f98ec12f5dcef9fbf2e5f66147b9a2bb69a027823c3679aa509a170",
+      "warnings": 2
+    },
+    "upgrade_integration": {
+      "completion": "UPGRADE INTEGRATION PASS: 30 checks, real scene build/UI/abilities/tools/death/save",
+      "sha256": "f5ece428cd14031c3d07fef97deea85b8cfe653cbed544e380569d2733f4143e",
+      "warnings": 2
+    },
+    "obsidian_experience": {
+      "completion": "OBSIDIAN_EXPERIENCE checks=197 failures=0 fixture_scope=positioned_camera_and_live_local_combat",
+      "sha256": "38f2dedb97afca39950ac05555cf051c60016abacea6dc124a8c83ca6d744bfc",
+      "warnings": 2
+    },
+    "ch06_workshop_experience": {
+      "completion": "CH06_WORKSHOP_EXPERIENCE checks=21 failures=0 production_world=true static_map_search=false",
+      "sha256": "69a1e2ca6ecb0071dfbba19e3833c38f8191920f41c316f201f257cbeb68fb82",
+      "warnings": 2
+    },
+    "world_route_access": {
+      "completion": "WORLD_ROUTE_ACCESS checks=553 failures=0 fixture_positioning=true",
+      "sha256": "5a78428f8f0cdc9dde959f06ba616be5d1e8708fecb36f52929d27f6d35c0a3f",
+      "warnings": 2
+    },
+    "world_passage_network": {
+      "completion": "WORLD_PASSAGE_NETWORK checks=140 failures=0 physical_roundtrips=5",
+      "sha256": "0e2f18bcddda6e2d3e848d2add94344967e990bb6244b2f46eb6dcdc77dce56d",
+      "warnings": 1
+    },
+    "world_map": {
+      "completion": "WORLD_MAP checks=671 failures=0",
+      "sha256": "861485660b4a94d15647b0eacbb2bd463d7fa919eaad2e0b9f1d14ded8d070e9",
+      "warnings": 2
+    },
+    "cartography": {
+      "completion": "CARTOGRAPHY checks=4143 failures=0 fixture_positioning=true",
+      "sha256": "74280fa624d030833bc908dd8e21098a1d6b4ae80e2835f650a2bc37d5c511f2",
+      "warnings": 1
+    }
+  },
+  "captures": [
+    "upgrade_bell_guard_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_bell_guard_2_demo_ch02_rain_foundry_canal.webp",
+    "upgrade_double_thread_jump_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_double_thread_jump_2_demo_ch02_rain_foundry_canal.webp",
+    "upgrade_echo_hook_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_echo_hook_2_demo_ch03_saltwhite_archive.webp",
+    "upgrade_silk_wall_grip_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_silk_wall_grip_2_demo_ch02_rain_foundry_canal.webp",
+    "upgrade_thread_dash_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_thread_dash_2_demo_ch02_rain_foundry_canal.webp"
+  ],
+  "source_sha256": {
+    "godot/data/world_routes.json": "5a6b87b2049dcb9288edd2f22f2f8abdf0eaa13d3ccb5b59dd879299961d6ef0",
+    "tools/build_world_upgrade.py": "d4e112a5b7728f39b14d2085f73e597616538409d3a2c99639d5ae30a570e312",
+    "tools/validate_world_upgrade.py": "7aba2fb0a47085fdd7799f6af5a8db4f4dfceea9824a5e9f7301466c78fe4222",
+    "tools/workshop_layout_contract.py": "bece68a3c1086b2b46e1931e311f49e3778774782b459afdbb7d9c6ad1eac8c0",
+    "tools/test_workshop_layout_contract.py": "9f9a5f26904964d455fdaf4ce3fb30776cde7ac7d8c6ad25e6db67372115ed76",
+    "godot/scripts/ability_workshop_route_validation.gd": "a0602d72cff2eebfe64e91b6e44b2444aaa297f3b0be66b8062ff503d3dda56f",
+    "godot/scripts/world_upgrade_validation.gd": "65bb6f05e780610d63e8f4aa33e6b00483b0a15b6d6267dbac9e62a9dce44727",
+    "docs/ABILITY_WORKSHOPS_GROUP_ONE.md": "b98f22e8d34dacf2e6ec878d52d7f6b0f578b10d6b7a2ca792f65e59a1e51ce4",
+    "docs/UPGRADE_TASK_LEDGER.md": "72128fe3b1d193654c034ac41d685cee2ca4b1525ae9d2aa94cf0d5252727c0b",
+    ".github/workflows/ability-workshops-group-one.yml": "1fcf660898a24bb666bae09a8dd94acf740af247179bae232f43b97a0bb3eb35"
+  },
+  "limits": [
+    "positioned source entry, enemies removed; not a natural six-region playthrough",
+    "real disk restart per selected room; known source-position fixture for revisit",
+    "ObjectDB exit warnings retained; remote CI tracked separately"
+  ]
+}

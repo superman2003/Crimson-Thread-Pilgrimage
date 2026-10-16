@@ -265,6 +265,41 @@ func _verify_late_branch(region: String, portal_id: String, ability: String = ""
     await _tick(10)
     _assert(String(scene.config.id) == region and scene.player.position.distance_to(source) < 85, portal_id + ": branch can return without boss-clear dependency")
 
+func _verify_workshop_restart(target: Dictionary, entry: Dictionary, source: Vector2) -> void:
+    var wallet: int=scene.currency_count
+    var record_id := String(target.room_id)+"_record"
+    var records: int=scene.inventory_counts.get(record_id,0)
+    _assert(records==1,String(target.room_id)+": route grants exactly one unique record before restart")
+    _release()
+    scene.free()
+    await process_frame
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=SAVE
+    scene.config_path=ROUTES.config_path(String(target.region_id))
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(5)
+    _assert(String(scene.config.id)==String(target.region_id),String(target.room_id)+": disk restart restores original region")
+    _assert(scene.currency_count==wallet and int(scene.inventory_counts.get(record_id,0))==records,String(target.room_id)+": restart preserves wallet and exactly one record")
+    _assert(bool(scene.story_flags.get("action_gate_"+String(target.gate_id),false)),String(target.room_id)+": restart restores permanent latch")
+    for reward in target.reward_ids:
+        _assert(bool(scene.world_collected_ids.get(String(reward),false)),String(target.room_id)+": collected identity restored from disk "+String(reward))
+    # Explicit source-position fixture: restart is real; this is not a natural
+    # walk from the saved shrine through the entire original region.
+    scene.player.global_position=source
+    scene.player.velocity=Vector2.ZERO
+    scene._activate_world_portal(scene.get_node(String(target.entry_portal_id)))
+    await _tick(10)
+    _assert(not scene.locked_gate_bodies.has(String(target.gate_id)),String(target.room_id)+": disk-resumed revisit keeps latch physically open")
+    for reward in target.reward_ids:
+        _assert(scene.get_node_or_null(String(reward))==null,String(target.room_id)+": disk-resumed room does not respawn reward "+String(reward))
+    _assert(scene.currency_count==wallet and int(scene.inventory_counts.get(record_id,0))==records,String(target.room_id)+": revisit cannot duplicate resources")
+    scene._activate_world_portal(scene.get_node(String(entry.target_portal_id)))
+    await _tick(10)
+    _assert(scene.player.position.distance_to(source)<85,String(target.room_id)+": resumed room still has its actual exit")
+
 func _run() -> void:
     var data: Dictionary = ROUTES._data()
     await _verify_late_branch("demo_ch03_saltwhite_archive", "upgrade_archive_obsidian_branch_a", "double_thread_jump")
@@ -276,6 +311,7 @@ func _run() -> void:
     await _verify_late_branch("demo_ch05_obsidian_pilgrim_road", "upgrade_obsidian_rain_return_a")
     var targets: Array = data.get("ability_backtracks", [])
     _assert(targets.size() == 20, "16 return workshops plus four acquisition practice workshops")
+    var rebuilt_routes_exercised := 0
     for target in targets:
         var region := String(target.region_id)
         var ability := String(target.ability_id)
@@ -313,6 +349,14 @@ func _run() -> void:
         if scene.locked_gate_bodies.has(gate_id):
             print("ACTION_DEBUG %s pos=%s locked=%s hurt=%s attack=%s" % [ability, str(scene.player.position), str(scene.player.ui_input_locked), str(scene.player.hurt_timer), str(scene.player.attack_timer)])
             continue
+        var authored_room: Dictionary = {}
+        for value in scene.config.map_rooms:
+            if String(value.id)==String(target.room_id): authored_room=value
+        if authored_room.get("layout_group","")=="movement_group_one":
+            rebuilt_routes_exercised+=1
+            var route_probe = preload("res://scripts/ability_workshop_route_validation.gd").new()
+            if not await route_probe.run(scene,self,authored_room,_assert):
+                continue
         if String(target.room_id) == "upgrade_lantern_phase_3":
             var traversal = preload("res://scripts/obsidian_lantern_workshop_validation.gd").new()
             _assert(await traversal.walk_to_landing(scene,self,Vector2(7800,490)), gate_id + ": single jump reaches lower service platform")
@@ -328,6 +372,11 @@ func _run() -> void:
                 await _tick(5)
                 _assert(bool(scene.world_collected_ids.get(String(reward_id), false)), gate_id + ": reward collection persists unique ID")
         _assert(scene.currency_count > currency_before, gate_id + ": reward grants spendable currency")
+        if authored_room.get("layout_group","")=="movement_group_one":
+            var cache_amount := 0
+            for reward in data.chapters[region].collectibles:
+                if String(reward.id)==String(target.room_id)+"_resin": cache_amount=int(reward.amount)
+            _assert(scene.currency_count==currency_before+cache_amount,gate_id+": cache grants exactly its authored amount")
         var saved := STATE.new()
         _assert(saved.read(SAVE), gate_id + ": save readable after action and rewards")
         _assert(bool(saved.data.story_flags.get("action_gate_" + gate_id, false)), gate_id + ": action unlock persisted on disk")
@@ -345,7 +394,10 @@ func _run() -> void:
         _assert(not scene.locked_gate_bodies.has(gate_id), gate_id + ": action gate remains open after real scene replacement")
         for reward_id in target.reward_ids:
             _assert(scene.get_node_or_null(String(reward_id)) == null, gate_id + ": collected reward does not respawn")
+        if authored_room.get("layout_group","")=="movement_group_one":
+            await _verify_workshop_restart(target,entry,source)
         print("WORKSHOP_ACTION_PASS " + gate_id)
+    _assert(rebuilt_routes_exercised==10,"All ten rebuilt rooms execute their actual movement routes")
     _release()
     if is_instance_valid(scene):
         scene.queue_free()

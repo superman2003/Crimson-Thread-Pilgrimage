@@ -211,6 +211,11 @@ def build():
                 movement_combo=room_layout.get('movement_combo', MOVEMENT_COMBOS[ability]),
                 landmark_art=dict(motif='pages' if index == 3 else 'bell', position=[x + 464, y + 80], size=[120, 160])))
             authored_room = overlay['map_rooms'][-1]
+            if room_layout.get('layout_group'):
+                authored_room['layout_group'] = room_layout['layout_group']
+                authored_room['route_archetype'] = room_layout['variant']
+                authored_room['route_steps'] = [dict(action=step['action'], position=[x + step['offset'][0], y + step['offset'][1]])
+                                                for step in room_layout['route_steps']]
             previous_room = previous_rooms.get((r, room_id), {})
             for field in ['guide', 'objective']:
                 if previous_room.get(field, '').startswith(authored_room[field]):
@@ -248,6 +253,11 @@ def build():
             if ability == 'echo_hook':
                 overlay['grapple_anchors'].append(dict(id=room_id + '_ring', position=[x + 250, y + 150],
                     room_id=room_id, label='检修闩牵引环', required_ability='echo_hook', test_from=[x + 210, floor_y - 40]))
+            for anchor in room_layout.get('extra_anchors', []):
+                overlay['grapple_anchors'].append(dict(id=room_id + '_' + anchor['id_suffix'],
+                    position=[x + anchor['offset'][0], y + anchor['offset'][1]], room_id=room_id,
+                    label='高位检修吊环', required_ability='echo_hook',
+                    test_from=[x + anchor['test_from_offset'][0], y + anchor['test_from_offset'][1]]))
             if floor_break:
                 # After dropping through the breakable seal, a far-side lift opens
                 # the return. Its upper endpoint cannot bypass the unopened floor.
