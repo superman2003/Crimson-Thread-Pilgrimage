@@ -110,8 +110,12 @@ func run() -> void:
 	for reward_id in target.reward_ids:
 		rewards_exist = rewards_exist and world.get_node_or_null(String(reward_id)) != null
 	check(rewards_exist, "Workshop evidence and currency rewards remain behind the closed seal")
+	var authored_room: Dictionary = {}
+	for room in world.config.map_rooms:
+		if String(room.id)==String(target.room_id): authored_room=room
+	check(await preload("res://scripts/ability_workshop_route_validation.gd").new().run(world,self,authored_room,check),"Opened seal permits the actual two-level crown workshop route")
 	var reward_landing := Vector2(target.reward_landing[0], target.reward_landing[1])
-	check(await walk_x(reward_landing.x + 45.0), "Opened seal permits walking to the reward landing")
+	check(await walk_x(reward_landing.x + 45.0), "Player walks along the upper reward landing")
 	for reward_id in target.reward_ids:
 		check(bool(world.world_collected_ids.get(String(reward_id), false)), "Live workshop reward persists its unique collection ID")
 	check(world.currency_count > currency_before, "Live workshop grants spendable currency")

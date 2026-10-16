@@ -1,0 +1,157 @@
+{
+  "scope": "Resolve #91 against externally merged route-manifest main, preserving both branches",
+  "previous_head": "3a34ab1cb46ca378927a9f5138e6129f163cafcd",
+  "main_commit": "1806e0cf98a12f1d2b7a2cf175803cfe42de0746",
+  "default_suite_count": 102,
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/world_region_loader.gd": "8cfc70632a59c2c669b72688941b8f6278a535c9269f30a8972a330d313b7bd0",
+    "godot/scripts/world_routes.gd": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b",
+    "godot/scripts/world_route_manifest_integration_validation.gd": "117f425e7cf4b9fbd5b392022e7ba547c58110b364174abb305d35687b68fc5f",
+    "godot/scripts/world_upgrade_validation.gd": "4283ba6eea21bd68abc2fb222f13cdba02fe8decb8b9136c01f477d140e6be1e",
+    "godot/scripts/world_workshop_group_one_validation.gd": "40c9c3984bbf9143d4304018b462a597eb09649740ba255ca23206f4e9c83e68",
+    "godot/scripts/world_workshop_group_two_validation.gd": "6917bca09d417fcd512d60028c08c41b2cab32b656bce6d421fe9a85d56d5448",
+    "godot/scripts/world_ability_acquisition_validation.gd": "242b481f4aca95579675bccbcd09c3076f02d109bee5cb1f6d4d0a1889a042aa",
+    "tools/run_godot_regressions.py": "0d5cb073cb4e8cbed6251b42a7f34f019939d7dc6911d8b299f01959eea884b9",
+    "tools/godot_suite_success_markers.json": "b444d5532bad650ceb949e41518c6729127df447771b5af1622a390a19775de6",
+    "tools/test_regression_runner.py": "f4b6c19dac4401993a02a107a0536bbe785dcf55c6e9ac868efaadf5f84f6246"
+  },
+  "source_set_sha256": "d0f6cbc6d86693af7554a8fbfe5849c46d92e91eba37674a00a7475d3ae8789b",
+  "tracked_runtime_source_count": 864,
+  "runtime_source_unchanged": true,
+  "gl": {
+    "started_at_utc": "2026-10-16T10:31:45.001586+00:00",
+    "finished_at_utc": "2026-10-16T10:39:03.036654+00:00",
+    "elapsed_seconds": 438.035,
+    "exit_code": 0,
+    "runner_log_sha256": "8562f8cfe4ea639e9b3d8a138cedb7d61decf5fd719d6c0d860a39b264e5162a",
+    "runner_completion_marker": [
+      "GODOT_REGRESSIONS suites=5 failures=0"
+    ],
+    "suites": [
+      {
+        "suite": "world_route_manifest_integration",
+        "log_sha256": "eb8f7947a28e0b0a387f3ec9a5aa1f785a2d3c67a7228ee382f5a625e93982e2",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 43.313,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "world_upgrade",
+        "log_sha256": "777e333eab6d9633ecad9290c2ac1304743445116a078d0413ba8d458b5b99ce",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "WORLD_UPGRADE checks=548 failures=0 enemy_removal=true fixture_positioning=true"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 138.921,
+        "drawing_mode": "original_runner_disable_render_loop",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "world_workshop_group_one",
+        "log_sha256": "13336040ff687620ecf4b94316628b52d1c266113b20e341e3ee0709b0cc6fe9",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+          "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+        ],
+        "completion_markers": [
+          "WORLD_WORKSHOP_GROUP_ONE checks=450 failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=120251"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 121.478,
+        "drawing_mode": "original_runner_disable_render_loop",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "world_workshop_group_two",
+        "log_sha256": "5b1caaf279c12d5e3397c0a4f56b3853edd6a047e6e8adae67407fc64cc6a153",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "WORLD_WORKSHOP_GROUP_TWO checks=411 failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=99681"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 101.148,
+        "drawing_mode": "original_runner_disable_render_loop",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "world_ability_acquisition",
+        "log_sha256": "54185ea151d8c545b93fa9cfbedb180b7abde5a276cbd5e030c60ca2e5fd90ba",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "WORLD_ABILITY_ACQUISITION checks=74 failures=0 actual_pickups=8 local_approach_fixture=true"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 32.991,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      }
+    ],
+    "source_after_set_sha256": "d0f6cbc6d86693af7554a8fbfe5849c46d92e91eba37674a00a7475d3ae8789b"
+  },
+  "strict_import": {
+    "passes": 2,
+    "failures": 0,
+    "summary_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+    "logs": [
+      {
+        "name": "import-1.log",
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      },
+      {
+        "name": "import-2.log",
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      }
+    ]
+  },
+  "retained_environment_failure": {
+    "description": "First import used noncanonical XDG directories containing /../; engine returned exit 0 but emitted ObjectDB snapshot directory ERROR. Strict runner correctly rejected. Repeated with canonical absolute XDG data/config/cache/runtime directories and two passes succeeded. This does not prove a production regression.",
+    "logs": [
+      {
+        "name": "import-1.log",
+        "sha256": "6488f2dddc8462513fcf069ebeec5db53d8cedaf41be0f4b1a9dbaabd6e24ef6"
+      }
+    ]
+  },
+  "static_checks": {
+    "npm": {
+      "exit_code": 0,
+      "log_sha256": "389644513e9e16c23b88d0f1157b031e1da022470060d1409c16721d37a9282c"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log_sha256": "aa9e034d767ebd0e86b1565ee2aab281040798ed234fdb5eba43f5aebe084b58"
+    },
+    "runner": {
+      "exit_code": 0,
+      "log_sha256": "837694440e3abb72fb0e30e6ab2a20538cda1e208ff9bad79810d952bb45a6e6"
+    }
+  },
+  "runner_unit_tests": 23,
+  "visual_boundary": "No new pixel or natural-play acceptance claimed; 19-room geometry and helper implementation unchanged. Prior screenshots retain their original head attribution.",
+  "remaining_open": [
+    "One ObjectDB warning in group one, not attributed",
+    "Damage-enabled natural six-region progression and varied unlock order",
+    "Historical local 76-landing 180-second performance gate",
+    "New exact-head remote 102-suite CI pending"
+  ]
+}

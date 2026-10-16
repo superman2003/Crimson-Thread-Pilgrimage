@@ -1,0 +1,74 @@
+{
+  "date_utc": "2026-10-16",
+  "previous_head": "defb5dde8ba52be297db321722cd3ac6f00876f7",
+  "synchronized_main": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+  "source_provenance": {
+    "godot/scripts/main_level.gd": {
+      "sha256": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    },
+    "godot/scripts/world_region_loader.gd": {
+      "sha256": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    },
+    "godot/scripts/world_catalog_background_validation.gd": {
+      "sha256": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    },
+    "godot/scripts/world_routes.gd": {
+      "sha256": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    },
+    "godot/scripts/world_config_validator.gd": {
+      "sha256": "1a61d92a387896be20a639d3d26b881fb5b3af30ed24726b6a7fd81eb9364cec",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    },
+    "godot/scripts/world_state.gd": {
+      "sha256": "07735945ebf9660063bfe61f291745e140a7ae9fbd3ba1aa410005f72800ab30",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    },
+    "godot/scripts/player_controller.gd": {
+      "sha256": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+      "identical_to": "defb5dde8ba52be297db321722cd3ac6f00876f7"
+    }
+  },
+  "world_routes": {
+    "sha256": "738a44774bb4911c1df567d3388e66f98630719057e55deaa4dac0ddabfb6bba",
+    "identical_to": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66"
+  },
+  "conflicts": [
+    "docs/STAGED_UPGRADE_PLAN.md",
+    "docs/UPGRADE_PROGRESS.md",
+    "docs/UPGRADE_TASK_LEDGER.md",
+    "tools/test_regression_runner.py"
+  ],
+  "resolution": "Keep both progress sections and union all suite/marker contracts. Production GDScript unchanged from prior catalog head; incoming workshop route data and tests retained.",
+  "default_suite_count": 103,
+  "static_checks": {
+    "npm-test.log": {
+      "status": "PASS",
+      "sha256": "315aae0b22eabf199bf92add1f8606173d43043c00f1c86ba121a4f791791cb0"
+    },
+    "campaign.log": {
+      "status": "PASS",
+      "sha256": "aa9e034d767ebd0e86b1565ee2aab281040798ed234fdb5eba43f5aebe084b58"
+    },
+    "runner.log": {
+      "status": "PASS",
+      "sha256": "8e9e9381a0acb537679eac3b798fafe4e4803edd5c892f1cdd0def5c0dc73f2f"
+    }
+  },
+  "runner_unit_tests": 24,
+  "local_gl_after_sync": "PENDING; affected catalog/route/workshop combination remains queued. Earlier defb100-suite remote pass does not validate this new combination.",
+  "remote_ci": "PENDING for new synchronization commit",
+  "unchanged_gates": {
+    "suite_timeout_seconds": 180,
+    "strict_engine_error_and_completion_marker": true,
+    "original_drawing_modes": true
+  },
+  "open": [
+    "Existing 76-landing local180s performance timeout",
+    "ObjectDB exit warnings remain unattributed",
+    "W00b2b full scope, natural six-region play and long-run memory remain OPEN"
+  ]
+}

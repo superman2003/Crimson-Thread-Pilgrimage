@@ -75,7 +75,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 100)
+        self.assertEqual(len(all_suites), 103)
         self.assertIn("world_catalog_background", DEFAULT_SUITES)
         self.assertIn("input_prompt", DEFAULT_SUITES)
         self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
@@ -87,6 +87,56 @@ class RunnerTests(unittest.TestCase):
         for marker in SUCCESS_MARKERS.values():
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)
+
+    def test_workshop_groups_require_full_room_and_restart_counts(self):
+        for suffix, count in [('one', 10), ('two', 9)]:
+            suite = 'world_workshop_group_' + suffix
+            prefix = 'WORLD_WORKSHOP_GROUP_' + suffix.upper()
+            marker = f'{prefix} checks=400 failures=0 rooms={count} disk_restarts={count} enemy_removal=true fixture_positioning=true elapsed_ms=1234'
+            with self.subTest(suite=suite, terminal='complete'):
+                self.assertEqual(self.run_engine(f'print({marker!r})\n', suite=suite).returncode, 0)
+            for partial in [
+                'WORKSHOP_ACTION_PASS upgrade_thread_dash_1_action_gate',
+                marker.replace(f'rooms={count}', f'rooms={count-1}'),
+                marker.replace(f'disk_restarts={count}', f'disk_restarts={count-1}'),
+                marker.replace('failures=0', 'failures=1'),
+            ]:
+                with self.subTest(suite=suite, terminal=partial):
+                    result = self.run_engine(f'print({partial!r})\n', suite=suite)
+                    self.assertEqual(result.returncode, 1)
+                    self.assertIn('completion_marker=False', result.stdout)
+
+    def test_workshop_group_success_never_masks_engine_errors(self):
+        for suffix, count in [('one', 10), ('two', 9)]:
+            marker = f'WORLD_WORKSHOP_GROUP_{suffix.upper()} checks=400 failures=0 rooms={count} disk_restarts={count} enemy_removal=true fixture_positioning=true elapsed_ms=1234'
+            result = self.run_engine(f'print({marker!r})\nprint("\\x1b[31mERROR: workshop fixture failure\\x1b[0m")\n', suite='world_workshop_group_' + suffix)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('engine_errors=1 completion_marker=True', result.stdout)
+
+    def test_workshop_groups_keep_real_gl_fixed_clock_and_explicit_capture_mode(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("WORLD_WORKSHOP_GROUP_ONE checks=400 failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=1234")\n'
+                + 'print("WORLD_WORKSHOP_GROUP_TWO checks=400 failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=1234")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            for suite in ['world_workshop_group_one', 'world_workshop_group_two']:
+                self.assertIn(suite, DEFAULT_SUITES)
+                failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True, {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+                self.assertEqual(failures, [])
+                args = captured.read_text().splitlines()
+                self.assertIn('--disable-render-loop', args)
+                self.assertEqual(args[args.index('--fixed-fps') + 1], '60')
+                self.assertEqual(args[args.index('--rendering-method') + 1], 'gl_compatibility')
+                self.assertIn('--verbose', args)
+                self.assertNotIn('--headless', args)
 
     def test_manifest_walk_completion_requires_every_crossing(self):
         for suite, marker, incomplete in [
@@ -124,6 +174,7 @@ class RunnerTests(unittest.TestCase):
                     self.assertNotIn('--disable-render-loop', arguments)
                     self.assertIn('--fixed-fps', arguments)
                     self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+
 
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
