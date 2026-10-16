@@ -218,12 +218,22 @@ const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
 const FOOTSTEP_STRIDE := 88.0
 const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
+# Runtime registration of the existing four idle poses, in source-texture pixels.
+# Midpoint of the two opaque boot soles (y=276..281), not cape/weapon bounds.
+# The source poses change their stance slightly; this removes the whole-body
+# side-to-side drift without replacing the authored breathing/cape frames.
+const IDLE_FOOT_CENTER_X := [186.223262, 187.667973, 186.765838, 185.263814]
+# Preserve the authored nominal cadence (285 px/s, four poses at 12 fps), but
+# advance it from collision-resolved ground travel rather than a wall clock.
+const RUN_CYCLE_DISTANCE := 95.0
+const GROUND_MOTION_EPSILON := 1.0
 const CAMERA_FOCUS := preload("res://scripts/camera_focus.gd")
 var camera_focus := CAMERA_FOCUS.new()
 const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
 
 ## 绯线视觉语言色值（docs/spec/20260726160500000 §1.2）
 const THREAD_T1_CORE := Color(1.0, 0.957, 0.902, 0.92)
@@ -321,6 +331,9 @@ var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
 var footstep_material: String = "moss"
 var footstep_distance: float = 0.0
+var ground_motion_x := 0.0
+var ground_motion_speed := 0.0
+var run_cycle_phase := 0.0
 ## 普攻三采样顺序轮换游标。
 var attack_sample_index: int = 0
 ## 钩索挂住/收线一次性标记（每次挥钩在 _start_attack 重置）。
@@ -347,6 +360,9 @@ func _ready() -> void:
     spawn_position = global_position
     _ensure_input_actions()
     _load_sprite_frames()
+    sprite.frame_changed.connect(_sync_sprite_pose_anchor)
+    sprite.animation_changed.connect(_sync_sprite_pose_anchor)
+    _sync_sprite_pose_anchor()
     attack_shape.disabled = true
     _sync_attack_hitbox()
     feel = get_node_or_null("/root/FeelKit")
@@ -524,7 +540,9 @@ func _physics_process(delta: float) -> void:
 
     _update_attack(delta)
     var fall_speed := velocity.y
+    var platform_motion := get_platform_velocity() * delta if was_on_floor else Vector2.ZERO
     move_and_slide()
+    _update_ground_motion(delta, platform_motion)
     if not was_on_floor and is_on_floor():
         land_timer = 0.14
         pogo_chain = 0
@@ -641,6 +659,10 @@ func _reset_traversal_state() -> void:
     dash_timer = 0.0
     dash_cooldown = 0.0
     attack_timer = 0.0
+    land_timer = 0.0
+    ground_motion_x = 0.0
+    ground_motion_speed = 0.0
+    run_cycle_phase = 0.0
     wall_sliding = false
     if is_instance_valid(attack_shape):
         attack_shape.set_deferred("disabled", true)
@@ -1303,6 +1325,8 @@ func _trigger_hit_feedback(killed: bool) -> void:
     elif killed:
         stop_ms = 90.0
     feel.hitstop(stop_ms)
+    if feel.has_method("melee_rumble"):
+        feel.melee_rumble(current_attack, killed, current_attack_direction)
     _add_trauma(trauma)
     if killed:
         _flash_screen(Color.WHITE, 0.08, 1)
@@ -1392,7 +1416,44 @@ func gain_energy(amount: int) -> void:
         energy_changed.emit(energy, max_energy)
 
 
-func _update_animation(input_axis: float) -> void:
+func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO) -> void:
+    ground_motion_x = 0.0
+    ground_motion_speed = 0.0
+    if not is_on_floor() or delta <= 0.0:
+        return
+    # get_position_delta excludes teleports/room handoffs before move_and_slide.
+    # Subtract carrier travel so standing on a lift does not make the legs run.
+    ground_motion_x = get_position_delta().x - platform_motion.x
+    ground_motion_speed = absf(ground_motion_x) / delta
+    if ground_motion_speed <= GROUND_MOTION_EPSILON:
+        ground_motion_x = 0.0
+        ground_motion_speed = 0.0
+        return
+    run_cycle_phase = fposmod(run_cycle_phase + absf(ground_motion_x) / RUN_CYCLE_DISTANCE, 1.0)
+
+
+func _pose_ground_run() -> void:
+    _play(&"run")
+    sprite.pause()
+    var count := sprite.sprite_frames.get_frame_count(&"run")
+    var phase := run_cycle_phase * count
+    sprite.set_frame_and_progress(clampi(int(phase), 0, count - 1), fposmod(phase, 1.0))
+    # Gameplay facing still responds immediately to input/queued attacks.
+    # Only the walking silhouette waits for actual motion to reverse, avoiding
+    # backwards skating during the existing acceleration/deceleration curve.
+    sprite.flip_h = ground_motion_x < 0.0
+    _sync_sprite_pose_anchor()
+
+
+func _sync_sprite_pose_anchor() -> void:
+    sprite.offset = Vector2.ZERO
+    if sprite.animation == &"idle" and sprite.frame < IDLE_FOOT_CENTER_X.size():
+        var correction: float = IDLE_FOOT_CENTER_X[0] - IDLE_FOOT_CENTER_X[sprite.frame]
+        sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
+
+
+func _update_animation(_input_axis: float) -> void:
+    sprite.flip_h = facing < 0
     if hurt_timer > 0.0:
         _play(&"hurt")
     elif heal_timer > 0.0:
@@ -1417,12 +1478,13 @@ func _update_animation(input_axis: float) -> void:
         if velocity.y < 0.0 and sprite.animation == &"jump_start" and sprite.is_playing():
             return # Preserve takeoff instead of replacing it on the same tick.
         _play(&"jump_loop" if velocity.y < 0.0 else &"fall")
+    elif ground_motion_speed > GROUND_MOTION_EPSILON:
+        _pose_ground_run()
     elif land_timer > 0.0:
         _pose_progress(&"land", 1.0 - land_timer / 0.14)
-    elif absf(input_axis) > 0.1:
-        _play(&"run")
     else:
         _play(&"idle")
+    _sync_sprite_pose_anchor()
 
 
 func _play(name: StringName, restart: bool = false) -> void:
@@ -1432,6 +1494,7 @@ func _play(name: StringName, restart: bool = false) -> void:
         sprite.stop()
     if sprite.animation != name or not sprite.is_playing() or restart:
         sprite.play(name)
+    _sync_sprite_pose_anchor()
 
 
 func _pose_progress(name: StringName, progress: float) -> void:
@@ -1774,36 +1837,7 @@ func _spawn_attack_vfx(animation: StringName) -> void:
 
 
 func _spawn_slash_vfx() -> void:
-    var slash := Line2D.new()
-    slash.name = "AttackSlashVfx"
-    slash.width = 5.0
-    slash.default_color = THREAD_T1_CORE
-    slash.z_index = 60
-    var points := PackedVector2Array()
-    var center := _attack_center_offset()
-    if current_attack_direction.y < -0.5:
-        points.append(center + Vector2(-38.0, 22.0))
-        points.append(center + Vector2(0.0, -42.0))
-        points.append(center + Vector2(38.0, 22.0))
-    elif current_attack_direction.y > 0.5:
-        points.append(center + Vector2(-38.0, -22.0))
-        points.append(center + Vector2(0.0, 44.0))
-        points.append(center + Vector2(38.0, -22.0))
-    else:
-        for step in range(10):
-            var angle := lerpf(-0.95, 0.95, float(step) / 9.0)
-            points.append(center + Vector2(cos(angle) * 45.0 * facing, sin(angle) * 28.0))
-    slash.points = points
-    var glow := _make_glow_twin(slash, 2.2, THREAD_T1_GLOW)
-    add_child(glow)
-    add_child(slash)
-    var tween := create_tween()
-    tween.tween_property(slash, "scale", Vector2(1.28, 1.28), 0.15)
-    tween.parallel().tween_property(slash, "modulate:a", 0.0, 0.15)
-    tween.parallel().tween_property(glow, "scale", Vector2(1.28, 1.28), 0.15)
-    tween.parallel().tween_property(glow, "modulate:a", 0.0, 0.15)
-    tween.finished.connect(Callable(slash, "queue_free"))
-    tween.finished.connect(Callable(glow, "queue_free"))
+    MELEE_FEEDBACK.spawn_swing(self, sprite, attack_active_time, _accessibility())
 
 
 ## 辉光复线（规格 §1.2）：同路径宽复线 + 加法混合，构成廉价 2D 辉光。
@@ -1900,28 +1934,7 @@ func _spawn_skill_slash_vfx() -> void:
 
 
 func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName) -> void:
-    var parent_node := get_parent()
-    if parent_node == null:
-        return
-    var spark := Line2D.new()
-    spark.name = "HitConfirmVfx"
-    spark.global_position = world_position + Vector2(0.0, -28.0)
-    spark.width = 4.0 if animation == &"attack_2" else 3.0
-    spark.default_color = THREAD_T1_CORE
-    spark.z_index = 80
-    spark.modulate = Color(1.0, 1.0, 1.0, 1.0).lerp(Color(THREAD_T1_GLOW.r, THREAD_T1_GLOW.g, THREAD_T1_GLOW.b, 1.0), 0.25)
-    spark.points = PackedVector2Array([
-        Vector2(-18.0, -6.0),
-        Vector2(0.0, 0.0),
-        Vector2(18.0, -12.0),
-        Vector2(4.0, 8.0),
-        Vector2(22.0, 14.0)
-    ])
-    parent_node.add_child(spark)
-    var tween := create_tween()
-    tween.tween_property(spark, "scale", Vector2(1.7, 1.7), 0.16)
-    tween.parallel().tween_property(spark, "modulate:a", 0.0, 0.16)
-    tween.finished.connect(Callable(spark, "queue_free"))
+    MELEE_FEEDBACK.spawn_hit(get_parent() as Node2D, world_position + Vector2(0.0, -28.0), current_attack_direction, animation, _accessibility())
 
 
 func _spawn_land_vfx() -> void:
