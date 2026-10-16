@@ -66,10 +66,16 @@ func run() -> void:
         var prepared: Dictionary = scene.world_loader.validate_config(raw,path,entry)
         pref.desired = {id:{"path":path,"entry":entry,"distance":0}}
         pref.configs = {id:{"raw":raw,"prepared":prepared,"stamp":FileAccess.get_modified_time(path)}}
+        var ready := false
         for unused in 500:
             pref.step(scene,0)
-            if pref.gameplay.regions.has(id) and pref.gameplay.regions[id].pending.is_empty(): break
+            ready = pref.gameplay.regions.has(id) and pref.gameplay.regions[id].plan_complete and pref.gameplay.regions[id].pending.is_empty()
+            if ready: break
             await process_frame
+        if not ready:
+            failures += 1
+            push_error("Gameplay planning and warming did not finish for " + String(id))
+            continue
         var records: Dictionary = pref.gameplay.regions[id].actors.duplicate()
         title.text = String(prepared.get("chapter_name",id))
         scene._travel_world(path,entry)
