@@ -295,7 +295,15 @@ func _seed_detached(pref: RefCounted) -> Dictionary:
         owned.append(actor)
         if index == 0: npc = data
     pref.gameplay.generation = scene.world_loader.generation
-    pref.gameplay.regions[id] = {"entry": entry, "stamp": FileAccess.get_modified_time(path), "path": path, "prepared": scene.config, "pending": [], "actors": actors}
+    # This component seeds an already-published detached cache, not a planner
+    # job. Include the complete production lease introduced by the main planner
+    # so invalidation tests exercise real retirement rather than a malformed
+    # pre-planner dictionary. All ownership and frame-budget assertions remain.
+    var source_record: Dictionary = pref.configs[id]
+    pref.gameplay.regions[id] = {"entry": entry, "stamp": source_record.stamp, "path": path,
+        "generation": pref.gameplay.generation, "source_record": source_record, "raw": source_record.raw,
+        "prepared": source_record.prepared, "plan_job": null, "plan_complete": true,
+        "pending": [], "actors": actors}
     return {"id": id, "path": path, "platform": platform, "collision": collision, "npc": npc, "owned": owned}
 
 func _cached_ownership() -> void:

@@ -73,8 +73,9 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 99)
+        self.assertEqual(len(all_suites), 100)
         self.assertIn("input_prompt", DEFAULT_SUITES)
+        self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
         self.assertIn("player_motion_continuity", DEFAULT_SUITES)
         self.assertIn("player_melee_feedback", DEFAULT_SUITES)
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
