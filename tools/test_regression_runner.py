@@ -230,11 +230,12 @@ class RunnerTests(unittest.TestCase):
 
     def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
         for marker in [
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=false pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=199 failures=0 real_gl=true pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=1 real_gl=true pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=false',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=false pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=211 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=1 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=false',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true',
         ]:
             with self.subTest(marker=marker):
                 result = self.run_engine(f'print({marker!r})\n', suite='player_layered_idle')
@@ -248,7 +249,7 @@ class RunnerTests(unittest.TestCase):
             captured = root / 'args'
             engine.write_text(
                 '#!' + sys.executable + '\nimport sys\n'
-                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true")\n'
+                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=true")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)

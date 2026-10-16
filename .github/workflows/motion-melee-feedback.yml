@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/player_controller.gd'
+      - 'godot/shaders/hit_flash.gdshader'
+      - 'godot/scripts/player_layered_idle*.gd'
+      - 'godot/scripts/world_death_cache_flush_validation.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
       - 'godot/scripts/player_motion_continuity_validation.gd'
       - 'godot/scripts/player_melee_feedback*.gd'
@@ -66,6 +69,7 @@ jobs:
             --suite input_settings_regression --suite ui_build_accessibility --suite ui_world_integration \
             --suite ui_redesign --suite input_prompt --suite camera_focus --suite ability_movement \
             --suite seal_ui --suite seal_acceptance \
+            --suite player_layered_idle --suite world_death_cache_flush \
             --log-dir "$RUNNER_TEMP/motion-melee-feedback-logs"
       - name: Preserve regression logs
         if: always()

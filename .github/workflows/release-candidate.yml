@@ -3,8 +3,8 @@ name: Desktop release candidates
 on:
   workflow_dispatch:
   pull_request:
-    # Stacked W00 integration PRs need the same packaged Windows/Linux gates.
-    branches: [main, 'codex/w00-*-modern-integration']
+    # Each current stacked upgrade base needs the same packaged Windows/Linux gates.
+    branches: [main, 'codex/w00-*-modern-integration', 'codex/u04-map-pins-modern-integration', 'codex/death-respawn-presentation']
     paths:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'

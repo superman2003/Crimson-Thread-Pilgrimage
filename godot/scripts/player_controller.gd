@@ -301,6 +301,10 @@ var land_timer: float = 0.0
 var attack_timer: float = 0.0
 var hurt_timer: float = 0.0
 var death_timer: float = 0.0
+# Presentation only: do not add a gameplay lock or change the 0.9-second death.
+const DEATH_FADE_SECONDS := 0.16
+const RESPAWN_REVEAL_SECONDS := 0.18
+var respawn_reveal_timer := 0.0
 var skill_cooldown: float = 0.0
 var heal_cooldown: float = 0.0
 var attack_duration: float = 0.34
@@ -397,6 +401,7 @@ func _physics_process(delta: float) -> void:
         if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):
             flash_material.set_shader_parameter("flash_amount", 0.0)
         return
+    _update_respawn_reveal(delta)
     arrival_guard_timer = maxf(0.0, arrival_guard_timer - delta)
     if build_system != null and build_system.has_method("tick"):
         build_system.tick(delta)
@@ -417,7 +422,12 @@ func _physics_process(delta: float) -> void:
         death_timer -= delta
         if death_timer <= 0.0:
             _hard_respawn()
-        _play(&"death")
+            return
+        _set_death_visibility(death_timer / DEATH_FADE_SECONDS)
+        # A finished non-loop death must hold its terminal pose, not restart
+        # whenever _play sees is_playing() == false during the remaining hold.
+        if sprite.animation != &"death":
+            _play(&"death")
         return
 
     if hurt_timer > 0.0:
@@ -649,6 +659,8 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    respawn_reveal_timer = 0.0
+    _set_death_visibility(1.0)
     camera_focus.clear_look()
     _clear_action_buffer()
     _stop_grapple()
@@ -2023,6 +2035,8 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             if enemy.has_method("clear_salt_mark"):
                 enemy.clear_salt_mark()
         death_timer = 0.9
+        respawn_reveal_timer = 0.0
+        _set_death_visibility(1.0)
         velocity = Vector2.ZERO
         _stop_wall_slide_loop()
         # 死亡=绯线松脱（音频规格 §4.2 player_death）：无惨叫，只有线散与长呼气。
@@ -2142,6 +2156,20 @@ func reset_camera_after_arrival() -> void:
         camera.force_update_scroll()
 
 
+func _set_death_visibility(amount: float) -> void:
+    # The hit-flash shader writes COLOR itself, so CanvasItem alpha alone does
+    # not fade the authored player or the idle layers using this material.
+    if flash_material != null:
+        flash_material.set_shader_parameter("presentation_alpha", clampf(amount, 0.0, 1.0))
+
+
+func _update_respawn_reveal(delta: float) -> void:
+    if respawn_reveal_timer <= 0.0:
+        return
+    respawn_reveal_timer = maxf(0.0, respawn_reveal_timer - delta)
+    _set_death_visibility(1.0 - respawn_reveal_timer / RESPAWN_REVEAL_SECONDS)
+
+
 func _hard_respawn() -> void:
     snare_timer = 0.0
     hp = max_hp
@@ -2152,6 +2180,8 @@ func _hard_respawn() -> void:
     # 钟龛复活（音频规格 §4.2 player_respawn）：龛铃三音上行 + 吸气。
     _play_sfx("respawn_weave", -7.0, 1.0, "", 0)
     _play(&"idle")
+    respawn_reveal_timer = RESPAWN_REVEAL_SECONDS
+    _set_death_visibility(0.0)
 
 
 func restore_at_save_point() -> void:

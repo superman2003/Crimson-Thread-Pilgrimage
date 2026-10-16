@@ -1,0 +1,88 @@
+{
+  "base_pr": 98,
+  "base_head": "2a6fc492710eda60893e22d1ea6503cbf88cfa04",
+  "base_tree": "3230fca2069e7fd4068e638d92364fa5dd7d9904",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "runtime_source_sha256": {
+    "godot/scripts/main_level.gd": "e08cdf09aa03686b833bef2b804c0785e7975405153c896f62cd11f98a08020e",
+    "godot/scripts/player_controller.gd": "fa27dca644c850ea381cbaeb71a9e582fb53ab188b2d2398ac9289f40c7b574c",
+    "godot/scripts/world_region_loader.gd": "014de713cbc8a3d9cc0b85ff81a7e5f0baf61d19b4335067939912ddb9a9036f",
+    "godot/scripts/world_state.gd": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528",
+    "godot/shaders/hit_flash.gdshader": "a5ac5133e70e7fb04bbefc45fc22d40dd037ef3adc5e67fbcdcae787e671b885"
+  },
+  "frozen_source_count": 231,
+  "source_unchanged_across_final_game_checks": true,
+  "suites": [
+    {
+      "suite": "player_motion_continuity",
+      "marker": "PLAYER_MOTION_CONTINUITY checks=1128 failures=0",
+      "exit_code": 0,
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log_sha256": "e3355f141f2604da1752fe97cc2e7b6e19d4aa973f843d7c36196e7d17bfafdf",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "player_layered_idle",
+      "marker": "PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=true",
+      "exit_code": 0,
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log_sha256": "10b57323e213110042915639416e461d9fd0b45e1d5ee76fb78d7161e0ffac8d",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "world_death_cache_flush",
+      "marker": "WORLD_DEATH_CACHE_FLUSH checks=17 failures=0",
+      "exit_code": 0,
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log_sha256": "50854ddb58d59b1fcf8f1a569be177da2e18a9572538807e8f7b518068f8b659",
+      "timeout_seconds": 180
+    }
+  ],
+  "default_suite_count": 110,
+  "static_tests": {
+    "runner": 29,
+    "release_builder": 23,
+    "integration_workflow": 5
+  },
+  "import": {
+    "engine_passes_per_attempt": 2,
+    "engine_attempts": 2,
+    "engine_errors": 0,
+    "source_guard_failed_both_attempts": [
+      "godot/default_bus_layout.tres"
+    ],
+    "cause": "Editor adds UID and rewrites default/ordered AudioBusLayout fields; no other source drift.",
+    "action": "Retained both rewritten snapshots; restored only the indexed original bus bytes after editor import, then verified all231 frozen files before/after real GL. No third import loop and no source-preserving-import claim.",
+    "restored_file_sha256": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf"
+  },
+  "release_workflow": {
+    "pull_request_base_additions": [
+      "codex/u04-map-pins-modern-integration",
+      "codex/death-respawn-presentation"
+    ],
+    "push_branches_unchanged": [
+      "main"
+    ],
+    "smoke_frames_unchanged": 120
+  },
+  "scope": {
+    "new_bitmap_frames": 0,
+    "death_source_frames": 4,
+    "death_duration_seconds": 0.9,
+    "fade_seconds_within_original_death": 0.16,
+    "reveal_seconds": 0.18,
+    "added_immunity": false,
+    "input_delay_added": false
+  },
+  "prior_evidence": "verification.json records 11 suites on the earlier motion-main source; its test results are not relabeled as all11 run on this final chain. Player/shader are byte-identical, and the three affected actual World/idle/motion combinations above were rerun.",
+  "open": [
+    "new-head110/visual/desktop CI",
+    "idle/artwork/full keyframe continuity",
+    "passage fatal-cancel return-to-entry presentation",
+    "clear visual presentation recording; existing ordinary-World clip is low-FPS and HUD-occluded",
+    "prior unattributed ObjectDB warnings and long-term stability"
+  ]
+}
