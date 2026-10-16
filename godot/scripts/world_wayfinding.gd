@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
     if not is_instance_valid(host) or not is_instance_valid(area):
         return
     # Use the same chosen object/range as interaction, not a larger hint radius.
-    nearby = is_instance_valid(host.player) and host.active_overlay == "" and not host.world_loading and host.player.global_position.distance_to(area.global_position) < 140 and host._nearest_interactable(140) == area
+    nearby = host.interaction_target(area) == area
     if String(area.get_meta("kind", "")) == "npc":
         symbol = "map" if area.has_meta("map_seller_region") else "shop" if area.has_meta("shop_items") or area.has_meta("shop") else "talk"
     key_hint = host.ui_shell._short_binding("interact") if nearby and is_instance_valid(host.ui_shell) else ""
