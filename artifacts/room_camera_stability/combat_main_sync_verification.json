@@ -1,0 +1,89 @@
+{
+  "label": "camera",
+  "started_at_utc": "2026-10-16T09:35:36.066087+00:00",
+  "finished_at_utc": "2026-10-16T09:36:27.245870+00:00",
+  "elapsed_seconds": 51.18,
+  "exit_code": 0,
+  "suites": [
+    {
+      "suite": "combat_resource_cycle",
+      "log_sha256": "74d47f0b0ceacdcdde7f569a4c82793a6f02fc3d90192f360170ca4e2d98c7da",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 23.252,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "room_camera_stability",
+      "log_sha256": "4dee99e8dd83c8a533fb04a42dee5bfd88faf25adcc3091f776ce19ac91ca213",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":186.1728515625,\"air_stop_min_head_margin\":246.9580078125,\"double_jump_camera_rise\":47.3284912109375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":182.861328125,\"wall_slide_min_head_margin\":244.86083984375}"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 7.412,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "camera_focus",
+      "log_sha256": "4b688d78245f63b45e76333f32dbf46b95c561616a912c36ec5683c6b67ec70e",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "CAMERA_FOCUS checks=86 failures=0"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 20.344,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    }
+  ],
+  "runtime_source_unchanged": true,
+  "source_after_set_sha256": "2988bafd62d9f27f79e3437a727f9a27e4fde12fab468afbe30b783ad683988d",
+  "runner_log_sha256": "f3fe1b06e1bc755b6a2d0fe4307c13fa9906a67bff27299e0ae7e53aeb976524",
+  "runner_completion_marker": [
+    "GODOT_REGRESSIONS suites=3 failures=0"
+  ],
+  "import_rerun": false,
+  "import_reason": "Existing resource/class cache; only non-class combat validation and existing runtime scripts changed. Actual engine startup and strict error/marker gates retained.",
+  "previous_head": "cf40d8b2a4862cd349181e43edfac82d2a71c5a1",
+  "dependency_head": "0cdd867fc8fab399da648cba72ed5bfeb2d70255",
+  "main_commit": "c6dce193ceb27c94ee8443111fc2b10fb00ce125",
+  "default_suites": 102,
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "7893fbf6e4c2ba8c99e86816edfd43b24aca8ff3f94d4ce8ecad789239c65555",
+    "godot/scripts/pilgrimage_interface.gd": "4794231f6ba506507743e1d337fd27c5d6dd91a71fcea1c57ed6e522bfe82a58",
+    "godot/scripts/camera_focus.gd": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966",
+    "godot/scripts/room_camera_stability_validation.gd": "6f435aa016e66f7117f128144fcbb26cbfd5f511ad8fa6606c4eb7172b28d5ac",
+    "tools/run_godot_regressions.py": "06b49596f5b5959ed13e89bbfd87b1528685af624db7c8013f35b6d18900367c",
+    "tools/godot_suite_success_markers.json": "006677d0b1e284be0da89f4ea7b4189a7367cf93f7067bcc11e4672bdb81f80b"
+  },
+  "boundaries": [
+    "Camera production and existing exact78 actual Player assertions unchanged.",
+    "Idle artwork and all natural door transitions are not accepted by these combination tests.",
+    "New head remote CI pending; old head results remain historical."
+  ],
+  "static_checks": {
+    "npm": {
+      "exit_code": 0,
+      "log_sha256": "b6cc9cf4e7223abd5c651f2eb4547e254bd75d3304b6d214a31b1aff1c0748cf"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log_sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    }
+  }
+}
