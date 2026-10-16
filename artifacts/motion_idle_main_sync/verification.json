@@ -1,0 +1,3578 @@
+{
+  "scope": "Dependency-only local merge of current main into PR #94. No feature, production function, helper, or asset modifications.",
+  "parents": [
+    "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+    "07ae21d4c35ae6a33ca45809cf02d96c015ccf66"
+  ],
+  "merge_base": "1806e0cf98a12f1d2b7a2cf175803cfe42de0746",
+  "conflicts": [
+    "docs/STAGED_UPGRADE_PLAN.md",
+    "docs/UPGRADE_PROGRESS.md",
+    "docs/UPGRADE_TASK_LEDGER.md",
+    "tools/godot_suite_success_markers.json",
+    "tools/run_godot_regressions.py",
+    "tools/test_regression_runner.py"
+  ],
+  "production_conflicts": [],
+  "default_total": 106,
+  "default_suites": [
+    "world_rim",
+    "world_wayfinding",
+    "world_passage",
+    "world_passage_network",
+    "world_route_manifest_walk_lower",
+    "world_route_manifest_walk_upper",
+    "world_route_manifest_integration",
+    "audio_retirement",
+    "world_neighbor_collision",
+    "world_neighbor_entities",
+    "world_neighbor_gameplay",
+    "world_gameplay_plan",
+    "world_neighbor_gameplay_live",
+    "world_neighbor_gameplay_stress",
+    "terrain_collision_streaming",
+    "world_platform_streaming",
+    "cave_collision_streaming",
+    "world_async_loading",
+    "world_streaming",
+    "world_host",
+    "world_coordinates",
+    "world_interaction_residency",
+    "world_enemy_residency",
+    "cartography",
+    "world_map",
+    "world_route_access",
+    "world_state",
+    "world_integration",
+    "world_route_walk",
+    "ability_movement",
+    "enemy_lifecycle_regression",
+    "enemy_effect_lifetime",
+    "enemy_visibility",
+    "world_material",
+    "hero_animation",
+    "cave_exploration",
+    "cave_route_walk",
+    "chapter_route_regression",
+    "ch01_room_reconstruction",
+    "pilgrimage_merge_regression",
+    "pilgrimage_review_regression",
+    "all_chapters_demo",
+    "pilgrimage_overhaul",
+    "demo",
+    "ch02_demo",
+    "inventory_map",
+    "boss_trial",
+    "combat",
+    "generated_runtime",
+    "chapter_registry",
+    "story_guidance",
+    "chinese_story",
+    "metsys",
+    "player_upgrade_regression",
+    "build_system",
+    "world_upgrade",
+    "world_workshop_group_one",
+    "world_workshop_group_two",
+    "world_ability_acquisition",
+    "upgrade_integration",
+    "save_product",
+    "ui_build_accessibility",
+    "ui_world_integration",
+    "ui_redesign",
+    "seal_system",
+    "seal_combat",
+    "seal_ui",
+    "seal_acceptance",
+    "seal_acquisition",
+    "seal_presentation",
+    "world_prepare_budget",
+    "world_preflight_budget",
+    "world_config_background",
+    "world_neighbor_config",
+    "world_resume_regression",
+    "world_interaction_safety",
+    "player_state_cleanup",
+    "input_settings_regression",
+    "input_prompt",
+    "player_action_buffer",
+    "player_motion_continuity",
+    "player_layered_idle",
+    "player_melee_feedback",
+    "camera_focus",
+    "room_camera_stability",
+    "first_court_experience",
+    "rain_foundry_experience",
+    "salt_archive_experience",
+    "greenhouse_experience",
+    "obsidian_experience",
+    "world_startup_budget",
+    "world_variant_copy",
+    "survey_map_knowledge",
+    "ch06_workshop_experience",
+    "world_death_cache_flush",
+    "melee_recovery",
+    "combat_resource_cycle",
+    "build_slots",
+    "build_transaction_runtime",
+    "enemy_encounter_roles",
+    "build_slots_ui",
+    "narrative_outcomes"
+  ],
+  "narrative_suites": [
+    "tests/verify_world_narrative",
+    "tests/verify_narrative_ui",
+    "tests/verify_narrative_progression",
+    "tests/verify_narrative_runtime"
+  ],
+  "exact_suite_union": true,
+  "fixed_clock_exact_union": true,
+  "success_markers_preserved": true,
+  "source_exact_files": [
+    {
+      "path": ".gitattributes",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "b6ca15daa43dbb35324f41a0d3019c6ea4cfc3715c3350d1c69538f13a52d484",
+      "byte_identical": true
+    },
+    {
+      "path": ".github/workflows/layered-idle-presentation.yml",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "cf6235020d4d39f4eaf1b2c3ddee531ba60b212af0f0d827389b74d290b554dc",
+      "byte_identical": true
+    },
+    {
+      "path": ".github/workflows/modern-ability-workshops.yml",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "e1ca125a554202fcf3b5f0293e6c20a45d0046c1adaad99bf1e1aa8606fdeba1",
+      "byte_identical": true
+    },
+    {
+      "path": ".github/workflows/motion-melee-feedback.yml",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "21b4b14fff9451f8570636ab18682545614d9c934813bc6be9903e2de3b6b3c5",
+      "byte_identical": true
+    },
+    {
+      "path": ".github/workflows/room-camera-stability.yml",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "d680dd0a85d67f1fad4e163d13923f3761e875d322079314c7539f35050aac21",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/layered_idle_presentation/verification.json",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "5844d520c4fed30e35b841b4625f3ac3a84ca841c1df1fbe82b18b1c2fddad70",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/modern_workshop_integration/combat_main_sync_verification.json",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "df87e8362e9884ffa5a9d3b4ffa16f2789e6cc073d2ea76e51a90a59cc356d5f",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/modern_workshop_integration/route_main_sync_verification.json",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "1fab54373034bfafed1eeef6d914d6251b9435f449f7cf97b3eb86ec1a598021",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/modern_workshop_integration/verification.json",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "4216932de786075587f8ab8b3eaf8ed6ae3cfb081489d092edafe149e5a24358",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/motion_melee_feedback/combat_main_sync_verification.json",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "9e29449886e2d1f2e680512599c0b679a08c3f5b925d63a7341750eea182f2c4",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/motion_melee_feedback/verification.json",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "3a6898da5c68a6cfd64857f511cab9040c97cadcfa22d3f731e591e05ebf517f",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/room_camera_stability/combat_main_sync_verification.json",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "cedbd9f72bc191317c62e484561ffe169af660489f5696e3188cdd3bdf0ae7aa",
+      "byte_identical": true
+    },
+    {
+      "path": "artifacts/room_camera_stability/verification.json",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "fd63b46b37cffc1ec47939cf191b699b97c5f5b4e7a9b935a131c3da67db834a",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/ABILITY_WORKSHOPS_GROUP_ONE.md",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "b0c3dfe7231d90026fe226bf5dd2c49f059de024b181bb051eaa8c7568d753f3",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/ABILITY_WORKSHOPS_GROUP_TWO.md",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "5b7a19af6d86a02624f42db1d5bfd6bb18ad1931813fbc0f4fa541e067a502e7",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/report/20261016_grounded_motion_melee_feedback.md",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "7ae114d245c60bfb8c5d1d0e1880695e4dae4b192d22a1b94175249781f12be7",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/report/20261016_layered_idle_presentation.md",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "70cc177b3c50c7460ed5c24e6104cf7f754f59ca2ee8aa7bd3868b7e09230f2f",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/report/20261016_modern_workshop_integration.md",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "4757986861d163375d80b5fa7c110c1a6a636d376851d1654a0882c28f255247",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/report/20261016_room_camera_stability.md",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "d3493f4b49497e5b118702ccc9d2321bb42f8f982ebba5cc9a4131659e6ac0fd",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/README.md",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "8d52fc0c4fbb04432a93e4f7bcd6a7d2978c94b3ec39bddabe9edb48d23bbd56",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "222d12909c41bdf26c19b5a4362aca9376140cfae0aca1a8a3be378cc0baf706",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png.import",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "1bde7aeb46ee86dfb482fe736add742f9ac002c46c75608abb10fd4aabdf6201",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "2f596483024a92aa621929ab40766088ae7e1ec657d653e5301284d8c775dc30",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png.import",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "7be6a300d39d7b7d2911e411640bbda9810816892fc6102578c1e101453cd418",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/manifest.json",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "640130844bcbc574675cbf46a95c88f033af778413ae1ccd6dd9b6d24a5b7ad6",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/data/world_routes.json",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "738a44774bb4911c1df567d3388e66f98630719057e55deaa4dac0ddabfb6bba",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/ability_workshop_route_validation.gd",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "ba6a9d99e5e48f3ae2892f1b05c3d5370951685c2b77475fd2f8aa76442614de",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/ability_workshop_route_validation.gd.uid",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "650a4b646bdbcce3747e1e5b82827e7e6d3ce9e7cb5a0885fdfc111f203f164e",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/camera_focus.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/ch06_workshop_experience_validation.gd",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "b6a5b2cd85f98e1ce1293ac0a28b7cad113db73aecc7442ce4740eb4a0fb3c74",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/feel_kit.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "00eff6067d7fe6fb5e025c441985679f014f6d812c98ab8588077b9c0eb46d1b",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/input_settings_regression_validation.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "241305b5633969323fbadc4ca276b2d199eb50f67f4841efdcee67e319e5a8d6",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/pilgrimage_interface.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "4794231f6ba506507743e1d337fd27c5d6dd91a71fcea1c57ed6e522bfe82a58",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_controller.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_layered_idle.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_layered_idle.gd.uid",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "0c2c5b7dd66eb867e862e759bb6c632d466af20f68bde9b03b16b181a71295be",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_layered_idle_validation.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "fc10fcd58e9de970194dd381cd7636e9bb37ed76509ba4706407fb4777d9b62f",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_layered_idle_validation.gd.uid",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "09dc5ffc303a60a5cf8be329b8424c29fda2869c69b4c5e5b1e030253a10d365",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback.gd.uid",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "d2d179691504d41aaa402ec6dd24c7bea7db58b2a40c188aee4162a0f331e6b8",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback_validation.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "1b8ec5ef9f29893f6e2736c11bfff6cf61766cc0fd87f678b0aa4bf2cb66ec57",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback_validation.gd.uid",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "21d92e1d0bcec40b5af7d4f29694fdbf4ede85ae332a4629bf4ca4d08ad90213",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_motion_continuity_validation.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "a0cebb2de65c80f7afe0d3a9779fbfef46fc72fa2ee8b5a7a73ab32576f3f064",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/player_motion_continuity_validation.gd.uid",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "96b3701cd4f96927a705a79a6aab8c4f6b0b4902660e172a31312236ac7f1bd9",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/room_camera_stability_validation.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "6f435aa016e66f7117f128144fcbb26cbfd5f511ad8fa6606c4eb7172b28d5ac",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/room_camera_stability_validation.gd.uid",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "bb0416bf44cad8be470ec1d5bc33b39b40badb3981a74e6fc116dc4a2b0dac08",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_ability_acquisition_validation.gd",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "242b481f4aca95579675bccbcd09c3076f02d109bee5cb1f6d4d0a1889a042aa",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_ability_acquisition_validation.gd.uid",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "248aea22c125446d11828dd99e6ec19ee3a3a95807c13bd47f50dc183ed42838",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_upgrade_validation.gd",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "4283ba6eea21bd68abc2fb222f13cdba02fe8decb8b9136c01f477d140e6be1e",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_one_validation.gd",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "40c9c3984bbf9143d4304018b462a597eb09649740ba255ca23206f4e9c83e68",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_one_validation.gd.uid",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "7ecad1ad8a0599e9d11b6efe6d8a3f70041dce813f59db8e07a42e8213a9296d",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_two_validation.gd",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "6917bca09d417fcd512d60028c08c41b2cab32b656bce6d421fe9a85d56d5448",
+      "byte_identical": true
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_two_validation.gd.uid",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "21afeb56ba3e24188a588bf9a46c6e9fef97d97c2d747b0e31a85d6286512436",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/build_world_upgrade.py",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "d4e112a5b7728f39b14d2085f73e597616538409d3a2c99639d5ae30a570e312",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/test_workshop_layout_contract.py",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "d1e8b134518ffb93f68f8b6033fe16f5ef3dcfa98bad8513b7801c9bb67d83e8",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/validate_world_upgrade.py",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "15068a9749020094594504342cb00b3cf7f0beb443bbbc78beaeab05b9c2bf9a",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/workshop_layout_contract.py",
+      "source_commit": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+      "sha256": "1c0ee2fb5166e2ad717a26b9e56c431c267e10232a0470d4f3086dac316345fd",
+      "byte_identical": true
+    }
+  ],
+  "production_function_audit": [
+    {
+      "path": "godot/scripts/main_level.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "_ready",
+          "sha256": "90d692e8403e3db5492de706449dd9bc01fef7feaac7ef3408b33be033ca9a87"
+        },
+        {
+          "function": "_initialize_region",
+          "sha256": "23cfdd2de04635dea6871d52e234fc382a10db00e5a5b67413ae5efe556fa089"
+        },
+        {
+          "function": "_prepare_region",
+          "sha256": "1c1130189d486444caf0358a2ef653372755702f476b91d7c14fc55c79a666fe"
+        },
+        {
+          "function": "_region_prepare_jobs",
+          "sha256": "d60a8b856ae11fd563312c052309d1d47a0a24de46b170e5b824db9f1272528a"
+        },
+        {
+          "function": "_chapter_metadata_paths",
+          "sha256": "ab35591535ee833fd7cda0bc43b2566fa7a9449b53e88001c8e87e52befcccd7"
+        },
+        {
+          "function": "_prepare_config_and_route",
+          "sha256": "2a1f0f3e9ae4f2015a8884f53c40d17b701b321b19594a64dfbea69d126300f4"
+        },
+        {
+          "function": "_prepare_narrative_config",
+          "sha256": "a5b30e667ddb68b22cbc14c3ab1b3d5a0b3d7be68feaf3c4c51f0adb511a298e"
+        },
+        {
+          "function": "_begin_world_catalog_prepare",
+          "sha256": "8f55a60ff452e859f5c8e11412f162ecb3f2ed8553deeb83496f41a92f2015b0"
+        },
+        {
+          "function": "_prepare_world_catalog_jobs",
+          "sha256": "43f32db6849aabde775e4ccad5aacb55d8fad93559a885a0b7c77444af72cf50"
+        },
+        {
+          "function": "_prepare_world_catalog_region",
+          "sha256": "0fb07eb52c5bf638714c3b0e5ea96490a0ae180458674dc124443c8453c943cf"
+        },
+        {
+          "function": "_commit_world_catalog_prepare",
+          "sha256": "be5259e83021b79a3d4c9b3c69917c46d649255f4bccc9f2296f34129c6c0a50"
+        },
+        {
+          "function": "_prepare_campaign_metadata",
+          "sha256": "136f1034411caf14482a2fd0e727369a5ebf3a897bf74a8c933a1f9bb8a5a0ba"
+        },
+        {
+          "function": "_begin_chapter_metadata",
+          "sha256": "b534e0a59b5d3ee5493df20c219912e4f06a5eda1c06e2dbfcb3d01de9f9b996"
+        },
+        {
+          "function": "_prepare_chapter_metadata",
+          "sha256": "b5c67dff346286021713af6a5059a5c0924e91fe5764bb9c3c6d6da34911a05d"
+        },
+        {
+          "function": "_prepare_av_metadata",
+          "sha256": "6988a689e48505bfac16f5c0fbe2cd71c28dfcfc926f818ca4b6080280c06b44"
+        },
+        {
+          "function": "_prepare_item_lore_metadata",
+          "sha256": "49205613a81bf36ab5f38b75435170cf98ab20d926c198e231bec83f4578113d"
+        },
+        {
+          "function": "_resolve_chapter_world_and_spawn",
+          "sha256": "9438c47c3dfeae68c584fc6398e02e3bd12c19d5a51adca4ca7928fb5d350789"
+        },
+        {
+          "function": "_prepare_inventory_state",
+          "sha256": "1a60dd077eee5577875259cac2a8e80939655ccf112d83d8f9d3eadbfd186152"
+        },
+        {
+          "function": "_restore_inventory_and_region",
+          "sha256": "644ab4a2f3c6f7a2c7d4b29fe6f3ebe23f36c07301be6c2a7e6874546433721c"
+        },
+        {
+          "function": "_restore_build_state",
+          "sha256": "374f1e5460cc2f7c35bd92091f1781ce297462ee9e8a00ab5c5c72a833200046"
+        },
+        {
+          "function": "_sync_build_progress",
+          "sha256": "865bd5ac4a7187ec457810c27e3b94a7b331dcdd70a77f5fbd3b097712c70b7c"
+        },
+        {
+          "function": "_prepare_build_inputs",
+          "sha256": "6294ad426c5a96498eb5804c7a4b9db169fd3d1fad019e6818ee9e6e8e432191"
+        },
+        {
+          "function": "_prepare_audio_settings_key",
+          "sha256": "2917a9fcd3bb357e07a8e77af511856b7998262d2465aa1d4c09e288d1fbca5f"
+        },
+        {
+          "function": "_prepare_metsys_bridge",
+          "sha256": "afbf15027c4bb3a598594955736149370b8e3689c3e9dd4599eb6a767feabbae"
+        },
+        {
+          "function": "_prepare_audio",
+          "sha256": "1d0438ee3fbedaf0455c88d165ec6db1980c13a2a71d6acb53dce5018605b6a5"
+        },
+        {
+          "function": "_prepare_platform_and_gameplay_residency",
+          "sha256": "ee69fe3ba9bc09fe61721dec5ecc1f08a10fc392076638f2e084538a0a88c99d"
+        },
+        {
+          "function": "_finish_region",
+          "sha256": "8189c066e7d01dfc9e47fbe0ed1d365bcf0a674c6181d436d8e05047dd71f10c"
+        },
+        {
+          "function": "_region_finish_jobs",
+          "sha256": "7c0adbab440f639a49fe624eca4845fc45e8bb11b421ff3d8f78945e2d7038d5"
+        },
+        {
+          "function": "_finish_region_spawn",
+          "sha256": "61d403b9dc57aa76c45cd4e8bd51d284dcbf2d7b608a61355dc641e41557a80a"
+        },
+        {
+          "function": "_bind_region_audio",
+          "sha256": "93e3d1bf086f04048ccd6e4e569107045821fdd0d0d328080423b62316d791df"
+        },
+        {
+          "function": "_setup_cartography",
+          "sha256": "8ef0830d3937a962cbf2604820cc17ce1bb09ab365a7c15814f0f280d1da1796"
+        },
+        {
+          "function": "_publish_region",
+          "sha256": "5caf0c976f832ae6f1a02637effec85d6e5a63f578fdbfe50c336a5646a7aebb"
+        },
+        {
+          "function": "_restore_saved_build",
+          "sha256": "ee261f93f45699fd1521ae0fe2b8b0863b6000b32bb70e321055c30fb95b92fa"
+        },
+        {
+          "function": "_apply_cmdline_config_override",
+          "sha256": "a3da97955f119f07777501a975e4f923e1e7d5e3ffb7d6e484c77d22bf3814dd"
+        },
+        {
+          "function": "_physics_process",
+          "sha256": "bfd8c94a206246ce6a25a61a3bdb4da41bc9fc375d659e7f6901b2eba6947770"
+        },
+        {
+          "function": "_process",
+          "sha256": "931a967e83fc6ca1d0b2a162ba54d98e34a556c591d691c3968ad08a5b1756cc"
+        },
+        {
+          "function": "_exit_tree",
+          "sha256": "9f331bc52d930f4ae110087ba41606e12c9f998eb2e580bb50733dc711eee3ef"
+        },
+        {
+          "function": "_release_region_audio",
+          "sha256": "24e4bccac8429b18a80dc68452eccd6d986391b33fab5609b75e3382b996a3c3"
+        },
+        {
+          "function": "_prepare_world_start",
+          "sha256": "7acc13a9b857a2c1b014fdb95121008b75cee3f0ad104cee9cd070557d74783a"
+        },
+        {
+          "function": "_resolve_world_start_route",
+          "sha256": "f8265c3c767b7fcd7ee93924e8d4b1793db968eaeeb2393ec86e508c3addfbbd"
+        },
+        {
+          "function": "_consume_world_startup_options",
+          "sha256": "482a7a26e4cbc20a1dd9cc3b3f7ff5b855bf030be71a8fc17bcd3b41ddc15189"
+        },
+        {
+          "function": "_build_world_catalog",
+          "sha256": "0c4278778755bf18d02fe15402a26d787cc0fec1a758913814b5955393ec12f7"
+        },
+        {
+          "function": "_restore_world_inventory_and_region",
+          "sha256": "069b1ab8478d368e8c36ca729808c075a54538f1934b8dcbd129b7fd2c8f2de5"
+        },
+        {
+          "function": "_restore_world_runtime",
+          "sha256": "f4230c1e1a5576287b64ab2fc8e0b4daaf3a21f0488fab54d750f5bfbc9f8625"
+        },
+        {
+          "function": "_world_runtime_jobs",
+          "sha256": "b6549f7047860a7526d237c4d44ba575cd13b0b30a8e6f243962c318489669fe"
+        },
+        {
+          "function": "_restore_world_player",
+          "sha256": "cf77790d6390639e855b132dc4cd3e8343a76ed5a8295b1447864bd3a65183da"
+        },
+        {
+          "function": "_warm_arrival_cave",
+          "sha256": "766b3b181e6e37644dfa0e91d8dac3e059050f695443dca5ec623a39b16d3202"
+        },
+        {
+          "function": "_warm_arrival_terrain",
+          "sha256": "192181208b6b6f1a0a7465f2556904e359a03005806445206fe3bf9e2f2f923d"
+        },
+        {
+          "function": "_warm_arrival_platforms",
+          "sha256": "9c26106681904e28db6ded4806584abcb5dab2df06fb8665cc67585a15703f62"
+        },
+        {
+          "function": "_restore_world_routes",
+          "sha256": "0d1a27eb5bcb1fdd777c70809af594a067377cc2843ff099eeec572ce88465df"
+        },
+        {
+          "function": "_restore_world_discovery",
+          "sha256": "a47653ecc46417e62a9396db3f17408dbb13e2d14fc010b4c2bd51382c456d9e"
+        },
+        {
+          "function": "player_world_position",
+          "sha256": "931c82b1ffd6e0a0cbba66e5c7642afd3615a927c1151b27263b49a126714845"
+        },
+        {
+          "function": "_save_world",
+          "sha256": "36083bf5e77a34dd1cb5d938142ac9a3d1e3b04cf9e98c0cf32a62524f2dc212"
+        },
+        {
+          "function": "_first_interaction_type",
+          "sha256": "96d7311371aed72be20518d5a4571a5b3bb15b8d6e4cf3960f8e7792d7ec4243"
+        },
+        {
+          "function": "_show_first_interaction_hint",
+          "sha256": "025170d4478d559d860583b23c46f4904546943a5abed690366644358b6692ba"
+        },
+        {
+          "function": "_update_first_journey_hint",
+          "sha256": "921be10813f642b2672256d6a544e87ed0c24129f8b99d38bf2517e2e3bf1501"
+        },
+        {
+          "function": "_first_journey_heal_safe",
+          "sha256": "214bfddb285a697194becce29c582b43fd056234bc532436b918a2fd5de056d4"
+        },
+        {
+          "function": "_add_wayfinding",
+          "sha256": "f51cbab03cae173f8272e77ee63fb562d19d8612f8cd6de06df5670777692e92"
+        },
+        {
+          "function": "_make_world_portal",
+          "sha256": "dcbd0550a2c0b15560f8414fb222869eca7761cacfeba1a6d9704b4f8b721145"
+        },
+        {
+          "function": "_world_portal",
+          "sha256": "cdb71e452531cc00ad2c0cd40fdce4ce84daf27870ddd02859e461432cbf4788"
+        },
+        {
+          "function": "_apply_world_npc_state",
+          "sha256": "0728de92f2015f4eb1f1a82d0a752254ccc4ce056214946182945da83c1f16c3"
+        },
+        {
+          "function": "_world_grapple_anchor",
+          "sha256": "6be4571e863e373989be959d2976aa942112dcbe4db6ab8b310d7408017e69ba"
+        },
+        {
+          "function": "_world_portal_missing",
+          "sha256": "4816ea263f77c8f4044c5c46cba63b5eb3b9cdf2009d6ef38b6eec7899a859c1"
+        },
+        {
+          "function": "_refresh_world_portals",
+          "sha256": "ed3d107e37146b68a0959af739d18e417c83ac5d2f9d00debfe6475a64a71501"
+        },
+        {
+          "function": "_activate_world_portal",
+          "sha256": "1b15dcbe7cf96dc27aa2a29c2784d3ad96c6290414750b94277afc530485d471"
+        },
+        {
+          "function": "_travel_world",
+          "sha256": "1b7b9e7467bf72de323ba0dd8064723b0b9f58f48f0d274b404259c779daa11b"
+        },
+        {
+          "function": "_request_world_travel",
+          "sha256": "6f3af577e3282187190dbb9aeed6edf0c6b367de0b1cbdc848f86f83d95323dd"
+        },
+        {
+          "function": "_travel_world_async",
+          "sha256": "372edbd727b6c34a87d73f49a173a5d2216ca2ca63a036b36ae0ad41bef730c4"
+        },
+        {
+          "function": "_region_tween",
+          "sha256": "a079e5fe57ba0cf5cf3274648cb1486294120d5927267b6b6865058d69db08d9"
+        },
+        {
+          "function": "_stop_region_tweens",
+          "sha256": "b44585b96ad468976b3918570254dda50fc1e7c827a266241d755a15592e322d"
+        },
+        {
+          "function": "_defer_region_call",
+          "sha256": "29bc6f0476fd1f2be13f991039cde6d1584df03d8fc3144b307f1d9073c3bfea"
+        },
+        {
+          "function": "_run_region_deferred",
+          "sha256": "1b11b3e1804bf5d09143496a6556dbbe18c96dbbc7b1ce4e85c5c305bee0670d"
+        },
+        {
+          "function": "_commit_world_dialogue",
+          "sha256": "5c713cdfd17124be74f5b09ecb932a071658840230ba220f37a1f0b62b0b72fb"
+        },
+        {
+          "function": "_rollback_narrative_transaction",
+          "sha256": "c3d33828dde9bce1b2fb99461697aead8ee5d9b646eccb83ba7d39decebef08b"
+        },
+        {
+          "function": "_add_world_portal_map_pins",
+          "sha256": "943a445253cbea4ec9b0010b0e578bb50aedb28eeb80ea64240aa594c2b327ba"
+        },
+        {
+          "function": "_world_route_status",
+          "sha256": "5d57b2a8459c2d9102a6408b02c1b0ca472cc7369baea9b7eff41951fea6c3af"
+        },
+        {
+          "function": "_world_exploration_hint",
+          "sha256": "eed274a4143cf597ef3b573efda316c6165def89490e7c87fb68c269d781177a"
+        },
+        {
+          "function": "_draw_world_atlas",
+          "sha256": "cec10dc7dd0b3caea659006d1019bc37001e4d79a8e0f37381462074378ab056"
+        },
+        {
+          "function": "_build_new_journey_dialog",
+          "sha256": "9c874f3e4dbbc52c44a116abaf5760a2ca560c485743df8d9fd2ad25f5a75880"
+        },
+        {
+          "function": "_preserve_previous_journey",
+          "sha256": "fb7528f19ffd5714e793b05d80318bbf604483f7d1958cda654c9f3ce7eb0ea3"
+        },
+        {
+          "function": "_start_new_journey",
+          "sha256": "ab1f84419a320be539612321d8a78593078527762d0e5babde3a4499b154ef5c"
+        },
+        {
+          "function": "_load_json",
+          "sha256": "fe606ff75f8df95642df0720020f1d52099a2e06e7476b3d61a0c5dc0a43cbb8"
+        },
+        {
+          "function": "_load_world_shared_json",
+          "sha256": "0405f1508eeb3975bfd2cae1847b49fb742a780366f643e4f851807122011c5c"
+        },
+        {
+          "function": "world_shared_metadata_snapshot",
+          "sha256": "ed64f8163c2283ae70598beb7db1172c5337be6f4872d09e367a958698f70a41"
+        },
+        {
+          "function": "_world_shared_metadata_key",
+          "sha256": "c292cee079ee6f0b3d36b79793c426331f5189d6868f689f25b85e07f6f4b463"
+        },
+        {
+          "function": "_art_theme_id",
+          "sha256": "6aeaa44734c93a6f3ffce27bebef7dc4002e6cf7584652eb945a9a5d7206857f"
+        },
+        {
+          "function": "_shrine_rest_audio_key",
+          "sha256": "402a820572a94d08812946168051c3128171f1edff98239d22d5f3d4c507cecf"
+        },
+        {
+          "function": "_enemy_death_sfx_key",
+          "sha256": "8fbe39100d0339950a8fd01b815f99d637ec488dec2183957621dc4ab8e6a35d"
+        },
+        {
+          "function": "_original_map_art",
+          "sha256": "da33a43e48359b40715e3a413546014659b35c8192ed968b85b40f234b93499b"
+        },
+        {
+          "function": "_is_rain_foundry_theme",
+          "sha256": "1ae0754e1adb8ce256ea5a8990d6fc6e98e839aad615662edc25c6a9e462def0"
+        },
+        {
+          "function": "_theme_map_title",
+          "sha256": "bf3367a551bdb1eb3e0ca987394a86f13d1549431d177017a67d9daaafde29d7"
+        },
+        {
+          "function": "_theme_map_background_texture",
+          "sha256": "93ab3442c529d0aa18dd17080981435c347bd275da6886c2b7cdbae7a0453d52"
+        },
+        {
+          "function": "_theme_map_art_modulate",
+          "sha256": "0f14c3fabc515d0e3e5c0b8ab687c7d1696708723c616c6f54ddc7476d4c546f"
+        },
+        {
+          "function": "_theme_asset_source",
+          "sha256": "2db03a73f9997ffd7d018f310fff7b09e3f5f57ce4277cec30f3b54013947ed3"
+        },
+        {
+          "function": "_theme_uses_industrial_tiles",
+          "sha256": "8146ce1117a9387829c6c0c0c99c3e84ed82a5b5dc142f285b8b17244789e7af"
+        },
+        {
+          "function": "_theme_uses_kenney_deluxe",
+          "sha256": "3a1864f3734990158c365e29d08a4e3a2bb85ef2acc18ab65a712e12292f9f08"
+        },
+        {
+          "function": "_background_visual_asset_paths",
+          "sha256": "b5211a0d43bfa5d3f4f1917ba6e854711d7d4d545624eb65b86e50f484c4a630"
+        },
+        {
+          "function": "_theme_boss_material",
+          "sha256": "92a49874710ef18eff985cc9f4080a4a684d0d5265713db6812031fead1a5385"
+        },
+        {
+          "function": "_platform_visual_asset_paths_for_material",
+          "sha256": "ad8b079336ced3e85a79af57cf6074a034f45c5eaff1bbc28f23b9c279dc3eb8"
+        },
+        {
+          "function": "_combat_progression_enabled",
+          "sha256": "e7a8253a111780d18c20a07df4cbc28326a2af338f919fae460af296f98a406e"
+        },
+        {
+          "function": "_combat_goal_met",
+          "sha256": "9871af1472f45c1f8c6ed15d395c1ce774f83d0c66b70b6f6a3f3493ee80548c"
+        },
+        {
+          "function": "_shortcut_ids",
+          "sha256": "ce29be4ce85a79d5fd83563d12a6efc6aca72757a2aae5fd5319ffa1632b6552"
+        },
+        {
+          "function": "_shortcut_total",
+          "sha256": "08a32f7945f4b4dfb3319946e4d545149ab6620d55759bc0a88acdbb6c88aeb6"
+        },
+        {
+          "function": "_opened_shortcut_total",
+          "sha256": "79e10976efe31be88463ae1d9be0f8ee573dbf39cf20ad7332e3793f04e25469"
+        },
+        {
+          "function": "_shortcut_id_for_area",
+          "sha256": "98dc60c5c1415e056d2529683ce721d1b70218f8fc204729775e3957aa287ee9"
+        },
+        {
+          "function": "_is_shortcut_open",
+          "sha256": "0a47261f3c76f285054243ce1026a440f8951875533cf8d14c991fda5856b296"
+        },
+        {
+          "function": "_init_inventory_state",
+          "sha256": "158940af5ea8494aaf0d9075eab774527eaa7dcdb5a5f838e541d439ee2bd767"
+        },
+        {
+          "function": "_merge_carried_inventory",
+          "sha256": "1fef60fd6c3577861cb644eac2732036fcfbeced3f3fb8ade7bf0a11679c0ae3"
+        },
+        {
+          "function": "_item_data",
+          "sha256": "27759437346acef163a7a5d5ebaef31cb67e2ace529908df5c16077c861b5103"
+        },
+        {
+          "function": "_item_display_name",
+          "sha256": "d1c2261d04913566d6e8a6fe0355007215fb3fd49eb5ff5005fa3bc2fa6317c6"
+        },
+        {
+          "function": "_item_display_description",
+          "sha256": "fe07425d0c02acd5d94bdbbad069c2b12759772d02a5d4ecde90d9b97f749151"
+        },
+        {
+          "function": "_room_map_copy",
+          "sha256": "87bec00988fef757d6302c16aea9ef3954e609a07ff0db746c2492075e7f4b79"
+        },
+        {
+          "function": "_npc_display_name",
+          "sha256": "2da8ab7d0e524718207bbed89761cc2023f4adc8eca55d57772a817e669a3693"
+        },
+        {
+          "function": "_npc_dialogue",
+          "sha256": "4373338331cdc3ad6e83881039a7a2eee7d97e805c59576c39b8a756af6c9137"
+        },
+        {
+          "function": "_campaign_chapter_for_id",
+          "sha256": "a84233c0f556062b0e9cffd896c1c3ff1e1ea555e89bebf8ca652ed0e5137965"
+        },
+        {
+          "function": "_chapter_objective_text",
+          "sha256": "09f36b859a64bbb0e347d99d5ad99b58eaf8a821ff5ee319e5ffb9bdd64610fe"
+        },
+        {
+          "function": "_next_campaign_chapter_name",
+          "sha256": "db2670403271e33e4160bbfc7d39e4ca31fcc0c51f80d62b2ffb4856c4fe10bd"
+        },
+        {
+          "function": "_show_chapter_entry_message",
+          "sha256": "e41438f3e6b1fddde414108124b62d428e20cc70bd440a4b31f0c19e0e482b5f"
+        },
+        {
+          "function": "_boss_display_name",
+          "sha256": "592e119bba0dcd0444536dbd368066a14f2405ae9075d6457c33726e40db3929"
+        },
+        {
+          "function": "_load_chapter_file_configs",
+          "sha256": "36191da2c7d65cf91c6d1d8d5abc14694918474d019c9866dad67662c6243c9c"
+        },
+        {
+          "function": "_chapter_file_ids",
+          "sha256": "7d672445babbfddf4fa9007b66dde8d3208c651a897ab783370bc6c462c4b6ef"
+        },
+        {
+          "function": "_add_inventory_item",
+          "sha256": "1b7902e04a1e0e2e5ae6ac2ca12f267e7b35d3cb6a9ef1cd19c1f03a3146b8f7"
+        },
+        {
+          "function": "_add_currency",
+          "sha256": "e54242921b11e9909de201e2c658fc737c392f5b276b39d91a9625a6c8632b06"
+        },
+        {
+          "function": "_build_metsys_bridge",
+          "sha256": "e8192d64c3482ba0797f22c5b2f6760d69eaf4c19a1ee3d00120cc079595d5aa"
+        },
+        {
+          "function": "_build_audio",
+          "sha256": "29db9cc82422480db486aa84a9cdddb1f6da7ec199219540fd04f6bd8be97374"
+        },
+        {
+          "function": "_bind_audio_settings_key",
+          "sha256": "655ab801335d446cd255ddc8473cb3a68dcd689f78fefccaa28e26d2aa5f53b5"
+        },
+        {
+          "function": "_ensure_audio_buses",
+          "sha256": "3bdf4db641e42e2ec5371558797fdee2ce535a0150eadcee8489b1f3cc2b62b0"
+        },
+        {
+          "function": "_find_bus_effect",
+          "sha256": "cdfb2ebb36d3afe4c8b152157b4aed35019a534c466841f488fdae40b3c5da3d"
+        },
+        {
+          "function": "_apply_chapter_reverb",
+          "sha256": "c88690956fbbd69d31b8a964bd94abd47c39f5055fc8d36e9012268ceb7de4ec"
+        },
+        {
+          "function": "duck_bgm",
+          "sha256": "319703439108d77b023c09e0c79b266f690ce7bb39d5842ab50e32bf6f26d906"
+        },
+        {
+          "function": "_set_bgm_bus_volume_db",
+          "sha256": "a52ecb9e8c4b003381f9657cc8e21ee315bfb1174e12feaf931289399f932bd9"
+        },
+        {
+          "function": "_set_low_hp_audio",
+          "sha256": "dd78ee4f3dd46752606726c4b377aef02c25a2106e60f213d888ff5db9061975"
+        },
+        {
+          "function": "_start_low_hp_heartbeat",
+          "sha256": "703902b37043690134b10d8af6c74fb2f6a2774382b3d90a1fb4335c901b48dc"
+        },
+        {
+          "function": "_first_existing_bus",
+          "sha256": "2f9fe017afbdff64c17c40cdb43ca75bf86cc6dfe45a5c01da1f97d3c3f3e01b"
+        },
+        {
+          "function": "_stop_low_hp_heartbeat",
+          "sha256": "6bcc35842dacdad949d75b1627fa58614aefc0dd8ac0a938b4b5affbe414007a"
+        },
+        {
+          "function": "_should_autoplay_audio",
+          "sha256": "1fbd6f88bc9bc9dc540a595d25346291b0ada7c8346e311adc4e1a7d742d8c94"
+        },
+        {
+          "function": "_switch_bgm",
+          "sha256": "de8bf51d30b76e90b772e38e440217ddde1df15f4c7db63d1de9de0dcc827162"
+        },
+        {
+          "function": "_ensure_bgm_player",
+          "sha256": "b4c653508059cff8815dbcb9c1657679b04a7d579b5f0703d1988ada7b6f05c8"
+        },
+        {
+          "function": "_play_sfx",
+          "sha256": "2f0f14fe04be5d85c6452fa116c909b00669c3bfd7a23b8efcc73fd3b3ec47ed"
+        },
+        {
+          "function": "_attach_pending_sfx",
+          "sha256": "16d65d2c4a5fec9cb8cb8e41a9c91363feb5b8eddf4f7b8f5772c0b3451eb4da"
+        },
+        {
+          "function": "_cancel_pending_sfx",
+          "sha256": "7f86782be10a873967474a6be17718c7af1676785c185b67fb6169668170a58f"
+        },
+        {
+          "function": "_sfx_bus_for_key",
+          "sha256": "c88f4ba3548020f86241e177a317d37dc706ec374dc864e67d420be17cd36621"
+        },
+        {
+          "function": "_load_audio_stream",
+          "sha256": "b5d30cd147ea0f85ff6d0a88a6c74e104fe3ba904c790a806285bd814e74f3fa"
+        },
+        {
+          "function": "_play_sfx_persistent",
+          "sha256": "1675c8095654723654b2e3b42e63b83872428b0f8350b908d1ad8ec08bec3c4f"
+        },
+        {
+          "function": "_play_sfx_random",
+          "sha256": "01ffe73a0c123e4e95a9f1739856a6d80e78edfa5c24cdd6ca07bd24a5f8716d"
+        },
+        {
+          "function": "_load_texture_resource",
+          "sha256": "01e9ac03b34c630548a821f9e9f716c8fca3cab6f00e41e08ada2be4ea6d12c2"
+        },
+        {
+          "function": "_build_backpack_overlay",
+          "sha256": "01d0c28e829de2494cb5ba9f72cd71b3a7c408009fbed15f132e3e9032e01542"
+        },
+        {
+          "function": "_build_map_overlay",
+          "sha256": "610392d6c118c69a6959e9dec2a8eff6374dc5ab1baabde4fe5ac8d1b8dfb106"
+        },
+        {
+          "function": "_wish_board_entries",
+          "sha256": "baf0e01b6887e2068fc90c2a262ef3d50ca3e192332f05020a376547ce151c3d"
+        },
+        {
+          "function": "_build_wish_board_overlay",
+          "sha256": "3e9441e1994573197909e378715ae7c60d585adebd87d296f36172e453592481"
+        },
+        {
+          "function": "_wish_completed",
+          "sha256": "ac45c58699d4c2832a9313c8a23de0b6c4567719e955120b18660fa49533a406"
+        },
+        {
+          "function": "_wish_claim_flag",
+          "sha256": "bbae21c6ad5ef010b01fe70e7650a60839a0ccfb2ec2134cef23de6e6b938bf7"
+        },
+        {
+          "function": "_check_wish_board_rewards",
+          "sha256": "8105c7f5d6fcae8b159b03f5aed0f786bae3456016dd5e792fab8f206f69edb3"
+        },
+        {
+          "function": "_refresh_wish_board_overlay",
+          "sha256": "7e7da081c4433e372ae66f4d9e2bd7b7b752644ba0bfb7aa9524e1459e738b85"
+        },
+        {
+          "function": "_toggle_backpack",
+          "sha256": "d67137830bd7a0cbf476963317d844704dbdcd72b2f1e47754a8a5cb89c0a92d"
+        },
+        {
+          "function": "_toggle_map",
+          "sha256": "a4ee1bf403b059c0cba21c5e795c37f5b6bce80384c121b3dadff8070aa1ffad"
+        },
+        {
+          "function": "_build_settings_overlay",
+          "sha256": "4cdbc2026314c52fefb1e57ada20472ad413adb1810a2d1c4ab89e82e1dc2263"
+        },
+        {
+          "function": "_toggle_audio_settings",
+          "sha256": "3019e4f17bb3e66961e27523cab8f53a0b09e077f3d1c6766d0f5943fce580e1"
+        },
+        {
+          "function": "_settings_selection_clamped",
+          "sha256": "15007cc161f315f3875584f8c14768908c3d9fa981402b322cbbd582564517a2"
+        },
+        {
+          "function": "_move_settings_selection",
+          "sha256": "1629fb0b2f8c7959b5240ef7b5e242d9e1cdafb6c699ef16b6a91c8a7da7a621"
+        },
+        {
+          "function": "_adjust_settings_volume",
+          "sha256": "1a8b69c0c983a579099a08b308f36238b89ad7637db612523b2f37b4a673a4cc"
+        },
+        {
+          "function": "_refresh_settings_overlay",
+          "sha256": "137f4637cb862b27bb4dffcdc14ba8d9b1897130c0abf6ac81430ce7a23b25ab"
+        },
+        {
+          "function": "_close_overlays",
+          "sha256": "7a810da6b268e032296e199392e28b080a8380ecb90b40b57452c057e253ca18"
+        },
+        {
+          "function": "_sync_ui_input_lock",
+          "sha256": "c4b782dc58a764e737e784837254388bc9f5bbdffb8b681557f90f966aabae37"
+        },
+        {
+          "function": "_notify_dialogue_closed",
+          "sha256": "7eaa3c27ceac4f922537374e6698edf6706eb9585c601b146db4a69f11710cc6"
+        },
+        {
+          "function": "_refresh_backpack_overlay",
+          "sha256": "1c7b272ecd90fe3c37f72d2576b9da47c0aba39af0058b744f11c5bf4bf6f1fa"
+        },
+        {
+          "function": "_inventory_ids_for_category",
+          "sha256": "b043a0f2573236d96ec8beca0282a4f8b88887dea8f41135f4f8746471640e8f"
+        },
+        {
+          "function": "_selection_marker",
+          "sha256": "72100ef0d7f0a531aeb59669591caefae22526278119e594b09443430c99b563"
+        },
+        {
+          "function": "_backpack_selection_clamped",
+          "sha256": "955da74c20b0b4ae8b61b209427ae2bce89c9be14bc97264f945c35deb8ce0d6"
+        },
+        {
+          "function": "_move_backpack_selection",
+          "sha256": "1d796cc53b6ecf1e9386272d76fbad8356f1fae9cfd832f3459a38021708d918"
+        },
+        {
+          "function": "_refresh_backpack_detail",
+          "sha256": "cdb85765e8573a17bc74e62a5914ace07d3514d5dd16e5aaea3acc4b16072172"
+        },
+        {
+          "function": "_inventory_line_for_category",
+          "sha256": "15e06c0c7955bd4dabd024ec03396fa3a59b76f9c0845ccd645b8a47f6f3384e"
+        },
+        {
+          "function": "_update_room_visit",
+          "sha256": "91cfb08c29c18be389d2c02a0eecb5075ef4f9c75111ccd7815dd2441559c827"
+        },
+        {
+          "function": "_room_for_x",
+          "sha256": "28d8f58dc1e3cbcf47ecdc94896400f0801f61999d4b7cf58cd87604222e571e"
+        },
+        {
+          "function": "_room_for_position",
+          "sha256": "5bdd1a9ae89d9bf880189b34c24a2d0cac35e2cc7c50dbbab7802d38299ae228"
+        },
+        {
+          "function": "_room_layout_rect",
+          "sha256": "63727e027046deb4683da4642efc637819972f54f98d304bd792b2216c6f8644"
+        },
+        {
+          "function": "_room_map_rect",
+          "sha256": "479a0ee8eb0aa83f4cb56409f087fdefa7e05ea33e2305672f4cb0268213b0b8"
+        },
+        {
+          "function": "_map_room_by_id",
+          "sha256": "93d1398c492a47ebe4b744438733f901d34a3333572f130114bf0dea8cfd064c"
+        },
+        {
+          "function": "_rect_contains_position",
+          "sha256": "96fd43a819136b2a7e099076db75d03d0183e3e27b8dd8d4e8a3c23186c40758"
+        },
+        {
+          "function": "_room_contains_position",
+          "sha256": "600e2d9fa06b541da64ce5e37e244b322b386ca98e589b13e678f9974adb70da"
+        },
+        {
+          "function": "_room_name",
+          "sha256": "a8087f3f082fe96fd1150290b92e977a16049018c6e7fa1d0ea6d5e1b0a05983"
+        },
+        {
+          "function": "_room_is_visited",
+          "sha256": "7b15e70c6f1f1a7696097b404ad197c24b6b9230523c5372f79d678bfc296200"
+        },
+        {
+          "function": "_refresh_map_overlay",
+          "sha256": "155c8afa14942c0959356fb659aaea522e921488dcb1d6258a0b7edec5e7e2d8"
+        },
+        {
+          "function": "_map_layout_bounds",
+          "sha256": "0b4e1d185af6ea9f2af85fc84c2dae5e87a2fe1acbeccbd356dd0823fcfa095e"
+        },
+        {
+          "function": "_map_world_to_overlay",
+          "sha256": "2e610615fd07bc3c6dc5b873089b398a946477f292b7db28fee21e3a4b79bdd8"
+        },
+        {
+          "function": "_map_room_world_position_to_overlay",
+          "sha256": "d54b16f0e400560b672fcde94a89851cf78134d96f4ada03225573c200e33292"
+        },
+        {
+          "function": "_map_room_overlay_rect",
+          "sha256": "5bb86a43733f51b002a130518395ca98c4b440e91ed9e775a32f65dcb6e5d16a"
+        },
+        {
+          "function": "_add_world_map_pins",
+          "sha256": "2f595a490d1fa97e1509013381991b7bd6a9ec65a7ee6816f4ff28bf050445d6"
+        },
+        {
+          "function": "_add_map_pin",
+          "sha256": "a4463cc592501f73508b86632227d14c0b015c18da38f3e91f58f722bcd958c5"
+        },
+        {
+          "function": "_add_map_route_line",
+          "sha256": "c2458280077bda5763261cc763ebb7f68b3a7c2f65df616ccad5b686ec85ae06"
+        },
+        {
+          "function": "_add_map_wall_caps",
+          "sha256": "b663f9f913006f55196f68296fd4e488970bddc9f43c27286ca602b084a8edfb"
+        },
+        {
+          "function": "_add_map_special_passage_markers",
+          "sha256": "0238416ee12d78ea456831ee6018f1c41a218d8a5b0a4ccd8be5d214723247ee"
+        },
+        {
+          "function": "_add_map_room_texture",
+          "sha256": "e7e151dbe3ebe8f7804b28a665624f3a0078d769ee6ed9433d0af2a18a4af16f"
+        },
+        {
+          "function": "_add_map_ui_rect",
+          "sha256": "75cc8004d0b611fde17e1dcdbf6837e72e300b87ca1c3b3ec27f8294312557fd"
+        },
+        {
+          "function": "_build_world_from_config",
+          "sha256": "3708ab721b4fade17cb800baddc016484613f0c19b5135e8ecccff24e457781f"
+        },
+        {
+          "function": "_region_build_jobs",
+          "sha256": "ea57ce4b2ea7edd4b938561e7b66820e9c545fa2311922d8301129be83c3248e"
+        },
+        {
+          "function": "_region_lift",
+          "sha256": "5a900c19cfedd5860d02401052b7408f4698df31f0c8ecd7c4e5e16ab6631e9d"
+        },
+        {
+          "function": "_region_platform",
+          "sha256": "13d47d24dbed039511c8ebcdeb3aba3e8ba1f11013875279a6813f80a53e48d4"
+        },
+        {
+          "function": "_make_region_platform",
+          "sha256": "41749b72b5118e6b3c5cf1042799038d63458de4464c32a0f05a3a3aa9fec479"
+        },
+        {
+          "function": "_region_gate",
+          "sha256": "7355430c9989cdf87709600895421a0df2e72a69063615f95411ed5b0c10fe3a"
+        },
+        {
+          "function": "_finish_region_geometry",
+          "sha256": "33da869717f6419421a26696b78e7035d66061052b7e0133eea2931ebf01e40f"
+        },
+        {
+          "function": "_spawn_seal_practice_targets",
+          "sha256": "eda1b118c58f35ffe1ffbda8c831bf1fa154529ea26ebbc8cea4da9b0c88e6c7"
+        },
+        {
+          "function": "_environment_block",
+          "sha256": "e94836329e420d5da1afa74dedd14120ae9f9eebfed2ac2aad85ee02b0ed0f3e"
+        },
+        {
+          "function": "_add_environment_block_texture",
+          "sha256": "94593afb146ea24aa5a9293d00cdf866085d82b45b99cdfecef348ef9437a2b1"
+        },
+        {
+          "function": "_spawn_player",
+          "sha256": "742a499268d78366a1fdd119cd9689c9afc85814a370f412ea184f88657c1257"
+        },
+        {
+          "function": "_build_hud",
+          "sha256": "78621ec9b89ba0df1d77cf5a73c653f633b6b9adb4a631a346dd2d12a1318e72"
+        },
+        {
+          "function": "_hud_build_jobs",
+          "sha256": "1890fa4fa5a0c21fc5c568f5cbf80860d2a5a997075de64680aa3fa77184026f"
+        },
+        {
+          "function": "_begin_hud",
+          "sha256": "29525027533d64e6976b4e0375871b7a5802aa5f405eccbef328249d169cad14"
+        },
+        {
+          "function": "_build_interface_step",
+          "sha256": "d4ca88798c922be70cf9fa01dc4788ca8e21f49c1d84d1b7f5d73d74bb102f7f"
+        },
+        {
+          "function": "_build_hud_labels",
+          "sha256": "7dd86c9b387fe136318a6f1aca91b7e7f2c32bdd25f40610a3b81348a5f50e05"
+        },
+        {
+          "function": "_finish_hud",
+          "sha256": "9c702e0abbaa03c5acd0c05f4b035db2cc3b6202b6f965aa2e421b114a9c62af"
+        },
+        {
+          "function": "_build_dialogue_overlay",
+          "sha256": "1f4646c805370733aa0835b389a037fc659bd471521418a8c16df1cafe4be7c4"
+        },
+        {
+          "function": "_background",
+          "sha256": "7ba9e314cb29bb432e1ca69dc76cff09026242d2a2b27883792c6971de31fb98"
+        },
+        {
+          "function": "_background_jobs",
+          "sha256": "8cda108a05e1bcf6f2059f4bb4e009eefe7f593207f10d12a3dbedaab57dcb71"
+        },
+        {
+          "function": "_background_base",
+          "sha256": "e24f93dbeaee85b8de285e70a3b98eea4e32998074a1202bdfe92817a517d0c6"
+        },
+        {
+          "function": "_background_art",
+          "sha256": "3ddaed85a1a11c6f7f7c2d27778ccbba20c98f022ba80a8e05e36e010b1a76c3"
+        },
+        {
+          "function": "_background_terrain_metadata",
+          "sha256": "eef353e7577ce716da3ab6e514405b67cc188d84aa697d5e310efa71d9e36f55"
+        },
+        {
+          "function": "_background_landform",
+          "sha256": "bbf62ad06e65c0388e27264ba834463604d71d64971506a23dab48b6e6355da7"
+        },
+        {
+          "function": "_background_terrain_warm",
+          "sha256": "1ad429d6a418291aa4c0b2382767f0a3643f6925b4eeccafde8b666610bcd766"
+        },
+        {
+          "function": "_background_cave",
+          "sha256": "7bc824f1f1473536434281e74656b57d85bf7dac95e6ea2a2ce498326d39e591"
+        },
+        {
+          "function": "_background_shade",
+          "sha256": "ada37ddb5b2144485a4f9839f3ed2a7612b9ec519026d321dc7938292ccaa81e"
+        },
+        {
+          "function": "_configure_player_camera",
+          "sha256": "160b66734af8fa81c44ee8e9e7a696a445104412061048adc5b78bdb53a90244"
+        },
+        {
+          "function": "_void_respawn",
+          "sha256": "5c326f04ff161f649b0f164181aa6b7f91d5862968a711a7fcd827525b83a165"
+        },
+        {
+          "function": "_theme_background_color",
+          "sha256": "670c51db5cbe7bfbcfd200b95e6f3e6fe4fd58affaf355baf91b5148ca93f442"
+        },
+        {
+          "function": "_theme_background_tint",
+          "sha256": "d376badca3b5ac86bd2935ddb559f6e6c42ffa027e265bad0b9d749cb143b92d"
+        },
+        {
+          "function": "_original_background_layers",
+          "sha256": "88af8e88b35388704273ddf168a975a6cb6ec3096d0e1ede0aca8c88295e2a6f"
+        },
+        {
+          "function": "_add_original_parallax_layer",
+          "sha256": "bff925777e932531f91b0e2a96c238fb9efc5a3d9368c619d04ad2165c3f66b8"
+        },
+        {
+          "function": "_background_layer",
+          "sha256": "a27141d1320ed3a183bfbd1395544a147bfd2fd1418197c91f2290d74b7bc086"
+        },
+        {
+          "function": "_cemetery_background_layers",
+          "sha256": "4f556af05c5ee2c2ba63194aa2313f70c250e0fe275c6c91a508548d952eb9fd"
+        },
+        {
+          "function": "_kenney_deluxe_background_layers",
+          "sha256": "40442c1d29030ce2aa8f58733de0a07d8c87b3849fc9f4d91ea84c2f79e1b767"
+        },
+        {
+          "function": "_godot_platformer_background_layers",
+          "sha256": "c3338557dcbd1b221890130aba844b6382ddf11cf408aa18917e7ba22c36170b"
+        },
+        {
+          "function": "_industrial_background_layers",
+          "sha256": "96ef13ec296c47a51c77b0d32db12369df49e0f3129d45dc765debff99c4002d"
+        },
+        {
+          "function": "_background_repeated_sprite",
+          "sha256": "fdce63b6908b5e282517a67e25c978a6bdefe665d5e9fbcc3c68313935492ac4"
+        },
+        {
+          "function": "_background_rain_streaks",
+          "sha256": "b3691d888b8782290428c0a3e13535405af0ace3900e2116077702dd4235483f"
+        },
+        {
+          "function": "_platform",
+          "sha256": "73fc78058efc924b79d8b622ed765eba2cd0423810bb214e1add748becff2c5d"
+        },
+        {
+          "function": "_add_platform_readability_base",
+          "sha256": "fe3153c570b8004e4a5476cb67f953ecd58034484fa96dd9e20195d05a3c65e5"
+        },
+        {
+          "function": "_platform_body_color",
+          "sha256": "a5af3d2dc208e1f484352ce86556bc07b495bfe8f4ba57b0846be7c5d92d2929"
+        },
+        {
+          "function": "_platform_edge_color",
+          "sha256": "dc519cb408400cba803b68079cab77ab337686c441f1f80b06db3facb58816e7"
+        },
+        {
+          "function": "_add_platform_plate",
+          "sha256": "06f15d8bc7636c1b7fbd714fbeb9e0c1738f7ecbd2f4fe19d5df84f028f333a8"
+        },
+        {
+          "function": "_platform_shadow_color",
+          "sha256": "4958242f64c08c70905182ec117129885b6b9a0d52565c8ab3279f430d174515"
+        },
+        {
+          "function": "_add_platform_visual",
+          "sha256": "75d2eb62bef57f69571200094c16c0bb90d02555dac106e5df0dc101265a40b9"
+        },
+        {
+          "function": "_add_original_platform_visual",
+          "sha256": "011f2829c033e7ef9c132d1c8e289968ad0ef79db0e5af7a26ab5ee5f5e562a5"
+        },
+        {
+          "function": "_is_cemetery_material",
+          "sha256": "e1ea9033913a77b931f565e6b4c1677933026969e45248a0dce3b4dca544e10a"
+        },
+        {
+          "function": "_kenney_deluxe_family",
+          "sha256": "a4c1a38efe6d8456d194a15561ae39b8edf3d0e828443aa72a1688dffbde4ddb"
+        },
+        {
+          "function": "_is_industrial_material",
+          "sha256": "d70939aa094277cb7506082ccb974096f724de33078e942c5fcef286307a5445"
+        },
+        {
+          "function": "_add_mossy_platform_visual",
+          "sha256": "71279a1e9e4516189fef992dce000a68dfc67cdcddfc01e5a7a782e7bf2ec96c"
+        },
+        {
+          "function": "_add_industrial_platform_visual",
+          "sha256": "ac70ebe3269fd8e8aac13a00946b1f8d5a1caba4ebdfa1e05341286cd6d1219d"
+        },
+        {
+          "function": "_add_cemetery_platform_visual",
+          "sha256": "da8547a5dfa6f399c45c7b3498007ba5bb888d95e8537e73b27958d974a21171"
+        },
+        {
+          "function": "_add_cemetery_platform_fill",
+          "sha256": "dd3f710a7807a928440b25ee7e65104fd6357fa5e8cd9ac3f70e3db1388b9668"
+        },
+        {
+          "function": "_add_kenney_deluxe_platform_visual",
+          "sha256": "392c76a57fd3f02164d099c9f072f35ce29ed43d28a51cc5d7faa0d1c46da188"
+        },
+        {
+          "function": "_add_industrial_warning_strip",
+          "sha256": "abcc83997a43524ab226cd7d7a7cea022bea0748139c79a7549e84d21f6443aa"
+        },
+        {
+          "function": "_add_platform_sprite",
+          "sha256": "d1d25ceceb9b974b67394654b2d1012afd6d57a9fed42a426f899622af33d207"
+        },
+        {
+          "function": "_add_platform_region_sprite",
+          "sha256": "3aea742daa1457afb6a4ce1d2d194f9b4adfd475aff830259f0e0e83171226a3"
+        },
+        {
+          "function": "_platform_tint",
+          "sha256": "e9dba22482f4ba26be63dbbfd0bd0b033ae939bcbb055c627974e6b8f01608b0"
+        },
+        {
+          "function": "_decorate_platform",
+          "sha256": "6e363b7f3bb1ec8f59c6a79882f671225529d96e96b5d0326967dab68705a979"
+        },
+        {
+          "function": "_add_pipe_marker",
+          "sha256": "d8969db4f93f0ff9ce73dfc52a6937e231e98f5f609199bdaf215ef868368c74"
+        },
+        {
+          "function": "_add_vine",
+          "sha256": "5cac4a09432ac515396fada3b3b39310b037bfa56218eb6ab598c7cf4eb51f75"
+        },
+        {
+          "function": "_add_crack",
+          "sha256": "f5acb08bbe05fdf394d3e4483999bf615851d1645383df5282139e3a1d83018b"
+        },
+        {
+          "function": "_hazard",
+          "sha256": "43488da1a913b4d3c7bceb68f357c300a7a5e7ecbff9cbc219bfa5ddd7f891d6"
+        },
+        {
+          "function": "_apply_original_prop",
+          "sha256": "6eb4368ccaae4ec95c0b176145b7e29366cef6c5ce33b785a757ea285dad97f9"
+        },
+        {
+          "function": "_collectible",
+          "sha256": "7cef4583913929d4daf960ce635220b8954a299d0c0d47f0956f821d49655f1b"
+        },
+        {
+          "function": "_make_lever",
+          "sha256": "b8836cdd844b92e026e7115640aedcca17892a9801594bd85cc2d714018662ef"
+        },
+        {
+          "function": "_lever",
+          "sha256": "ba930d487b6d51516365108384eb25b5a608c2b659845457a5e02d9e60731938"
+        },
+        {
+          "function": "_make_boss_door",
+          "sha256": "0b0ee1394837b621ed3f9647b964e69c030d4aa73433ddd46c1c38fef9b81d1f"
+        },
+        {
+          "function": "_boss_door",
+          "sha256": "33dda1476a6a09523901fb47b38e7939817f9882966fb597cd9c5e166e73e90e"
+        },
+        {
+          "function": "_chapter_exit",
+          "sha256": "f3a9c7b204a16b98a6aa72faae22e514595d088e231e3bc5b4efa6e7caf270e5"
+        },
+        {
+          "function": "_make_save_point",
+          "sha256": "a812e591fe0293d34d1cc67afbbcb2a57ffbbf6454c2b5c5f51eeab8a65994e0"
+        },
+        {
+          "function": "_save_point",
+          "sha256": "460f5b3a8d17dec4d34d26fb18cebb174a510e97712fb64e22ea99c0becff2ae"
+        },
+        {
+          "function": "_animate_save_point",
+          "sha256": "0e42d8ae343fdc137d9442712b4b676be0c330a9e356a3d1dc66371e464db225"
+        },
+        {
+          "function": "_play_save_point_activation",
+          "sha256": "8d887d3bce24ddb9776b2f3e4f651c3b1c8e6f267cfe8f261593dd7f5f10f3cf"
+        },
+        {
+          "function": "_make_npc",
+          "sha256": "d778c10a97dec06051a07e31ab5f6726c96e6a8ac4564f97431bdd914e410667"
+        },
+        {
+          "function": "_npc",
+          "sha256": "d344b0150cc7dc2fd0db73d05e4a6a22005fce24b7f7d08965081e0319917ea7"
+        },
+        {
+          "function": "_resolve_enemy_spawn_position",
+          "sha256": "aca2896219275476263bbdc46c0073e1607875dce4487b77c4992684dd4daf77"
+        },
+        {
+          "function": "_safe_enemy_spawn_on_platform",
+          "sha256": "008fe8b11db72821e99cc7e1eef67e7f8d063a9cd45010c2450591c40d982074"
+        },
+        {
+          "function": "_fallback_enemy_spawn_position",
+          "sha256": "4de63d71ed09c7862e5e0c4626a8766a535fd217cc87d983ea8e67444628c888"
+        },
+        {
+          "function": "_enemy_spawn_visual_height",
+          "sha256": "e9ab91f4c139f6610149db65837f42d4e3850dc3a814c519619d52e5c7413261"
+        },
+        {
+          "function": "_enemy_spawn_rect_clear",
+          "sha256": "11e58cb39c4c5c5c3c2ef1bb85c1b609d0518c27e26907b7d385a66084230967"
+        },
+        {
+          "function": "_enemy_spawn_platform_allowed",
+          "sha256": "4d0848b2d270dabec48e5301c6b097bfd4a6b83c8486e9fd617645a03db011eb"
+        },
+        {
+          "function": "_platform_under_position",
+          "sha256": "6aa48fd38d34f65c0f80b135aa947ab471674a9a43e2eb8fc872cb415f4df952"
+        },
+        {
+          "function": "_enemy_platform_movement_bounds",
+          "sha256": "fb09bbeb725e622c3b492f22beb30a288a00beca4d5c9bc824d71622760fe3f4"
+        },
+        {
+          "function": "_spawn_normal_enemies",
+          "sha256": "3c1327ef7f635df4c5f8ca1010cbde32bd9692926cb6e5f77830a4f48f039726"
+        },
+        {
+          "function": "_take_gameplay_prefab",
+          "sha256": "3541b918be3a4c545b259b03c335a9f7a9bf214157bb6d66486cb68acd01eae0"
+        },
+        {
+          "function": "_make_enemy_prefab",
+          "sha256": "762a9af242655f4fc96f8dc2864f1e50ce830cddfb88a413ab904d76088ce2a9"
+        },
+        {
+          "function": "_create_gameplay_prefab",
+          "sha256": "c676bae130e89b242b5a077bb20a87c2d7ae06a406f90fa089ba024419c90eca"
+        },
+        {
+          "function": "_build_resident_interaction",
+          "sha256": "782c64f57c4e8df016916cc6dfcb5740e03b8ac87fa2dcbae54791a7deb25cd8"
+        },
+        {
+          "function": "_release_resident_interaction",
+          "sha256": "9353cefcdfde8e4325de9f3a5b13a56b683b3210e30e71cf9a2bc061cf0ee630"
+        },
+        {
+          "function": "_world_npc_residency_position",
+          "sha256": "a63e0f8f51edc99a366f67fa348b5de9c8d13226c04d9113166e981df0a2e5d3"
+        },
+        {
+          "function": "_enemy",
+          "sha256": "2c1b490696903c1d02e70be482dd01158f372c0bd81f916629c1e0f45de16fff"
+        },
+        {
+          "function": "_spawn_boss",
+          "sha256": "c6ba05df43a390e18fec0985864b0450622d107d86041a8cb47169c79b76e9f3"
+        },
+        {
+          "function": "_start_boss_trial",
+          "sha256": "67fdf159920ee188e8e4c83255ee3e5b4db07af8c8642dc067be642fc8dd0e38"
+        },
+        {
+          "function": "_set_boss_arena_locked",
+          "sha256": "ca5d0f0c828a7f86681e5a01567d9e65bb79e4a77735bccc3ff4120458a432fb"
+        },
+        {
+          "function": "_lock_boss_camera",
+          "sha256": "672d09134cc64e38ce12550d58236035730b54dc35048c2ebff09ad8432a1984"
+        },
+        {
+          "function": "_boss_arena_lock_rect",
+          "sha256": "9bd0f8176e796e281b36d8c1b22befcf358c15df341fb45d24fe5124a26b989a"
+        },
+        {
+          "function": "_boss_gate_position",
+          "sha256": "8ad7b88f1b8b43e7cb07381aeba0e108af71676836e848b209ba48479c4557f1"
+        },
+        {
+          "function": "_floor_top_near_x",
+          "sha256": "fe86bb23fb4eab96c6cf4d8384987633bc2bdf8baa6b5f46482cc4e33d1e789f"
+        },
+        {
+          "function": "_world_label",
+          "sha256": "f0433876ed709db6c99802981e5186b146722019e9b0825ff91feefcb3827bfa"
+        },
+        {
+          "function": "_on_hazard_body_entered",
+          "sha256": "7e219e5597ac8e45e58e018e1f9289c3d248116776501ad21944d687ee8a8000"
+        },
+        {
+          "function": "_on_collectible_body_entered",
+          "sha256": "35096eba74252b9916e2074549bc9112a4a28dd240f3dc34d5c3e83d46cbec13"
+        },
+        {
+          "function": "_refresh_ability_gates",
+          "sha256": "3e0d57ed33f426bf30c1c1ead8c5703cfbe7e861af457fdd332f38e9ed1b9ae5"
+        },
+        {
+          "function": "_sync_player_abilities",
+          "sha256": "5ee902ae9125b177ee28860777928419c3459fdeba3dc1ae17d9d0efcf0ba414"
+        },
+        {
+          "function": "_unlock_ability_gate",
+          "sha256": "d2d881acd86434a69b977199fcd6e43a743fbc8dc1622e1b9420461de4b959e8"
+        },
+        {
+          "function": "_on_interactable_entered",
+          "sha256": "f4b91ec75685ec758c5cc1c7d55078e7d08404be7817b7c0160be04faa3d0ee8"
+        },
+        {
+          "function": "_on_interactable_exited",
+          "sha256": "72b13f46bdc70a4cd963bb7dcec3bc781a2940ab631db4dfc8a23b55a9f2d282"
+        },
+        {
+          "function": "_can_interact_with_world",
+          "sha256": "386484dbbffdca76d5abb07ca08c1bef8901e29120112988ed49039b241903ce"
+        },
+        {
+          "function": "_try_interact",
+          "sha256": "5e541a36204e9e2433f2b23e96d18f37f6379170215a20a0c56a175e944a8acc"
+        },
+        {
+          "function": "interaction_target",
+          "sha256": "5a3847efecfa144f4f4e15de3413dc84af3982abc2757aa75a55a0c6dde8804d"
+        },
+        {
+          "function": "_nearest_interactable",
+          "sha256": "6ce28a9f63ba4adcd2889539f4a298b69dae419bb6f05e2491a92ef1a2bb6db8"
+        },
+        {
+          "function": "_better_interaction_target",
+          "sha256": "9262661882e9e71d55db32881a8d1c8441aeeedcd37c6b06d903ee734b4a20ed"
+        },
+        {
+          "function": "_activate_lever",
+          "sha256": "ed4bc89c989b3a1a7bcdc9d7115d534d95260a8737a9b6f5ea810933c164ee17"
+        },
+        {
+          "function": "_open_shortcut",
+          "sha256": "803a61c868a1a268d562f6fa75350f97342a75166fd33c9635f3893f7a014216"
+        },
+        {
+          "function": "_open_all_shortcuts",
+          "sha256": "eb022fb1c30648cb5b9cbf16dc50e4e0d40b1dd38825432b299ab3c8ac6a46d3"
+        },
+        {
+          "function": "_activate_save_point",
+          "sha256": "7ba36ef132cb83c1f4d5c4ded783133d769be713729270a8033f1f6610dec0e4"
+        },
+        {
+          "function": "_activate_chapter_exit",
+          "sha256": "c8b0ff6dc8a4aa66734731cf12bb8957d4c00b88975b52791f8523d681bcbd67"
+        },
+        {
+          "function": "_chapter_exit_can_open",
+          "sha256": "adc668ae3722e19744343c9fb007d6eb967667cd25bcaa719e6f993eee559a0c"
+        },
+        {
+          "function": "_transition_to_next_chapter",
+          "sha256": "28e9dbeb897c9fd3c1243e2158c6252727b3e90defdbc3f67c97d21e9bd7ffe3"
+        },
+        {
+          "function": "_ending_gate_entries",
+          "sha256": "edac401dd5eeb87b0867ce27edb323eaadb2ede136a67223f0c62f6ffa52eba1"
+        },
+        {
+          "function": "_spawn_ending_gates",
+          "sha256": "5d3e2915f674b083420cf57ab311cbf2ac9135088ce557a4c407d822173d50aa"
+        },
+        {
+          "function": "_ending_gate_missing_requirements",
+          "sha256": "74afd33fb26b1a4b377f86833c70e8f72bb0dc5c48c28a22c3ef25f3fc4243ce"
+        },
+        {
+          "function": "_activate_ending_gate",
+          "sha256": "2f55df9e7a70f466502c819967f0e87e2d6f682c6f8f53a0e7db7d076b4ab45c"
+        },
+        {
+          "function": "_activate_boss_gate",
+          "sha256": "690e9f8d2d19c3bbcf31e198c5f4dfd9c9ac463e205154d332c9b4b4876275de"
+        },
+        {
+          "function": "_talk_to_npc",
+          "sha256": "45cfac1a877db4e16016f5e7c6cb41730787da770e0fe3a09f5a6c84af83093d"
+        },
+        {
+          "function": "_resolve_npc_lines",
+          "sha256": "64bc0edd168664db1931a196f3af0534bb14c451fc44b7e317770212d4b77847"
+        },
+        {
+          "function": "_dialogue_state_ok",
+          "sha256": "e2c2999a9f2c9ab0da457e6ab2907b189ebab50520ac97621e32cdc78f97f1b6"
+        },
+        {
+          "function": "_chapter_story_id",
+          "sha256": "9e38cd2b53a6b01201941124b9b88746b1149867f18ce1e4bad0f05554d8ddaf"
+        },
+        {
+          "function": "_set_story_flag",
+          "sha256": "697bceea755e05d842115aa014b209f0b7091a9273c3f8d322939257691a9d0e"
+        },
+        {
+          "function": "_refresh_testimony_chain_flag",
+          "sha256": "4c2f85e45ab60eded7b45c2fab1a40c936c0744953e5161531f423d18e500ead"
+        },
+        {
+          "function": "_trigger_whispers",
+          "sha256": "b3b7935081b76f6a5e5321eeecd55b0a173e68ff8de505839cc5b606aebb948d"
+        },
+        {
+          "function": "_show_dialogue",
+          "sha256": "153a85a52c49903ac450d6df0a85336dd65037ac9bb9e58a62233e70e050a37e"
+        },
+        {
+          "function": "_on_enemy_died",
+          "sha256": "2b8463e7c187d784947f4be4d4d3fcbbab0d92c5b0fc321f7f4fc5bc6e8dd8f7"
+        },
+        {
+          "function": "_on_player_respawned",
+          "sha256": "02987c6bcf105d3d18013b35c2e408755cb02dd254cfe3efcb643af21d411e5f"
+        },
+        {
+          "function": "_reset_encounters_after_player_death",
+          "sha256": "7a1884410f18ac68bb34de7b7d5083f6431057db01cdd4951695b5be909dd97c"
+        },
+        {
+          "function": "_respawn_boss_trial_boss",
+          "sha256": "b53451f52942fa27abc5156b8e1c7bb000f825d464b9c5b13069d8b346ec22ad"
+        },
+        {
+          "function": "_open_post_boss_route",
+          "sha256": "c4ebe317650313940439153d6f4ec5ea7b5c48ff8ce9bc92615a08038f57102f"
+        },
+        {
+          "function": "_is_post_boss_blocker",
+          "sha256": "b63a1e4b833034e8ef3f23c09c8e17b983ebf2cb905c90b32f4833044b98d80c"
+        },
+        {
+          "function": "_spawn_route_open_effect",
+          "sha256": "a6d8714627e9e86d19f2f7a2cd4298e6e5e1761c3cc6fd2659cc20996bdae19e"
+        },
+        {
+          "function": "_on_hp_changed",
+          "sha256": "d6906fd397435d4ff392ac3b447e0a003f37062b6490f606d136d86ad3499cf8"
+        },
+        {
+          "function": "_on_energy_changed",
+          "sha256": "e8d046ce3b5a3e3a2c3f8901cb62c15b62ff7846759dc3c274c59b524ee9937e"
+        },
+        {
+          "function": "_refresh_hud",
+          "sha256": "c45b8f08b09cbde43cd8907d5b47f48eb47ea54b92fda0175da8d57b4ec121dc"
+        },
+        {
+          "function": "_toast",
+          "sha256": "2c27ea0eaefb8eb8a82e1e065780c674ec9e3647e8f4df0f4d62c1810d500515"
+        },
+        {
+          "function": "_is_story_key_item",
+          "sha256": "082dd1f1d79b0e4d95ec2a0f7f33a0bccf95c1ef0713aed76f777bb8e68ae804"
+        },
+        {
+          "function": "_announce_lore_pickup",
+          "sha256": "0d2b7b3c1d0c26d0b6bf177de3669b9c70ad940db08f8440fb567eeae2db7c3f"
+        },
+        {
+          "function": "_tick_lore_banner",
+          "sha256": "7df6b14b3d64b85c3bcd9fc8bb56bb64dd0af23721377fa6cb22bd713dde36d5"
+        },
+        {
+          "function": "_spawn_pickup_effect",
+          "sha256": "3f18884ce1915d6c8880433be2546d9c00d2228992a6cd8efc44a0ed346d026f"
+        },
+        {
+          "function": "get_demo_state",
+          "sha256": "044a840e9229a9ead2a29eb2b7e296e76b34833de46f2c28596708629e0bb73f"
+        },
+        {
+          "function": "_wish_claimed_total",
+          "sha256": "81243be485bede3ee470c35c64b4331d6ed14899aeae42654029b32d271607df"
+        },
+        {
+          "function": "_debug_collect_all_keys",
+          "sha256": "3f083934d986b2c42c3845db097943656462c25729ebce250cd0d96290ba6571"
+        },
+        {
+          "function": "_debug_collect_all_abilities",
+          "sha256": "252ac083456586c77805c55f9c839d511d25504fc3978bc5c5b45f58c005c311"
+        },
+        {
+          "function": "_debug_clear_combat_route",
+          "sha256": "19f6723ca6c969c86d0217bd0671622dfabba80116b3d3b739598720fcceb404"
+        },
+        {
+          "function": "_debug_open_shortcut",
+          "sha256": "8aeabdf329372ecf8fd2f548015935a2380e1a6c6df420f8331727ceb17917f4"
+        },
+        {
+          "function": "_debug_open_all_shortcuts",
+          "sha256": "78f488ca4ae45957f9ca412504080a2079a14a16a0443796ce7abb7158e30483"
+        },
+        {
+          "function": "_debug_start_boss",
+          "sha256": "719d80dcfc61fa4ee5faaae36b0d200d1eba020e13efe20b89de383944c422e5"
+        },
+        {
+          "function": "_debug_kill_boss",
+          "sha256": "9743344e21b2572643bdda4ee6f1c61109763da3f1bf879129b82ad5699abcd4"
+        },
+        {
+          "function": "_rect2",
+          "sha256": "bcdd2cd5f1d0e60bb9e3347bf14665991a63c62c46a9c112d1068de001f02727"
+        },
+        {
+          "function": "_vec2",
+          "sha256": "2e21d3e54d912e879925376e31c50fa2488a5e295b3c88f3203ce04dba7c9480"
+        },
+        {
+          "function": "_color",
+          "sha256": "8d451920cbe11ddceded9625e1c75b27497920aa0533079485662618b197cd8f"
+        },
+        {
+          "function": "_shortcut_is_lever_controlled",
+          "sha256": "6afb81f5e00834940ac176273471e3c2496683394d1c4923cc060ae03d282cc8"
+        },
+        {
+          "function": "_room_has_position_bounds",
+          "sha256": "b02b365fa22ee3e9117247f4e86c757784a421c6b9bcbc68f4f244dd3f226e9b"
+        },
+        {
+          "function": "_room_containing_area",
+          "sha256": "91d0e72de1403f2f3ab717755167462fc16c1855a50fd02e6297423d7f46433d"
+        },
+        {
+          "function": "_unlock_boss_route",
+          "sha256": "e675792d68534cef0753922130d95e4a13799ea12a18dfb3c8ffeb9c4fb13a22"
+        },
+        {
+          "function": "_open_combat_clear_route",
+          "sha256": "204d96a84d7b246b7e4a6544152620201c5f411de9b22a7ac8350ce2c2b5f2fd"
+        },
+        {
+          "function": "get_build_system",
+          "sha256": "6bb2aca050ce8279d5af20767eada54bf970c1481b46a97c724eea9c02d89f47"
+        },
+        {
+          "function": "_sync_player_build",
+          "sha256": "395e7e1d4f7053676c56c3635e80ab55bd4c2ef1dcf53c5234cb2fa7ff795d00"
+        },
+        {
+          "function": "_bind_build_inputs",
+          "sha256": "cb9a22ba1e78e3505047b00f94569f35e4a996d06e3b268bfa9c047bb4e3779f"
+        },
+        {
+          "function": "_near_workstation",
+          "sha256": "fcafb4e17d0f9d8b1e86591a99cebfab46ea1ec822d4edd1207a452ee64e33bb"
+        },
+        {
+          "function": "is_near_shrine",
+          "sha256": "69b57ac15cd5858a04fefc4ec510fd2c1009828a7fdf3667afbf35003a344022"
+        },
+        {
+          "function": "_build_wallet_snapshot",
+          "sha256": "33a0b74eb97f2ec19785618a88db54447f6ecd53c34763b0bd36e1193b5dc6fa"
+        },
+        {
+          "function": "_set_build_wallet",
+          "sha256": "6b1903bd0e120960d8b476f7a465fdba3be5b1b41337a58fe80b9e25e5126448"
+        },
+        {
+          "function": "_rollback_build_transaction",
+          "sha256": "0da8312dc72e9a46400cd4fe08357f730611a0c323e0973693734d5c0fe53210"
+        },
+        {
+          "function": "_finish_build_transaction",
+          "sha256": "9babbb1c4f282cc015e82e1c00cab3a501ac3052ae2f1f008b2864d3e2b66ff7"
+        },
+        {
+          "function": "perform_build_action",
+          "sha256": "f7459352be9488f1f093b68ae4567cef980d61747b6e768f5d6fe03e7972165c"
+        },
+        {
+          "function": "_toggle_build",
+          "sha256": "c3f8c41ddb161c36d1de8c818fcbd723a558e8c8a9286ac5bb79cd2a9c6c885d"
+        },
+        {
+          "function": "_on_ability_action",
+          "sha256": "3ffe15dcb0a77d65a446de086e332ae7be1d504c00acbae60e358dbb9e77fdda"
+        },
+        {
+          "function": "get_save_slots",
+          "sha256": "19fe755df1380c6bbd938ded624aba45bc0e1742833afead1db04a89c810cc81"
+        },
+        {
+          "function": "select_save_slot",
+          "sha256": "29f6b961c5883e5aba0504bcbf14c4d712a45be4b016d05f7d8d51709606b70e"
+        },
+        {
+          "function": "_replace_with_save_slot",
+          "sha256": "d0d7f7a92f6e12e2392c25c498ecaa77bda37987c7791a2c6d8384c095408ba1"
+        },
+        {
+          "function": "restore_save_backup",
+          "sha256": "b02ccd96b145a607101e42015a82300ab46dbe6c4bcbd76b5543af9ba6809135"
+        },
+        {
+          "function": "_ground_is_hazardous",
+          "sha256": "9513b9718ccf630473d3f07c099a87a9cd452c9165dabb60ee862f4ab93c7477"
+        },
+        {
+          "function": "_record_death_cache",
+          "sha256": "20f7c1f2108d16a902d06fb62d100a6e957b854237234dc1e05d961cf8fed9c0"
+        },
+        {
+          "function": "_spawn_death_cache",
+          "sha256": "367bcdbcbccf783cf48c6833265ada633febdd3a4aa4f1de81aef8b6daa76a1b"
+        },
+        {
+          "function": "_recover_death_cache",
+          "sha256": "960ab6de6ffbb0f6f986ef692595c605b01ba67e86eade69fe7bf11b85ac8d8e"
+        },
+        {
+          "function": "_hold_actor_support",
+          "sha256": "558d8b192edcd86bfae243c7e51450cbaeeaf863630d76a6381886c4549a6fbe"
+        },
+        {
+          "function": "_ensure_collision_segment",
+          "sha256": "08933d12f492189cfc9cba48fbe39b4056751e0e14dad132071ef6ba591d970f"
+        },
+        {
+          "function": "_rock_ray_hit",
+          "sha256": "75003a8e22413ba0949ac55fa6c265c559806a88e40166065c2bcbf8914cba56"
+        },
+        {
+          "function": "_walking_world_passage",
+          "sha256": "f5fe8c681f163926bc216cc2bc72af00739fbde01e36d15287e5d70e425dbbe5"
+        },
+        {
+          "function": "_world_collision_ready",
+          "sha256": "707883cbf60df0bb6b940dbf363d8a995f31052bbe531b01a3829798a7d6074b"
+        },
+        {
+          "function": "_release_region_platforms",
+          "sha256": "fe66c3482b510f2512d5f8164a5f66306ad8b259b0bd1a3e201d9798b36f3379"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/player_controller.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "_seal_present",
+          "sha256": "710dd4b6ef62b3597b64909b736cc49364e6672c622f8f45d1d45efb1f381902"
+        },
+        {
+          "function": "_seal_mechanism_ready",
+          "sha256": "551b800807ca641945a3f6f83aadc60ab66fb53c949e20d98e0811826fb36691"
+        },
+        {
+          "function": "get_seal_mechanism_snapshot",
+          "sha256": "b0da39afd2418961eaf6a8bea2ed08eb60546c6b38ef75103ba987f2998464f6"
+        },
+        {
+          "function": "get_seal_combat_state",
+          "sha256": "a52873bfbdca4493eb60c08fae946000c75b0d4ab34402b5f9cfda38cc2c5255"
+        },
+        {
+          "function": "_seal_tick",
+          "sha256": "f26c5f2ac2e0b2936e55b3fe536e0e5c0a42a12aca8cf9888edb9bc065a9af28"
+        },
+        {
+          "function": "_crest",
+          "sha256": "a2e53be11c7a69ded9dd288eee18b050342c62ec8ed0d97dbd903f5f8055ee85"
+        },
+        {
+          "function": "_basic_seal_hit",
+          "sha256": "49a07895012c4176cdbc28af77aa636814123f009b77145341658a3fc06e38fc"
+        },
+        {
+          "function": "_seal_heal_completed",
+          "sha256": "c54c19ad17177f14e82748a5474b62edebde51946f882e957e1f1953344b7367"
+        },
+        {
+          "function": "apply_snare",
+          "sha256": "80628bbadc866f4a19b73e49fc879f7f1a0e977e416c91b8bb85a90295a75b6c"
+        },
+        {
+          "function": "_ready",
+          "sha256": "1072a7f35cd65b8dbb3ce9a411c6824633f419f47e74981b5853c86fb8bcd7e8"
+        },
+        {
+          "function": "_physics_process",
+          "sha256": "96196332729ad3b2501519dc7a4475d83a4bc19126aea77dc04d1a3602534d7d"
+        },
+        {
+          "function": "_try_start_grapple",
+          "sha256": "14cabac4337da925f807e7c68ef82e5b7a882a8077f81c14834c0b04f54ce7f6"
+        },
+        {
+          "function": "_update_grapple",
+          "sha256": "74bab8c907246e077b2c6a5d62bc912a4db8c2509ef0da154bcdbb5e02d0f202"
+        },
+        {
+          "function": "_stop_grapple",
+          "sha256": "481733aa588896150c279f6e5433643ff1c1d49596dd855a3870bf4bc6bc4109"
+        },
+        {
+          "function": "_reset_traversal_state",
+          "sha256": "d3804e7d2bab05882a41c3c863948096c22ce0fb97dcfb3e4d7250d8cc38d70f"
+        },
+        {
+          "function": "_spawn_double_jump_vfx",
+          "sha256": "0396d13064ba241d04db73e09b91d6429315cfd6260d49288597132c4a26cce3"
+        },
+        {
+          "function": "_start_attack",
+          "sha256": "52766da9a7fd6f8f4f2d66639c69422bf4811212daf0c50760403da8edcd36fd"
+        },
+        {
+          "function": "_play_attack_swing_sfx",
+          "sha256": "a2a7d54c48617e0a5be06759f086c304e328d26c3d5e6a0de00f4d34db8b1ece"
+        },
+        {
+          "function": "_clear_action_buffer",
+          "sha256": "d9a5411ba0243692f271cad5db5defcb3008e4d1d23d31a0861bb19c252a00e6"
+        },
+        {
+          "function": "_sample_action_input",
+          "sha256": "0e07820929e269d7ae2038ab4d65be094451984a66059cf9ec01d899d0460f9c"
+        },
+        {
+          "function": "_consume_action_input",
+          "sha256": "c788b66c31aec641e61f219655ad8a0f18478f28510a506de26700c2cfa762a3"
+        },
+        {
+          "function": "_start_dash",
+          "sha256": "aa3a29a36bc39b7e3247c2d77370a27fb006003c3143e4195ce00ec262c9924b"
+        },
+        {
+          "function": "_can_start_action",
+          "sha256": "58958fe10bbfa546e2956305e354c931dfb3b2f6caf088af1dab86e91f6b5a8e"
+        },
+        {
+          "function": "configure_selected_skill",
+          "sha256": "19d614231148a656551c76be111c35ac847c408d34f684c5ed495bed394a9499"
+        },
+        {
+          "function": "_try_skill_burst",
+          "sha256": "c50172b88fa0ad0391a56ecae1144918cafd50efc006945a67fa9670e3ce87a1"
+        },
+        {
+          "function": "cast_selected_skill",
+          "sha256": "0d831dfc67873074b0357e1bccd377155c3cb2eb6eab1ba73f0886174483a973"
+        },
+        {
+          "function": "get_heal_readiness",
+          "sha256": "92988c9486f0235b16bf25968c46615d7bb5af3f0b1dfd3b95c2e50f129b0e75"
+        },
+        {
+          "function": "_try_heal",
+          "sha256": "63b99b48689ab757741bb8e29e69334c80a849f7922cd235cdc75c4f4b9520ac"
+        },
+        {
+          "function": "_update_heal",
+          "sha256": "ff807ca9d1990bec1eb247d75b0ba310b553676d8b3d5b1eddd67d3754df5f4d"
+        },
+        {
+          "function": "_interrupt_heal",
+          "sha256": "8610c572167f2037500df60d34cd4a3f6aca38cd0321a7560428fe7dca9f8924"
+        },
+        {
+          "function": "apply_build_stats",
+          "sha256": "f39805e8e54843963d576767041f0cb00b2c71e9314dd1f98bdcd8aa0a4e80c3"
+        },
+        {
+          "function": "_try_guard",
+          "sha256": "eb2cf65e26bcf2fc2807eb71d7e567c6b344367992e62fd0b139087dd71e1f49"
+        },
+        {
+          "function": "_try_resonance",
+          "sha256": "977cf784b85c9d38523f57f35c2bc0d9d480512b342b86d618996e570032d9d7"
+        },
+        {
+          "function": "is_phasing",
+          "sha256": "94714213ed361f4c70d652e5a1cb899243eae194316c426fd9629aff6684deeb"
+        },
+        {
+          "function": "_update_phase",
+          "sha256": "79df9543e4067c109174d9c8ee88ccc764478ddb6ea00380144e1db56ad20b5f"
+        },
+        {
+          "function": "_sync_phase_gates",
+          "sha256": "9865e1c68aef433f93f30553aa2b241be1bbdb878580f771be866c4e09a70dda"
+        },
+        {
+          "function": "_phase_position_clear",
+          "sha256": "3767aa2c246e845be21d95571b7a25205eecfb46a4121d184bbd429ea52be70d"
+        },
+        {
+          "function": "_stop_phase",
+          "sha256": "ff8aa026efacd96b22e0d4fa406f6bf5ca7f1a33f8843150c0b2744cbb431c2c"
+        },
+        {
+          "function": "_ability_ring",
+          "sha256": "ea750fc47b35aa5a1dfb0d726c3fa61ff7d60427e896bb846b04d9d3ab9dd2d0"
+        },
+        {
+          "function": "_update_camera",
+          "sha256": "27abb66f382610dbe072bb25f4d576d5072523b2077ad620e35b71057e270570"
+        },
+        {
+          "function": "configure_camera_focus",
+          "sha256": "d3eecd67720b5a68adbf64afc7a8437d52b03c5d7ecf9110a199a2b0beed174c"
+        },
+        {
+          "function": "configure_room_camera",
+          "sha256": "affb4c04166276bbaccec9fed78c623d45822caf9345ff7f3fdc86dc903dd6d9"
+        },
+        {
+          "function": "push_camera_lock",
+          "sha256": "52c32dee97b860badee2f9cbbf599385eecd3d34b8264477162392b4faab5a4f"
+        },
+        {
+          "function": "remove_camera_lock",
+          "sha256": "22450d445036e063ff151817a5ba3b697862c55ea5cc7c127e8ad4445b018978"
+        },
+        {
+          "function": "_apply_special_skill",
+          "sha256": "95ae4333175d3747a7202f891f9e2e8561450ab59dbe4acfe68c7feebec5f124"
+        },
+        {
+          "function": "cast_tool",
+          "sha256": "8f6b5e1bad838063263decdeab01a18307ff48bef8d2b9aa75191b7eef88c826"
+        },
+        {
+          "function": "_attack_line_clear",
+          "sha256": "87e749564758c0d19504eafc6727a9a66865ad3ce51110ffc80a9d14541ae364"
+        },
+        {
+          "function": "_update_attack",
+          "sha256": "e6a576f1e40175adb2de9f3b29ec49345d704bb2ccadeda0bab733fc981f9ab1"
+        },
+        {
+          "function": "_apply_attack_hits",
+          "sha256": "1f99a8f7195cfbf532f615baa75165679af7ee70c66f08bf117acff418cf9d0c"
+        },
+        {
+          "function": "_trigger_hit_feedback",
+          "sha256": "f1856eed5393164faad26d537c0a767158e94e60aeabdd647d02243e71075b65"
+        },
+        {
+          "function": "_sync_attack_hitbox",
+          "sha256": "1b967f51b257cb4e381e799a1ca7fbd3bd05f9be4b0a818d16cfaebed86e8b70"
+        },
+        {
+          "function": "_read_attack_direction",
+          "sha256": "453d3d8112436d1b67904c024fe9f59138c5b287924e968794ed4c2768977d3d"
+        },
+        {
+          "function": "_move_axis",
+          "sha256": "515b95ac9e685758f402ede23ca4c801b469f4763a1c0389d7018999fbd70557"
+        },
+        {
+          "function": "_attack_size",
+          "sha256": "62324af64be996fdbb2f8d38e15104cbaf13a5357cb071e4d29f0c44477a419c"
+        },
+        {
+          "function": "_attack_center_offset",
+          "sha256": "13c0ce3a0c299b65de9e3e026a5c83c9fe3d6d8c66b289e924c45365f04d25c3"
+        },
+        {
+          "function": "_attack_hit_direction",
+          "sha256": "facd43fb69ea936fec9eb987a4f3eb0d3b012df4e027e1826655a8321eef844c"
+        },
+        {
+          "function": "_apply_downslash_bounce",
+          "sha256": "6c66f1a56169b3e68f41da5a97270ba4b15b7c208a03fdba98aaae95020bfbb5"
+        },
+        {
+          "function": "_play_pogo_squash",
+          "sha256": "a1c2c4e9a5e2fb31df1a29fa793428294cdac9547a4476ff184dde555ea4468f"
+        },
+        {
+          "function": "gain_energy",
+          "sha256": "bea0ded45a8a11a786b1f07d37f38e5c44c3e2e91f1069768da37098b5093188"
+        },
+        {
+          "function": "_update_ground_motion",
+          "sha256": "2be8d4baebfd22afcb55c83c334912e4c43d2876b900f3d7055d7406295b312b"
+        },
+        {
+          "function": "_pose_ground_run",
+          "sha256": "8dd54826d74ad3f898a87551cccfac76b8759f1f22c380fc81997ba4b665cb40"
+        },
+        {
+          "function": "_sync_sprite_pose_anchor",
+          "sha256": "45215366ac204d6a076f8fce6988950e175a2fbf81a3f500d8cf682777b5efb6"
+        },
+        {
+          "function": "_update_animation",
+          "sha256": "b5a140173865a8d33e61c546044ed6cc2ff23e37f6cd7f0813a1781754b601f3"
+        },
+        {
+          "function": "_play",
+          "sha256": "b680a2ccff6eb434b12acb882a73203d6886c95d110eaf21a4aefc8ac812f360"
+        },
+        {
+          "function": "_pose_progress",
+          "sha256": "d475f7d9e6e4b0674ab8c5d261e200fb02d1639508863a5148c02497ce1bc5af"
+        },
+        {
+          "function": "_update_attack_pose",
+          "sha256": "1bc3f54c505cc1b1f1c1bb5c93550d6e4f385f10b829feab7d4b141736f3ccfa"
+        },
+        {
+          "function": "_play_sfx",
+          "sha256": "c0dbd5c6287b18ab2b69d5427808b784c5bf6cc54fd47586152578c50e8f28a8"
+        },
+        {
+          "function": "_play_land_sfx",
+          "sha256": "039cb8edbd5941e72c79f61b43b99549a9d6f33c8f11066e14ab4465f121d8b0"
+        },
+        {
+          "function": "_sfx_bus_name",
+          "sha256": "daec84608f24140030c45518bd12e48710ef4834f6674f573ed7b2f98c0e7714"
+        },
+        {
+          "function": "_ensure_audio_director",
+          "sha256": "1dcffe10da83c7bbae0ffb6bfd2782c36895f6605d85098fcd9cdfa5293461b7"
+        },
+        {
+          "function": "_request_voice",
+          "sha256": "aa7e47fdb4d7ee6ebd70a973c78ec715fb03c9d63961f5a8f64590d2a15a7a0d"
+        },
+        {
+          "function": "_release_voice",
+          "sha256": "98ea16e1f245c568f2221e5ac49c01590dc393b0744b8f426121d02562bdc3fb"
+        },
+        {
+          "function": "_spawn_dash_ghost",
+          "sha256": "38e6b62ebfee833f00a9893c56db8aff2d8d3ceb8e30d0c1aff4250aec0de2c8"
+        },
+        {
+          "function": "_spawn_dash_trail",
+          "sha256": "9fd1330c468020fd4a05390a01dde5518fdcdcfc1bd162ae51d40157fdcc445b"
+        },
+        {
+          "function": "_should_play_sfx",
+          "sha256": "28c652b818280e71fa3d22ab5bb4e837f250039904100d3e9d62901772db4039"
+        },
+        {
+          "function": "_load_sfx_stream",
+          "sha256": "cfbb1f9cdd28e71ff784cb7d52a43b16cca8c5a3d874f598ede29915ee6557ec"
+        },
+        {
+          "function": "_load_stream_for_path",
+          "sha256": "1eda0bcf98f9dc66f813c4b7172173539e330af7355635a68d6acce6d51b7368"
+        },
+        {
+          "function": "_load_stream_direct",
+          "sha256": "fb1c54570fce41b51b4c4cbb6bdc84f8e72f8570e3ec535d105fcd81dfc39bbd"
+        },
+        {
+          "function": "_update_wall_slide_audio",
+          "sha256": "f43ab6233db7676c37a95138a5b128a02f4fa20bb721796211775d5be895d62d"
+        },
+        {
+          "function": "_start_wall_slide_loop",
+          "sha256": "1e0835338281345e9ab8ba9e8e6c2e959c2b2846ad9f0a3ade7df66ba5b6e23e"
+        },
+        {
+          "function": "_stop_wall_slide_loop",
+          "sha256": "cac467dd93309998c50b8c35a7e26d4715fe9f05fd19be14b81803afb3cba782"
+        },
+        {
+          "function": "_update_footsteps",
+          "sha256": "24700e019d33b4abb3a8ecb2af9a156766e863ed408171e7ce53ea658a5e8eb6"
+        },
+        {
+          "function": "_play_footstep",
+          "sha256": "b833bf3166adfcdb38fdbe344fd096b8b24fae5d72aa4868fa850e04a055bc76"
+        },
+        {
+          "function": "_spawn_heal_effect",
+          "sha256": "a50fdabde807ff4b8cb4d611474347b1cea80e9573af27870ce6be3d3cdc2ea8"
+        },
+        {
+          "function": "_add_heal_ring",
+          "sha256": "057ef406ff06dca2c0a85cf100ab49afb736520d0d88206d01ad0d72b65c9c43"
+        },
+        {
+          "function": "_spawn_attack_vfx",
+          "sha256": "2c38db6baa4c4e666f5bbd00c22f825eca3d21a00326b14fb484960013a05645"
+        },
+        {
+          "function": "_spawn_slash_vfx",
+          "sha256": "4366040db915fe1aa5857626880aa847efa34212d96b8dafa40323c58ba07d0f"
+        },
+        {
+          "function": "_make_glow_twin",
+          "sha256": "06337b5d6769a92ea096cc7755e8642f5739deaaecbcb224a1d7cb8cb1aa30a4"
+        },
+        {
+          "function": "_spawn_hook_trail_vfx",
+          "sha256": "2a7901fab0bd70c5407aaff3d97a486485428fafd88e8d70f85a08f0108a64fe"
+        },
+        {
+          "function": "_spawn_skill_slash_vfx",
+          "sha256": "9134409478ae19effd11ce0b98e573a69606ff96c7ff9e6abd9c1d6e6ad3d142"
+        },
+        {
+          "function": "_spawn_hit_confirm_vfx",
+          "sha256": "9deae41983926772880fd847b905d87a1097bb0af23c55260da12462ace91886"
+        },
+        {
+          "function": "_spawn_land_vfx",
+          "sha256": "0d4b08e33dd8ab162468c8fd32eb3fd8ed57b870592fc9f8aa8e6d1b124a7fcc"
+        },
+        {
+          "function": "practice_guard_contact",
+          "sha256": "e3cf97840793d7547ded85458aa2f06eb24c080a1241a384cc8d2ff159eb4555"
+        },
+        {
+          "function": "take_damage",
+          "sha256": "d54735e8f7dac75160ca68f9d1df1d80a6cc4e8a6a110642bca18a5ccc4ed3bf"
+        },
+        {
+          "function": "_spawn_thread_snap_vfx",
+          "sha256": "fd8b7fdbf1dbde67e9ab3e00cb2ffe4aa9c70db2ef18d3f5c9565920c7cc1612"
+        },
+        {
+          "function": "can_deflect_projectile",
+          "sha256": "30f2e42e91fbceaaac0b5a60100bba942e35dd268ae3e737c4c2e84a414a1b75"
+        },
+        {
+          "function": "can_ignore_enemy_contact",
+          "sha256": "fca4de42f6228bacb55f0567020efd7b62defa29f56ab81b29585cfcd7d6ffaf"
+        },
+        {
+          "function": "set_spawn",
+          "sha256": "d3caf82d1f1fd58805aca370d93c0fc45557f299607710259de6e58b0c34c4e2"
+        },
+        {
+          "function": "prepare_region_handoff",
+          "sha256": "7d6cbdd88c872a49c39aac055bbba618d6c5eaf4edd769e24d9f7496bbc44c60"
+        },
+        {
+          "function": "respawn_at",
+          "sha256": "29d5cd8bc06ce6ba63af7005c018c3b46f9bf17bcff7543fa138905946db6bfe"
+        },
+        {
+          "function": "reset_camera_after_arrival",
+          "sha256": "77f776f4f142e92973b6188eeab8e0dae61209ce765dd54fc355126fc2dffc41"
+        },
+        {
+          "function": "_hard_respawn",
+          "sha256": "c3327c896e7752f0a0e7ccec7f48d1890f6eab72e903f603e7b1f647ba29b5ee"
+        },
+        {
+          "function": "restore_at_save_point",
+          "sha256": "08d5bfcc4de00f27a3579d4b4664d03316ff35da3f32cd4bcca2e777c63329d5"
+        },
+        {
+          "function": "_load_sprite_frames",
+          "sha256": "3e8f70445ec26f44a3efcf84359e3e746eeae3e6a27dac7a4ebeb2c41890ef1c"
+        },
+        {
+          "function": "_load_generated_hero_frames",
+          "sha256": "2b8ee83b5acbd98745b2342f884c7e886ae908709c2df174f4269dc190d26717"
+        },
+        {
+          "function": "_res_path_from_manifest",
+          "sha256": "d6dc04b2d31f988c25f46e11eb690ffe25171e2b8264ac904f5f575cc83a83f7"
+        },
+        {
+          "function": "get_player_debug_state",
+          "sha256": "0737400ec921b473bb7e649471187689c10e401701ba62b0aac692a910125015"
+        },
+        {
+          "function": "_load_texture_resource",
+          "sha256": "27230c8bc36a7ab53168e4c9294bc0809908204e6d58bce40fb2cf6ec6d8cc1a"
+        },
+        {
+          "function": "_ensure_input_actions",
+          "sha256": "fdce6be6742d806a3e85f33e6a7b3b1ec242b52a2f8d9f863e9a59b796297e23"
+        },
+        {
+          "function": "_bind_key",
+          "sha256": "801d442bf0e07b5f5424ef6c6fb85e397e0b74c0045a6e0e33a60c664f3197af"
+        },
+        {
+          "function": "_bind_mouse",
+          "sha256": "748c33b62ac7804ca489941910d9c68e29aeee338067892d21467e29e51c7524"
+        },
+        {
+          "function": "signi",
+          "sha256": "a416fcd165d0be17c155250c440adc6233001908d66b886e88fe11867e7a6634"
+        },
+        {
+          "function": "_bind_joy",
+          "sha256": "f5433b7a51af188e8508ff2839ea65224015d293c6301145665a9bfe7ab76467"
+        },
+        {
+          "function": "_accessibility",
+          "sha256": "16865b5f9ba4a9d5d9cde5c8cc02119ac8a8b6b034a79180e1cdb9b75ad9b192"
+        },
+        {
+          "function": "_add_trauma",
+          "sha256": "032982b0ac639fa84616786794ca78d228b964f849426364313e3231f91b62b0"
+        },
+        {
+          "function": "_flash_screen",
+          "sha256": "2a5d6c8633ea0be5647586ca6f54e8418a4f599f6f6078d013714b854515d483"
+        },
+        {
+          "function": "_black_frame",
+          "sha256": "2b5331cba12965a32c061a4450110bf23e5d663cb12c8c90900ac8c4367f5506"
+        },
+        {
+          "function": "get_combat_ui_state",
+          "sha256": "6b36d46c3d5d7f1b61a571af9a70f9667d153d0c3ecde1ce9765fc206f83974e"
+        },
+        {
+          "function": "_bind_joy_axis",
+          "sha256": "e4ff7de2dc491d4163225821fbf3812e48e5f5c5b8faae2b249e0a04a850ae45"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/player_layered_idle.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "attach",
+          "sha256": "26ad81eb7ccc4db3e3458b561e085a84b399775f1a86006d336241d5b6ec0005"
+        },
+        {
+          "function": "sync_pose",
+          "sha256": "c59392ff225435ae8c1a719e182050f883ce5d97efa343db82f84c63da27c310"
+        },
+        {
+          "function": "_process",
+          "sha256": "b2791a1de9a385939e5199a9d737508d817c3b7effcd210809d53e8c5ead9a49"
+        },
+        {
+          "function": "_apply_frame",
+          "sha256": "eb5a814418a384f40e532e029a36dd6ce59b3adaba8d90b8d5d6f074fa9e5475"
+        },
+        {
+          "function": "_leave_idle",
+          "sha256": "b90dd9cdecc483a2c44bf4a4cc74f195f10d106ce38be0f90c75c4b3e4952937"
+        },
+        {
+          "function": "_exit_tree",
+          "sha256": "c645f013534e08b6c64f2bdeb90c2aa6b7a4738c09a06eb36f9af39e7512a1c3"
+        },
+        {
+          "function": "_effective_source_material",
+          "sha256": "647b70c89fb26bf40bdf2165920a5d09d0a15f30fd8d3909a34e49d38cdd1e2a"
+        },
+        {
+          "function": "_finite_number",
+          "sha256": "ba349054f89e33e5605771df4290caf022ad409ec37cc2be4d362e99f419e9e5"
+        },
+        {
+          "function": "_numbers",
+          "sha256": "49ca548c9d08e49433a59f42b597fff50757c3bca71d6a9bca06a2f04fe9a1ff"
+        },
+        {
+          "function": "_valid_manifest",
+          "sha256": "3ecade7b3c5dbc50d8a3c7d6c6e8ecfbe12d2de295c3eda5511f129910505a2f"
+        },
+        {
+          "function": "_load_layers",
+          "sha256": "66d4274fc4d1157ee1a87e49e010e27e8de649118dc32231a3830fb96d8ad8a2"
+        },
+        {
+          "function": "_load_texture",
+          "sha256": "12e75c1a6d303f659d52e23d97aa2d649a2844356ef79d600f34723cb5a9d8de"
+        },
+        {
+          "function": "get_presentation_snapshot",
+          "sha256": "71ca938b9a5c2cbbfb404135f7eec794dfff035201f6dd896986c1dd58e570aa"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "blade_points",
+          "sha256": "fc9433a9ebb536db2733f5ac68f3f026ea15d4a9cd4bbafbfeec37b8cb6e2b05"
+        },
+        {
+          "function": "spawn_swing",
+          "sha256": "293fe92ddf2fae841ff82eb45c99569c626a30605cc317eb17a1d3aa30e2c37b"
+        },
+        {
+          "function": "spawn_hit",
+          "sha256": "4bfa7ce969548df98f5bcba115049ab8a866662fb7ce642e73f1b404b69723b6"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/camera_focus.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "clear_look",
+          "sha256": "a25dac6bb616a6646e63e282774de179bd81b4b8bd2cc282e849444da93d9d8d"
+        },
+        {
+          "function": "configure",
+          "sha256": "06cbaf898f1e39eb1dfdefdb568e246c65d95cdacbdb56104ba2705c319f91d7"
+        },
+        {
+          "function": "push_lock",
+          "sha256": "f365933dbd9d73a1f1ebf4dc8bdd22c314336aafed0a1993328ecfb658e68566"
+        },
+        {
+          "function": "remove_lock",
+          "sha256": "0eb42d913ad02c07e655ccdd00bf242bc82eecdfcbd2e3074c4a45b8d7ade8c2"
+        },
+        {
+          "function": "_valid_bounds",
+          "sha256": "c9c9a29d7aeeecdc684ee1a9ff0a43961ae0d21d03ce8c564f668f2dbc2963af"
+        },
+        {
+          "function": "_select_lock",
+          "sha256": "18651e9d06230862bffa2028a9773586ed75c6a5b2ba83c636dcac07f99769fe"
+        },
+        {
+          "function": "effective_bounds",
+          "sha256": "f6311e1068c8542b2de7bbd2023ee3830926d8f17c92b8759e468055a1a9c561"
+        },
+        {
+          "function": "apply_limits",
+          "sha256": "245fc076ab9d8b8bf6bda64fd114df21d5ee9d2a27171e80ae82353f348b8785"
+        },
+        {
+          "function": "update",
+          "sha256": "d3d72876e47322d25e31c337b890ef75b08dc601e88bc5dd7292f8aa8f41ee0a"
+        },
+        {
+          "function": "reset_follow",
+          "sha256": "827a1d46443da9018261fd734996378a2bf22745a6c8652fedb25a0fc2bde9dc"
+        },
+        {
+          "function": "follow_position",
+          "sha256": "dc6b736ece49faa93d310bbdab1723d4ca036b8e9d6adb983cf8b397786120b3"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/feel_kit.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "00eff6067d7fe6fb5e025c441985679f014f6d812c98ab8588077b9c0eb46d1b",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "_ready",
+          "sha256": "a78e249372f4b84333d7546ed5d2eabde25a6dde0dd30a3ba8dc650863269a81"
+        },
+        {
+          "function": "_process",
+          "sha256": "ae0abb09f298f95ed2a21b80267fefbbcc62212e3e8c122bc51cf1e28458879b"
+        },
+        {
+          "function": "register_camera",
+          "sha256": "8b750c4e7c8e99ee95d8d0c9b2e49a61c13f4477a8e46197ff397d17c2a2ba8f"
+        },
+        {
+          "function": "set_accessibility",
+          "sha256": "6df632b010dbacd5c62a79793a432c9e29f5bbab908426a385c0193301e6cb8b"
+        },
+        {
+          "function": "_clear_camera_shake",
+          "sha256": "76fa45926dda8b2a303b2d6d26bd5f3a4c8cb92e54838adf4b9eaef397c8a494"
+        },
+        {
+          "function": "hitstop",
+          "sha256": "4ad653687bda77e0a8ce7224c232c5827ad1531eed0cc83719d6727e0bff4dfd"
+        },
+        {
+          "function": "add_trauma",
+          "sha256": "2c388e055b6da500e72d46763320a60c6949026022d2845b935ff3129f962d57"
+        },
+        {
+          "function": "flash_screen",
+          "sha256": "2a04324bcdfd18136342c9da470f5155baa8aaeac9a51c16f82e3d2155c80635"
+        },
+        {
+          "function": "black_frame",
+          "sha256": "b3c8f34cd692a16132747673167fc6a7d4b92903533303aea5dc9c42e7d5be5b"
+        },
+        {
+          "function": "_apply_camera_shake",
+          "sha256": "b5c4f5e1b68b0ad802eee4c8fe89f0e45cb77b14af28c44bb150e266adf140d7"
+        },
+        {
+          "function": "_world_to_screen",
+          "sha256": "053cd64d8944d8463943ce61c40bdce523805102931dd912cb56597bd712c92c"
+        },
+        {
+          "function": "_free_after_real_seconds",
+          "sha256": "7efed77101d6da4281a3f4fe4364b59f7c4669f00738302ee0c7909f7a8c0b2f"
+        },
+        {
+          "function": "_is_headless",
+          "sha256": "6562404c298274db31f62708df497ac96fd54a755934fa464f038ee0979655f1"
+        },
+        {
+          "function": "melee_rumble",
+          "sha256": "bbdd68e3807b024b9b95952e08027ec3cb499928fbf0c6197ab3dbc18bb1ce5d"
+        },
+        {
+          "function": "melee_rumble_profile",
+          "sha256": "d39cf8977490b22eaddb7d8eca39208237a75c5b7120a5180756ea5aca66d675"
+        },
+        {
+          "function": "_input",
+          "sha256": "613847598c0f630384c79290325301ab3c05fa0f4964507b36ec1d578b9e5956"
+        },
+        {
+          "function": "_select_joy_device",
+          "sha256": "d2a4b6e33b06b1a2d8bb7f4ea06f7541b3749fe6a47149dbc2c2c0d22144da07"
+        },
+        {
+          "function": "_on_joy_connection_changed",
+          "sha256": "7db863be102f3fbafb034fb1a60fc10e70f528d03c24799a58317ec5cc2c9e34"
+        },
+        {
+          "function": "_notification",
+          "sha256": "32fbecc31b1554bfb5e46f9c5dbc447f1cb9a3124b729cd9e52dfa5a045583a4"
+        },
+        {
+          "function": "_exit_tree",
+          "sha256": "b3309819cedc8130e966b93e34195911c23c0af261fc3e04ca1ad7f522304bd7"
+        },
+        {
+          "function": "cancel_rumble",
+          "sha256": "3ad0bf383c94d2aa6c8c68ab2aa2602fdef00cb9315cc97e31ec5d24f1370303"
+        },
+        {
+          "function": "_joy_devices",
+          "sha256": "148bea0dabe78cf7279affafd2ee1c8f49bb73dd7db805ba903bc97d38559426"
+        },
+        {
+          "function": "_send_joy_vibration",
+          "sha256": "b765d6248aed9a86df7266a90f2a138db576f87cb83ca4155179629b3c55f5b4"
+        },
+        {
+          "function": "_stop_joy_vibration",
+          "sha256": "7287ead799734ead15934d4ecbe83e711cb8e7c3e8da4831b019c01575e98583"
+        },
+        {
+          "function": "_now_usec",
+          "sha256": "644132184c9a9ad377cc38b3ebbea16f1162e50c9674a4734739921197c6be22"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/pilgrimage_interface.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "4794231f6ba506507743e1d337fd27c5d6dd91a71fcea1c57ed6e522bfe82a58",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "bind",
+          "sha256": "a0079ac74521391377fc7f44147fa57c31134aac3172abe638ebe6c51b938413"
+        },
+        {
+          "function": "build_steps",
+          "sha256": "8aa4ac6be45efc81aa3b4b163ed5054377c17b1499fb1622219a9f618d779764"
+        },
+        {
+          "function": "survey_font",
+          "sha256": "b13e31366297c2b693e81d5949d685862963fe106283f9df3c7e38d94f469987"
+        },
+        {
+          "function": "begin_bind",
+          "sha256": "42a489ec5df8ea8cfaa9d1c34ff5ba75849c1a2fc6fef979bc604ee3b39e3c51"
+        },
+        {
+          "function": "finish_bind",
+          "sha256": "83a892d11f479b5d8928e9ec3eccfdb1cc8c1dc9b1ff08ce71b1ac342bb71725"
+        },
+        {
+          "function": "_label",
+          "sha256": "d7a63dee26e5ef36c8e8e1cfb0c6d4e6a57f461a4deedfb54f43bdade7815299"
+        },
+        {
+          "function": "_style",
+          "sha256": "2085fb33457640ba925371962d665dc8addb1ed06effc450a3f1b0bf1ed84d93"
+        },
+        {
+          "function": "_meter_style",
+          "sha256": "6fd6c46f0c240b2b80cd0a83b85d3ba041c163bb8072a12eb5caa4ca5d415ecd"
+        },
+        {
+          "function": "_tab_style",
+          "sha256": "b837c6d38fb9abe33d9937f9a2fbcb8bee53f79eb11699cf6ee507a64d161e25"
+        },
+        {
+          "function": "_button",
+          "sha256": "ed35b5e6b09023242ceb281c812b9acad50ba9446709a6dfc4722856cea8eb8a"
+        },
+        {
+          "function": "_panel",
+          "sha256": "2a5592d8c84cc38208771cdc75db01b85c3069278ce77932f418ff05e62faa9a"
+        },
+        {
+          "function": "frame",
+          "sha256": "fa869f579bfed4b0320d60cefd54cd08cff2b27d63b61acc1d0c853f9fed4025"
+        },
+        {
+          "function": "_well",
+          "sha256": "4bec8f8e9e95d75bae530da0d7559345c6b33455f9cb823e9fd741d6c73d4639"
+        },
+        {
+          "function": "_fit_viewport",
+          "sha256": "2ab40b040cbd6e33e2f64e1c1117525f5c6daf7090ac1c8e960955867c731ca5"
+        },
+        {
+          "function": "_install_theme",
+          "sha256": "49c88ade88b4d0b71559292f4fe5435b397d0adf735706bb31925c42074d6e76"
+        },
+        {
+          "function": "_icon",
+          "sha256": "efcba241084dfc20210b72b9fbd97bf7cb493ff08370a5a3d8518b4b71fa4962"
+        },
+        {
+          "function": "_build_hud",
+          "sha256": "2256658a557a18facbcfb7f727aa0e2cab55aacedb7ccc35d0649bbcffd92140"
+        },
+        {
+          "function": "_build_bag",
+          "sha256": "9efe5c6282383837c6cb83c4f52fd30592fa1f0bfc112be08908902e426678ff"
+        },
+        {
+          "function": "_matches",
+          "sha256": "dc1d98dc66ff90fcc8dbaf5eea22d1ab519db769ffe1ac612142c6f2f5f06e67"
+        },
+        {
+          "function": "refresh_inventory",
+          "sha256": "d9415782d5d55ed57f1374a5428103d859fddccf82b1f62858a2e2be57c690e3"
+        },
+        {
+          "function": "begin_inventory_refresh",
+          "sha256": "a213a95532dcd5f5ea4aa122fb62d3d7f45984bc73635d8b9ddb499eb58b03c6"
+        },
+        {
+          "function": "append_inventory_item",
+          "sha256": "06cf2044676570ff79592413aa39a1e9b769ee553c452be0cd582693d44ddd82"
+        },
+        {
+          "function": "finish_inventory_refresh",
+          "sha256": "6268d08875b0b07ae8114b3f73feaf24fc3ea6c36398014849a14cf304d25b56"
+        },
+        {
+          "function": "_show_inventory_detail",
+          "sha256": "8a3a80d55437c6006f878a6c7b720fd853e0ebaf64358b3c1399015ba879c6d4"
+        },
+        {
+          "function": "_category_name",
+          "sha256": "8d5333613cd4f0b189fcdb13a94486c454833f97bd4175a02d1de7a4127d3e74"
+        },
+        {
+          "function": "_pin_item",
+          "sha256": "048e2eda614fba9057c123e965458d63b795a0900c33437f45db186f8dfedaaf"
+        },
+        {
+          "function": "_build_dialogue",
+          "sha256": "7e72b0ae9f516cbba401fe7cf952a46f2c904bebc7c833cb043451673243fe91"
+        },
+        {
+          "function": "show_speaker",
+          "sha256": "340ea92b75785588b6c5444c598724adfed4f7f38bafdda5b3722916d24e8c20"
+        },
+        {
+          "function": "_topic",
+          "sha256": "ca58ef10d10ce475a8253e13f62c751831e3d9b859fc8a081796bffa50d6b5b8"
+        },
+        {
+          "function": "close_dialogue",
+          "sha256": "8d6628acdbcbf95437d4f82fdc9bfb27e078a67f4cf821c70752827e286a05ce"
+        },
+        {
+          "function": "_build_settings",
+          "sha256": "01f54dc37bf9ab1a0f743eb8fdfcbdd868782d14ece70f5ad1f569f023645108"
+        },
+        {
+          "function": "_accessibility_slider",
+          "sha256": "85417cfa00c694803bc69e311483f1f193eed2ffe32efc80f941073b54e7e88c"
+        },
+        {
+          "function": "_accessibility_toggle",
+          "sha256": "79456db28ab747154619b08393b88a22dcd4b804bad0baa742e7ef5f30360984"
+        },
+        {
+          "function": "get_accessibility",
+          "sha256": "fa361b68cb0f876f92aa4249ef0867abbc377826f6433452c6273400dedd2dae"
+        },
+        {
+          "function": "_load_accessibility",
+          "sha256": "46a47a5ce3066575069e381a1557f254c3ebfa92f11b29afb0628a83f7e934b2"
+        },
+        {
+          "function": "_finite_setting",
+          "sha256": "846801b16a8b8df50cfd6a7d36c400bd3f6ca9c008528fda69a7183db9ee875b"
+        },
+        {
+          "function": "_normalized_binding",
+          "sha256": "f7fa8cf0556cba30851ac59a65fa965d06be2c755e0c09e1a008d0c688028726"
+        },
+        {
+          "function": "is_remapping_input",
+          "sha256": "1c29f4e880475ab730eeaf82628134287d0fcc654d79b34a732ccc8e8d3454eb"
+        },
+        {
+          "function": "_remember_gui_focus",
+          "sha256": "6d1ef8b40e27bc3206ec5391425d998000f84492f934cc5bc7a7ae373250d705"
+        },
+        {
+          "function": "_is_navigable_focus",
+          "sha256": "9625ddff6609ad506bb21e8b1ab45aa0ba18f43515e446505947c0f46b8550de"
+        },
+        {
+          "function": "_overlay_controls",
+          "sha256": "a3b2e614bb5ef662d3d50538cb565d700da7642fc5e1b321cd9b31834a531b30"
+        },
+        {
+          "function": "_collect_navigable",
+          "sha256": "3e62ff4fab957ea5f9703b694bf70e472686a0c6147538d04b077930877515ca"
+        },
+        {
+          "function": "_focus_overlay",
+          "sha256": "1e12c2915c0d7385d128d18ffbc7a0f5d03b778b8f6c439bf3ee478e19ddba02"
+        },
+        {
+          "function": "_on_joy_connection_changed",
+          "sha256": "b038085835c1d3f1628b5f00d870d7ad6cc9233b6f91a14802ecb697335ec593"
+        },
+        {
+          "function": "_save_accessibility",
+          "sha256": "3e7addcadb7de60c3c49e6dc17c44a9655045feaf517c854dad8001f6000ec6b"
+        },
+        {
+          "function": "_apply_accessibility",
+          "sha256": "53a96abb25f8879f080cf6ab3831cb66f6673c64110546ec70237d1db9c11c1a"
+        },
+        {
+          "function": "_begin_remap",
+          "sha256": "4aed3e287012240d5fa88012f2e4e167ab52b907de1a935850eac679486a22b1"
+        },
+        {
+          "function": "_refresh_remap_labels",
+          "sha256": "6ae564b02fe0868257c140ffc860e96509085335950c25e38c07498dd235d496"
+        },
+        {
+          "function": "_input",
+          "sha256": "6e0daed615af575dfac1ba798cfb84bafb4f4823a8450cbd5728a1a99f8103ae"
+        },
+        {
+          "function": "_bind_ui_navigation",
+          "sha256": "0449b64e1e0a466dac571ba1bee4d82ae7d1761bd0ddac17cb163ebec4e810f5"
+        },
+        {
+          "function": "_build_build_panel",
+          "sha256": "4f77077df6f3a78f6a7a2faec43bcd8961e14b21fe807d6ae169c4b96a4d4158"
+        },
+        {
+          "function": "_request_build_toggle",
+          "sha256": "dbc3c656ac2e2175f0db914bd655ad3704f901f03fb28bcbc0fc3674089ed7b4"
+        },
+        {
+          "function": "toggle_build",
+          "sha256": "4bc184e9212c27907a726e619e7cc1509859fcff64de5deeb1650bfa9cd63df1"
+        },
+        {
+          "function": "close_build",
+          "sha256": "bf5451797a41fae1f8a304690a835f4cc10e541b431ed4635915e0d4ecaa192f"
+        },
+        {
+          "function": "_build_snapshot",
+          "sha256": "5d693b594f25b2f2278d88e66bfc07c2eab1ae4b1ebd665a6a6dbbe045c31831"
+        },
+        {
+          "function": "_is_at_build_workstation",
+          "sha256": "0485a9bbff5eae5c91f8d8260db3a3f23ca789fe662171bef54f2eb2e73faafc"
+        },
+        {
+          "function": "_family_row",
+          "sha256": "b99ffe51ddbd67c15e0e34174d204a8b3fb47596a86f3714411f5e5ea1868f43"
+        },
+        {
+          "function": "_family_slots",
+          "sha256": "34b9933f152b8ab8771ca1dd70e7d802da79e550a05647d5a3fce935fa2ee95b"
+        },
+        {
+          "function": "_slot_dormancy_reason",
+          "sha256": "b6b39a7f20c8a29067d69746c4d983affc7a749c1477e2ca1111641c8c66c77f"
+        },
+        {
+          "function": "_family_slot_dormancy_reason",
+          "sha256": "55c1aacc28ddcdb57fbd2c21eb626c2fcb004616c56c70d263ef8fde7ae54a48"
+        },
+        {
+          "function": "_family_options",
+          "sha256": "98201729dcc7efd2e1c6a6f000434862797323ca1e95bb19f7bac5055f7add7e"
+        },
+        {
+          "function": "_build_family_for_page",
+          "sha256": "3d8000bed2eaf91bee9e8f801b5260b13f700cf54f72766b4261ef9b0225158b"
+        },
+        {
+          "function": "_family_entry",
+          "sha256": "253fc7af61bcfb8c8ca1799368fc74e5424d24e0e11e1869ca2fa12e52e7bf17"
+        },
+        {
+          "function": "_family_option_names",
+          "sha256": "c309ea0cd71d889388a98085ed33afef8f20aa6b98ff0e5df9fdc8db4cf7d267"
+        },
+        {
+          "function": "_ensure_family_slot_buttons",
+          "sha256": "6b7d17b89486ecb891f92505cd06847fb029e599e736b7620d8e8a830df7c220"
+        },
+        {
+          "function": "_family_count_summary",
+          "sha256": "9739265d604960e1b3d26e992afdc612d7af6453b870bb1e392de60b82496c2b"
+        },
+        {
+          "function": "_all_family_count_summary",
+          "sha256": "5a9421ddb4314ff1327d6b4be8efdc62fd614f55b39d5ca267b9e3547f00340c"
+        },
+        {
+          "function": "_preview_tool_resupply",
+          "sha256": "2e9bcb3ada40e88b99fb1795f01ec2e879ac61abef827a536b36c90fe0ab9891"
+        },
+        {
+          "function": "_resupply_quote_text",
+          "sha256": "62e9ccb7199e1f27e972ec9d0671406173b05061ee4ae42d76fbadff833010e0"
+        },
+        {
+          "function": "_resupply_tool_name",
+          "sha256": "43e3e41658ed112072bc43bb4385d50b1a83cc744c4f8cfc5a1cf402245d7331"
+        },
+        {
+          "function": "_confirm_tool_resupply",
+          "sha256": "9b594de1a7c44544c3d7f06ba139790280646dc0226dd101c3b593f727955f2b"
+        },
+        {
+          "function": "refresh_build",
+          "sha256": "1f5d36ee287928c3cd23d82c6264d8c187af2a6c3be1090930951b9414b70639"
+        },
+        {
+          "function": "_entry_equipped_slots",
+          "sha256": "50a146076fbf8d01999970c30a2ba7ee9ec37e9c6d252eba378b2ed0eb15583a"
+        },
+        {
+          "function": "_loadout_preview",
+          "sha256": "de54090ff2b7bf4bc2e8352806974958b33816cba9870746f5862eea08c3331b"
+        },
+        {
+          "function": "_show_build_detail",
+          "sha256": "4ebf1c061912683aef49027ed6f3b6081ae4362c06bab54467e4c8fd7fa26f6d"
+        },
+        {
+          "function": "_perform_build_action",
+          "sha256": "02961886f9275080ac763ba625ab8964d209609254541cfc7034cf3d612e67cc"
+        },
+        {
+          "function": "_select_save_slot",
+          "sha256": "137dbe66b9d7f19ccc8904d029280b0f961ceb8f8ef9a0b6dc1c327650a1ac32"
+        },
+        {
+          "function": "_restore_save_backup",
+          "sha256": "33df7f04ac98a5a03542d0afc07992ca662b4c0a1e17e45ea56b72023652d068"
+        },
+        {
+          "function": "_refresh_save_slots",
+          "sha256": "d2854b5d3549b0cbc35e8669c2503a7fc831da8724e497f2d24ba25f87930144"
+        },
+        {
+          "function": "_process",
+          "sha256": "2a04f8b5f0594bbd7bad743ca729f1f15ab2e2896cf31fdd90a2fec30b9be716"
+        },
+        {
+          "function": "_visible_inventory_ids",
+          "sha256": "5040c94efc22bdd7ef578e9adcc1f8c224c63545c1bc54cc8d8b7cdd911755f0"
+        },
+        {
+          "function": "_reconcile_inventory_selection",
+          "sha256": "56d6346323fcfcf9ed80f44232b6d6a4fc1de3690d92d43e72b1148e310f0df0"
+        },
+        {
+          "function": "move_inventory_selection",
+          "sha256": "ce5126c77780373f3906badfd1d7379271b7cd0a8561ab8b76cfdf9b44966c65"
+        },
+        {
+          "function": "refresh_settings_selection",
+          "sha256": "ab46baabd426b509608a8a3be2b4c70ac764bab78128e181df6fe5ace127579e"
+        },
+        {
+          "function": "_binding_name",
+          "sha256": "be733b90c57d7cae26382090959531d73b6f8a3aeaefcb3391d85c0215f0473b"
+        },
+        {
+          "function": "_short_binding",
+          "sha256": "e3a7501803d725ebff668a665a207b1df4905a1ab6673d32429e5e898ffaa615"
+        },
+        {
+          "function": "_dialogue_binding_hint",
+          "sha256": "7c8018e5a91f7463127cd09bdd05d4dd8b6828acbb5580982d52721b4ab65238"
+        },
+        {
+          "function": "_refresh_combat_status",
+          "sha256": "aac0afd6d94f26887d1368e316608969509bcf610fa70b375c0052dde852d7ff"
+        },
+        {
+          "function": "_refresh_journal",
+          "sha256": "d54ee4b6b5cbe09a1878cb1083e640c751e877927ca833425b3a054061ab56ad"
+        },
+        {
+          "function": "_show_journal_record",
+          "sha256": "acdabdaa0e7dbaa2e7bd63f38b0b79d14106f16eb06af5800eddc9f481f81604"
+        },
+        {
+          "function": "_ending_status_label",
+          "sha256": "fbc10ecff44475f257140ba91ff40218e17dca99eedb633b8d3c50a0f45e06f9"
+        },
+        {
+          "function": "_skill_readiness",
+          "sha256": "b90ef3a54d66b10a8f91de365b38e9402831179dbe9733cf58ac081546dbd302"
+        },
+        {
+          "function": "_refresh_tactical_cards",
+          "sha256": "060171e3fd2e72d06887ef0169bc3c7e40b0deff3e513fe2672c9a56ce9ab4cb"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/world_region_loader.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "8cfc70632a59c2c669b72688941b8f6278a535c9269f30a8972a330d313b7bd0",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "request_manifest_refresh",
+          "sha256": "457b10aa8a25b9444be734eda5d344ff0695ea6356825ad20a5b6b773c9ffe25"
+        },
+        {
+          "function": "_run_background_manifest_refresh",
+          "sha256": "37682ba13e44023e77dae5046f1f1476806872e213d3bb2883b42b050e4edbcb"
+        },
+        {
+          "function": "request_startup_region",
+          "sha256": "43debde2f9ecd196de38b78225cb67ea17f14e4eb980bc35de1a36edc4cf56a7"
+        },
+        {
+          "function": "_run_owned_startup",
+          "sha256": "195a126ac0daba0e73a45ac81d10c9b8debd807f9786b8d3085f3844c3f683ac"
+        },
+        {
+          "function": "initialize_startup_region",
+          "sha256": "d468d0d8ab2a6f1ef7de2bc928b2f83223edfe216ad3d620c5ea9d20cdba3bf6"
+        },
+        {
+          "function": "_show_startup_error",
+          "sha256": "3f40270383be9fd9901d07005aaec456102ecf3790e33924e690f517e009fd10"
+        },
+        {
+          "function": "_manifest_refresh_cancelled",
+          "sha256": "19deebd02269dd757d53df59cef4ac98e83709cd4fc8d02134e35c3d52db7833"
+        },
+        {
+          "function": "_prepare_routes_manifest",
+          "sha256": "0061cda3fc048eac4dc4669123df3bea4745af9a7a174ec715bffe5ffaa95631"
+        },
+        {
+          "function": "register_region",
+          "sha256": "84762813e221df83cd10f5e9e4c734c8a51ec1f349128e67bbc8faac1bbd1b89"
+        },
+        {
+          "function": "snapshot",
+          "sha256": "8f9b5d3e9f421de9cabe1652180fe407bd25290a487231e26882d5feaa261306"
+        },
+        {
+          "function": "preflight",
+          "sha256": "f5eaf4ff6e29cd075f5b867b09699c80c6fb75d8a608f9c2ede247af6f957faa"
+        },
+        {
+          "function": "validate_config",
+          "sha256": "e42422d25a36854e5fd8d225ef590f2f433ba866fc0ce5623424ac234291a1cd"
+        },
+        {
+          "function": "_preflight_async",
+          "sha256": "9623d2adc4b5c7a613a686081dbe9b7f0c715e6b7eeafd9d62252fedca8d1750"
+        },
+        {
+          "function": "_finite_tuple",
+          "sha256": "af4baee3ce0b33c64034aec0956b4c279e589d1524c5be994dd417ad4eb41f35"
+        },
+        {
+          "function": "replace_region",
+          "sha256": "153bd054dbf52dda4ba9627403009c710794bf252da4581bb8ebc76dbba867bb"
+        },
+        {
+          "function": "_reset_region_fields",
+          "sha256": "9afffacb02435fd1b4b69c9188abf0a71e57c0d08a029423a1b19069729f7b5f"
+        },
+        {
+          "function": "cancel_transition",
+          "sha256": "21848327d73fa66e95e478104c91aaa1edeb62a795b28b3a87cb8cb38e0de53d"
+        },
+        {
+          "function": "shutdown",
+          "sha256": "6e21af5a64373f4a5b31a6a80a4035df96b7ff117d6ff9c4c9a4eb6ffa18e226"
+        },
+        {
+          "function": "_clear_loading_canvas",
+          "sha256": "f981f5b13cef3041ac66d5736ba8d660247251cba0e05df4f1b2d8392f3604d4"
+        },
+        {
+          "function": "_show_loading_canvas",
+          "sha256": "e7ef5a26e990bd95737b0b8e499a319cfc1d74f289c4a3be11fbc330eb7de1e6"
+        },
+        {
+          "function": "_alive",
+          "sha256": "c45273a321f22f88b0aafd40dc1d76c8cfcc675c1a2d89f2bf8f7ce8d4f7f920"
+        },
+        {
+          "function": "_cancel_input",
+          "sha256": "7ecec3932d5ab4af3d6e17c2296fb5e68d8604f59dbace41716e296f748d494d"
+        },
+        {
+          "function": "_measure_batch",
+          "sha256": "968635b251976aad74b543aa14edebd8df99a3de99cf1374589267cffb5340aa"
+        },
+        {
+          "function": "_evict_budgeted",
+          "sha256": "bbef54721ee235af0e1a5715ce7e7e1ed1178837f3363131bfc81dd55023b0c0"
+        },
+        {
+          "function": "_construct_budgeted",
+          "sha256": "cbf98b270d955191345c704f82047b1f89022c0a0a6e9be2d7b42fd63a00f3e3"
+        },
+        {
+          "function": "_finalize_prepare_metrics",
+          "sha256": "9472f7574d25e608182cfe6a4b33ce10ee8ed5042b454c99e310bb6ace7a5510"
+        },
+        {
+          "function": "_finish_budgeted",
+          "sha256": "cadcdbded2b6e29c3e6bb95bc8e6748d650dee39a97e9b46893bccf43aa4296c"
+        },
+        {
+          "function": "_set_destination",
+          "sha256": "5823cb4757d65363342f19234b40583ef57774b19cb19af276e06aae41349d2d"
+        },
+        {
+          "function": "replace_region_async",
+          "sha256": "3193b9047b1cf0badee511d6640547dbd973bb9b92ec897f99b0e91e35ac9bd5"
+        },
+        {
+          "function": "request_passage_transition",
+          "sha256": "e3a203906e2754ce5e5de3be7a333b4345e5ca8f4a24102504b948413aa220b3"
+        },
+        {
+          "function": "_run_owned_passage_transition",
+          "sha256": "571ec8c3f2ffb3bc006ea841168ae7629627b7384e9372aad444a98875422762"
+        },
+        {
+          "function": "start_region_transition",
+          "sha256": "d3f879a724fecc87bf0c5f730f73a108d9975d78270bc0ce426ff90e9af42cd5"
+        },
+        {
+          "function": "request_region_transition",
+          "sha256": "d3bd4204ceaf69d4eab8d0b04b121f620da28b11ca74fe892a05596af2e0a42f"
+        },
+        {
+          "function": "_run_owned_transition",
+          "sha256": "377d1e19ff5e552a9ede543ecd4cb64d719ab9c91f7114156844590078105489"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/world_prefetch.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "671d3d4a8340e79664d00f989dfd2287ad3547b35cd3171e3b5b5d3f49c1b472",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "synchronize_route_cache",
+          "sha256": "5d27d16362b7e6f846dd49e427ce71b2d1d7ee1887cfe76aa8c6495bffee6433"
+        },
+        {
+          "function": "_discard_route_cache",
+          "sha256": "9c49915a056ba2027972100a612d9f667de1ba67d77c5e9dc441c9d17e5ced21"
+        },
+        {
+          "function": "step",
+          "sha256": "4fb2c99421b248b61b16f6b81a0fc0ed009d477f83b94dbb2dc17f821692267a"
+        },
+        {
+          "function": "_invalidate_configs",
+          "sha256": "09259e4adfd0377846f56ae0b8253627c458447bfea1dea7b475676809487578"
+        },
+        {
+          "function": "_config_task_current",
+          "sha256": "023b659e7321c3adf42e1f11faa5687bcfff997300b4940971e70b93bce84911"
+        },
+        {
+          "function": "cancel_config",
+          "sha256": "c1f8bdb128f414e56e81bef3495fe1eaa0a5c7f3cc7ebfdba60c29bc056b19fd"
+        },
+        {
+          "function": "_step_config",
+          "sha256": "1e3432106fe73c68eb561a6675759005ee7be440bfe1e4ba4821cacdd31aa3de"
+        },
+        {
+          "function": "_publish_config",
+          "sha256": "6e05e89445992a7642cc8e694865f872aa34d354969099c0897ffd472f7902f6"
+        },
+        {
+          "function": "_release_entities",
+          "sha256": "e81ce6ddb6e7bb5087dbba4452e0da8725241809c45debe5f604df37fe4542cf"
+        },
+        {
+          "function": "_retire_entities",
+          "sha256": "1904e898e2a5367c3645f3e3a2de237c84fe99613f9e92a064b8d92309fcbc42"
+        },
+        {
+          "function": "_clear_entities",
+          "sha256": "46879523265dd97ecbb964e36ab1aa0522c739ae163055bee8a2382df4070d85"
+        },
+        {
+          "function": "_warm_entities",
+          "sha256": "649ac4d45508d3fcab2c430f1bd80e3ac71933bb0f38ece81a73e58b1518de14"
+        },
+        {
+          "function": "_entity_count",
+          "sha256": "4a79c68e062defd8c6cea41ec5a2cf10d2429a65d69000fc2e79ca6334f1892e"
+        },
+        {
+          "function": "_landing_plan",
+          "sha256": "0539b7b4cadb8e63057755549b01d838b6882634fafb0a4fd584e8befb5dcc0a"
+        },
+        {
+          "function": "take_collision",
+          "sha256": "0f43d3642dacc28c47c518b89441f22afbe1a3938d4bf0dd186a16b6fa1dcf13"
+        },
+        {
+          "function": "take_platform",
+          "sha256": "ff223824a57d1c1f6316c6beb86e086212a781d1d2258a7eb81b85dd4902fefa"
+        },
+        {
+          "function": "_select",
+          "sha256": "d6898d2265f49862a5216c9a0a386015e2582316e6853977cc98e58e10f3256c"
+        },
+        {
+          "function": "cached_raw",
+          "sha256": "bcf9b7c7cee93adecee86f4e7a66fb645f7ee147587ef1f1dd1d75fc1fe69a7d"
+        },
+        {
+          "function": "_cached_raw_borrow",
+          "sha256": "c0bff4ebc9bd2502da3c78e7dd33d36d8d80efdeb97ee3884997f0e63ee6a6cc"
+        },
+        {
+          "function": "snapshot",
+          "sha256": "02be97dd809695125cc1fb4134899ba155f258d9866bcaa0a7168c2e70e5c6af"
+        },
+        {
+          "function": "shutdown",
+          "sha256": "6c76b395f2c9a7dabe87dc23d560aa03519006e753634d7038ed4d748a989ff8"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/world_gameplay_residency.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "9d37472f0f735e07888419de9129a8d3cbbff23c23ae6d653ed4083526c04362",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "configure",
+          "sha256": "db27d7a1cff608d48b6633ba3552c37aea4aace67f44b742ce9c5aff0c19a467"
+        },
+        {
+          "function": "update",
+          "sha256": "bade41be40b874d440086e693e84c397fa838141c7ca46a0868e2f5f9708f4aa"
+        },
+        {
+          "function": "adopt_enemy",
+          "sha256": "de0c75d2e76cce48c9293617e71caa4f293f6fbd76f9c198b186a72cef23dc78"
+        },
+        {
+          "function": "_update_enemy_residency",
+          "sha256": "54987f42687c5b62ab6986e6b7b69937b2bd7e8777c05bc0bcce6d6043541443"
+        },
+        {
+          "function": "_enemy_can_suspend",
+          "sha256": "3d3fee4fba4ae51f6a57a86066606ad34443ac7d8b3909e83e9ec5cfc3b24262"
+        },
+        {
+          "function": "_set_enemy_active",
+          "sha256": "73ed3e0888f866557d57fa31cb4e2c6874203ff91f00a8038afa3e08f3eea8d2"
+        },
+        {
+          "function": "warm_enemy_arrival",
+          "sha256": "b99eaccafd01d85b390009c4ffce7151af8ad800439ab362593061b912a59755"
+        },
+        {
+          "function": "all_enemy_actors",
+          "sha256": "800b18b72233ae88052f1061491c1bbf69f35c47a2c46a02a6814b9de55a629f"
+        },
+        {
+          "function": "clear_enemy_actors",
+          "sha256": "10e6b32e009b114f13af39475045452498ca17f060b9c4d633c55c709b2c75b3"
+        },
+        {
+          "function": "_update_window",
+          "sha256": "b91c22804f809542547f53e3e9009a561468fd150cac27f471b69f2befbfc1e4"
+        },
+        {
+          "function": "_refresh_queues",
+          "sha256": "6f647643c366bf104dca45f950ddf4a16aa45d78389a6554f64da672eb8d3c7d"
+        },
+        {
+          "function": "_must_hold",
+          "sha256": "01b071992f11c7fe4477689f520c4a92b44fa1a3633a603baf5fe5492a020374"
+        },
+        {
+          "function": "warm_arrival",
+          "sha256": "621e6033c3ff34d16d68de81bbdf8818a9b44a9fc9e03ec453ed4535ed13f1cf"
+        },
+        {
+          "function": "should_defer",
+          "sha256": "b15ed92aa96dd08ae8d097526971b2dc9cfc46a6deeebeb4c5f2ecefb17d81df"
+        },
+        {
+          "function": "adopt",
+          "sha256": "9e46d847355ac2b8dfc21c37073c4970838e1f11a90e3e58b6389c0e139f3561"
+        },
+        {
+          "function": "refresh_actor_position",
+          "sha256": "628a5cfb2409f48ed6385472b2ed3acf9e4a54d83c8391e4ad7d42fa126a36c0"
+        },
+        {
+          "function": "snapshot",
+          "sha256": "a4d6876bf50346be352625815ce17b67b80a7c58d15d20fee6ddb66d483748a5"
+        },
+        {
+          "function": "_count_enemy_active",
+          "sha256": "405f70c371f32073005600f700c1541ae692385e9de48f75d1acf2dd75dcae80"
+        },
+        {
+          "function": "shutdown",
+          "sha256": "8567e8858bd0264719b8553df3932a8cb37655a8cd1057a7ca9b593fee7327aa"
+        }
+      ]
+    },
+    {
+      "path": "godot/scripts/world_routes.gd",
+      "source_commit": "aa02c4af1876a01c4853a53c9c54fa65d26d881b",
+      "sha256": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b",
+      "byte_identical": true,
+      "functions": [
+        {
+          "function": "_ensure_manifest_cache",
+          "sha256": "2930f0bdc96a4c5304615b8632597ec07bd0fccd392d3cd08863600714c621bd"
+        },
+        {
+          "function": "_data",
+          "sha256": "a00256812e40e12688d2ee09b44d6797f0a3174692af31a073586fad5b862792"
+        },
+        {
+          "function": "manifest_stamp",
+          "sha256": "4a81c621d1457421b3c7601a8ff107009afd51ad0392c72bc5e7ff09f08afc8a"
+        },
+        {
+          "function": "manifest_generation",
+          "sha256": "a24eb807999b1efb5ccdb45afc0d9b02c1d485f07646487079afe4f30cb5046e"
+        },
+        {
+          "function": "cache_is_current",
+          "sha256": "5e7a606b9cded92fa858150ae30814fc60e38f34cfc71590417a7779f35f3178"
+        },
+        {
+          "function": "cached_generation",
+          "sha256": "d8b5822738bc4b2d9a493c2c751de6e3042e47bcaf661578d1eed74a485e8465"
+        },
+        {
+          "function": "cached_config_path",
+          "sha256": "ab51a512a32cf58b5ce8cc21826cb3a5c1a38ef9d19a46b5c4d7610105b493ff"
+        },
+        {
+          "function": "cached_overlay_bundle",
+          "sha256": "97a2d8e54b452876c536f8f7933613903f115e1ec80e58131aec591b05ba314f"
+        },
+        {
+          "function": "cached_chapters",
+          "sha256": "8b1a2d9922eca827482f389e6b20b1c089c7e6902472763dabb38a7059d017bf"
+        },
+        {
+          "function": "cached_portal",
+          "sha256": "b23de154ae3101f3afca2f2b831230e179cf0819c09661204e5c3acaebb6458d"
+        },
+        {
+          "function": "cached_data",
+          "sha256": "fb623162f3cb675febb886200f61878526e77bb429b12aff54d67c4ef2d09f0b"
+        },
+        {
+          "function": "overlay_bundle",
+          "sha256": "8db2b7654a367909d2abd8b3709af3df38e4a8c26657fc2fbcf44b8eba6e18f1"
+        },
+        {
+          "function": "manifest_ticket",
+          "sha256": "4acb6a07345e906294d46bb8782e1380fd4219c5a88060b18ed680c25d733cd3"
+        },
+        {
+          "function": "accept_manifest_ticket",
+          "sha256": "58b35fbc4abb25451fe97ce1093828e432b409140400e3cd3d4f74c19d5d921b"
+        },
+        {
+          "function": "config_path",
+          "sha256": "d74819d9d0135344fab5763a372f4a104994fa8033c9fa62ea6db7f89491899b"
+        },
+        {
+          "function": "portal",
+          "sha256": "9873fd57c95291a6007821b377ef8a2ebdf80cb58714ae384e23eccfcd1bb439"
+        },
+        {
+          "function": "access",
+          "sha256": "023e9036cf08692d6126e88e76e9511714db427d94f3cca817d3f83912f36797"
+        },
+        {
+          "function": "apply_to",
+          "sha256": "ce5b9fe2e7b18f4ef59af18b65ec8b5c18dcd2e68c6298e47b4b9e526d74b477"
+        },
+        {
+          "function": "apply_to_owned",
+          "sha256": "d8422edfb4df5e4ef967f1b6644c3ab74500572c729de3d602ad26ed68cc6c04"
+        },
+        {
+          "function": "apply_to_owned_cached",
+          "sha256": "6a8e182f49ee998904a0933ff0071ece7f5850575de2340e280aaf69637508b9"
+        },
+        {
+          "function": "_apply_owned_cached",
+          "sha256": "6e78da138dfb910038f8ec58baac4188d200816229a2d171a038ea483e35234e"
+        },
+        {
+          "function": "_apply_owned",
+          "sha256": "c7ab0a2ca640051e9f4fe99aae6645db5c784745a689cbd76c013163dfefcef6"
+        },
+        {
+          "function": "_apply_overlay",
+          "sha256": "1f84327b766b21fbc26c4801fe7810f28d413e59a6997d9688eb329d6c42905b"
+        }
+      ]
+    }
+  ],
+  "protected_png_sha256": {
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png": "2f596483024a92aa621929ab40766088ae7e1ec657d653e5301284d8c775dc30",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png": "222d12909c41bdf26c19b5a4362aca9376140cfae0aca1a8a3be378cc0baf706"
+  },
+  "tests": {
+    "npm_test": "PASS; map audit 6 tests, runner 28 tests, import helper 11 tests, GPU runner helper 11 tests. Helpers use fake subprocesses and are not real GL execution.",
+    "campaign": "PASS",
+    "runner": "28 tests PASS",
+    "workshop_layout": "30 tests PASS",
+    "new_combination_strict_import": "NOT RUN at sync commit",
+    "new_combination_real_gl": "NOT RUN at sync commit; queued for exclusive GPU slot",
+    "full_106_remote_ci": "PENDING new commit; historical source-head results not inherited"
+  },
+  "open": [
+    "Visual contacts 2→4, 6→7 and 7→1 remain open.",
+    "Breathing and cross-action visual continuity remain open; fixed-body seven-cloth-cel delivery is not complete artistic acceptance.",
+    "Historical 76-landing performance acceptance remains open.",
+    "Source-head CI is source evidence only, not validation of this combined head."
+  ],
+  "log_files": [
+    "qa-logs/motion-idle-main-sync/npm.log",
+    "qa-logs/motion-idle-main-sync/campaign.log",
+    "qa-logs/motion-idle-main-sync/runner.log",
+    "qa-logs/motion-idle-main-sync/workshop-layout.log"
+  ]
+}
