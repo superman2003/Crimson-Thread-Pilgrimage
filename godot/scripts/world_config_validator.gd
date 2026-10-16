@@ -118,12 +118,14 @@ func _step_header() -> void:
 	operation_name = "header"
 	if not _use_default_entry and not _entry.is_finite(): return _fail("目标位置无效。")
 	if not _parsed is Dictionary: return _fail("目标区域记录无法读取。")
+	if not _parsed.get("id", "") is String: return _fail("目标区域不属于当前巡礼世界。")
 	var id := String(_parsed.get("id", ""))
 	var known_region: bool = COORDINATES.has_region(id) if _route_context.is_empty() else bool(_route_context.get("known_region", false)) and id == String(_route_context.get("region_id", ""))
 	var registered_path: String = ROUTES.cached_config_path(id) if _route_context.is_empty() else String(_route_context.get("path", ""))
 	if not known_region or registered_path != _path: return _fail("目标区域不属于当前巡礼世界。")
 	if not _parsed.get("world") is Dictionary or not _parsed.get("map_rooms") is Array or _parsed.map_rooms.is_empty(): return _fail("目标区域缺少地形与房间记录。")
 	if not _parsed.get("inventory", {}) is Dictionary: return _fail("目标区域的物品记录无效。")
+	if not _parsed.get("inventory", {}).get("catalog", {}) is Dictionary: return _fail("目标区域的物品目录记录无效。")
 	_stage = "records"
 
 func _step_records() -> void:
@@ -192,6 +194,7 @@ func _step_profile() -> void:
 		_record_i = 0
 		return
 	var enemy: Dictionary = enemies[_record_i]
+	if not enemy.get("kind", "moss_larva") is String: return _fail("目标区域的敌人行为条目无效。")
 	if not _profiles.get(String(enemy.get("kind", "moss_larva")), {}) is Dictionary: return _fail("目标区域的敌人行为条目无效。")
 	_record_i += 1
 
@@ -250,7 +253,7 @@ func _step_apply_routes() -> void:
 		if int(bundle.get("generation", -1)) != _manifest_generation:
 			_fail("巡礼路线版本已变化，请重试。")
 			return
-		_route_overlay_job.begin(_route_copy.result, bundle.overlay, bundle.version)
+		_route_overlay_job.begin(_route_copy.result, bundle.get("overlay", {}), bundle.get("version", 1))
 		max_route_overlay_begin_usec = maxi(max_route_overlay_begin_usec, Time.get_ticks_usec() - overlay_begin_started)
 		return
 	var overlay_started := Time.get_ticks_usec()
@@ -259,6 +262,10 @@ func _step_apply_routes() -> void:
 	route_overlay_steps += int(_route_overlay_job.last_batch_operations)
 	max_route_overlay_step_usec = maxi(max_route_overlay_step_usec, Time.get_ticks_usec() - overlay_started)
 	if overlay_done:
+		if not _route_overlay_job.error.is_empty():
+			_fail(_route_overlay_job.error)
+			_route_overlay_job = null
+			return
 		_config = _route_overlay_job.result
 		_route_overlay_job = null
 		_stage = "platforms"
