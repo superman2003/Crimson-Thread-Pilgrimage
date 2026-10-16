@@ -43,6 +43,15 @@ class FailedManifestLoader:
 		last_error = "fixture unreadable route manifest"
 		return false
 
+class FrameCadenceLoader:
+	extends "res://scripts/world_region_loader.gd"
+	var resumed_frames: Array[int] = []
+	func initialize_startup_region(host: Node, _restore_process_mode: int = Node.PROCESS_MODE_INHERIT) -> bool:
+		while _alive(host):
+			resumed_frames.append(Engine.get_process_frames())
+			await _next_process_frame(host.get_tree())
+		return false
+
 func _initialize() -> void:
 	call_deferred("_run")
 
@@ -94,6 +103,8 @@ func _run() -> void:
 	var metrics: Dictionary = loader.last_transition.duplicate(true)
 	_check(sync_player_ready, "synchronous baseline reaches first player during add_child")
 	_check(bool(host.initial_region_ready) and not host.world_loading, "budgeted first region publishes and releases loading gate")
+	_check(loader.startup_token == null and loader._startup_frame_tree == null,
+		"successful owned startup releases its token and frame connection")
 	_check(not bool(metrics.get("route_manifest_worker_is_main", true)), "cold World route manifest read and JSON parse run on the shared worker")
 	_check(int(ROUTES.sync_manifest_parses) == 0, "cold production World startup never falls back to synchronous manifest parsing")
 	_check(ROUTES.cache_is_current() and not ROUTES.cached_config_path(String(host.config.get("id", ""))).is_empty(), "startup atomically publishes a current manifest before resolving the first region")
@@ -107,7 +118,9 @@ func _run() -> void:
 	# hosts must make their coroutine exit through its liveness guard.
 	await _teardown_probe(false)
 	await _teardown_probe(true)
+	await _teardown_probe(true, true)
 	await _early_teardown_probe()
+	await _frame_cadence_probe()
 	await _background_refresh_takeover_probe(host)
 	await _cold_resume_probe()
 	await _failure_recovery_probe()
@@ -130,13 +143,37 @@ func _early_teardown_probe() -> void:
 	var token: RefCounted = loader.startup_token
 	_check(loader.request_startup_region(probe, Node.PROCESS_MODE_INHERIT) == null,
 		"a startup waiting for scene attachment rejects duplicate requests")
+	var token_ref: WeakRef = weakref(token)
+	var loader_ref: WeakRef = weakref(loader)
+	var reader_ref: WeakRef = weakref(loader.config_read_job)
 	probe.free()
-	await process_frame
-	await process_frame
 	_check(token.finished and token.cancelled and loader.startup_token == null,
-		"teardown before the first startup frame releases the owned task")
+		"teardown before the first startup frame synchronously finishes the owned task")
 	_check(loader.phase == "idle" and not is_instance_valid(loader.loading_canvas) and not loader.config_read_job.busy(),
 		"early teardown starts no loading canvas or background read")
+	_check(loader._startup_frame_tree == null,
+		"early teardown disconnects its private frame wakeup")
+	token = null
+	loader = null
+	_check(token_ref.get_ref() == null and loader_ref.get_ref() == null and reader_ref.get_ref() == null,
+		"early teardown releases token, loader and reader without another process frame")
+
+func _frame_cadence_probe() -> void:
+	var probe := Node.new()
+	root.add_child(probe)
+	var loader := FrameCadenceLoader.new()
+	var token: RefCounted = loader.request_startup_region(probe, Node.PROCESS_MODE_INHERIT)
+	for _frame in range(5):
+		await process_frame
+	var once_per_frame := loader.resumed_frames.size() >= 3
+	for index in range(1, loader.resumed_frames.size()):
+		once_per_frame = once_per_frame and loader.resumed_frames[index] == loader.resumed_frames[index - 1] + 1
+	_check(once_per_frame, "owned startup resumes exactly once per real process frame")
+	loader.shutdown()
+	loader.shutdown()
+	_check(probe.is_inside_tree() and token.finished and token.cancelled and loader.startup_token == null and loader._startup_frame_tree == null,
+		"explicit and repeated shutdown synchronously finish startup while its host remains attached")
+	probe.free()
 
 func _failure_recovery_probe() -> void:
 	var probe := FailedStartupHost.new()
@@ -145,7 +182,13 @@ func _failure_recovery_probe() -> void:
 	var file := FileAccess.open(probe.world_save_path, FileAccess.WRITE)
 	file.store_string("original save bytes")
 	file.close()
-	_check(not await loader.initialize_startup_region(probe), "unreadable manifest refuses initial publication")
+	var token: RefCounted = loader.request_startup_region(probe, Node.PROCESS_MODE_INHERIT)
+	for _frame in range(3):
+		if token.finished:
+			break
+		await process_frame
+	_check(token.finished and loader.startup_token == null and loader._startup_frame_tree == null,
+		"failed owned startup releases its token and frame connection")
 	_check(loader.phase == "startup_error" and is_instance_valid(loader.loading_label) and loader.loading_label.text.contains("fixture unreadable"), "startup failure keeps a visible actionable error")
 	var retry: Button = loader.loading_canvas.get_node("StartupRetry")
 	_check(retry.has_focus() and not retry.disabled, "startup recovery is keyboard and controller focusable")
@@ -250,13 +293,14 @@ func _cold_resume_probe() -> void:
 	for suffix in ["", ".bak", ".tmp"]:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(RESUME_SAVE + suffix))
 
-func _teardown_probe(free_host: bool) -> void:
+func _teardown_probe(free_host: bool, at_final_finish: bool = false) -> void:
 	var probe: Node = load(WORLD_SCENE).instantiate()
 	probe.world_resume = false
 	probe.world_save_path = SAVE
 	root.add_child(probe)
 	var loader: RefCounted = probe.world_loader
 	var reached_build := false
+	var reached_final_finish := false
 	for _frame in range(600):
 		await process_frame
 		if not is_instance_valid(probe):
@@ -264,23 +308,36 @@ func _teardown_probe(free_host: bool) -> void:
 		var state: Dictionary = loader.last_transition
 		# The loader records max_build_operations only after a complete build
 		# batch, immediately before its process_frame yield.
-		if free_host and state.has("jobs") and state.has("max_build_operations"):
+		if at_final_finish:
+			if int(state.get("commit_jobs", 0)) > 0 and int(state.get("commit_cursor", 0)) == int(state.get("commit_jobs", 0)):
+				reached_final_finish = true
+				break
+		elif free_host and state.has("jobs") and state.has("max_build_operations"):
 			reached_build = true
 			break
 		if not free_host and int(state.get("prepare_cursor", 0)) > 0:
 			break
 	_check(is_instance_valid(probe) and loader.phase == "startup", "teardown probe reaches an active startup yield")
-	_check(reached_build if free_host else int(loader.last_transition.get("prepare_cursor", 0)) > 0,
+	_check(reached_final_finish if at_final_finish else (reached_build if free_host else int(loader.last_transition.get("prepare_cursor", 0)) > 0),
 		"teardown probe observes its requested preparation/build phase")
+	_check(not probe.initial_region_ready, "interrupted startup has not published before teardown")
+	var token_ref: WeakRef = weakref(loader.startup_token)
+	var loader_ref: WeakRef = weakref(loader)
+	var reader_ref: WeakRef = weakref(loader.config_read_job)
 	if free_host:
 		probe.free()
 	else:
 		root.remove_child(probe)
+	_check(loader.startup_token == null and token_ref.get_ref() == null and loader._startup_frame_tree == null,
+		"interrupted startup releases its token and frame connection synchronously")
 	for _frame in range(3):
 		await process_frame
 	_check(not is_instance_valid(probe) or not probe.is_inside_tree(), "startup coroutine exits cleanly after host teardown")
 	if is_instance_valid(probe):
 		probe.free()
+	loader = null
+	_check(loader_ref.get_ref() == null and reader_ref.get_ref() == null,
+		"interrupted startup leaves no loader or reader after its host is freed")
 
 func _check(condition: bool, label: String) -> void:
 	if condition:

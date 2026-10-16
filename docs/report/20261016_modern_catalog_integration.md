@@ -1,5 +1,15 @@
 # W00b2b：World物品目录共享后台准备的现代整合
 
+## 2026-10-16：Windows 启动中退出的令牌释放修复
+
+新同步后 Windows 发布烟测真实失败；verbose 提交 `fe842d39` 精确指出 `world_transition_token.gd`、一个 RefCounted 和两个 GDScriptFunctionState 残留。Linux 4.6.1 微夹具重现了宿主已释放但等待下一帧的局部令牌仍活着；仅同步唤醒后，退出错误和残留消失。
+
+生产修复只让 owned startup 使用 loader 私有帧信号，正常仍由真实 process_frame 转发；shutdown 先取消令牌、关闭并 join 唯一 reader，再断开转发并同步展开挂起调用。普通旅行/后台刷新仍等待原 SceneTree 信号，不伪造全局帧，不改变 8 项/名义 2ms 的 admission 规则。
+
+严格 `world_startup_budget` 和目录 71 项通过，新增首帧、prepare/build/最后 finish 退出的零额外帧释放、成功/失败断开、同一真实帧一次续体、在树重复 shutdown 检查；发布工具 21 单测通过。两个轻量真实 loader 所有权夹具仅替换资产密集构建，实际 World 各阶段由前述 GL 专项覆盖。首次 Xvfb PATH 预检失败和新增 WeakRef 推断解析失败留证，修正后才接受结果。
+
+Windows 修复 head 尚待 CI，不能据 Linux 通过宣布已修全。该次真实启动观测恰为 120 帧（6.602 秒，manifest 14 批/6906 边），接近既有发布上限；原 120 帧、180 秒、ERROR 拒绝、恢复存档备份挑战均不放宽，亦不以重试掩盖失败。下游 #96 须同步私有帧唤醒覆盖其新增 startup 配置等待并另验。证据见 `artifacts/modern_catalog_integration/startup_shutdown_verification.json`。
+
 2026-10-16 主线同步：维护者已将#91工坊合入main `07ae21d4`。本次保留#95目录worker源码原字节及新主线全部工坊路线/验证；四处台账/计数冲突取并集，默认103套。npm/campaign与24项runner单测通过。冲突修复先提交，新组合本地GL仍排队、远端CI按新head触发并跟进；旧defb的100套绿灯不套新组合。详见[同步证据](../../artifacts/modern_catalog_integration/workshop_main_sync_verification.json)。既有180秒、绘制模式与全部断言保持。
 
 本批严格续接原#60相对#59的目录准备差量，现代基底为已合#88的main `1806e0cf`（tree与原`7c638832`完全相同），不带#61以后或新动作/镜头/素材。World冷启动不再在主线程逐区读取和解析物品目录JSON；复用loader唯一配置读取服务，按原作者区域顺序累积，每次合并最多64键，全部源文件租约仍有效才整体发布。原区域内覆盖、跨区域首项优先和同步oracle保持不变。

@@ -30,6 +30,10 @@ var last_transition: Dictionary = {}
 var transition_token: RefCounted
 var transition_serial := 0
 var startup_token: RefCounted
+# Startup owns its frame wakeups so whole-host shutdown can unwind its token
+# before SceneTree stops emitting frames (including --quit-after).
+signal _startup_frame_ready
+var _startup_frame_tree: SceneTree
 var manifest_refresh_running := false
 var manifest_refresh_retry_after_msec := 0
 
@@ -79,12 +83,13 @@ func _run_owned_startup(token: RefCounted, host: Node, previous_mode: int) -> vo
     # _ready runs. Reserve ownership now, but attach the root loading canvas
     # only after that scene-tree operation has finished.
     var tree: SceneTree = host.get_tree()
-    await tree.process_frame
+    await _next_process_frame(tree)
     if not token.cancelled and _alive(host) and host.get_tree() == tree:
         await initialize_startup_region(host, previous_mode)
     token.finished = true
     if startup_token == token:
         startup_token = null
+        _disconnect_startup_frames()
     if not _alive(host):
         phase = "idle"
         return
@@ -205,7 +210,7 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
         if config_read_job.closed:
             break
         if config_read_job.busy() or config_read_job.has_pending_ticket():
-            await tree.process_frame
+            await _next_process_frame(tree)
             continue
         # With no worker or accepted owner, a rejected request is a launch
         # failure, not contention. Surface recovery instead of waiting forever.
@@ -218,13 +223,13 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
         return false
     # Always provide one cancellation window even if this small worker happens
     # to finish before the first status poll.
-    await tree.process_frame
+    await _next_process_frame(tree)
     if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
         config_read_job.discard(ticket)
         manifest_refresh_running = false
         return false
     while config_read_job.busy():
-        await tree.process_frame
+        await _next_process_frame(tree)
         if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
             config_read_job.discard(ticket)
             manifest_refresh_running = false
@@ -263,7 +268,7 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
         copy_max_step_edges = maxi(copy_max_step_edges, copied_edges)
         copy_max_step_usec = maxi(copy_max_step_usec, step_usec)
         copy_batches += 1
-        await tree.process_frame
+        await _next_process_frame(tree)
         if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
             manifest_refresh_running = false
             return false
@@ -602,6 +607,25 @@ func cancel_transition() -> void:
         cancel_requested = true
 
 
+## Preserve normal frame boundaries. Only an owned startup uses the private
+## signal; foreground travel and background refresh retain their existing waits.
+func _next_process_frame(tree: SceneTree) -> Signal:
+    if startup_token == null:
+        return tree.process_frame
+    if _startup_frame_tree != tree:
+        _disconnect_startup_frames()
+        _startup_frame_tree = tree
+        tree.process_frame.connect(_wake_startup_frame)
+    return _startup_frame_ready
+
+func _wake_startup_frame() -> void:
+    _startup_frame_ready.emit()
+
+func _disconnect_startup_frames() -> void:
+    if is_instance_valid(_startup_frame_tree) and _startup_frame_tree.process_frame.is_connected(_wake_startup_frame):
+        _startup_frame_tree.process_frame.disconnect(_wake_startup_frame)
+    _startup_frame_tree = null
+
 func shutdown() -> void:
     shutting_down = true
     cancel_requested = true
@@ -612,6 +636,11 @@ func shutdown() -> void:
     config_read_job.shutdown()
     phase = "idle"
     _clear_loading_canvas()
+    _disconnect_startup_frames()
+    # All startup continuations see shutting_down and return without publishing.
+    # Merely setting token.cancelled leaves its await stack alive if no next
+    # SceneTree frame exists, which leaks the token on Godot 4.6.1 at exit.
+    _wake_startup_frame()
 
 
 func _clear_loading_canvas() -> void:
@@ -715,7 +744,7 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
                 _discard_catalog_staging(host)
                 return false
         # Even a tiny completed read must offer a cancellation window.
-        await tree.process_frame
+        await _next_process_frame(tree)
         wait_frames += 1
         _cancel_input()
         if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
@@ -723,7 +752,7 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
             _discard_catalog_staging(host)
             return false
     while config_read_job.busy():
-        await tree.process_frame
+        await _next_process_frame(tree)
         wait_frames += 1
         _cancel_input()
         if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
@@ -775,7 +804,7 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
             record.max_merge_edges = maxi(record.max_merge_edges, batch_edges)
             record.merge_work_usec += merge_usec
             record.max_merge_step_usec = maxi(record.max_merge_step_usec, merge_usec)
-            await tree.process_frame
+            await _next_process_frame(tree)
             _cancel_input()
     if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
         _discard_catalog_staging(host)
@@ -879,7 +908,7 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             loading_label.text = ("正在接通旧路… 准备 %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… 准备 %d / %d") % [prepare_cursor, prepare_jobs.size()]
         # Yield after every batch, including the final one, so Escape and host
         # teardown can be observed before any build jobs are created.
-        await prepare_tree.process_frame
+        await _next_process_frame(prepare_tree)
         if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
             _discard_catalog_staging(host)
             _finalize_prepare_metrics(prepare_role, prepare_wall_started)
@@ -906,7 +935,7 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
         _measure_batch(operations, started, "max_build_operations")
         if is_instance_valid(loading_label):
             loading_label.text = ("正在接通旧路… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
-        await host.get_tree().process_frame
+        await _next_process_frame(host.get_tree())
         if not _alive(host):
             return false
         _cancel_input()
@@ -966,7 +995,7 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
             loading_label.text = ("正在整理行囊… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
         # Even the last batch yields before publication, so Escape/host exit
         # cannot publish a destination whose fully constructed UI was cancelled.
-        await host.get_tree().process_frame
+        await _next_process_frame(host.get_tree())
         if not _alive(host):
             return false
         _cancel_input()
