@@ -1,5 +1,13 @@
 # W00b2b：首区配置共享后台准备的现代整合
 
+## 2026-10-16：错误类型明确失败，后台校验可结束
+
+上游#95已合入main `d4a4a8e0`，本PR重新以main为base。旧8ce有界单步实证：合法JSON将world_overrides误写为数值时，is_empty触发脚本错误，overlay仍done=false且停在world阶段；没有运行旧无界worker。修复仅三个文件：overlay对实际消费的容器/记录类型显式error+done、validator传播失败与必要字段卫兵、startup fixture增加异常路径。reader/loader不变，无任意生产步数上限；保留数值remove_interactives原不匹配语义、重复ID全匹配和顺序。
+
+本地commit `88071173827e637ce711a4082ec74b7d669391b0` 的三源码与最终审查哈希一致；4.6.1真实GL四套均通过：startup835、preflight4335、config38、startup budget完整marker，四日志0 ERROR/SCRIPT ERROR/ObjectDB；29 runner单测通过。原61条_check调用（另1条函数定义）与393动态断言保留；186形状为受控overlay测试，34项为真实worker失败/票据回收场景，完整startup故障通过既有FaultReader注入。4096键合法配置不被误拒。独立审查无新增P1/P2，源码/证据见 `artifacts/startup_overlay_type_guard/`。
+
+startup budget本次观测122帧，只满足该套原合同，不能称稳定小于120帧或替代实际导出发行120门禁。此次局部修复没有重跑全108或双平台包；准确发布头新CI另核。错误配置语义全字段完备性、大合法数据抢占时限、自然六区与长期稳定仍OPEN。初轮XDG不可写/Xvfb PATH设置失败留在本地证据，未隐藏或放宽门禁。
+
 ## 2026-10-16：续接 #95 恢复调度修复，首区生产代码保持不变
 
 合入 #95 `ae9e249b`。上游回移的三段manifest/catalog调度本就来自本分支，合并后全部生产源码仍与 `7ef90d17` 字节一致；仅目录验证保留原71项并纳入新增10项。三份进度文档取双方并集，默认108套、全部workflow/发布工具/门禁不改。新增81项在本首区worker组合以4.6.1严格真实GL一次通过，无ERROR或ObjectDB warning；旧7ef同生产代码双平台原120帧首启/恢复/备份写回通过，完整108套按各head另记。新head远端CI将重触发，未以旧全套绿灯替代；见[本次来源与专项](../../artifacts/modern_startup_integration/catalog_scheduler_sync_verification.json)。

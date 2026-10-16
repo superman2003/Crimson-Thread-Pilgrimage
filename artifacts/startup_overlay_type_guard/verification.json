@@ -1,0 +1,56 @@
+{
+  "commit": "88071173827e637ce711a4082ec74b7d669391b0",
+  "parent": "8ce445a76393718f37ee87d65db02d7903fb7b7e",
+  "modified_files": {
+    "godot/scripts/world_route_overlay_job.gd": "8f2a69f5ef77d37de59f99304ddb8dc0768e8a32c1038734b62b8d01fa841a85",
+    "godot/scripts/world_config_validator.gd": "aca91a570b0caf494552dc0d0a610a3b69bf5d3c0749e5036c6812e9945efd36",
+    "godot/scripts/world_startup_config_background_validation.gd": "e7cf0c2f36251cdf00b1d11b31db705b3cc3aab45e10b5e2ddf54a715655c4db"
+  },
+  "runner_unit_tests": 29,
+  "focused_real_gl_suites": {
+    "world_config_background.log": {
+      "sha256": "73c39bb855258fccbb17921b171c4c34f0999ed0efb9f240fdd5acce3553b3b4",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "WORLD CONFIG BACKGROUND PASS checks=38"
+      ]
+    },
+    "world_preflight_budget.log": {
+      "sha256": "cf52928f913e7ae6d084e6724b3aa315b65c68413b05c0a74812f43406cfe523",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "WORLD PREFLIGHT BUDGET PASS checks=4335"
+      ]
+    },
+    "world_startup_budget.log": {
+      "sha256": "4293a6b9e0f87391b90fd79aede80e074203c301b7b875d7e451dc816639cafb",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+      ]
+    },
+    "world_startup_config_background.log": {
+      "sha256": "de68c5d39a04d514204e45e60592a259183e7b96e954e21977c4758ceae8e5f6",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "WORLD STARTUP CONFIG BACKGROUND PASS checks=835"
+      ]
+    }
+  },
+  "original_assertion_calls_preserved": 61,
+  "overlay_shape_cases": 186,
+  "real_worker_error_cases": 34,
+  "reader_unchanged": true,
+  "manifest_unchanged": true,
+  "baseline_probe": {
+    "single_step_log_sha256": "ae8e75e117c3f6fa40d66f5b5fb2eb7b22cadcb4f5e33dd46c5f1ca848a6512c",
+    "observed": "one GDScript error; step returns done=false stage=world operations=1; process exits normally",
+    "unbounded_worker_executed": false
+  },
+  "full_ci_or_release_rerun": false,
+  "gl_released": true
+}
