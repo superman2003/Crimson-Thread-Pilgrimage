@@ -1,0 +1,665 @@
+{
+  "engine": "Godot Engine v4.6.1.stable.official.14d19694e",
+  "base_commit": "8c257e34caf5bdc92eab35c00b760dca6491a852",
+  "evidence_structure": "pre_p2 retains the original five-suite/74-check and registered-gate results with their original source hashes. post_p2 contains independent failing-before and passing-after runs; historical passes are not relabeled as post-fix results.",
+  "pre_p2": {
+    "base_commit": "cfdd983f569a5d779aeb8f9c78f2263ea50290ce",
+    "script_hashes": {
+      "camera_focus": "2711efe980a9340aaad790c6581d20e1e214fd620491d7a4aec98954327b9398",
+      "player_controller": "2ff5d102953c37df2e95ecf0f2c7902caa046200d67d7cc1cd823df819c27c3f",
+      "room_camera_stability_validation": "6399de8366dcc4a3cda36190ace667e74a8a5a6844cdec65542d2b9ba34d8fd9",
+      "room_camera_doorway_validation": "5b3524c079e0567a45c7255900a4a0cceaf645fc082882a7a161564813acb7a7"
+    },
+    "renderer": "real software OpenGL, normal render loop",
+    "fixed_fps": 60,
+    "results": [
+      {
+        "suite": "room_camera_stability",
+        "command": [
+          "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+          "--display-driver",
+          "x11",
+          "--audio-driver",
+          "Dummy",
+          "--rendering-method",
+          "gl_compatibility",
+          "--fixed-fps",
+          "60",
+          "--path",
+          "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+          "--script",
+          "res://scripts/room_camera_stability_validation.gd",
+          "--",
+          "--player"
+        ],
+        "elapsed_seconds": 5.848,
+        "timeout_seconds": 180,
+        "exit_code": 0,
+        "timed_out": false,
+        "engine_errors": [],
+        "completion_marker": true,
+        "passed": true,
+        "log": "artifacts/room_camera_stability/logs/room_camera_stability.txt",
+        "log_sha256": "c0df0760190828ebdfb24032fa22b451623e002b9846e07d4e7b2cca77e9c13b",
+        "checks": 74,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+          "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+        ],
+        "completion_line": "ROOM_CAMERA_STABILITY checks=74 failures=0 player_integration=true metrics={\"double_jump_camera_rise\":71.9515380859375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875}",
+        "xdg_isolation": "Separate writable data/config/cache/state/runtime directories for this suite."
+      },
+      {
+        "suite": "camera_focus",
+        "command": [
+          "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+          "--display-driver",
+          "x11",
+          "--audio-driver",
+          "Dummy",
+          "--rendering-method",
+          "gl_compatibility",
+          "--fixed-fps",
+          "60",
+          "--path",
+          "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+          "--script",
+          "res://scripts/camera_focus_validation.gd"
+        ],
+        "elapsed_seconds": 24.658,
+        "timeout_seconds": 180,
+        "exit_code": 0,
+        "timed_out": false,
+        "engine_errors": [],
+        "completion_marker": true,
+        "passed": true,
+        "log": "artifacts/room_camera_stability/logs/camera_focus.txt",
+        "log_sha256": "4b688d78245f63b45e76333f32dbf46b95c561616a912c36ec5683c6b67ec70e",
+        "checks": 86,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_line": "CAMERA_FOCUS checks=86 failures=0",
+        "xdg_isolation": "Separate writable data/config/cache/state/runtime directories for this suite."
+      },
+      {
+        "suite": "first_court_experience",
+        "command": [
+          "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+          "--display-driver",
+          "x11",
+          "--audio-driver",
+          "Dummy",
+          "--rendering-method",
+          "gl_compatibility",
+          "--fixed-fps",
+          "60",
+          "--path",
+          "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+          "--script",
+          "res://scripts/first_court_experience_validation.gd"
+        ],
+        "elapsed_seconds": 17.03,
+        "timeout_seconds": 180,
+        "exit_code": 0,
+        "timed_out": false,
+        "engine_errors": [],
+        "completion_marker": true,
+        "passed": true,
+        "log": "artifacts/room_camera_stability/logs/first_court_experience.txt",
+        "log_sha256": "0832b81bdec0e7d6574c7607ff0096fa4ca0976576225b7b45d701d9879683b2",
+        "checks": 216,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_line": "FIRST_COURT_EXPERIENCE checks=216 failures=0 fixture_scope=local_damage_and_room_views",
+        "xdg_isolation": "Separate writable data/config/cache/state/runtime directories for this suite."
+      },
+      {
+        "suite": "ability_movement",
+        "command": [
+          "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+          "--display-driver",
+          "x11",
+          "--audio-driver",
+          "Dummy",
+          "--rendering-method",
+          "gl_compatibility",
+          "--fixed-fps",
+          "60",
+          "--path",
+          "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+          "--script",
+          "res://scripts/ability_movement_validation.gd"
+        ],
+        "elapsed_seconds": 4.032,
+        "timeout_seconds": 180,
+        "exit_code": 0,
+        "timed_out": false,
+        "engine_errors": [],
+        "completion_marker": true,
+        "passed": true,
+        "log": "artifacts/room_camera_stability/logs/ability_movement.txt",
+        "log_sha256": "15d144138e9de70700d540aee045d83b0f46a09d4b51726661781ddbb6b15252",
+        "checks": 19,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+          "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+        ],
+        "completion_line": "ABILITY_MOVEMENT_VALIDATION failures=0",
+        "xdg_isolation": "Separate writable data/config/cache/state/runtime directories for this suite."
+      },
+      {
+        "suite": "player_state_cleanup",
+        "command": [
+          "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+          "--display-driver",
+          "x11",
+          "--audio-driver",
+          "Dummy",
+          "--rendering-method",
+          "gl_compatibility",
+          "--fixed-fps",
+          "60",
+          "--path",
+          "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+          "--script",
+          "res://scripts/player_state_cleanup_validation.gd"
+        ],
+        "elapsed_seconds": 1.468,
+        "timeout_seconds": 180,
+        "exit_code": 0,
+        "timed_out": false,
+        "engine_errors": [],
+        "completion_marker": true,
+        "passed": true,
+        "log": "artifacts/room_camera_stability/logs/player_state_cleanup.txt",
+        "log_sha256": "4e45b8a9d77c42e23fa286a643f36be7efd3e16f3902fdbd3b399e18b799b4de",
+        "checks": 9,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_line": "PLAYER_STATE_CLEANUP_PASS checks=9 failures=0",
+        "xdg_isolation": "Separate writable data/config/cache/state/runtime directories for this suite."
+      }
+    ],
+    "engine": "Godot Engine v4.6.1.stable.official.14d19694e",
+    "verified_at_utc": "2026-10-16T08:58:44.380908+00:00",
+    "suite_count": 5,
+    "total_checks": 404,
+    "failures": 0,
+    "metrics": {
+      "double_jump_camera_rise": 71.9515380859375,
+      "double_jump_min_head_margin": 40.1507568359375,
+      "full_jump_body_height": 142.241455078125,
+      "full_jump_screen_y_drift": 0.0,
+      "jump_target_y_drift_120Hz_speed340": 0.0,
+      "jump_target_y_drift_120Hz_speed710": 0.0,
+      "jump_target_y_drift_30Hz_speed340": 0.0,
+      "jump_target_y_drift_30Hz_speed710": 0.0,
+      "jump_target_y_drift_60Hz_speed340": 0.0,
+      "jump_target_y_drift_60Hz_speed710": 0.0,
+      "shaft_fall_min_feet_margin": 182.86083984375,
+      "shaft_fall_min_head_margin": 259.0,
+      "shaft_fall_peak_speed": 3669.16357421875
+    },
+    "runtime_invariants": [
+      "Camera2D original smoothing remains enabled at 6 per second.",
+      "Horizontal lookahead response, manual observation, event/Boss priority and authored region/room limits remain authoritative.",
+      "Player only calls follow_position in _update_camera and reset_follow on explicit arrival.",
+      "Motion, melee helper, FeelKit and UI bytes from the specified base were preserved."
+    ],
+    "coverage": [
+      "Held ordinary jump and horizontal movement use actual Player input and actual Camera2D screen center.",
+      "High platform landing, double jump, 3700-pixel fall with optional lookahead disabled, damage and respawn use actual Player integration.",
+      "30/60/120 Hz rule fixtures verify stable short/full jump targets, floor rebasing, sustained vertical travel, observation, eased doorway bounds and Boss priority.",
+      "Existing camera_focus and first_court suites cover production world/Boss events and authored room views; ability/state suites cover movement and cleanup."
+    ],
+    "limits": [
+      "Doorway easing is asserted by production rule fixtures and authored room views; no new natural-play doorway video was captured.",
+      "No new artwork was added, imported or visually accepted; idle visual acceptance remains OPEN.",
+      "Not a damage-enabled campaign completion, full regression run, frame-time benchmark or release acceptance."
+    ],
+    "environment_preflight": {
+      "first_attempt": "Stopped before launching Godot: Xvfb was not in PATH.",
+      "resolution": "Added the existing tooling/xvfb/usr/bin directory to PATH and selected the existing Godot 4.6.1 binary; no fallback renderer or timeout changes."
+    },
+    "warning_diagnostic": {
+      "command": [
+        "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+        "--verbose",
+        "--display-driver",
+        "x11",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+        "--script",
+        "res://scripts/room_camera_stability_validation.gd",
+        "--",
+        "--player"
+      ],
+      "exit_code": 0,
+      "timeout_seconds": 180,
+      "engine_errors": [],
+      "completion_line": "ROOM_CAMERA_STABILITY checks=74 failures=0 player_integration=true metrics={\"double_jump_camera_rise\":71.9515380859375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875}",
+      "log": "artifacts/room_camera_stability/logs/room_camera_stability_verbose.txt",
+      "log_sha256": "2e6ce6f4471aaa7b1ef492cf35e889ab49f3cfdb6ac2a2dd70c6f1a09a0c679b",
+      "leaked_instances": [
+        "Leaked instance: OggPacketSequence:9223372098276165253 - Reference count: 3",
+        "Leaked instance: AudioStreamOggVorbis:9223372098259388038 - Reference count: 1",
+        "Leaked instance: AudioStreamPlaybackOggVorbis:9223372118677259911 - Reference count: 1",
+        "Leaked instance: OggPacketSequencePlayback:9223372118694037141 - Reference count: 1"
+      ],
+      "interpretation": "Verbose shutdown identified OggPacketSequence, AudioStreamOggVorbis and their playback references, plus SFXPlayer. No camera object appeared in that leak list. Audio behavior was outside this change and was not modified."
+    },
+    "import": {
+      "command": [
+        "python3",
+        "tools/run_godot_import.py",
+        "--engine",
+        "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+        "--recovery-mode",
+        "--timeout",
+        "180",
+        "--log-dir",
+        "${LOCAL_TMP}/crimson-camera-import-20261016/logs"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 14.734,
+      "timeout_per_pass_seconds": 180,
+      "passes": 2,
+      "failures": 0,
+      "recovery_mode": true,
+      "editor_plugin_behavior_validated": false,
+      "completion_line": "GODOT_IMPORT passes=2 failures=0",
+      "source_commit": "3fe7ed1071c0bc0fa290ebe0f59a34ea4c00112e",
+      "importer_script_sha256": "4d25baf5114a937c58d2931cb45e4fa25deffdb9f531b6e128d235b0f67e0150",
+      "logs": [
+        {
+          "pass": 1,
+          "log": "artifacts/room_camera_stability/logs/import_1.txt",
+          "log_sha256": "69850f899a98947ef74b789ae6b50ae2cef7cfa9363177a4b5f3a5df6d0cd55f",
+          "engine_errors": [],
+          "warnings": []
+        },
+        {
+          "pass": 2,
+          "log": "artifacts/room_camera_stability/logs/import_2.txt",
+          "log_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+          "engine_errors": [],
+          "warnings": []
+        }
+      ],
+      "runner_log": "artifacts/room_camera_stability/logs/import_runner.txt",
+      "runner_log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "xdg_isolation": "Dedicated writable data/config/cache/state/runtime directories for this strict two-pass import."
+    },
+    "generated_uid": {
+      "file": "godot/scripts/room_camera_stability_validation.gd.uid",
+      "value": "uid://bnus1n0bqdowl",
+      "sha256": "bb0416bf44cad8be470ec1d5bc33b39b40badb3981a74e6fc116dc4a2b0dac08",
+      "generator": "Official Godot 4.6.1 editor resource import; both strict passes succeeded."
+    },
+    "validation_order": "The five runtime suites and verbose diagnosis ran on the frozen source before the official two-pass resource import generated the validation UID. All production and validation .gd hashes remained identical after both imports; identical source was not retested.",
+    "log_policy": "Raw logs remain local and are not tracked in Git. Relative locations, original byte hashes, exact completion markers and warnings are retained here.",
+    "doorway_acceptance": {
+      "same_room": "Actual held ordinary jump leaves and returns to the same floor while Camera2D visible Y drift remains 0.0 pixels.",
+      "same_region_room_bounds": "Production room_camera rule fixtures verify doorway hysteresis, gradual display-bound movement, convergence, and preservation of the stable follow baseline at the same-height hall-to-side doorway. Existing first_court _zone_rules additionally checks hall-to-nested-pocket entry, exit and Boss priority.",
+      "first_court_authored_views": "The World fixture checks all 42 original authored room camera zones by setting the Player to each trigger center and calling reset_camera_after_arrival. Named views are entry (350,3400), first_duel (1050,3612), shrine (1810,3752), hub (2580,3892), and pre_boss (5420,3920).",
+      "first_court_walkthrough_limit": "These authored views are relocation/view assertions, not a continuous natural-input doorway crossing. No specific real walking doorway traversal is claimed by this suite.",
+      "cross_region_and_respawn": "Cross-region arrival and respawn retain the existing reset_camera_after_arrival -> reset_smoothing -> force_update_scroll intentional cut. The new reset_follow only clears the previous world-Y baseline; this change does not add smooth transitions to every scene or teleport.",
+      "source_locations": [
+        "godot/scripts/room_camera_stability_validation.gd:_room_and_event_rules",
+        "godot/scripts/room_camera_doorway_validation.gd:run",
+        "godot/scripts/first_court_experience_validation.gd:_zone_rules",
+        "godot/scripts/first_court_experience_validation.gd:_first_court",
+        "godot/scripts/player_controller.gd:reset_camera_after_arrival"
+      ]
+    },
+    "registered_gate": {
+      "default_suite_count": 101,
+      "real_player_required": true,
+      "fixed_fps": 60,
+      "normal_drawing": true,
+      "timeout_seconds": 180,
+      "runner_exit_code": 0,
+      "suites": 1,
+      "failures": 0,
+      "completion_line": "ROOM_CAMERA_STABILITY checks=74 failures=0 player_integration=true metrics={\"double_jump_camera_rise\":71.9515380859375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875}",
+      "runner_log_sha256": "975a6d9c78871414f4ccfbfd608231d9634b19d5a4f73c8b79941a85485d3f34",
+      "suite_log_sha256": "578a352bb62a5a9ccd789a3716fac82feedb92a91eb1f1af0284a8cc295be6dc",
+      "raw_logs": "Local qa-logs/camera-registered-final; not committed.",
+      "marker_rejections": [
+        "63 rule-only checks",
+        "player_integration=false",
+        "73 incomplete checks",
+        "failures=1"
+      ],
+      "runner_tests": 23,
+      "npm_test_exit_code": 0,
+      "campaign_exit_code": 0,
+      "static_logs": {
+        "camera-gate-runner.log": "2138962b67fb22c98ac4ba5fca1bac12c67ebfb5528ed731cebe0a37d4c49fbb",
+        "camera-final-npm.log": "3bc839e73ba206aaa9fb117e784538037c6ba0285bc51b6ca8472554129b9574",
+        "camera-final-campaign.log": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+      },
+      "source_sha256": {
+        "tools/run_godot_regressions.py": "25cfee0d34402af41395bef72ce34588755cb0fa74bd3e933f23ec77e341a754",
+        "tools/godot_suite_success_markers.json": "71177694837c71a5b34b5b4542ea94f11d7ef82b2426202200604402a74388f0",
+        "tools/test_regression_runner.py": "47d14b4d89b1e36ba923d8d86aaa296f330154bee01d6565cd14ef97f1d92d24",
+        ".github/workflows/room-camera-stability.yml": "d680dd0a85d67f1fad4e163d13923f3761e875d322079314c7539f35050aac21"
+      }
+    }
+  },
+  "post_p2": {
+    "verified_at_utc": "2026-10-16T09:11:55.477755+00:00",
+    "issue": "After a long fall, the monotonic min/max camera target retained obsolete velocity prediction when actual wall grip or an air action abruptly reduced vertical speed. Camera smoothing then moved the view away from the body.",
+    "fix": "During an active vertical traversal, recompute the directional safety-band target plus current velocity/smoothing compensation each frame. Prediction may retract after deceleration or zero vertical velocity; the ordinary-jump deadzone and existing Camera2D smoothing are unchanged.",
+    "production_files_changed": [
+      "godot/scripts/camera_focus.gd"
+    ],
+    "validation_files_changed": [
+      "godot/scripts/room_camera_stability_validation.gd"
+    ],
+    "unchanged_files": [
+      "godot/scripts/player_controller.gd",
+      "godot/scripts/room_camera_stability_validation.gd.uid",
+      "godot/scripts/room_camera.gd",
+      "godot/scripts/room_camera_doorway_validation.gd"
+    ],
+    "negative_before_fix": {
+      "base_commit": "8c257e34caf5bdc92eab35c00b760dca6491a852",
+      "script_hashes": {
+        "camera_focus": "2711efe980a9340aaad790c6581d20e1e214fd620491d7a4aec98954327b9398",
+        "player_controller": "2ff5d102953c37df2e95ecf0f2c7902caa046200d67d7cc1cd823df819c27c3f",
+        "room_camera_stability_validation": "6f435aa016e66f7117f128144fcbb26cbfd5f511ad8fa6606c4eb7172b28d5ac",
+        "room_camera_doorway_validation": "5b3524c079e0567a45c7255900a4a0cceaf645fc082882a7a161564813acb7a7"
+      },
+      "renderer": "real software OpenGL, normal render loop",
+      "fixed_fps": 60,
+      "results": [
+        {
+          "suite": "room_camera_stability",
+          "command": [
+            "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+            "--display-driver",
+            "x11",
+            "--audio-driver",
+            "Dummy",
+            "--rendering-method",
+            "gl_compatibility",
+            "--fixed-fps",
+            "60",
+            "--path",
+            "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+            "--script",
+            "res://scripts/room_camera_stability_validation.gd",
+            "--",
+            "--player"
+          ],
+          "elapsed_seconds": 7.562,
+          "timeout_seconds": 180,
+          "exit_code": 1,
+          "timed_out": false,
+          "engine_errors": [
+            "ERROR: Fast fall to wall slide keeps head and feet inside the visible screen",
+            "ERROR: Abrupt airborne stop retracts prediction without losing the visible body"
+          ],
+          "completion_marker": false,
+          "passed": false,
+          "log": "artifacts/room_camera_stability/logs/p2_pre_fix/room_camera_stability.txt",
+          "log_sha256": "41ac5c865871d440239a41e0edec92ad189f34f9af746782cef1098fe4e69ed9",
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+            "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+          ],
+          "completion_line": "ROOM_CAMERA_STABILITY checks=78 failures=2 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":245.0419921875,\"air_stop_min_head_margin\":-211.349609375,\"double_jump_camera_rise\":71.9515380859375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":182.861328125,\"wall_slide_min_head_margin\":-279.8203125}",
+          "checks": 78,
+          "failures": 2,
+          "player_integration": true,
+          "metrics": {
+            "air_stop_actual_frames": 9,
+            "air_stop_entry_peak_speed": 3699.99682617188,
+            "air_stop_min_feet_margin": 245.0419921875,
+            "air_stop_min_head_margin": -211.349609375,
+            "double_jump_camera_rise": 71.9515380859375,
+            "double_jump_min_head_margin": 40.1507568359375,
+            "full_jump_body_height": 142.241455078125,
+            "full_jump_screen_y_drift": 0.0,
+            "jump_target_y_drift_120Hz_speed340": 0.0,
+            "jump_target_y_drift_120Hz_speed710": 0.0,
+            "jump_target_y_drift_30Hz_speed340": 0.0,
+            "jump_target_y_drift_30Hz_speed710": 0.0,
+            "jump_target_y_drift_60Hz_speed340": 0.0,
+            "jump_target_y_drift_60Hz_speed710": 0.0,
+            "shaft_fall_min_feet_margin": 182.86083984375,
+            "shaft_fall_min_head_margin": 259.0,
+            "shaft_fall_peak_speed": 3669.16357421875,
+            "wall_slide_actual_frames": 53,
+            "wall_slide_entry_peak_speed": 3915.82958984375,
+            "wall_slide_min_feet_margin": 182.861328125,
+            "wall_slide_min_head_margin": -279.8203125
+          }
+        }
+      ]
+    },
+    "expected_failure_observed": true,
+    "negative_scope": "The new real Player fixtures were run against the pre-fix camera source. Real gravity reached 3915.83 px/s before sustained physical wall contact/held move_right input and 3700 px/s before an actual airborne dash. No fixture assigns velocity, fakes is_on_wall, disables camera smoothing or forces scrolling.",
+    "positive_after_fix": {
+      "base_commit": "8c257e34caf5bdc92eab35c00b760dca6491a852",
+      "script_hashes": {
+        "camera_focus": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966",
+        "player_controller": "2ff5d102953c37df2e95ecf0f2c7902caa046200d67d7cc1cd823df819c27c3f",
+        "room_camera_stability_validation": "6f435aa016e66f7117f128144fcbb26cbfd5f511ad8fa6606c4eb7172b28d5ac",
+        "room_camera_doorway_validation": "5b3524c079e0567a45c7255900a4a0cceaf645fc082882a7a161564813acb7a7"
+      },
+      "renderer": "real software OpenGL, normal render loop",
+      "fixed_fps": 60,
+      "results": [
+        {
+          "suite": "room_camera_stability",
+          "command": [
+            "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+            "--display-driver",
+            "x11",
+            "--audio-driver",
+            "Dummy",
+            "--rendering-method",
+            "gl_compatibility",
+            "--fixed-fps",
+            "60",
+            "--path",
+            "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+            "--script",
+            "res://scripts/room_camera_stability_validation.gd",
+            "--",
+            "--player"
+          ],
+          "elapsed_seconds": 11.198,
+          "timeout_seconds": 180,
+          "exit_code": 0,
+          "timed_out": false,
+          "engine_errors": [],
+          "completion_marker": true,
+          "passed": true,
+          "log": "artifacts/room_camera_stability/logs/p2_post_fix/room_camera_stability.txt",
+          "log_sha256": "4dee99e8dd83c8a533fb04a42dee5bfd88faf25adcc3091f776ce19ac91ca213",
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_line": "ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":186.1728515625,\"air_stop_min_head_margin\":246.9580078125,\"double_jump_camera_rise\":47.3284912109375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":182.861328125,\"wall_slide_min_head_margin\":244.86083984375}",
+          "checks": 78,
+          "failures": 0,
+          "player_integration": true,
+          "metrics": {
+            "air_stop_actual_frames": 9,
+            "air_stop_entry_peak_speed": 3699.99682617188,
+            "air_stop_min_feet_margin": 186.1728515625,
+            "air_stop_min_head_margin": 246.9580078125,
+            "double_jump_camera_rise": 47.3284912109375,
+            "double_jump_min_head_margin": 40.1507568359375,
+            "full_jump_body_height": 142.241455078125,
+            "full_jump_screen_y_drift": 0.0,
+            "jump_target_y_drift_120Hz_speed340": 0.0,
+            "jump_target_y_drift_120Hz_speed710": 0.0,
+            "jump_target_y_drift_30Hz_speed340": 0.0,
+            "jump_target_y_drift_30Hz_speed710": 0.0,
+            "jump_target_y_drift_60Hz_speed340": 0.0,
+            "jump_target_y_drift_60Hz_speed710": 0.0,
+            "shaft_fall_min_feet_margin": 182.86083984375,
+            "shaft_fall_min_head_margin": 259.0,
+            "shaft_fall_peak_speed": 3669.16357421875,
+            "wall_slide_actual_frames": 53,
+            "wall_slide_entry_peak_speed": 3915.82958984375,
+            "wall_slide_min_feet_margin": 182.861328125,
+            "wall_slide_min_head_margin": 244.86083984375
+          }
+        },
+        {
+          "suite": "camera_focus",
+          "command": [
+            "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+            "--display-driver",
+            "x11",
+            "--audio-driver",
+            "Dummy",
+            "--rendering-method",
+            "gl_compatibility",
+            "--fixed-fps",
+            "60",
+            "--path",
+            "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+            "--script",
+            "res://scripts/camera_focus_validation.gd"
+          ],
+          "elapsed_seconds": 24.142,
+          "timeout_seconds": 180,
+          "exit_code": 0,
+          "timed_out": false,
+          "engine_errors": [],
+          "completion_marker": true,
+          "passed": true,
+          "log": "artifacts/room_camera_stability/logs/p2_post_fix/camera_focus.txt",
+          "log_sha256": "4b688d78245f63b45e76333f32dbf46b95c561616a912c36ec5683c6b67ec70e",
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_line": "CAMERA_FOCUS checks=86 failures=0",
+          "checks": 86,
+          "failures": 0
+        },
+        {
+          "suite": "ability_movement",
+          "command": [
+            "${LOCAL_WORKSPACE}/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+            "--display-driver",
+            "x11",
+            "--audio-driver",
+            "Dummy",
+            "--rendering-method",
+            "gl_compatibility",
+            "--fixed-fps",
+            "60",
+            "--path",
+            "${LOCAL_WORKSPACE}/crimson-room-camera/godot",
+            "--script",
+            "res://scripts/ability_movement_validation.gd"
+          ],
+          "elapsed_seconds": 4.79,
+          "timeout_seconds": 180,
+          "exit_code": 0,
+          "timed_out": false,
+          "engine_errors": [],
+          "completion_marker": true,
+          "passed": true,
+          "log": "artifacts/room_camera_stability/logs/p2_post_fix/ability_movement.txt",
+          "log_sha256": "3b62b923e885213b906be0f8b1882552c6041f12ced447544dbf442e4aa772ee",
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_line": "ABILITY_MOVEMENT_VALIDATION failures=0",
+          "checks": 19,
+          "failures": 0
+        }
+      ]
+    },
+    "fresh_suite_count": 3,
+    "fresh_checks": 183,
+    "fresh_failures": 0,
+    "required_marker": "ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true",
+    "registered_gate_status": "Passed actual registered real-GL entry with updated78 marker; fixed60 simulation clock, normal drawing, timeout180.",
+    "thresholds_unchanged": {
+      "minimum_head_margin_pixels": 24,
+      "minimum_feet_margin_pixels": 70,
+      "maximum_ordinary_jump_y_drift_pixels": 1.5,
+      "timeout_per_suite_seconds": 180,
+      "fixed_fps": 60,
+      "normal_render_loop": true
+    },
+    "reused_evidence": [
+      {
+        "source": "pre_p2.results[first_court_experience]",
+        "checks": 216,
+        "status": "Historical evidence reused, not rerun or relabeled as post-fix.",
+        "reason": "Room selection, authored limits, doorway easing, Boss priority, arrival reset and grounded behavior were not changed by this two-assignment prediction fix; the changed airborne path is covered by the complete new camera suite and camera_focus rerun."
+      },
+      {
+        "source": "pre_p2.results[player_state_cleanup]",
+        "checks": 9,
+        "status": "Historical evidence reused, not rerun or relabeled as post-fix.",
+        "reason": "No Player action, damage, respawn or status cleanup code changed; the post-fix camera suite still exercises actual damage/respawn and ability_movement rechecks traversal reset."
+      },
+      {
+        "source": "pre_p2.import and pre_p2.generated_uid",
+        "status": "Prior strict two-pass import/UID generation retained, not claimed as a fresh post-fix import.",
+        "reason": "No resource or UID changes. Both changed GDScripts were parsed and exercised by normal real-GL runtime suites."
+      }
+    ],
+    "limits": [
+      "Airborne zero-velocity interruption is exercised by production dash; no separate physical ceiling-collision fixture was added.",
+      "No claim of natural-input room-door walkthrough, cross-scene smoothing, campaign completion, idle visual acceptance, or broad performance validation."
+    ],
+    "registered_gate": {
+      "exit_code": 0,
+      "suites": 1,
+      "failures": 0,
+      "completion_line": "ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":186.1728515625,\"air_stop_min_head_margin\":246.9580078125,\"double_jump_camera_rise\":47.3284912109375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":182.861328125,\"wall_slide_min_head_margin\":244.86083984375}",
+      "suite_log_sha256": "21ec4f30539f107c5d3929e08618a87090a495462ca3b4d785b6618e2982bc56",
+      "runner_log_sha256": "7433ab825aa0b2cdf718b23cf6162b7561744b4f15647a35ad56d8d5eca3d462",
+      "runner_tests": 23,
+      "runner_tests_log_sha256": "81b920a9565e859e560ad9f58c9c79d3c03085d7625539a8f09544dc9a3e767a",
+      "source_sha256": {
+        "tools/run_godot_regressions.py": "25cfee0d34402af41395bef72ce34588755cb0fa74bd3e933f23ec77e341a754",
+        "tools/test_regression_runner.py": "71a6c43ab4ad00c22de25e58dfaad674b13268cf40d3a62048f0c913f6824346",
+        "tools/godot_suite_success_markers.json": "602bd2ea6ca2601bcd14d2a6ad4f11ae217cd43168b1b9e0d5502681e8f2c9e2",
+        "godot/scripts/camera_focus.gd": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966",
+        "godot/scripts/room_camera_stability_validation.gd": "6f435aa016e66f7117f128144fcbb26cbfd5f511ad8fa6606c4eb7172b28d5ac"
+      },
+      "local_log_paths": [
+        "qa-logs/camera-p2-registered/room_camera_stability.log",
+        "qa-logs/camera-p2-registered-runner.log",
+        "qa-logs/camera-p2-runner.log"
+      ]
+    }
+  },
+  "doorway_acceptance": {
+    "same_room": "Actual held ordinary jump leaves and returns to the same floor while Camera2D visible Y drift remains 0.0 pixels.",
+    "same_region_room_bounds": "Production room_camera rule fixtures verify doorway hysteresis, gradual display-bound movement, convergence, and preservation of the stable follow baseline at the same-height hall-to-side doorway. Existing first_court _zone_rules additionally checks hall-to-nested-pocket entry, exit and Boss priority.",
+    "first_court_authored_views": "The World fixture checks all 42 original authored room camera zones by setting the Player to each trigger center and calling reset_camera_after_arrival. Named views are entry (350,3400), first_duel (1050,3612), shrine (1810,3752), hub (2580,3892), and pre_boss (5420,3920).",
+    "first_court_walkthrough_limit": "These authored views are relocation/view assertions, not a continuous natural-input doorway crossing. No specific real walking doorway traversal is claimed by this suite.",
+    "cross_region_and_respawn": "Cross-region arrival and respawn retain the existing reset_camera_after_arrival -> reset_smoothing -> force_update_scroll intentional cut. The new reset_follow only clears the previous world-Y baseline; this change does not add smooth transitions to every scene or teleport.",
+    "source_locations": [
+      "godot/scripts/room_camera_stability_validation.gd:_room_and_event_rules",
+      "godot/scripts/room_camera_doorway_validation.gd:run",
+      "godot/scripts/first_court_experience_validation.gd:_zone_rules",
+      "godot/scripts/first_court_experience_validation.gd:_first_court",
+      "godot/scripts/player_controller.gd:reset_camera_after_arrival"
+    ]
+  },
+  "log_policy": "Raw logs remain local and are not tracked in Git. Relative locations, original byte hashes, exact completion markers and warnings are retained here."
+}

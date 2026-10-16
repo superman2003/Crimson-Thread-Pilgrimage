@@ -1075,8 +1075,7 @@ func _update_camera(delta: float) -> void:
     var direction := 0 if look_up == look_down else (-1 if look_up else 1)
     var eligible := is_on_floor() and absf(velocity.x) < 12.0 and absf(_move_axis()) < 0.1 and land_timer <= 0.0 and _can_start_action()
     var observation: float = camera_focus.update(camera, delta, direction, eligible, strength)
-    var target := Vector2(clampf(velocity.x * 0.18, -90.0, 90.0) * strength, -55.0 + clampf(velocity.y * 0.10, -50.0, 90.0) * strength + observation)
-    camera.position = camera.position.lerp(target, 1.0 - exp(-delta * 5.0))
+    camera.position = camera_focus.follow_position(camera, global_position, velocity, is_on_floor(), delta, strength, observation)
 
 
 func configure_camera_focus(bounds: Rect2) -> void:
@@ -2093,6 +2092,7 @@ func reset_camera_after_arrival() -> void:
     if camera != null:
         room_camera.update(camera_focus, global_position)
         camera_focus.apply_limits(camera)
+        camera_focus.reset_follow(global_position)
         camera.position = Vector2(0, -55)
         camera.offset = Vector2.ZERO
         camera.rotation = 0.0
