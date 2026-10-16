@@ -75,6 +75,7 @@ func _run() -> void:
     config.set_value("accessibility", "camera_lookahead", 9.0)
     config.set_value("accessibility", "flash_enabled", "false")
     config.set_value("accessibility", "vibration_enabled", false)
+    config.set_value("accessibility", "vibration_strength", 9.0)
     config.set_value("bindings", "heal", [null,"bad",InputEventMouseMotion.new(),InputEventKey.new()])
     _check(config.save(PATH)==OK,"Corrupt preference fixture is writable")
     ui._load_accessibility()
@@ -82,11 +83,19 @@ func _run() -> void:
     _check(ui.accessibility.subtitle_speed==1.0,"Invalid subtitle speed preserves default")
     _check(ui.accessibility.camera_shake==0.0 and ui.accessibility.camera_lookahead==1.0,"Finite numeric preferences are clamped")
     _check(ui.accessibility.flash_enabled==true and ui.accessibility.vibration_enabled==false,"Only real booleans replace toggles")
+    _check(ui.accessibility.vibration_strength==1.0,"Controller strength is clamped without overriding the disabled toggle")
     _check(InputMap.event_is_action(_key(KEY_H),"heal"),"All-invalid bindings do not erase working controls")
     config.set_value("accessibility","subtitle_speed",NAN)
     _check(ui._finite_setting(config,"subtitle_speed",0.5,2.0)==1.0,"NaN preference does not reach a UI slider")
     config.set_value("accessibility","subtitle_speed",INF)
     _check(ui._finite_setting(config,"subtitle_speed",0.5,2.0)==1.0,"Infinite preference does not reach a UI slider")
+    config.set_value("accessibility","vibration_strength",NAN)
+    _check(ui._finite_setting(config,"vibration_strength",0,1)==1.0,"Invalid controller strength preserves the finite default")
+    ui.accessibility.vibration_strength=0.25
+    ui._save_accessibility()
+    ui.accessibility.vibration_strength=0.75
+    ui._load_accessibility()
+    _check(ui.accessibility.vibration_strength==0.25 and not ui.accessibility.vibration_enabled,"Controller strength and disabled state survive an actual preference disk roundtrip")
     # Focus is tested against real viewport controls and the viewport signal.
     ui.level.active_overlay="map"
     ui._focus_overlay("map",false)

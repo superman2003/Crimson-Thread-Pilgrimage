@@ -73,10 +73,14 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 102)
+        self.assertEqual(len(all_suites), 106)
+        self.assertIn("room_camera_stability", DEFAULT_SUITES)
+        self.assertIn("player_layered_idle", DEFAULT_SUITES)
         self.assertIn("input_prompt", DEFAULT_SUITES)
         self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
+        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
+        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
@@ -157,12 +161,14 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + 'print("WORLD_ROUTE_MANIFEST_WALK_LOWER checks=1 failures=0 physical_crossings=6")\n'
                 + 'print("WORLD_ROUTE_MANIFEST_WALK_UPPER checks=1 failures=0 physical_crossings=4")\n'
+                + 'print("PLAYER_MOTION_CONTINUITY checks=1 failures=0")\n'
+                + 'print("PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
-            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper']:
+            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper', 'player_motion_continuity', 'player_melee_feedback']:
                 with self.subTest(suite=suite):
                     failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True,
                                           {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
@@ -172,6 +178,84 @@ class RunnerTests(unittest.TestCase):
                     self.assertIn('--fixed-fps', arguments)
                     self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
 
+    def test_motion_and_feedback_markers_do_not_overclaim_acceptance(self):
+        for suite, marker in [
+            ('player_motion_continuity', 'PLAYER_MOTION_CONTINUITY checks=1 failures=1'),
+            ('player_melee_feedback', 'PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=physical physical_feel=verified'),
+        ]:
+            with self.subTest(suite=suite):
+                result = self.run_engine(f'print({marker!r})\n', suite=suite)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_room_camera_requires_complete_real_player_integration(self):
+        for marker in [
+            'ROOM_CAMERA_STABILITY checks=63 failures=0 player_integration=false metrics={}',
+            'ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=false metrics={}',
+            'ROOM_CAMERA_STABILITY checks=77 failures=0 player_integration=true metrics={}',
+            'ROOM_CAMERA_STABILITY checks=78 failures=1 player_integration=true metrics={}',
+        ]:
+            with self.subTest(marker=marker):
+                result = self.run_engine(f'print({marker!r})\n', suite='room_camera_stability')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_room_camera_keeps_drawing_fixed_clock_and_player_flag(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={}")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            failures = run_suites(str(engine), ['room_camera_stability'], 2, logs, root / 'scratch', True,
+                                  {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+            self.assertEqual(failures, [])
+            arguments = captured.read_text().splitlines()
+            self.assertEqual(arguments[-2:], ['--', '--player'])
+            self.assertNotIn('--disable-render-loop', arguments)
+            self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+            self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
+
+    def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
+        for marker in [
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=false pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=199 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=1 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=false',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true',
+        ]:
+            with self.subTest(marker=marker):
+                result = self.run_engine(f'print({marker!r})\n', suite='player_layered_idle')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_layered_idle_keeps_real_gl_drawing_and_fixed_clock(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            failures = run_suites(str(engine), ['player_layered_idle'], 2, logs, root / 'scratch', True,
+                                  {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+            self.assertEqual(failures, [])
+            arguments = captured.read_text().splitlines()
+            self.assertNotIn('--disable-render-loop', arguments)
+            self.assertNotIn('--headless', arguments)
+            self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+            self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
 
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])

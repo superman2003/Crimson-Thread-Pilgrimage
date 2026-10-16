@@ -1,0 +1,184 @@
+{
+  "local_commit": "c523c3bc41863d61a59b7249a5e3ae18c486439d",
+  "frozen_tree": "e6def8fc063e31631dda64f1ee5ea7b2187b1ef6",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe OpenGL compatibility; original per-suite drawing policies retained",
+  "per_suite_timeout_seconds": 180,
+  "default_total": 106,
+  "strict_import_process": {
+    "started_utc": "2026-10-16T11:45:07Z",
+    "ended_utc": "2026-10-16T11:48:45Z",
+    "exit_code": 0
+  },
+  "strict_import_logs": [
+    {
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/import/import-1.log",
+      "engine_errors": [],
+      "log_sha256": "8c887bd52f8c24a1367d6a158ceb2616b10c5fbd765d292ef9eb8797f516c030"
+    },
+    {
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/import/import-2.log",
+      "engine_errors": [],
+      "log_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+    }
+  ],
+  "runtime_process": {
+    "started_utc": "2026-10-16T11:49:43Z",
+    "ended_utc": "2026-10-16T11:58:33Z",
+    "exit_code": 0,
+    "suites": 10,
+    "per_suite_timeout": 180,
+    "tree": "e6def8fc063e31631dda64f1ee5ea7b2187b1ef6"
+  },
+  "runtime_results": [
+    {
+      "suite": "player_layered_idle",
+      "completion_marker": "PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "d95a88ab90638b3104b681bd9735533b5c2b7590872989716a6a22d98c160cc0",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/player_layered_idle.log"
+    },
+    {
+      "suite": "player_melee_feedback",
+      "completion_marker": "PLAYER_MELEE_FEEDBACK_PASS checks=107 hardware=simulated physical_feel=unverified",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "d49fb49c638bf773fc0ab4911a825d28fccb261c6782389bf6bd73b640cdba3b",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/player_melee_feedback.log"
+    },
+    {
+      "suite": "player_motion_continuity",
+      "completion_marker": "PLAYER_MOTION_CONTINUITY checks=958 failures=0",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "5b1bca916c116de843a14afc6e0f737837c8129c83d3339e1c09d7a7d5db86a0",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/player_motion_continuity.log"
+    },
+    {
+      "suite": "room_camera_stability",
+      "completion_marker": "ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":186.1728515625,\"air_stop_min_head_margin\":246.9580078125,\"double_jump_camera_rise\":47.3284912109375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":182.861328125,\"wall_slide_min_head_margin\":244.86083984375}",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "4dee99e8dd83c8a533fb04a42dee5bfd88faf25adcc3091f776ce19ac91ca213",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/room_camera_stability.log"
+    },
+    {
+      "suite": "world_ability_acquisition",
+      "completion_marker": "WORLD_ABILITY_ACQUISITION checks=74 failures=0 actual_pickups=8 local_approach_fixture=true",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "3371df2bd878342e0905c43511fd0db46ef5587d735492a498b3b21186f1edaf",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/world_ability_acquisition.log"
+    },
+    {
+      "suite": "world_gameplay_plan",
+      "completion_marker": "WORLD_GAMEPLAY_PLAN checks=1226 failures=0",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "dddb46ada1c699bfad00eb4d7a24780fb6a95e9bd4f9754e36a12d43e05d7dcf",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/world_gameplay_plan.log"
+    },
+    {
+      "suite": "world_route_manifest_integration",
+      "completion_marker": "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": null,
+      "log_sha256": "41bbde82761af6d0f83baf5b7fa2edf16a237c7bfd737ec62437b32752232fba",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/world_route_manifest_integration.log"
+    },
+    {
+      "suite": "world_upgrade",
+      "completion_marker": "WORLD_UPGRADE checks=548 failures=0 enemy_removal=true fixture_positioning=true",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": 40806,
+      "log_sha256": "c491545ccd5b33389373926b52518193d4dc3f3f5c42ba7c773fc75873c45bb8",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/world_upgrade.log"
+    },
+    {
+      "suite": "world_workshop_group_one",
+      "completion_marker": "WORLD_WORKSHOP_GROUP_ONE checks=450 failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=155698",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": 155698,
+      "log_sha256": "9d21096196f05fa2e1b740d241660017b50913890639aa14d4a7a85150df91f2",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/world_workshop_group_one.log"
+    },
+    {
+      "suite": "world_workshop_group_two",
+      "completion_marker": "WORLD_WORKSHOP_GROUP_TWO checks=411 failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=94756",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "known_elapsed_ms": 94756,
+      "log_sha256": "5ca6ca4f1299f50262e7c3477266221a5e2e8b1e9d4ec5bb28d41cefee6731bf",
+      "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl/world_workshop_group_two.log"
+    }
+  ],
+  "source_hash_invariants_reverified": 68,
+  "protected_png_sha256": {
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png": "2f596483024a92aa621929ab40766088ae7e1ec657d653e5301284d8c775dc30",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png": "222d12909c41bdf26c19b5a4362aca9376140cfae0aca1a8a3be378cc0baf706"
+  },
+  "default_bus_original_sha256": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+  "default_bus_restored_exactly": true,
+  "preflight_attempt": {
+    "result": "Xvfb absent from initial PATH; no Godot runtime suite launched. Fixed only PATH to pre-existing official unpacked Xvfb, then retried identical command. Strict import not rerun.",
+    "log_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl-preflight-missing-xvfb.log",
+    "result_path": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl-preflight-missing-xvfb-result.json"
+  },
+  "scope_limits": [
+    "10 affected suites run locally, not full 106.",
+    "Visual idle contacts 2→4, 6→7, 7→1, breathing and action transitions remain OPEN.",
+    "Simulated haptic device; physical controller feel remains unverified.",
+    "Workshop positioning/enemy-removal fixtures are not natural damage-enabled campaign completion.",
+    "Historic 76-landing performance OPEN unchanged."
+  ],
+  "gl_window_released_utc": "2026-10-16T11:58:35Z",
+  "remote_commit": "7dbd0433c359c708a1ff27c18091b034c1ad0761",
+  "remote_tree": "e6def8fc063e31631dda64f1ee5ea7b2187b1ef6",
+  "same_tree_verified_by_fetch": true,
+  "runtime_command": "python3 tools/run_godot_regressions.py --engine /workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64 --software-gl --suite player_layered_idle --suite player_motion_continuity --suite player_melee_feedback --suite room_camera_stability --suite world_upgrade --suite world_workshop_group_one --suite world_workshop_group_two --suite world_ability_acquisition --suite world_gameplay_plan --suite world_route_manifest_integration --log-dir /workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/gl",
+  "import_command": "python3 tools/run_godot_import.py --engine /workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64 --recovery-mode --timeout 600 --log-dir /workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/import",
+  "environment": {
+    "PATH_prefix": "/workspace/scratch/4d581c1832c9/tooling/xvfb/usr/bin",
+    "XDG_DATA_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/xdg-data",
+    "XDG_CONFIG_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/xdg-config",
+    "XDG_CACHE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/xdg-cache",
+    "XDG_RUNTIME_DIR": "/workspace/scratch/4d581c1832c9/qa-logs/motion-idle-main-sync/xdg-runtime",
+    "XDG_RUNTIME_DIR_mode": "0700"
+  },
+  "retained_log_policy": "Full raw per-suite and import logs are retained at listed local QA paths with SHA-256. Runner consoles are committed alongside this JSON.",
+  "committed_consoles": [
+    "runtime_console.txt",
+    "import_console.txt",
+    "preflight_missing_xvfb.txt"
+  ]
+}
