@@ -1,0 +1,59 @@
+{
+  "engine": "Godot 4.6.1 / llvmpipe",
+  "base": "08be3c43c5100d26df5bd8ba46c9b46c35e99a09",
+  "authored_rooms": 9,
+  "changed_objects": 45,
+  "unrelated_changed_objects": 0,
+  "source_sha256": {
+    "godot/data/world_routes.json": "738a44774bb4911c1df567d3388e66f98630719057e55deaa4dac0ddabfb6bba",
+    "godot/scripts/world_upgrade_validation.gd": "95952b3e143de5fe55884686dcd209c4dda81dbdb7f649585a5db833e9ca0180",
+    "godot/scripts/world_ability_acquisition_validation.gd": "242b481f4aca95579675bccbcd09c3076f02d109bee5cb1f6d4d0a1889a042aa",
+    "godot/scripts/ability_workshop_route_validation.gd": "ba6a9d99e5e48f3ae2892f1b05c3d5370951685c2b77475fd2f8aa76442614de",
+    "godot/scripts/ch06_workshop_experience_validation.gd": "b6a5b2cd85f98e1ce1293ac0a28b7cad113db73aecc7442ce4740eb4a0fb3c74",
+    "tools/workshop_layout_contract.py": "1e5ff4f250e3a2866e72e4c101ff209e1efa7fe770bb26dcbecfde821a92e7e5"
+  },
+  "local_results": {
+    "world_upgrade": "PASS reported by strict runner; 19 authored routes plus original CH05 room and disk restarts",
+    "world_ability_acquisition": {
+      "checks": 74,
+      "failures": 0
+    },
+    "ch06_workshop_experience": {
+      "checks": 28,
+      "failures": 0
+    },
+    "obsidian_experience": {
+      "checks": 197,
+      "failures": 0
+    },
+    "world_route_access": {
+      "checks": 553,
+      "failures": 0
+    },
+    "ability_movement": "PASS",
+    "upgrade_integration": "30 checks PASS",
+    "layout_contract_tests": 9,
+    "runner_tests": 15,
+    "strict_import_passes": 2,
+    "regeneration": "two identical SHA256 outputs",
+    "npm": "PASS",
+    "campaign": "PASS"
+  },
+  "captures": [
+    "upgrade_bell_guard_3_demo_ch03_saltwhite_archive.webp",
+    "upgrade_crown_resonance_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_crown_resonance_2_demo_ch03_saltwhite_archive.webp",
+    "upgrade_crown_resonance_3_demo_ch06_silent_crown_core.webp",
+    "upgrade_lantern_phase_1_demo_ch02_rain_foundry_canal.webp",
+    "upgrade_lantern_phase_2_demo_ch04_broken_string_greenhouse.webp",
+    "upgrade_thorn_downstrike_1_demo_ch01_moss_bell_court.webp",
+    "upgrade_thorn_downstrike_2_demo_ch03_saltwhite_archive.webp",
+    "upgrade_thorn_downstrike_3_demo_ch04_broken_string_greenhouse.webp"
+  ],
+  "limits": [
+    "Local positioned approaches and enemy-removal workshop fixtures; not a natural six-region damage-enabled playthrough",
+    "Intermediate acquisition-in-workshop timeout and obsolete CH06 flat-route assertions were corrected; reruns reported separately",
+    "Existing ObjectDB exit leak warnings remain",
+    "Remote CI pending formal PR"
+  ]
+}

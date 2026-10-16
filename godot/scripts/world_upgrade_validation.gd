@@ -300,6 +300,53 @@ func _verify_workshop_restart(target: Dictionary, entry: Dictionary, source: Vec
     await _tick(10)
     _assert(scene.player.position.distance_to(source)<85,String(target.room_id)+": resumed room still has its actual exit")
 
+func _verify_ability_pickups(data: Dictionary) -> void:
+    var fields := {"thread_dash":"dash_unlocked","silk_wall_grip":"wall_grip_unlocked","echo_hook":"thread_grapple_unlocked","double_thread_jump":"double_jump_unlocked","bell_guard":"bell_guard_unlocked","thorn_downstrike":"thorn_downstrike_unlocked","lantern_phase":"lantern_phase_unlocked","crown_resonance":"crown_resonance_unlocked"}
+    var seen := {}
+    for region in data.chapters:
+        var base: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(String(region))))
+        var items: Array=ROUTES.apply_to(base).get("collectibles",[])
+        for item in items:
+            var ability := String(item.get("item_id",""))
+            if not fields.has(ability): continue
+            _assert(not seen.has(ability),ability+": one production acquisition")
+            seen[ability]=true
+            var point := Vector2(item.position[0],item.position[1])
+            # Explicit supported local approach fixture, not a six-region walk.
+            await _spawn(String(region),point+Vector2(-70,0))
+            _assert(not scene.inventory_counts.has(ability) and not bool(scene.player.get(fields[ability])),ability+": acquisition approach starts without its own ability")
+            _assert(await _walk_x(point.x),ability+": real movement reaches production pickup")
+            if not scene.inventory_counts.has(ability):
+                await _pulse("interact",2)
+            await _tick(5)
+            _assert(int(scene.inventory_counts.get(ability,0))==1 and bool(scene.player.get(fields[ability])),ability+": production pickup synchronizes actual Player capability")
+            _assert(bool(scene.world_collected_ids.get(String(item.id),false)),ability+": actual pickup identity saved "+str(scene.world_collected_ids.keys()))
+            var saved := STATE.new()
+            _assert(saved.read(SAVE),ability+": pickup save is readable")
+            _release()
+            scene.free()
+            await process_frame
+            scene=load("res://scenes/World.tscn").instantiate()
+            scene.world_resume=true
+            scene.world_save_path=SAVE
+            scene.config_path=ROUTES.config_path(String(region))
+            root.add_child(scene)
+            await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+            current_scene=scene
+            await _tick(5)
+            _assert(int(scene.inventory_counts.get(ability,0))==1 and bool(scene.player.get(fields[ability])),ability+": disk restart restores capability exactly once")
+            _assert(scene.get_node_or_null(String(item.id))==null,ability+": acquired source does not respawn after disk restart")
+            # Visit an existing old-area target with the acquired inventory.
+            var target: Dictionary={}
+            for value in data.ability_backtracks:
+                if value.ability_id==ability and value.role=="backtrack":
+                    target=value
+                    break
+            var status: Dictionary=ROUTES.access(ROUTES.portal(String(target.region_id),String(target.entry_portal_id)),scene.inventory_counts,scene.story_flags)
+            _assert(status.open,ability+": restored inventory admits its existing return-workshop entry")
+            print("WORKSHOP_ACQUISITION ability=",ability," actual_pickup=true disk_restart=true local_approach_fixture=true")
+    _assert(seen.size()==8,"All eight actual acquisition sources are exercised")
+
 func _run() -> void:
     var data: Dictionary = ROUTES._data()
     await _verify_late_branch("demo_ch03_saltwhite_archive", "upgrade_archive_obsidian_branch_a", "double_thread_jump")
@@ -352,7 +399,7 @@ func _run() -> void:
         var authored_room: Dictionary = {}
         for value in scene.config.map_rooms:
             if String(value.id)==String(target.room_id): authored_room=value
-        if authored_room.get("layout_group","")=="movement_group_one":
+        if authored_room.get("layout_group","") in ["movement_group_one","movement_group_two"]:
             rebuilt_routes_exercised+=1
             var route_probe = preload("res://scripts/ability_workshop_route_validation.gd").new()
             if not await route_probe.run(scene,self,authored_room,_assert):
@@ -372,7 +419,7 @@ func _run() -> void:
                 await _tick(5)
                 _assert(bool(scene.world_collected_ids.get(String(reward_id), false)), gate_id + ": reward collection persists unique ID")
         _assert(scene.currency_count > currency_before, gate_id + ": reward grants spendable currency")
-        if authored_room.get("layout_group","")=="movement_group_one":
+        if authored_room.get("layout_group","") in ["movement_group_one","movement_group_two"]:
             var cache_amount := 0
             for reward in data.chapters[region].collectibles:
                 if String(reward.id)==String(target.room_id)+"_resin": cache_amount=int(reward.amount)
@@ -394,10 +441,10 @@ func _run() -> void:
         _assert(not scene.locked_gate_bodies.has(gate_id), gate_id + ": action gate remains open after real scene replacement")
         for reward_id in target.reward_ids:
             _assert(scene.get_node_or_null(String(reward_id)) == null, gate_id + ": collected reward does not respawn")
-        if authored_room.get("layout_group","")=="movement_group_one":
+        if authored_room.get("layout_group","") in ["movement_group_one","movement_group_two"]:
             await _verify_workshop_restart(target,entry,source)
         print("WORKSHOP_ACTION_PASS " + gate_id)
-    _assert(rebuilt_routes_exercised==10,"All ten rebuilt rooms execute their actual movement routes")
+    _assert(rebuilt_routes_exercised==19,"All nineteen rebuilt rooms execute their actual movement routes")
     _release()
     if is_instance_valid(scene):
         scene.queue_free()

@@ -1,4 +1,4 @@
-"""Semantic contracts for the first ten authored workshop routes."""
+"""Semantic contracts for both groups of authored workshop routes."""
 from collections import Counter
 import math
 
@@ -6,25 +6,26 @@ GROUP = 'movement_group_one'
 ABILITIES = {'thread_dash','silk_wall_grip','echo_hook','double_thread_jump','bell_guard'}
 ACTIONS = {'walk','jump','wall_jump','double_jump','hook'}
 
-def contracts(routes):
+def contracts(routes, group=GROUP):
     checks = []
     def check(ok,label):checks.append((bool(ok),label))
-    layouts=[l for l in routes.get('workshop_layouts',[]) if l.get('layout_group')==GROUP]
-    check(len(layouts)==10,'group one authors exactly ten room recipes')
+    layouts=[l for l in routes.get('workshop_layouts',[]) if l.get('layout_group')==group]
+    expected = 10 if group==GROUP else 9
+    check(len(layouts)==expected,group+': expected authored room count')
     keys=[(l['region_id'],l['room_id']) for l in layouts]
-    check(len(set(keys))==len(keys),'group one room recipes are unique')
+    check(len(set(keys))==len(keys),group+': room recipes are unique')
     targets={(t['region_id'],t['room_id']):t for t in routes['ability_backtracks']}
     counts=Counter(targets[k]['ability_id'] for k in keys if k in targets)
-    check(set(counts)==ABILITIES and all(n==2 for n in counts.values()),'five abilities each have two rebuilt return rooms')
-    check(len({l.get('variant') for l in layouts})==len(layouts),'all ten workshop route archetypes differ')
+    check(counts == (Counter({a:2 for a in ABILITIES}) if group==GROUP else Counter(bell_guard=1,thorn_downstrike=3,lantern_phase=2,crown_resonance=3)),'group has its exact ability coverage')
+    check(len({l.get('variant') for l in layouts})==len(layouts),group+': workshop route archetypes differ')
     shapes=set()
     for layout in layouts:
         label=layout['room_id']; key=(layout['region_id'],label)
         chapter=routes['chapters'][layout['region_id']]
         room=next((r for r in chapter['map_rooms'] if r['id']==label),{})
         target=targets.get(key,{})
-        check(target.get('role')=='backtrack',label+': only return rooms belong to this batch')
-        check(room.get('layout_group')==GROUP and room.get('route_archetype')==layout.get('variant'),label+': production room retains authored route identity')
+        check(target.get('role') in (['backtrack'] if group==GROUP else ['backtrack','practice']),label+': expected workshop role')
+        check(room.get('layout_group')==group and room.get('route_archetype')==layout.get('variant'),label+': production room retains authored route identity')
         pieces=[tuple(v['offset']+v['size']) for v in layout['platforms']]
         shapes.add(tuple(pieces))
         platforms=[p for p in chapter['platforms'] if p['id'].startswith(label+'_')]
@@ -52,5 +53,5 @@ def contracts(routes):
             check(floor[1]-gallery[1]>=175,label+': reward level is above a full ordinary jump')
             check(any(s['action']=='double_jump' for s in steps),label+': route explicitly requires the air jump')
         if target.get('ability_id')=='echo_hook':check(len(layout.get('extra_anchors',[]))==1,label+': a second authored ring serves the reward route')
-    check(len(shapes)==len(layouts),'ten physical platform arrangements differ')
+    check(len(shapes)==len(layouts),'physical platform arrangements differ')
     return checks

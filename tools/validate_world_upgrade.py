@@ -97,7 +97,7 @@ def validate():
         else:
             check(gy <= roof[1] + roof[3] and gy + gh >= foundation[1] + foundation[3] - 10, gate['id'] + ': sealed against jumps, wall climb and downward bypass')
 
-    for condition, label in contracts(routes):
+    for condition, label in contracts(routes) + contracts(routes, "movement_group_two"):
         check(condition, label)
 
     # Search the region progression graph with ability pickup/shortcut state. This

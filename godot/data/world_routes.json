@@ -155,10 +155,10 @@
           "item_id": "upgrade_thorn_downstrike_1_record",
           "position": [
             8394,
-            3290
+            3180
           ],
           "room_id": "upgrade_thorn_downstrike_1",
-          "platform_id": "upgrade_thorn_downstrike_1_foundation",
+          "platform_id": "upgrade_thorn_downstrike_1_gallery",
           "label": "棘根底部的铭牌",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -169,10 +169,10 @@
           "amount": 50,
           "position": [
             8464,
-            3290
+            3180
           ],
           "room_id": "upgrade_thorn_downstrike_1",
-          "platform_id": "upgrade_thorn_downstrike_1_foundation",
+          "platform_id": "upgrade_thorn_downstrike_1_gallery",
           "label": "检修物资 · 松脂碎片"
         },
         {
@@ -181,10 +181,10 @@
           "item_id": "upgrade_crown_resonance_1_record",
           "position": [
             8394,
-            3770
+            3645
           ],
           "room_id": "upgrade_crown_resonance_1",
-          "platform_id": "upgrade_crown_resonance_1_foundation",
+          "platform_id": "upgrade_crown_resonance_1_gallery",
           "label": "无名者旧契约",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -195,10 +195,10 @@
           "amount": 50,
           "position": [
             8464,
-            3770
+            3645
           ],
           "room_id": "upgrade_crown_resonance_1",
-          "platform_id": "upgrade_crown_resonance_1_foundation",
+          "platform_id": "upgrade_crown_resonance_1_gallery",
           "label": "检修物资 · 松脂碎片"
         }
       ],
@@ -1312,6 +1312,32 @@
           "route_role": "branch"
         },
         {
+          "id": "upgrade_thorn_downstrike_1_step",
+          "rect": [
+            8265,
+            3280,
+            30,
+            50
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_1_gallery",
+          "rect": [
+            8376,
+            3220,
+            144,
+            24
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
           "id": "upgrade_crown_resonance_1_roof",
           "rect": [
             7900,
@@ -1346,6 +1372,32 @@
             430
           ],
           "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_step",
+          "rect": [
+            8295,
+            3750,
+            65,
+            60
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_1_gallery",
+          "rect": [
+            8376,
+            3685,
+            144,
+            24
+          ],
+          "collision_role": "floor",
           "color": "385357",
           "material": "bronze_bridge",
           "route_role": "branch"
@@ -1973,12 +2025,12 @@
               530
             ]
           ],
-          "objective": "获得能力后回访旧区，练习棘线下劈，打开封口取回物资与反证。",
-          "guide": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "棘根深井：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "跳起后向下攻击破开封板，落入深井；从井底跃上记录台，再从远侧拉开返程升梯。",
+          "danger": "安全工房无敌群；高台失足仍落在维护底道。深井可从远侧升梯返回封板上层。",
           "next": "检修设施返回root_vault",
           "setpiece": "棘根深井",
-          "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "traversal_focus": "root_well_recovery_ledge → 高台奖励 → 远侧升梯返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             8010,
@@ -1990,7 +2042,7 @@
           ],
           "reward_landing": [
             8420,
-            3290
+            3180
           ],
           "movement_combo": [
             "jump",
@@ -2007,7 +2059,25 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "root_well_recovery_ledge",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8340,
+                3330
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8430,
+                3220
+              ]
+            }
+          ]
         },
         {
           "id": "upgrade_crown_resonance_1",
@@ -2051,12 +2121,12 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习王冠共鸣，打开封口取回物资与反证。",
-          "guide": "靠近旧钟门按 R，消耗能量重接契约锁。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "无名钟契库：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "用王冠共鸣重接旧契约闩，再沿错层档案台登上记录层；落回底道可返回入口。",
+          "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
           "next": "检修设施返回crown_treasury",
           "setpiece": "无名钟契库",
-          "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
+          "traversal_focus": "nameless_contract_shelves → 高台奖励 → 底道返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             8010,
@@ -2068,7 +2138,7 @@
           ],
           "reward_landing": [
             8420,
-            3770
+            3645
           ],
           "movement_combo": [
             "approach",
@@ -2084,7 +2154,32 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "nameless_contract_shelves",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8260,
+                3810
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8325,
+                3750
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8430,
+                3685
+              ]
+            }
+          ]
         }
       ],
       "save_points": [],
@@ -2261,10 +2356,10 @@
           "item_id": "upgrade_lantern_phase_1_record",
           "position": [
             7934,
-            2690
+            2555
           ],
           "room_id": "upgrade_lantern_phase_1",
-          "platform_id": "upgrade_lantern_phase_1_foundation",
+          "platform_id": "upgrade_lantern_phase_1_gallery",
           "label": "潮影中的轮班表",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -2275,10 +2370,10 @@
           "amount": 55,
           "position": [
             8004,
-            2690
+            2555
           ],
           "room_id": "upgrade_lantern_phase_1",
-          "platform_id": "upgrade_lantern_phase_1_foundation",
+          "platform_id": "upgrade_lantern_phase_1_gallery",
           "label": "检修物资 · 松脂碎片"
         }
       ],
@@ -2987,6 +3082,32 @@
           "color": "4c4b3e",
           "material": "bronze_bridge",
           "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_step",
+          "rect": [
+            7840,
+            2660,
+            65,
+            70
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_1_gallery",
+          "rect": [
+            7916,
+            2595,
+            144,
+            24
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
         }
       ],
       "map_rooms": [
@@ -3470,12 +3591,12 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习灯影相位，打开封口取回物资与反证。",
-          "guide": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "潮影检修室：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "长按相位拨开影闩，再沿两层维护台取回记录；落回底道可返回入口。",
+          "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
           "next": "检修设施返回tide_listening_cell",
           "setpiece": "潮影检修室",
-          "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "traversal_focus": "tide_shadow_switchback → 高台奖励 → 底道返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             7550,
@@ -3487,7 +3608,7 @@
           ],
           "reward_landing": [
             7960,
-            2690
+            2555
           ],
           "movement_combo": [
             "approach",
@@ -3503,7 +3624,32 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "tide_shadow_switchback",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                7800,
+                2730
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                7870,
+                2660
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                7970,
+                2595
+              ]
+            }
+          ]
         }
       ],
       "save_points": [],
@@ -3634,10 +3780,10 @@
           "item_id": "upgrade_bell_guard_3_record",
           "position": [
             8314,
-            1070
+            895
           ],
           "room_id": "upgrade_bell_guard_3",
-          "platform_id": "upgrade_bell_guard_3_foundation",
+          "platform_id": "upgrade_bell_guard_3_gallery",
           "label": "旧检修操作手册",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -3648,10 +3794,10 @@
           "amount": 60,
           "position": [
             8384,
-            1070
+            895
           ],
           "room_id": "upgrade_bell_guard_3",
-          "platform_id": "upgrade_bell_guard_3_foundation",
+          "platform_id": "upgrade_bell_guard_3_gallery",
           "label": "检修物资 · 松脂碎片"
         },
         {
@@ -3660,10 +3806,10 @@
           "item_id": "upgrade_thorn_downstrike_2_record",
           "position": [
             8314,
-            1670
+            1565
           ],
           "room_id": "upgrade_thorn_downstrike_2",
-          "platform_id": "upgrade_thorn_downstrike_2_foundation",
+          "platform_id": "upgrade_thorn_downstrike_2_gallery",
           "label": "碎板下的删改页",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -3674,10 +3820,10 @@
           "amount": 60,
           "position": [
             8384,
-            1670
+            1565
           ],
           "room_id": "upgrade_thorn_downstrike_2",
-          "platform_id": "upgrade_thorn_downstrike_2_foundation",
+          "platform_id": "upgrade_thorn_downstrike_2_gallery",
           "label": "检修物资 · 松脂碎片"
         },
         {
@@ -3686,10 +3832,10 @@
           "item_id": "upgrade_crown_resonance_2_record",
           "position": [
             8314,
-            2150
+            1990
           ],
           "room_id": "upgrade_crown_resonance_2",
-          "platform_id": "upgrade_crown_resonance_2_foundation",
+          "platform_id": "upgrade_crown_resonance_2_gallery",
           "label": "第七签署者反证",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -3700,10 +3846,10 @@
           "amount": 60,
           "position": [
             8384,
-            2150
+            1990
           ],
           "room_id": "upgrade_crown_resonance_2",
-          "platform_id": "upgrade_crown_resonance_2_foundation",
+          "platform_id": "upgrade_crown_resonance_2_gallery",
           "label": "检修物资 · 松脂碎片"
         }
       ],
@@ -4361,6 +4507,32 @@
           "route_role": "branch"
         },
         {
+          "id": "upgrade_bell_guard_3_step",
+          "rect": [
+            8210,
+            1025,
+            65,
+            85
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_bell_guard_3_gallery",
+          "rect": [
+            8296,
+            935,
+            144,
+            24
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
           "id": "upgrade_thorn_downstrike_2_roof",
           "rect": [
             7820,
@@ -4426,6 +4598,32 @@
           "route_role": "branch"
         },
         {
+          "id": "upgrade_thorn_downstrike_2_step",
+          "rect": [
+            8190,
+            1665,
+            30,
+            45
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_2_gallery",
+          "rect": [
+            8296,
+            1605,
+            144,
+            24
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
           "id": "upgrade_crown_resonance_2_roof",
           "rect": [
             7820,
@@ -4460,6 +4658,32 @@
             430
           ],
           "collision_role": "wall",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_step",
+          "rect": [
+            8210,
+            2110,
+            65,
+            80
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_2_gallery",
+          "rect": [
+            8296,
+            2030,
+            144,
+            24
+          ],
+          "collision_role": "floor",
           "color": "385357",
           "material": "bronze_bridge",
           "route_role": "branch"
@@ -4618,12 +4842,12 @@
               470
             ]
           ],
-          "objective": "在安全工房练习刚取得的钟壳格挡，打开封口取回物资与反证。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
-          "guide": "在门前按 Q，钟壳震动拨开封蜡闩。单纯持有能力不会开门。 盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "钟壳格挡练习工房：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。 门外练针架提供特殊技能练习，不消耗永久探索能力。",
+          "guide": "用钟壳脉冲拨开练习闩，再沿两层高柜登上证物台；落回底道返回入口。 盐印缚线：线阵数量受限；校录消耗盐记延长本次控制。",
+          "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
           "next": "检修设施返回wax_seal_vault",
           "setpiece": "钟壳格挡练习工房",
-          "traversal_focus": "在门前按 Q，钟壳震动拨开封蜡闩。",
+          "traversal_focus": "bell_training_loft → 高台奖励 → 底道返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             7930,
@@ -4635,7 +4859,7 @@
           ],
           "reward_landing": [
             8340,
-            1070
+            895
           ],
           "movement_combo": [
             "approach",
@@ -4652,6 +4876,31 @@
               160
             ]
           },
+          "layout_group": "movement_group_two",
+          "route_archetype": "bell_training_loft",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8180,
+                1110
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8240,
+                1025
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8350,
+                935
+              ]
+            }
+          ],
           "combat_practice": {
             "skill_id": "snare",
             "region_id": "demo_ch03_saltwhite_archive",
@@ -4709,12 +4958,12 @@
               530
             ]
           ],
-          "objective": "获得能力后回访旧区，练习棘线下劈，打开封口取回物资与反证。",
-          "guide": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "盐脊碎板井：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "跳起后向下攻击破开封板，落入深井；从井底跃上记录台，再从远侧拉开返程升梯。",
+          "danger": "安全工房无敌群；高台失足仍落在维护底道。深井可从远侧升梯返回封板上层。",
           "next": "检修设施返回salt_gate_walk",
           "setpiece": "盐脊碎板井",
-          "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "traversal_focus": "salt_well_evidence_shelf → 高台奖励 → 远侧升梯返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             7930,
@@ -4726,7 +4975,7 @@
           ],
           "reward_landing": [
             8340,
-            1670
+            1565
           ],
           "movement_combo": [
             "jump",
@@ -4743,7 +4992,25 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "salt_well_evidence_shelf",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8260,
+                1710
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8350,
+                1605
+              ]
+            }
+          ]
         },
         {
           "id": "upgrade_crown_resonance_2",
@@ -4787,12 +5054,12 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习王冠共鸣，打开封口取回物资与反证。",
-          "guide": "靠近旧钟门按 R，消耗能量重接契约锁。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "删名契约暗柜：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "用王冠共鸣重接旧契约闩，再沿错层档案台登上记录层；落回底道可返回入口。",
+          "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
           "next": "检修设施返回secret_nook",
           "setpiece": "删名契约暗柜",
-          "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
+          "traversal_focus": "erased_signature_stacks → 高台奖励 → 底道返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             7930,
@@ -4804,7 +5071,7 @@
           ],
           "reward_landing": [
             8340,
-            2150
+            1990
           ],
           "movement_combo": [
             "approach",
@@ -4820,7 +5087,32 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "erased_signature_stacks",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8180,
+                2190
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8240,
+                2110
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8350,
+                2030
+              ]
+            }
+          ]
         }
       ],
       "save_points": [],
@@ -4878,10 +5170,10 @@
           "item_id": "upgrade_thorn_downstrike_3_record",
           "position": [
             8344,
-            590
+            470
           ],
           "room_id": "upgrade_thorn_downstrike_3",
-          "platform_id": "upgrade_thorn_downstrike_3_foundation",
+          "platform_id": "upgrade_thorn_downstrike_3_gallery",
           "label": "旧检修操作手册",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -4892,10 +5184,10 @@
           "amount": 65,
           "position": [
             8414,
-            590
+            470
           ],
           "room_id": "upgrade_thorn_downstrike_3",
-          "platform_id": "upgrade_thorn_downstrike_3_foundation",
+          "platform_id": "upgrade_thorn_downstrike_3_gallery",
           "label": "检修物资 · 松脂碎片"
         },
         {
@@ -4904,10 +5196,10 @@
           "item_id": "upgrade_lantern_phase_2_record",
           "position": [
             8344,
-            1070
+            920
           ],
           "room_id": "upgrade_lantern_phase_2",
-          "platform_id": "upgrade_lantern_phase_2_foundation",
+          "platform_id": "upgrade_lantern_phase_2_gallery",
           "label": "蜂蜡影闩密令",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -4918,10 +5210,10 @@
           "amount": 65,
           "position": [
             8414,
-            1070
+            920
           ],
           "room_id": "upgrade_lantern_phase_2",
-          "platform_id": "upgrade_lantern_phase_2_foundation",
+          "platform_id": "upgrade_lantern_phase_2_gallery",
           "label": "检修物资 · 松脂碎片"
         }
       ],
@@ -5236,6 +5528,32 @@
           "route_role": "branch"
         },
         {
+          "id": "upgrade_thorn_downstrike_3_step",
+          "rect": [
+            8210,
+            575,
+            30,
+            55
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_thorn_downstrike_3_gallery",
+          "rect": [
+            8326,
+            510,
+            144,
+            24
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
           "id": "upgrade_lantern_phase_2_roof",
           "rect": [
             7850,
@@ -5270,6 +5588,32 @@
             430
           ],
           "collision_role": "wall",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_step",
+          "rect": [
+            8240,
+            1035,
+            65,
+            75
+          ],
+          "collision_role": "floor",
+          "color": "4c4b3e",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_lantern_phase_2_gallery",
+          "rect": [
+            8326,
+            960,
+            144,
+            24
+          ],
+          "collision_role": "floor",
           "color": "4c4b3e",
           "material": "bronze_bridge",
           "route_role": "branch"
@@ -5318,12 +5662,12 @@
               530
             ]
           ],
-          "objective": "在安全工房练习刚取得的棘线下劈，打开封口取回物资与反证。",
-          "guide": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "棘线下劈练习工房：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "跳起后向下攻击破开封板，落入深井；从井底跃上记录台，再从远侧拉开返程升梯。",
+          "danger": "安全工房无敌群；高台失足仍落在维护底道。深井可从远侧升梯返回封板上层。",
           "next": "检修设施返回tree_heart",
           "setpiece": "棘线下劈练习工房",
-          "traversal_focus": "站上裂纹封板，跳起后按下方向 + 攻击，下劈破开。",
+          "traversal_focus": "heart_well_training_deck → 高台奖励 → 远侧升梯返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             7960,
@@ -5335,7 +5679,7 @@
           ],
           "reward_landing": [
             8370,
-            590
+            470
           ],
           "movement_combo": [
             "jump",
@@ -5352,7 +5696,25 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "heart_well_training_deck",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8290,
+                630
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8380,
+                510
+              ]
+            }
+          ]
         },
         {
           "id": "upgrade_lantern_phase_2",
@@ -5396,12 +5758,12 @@
               470
             ]
           ],
-          "objective": "获得能力后回访旧区，练习灯影相位，打开封口取回物资与反证。",
-          "guide": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "蜂蜡影闩室：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "长按相位拨开影闩，再沿两层维护台取回记录；落回底道可返回入口。",
+          "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
           "next": "检修设施返回beeswax_nook",
           "setpiece": "蜂蜡影闩室",
-          "traversal_focus": "靠近门闩长按 E；消耗能量启动相位，拨开机械门闩。",
+          "traversal_focus": "wax_shadow_balcony → 高台奖励 → 底道返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             7960,
@@ -5413,7 +5775,7 @@
           ],
           "reward_landing": [
             8370,
-            1070
+            920
           ],
           "movement_combo": [
             "approach",
@@ -5429,7 +5791,32 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "wax_shadow_balcony",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                8210,
+                1110
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8270,
+                1035
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                8380,
+                960
+              ]
+            }
+          ]
         }
       ],
       "grapple_anchors": [],
@@ -5868,10 +6255,10 @@
           "item_id": "upgrade_crown_resonance_3_record",
           "position": [
             6284,
-            530
+            350
           ],
           "room_id": "upgrade_crown_resonance_3",
-          "platform_id": "upgrade_crown_resonance_3_foundation",
+          "platform_id": "upgrade_crown_resonance_3_gallery",
           "label": "旧检修操作手册",
           "note": "能力回访反证；可选，不代替六区主线证词。"
         },
@@ -5882,10 +6269,10 @@
           "amount": 75,
           "position": [
             6354,
-            530
+            350
           ],
           "room_id": "upgrade_crown_resonance_3",
-          "platform_id": "upgrade_crown_resonance_3_foundation",
+          "platform_id": "upgrade_crown_resonance_3_gallery",
           "label": "检修物资 · 松脂碎片"
         }
       ],
@@ -6041,6 +6428,32 @@
           "color": "385357",
           "material": "bronze_bridge",
           "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_step",
+          "rect": [
+            6195,
+            480,
+            65,
+            90
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
+        },
+        {
+          "id": "upgrade_crown_resonance_3_gallery",
+          "rect": [
+            6266,
+            390,
+            144,
+            24
+          ],
+          "collision_role": "floor",
+          "color": "385357",
+          "material": "bronze_bridge",
+          "route_role": "branch"
         }
       ],
       "map_rooms": [
@@ -6086,12 +6499,12 @@
               470
             ]
           ],
-          "objective": "在安全工房练习刚取得的王冠共鸣，打开封口取回物资与反证。",
-          "guide": "靠近旧钟门按 R，消耗能量重接契约锁。单纯持有能力不会开门。",
-          "danger": "安全检修空间，无敌群压迫；封口外可随时原路退出。",
+          "objective": "王冠共鸣练习工房：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+          "guide": "用王冠共鸣重接旧契约闩，再沿错层档案台登上记录层；落回底道可返回入口。",
+          "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
           "next": "检修设施返回crown_antechamber",
           "setpiece": "王冠共鸣练习工房",
-          "traversal_focus": "靠近旧钟门按 R，消耗能量重接契约锁。",
+          "traversal_focus": "crown_terminal_dais → 高台奖励 → 底道返程",
           "pacing_role": "optional_reward",
           "entry_point": [
             5900,
@@ -6103,7 +6516,7 @@
           ],
           "reward_landing": [
             6310,
-            530
+            350
           ],
           "movement_combo": [
             "approach",
@@ -6119,7 +6532,32 @@
               120,
               160
             ]
-          }
+          },
+          "layout_group": "movement_group_two",
+          "route_archetype": "crown_terminal_dais",
+          "route_steps": [
+            {
+              "action": "walk",
+              "position": [
+                6150,
+                570
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                6225,
+                480
+              ]
+            },
+            {
+              "action": "jump",
+              "position": [
+                6320,
+                390
+              ]
+            }
+          ]
         }
       ],
       "grapple_anchors": [],
@@ -6478,7 +6916,7 @@
       ],
       "reward_landing": [
         8340,
-        1070
+        895
       ],
       "approach_position": [
         8092,
@@ -6509,7 +6947,7 @@
       ],
       "reward_landing": [
         8420,
-        3290
+        3180
       ],
       "approach_position": [
         8158,
@@ -6540,7 +6978,7 @@
       ],
       "reward_landing": [
         8340,
-        1670
+        1565
       ],
       "approach_position": [
         8078,
@@ -6571,7 +7009,7 @@
       ],
       "reward_landing": [
         8370,
-        590
+        470
       ],
       "approach_position": [
         8108,
@@ -6602,7 +7040,7 @@
       ],
       "reward_landing": [
         7960,
-        2690
+        2555
       ],
       "approach_position": [
         7722,
@@ -6633,7 +7071,7 @@
       ],
       "reward_landing": [
         8370,
-        1070
+        920
       ],
       "approach_position": [
         8132,
@@ -6695,7 +7133,7 @@
       ],
       "reward_landing": [
         8420,
-        3770
+        3645
       ],
       "approach_position": [
         8192,
@@ -6726,7 +7164,7 @@
       ],
       "reward_landing": [
         8340,
-        2150
+        1990
       ],
       "approach_position": [
         8112,
@@ -6757,7 +7195,7 @@
       ],
       "reward_landing": [
         6310,
-        530
+        350
       ],
       "approach_position": [
         6082,
@@ -7572,6 +8010,561 @@
       "guide": "用钟壳脉冲拨开封蜡闩，再沿分层证物柜登高；落回底部便可返程。",
       "danger": "无敌群压迫；失足落在原有底层维护道，可重新尝试并原路返回。",
       "traversal_focus": "foundry_counterweight_shelf → 高台双奖励 → 底层安全返程"
+    },
+    {
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_bell_guard_3",
+      "variant": "bell_training_loft",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            390,
+            245
+          ],
+          "size": [
+            65,
+            85
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            155
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_bell_guard_3_gallery",
+      "reward_offset": [
+        520,
+        115
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            360,
+            330
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            420,
+            245
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            155
+          ]
+        }
+      ],
+      "objective": "钟壳格挡练习工房：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "用钟壳脉冲拨开练习闩，再沿两层高柜登上证物台；落回底道返回入口。",
+      "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
+      "traversal_focus": "bell_training_loft → 高台奖励 → 底道返程"
+    },
+    {
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_thorn_downstrike_1",
+      "variant": "root_well_recovery_ledge",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            365,
+            340
+          ],
+          "size": [
+            30,
+            50
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            280
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_thorn_downstrike_1_gallery",
+      "reward_offset": [
+        520,
+        240
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            440,
+            390
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            280
+          ]
+        }
+      ],
+      "objective": "棘根深井：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "跳起后向下攻击破开封板，落入深井；从井底跃上记录台，再从远侧拉开返程升梯。",
+      "danger": "安全工房无敌群；高台失足仍落在维护底道。深井可从远侧升梯返回封板上层。",
+      "traversal_focus": "root_well_recovery_ledge → 高台奖励 → 远侧升梯返程"
+    },
+    {
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_thorn_downstrike_2",
+      "variant": "salt_well_evidence_shelf",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            370,
+            345
+          ],
+          "size": [
+            30,
+            45
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            285
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_thorn_downstrike_2_gallery",
+      "reward_offset": [
+        520,
+        245
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            440,
+            390
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            285
+          ]
+        }
+      ],
+      "objective": "盐脊碎板井：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "跳起后向下攻击破开封板，落入深井；从井底跃上记录台，再从远侧拉开返程升梯。",
+      "danger": "安全工房无敌群；高台失足仍落在维护底道。深井可从远侧升梯返回封板上层。",
+      "traversal_focus": "salt_well_evidence_shelf → 高台奖励 → 远侧升梯返程"
+    },
+    {
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "upgrade_thorn_downstrike_3",
+      "variant": "heart_well_training_deck",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            360,
+            335
+          ],
+          "size": [
+            30,
+            55
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            270
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_thorn_downstrike_3_gallery",
+      "reward_offset": [
+        520,
+        230
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            440,
+            390
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            270
+          ]
+        }
+      ],
+      "objective": "棘线下劈练习工房：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "跳起后向下攻击破开封板，落入深井；从井底跃上记录台，再从远侧拉开返程升梯。",
+      "danger": "安全工房无敌群；高台失足仍落在维护底道。深井可从远侧升梯返回封板上层。",
+      "traversal_focus": "heart_well_training_deck → 高台奖励 → 远侧升梯返程"
+    },
+    {
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_lantern_phase_1",
+      "variant": "tide_shadow_switchback",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            400,
+            260
+          ],
+          "size": [
+            65,
+            70
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            195
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_lantern_phase_1_gallery",
+      "reward_offset": [
+        520,
+        155
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            360,
+            330
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            430,
+            260
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            195
+          ]
+        }
+      ],
+      "objective": "潮影检修室：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "长按相位拨开影闩，再沿两层维护台取回记录；落回底道可返回入口。",
+      "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
+      "traversal_focus": "tide_shadow_switchback → 高台奖励 → 底道返程"
+    },
+    {
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "upgrade_lantern_phase_2",
+      "variant": "wax_shadow_balcony",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            390,
+            255
+          ],
+          "size": [
+            65,
+            75
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            180
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_lantern_phase_2_gallery",
+      "reward_offset": [
+        520,
+        140
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            360,
+            330
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            420,
+            255
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            180
+          ]
+        }
+      ],
+      "objective": "蜂蜡影闩室：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "长按相位拨开影闩，再沿两层维护台取回记录；落回底道可返回入口。",
+      "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
+      "traversal_focus": "wax_shadow_balcony → 高台奖励 → 底道返程"
+    },
+    {
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_crown_resonance_1",
+      "variant": "nameless_contract_shelves",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            395,
+            270
+          ],
+          "size": [
+            65,
+            60
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            205
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_crown_resonance_1_gallery",
+      "reward_offset": [
+        520,
+        165
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            360,
+            330
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            425,
+            270
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            205
+          ]
+        }
+      ],
+      "objective": "无名钟契库：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "用王冠共鸣重接旧契约闩，再沿错层档案台登上记录层；落回底道可返回入口。",
+      "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
+      "traversal_focus": "nameless_contract_shelves → 高台奖励 → 底道返程"
+    },
+    {
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_crown_resonance_2",
+      "variant": "erased_signature_stacks",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            390,
+            250
+          ],
+          "size": [
+            65,
+            80
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            170
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_crown_resonance_2_gallery",
+      "reward_offset": [
+        520,
+        130
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            360,
+            330
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            420,
+            250
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            170
+          ]
+        }
+      ],
+      "objective": "删名契约暗柜：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "用王冠共鸣重接旧契约闩，再沿错层档案台登上记录层；落回底道可返回入口。",
+      "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
+      "traversal_focus": "erased_signature_stacks → 高台奖励 → 底道返程"
+    },
+    {
+      "region_id": "demo_ch06_silent_crown_core",
+      "room_id": "upgrade_crown_resonance_3",
+      "variant": "crown_terminal_dais",
+      "layout_group": "movement_group_two",
+      "platforms": [
+        {
+          "id_suffix": "step",
+          "offset": [
+            405,
+            240
+          ],
+          "size": [
+            65,
+            90
+          ],
+          "collision_role": "floor"
+        },
+        {
+          "id_suffix": "gallery",
+          "offset": [
+            476,
+            150
+          ],
+          "size": [
+            144,
+            24
+          ],
+          "collision_role": "floor"
+        }
+      ],
+      "reward_platform": "upgrade_crown_resonance_3_gallery",
+      "reward_offset": [
+        520,
+        110
+      ],
+      "route_steps": [
+        {
+          "action": "walk",
+          "offset": [
+            360,
+            330
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            435,
+            240
+          ]
+        },
+        {
+          "action": "jump",
+          "offset": [
+            530,
+            150
+          ]
+        }
+      ],
+      "objective": "王冠共鸣练习工房：完成能力动作后穿过专属立体检修路线，收回两件物资并安全退出。",
+      "guide": "用王冠共鸣重接旧契约闩，再沿错层档案台登上记录层；落回底道可返回入口。",
+      "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
+      "traversal_focus": "crown_terminal_dais → 高台奖励 → 底道返程"
     }
   ]
 }
