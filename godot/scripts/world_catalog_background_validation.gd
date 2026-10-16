@@ -21,6 +21,35 @@ class FailedStartReader extends "res://scripts/world_config_read_job.gd":
         return 0
 
 
+# Deterministic ticket lifecycle fixture, not a real background-work proof.
+# Production cold-start above independently checks actual worker provenance.
+class LookaheadReader extends "res://scripts/world_config_read_job.gd":
+    var requests := 0
+    var takes := 0
+    var hold_next := false
+    var fail_next := false
+    var stale_next := false
+    var source_path := ""
+    var source_stamp := 0
+    func busy() -> bool:
+        return hold_next and requests >= 2 and _accepted != 0
+    func request(path: String) -> int:
+        if closed or busy() or has_pending_ticket(): return 0
+        requests += 1
+        if fail_next and requests == 2: return 0
+        _serial += 1
+        _accepted = _serial
+        source_path = path
+        source_stamp = FileAccess.get_modified_time(path)
+        return _accepted
+    func take(ticket: int) -> Dictionary:
+        if ticket == 0 or ticket != _accepted or busy(): return {}
+        takes += 1
+        _accepted = 0
+        return {"raw": {"inventory": {"catalog": {"conflict": {"name": "raw"}, "raw_only": {"name": "raw"}}}},
+            "stamp": source_stamp - (1 if stale_next and requests == 2 else 0), "bytes": 1,
+            "worker_usec": 0, "worker_is_main": false, "error": ""}
+
 # Isolate the scheduler from worker timing: the catalog callback has already
 # crossed its final cancellation window when the next prepare job is admitted.
 class SchedulingHost extends Node:
@@ -38,7 +67,7 @@ class SchedulingHost extends Node:
         return []
 
 class SchedulingLoader extends "res://scripts/world_region_loader.gd":
-    func _prepare_catalog_region_async(host: Node, _region_id: String, _route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, _source_path: String = "") -> bool:
+    func _prepare_catalog_region_async(host: Node, _region_id: String, _route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, _source_path: String = "", _read_ahead: Dictionary = {}, _next_region_id: String = "") -> bool:
         await _next_process_frame(tree)
         if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
             return false
@@ -67,6 +96,8 @@ func _run() -> void:
         _check(not read.worker_is_main and read.bytes > 0 and read.wait_frames >= 1, "region read and parse used background worker")
         _check(read.max_merge_edges <= 64 and read.route_generation == ROUTES.cached_generation(), "catalog merge bounded and generation pinned")
         _check(read.merge_frame_batches >= 1 and read.max_merge_operations >= 1 and read.max_merge_operations <= 8, "catalog source batches preserve operation cap and final yield")
+    _check(reads.slice(1).all(func(read): return int(read.read_overlap_frames) >= 1 and int(read.wait_frames) >= int(read.read_overlap_frames)), "adjacent catalog reads share preceding final merge cancellation windows")
+    _check(not scene.world_loader.config_read_job.has_pending_ticket(), "complete cold catalog releases lookahead ownership")
     var startup_metric: Dictionary = scene.world_loader.last_transition
     _check(startup_metric.route_manifest_copy_max_operations >= 1 and startup_metric.route_manifest_copy_max_operations <= 8 and startup_metric.route_manifest_copy_max_step_edges <= 512, "manifest batches preserve operation and copy-edge caps")
     await _catalog_scheduler_probe()
@@ -102,6 +133,7 @@ func _run() -> void:
     await process_frame
     for boundary in ["catalog_commit", "final_handoff"]:
         await _rollback_lease_change(boundary)
+    await _lookahead_lifecycle()
     await _faults()
     for suffix in ["", ".bak", ".tmp", ".previous"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
@@ -326,6 +358,59 @@ func _faults() -> void:
     _check(not result, "host free rejects worker result safely")
     loader.shutdown()
     _check(not loader.config_read_job.busy(), "teardown drains unique reader")
+
+func _lookahead_lifecycle() -> void:
+    var next_region := "demo_ch01_moss_bell_court"
+    for held in [false, true]:
+        for fault in ["none", "cancel", "generation", "route", "detach", "free", "shutdown", "source_stamp", "next_stamp", "wrong_owner", "launch"]:
+            _write('{"inventory":{"catalog":{"item":{}}}}')
+            if fault == "source_stamp": await create_timer(1.1).timeout
+            var host := Host.new()
+            root.add_child(host)
+            var loader = LOADER.new()
+            loader.phase = "loading"
+            var reader := LookaheadReader.new()
+            reader.hold_next = held
+            reader.fail_next = fault == "launch"
+            reader.stale_next = fault == "next_stamp"
+            loader.config_read_job = reader
+            var ahead := {}
+            var reached := {"value": false}
+            var inject := func():
+                if reached.value or ahead.is_empty(): return
+                reached.value = true
+                _check(reader.has_pending_ticket() and reader.takes == 1 and reader.busy() == held, "lookahead is untaken in deterministic busy/completed state")
+                match fault:
+                    "cancel": loader.cancel_transition()
+                    "generation": loader.generation += 1
+                    "route": ROUTES._cache_generation += 1
+                    "detach": root.remove_child(host)
+                    "free": host.free()
+                    "shutdown": loader.shutdown()
+                    "source_stamp": _write('{"inventory":{"catalog":{"changed":{}}}}')
+            process_frame.connect(inject)
+            var ok: bool = await loader._prepare_catalog_region_async(host, "fixture", {"conflict": {"name": "route"}}, self, loader.generation, ROUTES.cached_generation(), true, FIXTURE, ahead, next_region)
+            process_frame.disconnect(inject)
+            if fault in ["none", "next_stamp", "wrong_owner"]:
+                _check(ok and reached.value and not ahead.is_empty() and ahead.yield_frames >= 1 and reader.takes == 1, "current catalog yields before handing off private next ticket")
+                if fault == "wrong_owner": ahead.region_id = "different_owner"
+                # A held worker needs one additional real status poll. A completed
+                # one may merge immediately after the predecessor's final yield.
+                if held: process_frame.connect(func(): reader.hold_next = false, CONNECT_ONE_SHOT)
+                ok = await loader._prepare_catalog_region_async(host, next_region, {}, self, loader.generation, ROUTES.cached_generation(), true, "", ahead)
+                _check(ok == (fault == "none"), "lookahead handoff rejects stale stamp or wrong owner")
+                if fault == "none":
+                    var read: Dictionary = loader.last_transition.catalog_reads.back()
+                    _check(read.read_overlap_frames >= 1 and read.wait_frames == read.read_overlap_frames + (1 if held else 0), "overlap and remaining wait frames are accounted separately")
+                    _check(host.world_catalog_prepare_staging.conflict.name == "route" and reader.requests == 2 and reader.takes == 2, "lookahead preserves authored first-region and route priority with one read per source")
+            else:
+                _check(not ok and (reached.value or fault == "launch"), "lookahead lifecycle fault rejects current handoff")
+            _check(ahead.is_empty() and not reader.has_pending_ticket(), "lookahead lifecycle releases only owned ticket before teardown")
+            if is_instance_valid(host):
+                _check(host.world_catalog.is_empty() and (fault == "none" or host.world_catalog_prepare_staging.is_empty()), "lookahead fault cannot publish or retain partial staging")
+                host.free()
+            loader.shutdown()
+            await process_frame
 
 func _read(loader: RefCounted, host: Node, overlay: Dictionary) -> bool:
     return await loader._prepare_catalog_region_async(host, "fixture", overlay, self, loader.generation, ROUTES.cached_generation(), true, FIXTURE)
