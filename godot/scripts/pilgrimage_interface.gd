@@ -1684,7 +1684,7 @@ func _show_journal_record(entry: Dictionary) -> void:
     if String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
         var ready:=bool(entry.get("available",false))
-        bag_category_label.text="结局选择 · "+("已选择" if chosen else "可以选择" if ready else "准备中")
+        bag_category_label.text="结局选择 · "+_ending_status_label(entry)
         if not String(entry.get("message","")).is_empty():lines.append(String(entry.message))
         for requirement in entry.get("known_missing",[]):
             var clue: Dictionary=requirement
@@ -1698,7 +1698,8 @@ func _show_journal_record(entry: Dictionary) -> void:
             var consequences: Variant=entry.get("consequences",{})
             if consequences is Dictionary and not consequences.is_empty():
                 lines.append("\n结局影响")
-                for consequence in consequences:lines.append("· %s：%s" % [String(consequence),str(consequences[consequence])])
+                for consequence in entry.get("consequence_rows",[]):
+                    lines.append("· %s：%s" % [String(consequence.get("title","六城")),String(consequence.get("text",""))])
     elif String(entry.get("record_kind",""))=="quest":
         bag_category_label.text="委托 · "+("已完成" if String(entry.get("status",""))=="complete" else "进行中")
         lines.append(String(entry.get("description","")))
@@ -1710,11 +1711,19 @@ func _show_journal_record(entry: Dictionary) -> void:
         bag_category_label.text="证词 · "+("已发现" if acquired else "缺页")
         lines.append(String(entry.get("claim","")) if acquired else "尚未拾得这页证词。")
         lines.append("\n线索："+String(entry.get("location_hint","留意区域中的遗物与生产设施。")))
+        if acquired:
+            var witness: Dictionary=entry.get("scene_witness",{})
+            if not witness.is_empty():
+                lines.append("\n场景印证 · "+String(witness.get("title","遗留痕迹")))
+                lines.append(String(witness.get("text","")))
+            for connection in entry.get("connections",[]):
+                lines.append("\n互证："+String(connection))
     bag_description.text="\n".join(lines)
 
 func _ending_status_label(entry: Dictionary) -> String:
     if bool(entry.get("chosen",false)):return "已选择"
     if bool(entry.get("available",false)):return "可以选择"
+    if String(entry.get("status",""))=="closed":return "已关闭"
     return "准备中"
 
 func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dictionary:

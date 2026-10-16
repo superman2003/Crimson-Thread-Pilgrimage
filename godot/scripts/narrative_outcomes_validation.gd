@@ -27,6 +27,7 @@ func _run() -> void:
 	print("NARRATIVE_GROUP variable_quest_order checks=%d failures=%d" % [checks, failures])
 	_test_ending_world_phase()
 	print("NARRATIVE_GROUP ending_world_phase checks=%d failures=%d" % [checks, failures])
+	_test_return_journey_contract()
 	print("NARRATIVE_OUTCOMES checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 
@@ -201,3 +202,71 @@ func _check(condition: bool, description: String) -> void:
 		return
 	failures += 1
 	push_error(description)
+
+func _test_return_journey_contract() -> void:
+	var all_orders: Array = []
+	_permute_evidence([], [1, 2, 3, 4, 5, 6], all_orders)
+	_check(all_orders.size() == 720, "all six-proof permutations are enumerated")
+	for order in all_orders:
+		var inventory: Dictionary = {}
+		for index in order.size():
+			inventory["testimony_%02d" % int(order[index])] = 1
+			var progress := narrative.evaluate_progress(inventory, {})
+			_check(int(progress.evidence_count) == index + 1, "any discovery order preserves exact proof count")
+			_check(bool(progress.evidence_complete) == (index == 5), "no incomplete prefix finishes the main evidence chain")
+		_check(bool(narrative.evaluate_ending("ending_c", inventory, {"boss_down_ch06": true}).available), "every complete permutation enables rewrite without optional quests")
+	_check(narrative.evidence_connections({}).is_empty(), "unknown cross-reading stays hidden")
+	_check(narrative.evidence_connections({"testimony_02": 1, "testimony_03": 0}).is_empty(), "zero proof does not reveal a connection")
+	_check(narrative.evidence_connections({"testimony_02": 1, "testimony_03": 1}).size() == 1, "two acquired proofs reveal their authored connection")
+	var zero_ability := narrative.resolve("npc_root_prisoner", [], ["thorn_downstrike"], {}, {"thorn_downstrike": 0})
+	_check(String(zero_ability.get("state", "")) == "root_waiting", "zero-count ability cannot rescue an NPC via inventory keys")
+	for ending_id in ["ending_a", "ending_b", "ending_c"]:
+		var flags: Dictionary = {"ending_chosen": ending_id, "quest_keep_me": true}
+		for other in ["ending_a", "ending_b", "ending_c"]:
+			flags[other + "_done"] = true
+		var restored := narrative.restored_ending_flags(flags)
+		_check(bool(restored.quest_keep_me), "ending repair preserves unrelated quest flags")
+		_check(narrative.restored_ending_flags(restored) == restored, "ending restoration is idempotent")
+		for other in ["ending_a", "ending_b", "ending_c"]:
+			_check(bool(restored.get(other + "_done", false)) == (ending_id == other), "only the selected branch survives restoration")
+			for flag in narrative.story_data.endings[other].consequence_flags:
+				_check(bool(restored.get(flag, false)) == (ending_id == other), "opposing world consequences cannot survive restore")
+		# Finish each authored continuation first. Every NPC must then offer the
+		# local aftermath, without changing or suppressing optional quest rewards.
+		for npc_id in narrative.entries:
+			var npc_flags := restored.duplicate(true)
+			var settled := false
+			for visit in range(12):
+				var dialogue := narrative.resolve(npc_id, [], [], npc_flags, {})
+				if String(dialogue.get("state", "")).begins_with("aftermath_"):
+					settled = true
+					_check(dialogue.lines.size() > 0, "all six regions retain a readable local consequence")
+					break
+				var outcome := NARRATIVE.completion_outcome(dialogue, dialogue.get("lines", []).size() - 1, npc_flags)
+				for flag in outcome.get("flags", []): npc_flags[String(flag)] = true
+			_check(settled, "continuations settle into aftermath without repeat loops: " + String(npc_id))
+		var rescue := narrative.resolve("npc_root_prisoner", [], [], restored, {"thorn_downstrike": 1})
+		_check(String(rescue.get("state", "")) == "root_rescued", "rescue remains completable after every ending")
+		var home_flags := restored.duplicate(true)
+		home_flags["quest_bring_names_canal_heard"] = true
+		home_flags["quest_bring_names_archive_heard"] = true
+		_check(String(narrative.resolve("npc_threadsmith_apprentice", [], [], home_flags).state) == "names_homecoming", "homecoming outranks aftermath when earned")
+	var conflicting: Dictionary = {"ending_a_done": true, "ending_b_done": true, "world_bells_restored": true, "quest_keep_me": true}
+	var repaired := narrative.restored_ending_flags(conflicting)
+	_check(not repaired.has("ending_chosen") and not repaired.has("ending_a_done") and not repaired.has("world_bells_restored"), "ambiguous legacy branches restore to an unchosen state")
+	_check(narrative.resolve("npc_black_tide_child", [], [], conflicting).state == "child_first", "ambiguous legacy flags cannot select a random aftermath")
+	var legacy := narrative.restored_ending_flags({"ending_c_done": true})
+	_check(legacy.get("ending_chosen", "") == "ending_c" and bool(legacy.get("world_names_restored", false)), "unique legacy choice restores its consequences")
+	for row in narrative.consequence_rows(narrative.story_data.endings.ending_c.consequences):
+		_check(not String(row.title).begins_with("npc_"), "player-facing consequence names contain no internal IDs")
+
+func _permute_evidence(prefix: Array, remaining: Array, output: Array) -> void:
+	if remaining.is_empty():
+		output.append(prefix.duplicate())
+		return
+	for value in remaining:
+		var next := remaining.duplicate()
+		next.erase(value)
+		var path := prefix.duplicate()
+		path.append(value)
+		_permute_evidence(path, next, output)

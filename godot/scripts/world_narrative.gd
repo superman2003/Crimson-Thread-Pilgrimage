@@ -26,6 +26,17 @@ func resolve(npc_id: String, fallback_lines: Array, abilities: Array, flags: Dic
         var pending_reward_state: Dictionary = variant
         if _has_unclaimed_completed_reward(pending_reward_state, effective_flags):
             return _state_result(entry, pending_reward_state, fallback_lines)
+    # An ending must not swallow a remaining quest or an earned seal unlock.
+    # Only explicitly authored continuations with a fresh commit may preempt
+    # aftermath; repeat conversations return to the selected world's response.
+    if not _resolved_ending_choice(flags).is_empty():
+        for variant in entry.get("states", []):
+            var continuation: Dictionary = variant
+            if not bool(continuation.get("continues_after_ending", false)) or not _matches(continuation, abilities, effective_flags, inventory):
+                continue
+            var outcome := completion_outcome(continuation, continuation.get("lines", []).size() - 1, effective_flags)
+            if not outcome.get("flags", []).is_empty():
+                return _state_result(entry, continuation, fallback_lines)
     for variant in entry.get("states", []):
         var state: Dictionary = variant
         if not _matches(state, abilities, effective_flags, inventory):
@@ -64,7 +75,10 @@ func _matches(state: Dictionary, abilities: Array, flags: Dictionary, inventory:
         if int(inventory.get(String(item), 0)) <= 0:
             return false
     for ability in state.get("abilities_all", []):
-        if not abilities.has(String(ability)) and int(inventory.get(String(ability), 0)) <= 0:
+        # Runtime passes inventory.keys() as its ability list. A stale zero key
+        # must not turn into a learned ability through that convenience array.
+        var learned := int(inventory.get(String(ability), 0)) > 0 if inventory.has(String(ability)) else abilities.has(String(ability))
+        if not learned:
             return false
     if int(state.get("evidence_min", 0)) > int(_calculate_evidence(inventory, flags).get("acquired_count", 0)):
         return false
@@ -120,6 +134,11 @@ func _calculate_evidence(inventory: Dictionary, flags: Dictionary = {}) -> Dicti
         var acquired := false
         for source in entry.get("items_any", []):
             acquired = acquired or int(inventory.get(String(source), 0)) > 0
+        entry["connections"] = []
+        if acquired:
+            for link in evidence_connections(inventory):
+                if link.get("evidence_all", []).has(evidence_id):
+                    entry["connections"].append(String(link.get("text", "")))
         entry["acquired"] = acquired
         entry["known"] = acquired or bool(flags.get("evidence_known_%s" % evidence_id, false)) or bool(flags.get("evidence_read_%s" % evidence_id, false))
         evidence_entries.append(entry)
@@ -175,6 +194,53 @@ func evaluate_progress(inventory: Dictionary, flags: Dictionary = {}) -> Diction
         "ending_choices_encountered": choice_encountered,
         "ending_chosen": selected
     }
+
+## Cross-reading never exposes an undiscovered proof, even if the caller has
+## persisted knowledge flags. It follows current possession like ending C.
+func evidence_connections(inventory: Dictionary) -> Array:
+    var rows: Array = []
+    for value in story_data.get("evidence_links", []):
+        var link: Dictionary = value
+        var ready := true
+        for evidence_id in link.get("evidence_all", []):
+            var found := false
+            for evidence_value in story_data.get("evidence", []):
+                var evidence_entry: Dictionary = evidence_value
+                if String(evidence_entry.get("id", "")) != String(evidence_id):
+                    continue
+                for source in evidence_entry.get("items_any", []):
+                    found = found or int(inventory.get(String(source), 0)) > 0
+            ready = ready and found
+        if ready:
+            rows.append(link.duplicate(true))
+    return rows
+
+func consequence_rows(consequences: Dictionary) -> Array:
+    var rows: Array = []
+    for key in consequences:
+        var entry: Dictionary = entries.get(String(key), {})
+        rows.append({"id": String(key), "title": "六城" if String(key) == "world" else String(entry.get("display_name", "旅途中相识的人")), "text": String(consequences[key])})
+    return rows
+
+## Normalize only ending-owned fields. A unique legacy marker is recoverable;
+## conflicting legacy markers have no authority to silently select a branch.
+func restored_ending_flags(flags: Dictionary) -> Dictionary:
+    var restored := flags.duplicate(true)
+    var selected := _resolved_ending_choice(flags)
+    restored.erase("ending_chosen")
+    restored.erase("ending_consequences")
+    for ending_id in story_data.get("endings", {}):
+        restored.erase(String(ending_id) + "_done")
+        for flag in story_data.endings[ending_id].get("consequence_flags", []):
+            restored.erase(String(flag))
+    if not selected.is_empty():
+        restored["ending_chosen"] = selected
+        restored[selected + "_done"] = true
+        var ending: Dictionary = story_data.get("endings", {}).get(selected, {})
+        restored["ending_consequences"] = ending.get("consequences", {}).duplicate(true)
+        for flag in ending.get("consequence_flags", []):
+            restored[String(flag)] = true
+    return restored
 
 ## Journal rows come from the same save flags and inventory as NPC decisions.
 ## Unseen optional quests are omitted so reading the UI does not reveal secrets.
@@ -249,7 +315,7 @@ func _evaluate_ending(ending_id: String, inventory: Dictionary, flags: Dictionar
             if not bool(flags.get(String(flag), false)):
                 grant_flags.append(String(flag))
     var available := missing.is_empty() and (chosen.is_empty() or chosen == ending_id)
-    return {"id": ending_id, "title": entry.get("title", ending_id), "available": available, "missing": missing, "known_missing": known_missing, "hidden_missing_count": hidden_missing_count, "grant_flags": grant_flags, "consequences": entry.get("consequences", {}).duplicate(true), "message": entry.get("message", ""), "already_chosen": chosen == ending_id}
+    return {"id": ending_id, "title": entry.get("title", ending_id), "available": available, "missing": missing, "known_missing": known_missing, "hidden_missing_count": hidden_missing_count, "grant_flags": grant_flags, "consequences": entry.get("consequences", {}).duplicate(true), "consequence_rows": consequence_rows(entry.get("consequences", {})), "message": entry.get("message", ""), "already_chosen": chosen == ending_id}
 
 func _resolved_ending_choice(flags: Dictionary) -> String:
     var chosen := String(flags.get("ending_chosen", ""))
@@ -262,15 +328,7 @@ func _resolved_ending_choice(flags: Dictionary) -> String:
     return done_choices[0] if done_choices.size() == 1 else ""
 
 func _effective_flags(flags: Dictionary) -> Dictionary:
-    var effective := flags.duplicate(true)
-    var selected := _resolved_ending_choice(flags)
-    if selected in ["ending_a", "ending_b", "ending_c"]:
-        effective["ending_chosen"] = selected
-        for ending_id in ["ending_a", "ending_b", "ending_c"]:
-            effective[ending_id + "_done"] = ending_id == selected
-    else:
-        effective.erase("ending_chosen")
-    return effective
+    return restored_ending_flags(flags)
 
 ## A physical relocation is staged by the level; this state remains saveable
 ## and gives the destination explicitly rather than only promising migration.

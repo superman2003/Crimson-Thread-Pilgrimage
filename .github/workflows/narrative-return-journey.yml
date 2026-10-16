@@ -1,0 +1,69 @@
+name: Narrative return journey
+
+on:
+  pull_request:
+    paths:
+      - 'godot/data/world_narrative.json'
+      - 'godot/scripts/world_narrative.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/narrative_outcomes_validation.gd'
+      - 'godot/scripts/narrative_return_runtime_validation.gd'
+      - 'godot/tests/verify_narrative*.gd'
+      - 'godot/tests/verify_world_narrative.gd'
+      - 'tools/validate_world_narrative.py'
+      - 'tools/run_narrative_return_journey.py'
+      - 'docs/NARRATIVE_RETURN_JOURNEY.md'
+      - '.github/workflows/narrative-return-journey.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: narrative-return-journey-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate JavaScript and campaign structure
+        run: |
+          python3 tools/validate_world_narrative.py
+          npm test
+          npm run test:campaign
+      - name: Import resources with strict error checks
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/import"
+      - name: Validate variable discovery, quest transactions and ending restoration
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_narrative_return_journey.py --engine "$engine" --software-gl \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs"
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: narrative-return-journey-logs
+          path: ${{ runner.temp }}/narrative-return-journey-logs
+          if-no-files-found: ignore

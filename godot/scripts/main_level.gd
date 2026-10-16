@@ -1141,6 +1141,8 @@ func _restore_world_inventory_and_region() -> void:
             _add_inventory_item(String(item_id), missing, false)
     currency_count = int(snapshot.currency)
     story_flags = snapshot.story_flags.duplicate(true)
+    if world_narrative != null:
+        story_flags = world_narrative.restored_ending_flags(story_flags)
     CARTOGRAPHY.migrate(story_flags, snapshot.regions)
     var region := world_state.get_region(String(config.get("id", "")))
     world_collected_ids = region.collected_ids.duplicate(true)
@@ -1579,30 +1581,39 @@ func _commit_world_dialogue() -> void:
         return
     if bool(area.get_meta("world_line_committed", false)):
         return
-    area.set_meta("world_line_committed", true)
+    var flags_before := story_flags.duplicate(true)
+    var currency_before := currency_count
+    var world_before := world_state.data.duplicate(true)
+    var build_before: Dictionary = build_system.serialize() if build_system != null else {}
     var state := String(area.get_meta("dialogue_state", "repeat"))
-    var indices: Dictionary = area.get_meta("dialogue_state_indices", {})
+    var indices: Dictionary = area.get_meta("dialogue_state_indices", {}).duplicate(true)
+    var indices_before := indices.duplicate(true)
     var displayed_index := int(area.get_meta("world_displayed_index", -1))
     indices[state] = displayed_index + 1
     area.set_meta("dialogue_state_indices", indices)
     if state == "first_meet" and displayed_index + 1 >= int(area.get_meta("world_displayed_total", 0)):
-        _set_story_flag("npc_met_%s" % String(area.get_meta("npc_id", area.name)))
+        story_flags["npc_met_%s" % String(area.get_meta("npc_id", area.name))] = true
     var result: Dictionary = area.get_meta("world_dialogue_result", {})
-    # Keep legacy saves from claiming the same homecoming gift under a new key.
     if bool(story_flags.get("quest_bring_names_rewarded", false)):
         story_flags["reward_returned_names_claimed"] = true
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
     var rewards: Dictionary = completion.get("rewards", {})
     var fresh_flags: Array = completion.get("flags", [])
-    if int(rewards.get("currency", 0)) > 0:
-        _add_currency(int(rewards.currency))
+    currency_count += int(rewards.get("currency", 0))
     for flag in fresh_flags:
         story_flags[String(flag)] = true
     if bool(story_flags.get("reward_returned_names_claimed", false)):
         story_flags["quest_bring_names_rewarded"] = true
-    # Commit the reward and all quest/claim flags together before one disk save.
+    _check_wish_board_rewards(false)
+    if build_system != null:
+        build_system.sync_progress(inventory_counts, String(config.get("id", "")), story_flags)
+    if not _save_world():
+        _rollback_narrative_transaction(flags_before, currency_before, world_before, build_before)
+        area.set_meta("dialogue_state_indices", indices_before)
+        _toast("归途记录未能写入；本次交谈尚未确认，请重试。")
+        return
+    area.set_meta("world_line_committed", true)
     if not fresh_flags.is_empty():
-        _check_wish_board_rewards()
         var response := String(result.get("response", ""))
         if not response.is_empty():
             _toast(response)
@@ -1610,7 +1621,17 @@ func _commit_world_dialogue() -> void:
             _toast("心愿达成 · 收到 %d 枚碎钱" % int(rewards.get("currency", 0)))
         _apply_world_npc_state(area)
         _sync_player_build()
-    _save_world()
+        _refresh_wish_board_overlay()
+        _refresh_hud()
+
+
+func _rollback_narrative_transaction(flags_before: Dictionary, currency_before: int, world_before: Dictionary, build_before: Dictionary) -> void:
+    story_flags = flags_before.duplicate(true)
+    currency_count = currency_before
+    if world_state != null:
+        world_state.data = world_before.duplicate(true)
+    if build_system != null:
+        build_system.restore(build_before)
 
 
 func _add_world_portal_map_pins(bounds: Rect2, draw_size: Vector2, draw_width: float, base_y: float, depth_step: float) -> void:
@@ -2610,7 +2631,7 @@ func _wish_claim_flag(wish: Dictionary) -> String:
     return "wish_claimed_%s" % String(wish.get("id", ""))
 
 
-func _check_wish_board_rewards() -> void:
+func _check_wish_board_rewards(announce: bool = true) -> void:
     for wish_value in _wish_board_entries():
         var wish: Dictionary = wish_value
         if not _wish_completed(wish):
@@ -2623,6 +2644,8 @@ func _check_wish_board_rewards() -> void:
         var reward := int(wish.get("reward_currency", 0))
         if reward > 0:
             _add_currency(reward)
+        if not announce:
+            continue
         if reward==0:
             _toast("心愿达成 · "+String(wish.get("title",wish.get("id",""))))
             continue
@@ -2631,7 +2654,8 @@ func _check_wish_board_rewards() -> void:
             reward,
             _item_display_name("currency")
         ])
-    _refresh_wish_board_overlay()
+    if announce:
+        _refresh_wish_board_overlay()
 
 
 func _refresh_wish_board_overlay() -> void:
@@ -5825,14 +5849,22 @@ func _activate_ending_gate(area: Area2D) -> void:
         return
     var ending := String(area.get_meta("ending", ""))
     var chosen := String(story_flags.get("ending_chosen", ""))
+    if world_mode and world_narrative != null:
+        chosen = String(world_narrative.restored_ending_flags(story_flags).get("ending_chosen", ""))
     if not chosen.is_empty():
         if chosen == ending:
             if win_label != null:
-                win_label.text = String(area.get_meta("message", ""))
+                var saved_message := String(area.get_meta("message", ""))
+                if world_mode and world_narrative != null:
+                    saved_message = String(world_narrative.evaluate_ending(chosen, inventory_counts, story_flags).get("message", saved_message))
+                win_label.text = saved_message
                 win_label.visible = true
             _toast("结局已选定：" + String(area.get_meta("label", ending)))
         else:
-            _toast("结局已定（%s），此门不再回应。" % chosen)
+            var chosen_title := chosen
+            if world_mode and world_narrative != null:
+                chosen_title = String(world_narrative.evaluate_ending(chosen, inventory_counts, story_flags).get("title", chosen))
+            _toast("结局已定（%s），此门不再回应。" % chosen_title)
         return
     var evaluated: Dictionary = {}
     var missing: Array[String] = []
@@ -5858,13 +5890,29 @@ func _activate_ending_gate(area: Area2D) -> void:
         _play_sfx("ui_menu_cancel", -4.0)
         _toast(reject)
         return
+    var flags_before := story_flags.duplicate(true)
+    var currency_before := currency_count
+    var world_before: Dictionary = world_state.data.duplicate(true) if world_state != null else {}
+    var build_before: Dictionary = build_system.serialize() if build_system != null else {}
     if not evaluated.is_empty():
         for flag in evaluated.get("grant_flags", []):
             story_flags[String(flag)] = true
-        story_flags["ending_consequences"] = evaluated.get("consequences", {})
-        area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
+        story_flags["ending_consequences"] = evaluated.get("consequences", {}).duplicate(true)
     story_flags["ending_chosen"] = ending
-    _set_story_flag("%s_done" % ending)
+    story_flags[ending + "_done"] = true
+    if world_mode and world_narrative != null:
+        story_flags = world_narrative.restored_ending_flags(story_flags)
+    _check_wish_board_rewards(false)
+    if not _save_world():
+        _rollback_narrative_transaction(flags_before, currency_before, world_before, build_before)
+        _toast("归途记录未能写入；结局尚未选定，请重试。")
+        return
+    if not evaluated.is_empty():
+        area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
+    for child in get_children():
+        if child is Area2D and String(child.get_meta("kind", "")) == "npc":
+            _apply_world_npc_state(child)
+    _refresh_wish_board_overlay()
     _play_sfx("interact", -6.0)
     # 结局确认音 + 终止式 stinger（音频规格 §3.8）：stinger 挂 root 防演出切场截断。
     _play_sfx("ui_menu_confirm", 0.0)
@@ -5876,7 +5924,6 @@ func _activate_ending_gate(area: Area2D) -> void:
         win_label.text = String(area.get_meta("message", "ENDING: " + ending))
         win_label.visible = true
     _toast("结局达成：" + String(area.get_meta("label", ending)))
-    _save_world()
     _refresh_hud()
 
 
