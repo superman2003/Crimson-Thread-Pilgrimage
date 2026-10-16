@@ -1,0 +1,119 @@
+{
+  "label": "motion",
+  "started_at_utc": "2026-10-16T09:31:05.543860+00:00",
+  "finished_at_utc": "2026-10-16T09:31:46.233441+00:00",
+  "elapsed_seconds": 40.687,
+  "exit_code": 0,
+  "suites": [
+    {
+      "suite": "combat_resource_cycle",
+      "log_sha256": "91a865cd7780aa603274365b8725600eb72262be02438ae97883e41c1fcca59c",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 24.304,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "player_motion_continuity",
+      "log_sha256": "5b1bca916c116de843a14afc6e0f737837c8129c83d3339e1c09d7a7d5db86a0",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "PLAYER_MOTION_CONTINUITY checks=958 failures=0"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 6.607,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "player_melee_feedback",
+      "log_sha256": "d49fb49c638bf773fc0ab4911a825d28fccb261c6782389bf6bd73b640cdba3b",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "PLAYER_MELEE_FEEDBACK_PASS checks=107 hardware=simulated physical_feel=unverified"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 1.622,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "input_settings_regression",
+      "log_sha256": "882af6d2ad01f1b639437d6bf6e9c0115a643b7d8639b3169c9aa666767c85c5",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "INPUT_SETTINGS_REGRESSION checks=96 failures=0"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 1.221,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    },
+    {
+      "suite": "ui_world_integration",
+      "log_sha256": "b96e431fa744274c81821bfe9ed9435d42f0882196cb8b997411183e68c5042c",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "runner_pass": true,
+      "elapsed_seconds": 6.762,
+      "drawing_mode": "normal_drawing",
+      "timeout_seconds": 180
+    }
+  ],
+  "runtime_source_unchanged": true,
+  "source_after_set_sha256": "9f6318117582e08adeb53d134c872e1823f3329d55127e3129d2ffef64e510e6",
+  "runner_log_sha256": "3d2c9423514be511de9968b968a36d322d718fbce7570a877850d3a1613f7e39",
+  "runner_completion_marker": [
+    "GODOT_REGRESSIONS suites=5 failures=0"
+  ],
+  "import_rerun": false,
+  "import_reason": "Existing resource/class cache; only non-class combat validation and existing runtime scripts changed. Actual engine startup and strict error/marker gates retained.",
+  "previous_head": "cfdd983f569a5d779aeb8f9c78f2263ea50290ce",
+  "dependency_head": "7c638832ed9301518c9e63c9d6be0979e79062f4",
+  "main_commit": "c6dce193ceb27c94ee8443111fc2b10fb00ce125",
+  "default_suites": 101,
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "25ae6a41f9748aa42512903e91c6b968caf3c97da7e5643b8b27f3cb4fdaa50f",
+    "godot/scripts/pilgrimage_interface.gd": "4794231f6ba506507743e1d337fd27c5d6dd91a71fcea1c57ed6e522bfe82a58",
+    "godot/scripts/player_melee_feedback.gd": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b",
+    "godot/scripts/feel_kit.gd": "00eff6067d7fe6fb5e025c441985679f014f6d812c98ab8588077b9c0eb46d1b",
+    "tools/run_godot_regressions.py": "4adb3926675b3da2fe3e438e9b7fff1f4067a787ec2cd9efe1e72da7f2792083",
+    "tools/godot_suite_success_markers.json": "815d40a47951276051d5717e5fb29b05caaaa5ef058a4724a1a3ce52f3254dd3"
+  },
+  "boundaries": [
+    "Idle visual continuity remains OPEN; no new artwork in this sync.",
+    "Rumble tests use simulated devices; physical controller feel not accepted.",
+    "Previous cfdd983 CI passed all8workflows including full100; new head CI must run separately."
+  ],
+  "static_checks": {
+    "npm": {
+      "exit_code": 0,
+      "log_sha256": "04742e2285d8776558fe759207073c12e246a9c7934da0a5a23e1f23bf712838"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log_sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "verification_date_utc": "2026-10-16T08:30:22.150554+00:00",
+  "scope": "PR #89 conflict resolution after merging main #87; focused post-merge verification, not a local full-suite pass.",
+  "parents": [
+    "d3b2c91eb5977d9272cd49c1e1cff98d0a30d322",
+    "54863ec7ba794204ba37afe2ed29e5b5dd3f7d0d"
+  ],
+  "tested_source_commit": "5ab71548a72822ab7c9206d201421961558cd9d8",
+  "tested_source_tree": "d533ed3602b53278239f343111a5679a54c3713e",
+  "publication_note": "Only this verification summary and its report were amended after runtime verification; source hashes below identify the tested code.",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe real OpenGL via Xvfb; normal drawing enabled for both suites",
+  "per_suite_timeout_seconds": 180,
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/scripts/pilgrimage_interface.gd": "e41e7e8b030e588cf4cf24d828d2a291136e6608d104e23b08a62fd5a59b7985",
+    "godot/scripts/combat_resource_cycle_validation.gd": "a721e9d39f6f9d8ded92da07d6ed7b9f6f9d95b7cb383d5d9cb81c3fed1e5720",
+    "godot/scripts/world_host_validation.gd": "0eaef28b99c4d0dab1bd8a2a4e2d145376da6eb598b87c1dab3da2c3984256bd",
+    "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+    "godot/scripts/world_gameplay_plan_job.gd": "ab562c6a48cf83e09f26d18ab22f90d4862e0a6fb1aec299df48b2426c810d02",
+    "tools/run_godot_regressions.py": "490d01b8a2243b784379c3f0a08aaf3a35de706cccb9ced3b5f92b3150f4daf8",
+    "tools/test_regression_runner.py": "9e226fe90d08542bd765165e5b10a212209d69e76791e944032820f48cf47554",
+    "tools/godot_suite_success_markers.json": "468a55e1fde6a316d32a7861626579f8783f995c6ee7143a9b0a64899512d759",
+    ".github/workflows/modern-combat-resource-cycle.yml": "f8301918a7f5b0d8eb3901dbfc5ab8ccefc84733143451fef970d63294b131c1",
+    ".github/workflows/world-gameplay-plan.yml": "5400550b162b87778e45e85b91d05a1892ff97ffc5204e9ef988e3690dd088f5"
+  },
+  "structure_checks": {
+    "default_suites": 92,
+    "narrative_suites": 4,
+    "total_suites": 96,
+    "unique_suites_and_complete_markers": true,
+    "main_exclusive_files_match_main": 13,
+    "original_combat_source_files_unchanged": 4,
+    "check_log_sha256": "c5f3349e7d5fccb3ee0d3324ce3e669e48b77bad6a7ce88d2811d569b614cbe4"
+  },
+  "static_processes": {
+    "npm_test": {
+      "exit_code": 0,
+      "runner_tests": 18,
+      "import_gate_tests": 11,
+      "log_sha256": "da882d96931ffa211921dd7ef94253aaa19197ecde938c0e72db38f24adba485"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log_sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    }
+  },
+  "resource_import": {
+    "observed_process_exit_code": 0,
+    "passes": 2,
+    "recovery_mode": true,
+    "editor_plugin_behavior_validated": false,
+    "runner_log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+    "pass_log_sha256": {
+      "1": "ed3ad2c48989e2db3838b9badecd06644efb734841e70cd90e51b0cbcc2d95d8",
+      "2": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+    }
+  },
+  "focused_regressions": {
+    "observed_process_exit_code": 0,
+    "runner_completion_marker": "GODOT_REGRESSIONS suites=2 failures=0",
+    "runner_log_sha256": "af6415292a0eb12de85cb0454969a4fc9f2755c34991bf34d9df3166a2742206",
+    "suites": [
+      {
+        "suite": "combat_resource_cycle",
+        "runner_pass": true,
+        "completion_marker": "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true",
+        "log_sha256": "bf7c36f8f4afa4b8b839d64361d063cc5a78a9cab979e8a754114d5dfa98341e",
+        "engine_errors": 0,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ]
+      },
+      {
+        "suite": "world_host",
+        "runner_pass": true,
+        "completion_marker": "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles",
+        "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+        "engine_errors": 0,
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ]
+      }
+    ]
+  },
+  "excluded_interrupted_attempt": {
+    "counted_as_pass": false,
+    "reason": "The earlier GL attempt stopped after engine startup without a suite completion marker; it is excluded from successful runtime evidence."
+  },
+  "boundaries": [
+    "The original 16-suite report remains evidence for the pre-sync parent d3b2c91, not for this merged source tree.",
+    "Only combat_resource_cycle and world_host were rerun locally after syncing main; the complete 96-suite run and main planner-specific coverage must be checked in CI for the published head and corresponding test-merge commit.",
+    "New HUD capture bytes were not substituted for the historical reviewed images.",
+    "No asset hydration, default_bus_layout importer rewrite, historical UID side products or raw logs are included in this update.",
+    "This component verification does not establish natural progression, six-region wounded playthrough or controller feel."
+  ],
+  "remote_ci": "Pending publication; inspect exact published head and corresponding GitHub test-merge SHA separately."
+}
