@@ -16,6 +16,7 @@ var progress := 0.0
 var _parsed: Variant
 var _path := ""
 var _entry := Vector2.ZERO
+var _use_default_entry := false
 var _stage := ""
 var _field_i := 0
 var _record_i := 0
@@ -42,10 +43,11 @@ var max_route_overlay_step_usec := 0
 var max_route_overlay_begin_usec := 0
 var _manifest_generation := -1
 
-func begin(parsed: Variant, path: String, entry: Vector2) -> void:
+func begin(parsed: Variant, path: String, entry: Vector2, use_default_entry: bool = false) -> void:
 	_parsed = parsed
 	_path = path
 	_entry = entry
+	_use_default_entry = use_default_entry
 	done = false
 	error = ""
 	result = {}
@@ -110,7 +112,7 @@ func _stage_number() -> int:
 
 func _step_header() -> void:
 	operation_name = "header"
-	if not _entry.is_finite(): return _fail("目标位置无效。")
+	if not _use_default_entry and not _entry.is_finite(): return _fail("目标位置无效。")
 	if not _parsed is Dictionary: return _fail("目标区域记录无法读取。")
 	var id := String(_parsed.get("id", ""))
 	if not COORDINATES.has_region(id) or ROUTES.cached_config_path(id) != _path: return _fail("目标区域不属于当前巡礼世界。")
@@ -293,6 +295,10 @@ func _step_world_bounds() -> void:
 
 func _step_entry() -> void:
 	operation_name = "entry"
+	if _use_default_entry:
+		var start: Variant = _config.get("player_start", [120, 500])
+		if not _finite_tuple(start, 2): return _fail("初始区域出生位置无效。")
+		_entry = Vector2(float(start[0]), float(start[1]))
 	if not entry_in_bounds(_entry, _world): return _fail("目标落点超出区域边界。")
 	result = _config
 	done = true
