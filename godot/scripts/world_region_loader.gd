@@ -30,6 +30,8 @@ var last_transition: Dictionary = {}
 var transition_token: RefCounted
 var transition_serial := 0
 var startup_token: RefCounted
+# A speculative startup read stays private until the exact manifest is committed.
+var startup_config_read_ahead: Dictionary = {}
 # Startup owns its frame wakeups so whole-host shutdown can unwind its token
 # before SceneTree stops emitting frames (including --quit-after).
 signal _startup_frame_ready
@@ -92,6 +94,7 @@ func _run_owned_startup(token: RefCounted, host: Node, previous_mode: int) -> vo
             _show_startup_error(host)
         else:
             await initialize_startup_region(host, previous_mode)
+    _discard_startup_config_read_ahead()
     token.finished = true
     if startup_token == token:
         startup_token = null
@@ -112,6 +115,7 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
     # Share the bounded JSON worker with foreground config reads. The ticket
     # ties the result to this startup generation and the manifest mtime.
     if not await _prepare_routes_manifest(host, tree):
+        _discard_startup_config_read_ahead()
         if not _alive(host):
             phase = "idle"
             return false
@@ -123,6 +127,7 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
     var startup_source_catalog: Dictionary = host.world_catalog
     var startup_route_generation := ROUTES.cached_generation()
     if host.has_method("_resolve_world_start_route") and not host._resolve_world_start_route():
+        _discard_startup_config_read_ahead()
         last_error = "归途区域不在当前巡礼路线中。"
         _show_startup_error(host)
         host.process_mode = restore_process_mode
@@ -181,6 +186,37 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
 func _startup_config_context_valid(host: Variant, tree: SceneTree, lease: Dictionary) -> bool:
     return _alive(host) and (startup_token == null or not startup_token.cancelled) and host.get_tree() == tree and generation == int(lease.generation) and ROUTES.cached_generation() == int(lease.route_generation) and int(lease.route_generation) >= 0 and String(host.config_path) == String(lease.path) and host.entry_spawn_override_enabled == bool(lease.entry_enabled) and host.entry_spawn_override == lease.entry and (not lease.has("stamp") or FileAccess.get_modified_time(String(lease.path)) == int(lease.stamp))
 
+func _discard_startup_config_read_ahead() -> void:
+    if not startup_config_read_ahead.is_empty():
+        config_read_job.discard(int(startup_config_read_ahead.ticket))
+        startup_config_read_ahead.clear()
+
+func _begin_startup_config_read_ahead(host: Node, tree: SceneTree, route_ticket: Dictionary) -> void:
+    if phase != "startup" or not host.has_method("_resolve_world_start_route") or not startup_config_read_ahead.is_empty():
+        return
+    var chapters: Variant = route_ticket.manifest.get("chapters", {})
+    if not chapters is Dictionary: return
+    var start_region := String(host.world_start_region_id)
+    var path := String(host.config_path) if start_region.is_empty() else "res://data/%s.json" % start_region
+    var region_id := path.get_file().get_basename()
+    # This is only a hint from the private manifest, not a published route.
+    # Unknown/overridden paths use the normal validated startup admission.
+    if path != "res://data/%s.json" % region_id or not chapters.has(region_id): return
+    var ticket: int = config_read_job.request(path)
+    # Speculation is optional: a failed launch falls back after manifest commit.
+    if ticket == 0: return
+    startup_config_read_ahead = {"ticket": ticket, "path": path,
+        "host_id": host.get_instance_id(), "tree_id": tree.get_instance_id(),
+        "generation": generation, "manifest_stamp": int(route_ticket.stamp),
+        "route_generation": -1, "entry_enabled": host.entry_spawn_override_enabled,
+        "entry": host.entry_spawn_override, "source_path": String(host.config_path),
+        "start_region": start_region, "yield_frames": 0}
+
+func _startup_config_read_ahead_source_valid(host: Node, tree: SceneTree) -> bool:
+    if startup_config_read_ahead.is_empty(): return true
+    var read: Dictionary = startup_config_read_ahead
+    return _alive(host) and host.get_tree() == tree and host.get_instance_id() == int(read.host_id) and tree.get_instance_id() == int(read.tree_id) and generation == int(read.generation) and String(host.config_path) == String(read.source_path) and String(host.world_start_region_id) == String(read.start_region) and host.entry_spawn_override_enabled == bool(read.entry_enabled) and host.entry_spawn_override == read.entry and FileAccess.get_modified_time(ROUTES.ROUTES_PATH) == int(read.manifest_stamp)
+
 func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
     last_error = ""
     var wall_started := Time.get_ticks_usec()
@@ -194,6 +230,17 @@ func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
     last_transition["startup_config_context_copy_max_operations"] = 0
     last_transition["startup_config_context_copy_max_batch_usec"] = 0
     var ticket := 0
+    last_transition["startup_config_manifest_overlap_frames"] = 0
+    if not startup_config_read_ahead.is_empty():
+        var ahead: Dictionary = startup_config_read_ahead
+        if not _startup_config_context_valid(host, tree, lease) or host.get_instance_id() != int(ahead.host_id) or tree.get_instance_id() != int(ahead.tree_id) or int(lease.generation) != int(ahead.generation) or int(lease.route_generation) != int(ahead.route_generation) or String(lease.path) != String(ahead.path) or bool(lease.entry_enabled) != bool(ahead.entry_enabled) or lease.entry != ahead.entry or int(ahead.yield_frames) < 1 or FileAccess.get_modified_time(ROUTES.ROUTES_PATH) != int(ahead.manifest_stamp):
+            _discard_startup_config_read_ahead()
+            last_error = "初始区域预读归属已失效。"
+            return {}
+        ticket = int(ahead.ticket)
+        last_transition.startup_config_manifest_overlap_frames = int(ahead.yield_frames)
+        last_transition.startup_config_wait_frames = int(ahead.yield_frames)
+        startup_config_read_ahead.clear()
     while ticket == 0:
         if not _startup_config_context_valid(host, tree, lease): return {}
         if config_read_job.closed:
@@ -263,6 +310,8 @@ func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
     lease["stamp"] = int(read.get("stamp", -1))
     last_transition["startup_config_worker_is_main"] = read.get("worker_is_main", true)
     last_transition["startup_config_worker_usec"] = read.get("worker_usec", 0)
+    for key in ["open_usec", "read_usec", "parse_usec"]:
+        last_transition["startup_config_" + key] = read.get(key, 0)
     last_transition["startup_config_bytes"] = read.get("bytes", 0)
     if not _startup_config_context_valid(host, tree, lease): return {}
     # No other task can acquire the reader between take and this admission:
@@ -386,6 +435,7 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
         manifest_refresh_running = false
         last_error = "区域路线清单校验未通过。"
         return false
+    _begin_startup_config_read_ahead(host, tree, route_ticket)
     # Transfer the worker-owned parsed tree through the existing bounded copy
     # job. This keeps both recursive copying and cache publication off the
     # single synchronous handoff point. Each frame revalidates the file stamp.
@@ -413,22 +463,30 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
             operations += 1
         copy_max_operations = maxi(copy_max_operations, operations)
         copy_batches += 1
+        if not startup_config_read_ahead.is_empty():
+            startup_config_read_ahead.yield_frames += 1
         await _next_process_frame(tree)
-        if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
+        if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background) or not _startup_config_read_ahead_source_valid(host, tree):
+            _discard_startup_config_read_ahead()
             manifest_refresh_running = false
             return false
         if ticket_generation != generation + 1 or int(route_ticket.stamp) != FileAccess.get_modified_time(ROUTES.ROUTES_PATH):
+            _discard_startup_config_read_ahead()
             manifest_refresh_running = false
             last_error = "区域路线清单在交接期间发生变化。"
             return false
     route_ticket.manifest = copy_job.result
     if _manifest_refresh_cancelled(background):
+        _discard_startup_config_read_ahead()
         manifest_refresh_running = false
         return false
     if not ROUTES.accept_manifest_ticket(route_ticket, ticket_generation):
+        _discard_startup_config_read_ahead()
         manifest_refresh_running = false
         last_error = "区域路线清单校验未通过。"
         return false
+    if not startup_config_read_ahead.is_empty():
+        startup_config_read_ahead.route_generation = ROUTES.cached_generation()
     last_transition["route_manifest_worker_is_main"] = bool(result.get("worker_is_main", true))
     last_transition["route_manifest_worker_usec"] = int(result.get("worker_usec", 0))
     last_transition["route_manifest_bytes"] = int(result.get("bytes", 0))
@@ -794,7 +852,8 @@ func _startup_exit_snapshot() -> Dictionary:
         "reader_busy": config_read_job.busy(),
         "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed}
     for key in ["route_manifest_copy_batches", "route_manifest_worker_usec", "route_manifest_copy_wall_usec",
-            "startup_config_wait_frames", "startup_config_worker_usec", "startup_config_context_copy_batches",
+            "startup_config_wait_frames", "startup_config_worker_usec", "startup_config_manifest_overlap_frames",
+            "startup_config_open_usec", "startup_config_read_usec", "startup_config_parse_usec", "startup_config_context_copy_batches",
             "startup_config_context_overlap_frames", "startup_config_context_copy_work_usec",
             "startup_config_validation_wait_frames", "startup_config_validation_worker_usec", "startup_config_wall_usec",
             "prepare_cursor", "prepare_jobs", "prepare_batches", "prepare_work_usec", "prepare_wall_usec",
@@ -829,6 +888,7 @@ func shutdown() -> void:
         transition_token.cancel()
     if startup_token != null:
         startup_token.cancel()
+    _discard_startup_config_read_ahead()
     config_read_job.shutdown()
     phase = "idle"
     _clear_loading_canvas()
