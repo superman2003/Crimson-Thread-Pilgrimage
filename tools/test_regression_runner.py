@@ -73,21 +73,63 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 96)
+        self.assertEqual(len(all_suites), 99)
         self.assertIn("input_prompt", DEFAULT_SUITES)
         self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
+        for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
+            self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)
 
+    def test_manifest_walk_completion_requires_every_crossing(self):
+        for suite, marker, incomplete in [
+            ('world_route_manifest_walk_lower', 'WORLD_ROUTE_MANIFEST_WALK_LOWER', 5),
+            ('world_route_manifest_walk_upper', 'WORLD_ROUTE_MANIFEST_WALK_UPPER', 3),
+        ]:
+            with self.subTest(suite=suite):
+                result = self.run_engine(
+                    f'print("{marker} checks=1 failures=0 physical_crossings={incomplete}")\n',
+                    suite=suite,
+                )
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_manifest_walks_keep_drawing_and_fixed_simulation_clock(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("WORLD_ROUTE_MANIFEST_WALK_LOWER checks=1 failures=0 physical_crossings=6")\n'
+                + 'print("WORLD_ROUTE_MANIFEST_WALK_UPPER checks=1 failures=0 physical_crossings=4")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper']:
+                with self.subTest(suite=suite):
+                    failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True,
+                                          {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+                    self.assertEqual(failures, [])
+                    arguments = captured.read_text().splitlines()
+                    self.assertNotIn('--disable-render-loop', arguments)
+                    self.assertIn('--fixed-fps', arguments)
+                    self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
         self.assertEqual(render_loop_args(True, 'world_upgrade'), ['--disable-render-loop'])
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_live'), [])
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay'), [])
+        self.assertEqual(render_loop_args(True, 'world_route_manifest_walk_lower'), [])
+        self.assertEqual(render_loop_args(True, 'world_route_manifest_walk_upper'), [])
+        self.assertEqual(render_loop_args(True, 'world_route_manifest_integration'), [])
         self.assertEqual(render_loop_args(False, 'world_neighbor_gameplay_stress'), [])
 
     def test_only_non_visual_neighbor_stress_disables_render_loop(self):

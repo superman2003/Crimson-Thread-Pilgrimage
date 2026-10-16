@@ -45,13 +45,17 @@ func prefetch_progress(pref: RefCounted) -> Dictionary:
         regions.append({"id": id, "phase": "idle" if planner == null else String(planner.phase),
             "complete": cache.get("plan_complete", true), "pending": cache.pending.size(),
             "actors": cache.actors.size(), "operations": 0 if planner == null else planner.operation_count})
+    var geometry: Array = []
+    for id in pref.entities.keys().slice(0, 2):
+        geometry.append({"id": id, "pending": pref.entities[id].pending.size()})
     return {"desired": pref.desired.keys().slice(0, 2), "configs": pref.configs.keys().slice(0, 2),
         "config_region": String(pref.config_task.get("region", "")),
         "validation_operation": "idle" if pref.config_validator == null else String(pref.config_validator.operation_name),
-        "entity_regions": pref.entities.size(), "entity_builds": pref.entity_builds,
-        "entity_releases": pref.entity_releases, "gameplay_builds": pref.gameplay.builds,
-        "gameplay_releases": pref.gameplay.releases, "gameplay": regions,
-        "jobs": pref.jobs.size(), "queue": pref.queue.size()}
+        "entity_builds": pref.entity_builds, "entity_releases": pref.entity_releases,
+        "gameplay_builds": pref.gameplay.builds, "gameplay_releases": pref.gameplay.releases,
+        "geometry": geometry, "gameplay": regions, "jobs": pref.jobs.size(), "queue": pref.queue.size(),
+        "generation": pref.generation, "loader_generation": scene.world_loader.generation,
+        "route_generation": pref.route_cache_generation, "route_current": ROUTES.cached_generation()}
 func transition_progress(label: String, started: int, steps: int) -> void:
     var loader: RefCounted = scene.world_loader
     var progress: Dictionary = {}
@@ -70,16 +74,23 @@ func transition_progress(label: String, started: int, steps: int) -> void:
         "loading": loader.loading_label.text if is_instance_valid(loader.loading_label) else "",
         "progress": progress}))
 func _seed_cache(id: String, entry: Vector2) -> RefCounted:
+    var seed_started := Time.get_ticks_usec()
     var pref: RefCounted = scene.world_prefetch
     pref.shutdown()
+    var shutdown_usec := Time.get_ticks_usec() - seed_started
     pref.generation = scene.world_loader.generation
     pref.selection_elapsed = -1000
     var path := ROUTES.config_path(id)
     var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+    var validated_at := Time.get_ticks_usec()
     var prepared: Dictionary = scene.world_loader.validate_config(raw, path, entry)
+    var validation_usec := Time.get_ticks_usec() - validated_at
     check(not prepared.is_empty(), "canonical target validates")
     pref.desired = {id: {"path": path, "entry": entry, "distance": 0}}
     pref.configs = {id: {"raw": raw, "prepared": prepared, "stamp": FileAccess.get_modified_time(path)}}
+    print("NEIGHBOR GAMEPLAY SEED ", JSON.stringify({"region": id, "elapsed_usec": Time.get_ticks_usec() - seed_started,
+        "shutdown_usec": shutdown_usec, "read_usec": validated_at - seed_started - shutdown_usec,
+        "validation_usec": validation_usec, "checks": checks, "failures": failures.size()}))
     return pref
 func warm(pref: RefCounted, label: String = "cache_churn") -> void:
     var started := Time.get_ticks_msec()
@@ -87,31 +98,33 @@ func warm(pref: RefCounted, label: String = "cache_churn") -> void:
     var report_at := started + 2000
     var steps := 0
     var work_usec := 0
+    var max_step_usec := 0
     while Time.get_ticks_msec() < deadline:
         if runtime_probe != null: runtime_probe.frame()
         var built: int = pref.entity_builds + pref.gameplay.builds
         var retired: int = pref.entity_releases + pref.gameplay.releases
         var step_started := Time.get_ticks_usec()
         pref.step(scene,0)
-        work_usec += Time.get_ticks_usec() - step_started
+        var step_usec := Time.get_ticks_usec() - step_started
+        work_usec += step_usec
+        max_step_usec = maxi(max_step_usec, step_usec)
         steps += 1
         check(pref.entity_builds + pref.gameplay.builds - built <= 2, "shared geometry/gameplay creation admission <=2")
         check(pref.entity_releases + pref.gameplay.releases - retired <= 2, "shared retirement admission <=2")
         check(pref.snapshot().owned_bodies <= 48 and pref.gameplay.owned() <= 24, "owned + pending retirement capacity bounded")
         var ready: bool = pref.entities.values().all(func(x): return x.pending.is_empty()) and pref.gameplay.regions.values().all(func(x): return x.plan_complete and x.pending.is_empty())
-        if not pref.gameplay.regions.is_empty() and pref.gameplay.regions.size() == pref.desired.size() and ready:
-            print("NEIGHBOR GAMEPLAY WARM ", JSON.stringify({"label": label, "complete": true,
+        var complete: bool = not pref.gameplay.regions.is_empty() and pref.gameplay.regions.size() == pref.desired.size() and ready
+        if complete or Time.get_ticks_msec() >= report_at:
+            print("NEIGHBOR GAMEPLAY WARM ", JSON.stringify({"label": label, "complete": complete,
                 "elapsed_ms": Time.get_ticks_msec() - started, "steps": steps, "work_usec": work_usec,
-                "prefetch": prefetch_progress(pref)}))
-            return
-        if Time.get_ticks_msec() >= report_at:
-            print("NEIGHBOR GAMEPLAY WARM ", JSON.stringify({"label": label, "complete": false,
-                "elapsed_ms": Time.get_ticks_msec() - started, "steps": steps, "work_usec": work_usec,
+                "max_step_usec": max_step_usec, "checks": checks, "failures": failures.size(),
                 "prefetch": prefetch_progress(pref)}))
             report_at = Time.get_ticks_msec() + 2000
+        if complete: return
         await process_frame
     print("NEIGHBOR GAMEPLAY WARM DEADLINE ", JSON.stringify({"label": label,
         "elapsed_ms": Time.get_ticks_msec() - started, "steps": steps, "work_usec": work_usec,
+        "max_step_usec": max_step_usec, "checks": checks, "failures": failures.size(),
         "prefetch": prefetch_progress(pref)}))
     check(false, "warming finishes before fixture deadline")
 func live(kind: String, data: Dictionary) -> Area2D:
@@ -225,7 +238,7 @@ func landing(id: String, entry: Vector2) -> void:
     var node_count: int = scene.get_child_count()
     stage(label + ":warm")
     await warm(pref, label)
-    stage(label + ":warm_arrival")
+    stage(label + ":warm_checks")
     check(scene.story_flags == state and scene.inventory_counts == inventory and scene.currency_count == wallet and get_nodes_in_group("enemy").size() == enemy_count and scene.get_child_count() == node_count, "prebuild leaves active progression/inventory/groups/tree unchanged")
     var records: Dictionary = pref.gameplay.regions[id].actors.duplicate()
     check(records.size() <= GAMEPLAY.MAX_PER_REGION, "per-region actor limit")
@@ -251,7 +264,9 @@ func landing(id: String, entry: Vector2) -> void:
             var wrong_profile: Dictionary = record.profile.duplicate(true)
             wrong_profile.fixture_mismatch = true
             check(pref.gameplay.take(id,kind,record.data,wrong_profile) == null, "AI profile lease cannot be substituted")
+    stage(label + ":warm_arrival")
     scene._travel_world(ROUTES.config_path(id),entry)
+    stage(label + ":warm_settle")
     await frames(2)
     stage(label + ":warm_parity")
     var metadata_after: Dictionary = scene.world_shared_metadata_snapshot()
@@ -277,7 +292,9 @@ func landing(id: String, entry: Vector2) -> void:
     stage(label + ":cold_arrival")
     pref.shutdown()
     scene._travel_world(ROUTES.config_path(id),entry)
+    stage(label + ":cold_settle")
     await frames(2)
+    stage(label + ":cold_parity")
     for key in warm_signatures:
         var actor := live(String(key).get_slice(":",0),records[key].data)
         var actual: Array = signature(actor) if actor != null else []
@@ -516,8 +533,9 @@ func run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await frames(2)
-    stage("initial_validation")
+    stage("invalid_descriptors")
     invalid_descriptors()
+    stage("shared_metadata")
     verify_shared_metadata_cache()
     for id in COORD.manifest().regions:
         var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))

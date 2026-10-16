@@ -13,6 +13,13 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 
+def validation_failed(output, returncode, success_marker):
+    """Check diagnostics and the completion marker without terminal formatting."""
+    plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
+    return (returncode != 0
+            or re.search(r'^\s*(SCRIPT ERROR:|ERROR:)', plain, re.MULTILINE) is not None
+            or success_marker not in plain)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', required=True)
@@ -73,8 +80,7 @@ def main():
                     raise SystemExit(124) from exc
                 (args.log_dir / 'gpu.log').write_text(result.stdout)
                 print(result.stdout, end='')
-                failed = result.returncode != 0 or re.search(r'^\s*(SCRIPT ERROR:|ERROR:)', result.stdout, re.MULTILINE) or args.success_marker not in result.stdout
-                if failed:
+                if validation_failed(result.stdout, result.returncode, args.success_marker):
                     raise SystemExit(1)
                 shutil.copyfile(ROOT / args.summary_path, args.log_dir / Path(args.summary_path).name)
             finally:

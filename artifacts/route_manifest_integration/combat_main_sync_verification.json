@@ -1,0 +1,127 @@
+{
+  "scope": "Synchronize externally merged combat/healing main without dropping this PR changes",
+  "previous_head": "611b68a55f6b2d4dc824c6f0770c29168be86383",
+  "main_commit": "c6dce193ceb27c94ee8443111fc2b10fb00ce125",
+  "default_suite_count": 99,
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/scripts/pilgrimage_interface.gd": "e41e7e8b030e588cf4cf24d828d2a291136e6608d104e23b08a62fd5a59b7985",
+    "godot/scripts/world_host_validation.gd": "0eaef28b99c4d0dab1bd8a2a4e2d145376da6eb598b87c1dab3da2c3984256bd",
+    "godot/scripts/combat_resource_cycle_validation.gd": "a721e9d39f6f9d8ded92da07d6ed7b9f6f9d95b7cb383d5d9cb81c3fed1e5720",
+    "tools/run_godot_regressions.py": "24f893ff32affe77551f285cea3a4eaaca1402d0b34cedf917953868f2c1b52e",
+    "tools/godot_suite_success_markers.json": "842c8ae5dc381fe6c5d6fd5cc927503147d4e15b4306be366bb80e9e9fe371d6",
+    "tools/test_regression_runner.py": "2b292c10c3dba9bb8588940d13cbc2c9c63c4eedef9e1f3a6b6f4ff986a00dce"
+  },
+  "static_checks": {
+    "npm": {
+      "exit_code": 0,
+      "log_sha256": "af42eff6ecdee0946370f79ace8ac76c993eba097bb2329954fc085d48933307"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log_sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    }
+  },
+  "gl_combination": [
+    {
+      "label": "route",
+      "started_at_utc": "2026-10-16T09:18:58.460252+00:00",
+      "finished_at_utc": "2026-10-16T09:21:59.827994+00:00",
+      "elapsed_seconds": 181.368,
+      "exit_code": 0,
+      "suites": [
+        {
+          "suite": "combat_resource_cycle",
+          "log_sha256": "c217979f2d225730287cbf69f65d746dd56196ae5a0554683d707a0baf7cfbb0",
+          "engine_errors": [],
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_markers": [
+            "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true"
+          ],
+          "runner_pass": true,
+          "elapsed_seconds": 23.966,
+          "drawing_mode": "normal_drawing",
+          "timeout_seconds": 180
+        },
+        {
+          "suite": "world_route_manifest_integration",
+          "log_sha256": "e8a8e38357dbbe59c289dc3cd0be53f9e9afa10935d5bca9d2696807bbe60bbc",
+          "engine_errors": [],
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_markers": [
+            "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0"
+          ],
+          "runner_pass": true,
+          "elapsed_seconds": 35.476,
+          "drawing_mode": "normal_drawing",
+          "timeout_seconds": 180
+        },
+        {
+          "suite": "world_neighbor_gameplay_live",
+          "log_sha256": "85dedf46c6fcd4d3e1569333459b9b8aa772ba81ad371a396c6805e2fa8ecf5f",
+          "engine_errors": [],
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_markers": [
+            "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=48 failures=0"
+          ],
+          "runner_pass": true,
+          "elapsed_seconds": 121.66,
+          "drawing_mode": "normal_drawing",
+          "timeout_seconds": 180
+        }
+      ],
+      "runtime_source_unchanged": true,
+      "source_after_set_sha256": "49ae40e10020e4f72eed31b5a2cd272334d1656c5077f1169ad5c4733c882359",
+      "runner_log_sha256": "4ce27ab55c80736918531ef5bc2df713fa4265027e6325001e2a3a2874fb1e45",
+      "runner_completion_marker": [
+        "GODOT_REGRESSIONS suites=3 failures=0"
+      ],
+      "import_rerun": false,
+      "import_reason": "Existing resource/class cache; only non-class combat validation and existing runtime scripts changed. Actual engine startup and strict error/marker gates retained."
+    },
+    {
+      "label": "route-host",
+      "started_at_utc": "2026-10-16T09:24:45.292065+00:00",
+      "finished_at_utc": "2026-10-16T09:25:49.800210+00:00",
+      "elapsed_seconds": 64.508,
+      "exit_code": 0,
+      "suites": [
+        {
+          "suite": "world_host",
+          "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+          "engine_errors": [],
+          "warnings": [
+            "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+          ],
+          "completion_markers": [
+            "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+          ],
+          "runner_pass": true,
+          "elapsed_seconds": 64.279,
+          "drawing_mode": "normal_drawing",
+          "timeout_seconds": 180
+        }
+      ],
+      "runtime_source_unchanged": true,
+      "source_after_set_sha256": "49ae40e10020e4f72eed31b5a2cd272334d1656c5077f1169ad5c4733c882359",
+      "runner_log_sha256": "ca285d1f042e9e2cf893572623aab24f190138574a8aced98ac88011611335ec",
+      "runner_completion_marker": [
+        "GODOT_REGRESSIONS suites=1 failures=0"
+      ],
+      "import_rerun": false,
+      "import_reason": "Existing resource/class cache; only non-class combat validation and existing runtime scripts changed. Actual engine startup and strict error/marker gates retained."
+    }
+  ],
+  "boundaries": [
+    "Only affected combination suites rerun; original branch evidence remains attached to its original source.",
+    "Original 180 second per-suite gate and drawing modes unchanged.",
+    "No natural campaign completion, target-hardware FPS, or physical controller acceptance claim.",
+    "New head remote CI remains pending at publication."
+  ]
+}

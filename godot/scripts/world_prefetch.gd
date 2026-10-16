@@ -9,6 +9,7 @@ const MAX_ROCK_SHAPES := 32
 const MAX_POLYGON_POINTS := 256
 const GAMEPLAY := preload("res://scripts/world_gameplay_prefetch.gd")
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
+const ROUTES := preload("res://scripts/world_routes.gd")
 const MAX_CONFIG_OPERATIONS := 8
 var gameplay := GAMEPLAY.new()
 var rock_hits := 0
@@ -55,11 +56,47 @@ var config_operation_usec: Dictionary = {}
 var config_worker_usec := 0
 var config_bytes := 0
 var config_worker_is_main := true
+var route_cache_generation := -2
+var route_cache_seen := false
+
+## Passage travel pauses ordinary prefetch polling. Cache borrowers must also
+## observe the route lease before adopting a prepared body or gameplay actor.
+## Retirement stays in step() so invalidation itself never frees an unbounded
+## collection on a foreground handoff.
+func synchronize_route_cache() -> bool:
+    var current_route_generation := ROUTES.cached_generation()
+    if current_route_generation < 0:
+        if route_cache_generation != -2 or not desired.is_empty() or not configs.is_empty() or not entities.is_empty():
+            _discard_route_cache()
+            route_cache_generation = -2
+        return false
+    if not route_cache_seen:
+        # The first cache publication must preserve an already seeded lease.
+        route_cache_seen = true
+        route_cache_generation = current_route_generation
+    elif route_cache_generation != current_route_generation:
+        _discard_route_cache()
+        route_cache_generation = current_route_generation
+        selection_elapsed = 1.0
+    return true
+
+func _discard_route_cache() -> void:
+    cancel_config()
+    _clear_entities()
+    gameplay.clear()
+    configs.clear()
+    retained.clear()
+    paths.clear()
+    desired.clear()
+    queue.clear()
 
 func step(host: Node, delta: float) -> void:
     last_config_operations = 0
     if not is_instance_valid(host.player):
         return
+    if not synchronize_route_cache():
+        if host.world_loader != null and host.world_loader.has_method("request_manifest_refresh"):
+            host.world_loader.request_manifest_refresh(host)
     var started := Time.get_ticks_usec()
     if generation != host.world_loader.generation:
         cancel_config()
@@ -166,7 +203,7 @@ func cancel_config() -> void:
     config_raw = null
 
 func _step_config(host: Node, started: int) -> void:
-    if host.world_loader.phase != "idle" or host.world_loader.shutting_down:
+    if not ROUTES.cache_is_current() or host.world_loader.phase != "idle" or host.world_loader.shutting_down:
         cancel_config()
         return
     if config_task.is_empty():
@@ -343,6 +380,8 @@ func _landing_plan(host: Node, config: Dictionary, entry: Vector2) -> Array:
 
 ## Exact geometry and timestamp lease; transfer removes all cache ownership.
 func take_collision(region_id: String, kind: String, key: String, data: Dictionary) -> Node:
+    if not synchronize_route_cache():
+        return null
     if not entities.has(region_id) or not desired.has(region_id) or not configs.has(region_id):
         return null
     if configs[region_id].stamp != FileAccess.get_modified_time(desired[region_id].path):
@@ -363,6 +402,8 @@ func take_collision(region_id: String, kind: String, key: String, data: Dictiona
 
 ## Transfer ownership only to an already validated target's exact descriptor.
 func take_platform(region_id: String, data: Dictionary) -> StaticBody2D:
+    if not synchronize_route_cache():
+        return null
     if not entities.has(region_id) or not desired.has(region_id) or not configs.has(region_id):
         return null
     if configs[region_id].stamp != FileAccess.get_modified_time(desired[region_id].path):
@@ -392,8 +433,10 @@ func _select(host: Node) -> void:
             continue
         var entry: Array = portal.get("target_spawn", [0, 0])
         if not paths.has(region_id):
-            paths[region_id] = host.WORLD_ROUTES_SCRIPT.config_path(region_id)
+            paths[region_id] = host.WORLD_ROUTES_SCRIPT.cached_config_path(region_id)
         if String(paths[region_id]).is_empty():
+            if host.world_loader != null and host.world_loader.has_method("request_manifest_refresh"):
+                host.world_loader.request_manifest_refresh(host)
             continue
         nearest[region_id] = {"path": paths[region_id], "entry": Vector2(entry[0], entry[1]), "distance": distance}
     var ids: Array = nearest.keys()
@@ -418,6 +461,8 @@ func cached_raw(path: String) -> Variant:
 ## Loader-only lease: treat this Variant as immutable and copy it incrementally.
 ## Public cache access always returns detached caller-owned data.
 func _cached_raw_borrow(path: String) -> Variant:
+    if not synchronize_route_cache():
+        return null
     for region_id in configs:
         var record: Dictionary = configs[region_id]
         if not desired.has(region_id) or desired[region_id].path != path:
