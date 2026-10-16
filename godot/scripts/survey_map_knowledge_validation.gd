@@ -3,6 +3,7 @@ extends SceneTree
 const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 const ATLAS := preload("res://scripts/world_atlas.gd")
+const ROUTES := preload("res://scripts/world_routes.gd")
 const SAVE := "user://survey_map_knowledge_validation.json"
 var checks := 0
 var failures := 0
@@ -85,7 +86,19 @@ func run() -> void:
 	ability_marker = scene.map_draw_root.get_node("SurveyGate_"+ability_gate_id)
 	action_marker = scene.map_draw_root.get_node("SurveyGate_"+action_gate_id)
 	check(ability_marker.text=="▢" and action_marker.text=="▢","real local component refreshes ability and permanent-action states")
+	# The atlas owns a route-generation lease. Exercise its invalidation before
+	# injecting current-generation marker fixtures, just as a real cache consumer
+	# first calls configuration() before using the returned regional snapshot.
+	var route_generation := ROUTES.cached_generation()
+	ATLAS.route_generation = route_generation - 1
+	ATLAS.configurations["validation_stale_region"] = {"stale": true}
+	ATLAS.geometry["validation_stale_region"] = []
+	ATLAS.room_contours["validation_stale_region:room"] = []
+	var current_config := ATLAS.configuration(region_id)
+	check(route_generation >= 0 and ATLAS.route_generation == route_generation and not current_config.is_empty(), "real atlas acquires the current route-generation lease")
+	check(not ATLAS.configurations.has("validation_stale_region") and ATLAS.geometry.is_empty() and ATLAS.room_contours.is_empty(), "route-generation change clears stale configuration, terrain and contour caches")
 	ATLAS.configurations[region_id] = scene.config
+	check(ATLAS.configuration(region_id) == scene.config, "current-generation atlas fixture survives configuration lookup")
 	scene.world_map_view = true
 	scene._refresh_map_overlay()
 	check(marker_assertions(scene.map_draw_root,"world",region_id,"hazard:"+hazard_id,true).is_empty(),"real world atlas emits same charted regional hazard")

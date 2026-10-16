@@ -46,7 +46,11 @@ func _run() -> void:
         var copy: Variant = pref.cached_raw(path)
         if copy is Dictionary:
             copy.map_rooms.clear()
-        _check(not pref.cached_raw(path).map_rooms.is_empty(), "published cache retains detached caller ownership")
+            var reread: Variant = pref.cached_raw(path)
+            _check(reread is Dictionary and not reread.map_rooms.is_empty(), "published cache retains detached caller ownership")
+        else:
+            _check(false, "published cache retains detached caller ownership")
+    _route_entity_invalidation_probe()
     var id := "demo_ch02_rain_foundry_canal"
     var path := ROUTES.config_path(id)
     var entry := Vector2(120, 500)
@@ -144,6 +148,42 @@ func _run() -> void:
     else:
         for failure in failures: push_error(failure)
         quit(1)
+
+func _route_entity_invalidation_probe() -> void:
+    var previous_phase: String = scene.world_loader.phase
+    scene.world_loader.phase = "preflight" # Keep refresh owned by this fixture.
+    var stamp := ROUTES._cached_stamp
+    var original_generation := ROUTES._cache_generation
+    for stale in [true, false]:
+        var probe = preload("res://scripts/world_prefetch.gd").new()
+        probe.generation = scene.world_loader.generation
+        probe.route_cache_seen = true
+        probe.route_cache_generation = ROUTES.cached_generation()
+        probe.selection_elapsed = -100000
+        var bodies: Dictionary = {}
+        var owned: Array[Node] = []
+        for index in 5:
+            var body := StaticBody2D.new()
+            owned.append(body)
+            bodies[str(index)] = {"body": body}
+        probe.entities["fixture"] = {"bodies": bodies, "collisions": {}}
+        probe.configs["fixture"] = {}
+        if stale:
+            ROUTES._cached_stamp = -1
+        else:
+            ROUTES._cache_generation += 1
+        var loader_generation: int = scene.world_loader.generation
+        probe.step(scene, 0)
+        _check(probe.entities.is_empty() and probe.configs.is_empty(), "route lease invalidation detaches all old entity regions stale=%s" % stale)
+        _check(probe.entity_releases <= 2 and not probe.retiring.is_empty(), "route invalidation keeps entity retirement bounded stale=%s" % stale)
+        for unused in 5:
+            probe.step(scene, 0)
+        _check(probe.retiring.is_empty() and probe.entity_releases == 5 and owned.all(func(body): return not is_instance_valid(body)), "route invalidation eventually frees every detached body stale=%s" % stale)
+        _check(scene.world_loader.generation == loader_generation, "route entity invalidation does not rely on loader generation stale=%s" % stale)
+        probe.shutdown()
+        ROUTES._cached_stamp = stamp
+    ROUTES._cache_generation = original_generation
+    scene.world_loader.phase = previous_phase
 
 func _target(id: String, path: String, entry: Vector2) -> void:
     pref.shutdown()
