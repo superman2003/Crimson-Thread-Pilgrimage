@@ -111,6 +111,10 @@ func _run() -> void:
     scene.player.build_profile["heal_interrupt_loss_ratio"] = 0.5
     scene.player.heal_timer = 0.6
     scene.player.heal_reserved_cost = 20
+    scene.player.heal_reserved_loss_ratio = 0.5
+    # Match the reservation captured by _try_heal, then change the live profile:
+    # travel must settle the original 50% loss, not the new 100% loss.
+    scene.player.build_profile["heal_interrupt_loss_ratio"] = 1.0
     var tween: Tween = scene._region_tween()
     tween.tween_interval(2)
     var target := "demo_ch02_rain_foundry_canal"

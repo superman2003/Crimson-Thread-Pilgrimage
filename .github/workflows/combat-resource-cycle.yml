@@ -6,6 +6,7 @@ on:
       - 'godot/scripts/player_controller.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
       - 'godot/scripts/combat_resource_cycle_validation.gd'
+      - 'godot/scripts/world_host_validation.gd'
       - 'godot/data/build_catalog.json'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
@@ -56,7 +57,7 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite combat_resource_cycle --suite melee_recovery --suite seal_combat \
-            --suite combat --suite player_state_cleanup --suite player_upgrade_regression \
+            --suite combat --suite world_host --suite player_state_cleanup --suite player_upgrade_regression \
             --suite seal_ui --suite seal_acceptance --suite seal_system --suite build_system \
             --suite build_transaction_runtime --suite build_slots_ui --suite ui_world_integration \
             --suite input_prompt --suite player_action_buffer \
