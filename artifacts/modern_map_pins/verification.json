@@ -1,0 +1,367 @@
+{
+  "validated_head_before_uid_commit": "58483219f95e4d0cefabdedea1c78aedd2b74cfe",
+  "final_local_head": "cc6201014dc60c6bafa2fde4da6079c5341826f8",
+  "source_batch": "5cf7303577f0daa77a8de7b312d5e76dc53f4f88",
+  "source_parent": "a5dfb8ff8649a7f6c8e9c211374bcb1e12728020",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "renderer": "OpenGL 4.5 Mesa 25.0.7 llvmpipe LLVM 19.1.7",
+  "no_source_or_json_changes_across_all_successful_stages": true,
+  "tracked_delta_after_runtime": "only three generated, unique script UID files",
+  "stages": {
+    "import": {
+      "stage": "import",
+      "started_utc": "2026-10-16T12:19:57.606525+00:00",
+      "command": [
+        "python",
+        "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration/tools/run_godot_import.py",
+        "--engine",
+        "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+        "--recovery-mode",
+        "--log-dir",
+        "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/import"
+      ],
+      "cwd": "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration",
+      "environment": {
+        "XDG_DATA_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/import/data",
+        "XDG_CONFIG_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/import/config",
+        "XDG_CACHE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/import/cache",
+        "XDG_STATE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/import/state",
+        "XDG_RUNTIME_DIR": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/import/runtime"
+      },
+      "runtime_mode": "0o700",
+      "exit_code": 0,
+      "duration_seconds": 25.819334178995632,
+      "engine_error_lines": [],
+      "source_unchanged": true,
+      "passed": true
+    },
+    "focused": {
+      "stage": "focused",
+      "started_utc": "2026-10-16T12:20:34.771624+00:00",
+      "command": [
+        "python",
+        "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration/tools/run_godot_regressions.py",
+        "--engine",
+        "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+        "--software-gl",
+        "--log-dir",
+        "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/focused",
+        "--suite",
+        "map_player_pins",
+        "--suite",
+        "cartography",
+        "--suite",
+        "world_map",
+        "--suite",
+        "survey_map_knowledge",
+        "--suite",
+        "world_coordinates",
+        "--suite",
+        "world_save_candidate"
+      ],
+      "cwd": "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration",
+      "environment": {
+        "XDG_DATA_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/focused/data",
+        "XDG_CONFIG_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/focused/config",
+        "XDG_CACHE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/focused/cache",
+        "XDG_STATE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/focused/state",
+        "XDG_RUNTIME_DIR": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/focused/runtime"
+      },
+      "runtime_mode": "0o700",
+      "exit_code": 0,
+      "duration_seconds": 102.81095942200045,
+      "engine_error_lines": [],
+      "source_unchanged": true,
+      "passed": true
+    },
+    "capture": {
+      "stage": "capture",
+      "started_utc": "2026-10-16T12:22:26.734741+00:00",
+      "command": [
+        "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+        "--display-driver",
+        "x11",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--path",
+        "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration/godot",
+        "--script",
+        "res://scripts/map_player_pins_validation.gd",
+        "--",
+        "--capture-output=/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/capture"
+      ],
+      "cwd": "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration",
+      "environment": {
+        "XDG_DATA_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/capture/data",
+        "XDG_CONFIG_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/capture/config",
+        "XDG_CACHE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/capture/cache",
+        "XDG_STATE_HOME": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/capture/state",
+        "XDG_RUNTIME_DIR": "/workspace/scratch/4d581c1832c9/qa-logs/modern-map-pins/xdg/capture/runtime"
+      },
+      "runtime_mode": "0o700",
+      "renderer_environment": {
+        "DISPLAY": "127.0.0.1:93",
+        "LIBGL_ALWAYS_SOFTWARE": "1"
+      },
+      "exit_code": 0,
+      "duration_seconds": 24.509391325998877,
+      "engine_error_lines": [],
+      "source_unchanged": true,
+      "completion_marker": true,
+      "passed": true
+    }
+  },
+  "focused_markers": {
+    "map_player_pins": "MAP PLAYER PINS PASS checks=127",
+    "cartography": "CARTOGRAPHY checks=4215 failures=0 fixture_positioning=true",
+    "world_map": "WORLD_MAP checks=671 failures=0",
+    "survey_map_knowledge": "SURVEY_MAP_KNOWLEDGE checks=20 failures=0",
+    "world_coordinates": "WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves",
+    "world_save_candidate": "WORLD SAVE CANDIDATE PASS checks=103"
+  },
+  "screenshots": [
+    {
+      "file": "region.webp",
+      "fixture": true,
+      "frame_post_draw": true,
+      "sha256": "a445a1bb93557c227200fbfad5b02eb65981e9bd667b06718748d4fa19aab662",
+      "actual_sha256": "a445a1bb93557c227200fbfad5b02eb65981e9bd667b06718748d4fa19aab662",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "world.webp",
+      "fixture": true,
+      "frame_post_draw": true,
+      "sha256": "87c55d08120ee592c3a2d4ff6a401542127c36c8e07f8fea81086f0ecf0b17a3",
+      "actual_sha256": "87c55d08120ee592c3a2d4ff6a401542127c36c8e07f8fea81086f0ecf0b17a3",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "input_sample_count": 55,
+  "explicit_view_rate_samples": [
+    {
+      "action": "region explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.0,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 30,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.00024414062,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 60,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 120,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "world explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -2222.0,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 30,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 4.0
+    },
+    {
+      "action": "world explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -2222.00024414062,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 60,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 4.0
+    },
+    {
+      "action": "world explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 120,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 4.0
+    }
+  ],
+  "capture_checks_at_manifest": 127,
+  "capture_final_checks": 129,
+  "focused_pin_checks": 127,
+  "cold_import_attempt": {
+    "passed": false,
+    "reason": "first cold resource import timed out at original 180-second limit",
+    "source_unchanged": true,
+    "engine_errors": 0,
+    "evidence": "import-cold-timeout/process.json",
+    "recovery": "same-command two-pass strict import using own generated cache; no timeout extension"
+  },
+  "limits": [
+    "Recorded views use charted-room fixtures and paused actors, not natural exploration.",
+    "Input injection uses simulated keyboard/mouse/joypad events; no physical controller feel claim.",
+    "At world overview, nearby existing pin labels 1 and 2 overlap at base zoom; exact positions/list IDs and zoom controls are validated, no decluttering change is included.",
+    "No full default-suite or remote exact-head CI result is claimed.",
+    "No push, PR creation or merge performed by this worker."
+  ]
+}

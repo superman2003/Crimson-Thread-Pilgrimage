@@ -1,10 +1,16 @@
-name: World private checkpoint candidates
+name: World private checkpoints and map pins
 
 on:
   pull_request:
     paths:
       - 'godot/scripts/world_state.gd'
       - 'godot/scripts/world_save_candidate_validation.gd'
+      - 'godot/scripts/map_player_pins.gd'
+      - 'godot/scripts/map_player_pins_runtime.gd'
+      - 'godot/scripts/map_player_pins_validation.gd'
+      - 'godot/scripts/survey_map_view.gd'
+      - 'godot/scripts/survey_map_knowledge.gd'
+      - 'godot/scripts/pilgrimage_cartography.gd'
       - 'godot/scripts/main_level.gd'
       - 'godot/scripts/world_coordinates.gd'
       - 'godot/scripts/build_system.gd'
@@ -56,12 +62,13 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
             --timeout 600 --log-dir "$RUNNER_TEMP/world-private-checkpoint-logs/import"
-      - name: Validate candidate ownership and modern save transactions
+      - name: Validate checkpoint ownership, map pins and modern save transactions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite world_save_candidate --suite world_state --suite world_coordinates \
             --suite world_death_cache_flush --suite save_product --suite build_transaction_runtime \
+            --suite map_player_pins --suite cartography --suite world_map --suite survey_map_knowledge \
             --log-dir "$RUNNER_TEMP/world-private-checkpoint-logs"
       - name: Preserve regression logs
         if: always()
@@ -71,4 +78,5 @@ jobs:
           path: |
             ${{ runner.temp }}/world-private-checkpoint-logs
             artifacts/modern_private_checkpoint
+            artifacts/modern_map_pins
           if-no-files-found: ignore

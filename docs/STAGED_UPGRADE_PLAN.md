@@ -1,5 +1,21 @@
 # 深化与验收分阶段计划
 
+## 2026-10-16：#98 串接最新 #95→#96→#97 依赖链（当前本地结论）
+
+原 #98 `9ceabd98` 先合准确 #97 `bdb8a778`，生成实测检查点 `5ddb8871`（tree `8d95300d`），再合最终 #97 `effc0d80`（tree `5a7761bf`；#96 `8ce445a7` → #95 `ae9e249b` → main `2d60b550`）。初轮五处文档/runner、末轮三处台账冲突均保留双方并集。默认 **110 套** = 原 104 与上游 109 的精确并集；22 个 workflow、全部原完成标记、180 秒上限、绘制模式与独立 runtime/visual CI 保留。原十套 checkpoint/map workflow 原字节保留，其余均与最终 #97 一致。
+
+图钉 model/runtime/validation、三个 UID、现代 viewport 与 Main 八个 blob 均为原 #98 字节，相对最终 #97 的生产差量仍恰为这八个文件；Main 仅原四行 hookup。全部上游生产、数据、素材与发布工具继承。最终合并相对实测 `5ddb8871` 的整个 godot 仅未在本轮执行的 `world_catalog_background_validation.gd` 新增 42 行；全部实际游戏代码/资产和三套已跑测试、runner/marker 均逐字节相同。577 项初轮冻结清单中仅该目录验证改变，不能将全部 577 项宣称为最终同哈希。
+
+实测发生在 `5ddb8871`：显式 **Godot 4.6.1.14d19694e**、严格180秒双导入 **14.131 秒**通过；真实 llvmpipe GL 三套共 **90.758 秒**，图钉 **127**、世界地图 **671**、私有候选 **103** 项，退出0且完成标记齐。接受轮577项源码/配置/数据/runner以及bus哈希前后不变，零 ERROR/SCRIPT ERROR、零 ObjectDB warning；三条 V-Sync 不支持 warning 原样留存。初轮导入虽退出0/无引擎错误，bus自动重序列化触发冻结检查，已保留初轮日志/差量，仅恢复bus原字节后用同参数本地缓存复验。最终合并按上述源等价复用三套运行，不冒称在最后提交上再次执行。
+
+npm test、campaign、29项runner、11项import runner、11项GPU runner、5项workflow与23项release-builder静态检查通过。5,156个水合LFS资源逐项OID/size复核，0缺失/不符；两张待机PNG原hash保留。新目录81项的真实GL来源是上游 #96 `8ce445a7`，其测试文件与本树相同，本worker未重跑。旧图钉截图仍属原批，不充作本轮新截图。历史ObjectDB退出warning未因此宣称根治，长期资源稳定仍OPEN。
+
+本worker未推送/合并远端PR，未全跑110套、八组像素或Windows/Linux发行包；旧#98的12 workflow/14 job绿灯只属旧头，最终准确head CI需另核。U04动态图层/楼层、总览图钉重叠、自然六区体验、#64出发事务与W00b2b整包仍OPEN。当前来源、全部原始日志及源等价证明见 `artifacts/map_pins_current_chain/verification.json`；旧批证据保留在后文及原目录。
+
+## 2026-10-16：U04 玩家地图图钉独立整合
+
+依赖 #97 私有 checkpoint `e7a37100`，续接原 #67 `5cf73035`。已知且补绘的区域支持当前位置/右键标记、类型/编号列表及删除，最多12枚；跨区域/重启持久，隐藏区域不泄露，存档失败不先修改图钉和旧 checkpoint。保留现代键盘/摇杆平移、肩键缩放、复位/失焦和断连规则。默认104套；原48条断言保留，显式4.6.1双导入、6套受影响GL和真实region/world截图通过，55条输入样本含两视图30/60/120Hz。冷导入首轮180秒超时原记录保留，同参数缓存重跑通过。最近图钉标签总览重叠、动态图层/楼层与全U04自然体验仍OPEN。远端新head CI另核，不沿用前置或旧分支绿灯。详见[本批报告](report/20261016_modern_map_pins.md)。
+
 ## 2026-10-16：#97 同步目录恢复调度修复依赖（最新状态）
 
 以已发布 #97 `bdb8a778`（tree `3a74b453`）为第一父，合入 #96 `8ce445a7`（tree `867cd9f4`，包含 #95 `ae9e249b`）。本地旧 `fa376c8` 与已发布头完全同树，先 same-tree soft 对齐，再仅合并此次依赖。三份台账取双方并集；相对 `bdb8a778` 的整个 godot 仅 `world_catalog_background_validation.gd` 新增 42 行，原 71 项保留并扩至 81 项。全部生产源码、数据、素材、109 套集合、runner、22 个 workflow、严格 marker/error、180 秒与绘制模式逐字节不变。
