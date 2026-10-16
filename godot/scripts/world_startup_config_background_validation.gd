@@ -34,6 +34,17 @@ class FailedStartReader extends "res://scripts/world_config_read_job.gd":
         attempts += 1
         return 0
 
+class ExitDiagnosticsLoader extends "res://scripts/world_region_loader.gd":
+    var exit_snapshots: Array = []
+    var pre_shutdown_states: Array = []
+    func _write_startup_exit_snapshot(snapshot: Dictionary) -> void:
+        exit_snapshots.append(snapshot)
+        pre_shutdown_states.append({"phase": phase, "shutting_down": shutting_down,
+            "cancel_requested": cancel_requested, "reader_closed": config_read_job.closed,
+            "reader_pending": config_read_job.has_pending_ticket(),
+            "token_cancelled": startup_token != null and startup_token.cancelled})
+        super._write_startup_exit_snapshot(snapshot)
+
 class FaultReader extends "res://scripts/world_config_read_job.gd":
     var fault := ""
     func request_validation(raw: Variant, path: String, entry: Vector2, use_default_entry: bool, route_context: Dictionary) -> int:
@@ -55,6 +66,15 @@ func _initialize() -> void:
 
 func _run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
+    _startup_exit_diagnostics_contract()
+    if "--startup-exit-diagnostics-only" in OS.get_cmdline_user_args():
+        if failures.is_empty():
+            print("WORLD STARTUP EXIT DIAGNOSTICS PASS checks=%d verbose=%s" % [checks, OS.is_stdout_verbose()])
+            quit(0)
+        else:
+            for failure in failures: push_error(failure)
+            quit(1)
+        return
     await _new_game_and_resume()
     await _background_validation_oracle()
     _malformed_overlay_steps()
@@ -72,6 +92,45 @@ func _run() -> void:
     else:
         for failure in failures: push_error(failure)
         quit(1)
+
+func _startup_exit_diagnostics_contract() -> void:
+    for complete in [false, true]:
+        var loader := ExitDiagnosticsLoader.new()
+        loader.phase = "idle" if complete else "startup"
+        loader.active_region_id = "fixture" if complete else ""
+        var token = preload("res://scripts/world_transition_token.gd").new()
+        if not complete:
+            loader.startup_token = token
+            loader.config_read_job._accepted = 7
+        loader.last_transition = {"startup_requested_frame": Engine.get_process_frames(),
+            "startup_requested_usec": Time.get_ticks_usec(), "jobs": 42, "build_cursor": 17,
+            "build_batches": 3, "max_build_operations": 8, "prepare_wall_usec": "SECRET_NUMBER_FIELD",
+            "catalog_reads": [{"wait_frames": 2, "read_overlap_frames": 1, "worker_usec": 42,
+                "merge_frame_batches": 3, "path": "SECRET_CATALOG_PATH"}],
+            "startup_config_lease": {"path": "SECRET_USER_PATH", "payload": "SECRET_SAVE_CONTENT"},
+            "untrusted_extra": "SECRET_TOKEN_PAYLOAD"}
+        var before := loader.last_transition.duplicate(true)
+        var snapshot: Dictionary = loader._startup_exit_snapshot()
+        _check(loader.last_transition == before and not loader.shutting_down and not loader.cancel_requested and not token.cancelled, "exit snapshot does not mutate metrics or cancellation state")
+        _check(loader.config_read_job.has_pending_ticket() == (not complete) and not loader.config_read_job.closed, "exit snapshot does not consume reader ownership")
+        _check(snapshot.stage == ("published" if complete else "build") and snapshot.startup_pending == (not complete), "exit snapshot distinguishes publication from unfinished build")
+        _check(snapshot.jobs == 42 and snapshot.build_cursor == 17 and snapshot.build_batches == 3 and snapshot.max_build_operations == 8, "exit snapshot retains numeric build diagnostics")
+        _check(snapshot.catalog_read_count == 1 and snapshot.catalog_wait_frames == 2 and snapshot.catalog_read_overlap_frames == 1 and snapshot.catalog_worker_usec == 42 and snapshot.catalog_merge_frame_batches == 3, "exit snapshot aggregates only numeric catalog diagnostics")
+        _check(snapshot.elapsed_frames >= 0 and snapshot.elapsed_usec >= 0, "exit snapshot records bounded scalar elapsed diagnostics")
+        _check(not JSON.stringify(snapshot).contains("SECRET") and not snapshot.has("startup_config_lease") and not snapshot.has("untrusted_extra") and snapshot.prepare_wall_usec == -1, "exit snapshot excludes save contents paths and private payloads")
+        loader.shutdown()
+        loader.shutdown()
+        _check(loader.exit_snapshots.size() == (1 if OS.is_stdout_verbose() else 0), "verbose shutdown emits once and quiet shutdown emits nothing")
+        _check(loader.last_transition == before, "shutdown logging leaves transition metrics unchanged")
+        _check(loader.config_read_job.closed and not loader.config_read_job.has_pending_ticket(), "diagnostic teardown still drains reader ownership")
+        if OS.is_stdout_verbose():
+            var emitted: Dictionary = loader.exit_snapshots[0]
+            var state: Dictionary = loader.pre_shutdown_states[0]
+            _check(not state.shutting_down and not state.cancel_requested and not state.reader_closed and not state.token_cancelled, "exit logging occurs before cancel join and clear")
+            _check(state.reader_pending == (not complete) and emitted.reader_pending == (not complete) and emitted.phase == ("idle" if complete else "startup"), "exit logging captures original owner and phase")
+    var unused := ExitDiagnosticsLoader.new()
+    unused.shutdown()
+    _check(unused.exit_snapshots.is_empty(), "non-startup loader does not emit startup diagnostics")
 
 func _new_game_and_resume() -> void:
     # Prime through the explicit synchronous oracle, then make production cold.
