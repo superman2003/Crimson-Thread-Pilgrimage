@@ -1,0 +1,76 @@
+name: Modern combat resource integration
+
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/combat_resource_cycle_validation.gd'
+      - 'godot/scripts/world_host_validation.gd'
+      - 'godot/data/build_catalog.json'
+      - 'tools/run_godot_regressions.py'
+      - 'tools/godot_suite_success_markers.json'
+      - 'tools/run_godot_import.py'
+      - 'tools/test_godot_import.py'
+      - 'tools/software_gl.py'
+      - 'tools/test_regression_runner.py'
+      - 'docs/COMBAT_HEALING_RESOURCE_CYCLE.md'
+      - '.github/workflows/modern-combat-resource-cycle.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: modern-combat-resource-cycle-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate JavaScript and campaign structure
+        run: |
+          npm test
+          npm run test:campaign
+      - name: Import resources with strict error checks
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/modern-combat-resource-cycle-logs/import"
+      - name: Validate real combat cycles and existing resource/UI contracts
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite combat_resource_cycle --suite melee_recovery --suite seal_combat \
+            --suite combat --suite world_host --suite player_state_cleanup --suite player_upgrade_regression \
+            --suite seal_ui --suite seal_acceptance --suite seal_system --suite build_system \
+            --suite build_transaction_runtime --suite build_slots_ui --suite ui_world_integration \
+            --suite input_prompt --suite player_action_buffer \
+            --log-dir "$RUNNER_TEMP/modern-combat-resource-cycle-logs"
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: modern-combat-resource-cycle-logs
+          path: |
+            ${{ runner.temp }}/modern-combat-resource-cycle-logs
+            artifacts/combat_resource_cycle
+          if-no-files-found: ignore
