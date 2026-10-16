@@ -1,0 +1,65 @@
+name: Survey map navigation
+
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/survey_map_view.gd'
+      - 'godot/scripts/cartography_runtime.gd'
+      - 'godot/scripts/world_atlas.gd'
+      - 'godot/scripts/world_map_validation.gd'
+      - 'godot/scripts/survey_navigation_validation.gd'
+      - 'docs/SURVEY_MAP_NAVIGATION.md'
+      - '.github/workflows/survey-map-navigation.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: survey-map-navigation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate JavaScript and campaign structure
+        run: |
+          npm test
+          npm run test:campaign
+      - name: Import resources with strict error checks
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/survey-map-navigation-logs/import"
+      - name: Validate map navigation, discovery, persistence and input settings
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite world_map --suite cartography \
+            --suite survey_map_knowledge --suite input_settings_regression \
+            --log-dir "$RUNNER_TEMP/survey-map-navigation-logs"
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: survey-map-navigation-logs
+          path: ${{ runner.temp }}/survey-map-navigation-logs
+          if-no-files-found: ignore

@@ -122,6 +122,7 @@ func _run() -> void:
     _check(scene.map_draw_root.position.is_equal_approx(Vector2(-scene.map_draw_root.size.x,0)), "pan stops at content edges")
     camera.reset()
     _check(camera.zoom == 1.0 and scene.map_draw_root.position == Vector2.ZERO, "reset restores the full atlas")
+    await preload("res://scripts/survey_navigation_validation.gd").new().run(self,scene,_check)
     # Same clipped terrain as the local hand-drawn map, without scene building.
     var descriptor_polygons := ATLAS.terrain(String(scene.config.id))
     var live_polygons := SURVEY.terrain_polygons(scene)

@@ -230,5 +230,5 @@ static func render(level: Node) -> void:
         dot.text="◆"
         dot.add_theme_color_override("font_color",SURFACE.ACCENT)
         host.add_child(dot)
-    level.map_text.text="◆ 位置    ◎ 钟龛    ◇ 旧路    滚轮缩放 / 拖动    Tab 世界地图    M / Esc 返回"
+    level.map_text.text="◆ 位置    ◎ 钟龛    ◇ 旧路    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
     level.map_text.tooltip_text="已补绘 %d 室，待补绘 %d 笔。安坐钟龛可补绘途中笔记；悬停查看房间名称。" % [journal.charted.size(),journal.pending.size()]
