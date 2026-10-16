@@ -1,13 +1,71 @@
 {
   "version": 1,
-  "stage": "first_walkable_connector_with_terminal_loading",
+  "stage": "six_region_walkable_network_with_terminal_loading",
   "passages": [
     {
       "id": "moss_rain_drainpipe",
       "label": "排水钟管",
       "material": "moss_cavern",
-      "a": {"region": "demo_ch01_moss_bell_court", "portal": "moss_rain_pipe"},
-      "b": {"region": "demo_ch02_rain_foundry_canal", "portal": "rain_moss_pipe"}
+      "a": {
+        "region": "demo_ch01_moss_bell_court",
+        "portal": "moss_rain_pipe"
+      },
+      "b": {
+        "region": "demo_ch02_rain_foundry_canal",
+        "portal": "rain_moss_pipe"
+      }
+    },
+    {
+      "id": "rain_archive_conduit",
+      "label": "运书泵廊",
+      "material": "rain_foundry",
+      "a": {
+        "region": "demo_ch02_rain_foundry_canal",
+        "portal": "rain_archive_riser"
+      },
+      "b": {
+        "region": "demo_ch03_saltwhite_archive",
+        "portal": "archive_rain_riser"
+      }
+    },
+    {
+      "id": "archive_obsidian_gallery",
+      "label": "旧军用运书廊",
+      "material": "salt_archive",
+      "a": {
+        "region": "demo_ch03_saltwhite_archive",
+        "portal": "upgrade_archive_obsidian_branch_a"
+      },
+      "b": {
+        "region": "demo_ch05_obsidian_pilgrim_road",
+        "portal": "upgrade_archive_obsidian_branch_b"
+      }
+    },
+    {
+      "id": "obsidian_crown_causeway",
+      "label": "冠脊石道",
+      "material": "obsidian_pilgrim",
+      "a": {
+        "region": "demo_ch05_obsidian_pilgrim_road",
+        "portal": "world_5_6_out"
+      },
+      "b": {
+        "region": "demo_ch06_silent_crown_core",
+        "portal": "world_6_5_back"
+      }
+    },
+    {
+      "id": "greenhouse_crown_roots",
+      "label": "根须影管",
+      "material": "string_greenhouse",
+      "a": {
+        "region": "demo_ch04_broken_string_greenhouse",
+        "portal": "upgrade_greenhouse_crown_branch_a"
+      },
+      "b": {
+        "region": "demo_ch06_silent_crown_core",
+        "portal": "upgrade_greenhouse_crown_branch_b"
+      }
     }
   ]
 }

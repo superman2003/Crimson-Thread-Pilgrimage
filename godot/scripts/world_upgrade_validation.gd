@@ -251,6 +251,7 @@ func _verify_late_branch(region: String, portal_id: String, ability: String = ""
         scene._add_inventory_item(ability, 1, false)
         scene._sync_player_abilities()
     scene._activate_world_portal(scene.get_node(portal_id))
+    _assert(await preload("res://scripts/world_passage_terminal_fixture.gd").finish(scene), portal_id + ": terminal state fixture settles")
     await _tick(10)
     var arrival := Vector2(float(entry.target_spawn[0]), float(entry.target_spawn[1]))
     _assert(String(scene.config.id) == String(entry.target_config_id), portal_id + ": real later-region branch replaces scene")
@@ -260,6 +261,7 @@ func _verify_late_branch(region: String, portal_id: String, ability: String = ""
     if not String(entry.get("unlock_shortcut_id", "")).is_empty():
         _assert(bool(scene.story_flags.get("world_shortcut_" + String(entry.unlock_shortcut_id), false)), portal_id + ": far-side service latch persists")
     scene._activate_world_portal(scene.get_node(String(entry.target_portal_id)))
+    _assert(await preload("res://scripts/world_passage_terminal_fixture.gd").finish(scene), portal_id + ": terminal state fixture settles")
     await _tick(10)
     _assert(String(scene.config.id) == region and scene.player.position.distance_to(source) < 85, portal_id + ": branch can return without boss-clear dependency")
 
