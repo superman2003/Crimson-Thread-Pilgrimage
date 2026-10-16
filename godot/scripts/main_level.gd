@@ -2237,10 +2237,7 @@ func _bind_audio_settings_key() -> void:
 func _ensure_audio_buses() -> void:
     for bus_name in AUDIO_BUSES:
         if AudioServer.get_bus_index(bus_name) == -1:
-            AudioServer.add_bus()
-            var new_index := AudioServer.bus_count - 1
-            AudioServer.set_bus_name(new_index, bus_name)
-            AudioServer.set_bus_send(new_index, "Master")
+            AUDIO_DIRECTOR_SCRIPT._ensure_bus(String(bus_name), "Master")
         var bus_index := AudioServer.get_bus_index(bus_name)
         AudioServer.set_bus_volume_db(bus_index, float(AUDIO_BUS_DEFAULT_VOLUME_DB.get(bus_name, 0.0)))
     for reverb_bus_name in ["SFX", "Ambience"]:
