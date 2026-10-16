@@ -1,8 +1,20 @@
 # U04: modern personal map pins integration result
 
-## Outcome
+## 2026-10-16：#98 串接最新 #95→#96→#97 依赖链（当前本地结论）
 
-Local source integration and the focused validation are complete; remote CI is pending for the published head. Final local branch `codex/u04-map-pins-modern-integration` points to `cc6201014dc60c6bafa2fde4da6079c5341826f8`. This worker did not push, open a PR, or merge.
+原 #98 `9ceabd98` 先合准确 #97 `bdb8a778`，生成实测检查点 `5ddb8871`（tree `8d95300d`），再合最终 #97 `effc0d80`（tree `5a7761bf`；#96 `8ce445a7` → #95 `ae9e249b` → main `2d60b550`）。初轮五处文档/runner、末轮三处台账冲突均保留双方并集。默认 **110 套** = 原 104 与上游 109 的精确并集；22 个 workflow、全部原完成标记、180 秒上限、绘制模式与独立 runtime/visual CI 保留。原十套 checkpoint/map workflow 原字节保留，其余均与最终 #97 一致。
+
+图钉 model/runtime/validation、三个 UID、现代 viewport 与 Main 八个 blob 均为原 #98 字节，相对最终 #97 的生产差量仍恰为这八个文件；Main 仅原四行 hookup。全部上游生产、数据、素材与发布工具继承。最终合并相对实测 `5ddb8871` 的整个 godot 仅未在本轮执行的 `world_catalog_background_validation.gd` 新增 42 行；全部实际游戏代码/资产和三套已跑测试、runner/marker 均逐字节相同。577 项初轮冻结清单中仅该目录验证改变，不能将全部 577 项宣称为最终同哈希。
+
+实测发生在 `5ddb8871`：显式 **Godot 4.6.1.14d19694e**、严格180秒双导入 **14.131 秒**通过；真实 llvmpipe GL 三套共 **90.758 秒**，图钉 **127**、世界地图 **671**、私有候选 **103** 项，退出0且完成标记齐。接受轮577项源码/配置/数据/runner以及bus哈希前后不变，零 ERROR/SCRIPT ERROR、零 ObjectDB warning；三条 V-Sync 不支持 warning 原样留存。初轮导入虽退出0/无引擎错误，bus自动重序列化触发冻结检查，已保留初轮日志/差量，仅恢复bus原字节后用同参数本地缓存复验。最终合并按上述源等价复用三套运行，不冒称在最后提交上再次执行。
+
+npm test、campaign、29项runner、11项import runner、11项GPU runner、5项workflow与23项release-builder静态检查通过。5,156个水合LFS资源逐项OID/size复核，0缺失/不符；两张待机PNG原hash保留。新目录81项的真实GL来源是上游 #96 `8ce445a7`，其测试文件与本树相同，本worker未重跑。旧图钉截图仍属原批，不充作本轮新截图。历史ObjectDB退出warning未因此宣称根治，长期资源稳定仍OPEN。
+
+本worker未推送/合并远端PR，未全跑110套、八组像素或Windows/Linux发行包；旧#98的12 workflow/14 job绿灯只属旧头，最终准确head CI需另核。U04动态图层/楼层、总览图钉重叠、自然六区体验、#64出发事务与W00b2b整包仍OPEN。当前来源、全部原始日志及源等价证明见 `artifacts/map_pins_current_chain/verification.json`；旧批证据保留在后文及原目录。
+
+## Historical original batch outcome (not current #98 status)
+
+The original batch completed local source integration and focused validation; remote CI was pending when this historical record was written. That worker’s local branch `codex/u04-map-pins-modern-integration` then pointed to `cc6201014dc60c6bafa2fde4da6079c5341826f8`. That worker did not push, open a PR, or merge. Current-chain status is stated above; these old head IDs and results are not the current branch status.
 
 The frozen tree tested at `58483219f95e4d0cefabdedea1c78aedd2b74cfe` has exactly the same game scripts and JSON data as the final local head. The final commit only adds the three Godot-generated, uniqueness-checked pin script UIDs. Parent owns Main hookup, regression runner, workflows and publication documentation.
 
@@ -17,7 +29,7 @@ The frozen tree tested at `58483219f95e4d0cefabdedea1c78aedd2b74cfe` has exactly
 
 The independent static review found two new fixture mistakes before runtime: initial atlas reads initialize empty journal entries, and the shared navigation helper changes presentation on close/reopen. Both were fixed only in the new validation. The fixture warms views before the exact state snapshot, labels helper sequences by their starting view, records actual mode, then explicitly restores and verifies requested flag/camera/title before independent rate tests and marker projection checks. Review concluded no remaining P0/P1/P2 findings; this is a bounded review, not a product-wide guarantee.
 
-## Actual checks
+## Historical original batch local verification (not rerun on current chain)
 
 Engine: Godot `4.6.1.stable.official.14d19694e` at the explicitly requested local path. Runtime renderer: OpenGL 4.5 Mesa 25.0.7, llvmpipe LLVM 19.1.7, TCP Xvfb. Canonical absolute XDG DATA/CONFIG/CACHE/STATE/RUNTIME paths; runtime permission 0700.
 
@@ -60,11 +72,11 @@ These are synthetic input dispatch and authored charted-room fixtures with pause
 
 UID values/hashes and their sole matches are in `uid-verification.json`. Full machine evidence is in `verification.json`; exact invocations, source maps, timing and XDG environment in `import-process.json`, `focused-process.json`, `capture-process.json`. Source lineage/assertion preservation is in `static-source-manifest.json`. All 5,156 Godot LFS resources were independently verified against pointer SHA-256 OID and size, with 0 invalid/missing entries, in `resource-materialization.json`.
 
-## Remaining boundaries
+## Historical original batch boundaries
 
 Publication evidence now matches prerequisite #97 e7a37100. Remote exact-head CI remains pending. This batch does not finish all U04 map features, W00b2b, departure failure safety, six-region natural gameplay, hardware controller testing, long-term resource stability or asynchronous storage. The GL slot has been explicitly released; no engine remains running for this worker.
 
-## Publication integration and CI coverage
+## Historical original batch publication and CI coverage
 
 The final prerequisite is #97 `e7a371005ec8743517a6de62f2ea1f9ed4ea379f`, based on main `07ae21d4`. Its final five documentation/evidence files were synchronized after GL; all 415 tracked Godot GDScript/JSON files remain byte-identical to the GL-tested map tree. Final npm test, campaign and 23 runner tests passed. U04 stays partial; this PR's own production delta is the pin model/runtime/validation, modern viewport dispatch and four-line Main hookup.
 

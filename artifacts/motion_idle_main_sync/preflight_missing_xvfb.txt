@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/4d581c1832c9/crimson-motion-idle-sync/tools/run_godot_regressions.py", line 121, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/scratch/4d581c1832c9/crimson-motion-idle-sync/tools/run_godot_regressions.py", line 70, in main
+    with display as renderer_env:
+         ^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/scratch/4d581c1832c9/crimson-motion-idle-sync/tools/software_gl.py", line 13, in software_gl
+    raise RuntimeError('--software-gl requires Xvfb; no headless fallback')
+RuntimeError: --software-gl requires Xvfb; no headless fallback

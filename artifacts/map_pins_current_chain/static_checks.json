@@ -1,0 +1,43 @@
+{
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "returncode": 0,
+      "seconds": 10.867,
+      "log": "artifacts/map_pins_current_chain/npm_test.txt"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:campaign"
+      ],
+      "returncode": 0,
+      "seconds": 2.248,
+      "log": "artifacts/map_pins_current_chain/campaign.txt"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/test_integration_workflow.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.097,
+      "log": "artifacts/map_pins_current_chain/workflow_tests.txt"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/test_release_builder.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.775,
+      "log": "artifacts/map_pins_current_chain/release_builder_tests.txt"
+    }
+  ],
+  "source_drift": [],
+  "all_passed": true
+}

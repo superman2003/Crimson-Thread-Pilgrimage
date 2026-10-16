@@ -1,0 +1,176 @@
+{
+  "scope": "One-time PR #97 dependency maintenance only; no production-source changes, publication, PR merge, Godot import or real GL execution.",
+  "date_utc": "2026-10-16T13:55:35.258144+00:00",
+  "prior_published_pr97_head": "bdb8a7780668a29c225bdbdca621def6026c3c92",
+  "prior_local_head": "fa376c8cb2ff2f3fe7d22deade60b7fe5ee12ace",
+  "same_tree_before_soft_reset": "3a74b4534c1fdf01ca3cbaa38a57c42bd19311d4",
+  "same_tree_soft_reset_verified": true,
+  "prior_upstream_pr96_head": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+  "upstream_pr96_head": "8ce445a76393718f37ee87d65db02d7903fb7b7e",
+  "upstream_pr96_tree": "867cd9f4bb633d5096ba247b28b6d20db84daf66",
+  "upstream_pr96_parents": [
+    "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+    "ae9e249bd599f0613cbe80dd9357eee0330893c3"
+  ],
+  "expected_merge_parents": [
+    "bdb8a7780668a29c225bdbdca621def6026c3c92",
+    "8ce445a76393718f37ee87d65db02d7903fb7b7e"
+  ],
+  "merge_conflicts_resolved_as_union": [
+    "docs/STAGED_UPGRADE_PLAN.md",
+    "docs/UPGRADE_PROGRESS.md",
+    "docs/UPGRADE_TASK_LEDGER.md"
+  ],
+  "source_equivalence": {
+    "method": "Compare sorted path/mode/Git-blob manifests from both committed references and the resolved Git index; ignore hydrated working-tree bytes and generated untracked import sidecars.",
+    "prior_pr97_to_resolved_index_godot_changes": [
+      "godot/scripts/world_catalog_background_validation.gd"
+    ],
+    "fixture_added_lines": 42,
+    "fixture_removed_lines": 0,
+    "fixture_matches_pr96_blob": "a18dfebadb514fea37b85980a8b35fd82e41d95a",
+    "fixture_sha256": "6f035a46fab81c9154b6fce073b8cba9311081a7e842ffff6dc157ef3135fa23",
+    "all_other_godot_entries_equal_prior_pr97": true,
+    "godot_entries_excluding_fixture": 7993,
+    "godot_manifest_excluding_fixture_sha256": "a4f0b6c054e347d8c754aff3300f6a807cc2937e63e2abb089acc66efe86e543",
+    "all_tracked_entries_outside_docs_artifacts_and_fixture_equal_prior_pr97": true,
+    "protected_entry_count": 8424,
+    "protected_manifest_sha256": "1437efd91b7ef24330d0f68ec322529d0b37d7c63c091e276c915c72b204207f",
+    "prior_upstream_to_new_upstream_production_equal": true,
+    "unchanged_subtree_git_ids": {
+      "godot/assets": "c3359bac7d178f3bc29414fd29406c58ae3d0824",
+      "godot/data": "f73360ff923c50aa3ec162096dcf7ec9aa63cf4f",
+      ".github": "bf2ef216aa7c09011e92e3e02e5c6b464de45eae",
+      "tools": "e5232eafab7e5d75dcf542c12e316bf8663454f6",
+      "src": "0b9688c9c73909bc1aff5207006c128e138a9c4e",
+      "assets": "ce4993fcd5c33884417692d46e07f4c224b0e9bb",
+      "tests": "2377e68cda487295f9a5c7aa3bcef60846803669"
+    }
+  },
+  "gates_unchanged": {
+    "default_suite_count": 109,
+    "suite_order_matches_prior_pr97": true,
+    "suite_list_sha256": "129857fa7b0e16f3f7514e99458cecd037208a183b468b74e518dfe56162d63f",
+    "workflow_count": 22,
+    "runner_marker_workflow_release_tools_unchanged": true,
+    "timeout_seconds": 180,
+    "rendering_modes_unchanged": true
+  },
+  "static_checks_this_sync": [
+    {
+      "name": "regression-runner unit tests (fake engine only)",
+      "command": "python3 tools/test_regression_runner.py",
+      "test_count": 29,
+      "exit_code": 0,
+      "log_sha256": "c53e6dd7727a4d2ebce619e1acbdc93fc5b1fe3fc443b2c6b282130c28e81ec9"
+    },
+    {
+      "name": "integration-workflow unit tests",
+      "command": "python3 tools/test_integration_workflow.py",
+      "test_count": 5,
+      "exit_code": 0,
+      "log_sha256": "d03ce458f2a6cd2b4f27522f3aacad03ce1872c028853507c3ad02ca621bdcad"
+    }
+  ],
+  "reused_private_checkpoint_evidence": {
+    "reference_commit": "bdb8a7780668a29c225bdbdca621def6026c3c92",
+    "reference_tree": "3a74b4534c1fdf01ca3cbaa38a57c42bd19311d4",
+    "evidence_path": "artifacts/modern_private_checkpoint/chain_sync_verification.json",
+    "evidence_sha256": "b1a843b6746978a3a56b1931da0dd211a7d7f5cb73d82d1ffcfc257f0807501e",
+    "original_tested_source_tree": "d3eac7bec69ff3ded34f806e9c3402783ad5b879",
+    "engine": "4.6.1.stable.official.14d19694e",
+    "strict_double_import": {
+      "exit_code": 0,
+      "duration_seconds": 11.679,
+      "logs": [
+        {
+          "name": "import-1.log",
+          "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+          "engine_errors": 0,
+          "objectdb_warning_count": 0
+        },
+        {
+          "name": "import-2.log",
+          "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+          "engine_errors": 0,
+          "objectdb_warning_count": 0
+        }
+      ]
+    },
+    "three_save_suites": [
+      {
+        "suite": "world_save_candidate",
+        "sha256": "58929280c59da1572bd9183e0046a9626a4e49b6de66754d6819f4be129bc3cb",
+        "completion_marker": "WORLD SAVE CANDIDATE PASS checks=103",
+        "engine_errors": 0,
+        "objectdb_warning_count": 1,
+        "status": "PASS",
+        "elapsed_seconds": null,
+        "elapsed_note": "The three-suite standard runner has a measured total duration; per-suite process durations were not instrumented."
+      },
+      {
+        "suite": "save_product",
+        "sha256": "907b0d6b30dd349baad730394749a1444d5eb1b5283f2a73739bfb1fe9eddce7",
+        "completion_marker": "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+        "engine_errors": 0,
+        "objectdb_warning_count": 0,
+        "status": "PASS",
+        "elapsed_seconds": null,
+        "elapsed_note": "The three-suite standard runner has a measured total duration; per-suite process durations were not instrumented."
+      },
+      {
+        "suite": "build_transaction_runtime",
+        "sha256": "0909c27134eb2f64dcb80c3dbc7e6cd18fa226ce3d0f48022092088c69843267",
+        "completion_marker": "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback",
+        "engine_errors": 0,
+        "objectdb_warning_count": 0,
+        "status": "PASS",
+        "elapsed_seconds": null,
+        "elapsed_note": "The three-suite standard runner has a measured total duration; per-suite process durations were not instrumented."
+      }
+    ],
+    "combined_duration_seconds": 36.14,
+    "qualification": "Historical real execution on the prior PR #97 source combination; reused for byte-identical production code and save fixtures. Not rerun on this new merge. Initial rejected import source mutation and the accepted repeat remain documented in the original evidence."
+  },
+  "upstream_catalog_81_evidence": {
+    "reference_commit": "8ce445a76393718f37ee87d65db02d7903fb7b7e",
+    "reference_tree": "867cd9f4bb633d5096ba247b28b6d20db84daf66",
+    "source_pr": 96,
+    "evidence_path": "artifacts/modern_startup_integration/catalog_scheduler_sync_verification.json",
+    "evidence_sha256": "2e2b302382ff6d4eabcc975ee2fc121b96bd9403947ca5140d89499d40d68bc4",
+    "validation": {
+      "engine": "4.6.1.stable.official.14d19694e",
+      "suite": "world_catalog_background",
+      "checks": 81,
+      "exit_code": 0,
+      "strict_errors": 0,
+      "objectdb_warnings": 0,
+      "log_sha256": "8ce36b8ccb7d4c450433b128d8080ad4b5448c39c3f69b303b1c0ffa19e3af8b",
+      "timeout_seconds": 180,
+      "real_gl": true
+    },
+    "qualification": "Actual 4.6.1 real GL execution belongs to the PR #96 startup-worker combination. This PR #97 sync only verified the exact fixture bytes and preserved production source; it did not rerun the catalog test."
+  },
+  "worktree_preservation": {
+    "initial_status_sha256": "9c8a5f828e502b70e9722b51554db97373d5e91b73cd415163ca5e746fdb0758",
+    "initial_status_counts": {
+      " M": 492,
+      "??": 6497
+    },
+    "existing_untracked_artifact_directories": [
+      "artifacts/combat_resource_cycle/",
+      "artifacts/workshop_group_one/",
+      "artifacts/workshop_group_two/"
+    ],
+    "hydration_and_generated_sidecars_not_staged": true,
+    "explicit_path_staging_only": true
+  },
+  "new_head_ci": "PENDING; only local commit authorized. Publication and exact-head CI verification remain with the parent.",
+  "runtime_executed_this_sync": false,
+  "not_claimed": [
+    "No new-head full 109-suite, eight pixel groups, desktop-release, strict import or real GL run was performed in this dependency maintenance.",
+    "Prior-head green CI is not a new-head result. Upstream #95 Linux 120-frame results and pending new-head Windows results retain their own provenance.",
+    "The prior private-candidate ObjectDB exit warning remains unassigned; long-term resource stability is not claimed.",
+    "Departure transaction #64, U04, W00b2b complete scope, idle seams/full breathing/cross-action visual continuity, natural six-region completion and long-term resource stability remain OPEN."
+  ]
+}

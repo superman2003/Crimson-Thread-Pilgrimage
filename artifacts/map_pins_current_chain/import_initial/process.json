@@ -1,0 +1,56 @@
+{
+  "stage": "import_initial",
+  "started_utc": "2026-10-16T13:53:06.223262+00:00",
+  "tested_head": "5ddb8871869f32dc27b2dd66bbd88ebc54af3f36",
+  "tested_tree": "8d95300d615b2f9dfd925175c352444b2d07c0ae",
+  "engine_path": "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+  "engine_version": "4.6.1.stable.official.14d19694e",
+  "engine_sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e",
+  "command": [
+    "python3",
+    "tools/run_godot_import.py",
+    "--engine",
+    "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+    "--recovery-mode",
+    "--timeout",
+    "180",
+    "--log-dir",
+    "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration/artifacts/map_pins_current_chain/import_initial"
+  ],
+  "returncode": 0,
+  "duration_seconds": 16.396,
+  "completion_marker": "GODOT_IMPORT passes=2 failures=0",
+  "completion_marker_found": true,
+  "source_file_count": 577,
+  "source_manifest_sha256_before": "de5021b411f08d7abd073270434db02d84558b7ce46faa7407c2b0930ee35f87",
+  "source_manifest_sha256_after": "cf464b2e2416edf072c9012318d8f7c073537b89c50c3925f626af45e594ec38",
+  "source_drift": [
+    "godot/default_bus_layout.tres"
+  ],
+  "bus_sha256_before": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+  "bus_sha256_after": "6e6a361dbd68d19bb1f4a2c78a61afd0af3a841eb4fc0d0d39445536de095d8b",
+  "xdg_environment": {
+    "XDG_DATA_HOME": "/tmp/map-pins-current-chain-xdg/import_initial/data",
+    "XDG_CONFIG_HOME": "/tmp/map-pins-current-chain-xdg/import_initial/config",
+    "XDG_CACHE_HOME": "/tmp/map-pins-current-chain-xdg/import_initial/cache",
+    "XDG_STATE_HOME": "/tmp/map-pins-current-chain-xdg/import_initial/state",
+    "XDG_RUNTIME_DIR": "/tmp/map-pins-current-chain-xdg/import_initial/runtime"
+  },
+  "logs": [
+    {
+      "path": "import_initial/import-1.log",
+      "sha256": "c6d37b56a074227faf3f296c4f4089064742f20ccace1adfa29c5e5ecc881ecf",
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "warnings": []
+    },
+    {
+      "path": "import_initial/import-2.log",
+      "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "warnings": []
+    }
+  ],
+  "passed": false
+}

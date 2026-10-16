@@ -1,0 +1,89 @@
+{
+  "stage": "focused",
+  "started_utc": "2026-10-16T13:53:55.607412+00:00",
+  "tested_head": "5ddb8871869f32dc27b2dd66bbd88ebc54af3f36",
+  "tested_tree": "8d95300d615b2f9dfd925175c352444b2d07c0ae",
+  "engine_path": "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+  "engine_version": "4.6.1.stable.official.14d19694e",
+  "engine_sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e",
+  "command": [
+    "python3",
+    "tools/run_godot_regressions.py",
+    "--engine",
+    "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+    "--software-gl",
+    "--timeout",
+    "180",
+    "--suite",
+    "map_player_pins",
+    "--suite",
+    "world_map",
+    "--suite",
+    "world_save_candidate",
+    "--log-dir",
+    "/workspace/scratch/4d581c1832c9/crimson-map-pins-integration/artifacts/map_pins_current_chain/focused"
+  ],
+  "returncode": 0,
+  "duration_seconds": 90.758,
+  "completion_marker": "GODOT_REGRESSIONS suites=3 failures=0",
+  "completion_marker_found": true,
+  "source_file_count": 577,
+  "source_manifest_sha256_before": "de5021b411f08d7abd073270434db02d84558b7ce46faa7407c2b0930ee35f87",
+  "source_manifest_sha256_after": "de5021b411f08d7abd073270434db02d84558b7ce46faa7407c2b0930ee35f87",
+  "source_drift": [],
+  "bus_sha256_before": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+  "bus_sha256_after": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+  "xdg_environment": {
+    "XDG_DATA_HOME": "/tmp/map-pins-current-chain-xdg/focused/data",
+    "XDG_CONFIG_HOME": "/tmp/map-pins-current-chain-xdg/focused/config",
+    "XDG_CACHE_HOME": "/tmp/map-pins-current-chain-xdg/focused/cache",
+    "XDG_STATE_HOME": "/tmp/map-pins-current-chain-xdg/focused/state",
+    "XDG_RUNTIME_DIR": "/tmp/map-pins-current-chain-xdg/focused/runtime"
+  },
+  "logs": [
+    {
+      "path": "focused/display/xvfb.log",
+      "sha256": "097ccb597eaf2ddecb1c88abec6348ff7c8fccc8c5e68514fa98783af97853bb",
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "warnings": []
+    },
+    {
+      "path": "focused/map_player_pins.log",
+      "sha256": "f4cc720d275334cddfd262e21d3e22dd5f1583d7a7c88d222ee82d55b4524e1c",
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "MAP PLAYER PINS PASS checks=127"
+      ]
+    },
+    {
+      "path": "focused/world_map.log",
+      "sha256": "8263241a6e11383b33cfee967df0f349358575f5590c0a8a955d4990f66fbad4",
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD_MAP checks=671 failures=0"
+      ]
+    },
+    {
+      "path": "focused/world_save_candidate.log",
+      "sha256": "ce33708b884f8fd0dea7ba5a62d6af0666e4cacc7b51c0fed2de1e4be4589449",
+      "engine_errors": [],
+      "objectdb_warning_count": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD SAVE CANDIDATE PASS checks=103"
+      ]
+    }
+  ],
+  "passed": true
+}

@@ -6,6 +6,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+import run_godot_regressions as runner
 from run_godot_regressions import suite_path, render_loop_args, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
 import re
 from run_godot_regressions import run_suites
@@ -73,12 +75,18 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 104)
+        self.assertEqual(len(all_suites), 110)
         self.assertIn("world_save_candidate", DEFAULT_SUITES)
         self.assertIn("map_player_pins", DEFAULT_SUITES)
+        self.assertIn("world_startup_config_background", DEFAULT_SUITES)
+        self.assertIn("world_catalog_background", DEFAULT_SUITES)
+        self.assertIn("room_camera_stability", DEFAULT_SUITES)
+        self.assertIn("player_layered_idle", DEFAULT_SUITES)
         self.assertIn("input_prompt", DEFAULT_SUITES)
         self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
+        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
+        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
@@ -159,12 +167,14 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + 'print("WORLD_ROUTE_MANIFEST_WALK_LOWER checks=1 failures=0 physical_crossings=6")\n'
                 + 'print("WORLD_ROUTE_MANIFEST_WALK_UPPER checks=1 failures=0 physical_crossings=4")\n'
+                + 'print("PLAYER_MOTION_CONTINUITY checks=1 failures=0")\n'
+                + 'print("PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
-            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper']:
+            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper', 'player_motion_continuity', 'player_melee_feedback']:
                 with self.subTest(suite=suite):
                     failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True,
                                           {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
@@ -174,6 +184,84 @@ class RunnerTests(unittest.TestCase):
                     self.assertIn('--fixed-fps', arguments)
                     self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
 
+    def test_motion_and_feedback_markers_do_not_overclaim_acceptance(self):
+        for suite, marker in [
+            ('player_motion_continuity', 'PLAYER_MOTION_CONTINUITY checks=1 failures=1'),
+            ('player_melee_feedback', 'PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=physical physical_feel=verified'),
+        ]:
+            with self.subTest(suite=suite):
+                result = self.run_engine(f'print({marker!r})\n', suite=suite)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_room_camera_requires_complete_real_player_integration(self):
+        for marker in [
+            'ROOM_CAMERA_STABILITY checks=63 failures=0 player_integration=false metrics={}',
+            'ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=false metrics={}',
+            'ROOM_CAMERA_STABILITY checks=77 failures=0 player_integration=true metrics={}',
+            'ROOM_CAMERA_STABILITY checks=78 failures=1 player_integration=true metrics={}',
+        ]:
+            with self.subTest(marker=marker):
+                result = self.run_engine(f'print({marker!r})\n', suite='room_camera_stability')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_room_camera_keeps_drawing_fixed_clock_and_player_flag(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={}")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            failures = run_suites(str(engine), ['room_camera_stability'], 2, logs, root / 'scratch', True,
+                                  {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+            self.assertEqual(failures, [])
+            arguments = captured.read_text().splitlines()
+            self.assertEqual(arguments[-2:], ['--', '--player'])
+            self.assertNotIn('--disable-render-loop', arguments)
+            self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+            self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
+
+    def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
+        for marker in [
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=false pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=199 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=1 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=false',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true',
+        ]:
+            with self.subTest(marker=marker):
+                result = self.run_engine(f'print({marker!r})\n', suite='player_layered_idle')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
+
+    def test_layered_idle_keeps_real_gl_drawing_and_fixed_clock(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true")\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            failures = run_suites(str(engine), ['player_layered_idle'], 2, logs, root / 'scratch', True,
+                                  {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+            self.assertEqual(failures, [])
+            arguments = captured.read_text().splitlines()
+            self.assertNotIn('--disable-render-loop', arguments)
+            self.assertNotIn('--headless', arguments)
+            self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+            self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
 
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
@@ -214,6 +302,52 @@ class RunnerTests(unittest.TestCase):
                     self.assertIn('--rendering-method', args)
                     self.assertIn('gl_compatibility', args)
                     self.assertEqual('--disable-render-loop' in args, should_disable)
+
+    def test_catalog_fault_fixture_restores_source_for_all_process_outcomes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'godot/data/world_routes.json'
+            source.parent.mkdir(parents=True)
+            original = b'{"fixture": "original"}'
+            script = root / 'godot/scripts/world_catalog_background_validation.gd'
+            script.parent.mkdir(parents=True)
+            script.write_text('fixture')
+            logs = root / 'logs'
+            logs.mkdir()
+            engine = root / 'fake-godot'
+            cases = [
+                ('print("WORLD CATALOG BACKGROUND PASS checks=1")', 2, 0),
+                ('print("SCRIPT ERROR: fixture failure"); print("WORLD CATALOG BACKGROUND PASS checks=1")', 2, 1),
+                ('raise RuntimeError("fixture failure")', 2, 1),
+                ('import time; time.sleep(2)', 0.05, 1),
+            ]
+            for body, timeout, failure_count in cases:
+                with self.subTest(body=body):
+                    source.write_bytes(original)
+                    stamps = (123000000001, 456000000002)
+                    os.utime(source, ns=stamps)
+                    engine.write_text('#!' + sys.executable + '\n'
+                                      + f'open({str(source)!r}, "wb").write(b"changed")\n'
+                                      + body + '\n')
+                    engine.chmod(0o755)
+                    with patch.object(runner, 'ROOT', root):
+                        failures = runner.run_suites(str(engine), ['world_catalog_background'],
+                                                     timeout, logs, root / 'scratch', False, {})
+                    self.assertEqual(len(failures), failure_count)
+                    restored = source.stat()  # Inspect atime before reading again.
+                    self.assertEqual((restored.st_atime_ns, restored.st_mtime_ns), stamps)
+                    self.assertEqual(source.read_bytes(), original)
+            source.write_bytes(original)
+            os.utime(source, ns=stamps)
+            def failed_launch(*args, **kwargs):
+                source.write_bytes(b'changed before launch failure')
+                raise OSError('fixture launch failure')
+            with patch.object(runner, 'ROOT', root), patch.object(runner.subprocess, 'run', side_effect=failed_launch):
+                with self.assertRaises(OSError):
+                    runner.run_suites(str(engine), ['world_catalog_background'], 2, logs, root / 'scratch', False, {})
+            restored = source.stat()
+            self.assertEqual((restored.st_atime_ns, restored.st_mtime_ns), stamps)
+            self.assertEqual(source.read_bytes(), original)
 
     def test_invalid_timeout_never_launches_engine(self):
         with tempfile.TemporaryDirectory() as directory:

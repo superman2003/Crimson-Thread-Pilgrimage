@@ -1,0 +1,112 @@
+{
+  "root_cause": {
+    "default_region_validator_steps": 968,
+    "minimum_old_validator_frames_at_8_operations": 121,
+    "before_observed_gl_boot_frames": 257
+  },
+  "tests": [
+    {
+      "suite": "world_startup_config_background",
+      "log": "world_startup_config_background.log",
+      "sha256": "897390e02e50b90eacaec9625b228204066d88ef042a7ea156279398644563a0",
+      "pass_markers": [
+        "WORLD STARTUP CONFIG BACKGROUND PASS checks=393"
+      ],
+      "engine_error_count": 0,
+      "objectdb_warning_count": 0
+    },
+    {
+      "suite": "world_startup_budget",
+      "log": "world_startup_budget.log",
+      "sha256": "044437bd1fb10c719cd43b977c13733ea8e2d46fc95f934270de741f5d8ad2dd",
+      "pass_markers": [
+        "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+      ],
+      "engine_error_count": 0,
+      "objectdb_warning_count": 1
+    },
+    {
+      "suite": "world_config_background",
+      "log": "world_config_background.log",
+      "sha256": "73c39bb855258fccbb17921b171c4c34f0999ed0efb9f240fdd5acce3553b3b4",
+      "pass_markers": [
+        "WORLD CONFIG BACKGROUND PASS checks=38"
+      ],
+      "engine_error_count": 0,
+      "objectdb_warning_count": 0
+    },
+    {
+      "suite": "world_preflight_budget",
+      "log": "world_preflight_budget.log",
+      "sha256": "9c43c6fcd7cc00edb6f72e52079865397e998932e3a3160281dd95ef870651fe",
+      "pass_markers": [
+        "WORLD PREFLIGHT BUDGET PASS checks=4334"
+      ],
+      "engine_error_count": 0,
+      "objectdb_warning_count": 0
+    },
+    {
+      "suite": "world_catalog_background",
+      "log": "world_catalog_background.log",
+      "sha256": "131f82720873d0dd341410e17ab6cee0609f8d8518a6bdb8963bb9b6ddcf9ade",
+      "pass_markers": [
+        "WORLD CATALOG BACKGROUND PASS checks=71"
+      ],
+      "engine_error_count": 0,
+      "objectdb_warning_count": 0
+    },
+    {
+      "suite": "world_prepare_budget",
+      "log": "world_prepare_budget.log",
+      "sha256": "7add044f11767be91fa8743e8fa7996b7936eaffce97a5ea05de75afb8b2b95a",
+      "pass_markers": [
+        "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+      ],
+      "engine_error_count": 0,
+      "objectdb_warning_count": 1
+    }
+  ],
+  "runtime_changes": [
+    "Unique reader executes full private-snapshot validation after JSON read; no live route/coordinate cache access in worker",
+    "Main route-context and manifest copy still admit at most 8 bounded copy operations under nominal 2ms",
+    "Catalog keeps 64-edge chunks and final cancellation yield; two short sources may share the same bounded frame batch",
+    "Skip only the redundant outer wait following a catalog task that already yielded after its final merge",
+    "Preserve private startup signal, synchronous shutdown join/unwind, file stamp, generation, entry and path guards"
+  ],
+  "linux_release": {
+    "result": "PASS",
+    "fixed_quit_after": 120,
+    "first_start": true,
+    "resume": true,
+    "resume_writeback": true,
+    "source_hashes_unchanged": true,
+    "player_engine_errors": 0,
+    "player_objectdb_warnings": 0,
+    "source": "local worktree with imported sidecars; clean Linux and Windows remain remote CI gates"
+  },
+  "remaining": "Windows release and clean-checkout Linux CI must run on the integrated revision; fixture-only ObjectDB warnings in startup_budget/prepare_budget remain unattributed.",
+  "base_head": "0ea2965565bd83161497a39519a5eace6c2fe91a",
+  "engine_version": "4.6.1.stable.official.14d19694e",
+  "source_hashes_before": {
+    "godot/scripts/world_region_loader.gd": "014de713cbc8a3d9cc0b85ff81a7e5f0baf61d19b4335067939912ddb9a9036f",
+    "godot/scripts/world_config_read_job.gd": "c67bc54b48d6124ae914ce0ddb2197efae2ef0d2531d6d27f66c009b078b5082",
+    "godot/scripts/world_config_validator.gd": "ec4d0b76c0d77b79d542ef6bfae9e1a931d107a64ecf42d4e0f7e02380d4c951",
+    "godot/scripts/world_startup_config_background_validation.gd": "6f9e23e82a01316088cbbcdf4e4d32d52f8746815374a061da0964705de93cec"
+  },
+  "source_hashes_after": {
+    "godot/scripts/world_region_loader.gd": "014de713cbc8a3d9cc0b85ff81a7e5f0baf61d19b4335067939912ddb9a9036f",
+    "godot/scripts/world_config_read_job.gd": "c67bc54b48d6124ae914ce0ddb2197efae2ef0d2531d6d27f66c009b078b5082",
+    "godot/scripts/world_config_validator.gd": "ec4d0b76c0d77b79d542ef6bfae9e1a931d107a64ecf42d4e0f7e02380d4c951",
+    "godot/scripts/world_startup_config_background_validation.gd": "6f9e23e82a01316088cbbcdf4e4d32d52f8746815374a061da0964705de93cec"
+  },
+  "release_started_utc": "2026-10-16T12:52:44.615286+00:00",
+  "release_finished_utc": "2026-10-16T12:57:25.805333+00:00",
+  "release_log_sha256": {
+    "version.log": "9765f54defe057e03dafad31134b7fef950f77b82a56915c22b414715a0a1373",
+    "import.log": "981ee2d66a550c096ce811f8a3a6e93b80cfc3692f5f7d17b50f671f7295fa8a",
+    "first-start.log": "f5b533014d2bb1e1784534b8e570f3b44c12bf349d19b8568a654431da8639cf",
+    "export.log": "bc13890a45e6caebed6d1e551e17fae90f5ee6bbd81e2b3640dbcef34589544e",
+    "resume.log": "535dc17bc19e33b76be5287961326712e13f8a771368a170a6d534de83f5c103",
+    "engine-licenses.log": "73de0e5f4df2a8b367cdb5a2e1c4be3f3f4348c23abff536fa94afcf442d0034"
+  }
+}

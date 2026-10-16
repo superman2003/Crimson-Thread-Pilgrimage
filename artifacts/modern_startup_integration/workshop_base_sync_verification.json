@@ -1,0 +1,40 @@
+{
+  "date_utc": "2026-10-16",
+  "previous_head": "848c4ca801aecd78925817897aed2104d88f4d4f",
+  "updated_dependency_head": "8d0a73ae70df6761548c878778d1580afe24791f",
+  "main": "07ae21d4c35ae6a33ca45809cf02d96c015ccf66",
+  "source_sha256": {
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/world_region_loader.gd": "94886f12ddf37b4925d99f8ede7f6791ec0e6a84a5561b30d26324b95f2c33e2",
+    "godot/scripts/world_config_validator.gd": "e50f1de0298c4e88f21d0310518364faa00c7a38be1a5ed64d57c4027e3ea924",
+    "godot/scripts/world_startup_config_background_validation.gd": "d3b9828bfc3d65a4e0e3cc7ee446c68d2e459877b541ce7f0d09e4438f9ff45f",
+    "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+    "godot/scripts/world_state.gd": "07735945ebf9660063bfe61f291745e140a7ae9fbd3ba1aa410005f72800ab30",
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984"
+  },
+  "source_contract": "Listed production and validation sources identical to previous startup head. Workshop route data/tests follow main; merge only resolves progress/counter conflicts.",
+  "default_suite_count": 104,
+  "runner_unit_tests": 24,
+  "static_checks": {
+    "npm-test.log": {
+      "status": "PASS",
+      "sha256": "fb9e71369e0ff44e477fa8ca90ed8e7a7152fe95f06e5fc00bb5af5f2cc206ff"
+    },
+    "campaign.log": {
+      "status": "PASS",
+      "sha256": "aa9e034d767ebd0e86b1565ee2aab281040798ed234fdb5eba43f5aebe084b58"
+    },
+    "runner.log": {
+      "status": "PASS",
+      "sha256": "1628d5b732d2eb1b25d305c3eb655d7102ac93942f589323270811769ff41714"
+    }
+  },
+  "local_gl_new_combination": "PENDING after synchronization; older source results retained with original head attribution",
+  "new_head_remote_ci": "PENDING; exact head required",
+  "unchanged_timeout_seconds": 180,
+  "limits": [
+    "76-landing local180s performance remains OPEN",
+    "ObjectDB warnings remain unattributed",
+    "W00b2b full scope and natural six-region play not accepted"
+  ]
+}
