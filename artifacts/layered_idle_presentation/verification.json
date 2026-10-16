@@ -1,0 +1,332 @@
+{
+  "scope": "Fixed support and genuine seven-cel cloth idle; whole-action art consistency and full idle breathing remain OPEN",
+  "base_pr": 92,
+  "base_head": "5f4fd13b0c6cb307a65cd7172c4a620f3bfaacd4",
+  "default_suites": 103,
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058",
+    "godot/scripts/player_layered_idle.gd": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e",
+    "godot/scripts/player_layered_idle_validation.gd": "fc10fcd58e9de970194dd381cd7636e9bb37ed76509ba4706407fb4777d9b62f",
+    "tools/run_godot_regressions.py": "a94c9655365baf0beb1ab789b5a7e1321eb1556d5980719e223a15ccbdf27128",
+    "tools/godot_suite_success_markers.json": "0930bc01f56b13aa6dcd4d27fdbe2e94fa213e6dbbd5d7c3642566b5f9c272bd",
+    "tools/test_regression_runner.py": "a1ba415b393483a3a22be328de334edc1799330aa78641818f0a222dae359ad5",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png": "222d12909c41bdf26c19b5a4362aca9376140cfae0aca1a8a3be378cc0baf706",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/manifest.json": "640130844bcbc574675cbf46a95c88f033af778413ae1ccd6dd9b6d24a5b7ad6",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png.import": "7be6a300d39d7b7d2911e411640bbda9810816892fc6102578c1e101453cd418",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png": "2f596483024a92aa621929ab40766088ae7e1ec657d653e5301284d8c775dc30",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/README.md": "8d52fc0c4fbb04432a93e4f7bcd6a7d2978c94b3ec39bddabe9edb48d23bbd56",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png.import": "1bde7aeb46ee86dfb482fe736add742f9ac002c46c75608abb10fd4aabdf6201"
+  },
+  "strict_import": [
+    {
+      "pass": 1,
+      "log_sha256": "5e4661b9d53efb7725d1c8417e2afeea9b7a41238ed6a84bc6eac42c8cfc8b50",
+      "errors": 0
+    },
+    {
+      "pass": 2,
+      "log_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "errors": 0
+    }
+  ],
+  "static": {
+    "npm_test_exit": 0,
+    "campaign_exit": 0,
+    "regression_runner_unit_tests": 25,
+    "log_sha256": {
+      "layered-idle-npm-test.log": "e8bf3becc2518294b69b24111038c6865031f66752e5bc168d776091319d0b24",
+      "layered-idle-campaign.log": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0",
+      "layered-idle-runner-final.log": "83bb27df05dedb86a2ba28c2d12b7203a691ab768ba6c1f09754dd580a37de1f"
+    }
+  },
+  "affected_gl": {
+    "engine": "Godot 4.6.1 stable official",
+    "renderer": "OpenGL 4.5 / Compatibility / Mesa 25.0.7 llvmpipe",
+    "elapsed_seconds": 88.029,
+    "source_unchanged": true,
+    "exit_code": 0,
+    "runner_log_sha256": "b38146698168b86e25d11d99ada957606ebab1b5539943f2da6cb93336ff689a",
+    "suite_results": [
+      {
+        "suite": "player_layered_idle",
+        "log_sha256": "d95a88ab90638b3104b681bd9735533b5c2b7590872989716a6a22d98c160cc0",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 3.026,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "player_motion_continuity",
+        "log_sha256": "5b1bca916c116de843a14afc6e0f737837c8129c83d3339e1c09d7a7d5db86a0",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "PLAYER_MOTION_CONTINUITY checks=958 failures=0"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 7.928,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "player_melee_feedback",
+        "log_sha256": "d49fb49c638bf773fc0ab4911a825d28fccb261c6782389bf6bd73b640cdba3b",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "PLAYER_MELEE_FEEDBACK_PASS checks=107 hardware=simulated physical_feel=unverified"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 1.318,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "room_camera_stability",
+        "log_sha256": "4dee99e8dd83c8a533fb04a42dee5bfd88faf25adcc3091f776ce19ac91ca213",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={\"air_stop_actual_frames\":9,\"air_stop_entry_peak_speed\":3699.99682617188,\"air_stop_min_feet_margin\":186.1728515625,\"air_stop_min_head_margin\":246.9580078125,\"double_jump_camera_rise\":47.3284912109375,\"double_jump_min_head_margin\":40.1507568359375,\"full_jump_body_height\":142.241455078125,\"full_jump_screen_y_drift\":0.0,\"jump_target_y_drift_120Hz_speed340\":0.0,\"jump_target_y_drift_120Hz_speed710\":0.0,\"jump_target_y_drift_30Hz_speed340\":0.0,\"jump_target_y_drift_30Hz_speed710\":0.0,\"jump_target_y_drift_60Hz_speed340\":0.0,\"jump_target_y_drift_60Hz_speed710\":0.0,\"shaft_fall_min_feet_margin\":182.86083984375,\"shaft_fall_min_head_margin\":259.0,\"shaft_fall_peak_speed\":3669.16357421875,\"wall_slide_actual_frames\":53,\"wall_slide_entry_peak_speed\":3915.82958984375,\"wall_slide_min_feet_margin\":182.861328125,\"wall_slide_min_head_margin\":244.86083984375}"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 13.501,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "combat_resource_cycle",
+        "log_sha256": "c62b7300b0633cde11cb888e8cd6b7ca32f4ab92dfba287df9d13041578098e0",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 52.147,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "input_settings_regression",
+        "log_sha256": "882af6d2ad01f1b639437d6bf6e9c0115a643b7d8639b3169c9aa666767c85c5",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "INPUT_SETTINGS_REGRESSION checks=96 failures=0"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 1.473,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "player_state_cleanup",
+        "log_sha256": "4e45b8a9d77c42e23fa286a643f36be7efd3e16f3902fdbd3b399e18b799b4de",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "PLAYER_STATE_CLEANUP_PASS checks=9 failures=0"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 1.026,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      },
+      {
+        "suite": "ui_world_integration",
+        "log_sha256": "b96e431fa744274c81821bfe9ed9435d42f0882196cb8b997411183e68c5042c",
+        "engine_errors": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "completion_markers": [
+          "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+        ],
+        "runner_pass": true,
+        "elapsed_seconds": 7.408,
+        "drawing_mode": "normal_drawing",
+        "timeout_seconds": 180
+      }
+    ],
+    "drawing": "normal; original 180 seconds per suite",
+    "objectdb_warnings": 0,
+    "full_103_local_run": false
+  },
+  "pixel_contract": {
+    "mask": 8,
+    "nonzero_flash_change": 1,
+    "restore": 4,
+    "all_mask_and_restore_different_pixels": 0
+  },
+  "counterexamples": {
+    "old_detached_helper_hides_source_reproduced": true,
+    "old_null_guard_freed_error_reproduced": false,
+    "note": "is_instance_valid is defensive; Godot 4.6.1 old guard probe compared freed reference equal to null",
+    "combined_positive_and_negative_seconds": 5.081004858016968
+  },
+  "runtime_visual": {
+    "scope": "Two real production Players / same ordinary input / real floor / fixed 2x inspection camera; camera/gameplay/performance acceptance excluded",
+    "frames": 384,
+    "video": {
+      "captured_frame_count": 384,
+      "encoded_frame_count": 384,
+      "all_captured_frames_preserved_once": true,
+      "strictly_increasing_pts": true,
+      "max_absolute_pts_error_seconds": 0.0004999999999997229,
+      "source_start_delay_seconds": 0.158806,
+      "source_first_to_last_frame_span_seconds": 23.81402,
+      "source_setup_to_final_capture_seconds": 23.972826,
+      "encoded_duration_seconds": 23.815,
+      "last_frame_hold_seconds": 0.001,
+      "encoding_errors": "",
+      "video_sha256": "c130358e1c591d33cffd9fa6c1dd6524553fe89a80889cd02ec68d477e81af93",
+      "notes": "384 originals, no duplicate tail; 1ms PNG-demux timebase rounds PTS by <=0.5ms; zero speed scaling and no generated frames. Video begins at the first actual render capture, not at fixture initialization."
+    },
+    "telemetry_sha256": "e5ebca3eb200023ecde91aaadf65ba56145d608d2e710d5c3b036bae90468d13",
+    "errors": [],
+    "source_restoration_failures": [],
+    "parity_failures": [],
+    "stationary_windows": [
+      {
+        "name": "right_idle_initial",
+        "captured_wall_seconds": 3.423062,
+        "samples": 78,
+        "x_range": [
+          300.0,
+          300.0
+        ],
+        "y_range": [
+          300.0,
+          300.0
+        ],
+        "cloth_phases": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "name": "left_idle",
+        "captured_wall_seconds": 3.425347,
+        "samples": 64,
+        "x_range": [
+          300.0,
+          300.0
+        ],
+        "y_range": [
+          300.0,
+          300.0
+        ],
+        "cloth_phases": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "name": "right_idle_post_landing",
+        "captured_wall_seconds": 3.491824,
+        "samples": 37,
+        "x_range": [
+          358.425018310547,
+          358.425018310547
+        ],
+        "y_range": [
+          299.999847412109,
+          299.999847412109
+        ],
+        "cloth_phases": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "accepted": [
+      "Fixed body and planted feet during zero input in both facings",
+      "All seven cloth phases and actual adjacent cycle seams inspected",
+      "Mirror/collar alignment and old-source masking",
+      "Original action material/alpha restoration, shared live flash"
+    ],
+    "open": [
+      "Visible sharper/darker linework, face/hair/clothing and cape silhouette pop at v3 run/attack/land to new idle",
+      "Whole-body idle breathing",
+      "New alternating run and remaining action frames",
+      "Final user visual acceptance"
+    ],
+    "observed_fps_not_performance_acceptance": {
+      "min": 2.0,
+      "median": 20.0,
+      "max": 24.0,
+      "p95": 24.0
+    },
+    "video_delivery": "Separate actual-timing review artifact; not embedded in this source PR",
+    "snapshot_file_count": 502,
+    "snapshot_sha256": "200e37fde57bf9adb0f8f54e5190a44abcbf69dd493288ca58899dd90b2aeb23",
+    "critical_snapshot_files": {
+      "assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png": "222d12909c41bdf26c19b5a4362aca9376140cfae0aca1a8a3be378cc0baf706",
+      "assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png": "2f596483024a92aa621929ab40766088ae7e1ec657d653e5301284d8c775dc30",
+      "assets/sprites/player/generated_hero_motion_v4/runtime_idle/manifest.json": "640130844bcbc574675cbf46a95c88f033af778413ae1ccd6dd9b6d24a5b7ad6",
+      "scenes/Player.tscn": "f06f9b30ff1ff9e26a4769cfd21e591ddd3e78e8dae7778d3aea7576774f72d8",
+      "scripts/player_controller.gd": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058",
+      "scripts/player_layered_idle.gd": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e",
+      "scripts/player_layered_idle_validation.gd": "fc10fcd58e9de970194dd381cd7636e9bb37ed76509ba4706407fb4777d9b62f"
+    },
+    "annotation_change_after_snapshot": "Runtime README guard wording clarified; no runtime, test, manifest or bitmap change"
+  },
+  "preserved_failures": [
+    {
+      "stage": "import/import-1.log",
+      "result": "Interrupted exit130 after unhydrated old PNG pointers and XDG configuration errors; not a product pass."
+    },
+    {
+      "stage": "import-rehydrated/import-1.log",
+      "result": "180s timeout plus inherited XDG_CONFIG_HOME errors; not a pass."
+    },
+    {
+      "stage": "gl-01-summary.log",
+      "result": "Xvfb not on PATH; no renderer launched."
+    },
+    {
+      "stage": "gl-02/player_layered_idle.log",
+      "result": "30 checks, 2 failures: valid JSON float array rejected by integer-array equality. Failed fixture leaked resources. Fixed before final run."
+    },
+    {
+      "stage": "initial_parse_environment_note.txt",
+      "result": "Initial missing writable XDG environment noted; original overwritten parse log is explicitly disclosed."
+    }
+  ],
+  "remote_ci": "Pending new published SHA; no old-head green transferred"
+}
