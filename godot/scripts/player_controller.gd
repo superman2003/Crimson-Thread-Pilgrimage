@@ -21,6 +21,7 @@ var selected_skill: Dictionary = {}
 var build_profile: Dictionary = {}
 var heal_timer := 0.0
 var heal_reserved_cost := 0
+var heal_reserved_loss_ratio := 1.0
 var guard_timer := 0.0
 var guard_cooldown := 0.0
 var guard_refunded := false
@@ -60,18 +61,25 @@ func _seal_present(id: String, stage: String) -> void:
         seal_presentation.play_action(id, stage, facing, {"range":attack_range})
 
 
+func _seal_mechanism_ready() -> bool:
+    return bool(build_profile.get("mechanism_unlocked", true)) and (_crest() != "crimson" or bool(build_profile.get("crimson_repaired", true)))
+
 func get_seal_mechanism_snapshot() -> Dictionary:
+    var state := {"label":"线势", "stacks":line_stacks, "max_stacks":3, "remaining":line_expiry}
     if _crest() == "bell":
-        return {"label":"钟压", "stacks":bell_pressure, "max_stacks":2}
-    if _crest() == "salt":
+        state = {"label":"钟压", "stacks":bell_pressure, "max_stacks":2, "remaining":0.0}
+    elif _crest() == "salt":
         var count := 0
         for enemy in get_tree().get_nodes_in_group("enemy"):
             if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
                 continue
             if enemy.get("salt_mark_timer") != null and float(enemy.get("salt_mark_timer")) > 0.0:
                 count += 1
-        return {"label":"盐记", "stacks":count, "max_stacks":count}
-    return {"label":"线势", "stacks":line_stacks, "max_stacks":3}
+        state = {"label":"盐记", "stacks":count, "max_stacks":0, "remaining":0.0}
+    state["unlocked"] = _seal_mechanism_ready()
+    state["heal_effect"] = "疾行" if heal_speed_timer > 0.0 else "抗击退" if heal_stability_timer > 0.0 else ""
+    state["heal_remaining"] = maxf(heal_speed_timer,heal_stability_timer)
+    return state
 
 func get_seal_combat_state() -> Dictionary:
     return {"crest": String(build_profile.get("crest_id", "crimson")), "line_stacks": line_stacks, "bell_pressure": bell_pressure, "line_expiry": line_expiry, "heal_speed": heal_speed_timer, "heal_stability": heal_stability_timer}
@@ -88,21 +96,21 @@ func _crest() -> String:
     return String(build_profile.get("crest_id", "crimson"))
 
 func _basic_seal_hit() -> void:
-    if _crest() == "crimson" and bool(build_profile.get("crimson_repaired", true)):
+    if _crest() == "crimson" and _seal_mechanism_ready():
         line_stacks = mini(3, line_stacks + 1)
         line_expiry = 3.5
 
 func _seal_heal_completed() -> void:
     if _crest() == "crimson":
-        heal_speed_timer = 2.5
+        heal_speed_timer = maxf(0.0,float(build_profile.get("heal_move_duration",2.5)))
     elif _crest() == "bell":
-        heal_stability_timer = 4.0
+        heal_stability_timer = maxf(0.0,float(build_profile.get("heal_knockback_duration",4.0)))
     elif _crest() == "salt":
         for enemy in get_tree().get_nodes_in_group("enemy"):
             if enemy.has_method("world_residency_active") and not enemy.world_residency_active():
                 continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= 240.0 and enemy.has_method("extend_salt_mark_once"):
-                enemy.extend_salt_mark_once(2.0)
+                enemy.extend_salt_mark_once(maxf(0.0,float(build_profile.get("heal_mark_extension",2.0))))
     if float(build_profile.get("status_buildup_mult", 1.0)) < 1.0:
         status_resist_timer = 3.0
 
@@ -684,7 +692,7 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
         velocity.x += current_attack_direction.x * (attack_lunge if is_on_floor() else attack_lunge * 0.45)
     elif current_attack_direction.y < -0.5:
         velocity.y = minf(velocity.y, -110.0)
-    if _crest() == "bell" and animation == &"attack_2" and bell_pressure > 0:
+    if _crest() == "bell" and _seal_mechanism_ready() and animation == &"attack_2" and bell_pressure > 0:
         attack_damage += bell_pressure
     attack_damage = maxi(1, attack_damage + int(build_profile.attack_bonus)) if build_profile.has("attack_bonus") else maxi(1, int(ceil(float(attack_damage) * float(build_profile.get("attack_damage_mult", 1.0)))))
     var reach := float(build_profile.get("attack_reach_mult", 1.0))
@@ -828,12 +836,12 @@ func cast_selected_skill(slot: int = -1) -> bool:
     active_skill = payload.duplicate(true)
     enemy_contact_guard_timer = 0.0
     attack_damage = maxi(1, int(payload.get("damage", 2)))
-    active_skill["empowered"] = line_stacks >= 3 and _crest() == "crimson"
+    active_skill["empowered"] = line_stacks >= 3 and _crest() == "crimson" and _seal_mechanism_ready()
     if bool(active_skill.empowered):
         line_stacks = 0
         line_expiry = 0.0
     crosscut_refund_paid = false
-    if _crest() == "bell" and String(payload.get("id", "")) == "shockwave" and bell_pressure > 0:
+    if _crest() == "bell" and _seal_mechanism_ready() and String(payload.get("id", "")) == "shockwave" and bell_pressure > 0:
         attack_damage += bell_pressure
         active_skill["stagger"] = bell_pressure * 0.3
         bell_pressure = 0
@@ -860,18 +868,33 @@ func cast_selected_skill(slot: int = -1) -> bool:
     return true
 
 
+func get_heal_readiness() -> Dictionary:
+    # This snapshot is read by both the action and HUD; querying never reserves.
+    var reason := "ready"
+    if heal_timer > 0.0: reason = "channeling"
+    elif death_timer > 0.0: reason = "dead"
+    elif not _can_start_action(): reason = "busy"
+    elif heal_cooldown > 0.0: reason = "cooldown"
+    elif hp >= max_hp: reason = "full_health"
+    elif energy < heal_energy_cost: reason = "energy"
+    elif not is_on_floor(): reason = "airborne"
+    elif absf(_move_axis()) > 0.1 or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"): reason = "moving"
+    return {"available":reason=="ready", "reason":reason, "cost":heal_energy_cost,
+        "missing_energy":maxi(0,heal_energy_cost-energy), "amount":mini(heal_amount,maxi(0,max_hp-hp)),
+        "duration":heal_duration, "remaining":heal_timer, "cooldown":heal_cooldown,
+        "interrupt_loss":int(ceil(heal_reserved_cost*heal_reserved_loss_ratio)) if heal_timer>0.0 else int(ceil(heal_energy_cost*clampf(float(build_profile.get("heal_interrupt_loss_ratio",1.0)),0.0,1.0)))}
+
 func _try_heal() -> bool:
-    if not _can_start_action() or heal_cooldown > 0.0 or hp >= max_hp or energy < heal_energy_cost or not is_on_floor():
-        return false
-    # Reject an already incompatible input before reserving any resource.
-    if absf(_move_axis()) > 0.1 or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"):
+    if not bool(get_heal_readiness().available):
         return false
     _clear_action_buffer()
-    gain_energy(-heal_energy_cost)
+    # Publish the reservation before resource signals can reenter this action.
     heal_reserved_cost = heal_energy_cost
-    _seal_present("heal", "prepare")
+    heal_reserved_loss_ratio = clampf(float(build_profile.get("heal_interrupt_loss_ratio",1.0)),0.0,1.0)
     heal_timer = heal_duration
     velocity.x = 0.0
+    gain_energy(-heal_reserved_cost)
+    _seal_present("heal", "prepare")
     heal_state_changed.emit("started")
     _play_sfx("heal", -5.0)
     _play(&"heal")
@@ -897,15 +920,18 @@ func _update_heal(delta: float) -> void:
 
 func _interrupt_heal() -> void:
     if heal_timer > 0.0:
-        var loss_ratio := clampf(float(build_profile.get("heal_interrupt_loss_ratio", 1.0)), 0.0, 1.0)
-        gain_energy(heal_reserved_cost - int(ceil(heal_reserved_cost * loss_ratio)))
+        var refund := heal_reserved_cost - int(ceil(heal_reserved_cost * heal_reserved_loss_ratio))
+        # Clear the reservation and block recasts before emitting energy_changed.
         heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
+        gain_energy(refund)
         heal_state_changed.emit("interrupted")
 
 
 func apply_build_stats(stats: Dictionary) -> void:
+    # Settle the old channel under its original cost/loss and capacity first.
+    _interrupt_heal()
     _clear_action_buffer()
     if build_baseline.is_empty():
         build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed, "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost, "heal_amount": heal_amount, "heal_duration": heal_duration}
@@ -930,7 +956,6 @@ func apply_build_stats(stats: Dictionary) -> void:
     heal_duration = maxf(0.2, float(stats.get("heal_duration", build_baseline.heal_duration)))
     hp = mini(hp, max_hp)
     energy = mini(energy, max_energy)
-    _interrupt_heal()
     guard_timer = 0.0
     _stop_phase()
     hp_changed.emit(hp)
@@ -1091,7 +1116,7 @@ func _apply_special_skill() -> void:
     var kind := String(active_skill.get("kind", "melee"))
     var id := String(active_skill.get("id", ""))
     if kind == "ranged":
-        cast_tool({"kind": "projectile", "damage": attack_damage, "range": attack_range, "duration": 1.2, "pierce": 1, "salt_mark": _crest() == "salt", "skill_effect": true})
+        cast_tool({"kind": "projectile", "damage": attack_damage, "range": attack_range, "duration": 1.2, "pierce": 1, "salt_mark": _crest() == "salt" and _seal_mechanism_ready(), "skill_effect": true})
     elif kind == "defense":
         guard_timer = minf(0.65, float(active_skill.get("duration", 0.5)))
         guard_initial_duration = guard_timer
@@ -1100,7 +1125,7 @@ func _apply_special_skill() -> void:
     elif id == "shockwave" or kind == "shockwave":
         cast_tool({"kind": "wave", "damage": attack_damage, "range": attack_range, "duration": 0.8, "stagger": active_skill.get("stagger", 0.0), "skill_effect": true})
     elif kind == "control":
-        cast_tool({"kind":"snare_field", "damage":attack_damage, "range":10000.0, "duration":maxf(0.4, float(active_skill.get("duration",1.5))), "salt_consume":_crest() == "salt", "skill_effect":true})
+        cast_tool({"kind":"snare_field", "damage":attack_damage, "range":10000.0, "duration":maxf(0.4, float(active_skill.get("duration",1.5))), "salt_consume":_crest() == "salt" and _seal_mechanism_ready(), "skill_effect":true})
     elif kind == "resonance":
         var radius := float(active_skill.get("range", 160.0))
         _ability_ring(radius, THREAD_T2_CORE)
@@ -1239,7 +1264,7 @@ func _apply_attack_hits() -> void:
             elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
                 gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
                 crosscut_refund_paid = true
-            if active_skill.is_empty() and _crest() == "bell" and bell_pressure > 0 and current_attack == &"attack_2":
+            if active_skill.is_empty() and _crest() == "bell" and _seal_mechanism_ready() and bell_pressure > 0 and current_attack == &"attack_2":
                 if node.has_method("apply_stagger"):
                     node.apply_stagger(bell_pressure * 0.3)
                 bell_pressure = 0
@@ -1935,7 +1960,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         var perfect := guard_timer >= guard_initial_duration - 0.14 and not guard_refunded
         if perfect:
             guard_refunded = true
-            if _crest() == "bell":
+            if _crest() == "bell" and _seal_mechanism_ready():
                 bell_pressure = mini(2, bell_pressure + 1)
             # Guard refund stays below its payment: no repeatable energy source.
             gain_energy(4 if String(active_skill.get("kind", "")) != "defense" else 0)
@@ -2340,7 +2365,7 @@ func get_combat_ui_state() -> Dictionary:
     if build_system != null and build_system.has_method("selected_skill"):
         skill = build_system.selected_skill()
     return {"heal_progress": 1.0 - heal_timer / maxf(0.2, heal_duration) if heal_timer > 0.0 else 0.0,
-        "heal_active": heal_timer > 0.0, "heal_cost": heal_energy_cost,
+        "heal_active": heal_timer > 0.0, "heal_cost": heal_energy_cost, "heal":get_heal_readiness(),
         "skill_name": String(skill.get("name", skill.get("label", skill.get("id", "绯线震击")))),
         "skill_cooldown": float(skill.get("cooldown_remaining", skill_cooldown)), "skill_cost": int(skill.get("energy_cost", skill_energy_cost)),
         "guard_cooldown": guard_cooldown, "phase_active": phase_active,
