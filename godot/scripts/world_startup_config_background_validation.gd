@@ -5,6 +5,7 @@ const LOADER := preload("res://scripts/world_region_loader.gd")
 const READER := preload("res://scripts/world_config_read_job.gd")
 const VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
+const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const SAVE := "user://world_startup_config_background_validation.json"
 const REGION := "demo_ch02_rain_foundry_canal"
@@ -34,6 +35,9 @@ class FailedStartReader extends "res://scripts/world_config_read_job.gd":
 
 class FaultReader extends "res://scripts/world_config_read_job.gd":
     var fault := ""
+    func request_validation(raw: Variant, path: String, entry: Vector2, use_default_entry: bool, route_context: Dictionary) -> int:
+        if fault == "validation_launch": return 0
+        return super.request_validation(raw, path, entry, use_default_entry, route_context)
     func take(ticket: int) -> Dictionary:
         var read := super.take(ticket)
         if read.get("raw") is Dictionary and read.raw.has("player_start"):
@@ -50,10 +54,12 @@ func _initialize() -> void:
 func _run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     await _new_game_and_resume()
+    await _background_validation_oracle()
     await _default_entry_oracle()
     await _reader_ownership()
     await _early_startup_cancellation()
     await _teardown_and_faults()
+    await _validation_teardown_ownership()
     for suffix in ["", ".bak", ".tmp", ".previous"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
     if failures.is_empty():
@@ -83,7 +89,11 @@ func _new_game_and_resume() -> void:
     _check(host.config_content_reads == 0, "World initial config never reads content on main thread")
     var metric: Dictionary = host.world_loader.last_transition
     _check(not metric.startup_config_worker_is_main and metric.startup_config_bytes > 0 and metric.startup_config_wait_frames >= 1, "startup config read and parse run in shared background worker")
-    _check(metric.startup_config_validator_batches > 1 and metric.startup_config_validator_max_operations <= 8, "startup validator and overlay use bounded frame batches")
+    _check(not metric.startup_config_validation_worker_is_main and metric.startup_config_validation_steps > 900 and metric.startup_config_validation_wait_frames >= 1, "complete scalar validation and route overlay run on the sole worker")
+    _check(metric.startup_config_context_copy_batches >= 1 and metric.startup_config_context_copy_max_operations <= 8 and metric.startup_config_context_max_step_edges <= 512, "private route snapshot uses bounded main-thread copy operations")
+    _check(metric.route_manifest_copy_max_operations <= 8, "manifest handoff preserves main-thread operation cap")
+    for catalog_read in metric.catalog_reads:
+        _check(catalog_read.max_merge_operations <= 8 and catalog_read.max_merge_edges <= 64, "catalog source scheduling preserves both operation and chunk caps")
     _check(host.active_spawn == Vector2(expected.player_start[0], expected.player_start[1]), "new game uses authored final player_start")
     _check(metric.startup_config_lease.route_generation == ROUTES.cached_generation(), "cold manifest is pinned before startup config")
     _check(host.world_loader.config_read_job.get_instance_id() == reader_id and metric.route_manifest_bytes > 0 and not metric.catalog_reads.is_empty(), "manifest, startup config and catalog keep the same reader instance")
@@ -115,6 +125,76 @@ func _new_game_and_resume() -> void:
     _check(is_instance_valid(demo.player) and demo.world_loader == null and demo.config_content_reads > 0 and not demo.received_prepared, "nonWorld config override retains synchronous chapter path")
     demo.free()
     sync.shutdown()
+    await process_frame
+
+func _validation_context(region_id: String) -> Dictionary:
+    return {"generation": ROUTES.cached_generation(), "region_id": region_id,
+        "known_region": COORDINATES.has_region(region_id), "path": ROUTES.cached_config_path(region_id),
+        "world_size": COORDINATES.region_bounds(region_id).size,
+        "bundle": ROUTES.cached_overlay_bundle(region_id).duplicate(true)}
+
+func _background_validation_oracle() -> void:
+    var reader := READER.new()
+    for region_id in ROUTES.cached_chapters():
+        var path := ROUTES.cached_config_path(region_id)
+        var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+        var untouched := raw.duplicate(true)
+        var context := _validation_context(region_id)
+        var untouched_context := context.duplicate(true)
+        var oracle := VALIDATOR.new()
+        oracle.begin(raw, path, Vector2.ZERO, true)
+        var oracle_operations: Dictionary = {}
+        while not oracle.done:
+            oracle.step()
+            oracle_operations[oracle.operation_name] = int(oracle_operations.get(oracle.operation_name, 0)) + 1
+        var foreign_ticket := reader.request(path)
+        while reader.busy(): await process_frame
+        _check(reader.request_validation(raw, path, Vector2.ZERO, true, context) == 0 and reader.has_pending_ticket(), "validation cannot steal an accepted completed read")
+        _check(reader.take(foreign_ticket).get("raw") is Dictionary, "foreign read remains consumable after rejected validation admission")
+        var ticket := reader.request_validation(raw, path, Vector2.ZERO, true, context)
+        # The worker must use its private snapshot even when the global cache
+        # generation changes. The production loader separately rejects this
+        # lease change before consuming or publishing any worker result.
+        var generation := ROUTES._cache_generation
+        ROUTES._cache_generation += 1
+        while reader.busy(): await process_frame
+        var validated := reader.take(ticket)
+        ROUTES._cache_generation = generation
+        _check(not validated.worker_is_main and validated.error.is_empty() and validated.prepared == oracle.result, region_id + " background result fully equals the synchronous oracle despite live cache changes")
+        for operation in ["header", "records", "identity", "profiles", "profile", "terrain", "cave", "cave_rectangle", "platform", "world", "world_dimension", "world_bounds", "entry"]:
+            _check(validated.validator_operations.get(operation, 0) == oracle_operations.get(operation, 0), region_id + " worker preserves every " + operation + " check")
+        _check(raw == untouched and context == untouched_context, region_id + " validation leaves its raw input and private route context unchanged")
+        _check(not reader.busy() and not reader.has_pending_ticket(), region_id + " validation transfers and releases its sole ticket")
+    var ticket := reader.request_validation({}, "", Vector2.ZERO, true, {})
+    while reader.busy(): await process_frame
+    _check(not reader.take(ticket).get("error", "").is_empty(), "worker refuses missing private context instead of reading a live cache")
+    reader.shutdown()
+    _check(reader.request_validation({}, "", Vector2.ZERO, true, {}) == 0, "closed reader refuses new validation tasks")
+
+func _validation_teardown_ownership() -> void:
+    var host := ProbeWorld.new()
+    host.world_mode = true
+    host.world_resume = false
+    host.world_save_path = SAVE
+    host.config_path = ROUTES.cached_config_path(REGION)
+    root.add_child(host)
+    var loader: RefCounted = host.world_loader
+    var reader: RefCounted = loader.config_read_job
+    var token: RefCounted = loader.startup_token
+    for _frame in range(120):
+        if loader.last_transition.has("startup_config_validation_wait_frames"): break
+        await process_frame
+    _check(loader.last_transition.has("startup_config_validation_wait_frames") and reader.has_pending_ticket(), "teardown fixture reaches accepted validation task")
+    host.free()
+    _check(token.finished and token.cancelled and loader.startup_token == null and loader._startup_frame_tree == null, "validation teardown synchronously releases owned startup and private frame wakeup")
+    _check(not reader.busy() and not reader.has_pending_ticket() and reader.closed, "validation teardown joins the sole worker before another frame")
+    var loader_ref: WeakRef = weakref(loader)
+    var token_ref: WeakRef = weakref(token)
+    var reader_ref: WeakRef = weakref(reader)
+    loader = null
+    token = null
+    reader = null
+    _check(loader_ref.get_ref() == null and token_ref.get_ref() == null and reader_ref.get_ref() == null, "validation teardown releases loader, token and reader without another frame")
     await process_frame
 
 func _default_entry_oracle() -> void:
@@ -245,7 +325,7 @@ func _early_startup_cancellation() -> void:
         await process_frame
 
 func _teardown_and_faults() -> void:
-    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel"]:
+    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel"]:
         var host := ProbeWorld.new()
         host.world_mode = true
         host.world_resume = false
@@ -263,6 +343,16 @@ func _teardown_and_faults() -> void:
         var inject := func():
             var metric: Dictionary = loader.last_transition
             if injected.done: return
+            if fault.begins_with("validation_wait_"):
+                if not metric.has("startup_config_validation_wait_frames"): return
+                injected.done = true
+                match fault:
+                    "validation_wait_route_generation": ROUTES._cache_generation += 1
+                    "validation_wait_path": host.config_path = ROUTES.cached_config_path("demo_ch01_moss_bell_court")
+                    "validation_wait_free": host.free()
+                    "validation_wait_shutdown": loader.shutdown()
+                    "validation_wait_cancel": loader.startup_token.cancel()
+                return
             if fault.begins_with("post_"):
                 if fault.begins_with("post_catalog_") and host.world_catalog.is_empty(): return
                 if fault.begins_with("post_build_") and int(metric.get("max_build_operations", 0)) == 0: return
@@ -276,7 +366,7 @@ func _teardown_and_faults() -> void:
                     "post_finish_generation": ROUTES._cache_generation += 1
                 injected.done = true
             elif metric.has("startup_config_lease"):
-                if fault == "validator_entry" and int(metric.get("startup_config_validator_batches", 0)) == 0: return
+                if fault == "validator_entry" and not metric.has("startup_config_validation_wait_frames"): return
                 injected.done = true
                 match fault:
                     "wait_entry", "validator_entry":
@@ -302,7 +392,7 @@ func _teardown_and_faults() -> void:
         _check(injected.done, fault + " reaches its declared fault boundary")
         _check(not is_instance_valid(host) or not host.initial_region_ready, fault + " cannot publish region")
         _check(FileAccess.get_file_as_bytes(SAVE) == before_save, fault + " preserves existing save bytes")
-        if fault not in ["detach", "free", "shutdown"]:
+        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown"]:
             _check(loader.phase == "startup_error" and is_instance_valid(loader.loading_canvas) and loader.loading_canvas.get_node("StartupRetry") is Button, fault + " exposes retry recovery")
             if not fault.begins_with("post_"): _check(not is_instance_valid(host.player), fault + " fails before any region construction")
         if is_instance_valid(host):

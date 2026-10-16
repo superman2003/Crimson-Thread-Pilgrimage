@@ -1,5 +1,10 @@
 # 升级任务台账：以可玩验收为完成标准
 
+## 2026-10-16：#96 真实首启窗口修复
+
+两平台 `0ea29655` 桌面首启失败已定位：968 个串行步骤按 8 步/帧至少 121 帧。将完整校验移入同一 reader 的独占数据快照任务，并去除重复空等待；原 120 帧/180 秒、512/64 边粒度、8 操作/2ms 准入及租约/取消/退出守卫不变。六套严格 GL 通过，官方 Linux 实际导出包首启/恢复/备份写回全过；两套测试夹具 ObjectDB warning 未归因，真实玩家日志无 ERROR/ObjectDB。新 head 干净 Linux/Windows 与完整 CI 待验，W00b2b整包仍OPEN。[完整根因与证据](report/20261016_modern_startup_integration.md)。
+
+
 2026-10-16 依赖同步：#95已推进到`8d0a73ae`并纳入main `07ae21d4`工坊。本#96保留首区worker/validator/专项原字节，合入全部工坊路线与门禁，四处文档/计数冲突取并集，默认104套。npm/campaign与24项runner通过；冲突修复先推，新组合本地GL及远端新head CI继续验收，旧848c/旧base结果不代替新组合。原180秒、绘制模式和断言保持。[同步证据](../artifacts/modern_startup_integration/workshop_base_sync_verification.json)。
 
 ## 2026-10-16：W00b2b首区配置后台准备现代整合

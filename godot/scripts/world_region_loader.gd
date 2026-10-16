@@ -186,10 +186,10 @@ func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
         "entry_enabled": bool(host.entry_spawn_override_enabled), "entry": host.entry_spawn_override}
     last_transition["startup_config_lease"] = lease
     last_transition["startup_config_wait_frames"] = 0
-    last_transition["startup_config_validator_batches"] = 0
-    last_transition["startup_config_validator_work_usec"] = 0
-    last_transition["startup_config_validator_max_operations"] = 0
-    last_transition["startup_config_validator_max_batch_usec"] = 0
+    last_transition["startup_config_context_copy_batches"] = 0
+    last_transition["startup_config_context_copy_work_usec"] = 0
+    last_transition["startup_config_context_copy_max_operations"] = 0
+    last_transition["startup_config_context_copy_max_batch_usec"] = 0
     var ticket := 0
     while ticket == 0:
         if not _startup_config_context_valid(host, tree, lease): return {}
@@ -222,28 +222,63 @@ func _prepare_startup_config(host: Node, tree: SceneTree) -> Dictionary:
     last_transition["startup_config_worker_usec"] = read.get("worker_usec", 0)
     last_transition["startup_config_bytes"] = read.get("bytes", 0)
     if not _startup_config_context_valid(host, tree, lease): return {}
-    var validator = CONFIG_VALIDATOR.new()
-    validator.begin(read.get("raw"), String(lease.path), lease.entry if lease.entry_enabled else Vector2.ZERO, not lease.entry_enabled)
+    # The record-level validator contains hundreds of scalar checks. Running
+    # eight on each main-thread frame adds over 120 frames before any build.
+    # Give the sole reader a detached route context instead: it runs exactly
+    # the same validator/overlay over private data without touching live caches.
+    var region_id := String(lease.path).get_file().get_basename()
+    var context := {"generation": int(lease.route_generation), "region_id": region_id,
+        "known_region": COORDINATES.has_region(region_id), "path": ROUTES.cached_config_path(region_id),
+        "world_size": COORDINATES.region_bounds(region_id).size,
+        "bundle": ROUTES.cached_overlay_bundle(region_id)}
+    var context_copy := VARIANT_COPY_JOB.new()
+    context_copy.begin(context)
+    last_transition["startup_config_context_copy_edges"] = 0
+    last_transition["startup_config_context_max_step_edges"] = 0
     var validator_wall_started := Time.get_ticks_usec()
-    while not validator.done:
+    while not context_copy.done:
         var started := Time.get_ticks_usec()
         var operations := 0
-        while not validator.done and operations < MAX_OPERATIONS_PER_FRAME:
+        while not context_copy.done and operations < MAX_OPERATIONS_PER_FRAME:
             if operations > 0 and Time.get_ticks_usec() - started >= FRAME_BUDGET_USEC: break
-            validator.step()
+            var edges: int = context_copy.step(512)
+            last_transition.startup_config_context_copy_edges += edges
+            last_transition.startup_config_context_max_step_edges = maxi(last_transition.startup_config_context_max_step_edges, edges)
             operations += 1
         var work_usec := Time.get_ticks_usec() - started
-        last_transition.startup_config_validator_batches += 1
-        last_transition.startup_config_validator_work_usec += work_usec
-        last_transition.startup_config_validator_max_operations = maxi(last_transition.startup_config_validator_max_operations, operations)
-        last_transition.startup_config_validator_max_batch_usec = maxi(last_transition.startup_config_validator_max_batch_usec, work_usec)
-        last_transition["startup_config_validator_operation"] = validator.operation_name
+        last_transition.startup_config_context_copy_batches += 1
+        last_transition.startup_config_context_copy_work_usec += work_usec
+        last_transition.startup_config_context_copy_max_operations = maxi(last_transition.startup_config_context_copy_max_operations, operations)
+        last_transition.startup_config_context_copy_max_batch_usec = maxi(last_transition.startup_config_context_copy_max_batch_usec, work_usec)
+        last_transition["startup_config_validator_operation"] = "route_context_copy"
         await _next_process_frame(tree)
         if not _startup_config_context_valid(host, tree, lease): return {}
+    # No other task can acquire the reader between take and this admission:
+    # phase=startup excludes background work, and no await follows the guard.
+    ticket = config_read_job.request_validation(read.get("raw"), String(lease.path),
+        lease.entry if lease.entry_enabled else Vector2.ZERO, not lease.entry_enabled, context_copy.result)
+    if ticket == 0:
+        last_error = "无法启动初始区域后台校验。"
+        return {}
+    last_transition["startup_config_validation_wait_frames"] = 0
+    while true:
+        # Always leave a cancellation window, even for an already-finished job.
+        await _next_process_frame(tree)
+        last_transition.startup_config_validation_wait_frames += 1
+        if not _startup_config_context_valid(host, tree, lease):
+            config_read_job.discard(ticket)
+            return {}
+        if not config_read_job.busy(): break
+    var validated: Dictionary = config_read_job.take(ticket)
+    last_transition["startup_config_validation_worker_is_main"] = validated.get("worker_is_main", true)
+    last_transition["startup_config_validation_worker_usec"] = validated.get("worker_usec", 0)
+    last_transition["startup_config_validation_steps"] = validated.get("validator_steps", 0)
+    last_transition["startup_config_validator_operation"] = validated.get("validator_operation", "")
     last_transition["startup_config_validator_wall_usec"] = Time.get_ticks_usec() - validator_wall_started
     last_transition["startup_config_wall_usec"] = Time.get_ticks_usec() - wall_started
-    last_error = validator.error
-    return validator.result
+    last_error = String(validated.get("error", "初始区域校验票据已失效。"))
+    return validated.get("prepared", {}) if last_error.is_empty() else {}
+
 
 
 func _show_startup_error(host: Node) -> void:
@@ -351,13 +386,20 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
     var copy_edges := 0
     var copy_max_step_usec := 0
     var copy_max_step_edges := 0
+    var copy_max_operations := 0
     while not copy_job.done:
-        var step_started := Time.get_ticks_usec()
-        var copied_edges: int = copy_job.step(512)
-        var step_usec := Time.get_ticks_usec() - step_started
-        copy_edges += copied_edges
-        copy_max_step_edges = maxi(copy_max_step_edges, copied_edges)
-        copy_max_step_usec = maxi(copy_max_step_usec, step_usec)
+        var batch_started := Time.get_ticks_usec()
+        var operations := 0
+        while not copy_job.done and operations < MAX_OPERATIONS_PER_FRAME:
+            if operations > 0 and Time.get_ticks_usec() - batch_started >= FRAME_BUDGET_USEC: break
+            var step_started := Time.get_ticks_usec()
+            var copied_edges: int = copy_job.step(512)
+            var step_usec := Time.get_ticks_usec() - step_started
+            copy_edges += copied_edges
+            copy_max_step_edges = maxi(copy_max_step_edges, copied_edges)
+            copy_max_step_usec = maxi(copy_max_step_usec, step_usec)
+            operations += 1
+        copy_max_operations = maxi(copy_max_operations, operations)
         copy_batches += 1
         await _next_process_frame(tree)
         if not _alive(host) or host.get_tree() != tree or shutting_down or _manifest_refresh_cancelled(background):
@@ -379,6 +421,7 @@ func _prepare_routes_manifest(host: Node, tree: SceneTree, background: bool = fa
     last_transition["route_manifest_worker_usec"] = int(result.get("worker_usec", 0))
     last_transition["route_manifest_bytes"] = int(result.get("bytes", 0))
     last_transition["route_manifest_copy_batches"] = copy_batches
+    last_transition["route_manifest_copy_max_operations"] = copy_max_operations
     last_transition["route_manifest_copy_edges"] = copy_edges
     last_transition["route_manifest_copy_begin_usec"] = copy_begin_usec
     last_transition["route_manifest_copy_max_step_usec"] = copy_max_step_usec
@@ -873,14 +916,27 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
     # Avoid cloning the whole region. Region and route dictionaries already
     # have private ownership; route entries overwrite local entries, then the
     # first route in authored order wins the global key.
-    for source in [route_catalog, catalog]:
-        var keys: Array = source.keys()
-        var cursor := 0
-        while cursor < keys.size():
+    var sources := [route_catalog, catalog]
+    var source_index := 0
+    var keys: Array = sources[0].keys()
+    var cursor := 0
+    record["merge_frame_batches"] = 0
+    record["max_merge_operations"] = 0
+    while source_index < sources.size():
+        var frame_started := Time.get_ticks_usec()
+        var operations := 0
+        while source_index < sources.size() and operations < MAX_OPERATIONS_PER_FRAME:
+            if operations > 0 and Time.get_ticks_usec() - frame_started >= FRAME_BUDGET_USEC: break
             if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
                 last_error = "物品目录在交接期间发生变化。"
                 _discard_catalog_staging(host)
                 return false
+            if cursor >= keys.size():
+                source_index += 1
+                if source_index < sources.size(): keys = sources[source_index].keys()
+                cursor = 0
+                continue
+            var source: Dictionary = sources[source_index]
             var merge_started := Time.get_ticks_usec()
             var batch_edges := mini(64, keys.size() - cursor)
             var end := cursor + batch_edges
@@ -895,8 +951,14 @@ func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog:
             record.max_merge_edges = maxi(record.max_merge_edges, batch_edges)
             record.merge_work_usec += merge_usec
             record.max_merge_step_usec = maxi(record.max_merge_step_usec, merge_usec)
-            await _next_process_frame(tree)
-            _cancel_input()
+            operations += 1
+        record.merge_frame_batches += 1
+        record.max_merge_operations = maxi(record.max_merge_operations, operations)
+        # The two short catalog sources can share a bounded frame batch.
+        # Still yield after the last chunk so cancellation/stamp changes cannot
+        # publish populated staging without their normal observation window.
+        await _next_process_frame(tree)
+        _cancel_input()
     if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
         _discard_catalog_staging(host)
         return false
@@ -931,6 +993,7 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             return false
         var prepare_batch_started := Time.get_ticks_usec()
         var prepare_operations := 0
+        var catalog_yielded := false
         while prepare_cursor < prepare_jobs.size() and prepare_operations < MAX_OPERATIONS_PER_FRAME:
             # The budget admits the next job; one job itself cannot be
             # preempted and may exceed the nominal frame budget.
@@ -947,6 +1010,9 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
                 if not await _prepare_catalog_region_async(host, String(prepare_args[0]), prepare_args[1], prepare_tree, prepare_generation, prepare_route_generation, cancellable):
                     _finalize_prepare_metrics(prepare_role, prepare_wall_started)
                     return false
+                # The final merge already yielded and checked the lease.
+                # No synchronous prepare job has run in this resumed frame.
+                catalog_yielded = true
                 # Worker wait/merge yields are outside the synchronous job budget.
                 prepare_batch_started = Time.get_ticks_usec()
                 job_started = prepare_batch_started
@@ -997,9 +1063,11 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
         last_transition["max_prepare_batch_usec"] = maxi(int(last_transition["max_prepare_batch_usec"]), prepare_batch_usec)
         if is_instance_valid(loading_label):
             loading_label.text = ("正在接通旧路… 准备 %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… 准备 %d / %d") % [prepare_cursor, prepare_jobs.size()]
-        # Yield after every batch, including the final one, so Escape and host
-        # teardown can be observed before any build jobs are created.
-        await _next_process_frame(prepare_tree)
+        # Synchronous batches, including the final one, retain their boundary
+        # before build. Catalog tasks have already yielded after their final
+        # merge; waiting a second empty frame delays every cold region read.
+        if not catalog_yielded:
+            await _next_process_frame(prepare_tree)
         if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
             _discard_catalog_staging(host)
             _finalize_prepare_metrics(prepare_role, prepare_wall_started)

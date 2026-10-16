@@ -1,5 +1,13 @@
 # W00b2b：首区配置共享后台准备的现代整合
 
+## 2026-10-16：修复真实导出包 120 帧首启失败
+
+`0ea29655` 首次触发依赖分支的 Windows/Linux 桌面门禁后，两端都在首启存档检查失败，未进入恢复验证。根因已在真实首区复现：完整 validator 有 968 个步骤，旧实现每帧最多 8 步并强制等待，单独校验至少需要 121 帧，还未执行后续构建；不能以延长原 120 帧窗口解决。
+
+修复让唯一 reader 先完成原 JSON 读取，再接受独占路线/坐标快照上的完整纯数据校验任务。968 步和覆盖、六地区等价性、路径/入口/代际/文件戳/票据守卫全部保留，worker 不读取 live cache 或 SceneTree；主线程快照仍为 512 边分片、每帧最多 8 操作及名义 2ms 准入。manifest 分片和目录合并只去除重复空等待，64 边目录粒度、最终取消观察点和同步退出 join/unwind 保留。单项不可抢占，仍不宣称硬 2ms。
+
+四个冻结源码经 Godot 4.6.1 六套严格 GL 全通过：startup config 393、preflight 4334、catalog 71、config background 38，以及原 startup/prepare budget。startup/prepare 各有一条未归因 ObjectDB 退出 warning，其他四套无该警告，全部无 ERROR。真实官方 Linux 导出包使用原 build_release.py 和原 120 帧 smoke，首启、恢复、备份写回全部通过，玩家两次启动日志无 ERROR/ObjectDB，四源码前后 SHA 相同。此次本地导出来源为工作树，含自动导入 sidecar；因此干净 checkout Linux 与 Windows 必须由新 head 远端 CI 再验，不能把本地 Linux 结论当作 Windows 通过。见 [冻结证据](../../artifacts/modern_startup_integration/release_readiness_verification.json)。
+
 ## 2026-10-16：同步上游 Windows 退出令牌清理
 
 依赖 #95 新头 `ccc0d23d`：同步 owned startup 私有帧唤醒，并把本批新增 `_prepare_startup_config` 三个等待点接到同一 helper。两处 loader 冲突保留现代首帧取消恢复与完整 catalog/startup 租约校验，未降级回只判断 host 存活。普通旅行/后台刷新及 120 帧/180 秒/严格错误门禁不变；不包含 #62 共享 metadata。
