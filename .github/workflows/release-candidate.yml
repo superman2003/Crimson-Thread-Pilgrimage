@@ -3,7 +3,8 @@ name: Desktop release candidates
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    # Stacked W00 integration PRs need the same packaged Windows/Linux gates.
+    branches: [main, 'codex/w00-*-modern-integration']
     paths:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'

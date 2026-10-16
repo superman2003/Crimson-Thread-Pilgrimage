@@ -1,7 +1,19 @@
 extends RefCounted
-## Session-owned camera limits and delayed observation, never player/world coordinates.
+## Session-owned framing and limits. Never changes player/world coordinates.
 const LOOK_DELAY := 0.35
 const LOOK_DISTANCE := 150.0
+const NEUTRAL_HEIGHT := 55.0
+const FLOOR_REBASE_DISTANCE := 12.0
+const OFFSET_RESPONSE := 5.0
+# World-space center, separate from the Camera2D's inherited player transform.
+# A jump inside the safe band must not move this target at all.
+var follow_ready := false
+var follow_center_y := 0.0
+var follow_floor_y := 0.0
+var follow_observation := 0.0
+var follow_was_airborne := false
+var follow_vertical_travel := false
+var follow_vertical_direction := 0
 var region_bounds := Rect2()
 var locks: Dictionary = {}
 var active_lock := ""
@@ -20,6 +32,7 @@ func configure(camera: Camera2D, bounds: Rect2) -> bool:
     locks.clear()
     active_lock = ""
     clear_look()
+    follow_ready = false
     region_bounds = bounds
     apply_limits(camera)
     return true
@@ -101,3 +114,62 @@ func update(camera: Camera2D, delta: float, requested_direction: int, eligible: 
     # Player camera already eases this target; avoid a second observation filter.
     look_offset = target
     return look_offset
+
+
+func reset_follow(point: Vector2) -> void:
+    # Arrival/respawn owns the intentional cut. Ordinary room switches retain
+    # this baseline and the existing eased room limits, without resetting scroll.
+    follow_ready = true
+    follow_center_y = point.y - NEUTRAL_HEIGHT
+    follow_floor_y = point.y
+    follow_observation = 0.0
+    follow_was_airborne = false
+    follow_vertical_travel = false
+    follow_vertical_direction = 0
+
+
+func follow_position(camera: Camera2D, point: Vector2, motion: Vector2, grounded: bool, delta: float, strength: float, observation: float) -> Vector2:
+    if not follow_ready:
+        reset_follow(point)
+    var weight := 1.0 - exp(-maxf(delta, 0.0) * OFFSET_RESPONSE)
+    var horizontal := lerpf(camera.position.x, clampf(motion.x * 0.18, -90.0, 90.0) * strength, weight)
+    follow_observation = lerpf(follow_observation, observation, weight)
+    if grounded:
+        # Reframe a new platform layer, but ignore tiny floor-contact corrections.
+        # Landing after genuine vertical travel also restores neutral framing.
+        if absf(point.y - follow_floor_y) > FLOOR_REBASE_DISTANCE or (follow_was_airborne and follow_vertical_travel):
+            follow_floor_y = point.y
+            follow_center_y = point.y - NEUTRAL_HEIGHT
+        follow_vertical_travel = false
+        follow_vertical_direction = 0
+    else:
+        var half_height := camera.get_viewport_rect().size.y / maxf(absf(camera.zoom.y), 0.01) * 0.5
+        # At 720p / 1.25 zoom, the ordinary 136px jump stays entirely inside
+        # this band. Small viewports release earlier to keep head/feet visible.
+        var upper_band := minf(160.0, maxf(24.0, half_height - 112.0))
+        var lower_band := minf(100.0, maxf(24.0, half_height - 128.0))
+        # Camera2D still provides its original world-position smoothing. Only
+        # after leaving the safe band, compensate its lag so a fast shaft fall
+        # reveals the landing route instead of letting the feet leave the view.
+        # This safety follow remains active when optional lookahead is disabled.
+        var lag := 1.0 / maxf(camera.position_smoothing_speed, 0.01) if camera.position_smoothing_enabled else 0.0
+        if motion.y < 0.0 and point.y < follow_center_y - upper_band:
+            follow_vertical_direction = -1
+            follow_vertical_travel = true
+        elif motion.y > 0.0 and point.y > follow_center_y + lower_band:
+            follow_vertical_direction = 1
+            follow_vertical_travel = true
+        # Once a shaft traversal begins, continue its motion each frame instead
+        # of repeatedly crossing a threshold and moving in visible stair steps.
+        # Prediction must also retract when a wall, ceiling or air action slows
+        # the body. A one-way min/max would retain obsolete high-speed lead and
+        # let the still-smoothed screen move away from the stopped player.
+        if follow_vertical_direction < 0 and motion.y <= 0.0:
+            follow_center_y = point.y + upper_band + motion.y * lag
+        elif follow_vertical_direction > 0 and motion.y >= 0.0:
+            follow_center_y = point.y - lower_band + motion.y * lag
+    follow_was_airborne = not grounded
+    # Compensate inherited Y immediately; lerping this local offset would feed
+    # the jump back into the camera. X/observation retain the existing response.
+    # Authored room/Boss bounds and FeelKit offsets remain Camera2D-owned.
+    return Vector2(horizontal, follow_center_y + follow_observation - point.y)

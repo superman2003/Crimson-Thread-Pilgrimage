@@ -1,0 +1,57 @@
+{
+  "previous_head": "ccc0d23d31a12961da65c8520f6b166c81d6adc0",
+  "main": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+  "main_tree": "8f2c6434916e038c29bf38253800533bbd01440a",
+  "source_proof": {
+    "godot/scripts/world_region_loader.gd": {
+      "matches": "HEAD",
+      "identical": true,
+      "sha256": "ca9dff7701c607c0b942b4e8071f82d9895bb8aa1b687e35965e9e3e1da5348e"
+    },
+    "godot/scripts/world_config_read_job.gd": {
+      "matches": "HEAD",
+      "identical": true,
+      "sha256": "00096c76f535370d916472c997633d4f8ac9b44a42b9c4d3b1b68c96be03d525"
+    },
+    "godot/scripts/world_catalog_background_validation.gd": {
+      "matches": "HEAD",
+      "identical": true,
+      "sha256": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180"
+    },
+    "godot/scripts/world_startup_budget_validation.gd": {
+      "matches": "HEAD",
+      "identical": true,
+      "sha256": "b99db051c8b266b5d0b07da85f68763c99a241988675769696f25a73f26fdad0"
+    },
+    "godot/scripts/main_level.gd": {
+      "matches": "origin/main",
+      "identical": true,
+      "sha256": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99"
+    },
+    "godot/scripts/player_controller.gd": {
+      "matches": "origin/main",
+      "identical": true,
+      "sha256": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058"
+    },
+    "godot/scripts/player_layered_idle.gd": {
+      "matches": "origin/main",
+      "identical": true,
+      "sha256": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e"
+    }
+  },
+  "default_suites": 107,
+  "static_tests": {
+    "runner": 29,
+    "workflow_integrity": 5,
+    "npm": "PASS",
+    "campaign": "PASS"
+  },
+  "local_new_combination_gl": "PENDING",
+  "remote_new_head_ci": "PENDING",
+  "unchanged_gates": [
+    "120-frame exported startup/resume/writeback",
+    "180-second per suite",
+    "all completion and ERROR rejection",
+    "all original suite assertions"
+  ]
+}

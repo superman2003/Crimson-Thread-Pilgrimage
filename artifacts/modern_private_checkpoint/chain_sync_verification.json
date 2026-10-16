@@ -1,0 +1,1859 @@
+{
+  "previous_local_head": "948579eb94f3735321b5c768ca5889d6507245f7",
+  "upstream_pr96_head": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+  "upstream_pr96_tree": "39318470e1c80ba7ae3dd892ba5cce340a1b46df",
+  "merged_suite_count": 109,
+  "previous_suite_count": 107,
+  "upstream_suite_count": 108,
+  "added_to_previous": [
+    "world_catalog_background",
+    "world_startup_config_background"
+  ],
+  "private_only": [
+    "world_save_candidate"
+  ],
+  "all_suites": [
+    "world_rim",
+    "world_wayfinding",
+    "world_passage",
+    "world_passage_network",
+    "world_route_manifest_walk_lower",
+    "world_route_manifest_walk_upper",
+    "world_route_manifest_integration",
+    "audio_retirement",
+    "world_neighbor_collision",
+    "world_neighbor_entities",
+    "world_neighbor_gameplay",
+    "world_gameplay_plan",
+    "world_neighbor_gameplay_live",
+    "world_neighbor_gameplay_stress",
+    "terrain_collision_streaming",
+    "world_platform_streaming",
+    "cave_collision_streaming",
+    "world_async_loading",
+    "world_streaming",
+    "world_host",
+    "world_coordinates",
+    "world_interaction_residency",
+    "world_enemy_residency",
+    "cartography",
+    "world_map",
+    "world_route_access",
+    "world_state",
+    "world_integration",
+    "world_route_walk",
+    "ability_movement",
+    "enemy_lifecycle_regression",
+    "enemy_effect_lifetime",
+    "enemy_visibility",
+    "world_material",
+    "hero_animation",
+    "cave_exploration",
+    "cave_route_walk",
+    "chapter_route_regression",
+    "ch01_room_reconstruction",
+    "pilgrimage_merge_regression",
+    "pilgrimage_review_regression",
+    "all_chapters_demo",
+    "pilgrimage_overhaul",
+    "demo",
+    "ch02_demo",
+    "inventory_map",
+    "boss_trial",
+    "combat",
+    "generated_runtime",
+    "chapter_registry",
+    "story_guidance",
+    "chinese_story",
+    "metsys",
+    "player_upgrade_regression",
+    "build_system",
+    "world_upgrade",
+    "world_workshop_group_one",
+    "world_workshop_group_two",
+    "world_ability_acquisition",
+    "upgrade_integration",
+    "save_product",
+    "ui_build_accessibility",
+    "ui_world_integration",
+    "ui_redesign",
+    "seal_system",
+    "seal_combat",
+    "seal_ui",
+    "seal_acceptance",
+    "seal_acquisition",
+    "seal_presentation",
+    "world_prepare_budget",
+    "world_save_candidate",
+    "world_preflight_budget",
+    "world_config_background",
+    "world_catalog_background",
+    "world_startup_config_background",
+    "world_neighbor_config",
+    "world_resume_regression",
+    "world_interaction_safety",
+    "player_state_cleanup",
+    "input_settings_regression",
+    "input_prompt",
+    "player_action_buffer",
+    "player_motion_continuity",
+    "player_layered_idle",
+    "player_melee_feedback",
+    "camera_focus",
+    "room_camera_stability",
+    "first_court_experience",
+    "rain_foundry_experience",
+    "salt_archive_experience",
+    "greenhouse_experience",
+    "obsidian_experience",
+    "world_startup_budget",
+    "world_variant_copy",
+    "survey_map_knowledge",
+    "ch06_workshop_experience",
+    "world_death_cache_flush",
+    "melee_recovery",
+    "combat_resource_cycle",
+    "build_slots",
+    "build_transaction_runtime",
+    "enemy_encounter_roles",
+    "build_slots_ui",
+    "narrative_outcomes",
+    "tests/verify_world_narrative",
+    "tests/verify_narrative_ui",
+    "tests/verify_narrative_progression",
+    "tests/verify_narrative_runtime"
+  ],
+  "markers_preserved_from_both_parents": true,
+  "main_level_outside_private_save_function_and_flag_identical_to_upstream": true,
+  "private_save_function_sha256": "ade5835eef0ea3ed648f124039732d33a1ed309259d1244e78a35d5a82c82670",
+  "private_state_and_candidate_unchanged": true,
+  "all_upstream_scripts_data_workflows_and_release_tools_preserved": true,
+  "asset_index_identical_to_upstream": true,
+  "timeout_seconds": 180,
+  "runner_behavior_identical_to_upstream_except_private_suite_addition": true,
+  "source_sha256": [
+    {
+      "path": ".github/workflows/audio-user-volume.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c6c5ba911c30c58305232983aa662d6019282c0dcdeb3109d75999bcb7ae1b4b"
+    },
+    {
+      "path": ".github/workflows/ch05-lantern-workshop.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "59065aecf863b26c44b91c0dbb1a91835e3cd0bef2253d9cd62ec73ce8157c73"
+    },
+    {
+      "path": ".github/workflows/ch06-hidden-route.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7333dec8291ebfb0ccb59c34803b14d3c6d1fc7e0e6a95d98a10e660a7e465a5"
+    },
+    {
+      "path": ".github/workflows/enemy-warning-readability.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "65d426e4c8772b7bb639a999b55667c997066da9873c814ed92280df2d8f05a6"
+    },
+    {
+      "path": ".github/workflows/godot-integration.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "09ef211d98c83193e0f2bf3aa2b901bd441732948e3b79e61541972003c931ab"
+    },
+    {
+      "path": ".github/workflows/input-prompt-readability.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b4183014b1e8e3468493b9fd2af49be84213ea27be26440e80410d3fccb0ad5b"
+    },
+    {
+      "path": ".github/workflows/interaction-targeting.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8c4ff5d28ae4f113f42dd917fbee20b7d4f27ca315ba80b64fa9ebcba76e61b5"
+    },
+    {
+      "path": ".github/workflows/layered-idle-presentation.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cf6235020d4d39f4eaf1b2c3ddee531ba60b212af0f0d827389b74d290b554dc"
+    },
+    {
+      "path": ".github/workflows/modern-ability-workshops.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e1ca125a554202fcf3b5f0293e6c20a45d0046c1adaad99bf1e1aa8606fdeba1"
+    },
+    {
+      "path": ".github/workflows/modern-combat-resource-cycle.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f8301918a7f5b0d8eb3901dbfc5ab8ccefc84733143451fef970d63294b131c1"
+    },
+    {
+      "path": ".github/workflows/motion-melee-feedback.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "21b4b14fff9451f8570636ab18682545614d9c934813bc6be9903e2de3b6b3c5"
+    },
+    {
+      "path": ".github/workflows/narrative-return-journey.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6bc9d54c829c6e5af198e9f82dc2e989cc5eff20964ed507009541b24696ea12"
+    },
+    {
+      "path": ".github/workflows/release-candidate.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "730e33dccedfefac286be378a7ffe3035e895e5cb2bc1c64879650e3499d6410"
+    },
+    {
+      "path": ".github/workflows/room-camera-doorways.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "222479692b6c44ed7fd2d1454304ce01ca7d80612e64827205b2d8d0fca37c6c"
+    },
+    {
+      "path": ".github/workflows/room-camera-stability.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d680dd0a85d67f1fad4e163d13923f3761e875d322079314c7539f35050aac21"
+    },
+    {
+      "path": ".github/workflows/route-manifest-integration.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ae00c8b9e3d02ee9e571c031b0bd1b685df6c60db268d2a68fcc5f839525dcd2"
+    },
+    {
+      "path": ".github/workflows/six-region-passage-network.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "0ff1786505cf2fb45b6a1d5e034b19415b36fb7d4277be8904b467b24ab62735"
+    },
+    {
+      "path": ".github/workflows/survey-map-navigation.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d99ad6411f77c7dc1ef0f84d801dd5f99356753a2edc777c91c881d096239b36"
+    },
+    {
+      "path": ".github/workflows/tactical-resource-readiness.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "32e87952898129a80062a9d6154522b6f6a37f5f39cb6414f8e799d447ae11f5"
+    },
+    {
+      "path": ".github/workflows/world-catalog-preparation.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9a1b52d1e6ba53678a2919214a72c366fd6c41390db8bd19848fa39cad31a1f3"
+    },
+    {
+      "path": ".github/workflows/world-gameplay-plan.yml",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5400550b162b87778e45e85b91d05a1892ff97ffc5204e9ef988e3690dd088f5"
+    },
+    {
+      "path": "godot/data/audio_visual_manifest.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8ab38b45f4751ecfadbfbbd84d7f806c5df69e3a194fbcf0ef36ddffc07c7894"
+    },
+    {
+      "path": "godot/data/build_catalog.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "922294b60da2fbc0bd0230dc77ca08804911da65027db29ac1d8dd518c944b32"
+    },
+    {
+      "path": "godot/data/campaign_chapters.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a0bdadbdccb8d973741da181329571051fc64a6fabbeefa71e5b5702ebdcf87c"
+    },
+    {
+      "path": "godot/data/cartography_sellers.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9444447e29df91df8c0aa0ead66b1a306f33132c06ac8db7e7d2c9eaf4cba059"
+    },
+    {
+      "path": "godot/data/chapters/ch02_rain_foundry_canal.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c4a9a41bc3fed115bbdb3ae47ff278e45963908e692cef0c1ae72d9675462f00"
+    },
+    {
+      "path": "godot/data/chapters/ch03_saltwhite_archive.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e8ee1bc156f22417c194ee3124b08ab6b93f9185a57345a7a8dfb5ed15d58edb"
+    },
+    {
+      "path": "godot/data/chapters/ch04_broken_string_greenhouse.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b0989d13b8053818afc0e4a7d25439fea1a3a9b84c238601f16990e959aa1d9a"
+    },
+    {
+      "path": "godot/data/chapters/ch05_obsidian_pilgrim_road.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "814fe4f767ebbc74817f5dd70eed20658d1ac6ca77be35fdd0b2fc6989f54f47"
+    },
+    {
+      "path": "godot/data/chapters/ch06_silent_crown_core.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4916338260bb9bbd6cc2783543098ee205ffe290ee277676fcd010fccbdb8a32"
+    },
+    {
+      "path": "godot/data/demo_ch01_boss_trial.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2c4d80bd8269ef56027ff242220d2336e3d6b53d9da8e0cfca01b875eca04d6f"
+    },
+    {
+      "path": "godot/data/demo_ch01_moss_bell_court.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6fe3477bc108bf42f3ff8c171a28d622190876451842f6c294e13cfe2bf8c9e8"
+    },
+    {
+      "path": "godot/data/demo_ch02_rain_foundry_canal.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d406cf042956eb5bf1c53082b59043048f6d72ab317ada5e44530688f5bb5b2b"
+    },
+    {
+      "path": "godot/data/demo_ch03_saltwhite_archive.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "85f7cf8231d5ce8e32f23def0d5df614cbdf0469372b31a05344693a08ca0f65"
+    },
+    {
+      "path": "godot/data/demo_ch04_broken_string_greenhouse.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "05d1409e566783a761aae96177d0fc60835528739c25af205a342adf8ebcd0e2"
+    },
+    {
+      "path": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d58b7fe937caa27f5ecf0402653cf8d0f97d48006a45ee7232389833ce5a111e"
+    },
+    {
+      "path": "godot/data/demo_ch06_silent_crown_core.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fcafbb6a2701f9015fa8f464ba4b845697dd445340de8d3289f3d819217521e2"
+    },
+    {
+      "path": "godot/data/generated/demo_ch01_moss_bell_court.generated.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b0ce8c07fa8733f03f19111f77dddb4d11cc88504751e9a631fa30f89e8fb110"
+    },
+    {
+      "path": "godot/data/generated/demo_ch02_rain_foundry_canal.generated.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f2d22cabf374311589c2098593bf3c5a2df95df831d30683152fe168d3f9142e"
+    },
+    {
+      "path": "godot/data/generated/demo_ch03_saltwhite_archive.generated.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4f8d5c1687d45eeb73541a92e6c153250bfbcb70d59cea3668538e688e734a15"
+    },
+    {
+      "path": "godot/data/generated/demo_ch04_broken_string_greenhouse.generated.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7b381adc2d02af000d296fd08b497ba776cdb3e877b9cd83db3c49f70bed657f"
+    },
+    {
+      "path": "godot/data/generated/demo_ch05_obsidian_pilgrim_road.generated.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "24008834a616ad53380260e2f56a29b333a3cd588940bed2213e1349c4107b0f"
+    },
+    {
+      "path": "godot/data/generated/demo_ch06_silent_crown_core.generated.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ce2721513c96ffd3ac3044aac007daa72eef3a2dbc29c359e99559c03ac946fd"
+    },
+    {
+      "path": "godot/data/item_lore.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "73553a23e29e0956860773863f62ac53baccb6fc18e6138f61e76e846f0d5829"
+    },
+    {
+      "path": "godot/data/original_boss_attack_designs.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cc945d1895a63a17c8b7febc4707ae9950bf7ad9ee30461b9689d677a4d37444"
+    },
+    {
+      "path": "godot/data/original_creature_combat.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5b06511b82e54b268eaa47d790c17d021e854df7ab8c5f09b538402c8c5f9794"
+    },
+    {
+      "path": "godot/data/original_creature_designs.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "590574d8768ee3a9cbcc31f2b280a31a79a1aaf603d611f6a12062795df18466"
+    },
+    {
+      "path": "godot/data/original_world_art_designs.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ca1cbe790e9da86d81eb88374d8930b1ca75e936e1d15b31325e20b909110707"
+    },
+    {
+      "path": "godot/data/progression_plan.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "0872a5797998bb10ff815ded4ec1b2d4432ab22ec4908ab0588e91b0f65fae8a"
+    },
+    {
+      "path": "godot/data/soulbox_level_graph.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "52c43e4105f30bd364dc88c5a28e4161435d94583b78abf0e43df0eabef5fe66"
+    },
+    {
+      "path": "godot/data/world_layout.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "051bc6d5af19bd574147bd8d73b0c5a1896b08b872b810dd522e12261c32f583"
+    },
+    {
+      "path": "godot/data/world_narrative.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5e90b2558969bd163c92db4a0596901646ca5af733daa8ccd6383ab83092be8f"
+    },
+    {
+      "path": "godot/data/world_passages.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "927b9cc4ca999286749c1b25d58f6622206fd41196cab5d627f96c719a831d00"
+    },
+    {
+      "path": "godot/data/world_routes.json",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "738a44774bb4911c1df567d3388e66f98630719057e55deaa4dac0ddabfb6bba"
+    },
+    {
+      "path": "godot/scripts/ability_movement_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "da9f54b15b0e86d60be7e77f22e97bd7de708f89b1199a126face353c06adc67"
+    },
+    {
+      "path": "godot/scripts/ability_workshop_route_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ba6a9d99e5e48f3ae2892f1b05c3d5370951685c2b77475fd2f8aa76442614de"
+    },
+    {
+      "path": "godot/scripts/ability_workshop_route_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "650a4b646bdbcce3747e1e5b82827e7e6d3ce9e7cb5a0885fdfc111f203f164e"
+    },
+    {
+      "path": "godot/scripts/all_chapters_demo_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "19ebc04c1207e0fa73a05e09403efb610af0667670b6164917d68498bf8cbb6f"
+    },
+    {
+      "path": "godot/scripts/art_direction_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ac974133a2b4395bcd90c94f545401665c9866fbb8b7b9dc68baccb6213627b1"
+    },
+    {
+      "path": "godot/scripts/audio_director.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "78becdda92cd3132c0e84c15edc54cc55ce8d20a0f696c3849be63a1abf2f8fa"
+    },
+    {
+      "path": "godot/scripts/audio_retirement.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ff91bf3698c7cb8e0ccd0c1278cd8a90f6490e0472142590186544f3f8b2eb44"
+    },
+    {
+      "path": "godot/scripts/audio_retirement_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7e2163946573d5b149ad118d506886e15c843bf2529c3adf284f2652ad252015"
+    },
+    {
+      "path": "godot/scripts/audio_user_volume_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2304d34a0d1dad421f7930cc43313448267c0a272854cb695a5a473bf6813ad3"
+    },
+    {
+      "path": "godot/scripts/audio_visual_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "47faed66e91cce3c815fa99549a4cd5fb448b5c7aa804daba053c2e86ef82a77"
+    },
+    {
+      "path": "godot/scripts/boss_asset_registry_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c92bed429d244026c645d28da906a43a75ea990a867f0156ca07ce2605356a0e"
+    },
+    {
+      "path": "godot/scripts/boss_trial_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f6d88aa6bee5e0c59d7c429db6b13545ec6a4b184d57d0975de83b181cf65b1e"
+    },
+    {
+      "path": "godot/scripts/build_slots_ui_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8656f0f59f4953bbdb6b733821953d148609e07de0b4eea45555df081101a770"
+    },
+    {
+      "path": "godot/scripts/build_slots_ui_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "07ac4b54e7e3f185e6ac6d26c0c10509006663b36862edfb3a603841ce9a0964"
+    },
+    {
+      "path": "godot/scripts/build_slots_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5dc11c265762ee85fd16165246f435b17342b5c3cd77adec96965993d1d2bb02"
+    },
+    {
+      "path": "godot/scripts/build_slots_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "10d718f4597e733c2da583668883ee77377e1c426a9a151553dc555012236597"
+    },
+    {
+      "path": "godot/scripts/build_system.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cf4da29c1e83c3bac456794520d2d46a3100b07c1a37c5c4e01128b307b475b1"
+    },
+    {
+      "path": "godot/scripts/build_system_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2c4b514d29100a6ec0482c47548cf62c9ac043e718edd52884355bdea6cea359"
+    },
+    {
+      "path": "godot/scripts/build_transaction_runtime_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ea213878df37b4a10f886e58a41a279f8995a50ebef85d6f680006fc5d1b23bf"
+    },
+    {
+      "path": "godot/scripts/build_transaction_runtime_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "25480d1f322dfa4cfe3ad76f4ed446d4398414865fb48796466fc5637e108f99"
+    },
+    {
+      "path": "godot/scripts/camera_focus.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966"
+    },
+    {
+      "path": "godot/scripts/camera_focus.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f6e591d164fdc9560bdb3300184adbcee1340e45ce84fcc8932f6071ef08ea46"
+    },
+    {
+      "path": "godot/scripts/camera_focus_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "83863e3c4bc20f6d9545fc931e33b1895f1663473376c52e5f5ae6763228873b"
+    },
+    {
+      "path": "godot/scripts/camera_focus_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6ef19a66d1a747ab0167de0ef5e651dc4d20ded09412e31d1012b04464c2834d"
+    },
+    {
+      "path": "godot/scripts/capture_ch01_rooms.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1fed55ae2a46c866cf9e4e5016b4edd76127a24bb5d40225bc4c56f2922a1976"
+    },
+    {
+      "path": "godot/scripts/capture_combat_build.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "02507a42027e59425440c078874bfd7e0e5640182ea9ce5de5e1433ceeeff40e"
+    },
+    {
+      "path": "godot/scripts/capture_combat_build.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "85d6fef1a0fa2a04b9b95c1a630221b40b2f9f5046f3d099a54c725da577f78d"
+    },
+    {
+      "path": "godot/scripts/capture_readme_current.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "0a2ccef8a60b045688e86afee16ed8309d3041de4b569f0f828400c05bde21dc"
+    },
+    {
+      "path": "godot/scripts/capture_seal_world.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "88432d7092a5b6a9591a708359efa77b2dda0f489ae285a60d11a0d9e99d0a1c"
+    },
+    {
+      "path": "godot/scripts/capture_ui_redesign.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4a6d5adaa5d2e33b1b24f89d6c0e95f2af80e2d70cbb2b8040bd9df9e154b9c9"
+    },
+    {
+      "path": "godot/scripts/capture_world_material.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "03bbfc652a001fd39fc919196a84ea973dae1a5cbdcf3b9b95be72a23e8375b9"
+    },
+    {
+      "path": "godot/scripts/cartography_runtime.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "849ec2c7c7c09e31e06c98650c19597433f0e05c7ae87af968bb3347b7b133ad"
+    },
+    {
+      "path": "godot/scripts/cartography_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5f5b0824a698b3a9faeef7e5fb6fa80d1721972c7afc7f83012edf5c42ea2c47"
+    },
+    {
+      "path": "godot/scripts/cave_collision_streaming_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2d3b47e97d0a0fc58b7810cfbd577e17a5715cde60a043a723f155979321dbbb"
+    },
+    {
+      "path": "godot/scripts/cave_exploration_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "362d4c23d8dc958d65ae0bb2fe7ee3dca5ee86fe7fa307490753f69ab457da7a"
+    },
+    {
+      "path": "godot/scripts/cave_lift.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3c90b0b70268db4b371036ed47d33d42b0b27bb70facbfacbe87df5370480b0a"
+    },
+    {
+      "path": "godot/scripts/cave_lift.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d78368ae4130e53dfaea1b6e80e2b0b6b864b549682317797039f76fae56f293"
+    },
+    {
+      "path": "godot/scripts/cave_rim_geometry.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "88d3c523a0735df5cd9fe58c40da72ce2675d57f5d9b8845e444e6b038427e40"
+    },
+    {
+      "path": "godot/scripts/cave_route_walk_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "78f7755dc497edf09bc84b69fad1cb46d548ee959f049fbe31100cdba21db8b2"
+    },
+    {
+      "path": "godot/scripts/cave_world.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "18d732c52c4131c1f21524b67f4ecd29c95681cf4d9ab2e3c4fcc99207031bbe"
+    },
+    {
+      "path": "godot/scripts/cave_world.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b0445f5ccea3587046abef56a5b0890d4a1f501fda472046beff72c25a18b068"
+    },
+    {
+      "path": "godot/scripts/ch01_room_reconstruction_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "589ef0f13388346198ab34c22dde0d7e95112f69435f0d0f0896bed9295bf5ea"
+    },
+    {
+      "path": "godot/scripts/ch02_demo_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "145b606dfc5e27cfd6e78ee74fbb7185333e3adf83f692a3724c31b73867bfb8"
+    },
+    {
+      "path": "godot/scripts/ch06_hidden_route_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e02c6da9e2378086b6e83458e64bac1bcc3f82d50204fc08700c0c4c3066386c"
+    },
+    {
+      "path": "godot/scripts/ch06_workshop_experience_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b6a5b2cd85f98e1ce1293ac0a28b7cad113db73aecc7442ce4740eb4a0fb3c74"
+    },
+    {
+      "path": "godot/scripts/chapter_registry_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ae41cd5fbeda212756764fdc0757f1f50adabb0d2be8cde185e8dacd2280e305"
+    },
+    {
+      "path": "godot/scripts/chapter_route_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "758d2a354fec685a6e45b5e76bb4bde7912bff4c3bffcf636e0708781fe90004"
+    },
+    {
+      "path": "godot/scripts/chapter_terrain.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c7e66899514763ea88063f88e7c25dff3e8ff114189cd9e4415b5363094ced93"
+    },
+    {
+      "path": "godot/scripts/chinese_story_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d90778f52e3c999dd10f40484eddd01c181229ebe7733448249b932f9ec546b6"
+    },
+    {
+      "path": "godot/scripts/chinese_story_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "044aa55a0944452ba2a4121cb0caa778ae7b81250fd6f2a8a45117e9b190b10d"
+    },
+    {
+      "path": "godot/scripts/combat_resource_cycle_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a721e9d39f6f9d8ded92da07d6ed7b9f6f9d95b7cb383d5d9cb81c3fed1e5720"
+    },
+    {
+      "path": "godot/scripts/combat_resource_cycle_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "59b8f8f9ebaac26bcb9ec9ab26258620346f55e1d23719f40d789238a039664f"
+    },
+    {
+      "path": "godot/scripts/combat_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "50a2217178aa0b65757fe0a7dd10998704e48163acc2107fb44c94032cbc115c"
+    },
+    {
+      "path": "godot/scripts/combat_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "985de5796615ccb59bed28ad6380ea60bdf11edeaf8ae8fd742ea6c5b7504154"
+    },
+    {
+      "path": "godot/scripts/demo_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "123797375888b2033571d9ba6a4c9f9e94400bc6114a1cfdc8c0942b762f4f42"
+    },
+    {
+      "path": "godot/scripts/demo_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5d3416ffefd2127eae194c34e41b06fe935114b3a9509c30b6aa6055733d786b"
+    },
+    {
+      "path": "godot/scripts/enemy_actor.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a97b89ea9a84b16ff79b7fe69ac50db75b9f2a2cf0e766e5366518d3ea5a4ee7"
+    },
+    {
+      "path": "godot/scripts/enemy_actor.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "980738d0d955fdebf34c35ecc36f4883091406be13c8ec68061482a0242d1b14"
+    },
+    {
+      "path": "godot/scripts/enemy_attack_effect.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6ddaa1232d18065604d6a9976a671cfe7b3a9f3d47024477a198ff2be4b751a6"
+    },
+    {
+      "path": "godot/scripts/enemy_dummy.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4607ecca1b5d618dc5ff28dd19633fcec38ae21ec3da6238f4f4c04edd075a91"
+    },
+    {
+      "path": "godot/scripts/enemy_dummy.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1770f8e055122b2f9eb3d1153527896c7420d770ff6d49c14b76d7394ab924ae"
+    },
+    {
+      "path": "godot/scripts/enemy_effect_lifetime_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "76c494906f6429692e1d8b09cfd947e8ee5a786ca8ce55dadc47b24c9149d2d6"
+    },
+    {
+      "path": "godot/scripts/enemy_encounter_roles_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b39b1324c855e0cd26a47f98d5b32c8ec14aa7135b12fded48b66186d28a5d0d"
+    },
+    {
+      "path": "godot/scripts/enemy_encounter_roles_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9ed880a0f275c0ba119a28e47c06194ae62ae4c1362f66a696397dfc0dd5e270"
+    },
+    {
+      "path": "godot/scripts/enemy_lifecycle_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "79c1f35127da47fb1d7ffef76c45c96037f70ad7b023ba160513e2a405d6c783"
+    },
+    {
+      "path": "godot/scripts/enemy_projectile.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "15f7a7329a1a26d7e0e9460cc82c625d2774ae4ca7da4159b46f4838842347a4"
+    },
+    {
+      "path": "godot/scripts/enemy_visibility_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "881b34b47e8846e19cdfb4d323b15fc8b772ae51a209b51486c0719edc400906"
+    },
+    {
+      "path": "godot/scripts/feel_accessibility_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "13593dcd20bf48d25fe0cf39a2743b355ab16930ef2c6fed59fbd50d75af2640"
+    },
+    {
+      "path": "godot/scripts/feel_kit.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "00eff6067d7fe6fb5e025c441985679f014f6d812c98ab8588077b9c0eb46d1b"
+    },
+    {
+      "path": "godot/scripts/first_court_experience_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9ce179bc57686a962769c953fb42a00df5dca63444a807b94c79421d957ea644"
+    },
+    {
+      "path": "godot/scripts/flat_map_art.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1e7a4e6918a050af213cf8aa399749b2dbd0c814d9af540e4ef19ea716a29ab8"
+    },
+    {
+      "path": "godot/scripts/generated_runtime_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b5a059506652ce3b35a53e0b6da4defa351fbd694f2117cbb233f9aef0211761"
+    },
+    {
+      "path": "godot/scripts/greenhouse_experience_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e8fc45ec9f2856e5daa5a2c16c09ce0ea605f34f115a7c09046a97be25a2ca60"
+    },
+    {
+      "path": "godot/scripts/greenhouse_experience_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f6818b8baad3abf35b116eba3fb67a88cd4242b0ecdee5ff4cbedefdfe1e04ce"
+    },
+    {
+      "path": "godot/scripts/hand_drawn_assets.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2219018e2e9e2c3f6b88352a25e82486888ba7b89ace5cd940fcc4e27b0c4844"
+    },
+    {
+      "path": "godot/scripts/hand_drawn_map_room.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cef63a83d5dd47d2c303c8cfc637e5ddeb9115c166c999b65434bd78f5fd5abe"
+    },
+    {
+      "path": "godot/scripts/hero_animation_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "17e920ce035649a2f7f16b314a4b24b440f80d7a1e9e8dd28bd366f7d12bc5c5"
+    },
+    {
+      "path": "godot/scripts/input_binding_policy.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6d6758c78d8a5e28b81197a135adc6656584ba55344a80d00ed572b4db9e73e8"
+    },
+    {
+      "path": "godot/scripts/input_prompt_bindings.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3a5064a64a2566771cac8f0d5be8e80baf7df3ee52507d4e0a21dcba21ab111d"
+    },
+    {
+      "path": "godot/scripts/input_prompt_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e2a4d1741e4e6071b43f57b0747c087ae441b17329fa8d24747e7506f97828ed"
+    },
+    {
+      "path": "godot/scripts/input_settings_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "241305b5633969323fbadc4ca276b2d199eb50f67f4841efdcee67e319e5a8d6"
+    },
+    {
+      "path": "godot/scripts/interaction_targeting_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "36f9056c4f5dc61d27928df2e498d4ea790ec3029f0c421b12859979b8cb646c"
+    },
+    {
+      "path": "godot/scripts/inventory_map_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "da3537abef792f0a2fbd805dfcc188845febfc03be9906c5dc487a6989fdcf48"
+    },
+    {
+      "path": "godot/scripts/inventory_map_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a1d82bc9a84c62cb7d661c55a17210ee787e9c747ec01bb2454d242df7295ec5"
+    },
+    {
+      "path": "godot/scripts/main_level.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8475819ad7253d35cb646e07ffebe49ab11824355c2a6b1e06afb371a61330f0"
+    },
+    {
+      "path": "godot/scripts/map_readability_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6eda3b77d976aaef6cb90b74b98ae8cb3869f18c6b121a332fe502c8d3ec80a7"
+    },
+    {
+      "path": "godot/scripts/map_readability_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "063c3c37a4ead91c067b0d97eaffdddaa2b15f78ad6cd5115608ea7d7f49040f"
+    },
+    {
+      "path": "godot/scripts/melee_recovery_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fa30ab7766e0fff1765bfd28c2d7dbe31f79638f07548b61f4d5ade429eb5c94"
+    },
+    {
+      "path": "godot/scripts/melee_recovery_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "74aff8ab2c8459d9e068c2da2d967da8caacb736e4ff15808e7e16f970955c03"
+    },
+    {
+      "path": "godot/scripts/metroidvania_bridge.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "01f1cd41981c4963a1ad02c8895c13fb1e9e430d0eb36c78da78ac268553f009"
+    },
+    {
+      "path": "godot/scripts/metroidvania_bridge.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "28b183452afea6ffb444558e61ffcfa97fcafca3d78be05f5ba28db2a43b1764"
+    },
+    {
+      "path": "godot/scripts/metsys_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "89f3fac67760b1f82625a34f511a3b3c28d411812d33ea0931798b9a2ac5d271"
+    },
+    {
+      "path": "godot/scripts/metsys_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f388fc585620db249515e427656f5da8aaa390d2cd7af48fd624c5b3d2eed84f"
+    },
+    {
+      "path": "godot/scripts/narrative_outcomes_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a758db0a16365306ada2fbf0632cfa383f263dbc26809d6df47c07b6d98e8f5f"
+    },
+    {
+      "path": "godot/scripts/narrative_outcomes_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "799e2084c512d73cd578378de94a16380ec91de5e4a2c5fe9bc777c40e320222"
+    },
+    {
+      "path": "godot/scripts/narrative_return_runtime_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "eb62071fb23a06974aa2e7f7fc6f31d9adb8f4622148d87839eb6f36408871b6"
+    },
+    {
+      "path": "godot/scripts/narrative_return_runtime_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7178b3fbbda04855bc6deb4a10367399b55dd4b42de385210d972525590e385f"
+    },
+    {
+      "path": "godot/scripts/obsidian_experience_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e5c05fa4918936ba99fb4a9df3175d5a1c0b003031d69ffcaf21a9657a4a35dc"
+    },
+    {
+      "path": "godot/scripts/obsidian_experience_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "96a618dceab2f7afae3beac40323d38b66fdc4443774ec0e13ad3f54893a142b"
+    },
+    {
+      "path": "godot/scripts/obsidian_lantern_workshop_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c9a4e927c4bdebf62f5fd51ffae8e2bc99ab9c56fe9aec7e015b373288b005f7"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_cartography.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "773b0ddfb5cd4a5a2fb7cf9ac63a9b20b87bbfb59ff5f000c97ffefff9a7f108"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_chrome.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2cb5c9b86277f24b0abb1866dcd2108ff40679fd6c9eb1fc57935fbaef5511e6"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_interface.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4794231f6ba506507743e1d337fd27c5d6dd91a71fcea1c57ed6e522bfe82a58"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_merge_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "751dcceefe128a4ecda5ccfa1d1d58db270eb9743634273eaeecb336bc9a6f60"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_overhaul_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "55bd2ccfcda8ab64e640015b6f5b8881a2213ae819bf620dd3f7e358e9de334d"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_review_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "44ada10838e0420119872d72de5c03857e97464ca0f39f88111086504406a7ec"
+    },
+    {
+      "path": "godot/scripts/player_action_buffer_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "0a3e591ea0d1ed6918728ee7dcf95c7fb317537f0faa904108d378dbfc29df76"
+    },
+    {
+      "path": "godot/scripts/player_action_buffer_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fbffee601f7e0ff0e64023f8b2118915a8d90a7b2e982bf6cb1a0fe20165ee81"
+    },
+    {
+      "path": "godot/scripts/player_controller.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058"
+    },
+    {
+      "path": "godot/scripts/player_controller.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1301d70d695d1616d602632c8e3f3bbbb0df2362c2f2f8aadca3a66b705bee90"
+    },
+    {
+      "path": "godot/scripts/player_layered_idle.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e"
+    },
+    {
+      "path": "godot/scripts/player_layered_idle.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "0c2c5b7dd66eb867e862e759bb6c632d466af20f68bde9b03b16b181a71295be"
+    },
+    {
+      "path": "godot/scripts/player_layered_idle_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fc10fcd58e9de970194dd381cd7636e9bb37ed76509ba4706407fb4777d9b62f"
+    },
+    {
+      "path": "godot/scripts/player_layered_idle_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "09dc5ffc303a60a5cf8be329b8424c29fda2869c69b4c5e5b1e030253a10d365"
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b"
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d2d179691504d41aaa402ec6dd24c7bea7db58b2a40c188aee4162a0f331e6b8"
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1b8ec5ef9f29893f6e2736c11bfff6cf61766cc0fd87f678b0aa4bf2cb66ec57"
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "21d92e1d0bcec40b5af7d4f29694fdbf4ede85ae332a4629bf4ca4d08ad90213"
+    },
+    {
+      "path": "godot/scripts/player_motion_continuity_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a0cebb2de65c80f7afe0d3a9779fbfef46fc72fa2ee8b5a7a73ab32576f3f064"
+    },
+    {
+      "path": "godot/scripts/player_motion_continuity_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "96b3701cd4f96927a705a79a6aab8c4f6b0b4902660e172a31312236ac7f1bd9"
+    },
+    {
+      "path": "godot/scripts/player_state_cleanup_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8e949fb77e607e6855f7c38527b89dbd338d8f141f5687ded1251fdd64469ed0"
+    },
+    {
+      "path": "godot/scripts/player_tool_effect.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fb2ceed52d58507d9aab9a78938d425b66efe348f4602bf49cc54e098483b0a2"
+    },
+    {
+      "path": "godot/scripts/player_upgrade_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "97c0fa8b5919459340bb1ca05d99b6a1ff56de552b8d5543c4a9d4b21a3ec155"
+    },
+    {
+      "path": "godot/scripts/rain_foundry_experience_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8cc43647e20524061f88c42b66aa3f99bc2db82f3213174fc752a6f5e950a813"
+    },
+    {
+      "path": "godot/scripts/rain_foundry_experience_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e6edff6e47c23e0d5398dbd67e94101f11ae6decf561165a11254d80af7c9d6b"
+    },
+    {
+      "path": "godot/scripts/room_camera.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2fed3ef43be40547183d0fe24b3b8f521a2fd508f176897c0b2592f8d1931a01"
+    },
+    {
+      "path": "godot/scripts/room_camera_doorway_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5b3524c079e0567a45c7255900a4a0cceaf645fc082882a7a161564813acb7a7"
+    },
+    {
+      "path": "godot/scripts/room_camera_stability_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6f435aa016e66f7117f128144fcbb26cbfd5f511ad8fa6606c4eb7172b28d5ac"
+    },
+    {
+      "path": "godot/scripts/room_camera_stability_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "bb0416bf44cad8be470ec1d5bc33b39b40badb3981a74e6fc116dc4a2b0dac08"
+    },
+    {
+      "path": "godot/scripts/salt_archive_experience_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cc17a04e58f63d4b3556896e5a7544fd41be377cd6b6c6c960f592525d1c8f18"
+    },
+    {
+      "path": "godot/scripts/salt_archive_experience_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "84b8e61b001f295888bcbcdca58024fe499e1464be2dffede1774c16f66a0c0c"
+    },
+    {
+      "path": "godot/scripts/save_product_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e055abdf005f633ed0081e4dcf8c9abd82f22b72141552a147628ad86b31ee26"
+    },
+    {
+      "path": "godot/scripts/seal_acceptance_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "de45d658968c0e640af9c7705e4a339d0013d27a1ad0c1cfb5475c7f15bbceca"
+    },
+    {
+      "path": "godot/scripts/seal_acquisition_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7cf328ec4874b6dc570da6703921c9d69aef1b6a0fd7befe9955fa2a05744f91"
+    },
+    {
+      "path": "godot/scripts/seal_combat_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d9f9dd19567da916472cbe17ae73c089bea99f7122105d010ba2d6a0f1bbcd40"
+    },
+    {
+      "path": "godot/scripts/seal_presentation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c43913956fda5cbf001f1fa5ce2ddad4fea024e8dce5c204bd9eeff1ffb03ae5"
+    },
+    {
+      "path": "godot/scripts/seal_presentation_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3719d000538f1dc660b89326082d181fc2821b07326f4f717877326ce5309ef3"
+    },
+    {
+      "path": "godot/scripts/seal_system_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ef6dff52fc6da6da0723d1c5333874ddc12fb037db70d3e0dbfbe8dc05db6c94"
+    },
+    {
+      "path": "godot/scripts/seal_training_target.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cb1c7758ce641ff8ce2a02bbca9b838d38b07a752afbe90889cca3196f883ead"
+    },
+    {
+      "path": "godot/scripts/seal_ui_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8d2e3b433fda2afe703443024e4284361e17836ded7698f2db616f81a1c8da7c"
+    },
+    {
+      "path": "godot/scripts/story_guidance_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b8da92698aaca074e3d7d68e91ddb84ac0352b8e954f8956d3836d7859c99f32"
+    },
+    {
+      "path": "godot/scripts/survey_map_knowledge.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f10a7ebeffc20ec6ad0a739e2181b9d863009a7959962e3f83ba46261803259d"
+    },
+    {
+      "path": "godot/scripts/survey_map_knowledge_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a561ae589047e04f8af27d188b295135ae7881a85531da29905e662d27c630e7"
+    },
+    {
+      "path": "godot/scripts/survey_map_surface.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c4754494481e7d9512d33c42ff2bb61df25802ec7a4290923ba254cc88edffa3"
+    },
+    {
+      "path": "godot/scripts/survey_map_surface.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9b6faf23077fbc49a47035e2711591c814143169414bd1c67f92805dae580df2"
+    },
+    {
+      "path": "godot/scripts/survey_map_view.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5512fb8497aa8a9a88bfb2f3a11ee7d5a439b8b10089d73e4295ab6a034f0cf7"
+    },
+    {
+      "path": "godot/scripts/survey_map_view.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fac7113870ab87617dec1662d7b64c24f1e9fdeb0e7bb5982f9ab92cce55c951"
+    },
+    {
+      "path": "godot/scripts/survey_navigation_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ee02aa18b3017eadfd08c8a46b26837f3c667b9fcd00975a104a03a203a3ad1d"
+    },
+    {
+      "path": "godot/scripts/tactical_readiness_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d0af2b5d5809c55c087fabecca93e39b0582e90e4c23782492f09c768678d5af"
+    },
+    {
+      "path": "godot/scripts/terrain_collision_streaming_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4956f86eaef370a14dd916af34efd085792d5384a1219e615661394c203d7a3e"
+    },
+    {
+      "path": "godot/scripts/ui_build_accessibility_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "01349e24e45fa926aee1e91ca8286c9b0050080136e8306476411451bf256cf2"
+    },
+    {
+      "path": "godot/scripts/ui_redesign_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1c547309ad708aa8ea61f482c2c72d4989b639150d721e91f1bf77f897c1c117"
+    },
+    {
+      "path": "godot/scripts/ui_world_integration_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "33aa198b8111f5cedf1a0a49ed6a6d3f146b4d650b5b92392a51744510aa40d4"
+    },
+    {
+      "path": "godot/scripts/upgrade_integration_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "97888b326cf877fae464ee0816c0e9cc0c9be6c3e66aef63c003892220a73960"
+    },
+    {
+      "path": "godot/scripts/visible_rock_mass.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "85f92c18ab2f6c78d75b3e4ec253f9ab2f0dc7fe89ef08603cf7e986d33bf963"
+    },
+    {
+      "path": "godot/scripts/world_ability_acquisition_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "242b481f4aca95579675bccbcd09c3076f02d109bee5cb1f6d4d0a1889a042aa"
+    },
+    {
+      "path": "godot/scripts/world_ability_acquisition_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "248aea22c125446d11828dd99e6ec19ee3a3a95807c13bd47f50dc183ed42838"
+    },
+    {
+      "path": "godot/scripts/world_async_loading_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "91083768608d998a3f83604d6a25b913999e9bc92586e2a0e5e93c0808cff51e"
+    },
+    {
+      "path": "godot/scripts/world_atlas.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "00c38dfb07546e90ce866e1c52c4411ddb5b7b804cae1750a818d5d7445312b9"
+    },
+    {
+      "path": "godot/scripts/world_catalog_background_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180"
+    },
+    {
+      "path": "godot/scripts/world_catalog_background_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e8d0a7f34b0b9cf3a22204f0a5bff6ef7bd88e325cde7758ffdbd2dca6043bb1"
+    },
+    {
+      "path": "godot/scripts/world_collision_geometry.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ced421fa095991de39f3f200e2155c33348b90665d504c0a2619cbbdc05a73ba"
+    },
+    {
+      "path": "godot/scripts/world_config_background_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "111d65cbf23aed23f501f7d0ad48c54515edd933c50cef4e2933d48bc7a18bc5"
+    },
+    {
+      "path": "godot/scripts/world_config_background_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "eae508c8ee2f6835afb45623d38de7f35e55bf70884ab093f06d4b6953da2acc"
+    },
+    {
+      "path": "godot/scripts/world_config_read_job.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c67bc54b48d6124ae914ce0ddb2197efae2ef0d2531d6d27f66c009b078b5082"
+    },
+    {
+      "path": "godot/scripts/world_config_read_job.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b3b5ab8ad39d6099fde997f4ce4c86e0212b5679119bc63e4c7700091cf0a5fe"
+    },
+    {
+      "path": "godot/scripts/world_config_validator.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ec4d0b76c0d77b79d542ef6bfae9e1a931d107a64ecf42d4e0f7e02380d4c951"
+    },
+    {
+      "path": "godot/scripts/world_coordinates.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ffe5e0dc2535af617461d03cbdb693eeb6f49fe932262e0cdd9348f7f55eb8c4"
+    },
+    {
+      "path": "godot/scripts/world_coordinates.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d3a258c14bece3f7b8a6011e7891de15658dad2b6d12694d1bd1b5cd12dd176d"
+    },
+    {
+      "path": "godot/scripts/world_coordinates_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "246850d4ba48eed4eef3b1bdf4c1849964dd84b29f9bdcc99fd4e5c65f95c371"
+    },
+    {
+      "path": "godot/scripts/world_coordinates_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c2238ebe07143cc16c2d7cd863e9442d226686820d3099fd546194abd9c30c2f"
+    },
+    {
+      "path": "godot/scripts/world_death_cache_flush_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "a7f7424b5faa077083cc42ccfdd885ffd3b44d9c2732e74df1807663681e00e5"
+    },
+    {
+      "path": "godot/scripts/world_enemy_residency_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "57fbffdf452038c7a68c9aa3102d250f98c4e9c22b3502071a17da2a9db24095"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_plan_job.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ab562c6a48cf83e09f26d18ab22f90d4862e0a6fb1aec299df48b2426c810d02"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_plan_job.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9168f9edbf87079f3d6c24fb030eb0b44f1ba4b3f62ca8bc263dc780f91f13fd"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_plan_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_plan_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4cc451ad0f9dcc18b552c10cfd6071d50ebb6b31347a084095f8ba2c066af382"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_prefetch.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_prefetch.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "261b823d4f8f04726c41552ae5e698af4d4384c89aeecd7657d1b49747f4164c"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_residency.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9d37472f0f735e07888419de9129a8d3cbbff23c23ae6d653ed4083526c04362"
+    },
+    {
+      "path": "godot/scripts/world_gameplay_residency.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3f743ab1f471ff019c75d228dfd0b7d3aafbe71007c540e462089c5d66903584"
+    },
+    {
+      "path": "godot/scripts/world_host_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "0eaef28b99c4d0dab1bd8a2a4e2d145376da6eb598b87c1dab3da2c3984256bd"
+    },
+    {
+      "path": "godot/scripts/world_host_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "bd46382b7ed282a3340539dfcec12b16b0f82f6fd1aae21ed3f6f9c8d5bd7fe4"
+    },
+    {
+      "path": "godot/scripts/world_integration_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "452c9562ba898dd55214be89cd98ce975cf413f7dd4964747a9506fda4bf8acc"
+    },
+    {
+      "path": "godot/scripts/world_interaction_residency_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "14a4bbd144a2d65cd4518df9c893fa34c9f2f03ec69e8088d74b4e3bf5eda76e"
+    },
+    {
+      "path": "godot/scripts/world_interaction_residency_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f07dd17684725ad0c368d56dd28bc9157e24a984da3dcdb27d5f343dc1db9780"
+    },
+    {
+      "path": "godot/scripts/world_interaction_safety_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "08f252d547676784bdbd92db783590c62475fb221855cbba9661ab056981b7a5"
+    },
+    {
+      "path": "godot/scripts/world_map_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2e4352f8a5d2e206363d39eb82013aa16b1b90d0b890de583c3f1e155dd58569"
+    },
+    {
+      "path": "godot/scripts/world_material_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4d8e4282acce922f5c4072e6c69652b4d491475031a6ca54c83f4fb5539a78f4"
+    },
+    {
+      "path": "godot/scripts/world_narrative.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "00ec5b28210865d96a4ea113bfd72b234686397e3f8cfa69176a9a6475b51b3c"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_collision_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c956c0da0ac8e4a73ca4b97325a34f32f99f67d662f64c43bb31bea1bff636e6"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_config_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "bd7a6e19e5e9a1d1fe391f67bbb27842c531d10c793fc2f70434b08d3c0faf0c"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_config_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b6398a0c2097623903565fc205dc974d63f230e9deb570b4862e140aa4b09eea"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_entities_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1898689b33cb97b3b75be43cfc7ab3513bd69df65d620d8fe91101e040127000"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_gameplay_live_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7b99d2864a1c91063651881364f48d3e3ba4398a81fcc2cc9e4632f6e8a465af"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_gameplay_live_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8fb1e1f8149fe7e99b403cebf579476a51e1c578a6ffca0677a3ab10205663f8"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_gameplay_stress_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "34e2c354460ce625e490fc5648c99eec7fd58ae660f59e99ea7cadcaffd23678"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_gameplay_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b1c2fa0390e9b0b959322ecaad966d852595423f2d2cd6d1a8a424515a605fee"
+    },
+    {
+      "path": "godot/scripts/world_neighbor_gameplay_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "97fad24f005ce503bfbeb06a7512d9e74aa0b7e4a7e55a83db19f23267d5cad5"
+    },
+    {
+      "path": "godot/scripts/world_passage.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "592a3f24101d2d3ef72ef3fbce5d29d985b668cf283e359ad819b9950586efe6"
+    },
+    {
+      "path": "godot/scripts/world_passage.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "86dc4195d59c1e03f8f54b4ab3a9928c13092466064b5f3ec8733179c56d94f6"
+    },
+    {
+      "path": "godot/scripts/world_passage_network_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "831b5f07c1f586c35482fea08de79cc1a8766fd2a11bbf5f073fdc652bc2132e"
+    },
+    {
+      "path": "godot/scripts/world_passage_terminal_fixture.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "34cf42a837898bc08795d545b45fc64753ab6a1fee500181af538f51f02fcc4c"
+    },
+    {
+      "path": "godot/scripts/world_passage_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "d707e48448c0778661ae7f1ed38414ffd5e8db10894507f719def10d79493937"
+    },
+    {
+      "path": "godot/scripts/world_passage_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "61c52cc7edead7b380c6dc7b4c7d41997ed197beb64a81dcb1442633541bfa50"
+    },
+    {
+      "path": "godot/scripts/world_platform_body.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "10d0ced9e812e89a9bd2ecce18f104c301c00783cbc3aa66a3bcb0f7052710ff"
+    },
+    {
+      "path": "godot/scripts/world_platform_residency.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "38efffbc96758851539203f8ae98d962ef8e9c4f80c1989deb6dc524ca7e3eed"
+    },
+    {
+      "path": "godot/scripts/world_platform_streaming_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f4d1302759a82a0d1551930882c3b15b182b7ca40b80b2557ee484634bd14975"
+    },
+    {
+      "path": "godot/scripts/world_prefetch.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "671d3d4a8340e79664d00f989dfd2287ad3547b35cd3171e3b5b5d3f49c1b472"
+    },
+    {
+      "path": "godot/scripts/world_prefetch.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9bda69c465ad9350b2bc810795b56148a7f1e0b25b358c7d680a84ebc819c33e"
+    },
+    {
+      "path": "godot/scripts/world_preflight_budget_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "952c586c5353c16306eb24e3904ce102f169e5e48630c5dbdf909610567f4b74"
+    },
+    {
+      "path": "godot/scripts/world_prepare_budget_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2cadb57354feee9c6d2b715bf13e770ed0d30aa232e7668d8a74a114e28ea957"
+    },
+    {
+      "path": "godot/scripts/world_ready_validation_helper.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "094440c150e468d682e757c0056693877cd19fec321838df16a2d880cb800320"
+    },
+    {
+      "path": "godot/scripts/world_region_loader.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "014de713cbc8a3d9cc0b85ff81a7e5f0baf61d19b4335067939912ddb9a9036f"
+    },
+    {
+      "path": "godot/scripts/world_region_loader.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3a27a5ada4656400645f02f43ab9458fdd891a53258d5c0673f428003632b172"
+    },
+    {
+      "path": "godot/scripts/world_resume_regression_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e34438d778fde09494497b1a224f801ebaffbe39d2a10f36293e34a35fbbb404"
+    },
+    {
+      "path": "godot/scripts/world_rim_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "3f8b95207ab19cf8cc1fffdbe3472a3bbb634b47438946b3e721fbec862d1689"
+    },
+    {
+      "path": "godot/scripts/world_rock_material.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "de4973caf0766e4648566f4702b3f6987931835a23f4e2c4286bb89be680c48e"
+    },
+    {
+      "path": "godot/scripts/world_route_access_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "66028e356806d0e77e916605284ce31c885f3665a86ce5a194e4fdaa8da26f8a"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_integration_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "117f425e7cf4b9fbd5b392022e7ba547c58110b364174abb305d35687b68fc5f"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_integration_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f1f4d3b09bd1639bc90708f5ac5173fbaf7ab0f37724ebb3ce74a4b3ba7b2cf4"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_walk_helper.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8bae89bd73e2571899469ac199a55f8cd4262ad73ea275ab4aae56da9018228e"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_walk_helper.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5bd30b28657ca2eea2bfa7fda4ab3ffa6e16b51903f870c9261d4584f4823fc0"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_walk_lower_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1adf5e0f1a09b6ba292d3e8e408db037a7fb8a04e3c55a364b9266350123cdf2"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_walk_lower_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4131e1495892ad2ef0cf5ed6c01c16c6af1ffe7206a87c2d45c62e87bd970ab1"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_walk_upper_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "924fc6a9383a535813e001f6fb6c80d794fc5e8a7d55f101e03c33fbb47ee7ae"
+    },
+    {
+      "path": "godot/scripts/world_route_manifest_walk_upper_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f267b8e747b9546cb1a5b16c2e30468dbdd5532af4f76e62bad236c1dbcd6a79"
+    },
+    {
+      "path": "godot/scripts/world_route_overlay_job.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "fb86f7047ae381f202937ddfa156474efd1a46b39aaebb444da8b5b092f33c15"
+    },
+    {
+      "path": "godot/scripts/world_route_walk_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "19c5c9520e843e0a559f830900245579b0b11efe91ae1e63da916140cfc90310"
+    },
+    {
+      "path": "godot/scripts/world_routes.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b"
+    },
+    {
+      "path": "godot/scripts/world_runtime_probe.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "1f84cff1918299f999703ec50dc98bb937dafa5101372b9a5141c17d927aba8e"
+    },
+    {
+      "path": "godot/scripts/world_startup_budget_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "b99db051c8b266b5d0b07da85f68763c99a241988675769696f25a73f26fdad0"
+    },
+    {
+      "path": "godot/scripts/world_startup_config_background_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6f9e23e82a01316088cbbcdf4e4d32d52f8746815374a061da0964705de93cec"
+    },
+    {
+      "path": "godot/scripts/world_startup_config_background_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "737e7f0ec243dbaa77732767f930a11523e34d315cbd97c794452bd3110a9e3b"
+    },
+    {
+      "path": "godot/scripts/world_state_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "40cccaab69ad2e961df2bb7b873b977b69147eb152e42e5e6d520066f593c6ff"
+    },
+    {
+      "path": "godot/scripts/world_streaming_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "9c5630ac093996e46519b365ecaf299b19895848981faba46f1f0c5d9cd2063b"
+    },
+    {
+      "path": "godot/scripts/world_streaming_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "8001c4a15fdde49b9b056a9b527fa2e59b78af6beab3bc8d1986d54b96330da3"
+    },
+    {
+      "path": "godot/scripts/world_transition_token.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7ca935350ef5c32535628cd312128800ef5d4015192f791b1011aff0ea4946b1"
+    },
+    {
+      "path": "godot/scripts/world_upgrade_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "4283ba6eea21bd68abc2fb222f13cdba02fe8decb8b9136c01f477d140e6be1e"
+    },
+    {
+      "path": "godot/scripts/world_variant_copy_job.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f68324e0feac8c58c5b9713a608f48103d5e4e63bcb4b655e150b8cb5177c9d7"
+    },
+    {
+      "path": "godot/scripts/world_variant_copy_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "2b745e095d6fbd588896f65163275cbca5b6d1e1f2a0f9f506501ba85451f9a0"
+    },
+    {
+      "path": "godot/scripts/world_wayfinding.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "f78cfc0b01ef11d0c0c888768af97b4f7ba87347f544f55642e8a8dba83115eb"
+    },
+    {
+      "path": "godot/scripts/world_wayfinding.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c3f4d33ebda04c7d0af63abfdb55e6ce379c8d8b86fe57fe147c3b831ee088fb"
+    },
+    {
+      "path": "godot/scripts/world_wayfinding_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "ffc0dbf2ac78349f5b68f4153b71d585ee57c101b76454d346753edad409a592"
+    },
+    {
+      "path": "godot/scripts/world_wayfinding_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "5c98e1d87830fde0b1988074244ecf22c19dbbcb4090ae5f34190a0b8cfd2f03"
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_one_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "40c9c3984bbf9143d4304018b462a597eb09649740ba255ca23206f4e9c83e68"
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_one_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "7ecad1ad8a0599e9d11b6efe6d8a3f70041dce813f59db8e07a42e8213a9296d"
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_two_validation.gd",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "6917bca09d417fcd512d60028c08c41b2cab32b656bce6d421fe9a85d56d5448"
+    },
+    {
+      "path": "godot/scripts/world_workshop_group_two_validation.gd.uid",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "21afeb56ba3e24188a588bf9a46c6e9fef97d97c2d747b0e31a85d6286512436"
+    },
+    {
+      "path": "tools/build_release.py",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "c4db0975f7f42de5bdf074f8ecc389e437c8acf300731bed2bbc486ffdc9948c"
+    },
+    {
+      "path": "tools/test_release_builder.py",
+      "reference": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+      "sha256": "e008066000498a485f20cfc645c73991510d586d7250a57d925952640de45522"
+    },
+    {
+      "path": "godot/scripts/main_level.gd",
+      "reference": "948579eb94f3735321b5c768ca5889d6507245f7",
+      "sha256": "d202e458f9db283c8926f7acac15b183abf8590ee099b35743cc90405664a860"
+    },
+    {
+      "path": "godot/scripts/world_state.gd",
+      "reference": "948579eb94f3735321b5c768ca5889d6507245f7",
+      "sha256": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528"
+    },
+    {
+      "path": "godot/scripts/world_save_candidate_validation.gd",
+      "reference": "948579eb94f3735321b5c768ca5889d6507245f7",
+      "sha256": "0c8edd25e36f0cb657da845e06b7681d6b0f6ed831654186dc97c513d7f529c6"
+    }
+  ],
+  "date_utc": "2026-10-16",
+  "tested_source_integration_tree": "d3eac7bec69ff3ded34f806e9c3402783ad5b879",
+  "static_checks": [
+    {
+      "name": "npm-test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 9.673,
+      "log_sha256": "4fbbe099f7dc25fcf904d8ef792febe7aa0e99bb1135c7dd4907b0a5efcb89f6"
+    },
+    {
+      "name": "campaign",
+      "command": [
+        "npm",
+        "run",
+        "test:campaign"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 1.151,
+      "log_sha256": "aa9e034d767ebd0e86b1565ee2aab281040798ed234fdb5eba43f5aebe084b58"
+    },
+    {
+      "name": "workflow",
+      "command": [
+        "python3",
+        "tools/test_integration_workflow.py"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.093,
+      "log_sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6"
+    },
+    {
+      "name": "release-builder",
+      "command": [
+        "python3",
+        "tools/test_release_builder.py"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.826,
+      "log_sha256": "8b915ef2d24b50d7a6e840e867ee90082772860e7dcb68c2d662042a03e6f3c5"
+    }
+  ],
+  "runtime_stages": {
+    "import": {
+      "stage": "import",
+      "started_utc": "2026-10-16T13:29:00.004571+00:00",
+      "staged_source_tree": "d3eac7bec69ff3ded34f806e9c3402783ad5b879",
+      "engine_version": "4.6.1.stable.official.14d19694e",
+      "engine_binary_sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e",
+      "exit_code": 0,
+      "duration_seconds": 11.679,
+      "source_unchanged": true,
+      "console_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "frozen_source_file_count": 312,
+      "source_manifest_sha256_before": "c199a20bbac1f5c7f8070e5438d636d85ede3229a5fa457e2b2e374ca4347e1c",
+      "source_manifest_sha256_after": "c199a20bbac1f5c7f8070e5438d636d85ede3229a5fa457e2b2e374ca4347e1c",
+      "bus_sha256_before": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+      "bus_sha256_after": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+      "xdg_environment": "Five canonical, isolated absolute directories under this run’s verification root; no user save/config directories used."
+    },
+    "core": {
+      "stage": "core",
+      "started_utc": "2026-10-16T13:29:12.010085+00:00",
+      "staged_source_tree": "d3eac7bec69ff3ded34f806e9c3402783ad5b879",
+      "engine_version": "4.6.1.stable.official.14d19694e",
+      "engine_binary_sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e",
+      "exit_code": 0,
+      "duration_seconds": 36.14,
+      "source_unchanged": true,
+      "console_sha256": "b632c5143d1ec3ba8c0798ac21605722cd7e6859125790887bd66e43dc746bd7",
+      "frozen_source_file_count": 312,
+      "source_manifest_sha256_before": "c199a20bbac1f5c7f8070e5438d636d85ede3229a5fa457e2b2e374ca4347e1c",
+      "source_manifest_sha256_after": "c199a20bbac1f5c7f8070e5438d636d85ede3229a5fa457e2b2e374ca4347e1c",
+      "bus_sha256_before": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+      "bus_sha256_after": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+      "xdg_environment": "Five canonical, isolated absolute directories under this run’s verification root; no user save/config directories used."
+    }
+  },
+  "import_logs": [
+    {
+      "name": "import-1.log",
+      "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "engine_errors": 0,
+      "objectdb_warning_count": 0
+    },
+    {
+      "name": "import-2.log",
+      "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "engine_errors": 0,
+      "objectdb_warning_count": 0
+    }
+  ],
+  "suite_logs": [
+    {
+      "suite": "world_save_candidate",
+      "sha256": "58929280c59da1572bd9183e0046a9626a4e49b6de66754d6819f4be129bc3cb",
+      "completion_marker": "WORLD SAVE CANDIDATE PASS checks=103",
+      "engine_errors": 0,
+      "objectdb_warning_count": 1,
+      "status": "PASS",
+      "elapsed_seconds": null,
+      "elapsed_note": "The three-suite standard runner has a measured total duration; per-suite process durations were not instrumented."
+    },
+    {
+      "suite": "save_product",
+      "sha256": "907b0d6b30dd349baad730394749a1444d5eb1b5283f2a73739bfb1fe9eddce7",
+      "completion_marker": "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots",
+      "engine_errors": 0,
+      "objectdb_warning_count": 0,
+      "status": "PASS",
+      "elapsed_seconds": null,
+      "elapsed_note": "The three-suite standard runner has a measured total duration; per-suite process durations were not instrumented."
+    },
+    {
+      "suite": "build_transaction_runtime",
+      "sha256": "0909c27134eb2f64dcb80c3dbc7e6cd18fa226ce3d0f48022092088c69843267",
+      "completion_marker": "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback",
+      "engine_errors": 0,
+      "objectdb_warning_count": 0,
+      "status": "PASS",
+      "elapsed_seconds": null,
+      "elapsed_note": "The three-suite standard runner has a measured total duration; per-suite process durations were not instrumented."
+    }
+  ],
+  "initial_import_side_effect": {
+    "strict_import_exit_code": 0,
+    "source_freeze_passed": false,
+    "changed_files": [
+      "godot/default_bus_layout.tres"
+    ],
+    "duration_seconds": 16.515,
+    "bus_sha256_before": "de023fdd73685585c0e57905d790af0a086c79d8d848af481f8cff2d819dbbaf",
+    "bus_sha256_after": "6e6a361dbd68d19bb1f4a2c78a61afd0af3a841eb4fc0d0d39445536de095d8b",
+    "resolution": "Restored only default_bus_layout.tres from the Git index before GL, then repeated strict double import. The accepted repeat and all three GL suites left frozen sources unchanged. Initial logs retained; no source behavior change or error suppression.",
+    "logs": [
+      {
+        "name": "initial-import/import-1.log",
+        "sha256": "c6d37b56a074227faf3f296c4f4089064742f20ccace1adfa29c5e5ecc881ecf"
+      },
+      {
+        "name": "initial-import/import-2.log",
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      }
+    ]
+  },
+  "workflow_union_count": 22,
+  "workflow_paths": [
+    ".github/workflows/audio-user-volume.yml",
+    ".github/workflows/ch05-lantern-workshop.yml",
+    ".github/workflows/ch06-hidden-route.yml",
+    ".github/workflows/enemy-warning-readability.yml",
+    ".github/workflows/godot-integration.yml",
+    ".github/workflows/input-prompt-readability.yml",
+    ".github/workflows/interaction-targeting.yml",
+    ".github/workflows/layered-idle-presentation.yml",
+    ".github/workflows/modern-ability-workshops.yml",
+    ".github/workflows/modern-combat-resource-cycle.yml",
+    ".github/workflows/motion-melee-feedback.yml",
+    ".github/workflows/narrative-return-journey.yml",
+    ".github/workflows/release-candidate.yml",
+    ".github/workflows/room-camera-doorways.yml",
+    ".github/workflows/room-camera-stability.yml",
+    ".github/workflows/route-manifest-integration.yml",
+    ".github/workflows/six-region-passage-network.yml",
+    ".github/workflows/survey-map-navigation.yml",
+    ".github/workflows/tactical-resource-readiness.yml",
+    ".github/workflows/world-catalog-preparation.yml",
+    ".github/workflows/world-gameplay-plan.yml",
+    ".github/workflows/world-private-checkpoint.yml"
+  ],
+  "runtime_status": "PASS: three affected suites and strict 4.6.1 double import on the final stacked combination. The intermediate 107-suite combination was not run.",
+  "unresolved_warnings": [
+    "One ObjectDB instances leaked warning at world_save_candidate exit; cause not attributed. No ERROR/SCRIPT ERROR and strict completion marker matched."
+  ],
+  "not_claimed": [
+    "Full 109-suite run, eight pixel probes, desktop release checks, and exact-new-head CI were not run locally for this combination.",
+    "Old-head 103-suite/pixel/desktop results are historical only.",
+    "Departure transaction #64, U04, full breathing, known idle seams, cross-action continuity, natural six-region completion, and long-term resource stability remain open."
+  ],
+  "remote_exact_head_ci": "PENDING; parent owns publication and exact-head CI verification."
+}

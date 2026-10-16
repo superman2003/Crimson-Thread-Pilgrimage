@@ -1,0 +1,288 @@
+{
+  "previous_head": "e7a371005ec8743517a6de62f2ea1f9ed4ea379f",
+  "main": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+  "previous_suite_count": 103,
+  "main_suite_count": 106,
+  "merged_suite_count": 107,
+  "added_to_previous": [
+    "player_layered_idle",
+    "player_melee_feedback",
+    "player_motion_continuity",
+    "room_camera_stability"
+  ],
+  "private_only": [
+    "world_save_candidate"
+  ],
+  "all_suites": [
+    "world_rim",
+    "world_wayfinding",
+    "world_passage",
+    "world_passage_network",
+    "world_route_manifest_walk_lower",
+    "world_route_manifest_walk_upper",
+    "world_route_manifest_integration",
+    "audio_retirement",
+    "world_neighbor_collision",
+    "world_neighbor_entities",
+    "world_neighbor_gameplay",
+    "world_gameplay_plan",
+    "world_neighbor_gameplay_live",
+    "world_neighbor_gameplay_stress",
+    "terrain_collision_streaming",
+    "world_platform_streaming",
+    "cave_collision_streaming",
+    "world_async_loading",
+    "world_streaming",
+    "world_host",
+    "world_coordinates",
+    "world_interaction_residency",
+    "world_enemy_residency",
+    "cartography",
+    "world_map",
+    "world_route_access",
+    "world_state",
+    "world_integration",
+    "world_route_walk",
+    "ability_movement",
+    "enemy_lifecycle_regression",
+    "enemy_effect_lifetime",
+    "enemy_visibility",
+    "world_material",
+    "hero_animation",
+    "cave_exploration",
+    "cave_route_walk",
+    "chapter_route_regression",
+    "ch01_room_reconstruction",
+    "pilgrimage_merge_regression",
+    "pilgrimage_review_regression",
+    "all_chapters_demo",
+    "pilgrimage_overhaul",
+    "demo",
+    "ch02_demo",
+    "inventory_map",
+    "boss_trial",
+    "combat",
+    "generated_runtime",
+    "chapter_registry",
+    "story_guidance",
+    "chinese_story",
+    "metsys",
+    "player_upgrade_regression",
+    "build_system",
+    "world_upgrade",
+    "world_workshop_group_one",
+    "world_workshop_group_two",
+    "world_ability_acquisition",
+    "upgrade_integration",
+    "save_product",
+    "ui_build_accessibility",
+    "ui_world_integration",
+    "ui_redesign",
+    "seal_system",
+    "seal_combat",
+    "seal_ui",
+    "seal_acceptance",
+    "seal_acquisition",
+    "seal_presentation",
+    "world_prepare_budget",
+    "world_save_candidate",
+    "world_preflight_budget",
+    "world_config_background",
+    "world_neighbor_config",
+    "world_resume_regression",
+    "world_interaction_safety",
+    "player_state_cleanup",
+    "input_settings_regression",
+    "input_prompt",
+    "player_action_buffer",
+    "player_motion_continuity",
+    "player_layered_idle",
+    "player_melee_feedback",
+    "camera_focus",
+    "room_camera_stability",
+    "first_court_experience",
+    "rain_foundry_experience",
+    "salt_archive_experience",
+    "greenhouse_experience",
+    "obsidian_experience",
+    "world_startup_budget",
+    "world_variant_copy",
+    "survey_map_knowledge",
+    "ch06_workshop_experience",
+    "world_death_cache_flush",
+    "melee_recovery",
+    "combat_resource_cycle",
+    "build_slots",
+    "build_transaction_runtime",
+    "enemy_encounter_roles",
+    "build_slots_ui",
+    "narrative_outcomes",
+    "tests/verify_world_narrative",
+    "tests/verify_narrative_ui",
+    "tests/verify_narrative_progression",
+    "tests/verify_narrative_runtime"
+  ],
+  "markers_preserved_from_both_parents": true,
+  "sources": [
+    {
+      "path": "godot/scripts/main_level.gd",
+      "reference": "e7a371005ec8743517a6de62f2ea1f9ed4ea379f",
+      "sha256": "d202e458f9db283c8926f7acac15b183abf8590ee099b35743cc90405664a860",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/world_state.gd",
+      "reference": "e7a371005ec8743517a6de62f2ea1f9ed4ea379f",
+      "sha256": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/world_save_candidate_validation.gd",
+      "reference": "e7a371005ec8743517a6de62f2ea1f9ed4ea379f",
+      "sha256": "0c8edd25e36f0cb657da845e06b7681d6b0f6ed831654186dc97c513d7f529c6",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/world_region_loader.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "8cfc70632a59c2c669b72688941b8f6278a535c9269f30a8972a330d313b7bd0",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/player_controller.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/camera_focus.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "22f44ed71de10552ad78b3e8804d5010a4ec70e04f81b52e9839eee3d65a6966",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/feel_kit.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "00eff6067d7fe6fb5e025c441985679f014f6d812c98ab8588077b9c0eb46d1b",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/pilgrimage_interface.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "4794231f6ba506507743e1d337fd27c5d6dd91a71fcea1c57ed6e522bfe82a58",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/player_layered_idle.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "8d59e664d5087ad0d86be87d8cad5c4d7d7314c5d11a527bb3bc3f61b59c500e",
+      "identical": true
+    },
+    {
+      "path": "godot/scripts/player_melee_feedback.gd",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b",
+      "identical": true
+    },
+    {
+      "path": ".github/workflows/godot-integration.yml",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "09ef211d98c83193e0f2bf3aa2b901bd441732948e3b79e61541972003c931ab",
+      "identical": true
+    },
+    {
+      "path": "tools/test_integration_workflow.py",
+      "reference": "2d60b5504722d16bf4132a7ccc6ca2a55eec86e4",
+      "sha256": "4fa43b681eef285ffb749aeaa0e4e6170868218009a6e100e1e26630c7bffe6c",
+      "identical": true
+    }
+  ],
+  "production_index_identical_to_main_except_private_checkpoint": true,
+  "main_level_outside_private_save_function_and_flag_identical_to_main": true,
+  "main_level_private_save_function_sha256": "ade5835eef0ea3ed648f124039732d33a1ed309259d1244e78a35d5a82c82670",
+  "all_main_scripts_data_and_workflows_preserved": true,
+  "asset_index_identical_to_main": true,
+  "runtime_idle_raw_pngs": [
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png",
+      "sha256": "222d12909c41bdf26c19b5a4362aca9376140cfae0aca1a8a3be378cc0baf706",
+      "bytes": 777842,
+      "raw_png": true
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/fixed_support.png",
+      "sha256": "2f596483024a92aa621929ab40766088ae7e1ec657d653e5301284d8c775dc30",
+      "bytes": 183583,
+      "raw_png": true
+    }
+  ],
+  "workflow_union_count": 21,
+  "workflow_paths": [
+    ".github/workflows/audio-user-volume.yml",
+    ".github/workflows/ch05-lantern-workshop.yml",
+    ".github/workflows/ch06-hidden-route.yml",
+    ".github/workflows/enemy-warning-readability.yml",
+    ".github/workflows/godot-integration.yml",
+    ".github/workflows/input-prompt-readability.yml",
+    ".github/workflows/interaction-targeting.yml",
+    ".github/workflows/layered-idle-presentation.yml",
+    ".github/workflows/modern-ability-workshops.yml",
+    ".github/workflows/modern-combat-resource-cycle.yml",
+    ".github/workflows/motion-melee-feedback.yml",
+    ".github/workflows/narrative-return-journey.yml",
+    ".github/workflows/release-candidate.yml",
+    ".github/workflows/room-camera-doorways.yml",
+    ".github/workflows/room-camera-stability.yml",
+    ".github/workflows/route-manifest-integration.yml",
+    ".github/workflows/six-region-passage-network.yml",
+    ".github/workflows/survey-map-navigation.yml",
+    ".github/workflows/tactical-resource-readiness.yml",
+    ".github/workflows/world-gameplay-plan.yml",
+    ".github/workflows/world-private-checkpoint.yml"
+  ],
+  "main_unchanged_timeout_seconds": 180,
+  "all_main_runner_behavior_preserved_except_private_suite_addition": true,
+  "date_utc": "2026-10-16",
+  "tested_source_integration_tree": "346e83885f238a82152e9771f2fc91d89a40708f",
+  "static_checks": [
+    {
+      "name": "npm-test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 17.697,
+      "log_sha256": "60751eafd017c4002b90d73c098e950f6157e143eb9e920a3bc259ceb4462543"
+    },
+    {
+      "name": "campaign",
+      "command": [
+        "npm",
+        "run",
+        "test:campaign"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 2.554,
+      "log_sha256": "aa9e034d767ebd0e86b1565ee2aab281040798ed234fdb5eba43f5aebe084b58"
+    },
+    {
+      "name": "workflow",
+      "command": [
+        "python3",
+        "tools/test_integration_workflow.py"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.715,
+      "log_sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6"
+    }
+  ],
+  "runtime_status": "NOT RUN: intermediate main-only 107-suite combination was superseded by the final stacked #96 + #97 combination; see chain_sync_verification.json.",
+  "remote_exact_head_ci": "NOT PUBLISHED: intermediate local checkpoint was superseded before publication.",
+  "unchanged_scope_limits": [
+    "Departure transaction #64 remains unimplemented.",
+    "U04 is not included.",
+    "Idle seam defects 2→4, 6→7, 7→1 and full breathing/cross-action presentation remain OPEN.",
+    "Private-save guarantees do not extend to arbitrary business transactions or all disk-rename failure modes."
+  ]
+}

@@ -1,0 +1,469 @@
+{
+  "base": "7c638832ed9301518c9e63c9d6be0979e79062f4",
+  "source_delta": {
+    "base": "fcc1b73b97d28fcaf8a9f327911a0ca893ecdfb8",
+    "head": "1751fe15c6facc930eacfee46da34c57bca47b87",
+    "pr": 60
+  },
+  "candidate_head": "a701520e000ee6e3070c12842255af013c735492",
+  "runtime_sha256": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+  "final_files_sha256": {
+    "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+    "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+    "godot/scripts/world_catalog_background_validation.gd.uid": "e8d0a7f34b0b9cf3a22204f0a5bff6ef7bd88e325cde7758ffdbd2dca6043bb1",
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+    "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+    "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+    "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+  },
+  "strict_14_suite_batch": {
+    "timeout_seconds": 180,
+    "source_before": {
+      "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+      "godot/scripts/world_catalog_background_validation.gd": "1f221eb7e74262b4ec173b88db56c5a22e421019cee3e7e9459f8903c4db7c78",
+      "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+      "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+      "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+      "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+      "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+      "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+    },
+    "runs": [
+      {
+        "suite": "world_catalog_background",
+        "elapsed_seconds": 54.862,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "e4bd8c4121fd9e1725c63e00fe22b94930b05e9131150cdaf316bafed1c50994",
+        "completion_markers": [
+          "WORLD CATALOG BACKGROUND PASS checks=70"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_catalog_background.log"
+      },
+      {
+        "suite": "world_prepare_budget",
+        "elapsed_seconds": 71.455,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "edd2fc6018111e3f1297d568f26c3870f56a86d6621a7281019b5dc40a1b7b2b",
+        "completion_markers": [
+          "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 1,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_prepare_budget.log"
+      },
+      {
+        "suite": "world_startup_budget",
+        "elapsed_seconds": 35.993,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "a02c3177b89ee62fee6b9a5ab0061be286cbfa8c0a7d3358b5408123d1efd20d",
+        "completion_markers": [
+          "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_startup_budget.log"
+      },
+      {
+        "suite": "world_preflight_budget",
+        "elapsed_seconds": 94.013,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "7bb14a31c225ba9a48bc836e3d96e94a74a520c5d587c1ac08c1a12def510d9d",
+        "completion_markers": [
+          "WORLD PREFLIGHT BUDGET PASS checks=4292"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_preflight_budget.log"
+      },
+      {
+        "suite": "world_config_background",
+        "elapsed_seconds": 11.786,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "73c39bb855258fccbb17921b171c4c34f0999ed0efb9f240fdd5acce3553b3b4",
+        "completion_markers": [
+          "WORLD CONFIG BACKGROUND PASS checks=38"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_config_background.log"
+      },
+      {
+        "suite": "world_neighbor_config",
+        "elapsed_seconds": 41.869,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "a3887cc59bceb906610577cb58006ef529410f052125a62df3a3fd9efffb662a",
+        "completion_markers": [
+          "WORLD NEIGHBOR CONFIG PASS checks=93"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_neighbor_config.log"
+      },
+      {
+        "suite": "world_async_loading",
+        "elapsed_seconds": 129.646,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "7c2737b0f2dbefde94b0c72dff681fdb0f043e6ea7ff70e6a567cfad1c33d225",
+        "completion_markers": [
+          "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 1,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_async_loading.log"
+      },
+      {
+        "suite": "world_host",
+        "elapsed_seconds": 59.763,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+        "completion_markers": [
+          "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_host.log"
+      },
+      {
+        "suite": "save_product",
+        "elapsed_seconds": 1.018,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "907b0d6b30dd349baad730394749a1444d5eb1b5283f2a73739bfb1fe9eddce7",
+        "completion_markers": [
+          "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/save_product.log"
+      },
+      {
+        "suite": "world_route_manifest_integration",
+        "elapsed_seconds": 35.995,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "ad9229832ee27fd791967d40f24978f5585048fd7f7097820195e72f61ce04af",
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_INTEGRATION checks=134 failures=0"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_route_manifest_integration.log"
+      },
+      {
+        "suite": "world_passage_network",
+        "elapsed_seconds": 48.895,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "53b18f2d600d92ece93b749e906a4913e8c9fe66a2143f2a8f456c88742196f4",
+        "completion_markers": [
+          "WORLD_PASSAGE_NETWORK checks=140 failures=0 physical_roundtrips=5"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_passage_network.log"
+      },
+      {
+        "suite": "world_route_manifest_walk_lower",
+        "elapsed_seconds": 86.939,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "dfe9187429bd49dfbbd7650bafa217158fd83c46b7ed6efd1e82ac1db67c7d12",
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_WALK_LOWER checks=134 failures=0 physical_crossings=6"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_route_manifest_walk_lower.log"
+      },
+      {
+        "suite": "world_route_manifest_walk_upper",
+        "elapsed_seconds": 70.784,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "6e460b042adbe9e74f171c8661931a3562f260a201e532bf72c67c9a3ec25c89",
+        "completion_markers": [
+          "WORLD_ROUTE_MANIFEST_WALK_UPPER checks=90 failures=0 physical_crossings=4"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_route_manifest_walk_upper.log"
+      },
+      {
+        "suite": "world_gameplay_plan",
+        "elapsed_seconds": 5.792,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "e94f5d360ecee40e098db4ed1d40afe0bed432aac061673476bf71fc532a2a2b",
+        "completion_markers": [
+          "WORLD_GAMEPLAY_PLAN checks=1230 failures=0"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/final-strict/world_gameplay_plan.log"
+      }
+    ],
+    "source_after": {
+      "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+      "godot/scripts/world_catalog_background_validation.gd": "1f221eb7e74262b4ec173b88db56c5a22e421019cee3e7e9459f8903c4db7c78",
+      "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+      "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+      "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+      "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+      "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+      "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+    },
+    "source_unchanged": true,
+    "all_requested_ran": true
+  },
+  "final_catalog_barrier_recheck": {
+    "timeout_seconds": 180,
+    "source_before": {
+      "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+      "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+      "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+      "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+      "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+      "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+      "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+      "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+    },
+    "runs": [
+      {
+        "suite": "world_catalog_background",
+        "source_before": {
+          "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+          "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+          "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+          "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+          "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+          "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+          "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+          "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+        },
+        "source_after": {
+          "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+          "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+          "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+          "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+          "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+          "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+          "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+          "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+        },
+        "elapsed_seconds": 56.158,
+        "failures": [],
+        "source_unchanged": true,
+        "mtime_ns_restored": true,
+        "atime_ns_restored": true,
+        "log_sha256": "131f82720873d0dd341410e17ab6cee0609f8d8518a6bdb8963bb9b6ddcf9ade",
+        "completion_markers": [
+          "WORLD CATALOG BACKGROUND PASS checks=71"
+        ],
+        "engine_errors": [],
+        "objectdb_exit_warnings": 0,
+        "log_path": "qa-logs/catalog-integration/catalog-barrier-final/world_catalog_background.log"
+      }
+    ],
+    "source_after": {
+      "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+      "godot/scripts/world_catalog_background_validation.gd": "cfe206ca416ad9e3164e0f170aca0b7272784dc1f03e48be7ff8f2d852e97180",
+      "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+      "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+      "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+      "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+      "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+      "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+    },
+    "source_unchanged": true,
+    "all_requested_ran": true
+  },
+  "imports": {
+    "final_source_at_import": "b2a2493",
+    "runtime_unchanged_since_import": true,
+    "test_only_barrier_edit_after_import": true,
+    "result": "GODOT_IMPORT passes=2 failures=0",
+    "logs": [
+      {
+        "path": "qa-logs/catalog-integration/import-final-runner.log",
+        "sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5"
+      },
+      {
+        "path": "qa-logs/catalog-integration/import-final/import-1.log",
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      },
+      {
+        "path": "qa-logs/catalog-integration/import-final/import-2.log",
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      }
+    ]
+  },
+  "static_checks": {
+    "npm_test": {
+      "path": "qa-logs/catalog-integration/npm-test.log",
+      "sha256": "738c54b6c49c4d78df1e5feb2c69584813e4eacdfd5175e2126ddd8cbc5f4ea8"
+    },
+    "campaign": {
+      "path": "qa-logs/catalog-integration/campaign.log",
+      "sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    },
+    "runner_preview_21_tests": {
+      "path": "qa-logs/catalog-integration/runner-preview-tests.log",
+      "sha256": "abf3da27a28db51ae3c1fabc95f23a631474863705c6b58907e0c3f585c84434"
+    },
+    "parent_actual_runner_21_tests": "Passed independently by parent; use parent log for exact evidence"
+  },
+  "retained_failures": [
+    {
+      "timeout_seconds": 180,
+      "source_before": {
+        "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+        "godot/scripts/world_catalog_background_validation.gd": "fb786623aca728d11e17892ff5b196f42205f6d5873bc9e9fecfd059f07808c2",
+        "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+        "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+        "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+        "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+        "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+        "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+      },
+      "runs": [
+        {
+          "suite": "world_catalog_background",
+          "elapsed_seconds": 66.025,
+          "failures": [
+            "world_catalog_background: exit=1 engine_errors=1 completion_marker=False"
+          ],
+          "source_unchanged": true,
+          "mtime_ns_restored": true,
+          "atime_ns_restored": true,
+          "log_sha256": "86a6c2ba91a9af53df2b297bb9c9c9a1be492ca94ca2bd7d9cb1b6359107f4b2",
+          "completion_markers": [],
+          "engine_errors": [
+            "ERROR: catalog_commit: modern story and source save remain unpublished"
+          ],
+          "objectdb_exit_warnings": 0,
+          "log_path": "qa-logs/catalog-integration/catalog-first/world_catalog_background.log"
+        }
+      ],
+      "source_after": {
+        "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+        "godot/scripts/world_catalog_background_validation.gd": "fb786623aca728d11e17892ff5b196f42205f6d5873bc9e9fecfd059f07808c2",
+        "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+        "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+        "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+        "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+        "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+        "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+      },
+      "source_unchanged": true,
+      "all_requested_ran": true
+    },
+    {
+      "timeout_seconds": 180,
+      "source_before": {
+        "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+        "godot/scripts/world_catalog_background_validation.gd": "b016df5f2a45fba552a65df91ea19fd805b1329fc4e06cec174e1cd39dcea020",
+        "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+        "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+        "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+        "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+        "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+        "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+      },
+      "runs": [
+        {
+          "suite": "world_catalog_background",
+          "elapsed_seconds": 58.579,
+          "failures": [
+            "world_catalog_background: exit=1 engine_errors=1 completion_marker=False"
+          ],
+          "source_unchanged": true,
+          "mtime_ns_restored": true,
+          "atime_ns_restored": true,
+          "log_sha256": "13cbbe5650e70c668dfb2a49cd5d6ce3c61d0e7cb20e7e1593c588f2dc1bf448",
+          "completion_markers": [],
+          "engine_errors": [
+            "ERROR: catalog_commit: modern story and source save remain unpublished"
+          ],
+          "objectdb_exit_warnings": 0,
+          "log_path": "qa-logs/catalog-integration/catalog-diagnostic/world_catalog_background.log"
+        }
+      ],
+      "source_after": {
+        "godot/scripts/world_region_loader.gd": "9202e5b6a3bbb853c6f55d8c2067a2138e57bf085df506f87daba46c86f39634",
+        "godot/scripts/world_catalog_background_validation.gd": "b016df5f2a45fba552a65df91ea19fd805b1329fc4e06cec174e1cd39dcea020",
+        "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+        "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+        "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+        "tools/run_godot_regressions.py": "c5192b11741b6e9588971873a72febf4048615c0392604103dea387ab269d966",
+        "tools/godot_suite_success_markers.json": "4b7515fa4a968f244cb669618ca8436fbe8c1d9f0894553c9df55c96d7d51663",
+        "tools/test_regression_runner.py": "ec570106c032ebc202c4191b0d997ddaa5d11a77b5c707b4cdc83b545ca5e251"
+      },
+      "source_unchanged": true,
+      "all_requested_ran": true
+    }
+  ],
+  "scope_limits": [
+    "No #61+ integration",
+    "No shared physical mouths or concurrent complete-region residency",
+    "No natural damage-enabled campaign completion",
+    "No hard frame-time guarantee; keys enumeration, catalog index copying and metadata probes remain indivisible",
+    "Existing 76-landing local 180-second OPEN evidence is not reclassified",
+    "No full 100-suite local run; remote exact-head CI remains parent-owned",
+    "No push, PR creation, merge or deployment by this worker"
+  ],
+  "review_fix": {
+    "commit": "a701520",
+    "issue": "Source-stamp fixture mutated on the first frame without proof that the worker had consumed the old file",
+    "change": "Require a newly appended read record with the old stamp and populated item staging before the one-time mutation; verify reached and changed stamp; original rejection assertion retained"
+  },
+  "publication_base": "1806e0cf98a12f1d2b7a2cf175803cfe42de0746",
+  "base_tree": "fc439b6f35834386f41ad438c8d9041f8776535e",
+  "base_tree_identical_to_original_7c638832": true,
+  "default_suite_count": 100,
+  "fresh_remote_ci": "pending publication; historical and local passes do not replace new head CI",
+  "review_status": "No remaining P0/P1/P2 in scoped loader, catalog test, runner/marker/unit-test review",
+  "runner_unit_test_log": {
+    "tests": 21,
+    "sha256": "fde423d190627abe6e19b14e70cdb845a84d3b13b1e40d5a623523d1134a4e35"
+  }
+}

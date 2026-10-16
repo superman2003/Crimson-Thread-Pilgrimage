@@ -16,8 +16,7 @@ concurrency:
 jobs:
   runtime:
     runs-on: ubuntu-24.04
-    # The complete suite now renders through llvmpipe as well as the pixel
-    # probes. Individual suite timeouts and strict engine error checks remain.
+    # Keep the full suite together; individual strict budgets are unchanged.
     timeout-minutes: 45
     steps:
       - name: Check out the exact commit and hydrate runtime assets
@@ -37,11 +36,56 @@ jobs:
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Validate JavaScript and chapter structure
         run: |
+          python3 tools/test_integration_workflow.py
           npm test
           npm run test:campaign
           python3 -m pip install -r tools/requirements-hero.txt
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
+      - name: Import resources without editor plugins
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          # Resource hydration only: editor-plugin behavior is not validated.
+          # Runtime suites below run normally, without recovery mode.
+          # A cold checkout imports thousands of assets; retain a bounded 10m budget.
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
+      - name: Install software GL dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Run chapter, preparation, combat, dialogue and physics regressions
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-regression-runtime-logs
+          path: ${{ runner.temp }}/regression-logs
+          if-no-files-found: ignore
+
+  visual:
+    runs-on: ubuntu-24.04
+    # Pixel probes have an independent job budget instead of consuming the
+    # full-suite tail. Every original command and strict marker is retained.
+    timeout-minutes: 45
+    steps:
+      - name: Check out the exact commit and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Import resources without editor plugins
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
@@ -64,10 +108,6 @@ jobs:
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/room-rims-gpu" --script ../tools/validate_room_rim_pixels.gd --success-marker 'ROOM_RIM_PIXELS probes=12 failures=0' --summary-path artifacts/world_rims/gpu_rims.json
-      - name: Run chapter, preparation, combat, dialogue and physics regressions
-        run: |
-          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
       - name: Validate fixed-coordinate world atlas rendering
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
@@ -88,7 +128,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: godot-regression-logs
+          name: godot-regression-visual-logs
           path: ${{ runner.temp }}/regression-logs
           if-no-files-found: ignore
 

@@ -1,5 +1,21 @@
 # 现代主线的私有 World checkpoint 候选
 
+## 2026-10-16：#97 串接最新 #95→#96 依赖链
+
+从本地 main 同步检查点 `948579eb` 再合入已发布 #96 `7ef90d17`（包含 #95 `2bf90970` 与 main `2d60b550`），本批改为沿最新 PR 链尖端推进。五处文档/runner 冲突取并集，最终默认 **109 套**（#96 的 108 套加私有候选）；22 个 workflow 文件、全部严格标记、180 秒套件上限、绘制模式及 runtime/visual CI 分工保留。目录/首区后台准备、发布工具、Player/动作/镜头/待机和所有数据/资产与 #96 逐字节一致；Main 仅保留原私有保存 flag 与 `_save_world` 差量，WorldState/候选验证与原 #97 一致。
+
+最终组合 npm/campaign、29 项 runner、11 项 import runner、11 项 GPU runner、5 项 workflow 和 23 项 release-builder 静态测试通过。显式 **Godot 4.6.1.14d19694e** 严格双导入复验通过（11.679 秒）；三套受影响真实 GL 通过（合计 36.140 秒）：私有候选 **103**、保存 **37**、真实构筑事务 **30** 项。候选退出有 **1 条 ObjectDB warning**，原因未归属；没有 ERROR/SCRIPT ERROR，不据此宣布长期资源稳定。
+
+首次双导入也无引擎错误，但 Godot 自动重序列化 bus 默认字段/UID，被源码冻结检查拦下。已仅恢复该文件的索引原字节，再完成上述双导入与三套 GL；接受轮全部源码及 bus 哈希前后一致，初轮日志保留。中间 107 套组合未跑 GL；本地未全跑 109 套、八组像素或桌面发行版，远端新 head CI 待发布后另核。完整来源、成功标记、哈希与限制见 `artifacts/modern_private_checkpoint/chain_sync_verification.json`。#64 出发事务、U04、待机坏接点/完整呼吸/跨动作视觉连续性及自然六区通关继续 OPEN。
+
+## 2026-10-16：#97 同步动作、镜头与分层待机主干
+
+在维护者合入 #94 后，将 main `2d60b550` 同步至私有 checkpoint 分支 `e7a37100`。五处文档/runner 冲突取并集，默认集合为 **107 套**：原 103 套全部保留，补入动作连续性、近战反馈、分层待机与房间镜头四套；严格完成标记、180 秒上限及绘制模式不变。21 个 workflow 文件保留双方并集，主集成 runtime/visual 分工与八条像素命令保持 main 原样，新增 5 项 workflow 自测通过。
+
+保存/Main/候选验证与原 #97 完全一致；Player、镜头、反馈、分层待机、loader、全部世界数据及素材与新 main 一致。Main 相对新 main 仅保留原私有保存 flag 与 `_save_world` 改动，两张待机 PNG 原始字节未改。npm/campaign、28 项 runner、11 项 import runner、11 项 GPU runner 与 5 项 workflow 静态测试通过。此 107 套中间组合未执行 GL，随后仅验证串接 #96 的最终 109 套组合，见上节；原 #97 的 103 套/像素/桌面绿灯只属于原头，不转记为此次通过。
+
+本次只解同步冲突；#64 出发事务、U04、待机坏接点 **2→4、6→7、7→1**、完整呼吸及跨动作视觉连续性继续 **OPEN**。来源及新组合验证独立记录在 `artifacts/modern_private_checkpoint/motion_main_sync_verification.json`。
+
 ## 2026-10-16：发布前同步最新工坊主干
 
 本私有 checkpoint 批在正式提交前同步 main `07ae21d4`（维护者合入 #91）。原保存/Main/loader/Player 源码与前版 `81f0bdd8` 完全一致，工坊路线数据与新 main 一致；三份进度记录取并集，默认 103 套，npm/campaign 与 23 项 runner 单测通过。同步树新增 5 套受影响 GL 全通过：候选 103、保存 37、真实构筑事务 30、两组工房 450/411（19 房/19 次读盘重启）；显式 4.6.1 严格双导入通过，无引擎错误或 ObjectDB 警告。两组工房分别 116.011/86.381 秒，原 180 秒不变；新 head CI 待终态，原 28 套仍单独标原基线。范围不扩大至 #64 出发事务或 U04。

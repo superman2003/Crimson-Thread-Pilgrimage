@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Release gates must fail closed even when the engine returns zero."""
+import fnmatch
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -112,6 +114,8 @@ class ReleaseBuilderTests(unittest.TestCase):
 
     def test_smoke_requires_real_resume_and_isolated_user_data(self):
         def fake_engine(command, log, *, timeout, cwd, env):
+            self.assertEqual([str(self.root / 'game'), '--headless', '--verbose', '--quit-after', '120'], command)
+            self.assertEqual(5, timeout)
             self.assertNotIn('--path', command)
             self.assertNotIn('--script', command)
             user_data = Path(env['XDG_DATA_HOME'])
@@ -129,6 +133,32 @@ class ReleaseBuilderTests(unittest.TestCase):
         with patch.object(release, 'run_checked', side_effect=fake_engine) as runner:
             release.smoke_package(self.root / 'game', self.root, 5)
             self.assertEqual(2, runner.call_count)
+
+    def test_verbose_exit_resource_error_still_fails_without_retry(self):
+        checked = release.run_checked
+        diagnostics = ('WARNING: ObjectDB instances leaked at exit.\n'
+                       'Leaked instance: RefCounted:1234\n'
+                       'ERROR: 1 resources still in use at exit.\n'
+                       'Resource still in use: res://scripts/fixture.gd (GDScript)\n')
+        for failing_attempt, calls in [('first-start', 1), ('resume', 2)]:
+            with self.subTest(attempt=failing_attempt):
+                def fake_engine(command, log, *, timeout, cwd, env):
+                    self.assertEqual([str(self.root / 'game'), '--headless', '--verbose', '--quit-after', '120'], command)
+                    self.assertEqual(5, timeout)
+                    if log.stem == failing_attempt:
+                        # Use the real strict gate with a successful OS exit.
+                        return checked([sys.executable, '-c', f'print({diagnostics!r}, end="")'],
+                                       log, timeout=timeout, cwd=cwd, env=env)
+                    user_data = Path(env['XDG_DATA_HOME'])
+                    user_data.mkdir(exist_ok=True)
+                    (user_data / 'pilgrimage_world.json').write_text(json.dumps(
+                        {'current_region': 'ch01', 'regions': {'ch01': {}}, 'story_flags': {}}))
+                    return ''
+                with patch.object(release, 'run_checked', side_effect=fake_engine) as runner:
+                    with self.assertRaisesRegex(RuntimeError, r'exit=0, engine_errors=1'):
+                        release.smoke_package(self.root / 'game', self.root, 5)
+                    self.assertEqual(calls, runner.call_count)
+                self.assertEqual(diagnostics, (self.root / f'{failing_attempt}.log').read_text())
 
     def test_passive_second_boot_cannot_claim_resume(self):
         def passive_boot(command, log, *, timeout, cwd, env):
@@ -242,6 +272,31 @@ class ReleaseBuilderTests(unittest.TestCase):
                 with self.assertRaises(SystemExit) as error:
                     release.main()
                 self.assertEqual(2, error.exception.code)
+
+
+class ReleaseWorkflowTests(unittest.TestCase):
+    def branches(self, event):
+        workflow = (Path(__file__).resolve().parents[1] /
+                    '.github/workflows/release-candidate.yml').read_text(encoding='utf-8')
+        section = workflow.split(f'  {event}:\n', 1)[1].split('\n  push:', 1)[0].split('\n\n', 1)[0]
+        # Branch filters are kept inline; tolerate explanatory comments above them.
+        match = re.search(r'branches: \[([^\]]+)\]', section)
+        self.assertIsNotNone(match)
+        return [value.strip().strip("'\"") for value in match.group(1).split(',')]
+
+    def test_pull_requests_cover_main_and_stacked_upgrade_bases(self):
+        patterns = self.branches('pull_request')
+        for branch in ('main', 'codex/w00-catalog-modern-integration',
+                       'codex/w00-startup-config-modern-integration',
+                       'codex/w00-private-save-modern-integration'):
+            with self.subTest(branch=branch):
+                self.assertTrue(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
+        for branch in ('feature/unrelated', 'codex/w00-catalog-experiment', 'release'):
+            with self.subTest(branch=branch):
+                self.assertFalse(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
+
+    def test_push_filter_remains_main_only(self):
+        self.assertEqual(self.branches('push'), ['main'])
 
 
 if __name__ == '__main__':
