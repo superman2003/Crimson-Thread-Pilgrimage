@@ -1,0 +1,248 @@
+{
+  "engine": "Godot 4.6.1 stable official",
+  "renderer": "real software OpenGL llvmpipe",
+  "import": {
+    "passes": 2,
+    "failures": 0,
+    "timeout_per_pass_seconds": 600,
+    "log_directory": "qa-logs/motion-feedback-final-import",
+    "negative_environment_attempt": "qa-logs/motion-feedback-final-import-negative-home",
+    "negative_reason": "Inherited XDG data/config paths under unwritable home. Retried both strict passes in isolated workspace XDG directories."
+  },
+  "regression": {
+    "suites": 18,
+    "failures": 0,
+    "timeout_per_suite_seconds": 180,
+    "drawing": "normal enabled",
+    "log_directory": "qa-logs/motion-feedback-final-gl",
+    "warnings": {
+      "player_motion_continuity": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "player_melee_feedback": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "hero_animation": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "player_action_buffer": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "player_state_cleanup": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "player_upgrade_regression": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "combat": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "melee_recovery": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "seal_combat": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "input_settings_regression": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "ui_build_accessibility": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "ui_world_integration": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "ui_redesign": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "input_prompt": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "camera_focus": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "ability_movement": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "seal_ui": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "seal_acceptance": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ]
+    }
+  },
+  "capture": {
+    "screenshots": 14,
+    "errors": 0,
+    "path": "qa-logs/motion-feedback-final-capture",
+    "isolation": "showcase-only save, not natural progression",
+    "files": [
+      {
+        "name": "combat_accessory.png",
+        "sha256": "6714700d08b52b8ceca3b37ddb38397d0793fef18c27e3a742301b25e1eddc43"
+      },
+      {
+        "name": "inventory.png",
+        "sha256": "bcc2a8ff18948540f2fc5365d52ba41f454d25ab7a3c3c2dfb3c55cfe4a0a7c3"
+      },
+      {
+        "name": "journal.png",
+        "sha256": "583cd99e8d8f2eb0ef09656d24fefa0f4d8ce988721c7fb6e9ede52c250d2949"
+      },
+      {
+        "name": "loadout.png",
+        "sha256": "85eb7a30edbd829f2a2a3028573ce0b998d88b00c902b19595a6d42ea4614221"
+      },
+      {
+        "name": "map.png",
+        "sha256": "95eccd99b9c6f6b0e82be0149246570fe525c393c0fd331162d379891f80fcdd"
+      },
+      {
+        "name": "practice.png",
+        "sha256": "fe302c242ad1287bccffebfdbdd9b1e96cd0c9ec7baf07792423abff47339b11"
+      },
+      {
+        "name": "seal.png",
+        "sha256": "e88c566bac59c9d02e9cd46de33339a21101c947f53787945be0d08efa3adbb1"
+      },
+      {
+        "name": "settings.png",
+        "sha256": "db64aca261d268697b8bb874a5fde4e4993bb25a123248be5ebbc2094f1b1e13"
+      },
+      {
+        "name": "skill_action.png",
+        "sha256": "fa6de8f2a5b7698664b8aabb200701bf5d863980d9d6e2bc746422f4d3d3b708"
+      },
+      {
+        "name": "skills.png",
+        "sha256": "8f6201ccb5583ac2d5f0ca109cd4ae2b30ca0976b6813a1b20271c2e5ab7366b"
+      },
+      {
+        "name": "tools.png",
+        "sha256": "3cb569603fba7a8ed263db65073e07f963e36ed26d0709a0f0e261779fef0906"
+      },
+      {
+        "name": "travel_accessory.png",
+        "sha256": "3fd3968f67c6c664cd1ee9998e5e09eb15466f4f7ceb03268966127a3d1fad62"
+      },
+      {
+        "name": "world_hud.png",
+        "sha256": "6878bce013cf9ebe5de77eade469eb22bd38bdaaf2460655f77799e680faefce"
+      },
+      {
+        "name": "world_map.png",
+        "sha256": "f77d0afe374bdf616ef8abef23a3f06afa31d9700e0fed7ba2432f508ed0fa6e"
+      }
+    ],
+    "publication": "local visual evidence hashes; screenshots are not committed"
+  },
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "8c37227a7a9016a76fa9da3aeb3c14cc6efbb81c1b7d3b6e531bddbf7c8f6ac9",
+    "godot/scripts/player_motion_continuity_validation.gd": "a0cebb2de65c80f7afe0d3a9779fbfef46fc72fa2ee8b5a7a73ab32576f3f064",
+    "godot/scripts/player_melee_feedback.gd": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b",
+    "godot/scripts/player_melee_feedback_validation.gd": "1b8ec5ef9f29893f6e2736c11bfff6cf61766cc0fd87f678b0aa4bf2cb66ec57",
+    "godot/scripts/feel_kit.gd": "00eff6067d7fe6fb5e025c441985679f014f6d812c98ab8588077b9c0eb46d1b",
+    "godot/scripts/pilgrimage_interface.gd": "91ae21b6d94d8bd96bdff7b2ef5b14fd2132771bbbb1348403b7fd585eb66f9f",
+    "godot/scripts/input_settings_regression_validation.gd": "241305b5633969323fbadc4ca276b2d199eb50f67f4841efdcee67e319e5a8d6",
+    "tools/run_godot_regressions.py": "01c5ac7689669f708de7858ee53b3eb039d749427f9a8333af3ac5f77517ce9a",
+    "tools/godot_suite_success_markers.json": "89da07f87b587d833dedf0c0852d64ff6bd0df9d164285b799efcba1bd526ece",
+    ".github/workflows/motion-melee-feedback.yml": "21b4b14fff9451f8570636ab18682545614d9c934813bc6be9903e2de3b6b3c5"
+  },
+  "limits": [
+    "Rumble routing uses simulated hardware; physical gamepad sensation is unverified.",
+    "Idle correction locks the existing four-pose foot midpoint; source pose/outline continuity remains a user-reported unresolved defect.",
+    "New v4 imagegen assets and room-camera follow changes are not included.",
+    "ObjectDB exit warnings remain in named regression logs."
+  ],
+  "initial_verified_source_sha256": {
+    "godot/scripts/player_controller.gd": "8c37227a7a9016a76fa9da3aeb3c14cc6efbb81c1b7d3b6e531bddbf7c8f6ac9",
+    "godot/scripts/player_motion_continuity_validation.gd": "a0cebb2de65c80f7afe0d3a9779fbfef46fc72fa2ee8b5a7a73ab32576f3f064",
+    "godot/scripts/player_melee_feedback.gd": "30c1eb3f954ff4d4a9f928bb36314e60454cb420fdc5b863110c6f47d40d310b",
+    "godot/scripts/player_melee_feedback_validation.gd": "f513d5b1635ba2bac2d419d4461ca9b862628b8e91826704d42bf191a37a8568",
+    "godot/scripts/feel_kit.gd": "eb5e32296af0377341e60e101961bce1f5982f913d1ff45e549ee7ba6b657026",
+    "godot/scripts/pilgrimage_interface.gd": "91ae21b6d94d8bd96bdff7b2ef5b14fd2132771bbbb1348403b7fd585eb66f9f",
+    "godot/scripts/input_settings_regression_validation.gd": "241305b5633969323fbadc4ca276b2d199eb50f67f4841efdcee67e319e5a8d6",
+    "tools/run_godot_regressions.py": "01c5ac7689669f708de7858ee53b3eb039d749427f9a8333af3ac5f77517ce9a",
+    "tools/godot_suite_success_markers.json": "89da07f87b587d833dedf0c0852d64ff6bd0df9d164285b799efcba1bd526ece"
+  },
+  "device_selection_followup": {
+    "scope": "Only FeelKit input-device selection and its melee validation changed. Player, UI, helper drawing, timings, and damage remain unchanged.",
+    "fixes": [
+      "A held keyboard key OS echo cannot clear the newer active controller or truncate its current pulse.",
+      "Non-finite axis values and resting negative trigger values cannot select or steal a controller; intentional negative stick motion and positive trigger presses remain valid."
+    ],
+    "negative_headless": {
+      "checks": 16,
+      "failures": 10,
+      "log": "qa-logs/motion-feedback-device-fix/device-selection-negative-final.log"
+    },
+    "fixed_headless": {
+      "checks": 16,
+      "failures": 0,
+      "log": "qa-logs/motion-feedback-device-fix/device-selection-fixed.log"
+    },
+    "affected_gl_rerun": {
+      "suites": 2,
+      "failures": 0,
+      "player_melee_feedback_checks": 107,
+      "feel_accessibility_checks": 17,
+      "feel_accessibility_real_gl": true,
+      "timeout_seconds": 180,
+      "drawing": "normal enabled",
+      "log_directory": "qa-logs/motion-feedback-device-fix/gl"
+    },
+    "original_18_suite_evidence": "qa-logs/motion-feedback-final-summary-initial-18.json",
+    "verification_scope": "The initial 18-suite logs and their source hashes are preserved. After this bounded fix only the two affected suites were rerun; the other 16 suites were not rerun."
+  },
+  "base_commit": "0407be55f8272463d14bb2642121e3827ca7e227",
+  "status": "local_affected_checks_passed_remote_head_pending",
+  "static_checks": {
+    "npm_test": 0,
+    "npm_campaign": 0,
+    "runner_tests": 21,
+    "import_tests": 11,
+    "gpu_runner_tests": 11
+  },
+  "default_suite_count": 99,
+  "log_sha256": {
+    "qa-logs/motion-feedback-final-import/import-1.log": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+    "qa-logs/motion-feedback-final-import/import-2.log": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+    "qa-logs/motion-feedback-final-import-negative-home/import-1.log": "913b383ebe53fbd28b4bd1cd96b81377e3dfa5b4d916496a1f6c0025fb5105e9",
+    "qa-logs/motion-feedback-final-gl/ability_movement.log": "15d144138e9de70700d540aee045d83b0f46a09d4b51726661781ddbb6b15252",
+    "qa-logs/motion-feedback-final-gl/camera_focus.log": "4b688d78245f63b45e76333f32dbf46b95c561616a912c36ec5683c6b67ec70e",
+    "qa-logs/motion-feedback-final-gl/combat.log": "7f892c93b07b14ab3ffefbc9551f703277b567b0aaa7687105c7c0322491c0df",
+    "qa-logs/motion-feedback-final-gl/hero_animation.log": "6765696297d3db9c9aa75fdb1df96c1e7da9a7b9912bbb163390f2fd29a833bb",
+    "qa-logs/motion-feedback-final-gl/input_prompt.log": "6de5daaeaab4359cdc882b86eda8a78eda412dd9ccde24bfa9bf1819e372b65f",
+    "qa-logs/motion-feedback-final-gl/input_settings_regression.log": "882af6d2ad01f1b639437d6bf6e9c0115a643b7d8639b3169c9aa666767c85c5",
+    "qa-logs/motion-feedback-final-gl/melee_recovery.log": "800125e7d204c662fa5777d5ed557c764a64bb20039ac38c8c96def7277ea4c1",
+    "qa-logs/motion-feedback-final-gl/player_action_buffer.log": "30032f30945a472f1b7aec4e8689bd0e8993b5c72e58b92ec9e233e311e77c57",
+    "qa-logs/motion-feedback-final-gl/player_melee_feedback.log": "cc1a34450e00756f4c679def8f297a1203eee99cbb8cc26267a51dfd9c0b4640",
+    "qa-logs/motion-feedback-final-gl/player_motion_continuity.log": "5b1bca916c116de843a14afc6e0f737837c8129c83d3339e1c09d7a7d5db86a0",
+    "qa-logs/motion-feedback-final-gl/player_state_cleanup.log": "4e45b8a9d77c42e23fa286a643f36be7efd3e16f3902fdbd3b399e18b799b4de",
+    "qa-logs/motion-feedback-final-gl/player_upgrade_regression.log": "7994e1e3ee959898ed4fa69dd6765e362e129df28f6aeea06646b3f5ab1d373a",
+    "qa-logs/motion-feedback-final-gl/seal_acceptance.log": "0ee93a42b241750f2df309725987e379598b557886fd52b1242b6324e19baf76",
+    "qa-logs/motion-feedback-final-gl/seal_combat.log": "72bfed267f552a1f2d37017b12d1618f111d830cfd570450e9418067059ff5f8",
+    "qa-logs/motion-feedback-final-gl/seal_ui.log": "c30c15b7404a017fc67ca2ba0e089e0c03ae546a03f2999c2505fb0fed2006fa",
+    "qa-logs/motion-feedback-final-gl/ui_build_accessibility.log": "0e2b535190f9c3f628224cb35212b47fd674d44ce8bb414e4843ed53926909e4",
+    "qa-logs/motion-feedback-final-gl/ui_redesign.log": "026223b246b547403dd882ea14cf70e2a27d5fb1c0c6f3f21a132c7af9008f70",
+    "qa-logs/motion-feedback-final-gl/ui_world_integration.log": "b96e431fa744274c81821bfe9ed9435d42f0882196cb8b997411183e68c5042c",
+    "qa-logs/motion-feedback-npm-final.log": "71ca1d8605a2e67da2b62bc532d0b68447501183ec08eaf8828be3693c7a5bc5",
+    "qa-logs/motion-feedback-campaign-final.log": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0",
+    "qa-logs/motion-feedback-runner-unit-final.log": "3f7272816fa6df961df20a72b1091b010a0e6fea7734f8c9edfc8a1099af7917",
+    "qa-logs/motion-feedback-device-fix/device-selection-negative.log": "83c73a5030639109436bc293d5b863d80e4b43864b9a7eee6ee5165451738cec",
+    "qa-logs/motion-feedback-device-fix/device-selection-fixed.log": "d580e11e36238401d1c9e5a3fc5496c8011cb05fe90eb8d0555f5bcc110594d2",
+    "qa-logs/motion-feedback-device-fix/device-selection-negative-final.log": "23577385bb2456a5fceb4efff279692edb4162729931ed02f97df232518da967",
+    "qa-logs/motion-feedback-device-fix/gl/ui_build_accessibility.log": "0e2b535190f9c3f628224cb35212b47fd674d44ce8bb414e4843ed53926909e4",
+    "qa-logs/motion-feedback-device-fix/gl/player_melee_feedback.log": "d49fb49c638bf773fc0ab4911a825d28fccb261c6782389bf6bd73b640cdba3b"
+  },
+  "idle_visual_acceptance": {
+    "status": "OPEN",
+    "user_feedback": "Idle still appears to drift and poses are discontinuous in the delivered real-loop recording.",
+    "scope": "Registration reduces measured whole-sprite translation; constant world/sprite/camera coordinates do not prove visual continuity.",
+    "next_gate": "Actual repeated-loop review of body silhouette, two-foot support, pose transitions and loop seam; new frames remain rejected until accepted."
+  }
+}

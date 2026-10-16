@@ -73,8 +73,10 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 97)
+        self.assertEqual(len(all_suites), 99)
         self.assertIn("input_prompt", DEFAULT_SUITES)
+        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
+        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
@@ -105,12 +107,14 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + 'print("WORLD_ROUTE_MANIFEST_WALK_LOWER checks=1 failures=0 physical_crossings=6")\n'
                 + 'print("WORLD_ROUTE_MANIFEST_WALK_UPPER checks=1 failures=0 physical_crossings=4")\n'
+                + 'print("PLAYER_MOTION_CONTINUITY checks=1 failures=0")\n'
+                + 'print("PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
-            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper']:
+            for suite in ['world_route_manifest_walk_lower', 'world_route_manifest_walk_upper', 'player_motion_continuity', 'player_melee_feedback']:
                 with self.subTest(suite=suite):
                     failures = run_suites(str(engine), [suite], 2, logs, root / 'scratch', True,
                                           {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
@@ -119,6 +123,16 @@ class RunnerTests(unittest.TestCase):
                     self.assertNotIn('--disable-render-loop', arguments)
                     self.assertIn('--fixed-fps', arguments)
                     self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+
+    def test_motion_and_feedback_markers_do_not_overclaim_acceptance(self):
+        for suite, marker in [
+            ('player_motion_continuity', 'PLAYER_MOTION_CONTINUITY checks=1 failures=1'),
+            ('player_melee_feedback', 'PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=physical physical_feel=verified'),
+        ]:
+            with self.subTest(suite=suite):
+                result = self.run_engine(f'print({marker!r})\n', suite=suite)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
 
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])

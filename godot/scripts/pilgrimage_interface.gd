@@ -79,7 +79,7 @@ var energy_status: Label
 var healing_bar: ProgressBar
 var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
-var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false}
+var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -610,13 +610,14 @@ func _build_settings() -> void:
             if level.audio_director!=null:level.audio_director.set_user_volume(key,value))
         settings.add_child(slider)
         settings_sliders[key]=slider
-    _label(settings,"阅读与画面",Vector2(512,100),Vector2(440,26),20,GOLD)
-    _accessibility_slider("subtitle_size","字幕字号",Vector2(512,140),17,26,1)
-    _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,183),0.5,2.0,0.25)
-    _accessibility_slider("camera_shake","镜头震动",Vector2(512,226),0,1,0.25)
-    _accessibility_slider("camera_lookahead","镜头前瞻",Vector2(512,269),0,1,0.25)
-    _accessibility_toggle("flash_enabled","受击闪光",Vector2(512,299))
-    _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,299))
+    _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
+    _accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
+    _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
+    _accessibility_slider("camera_shake","镜头震动",Vector2(512,204),0,1,0.25)
+    _accessibility_slider("camera_lookahead","镜头前瞻",Vector2(512,238),0,1,0.25)
+    _accessibility_slider("vibration_strength","手柄力度",Vector2(512,272),0,1,0.25)
+    _accessibility_toggle("flash_enabled","受击闪光",Vector2(512,305))
+    _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
     _accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
     _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,394),Vector2(928,28),17,GOLD)
     var action_index:=0
@@ -683,6 +684,7 @@ func _load_accessibility() -> void:
     accessibility["subtitle_speed"]=_finite_setting(config,"subtitle_speed",0.5,2.0)
     accessibility["camera_shake"]=_finite_setting(config,"camera_shake",0,1)
     accessibility["camera_lookahead"]=_finite_setting(config,"camera_lookahead",0,1)
+    accessibility["vibration_strength"]=_finite_setting(config,"vibration_strength",0,1)
     var saved := {}
     for action in REMAPPABLE_ACTIONS:
         if config.has_section_key("bindings",action):saved[action]=config.get_value("bindings",action)
