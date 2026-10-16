@@ -85,3 +85,6 @@ artifacts/readme_current_20261015/*.webp -filter -diff -merge -text
 
 # Two original layered-idle source images remain complete, reviewable Git blobs.
 godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/*.png -filter -diff -merge -text
+
+# Two small enemy integrity framebuffer comparisons are reviewable Git blobs.
+artifacts/enemy_atlas_integrity/*-real-gl-before-after-2x.png -filter -diff -merge -text

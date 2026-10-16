@@ -75,7 +75,8 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 110)
+        self.assertEqual(len(all_suites), 111)
+        self.assertIn("enemy_atlas_integrity", DEFAULT_SUITES)
         self.assertIn("world_save_candidate", DEFAULT_SUITES)
         self.assertIn("map_player_pins", DEFAULT_SUITES)
         self.assertIn("world_startup_config_background", DEFAULT_SUITES)
@@ -263,6 +264,37 @@ class RunnerTests(unittest.TestCase):
             self.assertNotIn('--headless', arguments)
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
             self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
+
+    def test_enemy_atlas_keeps_real_gl_drawing_fixed_clock_and_full_coverage(self):
+        marker = 'ENEMY_ATLAS_INTEGRITY checks=3315 failures=0 static_frames=48 playbacks=8'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            captured = root / 'args'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + f'print({marker!r})\n'
+                + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            failures = run_suites(str(engine), ['enemy_atlas_integrity'], 2, logs, root / 'scratch', True,
+                                  {'DISPLAY': 'test-display', 'LIBGL_ALWAYS_SOFTWARE': '1'})
+            self.assertEqual(failures, [])
+            arguments = captured.read_text().splitlines()
+            self.assertNotIn('--disable-render-loop', arguments)
+            self.assertNotIn('--headless', arguments)
+            self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+            self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
+        for incomplete in [marker.replace('failures=0', 'failures=1'),
+                           marker.replace('static_frames=48', 'static_frames=47'),
+                           marker.replace('playbacks=8', 'playbacks=7'),
+                           marker.replace('checks=3315', 'checks=0')]:
+            with self.subTest(marker=incomplete):
+                result = self.run_engine(f'print({incomplete!r})\n', suite='enemy_atlas_integrity')
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('completion_marker=False', result.stdout)
 
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
