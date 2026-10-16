@@ -1,0 +1,27 @@
+{
+  "prior_head": "7ef90d17b683576e7a50141619662ab8bc6d34f5",
+  "upstream_head": "ae9e249bd599f0613cbe80dd9357eee0330893c3",
+  "runtime_changed": false,
+  "only_godot_diff": "godot/scripts/world_catalog_background_validation.gd",
+  "loader_sha256": "014de713cbc8a3d9cc0b85ff81a7e5f0baf61d19b4335067939912ddb9a9036f",
+  "validation_sha256": "6f035a46fab81c9154b6fce073b8cba9311081a7e842ffff6dc157ef3135fa23",
+  "default_suite_count": 108,
+  "validation": {
+    "engine": "4.6.1.stable.official.14d19694e",
+    "suite": "world_catalog_background",
+    "checks": 81,
+    "exit_code": 0,
+    "strict_errors": 0,
+    "objectdb_warnings": 0,
+    "log_sha256": "8ce36b8ccb7d4c450433b128d8080ad4b5448c39c3f69b303b1c0ffa19e3af8b",
+    "timeout_seconds": 180,
+    "real_gl": true
+  },
+  "reused_evidence": {
+    "prior_same_production_head": "7ef90d17",
+    "desktop_run": 38907841993,
+    "actual_checkout": "cb3b113f9db8ab95acac7d7fbdba1170c614e2c5",
+    "qualification": "Both platforms actual first-start/resume/writeback passed on the identical production code. New-head CI is still required; prior full108 run is not reported complete."
+  },
+  "remaining": "New-head complete108 and desktop/visual CI; existing visual/performance/resource OPEN items unchanged."
+}

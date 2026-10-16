@@ -1,5 +1,13 @@
 # 深化升级进度
 
+## 2026-10-16：#97 同步目录恢复调度修复依赖（最新状态）
+
+以已发布 #97 `bdb8a778`（tree `3a74b453`）为第一父，合入 #96 `8ce445a7`（tree `867cd9f4`，包含 #95 `ae9e249b`）。本地旧 `fa376c8` 与已发布头完全同树，先 same-tree soft 对齐，再仅合并此次依赖。三份台账取双方并集；相对 `bdb8a778` 的整个 godot 仅 `world_catalog_background_validation.gd` 新增 42 行，原 71 项保留并扩至 81 项。全部生产源码、数据、素材、109 套集合、runner、22 个 workflow、严格 marker/error、180 秒与绘制模式逐字节不变。
+
+原 `bdb8a778` 同生产代码的 4.6.1 严格双导入与候选 103／保存 37／真实构筑事务 30 项证据按原来源复用，候选退出原有 1 条 ObjectDB warning 继续保留。本次没有启动 Godot 或 GL，也没有重跑三保存组合或全 109 套。新增目录 81 项真实 GL 通过来源是 #96 的 `8ce445a7` 组合：显式 4.6.1、exit 0、零 ERROR、零 ObjectDB warning；仅验证其源码与本次索引完全相同，不冒称 #97 新组合已执行。此次静态复核 29 项 runner 和 5 项 workflow 单测通过。
+
+#97 新 head 的完整／像素／桌面 CI 待发布后按准确 head 另核，旧头绿灯不转记。#95 原 120 帧 Linux 发行包通过及 Windows 新 head 待终态按上游报告单独记账；此前 Windows 资源泄漏与后续恢复写回窗口问题不能混为一项。来源与等价证据见 [本次来源与等价证明](../artifacts/modern_private_checkpoint/catalog_scheduler_sync_verification.json)。#64 出发事务、U04、W00b2b 整包、待机坏接点／完整呼吸／跨动作视觉连续性、自然六区流程及长期资源稳定继续 OPEN。
+
 ## 2026-10-16：#97 串接最新 #95→#96 依赖链
 
 从本地 main 同步检查点 `948579eb` 再合入已发布 #96 `7ef90d17`（包含 #95 `2bf90970` 与 main `2d60b550`），本批改为沿最新 PR 链尖端推进。五处文档/runner 冲突取并集，最终默认 **109 套**（#96 的 108 套加私有候选）；22 个 workflow 文件、全部严格标记、180 秒套件上限、绘制模式及 runtime/visual CI 分工保留。目录/首区后台准备、发布工具、Player/动作/镜头/待机和所有数据/资产与 #96 逐字节一致；Main 仅保留原私有保存 flag 与 `_save_world` 差量，WorldState/候选验证与原 #97 一致。
@@ -26,6 +34,14 @@
 
 28 个不同受影响 GL suites 已通过：系统 4.6.3 候选及 19 组合，显式目标 4.6.1 再验候选及原 8 叙事；版本分别记账，3 套 ObjectDB 警告保留。npm/campaign、两版本严格双导入及 20 runner 单测通过；远端新 commit CI 另核。完整范围见[报告](report/20261016_modern_private_checkpoint.md)。不勾选 W00b2b、U04 或自然通关整包。
 
+## 2026-10-16：续接 #95 恢复调度修复，首区生产代码保持不变
+
+合入 #95 `ae9e249b`。上游回移的三段manifest/catalog调度本就来自本分支，合并后全部生产源码仍与 `7ef90d17` 字节一致；仅目录验证保留原71项并纳入新增10项。三份进度文档取双方并集，默认108套、全部workflow/发布工具/门禁不改。新增81项在本首区worker组合以4.6.1严格真实GL一次通过，无ERROR或ObjectDB warning；旧7ef同生产代码双平台原120帧首启/恢复/备份写回通过，完整108套按各head另记。新head远端CI将重触发，未以旧全套绿灯替代；见[本次来源与专项](../artifacts/modern_startup_integration/catalog_scheduler_sync_verification.json)。
+
+## 2026-10-16：#95 恢复写回窗口的启动调度修复
+
+新main组合2bf90970的Windows在原120帧内未完成恢复写回；首启成功、Linux成功，两份Windows日志无资源ERROR，区别于已修令牌泄漏。冻结4.6.1诊断为122/124帧就绪；仅回移#96已用的manifest/catalog预算合批和移除重复空等，观测为115/104帧，保留512/64粒度、8操作/2ms准入及最终取消窗口。目录原71检查保留新增10；严格双导入、受影响GL与原120帧Linux导出结果按[冻结证据](../artifacts/modern_catalog_integration/resume_frame_budget_verification.json)记录，新head Windows/完整CI另核，不降低门禁。默认107套与原视觉/长期稳定OPEN不变。[原因和边界](report/20261016_catalog_resume_frame_budget.md)。
+
 ## 2026-10-16：接回 #95 的新 main 依赖
 
 基于已修复真实首启窗口的 `568a25f4`，合入 #95 `2bf90970` 与 main `2d60b550` 的动作/镜头/待机。五处文档/runner冲突取并集，默认108套，独立runtime/visual与桌面工作流保持。四个首启修复脚本逐字保持568a；Main/Player与新main逐字一致。29 runner、5 workflow、23 release单测通过；同源JS/数据沿用#95新组合npm/campaign结果。新组合严格双导入及startup393/startup budget/分层idle200三套真实GL全通过，startup budget一条ObjectDB warning未归因，其余无该警告、全部无ERROR；新head完整与双平台CI仍需终态。568a旧base的双平台实际通过单独保留，不当作此组合通过。原120帧、180秒、8操作/2ms准入与全部故障/取消守卫不变。
@@ -41,7 +57,6 @@
 ## 2026-10-16：W00b2b首区配置后台准备现代整合
 
 依赖#95目录批，续接原#61 startup worker，不带#62。首区/恢复配置复用唯一reader，默认出生点与存档入口语义保留，完整租约核对后发布；补外来票据归属与首帧前/manifest等待取消恢复。16套同运行时组合及最终223项专项真实GL通过，原89循环检查/180秒保留，默认101套。六套ObjectDB警告未归因；深拷贝/复杂单项、76落点性能和W00b2b整包仍OPEN。见[本批报告](report/20261016_modern_startup_integration.md)。
-
 
 ## 2026-10-16：同步已合入 main 的 #94 动作/镜头/待机
 
