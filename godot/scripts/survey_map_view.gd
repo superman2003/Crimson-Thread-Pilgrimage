@@ -1,5 +1,6 @@
 extends Control
 ## Camera only transforms the presentation; the cartography frame never moves.
+signal secondary_pressed(content_position: Vector2)
 var content: Control
 var zoom := 1.0
 var dragging := false
@@ -41,6 +42,10 @@ func _gui_input(event: InputEvent) -> void:
             accept_event()
         elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
             magnify(0.8, event.position)
+            accept_event()
+        elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+            if not dragging and Rect2(Vector2.ZERO, size).has_point(event.position):
+                secondary_pressed.emit((event.position - content.position) / zoom)
             accept_event()
         elif event.button_index == MOUSE_BUTTON_LEFT:
             dragging = event.pressed

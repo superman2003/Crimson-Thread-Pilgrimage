@@ -630,6 +630,7 @@ var world_start_region_id := ""
 const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
 const WORLD_ATLAS := preload("res://scripts/world_atlas.gd")
 const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
+const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
 
 func _ready() -> void:
     _apply_cmdline_config_override()
@@ -901,6 +902,7 @@ func _bind_region_audio() -> void:
 
 func _setup_cartography() -> void:
     CARTOGRAPHY_UI.setup(self)
+    MAP_PLAYER_PINS.setup(self)
 
 
 func _publish_region() -> void:
@@ -3089,9 +3091,11 @@ func _refresh_map_overlay() -> void:
     if world_mode and world_map_view:
         CARTOGRAPHY_UI.paper(self, true)
         _draw_world_atlas()
+        MAP_PLAYER_PINS.refresh(self)
         return
     if world_mode:
         CARTOGRAPHY_UI.render(self)
+        MAP_PLAYER_PINS.refresh(self)
         return
     _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:

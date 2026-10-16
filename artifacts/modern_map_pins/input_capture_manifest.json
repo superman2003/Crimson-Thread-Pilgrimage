@@ -1,0 +1,2264 @@
+{
+  "check_results_at_capture": [
+    {
+      "check": 1,
+      "message": "unowned annotation rejection does not create or repair a journal",
+      "passed": true
+    },
+    {
+      "check": 2,
+      "message": "owned public outline is insufficient without resting to chart",
+      "passed": true
+    },
+    {
+      "check": 3,
+      "message": "charted addition returns private candidate without mutating flags",
+      "passed": true
+    },
+    {
+      "check": 4,
+      "message": "uncharted nested secret cannot borrow the enclosing hall knowledge",
+      "passed": true
+    },
+    {
+      "check": 5,
+      "message": "nested and outer far boundaries never fall through to a broader room",
+      "passed": true
+    },
+    {
+      "check": 6,
+      "message": "separately charted secret addition reaches its private candidate",
+      "passed": true
+    },
+    {
+      "check": 7,
+      "message": "separately charted secret can own its own pin",
+      "passed": true
+    },
+    {
+      "check": 8,
+      "message": "unknown old secret pin is ignored without leaking or consuming capacity",
+      "passed": true
+    },
+    {
+      "check": 9,
+      "message": "twelve unknown old pins cannot lock the user out of usable capacity",
+      "passed": true
+    },
+    {
+      "check": 10,
+      "message": "replacement known pin remains deletable",
+      "passed": true
+    },
+    {
+      "check": 11,
+      "message": "known bounded pin 0 is accepted",
+      "passed": true
+    },
+    {
+      "check": 12,
+      "message": "known bounded pin 1 is accepted",
+      "passed": true
+    },
+    {
+      "check": 13,
+      "message": "known bounded pin 2 is accepted",
+      "passed": true
+    },
+    {
+      "check": 14,
+      "message": "known bounded pin 3 is accepted",
+      "passed": true
+    },
+    {
+      "check": 15,
+      "message": "known bounded pin 4 is accepted",
+      "passed": true
+    },
+    {
+      "check": 16,
+      "message": "known bounded pin 5 is accepted",
+      "passed": true
+    },
+    {
+      "check": 17,
+      "message": "known bounded pin 6 is accepted",
+      "passed": true
+    },
+    {
+      "check": 18,
+      "message": "known bounded pin 7 is accepted",
+      "passed": true
+    },
+    {
+      "check": 19,
+      "message": "known bounded pin 8 is accepted",
+      "passed": true
+    },
+    {
+      "check": 20,
+      "message": "known bounded pin 9 is accepted",
+      "passed": true
+    },
+    {
+      "check": 21,
+      "message": "known bounded pin 10 is accepted",
+      "passed": true
+    },
+    {
+      "check": 22,
+      "message": "known bounded pin 11 is accepted",
+      "passed": true
+    },
+    {
+      "check": 23,
+      "message": "global twelve-pin capacity is enforced",
+      "passed": true
+    },
+    {
+      "check": 24,
+      "message": "nearby duplicate across types is rejected",
+      "passed": true
+    },
+    {
+      "check": 25,
+      "message": "nonfinite input and unknown type are rejected",
+      "passed": true
+    },
+    {
+      "check": 26,
+      "message": "malformed and duplicate old records are ignored without read-time writes",
+      "passed": true
+    },
+    {
+      "check": 27,
+      "message": "wrong old container is safe",
+      "passed": true
+    },
+    {
+      "check": 28,
+      "message": "hostile old array scanning is capped rather than traversing every element",
+      "passed": true
+    },
+    {
+      "check": 29,
+      "message": "current-position and type controls support focus navigation",
+      "passed": true
+    },
+    {
+      "check": 30,
+      "message": "unowned actual map disables current-position marker",
+      "passed": true
+    },
+    {
+      "check": 31,
+      "message": "mouse fixture lies in clipped viewport",
+      "passed": true
+    },
+    {
+      "check": 32,
+      "message": "actual right mouse rejects unknown rooms with a readable map-panel message",
+      "passed": true
+    },
+    {
+      "check": 33,
+      "message": "owned but uncharted actual map still disables marker",
+      "passed": true
+    },
+    {
+      "check": 34,
+      "message": "authored player location has an innermost map room",
+      "passed": true
+    },
+    {
+      "check": 35,
+      "message": "focused current-position button accepts UI activation and preserves focus after redraw",
+      "passed": true
+    },
+    {
+      "check": 36,
+      "message": "regional marker projects local position and never steals drag input",
+      "passed": true
+    },
+    {
+      "check": 37,
+      "message": "mouse fixture lies in clipped viewport",
+      "passed": true
+    },
+    {
+      "check": 38,
+      "message": "real right mouse inverse zoom/pan stores the chosen local point and type",
+      "passed": true
+    },
+    {
+      "check": 39,
+      "message": "out-of-viewport and active-left-drag right presses emit no annotation event",
+      "passed": true
+    },
+    {
+      "check": 40,
+      "message": "left drag and release still pan without creating a pin",
+      "passed": true
+    },
+    {
+      "check": 41,
+      "message": "region: refreshed pin tooltip preserves modern navigation help",
+      "passed": true
+    },
+    {
+      "check": 42,
+      "message": "region-start pin navigation sequence: Keyboard page-up zooms the actual atlas",
+      "passed": true
+    },
+    {
+      "check": 43,
+      "message": "region-start pin navigation sequence: Held D pans actual atlas presentation",
+      "passed": true
+    },
+    {
+      "check": 44,
+      "message": "region-start pin navigation sequence: Keyboard release stops map pan",
+      "passed": true
+    },
+    {
+      "check": 45,
+      "message": "region-start pin navigation sequence: Home restores full map without mouse",
+      "passed": true
+    },
+    {
+      "check": 46,
+      "message": "region-start pin navigation sequence: Controller RB zooms actual map",
+      "passed": true
+    },
+    {
+      "check": 47,
+      "message": "region-start pin navigation sequence: Resting stick drift does not move map",
+      "passed": true
+    },
+    {
+      "check": 48,
+      "message": "region-start pin navigation sequence: Controller left stick pans atlas",
+      "passed": true
+    },
+    {
+      "check": 49,
+      "message": "region-start pin navigation sequence: Another controller disconnect does not cancel active pan",
+      "passed": true
+    },
+    {
+      "check": 50,
+      "message": "region-start pin navigation sequence: Active controller disconnect stops pan immediately",
+      "passed": true
+    },
+    {
+      "check": 51,
+      "message": "region-start pin navigation sequence: Diagonal pan speed is bounded",
+      "passed": true
+    },
+    {
+      "check": 52,
+      "message": "region-start pin navigation sequence: Y resets zoom without colliding with the global map toggle",
+      "passed": true
+    },
+    {
+      "check": 53,
+      "message": "region-start pin navigation sequence: LB reverses RB zoom",
+      "passed": true
+    },
+    {
+      "check": 54,
+      "message": "region-start pin navigation sequence: Focus loss cancels held map movement and drag",
+      "passed": true
+    },
+    {
+      "check": 55,
+      "message": "region-start pin navigation sequence: Closing actual map clears held keys",
+      "passed": true
+    },
+    {
+      "check": 56,
+      "message": "region-start pin navigation sequence: Hidden map ignores navigation shortcuts",
+      "passed": true
+    },
+    {
+      "check": 57,
+      "message": "region-start pin navigation sequence: Reopened map cannot replay a held movement",
+      "passed": true
+    },
+    {
+      "check": 58,
+      "message": "region-start pin navigation sequence: Changing map view clears pan and resets frame",
+      "passed": true
+    },
+    {
+      "check": 59,
+      "message": "region-start pin navigation sequence: Invalid magnification cannot corrupt map transform",
+      "passed": true
+    },
+    {
+      "check": 60,
+      "message": "region-start pin navigation sequence: Map pan uses elapsed seconds at 30 Hz",
+      "passed": true
+    },
+    {
+      "check": 61,
+      "message": "region-start pin navigation sequence: Map pan uses elapsed seconds at 60 Hz",
+      "passed": true
+    },
+    {
+      "check": 62,
+      "message": "region-start pin navigation sequence: Map pan uses elapsed seconds at 120 Hz",
+      "passed": true
+    },
+    {
+      "check": 63,
+      "message": "region-start pin navigation sequence: Map navigation never charts rooms or moves the player",
+      "passed": true
+    },
+    {
+      "check": 64,
+      "message": "region: requested presentation, camera view and title are explicitly restored after close/reopen helper",
+      "passed": true
+    },
+    {
+      "check": 65,
+      "message": "region: actual requested view pans by elapsed seconds at 30 Hz",
+      "passed": true
+    },
+    {
+      "check": 66,
+      "message": "region: actual requested view pans by elapsed seconds at 60 Hz",
+      "passed": true
+    },
+    {
+      "check": 67,
+      "message": "region: actual requested view pans by elapsed seconds at 120 Hz",
+      "passed": true
+    },
+    {
+      "check": 68,
+      "message": "region: modern navigation preserves pins, checkpoint identity/value, live state and both save files",
+      "passed": true
+    },
+    {
+      "check": 69,
+      "message": "region: close/reopen and view reset retain the same live pin control owners",
+      "passed": true
+    },
+    {
+      "check": 70,
+      "message": "region: navigation redraw preserves projected marker 1",
+      "passed": true
+    },
+    {
+      "check": 71,
+      "message": "region: navigation redraw preserves projected marker 2",
+      "passed": true
+    },
+    {
+      "check": 72,
+      "message": "world: refreshed pin tooltip preserves modern navigation help",
+      "passed": true
+    },
+    {
+      "check": 73,
+      "message": "world-start pin navigation sequence: Keyboard page-up zooms the actual atlas",
+      "passed": true
+    },
+    {
+      "check": 74,
+      "message": "world-start pin navigation sequence: Held D pans actual atlas presentation",
+      "passed": true
+    },
+    {
+      "check": 75,
+      "message": "world-start pin navigation sequence: Keyboard release stops map pan",
+      "passed": true
+    },
+    {
+      "check": 76,
+      "message": "world-start pin navigation sequence: Home restores full map without mouse",
+      "passed": true
+    },
+    {
+      "check": 77,
+      "message": "world-start pin navigation sequence: Controller RB zooms actual map",
+      "passed": true
+    },
+    {
+      "check": 78,
+      "message": "world-start pin navigation sequence: Resting stick drift does not move map",
+      "passed": true
+    },
+    {
+      "check": 79,
+      "message": "world-start pin navigation sequence: Controller left stick pans atlas",
+      "passed": true
+    },
+    {
+      "check": 80,
+      "message": "world-start pin navigation sequence: Another controller disconnect does not cancel active pan",
+      "passed": true
+    },
+    {
+      "check": 81,
+      "message": "world-start pin navigation sequence: Active controller disconnect stops pan immediately",
+      "passed": true
+    },
+    {
+      "check": 82,
+      "message": "world-start pin navigation sequence: Diagonal pan speed is bounded",
+      "passed": true
+    },
+    {
+      "check": 83,
+      "message": "world-start pin navigation sequence: Y resets zoom without colliding with the global map toggle",
+      "passed": true
+    },
+    {
+      "check": 84,
+      "message": "world-start pin navigation sequence: LB reverses RB zoom",
+      "passed": true
+    },
+    {
+      "check": 85,
+      "message": "world-start pin navigation sequence: Focus loss cancels held map movement and drag",
+      "passed": true
+    },
+    {
+      "check": 86,
+      "message": "world-start pin navigation sequence: Closing actual map clears held keys",
+      "passed": true
+    },
+    {
+      "check": 87,
+      "message": "world-start pin navigation sequence: Hidden map ignores navigation shortcuts",
+      "passed": true
+    },
+    {
+      "check": 88,
+      "message": "world-start pin navigation sequence: Reopened map cannot replay a held movement",
+      "passed": true
+    },
+    {
+      "check": 89,
+      "message": "world-start pin navigation sequence: Changing map view clears pan and resets frame",
+      "passed": true
+    },
+    {
+      "check": 90,
+      "message": "world-start pin navigation sequence: Invalid magnification cannot corrupt map transform",
+      "passed": true
+    },
+    {
+      "check": 91,
+      "message": "world-start pin navigation sequence: Map pan uses elapsed seconds at 30 Hz",
+      "passed": true
+    },
+    {
+      "check": 92,
+      "message": "world-start pin navigation sequence: Map pan uses elapsed seconds at 60 Hz",
+      "passed": true
+    },
+    {
+      "check": 93,
+      "message": "world-start pin navigation sequence: Map pan uses elapsed seconds at 120 Hz",
+      "passed": true
+    },
+    {
+      "check": 94,
+      "message": "world-start pin navigation sequence: Map navigation never charts rooms or moves the player",
+      "passed": true
+    },
+    {
+      "check": 95,
+      "message": "world: requested presentation, camera view and title are explicitly restored after close/reopen helper",
+      "passed": true
+    },
+    {
+      "check": 96,
+      "message": "world: actual requested view pans by elapsed seconds at 30 Hz",
+      "passed": true
+    },
+    {
+      "check": 97,
+      "message": "world: actual requested view pans by elapsed seconds at 60 Hz",
+      "passed": true
+    },
+    {
+      "check": 98,
+      "message": "world: actual requested view pans by elapsed seconds at 120 Hz",
+      "passed": true
+    },
+    {
+      "check": 99,
+      "message": "world: modern navigation preserves pins, checkpoint identity/value, live state and both save files",
+      "passed": true
+    },
+    {
+      "check": 100,
+      "message": "world: close/reopen and view reset retain the same live pin control owners",
+      "passed": true
+    },
+    {
+      "check": 101,
+      "message": "world: navigation redraw preserves projected marker 1",
+      "passed": true
+    },
+    {
+      "check": 102,
+      "message": "world: navigation redraw preserves projected marker 2",
+      "passed": true
+    },
+    {
+      "check": 103,
+      "message": "placeholder cannot enable delete",
+      "passed": true
+    },
+    {
+      "check": 104,
+      "message": "failed delete restores only the exact old pin key and retains committed data and bytes",
+      "passed": true
+    },
+    {
+      "check": 105,
+      "message": "pin rollback preserves newly earned live flag and currency while retaining the earlier committed checkpoint",
+      "passed": true
+    },
+    {
+      "check": 106,
+      "message": "failed-add fixture is a distinct charted point",
+      "passed": true
+    },
+    {
+      "check": 107,
+      "message": "failed add reaches storage and retains old pin ownership and count",
+      "passed": true
+    },
+    {
+      "check": 108,
+      "message": "blocked modification rejects before touching memory or disk",
+      "passed": true
+    },
+    {
+      "check": 109,
+      "message": "blocked current-position addition rejects before touching pin ownership, checkpoint or disk",
+      "passed": true
+    },
+    {
+      "check": 110,
+      "message": "mouse fixture lies in clipped viewport",
+      "passed": true
+    },
+    {
+      "check": 111,
+      "message": "world overview rejects a point in an unknown region",
+      "passed": true
+    },
+    {
+      "check": 112,
+      "message": "mouse fixture lies in clipped viewport",
+      "passed": true
+    },
+    {
+      "check": 113,
+      "message": "world overview right click inverts world origin plus zoom and pan to the correct region",
+      "passed": true
+    },
+    {
+      "check": 114,
+      "message": "world pin uses the same fixed projection as the atlas",
+      "passed": true
+    },
+    {
+      "check": 115,
+      "message": "visible marker and deletion list share pin number 1",
+      "passed": true
+    },
+    {
+      "check": 116,
+      "message": "visible marker and deletion list share pin number 2",
+      "passed": true
+    },
+    {
+      "check": 117,
+      "message": "visible marker and deletion list share pin number 3",
+      "passed": true
+    },
+    {
+      "check": 118,
+      "message": "real cross-region transition carries custom pin journal",
+      "passed": true
+    },
+    {
+      "check": 119,
+      "message": "authored player location has an innermost map room",
+      "passed": true
+    },
+    {
+      "check": 120,
+      "message": "retained old buttons and view cannot mutate the new region journal",
+      "passed": true
+    },
+    {
+      "check": 121,
+      "message": "destination regional view shows only its own pin while preserving the others",
+      "passed": true
+    },
+    {
+      "check": 122,
+      "message": "malformed-record old-save fixture remains valid World JSON",
+      "passed": true
+    },
+    {
+      "check": 123,
+      "message": "restart safely ignores malformed records without rewriting the old pin payload",
+      "passed": true
+    },
+    {
+      "check": 124,
+      "message": "real delete button persists its selected known pin removal after restart",
+      "passed": true
+    },
+    {
+      "check": 125,
+      "message": "current new-region button can add again after deletion",
+      "passed": true
+    },
+    {
+      "check": 126,
+      "message": "optional actual GL region screenshot writes",
+      "passed": true
+    },
+    {
+      "check": 127,
+      "message": "optional actual GL world screenshot writes",
+      "passed": true
+    }
+  ],
+  "fixture": true,
+  "input_samples": [
+    {
+      "action": "right_mouse",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "local_target": [
+        200.0,
+        3360.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "physical_controller": false,
+      "pin_count": 0,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "target_region": "demo_ch01_moss_bell_court",
+      "viewport_point": [
+        222.04850769043,
+        267.041137695312
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "right_mouse",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "local_target": [
+        270.0,
+        3102.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -227.678894042969,
+        -246.289169311523
+      ],
+      "pan_device": -1,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "target_region": "demo_ch01_moss_bell_court",
+      "viewport_point": [
+        227.678894042969,
+        246.289169311523
+      ],
+      "world_view": false,
+      "zoom": 2.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Keyboard page-up zooms the actual atlas",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -138.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Held D pans actual atlas presentation",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Keyboard release stops map pan",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Home restores full map without mouse",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Controller RB zooms actual map",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -138.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Resting stick drift does not move map",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -138.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Controller left stick pans atlas",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": 5,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        1.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Another controller disconnect does not cancel active pan",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": 5,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        1.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Active controller disconnect stops pan immediately",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Diagonal pan speed is bounded",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -198.45979309082,
+        -66.9598007202148
+      ],
+      "pan_device": 5,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        1.0,
+        1.0
+      ],
+      "world_view": false,
+      "zoom": 1.25
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Y resets zoom without colliding with the global map toggle",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "LB reverses RB zoom",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Focus loss cancels held map movement and drag",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 2.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Closing actual map clears held keys",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 2.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Hidden map ignores navigation shortcuts",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 2.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Reopened map cannot replay a held movement",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 2.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Changing map view clears pan and resets frame",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Invalid magnification cannot corrupt map transform",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Map pan uses elapsed seconds at 30 Hz",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.0,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Map pan uses elapsed seconds at 60 Hz",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.00024414062,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Map pan uses elapsed seconds at 120 Hz",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region-start navigation",
+      "assertion": "Map navigation never charts rooms or moves the player",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.0,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 30,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.00024414062,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 60,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "region explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 120,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Keyboard page-up zooms the actual atlas",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -138.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Held D pans actual atlas presentation",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Keyboard release stops map pan",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Home restores full map without mouse",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Controller RB zooms actual map",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -138.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Resting stick drift does not move map",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -138.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Controller left stick pans atlas",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": 5,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        1.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Another controller disconnect does not cancel active pan",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": 5,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        1.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Active controller disconnect stops pan immediately",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -194.5,
+        -63.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Diagonal pan speed is bounded",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -198.45979309082,
+        -66.9598007202148
+      ],
+      "pan_device": 5,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        1.0,
+        1.0
+      ],
+      "world_view": true,
+      "zoom": 1.25
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Y resets zoom without colliding with the global map toggle",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "LB reverses RB zoom",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 1.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Focus loss cancels held map movement and drag",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 2.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Closing actual map clears held keys",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 2.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Hidden map ignores navigation shortcuts",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -554.0,
+        -252.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 2.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Reopened map cannot replay a held movement",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Changing map view clears pan and resets frame",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Invalid magnification cannot corrupt map transform",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Map pan uses elapsed seconds at 30 Hz",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.0,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Map pan uses elapsed seconds at 60 Hz",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2222.00024414062,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Map pan uses elapsed seconds at 120 Hz",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "world-start navigation",
+      "assertion": "Map navigation never charts rooms or moves the player",
+      "camera_view": 99,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 4.0
+    },
+    {
+      "action": "world explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -2222.0,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 30,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 4.0
+    },
+    {
+      "action": "world explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -2222.00024414062,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 60,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 4.0
+    },
+    {
+      "action": "world explicit rate sample",
+      "before_pan": [
+        -1662.0,
+        -756.0
+      ],
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        1.0,
+        0.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -2221.99975585938,
+        -756.0
+      ],
+      "pan_device": -1,
+      "passed": true,
+      "physical_controller": false,
+      "pin_count": 2,
+      "rate_hz": 120,
+      "region": "demo_ch01_moss_bell_court",
+      "seconds": 1.0,
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": true,
+      "zoom": 4.0
+    },
+    {
+      "action": "regional_view_restored_after_navigation",
+      "camera_view": 0,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "map_title": "苔钟庭",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "world_view": false,
+      "zoom": 1.0
+    },
+    {
+      "action": "right_mouse",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "local_target": [
+        200.0,
+        720.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        0.0,
+        0.0
+      ],
+      "pan_device": -1,
+      "physical_controller": false,
+      "pin_count": 2,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "target_region": "demo_ch02_rain_foundry_canal",
+      "viewport_point": [
+        255.669158935547,
+        254.816375732422
+      ],
+      "world_view": true,
+      "zoom": 1.0
+    },
+    {
+      "action": "right_mouse",
+      "camera_view": 1,
+      "dragging": false,
+      "fixture": true,
+      "keyboard_pan": [
+        0.0,
+        0.0
+      ],
+      "local_target": [
+        200.0,
+        720.0
+      ],
+      "map_title": "世界地图",
+      "pan": [
+        -255.669158935547,
+        -254.816375732422
+      ],
+      "pan_device": -1,
+      "physical_controller": false,
+      "pin_count": 3,
+      "region": "demo_ch01_moss_bell_court",
+      "simulated_input": true,
+      "stick_pan": [
+        0.0,
+        0.0
+      ],
+      "target_region": "demo_ch02_rain_foundry_canal",
+      "viewport_point": [
+        255.669158935547,
+        254.816375732422
+      ],
+      "world_view": true,
+      "zoom": 2.0
+    }
+  ],
+  "natural_exploration": false,
+  "physical_controller": false,
+  "region": "demo_ch02_rain_foundry_canal",
+  "screenshots": [
+    {
+      "file": "region.webp",
+      "fixture": true,
+      "frame_post_draw": true,
+      "sha256": "a445a1bb93557c227200fbfad5b02eb65981e9bd667b06718748d4fa19aab662"
+    },
+    {
+      "file": "world.webp",
+      "fixture": true,
+      "frame_post_draw": true,
+      "sha256": "87c55d08120ee592c3a2d4ff6a401542127c36c8e07f8fea81086f0ecf0b17a3"
+    }
+  ],
+  "sources_sha256": {
+    "main_level.gd": "e08cdf09aa03686b833bef2b804c0785e7975405153c896f62cd11f98a08020e",
+    "map_player_pins.gd": "e6ac8876fdc6b92dd3e150d8e0fd5a3fa9d8b9dbcee7b20a3aa4617561619019",
+    "map_player_pins_runtime.gd": "ee34cbd69bf8ae16a115e94ce5b4d5e9785e3f5c2cc5d3046dc0d110eee60f15",
+    "map_player_pins_validation.gd": "845d8a9e320dc6e71a372407621a82b96bd66d79ecde7a2a0176f61a76dcde8d",
+    "survey_map_view.gd": "f539254d7893eed7c7a33cb64f7e0a2d2cb41821bec7eca97daa00fef6dcc0db",
+    "survey_navigation_validation.gd": "ee02aa18b3017eadfd08c8a46b26837f3c667b9fcd00975a104a03a203a3ad1d",
+    "world_state.gd": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528"
+  }
+}
