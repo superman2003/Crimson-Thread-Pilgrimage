@@ -24,7 +24,7 @@ DEFAULT_SUITES = (
     'ui_build_accessibility ui_world_integration ui_redesign '
     'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation world_prepare_budget world_preflight_budget world_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression input_prompt player_action_buffer camera_focus first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience '
     'world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience world_death_cache_flush '
-    'melee_recovery build_slots build_transaction_runtime enemy_encounter_roles build_slots_ui narrative_outcomes'
+    'melee_recovery combat_resource_cycle build_slots build_transaction_runtime enemy_encounter_roles build_slots_ui narrative_outcomes'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 SUCCESS_MARKERS = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text())
@@ -94,7 +94,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             with log.open('w') as output:
                 # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime suites must retain normal playback timing.
-                simulation = ['--fixed-fps', '60'] if suite in ['world_passage_network', 'ch06_workshop_experience', 'melee_recovery', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
+                simulation = ['--fixed-fps', '60'] if suite in ['world_passage_network', 'ch06_workshop_experience', 'melee_recovery', 'combat_resource_cycle', 'build_transaction_runtime', 'enemy_encounter_roles', 'build_slots_ui', 'obsidian_experience', 'greenhouse_experience', 'salt_archive_experience', 'rain_foundry_experience', 'first_court_experience', 'camera_focus', 'player_action_buffer', 'ability_movement', 'world_upgrade', 'audio_retirement', 'world_passage', 'world_neighbor_gameplay_live', 'world_enemy_residency'] else []
                 # An intermittent CI shutdown leak needs the actual Resource
                 # identity; verbose keeps that evidence without hiding errors.
                 diagnostics = ['--verbose'] if suite in ['world_upgrade', 'world_enemy_residency'] else []
@@ -102,8 +102,10 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
                 drawing = render_loop_args(real_gl, suite)
                 result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
             output = log.read_text(errors='replace')
-            errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', output, re.MULTILINE)
-            completed = re.search(marker, output, re.MULTILINE) is not None
+            # Color must not hide fatal engine diagnostics or a valid marker.
+            plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
+            errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', plain, re.MULTILINE)
+            completed = re.search(marker, plain, re.MULTILINE) is not None
             if result.returncode != 0 or errors or not completed:
                 failures.append(f'{suite}: exit={result.returncode} engine_errors={len(errors)} completion_marker={completed}')
                 print('FAIL: ' + failures[-1] + '\n' + '\n'.join(output.splitlines()[-40:]), flush=True)

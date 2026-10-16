@@ -33,6 +33,20 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn('engine_errors=1', result.stdout)
 
+    def test_colored_script_error_with_success_marker_fails(self):
+        result = self.run_engine('print("\\x1b[31mSCRIPT ERROR: colored failure\\x1b[0m")\nprint("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('engine_errors=1 completion_marker=True', result.stdout)
+
+    def test_colored_engine_error_with_success_marker_fails(self):
+        result = self.run_engine('print("\\x1b[1;31mERROR: colored resource failure\\x1b[0m")\nprint("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('engine_errors=1 completion_marker=True', result.stdout)
+
+    def test_colored_success_marker_is_success(self):
+        result = self.run_engine('print("\\x1b[32mENEMY_VISIBILITY_VALIDATION checks=1 failures=0\\x1b[0m")\n')
+        self.assertEqual(result.returncode, 0)
+
     def test_missing_suite_never_reports_success(self):
         result = self.run_engine('print("PASS")\n', suite='missing_fixture')
         self.assertEqual(result.returncode, 1)
@@ -59,8 +73,9 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 94)
+        self.assertEqual(len(all_suites), 95)
         self.assertIn("input_prompt", DEFAULT_SUITES)
+        self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))
         self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
         for marker in SUCCESS_MARKERS.values():
