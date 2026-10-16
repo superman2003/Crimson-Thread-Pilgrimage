@@ -37,6 +37,15 @@ func _area_at(zone: Dictionary, point: Vector2, padding: float = 0.0) -> float:
         if rect.grow(padding).has_point(point): smallest = minf(smallest, rect.get_area())
     return smallest
 
+func _inside_entry(zone: Dictionary, point: Vector2) -> bool:
+    for rect in zone.get("triggers", []):
+        # A fixed 24px inset erased triggers <=48px wide/high. Keep a
+        # decisive interior on each axis, even for narrow authored passages.
+        var inset: Vector2 = rect.size.min(Vector2.ONE * EDGE_MARGIN * 4.0) * 0.25
+        if Rect2(rect.position + inset, rect.size - inset * 2.0).has_point(point):
+            return true
+    return false
+
 func update(focus: RefCounted, point: Vector2, delta: float = 0.0) -> void:
     var candidate: Dictionary = {}
     var area := INF
@@ -47,7 +56,7 @@ func update(focus: RefCounted, point: Vector2, delta: float = 0.0) -> void:
             area = size
     # Retain the previous zone at a doorway, until the next room is entered
     # decisively. Deeper nested pockets can still take precedence.
-    if not current.is_empty() and _area_at(current, point, EDGE_MARGIN) < INF and (_area_at(current, point) == INF or candidate.is_empty() or _area_at(candidate, point, -EDGE_MARGIN) == INF):
+    if not current.is_empty() and _area_at(current, point, EDGE_MARGIN) < INF and (_area_at(current, point) == INF or candidate.is_empty() or not _inside_entry(candidate, point)):
         candidate = current
     var changed := String(candidate.get("id", "")) != String(current.get("id", ""))
     current = candidate

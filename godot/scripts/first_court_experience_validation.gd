@@ -28,6 +28,7 @@ func release() -> void:
 func run() -> void:
     root.size = Vector2i(1280,720)
     _zone_rules()
+    preload("res://scripts/room_camera_doorway_validation.gd").new().run(check)
     await _healing_and_duel()
     await _first_court()
     release()
