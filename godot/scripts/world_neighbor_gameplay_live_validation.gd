@@ -96,10 +96,11 @@ func crossing(target: String, direction: int) -> Dictionary:
     # Let ordinary host _process choose/read/warm the neighbor. No cache seed.
     for unused in 240:
         await tick()
-        if pref.gameplay.regions.has(target) and pref.gameplay.regions[target].pending.is_empty():
+        if pref.gameplay.regions.has(target) and pref.gameplay.regions[target].plan_complete and pref.gameplay.regions[target].pending.is_empty():
             break
     check(pref.gameplay.regions.has(target),"approach naturally selects neighbor " + target)
     if not pref.gameplay.regions.has(target): return {}
+    check(pref.gameplay.regions[target].plan_complete and pref.gameplay.regions[target].pending.is_empty(),"natural neighbor planning and actor warming finish before crossing")
     var records: Dictionary = pref.gameplay.regions[target].actors.duplicate()
     check(not records.is_empty(),"natural neighbor cache includes gameplay")
     var before_hits: int = pref.gameplay.hits

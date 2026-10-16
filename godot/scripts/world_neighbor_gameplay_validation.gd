@@ -41,7 +41,10 @@ func prefetch_progress(pref: RefCounted) -> Dictionary:
     var regions: Array = []
     for id in pref.gameplay.regions.keys().slice(0, 2):
         var cache: Dictionary = pref.gameplay.regions[id]
-        regions.append({"id": id, "pending": cache.pending.size(), "actors": cache.actors.size()})
+        var planner: Variant = cache.get("plan_job")
+        regions.append({"id": id, "phase": "idle" if planner == null else String(planner.phase),
+            "complete": cache.get("plan_complete", true), "pending": cache.pending.size(),
+            "actors": cache.actors.size(), "operations": 0 if planner == null else planner.operation_count})
     var geometry: Array = []
     for id in pref.entities.keys().slice(0, 2):
         geometry.append({"id": id, "pending": pref.entities[id].pending.size()})
@@ -53,6 +56,23 @@ func prefetch_progress(pref: RefCounted) -> Dictionary:
         "geometry": geometry, "gameplay": regions, "jobs": pref.jobs.size(), "queue": pref.queue.size(),
         "generation": pref.generation, "loader_generation": scene.world_loader.generation,
         "route_generation": pref.route_cache_generation, "route_current": ROUTES.cached_generation()}
+func transition_progress(label: String, started: int, steps: int) -> void:
+    var loader: RefCounted = scene.world_loader
+    var progress: Dictionary = {}
+    for key in ["rolled_back", "preflight_copy_steps", "preflight_copy_edges", "preflight_copy_batches",
+            "preflight_copy_work_usec", "preflight_copy_wall_usec", "preflight_cursor", "preflight_batches",
+            "preflight_work_usec", "preflight_wall_usec", "json_wait_frames",
+            "prepare_cursor", "prepare_jobs", "prepare_batches", "prepare_work_usec",
+            "prepare_wall_usec", "jobs", "batches", "commit_cursor", "commit_jobs", "commit_job",
+            "commit_work_usec", "commit_wall_usec"]:
+        if loader.last_transition.has(key): progress[key] = loader.last_transition[key]
+    print("NEIGHBOR GAMEPLAY TRANSITION ", JSON.stringify({"label": label,
+        "elapsed_ms": Time.get_ticks_msec() - started, "total_ms": Time.get_ticks_msec() - diagnostic_started,
+        "frames": steps, "phase": loader.phase, "cancel_requested": loader.cancel_requested,
+        "gameplay_hits": scene.world_prefetch.gameplay.hits,
+        "region": String(scene.config.get("id", "")),
+        "loading": loader.loading_label.text if is_instance_valid(loader.loading_label) else "",
+        "progress": progress}))
 func _seed_cache(id: String, entry: Vector2) -> RefCounted:
     var seed_started := Time.get_ticks_usec()
     var pref: RefCounted = scene.world_prefetch
@@ -92,7 +112,7 @@ func warm(pref: RefCounted, label: String = "cache_churn") -> void:
         check(pref.entity_builds + pref.gameplay.builds - built <= 2, "shared geometry/gameplay creation admission <=2")
         check(pref.entity_releases + pref.gameplay.releases - retired <= 2, "shared retirement admission <=2")
         check(pref.snapshot().owned_bodies <= 48 and pref.gameplay.owned() <= 24, "owned + pending retirement capacity bounded")
-        var ready: bool = pref.entities.values().all(func(x): return x.pending.is_empty()) and pref.gameplay.regions.values().all(func(x): return x.pending.is_empty())
+        var ready: bool = pref.entities.values().all(func(x): return x.pending.is_empty()) and pref.gameplay.regions.values().all(func(x): return x.plan_complete and x.pending.is_empty())
         var complete: bool = not pref.gameplay.regions.is_empty() and pref.gameplay.regions.size() == pref.desired.size() and ready
         if complete or Time.get_ticks_msec() >= report_at:
             print("NEIGHBOR GAMEPLAY WARM ", JSON.stringify({"label": label, "complete": complete,
@@ -352,6 +372,7 @@ func two_neighbors() -> void:
     blocked.shutdown()
     check(blocked.owned() == 0, "saturated cache teardown drains all actors")
     pref.shutdown()
+    stage("two_neighbors:complete")
 
 func cancellation() -> void:
     stage("cancellation:seed")
@@ -363,16 +384,33 @@ func cancellation() -> void:
     var state: Dictionary = scene.story_flags.duplicate(true)
     var wallet: int = scene.currency_count
     stage("cancellation:request")
+    var started := Time.get_ticks_msec()
+    var report_at := started + 2000
+    var waited_frames := 0
     scene._request_world_travel(ROUTES.config_path(id),Vector2(330,720))
+    transition_progress("requested", started, waited_frames)
     for unused in 2000:
         if pref.gameplay.hits > before_hits or scene.world_loader.phase == "idle": break
+        if Time.get_ticks_msec() >= report_at:
+            transition_progress("await_partial_adoption", started, waited_frames)
+            report_at = Time.get_ticks_msec() + 2000
         await process_frame
+        waited_frames += 1
+    transition_progress("partial_adoption_finished", started, waited_frames)
     check(pref.gameplay.hits > before_hits and scene.world_loader.phase == "loading", "cancel fixture reaches partially adopted target")
     stage("cancellation:rollback")
     scene.world_loader.cancel_transition()
+    started = Time.get_ticks_msec()
+    report_at = started + 2000
+    waited_frames = 0
     for unused in 2000:
         if scene.world_loader.phase == "idle": break
+        if Time.get_ticks_msec() >= report_at:
+            transition_progress("await_rollback", started, waited_frames)
+            report_at = Time.get_ticks_msec() + 2000
         await process_frame
+        waited_frames += 1
+    transition_progress("rollback_finished", started, waited_frames)
     check(scene.world_loader.last_transition.get("rolled_back",false) and String(scene.config.id) == source, "cancelled target rolls back source")
     check(scene.story_flags == state and scene.currency_count == wallet, "cancelled gameplay preserves source progress")
     var metadata_after: Dictionary = scene.world_shared_metadata_snapshot()
@@ -380,6 +418,7 @@ func cancellation() -> void:
     var saved := STATE.new()
     check(saved.read(SAVE) and saved.data.current_region == source, "partial destination never committed to disk")
     pref.shutdown()
+    stage("cancellation:complete")
 
 func cache_churn() -> void:
     scene._travel_world(ROUTES.config_path("demo_ch01_moss_bell_court"),Vector2(200,3360))
@@ -521,6 +560,9 @@ func run() -> void:
     scene.free()
     current_scene = null
     await frames(2)
+    # Rendered frames are not AudioServer mix ticks. The production teardown
+    # already retires voices; assert that their weakly tracked ownership ends.
+    check(await preload("res://scripts/audio_retirement.gd").drain(self, 1000), "AudioServer releases retired gameplay playback before shutdown")
     for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
     stage("complete")
     print("NEIGHBOR GAMEPLAY METRICS ",JSON.stringify({"landings":metrics,"final":stats,"churn":churn,"fixture_positioning":true,"combat_acceptance":false}))

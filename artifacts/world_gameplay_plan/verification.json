@@ -1,0 +1,1616 @@
+{
+  "date_utc": "2026-10-16",
+  "base_commit": "b8d6698504f52d53a2b6ceea87b78dc7f0610806",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe real OpenGL via Xvfb for GL runs",
+  "scope": "Budgeted detached gameplay selection; fixtures are not natural play or a frame-time guarantee.",
+  "source_sha256": {
+    "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+    "godot/scripts/world_gameplay_plan_job.gd": "ab562c6a48cf83e09f26d18ab22f90d4862e0a6fb1aec299df48b2426c810d02",
+    "godot/scripts/world_gameplay_plan_validation.gd": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "761810f862f041f182da21754997d67ddbd75d673a96ba174948a58c5e1b3499",
+    "godot/scripts/world_neighbor_entities_validation.gd": "1898689b33cb97b3b75be43cfc7ab3513bd69df65d620d8fe91101e040127000",
+    "godot/scripts/world_neighbor_gameplay_live_validation.gd": "7b99d2864a1c91063651881364f48d3e3ba4398a81fcc2cc9e4632f6e8a465af",
+    "tools/validate_neighbor_gameplay_pixels.gd": "173ee7a803fdc993e4919d18ea6c4dcdcefb3ba6cf0b7e557ea8ee25b9253ebf",
+    "tools/run_godot_regressions.py": "f01deb8a5f276ef714eecc7542e946869ab1490130708a536e63b2e3f2d3ee41",
+    "tools/godot_suite_success_markers.json": "8eaf7978232ff378224894f92593ba45b15d26eac670a60e27796917740bebb1",
+    "tools/test_regression_runner.py": "75f2f730cd7a81372ed087d5c2edf0570f4e0356f773d08ab0764ea2e83d2211",
+    ".github/workflows/world-gameplay-plan.yml": "5400550b162b87778e45e85b91d05a1892ff97ffc5204e9ef988e3690dd088f5",
+    ".github/workflows/godot-integration.yml": "ea8bf93fc88866a6e8dd82e3c769f239ad82fd009b64380da16d529ab8893ad3"
+  },
+  "strict_process_results": {
+    "combined_import_headless_gl11": {
+      "exit_code": 0,
+      "verified_utc": "2026-10-16T05:31:22Z",
+      "command_scope": "Strict two-pass recovery import; strict headless world_gameplay_plan; strict software-GL eleven related suites. All commands completed successfully in a serial fail-fast pipeline."
+    },
+    "live_gpu": {
+      "exit_code": 0,
+      "verified_utc": "2026-10-16T05:33:36.938716+00:00",
+      "command_scope": "Strict actual-GL normal-damage live validation, required 48-check completion marker, original 300-second timeout."
+    },
+    "artwork_gpu": {
+      "exit_code": 0,
+      "verified_utc": "2026-10-16T05:34:41.393561+00:00",
+      "command_scope": "Strict actual-GL six-region artwork comparison; required six zero-failure probes, original 120-second timeout."
+    },
+    "npm": {
+      "exit_code": 0,
+      "verified_utc": "2026-10-16T05:34:47.306952+00:00",
+      "command_scope": "npm test"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "verified_utc": "2026-10-16T05:34:48.523108+00:00",
+      "command_scope": "npm run test:campaign"
+    }
+  },
+  "strict_runner_summaries": {
+    "gl11": {
+      "log_sha256": "754d49deaf9bc05ba38067f3131944585d7f5d55de40f5f45cf744a16f825e0b",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details).",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "completion_markers": [
+        "GODOT_REGRESSIONS suites=11 failures=0"
+      ]
+    },
+    "headless": {
+      "log_sha256": "c8752155485bb7ad484372c1cf5cb76037824519555b72a52fdb2b8400c9a70d",
+      "engine_errors": 0,
+      "warnings": [],
+      "completion_markers": [
+        "GODOT_REGRESSIONS suites=1 failures=0"
+      ]
+    },
+    "import": {
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "engine_errors": 0,
+      "warnings": [],
+      "completion_markers": [
+        "GODOT_IMPORT passes=2 failures=0"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "label": "world_gameplay_plan",
+      "mode": "real_software_gl",
+      "log_sha256": "bfeb691e3004d417b4573efa6c759116767d0bd90dbf739da4371008ea42fae1",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD_GAMEPLAY_PLAN checks=1227 failures=0"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_variant_copy",
+      "mode": "real_software_gl",
+      "log_sha256": "c8b2af2efb2a12f3c2756417dafbf8186ca6148711e146320b023cfdcee9fde6",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD_VARIANT_COPY PASS: 7 checks; batches=5 edges=9"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_neighbor_config",
+      "mode": "real_software_gl",
+      "log_sha256": "8861f83326232aefcbc717823b73dcc7c93addd636460614f39c7f580c78dbbc",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD NEIGHBOR CONFIG PASS checks=85"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_neighbor_entities",
+      "mode": "real_software_gl",
+      "log_sha256": "417d8363fb9a6cb1e4426353cc0169226eb6145999885e0d59b6a246fc606b65",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "completion_markers": [
+        "WORLD NEIGHBOR ENTITIES PASS: 1171 checks"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_neighbor_gameplay",
+      "mode": "real_software_gl",
+      "log_sha256": "e3c01bbf8d37069c01c6970aec2fdcff35627fc204b1604b1487fd511e2c3422",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD_NEIGHBOR_GAMEPLAY checks=7574 failures=0"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_neighbor_gameplay_stress",
+      "mode": "software_gl_without_render_loop_lifecycle_stress",
+      "log_sha256": "48e90e5029c180e87802a7543a2136ddd12696d4e4c973d004b4fb58b7f68456",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "completion_markers": [
+        "WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=17736 failures=0"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_neighbor_collision",
+      "mode": "real_software_gl",
+      "log_sha256": "8e45a79fb667462f2722624715db1c913a1c09da60e885618c07fa8d99dd947d",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "completion_markers": [
+        "WORLD NEIGHBOR COLLISION PASS: 3396 checks"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_streaming",
+      "mode": "real_software_gl",
+      "log_sha256": "db3cc2037e46883ebacc31bd0e2029da0a23a2ec7c4169bb8f56a2d3ad38a224",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "completion_markers": [
+        "WORLD STREAMING PASS: 2554 checks; six-region visual coverage, unchanged collisions, bounded prefetch and stale-job retirement"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_passage",
+      "mode": "real_software_gl",
+      "log_sha256": "b99e8791ca9048c1fe4cb03d2e2661c5a0159107ddcd3493f246f117c2612d22",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD PASSAGE PASS: 52 checks; physical input roundtrip, reversal, save isolation and terminal continuity"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_async_loading",
+      "mode": "real_software_gl",
+      "log_sha256": "6c02caa778af8fcda3d0a512d3ed197e26d612bd8d816a72b3f6f2b14ed00ede",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.",
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ],
+      "completion_markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_host",
+      "mode": "real_software_gl",
+      "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+      ],
+      "passed": true
+    },
+    {
+      "label": "world_gameplay_plan_headless",
+      "mode": "headless_logic",
+      "log_sha256": "9dd18b0608d937c00f28e0e4e355016aa29dd9796f349120e9c14f05d0e4df5f",
+      "engine_errors": 0,
+      "warnings": [],
+      "completion_markers": [
+        "WORLD_GAMEPLAY_PLAN checks=1218 failures=0"
+      ],
+      "passed": true
+    },
+    {
+      "label": "strict_import_runner",
+      "mode": "headless_recovery_resource_import",
+      "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "engine_errors": 0,
+      "warnings": [],
+      "completion_markers": [
+        "GODOT_IMPORT passes=2 failures=0"
+      ],
+      "passed": true
+    },
+    {
+      "label": "live_adoption",
+      "mode": "real_software_gl",
+      "log_sha256": "34a8577eb749ad9edc0442d5b2e86a4985ef108441190347b540a323761b5f41",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=48 failures=0"
+      ],
+      "passed": true
+    },
+    {
+      "label": "six_region_artwork",
+      "mode": "real_software_gl",
+      "log_sha256": "3967bf3406af1fea13d0dcf0fca37fb1b009f3d9464ef0f1f5c8f6e93d3c6611",
+      "engine_errors": 0,
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "completion_markers": [
+        "NEIGHBOR_GAMEPLAY_PIXELS probes=6 failures=0"
+      ],
+      "passed": true
+    }
+  ],
+  "negative_mutations": [
+    {
+      "name": "lease",
+      "base_source_sha256": {
+        "world_gameplay_prefetch.gd": "b763d4fd5c23fd1e7e8bc0a22f65ee0e7e48bad5db216c887c19b1b6ceb78b16",
+        "world_gameplay_plan_job.gd": "ab562c6a48cf83e09f26d18ab22f90d4862e0a6fb1aec299df48b2426c810d02",
+        "world_gameplay_plan_validation.gd": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a"
+      },
+      "changed_script": "world_gameplay_prefetch.gd",
+      "mutation_sha256": "42dd48d9f7d7f9468b9ff8c4a9677c33203481477cdfd092a18d30cc6825249f",
+      "validation_sha256": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a",
+      "exact_patch": "--- normal/world_gameplay_prefetch.gd\n+++ lease/world_gameplay_prefetch.gd\n@@ -64,8 +64,8 @@\n     var record: Dictionary = _configs[id]\n     # Published configs are immutable. Identity catches a replacement with the\n     # same path/stamp; value checks catch a changed entrance or source lease.\n-    return not record.get(\"raw\", {}).is_empty() and is_same(cache.source_record, record) \\\n-        and is_same(cache.raw, record.get(\"raw\")) and is_same(cache.prepared, record.get(\"prepared\")) \\\n+    return not record.get(\"raw\", {}).is_empty() and true \\\n+        and true and true \\\n         and cache.entry == candidate.entry and cache.path == candidate.path \\\n         and cache.path == record.get(\"path\", candidate.path) and cache.stamp == record.stamp \\\n         and cache.stamp == FileAccess.get_modified_time(cache.path)\n",
+      "source_qualification": "Final 32-operation logic; only the runtime admission-budget comment was clarified afterwards. Current source hashes and final passing runs are recorded separately.",
+      "log_sha256": "7ad0555afbb37f428f93b0e05c934a3837f0f945e6aa3cedfe2939514b5b44f6",
+      "exit_code": 1,
+      "completed_to_metrics": true,
+      "targeted_failures": 21,
+      "parse_or_setup_errors": 0
+    },
+    {
+      "name": "compatibility",
+      "base_source_sha256": {
+        "world_gameplay_prefetch.gd": "b763d4fd5c23fd1e7e8bc0a22f65ee0e7e48bad5db216c887c19b1b6ceb78b16",
+        "world_gameplay_plan_job.gd": "ab562c6a48cf83e09f26d18ab22f90d4862e0a6fb1aec299df48b2426c810d02",
+        "world_gameplay_plan_validation.gd": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a"
+      },
+      "changed_script": "world_gameplay_plan_job.gd",
+      "mutation_sha256": "fc81b25ff15e61541a4ce161e8a497832231112853252f9a3da20a21e0074921",
+      "validation_sha256": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a",
+      "exact_patch": "--- normal/world_gameplay_plan_job.gd\n+++ compatibility/world_gameplay_plan_job.gd\n@@ -131,7 +131,7 @@\n     # cutoff cannot affect the distinct winners. This needs no O(n) key index.\n     for retained_candidate in bucket:\n         if candidate.key == retained_candidate.key and candidate.distance == retained_candidate.distance:\n-            _needs_compatibility = true\n+            _needs_compatibility = false\n             break\n     # Each of the tie check and insertion has at most four comparisons.\n     _insert_bounded(bucket, candidate, LIMITS[_field_i])\n",
+      "source_qualification": "Final 32-operation logic; only the runtime admission-budget comment was clarified afterwards. Current source hashes and final passing runs are recorded separately.",
+      "log_sha256": "321e53c6faebed4e147b2ffc1e0e72268ac636d98ba7a07f12500cee78174a29",
+      "exit_code": 1,
+      "completed_to_metrics": true,
+      "targeted_failures": 14,
+      "parse_or_setup_errors": 0
+    }
+  ],
+  "prior_failures": [
+    {
+      "stage": "initial_cold_import",
+      "result": "Strict runner rejected 10 errors from unwritable default HOME despite engine exit 0.",
+      "resolution": "Used writable workspace XDG paths, retained strict two-pass import."
+    },
+    {
+      "stage": "early_deep_value_fixture",
+      "result": "Godot recursive equality ceiling produced script errors despite a nominal completion marker.",
+      "resolution": "Explicit-stack exact comparison; old nominal marker not accepted."
+    },
+    {
+      "stage": "accepted_overlay_ties",
+      "result": "Bounded stable selection differed from legacy unstable ordering for accepted duplicate comparator keys.",
+      "resolution": "Incremental category rescan plus exact legacy reference sort; duplicate detached actors retained in budgeted retirement."
+    },
+    {
+      "stage": "first_ten_suite_candidate",
+      "result": "world_neighbor_entities failed its original 10-second warm deadline; 9 others passed.",
+      "resolution": "Added bounded phase diagnostics; candidate and unchanged HEAD runtime independently passed all checks. First failure cause remains unproven; deadline unchanged."
+    },
+    {
+      "stage": "eleven_suite_eight_operation_candidate",
+      "result": "world_neighbor_gameplay did not complete before original 180-second suite deadline; 10 others passed.",
+      "resolution": "Diagnostic rerun located normal cancellation rollback at 178.255s after 76 landings. Only planning count cap raised from 8 to 32; shared per-step 2ms admission, 15s warm, 2000-frame cancellation and 180s suite boundaries retained."
+    },
+    {
+      "stage": "thirty_two_operation_controlled_comparisons",
+      "result": "Two complete passes in 171.663 and 170.940 seconds; 76 landing identities and adopted actor descriptors unchanged. New ObjectDB warnings in this suite.",
+      "resolution": "Verbose output identified two BGM/Ambience Ogg playback chains, not Node/planner objects. Added real existing audio_retirement drain assertion after scene teardown; final current run checks actual release. Rebuild timing variance means total speedup is not solely attributable to count cap."
+    }
+  ],
+  "limits": [
+    "2ms is admission only; a single operation can exceed it (an independent 32-step deep-copy run observed 5107 microseconds).",
+    "Comparator-equal compatibility sorting is unpreemptible and retains O(n) references; ordinary selection retains at most 12 winners.",
+    "No guarantee for target hardware FPS, first-start latency, full-region residency, physical exit handoff without rebuilding, natural six-region completion or long-duration stability.",
+    "The local final run covers 11 related suites, strict imports, normal-damage live adoption and 6 artwork probes, not the complete default suite. Exact-head CI is checked separately.",
+    "Pre-existing ObjectDB warnings in other suites remain visible and are not treated as a proved planner defect or globally fixed audio lifecycle."
+  ],
+  "validation_source_scope": "Final passing runs validate the source hashes recorded here. Earlier failure diagnostics, 8-to-32 controlled comparisons and negative mutations are separately qualified; no old pass substitutes for a current run.",
+  "planner_headless_metrics": {
+    "accepted_duplicate_cases": 6,
+    "authored_configurations": 6,
+    "authored_portal_landings": 68,
+    "compatibility_sort_is_unpreemptible": true,
+    "copy_edges_per_operation_cap": 64,
+    "lease_cancellation_cases": 36,
+    "planning_operation_cap": 32,
+    "pure_cancellation_stages": 5,
+    "scope": "pure planner and detached mock-host fixtures; not natural play or FPS",
+    "authored_74_aggregate": {
+      "baseline_total_usec": 8786,
+      "candidate_begin_total_usec": 169,
+      "candidate_step_total_usec": 39116,
+      "candidate_max_one_operation_usec": 446,
+      "compatibility_sorts": 0
+    },
+    "other_scenarios": [
+      {
+        "baseline_plan_usec": 13,
+        "candidate_begin_usec": 2,
+        "candidate_max_one_operation_usec": 9,
+        "candidate_step_total_usec": 31,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 0,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 0,
+        "operations": 14,
+        "ordinary_max_one_operation_usec": 9,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 9,
+            "operations": 2,
+            "total_usec": 14
+          },
+          "merge": {
+            "max_usec": 1,
+            "operations": 5,
+            "total_usec": 5
+          },
+          "publish": {
+            "max_usec": 3,
+            "operations": 1,
+            "total_usec": 3
+          },
+          "scan": {
+            "max_usec": 3,
+            "operations": 5,
+            "total_usec": 8
+          },
+          "sort": {
+            "max_usec": 1,
+            "operations": 1,
+            "total_usec": 1
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 0,
+        "scenario": "empty_configuration",
+        "slices": 14,
+        "winners": 0
+      },
+      {
+        "baseline_plan_usec": 16,
+        "candidate_begin_usec": 2,
+        "candidate_max_one_operation_usec": 5,
+        "candidate_step_total_usec": 44,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 0,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 0,
+        "operations": 22,
+        "ordinary_max_one_operation_usec": 5,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 5,
+            "operations": 2,
+            "total_usec": 8
+          },
+          "merge": {
+            "max_usec": 1,
+            "operations": 5,
+            "total_usec": 5
+          },
+          "publish": {
+            "max_usec": 2,
+            "operations": 1,
+            "total_usec": 2
+          },
+          "scan": {
+            "max_usec": 5,
+            "operations": 13,
+            "total_usec": 28
+          },
+          "sort": {
+            "max_usec": 1,
+            "operations": 1,
+            "total_usec": 1
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 8,
+        "scenario": "excluded_kinds_and_incomplete_descriptors",
+        "slices": 22,
+        "winners": 0
+      },
+      {
+        "baseline_plan_usec": 31,
+        "candidate_begin_usec": 1,
+        "candidate_max_one_operation_usec": 145,
+        "candidate_step_total_usec": 379,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 54,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 3,
+        "operations": 25,
+        "ordinary_max_one_operation_usec": 145,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 138,
+            "operations": 2,
+            "total_usec": 146
+          },
+          "merge": {
+            "max_usec": 145,
+            "operations": 8,
+            "total_usec": 178
+          },
+          "publish": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          },
+          "scan": {
+            "max_usec": 9,
+            "operations": 13,
+            "total_usec": 45
+          },
+          "sort": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 8,
+        "scenario": "half_open_window_edges",
+        "slices": 25,
+        "winners": 3
+      },
+      {
+        "baseline_plan_usec": 783,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 160,
+        "candidate_step_total_usec": 1210,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 216,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 12,
+        "operations": 129,
+        "ordinary_max_one_operation_usec": 160,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 160,
+            "operations": 5,
+            "total_usec": 519
+          },
+          "merge": {
+            "max_usec": 2,
+            "operations": 17,
+            "total_usec": 20
+          },
+          "publish": {
+            "max_usec": 7,
+            "operations": 1,
+            "total_usec": 7
+          },
+          "scan": {
+            "max_usec": 13,
+            "operations": 105,
+            "total_usec": 650
+          },
+          "sort": {
+            "max_usec": 14,
+            "operations": 1,
+            "total_usec": 14
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 100,
+        "scenario": "equal_distance_distinct_keys",
+        "slices": 129,
+        "winners": 12
+      },
+      {
+        "baseline_plan_usec": 466,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 150,
+        "candidate_step_total_usec": 846,
+        "compatibility_max_sort_operation_usec": 86,
+        "compatibility_scanned": 40,
+        "compatibility_sorts": 1,
+        "copy_edges": 72,
+        "max_compatibility_candidates": 40,
+        "max_retained_candidates": 4,
+        "operations": 101,
+        "ordinary_max_one_operation_usec": 150,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 45,
+            "operations": 41,
+            "total_usec": 203
+          },
+          "compatibility_sort": {
+            "max_usec": 86,
+            "operations": 1,
+            "total_usec": 86
+          },
+          "copy": {
+            "max_usec": 150,
+            "operations": 3,
+            "total_usec": 213
+          },
+          "merge": {
+            "max_usec": 2,
+            "operations": 9,
+            "total_usec": 9
+          },
+          "publish": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          },
+          "scan": {
+            "max_usec": 12,
+            "operations": 45,
+            "total_usec": 325
+          },
+          "sort": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 40,
+        "scenario": "duplicate_identical_descriptors",
+        "slices": 101,
+        "winners": 4
+      },
+      {
+        "baseline_plan_usec": 2154,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 225,
+        "candidate_step_total_usec": 3163,
+        "compatibility_max_sort_operation_usec": 118,
+        "compatibility_scanned": 160,
+        "compatibility_sorts": 4,
+        "copy_edges": 228,
+        "max_compatibility_candidates": 40,
+        "max_retained_candidates": 12,
+        "operations": 357,
+        "ordinary_max_one_operation_usec": 225,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 24,
+            "operations": 164,
+            "total_usec": 690
+          },
+          "compatibility_sort": {
+            "max_usec": 118,
+            "operations": 4,
+            "total_usec": 382
+          },
+          "copy": {
+            "max_usec": 225,
+            "operations": 5,
+            "total_usec": 604
+          },
+          "merge": {
+            "max_usec": 2,
+            "operations": 17,
+            "total_usec": 18
+          },
+          "publish": {
+            "max_usec": 7,
+            "operations": 1,
+            "total_usec": 7
+          },
+          "scan": {
+            "max_usec": 98,
+            "operations": 165,
+            "total_usec": 1440
+          },
+          "sort": {
+            "max_usec": 22,
+            "operations": 1,
+            "total_usec": 22
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 160,
+        "scenario": "duplicate_different_payload_all_categories",
+        "slices": 357,
+        "winners": 12
+      },
+      {
+        "baseline_plan_usec": 189420,
+        "candidate_begin_usec": 6,
+        "candidate_max_one_operation_usec": 1858,
+        "candidate_step_total_usec": 110009,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 72,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 4,
+        "operations": 12019,
+        "ordinary_max_one_operation_usec": 1858,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 161,
+            "operations": 3,
+            "total_usec": 206
+          },
+          "merge": {
+            "max_usec": 4,
+            "operations": 9,
+            "total_usec": 14
+          },
+          "publish": {
+            "max_usec": 8,
+            "operations": 1,
+            "total_usec": 8
+          },
+          "scan": {
+            "max_usec": 1858,
+            "operations": 12005,
+            "total_usec": 109773
+          },
+          "sort": {
+            "max_usec": 8,
+            "operations": 1,
+            "total_usec": 8
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 12000,
+        "scenario": "large_12000_candidate_list",
+        "slices": 12019,
+        "winners": 4
+      },
+      {
+        "baseline_plan_usec": 25850,
+        "candidate_begin_usec": 4,
+        "candidate_max_one_operation_usec": 673,
+        "candidate_step_total_usec": 91722,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 40536,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 12,
+        "operations": 691,
+        "ordinary_max_one_operation_usec": 673,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 673,
+            "operations": 635,
+            "total_usec": 91390
+          },
+          "merge": {
+            "max_usec": 3,
+            "operations": 17,
+            "total_usec": 21
+          },
+          "publish": {
+            "max_usec": 19,
+            "operations": 1,
+            "total_usec": 19
+          },
+          "scan": {
+            "max_usec": 42,
+            "operations": 37,
+            "total_usec": 271
+          },
+          "sort": {
+            "max_usec": 21,
+            "operations": 1,
+            "total_usec": 21
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 32,
+        "scenario": "deep_wide_payloads",
+        "slices": 691,
+        "winners": 12
+      },
+      {
+        "baseline_plan_usec": 82,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 224,
+        "candidate_step_total_usec": 789,
+        "compatibility_max_sort_operation_usec": 11,
+        "compatibility_scanned": 24,
+        "compatibility_sorts": 1,
+        "copy_edges": 65,
+        "max_compatibility_candidates": 5,
+        "max_retained_candidates": 3,
+        "operations": 68,
+        "ordinary_max_one_operation_usec": 224,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 6,
+            "operations": 25,
+            "total_usec": 85
+          },
+          "compatibility_sort": {
+            "max_usec": 11,
+            "operations": 1,
+            "total_usec": 11
+          },
+          "copy": {
+            "max_usec": 160,
+            "operations": 3,
+            "total_usec": 179
+          },
+          "merge": {
+            "max_usec": 143,
+            "operations": 8,
+            "total_usec": 153
+          },
+          "publish": {
+            "max_usec": 9,
+            "operations": 1,
+            "total_usec": 9
+          },
+          "scan": {
+            "max_usec": 224,
+            "operations": 29,
+            "total_usec": 346
+          },
+          "sort": {
+            "max_usec": 6,
+            "operations": 1,
+            "total_usec": 6
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 24,
+        "scenario": "accepted_raw_overlay_duplicate_1",
+        "slices": 68,
+        "winners": 3
+      },
+      {
+        "baseline_plan_usec": 471,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 136,
+        "candidate_step_total_usec": 715,
+        "compatibility_max_sort_operation_usec": 45,
+        "compatibility_scanned": 39,
+        "compatibility_sorts": 1,
+        "copy_edges": 65,
+        "max_compatibility_candidates": 20,
+        "max_retained_candidates": 3,
+        "operations": 98,
+        "ordinary_max_one_operation_usec": 136,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 19,
+            "operations": 40,
+            "total_usec": 177
+          },
+          "compatibility_sort": {
+            "max_usec": 45,
+            "operations": 1,
+            "total_usec": 45
+          },
+          "copy": {
+            "max_usec": 136,
+            "operations": 3,
+            "total_usec": 153
+          },
+          "merge": {
+            "max_usec": 3,
+            "operations": 8,
+            "total_usec": 10
+          },
+          "publish": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          },
+          "scan": {
+            "max_usec": 80,
+            "operations": 44,
+            "total_usec": 321
+          },
+          "sort": {
+            "max_usec": 4,
+            "operations": 1,
+            "total_usec": 4
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 39,
+        "scenario": "accepted_raw_overlay_duplicate_16",
+        "slices": 98,
+        "winners": 3
+      },
+      {
+        "baseline_plan_usec": 341,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 133,
+        "candidate_step_total_usec": 799,
+        "compatibility_max_sort_operation_usec": 82,
+        "compatibility_scanned": 51,
+        "compatibility_sorts": 1,
+        "copy_edges": 65,
+        "max_compatibility_candidates": 32,
+        "max_retained_candidates": 3,
+        "operations": 122,
+        "ordinary_max_one_operation_usec": 133,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 19,
+            "operations": 52,
+            "total_usec": 218
+          },
+          "compatibility_sort": {
+            "max_usec": 82,
+            "operations": 1,
+            "total_usec": 82
+          },
+          "copy": {
+            "max_usec": 133,
+            "operations": 3,
+            "total_usec": 149
+          },
+          "merge": {
+            "max_usec": 2,
+            "operations": 8,
+            "total_usec": 10
+          },
+          "publish": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          },
+          "scan": {
+            "max_usec": 16,
+            "operations": 56,
+            "total_usec": 331
+          },
+          "sort": {
+            "max_usec": 4,
+            "operations": 1,
+            "total_usec": 4
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 51,
+        "scenario": "accepted_raw_overlay_duplicate_28",
+        "slices": 122,
+        "winners": 3
+      },
+      {
+        "baseline_plan_usec": 473,
+        "candidate_begin_usec": 3,
+        "candidate_max_one_operation_usec": 207,
+        "candidate_step_total_usec": 1199,
+        "compatibility_max_sort_operation_usec": 149,
+        "compatibility_scanned": 63,
+        "compatibility_sorts": 1,
+        "copy_edges": 65,
+        "max_compatibility_candidates": 44,
+        "max_retained_candidates": 3,
+        "operations": 146,
+        "ordinary_max_one_operation_usec": 207,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 25,
+            "operations": 64,
+            "total_usec": 276
+          },
+          "compatibility_sort": {
+            "max_usec": 149,
+            "operations": 1,
+            "total_usec": 149
+          },
+          "copy": {
+            "max_usec": 207,
+            "operations": 3,
+            "total_usec": 226
+          },
+          "merge": {
+            "max_usec": 2,
+            "operations": 8,
+            "total_usec": 10
+          },
+          "publish": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          },
+          "scan": {
+            "max_usec": 114,
+            "operations": 68,
+            "total_usec": 529
+          },
+          "sort": {
+            "max_usec": 4,
+            "operations": 1,
+            "total_usec": 4
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 63,
+        "scenario": "accepted_raw_overlay_duplicate_40",
+        "slices": 146,
+        "winners": 3
+      },
+      {
+        "baseline_plan_usec": 749,
+        "candidate_begin_usec": 4,
+        "candidate_max_one_operation_usec": 319,
+        "candidate_step_total_usec": 1505,
+        "compatibility_max_sort_operation_usec": 319,
+        "compatibility_scanned": 87,
+        "compatibility_sorts": 1,
+        "copy_edges": 65,
+        "max_compatibility_candidates": 68,
+        "max_retained_candidates": 3,
+        "operations": 194,
+        "ordinary_max_one_operation_usec": 135,
+        "phase_timings": {
+          "compatibility_scan": {
+            "max_usec": 31,
+            "operations": 88,
+            "total_usec": 374
+          },
+          "compatibility_sort": {
+            "max_usec": 319,
+            "operations": 1,
+            "total_usec": 319
+          },
+          "copy": {
+            "max_usec": 135,
+            "operations": 3,
+            "total_usec": 153
+          },
+          "merge": {
+            "max_usec": 2,
+            "operations": 8,
+            "total_usec": 10
+          },
+          "publish": {
+            "max_usec": 6,
+            "operations": 1,
+            "total_usec": 6
+          },
+          "scan": {
+            "max_usec": 32,
+            "operations": 92,
+            "total_usec": 638
+          },
+          "sort": {
+            "max_usec": 5,
+            "operations": 1,
+            "total_usec": 5
+          }
+        },
+        "phases": [
+          "scan",
+          "compatibility_scan",
+          "compatibility_sort",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 87,
+        "scenario": "accepted_raw_overlay_duplicate_64",
+        "slices": 194,
+        "winners": 3
+      },
+      {
+        "baseline_plan_usec": 161,
+        "candidate_begin_usec": 2,
+        "candidate_max_one_operation_usec": 157,
+        "candidate_step_total_usec": 749,
+        "compatibility_max_sort_operation_usec": 0,
+        "compatibility_scanned": 0,
+        "compatibility_sorts": 0,
+        "copy_edges": 223,
+        "max_compatibility_candidates": 0,
+        "max_retained_candidates": 12,
+        "operations": 63,
+        "ordinary_max_one_operation_usec": 157,
+        "phase_timings": {
+          "copy": {
+            "max_usec": 157,
+            "operations": 5,
+            "total_usec": 517
+          },
+          "merge": {
+            "max_usec": 3,
+            "operations": 17,
+            "total_usec": 20
+          },
+          "publish": {
+            "max_usec": 6,
+            "operations": 1,
+            "total_usec": 6
+          },
+          "scan": {
+            "max_usec": 14,
+            "operations": 39,
+            "total_usec": 182
+          },
+          "sort": {
+            "max_usec": 24,
+            "operations": 1,
+            "total_usec": 24
+          }
+        },
+        "phases": [
+          "scan",
+          "merge",
+          "sort",
+          "copy",
+          "publish"
+        ],
+        "scanned": 34,
+        "scenario": "accepted_cross_field_equal_key_payloads",
+        "slices": 63,
+        "winners": 12
+      }
+    ]
+  },
+  "strict_import_logs": [
+    {
+      "log_sha256": "3e636d7a82525ef22a30b0cb2a23854c2010a45ac3de78d85b60ce5e13a9f149",
+      "engine_errors": 0,
+      "warnings": [],
+      "completion_markers": [],
+      "pass": "import-1.log"
+    },
+    {
+      "log_sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "engine_errors": 0,
+      "warnings": [],
+      "completion_markers": [],
+      "pass": "import-2.log"
+    }
+  ],
+  "entity_warm_comparison": {
+    "candidate_earlier_eight_operation": [
+      {
+        "label": "initial_two_neighbors",
+        "complete": true,
+        "elapsed_ms": 4217,
+        "steps": 210
+      },
+      {
+        "label": "reload_source_neighbor",
+        "complete": true,
+        "elapsed_ms": 2189,
+        "steps": 142
+      },
+      {
+        "label": "stale_config_rebuild",
+        "complete": true,
+        "elapsed_ms": 2251,
+        "steps": 143
+      }
+    ],
+    "unchanged_main_runtime": [
+      {
+        "label": "initial_two_neighbors",
+        "complete": true,
+        "elapsed_ms": 7495,
+        "steps": 208
+      },
+      {
+        "label": "reload_source_neighbor",
+        "complete": true,
+        "elapsed_ms": 2201,
+        "steps": 142
+      },
+      {
+        "label": "stale_config_rebuild",
+        "complete": true,
+        "elapsed_ms": 2331,
+        "steps": 145
+      }
+    ]
+  },
+  "gameplay_stage_diagnostics": [
+    {
+      "label": "eight_operation_diagnostic",
+      "result": "original_180s_timeout",
+      "log_sha256": "47191c1fecdd1d4c436670c6556eb5c24048235ba6f79d6509df1b479ce09ab2",
+      "landing_warm_elapsed_ms": 26086,
+      "landing_warm_steps": 962,
+      "last_stages": [
+        {
+          "checks": 6972,
+          "details": {},
+          "elapsed_ms": 168315,
+          "failures": 0,
+          "previous": "invalidation:seed",
+          "previous_ms": 1808,
+          "stage": "invalidation:complete"
+        },
+        {
+          "checks": 6972,
+          "details": {},
+          "elapsed_ms": 168316,
+          "failures": 0,
+          "previous": "invalidation:complete",
+          "previous_ms": 1,
+          "stage": "two_neighbors:arrival"
+        },
+        {
+          "checks": 6972,
+          "details": {},
+          "elapsed_ms": 168969,
+          "failures": 0,
+          "previous": "two_neighbors:arrival",
+          "previous_ms": 653,
+          "stage": "two_neighbors:warm"
+        },
+        {
+          "checks": 7615,
+          "details": {},
+          "elapsed_ms": 173484,
+          "failures": 0,
+          "previous": "two_neighbors:warm",
+          "previous_ms": 4515,
+          "stage": "two_neighbors:complete"
+        },
+        {
+          "checks": 7615,
+          "details": {},
+          "elapsed_ms": 173484,
+          "failures": 0,
+          "previous": "two_neighbors:complete",
+          "previous_ms": 0,
+          "stage": "cancellation:seed"
+        },
+        {
+          "checks": 7661,
+          "details": {},
+          "elapsed_ms": 173899,
+          "failures": 0,
+          "previous": "cancellation:seed",
+          "previous_ms": 415,
+          "stage": "cancellation:request"
+        },
+        {
+          "checks": 7662,
+          "details": {},
+          "elapsed_ms": 178255,
+          "failures": 0,
+          "previous": "cancellation:request",
+          "previous_ms": 4356,
+          "stage": "cancellation:rollback"
+        }
+      ],
+      "source_qualification": "Earlier diagnostic fixture; controlled cap comparison preceded the final audio-release assertion."
+    },
+    {
+      "label": "thirty_two_operation_control",
+      "result": "complete_with_audio_warning",
+      "log_sha256": "7c31bfecbd4a354d17d9a36c08ab7b73bf2921b41e6ff2bc9ac0b6f24e5f726b",
+      "landing_warm_elapsed_ms": 22422,
+      "landing_warm_steps": 947,
+      "last_stages": [
+        {
+          "checks": 7549,
+          "details": {},
+          "elapsed_ms": 164919,
+          "failures": 0,
+          "previous": "two_neighbors:warm",
+          "previous_ms": 4632,
+          "stage": "two_neighbors:complete"
+        },
+        {
+          "checks": 7549,
+          "details": {},
+          "elapsed_ms": 164919,
+          "failures": 0,
+          "previous": "two_neighbors:complete",
+          "previous_ms": 0,
+          "stage": "cancellation:seed"
+        },
+        {
+          "checks": 7598,
+          "details": {},
+          "elapsed_ms": 165274,
+          "failures": 0,
+          "previous": "cancellation:seed",
+          "previous_ms": 355,
+          "stage": "cancellation:request"
+        },
+        {
+          "checks": 7599,
+          "details": {},
+          "elapsed_ms": 169460,
+          "failures": 0,
+          "previous": "cancellation:request",
+          "previous_ms": 4186,
+          "stage": "cancellation:rollback"
+        },
+        {
+          "checks": 7603,
+          "details": {},
+          "elapsed_ms": 171617,
+          "failures": 0,
+          "previous": "cancellation:rollback",
+          "previous_ms": 2157,
+          "stage": "cancellation:complete"
+        },
+        {
+          "checks": 7603,
+          "details": {},
+          "elapsed_ms": 171617,
+          "failures": 0,
+          "previous": "cancellation:complete",
+          "previous_ms": 0,
+          "stage": "teardown"
+        },
+        {
+          "checks": 7603,
+          "details": {},
+          "elapsed_ms": 171663,
+          "failures": 0,
+          "previous": "teardown",
+          "previous_ms": 46,
+          "stage": "complete"
+        }
+      ],
+      "source_qualification": "Earlier diagnostic fixture; controlled cap comparison preceded the final audio-release assertion."
+    },
+    {
+      "label": "thirty_two_operation_verbose_control",
+      "result": "complete_with_audio_warning",
+      "log_sha256": "5deefdc0d3a5035e1deaed50b1e18d35e1dfe3b8d7c1ea4fe3798c8005b7e611",
+      "landing_warm_elapsed_ms": 23541,
+      "landing_warm_steps": 946,
+      "last_stages": [
+        {
+          "checks": 7546,
+          "details": {},
+          "elapsed_ms": 164132,
+          "failures": 0,
+          "previous": "two_neighbors:warm",
+          "previous_ms": 4610,
+          "stage": "two_neighbors:complete"
+        },
+        {
+          "checks": 7546,
+          "details": {},
+          "elapsed_ms": 164132,
+          "failures": 0,
+          "previous": "two_neighbors:complete",
+          "previous_ms": 0,
+          "stage": "cancellation:seed"
+        },
+        {
+          "checks": 7592,
+          "details": {},
+          "elapsed_ms": 164433,
+          "failures": 0,
+          "previous": "cancellation:seed",
+          "previous_ms": 301,
+          "stage": "cancellation:request"
+        },
+        {
+          "checks": 7593,
+          "details": {},
+          "elapsed_ms": 168677,
+          "failures": 0,
+          "previous": "cancellation:request",
+          "previous_ms": 4244,
+          "stage": "cancellation:rollback"
+        },
+        {
+          "checks": 7597,
+          "details": {},
+          "elapsed_ms": 170895,
+          "failures": 0,
+          "previous": "cancellation:rollback",
+          "previous_ms": 2218,
+          "stage": "cancellation:complete"
+        },
+        {
+          "checks": 7597,
+          "details": {},
+          "elapsed_ms": 170896,
+          "failures": 0,
+          "previous": "cancellation:complete",
+          "previous_ms": 1,
+          "stage": "teardown"
+        },
+        {
+          "checks": 7597,
+          "details": {},
+          "elapsed_ms": 170940,
+          "failures": 0,
+          "previous": "teardown",
+          "previous_ms": 44,
+          "stage": "complete"
+        }
+      ],
+      "source_qualification": "Earlier diagnostic fixture; controlled cap comparison preceded the final audio-release assertion."
+    },
+    {
+      "label": "final_with_real_audio_release_assertion",
+      "result": "complete",
+      "log_sha256": "e3c01bbf8d37069c01c6970aec2fdcff35627fc204b1604b1487fd511e2c3422",
+      "landing_warm_elapsed_ms": 21267,
+      "landing_warm_steps": 936,
+      "last_stages": [
+        {
+          "checks": 7519,
+          "details": {},
+          "elapsed_ms": 152701,
+          "failures": 0,
+          "previous": "two_neighbors:warm",
+          "previous_ms": 4486,
+          "stage": "two_neighbors:complete"
+        },
+        {
+          "checks": 7519,
+          "details": {},
+          "elapsed_ms": 152701,
+          "failures": 0,
+          "previous": "two_neighbors:complete",
+          "previous_ms": 0,
+          "stage": "cancellation:seed"
+        },
+        {
+          "checks": 7568,
+          "details": {},
+          "elapsed_ms": 153044,
+          "failures": 0,
+          "previous": "cancellation:seed",
+          "previous_ms": 343,
+          "stage": "cancellation:request"
+        },
+        {
+          "checks": 7569,
+          "details": {},
+          "elapsed_ms": 157477,
+          "failures": 0,
+          "previous": "cancellation:request",
+          "previous_ms": 4433,
+          "stage": "cancellation:rollback"
+        },
+        {
+          "checks": 7573,
+          "details": {},
+          "elapsed_ms": 159911,
+          "failures": 0,
+          "previous": "cancellation:rollback",
+          "previous_ms": 2434,
+          "stage": "cancellation:complete"
+        },
+        {
+          "checks": 7573,
+          "details": {},
+          "elapsed_ms": 159912,
+          "failures": 0,
+          "previous": "cancellation:complete",
+          "previous_ms": 1,
+          "stage": "teardown"
+        },
+        {
+          "checks": 7574,
+          "details": {},
+          "elapsed_ms": 159950,
+          "failures": 0,
+          "previous": "teardown",
+          "previous_ms": 38,
+          "stage": "complete"
+        }
+      ],
+      "source_qualification": "Current recorded source hashes"
+    }
+  ],
+  "gpu_summaries": {
+    "live": {
+      "combat": {
+        "actor_id": 266724184456,
+        "direct_damage_calls": false,
+        "hp_after_hit": 1,
+        "hp_before": 4,
+        "killed": true,
+        "reward_delta": 8
+      },
+      "crossings": [
+        {
+          "damage_suppression": false,
+          "distance": 8573.87590932846,
+          "reused": 5,
+          "target": "demo_ch02_rain_foundry_canal"
+        },
+        {
+          "damage_suppression": false,
+          "distance": 8573.81536340714,
+          "reused": 8,
+          "target": "demo_ch01_moss_bell_court"
+        }
+      ],
+      "damage_suppression": false,
+      "failures": 0,
+      "initial_checkpoint_fixture": true,
+      "physics_frames": 4913,
+      "renderer": "real OpenGL",
+      "six_region_playthrough": false
+    },
+    "artwork": {
+      "combat_acceptance": false,
+      "failures": 0,
+      "fixture_positioning": true,
+      "probes": [
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch01_moss_bell_court",
+          "visible_actors": 5
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch02_rain_foundry_canal",
+          "visible_actors": 4
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch03_saltwhite_archive",
+          "visible_actors": 4
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch04_broken_string_greenhouse",
+          "visible_actors": 4
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "visible_actors": 5
+        },
+        {
+          "changed_pixels": 0,
+          "passed": true,
+          "region": "demo_ch06_silent_crown_core",
+          "visible_actors": 5
+        }
+      ],
+      "renderer": "Mesa llvmpipe real GL"
+    }
+  }
+}

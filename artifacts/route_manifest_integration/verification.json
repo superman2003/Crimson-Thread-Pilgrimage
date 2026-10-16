@@ -1,5 +1,5 @@
 {
-  "status": "local_component_gates_passed_remote_ci_pending",
+  "status": "main_conflicts_resolved_functional_checks_passed_local_performance_gate_open",
   "engine": "4.6.1.stable.official.14d19694e",
   "base_commit": "b8d6698504f52d53a2b6ceea87b78dc7f0610806",
   "complete_historical_source_commit": "fcc1b73b97d28fcaf8a9f327911a0ca893ecdfb8",
@@ -16,25 +16,28 @@
     "godot/scripts/world_config_read_job.gd": "00096c76f535370d916472c997633d4f8ac9b44a42b9c4d3b1b68c96be03d525",
     "godot/scripts/world_config_validator.gd": "1a61d92a387896be20a639d3d26b881fb5b3af30ed24726b6a7fd81eb9364cec",
     "godot/scripts/world_neighbor_config_validation.gd": "bd7a6e19e5e9a1d1fe391f67bbb27842c531d10c793fc2f70434b08d3c0faf0c",
-    "godot/scripts/world_neighbor_gameplay_validation.gd": "5f5e02804c1c57469754ebaf8c187867a5dc62e1355102802a1e1cd958329d5a",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "b1c2fa0390e9b0b959322ecaad966d852595423f2d2cd6d1a8a424515a605fee",
     "godot/scripts/world_passage.gd": "592a3f24101d2d3ef72ef3fbce5d29d985b668cf283e359ad819b9950586efe6",
     "godot/scripts/world_passage_validation.gd": "d707e48448c0778661ae7f1ed38414ffd5e8db10894507f719def10d79493937",
     "godot/scripts/world_prefetch.gd": "671d3d4a8340e79664d00f989dfd2287ad3547b35cd3171e3b5b5d3f49c1b472",
     "godot/scripts/world_region_loader.gd": "8cfc70632a59c2c669b72688941b8f6278a535c9269f30a8972a330d313b7bd0",
-    "godot/scripts/world_route_manifest_integration_validation.gd": "ba3fe6923e5c7e86bfda88b4170d2bdc901c08f78f5ef597fba5fa37dc68194a",
+    "godot/scripts/world_route_manifest_integration_validation.gd": "117f425e7cf4b9fbd5b392022e7ba547c58110b364174abb305d35687b68fc5f",
     "godot/scripts/world_route_manifest_walk_helper.gd": "8bae89bd73e2571899469ac199a55f8cd4262ad73ea275ab4aae56da9018228e",
     "godot/scripts/world_route_manifest_walk_lower_validation.gd": "1adf5e0f1a09b6ba292d3e8e408db037a7fb8a04e3c55a364b9266350123cdf2",
     "godot/scripts/world_route_manifest_walk_upper_validation.gd": "924fc6a9383a535813e001f6fb6c80d794fc5e8a7d55f101e03c33fbb47ee7ae",
     "godot/scripts/world_routes.gd": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b",
     "godot/scripts/world_startup_budget_validation.gd": "a0a18d73fc65c327fb7607e60e9eab4d3c6596316bd1807dc275b9ea98af224b",
-    "tools/godot_suite_success_markers.json": "3e8be6ed355741c76f67fd77b2af28b96b52b04c15c67cd0717b013e37365378",
-    "tools/run_godot_regressions.py": "185ea3dcf520076cb1ffb7164c130c982c6bfd4e2ffff6b6ad4edf8f6485f92b",
-    "tools/test_regression_runner.py": "59314f05205ec17f67c4d43e5f277e1a433abe80b4dda8cbf144874338575212",
+    "tools/godot_suite_success_markers.json": "7cd285827dbb95c154f22e36ac1135a63221dd480e6f62908735f4ba26c9ac2f",
+    "tools/run_godot_regressions.py": "94c41b8d7404366c745829b16a1f2dd1cc4375ce522b7cb0be6ccac016453356",
+    "tools/test_regression_runner.py": "e2cd8f6c7d75c7366cbc2f4e15a8aa0ced7b6e2d548fd5db8f2c69f4673a8027",
     "godot/scripts/world_transition_token.gd": "7ca935350ef5c32535628cd312128800ef5d4015192f791b1011aff0ea4946b1",
     "tools/run_rock_gpu_validation.py": "dd7ea8468371a24d6591a96ff6fb7ee14d23d9fd380ee38b43d24c87daa53530",
     "tools/test_rock_gpu_validation.py": "013cab88eb629917cbffa0aea64fd60ee8299142b5f08d5e5b485e4afcc8f541",
     "package.json": "3ad9043dde82baa3a756fcebd178012a6d506f88013f6a9b15ebcd71e58ee888",
-    "tools/validate_passage_network_pixels.gd": "11755f5549151f7f3228eac72c9d2ad38bae49cfd5ed93305197bec421349b06"
+    "tools/validate_passage_network_pixels.gd": "11755f5549151f7f3228eac72c9d2ad38bae49cfd5ed93305197bec421349b06",
+    "godot/scripts/world_gameplay_prefetch.gd": "362779390a9aeb673878fdd9b9f318d96d4da1879264d752bf5e8159f60c3769",
+    "godot/scripts/world_gameplay_plan_job.gd": "ab562c6a48cf83e09f26d18ab22f90d4862e0a6fb1aec299df48b2426c810d02",
+    "godot/scripts/world_gameplay_plan_validation.gd": "ea94a7f695da1e89ac452acc2d34aa8a0b808c94bf443e91b1665fae855f226a"
   },
   "acceptance_boundaries": [
     "Passage fixtures use explicit initial ability and mouth positioning; ten actual Input/physics crossings are not a natural six-region campaign.",
@@ -834,5 +837,111 @@
     "jobs": 6,
     "conclusion": "success",
     "main": "b8d6698504f52d53a2b6ceea87b78dc7f0610806"
+  },
+  "initial_published_head": "0407be55f8272463d14bb2642121e3827ca7e227",
+  "initial_published_source_sha256": {
+    ".github/workflows/route-manifest-integration.yml": "ae00c8b9e3d02ee9e571c031b0bd1b685df6c60db268d2a68fcc5f839525dcd2",
+    "godot/scripts/main_level.gd": "5bd22e02535dd4fe9827dc74571273e445f6390e942d88ecbae6366a9e1c2f99",
+    "godot/scripts/survey_map_knowledge_validation.gd": "a561ae589047e04f8af27d188b295135ae7881a85531da29905e662d27c630e7",
+    "godot/scripts/world_atlas.gd": "00c38dfb07546e90ce866e1c52c4411ddb5b7b804cae1750a818d5d7445312b9",
+    "godot/scripts/world_config_read_job.gd": "00096c76f535370d916472c997633d4f8ac9b44a42b9c4d3b1b68c96be03d525",
+    "godot/scripts/world_config_validator.gd": "1a61d92a387896be20a639d3d26b881fb5b3af30ed24726b6a7fd81eb9364cec",
+    "godot/scripts/world_neighbor_config_validation.gd": "bd7a6e19e5e9a1d1fe391f67bbb27842c531d10c793fc2f70434b08d3c0faf0c",
+    "godot/scripts/world_neighbor_gameplay_validation.gd": "5f5e02804c1c57469754ebaf8c187867a5dc62e1355102802a1e1cd958329d5a",
+    "godot/scripts/world_passage.gd": "592a3f24101d2d3ef72ef3fbce5d29d985b668cf283e359ad819b9950586efe6",
+    "godot/scripts/world_passage_validation.gd": "d707e48448c0778661ae7f1ed38414ffd5e8db10894507f719def10d79493937",
+    "godot/scripts/world_prefetch.gd": "671d3d4a8340e79664d00f989dfd2287ad3547b35cd3171e3b5b5d3f49c1b472",
+    "godot/scripts/world_region_loader.gd": "8cfc70632a59c2c669b72688941b8f6278a535c9269f30a8972a330d313b7bd0",
+    "godot/scripts/world_route_manifest_integration_validation.gd": "ba3fe6923e5c7e86bfda88b4170d2bdc901c08f78f5ef597fba5fa37dc68194a",
+    "godot/scripts/world_route_manifest_walk_helper.gd": "8bae89bd73e2571899469ac199a55f8cd4262ad73ea275ab4aae56da9018228e",
+    "godot/scripts/world_route_manifest_walk_lower_validation.gd": "1adf5e0f1a09b6ba292d3e8e408db037a7fb8a04e3c55a364b9266350123cdf2",
+    "godot/scripts/world_route_manifest_walk_upper_validation.gd": "924fc6a9383a535813e001f6fb6c80d794fc5e8a7d55f101e03c33fbb47ee7ae",
+    "godot/scripts/world_routes.gd": "032c75b4d37f4625990030b830b380903c0575c315554eb10ef00b536e70850b",
+    "godot/scripts/world_startup_budget_validation.gd": "a0a18d73fc65c327fb7607e60e9eab4d3c6596316bd1807dc275b9ea98af224b",
+    "tools/godot_suite_success_markers.json": "3e8be6ed355741c76f67fd77b2af28b96b52b04c15c67cd0717b013e37365378",
+    "tools/run_godot_regressions.py": "185ea3dcf520076cb1ffb7164c130c982c6bfd4e2ffff6b6ad4edf8f6485f92b",
+    "tools/test_regression_runner.py": "59314f05205ec17f67c4d43e5f277e1a433abe80b4dda8cbf144874338575212",
+    "godot/scripts/world_transition_token.gd": "7ca935350ef5c32535628cd312128800ef5d4015192f791b1011aff0ea4946b1",
+    "tools/run_rock_gpu_validation.py": "dd7ea8468371a24d6591a96ff6fb7ee14d23d9fd380ee38b43d24c87daa53530",
+    "tools/test_rock_gpu_validation.py": "013cab88eb629917cbffa0aea64fd60ee8299142b5f08d5e5b485e4afcc8f541",
+    "package.json": "3ad9043dde82baa3a756fcebd178012a6d506f88013f6a9b15ebcd71e58ee888",
+    "tools/validate_passage_network_pixels.gd": "11755f5549151f7f3228eac72c9d2ad38bae49cfd5ed93305197bec421349b06"
+  },
+  "main_synchronization": {
+    "main_commit": "54863ec7ba794204ba37afe2ed29e5b5dd3f7d0d",
+    "prior_head": "0407be55f8272463d14bb2642121e3827ca7e227",
+    "default_suites": 98,
+    "conflicts": "Preserve route and planner docs/markers; keep both validation diagnostics and planner-complete readiness. No production feature is removed.",
+    "static_checks": {
+      "npm": 0,
+      "campaign": 0,
+      "runner_unit_tests": 20
+    },
+    "strict_import_passes": 2,
+    "passed_suites": {
+      "world_gameplay_plan": 1218,
+      "world_route_manifest_integration": 134,
+      "world_neighbor_gameplay_live": 48,
+      "world_neighbor_gameplay_stress": 17712,
+      "world_route_manifest_walk_lower": 134,
+      "world_route_manifest_walk_upper": 90
+    },
+    "physical_crossings": 10,
+    "fixture_fix": "The old detached-cache component seed omitted new planner lease fields. It now seeds generation/source_record/raw/plan_job/plan_complete exactly as an already-published cache. All original ownership and per-frame retirement assertions are unchanged.",
+    "negative_fixture": {
+      "engine_errors": 247,
+      "strict_exit": "failed; not accepted"
+    },
+    "performance_gate": {
+      "suite": "world_neighbor_gameplay",
+      "timeout_seconds": 180,
+      "status": "not_passed",
+      "first_attempt": "Timed out; last diagnostic reported6918checks,0failures at178.328seconds in two_neighbors:warm. No complete marker.",
+      "cause": "Not attributed. Cold/warm reconstruction and frame waits were broadly slower; this single observation is not proof of either environment noise or a production regression.",
+      "retry": "Same source and original assertions/timeout; separate controlled llvmpipe4-thread run in progress. No runtime/test-budget change."
+    },
+    "log_files": [
+      {
+        "path": "qa-logs/route-sync-main-import/import-1.log",
+        "sha256": "ed3ad2c48989e2db3838b9badecd06644efb734841e70cd90e51b0cbcc2d95d8"
+      },
+      {
+        "path": "qa-logs/route-sync-main-import/import-2.log",
+        "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_gameplay_plan.log",
+        "sha256": "991f886e9d711a245204942ff59b8a9fde4203a606ffbe203c5bc6ccfd92bf98"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_neighbor_gameplay.log",
+        "sha256": "9988443b9b68c1ae388dc3aff93a691e156b737c218fdbcd6ac2dc81c83abe88"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_neighbor_gameplay_live.log",
+        "sha256": "41554389fb6a5a4adc46ab80ccae5d3a0e3edcd1aa8c04206974815bad51f333"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_neighbor_gameplay_stress.log",
+        "sha256": "b632d6efda263639f1d437a96f72a94ef39d8c6459fdb8ebc28aadd67c96f3b1"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_route_manifest_integration.log",
+        "sha256": "d0593fb88822924ffd2072d2d9f1962463e8e057a4099929b506ef8d6485223c"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_route_manifest_walk_lower.log",
+        "sha256": "3f59620a83897ab2d7765a445023fc519caac946bffb714249f48d45b9d3fff7"
+      },
+      {
+        "path": "qa-logs/route-sync-main-gl/world_route_manifest_walk_upper.log",
+        "sha256": "92f436b8822d92967769b532b34d0182decff983c6db023446a6ac7bac699d0b"
+      },
+      {
+        "path": "qa-logs/route-sync-main-fixture-fixed/world_route_manifest_integration.log",
+        "sha256": "002a8a7599da6fd256c410658b136befa88a8638e8353d3cc94cf65eb64f1f18"
+      }
+    ],
+    "ci": "The original0407be5 had8workflows/9jobs success; this synchronized head must receive its own CI. Prior26-suite/15-pixel records below remain historical evidence, not a full rerun of the combined version."
   }
 }
