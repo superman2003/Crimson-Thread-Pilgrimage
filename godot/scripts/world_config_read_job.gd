@@ -72,16 +72,19 @@ static func _read(path: String) -> Dictionary:
     var file := FileAccess.open(path, FileAccess.READ)
     if file == null:
         return {"error": "目标位置或区域文件无效。"}
+    var opened := Time.get_ticks_usec()
     var text := file.get_as_text()
     var bytes := file.get_length()
     var read_error := file.get_error()
     file.close()
     if read_error != OK or stamp != FileAccess.get_modified_time(path):
         return {"error": "目标区域文件读取失败或已改变。"}
+    var read_finished := Time.get_ticks_usec()
     var json := JSON.new()
     var parsed: Variant = json.data if json.parse(text) == OK else null
     return {"raw": parsed, "stamp": stamp, "bytes": bytes, "worker_usec": Time.get_ticks_usec() - started,
-        "worker_is_main": Thread.is_main_thread(), "error": ""}
+        "worker_is_main": Thread.is_main_thread(), "error": "",
+        "open_usec": opened - started, "read_usec": read_finished - opened, "parse_usec": Time.get_ticks_usec() - read_finished}
 
 
 static func _validate(raw: Variant, path: String, entry: Vector2, use_default_entry: bool, route_context: Dictionary) -> Dictionary:

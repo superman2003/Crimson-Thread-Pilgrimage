@@ -28,6 +28,51 @@ class StartupHost extends Node:
     var entry_spawn_override_enabled := false
     var entry_spawn_override := Vector2.ZERO
 
+class ReadAheadHost extends StartupHost:
+    var world_start_region_id := ""
+    func _resolve_world_start_route() -> bool:
+        if world_start_region_id.is_empty(): return true
+        config_path = ROUTES.cached_config_path(world_start_region_id)
+        return not config_path.is_empty()
+
+class SerialManifestLoader extends "res://scripts/world_region_loader.gd":
+    func _begin_startup_config_read_ahead(_host: Node, _tree: SceneTree, _route_ticket: Dictionary) -> void:
+        pass
+
+class FrameDelayedReader extends "res://scripts/world_config_read_job.gd":
+    var fixture_path := ""
+    var fixture_read: Dictionary = {}
+    var held_ticket := 0
+    var held_frame := -1
+    var taken_frame := -1
+    var manifest_taken_frame := -1
+    var config_requests := 0
+    var reject_first := false
+    func request(path: String) -> int:
+        if path != fixture_path: return super.request(path)
+        config_requests += 1
+        if reject_first and config_requests == 1: return 0
+        if config_requests > (2 if reject_first else 1): return super.request(path)
+        if closed or busy() or has_pending_ticket(): return 0
+        # Deterministic availability, not a wall-clock performance assertion.
+        # The real file was read before this fixture's measured frame window.
+        _serial += 1
+        _accepted = _serial
+        held_ticket = _accepted
+        held_frame = Engine.get_process_frames()
+        return held_ticket
+    func busy() -> bool:
+        return super.busy() or (not closed and _accepted == held_ticket and held_ticket != 0 and Engine.get_process_frames() - held_frame < 24)
+    func take(ticket: int) -> Dictionary:
+        if ticket == held_ticket and ticket == _accepted and not busy():
+            _accepted = 0
+            taken_frame = Engine.get_process_frames()
+            return fixture_read
+        var result := super.take(ticket)
+        if result.get("raw") is Dictionary and result.raw.has("chapters"):
+            manifest_taken_frame = Engine.get_process_frames()
+        return result
+
 class FailedStartReader extends "res://scripts/world_config_read_job.gd":
     var attempts := 0
     func request(_path: String) -> int:
@@ -70,6 +115,15 @@ func _run() -> void:
     if "--startup-exit-diagnostics-only" in OS.get_cmdline_user_args():
         if failures.is_empty():
             print("WORLD STARTUP EXIT DIAGNOSTICS PASS checks=%d verbose=%s" % [checks, OS.is_stdout_verbose()])
+            quit(0)
+        else:
+            for failure in failures: push_error(failure)
+            quit(1)
+        return
+    await _manifest_read_ahead_contract()
+    if "--startup-manifest-read-ahead-only" in OS.get_cmdline_user_args():
+        if failures.is_empty():
+            print("WORLD STARTUP MANIFEST READ AHEAD PASS checks=%d" % checks)
             quit(0)
         else:
             for failure in failures: push_error(failure)
@@ -131,6 +185,77 @@ func _startup_exit_diagnostics_contract() -> void:
     var unused := ExitDiagnosticsLoader.new()
     unused.shutdown()
     _check(unused.exit_snapshots.is_empty(), "non-startup loader does not emit startup diagnostics")
+
+func _manifest_read_ahead_contract() -> void:
+    var path := "res://data/demo_ch01_moss_bell_court.json"
+    var source_read: Dictionary = READER._read(path)
+    var observations := []
+    for mode in ["overlap", "serial", "rejected", "resume"]:
+        var host := ReadAheadHost.new()
+        host.config_path = path
+        if mode == "resume":
+            host.config_path = "res://data/%s.json" % REGION
+            host.world_start_region_id = "demo_ch01_moss_bell_court"
+        root.add_child(host)
+        var loader = SerialManifestLoader.new() if mode == "serial" else LOADER.new()
+        loader.phase = "startup"
+        var reader := FrameDelayedReader.new()
+        reader.fixture_path = path
+        reader.fixture_read = source_read.duplicate(true)
+        reader.reject_first = mode == "rejected"
+        loader.config_read_job = reader
+        var before_generation := ROUTES.cached_generation()
+        var private_checks := {"observed": false, "untouched": true}
+        var observe := func():
+            if not loader.startup_config_read_ahead.is_empty():
+                private_checks.observed = true
+                private_checks.untouched = private_checks.untouched and ROUTES.cached_generation() == before_generation and reader.has_pending_ticket()
+        process_frame.connect(observe)
+        var manifest_ok: bool = await loader._prepare_routes_manifest(host, self)
+        process_frame.disconnect(observe)
+        _check(manifest_ok and host._resolve_world_start_route(), mode + " commits manifest before resolving startup path")
+        _check(private_checks.untouched, mode + " early result cannot publish private manifest or consume its ticket")
+        _check(private_checks.observed == (mode in ["overlap", "resume"]), mode + " read is admitted only during owned manifest copy")
+        var prepared: Dictionary = await loader._prepare_startup_config(host, self)
+        var metric: Dictionary = loader.last_transition
+        var copy_frames := int(metric.route_manifest_copy_batches)
+        var context_frames := int(metric.startup_config_context_copy_batches)
+        var overlap := int(metric.startup_config_manifest_overlap_frames)
+        _check(not prepared.is_empty() and prepared.id == "demo_ch01_moss_bell_court", mode + " delayed result retains complete validated startup semantics")
+        _check(reader.config_requests == (2 if mode == "rejected" else 1), mode + " no duplicate startup read; rejected speculation retries normal admission")
+        _check(overlap == (copy_frames if mode in ["overlap", "resume"] else 0), mode + " records exactly the existing manifest copy windows")
+        var expected_frames := maxi(24, copy_frames + context_frames) if overlap > 0 else copy_frames + maxi(24, context_frames)
+        _check(reader.taken_frame - reader.manifest_taken_frame == expected_frames, mode + " 24-frame delayed read overlaps existing windows without extra yields")
+        _check(loader.startup_config_read_ahead.is_empty() and not reader.has_pending_ticket() and not reader.busy(), mode + " successful transfer releases every owned ticket")
+        observations.append({"mode": mode, "manifest_copy_frames": copy_frames, "context_copy_frames": context_frames,
+            "read_available_after_frames": 24, "take_after_manifest_frames": reader.taken_frame - reader.manifest_taken_frame,
+            "manifest_overlap_frames": overlap})
+        loader.shutdown()
+        host.free()
+        await process_frame
+    print("WORLD_STARTUP_MANIFEST_READ_AHEAD " + JSON.stringify(observations))
+    # A replacement host must never claim an earlier host's already-ready result.
+    var old_host := ReadAheadHost.new()
+    old_host.config_path = path
+    root.add_child(old_host)
+    var loader := LOADER.new()
+    loader.phase = "startup"
+    _check(await loader._prepare_routes_manifest(old_host, self), "old host owns speculative read after manifest commit")
+    var old_ticket := int(loader.startup_config_read_ahead.ticket)
+    while loader.config_read_job.busy(): await process_frame
+    _check(not loader.config_read_job.busy() and loader.config_read_job.has_pending_ticket() and loader.config_read_job._accepted == old_ticket, "old host replacement fixture retains an already-ready unconsumed result")
+    var replacement := ReadAheadHost.new()
+    replacement.config_path = path
+    root.add_child(replacement)
+    old_host.free()
+    var prepared: Dictionary = await loader._prepare_startup_config(replacement, self)
+    _check(prepared.is_empty() and loader.startup_config_read_ahead.is_empty() and not loader.config_read_job.has_pending_ticket(), "replacement host rejects and discards old host result")
+    _check(loader.config_read_job.take(old_ticket).is_empty(), "old ticket cannot be reused after host rejection")
+    prepared = await loader._prepare_startup_config(replacement, self)
+    _check(not prepared.is_empty(), "replacement host can obtain its own fresh validated request")
+    loader.shutdown()
+    replacement.free()
+    await process_frame
 
 func _new_game_and_resume() -> void:
     # Prime through the explicit synchronous oracle, then make production cold.
@@ -483,7 +608,7 @@ func _early_startup_cancellation() -> void:
         var foreign_ticket := 0
         var injected := {"done": false}
         var cancel_copy := func():
-            if not injected.done and loader.manifest_refresh_running and not reader.has_pending_ticket() and not loader.last_transition.has("startup_config_lease"):
+            if not injected.done and loader.manifest_refresh_running and (not reader.has_pending_ticket() or not loader.startup_config_read_ahead.is_empty()) and not loader.last_transition.has("startup_config_lease"):
                 injected.done = true
                 token.cancel()
         if boundary == "before_first_frame":
@@ -530,7 +655,7 @@ func _early_startup_cancellation() -> void:
         await process_frame
 
 func _teardown_and_faults() -> void:
-    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "overlay_type", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel", "context_copy_path", "context_copy_entry", "context_copy_generation", "context_copy_route", "context_copy_cancel", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
+    for fault in ["parse", "shape", "stamp", "spawn", "loader_generation", "route_generation", "detach", "free", "shutdown", "wait_path", "wait_entry", "validator_entry", "post_build_stamp", "post_build_entry", "post_build_path", "post_finish_entry", "post_finish_path", "post_catalog_entry", "post_catalog_path", "post_finish_generation", "token_cancel", "validation_launch", "overlay_type", "validation_wait_route_generation", "validation_wait_path", "validation_wait_free", "validation_wait_shutdown", "validation_wait_cancel", "context_copy_path", "context_copy_entry", "context_copy_generation", "context_copy_route", "context_copy_cancel", "context_copy_detach", "context_copy_free", "context_copy_shutdown", "manifest_copy_path", "manifest_copy_entry", "manifest_copy_generation", "manifest_copy_stamp", "manifest_copy_target", "manifest_copy_cancel", "manifest_copy_detach", "manifest_copy_free", "manifest_copy_shutdown"]:
         var host := ProbeWorld.new()
         host.world_mode = true
         host.world_resume = false
@@ -548,6 +673,23 @@ func _teardown_and_faults() -> void:
         var inject := func():
             var metric: Dictionary = loader.last_transition
             if injected.done: return
+            if fault.begins_with("manifest_copy_"):
+                if loader.startup_config_read_ahead.is_empty(): return
+                _check(reader.has_pending_ticket() and not metric.has("startup_config_lease"), fault + " reaches uncommitted manifest with private pending read")
+                injected.done = true
+                match fault:
+                    "manifest_copy_path": host.config_path = "res://data/demo_ch01_moss_bell_court.json"
+                    "manifest_copy_entry": host.entry_spawn_override_enabled = not host.entry_spawn_override_enabled
+                    "manifest_copy_generation": loader.generation += 1
+                    "manifest_copy_stamp": loader.startup_config_read_ahead.manifest_stamp = -1
+                    "manifest_copy_target": host.world_start_region_id = "demo_ch01_moss_bell_court"
+                    "manifest_copy_cancel": loader.startup_token.cancel()
+                    "manifest_copy_detach": root.remove_child(host)
+                    "manifest_copy_free": host.free()
+                    "manifest_copy_shutdown": loader.shutdown()
+                if fault in ["manifest_copy_detach", "manifest_copy_free", "manifest_copy_shutdown"]:
+                    _check(loader.startup_token == null and loader._startup_frame_tree == null and not reader.busy() and not reader.has_pending_ticket() and loader.startup_config_read_ahead.is_empty(), fault + " synchronously drains speculative owner at teardown")
+                return
             if fault.begins_with("context_copy_"):
                 if int(metric.get("startup_config_context_copy_batches", 0)) == 0: return
                 _check(reader.has_pending_ticket() and not metric.has("startup_config_worker_is_main"), fault + " reaches private copy while its read ticket remains unconsumed")
@@ -613,7 +755,7 @@ func _teardown_and_faults() -> void:
         _check(injected.done, fault + " reaches its declared fault boundary")
         _check(not is_instance_valid(host) or not host.initial_region_ready, fault + " cannot publish region")
         _check(FileAccess.get_file_as_bytes(SAVE) == before_save, fault + " preserves existing save bytes")
-        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown", "context_copy_detach", "context_copy_free", "context_copy_shutdown"]:
+        if fault not in ["detach", "free", "shutdown", "validation_wait_free", "validation_wait_shutdown", "context_copy_detach", "context_copy_free", "context_copy_shutdown", "manifest_copy_detach", "manifest_copy_free", "manifest_copy_shutdown"]:
             _check(loader.phase == "startup_error" and is_instance_valid(loader.loading_canvas) and loader.loading_canvas.get_node("StartupRetry") is Button, fault + " exposes retry recovery")
             if not fault.begins_with("post_"): _check(not is_instance_valid(host.player), fault + " fails before any region construction")
         if is_instance_valid(host):
