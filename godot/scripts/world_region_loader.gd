@@ -75,6 +75,8 @@ func request_startup_region(host: Node, previous_mode: int) -> RefCounted:
     transition_serial = token.serial
     startup_token = token
     phase = "startup"
+    last_transition["startup_requested_frame"] = Engine.get_process_frames()
+    last_transition["startup_requested_usec"] = Time.get_ticks_usec()
     _run_owned_startup(token, host, previous_mode)
     return token
 
@@ -770,7 +772,57 @@ func _disconnect_startup_frames() -> void:
         _startup_frame_tree.process_frame.disconnect(_wake_startup_frame)
     _startup_frame_tree = null
 
+## A scalar-only exit snapshot keeps verbose release failures diagnosable even
+## when the frame deadline stops startup before publication. Never emit the
+## lease, config, save, paths, or token payload from last_transition.
+func _startup_exit_snapshot() -> Dictionary:
+    var stage := "manifest"
+    if last_transition.has("startup_config_context_copy_batches"): stage = "config_read_context"
+    if last_transition.has("startup_config_validation_wait_frames"): stage = "config_validation"
+    if last_transition.has("prepare_jobs"): stage = "prepare"
+    if last_transition.has("jobs"): stage = "build"
+    if last_transition.has("commit_jobs"): stage = "finish"
+    if not active_region_id.is_empty() and startup_token == null: stage = "published"
+    var snapshot := {
+        "phase": phase if phase in ["idle", "startup", "startup_error"] else "other",
+        "stage": stage, "generation": generation,
+        "elapsed_frames": maxi(0, Engine.get_process_frames() - int(last_transition.get("startup_requested_frame", Engine.get_process_frames()))),
+        "elapsed_usec": maxi(0, Time.get_ticks_usec() - int(last_transition.get("startup_requested_usec", Time.get_ticks_usec()))),
+        "startup_pending": startup_token != null,
+        "startup_cancelled": startup_token != null and startup_token.cancelled,
+        "shutting_down": shutting_down, "cancel_requested": cancel_requested,
+        "reader_busy": config_read_job.busy(),
+        "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed}
+    for key in ["route_manifest_copy_batches", "route_manifest_worker_usec", "route_manifest_copy_wall_usec",
+            "startup_config_wait_frames", "startup_config_worker_usec", "startup_config_context_copy_batches",
+            "startup_config_context_overlap_frames", "startup_config_context_copy_work_usec",
+            "startup_config_validation_wait_frames", "startup_config_validation_worker_usec", "startup_config_wall_usec",
+            "prepare_cursor", "prepare_jobs", "prepare_batches", "prepare_work_usec", "prepare_wall_usec",
+            "jobs", "build_cursor", "build_batches", "commit_cursor", "commit_jobs", "commit_batches",
+            "commit_work_usec", "commit_wall_usec", "max_build_operations", "max_commit_operations", "max_batch_usec"]:
+        var value: Variant = last_transition.get(key, 0)
+        snapshot[key] = value if value is int or value is float else -1
+    snapshot["catalog_read_count"] = 0
+    for key in ["wait_frames", "read_overlap_frames", "worker_usec", "merge_frame_batches"]:
+        snapshot["catalog_" + key] = 0
+    var reads: Variant = last_transition.get("catalog_reads", [])
+    if reads is Array:
+        for read in reads:
+            if not read is Dictionary: continue
+            snapshot.catalog_read_count += 1
+            for key in ["wait_frames", "read_overlap_frames", "worker_usec", "merge_frame_batches"]:
+                var value: Variant = read.get(key, 0)
+                if value is int or value is float: snapshot["catalog_" + key] += value
+    return snapshot
+
+func _write_startup_exit_snapshot(snapshot: Dictionary) -> void:
+    print("WORLD_STARTUP_EXIT " + JSON.stringify(snapshot))
+
 func shutdown() -> void:
+    # Observe the live owner before cancellation/join/clear. The existing
+    # shutdown latch also makes repeated teardown emit at most once.
+    if not shutting_down and OS.is_stdout_verbose() and last_transition.has("startup_requested_frame"):
+        _write_startup_exit_snapshot(_startup_exit_snapshot())
     shutting_down = true
     cancel_requested = true
     if transition_token != null:
@@ -1141,6 +1193,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     var jobs: Array = host._region_build_jobs()
     var cursor := 0
     last_transition["jobs"] = jobs.size()
+    last_transition["build_cursor"] = 0
+    last_transition["build_batches"] = 0
     while cursor < jobs.size():
         if cancellable and cancel_requested:
             return false
@@ -1154,6 +1208,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             cursor += 1
             operations += 1
         _measure_batch(operations, started, "max_build_operations")
+        last_transition["build_cursor"] = cursor
+        last_transition["build_batches"] += 1
         if is_instance_valid(loading_label):
             loading_label.text = ("正在接通旧路… %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… %d / %d") % [cursor, jobs.size()]
         await _next_process_frame(host.get_tree())
