@@ -1,0 +1,323 @@
+{
+  "status": "local_component_gates_passed_remote_ci_pending",
+  "base_commit": "b8d6698504f52d53a2b6ceea87b78dc7f0610806",
+  "source_commits": [
+    "55c1f19c80d4faac6aa221f9e7aa50203a9d9966",
+    "8218f2060f362262ff1e2ec320b2537ba3beafdb"
+  ],
+  "engine": "4.6.1.stable.official.14d19694e",
+  "static_processes": {
+    "npm": {
+      "exit_code": 0,
+      "log": "qa-logs/combat-integration-npm.log",
+      "log_sha256": "86d777a43b52dbd57dd7ef1327cff3a45da3e192e48c7096e6b8c60c5405f514"
+    },
+    "campaign": {
+      "exit_code": 0,
+      "log": "qa-logs/combat-integration-campaign.log",
+      "log_sha256": "9511ea01bfd33330ef063308bd2ce70d4d682305207ee2e965aad95ec7b378a0"
+    },
+    "ansi_runner": {
+      "exit_code": 0,
+      "log": "qa-logs/combat-ansi-runner-unit.log",
+      "log_sha256": "4d73a33f79b22d403caef488ed334149b39526955cb288a7f98581645bf7ce60",
+      "tests": 18
+    }
+  },
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "e6b1bcce8e3150b999a9b4ac515c14345ed681bcd11763683f546aace67d8984",
+    "godot/scripts/pilgrimage_interface.gd": "e41e7e8b030e588cf4cf24d828d2a291136e6608d104e23b08a62fd5a59b7985",
+    "godot/scripts/combat_resource_cycle_validation.gd": "a721e9d39f6f9d8ded92da07d6ed7b9f6f9d95b7cb383d5d9cb81c3fed1e5720",
+    "godot/scripts/world_host_validation.gd": "0eaef28b99c4d0dab1bd8a2a4e2d145376da6eb598b87c1dab3da2c3984256bd",
+    "tools/run_godot_regressions.py": "356def9ec609b9023d8ef7c9e776ea8e623791fcacd6aad9b6fd03a6f2c287cf",
+    "tools/test_regression_runner.py": "0c43444c8f2e9bb918f6030302527645521897a83bf939635fd56e3d5a0bcd90",
+    "tools/godot_suite_success_markers.json": "3b165a2aceb891e91bbbd7e2f644d7bcf25fbe246a6fd02ead6e64537c88ae81",
+    ".github/workflows/modern-combat-resource-cycle.yml": "f8301918a7f5b0d8eb3901dbfc5ab8ccefc84733143451fef970d63294b131c1",
+    "godot/scripts/combat_resource_cycle_validation.gd.uid": "59b8f8f9ebaac26bcb9ec9ab26258620346f55e1d23719f40d789238a039664f"
+  },
+  "acceptance_boundaries": [
+    "Production Player/Input attacks and paid heal cycles; opponent AI and contact damage disabled as an isolated component fixture.",
+    "Three crests/equipment/mechanisms are preseeded; not natural materials acquisition, progression or boss difficulty.",
+    "HUD screenshots are a local World fixture on the existing main save_first_bell support surface.",
+    "No changes to saved schema, world routes, enemy damage data, original per-suite 180 second timeout or GL drawing mode.",
+    "Arbitrary callbacks that manually zero the heal cooldown and force replacement remain outside the production-listener contract."
+  ],
+  "final_import": {
+    "exit_code": 0,
+    "passes": 2,
+    "log": "qa-logs/combat-final-import-runner.log",
+    "log_sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+    "resource_cache_reused_after_asset_hash_equality": 6970,
+    "editor_plugin_behavior_validated": false
+  },
+  "verification_date_utc": "2026-10-16",
+  "final_regressions": {
+    "observed_process_exit_code": 0,
+    "runner_log": "../qa-logs/combat-final-gl-runner.log",
+    "runner_log_sha256": "59aad3cd25cfee0abfc07a0776c8015661fe490eda0f6c5430e3804d7624f106",
+    "runner_terminal_markers": [
+      "GODOT_REGRESSIONS suites=16 failures=0"
+    ],
+    "suites": [
+      {
+        "suite": "combat_resource_cycle",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "aed48c835e50481b80d0dd9273d273375c5fff68af40fccc0fc1ec9d02921116",
+        "completion_markers": [
+          "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "melee_recovery",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "800125e7d204c662fa5777d5ed557c764a64bb20039ac38c8c96def7277ea4c1",
+        "completion_markers": [
+          "MELEE_RECOVERY_VALIDATION_PASS checks=35 terrain_occlusion=true accepted_hit_rewards=true rejected_hit_pogo=false heal_interrupts=3"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "seal_combat",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "72bfed267f552a1f2d37017b12d1618f111d830cfd570450e9418067059ff5f8",
+        "completion_markers": [
+          "SEAL_COMBAT_VALIDATION PASS checks=70 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "combat",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "f5904db79e9d74c792dad3520cd385f7d643eb6225fc5d70714327aea12c7b01",
+        "completion_markers": [
+          "COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "world_host",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "f38cd57c7271c5f57eb570fb73af91f5f45eaaa7a44f40df6369c0019766088c",
+        "completion_markers": [
+          "WORLD HOST PASS: 539 checks; persistent host/player, single-region eviction, cancellation, cooldowns, failure recovery and seven six-region cycles"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "player_state_cleanup",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "4e45b8a9d77c42e23fa286a643f36be7efd3e16f3902fdbd3b399e18b799b4de",
+        "completion_markers": [
+          "PLAYER_STATE_CLEANUP_PASS checks=9 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "player_upgrade_regression",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "7994e1e3ee959898ed4fa69dd6765e362e129df28f6aeea06646b3f5ab1d373a",
+        "completion_markers": [
+          "PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "seal_ui",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "c30c15b7404a017fc67ca2ba0e089e0c03ae546a03f2999c2505fb0fed2006fa",
+        "completion_markers": [
+          "SEAL_UI_VALIDATION_PASS checks=31 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "seal_acceptance",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "0ee93a42b241750f2df309725987e379598b557886fd52b1242b6324e19baf76",
+        "completion_markers": [
+          "SEAL_ACCEPTANCE_PASS checks=36 failures=0 real_world_ui_damage_crossregion_restart"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "seal_system",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "ba748c8f020583e12b3e85f8142b28140dc9d1255a81c5c7f73f5d0ba6f3d1df",
+        "completion_markers": [
+          "SEAL SYSTEM PASS: 16 checks"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "build_system",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "4a94f4e10fe7f8330d33012fd1e9ed2509ee74781db9433c386ac02092786989",
+        "completion_markers": [
+          "BUILD SYSTEM PASS: 77 checks"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "build_transaction_runtime",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "5266c2a3a222fe2b45b3df94125c64ce525ffcb2726bc807684dff037a515636",
+        "completion_markers": [
+          "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 1,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "build_slots_ui",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "3ac8205310efd1a5492305c408ae58ff96e9d2be04ec14b4360e742b825e4007",
+        "completion_markers": [
+          "BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=30 failures=0 capture=user://build_slots_ui_validation_fixture.png"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "ui_world_integration",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "b96e431fa744274c81821bfe9ed9435d42f0882196cb8b997411183e68c5042c",
+        "completion_markers": [
+          "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "input_prompt",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "9fe4fac8ffad002beacc05e5b4a5a534cc3c43b5082eae976cf843cc47543c51",
+        "completion_markers": [
+          "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      },
+      {
+        "suite": "player_action_buffer",
+        "runner_pass": true,
+        "runner_failure": [],
+        "log_sha256": "30032f30945a472f1b7aec4e8689bd0e8993b5c72e58b92ec9e233e311e77c57",
+        "completion_markers": [
+          "PLAYER_ACTION_BUFFER checks=32 failures=0"
+        ],
+        "engine_error_count": 0,
+        "objectdb_warning_count": 0,
+        "other_warning_count": 1,
+        "physical_walks": [],
+        "terminal_release": []
+      }
+    ]
+  },
+  "warnings": {
+    "engine_error_count": 0,
+    "objectdb_warning_count": 4,
+    "boundary": "Existing component exit ObjectDB warnings remain unassigned; no global leak-free claim."
+  },
+  "hud_visual_review": {
+    "renderer": "actual_llvmpipe_gl",
+    "files": {
+      "artifacts/combat_resource_cycle/crimson_world_hud.webp": "2690fca92073346430da932d248bb0523503d24c22fb82f6d8ae7def1dd46863",
+      "artifacts/combat_resource_cycle/bell_world_hud.webp": "46d8e540db5b85918aabb12c829cbffadadd2a2b8b41059620ac72859435f4bb",
+      "artifacts/combat_resource_cycle/salt_world_hud.webp": "a1415456b7f7f17c55e745a6ff7887e0ff64b987e5608a59802fe796eb65621d"
+    },
+    "findings": "All three actual World HUD captures inspected: live HP 4/5, energy 59/100, heal cost 60 and missing 1 are visible; resource text and skill/control panels remain separate. Existing shrine/NPC partly occlude the character at the fixture point; this is HUD evidence, not overall art acceptance."
+  },
+  "old_pr_recheck": {
+    "checked_at_utc": "2026-10-16T07:24:00Z",
+    "87": {
+      "head": "b6da8ed9574d9ae101da50b4cdc588407dcba22f",
+      "workflows": 5,
+      "jobs": 6,
+      "conclusion": "success"
+    },
+    "88": {
+      "head": "0407be55f8272463d14bb2642121e3827ca7e227",
+      "successful_workflows": 7,
+      "total_workflows": 8,
+      "remaining": "matching test-merge full Godot regressions still running; exact-head route integration and pixels succeeded",
+      "code_review_boundary": "Codex review usage limit and security credits exhausted; no review results produced"
+    }
+  },
+  "unresolved": [
+    "New exact-head and corresponding test-merge remote CI pending publication.",
+    "Natural progression/material acquisition, six-region wounded playthrough and physical controller feel are not covered by this resource component batch.",
+    "Four component exit ObjectDB warnings remain unassigned."
+  ]
+}

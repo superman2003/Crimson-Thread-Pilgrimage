@@ -1,5 +1,11 @@
 # W02/W03/A01：现代主线的19间专属工房整合
 
+## 2026-10-16：同步治疗资源主线 c6dce193
+
+维护者将#89合入main后，本分支保留自己的生产成果并按原字节纳入治疗预留结算、实时HUD与跨区夹具。三份进度文档保留双方记录，运行器/marker/固定时钟集合取并集，默认99套；没有放宽180秒门禁。npm/campaign再次通过。
+
+当前组合真实GL：治疗资源149项/19.496秒、原20房world_upgrade548项/143.105秒均通过，无引擎ERROR/ObjectDB警告；原绘制模式不变。完整结果与源码/日志hash见`artifacts/modern_workshop_integration/combat_main_sync_verification.json`。19房新增重启组生产/验证源码与上一已验证版本未改，原CI实际19张截图和两组完整计数仍属于旧a24657c；本次不重复宣称全部重跑，新head CI另核。
+
 ## 来源与生产边界
 
 本批最初独立基于main `b8d6698504f52d53a2b6ceea87b78dc7f0610806`，按不可变来源 `08be3c43c5100d26df5bd8ba46c9b46c35e99a09`（#84）及 `ee87dddda33978b3ef12c7fb02ec730cb61d7555`（#85）的逐文件三方补丁接入成果。保留main五通道、#83叙事、地图导航和CH05专属灯影双层工房；未带入#86治疗资源或#59路线清单链。原11套证据完成后，接入main `54863ec7ba794204ba37afe2ed29e5b5dd3f7d0d` 已合入的planner #87；新增 `world_gameplay_plan_job` 和更新的 `world_gameplay_prefetch` 保留。
