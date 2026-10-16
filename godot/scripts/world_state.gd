@@ -56,6 +56,44 @@ func capture_global(snapshot: Dictionary) -> bool:
     last_error = ""
     return true
 
+## Build one complete checkpoint without mutating published data or borrowed
+## caller containers. Shallow patch tables remain private and read-only until
+## the single final defensive copy; the successful caller owns that candidate.
+func prepare_checkpoint(region_id: String, region_snapshot: Dictionary, global_snapshot: Dictionary) -> Dictionary:
+    last_error = ""
+    if region_id.is_empty():
+        return _checkpoint_failure("empty region id")
+    if not data.get("regions") is Dictionary:
+        return _checkpoint_failure("invalid in-memory regions")
+    var existing: Variant = data.regions.get(region_id, fresh_region())
+    if not existing is Dictionary:
+        return _checkpoint_failure("invalid region snapshot")
+    var region: Dictionary = existing.duplicate(false)
+    for key in region_snapshot:
+        if not region.has(key):
+            return _checkpoint_failure("unknown region field: %s" % key)
+        region[key] = _position(region_snapshot[key]) if key == "checkpoint" else region_snapshot[key]
+    if not _valid_region(region):
+        return _checkpoint_failure("invalid region snapshot")
+    var candidate: Dictionary = data.duplicate(false)
+    var regions: Dictionary = data.regions.duplicate(false)
+    regions[region_id] = region
+    candidate["regions"] = regions
+    for key in global_snapshot:
+        if key == "version" or key == "regions" or not candidate.has(key):
+            return _checkpoint_failure("unknown or reserved global field: %s" % key)
+        candidate[key] = _position(global_snapshot[key]) if key == "entry" else global_snapshot[key]
+    if not global_snapshot.has("world_location") and candidate.get("current_region") is String and _point(candidate.get("entry")):
+        candidate["world_location"] = COORDINATES.location(String(candidate.get("current_region", "")), Vector2(candidate.entry[0], candidate.entry[1]))
+    if not _valid_data(candidate):
+        return _checkpoint_failure("invalid global snapshot")
+    last_error = ""
+    return {"ok": true, "candidate": candidate.duplicate(true)}
+
+func _checkpoint_failure(message: String) -> Dictionary:
+    _fail(message)
+    return {"ok": false, "error": message}
+
 func resume_local_position() -> Vector2:
     if not data.world_location.is_empty():
         var point: Array = data.world_location.position
@@ -85,8 +123,13 @@ func read(path: String = DEFAULT_PATH) -> bool:
     return true
 
 func write(path: String = DEFAULT_PATH) -> bool:
+    return write_candidate(data, path)
+
+## Persist a borrowed, complete candidate using the existing atomic file
+## protocol. This never publishes it: the owner transfers data only on success.
+func write_candidate(candidate: Dictionary, path: String = DEFAULT_PATH) -> bool:
     last_error = ""
-    if not _valid_data(data):
+    if not _valid_data(candidate):
         return _fail("invalid in-memory world state")
     # Never replace a damaged save or discard its evidence after a failed load.
     if FileAccess.file_exists(path) and _read_valid_file(path) == null:
@@ -95,7 +138,7 @@ func write(path: String = DEFAULT_PATH) -> bool:
     var handle := FileAccess.open(temporary, FileAccess.WRITE)
     if handle == null:
         return _fail("cannot open temporary save: %s" % FileAccess.get_open_error())
-    handle.store_string(JSON.stringify(data))
+    handle.store_string(JSON.stringify(candidate))
     handle.flush()
     var status := handle.get_error()
     handle.close()

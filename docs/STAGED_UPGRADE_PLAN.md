@@ -1,5 +1,39 @@
 # 深化与验收分阶段计划
 
+## 2026-10-16：#97 同步目录恢复调度修复依赖（最新状态）
+
+以已发布 #97 `bdb8a778`（tree `3a74b453`）为第一父，合入 #96 `8ce445a7`（tree `867cd9f4`，包含 #95 `ae9e249b`）。本地旧 `fa376c8` 与已发布头完全同树，先 same-tree soft 对齐，再仅合并此次依赖。三份台账取双方并集；相对 `bdb8a778` 的整个 godot 仅 `world_catalog_background_validation.gd` 新增 42 行，原 71 项保留并扩至 81 项。全部生产源码、数据、素材、109 套集合、runner、22 个 workflow、严格 marker/error、180 秒与绘制模式逐字节不变。
+
+原 `bdb8a778` 同生产代码的 4.6.1 严格双导入与候选 103／保存 37／真实构筑事务 30 项证据按原来源复用，候选退出原有 1 条 ObjectDB warning 继续保留。本次没有启动 Godot 或 GL，也没有重跑三保存组合或全 109 套。新增目录 81 项真实 GL 通过来源是 #96 的 `8ce445a7` 组合：显式 4.6.1、exit 0、零 ERROR、零 ObjectDB warning；仅验证其源码与本次索引完全相同，不冒称 #97 新组合已执行。此次静态复核 29 项 runner 和 5 项 workflow 单测通过。
+
+#97 新 head 的完整／像素／桌面 CI 待发布后按准确 head 另核，旧头绿灯不转记。#95 原 120 帧 Linux 发行包通过及 Windows 新 head 待终态按上游报告单独记账；此前 Windows 资源泄漏与后续恢复写回窗口问题不能混为一项。来源与等价证据见 [本次来源与等价证明](../artifacts/modern_private_checkpoint/catalog_scheduler_sync_verification.json)。#64 出发事务、U04、W00b2b 整包、待机坏接点／完整呼吸／跨动作视觉连续性、自然六区流程及长期资源稳定继续 OPEN。
+
+## 2026-10-16：#97 串接最新 #95→#96 依赖链
+
+从本地 main 同步检查点 `948579eb` 再合入已发布 #96 `7ef90d17`（包含 #95 `2bf90970` 与 main `2d60b550`），本批改为沿最新 PR 链尖端推进。五处文档/runner 冲突取并集，最终默认 **109 套**（#96 的 108 套加私有候选）；22 个 workflow 文件、全部严格标记、180 秒套件上限、绘制模式及 runtime/visual CI 分工保留。目录/首区后台准备、发布工具、Player/动作/镜头/待机和所有数据/资产与 #96 逐字节一致；Main 仅保留原私有保存 flag 与 `_save_world` 差量，WorldState/候选验证与原 #97 一致。
+
+最终组合 npm/campaign、29 项 runner、11 项 import runner、11 项 GPU runner、5 项 workflow 和 23 项 release-builder 静态测试通过。显式 **Godot 4.6.1.14d19694e** 严格双导入复验通过（11.679 秒）；三套受影响真实 GL 通过（合计 36.140 秒）：私有候选 **103**、保存 **37**、真实构筑事务 **30** 项。候选退出有 **1 条 ObjectDB warning**，原因未归属；没有 ERROR/SCRIPT ERROR，不据此宣布长期资源稳定。
+
+首次双导入也无引擎错误，但 Godot 自动重序列化 bus 默认字段/UID，被源码冻结检查拦下。已仅恢复该文件的索引原字节，再完成上述双导入与三套 GL；接受轮全部源码及 bus 哈希前后一致，初轮日志保留。中间 107 套组合未跑 GL；本地未全跑 109 套、八组像素或桌面发行版，远端新 head CI 待发布后另核。完整来源、成功标记、哈希与限制见 `artifacts/modern_private_checkpoint/chain_sync_verification.json`。#64 出发事务、U04、待机坏接点/完整呼吸/跨动作视觉连续性及自然六区通关继续 OPEN。
+
+## 2026-10-16：#97 同步动作、镜头与分层待机主干
+
+在维护者合入 #94 后，将 main `2d60b550` 同步至私有 checkpoint 分支 `e7a37100`。五处文档/runner 冲突取并集，默认集合为 **107 套**：原 103 套全部保留，补入动作连续性、近战反馈、分层待机与房间镜头四套；严格完成标记、180 秒上限及绘制模式不变。21 个 workflow 文件保留双方并集，主集成 runtime/visual 分工与八条像素命令保持 main 原样，新增 5 项 workflow 自测通过。
+
+保存/Main/候选验证与原 #97 完全一致；Player、镜头、反馈、分层待机、loader、全部世界数据及素材与新 main 一致。Main 相对新 main 仅保留原私有保存 flag 与 `_save_world` 改动，两张待机 PNG 原始字节未改。npm/campaign、28 项 runner、11 项 import runner、11 项 GPU runner 与 5 项 workflow 静态测试通过。此 107 套中间组合未执行 GL，随后仅验证串接 #96 的最终 109 套组合，见上节；原 #97 的 103 套/像素/桌面绿灯只属于原头，不转记为此次通过。
+
+本次只解同步冲突；#64 出发事务、U04、待机坏接点 **2→4、6→7、7→1**、完整呼吸及跨动作视觉连续性继续 **OPEN**。来源及新组合验证独立记录在 `artifacts/modern_private_checkpoint/motion_main_sync_verification.json`。
+
+## 2026-10-16：发布前同步最新工坊主干
+
+本私有 checkpoint 批在正式提交前同步 main `07ae21d4`（维护者合入 #91）。原保存/Main/loader/Player 源码与前版 `81f0bdd8` 完全一致，工坊路线数据与新 main 一致；三份进度记录取并集，默认 103 套，npm/campaign 与 23 项 runner 单测通过。同步树新增 5 套受影响 GL 全通过：候选 103、保存 37、真实构筑事务 30、两组工房 450/411（19 房/19 次读盘重启）；显式 4.6.1 严格双导入通过，无引擎错误或 ObjectDB 警告。两组工房分别 116.011/86.381 秒，原 180 秒不变；新 head CI 待终态，原 28 套仍单独标原基线。范围不扩大至 #64 出发事务或 U04。
+
+## 2026-10-16：私有 checkpoint 候选现代主线整合
+
+从 main `1806e0cf` 独立接回原 #65。完整区域/全局候选先私有合成和验证，磁盘写成功后再发布；失败保留保存原语边界的旧 checkpoint 与深层所有权，现代叙事/补给/死亡规则保留。#64 出发事务和 U04 图钉未在本批实现。
+
+28 个不同受影响 GL suites 已通过：系统 4.6.3 候选及 19 组合，显式目标 4.6.1 再验候选及原 8 叙事；版本分别记账，3 套 ObjectDB 警告保留。npm/campaign、两版本严格双导入及 20 runner 单测通过；远端新 commit CI 另核。完整范围见[报告](report/20261016_modern_private_checkpoint.md)。不勾选 W00b2b、U04 或自然通关整包。
+
 ## 2026-10-16：续接 #95 恢复调度修复，首区生产代码保持不变
 
 合入 #95 `ae9e249b`。上游回移的三段manifest/catalog调度本就来自本分支，合并后全部生产源码仍与 `7ef90d17` 字节一致；仅目录验证保留原71项并纳入新增10项。三份进度文档取双方并集，默认108套、全部workflow/发布工具/门禁不改。新增81项在本首区worker组合以4.6.1严格真实GL一次通过，无ERROR或ObjectDB warning；旧7ef同生产代码双平台原120帧首启/恢复/备份写回通过，完整108套按各head另记。新head远端CI将重触发，未以旧全套绿灯替代；见[本次来源与专项](../artifacts/modern_startup_integration/catalog_scheduler_sync_verification.json)。
