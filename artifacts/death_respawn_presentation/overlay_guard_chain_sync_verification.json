@@ -1,0 +1,43 @@
+{
+  "tested_local_commit": "9eecbda9e933bd5c675f767eef59a0ea8afd587d",
+  "upstream": "37b479aa5b433f2a02dd0f6e8fe135fccfaa27ac",
+  "conflict_resolution": "Union of 8 prior context_copy fault modes plus new overlay_type; all original assertions retained.",
+  "source_sha256": {
+    "godot/scripts/world_startup_config_background_validation.gd": "ab4999b305b467e242f74bb721034ad4497c787fdaefae9d99acee74526919fd",
+    "godot/scripts/world_config_validator.gd": "aca91a570b0caf494552dc0d0a610a3b69bf5d3c0749e5036c6812e9945efd36",
+    "godot/scripts/world_route_overlay_job.gd": "8f2a69f5ef77d37de59f99304ddb8dc0768e8a32c1038734b62b8d01fa841a85",
+    "godot/scripts/map_player_pins_runtime.gd": "f22aad68529278a1b6320ea91266ccc3574ab5c2e82feffad135db3945de0a3c",
+    "godot/scripts/map_player_pins_validation.gd": "f77ce11f2137ed2dc4fc26a5dba4eaee911f5f158c4c78b87b972de73d5a8490",
+    "godot/scripts/player_controller.gd": "fa27dca644c850ea381cbaeb71a9e582fb53ab188b2d2398ac9289f40c7b574c",
+    "godot/scripts/main_level.gd": "e08cdf09aa03686b833bef2b804c0785e7975405153c896f62cd11f98a08020e"
+  },
+  "suites": {
+    "world_death_cache_flush.log": {
+      "sha256": "50854ddb58d59b1fcf8f1a569be177da2e18a9572538807e8f7b518068f8b659",
+      "errors": [],
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "WORLD_DEATH_CACHE_FLUSH checks=17 failures=0"
+      ]
+    },
+    "world_startup_config_background.log": {
+      "sha256": "302b0242d0e32e294936d1e7aa81beafab319bfbdcde45d7683ee9933e68758d",
+      "errors": [],
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "WORLD STARTUP CONFIG BACKGROUND PASS checks=911"
+      ]
+    },
+    "map_player_pins.log": {
+      "sha256": "4abfa444bc2a1d17af96170ad33095857d65065a108262b46cbc17781885e4e2",
+      "errors": [],
+      "objectdb_warnings": 0,
+      "terminal_markers": [
+        "MAP PLAYER PINS PASS checks=146"
+      ]
+    }
+  },
+  "timeout_seconds": 180,
+  "engine": "Godot4.6.1 explicit binary real llvmpipe GL",
+  "full_ci_pending": true
+}

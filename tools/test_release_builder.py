@@ -288,10 +288,12 @@ class ReleaseWorkflowTests(unittest.TestCase):
         patterns = self.branches('pull_request')
         for branch in ('main', 'codex/w00-catalog-modern-integration',
                        'codex/w00-startup-config-modern-integration',
-                       'codex/w00-private-save-modern-integration'):
+                       'codex/w00-private-save-modern-integration',
+                       'codex/u04-map-pins-modern-integration',
+                       'codex/death-respawn-presentation'):
             with self.subTest(branch=branch):
                 self.assertTrue(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
-        for branch in ('feature/unrelated', 'codex/w00-catalog-experiment', 'release'):
+        for branch in ('feature/unrelated', 'codex/w00-catalog-experiment', 'codex/death-unrelated', 'release'):
             with self.subTest(branch=branch):
                 self.assertFalse(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
 

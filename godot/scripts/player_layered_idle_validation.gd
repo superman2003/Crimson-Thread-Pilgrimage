@@ -23,6 +23,7 @@ var pixels_complete := false
 var pixel_mask_checks := 0
 var pixel_restore_checks := 0
 var pixel_flash_checks := 0
+var pixel_fade_checks := 0
 
 class ClockProbe extends Node:
     var seconds := 0.0
@@ -462,7 +463,50 @@ func _pixel_checks() -> void:
         print("LAYERED_IDLE_PIXEL_RESTORE animation=%s different_pixels=%d" % [action, mismatch])
         _check(mismatch == 0,
             "Real GL idle to %s exactly restores original rendered frame" % action)
-    pixels_complete = pixel_mask_checks == 8 and pixel_flash_checks == 1 and pixel_restore_checks == 4 and failures.size() == failures_before_pixels
+    for flipped in [false, true]:
+        sprite.flip_h = flipped
+        sprite.play(&"idle")
+        sprite.pause()
+        helper.sync_pose()
+        sprite.visible = false
+        var background := await _capture()
+        sprite.visible = true
+        original_material.set_shader_parameter("presentation_alpha", 0.0)
+        var hidden := await _capture()
+        _check(_different_pixels(hidden, background) == 0,
+            "Zero reveal hides both actual rendered idle layers in either facing")
+        original_material.set_shader_parameter("presentation_alpha", 1.0)
+        var opaque := await _capture()
+        _check(_different_pixels(opaque, background) > 0,
+            "Full reveal restores actual idle pixels")
+        original_material.set_shader_parameter("presentation_alpha", 0.5)
+        var partial := await _capture()
+        _check(_different_pixels(partial, hidden) > 0 and _different_pixels(partial, opaque) > 0,
+            "Half reveal is visibly distinct from hidden and opaque")
+        helper.body.visible = false
+        var cloth_only := await _capture()
+        helper.body.visible = true
+        helper.cloth.visible = false
+        var body_only := await _capture()
+        helper.cloth.visible = true
+        _check(_different_pixels(partial, cloth_only) > 0 and _different_pixels(partial, body_only) > 0,
+            "Both fixed body and cloth contribute to the half-revealed image")
+        sprite.play(&"run")
+        sprite.pause()
+        sprite.set_frame_and_progress(0, 0.0)
+        var run_partial := await _capture()
+        original_material.set_shader_parameter("presentation_alpha", 1.0)
+        var run_opaque := await _capture()
+        _check(_different_pixels(run_partial, run_opaque) > 0,
+            "Switching to run retains the same live reveal material")
+        original_material.set_shader_parameter("presentation_alpha", 0.0)
+        _check(_different_pixels(await _capture(), background) == 0,
+            "Zero reveal also hides the restored original run sprite")
+        pixel_fade_checks += 6
+        original_material.set_shader_parameter("presentation_alpha", 1.0)
+    sprite.flip_h = false
+    pixels_complete = pixel_mask_checks == 8 and pixel_flash_checks == 1 and pixel_restore_checks == 4 and pixel_fade_checks == 12 and failures.size() == failures_before_pixels
+    print("LAYERED_IDLE_REVEAL_PIXELS checks=%d" % pixel_fade_checks)
     print("LAYERED_IDLE_PIXELS masks=%d flash=%d restores=%d complete=%s" % [pixel_mask_checks, pixel_flash_checks, pixel_restore_checks, str(pixels_complete)])
 
 

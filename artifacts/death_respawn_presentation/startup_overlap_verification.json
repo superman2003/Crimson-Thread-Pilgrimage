@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "base_commit": "e3e7d0a6c243ce45b9f9aae19aecc084e596d112",
+  "status": "passed_local_linux_windows_pending",
+  "scope": "PR99 startup scheduling patch, tested as a frozen worktree on e3e7. PR62 metadata functionality is excluded. Publication commit is recorded by the containing Git history.",
+  "changes": [
+    "Overlap startup JSON read with the existing private512-edge route-context copy, retaining final yield and own-ticket cancellation.",
+    "One-ticket adjacent catalog lookahead on the same reader; preserve authored merge order, original source stamps and final yields. No current-region inventory reuse.",
+    "Add startup context-copy faults and deterministic busy/completed lookahead lifecycle fixtures; retain all original60 startup/50 catalog assertion source lines."
+  ],
+  "unchanged_gates": {
+    "main_thread_operations_per_frame": 8,
+    "nominal_admission_usec": 2000,
+    "private_copy_step_edges": 512,
+    "catalog_merge_step_edges": 64,
+    "release_quit_after_frames": 120,
+    "regression_timeout_seconds": 180
+  },
+  "source_sha256": {
+    "godot/scripts/world_region_loader.gd": "cf2800379dc04ea41de21ae9807efedd0db911ab76b9745160522583ae1bb5bc",
+    "godot/scripts/world_startup_config_background_validation.gd": "b325c7ac6cbd4cae03cb73fba50e0aa47de6811f82574593ace68b68552ba806",
+    "godot/scripts/world_catalog_background_validation.gd": "7fe9dc53c59b39243f0dbda01e3a7a5b4eaace3e2c88c3848bd0c5e57b29c2f0"
+  },
+  "frozen_source_count": 475,
+  "source_freeze_sha256": "5a9b5ec66141ec90fd064b647d696441ecfffacba8519e3a9fb554885839346b",
+  "strict_double_import": {
+    "returncode": 0,
+    "elapsed_seconds": 14.851695602999825,
+    "source_unchanged": true,
+    "errors": [],
+    "objectdb_warnings": 0,
+    "markers": [],
+    "logs": {
+      "/tmp/crimson-pr99-catalog-lookahead/imports/import-2.log": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab",
+      "/tmp/crimson-pr99-catalog-lookahead/imports/import-1.log": "5e4661b9d53efb7725d1c8417e2afeea9b7a41238ed6a84bc6eac42c8cfc8b50"
+    }
+  },
+  "catalog_background": {
+    "returncode": 0,
+    "elapsed_seconds": 105.25204038400261,
+    "source_unchanged": true,
+    "errors": [],
+    "objectdb_warnings": 0,
+    "markers": [
+      "WORLD CATALOG BACKGROUND PASS checks=177"
+    ],
+    "logs": {
+      "/tmp/crimson-pr99-catalog-lookahead/world_catalog_background/world_catalog_background.log": "df77285f10367d0448184fcfa8a2d214d6a20a4d1c8e7a08183e7da3df6ca77c"
+    }
+  },
+  "startup_config_background": {
+    "returncode": 0,
+    "elapsed_seconds": 64.40481925399945,
+    "source_unchanged": true,
+    "errors": [],
+    "objectdb_warnings": 0,
+    "markers": [
+      "WORLD STARTUP CONFIG BACKGROUND PASS checks=469"
+    ],
+    "logs": {
+      "/tmp/crimson-pr99-catalog-lookahead/world_startup_config_background/world_startup_config_background.log": "8794d1d7ce9d5a59e09e47e14bb32a865fc844c9894947ceb44be17af9061321"
+    }
+  },
+  "real_world_source_120": {
+    "attempts": [
+      [
+        "first-start",
+        "",
+        true
+      ],
+      [
+        "resume",
+        "",
+        true
+      ]
+    ],
+    "evidence_type": "source project, not exported package"
+  },
+  "actual_linux_release": {
+    "returncode": 0,
+    "elapsed_seconds": 288.4900621479974,
+    "source_unchanged": true,
+    "template_sha256": "9e86efcd7578fa79af615c277dc6d6405609a099f5a317c3d17d76892133bb06",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "tools/build_release.py",
+      "--target",
+      "linux",
+      "--engine",
+      "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+      "--timeout",
+      "600",
+      "--output",
+      "/tmp/crimson-pr99-catalog-lookahead/release-linux"
+    ]
+  },
+  "release_smoke_logs": [
+    {
+      "attempt": "first-start",
+      "log_sha256": "3570018861cecfe068c0f370f39eee185cdda379a583302ab8dd3cbaa1973c65",
+      "errors": [],
+      "objectdb_warnings": 0
+    },
+    {
+      "attempt": "resume",
+      "log_sha256": "5eeb49e1402d1c07db6f4bd944dc4796399e760093f54a1164e03d241fef06c8",
+      "errors": [],
+      "objectdb_warnings": 0
+    }
+  ],
+  "diagnostic_frames": {
+    "unmodified_baseline": [
+      117,
+      114
+    ],
+    "context_overlap": [
+      120,
+      115
+    ],
+    "context_plus_catalog_overlap": [
+      116,
+      122
+    ]
+  },
+  "diagnostic_caveats": [
+    "Source real World smoke uses unchanged quit-after120 and original save/resume backup assertions, but is not a packaged player proof.",
+    "Separate completion diagnostics observed final fresh116/resume122 despite paired source120 smoke success; scheduling variability remains a risk, not a waived limit.",
+    "Lookahead observed five and six covered wait frames; catalog wait_frames already includes read_overlap_frames, so do not sum both with merge_frame_batches.",
+    "Catalog wall_usec continues to mean this helper invocation elapsed time, excluding earlier read overlap; worker_usec remains actual worker execution time.",
+    "Fixture busy/completed states prove ticket ownership and rejection, not a natural-play run or real-thread completion guarantee."
+  ],
+  "windows_release": "pending publication and CI on new commit; earlier e3e Windows resume120 failure remains historical failure",
+  "details": "Full logs, source freeze, source-phase measurements and original failed evidence remain separate; no gate or source failure is reclassified.",
+  "engine": {
+    "version": "4.6.1.stable.official.14d19694e",
+    "sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e"
+  },
+  "package": {
+    "sha256": "20b2f593e7264ef0700d9adf9edae90fbe154d9b376952ff20d1e99558a787bd",
+    "bytes": 452768524,
+    "source_commit": "e3e7d0a6c243ce45b9f9aae19aecc084e596d112",
+    "source_dirty": true,
+    "validation": [
+      "source-inputs",
+      "isolated-import",
+      "release-export",
+      "archive-integrity",
+      "unpacked-first-start",
+      "unpacked-resume-writeback"
+    ]
+  },
+  "static_validation": {
+    "command": "PYTHONPATH=tools python3 -m unittest tools.test_regression_runner tools.test_release_builder tools.test_integration_workflow",
+    "tests": 57,
+    "elapsed_seconds": 5.002,
+    "result": "pass",
+    "log_sha256": "64ca729124595f3fd8b25f2da78d70a538f2bd886dfd28054a680c9400fbadb6",
+    "retained_launch_failure": "Initial unittest invocation omitted tools from PYTHONPATH; two modules could not import. No product or test code was changed; the correct tool import path passed all57."
+  }
+}

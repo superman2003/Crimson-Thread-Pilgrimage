@@ -1,0 +1,21 @@
+{
+  "base": "51ff9e98ffd8b5e7ac3f96b2dd4f01a7cbd6926a",
+  "scope": "Death timer expiry must preserve idle selected by production _hard_respawn; no new art or combat timing changes.",
+  "status": "Exact same 54 new checks reproduce six baseline expiry-pose failures; one-line production return makes all 1012 checks pass under real software GL.",
+  "engine_sha256": "1d732a7b56ff8d2951f2bf43698a91c46ff80014b065672c6af2f7ffd0e6545e",
+  "source_sha256": {
+    "godot/scripts/player_controller.gd": "3465b8cbbb2e696a8b6f10226dd2c1d17a34475fa979ce4b66a954983ae6f058",
+    "godot/scripts/player_motion_continuity_validation.gd": "bb1c1fe0c6864cf01b7325a993b3dd6085b1005391079c900b5c00fcc1f7e074"
+  },
+  "red_exit": 1,
+  "red_checks": 1012,
+  "red_failures": 6,
+  "green_exit": 0,
+  "green_checks": 1012,
+  "green_failures": 0,
+  "green_objectdb_warnings": 1,
+  "warning_attribution": "OPEN",
+  "scope_note": "Only timer-edge visual-state fix. Full death pose hold/fade/reappearance still pending subsequent work.",
+  "red-console.log_sha256": "5e4c02f577d31d743f8e5de75bcffcb88de42f8d3299fe33bc98ffe3a735df61",
+  "green-console.log_sha256": "93f25098acf1d379b214926f03a696257e8f42ff6010d28362f26c16c0d6517f"
+}

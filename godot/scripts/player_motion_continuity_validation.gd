@@ -15,7 +15,9 @@ class ProbePlayer extends "res://scripts/player_controller.gd":
                 "animation": sprite.animation, "frame": sprite.frame,
                 "frame_progress": sprite.frame_progress, "flip": sprite.flip_h,
                 "facing": facing, "land": land_timer, "attack": attack_timer,
-                "heal": heal_timer, "sprite_position": sprite.position,
+                "heal": heal_timer, "death": death_timer, "hp": hp,
+                "visibility": flash_material.get_shader_parameter("presentation_alpha"),
+                "reveal": respawn_reveal_timer, "sprite_position": sprite.position,
                 "sprite_offset": sprite.offset, "sprite_scale": sprite.scale,
                 "camera_position": $Camera2D.global_position})
     func _play_sfx(_key: String, _volume: float = -6.0, _pitch: float = 1.0,
@@ -118,6 +120,181 @@ func _check_travel_samples(label: String, initial_phase: float) -> void:
             _check(bool(sample.flip) == (float(sample.dx) < 0.0), label + ": visible facing follows actual ground travel")
             var pose_phase := (float(sample.frame) + float(sample.frame_progress)) / 4.0
             _check(absf(pose_phase - float(sample.phase)) < 0.0001, label + ": rendered pose uses the distance phase")
+
+func _check_death_timer_boundary() -> void:
+    # Invoke the production physics tick deterministically at the exact timer
+    # boundary. A pending movement/attack input must not skip the old return.
+    _release()
+    player.recording = false
+    player.set_physics_process(false)
+    var original_spawn := player.spawn_position
+    var notifications := {"respawns": 0}
+    var on_respawn := func() -> void: notifications.respawns += 1
+    player.player_respawned.connect(on_respawn)
+    for rate in [30, 60, 120]:
+        var dt := 1.0 / float(rate)
+        for direction in [-1, 1]:
+            player.restore_at_save_point()
+            player.set_spawn(Vector2(300, 300))
+            player.global_position = Vector2(500, 220)
+            player.facing = direction
+            player.sprite.flip_h = direction < 0
+            player.arrival_guard_timer = 0.0
+            player.debug_invulnerable = false
+            player.energy = player.max_energy
+            player.take_damage(999, player.global_position + Vector2(40, 0), false)
+            _check(player.hp == 0 and is_equal_approx(player.death_timer, 0.9)
+                and player.sprite.animation == &"death", "Real damaging hit enters the existing death state")
+            # Only advance the fixture near the boundary; production still owns
+            # the original 0.9-second death duration and respawn resource rules.
+            player.death_timer = dt * 2.0
+            var before: int = notifications.respawns
+            Input.action_press("move_right")
+            Input.action_press("attack")
+            player._physics_process(dt)
+            _check(player.death_timer > 0.0 and player.sprite.animation == &"death",
+                "Death pose remains before expiry at %d Hz facing %d" % [rate, direction])
+            _check(player.hp == 0 and notifications.respawns == before,
+                "Death does not respawn early")
+            _check(is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")),
+                dt / player.DEATH_FADE_SECONDS), "Late death fades within the existing timer window")
+            player._physics_process(dt)
+            _check(player.death_timer <= 0.0 and player.sprite.animation == &"idle",
+                "Expiry tick keeps the respawn idle instead of replaying death")
+            _check(player.hp == player.max_hp and player.energy == 0,
+                "Expiry preserves the existing respawn HP and energy rules")
+            _check(player.global_position == player.spawn_position and player.velocity == Vector2.ZERO,
+                "Expiry tick returns without moving away from the respawn position")
+            _check(player.attack_timer == 0.0 and player.buffered_action == &"",
+                "Expiry tick does not start or retain the held attack")
+            _check(notifications.respawns == before + 1,
+                "Expiry emits exactly one existing respawn signal")
+            _check(is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 0.0)
+                and player.layered_idle.active, "Expiry starts the idle layers hidden at the checkpoint")
+            _release()
+            # Manual ticks share one engine input frame. Advance that frame so
+            # the earlier attack press is not still reported as just_pressed.
+            await _frames(1)
+            Input.action_press("move_right")
+            player._physics_process(dt)
+            _check(notifications.respawns == before + 1,
+                "The following normal tick does not respawn again")
+            _check(is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")),
+                dt / player.RESPAWN_REVEAL_SECONDS), "Respawn reveal advances on the original game clock")
+            _check(player.velocity.x > 0.0 and player._can_start_action(),
+                "Movement and actions are restored while the visual reveal is still running")
+            _release()
+            player.prepare_region_handoff()
+            _check(player.respawn_reveal_timer == 0.0
+                and is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 1.0),
+                "Region handoff cancels a partial reveal without leaving the hero invisible")
+    player.set_spawn(original_spawn)
+    player.player_respawned.disconnect(on_respawn)
+    player.set_physics_process(true)
+
+func _check_complete_death_playback() -> void:
+    await _reset()
+    var original_spawn := player.spawn_position
+    player.set_spawn(Vector2(300, 300))
+    player.arrival_guard_timer = 0.0
+    player.debug_invulnerable = false
+    player.take_damage(999, player.global_position + Vector2(40, 0), false)
+    var finished := {"count": 0}
+    var on_finished := func() -> void:
+        if player.sprite.animation == &"death": finished.count += 1
+    player.sprite.animation_finished.connect(on_finished)
+    _capture()
+    await _frames(90)
+    player.sprite.animation_finished.disconnect(on_finished)
+    _check(finished.count == 1, "Non-loop death finishes exactly once instead of restarting")
+    var saw_final_hold := false
+    var saw_fade := false
+    var saw_respawn := false
+    var previous_alpha := 0.0
+    var last_frame := player.sprite.sprite_frames.get_frame_count(&"death") - 1
+    for sample in player.samples:
+        var remaining := float(sample.death)
+        var alpha := float(sample.visibility)
+        if remaining > 0.0:
+            if remaining < 0.40:
+                saw_final_hold = true
+                _check(sample.animation == &"death" and sample.frame == last_frame,
+                    "Non-loop death holds its final authored pose until respawn")
+            if remaining < player.DEATH_FADE_SECONDS:
+                saw_fade = true
+                _check(alpha >= 0.0 and alpha < 1.0,
+                    "The final held pose fades before checkpoint relocation")
+        else:
+            if not saw_respawn:
+                saw_respawn = true
+                _check(sample.animation == &"idle" and alpha == 0.0,
+                    "First respawn render starts at hidden idle, without a death-pose flash")
+                _check(Vector2(sample.x, sample.y) == player.spawn_position and int(sample.hp) == player.max_hp,
+                    "Complete death playback reaches the actual respawn position and restored health")
+            _check(alpha + 0.00001 >= previous_alpha and alpha <= 1.0,
+                "Respawn reveal is monotonic and bounded")
+            previous_alpha = alpha
+    _check(saw_final_hold and saw_fade and saw_respawn and is_equal_approx(previous_alpha, 1.0),
+        "Full 0.9-second death, terminal hold, fade, relocation and reveal all occur")
+    player.set_spawn(original_spawn)
+    player.recording = false
+
+func _check_reveal_interruptions() -> void:
+    await _reset()
+    player.set_physics_process(false)
+    var original_layer: int = player.collision_layer
+    var original_mask: int = player.collision_mask
+    for alpha in [0.0, 0.5]:
+        for action in [&"handoff", &"respawn", &"shrine"]:
+            player.respawn_reveal_timer = player.RESPAWN_REVEAL_SECONDS * (1.0 - alpha)
+            player._set_death_visibility(alpha)
+            match action:
+                &"handoff": player.prepare_region_handoff()
+                &"respawn": player.respawn_at(player.spawn_position)
+                &"shrine": player.restore_at_save_point()
+            _check(player.respawn_reveal_timer == 0.0
+                and is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 1.0),
+                "Interrupted reveal restores visibility: %s alpha %.1f" % [action, alpha])
+    player.respawn_reveal_timer = player.RESPAWN_REVEAL_SECONDS * 0.5
+    player._set_death_visibility(0.5)
+    player.ui_input_locked = true
+    player._physics_process(0.1)
+    _check(is_equal_approx(player.respawn_reveal_timer, player.RESPAWN_REVEAL_SECONDS * 0.5)
+        and is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 0.5),
+        "Existing UI lock pauses reveal on the same game clock")
+    player.ui_input_locked = false
+    player._physics_process(0.1)
+    _check(player.respawn_reveal_timer == 0.0
+        and is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 1.0),
+        "Unlock advances the remaining reveal to full visibility")
+    player.restore_at_save_point()
+    player.arrival_guard_timer = 0.0
+    player.debug_invulnerable = false
+    player.respawn_reveal_timer = player.RESPAWN_REVEAL_SECONDS * 0.5
+    player._set_death_visibility(0.5)
+    var hp_before: int = player.hp
+    player.take_damage(1, player.global_position + Vector2(40, 0), false)
+    _check(player.hp < hp_before and player.hurt_timer > 0.0,
+        "Reveal adds no immunity: normal damage still starts hurt")
+    _check(player.collision_layer == original_layer and player.collision_mask == original_mask,
+        "Presentation keeps the original collision layer and mask")
+    player.restore_at_save_point()
+    player.arrival_guard_timer = 0.0
+    player.respawn_reveal_timer = player.RESPAWN_REVEAL_SECONDS * 0.5
+    player._set_death_visibility(0.5)
+    player.take_damage(999, player.global_position + Vector2(40, 0), false)
+    _check(player.hp == 0 and is_equal_approx(player.death_timer, 0.9)
+        and player.respawn_reveal_timer == 0.0 and player.sprite.animation == &"death"
+        and is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 1.0),
+        "A new lethal hit cancels the old reveal and begins a visible new death")
+    player.death_timer = 0.005
+    player._physics_process(1.0 / 30.0)
+    _check(player.death_timer <= 0.0 and player.sprite.animation == &"idle"
+        and player.respawn_reveal_timer == player.RESPAWN_REVEAL_SECONDS,
+        "A tick crossing beyond the death boundary still starts checkpoint idle once")
+    player.restore_at_save_point()
+    player.set_physics_process(true)
+    await _frames(24)
 
 func _run() -> void:
     fixture = Node2D.new()
@@ -272,6 +449,9 @@ func _run() -> void:
     player.prepare_region_handoff()
     _check(player.ground_motion_x == 0.0 and player.ground_motion_speed == 0.0 and player.run_cycle_phase == 0.0,
         "Region handoff clears stale locomotion presentation")
+    await _check_death_timer_boundary()
+    await _check_complete_death_playback()
+    await _check_reveal_interruptions()
     _release()
     fixture.queue_free()
     await _frames(3)
