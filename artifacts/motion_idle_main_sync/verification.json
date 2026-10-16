@@ -3559,9 +3559,9 @@
     "campaign": "PASS",
     "runner": "28 tests PASS",
     "workshop_layout": "30 tests PASS",
-    "new_combination_strict_import": "NOT RUN at sync commit",
-    "new_combination_real_gl": "NOT RUN at sync commit; queued for exclusive GPU slot",
-    "full_106_remote_ci": "PENDING new commit; historical source-head results not inherited"
+    "new_combination_strict_import": "PASS after sync commit: both strict Godot 4.6.1 import passes; source default bus restored byte-for-byte before runtime.",
+    "new_combination_real_gl": "PASS after sync commit: 10 affected real-GL suites, 180 seconds per suite, original drawing policies. See runtime_verification.json.",
+    "full_106_remote_ci": "Not evaluated by this local evidence pass; verify exact remote head independently. Historical source-head results not inherited."
   },
   "open": [
     "Visual contacts 2→4, 6→7 and 7→1 remain open.",
@@ -3574,5 +3574,11 @@
     "qa-logs/motion-idle-main-sync/campaign.log",
     "qa-logs/motion-idle-main-sync/runner.log",
     "qa-logs/motion-idle-main-sync/workshop-layout.log"
-  ]
+  ],
+  "post_sync_runtime_evidence": "runtime_verification.json",
+  "same_tree_tested_commits": [
+    "c523c3bc41863d61a59b7249a5e3ae18c486439d",
+    "7dbd0433c359c708a1ff27c18091b034c1ad0761"
+  ],
+  "tested_source_tree": "e6def8fc063e31631dda64f1ee5ea7b2187b1ef6"
 }
