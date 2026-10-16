@@ -96,6 +96,9 @@
   "world_route_manifest_walk_lower": "^WORLD_ROUTE_MANIFEST_WALK_LOWER checks=\\d+ failures=0 physical_crossings=6$",
   "world_route_manifest_walk_upper": "^WORLD_ROUTE_MANIFEST_WALK_UPPER checks=\\d+ failures=0 physical_crossings=4$",
   "world_route_manifest_integration": "^WORLD_ROUTE_MANIFEST_INTEGRATION checks=\\d+ failures=0$",
+  "player_motion_continuity": "^PLAYER_MOTION_CONTINUITY checks=\\d+ failures=0$",
+  "player_melee_feedback": "^PLAYER_MELEE_FEEDBACK_PASS checks=\\d+ hardware=simulated physical_feel=unverified$",
   "world_gameplay_plan": "^WORLD_GAMEPLAY_PLAN checks=\\d+ failures=0$",
+  "room_camera_stability": "^ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics=\\{.*\\}$",
   "combat_resource_cycle": "^COMBAT_RESOURCE_CYCLE checks=[0-9]+ failures=0 crests=3 actual_input=true$"
 }
