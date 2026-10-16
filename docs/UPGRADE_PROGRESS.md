@@ -1,5 +1,20 @@
 # 深化升级进度
 
+## 2026-10-16：#95 恢复写回窗口的启动调度修复
+
+新main组合2bf90970的Windows在原120帧内未完成恢复写回；首启成功、Linux成功，两份Windows日志无资源ERROR，区别于已修令牌泄漏。冻结4.6.1诊断为122/124帧就绪；仅回移#96已用的manifest/catalog预算合批和移除重复空等，观测为115/104帧，保留512/64粒度、8操作/2ms准入及最终取消窗口。目录原71检查保留新增10；严格双导入、受影响GL与原120帧Linux导出结果按[冻结证据](../artifacts/modern_catalog_integration/resume_frame_budget_verification.json)记录，新head Windows/完整CI另核，不降低门禁。默认107套与原视觉/长期稳定OPEN不变。[原因和边界](report/20261016_catalog_resume_frame_budget.md)。
+
+## 2026-10-16：同步已合入 main 的 #94 动作/镜头/待机
+
+维护者将 #94 合入 `main 2d60b550`（与已验 `51ff9e98` 同树），本分支保留目录 reader 与 Windows 退出清理，纳入全部动作/镜头/分层待机及独立 runtime/visual CI。五处冲突仅在三份进度文档、默认集合和计数测试；取双方并集后默认107套。目录 loader/reader/专项与 `ccc0d23d` 原字节相同，Main/Player/待机与新main原字节相同。29 runner、5 workflow完整性、npm/campaign通过。冲突修复先交付，受影响新组合本地GL及新head完整CI继续验证；旧ccc全绿只归属旧main组合，不替代本次。原120帧、180秒、严格ERROR/marker与所有视觉OPEN保持。
+
+
+2026-10-16 主线同步：维护者已将#91工坊合入main `07ae21d4`。本次保留#95目录worker源码原字节及新主线全部工坊路线/验证；四处台账/计数冲突取并集，默认103套。npm/campaign与24项runner单测通过。冲突修复先提交，新组合本地GL仍排队、远端CI按新head触发并跟进；旧defb的100套绿灯不套新组合。详见[同步证据](../artifacts/modern_catalog_integration/workshop_main_sync_verification.json)。既有180秒、绘制模式与全部断言保持。
+
+## 2026-10-16：W00b2b物品目录后台准备现代整合
+
+承接#60目录worker差量到main `1806e0cf`，保留路线/五通道/事务/planner。唯一reader异步读取，最多64键分步合并，完整租约通过才发布；补外来完成票据等待和二次回滚失效恢复。14套组合及修竞态后的catalog71项真实GL通过，原50项/180秒保留，默认100套；prepare/async各1条ObjectDB警告仍未归因。目录复制/复杂单项、76落点性能与W00b2b整包仍OPEN，见[本批报告](report/20261016_modern_catalog_integration.md)。
+
 ## 2026-10-16：#94 同步十九工房 main 与分层待机依赖
 
 基于正式 #94 `aa02c4af` 同步 main `07ae21d4`，六处文档/runner 冲突取双方并集。保留十九间工房及十九次读盘重启契约、固定身体/七披风区域、动作/近战/镜头功能与所有 workflow，默认集合为 **106 套**（含四套叙事）。生产函数与来源逐项哈希核对一致，两张 PNG 原始字节未改；npm、campaign、28 项 runner 与 30 项工房布局静态测试通过。新组合严格导入及本地 GL 尚未执行，完整新 head CI 待发布后核验，旧 102/103 套绿灯不转记为新组合通过。坏接点 **2→4、6→7、7→1**、完整呼吸及跨动作视觉连续性继续 **OPEN**；既有历史文字不表示本次已消除这些缺陷。见[同步证据与最小门禁](report/20261016_motion_idle_main_sync.md)。

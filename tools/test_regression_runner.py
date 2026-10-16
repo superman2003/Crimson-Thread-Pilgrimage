@@ -6,6 +6,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+import run_godot_regressions as runner
 from run_godot_regressions import suite_path, render_loop_args, DEFAULT_SUITES, NARRATIVE_SUITES, SUCCESS_MARKERS
 import re
 from run_godot_regressions import run_suites
@@ -73,7 +75,8 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 106)
+        self.assertEqual(len(all_suites), 107)
+        self.assertIn("world_catalog_background", DEFAULT_SUITES)
         self.assertIn("room_camera_stability", DEFAULT_SUITES)
         self.assertIn("player_layered_idle", DEFAULT_SUITES)
         self.assertIn("input_prompt", DEFAULT_SUITES)
@@ -296,6 +299,52 @@ class RunnerTests(unittest.TestCase):
                     self.assertIn('--rendering-method', args)
                     self.assertIn('gl_compatibility', args)
                     self.assertEqual('--disable-render-loop' in args, should_disable)
+
+    def test_catalog_fault_fixture_restores_source_for_all_process_outcomes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'godot/data/world_routes.json'
+            source.parent.mkdir(parents=True)
+            original = b'{"fixture": "original"}'
+            script = root / 'godot/scripts/world_catalog_background_validation.gd'
+            script.parent.mkdir(parents=True)
+            script.write_text('fixture')
+            logs = root / 'logs'
+            logs.mkdir()
+            engine = root / 'fake-godot'
+            cases = [
+                ('print("WORLD CATALOG BACKGROUND PASS checks=1")', 2, 0),
+                ('print("SCRIPT ERROR: fixture failure"); print("WORLD CATALOG BACKGROUND PASS checks=1")', 2, 1),
+                ('raise RuntimeError("fixture failure")', 2, 1),
+                ('import time; time.sleep(2)', 0.05, 1),
+            ]
+            for body, timeout, failure_count in cases:
+                with self.subTest(body=body):
+                    source.write_bytes(original)
+                    stamps = (123000000001, 456000000002)
+                    os.utime(source, ns=stamps)
+                    engine.write_text('#!' + sys.executable + '\n'
+                                      + f'open({str(source)!r}, "wb").write(b"changed")\n'
+                                      + body + '\n')
+                    engine.chmod(0o755)
+                    with patch.object(runner, 'ROOT', root):
+                        failures = runner.run_suites(str(engine), ['world_catalog_background'],
+                                                     timeout, logs, root / 'scratch', False, {})
+                    self.assertEqual(len(failures), failure_count)
+                    restored = source.stat()  # Inspect atime before reading again.
+                    self.assertEqual((restored.st_atime_ns, restored.st_mtime_ns), stamps)
+                    self.assertEqual(source.read_bytes(), original)
+            source.write_bytes(original)
+            os.utime(source, ns=stamps)
+            def failed_launch(*args, **kwargs):
+                source.write_bytes(b'changed before launch failure')
+                raise OSError('fixture launch failure')
+            with patch.object(runner, 'ROOT', root), patch.object(runner.subprocess, 'run', side_effect=failed_launch):
+                with self.assertRaises(OSError):
+                    runner.run_suites(str(engine), ['world_catalog_background'], 2, logs, root / 'scratch', False, {})
+            restored = source.stat()
+            self.assertEqual((restored.st_atime_ns, restored.st_mtime_ns), stamps)
+            self.assertEqual(source.read_bytes(), original)
 
     def test_invalid_timeout_never_launches_engine(self):
         with tempfile.TemporaryDirectory() as directory:
