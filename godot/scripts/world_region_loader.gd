@@ -109,6 +109,7 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         _show_startup_error(host)
         host.process_mode = restore_process_mode
         return false
+    var startup_source_catalog: Dictionary = host.world_catalog
     var startup_route_generation := ROUTES.cached_generation()
     if host.has_method("_resolve_world_start_route") and not host._resolve_world_start_route():
         last_error = "归途区域不在当前巡礼路线中。"
@@ -120,6 +121,9 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         built = false
         last_error = "区域路线清单在初始构建期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
+        if is_instance_valid(host):
+            host.world_catalog = startup_source_catalog
+            _discard_catalog_staging(host)
         _clear_loading_canvas()
         phase = "idle"
         return false
@@ -129,12 +133,17 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
         built = false
         last_error = "区域路线清单在初始交接期间发生变化。"
     if not _alive(host) or host.get_tree() != tree or shutting_down:
+        if is_instance_valid(host):
+            host.world_catalog = startup_source_catalog
+            _discard_catalog_staging(host)
         _clear_loading_canvas()
         phase = "idle"
         return false
     if built:
         host._publish_region()
     else:
+        host.world_catalog = startup_source_catalog
+        host.world_catalog_prepare_staging = {}
         last_error = "初始区域准备或构建任务未能完成。"
         _show_startup_error(host)
     if built:
@@ -674,8 +683,113 @@ func _evict_budgeted(host: Node) -> bool:
     return true
 
 
+
+## Sequential cold-catalog reads share the loader's single ticket service.
+## Parsed region trees are worker-owned; only catalog entries survive handoff.
+func _catalog_context_valid(host: Variant, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
+    return _alive(host) and host.get_tree() == tree and generation == expected_generation and route_generation >= 0 and ROUTES.cached_generation() == route_generation and (not cancellable or not cancel_requested)
+
+func _discard_catalog_staging(host: Variant) -> void:
+    if is_instance_valid(host):
+        host.world_catalog_prepare_staging = {}
+
+func _prepare_catalog_region_async(host: Node, region_id: String, route_catalog: Dictionary, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool, source_path: String = "") -> bool:
+    var path := source_path if not source_path.is_empty() else "res://data/%s.json" % region_id
+    var wall_started := Time.get_ticks_usec()
+    var wait_frames := 0
+    var ticket := 0
+    while ticket == 0:
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+            _discard_catalog_staging(host)
+            return false
+        if config_read_job.closed:
+            last_error = "物品目录后台读取服务已关闭。"
+            _discard_catalog_staging(host)
+            return false
+        # A completed ticket still belongs to its current owner. Wait for
+        # take/discard just as the modern manifest path does; never steal it.
+        if not config_read_job.busy() and not config_read_job.has_pending_ticket():
+            ticket = config_read_job.request(path)
+            if ticket == 0:
+                last_error = "无法启动物品目录后台读取。"
+                _discard_catalog_staging(host)
+                return false
+        # Even a tiny completed read must offer a cancellation window.
+        await tree.process_frame
+        wait_frames += 1
+        _cancel_input()
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+            config_read_job.discard(ticket)
+            _discard_catalog_staging(host)
+            return false
+    while config_read_job.busy():
+        await tree.process_frame
+        wait_frames += 1
+        _cancel_input()
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+            config_read_job.discard(ticket)
+            _discard_catalog_staging(host)
+            return false
+    var read: Dictionary = config_read_job.take(ticket)
+    var raw: Variant = read.get("raw")
+    if not String(read.get("error", "物品目录读取票据已失效。")).is_empty() or not raw is Dictionary:
+        last_error = String(read.get("error", "物品目录读取票据已失效。"))
+        if last_error.is_empty(): last_error = "物品目录记录无法读取。"
+        _discard_catalog_staging(host)
+        return false
+    var stamp := int(read.get("stamp", -1))
+    var record := {"region_id": region_id, "path": path, "stamp": stamp, "bytes": read.get("bytes", 0),
+        "worker_is_main": read.get("worker_is_main", true), "worker_usec": read.get("worker_usec", 0),
+        "generation": expected_generation, "route_generation": route_generation, "merged_entries": 0, "merge_work_usec": 0, "max_merge_step_usec": 0, "merge_batches": 0, "max_merge_edges": 0, "wait_frames": wait_frames, "wall_usec": 0}
+    var reads: Array = last_transition.get("catalog_reads", [])
+    reads.append(record)
+    last_transition["catalog_reads"] = reads
+    var inventory: Variant = raw.get("inventory", {})
+    var catalog: Variant = inventory.get("catalog", {}) if inventory is Dictionary else null
+    if not catalog is Dictionary:
+        last_error = "物品目录格式无效。"
+        _discard_catalog_staging(host)
+        return false
+    # Avoid cloning the whole region. Region and route dictionaries already
+    # have private ownership; route entries overwrite local entries, then the
+    # first route in authored order wins the global key.
+    for source in [route_catalog, catalog]:
+        var keys: Array = source.keys()
+        var cursor := 0
+        while cursor < keys.size():
+            if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
+                last_error = "物品目录在交接期间发生变化。"
+                _discard_catalog_staging(host)
+                return false
+            var merge_started := Time.get_ticks_usec()
+            var batch_edges := mini(64, keys.size() - cursor)
+            var end := cursor + batch_edges
+            while cursor < end:
+                var key: Variant = keys[cursor]
+                if not host.world_catalog_prepare_staging.has(key):
+                    host.world_catalog_prepare_staging[key] = source[key]
+                    record.merged_entries += 1
+                cursor += 1
+            var merge_usec := Time.get_ticks_usec() - merge_started
+            record.merge_batches += 1
+            record.max_merge_edges = maxi(record.max_merge_edges, batch_edges)
+            record.merge_work_usec += merge_usec
+            record.max_merge_step_usec = maxi(record.max_merge_step_usec, merge_usec)
+            await tree.process_frame
+            _cancel_input()
+    if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable) or FileAccess.get_modified_time(path) != stamp:
+        _discard_catalog_staging(host)
+        return false
+    record.wall_usec = Time.get_ticks_usec() - wall_started
+    return true
+
+
 func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> bool:
     var prepare_wall_started := Time.get_ticks_usec()
+    var prepare_tree := host.get_tree()
+    var prepare_generation := generation
+    var prepare_route_generation := ROUTES.cached_generation()
+    last_transition["catalog_reads"] = []
     var prepare_jobs: Array = host._region_prepare_jobs(target)
     last_transition["prepare_plan_usec"] = Time.get_ticks_usec() - prepare_wall_started
     var prepare_role := "target" if cancellable else "rollback"
@@ -691,7 +805,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     last_transition["max_prepare_job_usec"] = 0
     last_transition["prepare_operation_usec"] = {}
     while prepare_cursor < prepare_jobs.size():
-        if cancellable and cancel_requested:
+        if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+            _discard_catalog_staging(host)
             _finalize_prepare_metrics(prepare_role, prepare_wall_started)
             return false
         var prepare_batch_started := Time.get_ticks_usec()
@@ -704,9 +819,35 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             var prepare_job: Dictionary = prepare_jobs[prepare_cursor]
             var prepare_method := String(prepare_job.get("method", ""))
             var prepare_args: Array = prepare_job.get("args", [])
+            if prepare_method == "_prepare_world_catalog_region" and prepare_operations > 0:
+                break
             var job_started := Time.get_ticks_usec()
-            var prepare_result: Variant = host.callv(prepare_method, prepare_args)
+            var prepare_result: Variant
+            if prepare_method == "_prepare_world_catalog_region":
+                if not await _prepare_catalog_region_async(host, String(prepare_args[0]), prepare_args[1], prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+                    _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+                    return false
+                # Worker wait/merge yields are outside the synchronous job budget.
+                prepare_batch_started = Time.get_ticks_usec()
+                job_started = prepare_batch_started
+            else:
+                if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+                    _discard_catalog_staging(host)
+                    _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+                    return false
+                if prepare_method == "_commit_world_catalog_prepare":
+                    for read in last_transition.get("catalog_reads", []):
+                        if FileAccess.get_modified_time(String(read.path)) != int(read.stamp):
+                            last_error = "物品目录在发布前发生变化。"
+                            _discard_catalog_staging(host)
+                            _finalize_prepare_metrics(prepare_role, prepare_wall_started)
+                            return false
+                prepare_result = host.callv(prepare_method, prepare_args)
             var job_usec := Time.get_ticks_usec() - job_started
+            if prepare_method == "_prepare_world_catalog_region":
+                var catalog_reads: Array = last_transition.catalog_reads
+                var catalog_read: Dictionary = catalog_reads.back()
+                job_usec += int(catalog_read.merge_work_usec)
             # Keep one duration per operation index, rather than a per-method
             # aggregate, so reports can identify expensive individual jobs.
             var operation_key := "%d:%s" % [prepare_cursor, prepare_method]
@@ -725,6 +866,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             prepare_cursor += 1
             prepare_operations += 1
             last_transition["prepare_cursor"] = prepare_cursor
+            if prepare_method == "_prepare_world_catalog_region":
+                break
         var prepare_batch_usec := Time.get_ticks_usec() - prepare_batch_started
         last_transition["prepare_batches"] = int(last_transition["prepare_batches"]) + 1
         var batch_operation_counts: Array = last_transition["prepare_batch_operations"]
@@ -736,8 +879,9 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             loading_label.text = ("正在接通旧路… 准备 %d / %d\nEsc 返回来路" if cancellable else "正在返回来路… 准备 %d / %d") % [prepare_cursor, prepare_jobs.size()]
         # Yield after every batch, including the final one, so Escape and host
         # teardown can be observed before any build jobs are created.
-        await host.get_tree().process_frame
-        if not _alive(host):
+        await prepare_tree.process_frame
+        if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+            _discard_catalog_staging(host)
             _finalize_prepare_metrics(prepare_role, prepare_wall_started)
             return false
         _cancel_input()
@@ -776,7 +920,7 @@ func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
     last_transition["prepare_usec"] = int(last_transition.get("prepare_work_usec", 0))
     var metric_keys := ["prepare_jobs", "prepare_cursor", "prepare_batches", "prepare_batch_operations",
         "prepare_work_usec", "prepare_wall_usec", "prepare_plan_usec", "prepare_usec",
-        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec"]
+        "max_prepare_operations", "max_prepare_batch_usec", "max_prepare_job_usec", "prepare_operation_usec", "catalog_reads"]
     var attempt: Dictionary = {"role": role}
     for key in metric_keys:
         var value: Variant = last_transition.get(key, null)
@@ -879,6 +1023,7 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         return false
     # Preserve the source through validation. Capture settled departure data only
     # after the final validator batch has yielded and survived cancellation.
+    var source_catalog: Dictionary = host.world_catalog
     var source_config: Dictionary = host.config.duplicate(true)
     var source_path: String = host.config_path
     var source_position: Vector2 = host.player.global_position
@@ -918,9 +1063,28 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         built = false
         last_error = "区域路线清单在目标区域交接期间发生变化。"
     if not _alive(host):
+        if is_instance_valid(host):
+            host.world_catalog = source_catalog
+            _discard_catalog_staging(host)
         _clear_loading_canvas()
         return false
     if not built:
+        # Catalog commit swaps the dictionary rather than mutating the source.
+        # A later prepare/build/finish invalidation must restore that snapshot.
+        host.world_catalog = source_catalog
+        host.world_catalog_prepare_staging = {}
+        # A changed manifest stamp makes cached_generation() invalid. Repair
+        # it through the same reader before admitting rollback preparation.
+        # If the new file itself is unusable, retain gated physics/gameplay and
+        # expose the existing retry control instead of stranding phase rollback.
+        if not ROUTES.cache_is_current():
+            if not await _prepare_routes_manifest(host, host.get_tree()):
+                if _alive(host):
+                    _show_startup_error(host)
+                    host.process_mode = previous_mode
+                else:
+                    _clear_loading_canvas()
+                return false
         phase = "rollback"
         last_transition["rolled_back"] = true
         host._stop_region_tweens()
@@ -933,11 +1097,32 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
         host.build_system.restore(source_build)
         _set_destination(host, source_path, rollback_entry if rollback_entry.is_finite() else source_position, source_id, source_config)
         host.transition_entry_message = "已返回来路。"
-        if not await _construct_budgeted(host, source_config, false):
-            _clear_loading_canvas()
+        var rollback_tree := host.get_tree()
+        var rollback_generation := generation
+        var rollback_route_generation := ROUTES.cached_generation()
+        var restored := await _construct_budgeted(host, source_config, false)
+        if not restored or not _catalog_context_valid(host, rollback_tree, rollback_generation, rollback_route_generation, false):
+            if is_instance_valid(host):
+                host.world_catalog = source_catalog
+                _discard_catalog_staging(host)
+            if _alive(host):
+                last_error = "返回来路时区域准备失败。"
+                _show_startup_error(host)
+                host.process_mode = previous_mode
+            else:
+                _clear_loading_canvas()
             return false
-        if not await _finish_budgeted(host, false):
-            _clear_loading_canvas()
+        restored = await _finish_budgeted(host, false)
+        if not restored or not _catalog_context_valid(host, rollback_tree, rollback_generation, rollback_route_generation, false):
+            if is_instance_valid(host):
+                host.world_catalog = source_catalog
+                _discard_catalog_staging(host)
+            if _alive(host):
+                last_error = "返回来路时区域交接失败。"
+                _show_startup_error(host)
+                host.process_mode = previous_mode
+            else:
+                _clear_loading_canvas()
             return false
     # Only this small, non-yielding boundary may publish rewards and save the
     # destination. Rollback retires even partially constructed arrival/UI nodes.
