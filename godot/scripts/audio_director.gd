@@ -252,12 +252,19 @@ static func ensure_sub_buses() -> void:
 
 
 static func _ensure_bus(bus_name: String, send_to: String) -> void:
+    # Godot 4.6.1 add_bus/set_bus_send do not lock the driver. The mixer reads
+    # bus_map and send concurrently, including with a complete default layout.
+    # Hold one non-yielding transaction through creation, naming and routing;
+    # the driver's recursive mutex also covers set_bus_name's internal lock.
+    AudioServer.lock()
     if AudioServer.get_bus_index(bus_name) == -1:
         AudioServer.add_bus()
         AudioServer.set_bus_name(AudioServer.bus_count - 1, bus_name)
     var index := AudioServer.get_bus_index(bus_name)
     var send := send_to if AudioServer.get_bus_index(send_to) != -1 else "Master"
-    AudioServer.set_bus_send(index, send)
+    if AudioServer.get_bus_send(index) != send:
+        AudioServer.set_bus_send(index, send)
+    AudioServer.unlock()
 
 
 static func _find_bus_effect(bus_index: int, effect_class: String) -> int:
