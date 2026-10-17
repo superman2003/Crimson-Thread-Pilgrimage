@@ -955,11 +955,11 @@
         1024
       ],
       "mode": "RGBA",
-      "sha256": "71f542445a52c8539f92f7a5421493c4b88537fea4110e5b26b31558ef99df8c",
-      "prompt_sha256": "c3efb3f40ba8ee883489da87839f08c8d38949049764ccdbf841b4397de1d24b",
-      "original_tool_output": "exec-3c07f605-964e-4552-a411-92b72be24f7c.png",
-      "rgba_alpha_zero_pixels": 1152810,
-      "rgba_alpha_ge_128_pixels": 361071,
+      "sha256": "a523030f82b9acf9356cf92c81cd91b0a11b672f9c95ab8e80b0b59892b4598a",
+      "prompt_sha256": "25d3b39f5527ef29bc457bf06aa4d4d8b8b7fa5bfbe9f362c4c2015d824061dc",
+      "original_tool_output": "exec-41bbefb8-ac3a-4ac2-99dd-e69637edfcfb.png",
+      "rgba_alpha_zero_pixels": 1222965,
+      "rgba_alpha_ge_128_pixels": 308524,
       "alpha_extrema": [
         0,
         254
@@ -974,18 +974,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            65,
-            141,
-            460,
-            456
+            56,
+            145,
+            450,
+            448
           ],
           "opaque_padding_left_top_right_bottom": [
-            65,
-            141,
-            52,
-            56
+            56,
+            145,
+            62,
+            64
           ],
-          "rgba_region_sha256": "830af97d505db717399841531a167299c8dd1f49e5e4100af3ce6cdc52494e82"
+          "rgba_region_sha256": "dec1454d9f3096d31b3c60fcee690c3338b4289562d77defd210d1cdd7d10cb6"
         },
         {
           "index": 2,
@@ -996,18 +996,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            67,
-            73,
-            421,
-            475
+            89,
+            38,
+            371,
+            448
           ],
           "opaque_padding_left_top_right_bottom": [
-            67,
-            73,
-            91,
-            37
+            89,
+            38,
+            141,
+            64
           ],
-          "rgba_region_sha256": "dce0602501a24408431546488086c8bc42dc62e4081277f7135815e33532ca93"
+          "rgba_region_sha256": "f3c8b8aeb3b76e38d657b1ff050eaf757972d8542c956d61590f7743019c8028"
         },
         {
           "index": 3,
@@ -1018,18 +1018,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            51,
-            146,
-            459,
-            483
+            74,
+            155,
+            458,
+            452
           ],
           "opaque_padding_left_top_right_bottom": [
-            51,
-            146,
-            53,
-            29
+            74,
+            155,
+            54,
+            60
           ],
-          "rgba_region_sha256": "d12c4136164a80b02a5631154fbc6768b2a71f4633534e5f4dca3741fc7eac45"
+          "rgba_region_sha256": "1c282477b2f2f48561c886cb5d4aaa5e68abf1dadcbe24dae94f5d93b8642292"
         },
         {
           "index": 4,
@@ -1040,18 +1040,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            59,
-            67,
-            487,
-            439
+            66,
+            71,
+            350,
+            449
           ],
           "opaque_padding_left_top_right_bottom": [
-            59,
-            67,
-            25,
-            73
+            66,
+            71,
+            162,
+            63
           ],
-          "rgba_region_sha256": "f25cde8411f6261c8b2b2c5b80be9de37578abeefea8dc19cf984afcf2d7acd0"
+          "rgba_region_sha256": "4352994cc2659e0e0e9e3f499c656da82e8ff13c02a5733b4709a708362edc1e"
         },
         {
           "index": 5,
@@ -1062,18 +1062,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            61,
-            73,
-            455,
-            407
+            82,
+            87,
+            397,
+            433
           ],
           "opaque_padding_left_top_right_bottom": [
-            61,
-            73,
-            57,
-            105
+            82,
+            87,
+            115,
+            79
           ],
-          "rgba_region_sha256": "d25a9489804b4b95f994a7efdc3f73ed8a7b3f6bc80bec7289cd8882e2582363"
+          "rgba_region_sha256": "b1a501a71021911ff720604efc1678c4ef0b4081fc84f177132927073446d2b8"
         },
         {
           "index": 6,
@@ -1085,17 +1085,17 @@
           ],
           "opaque_bounds_in_region": [
             63,
-            78,
-            461,
-            409
+            106,
+            458,
+            410
           ],
           "opaque_padding_left_top_right_bottom": [
             63,
-            78,
-            51,
-            103
+            106,
+            54,
+            102
           ],
-          "rgba_region_sha256": "b323c613ae471b6d0477ed8f10fbf3f06cc137b58ecb5f78f47806d5ca5d4f7c"
+          "rgba_region_sha256": "5868846dcfcb18e588373e384d574624d4aa9c147990cf0c76501ef3302dd3a7"
         }
       ],
       "review_corrections": [
@@ -1104,13 +1104,18 @@
           "previous_sha256": null,
           "prompt": "Use case: stylized-concept. Asset type: 2D game production sprite animation SOURCE sheet. Reference image is authoritative character identity and rendering, NOT poses to copy. Youthful right-facing black ponytailed swordsman, red scarf, ragged dark teal cape, charcoal tunic and trousers, brown belt and boots, short straight steel sword with gold hilt. Same face, body proportions, costume and sword in all frames. Crisp dark ink outlines and muted textured hand-painted colors. EXACTLY SIX full-body sequential cels in 3 columns by 2 rows, reading left to right then top to bottom. Equal cells, same character scale, stationary side view, fixed ground baseline within each cell, ample transparent margins at least 12% each side. Fit COMPLETE hair, boots, weapon and extended blade within each cell; no cropped or overlapping swords. Genuine transparent alpha outside opaque character, no aura, haze, shadows, VFX, detached slash effects, labels or panels. Anatomy consistent, sword remains visibly connected to gripping hand. Ordinary LIGHT attacks with compact timing, NOT heavy charged skill. DOWNWARD directional normal sword attack used while AIRBORNE, facing right. A compact downward slash targeting enemy BELOW the feet, distinct from grounded heavy overhead skill. Frame 1 airborne ready, knees slightly bent, sword beside torso. 2 windup sword lifted above shoulder. 3 active diagonal down-right cut below hip. 4 arm fully extends down, complete blade points steeply down-right BELOW boots, torso leans slightly forward. 5 blade begins to retract upward, knees remain same airborne family. 6 returns to airborne ready. No ground, landing, crouch, or floor shadow. Keep whole sword tip clear of cell bottom, shrink all characters uniformly as necessary. Strong obvious downward reach.\n\nRefinement:\nUse case: background-extraction. Edit target: six-frame DOWNWARD attack sheet. Preserve these exact six poses and original painted character details, full sword and order, 3x2 grid. Remove ALL diffuse colored backgrounds, halos, gradients, auras and shadows surrounding every sprite. Output ONLY precise opaque character and sword cutouts on genuine alpha-zero transparent background. Do not paint black empty space. Reduce all complete sprites uniformly to 80% current size, center each in equal cell leaving wide fully transparent gutters and at least 45px clear margin from all 4 edges of each cell. Full blades, hair and boots. No anatomy changes, labels, checkerboard or effect arcs.\n",
           "original_tool_output": "exec-3c07f605-964e-4552-a411-92b72be24f7c.png"
+        },
+        {
+          "date": "2026-10-17",
+          "previous_sha256": "71f542445a52c8539f92f7a5421493c4b88537fea4110e5b26b31558ef99df8c",
+          "reason": "User six-cel clock-angle specification; regenerate using built-in image_gen and sword-direction guide.",
+          "original_tool_output": "exec-41bbefb8-ac3a-4ac2-99dd-e69637edfcfb.png"
         }
       ],
-      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
+      "review_status": "Uploaded source revision; runtime packaging and strict visual acceptance pending.",
       "visual_review": [
-        "Six ordered full-body poses inspected for intended direction",
-        "Actual alpha>=128 structure stays inside every declared region",
-        "Source PNG, prompt and all region hashes verified"
+        "Six right-facing poses; active cels 3 and 4 visibly change blade direction.",
+        "Generated RGBA retained unchanged. Exact clock angles, head/weapon consistency and 55% height are not yet fully accepted."
       ],
       "animation_usage": {
         "state": "airborne",
@@ -1124,7 +1129,16 @@
           "followthrough",
           "recovery"
         ]
-      }
+      },
+      "sword_clock_targets": [
+        3,
+        11,
+        2,
+        6,
+        5,
+        3
+      ],
+      "sword_angle_reference": "refs/sword_angles_air_down.png"
     },
     {
       "file": "E_attack_up.png",
@@ -1140,11 +1154,11 @@
         1024
       ],
       "mode": "RGBA",
-      "sha256": "507427522bc8eb043903b3bae67b7dfc0798a8ee803b9bcf873ead3bb0c50e8b",
-      "prompt_sha256": "077f11948018458984db29614349348460415bff859d8aeb82ded5bf9d9b2eb9",
-      "original_tool_output": "exec-69caa537-3d77-4f74-8a56-9fb41ca09ad0.png",
-      "rgba_alpha_zero_pixels": 1123496,
-      "rgba_alpha_ge_128_pixels": 387660,
+      "sha256": "d996fbb4fdbbefb5b2c20f167f13f38a0dc2d96c11644a38a0be084abda1b3f6",
+      "prompt_sha256": "4777bf9e75aac81449dd9738e5b5f89d91b8daa184c4cf5c49c24987d7dbd78a",
+      "original_tool_output": "exec-e3ac4d86-b13a-4a9e-87bc-11247231ac35.png",
+      "rgba_alpha_zero_pixels": 1344885,
+      "rgba_alpha_ge_128_pixels": 176171,
       "alpha_extrema": [
         0,
         254
@@ -1159,18 +1173,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            63,
-            118,
-            450,
-            472
+            129,
+            174,
+            421,
+            414
           ],
           "opaque_padding_left_top_right_bottom": [
-            63,
-            118,
-            62,
-            40
+            129,
+            174,
+            91,
+            98
           ],
-          "rgba_region_sha256": "23f66f2c330c6239c9441b3b4ba483fcac670ebd0ec782ae3d3a6ab09e94b3b6"
+          "rgba_region_sha256": "5db7e82075c7e9d4db456a2ac3ff0d0c3db1544a2b2581274bd8e18b2e93a41f"
         },
         {
           "index": 2,
@@ -1181,18 +1195,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            63,
-            127,
-            442,
-            472
+            128,
+            205,
+            357,
+            415
           ],
           "opaque_padding_left_top_right_bottom": [
-            63,
-            127,
-            70,
-            40
+            128,
+            205,
+            155,
+            97
           ],
-          "rgba_region_sha256": "1f56ea7892c6cf2c59077563a51a0c77a18c2dfe65dbbd3eceeda33f74a002c3"
+          "rgba_region_sha256": "033951e619a03b78c19b46764e1c9a42a1ad1928cbedba9dea0d7b33bff559b9"
         },
         {
           "index": 3,
@@ -1203,18 +1217,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            50,
-            106,
-            436,
-            473
+            130,
+            178,
+            439,
+            414
           ],
           "opaque_padding_left_top_right_bottom": [
-            50,
-            106,
-            76,
-            39
+            130,
+            178,
+            73,
+            98
           ],
-          "rgba_region_sha256": "9881580eab62f59976f55cdbe93d01e2a4d4430b9800396428adda4de870cfee"
+          "rgba_region_sha256": "30bf2eba8245314e0feb9c4cdfce3caaa713c4957937de495ea6b047190682e6"
         },
         {
           "index": 4,
@@ -1225,18 +1239,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            63,
-            9,
-            454,
-            460
+            127,
+            47,
+            389,
+            399
           ],
           "opaque_padding_left_top_right_bottom": [
-            63,
-            9,
-            58,
-            52
+            127,
+            47,
+            123,
+            113
           ],
-          "rgba_region_sha256": "d0709a5bb108bd07df2d90d1d26888a40e034bc46a59b49a61e653eb110cd21f"
+          "rgba_region_sha256": "0db34b9e4f99a150c71c28a0e3fb7e852096f898c2c9846a515a0a86cab3226c"
         },
         {
           "index": 5,
@@ -1247,18 +1261,18 @@
             512
           ],
           "opaque_bounds_in_region": [
+            122,
             67,
-            98,
-            467,
-            457
+            383,
+            400
           ],
           "opaque_padding_left_top_right_bottom": [
+            122,
             67,
-            98,
-            45,
-            55
+            129,
+            112
           ],
-          "rgba_region_sha256": "446e6bdbcdadc44434359c86f2ebeb9407ae3cbd87e8c4b38a52975186e68618"
+          "rgba_region_sha256": "dbd1def713eba38a76a2993d5975b0548f2ed2f8f6057c79430baf5386c7764c"
         },
         {
           "index": 6,
@@ -1269,18 +1283,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            52,
-            114,
-            448,
-            456
+            131,
+            168,
+            422,
+            403
           ],
           "opaque_padding_left_top_right_bottom": [
-            52,
-            114,
-            64,
-            56
+            131,
+            168,
+            90,
+            109
           ],
-          "rgba_region_sha256": "f9271a7d7bb610e7ee70cf5696f4b8544fd319132e4647ba51ae3f986a603b3d"
+          "rgba_region_sha256": "1238b255db88f23f25b04767fbe6400041cdd6f82165674dcffb583189ae0e0d"
         }
       ],
       "review_corrections": [
@@ -1289,13 +1303,18 @@
           "previous_sha256": null,
           "prompt": "Use case: stylized-concept. Asset type: 2D game production sprite animation SOURCE sheet. Reference image is authoritative character identity and rendering, NOT poses to copy. Youthful right-facing black ponytailed swordsman, red scarf, ragged dark teal cape, charcoal tunic and trousers, brown belt and boots, short straight steel sword with gold hilt. Same face, body proportions, costume and sword in all frames. Crisp dark ink outlines and muted textured hand-painted colors. EXACTLY SIX full-body sequential cels in 3 columns by 2 rows, reading left to right then top to bottom. Equal cells, same character scale, stationary side view, fixed ground baseline within each cell, ample transparent margins at least 12% each side. Fit COMPLETE hair, boots, weapon and extended blade within each cell; no cropped or overlapping swords. Genuine transparent alpha outside opaque character, no aura, haze, shadows, VFX, detached slash effects, labels or panels. Anatomy consistent, sword remains visibly connected to gripping hand. Ordinary LIGHT attacks with compact timing, NOT heavy charged skill. UPWARD directional normal sword attack, a coherent low-to-high rising cut targeting enemy above/front. Frame 1 grounded guard, knees soft, sword low beside forward hip. 2 small low backswing, wrist and shoulder prepare. 3 active rising cut, sword diagonal up-right in front, torso lifts slightly. 4 active finish with complete blade pointing steeply upward above/front of head, arm extended upward. 5 elbow bends and blade lowers forward through diagonal. 6 returns to same grounded guard as frame 1. Feet stay planted; no jump, no overhead downward chop. At least two visually obvious UPWARD attacking frames.\n\nRefinement:\nUse case: background-extraction. Edit target SIX-cel upward attack sheet. Preserve these exact SIX ordered upward attack poses, character identity and painted details, 3 columns by 2 rows. Remove ALL diffuse red/teal/gray background halos, gradients, auras, shadows. Leave only precise opaque character and complete steel sword cutouts on genuine ALPHA ZERO empty background. No black fill. Reduce every complete pose including raised sword uniformly to 70% current size; CENTER each inside its own equal cell with at least 55px clear transparent padding on ALL FOUR SIDES. Especially the raised sword in bottom-left must end well BELOW its cell top edge, no crossing row boundary. No sword shortening, no cropped head/boots/blades, no text, checkerboard or effects.\n",
           "original_tool_output": "exec-69caa537-3d77-4f74-8a56-9fb41ca09ad0.png"
+        },
+        {
+          "date": "2026-10-17",
+          "previous_sha256": "507427522bc8eb043903b3bae67b7dfc0798a8ee803b9bcf873ead3bb0c50e8b",
+          "reason": "User six-cel clock-angle specification; regenerate using built-in image_gen and sword-direction guide.",
+          "original_tool_output": "exec-e3ac4d86-b13a-4a9e-87bc-11247231ac35.png"
         }
       ],
-      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
+      "review_status": "Uploaded source revision; runtime packaging and strict visual acceptance pending.",
       "visual_review": [
-        "Six ordered full-body poses inspected for intended direction",
-        "Actual alpha>=128 structure stays inside every declared region",
-        "Source PNG, prompt and all region hashes verified"
+        "Six right-facing poses; active cels 3 and 4 visibly change blade direction.",
+        "Generated RGBA retained unchanged. Exact clock angles, head/weapon consistency and 55% height are not yet fully accepted."
       ],
       "animation_usage": {
         "state": "grounded",
@@ -1309,7 +1328,16 @@
           "followthrough",
           "recovery"
         ]
-      }
+      },
+      "sword_clock_targets": [
+        3,
+        8,
+        3,
+        12,
+        11,
+        3
+      ],
+      "sword_angle_reference": "refs/sword_angles_up.png"
     },
     {
       "file": "E_attack_forward.png",
@@ -1506,18 +1534,18 @@
       ],
       "passes": 1,
       "dimensions": [
-        1774,
-        887
+        1536,
+        1024
       ],
       "mode": "RGBA",
-      "sha256": "b3bfa00e307a506d222dac97a41a06ddb656cd079bb8b477c60762f2186e3b47",
-      "prompt_sha256": "90dc5903c98f7a766c9c57332207c78fc15fe78e9942b6c4eadb2176dbb813fb",
-      "original_tool_output": "exec-70a9eed4-0734-45a4-9ee5-776618ce025a.png",
-      "rgba_alpha_zero_pixels": 1277502,
-      "rgba_alpha_ge_128_pixels": 254032,
+      "sha256": "cff86d240be2300571c59327826119615fce53d072a87283aad1c233d3c361a1",
+      "prompt_sha256": "d65594675c159622998b688760543da33b9ef49d143b7fb0bacf538779cff6ed",
+      "original_tool_output": "exec-c2f02cd4-db32-47bf-959a-460063a089e1.png",
+      "rgba_alpha_zero_pixels": 1300748,
+      "rgba_alpha_ge_128_pixels": 229622,
       "alpha_extrema": [
         0,
-        255
+        254
       ],
       "regions": [
         {
@@ -1525,132 +1553,132 @@
           "region": [
             0,
             0,
-            591,
-            443
+            512,
+            512
           ],
           "opaque_bounds_in_region": [
-            153,
-            125,
-            474,
-            418
+            112,
+            157,
+            422,
+            430
           ],
           "opaque_padding_left_top_right_bottom": [
-            153,
-            125,
-            117,
-            25
+            112,
+            157,
+            90,
+            82
           ],
-          "rgba_region_sha256": "dfc84bc93d1ed8ea813a2e36750529c11bdb1f8695b227cbc931554150b0bf87"
+          "rgba_region_sha256": "0a4e9283fd238f365490d988bf9085554007374755473ea99d208f56f5484695"
         },
         {
           "index": 2,
           "region": [
-            591,
+            512,
             0,
-            591,
-            443
+            512,
+            512
           ],
           "opaque_bounds_in_region": [
-            135,
-            129,
-            432,
-            418
+            91,
+            161,
+            360,
+            430
           ],
           "opaque_padding_left_top_right_bottom": [
-            135,
-            129,
-            159,
-            25
+            91,
+            161,
+            152,
+            82
           ],
-          "rgba_region_sha256": "a666b9ee5dcae3693919b6c85546f24def0ec168e5868c61cb251874399a192f"
+          "rgba_region_sha256": "33684a5bcf2975fa2b6a5d8b02b931eb3cd84174e0ae6e9ca475b5e43519eb16"
         },
         {
           "index": 3,
           "region": [
-            1182,
+            1024,
             0,
-            592,
-            443
+            512,
+            512
           ],
           "opaque_bounds_in_region": [
-            94,
-            94,
-            455,
-            418
+            84,
+            165,
+            429,
+            425
           ],
           "opaque_padding_left_top_right_bottom": [
-            94,
-            94,
-            137,
-            25
+            84,
+            165,
+            83,
+            87
           ],
-          "rgba_region_sha256": "5380a8db77ed8322913054fc9798bc1414fa05c239038473e32a635debc84781"
+          "rgba_region_sha256": "4c654a596e92a16bcf3e14a99adb71419e2423f58226879b823297e2134dda5f"
         },
         {
           "index": 4,
           "region": [
             0,
-            443,
-            591,
-            444
+            512,
+            512,
+            512
           ],
           "opaque_bounds_in_region": [
-            130,
-            14,
-            402,
-            408
+            101,
+            23,
+            384,
+            399
           ],
           "opaque_padding_left_top_right_bottom": [
-            130,
-            14,
-            189,
-            36
+            101,
+            23,
+            128,
+            113
           ],
-          "rgba_region_sha256": "eb69f4da703b292d988e09679302ddfc3bf762de8ce4d62736534d25f90b6053"
+          "rgba_region_sha256": "9f50f32304158c3b3a9986c42f19c39066df6538764934ebc76916044e4ea88f"
         },
         {
           "index": 5,
           "region": [
-            591,
-            443,
-            591,
-            444
+            512,
+            512,
+            512,
+            512
           ],
           "opaque_bounds_in_region": [
-            131,
-            119,
-            513,
-            384
+            107,
+            83,
+            386,
+            404
           ],
           "opaque_padding_left_top_right_bottom": [
-            131,
-            119,
-            78,
-            60
+            107,
+            83,
+            126,
+            108
           ],
-          "rgba_region_sha256": "477e7adfbf81d0660a0da453b9f79c9bd5314053cd6c9fa695c9e49e28f2611c"
+          "rgba_region_sha256": "46aad718664d73bfb7ebb197d0772946fc1aa7c34249e316ae4c078cbfd57254"
         },
         {
           "index": 6,
           "region": [
-            1182,
-            443,
-            592,
-            444
+            1024,
+            512,
+            512,
+            512
           ],
           "opaque_bounds_in_region": [
-            119,
-            121,
-            436,
-            396
+            84,
+            166,
+            405,
+            424
           ],
           "opaque_padding_left_top_right_bottom": [
-            119,
-            121,
-            156,
-            48
+            84,
+            166,
+            107,
+            88
           ],
-          "rgba_region_sha256": "787d6f851e0e7744ad5cca65d85e160860fc9110c4878d0017b03db6aa5997ce"
+          "rgba_region_sha256": "06c9c77c618c882b67983f0ac7d03fd2e7b2555967e319393f8964ec0751c3e6"
         }
       ],
       "review_corrections": [
@@ -1659,13 +1687,18 @@
           "previous_sha256": null,
           "prompt": "Production 2D game animation sprite sheet, exactly SIX separate poses in 3 columns by 2 rows. Use reference as character identity, costume and art style only. Young black ponytail swordsman with red scarf, dark teal torn cape, dark tunic/trousers, brown boots, gold hilt SHORT STRAIGHT sword, faces RIGHT. Draw an AIRBORNE UPWARD normal attack targeting above his head. All six poses FLOAT in the air, bent knees and feet off ground, stable tucked-leg family, no walking, planted feet or landing. Reading order: 1 airborne guard sword low forward; 2 compact windup sword lowered behind hip; 3 active rising cut sword diagonal up-right; 4 active full upward extension sword almost VERTICAL above head; 5 arm retracting and blade lowers forward; 6 airborne guard again. Same body proportions, sword length, costume and cell-local body center throughout. Draw each entire pose SMALLER, occupying only central 60% of its equal cell. Wide 15-20% transparent safety margins above raised sword and below boots, left cape/right blade. Full sword tips inside own cell, no crossing grid. Crisp dark ink outlines, muted textured hand-painted anime style matching reference. Characters and held swords ONLY on transparent background, no diffuse glows, no shadows, no energy trails, no scenery, no text or panels. Genuine alpha transparency; empty surroundings alpha zero.\n",
           "original_tool_output": "exec-70a9eed4-0734-45a4-9ee5-776618ce025a.png"
+        },
+        {
+          "date": "2026-10-17",
+          "previous_sha256": "b3bfa00e307a506d222dac97a41a06ddb656cd079bb8b477c60762f2186e3b47",
+          "reason": "User six-cel clock-angle specification; regenerate using built-in image_gen and sword-direction guide.",
+          "original_tool_output": "exec-c2f02cd4-db32-47bf-959a-460063a089e1.png"
         }
       ],
-      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
+      "review_status": "Uploaded source revision; runtime packaging and strict visual acceptance pending.",
       "visual_review": [
-        "Six ordered full-body poses inspected for intended direction",
-        "Actual alpha>=128 structure stays inside every declared region",
-        "Source PNG, prompt and all region hashes verified"
+        "Six right-facing poses; active cels 3 and 4 visibly change blade direction.",
+        "Generated RGBA retained unchanged. Exact clock angles, head/weapon consistency and 55% height are not yet fully accepted."
       ],
       "animation_usage": {
         "state": "airborne",
@@ -1679,7 +1712,16 @@
           "followthrough",
           "recovery"
         ]
-      }
+      },
+      "sword_clock_targets": [
+        3,
+        8,
+        3,
+        12,
+        11,
+        3
+      ],
+      "sword_angle_reference": "refs/sword_angles_up.png"
     },
     {
       "file": "F_air_attack_right.png",
@@ -1880,11 +1922,11 @@
         1024
       ],
       "mode": "RGBA",
-      "sha256": "3064e3a51e72d3fb58dbb6faf7b15987297c3f1c691c6f3e2b8de9825ca9c96d",
-      "prompt_sha256": "a0daf461b8039e6fe527cdb4bef1d6fc63f45627a0758f5c72d9d0445e3ffc23",
-      "original_tool_output": "exec-606930f9-1aff-4dfe-8c78-b278f367b6bf.png",
-      "rgba_alpha_zero_pixels": 1082397,
-      "rgba_alpha_ge_128_pixels": 427127,
+      "sha256": "a976fd2b50229df67355ae86b7d2adf40fb12c06dc5dd7bc715b83089ab31324",
+      "prompt_sha256": "48fbb726b789c644a6e7eeb42e99c399bea9780328fc053266049272742effde",
+      "original_tool_output": "exec-8a412f6e-b527-49c7-95cc-653d598a5597.png",
+      "rgba_alpha_zero_pixels": 1218866,
+      "rgba_alpha_ge_128_pixels": 300247,
       "alpha_extrema": [
         0,
         254
@@ -1899,18 +1941,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            41,
-            119,
-            473,
-            480
+            56,
+            162,
+            440,
+            463
           ],
           "opaque_padding_left_top_right_bottom": [
-            41,
-            119,
-            39,
-            32
+            56,
+            162,
+            72,
+            49
           ],
-          "rgba_region_sha256": "7f36b3304d3ca8ca50829d17607fce62efa951aac51098dd99c33f6d2aa8b708"
+          "rgba_region_sha256": "43082b1d2334d647a6960085534071c70e8bba5870f440ac31286d7d46c8f54d"
         },
         {
           "index": 2,
@@ -1921,18 +1963,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            56,
-            66,
-            429,
-            481
+            84,
+            52,
+            398,
+            463
           ],
           "opaque_padding_left_top_right_bottom": [
-            56,
-            66,
-            83,
-            31
+            84,
+            52,
+            114,
+            49
           ],
-          "rgba_region_sha256": "59d5be9b858e4072c6082af9f0bbff4db83186512e026c9baafa7ec84df07a81"
+          "rgba_region_sha256": "61b09511b35efab4d328d1ceeff2e00396d21ed5d8b661da51e66197cd1a5b9a"
         },
         {
           "index": 3,
@@ -1943,62 +1985,62 @@
             512
           ],
           "opaque_bounds_in_region": [
-            45,
-            124,
-            461,
-            481
+            65,
+            170,
+            425,
+            462
           ],
           "opaque_padding_left_top_right_bottom": [
-            45,
-            124,
-            51,
-            31
+            65,
+            170,
+            87,
+            50
           ],
-          "rgba_region_sha256": "f20315ee9bfb59e431f78b310daf711646f656a81ae85060228fbe72822fd700"
+          "rgba_region_sha256": "f3ac3e04bb3dad3cfdd23bf1153be0609f76c87000248d3df5615034b31cb1ee"
         },
         {
           "index": 4,
           "region": [
             0,
             512,
-            545,
+            512,
             512
           ],
           "opaque_bounds_in_region": [
-            54,
-            77,
-            537,
-            432
+            79,
+            131,
+            402,
+            431
           ],
           "opaque_padding_left_top_right_bottom": [
-            54,
-            77,
-            8,
-            80
+            79,
+            131,
+            110,
+            81
           ],
-          "rgba_region_sha256": "1a1459ac2604525c44f288e62052757420eb4549354d72396177118927de820a"
+          "rgba_region_sha256": "9613801cfa95517a3af214b3760d1a912240c6cb2d9a8d8e9841d4f4767cbb83"
         },
         {
           "index": 5,
           "region": [
-            545,
             512,
-            479,
+            512,
+            512,
             512
           ],
           "opaque_bounds_in_region": [
-            13,
-            75,
-            445,
-            433
+            82,
+            122,
+            429,
+            431
           ],
           "opaque_padding_left_top_right_bottom": [
-            13,
-            75,
-            34,
-            79
+            82,
+            122,
+            83,
+            81
           ],
-          "rgba_region_sha256": "3f9905c3b0d37066553f485394dba382b00e0346146c1f2f4c960d271e1aefe8"
+          "rgba_region_sha256": "3fef7e46145659d628e85c270dc579f8b82760f253730280b418ef203d657643"
         },
         {
           "index": 6,
@@ -2009,18 +2051,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            33,
-            75,
-            462,
-            432
+            72,
+            128,
+            457,
+            431
           ],
           "opaque_padding_left_top_right_bottom": [
-            33,
-            75,
-            50,
-            80
+            72,
+            128,
+            55,
+            81
           ],
-          "rgba_region_sha256": "8580501cbc8a3c6a7cce4c9be39b322c8fca40f381ec7d41163d1db4cae2798e"
+          "rgba_region_sha256": "a2aa7a96d41885c4b628a67fb35d27ea4ae3621ee4c905cf1c95601eae5688b1"
         }
       ],
       "review_corrections": [
@@ -2029,13 +2071,18 @@
           "previous_sha256": null,
           "prompt": "Production 2D side-scroller sprite animation source sheet, EXACT SIX complete sequential cels, 3 columns by 2 rows. Reference is authoritative character identity and muted textured ink-painted anime style. Young right-facing swordsman black ponytail, red scarf, ragged teal cape, charcoal tunic and trousers, brown boots and belt, short straight steel sword gold hilt. GROUND NORMAL DOWNWARD SLASH, fast LIGHT ordinary attack, not charged heavy skill. Feet stay grounded on same local baseline in all six cels, no airborne/tucked legs. Chronology: 1 compact neutral guard sword low forward; 2 brief one-handed sword lift beside shoulder; 3 quick diagonal descending stroke to RIGHT, torso turns and front knee softens; 4 complete blade finishes diagonally down-right below waist, modest forward body lean; 5 elbow retracts sword back low forward; 6 returns compact neutral guard. One hand holds sword, free hand balances; no heavy two-handed overhead windup, no giant cleave, no ground impact effects. Same body and sword proportions and scale across frames. Entire character INCLUDING longest sword extension stays within central 60% of each equal cell, wide 15-20% clear transparent margins and gutters. Full hair, boots and sword tip; no cropping or crossing neighboring cels. Opaque ink-painted character and sword on genuine alpha-zero transparent background, no shadows, glow, gradient, energy arc, labels or panels.\n",
           "original_tool_output": "exec-606930f9-1aff-4dfe-8c78-b278f367b6bf.png"
+        },
+        {
+          "date": "2026-10-17",
+          "previous_sha256": "3064e3a51e72d3fb58dbb6faf7b15987297c3f1c691c6f3e2b8de9825ca9c96d",
+          "reason": "User six-cel clock-angle specification; regenerate using built-in image_gen and sword-direction guide.",
+          "original_tool_output": "exec-8a412f6e-b527-49c7-95cc-653d598a5597.png"
         }
       ],
-      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
+      "review_status": "Uploaded source revision; runtime packaging and strict visual acceptance pending.",
       "visual_review": [
-        "Six ordered full-body poses inspected for intended direction",
-        "Actual alpha>=128 structure stays inside every declared region",
-        "Source PNG, prompt and all region hashes verified"
+        "Six right-facing poses; active cels 3 and 4 visibly change blade direction.",
+        "Generated RGBA retained unchanged. Exact clock angles, head/weapon consistency and 55% height are not yet fully accepted."
       ],
       "animation_usage": {
         "state": "grounded",
@@ -2049,7 +2096,16 @@
           "followthrough",
           "recovery"
         ]
-      }
+      },
+      "sword_clock_targets": [
+        3,
+        11,
+        2,
+        5.5,
+        5,
+        3
+      ],
+      "sword_angle_reference": "refs/sword_angles_ground_down.png"
     },
     {
       "file": "F_air_attack_left.png",
@@ -2863,5 +2919,6 @@
     "new_transition_sheets": 4,
     "new_transition_cels": 16,
     "new_transition_structural_crop_boundaries": "passed"
-  }
+  },
+  "latest_revision": "2026-10-17 sword angle revision; four source sheets replaced, runtime repack pending."
 }
