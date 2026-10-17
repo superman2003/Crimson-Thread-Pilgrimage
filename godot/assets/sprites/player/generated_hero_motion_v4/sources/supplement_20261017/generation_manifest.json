@@ -4,7 +4,7 @@
   "generator": "built-in image_gen",
   "transparent_background": true,
   "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
-  "scope": "8 generated source sheets (31 cels). Runtime unchanged.",
+  "scope": "9 generated source sheets (37 cels). Runtime unchanged.",
   "style_reference": {
     "file": "refs/00_style_run_v4_8frames.png",
     "repository_source": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
@@ -1104,6 +1104,177 @@
           "previous_sha256": null,
           "prompt": "Use case: stylized-concept. Asset type: 2D game production sprite animation SOURCE sheet. Reference image is authoritative character identity and rendering, NOT poses to copy. Youthful right-facing black ponytailed swordsman, red scarf, ragged dark teal cape, charcoal tunic and trousers, brown belt and boots, short straight steel sword with gold hilt. Same face, body proportions, costume and sword in all frames. Crisp dark ink outlines and muted textured hand-painted colors. EXACTLY SIX full-body sequential cels in 3 columns by 2 rows, reading left to right then top to bottom. Equal cells, same character scale, stationary side view, fixed ground baseline within each cell, ample transparent margins at least 12% each side. Fit COMPLETE hair, boots, weapon and extended blade within each cell; no cropped or overlapping swords. Genuine transparent alpha outside opaque character, no aura, haze, shadows, VFX, detached slash effects, labels or panels. Anatomy consistent, sword remains visibly connected to gripping hand. Ordinary LIGHT attacks with compact timing, NOT heavy charged skill. DOWNWARD directional normal sword attack used while AIRBORNE, facing right. A compact downward slash targeting enemy BELOW the feet, distinct from grounded heavy overhead skill. Frame 1 airborne ready, knees slightly bent, sword beside torso. 2 windup sword lifted above shoulder. 3 active diagonal down-right cut below hip. 4 arm fully extends down, complete blade points steeply down-right BELOW boots, torso leans slightly forward. 5 blade begins to retract upward, knees remain same airborne family. 6 returns to airborne ready. No ground, landing, crouch, or floor shadow. Keep whole sword tip clear of cell bottom, shrink all characters uniformly as necessary. Strong obvious downward reach.\n\nRefinement:\nUse case: background-extraction. Edit target: six-frame DOWNWARD attack sheet. Preserve these exact six poses and original painted character details, full sword and order, 3x2 grid. Remove ALL diffuse colored backgrounds, halos, gradients, auras and shadows surrounding every sprite. Output ONLY precise opaque character and sword cutouts on genuine alpha-zero transparent background. Do not paint black empty space. Reduce all complete sprites uniformly to 80% current size, center each in equal cell leaving wide fully transparent gutters and at least 45px clear margin from all 4 edges of each cell. Full blades, hair and boots. No anatomy changes, labels, checkerboard or effect arcs.\n",
           "original_tool_output": "exec-3c07f605-964e-4552-a411-92b72be24f7c.png"
+        }
+      ],
+      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "visual_review": [
+        "RGBA and per-cel bounds checked",
+        "No runtime integration or playback claim"
+      ]
+    },
+    {
+      "file": "E_attack_up.png",
+      "prompt_file": "E_attack_up.txt",
+      "frames": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "passes": 1,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "507427522bc8eb043903b3bae67b7dfc0798a8ee803b9bcf873ead3bb0c50e8b",
+      "prompt_sha256": "077f11948018458984db29614349348460415bff859d8aeb82ded5bf9d9b2eb9",
+      "original_tool_output": "exec-69caa537-3d77-4f74-8a56-9fb41ca09ad0.png",
+      "rgba_alpha_zero_pixels": 1123496,
+      "rgba_alpha_ge_128_pixels": 387660,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            63,
+            118,
+            450,
+            472
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            63,
+            118,
+            62,
+            40
+          ],
+          "rgba_region_sha256": "23f66f2c330c6239c9441b3b4ba483fcac670ebd0ec782ae3d3a6ab09e94b3b6"
+        },
+        {
+          "index": 2,
+          "region": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            63,
+            127,
+            442,
+            472
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            63,
+            127,
+            70,
+            40
+          ],
+          "rgba_region_sha256": "1f56ea7892c6cf2c59077563a51a0c77a18c2dfe65dbbd3eceeda33f74a002c3"
+        },
+        {
+          "index": 3,
+          "region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            50,
+            106,
+            436,
+            473
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            50,
+            106,
+            76,
+            39
+          ],
+          "rgba_region_sha256": "9881580eab62f59976f55cdbe93d01e2a4d4430b9800396428adda4de870cfee"
+        },
+        {
+          "index": 4,
+          "region": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            63,
+            9,
+            454,
+            460
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            63,
+            9,
+            58,
+            52
+          ],
+          "rgba_region_sha256": "d0709a5bb108bd07df2d90d1d26888a40e034bc46a59b49a61e653eb110cd21f"
+        },
+        {
+          "index": 5,
+          "region": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            67,
+            98,
+            467,
+            457
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            67,
+            98,
+            45,
+            55
+          ],
+          "rgba_region_sha256": "446e6bdbcdadc44434359c86f2ebeb9407ae3cbd87e8c4b38a52975186e68618"
+        },
+        {
+          "index": 6,
+          "region": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            52,
+            114,
+            448,
+            456
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            52,
+            114,
+            64,
+            56
+          ],
+          "rgba_region_sha256": "f9271a7d7bb610e7ee70cf5696f4b8544fd319132e4647ba51ae3f986a603b3d"
+        }
+      ],
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous_sha256": null,
+          "prompt": "Use case: stylized-concept. Asset type: 2D game production sprite animation SOURCE sheet. Reference image is authoritative character identity and rendering, NOT poses to copy. Youthful right-facing black ponytailed swordsman, red scarf, ragged dark teal cape, charcoal tunic and trousers, brown belt and boots, short straight steel sword with gold hilt. Same face, body proportions, costume and sword in all frames. Crisp dark ink outlines and muted textured hand-painted colors. EXACTLY SIX full-body sequential cels in 3 columns by 2 rows, reading left to right then top to bottom. Equal cells, same character scale, stationary side view, fixed ground baseline within each cell, ample transparent margins at least 12% each side. Fit COMPLETE hair, boots, weapon and extended blade within each cell; no cropped or overlapping swords. Genuine transparent alpha outside opaque character, no aura, haze, shadows, VFX, detached slash effects, labels or panels. Anatomy consistent, sword remains visibly connected to gripping hand. Ordinary LIGHT attacks with compact timing, NOT heavy charged skill. UPWARD directional normal sword attack, a coherent low-to-high rising cut targeting enemy above/front. Frame 1 grounded guard, knees soft, sword low beside forward hip. 2 small low backswing, wrist and shoulder prepare. 3 active rising cut, sword diagonal up-right in front, torso lifts slightly. 4 active finish with complete blade pointing steeply upward above/front of head, arm extended upward. 5 elbow bends and blade lowers forward through diagonal. 6 returns to same grounded guard as frame 1. Feet stay planted; no jump, no overhead downward chop. At least two visually obvious UPWARD attacking frames.\n\nRefinement:\nUse case: background-extraction. Edit target SIX-cel upward attack sheet. Preserve these exact SIX ordered upward attack poses, character identity and painted details, 3 columns by 2 rows. Remove ALL diffuse red/teal/gray background halos, gradients, auras, shadows. Leave only precise opaque character and complete steel sword cutouts on genuine ALPHA ZERO empty background. No black fill. Reduce every complete pose including raised sword uniformly to 70% current size; CENTER each inside its own equal cell with at least 55px clear transparent padding on ALL FOUR SIDES. Especially the raised sword in bottom-left must end well BELOW its cell top edge, no crossing row boundary. No sword shortening, no cropped head/boots/blades, no text, checkerboard or effects.\n",
+          "original_tool_output": "exec-69caa537-3d77-4f74-8a56-9fb41ca09ad0.png"
         }
       ],
       "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
