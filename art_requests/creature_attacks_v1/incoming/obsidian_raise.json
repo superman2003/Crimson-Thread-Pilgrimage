@@ -1,0 +1,252 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "obsidian_spearman",
+  "image": "obsidian_raise.png",
+  "requested_frames": 12,
+  "source_brief": "art_requests/creature_attacks_v1/obsidian_spearman.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/obsidian_spearman.png",
+  "reference_sha256": "c811d37a88fe4a704538bd1ce6ead6c973a3a7bc076053f4428b9aed847bd594",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "obsidian_raise.txt",
+  "image_size": [
+    1448,
+    1086
+  ],
+  "image_sha256": "9b47ac9ede9722cebd9cac5e68afd07274447370f7771d84166a935f96ad59b9",
+  "git_blob_sha": "f6a71aee430528d09dfac76f26a6ccb9da295b28",
+  "fully_transparent_pixels": 1253276,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        22,
+        107,
+        323,
+        221
+      ],
+      "component_seed": [
+        95,
+        111
+      ],
+      "bbox_alpha_gt_24": [
+        26,
+        111,
+        315,
+        213
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        398,
+        121,
+        314,
+        207
+      ],
+      "component_seed": [
+        482,
+        125
+      ],
+      "bbox_alpha_gt_24": [
+        402,
+        125,
+        306,
+        199
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        782,
+        152,
+        278,
+        177
+      ],
+      "component_seed": [
+        863,
+        156
+      ],
+      "bbox_alpha_gt_24": [
+        786,
+        156,
+        270,
+        169
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        1144,
+        173,
+        282,
+        158
+      ],
+      "component_seed": [
+        1238,
+        177
+      ],
+      "bbox_alpha_gt_24": [
+        1148,
+        177,
+        274,
+        150
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        39,
+        534,
+        326,
+        174
+      ],
+      "component_seed": [
+        142,
+        538
+      ],
+      "bbox_alpha_gt_24": [
+        43,
+        538,
+        318,
+        166
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        411,
+        486,
+        314,
+        221
+      ],
+      "component_seed": [
+        718,
+        490
+      ],
+      "bbox_alpha_gt_24": [
+        415,
+        490,
+        306,
+        213
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        782,
+        428,
+        272,
+        279
+      ],
+      "component_seed": [
+        1048,
+        432
+      ],
+      "bbox_alpha_gt_24": [
+        786,
+        432,
+        264,
+        271
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        1149,
+        352,
+        170,
+        355
+      ],
+      "component_seed": [
+        1290,
+        356
+      ],
+      "bbox_alpha_gt_24": [
+        1153,
+        356,
+        162,
+        347
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        40,
+        764,
+        281,
+        264
+      ],
+      "component_seed": [
+        315,
+        768
+      ],
+      "bbox_alpha_gt_24": [
+        44,
+        768,
+        273,
+        256
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        404,
+        823,
+        299,
+        204
+      ],
+      "component_seed": [
+        696,
+        827
+      ],
+      "bbox_alpha_gt_24": [
+        408,
+        827,
+        291,
+        196
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        769,
+        831,
+        314,
+        196
+      ],
+      "component_seed": [
+        864,
+        835
+      ],
+      "bbox_alpha_gt_24": [
+        773,
+        835,
+        306,
+        188
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        1114,
+        815,
+        312,
+        210
+      ],
+      "component_seed": [
+        1189,
+        819
+      ],
+      "bbox_alpha_gt_24": [
+        1118,
+        819,
+        304,
+        202
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Twelve complete right-facing black/red spearmen with one single-headed spear each. Blade direction progresses low-forward through forward/up to vertical then recovers; spaced hands stay on shaft, knees/hips extend during rise. Rightmost tip clipping repaired and body-relative weapon proportions visually reviewed against original, though exact shaft-length consistency across rotations needs quantitative rig acceptance. No slash arc or effects.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
