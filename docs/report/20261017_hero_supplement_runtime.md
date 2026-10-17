@@ -1,43 +1,57 @@
-# 主角补帧接入：跑攻与三个独立技能/战具动作
+# 主角补帧接入：方向普攻、跑攻、空中循环与独立技能/战具动作
 
 ## 范围
 
-基于 #102 `87149e4f` 的源素材，本批接入其中已通过审查的 4 张图、共 18 帧：
+基于 #102 `ebbe35b` 的源素材，本批接入 12 张图、共 58 帧：
 
 | 动画 | 帧 | 原来 | 现在 |
 | --- | ---: | --- | --- |
-| `run_attack` | 6 | 不存在；奔跑中出刀播放站姿 `attack_1`，双腿突然停住 | 新动画：前摇 2、斩击 2、收招 2，双腿保持奔跑步幅 |
-| `skill_melee` | 4 | 借用 `attack_2` 原图 | 独立重斩 |
-| `skill_wave` | 4 | 借用 `skill_control` 原图 | 独立剑波 |
-| `item_use` | 4 | 借用 `skill_projectile` 原图 | 独立战具取用/投出 |
+| `attack_1` | 6 | v3 上撩 4 帧；整个伤害窗口停在剑尖朝右上的第 3 帧，与水平判定不符 | 水平正手斩：起手、蓄势、挥击、命中伸展、随动、回收 |
+| `up_attack`（新） | 6 | 地面上攻借用 `attack_1` | 地面上劈 |
+| `ground_down_attack`（新） | 6 | 地面下攻借用空中下劈 | 地面单手轻下劈 |
+| `down_attack` | 6 | v3 4 帧 | 空中下劈 |
+| `air_attack` | 6 | v3 4 帧，前三帧剑尖都朝右上 | 空中水平斩 |
+| `air_up_attack`（新） | 6 | 空中上攻借用 `air_attack` | 空中上劈 |
+| `run_attack`（新） | 6 | 奔跑中出刀播放站姿攻击，双腿突然停住 | 前摇 2、斩击 2、收招 2，双腿保持奔跑步幅 |
+| `jump_loop` | 2 | 1 帧 | 上升循环，身体与腿固定，仅布料摆动 |
+| `fall` | 2 | 1 帧，借用落地第一帧 | 下落循环，身体与腿固定，仅布料摆动 |
+| `skill_melee` | 4 | 借用 `attack_2` | 独立重斩 |
+| `skill_wave` | 4 | 借用 `skill_control` | 独立剑波（源图已去掉飞行剑气） |
+| `item_use` | 4 | 借用 `skill_projectile` | 独立战具（源图已去掉飞瓶，腰包四帧一致） |
 
-待机披风过渡（A）与空中循环（D）未接入：A 的三张披风插入后轮廓跳变反而从 11%–13% 增至 33%–47%，D 两帧之间腿部姿势不同、两帧循环会来回拍动，均待重绘。
+未接入：
+
+- **待机披风过渡（A）**：按领口锚点对齐后，A1 把 2→4 的轮廓跳变由 14.7% 拆成 12.3%+12.6%，A2 把 6→7 的 14.5% 拆成 11.6%+10.5%，A3 对 7→1 的 10.4% 没有改善（10.2%+11.7%）；真正的中间形状应在 7% 左右。是否采用待目检对比动图后决定。
+- **空中向左攻击**：游戏统一使用朝右画稿并水平翻转，独立的朝左画稿会造成左右两套画法不一致。
+- **空中转身、上下攻切换（G 组 4 套）**：游戏目前没有转身或空中改变攻击方向的状态，转身立即翻转；接入需要新增状态并可能增加输入延迟，另行评估。
 
 ## 素材打包
 
 `tools/build_hero_supplement_motion.py` 只做裁切、缩放与留白，不插值、不重绘。
 
-- **比例**：以头部大小对齐 v4 跑步图（`run_sheet.png`），各图相对比例 B 1.08、重斩 0.92、剑波 0.91、战具 0.86，再乘跑步共享比例 0.405660377。
-- **注册**：v4 跑步各帧躯干中位列为 x≈200（±2）、alpha>24 脚底在第 287 行；新帧按同一躯干列与脚底行放入 384×384 画布。跑攻两张腾空帧抬高 4px，与跑步的腾空帧一致。
-- **去除重复特效**：每格只保留最大的 8 连通轮廓及其 3px 抗锯齿边缘。剑波图里的青色剑气（10917/5807px）与战具图里飞出的瓶子（1742/1732px）被去掉；游戏本身会生成剑波和投射物，且主角特效使用红金配色。剑波第 2 帧剑身上贴着轮廓的少量青色光痕保留。
-- 源图哈希与 `generation_manifest.json` 不一致时拒绝打包；`--check` 逐像素核对已提交的运行帧、`registration.json` 与 manifest 接线。
+- **比例**：以头部/脸部大小对齐 v4 跑步图，各图相对 `run_sheet.png` 的比例记录在工具与 `registration.json` 中，再乘跑步共享比例 0.405660377。
+- **注册**：v4 跑步各帧躯干中位点约为 (200, 222)，脚底 alpha>24 在第 287 行。地面动作按躯干列与脚底行放入 384×384 画布；空中动作按躯干中点对齐。跑攻两张腾空帧抬高 4px。
+- **去除重复特效**：每格只保留最大的 8 连通轮廓及其 3px 抗锯齿边缘；游戏自己生成的剑波和投射物不留在人物帧里。
+- **刀光锚点**：从打包后的像素测出最长的直线钢刃，靠近金色护手的一端为剑根，写入 `blade_anchors.json`；看不到剑身的帧记为空，该帧不画刀光。`player_melee_feedback.gd` 改为读取这份数据，取代原先只适用于 v3 四帧图的手量常量；跑攻也因此有了刀光。
+- 源图哈希与 `generation_manifest.json` 不一致时拒绝打包；`--check` 逐像素核对运行帧、`registration.json`、`blade_anchors.json` 与 manifest 接线。
 
 ## 运行时
 
-- 地面水平出刀（`attack_1`、上下方向分量 ≤0.5）且起手时水平速度 ≥ 最高速度的一半，本次攻击锁定为 `run_attack`；中途不切换画稿。站立出刀、下劈、空中攻击、钩索与钟印流派的 `attack_2` 保持原样。
-- `run_attack` 的 6 帧按攻击阶段三等分：前摇、有效、收招各自线性推进两帧；攻击判定、时长和移动减速都没有改。
-- 三个技能/战具动画只替换帧，选择逻辑与相位映射不变。
+- 6 帧攻击按攻击阶段三等分：前摇、有效、收招各线性推进两帧，不再整段停在一帧。4 帧的 `attack_2`、技能、钩索沿用原映射。
+- 方向选择：下攻在地面起手用 `ground_down_attack`，空中用 `down_attack`；上攻在地面起手用 `up_attack`，空中用 `air_up_attack`；水平空中攻击用 `air_attack`。上、下攻起手时锁定地面或空中画稿，上劈本身的小跳不会中途换画。
+- 地面水平出刀（`attack_1`）且起手时水平速度 ≥ 最高速度的一半，锁定为 `run_attack`。钟印流派的水平 `attack_2` 保持原样。
+- 攻击判定、伤害、时长、移动减速、下劈弹跳都没有改。
 
 ## 验证
 
-- `npm test`、`npm run test:character-motion`（含新打包 `--check`）、`tools/validate_hero_v3.py` 通过。
-- Godot 4.6.1 两轮资源导入通过（退出码 0；MetroidvaniaSystem 编辑器插件退出时的既有报错与 RID 泄漏保留在日志中）。导入自动重写的 `default_bus_layout.tres` 已恢复原字节。
-- 无头模式回归：`hero_animation` 48 项、`player_motion_continuity` 1150 项（新增：奔跑出刀全程为 `run_attack`、6 帧按序推进、站立出刀仍为 `attack_1`），以及 `player_action_buffer`、`player_melee_feedback`、`player_state_cleanup`、`player_upgrade_regression`、`melee_recovery`、`build_slots`、`character_art_prewarm`、`expanded_character_motion`（3291 项）全部 0 失败。
-- `player_layered_idle` 要求真实 GL；本机没有 Xvfb，无头运行 187 项 0 失败但按套件规则不计通过，需由 CI 的真实 GL 环境复核。
-- 真实渲染的 World 实机截图：`artifacts/hero_supplement_runtime/world_capture.webp`。第 1 行为跑步 4 帧与跑攻 6 帧，第 2 行为待机、重斩、剑波，第 3 行为战具及一次真实输入奔跑出刀的实录 3 帧。本机实际帧率约 20 FPS，实录只采到 3 帧，其余为同一位置逐帧摆姿势截取。
+- `npm test`、`npm run test:character-motion`（含打包 `--check`）、`tools/validate_hero_v3.py`（130 帧）通过。
+- Godot 4.6.1 以 CI 相同的 `--recovery-mode` 两轮导入通过；导入自动重写的 `default_bus_layout.tres` 已恢复原字节。不加 `--recovery-mode` 时，MetroidvaniaSystem 编辑器插件退出报错会使导入器判为失败，与本批改动无关。
+- 无头模式回归 0 失败：`hero_animation` 101 项（新增：12 个动画帧数与来源、6 帧阶段映射、三种空中方向选择）、`player_motion_continuity` 1192 项（新增：奔跑出刀全程 `run_attack` 且按序推进、站立出刀为 `attack_1`、地面上攻全程 `up_attack`、地面下攻全程 `ground_down_attack`）、`player_melee_feedback`（改为对照实测锚点）、`player_action_buffer`、`player_state_cleanup`、`player_upgrade_regression`、`melee_recovery`、`build_slots`、`seal_combat`、`seal_acceptance`、`combat`、`world_enemy_residency`、`character_art_prewarm`、`expanded_character_motion`。
+- `player_layered_idle` 要求真实 GL；本机没有 Xvfb，需由 CI 复核。
+- 真实渲染的 World 实机截图：`artifacts/hero_supplement_runtime/world_capture.webp`，每行一个动画、逐帧摆姿势截取（空中动作抬高 70px）。另以真实输入触发了一次奔跑出刀，确认运行时进入 `run_attack`；本机实际约 20 FPS。
 
 ## 仍待处理
 
-- 披风过渡与空中循环待重绘后接入。
-- 现有待机（分层披风）与 v3 攻击帧的画风、线条粗细仍与 v4 系列不同，跨动作视觉一致性继续 OPEN。
-- 战具图的腰包第 1、3 帧没有、第 2、4 帧有，播放时会闪；如重绘可直接替换源图后重新打包。
+- 待机披风过渡等待目检决定；现有待机（分层披风）与 v3 其余动作（跳跃起手、落地、冲刺、受击、死亡等）与 v4 系列的画风差异继续 OPEN。
+- 剑波第 2 帧剑身上的少量青色光痕保留。
+- `sources/` 下的源图位于 `godot/` 内，会被导入并打进发行包；如需控制包体，可在导出预设中排除该目录。

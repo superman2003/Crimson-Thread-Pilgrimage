@@ -167,15 +167,17 @@ func _run() -> void:
     var texture := ImageTexture.create_from_image(image)
     for animation: StringName in MELEE.BLADE_ANCHORS:
         sprite.sprite_frames.add_animation(animation)
-        for frame in range(4):
+        for frame in range(MELEE.BLADE_ANCHORS[animation].size()):
             sprite.sprite_frames.add_frame(animation, texture)
+    _check(MELEE.BLADE_ANCHORS.has(&"attack_1") and MELEE.BLADE_ANCHORS.has(&"run_attack") and MELEE.BLADE_ANCHORS.has(&"air_attack"), "Measured blade anchors load for the packaged melee poses")
+    var measured_tip: Vector2 = MELEE.BLADE_ANCHORS[&"attack_1"][2][1] - MELEE.SOURCE_SIZE * 0.5
     sprite.animation = &"attack_1"
     sprite.frame = 2
     sprite.position = Vector2(0, -58.08)
     sprite.scale = Vector2.ONE * 0.66
     arena.add_child(sprite)
     var right := MELEE.blade_points(sprite, 2, arena)
-    _check(right.size() == 2 and right[1].is_equal_approx(sprite.position + Vector2(62, -82) * 0.66), "Trail tip uses the measured displayed weapon anchor")
+    _check(right.size() == 2 and right[1].is_equal_approx(sprite.position + measured_tip * 0.66), "Trail tip uses the measured displayed weapon anchor")
     sprite.flip_h = true
     var left := MELEE.blade_points(sprite, 2, arena)
     _check(is_equal_approx(left[1].x, -right[1].x) and is_equal_approx(left[1].y, right[1].y), "Weapon anchors mirror with the actual sprite")
@@ -222,7 +224,7 @@ func _run() -> void:
     _check(cancelled_trace.is_queued_for_deletion() and cancelled_trace.sampled_frame == -1, "Interrupted/unsupported pose receives no first-frame grace")
     retired_traces.append(weakref(cancelled_trace))
     sprite.animation = &"air_attack"
-    sprite.frame = 3
+    sprite.frame = 4
     var empty_blade_trace = MELEE.spawn_swing(arena, sprite, 0.22)
     empty_blade_trace.set_process(false)
     empty_blade_trace._process(0.053)

@@ -446,6 +446,22 @@ func _run() -> void:
             _check(sample.animation == &"attack_1", "Standing slash keeps the planted attack pose")
     _check(saw_standing_attack, "Standing slash fixture reaches the attack window")
 
+    for data in [["aim_up", &"up_attack"], ["aim_down", &"ground_down_attack"]]:
+        await _reset()
+        _capture()
+        Input.action_press(String(data[0]))
+        Input.action_press("attack")
+        await _frames(2)
+        Input.action_release("attack")
+        await _frames(30)
+        Input.action_release(String(data[0]))
+        var saw_directional := false
+        for sample in player.samples:
+            if float(sample.attack) > 0.0:
+                saw_directional = true
+                _check(sample.animation == data[1], "Grounded %s slash keeps %s through the swing" % [data[0], data[1]])
+        _check(saw_directional, "Grounded %s slash fixture reaches the attack window" % data[0])
+
     await _reset()
     player.hp = player.max_hp - 1
     player.energy = player.max_energy

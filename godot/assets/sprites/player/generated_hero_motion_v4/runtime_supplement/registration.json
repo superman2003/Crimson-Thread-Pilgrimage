@@ -2,12 +2,16 @@
   "source": "sources/supplement_20261017",
   "run_shared_scale": 0.405660377,
   "ground_row": 287,
-  "torso_x": 200,
+  "torso": [
+    200,
+    222
+  ],
   "animations": {
     "run_attack": {
       "sheet": "B_run_attack.png",
       "relative_scale": 1.08,
       "scale": 0.438113208,
+      "registration": "soles",
       "frames": [
         {
           "frame": "run_attack_00.png",
@@ -123,6 +127,7 @@
       "sheet": "C_skill_melee.png",
       "relative_scale": 0.92,
       "scale": 0.373207547,
+      "registration": "soles",
       "frames": [
         {
           "frame": "skill_melee_00.png",
@@ -200,8 +205,9 @@
     },
     "skill_wave": {
       "sheet": "C_skill_wave.png",
-      "relative_scale": 0.91,
-      "scale": 0.369150943,
+      "relative_scale": 0.83,
+      "scale": 0.336698113,
+      "registration": "soles",
       "frames": [
         {
           "frame": "skill_wave_00.png",
@@ -209,16 +215,16 @@
             0,
             0,
             768,
-            540
+            512
           ],
           "dropped_components_px": [],
           "offset": [
-            98,
-            156
+            91,
+            152
           ],
           "size": [
-            181,
-            133
+            193,
+            136
           ]
         },
         {
@@ -227,67 +233,61 @@
             768,
             0,
             768,
-            540
+            512
           ],
-          "dropped_components_px": [
-            259
-          ],
+          "dropped_components_px": [],
           "offset": [
-            114,
-            156
+            108,
+            152
           ],
           "size": [
-            159,
-            133
+            169,
+            136
           ]
         },
         {
           "frame": "skill_wave_02.png",
           "source_region": [
             0,
-            540,
+            512,
             768,
-            484
+            512
           ],
-          "dropped_components_px": [
-            10917
-          ],
+          "dropped_components_px": [],
           "offset": [
-            117,
-            163
+            111,
+            154
           ],
           "size": [
-            199,
-            126
+            216,
+            134
           ]
         },
         {
           "frame": "skill_wave_03.png",
           "source_region": [
             768,
-            540,
+            512,
             768,
-            484
+            512
           ],
-          "dropped_components_px": [
-            5807,
-            220
-          ],
+          "dropped_components_px": [],
           "offset": [
-            121,
-            164
+            104,
+            153
           ],
           "size": [
-            159,
-            125
+            183,
+            136
           ]
         }
       ]
     },
     "item_use": {
       "sheet": "C_item_use.png",
-      "relative_scale": 0.86,
-      "scale": 0.348867925,
+      "relative_scale": 0.68,
+      "scale": 0.275849057,
+      "registration": "soles",
       "frames": [
         {
           "frame": "item_use_00.png",
@@ -299,12 +299,12 @@
           ],
           "dropped_components_px": [],
           "offset": [
-            122,
-            158
+            119,
+            162
           ],
           "size": [
-            154,
-            131
+            157,
+            127
           ]
         },
         {
@@ -318,11 +318,11 @@
           "dropped_components_px": [],
           "offset": [
             113,
-            157
+            162
           ],
           "size": [
-            166,
-            132
+            164,
+            127
           ]
         },
         {
@@ -333,16 +333,14 @@
             768,
             512
           ],
-          "dropped_components_px": [
-            1742
-          ],
+          "dropped_components_px": [],
           "offset": [
-            114,
-            157
+            113,
+            161
           ],
           "size": [
-            177,
-            132
+            181,
+            127
           ]
         },
         {
@@ -353,16 +351,798 @@
             768,
             512
           ],
-          "dropped_components_px": [
-            1732
-          ],
+          "dropped_components_px": [],
           "offset": [
             115,
+            161
+          ],
+          "size": [
+            148,
+            127
+          ]
+        }
+      ]
+    },
+    "jump_loop": {
+      "sheet": "D_jump_loop.png",
+      "relative_scale": 0.58,
+      "scale": 0.235283019,
+      "registration": "torso",
+      "frames": [
+        {
+          "frame": "jump_loop_00.png",
+          "source_region": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            103,
+            151
+          ],
+          "size": [
+            176,
+            145
+          ]
+        },
+        {
+          "frame": "jump_loop_01.png",
+          "source_region": [
+            887,
+            0,
+            887,
+            887
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            106,
+            151
+          ],
+          "size": [
+            174,
+            145
+          ]
+        }
+      ]
+    },
+    "fall": {
+      "sheet": "D_fall_loop.png",
+      "relative_scale": 0.5,
+      "scale": 0.202830189,
+      "registration": "torso",
+      "frames": [
+        {
+          "frame": "fall_00.png",
+          "source_region": [
+            0,
+            0,
+            930,
+            887
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            115,
+            152
+          ],
+          "size": [
+            164,
+            148
+          ]
+        },
+        {
+          "frame": "fall_01.png",
+          "source_region": [
+            930,
+            0,
+            844,
+            887
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            117,
+            150
+          ],
+          "size": [
+            165,
+            150
+          ]
+        }
+      ]
+    },
+    "attack_1": {
+      "sheet": "E_attack_forward.png",
+      "relative_scale": 0.93,
+      "scale": 0.377264151,
+      "registration": "soles",
+      "frames": [
+        {
+          "frame": "attack_1_00.png",
+          "source_region": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            122,
+            163
+          ],
+          "size": [
+            161,
+            126
+          ]
+        },
+        {
+          "frame": "attack_1_01.png",
+          "source_region": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            118,
+            163
+          ],
+          "size": [
+            142,
+            126
+          ]
+        },
+        {
+          "frame": "attack_1_02.png",
+          "source_region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            116,
+            162
+          ],
+          "size": [
+            168,
+            127
+          ]
+        },
+        {
+          "frame": "attack_1_03.png",
+          "source_region": [
+            0,
+            512,
+            570,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            124,
+            164
+          ],
+          "size": [
+            192,
+            125
+          ]
+        },
+        {
+          "frame": "attack_1_04.png",
+          "source_region": [
+            570,
+            512,
+            460,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            120,
+            160
+          ],
+          "size": [
+            162,
+            129
+          ]
+        },
+        {
+          "frame": "attack_1_05.png",
+          "source_region": [
+            1030,
+            512,
+            506,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            116,
+            161
+          ],
+          "size": [
+            161,
+            128
+          ]
+        }
+      ]
+    },
+    "up_attack": {
+      "sheet": "E_attack_up.png",
+      "relative_scale": 0.88,
+      "scale": 0.356981132,
+      "registration": "soles",
+      "frames": [
+        {
+          "frame": "up_attack_00.png",
+          "source_region": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            128,
+            160
+          ],
+          "size": [
+            140,
+            129
+          ]
+        },
+        {
+          "frame": "up_attack_01.png",
+          "source_region": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            123,
+            163
+          ],
+          "size": [
+            138,
+            126
+          ]
+        },
+        {
+          "frame": "up_attack_02.png",
+          "source_region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            127,
             156
           ],
           "size": [
-            146,
+            140,
             133
+          ]
+        },
+        {
+          "frame": "up_attack_03.png",
+          "source_region": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            125,
+            126
+          ],
+          "size": [
+            142,
+            163
+          ]
+        },
+        {
+          "frame": "up_attack_04.png",
+          "source_region": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            125,
+            158
+          ],
+          "size": [
+            145,
+            131
+          ]
+        },
+        {
+          "frame": "up_attack_05.png",
+          "source_region": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            125,
+            164
+          ],
+          "size": [
+            143,
+            125
+          ]
+        }
+      ]
+    },
+    "ground_down_attack": {
+      "sheet": "E_attack_down_ground.png",
+      "relative_scale": 0.84,
+      "scale": 0.340754717,
+      "registration": "soles",
+      "frames": [
+        {
+          "frame": "ground_down_attack_00.png",
+          "source_region": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            120,
+            163
+          ],
+          "size": [
+            149,
+            125
+          ]
+        },
+        {
+          "frame": "ground_down_attack_01.png",
+          "source_region": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            124,
+            146
+          ],
+          "size": [
+            129,
+            143
+          ]
+        },
+        {
+          "frame": "ground_down_attack_02.png",
+          "source_region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            128,
+            164
+          ],
+          "size": [
+            144,
+            124
+          ]
+        },
+        {
+          "frame": "ground_down_attack_03.png",
+          "source_region": [
+            0,
+            512,
+            545,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            123,
+            166
+          ],
+          "size": [
+            167,
+            123
+          ]
+        },
+        {
+          "frame": "ground_down_attack_04.png",
+          "source_region": [
+            545,
+            512,
+            479,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            124,
+            165
+          ],
+          "size": [
+            150,
+            124
+          ]
+        },
+        {
+          "frame": "ground_down_attack_05.png",
+          "source_region": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            123,
+            165
+          ],
+          "size": [
+            148,
+            123
+          ]
+        }
+      ]
+    },
+    "down_attack": {
+      "sheet": "E_attack_down.png",
+      "relative_scale": 0.93,
+      "scale": 0.377264151,
+      "registration": "torso",
+      "frames": [
+        {
+          "frame": "down_attack_00.png",
+          "source_region": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            118,
+            163
+          ],
+          "size": [
+            151,
+            121
+          ]
+        },
+        {
+          "frame": "down_attack_01.png",
+          "source_region": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            113,
+            149
+          ],
+          "size": [
+            136,
+            154
+          ]
+        },
+        {
+          "frame": "down_attack_02.png",
+          "source_region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            118,
+            158
+          ],
+          "size": [
+            156,
+            130
+          ]
+        },
+        {
+          "frame": "down_attack_03.png",
+          "source_region": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            117,
+            151
+          ],
+          "size": [
+            164,
+            143
+          ]
+        },
+        {
+          "frame": "down_attack_04.png",
+          "source_region": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            119,
+            158
+          ],
+          "size": [
+            151,
+            128
+          ]
+        },
+        {
+          "frame": "down_attack_05.png",
+          "source_region": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            115,
+            159
+          ],
+          "size": [
+            152,
+            128
+          ]
+        }
+      ]
+    },
+    "air_attack": {
+      "sheet": "F_air_attack_right.png",
+      "relative_scale": 0.875,
+      "scale": 0.35495283,
+      "registration": "torso",
+      "frames": [
+        {
+          "frame": "air_attack_00.png",
+          "source_region": [
+            0,
+            0,
+            591,
+            443
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            124,
+            162
+          ],
+          "size": [
+            139,
+            120
+          ]
+        },
+        {
+          "frame": "air_attack_01.png",
+          "source_region": [
+            591,
+            0,
+            591,
+            443
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            126,
+            165
+          ],
+          "size": [
+            117,
+            117
+          ]
+        },
+        {
+          "frame": "air_attack_02.png",
+          "source_region": [
+            1182,
+            0,
+            592,
+            443
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            115,
+            168
+          ],
+          "size": [
+            160,
+            113
+          ]
+        },
+        {
+          "frame": "air_attack_03.png",
+          "source_region": [
+            0,
+            443,
+            591,
+            444
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            120,
+            172
+          ],
+          "size": [
+            184,
+            112
+          ]
+        },
+        {
+          "frame": "air_attack_04.png",
+          "source_region": [
+            591,
+            443,
+            591,
+            444
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            127,
+            164
+          ],
+          "size": [
+            137,
+            116
+          ]
+        },
+        {
+          "frame": "air_attack_05.png",
+          "source_region": [
+            1182,
+            443,
+            592,
+            444
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            121,
+            162
+          ],
+          "size": [
+            143,
+            119
+          ]
+        }
+      ]
+    },
+    "air_up_attack": {
+      "sheet": "F_air_attack_up.png",
+      "relative_scale": 1.06,
+      "scale": 0.43,
+      "registration": "torso",
+      "frames": [
+        {
+          "frame": "air_up_attack_00.png",
+          "source_region": [
+            0,
+            0,
+            591,
+            443
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            125,
+            158
+          ],
+          "size": [
+            141,
+            128
+          ]
+        },
+        {
+          "frame": "air_up_attack_01.png",
+          "source_region": [
+            591,
+            0,
+            591,
+            443
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            117,
+            158
+          ],
+          "size": [
+            131,
+            127
+          ]
+        },
+        {
+          "frame": "air_up_attack_02.png",
+          "source_region": [
+            1182,
+            0,
+            592,
+            443
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            118,
+            152
+          ],
+          "size": [
+            158,
+            142
+          ]
+        },
+        {
+          "frame": "air_up_attack_03.png",
+          "source_region": [
+            0,
+            443,
+            591,
+            444
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            137,
+            141
+          ],
+          "size": [
+            120,
+            172
+          ]
+        },
+        {
+          "frame": "air_up_attack_04.png",
+          "source_region": [
+            591,
+            443,
+            591,
+            444
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            119,
+            165
+          ],
+          "size": [
+            167,
+            117
+          ]
+        },
+        {
+          "frame": "air_up_attack_05.png",
+          "source_region": [
+            1182,
+            443,
+            592,
+            444
+          ],
+          "dropped_components_px": [],
+          "offset": [
+            126,
+            161
+          ],
+          "size": [
+            139,
+            121
           ]
         }
       ]

@@ -1,31 +1,32 @@
 extends RefCounted
-## Presentation only. Anchors were measured on this project's authored hero v3
-## frames (384 x 384); no borrowed effect assets or combat geometry live here.
+## Presentation only. Anchors are measured from this project's packaged hero
+## frames (384 x 384) by tools/build_hero_supplement_motion.py; no borrowed
+## effect assets or combat geometry live here.
 ## The brief blade smear follows the rendered weapon, never the hitbox envelope.
 
 const SOURCE_SIZE := Vector2(384.0, 384.0)
 const TRACE_SECONDS := 0.055
 const CONTACT_SECONDS := 0.065
-const BLADE_ANCHORS := {
-    &"attack_1": [
-        [Vector2(190, 210), Vector2(246, 218)],
-        [Vector2(177, 130), Vector2(170, 86)],
-        [Vector2(207, 155), Vector2(254, 110)],
-        [Vector2(190, 210), Vector2(248, 213)]
-    ],
-    &"air_attack": [
-        [Vector2(230, 142), Vector2(263, 111)],
-        [Vector2(228, 143), Vector2(262, 111)],
-        [Vector2(229, 144), Vector2(263, 110)],
-        [Vector2(232, 158), Vector2(232, 158)]
-    ],
-    &"down_attack": [
-        [Vector2(151, 258), Vector2(200, 284)],
-        [Vector2(176, 147), Vector2(155, 113)],
-        [Vector2(210, 243), Vector2(269, 285)],
-        [Vector2(216, 252), Vector2(259, 283)]
-    ]
-}
+const ANCHOR_FILE := "res://assets/sprites/player/generated_hero_motion_v4/runtime_supplement/blade_anchors.json"
+## animation -> per-frame [root, tip]; an empty frame has no visible blade.
+static var BLADE_ANCHORS: Dictionary = _load_blade_anchors()
+
+
+static func _load_blade_anchors() -> Dictionary:
+    var result := {}
+    var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(ANCHOR_FILE))
+    if not data is Dictionary or not data.get("animations") is Dictionary:
+        push_error("Blade anchors missing or invalid: " + ANCHOR_FILE)
+        return result
+    for animation: String in data.animations:
+        var frames: Array = []
+        for pair: Variant in data.animations[animation]:
+            if pair is Array and pair.size() == 2:
+                frames.append([Vector2(pair[0][0], pair[0][1]), Vector2(pair[1][0], pair[1][1])])
+            else:
+                frames.append([])
+        result[StringName(animation)] = frames
+    return result
 
 
 static func blade_points(sprite: AnimatedSprite2D, frame_index: int, relative_to: Node2D) -> PackedVector2Array:
