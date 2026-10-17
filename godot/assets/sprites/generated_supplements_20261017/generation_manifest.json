@@ -1,0 +1,363 @@
+{
+  "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
+  "generator": "built-in image_gen",
+  "scope": "Boss source artwork only; no hero or cloth; runtime integration not included",
+  "excluded": [
+    "all player/hero assets",
+    "cloth/scarf bridges"
+  ],
+  "totals": {
+    "source_sheets": 12,
+    "current_sheets": 10,
+    "accepted_pose_count": 52,
+    "superseded_sheets": 2
+  },
+  "pending_clarification": [
+    {
+      "category": "普通怪衔接和画面错误",
+      "frames": 10,
+      "missing": "角色名、动作名、帧号/源图定位"
+    },
+    {
+      "category": "被裁到边的单帧重画",
+      "frames": 5,
+      "missing": "角色名、动作名、帧号/源图定位"
+    }
+  ],
+  "selection_note": "The four phase-2 subjects are grounded in current main's boss_moss_roots, boss_shears_turn, boss_bishop_cage and boss_key_gate definitions; screenshot supplies counts only, no detailed prior audit mapping.",
+  "validation": "PNG alpha verified and main alpha>128 connected silhouettes reviewed. Separated v2 sheets have four/six independent main components. No game/runtime tests run. No slicing or runtime manifest changes.",
+  "assets": [
+    {
+      "id": "E_sunken_hammer_smith_recover",
+      "file": "E_sunken_hammer_smith_recover.png",
+      "prompt_file": "E_sunken_hammer_smith_recover.txt",
+      "requested_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "heavy/cast/phase: two recovery cels each",
+      "reference": [
+        "godot/assets/sprites/original_creatures/sunken_hammer_smith/atlas.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Six distinct full body poses; true alpha verified (background sample alpha 0). Row-major heavy/cast/phase pairs. Raw source requires reviewed contour crops/anchors before runtime use.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "3f8a57ac7cd1b9cf9f16f649b5dce3d4b7b2e379684387048c64a91ebc6f31e4",
+      "blob_sha": "6c2afbc9103af75e4a2665ddb1f9920ea39cc128"
+    },
+    {
+      "id": "E_rust_crown_guardian_recover",
+      "file": "E_rust_crown_guardian_recover.png",
+      "prompt_file": "E_rust_crown_guardian_recover.txt",
+      "requested_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "heavy/cast/phase two recovery cels each",
+      "reference": [
+        "godot/assets/sprites/original_creatures/rust_crown_guardian/atlas.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Six distinct complete poses; row-major heavy/cast/phase pairs. Broad cast cel extends beyond nominal column; register reviewed contour crops, do not blindly split equal cells. True alpha background checked.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "d5e1e039db1c35d014a276cf0272cea88573107a4da6f943897cd78f33b3bce7",
+      "blob_sha": "8da74825e68366b26941d8ee889bb06425574576"
+    },
+    {
+      "id": "E_saltwhite_contract_judge_recover",
+      "file": "E_saltwhite_contract_judge_recover.png",
+      "prompt_file": "E_saltwhite_contract_judge_recover.txt",
+      "requested_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "heavy/cast/phase two recovery cels each",
+      "reference": [
+        "godot/assets/sprites/original_creatures/saltwhite_contract_judge/atlas.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Six full distinct recovery poses, row-major heavy/cast/phase pairs. Blades and cape complete, right facing. Contour crops must be reviewed before runtime use.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "454ddc753fdf0653386250379dcad4e70657ed2561e8f48c791d4ce0c4c18845",
+      "blob_sha": "62082767d77f268ba767fc8bb46034e6a8355f2c"
+    },
+    {
+      "id": "E_broken_string_gardener_recover",
+      "file": "E_broken_string_gardener_recover.png",
+      "prompt_file": "E_broken_string_gardener_recover.txt",
+      "requested_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "heavy/cast/phase two recovery cels each",
+      "reference": [
+        "godot/assets/sprites/original_creatures/broken_string_gardener/atlas.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Six distinct complete right facing poses, row-major heavy/cast/phase pairs. Original crozier, headdress and leaf cloak retained. Register contour crops before runtime.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "8d6bac6f869a1e6e17392d847b2b79d404c8d417d748bb24644c86d66fb452bc",
+      "blob_sha": "d9f6fbd482face5fdf3367e8dc6970c38968eca3"
+    },
+    {
+      "id": "E_silent_pilgrim_commander_recover",
+      "file": "E_silent_pilgrim_commander_recover.png",
+      "prompt_file": "E_silent_pilgrim_commander_recover.txt",
+      "requested_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "heavy/cast/phase two recovery cels each",
+      "reference": [
+        "godot/assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png"
+      ],
+      "status": "superseded_contact_between_adjacent_cels",
+      "visual_review": "Six full distinct right facing recovery poses. Veil and long needle complete; first/last left-column needle extends across nominal column, use contour-based crops. No runtime integration. Strong-alpha component check confirmed adjacent lower poses touch; superseded by separated v2 sheet, do not use this source for slicing.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "309c2c8399330e722ad27063650eb8cdf4a1b73b92591b91621c9f03a07e670f",
+      "blob_sha": "09bc90675e7938b30866fb1edde372e842ac893c",
+      "accepted_frames": 0
+    },
+    {
+      "id": "E_silent_crown_core_recover",
+      "file": "E_silent_crown_core_recover.png",
+      "prompt_file": "E_silent_crown_core_recover.txt",
+      "requested_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "heavy/cast/phase two recovery cels each",
+      "reference": [
+        "godot/assets/sprites/original_creatures/silent_crown_core/atlas.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Six complete right-facing recovery poses, row-major heavy/cast/phase pairs. Full key, crown and mantle retained. Source requires contour crops and anchor registration.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "74eb15b377f525d4cebd886b97db412d73dba34aac5e11dbfef30f25dadc9be5",
+      "blob_sha": "797adce76b8cf747c2360e95adc9fcebe6167684"
+    },
+    {
+      "id": "B_rust_crown_guardian_root_awakening",
+      "file": "B_rust_crown_guardian_root_awakening.png",
+      "prompt_file": "B_rust_crown_guardian_root_awakening.txt",
+      "requested_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "phase 2 boss_moss_roots rootline summon: gather/rise/release/followthrough",
+      "reference": [
+        "godot/assets/sprites/original_creatures/rust_crown_guardian/atlas.png",
+        "godot/data/original_creature_combat.json#boss_moss_roots"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Four full distinct root-command cels, complete bell, roots, blades and antennae. Rootline summon gesture rather than forward melee lunge. Raw source only; contour crops required.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "29d3004358d6844f118c727ba6728c053d7d8b99898d7a2d683d5bd4fa0ce617",
+      "blob_sha": "519a95e1bad92026311ed8a1763ff0a244c34a81"
+    },
+    {
+      "id": "B_sunken_hammer_smith_vault_scissors",
+      "file": "B_sunken_hammer_smith_vault_scissors.png",
+      "prompt_file": "B_sunken_hammer_smith_vault_scissors.txt",
+      "requested_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "phase 2 boss_shears_turn: crouch/airborne turn/airborne close/landing",
+      "reference": [
+        "godot/assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+        "godot/data/original_creature_combat.json#boss_shears_turn"
+      ],
+      "status": "superseded_contact_between_adjacent_cels",
+      "visual_review": "Four right-facing phase attack poses including two airborne cels. Full body and scissors retained. Lower-left extended scissors approach lower-right antenna; raw source needs careful contour review before runtime, not an integration-ready atlas. Strong-alpha component check confirmed adjacent lower poses touch; superseded by separated v2 sheet, do not use this source for slicing.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "7209fd922a58869e09e5a0b64ae253caff4c8f2f9aea04d831fd73ae00d58f08",
+      "blob_sha": "685dcfc9f9bcce96763c1213aa923626f396773e",
+      "accepted_frames": 0
+    },
+    {
+      "id": "B_broken_string_gardener_root_cage",
+      "file": "B_broken_string_gardener_root_cage.png",
+      "prompt_file": "B_broken_string_gardener_root_cage.txt",
+      "requested_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "phase 2 boss_bishop_cage: gather/lift/root-cage command/followthrough",
+      "reference": [
+        "godot/assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+        "godot/data/original_creature_combat.json#boss_bishop_cage"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Four complete distinct right-facing rooted ritual poses; staff/mitre/full cloak retained. Attached roots expand during release. Source only, runtime contour crops pending.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "6a4c972be530e47ba9b64e8b35026cd04b225a74611e10bddd93c2f2445036bf",
+      "blob_sha": "19956afe628505424e865df89a58f93c846d5069"
+    },
+    {
+      "id": "B_silent_crown_core_gate_judgement",
+      "file": "B_silent_crown_core_gate_judgement.png",
+      "prompt_file": "B_silent_crown_core_gate_judgement.txt",
+      "requested_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "phase 2 boss_key_gate: gather/align lock/turn key/gate seal command",
+      "reference": [
+        "godot/assets/sprites/original_creatures/silent_crown_core/atlas.png",
+        "godot/data/original_creature_combat.json#boss_key_gate"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Four complete right-facing gate-seal poses, vertical-to-horizontal key articulation and command gesture. Full key teeth/mandibles/cloak retained. Source only; review contour crops before runtime use.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "3f4b1eee50b376adf65ddf5e299bd31d6aee6149488fda7a908a3aedb3e66a36",
+      "blob_sha": "3b9e4c2af2ee6a3bb41568637fe1a57da781bf1b"
+    },
+    {
+      "id": "B_sunken_hammer_smith_vault_scissors_v2",
+      "file": "B_sunken_hammer_smith_vault_scissors_v2.png",
+      "prompt_file": "B_sunken_hammer_smith_vault_scissors_v2.txt",
+      "requested_frames": 4,
+      "accepted_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "Separated replacement for B_sunken_hammer_smith_vault_scissors: four phase 2 vault-turn cels",
+      "reference": [
+        "godot/assets/sprites/generated_supplements_20261017/B_sunken_hammer_smith_vault_scissors.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Four complete phase poses now visibly separated by transparent gaps, including airborne turn and close. Supersedes touching lower pair in original sheet. Contour registration still needed for runtime.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "412b885f46cc6913bfeb85100329eeb1e9be6a94f1257ad805af78316b9b5354",
+      "blob_sha": "43306c7337f4b0738b004d53973913f8e8cc550a"
+    },
+    {
+      "id": "E_silent_pilgrim_commander_recover_v2",
+      "file": "E_silent_pilgrim_commander_recover_v2.png",
+      "prompt_file": "E_silent_pilgrim_commander_recover_v2.txt",
+      "requested_frames": 6,
+      "accepted_frames": 6,
+      "grid": [
+        2,
+        3
+      ],
+      "purpose": "Separated replacement for E_silent_pilgrim_commander_recover: six heavy/cast/phase recovery cels",
+      "reference": [
+        "godot/assets/sprites/generated_supplements_20261017/E_silent_pilgrim_commander_recover.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Six complete right-facing recovery cels visibly separated. Full long needle no longer touches adjacent wing hem. Supersedes original. Source only; contour crops needed before runtime use.",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "sha256": "00653bb98c5dd65dc4dce6ee9c22fcd25e38e928a2de31990eb4ecba20fbb3e0",
+      "blob_sha": "c1073ff524ad5a8b9d5434bc0ac58d8408e77e53"
+    }
+  ]
+}

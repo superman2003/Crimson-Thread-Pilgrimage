@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 from PIL import Image
 from build_expanded_hero_run import build as validate_expanded_run
+from build_hero_supplement_motion import build as validate_supplement, SHEETS as SUPPLEMENT_SHEETS
 
 ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / 'godot/assets/sprites/player/generated_hero_v3'
@@ -15,8 +16,17 @@ def main():
     assert len(audited_paths) == len(audit) == 80
     original_run = {path for path in audited_paths if '/run_' in path}
     expanded_run = {f'res://assets/sprites/player/generated_hero_motion_v4/runtime_run/run_{index:02d}.png' for index in range(8)}
-    assert paths == (audited_paths - original_run) | expanded_run
+    supplement_counts = {'run_attack': 6, 'skill_melee': 4, 'skill_wave': 4, 'item_use': 4, 'jump_loop': 2, 'fall': 2,
+        'attack_1': 6, 'up_attack': 6, 'ground_down_attack': 6, 'down_attack': 6, 'air_attack': 6, 'air_up_attack': 6}
+    assert set(supplement_counts) == set(SUPPLEMENT_SHEETS)
+    supplement = {f'res://assets/sprites/player/generated_hero_motion_v4/runtime_supplement/{name}_{index:02d}.png'
+        for name, count in supplement_counts.items() for index in range(count)}
+    # The v3 slash, air slash and down slash cels are fully replaced by supplement poses.
+    replaced = {f'res://assets/sprites/player/generated_hero_v3/frames/{action}_{index:02d}.png'
+        for action in ('attack_1', 'air_attack', 'down_attack') for index in range(4)}
+    assert paths == (audited_paths - original_run - replaced) | expanded_run | supplement
     validate_expanded_run(check=True)
+    validate_supplement(check=True)
     assert not any(entry['output_clipped'] for entry in audit)
     assert not any(entry['opaque_source_canvas_edge'] for entry in audit)
     assert not any(entry['ambiguous_connected_pose'] for entry in audit)

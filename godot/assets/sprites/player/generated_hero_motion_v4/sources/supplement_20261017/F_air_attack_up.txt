@@ -1,0 +1,15 @@
+Use case: stylized-concept.
+Asset type: production source animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage.
+Reference image 1 is the style reference: match exact character identity, proportions, crisp dark ink contours, textured hand-painted anime rendering and muted palette: black ponytail, red scarf, worn teal cape, charcoal tunic and trousers, brown leather belt and boots, ONE short straight steel sword with gold cross-guard, held in RIGHT (front) hand, BOTH hands on the grip when swinging. Reference image 2 is previous version: keep identity and leg stance but reduce character to at most 55% cell height. Reference image 3 is a stick-figure guide that shows ONLY sword direction for each cel; follow its blade angles exactly but do not copy its drawing style or body position.
+All poses face RIGHT, fixed side-view camera, identical character scale and identical sword length in every cel.
+Layout: exactly SIX cels in 3 columns x 2 rows, read left-to-right then top-to-bottom, on a 1536x1024 canvas. Each cell 512x512. Character body occupies at most 55% cell height so fully raised/lowered sword stays inside its own cel. Generous fully transparent gutters and edges; nothing touches neighboring cel.
+Background: genuine transparent alpha, no white fill, no checkerboard, no floor, no shadow, no text, no frame numbers, no panel borders. No slash trail, motion blur, afterimage, glow, speed lines or arc effect; game draws swing arc itself. Only character and sword.
+Sword visibly sweeps continuous arc across six cels; blade angle changes between every consecutive cel especially 3 and 4. Clock direction is blade root-to-tip: 3 right, 12 up, 6 down, 9 left.
+Action: airborne rising upward slash; ALL SIX cels mid-air with tucked jumping legs as reference image 2, NEVER standing.
+Cel 1 guard: sword forward at chest, blade horizontal right 3 o'clock.
+Cel 2 wind-up: sword low behind hip, tip back/down 8 o'clock, shoulders twisted back.
+Cel 3 slash begins: blade swung forward to HORIZONTAL straight right 3 o'clock.
+Cel 4 slash ends: BOTH arms fully extended above head, blade VERTICAL straight UP 12 o'clock, torso stretched upward.
+Cel 5 follow-through: blade slightly past vertical toward back 11 o'clock.
+Cel 6 recover: cel-1 guard with blade horizontal right 3 o'clock.
+CRITICAL LAYOUT CORRECTION: prior edit target was too large and bottom-left sword crossed row boundary. Redraw every character at 65% of its previous size, centered within its cell; tucked body without sword must be only 220px tall. Centre torso at y=280 for top row and y=792 bottom row. Reserve at least 60px FULLY TRANSPARENT safety margin within each 512px cel. Bottom-left cel raised sword tip must be BELOW y=572. Preserve exact six blade directions 3,8,3,12,11,3. BOTH hands grip sword in cels 2,3,4,5. No halo/bloom/diffuse colored pixels.

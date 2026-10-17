@@ -16,16 +16,31 @@ func run() -> void:
     var sprite: AnimatedSprite2D = player.sprite
     check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
+    for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["jump_loop",2],["fall",2],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:
+        var anim := String(data[0])
+        check(sprite.sprite_frames.has_animation(anim) and sprite.sprite_frames.get_frame_count(anim)==int(data[1]),anim+" has its authored cels")
+        for index in sprite.sprite_frames.get_frame_count(anim):
+            var texture := sprite.sprite_frames.get_frame_texture(anim,index)
+            check(texture.get_size()==Vector2(384,384) and texture.resource_path.contains("/runtime_supplement/"+anim+"_"),anim+" uses its own supplement cel "+str(index))
+    check(sprite.sprite_frames.get_frame_texture("skill_melee",0)!=sprite.sprite_frames.get_frame_texture("attack_2",0),"heavy slash no longer borrows attack_2")
     player.current_attack=&"attack_1"
     player.current_attack_direction=Vector2.RIGHT
     player.attack_duration=0.5
     player.attack_windup=0.1
     player.attack_active_time=0.2
-    for data in [[0.0,0],[0.075,1],[0.15,2],[0.299,2],[0.4,3]]:
+    # Six-cel attacks spend two cels each in wind-up, damage window and recovery.
+    for data in [[0.0,0],[0.075,1],[0.15,2],[0.299,3],[0.35,4],[0.45,5]]:
         player.attack_timer=0.5-float(data[0])
         player._update_attack_pose()
         check(sprite.frame==int(data[1]),"attack pose follows phase at "+str(data[0]))
         check(not sprite.is_playing(),"attack phase owns pose playback")
+    player.attack_timer=0.25
+    player.attack_started_grounded=false
+    for data in [[Vector2.RIGHT,&"air_attack"],[Vector2.UP,&"air_up_attack"],[Vector2.DOWN,&"down_attack"]]:
+        player.current_attack_direction=data[0]
+        player._update_attack_pose()
+        check(sprite.animation==data[1],"airborne attack direction selects "+String(data[1]))
+    player.current_attack_direction=Vector2.RIGHT
     player.attack_timer=0
     player.heal_timer=player.heal_duration*0.25
     player._update_animation(0)

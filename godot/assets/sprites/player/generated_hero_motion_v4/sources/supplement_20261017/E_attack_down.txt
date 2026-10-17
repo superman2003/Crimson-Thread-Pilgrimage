@@ -1,0 +1,18 @@
+Use case: stylized-concept.
+Asset type: production source animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage.
+Reference image 1 is the style reference: match exact character identity, proportions, crisp dark ink contours, textured hand-painted anime rendering and muted palette: black ponytail, red scarf, worn teal cape, charcoal tunic and trousers, brown leather belt and boots, ONE short straight steel sword with gold cross-guard, held in RIGHT (front) hand, BOTH hands on the grip when swinging. Reference image 2 is a stick-figure guide that shows ONLY sword direction for each cel; follow its blade angles exactly but do not copy its drawing style or body position.
+All poses face RIGHT, fixed side-view camera, identical character scale and identical sword length in every cel.
+Layout: exactly SIX cels in 3 columns x 2 rows, read left-to-right then top-to-bottom, on a 1536x1024 canvas. Each cell 512x512. Character body occupies at most 55% cell height so fully raised/lowered sword stays inside its own cel. Generous fully transparent gutters and edges; nothing touches neighboring cel.
+Background: genuine transparent alpha, no white fill, no checkerboard, no floor, no shadow, no text, no frame numbers, no panel borders. No slash trail, motion blur, afterimage, glow, speed lines or arc effect; game draws swing arc itself. Only character and sword.
+Sword visibly sweeps continuous arc across six cels; blade angle changes between every consecutive cel especially 3 and 4. Clock direction is blade root-to-tip: 3 right, 12 up, 6 down, 9 left.
+Action: airborne downward slash striking straight below body; ALL SIX cels mid-air with same tucked legs as reference image 2, NEVER standing.
+Cel 1 guard: sword forward at chest, blade horizontal right 3 o'clock.
+Cel 2 wind-up: both hands sword above/slightly behind head, tip up/back 11 o'clock.
+Cel 3 slash begins: sword coming down in front of chest, blade forward/slightly UP 2 o'clock.
+Cel 4 slash ends: BOTH arms driven down, blade VERTICAL straight DOWN beneath body 6 o'clock, legs tucked up out of blade's way.
+Cel 5 follow-through: blade down/forward 5 o'clock.
+Cel 6 recover: cel-1 guard with blade horizontal right 3 o'clock.
+Create a NEW small-sprite layout, each tucked body only 220px tall, sword 80px long. IMPORTANT follow red blade direction in guide EXACTLY: second cel blade must point upper LEFT at 60degrees from horizontal; fifth cel blade must point lower RIGHT at 60degrees from horizontal. No 45degree diagonal in these cels. All cels identical sword length. Torso around y=270 and y=782. At least 60px transparent margin inside EACH of six 512px square cells. TWO hands on grip while swinging. No halo, no glow, no shadows.
+
+Final image edit prompt:
+Edit ONLY sword angles in two cels of this six-cel animation sheet. TOP MIDDLE cel: rotate the steel blade CLOCKWISE 30 degrees about gold guard: it currently points mostly LEFT at 10 o'clock, it MUST point mostly UP at 11 o'clock. Adjust both hands and grip anatomically to match. BOTTOM MIDDLE cel: rotate blade CLOCKWISE 15degrees about gold guard so it points mostly DOWN at 5 o'clock, not 4:30. Adjust arms/hands appropriately. Keep rest of sheet identical: exact same character identity, size, tucked midair legs, one short straight sword per cel, transparent background, 1536x1024 three columns two rows. No effects, no halos, no text. Final directions 3,11,2,6,5,3.

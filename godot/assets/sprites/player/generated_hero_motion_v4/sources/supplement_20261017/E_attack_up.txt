@@ -1,0 +1,17 @@
+Use case: stylized-concept.
+Asset type: production source animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage.
+Reference image 1 is the style reference: match exact character identity, proportions, crisp dark ink contours, textured hand-painted anime rendering and muted palette: black ponytail, red scarf, worn teal cape, charcoal tunic and trousers, brown leather belt and boots, ONE short straight steel sword with gold cross-guard, held in RIGHT (front) hand, BOTH hands on the grip when swinging. Reference image 2 is previous version: keep identity and leg stance but reduce character to at most 55% cell height. Reference image 3 is a stick-figure guide that shows ONLY sword direction for each cel; follow its blade angles exactly but do not copy its drawing style or body position.
+All poses face RIGHT, fixed side-view camera, identical character scale and identical sword length in every cel.
+Layout: exactly SIX cels in 3 columns x 2 rows, read left-to-right then top-to-bottom, on a 1536x1024 canvas. Each cell 512x512. Character body occupies at most 55% cell height so fully raised/lowered sword stays inside its own cel. Generous fully transparent gutters and edges; nothing touches neighboring cel.
+Background: genuine transparent alpha, no white fill, no checkerboard, no floor, no shadow, no text, no frame numbers, no panel borders. No slash trail, motion blur, afterimage, glow, speed lines or arc effect; game draws swing arc itself. Only character and sword.
+Sword visibly sweeps continuous arc across six cels; blade angle changes between every consecutive cel especially 3 and 4. Clock direction is blade root-to-tip: 3 right, 12 up, 6 down, 9 left.
+Action: grounded rising upward slash, feet planted on same ground line in all six cels.
+Cel 1 guard: balanced stance, sword forward at waist, blade horizontal 3 o'clock.
+Cel 2 wind-up: crouch and twist back, sword drawn low behind body, blade tip back/down 8 o'clock.
+Cel 3 slash begins: sword forward past hip, blade HORIZONTAL straight right 3 o'clock, body rising.
+Cel 4 slash ends: BOTH arms extended overhead, blade VERTICAL straight UP 12 o'clock, body stretched, front heel slightly lifted.
+Cel 5 follow-through: blade slightly past vertical toward back 11 o'clock, weight settling.
+Cel 6 recover: return to cel-1 guard, blade horizontal right 3 o'clock.
+
+Final image edit prompt:
+Edit this six-cel animation sheet. Keep all six drawings and sword directions. Zoom OUT inside EACH of six equal 512x512 cells: make EACH character INCLUDING sword 25% SMALLER, with substantial TRANSPARENT blank space around it. The raised sword in bottom-left must be wholly INSIDE bottom-left cell, tip BELOW y=570. All 6 characters same head size; grounded feet same relative baseline. Canvas remains 1536x1024, three columns two rows. Exactly one sword per cel, no effects, no floor, no text. Preserve real transparency. Blade directions read rowwise 3,8,3,12,11,3. BOTH hands on sword hilt during swinging.
