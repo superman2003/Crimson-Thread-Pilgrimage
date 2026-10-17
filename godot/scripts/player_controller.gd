@@ -314,6 +314,10 @@ var attack_range: float = 82.0
 var attack_height: float = 72.0
 var attack_forward_offset: float = 48.0
 var current_attack_direction: Vector2 = Vector2.RIGHT
+# Chosen once when a horizontal ground slash starts at running speed, so the
+# legs keep striding instead of switching drawings mid-swing.
+var run_attack_pose := false
+const RUN_ATTACK_MIN_SPEED_RATIO := 0.5
 var enemy_contact_guard_timer: float = 0.0
 var hit_targets: Dictionary = {}
 var attack_pogo_paid := false
@@ -711,6 +715,9 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
     current_attack_direction = _read_attack_direction() if queued_direction == Vector2.ZERO else queued_direction
     if animation == &"hook_throw":
         current_attack_direction = Vector2(float(facing), 0.0)
+    run_attack_pose = animation == &"attack_1" and is_on_floor() and absf(current_attack_direction.y) <= 0.5 \
+        and absf(velocity.x) >= speed * RUN_ATTACK_MIN_SPEED_RATIO \
+        and sprite != null and sprite.sprite_frames != null and sprite.sprite_frames.has_animation(&"run_attack")
     if animation == &"hook_throw":
         attack_duration = 0.42
         attack_damage = 1
@@ -1539,10 +1546,20 @@ func _update_attack_pose() -> void:
     elif current_attack != &"hook_throw":
         if current_attack_direction.y > 0.5: animation = &"down_attack"
         elif not is_on_floor(): animation = &"air_attack"
+        elif run_attack_pose and current_attack == &"attack_1": animation = &"run_attack"
     var elapsed := attack_duration - attack_timer
     var progress := 0.0
     if kind == "tool":
         progress = elapsed / maxf(attack_duration, 0.01)
+    elif animation == &"run_attack":
+        # Six authored cels: two each for wind-up, slash and recovery.
+        var recovery_start := attack_windup + attack_active_time
+        if elapsed < attack_windup:
+            progress = elapsed / maxf(attack_windup, 0.01) / 3.0
+        elif elapsed <= recovery_start:
+            progress = (1.0 + (elapsed - attack_windup) / maxf(attack_active_time, 0.01)) / 3.0
+        else:
+            progress = (2.0 + (elapsed - recovery_start) / maxf(attack_duration - recovery_start, 0.01)) / 3.0
     elif elapsed < attack_windup:
         progress = 0.5 * elapsed / maxf(attack_windup, 0.01)
     elif elapsed <= attack_windup + attack_active_time:

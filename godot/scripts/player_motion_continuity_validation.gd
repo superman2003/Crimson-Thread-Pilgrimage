@@ -416,14 +416,35 @@ func _run() -> void:
     await _frames(30)
     var saw_attack := false
     var resumed_run := false
+    var run_attack_frames: Array[int] = []
     for sample in player.samples:
         if float(sample.attack) > 0.0:
             saw_attack = true
-            _check(sample.animation == &"attack_1", "Attack phase retains priority over ground gait")
+            _check(sample.animation == &"run_attack", "Running slash keeps the striding run-attack legs")
             _check(sample.sprite_offset == Vector2.ZERO, "Attack clears idle foot correction")
+            if run_attack_frames.is_empty() or run_attack_frames.back() != int(sample.frame):
+                run_attack_frames.append(int(sample.frame))
         elif saw_attack and sample.animation == &"run":
             resumed_run = true
     _check(saw_attack and resumed_run, "Attack recovery returns directly to travel-driven gait")
+    var ordered := true
+    for index in range(1, run_attack_frames.size()):
+        ordered = ordered and run_attack_frames[index] > run_attack_frames[index - 1]
+    _check(ordered and run_attack_frames.has(2) and run_attack_frames.has(3) and run_attack_frames.back() >= 4,
+        "Run attack plays wind-up, slash and recovery cels in order: %s" % [run_attack_frames])
+
+    await _reset()
+    _capture()
+    Input.action_press("attack")
+    await _frames(2)
+    Input.action_release("attack")
+    await _frames(30)
+    var saw_standing_attack := false
+    for sample in player.samples:
+        if float(sample.attack) > 0.0:
+            saw_standing_attack = true
+            _check(sample.animation == &"attack_1", "Standing slash keeps the planted attack pose")
+    _check(saw_standing_attack, "Standing slash fixture reaches the attack window")
 
     await _reset()
     player.hp = player.max_hp - 1

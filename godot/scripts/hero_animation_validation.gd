@@ -16,6 +16,13 @@ func run() -> void:
     var sprite: AnimatedSprite2D = player.sprite
     check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
+    for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4]]:
+        var anim := String(data[0])
+        check(sprite.sprite_frames.has_animation(anim) and sprite.sprite_frames.get_frame_count(anim)==int(data[1]),anim+" has its authored cels")
+        for index in sprite.sprite_frames.get_frame_count(anim):
+            var texture := sprite.sprite_frames.get_frame_texture(anim,index)
+            check(texture.get_size()==Vector2(384,384) and texture.resource_path.contains("/runtime_supplement/"+anim+"_"),anim+" uses its own supplement cel "+str(index))
+    check(sprite.sprite_frames.get_frame_texture("skill_melee",0)!=sprite.sprite_frames.get_frame_texture("attack_2",0),"heavy slash no longer borrows attack_2")
     player.current_attack=&"attack_1"
     player.current_attack_direction=Vector2.RIGHT
     player.attack_duration=0.5
