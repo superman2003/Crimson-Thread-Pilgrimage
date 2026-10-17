@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "echo_contract_scribe",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/echo_contract_scribe/atlas.png",
+  "reference_sha256": "966395e824ca4e2c62cd27624eb21dff2a312ca947e44550d847e7b20493785f",
+  "prompt": "Use case: identity-preserve. EXACT echo_contract_scribe from reference: slim black insect with ivory elongated mask and two long dark antennae, burgundy scarf, weathered cream paper cloak, long red hanging contract scrolls with wax seals and gold tassels, ornate short golden needle weapon. Preserve exact costume, anatomy, colors and painted ink finish. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT isolated complete right-facing full-body poses at equal scale. Miniature figures within central 60% cell width/70% height including whole cloak, antennae, scrolls and weapon, broad clear gutters. Top row FOUR nonlethal recoil-recovery stages: jerks backward; crouches defensively with weapon close and scrolls lagging; regains balance; returns upright neutral guard. Bottom row FOUR death stages: knees buckle and mask dips; lowers to one knee; collapses sideways with scrolls and cloak settling; motionless prone figure with full weapon, antennae and scrolls visible. Real articulated joints and cloth, no duplicated stamps, touching neighbors or cut parts. Genuine transparent alpha, no backgrounds, floor shadows, text, grids, particles, effects or gore.",
+  "image_sha256": "0dc42597d7a0c889f4daaf21c9764d118a033feae0351064fe3fef4e37616b5c",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        484,
+        494
+      ],
+      "visible_bbox_alpha_gt_24": [
+        38,
+        91,
+        391,
+        368
+      ],
+      "rgba_sha256": "01ffdb4e5834c0fe47dfb4361812f8e40525600b45599f04fd5f57780ae5bfae"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        484,
+        0,
+        406,
+        494
+      ],
+      "visible_bbox_alpha_gt_24": [
+        540,
+        163,
+        293,
+        296
+      ],
+      "rgba_sha256": "7804223ec2748d126289dd7e105c1c50ba8069a64d17e5e165926d5a2580c9e6"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        890,
+        0,
+        495,
+        494
+      ],
+      "visible_bbox_alpha_gt_24": [
+        948,
+        107,
+        361,
+        354
+      ],
+      "rgba_sha256": "e078b330875d19a919c95ae208416ca734b998e77351d9ff017e46f5206af155"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1385,
+        0,
+        389,
+        494
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1462,
+        46,
+        270,
+        413
+      ],
+      "rgba_sha256": "7d7912672ac7bbab2ca286f38e5bb0bb3c80c262d774d28ee5bc88e8e825222e"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        494,
+        409,
+        393
+      ],
+      "visible_bbox_alpha_gt_24": [
+        53,
+        527,
+        304,
+        302
+      ],
+      "rgba_sha256": "4b66a888ff29d6615eecea059a8d94688a330ad9103cc2f586dd0ab596642a18"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        409,
+        494,
+        462,
+        393
+      ],
+      "visible_bbox_alpha_gt_24": [
+        462,
+        606,
+        401,
+        226
+      ],
+      "rgba_sha256": "96937490d7356c6475a36edaef4283ceae2415b911f99b375eab8b6f54bcae3b"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        871,
+        494,
+        434,
+        393
+      ],
+      "visible_bbox_alpha_gt_24": [
+        880,
+        695,
+        415,
+        143
+      ],
+      "rgba_sha256": "0cd6a0e0ae44519751eab9dc8d381363c36cd63318faf44c0050e2f00c37b47d"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1305,
+        494,
+        469,
+        393
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1316,
+        724,
+        437,
+        116
+      ],
+      "rgba_sha256": "f70a6dc4ca03a0af05ff1c18ee9370506f084a299aa9feaffae62872fe02a8b7"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1156793,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete cream-cloaked black insects with ivory mask, antennae, burgundy scarf, sealed red contracts and ornate gold weapon. Distinct recoil regains guard; death lowers to knee and lies prone.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
