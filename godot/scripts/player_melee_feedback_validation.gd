@@ -190,9 +190,28 @@ func _run() -> void:
     trace.set_process(false)
     trace._process(0.001)
     _check(trace.name == &"AttackSlashVfx" and trace.get_child_count() == 0, "Swing is one blade-local draw node with no halo/particle hierarchy")
-    _check(is_equal_approx(trace.lifetime, 0.055) and trace.reduced_flash, "Trace has a 55 ms ceiling and honors reduced flash")
+    _check(is_equal_approx(trace.lifetime, MELEE.TRACE_SECONDS) and MELEE.TRACE_SECONDS <= 0.1 and trace.reduced_flash, "Trace has a 100 ms ceiling and honors reduced flash")
     _check(trace.blade[1].is_equal_approx(right[1]), "Runtime trace samples the same displayed blade endpoint")
-    trace._process(0.055)
+    # Rising cut: wind-up blade behind and low, first damage cel forward-up.
+    # The swept band must travel through the front of the body, both facings.
+    for facing_left in [false, true]:
+        sprite.flip_h = facing_left
+        sprite.animation = &"up_attack"
+        sprite.frame = 2
+        var arc_trace = MELEE.spawn_swing(arena, sprite, 0.22)
+        arc_trace.set_process(false)
+        arc_trace._process(0.001)
+        var forward := Vector2.LEFT if facing_left else Vector2.RIGHT
+        var middle := Vector2.from_angle(arc_trace.sweep_from + arc_trace.sweep * 0.5)
+        _check(absf(arc_trace.sweep) > deg_to_rad(120.0) and middle.dot(forward) > 0.3, "Rising cut arc sweeps through the front (left=%s, sweep=%.0f deg)" % [facing_left, rad_to_deg(arc_trace.sweep)])
+        sprite.frame = 3
+        arc_trace._process(0.01)
+        _check(absf(arc_trace.sweep) > deg_to_rad(120.0), "Arc keeps its swept extent across the damage cels (left=%s)" % facing_left)
+        arc_trace.queue_free()
+    sprite.flip_h = false
+    sprite.animation = &"attack_1"
+    sprite.frame = 2
+    trace._process(MELEE.TRACE_SECONDS)
     _check(trace.is_queued_for_deletion(), "Trace cannot linger through recovery")
     var retired_traces: Array[WeakRef] = []
     for first_delta in [0.053, 0.1]:
@@ -202,7 +221,7 @@ func _run() -> void:
         _check(not slow_trace.is_queued_for_deletion() and slow_trace.age == 0.0 and slow_trace.blade.size() == 2 and slow_trace.prior_blade.size() == 2, "Low-FPS first sample remains drawable at original opacity: %s" % first_delta)
         slow_trace._process(first_delta)
         _check(slow_trace.is_queued_for_deletion() == (first_delta >= slow_trace.lifetime), "Every subsequent low-FPS delta counts toward the finite lifetime: %s" % first_delta)
-        slow_trace._process(0.01)
+        slow_trace._process(slow_trace.lifetime)
         _check(slow_trace.is_queued_for_deletion(), "Low-FPS trace reaches cleanup without resetting its grace: %s" % first_delta)
         var final_age: float = slow_trace.age
         slow_trace._process(0.001)
@@ -211,9 +230,9 @@ func _run() -> void:
     var changing_trace = MELEE.spawn_swing(arena, sprite, 0.22)
     changing_trace.set_process(false)
     changing_trace._process(0.1)
-    changing_trace._process(0.03)
+    changing_trace._process(changing_trace.lifetime * 0.6)
     sprite.frame = 3
-    changing_trace._process(0.03)
+    changing_trace._process(changing_trace.lifetime * 0.6)
     _check(changing_trace.is_queued_for_deletion(), "Changing animation frames does not renew the trace lifetime")
     retired_traces.append(weakref(changing_trace))
     sprite.frame = 2
