@@ -27,6 +27,6 @@
     "test:runner": "node tools/run_python_tool.mjs tools/test_regression_runner.py && node tools/run_python_tool.mjs tools/test_godot_import.py && node tools/run_python_tool.mjs tools/test_rock_gpu_validation.py",
     "test:obsidian-experience": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite obsidian_experience",
     "test:combat-upgrade": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite melee_recovery --suite build_slots --suite build_transaction_runtime --suite enemy_encounter_roles --suite build_slots_ui --suite narrative_outcomes",
-    "test:character-motion": "node tools/run_python_tool.mjs tools/build_expanded_character_motion.py --all --check && node tools/run_python_tool.mjs tools/build_expanded_hero_run.py --check"
+    "test:character-motion": "node tools/run_python_tool.mjs tools/build_expanded_character_motion.py --all --check && node tools/run_python_tool.mjs tools/build_expanded_hero_run.py --check && node tools/run_python_tool.mjs tools/build_hero_supplement_motion.py --check"
   }
 }
