@@ -61,5 +61,6 @@
 | pollen_lutist | [pollen_arcs_loops.png](pollen_arcs_loops.png) | 2 |
 | rain_censer_mote | [censer_cloud.png](censer_cloud.png) | 12 |
 | rain_censer_mote | [censer_rain_loops.png](censer_rain_loops.png) | 2 |
+| root_cage_hunter | [cage_pounce.png](cage_pounce.png) | 14 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
