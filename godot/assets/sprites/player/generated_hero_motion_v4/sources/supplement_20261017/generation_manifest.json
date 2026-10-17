@@ -1,0 +1,840 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "transparent_background": true,
+  "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
+  "scope": "Seven newly generated source sheets (25 cels), plus seven exact prompt logs. Runtime animation wiring is not changed.",
+  "style_reference": {
+    "file": "refs/00_style_run_v4_8frames.png",
+    "repository_source": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
+    "sha256": "266a1ef8f14baff8358ed3700a79ee3c61bf8ff4dd4230da3c2d9dd85d8c1730",
+    "byte_identical_copy": true
+  },
+  "region_format": "[x, y, width, height], original unmodified PNG pixel coordinates. Read each sheet left-to-right, top-to-bottom; use these regions rather than equal-grid slicing.",
+  "alpha_note": "Actual RGBA alpha. Structural bounds and padding measured at alpha>=128; antialiased/low-alpha fringe may extend farther. Original imagegen PNG bytes retained; no pixel editing, warping, interpolation or repeated-frame synthesis.",
+  "assets": [
+    {
+      "file": "A_idle_cloth_bridges.png",
+      "prompt_file": "A_idle_cloth_bridges.txt",
+      "frames": 3,
+      "grid": [
+        3,
+        1
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "4acbd7982cf955adcad9f303b9054ca9b8fc85371740ea8eb455457bc45c4753",
+      "prompt_sha256": "6b353a253c03f1a55d2d1fbdcd69513c4575094c9801d09cf8d056589253a306",
+      "original_tool_output": "exec-f9a19d01-df0a-45ea-8dcf-33b91eee2328.png",
+      "rgba_alpha_zero_pixels": 1220300,
+      "rgba_alpha_ge_128_pixels": 325173,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "opaque_bounds_in_region": [
+            73,
+            172,
+            628,
+            573
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            73,
+            172,
+            96,
+            151
+          ],
+          "rgba_region_sha256": "a0501a3fa208f80542a7898c6ba1dc2cd204ea6ea401eed1acaf320b4ecda89c"
+        },
+        {
+          "index": 2,
+          "region": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "opaque_bounds_in_region": [
+            106,
+            170,
+            659,
+            596
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            106,
+            170,
+            65,
+            128
+          ],
+          "rgba_region_sha256": "62dbbe8f9b5c1fbaac9fa1512ea0a3e62920ba1fd926080b115c20e323542c67"
+        },
+        {
+          "index": 3,
+          "region": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "opaque_bounds_in_region": [
+            126,
+            168,
+            646,
+            594
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            126,
+            168,
+            78,
+            130
+          ],
+          "rgba_region_sha256": "5815fff855560313900cf704b176540dd130e2c602eb64ca50e3961c814b32af"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png",
+        "../../runtime_idle/cloth_eight_phase_rebalanced.png",
+        "../../runtime_idle/fixed_support.png"
+      ],
+      "source_cel_bridge_order_zero_based": [
+        [
+          2,
+          4
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "passes": 1
+    },
+    {
+      "file": "B_run_attack.png",
+      "prompt_file": "B_run_attack.txt",
+      "frames": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "53cf837fd5b893d1d6abb781da360e93b9564b6e53698e585e600986a8284fe5",
+      "prompt_sha256": "b5ca919bedd459446d9a65db21dc700e825de1c5bfd668e922c7a9d43e6bbae1",
+      "original_tool_output": "exec-c4cc1562-15ca-4c3a-936f-1cb2193dd5d1.png",
+      "rgba_alpha_zero_pixels": 1241774,
+      "rgba_alpha_ge_128_pixels": 275480,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            570,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            98,
+            151,
+            417,
+            446
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            98,
+            151,
+            153,
+            66
+          ],
+          "rgba_region_sha256": "1d244a144ee17878863c843b02444c919b0eaf675a1248ec80436107b9d22733"
+        },
+        {
+          "index": 2,
+          "region": [
+            570,
+            0,
+            454,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            56,
+            112,
+            322,
+            454
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            56,
+            112,
+            132,
+            58
+          ],
+          "rgba_region_sha256": "efcc1f10546568af716eab300f6515ea127b9456da8e02c7868b05352e5987d3"
+        },
+        {
+          "index": 3,
+          "region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            62,
+            159,
+            441,
+            453
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            62,
+            159,
+            71,
+            59
+          ],
+          "rgba_region_sha256": "9ba89ef1717ac400866ec7843de33617d856319346fc866e419e1a954390ba8f"
+        },
+        {
+          "index": 4,
+          "region": [
+            0,
+            512,
+            570,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            95,
+            101,
+            521,
+            398
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            95,
+            101,
+            49,
+            114
+          ],
+          "rgba_region_sha256": "83dec6faee1f38028bf35b4454be313809b1a97e4d97358ba9d30ac7e3f3ee8e"
+        },
+        {
+          "index": 5,
+          "region": [
+            570,
+            512,
+            454,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            54,
+            101,
+            412,
+            402
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            54,
+            101,
+            42,
+            110
+          ],
+          "rgba_region_sha256": "6912e5d9f811e9d786cc86400efb9842cda649567d90f78e25f61766a4c38eba"
+        },
+        {
+          "index": 6,
+          "region": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            83,
+            100,
+            421,
+            402
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            83,
+            100,
+            91,
+            110
+          ],
+          "rgba_region_sha256": "de1e19c1251eacf3bc91e04d6950af4043dd2e771d679d0d5601783eea3768f2"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png"
+      ],
+      "refinement_input_sha256": "d65675363ecdb447b99731f5a284fecbb60315dd4d8890004830d50901b267c0",
+      "passes": 2
+    },
+    {
+      "file": "C_skill_melee.png",
+      "prompt_file": "C_skill_melee.txt",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "f0491dc74a2ed16e3cceb18a3f1b3e06ff237310344692eff0b5b7e4d2618fa1",
+      "prompt_sha256": "e43da993240699c1cd0d69ba7e40a4d2811dda53bad3249a28c1ba0f21e5721f",
+      "original_tool_output": "exec-1dca870b-d9cc-40c2-8d06-f6a70c3ba48a.png",
+      "rgba_alpha_zero_pixels": 1220015,
+      "rgba_alpha_ge_128_pixels": 303516,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            768,
+            550
+          ],
+          "opaque_bounds_in_region": [
+            217,
+            176,
+            607,
+            505
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            217,
+            176,
+            161,
+            45
+          ],
+          "rgba_region_sha256": "2375ac9d8823ffcacac00e4b74f7842af2033e89c1a51e2a3ff241668773207d"
+        },
+        {
+          "index": 2,
+          "region": [
+            768,
+            0,
+            768,
+            550
+          ],
+          "opaque_bounds_in_region": [
+            121,
+            84,
+            550,
+            515
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            121,
+            84,
+            218,
+            35
+          ],
+          "rgba_region_sha256": "2510ef6b99cb110e575727b23682bfc971517d091259c204ee7d9920b8905175"
+        },
+        {
+          "index": 3,
+          "region": [
+            0,
+            550,
+            768,
+            474
+          ],
+          "opaque_bounds_in_region": [
+            185,
+            37,
+            724,
+            390
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            185,
+            37,
+            44,
+            84
+          ],
+          "rgba_region_sha256": "25eea531261dbd41bd49f9b6aba32bcfddb1820db9f8e361770ea87635fcc941"
+        },
+        {
+          "index": 4,
+          "region": [
+            768,
+            550,
+            768,
+            474
+          ],
+          "opaque_bounds_in_region": [
+            151,
+            57,
+            652,
+            390
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            151,
+            57,
+            116,
+            84
+          ],
+          "rgba_region_sha256": "47556d673758786e4403ee59b0db3d3689ba600921e20dd3c96fa9b32a84e710"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png"
+      ],
+      "refinement_input_sha256": "7e2d99ca00c62d3ff97f3b32fa65fb31f826b6fc75ce4cc2511618fb9c90775f",
+      "passes": 2
+    },
+    {
+      "file": "C_skill_wave.png",
+      "prompt_file": "C_skill_wave.txt",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "1c034c64e45676fcad32d3c3806731f6a0952de2a454ceae1aca8395b03325d1",
+      "prompt_sha256": "5bfff5b7d689358abd2b1e2fdcba4acd47b248216dfa4531c3223e29e5fca6ce",
+      "original_tool_output": "exec-9b0f0275-3a2c-495b-bc0a-ec0ce5bb4533.png",
+      "rgba_alpha_zero_pixels": 1213110,
+      "rgba_alpha_ge_128_pixels": 293108,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            768,
+            540
+          ],
+          "opaque_bounds_in_region": [
+            114,
+            137,
+            597,
+            491
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            114,
+            137,
+            171,
+            49
+          ],
+          "rgba_region_sha256": "606119d5d62fbacf513d6906b0e358e0cad2e5f5c5287af5999082bf9d9ff3d3"
+        },
+        {
+          "index": 2,
+          "region": [
+            768,
+            0,
+            768,
+            540
+          ],
+          "opaque_bounds_in_region": [
+            160,
+            137,
+            585,
+            490
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            160,
+            137,
+            183,
+            50
+          ],
+          "rgba_region_sha256": "f8f3d17d55c42ef143fa4e9edfd6c3f785bdb6bfafef372eb6c5411d6bf571ef"
+        },
+        {
+          "index": 3,
+          "region": [
+            0,
+            540,
+            768,
+            484
+          ],
+          "opaque_bounds_in_region": [
+            98,
+            48,
+            716,
+            384
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            98,
+            48,
+            52,
+            100
+          ],
+          "rgba_region_sha256": "5a635da4c32bdcc6f23561943cdf2ec1352397d7de5695abdc7c4fea95806f5d"
+        },
+        {
+          "index": 4,
+          "region": [
+            768,
+            540,
+            768,
+            484
+          ],
+          "opaque_bounds_in_region": [
+            103,
+            57,
+            687,
+            389
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            103,
+            57,
+            81,
+            95
+          ],
+          "rgba_region_sha256": "7cd79f09b7245fceef11bc30d77ef9a5b096476660eb414ea2660d81a419b520"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png"
+      ],
+      "refinement_input_sha256": "bcede77f4810745fec45c5d25c02eb139663a8687b139b2df2a210558300bd0f",
+      "passes": 2
+    },
+    {
+      "file": "C_item_use.png",
+      "prompt_file": "C_item_use.txt",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "4a351ef18947a70e3e3ecc750bd60700afcfa6184bcd42df16116e589fa456ab",
+      "prompt_sha256": "41035b5f78beff718792feba2a7cf25fc11c07f4a5d17dfff4e21bbef2a28f99",
+      "original_tool_output": "exec-5cf47437-19e4-4668-854b-c3978e71a5c8.png",
+      "rgba_alpha_zero_pixels": 1220025,
+      "rgba_alpha_ge_128_pixels": 307366,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            151,
+            91,
+            585,
+            458
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            151,
+            91,
+            183,
+            54
+          ],
+          "rgba_region_sha256": "9bf60545f99a3bab1fecd0bd0743779ff69412370f1eb8b7a4ab31bdd526ff5e"
+        },
+        {
+          "index": 2,
+          "region": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            132,
+            90,
+            603,
+            461
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            132,
+            90,
+            165,
+            51
+          ],
+          "rgba_region_sha256": "9420002cc29915db606f63eeac474b9a1231acdc8eeed2b06233bd4ed38fe951"
+        },
+        {
+          "index": 3,
+          "region": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            119,
+            51,
+            726,
+            423
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            119,
+            51,
+            42,
+            89
+          ],
+          "rgba_region_sha256": "4e4259f95a2e405e37d92ee5b5bad6428d8100cda8fbbf565cf8b2e075c55429"
+        },
+        {
+          "index": 4,
+          "region": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            105,
+            50,
+            672,
+            426
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            105,
+            50,
+            96,
+            86
+          ],
+          "rgba_region_sha256": "f3b369d97d9bb01aa9b7ccf6bbffea8bf7db20c160f2cb180f00d28e62ac1b6a"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png"
+      ],
+      "refinement_input_sha256": "9a5b2d1a5c573483924a0afb3e71741be6f6e57c336cc4792665d2269ed42680",
+      "passes": 2
+    },
+    {
+      "file": "D_jump_loop.png",
+      "prompt_file": "D_jump_loop.txt",
+      "frames": 2,
+      "grid": [
+        2,
+        1
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "sha256": "acf7af28516e70a1b32a72b999e4033312aa839b9b000af347b1dce9f9c9c756",
+      "prompt_sha256": "47ab99d9c7002c63e59551825a2b01196fc34d3621eb8697a21a79ef76d550d0",
+      "original_tool_output": "exec-6d388a77-107c-4311-b2f4-f978ac66b41e.png",
+      "rgba_alpha_zero_pixels": 1188114,
+      "rgba_alpha_ge_128_pixels": 352759,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "opaque_bounds_in_region": [
+            123,
+            166,
+            843,
+            772
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            123,
+            166,
+            44,
+            115
+          ],
+          "rgba_region_sha256": "5e194c13d2232f07840840bfb37c5eb8cae29c590c875872801d062b4ffd9469"
+        },
+        {
+          "index": 2,
+          "region": [
+            887,
+            0,
+            887,
+            887
+          ],
+          "opaque_bounds_in_region": [
+            120,
+            200,
+            819,
+            718
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            120,
+            200,
+            68,
+            169
+          ],
+          "rgba_region_sha256": "c21a2e896db56d9f9263c95c5da047886cbcdc39b9b0ed8d962802e9aeb57203"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png"
+      ],
+      "passes": 1
+    },
+    {
+      "file": "D_fall_loop.png",
+      "prompt_file": "D_fall_loop.txt",
+      "frames": 2,
+      "grid": [
+        2,
+        1
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "sha256": "ff55dabf2f03c8811b23c6bec61ff1b382cbfdd9b8ba5ab8d89fe6466f7ad91d",
+      "prompt_sha256": "68f299d7f032c13b220bcde0ad42819cd2d90176f2aa4059caa364b85c311549",
+      "original_tool_output": "exec-64d36593-d8af-4e73-8571-8cf3a16071b6.png",
+      "rgba_alpha_zero_pixels": 1191842,
+      "rgba_alpha_ge_128_pixels": 342254,
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            930,
+            887
+          ],
+          "opaque_bounds_in_region": [
+            165,
+            122,
+            865,
+            778
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            165,
+            122,
+            65,
+            109
+          ],
+          "rgba_region_sha256": "47cc61b8992fe9e3c384601a71e0e7bd21b24a834d8a478c0d126845306d25d5"
+        },
+        {
+          "index": 2,
+          "region": [
+            930,
+            0,
+            844,
+            887
+          ],
+          "opaque_bounds_in_region": [
+            62,
+            117,
+            759,
+            789
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            62,
+            117,
+            85,
+            98
+          ],
+          "rgba_region_sha256": "1016c39d48a3a105aa7c92ae2b87b2dbcb94bd256c2765f48b498cb2735bb884"
+        }
+      ],
+      "visual_review": [
+        "requested cel count",
+        "right-facing silhouettes",
+        "full sword/cloth clearance",
+        "separated frame groups",
+        "matching v4 costume and rendering"
+      ],
+      "reference_images": [
+        "refs/00_style_run_v4_8frames.png"
+      ],
+      "passes": 1
+    }
+  ]
+}
