@@ -114,7 +114,7 @@ class ReleaseBuilderTests(unittest.TestCase):
 
     def test_smoke_requires_real_resume_and_isolated_user_data(self):
         def fake_engine(command, log, *, timeout, cwd, env):
-            self.assertEqual([str(self.root / 'game'), '--headless', '--verbose', '--quit-after', '120'], command)
+            self.assertEqual([str(self.root / 'game'), '--headless', '--verbose', '--max-fps', '60', '--quit-after', '1200'], command)
             self.assertEqual(5, timeout)
             self.assertNotIn('--path', command)
             self.assertNotIn('--script', command)
@@ -143,7 +143,7 @@ class ReleaseBuilderTests(unittest.TestCase):
         for failing_attempt, calls in [('first-start', 1), ('resume', 2)]:
             with self.subTest(attempt=failing_attempt):
                 def fake_engine(command, log, *, timeout, cwd, env):
-                    self.assertEqual([str(self.root / 'game'), '--headless', '--verbose', '--quit-after', '120'], command)
+                    self.assertEqual([str(self.root / 'game'), '--headless', '--verbose', '--max-fps', '60', '--quit-after', '1200'], command)
                     self.assertEqual(5, timeout)
                     if log.stem == failing_attempt:
                         # Use the real strict gate with a successful OS exit.

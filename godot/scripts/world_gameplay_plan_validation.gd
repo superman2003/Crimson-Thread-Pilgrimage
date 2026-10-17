@@ -513,8 +513,8 @@ func _capacity_and_deadline() -> void:
     for unused in GAMEPLAY.MAX_TOTAL: cache.retiring.append(Area2D.new())
     for unused in SCENARIO_LIMIT:
         cache.warm(fixture_host, Time.get_ticks_usec(), 2)
-        if cache.regions[REGION].plan_complete: break
-    _check(cache.regions[REGION].plan_complete and cache.builds == 0 and cache.owned() == 24, "planning progresses under saturated ownership without allocating actors")
+        if cache.regions[REGION].plan_complete and cache.regions[REGION].art_ready: break
+    _check(cache.regions[REGION].plan_complete and cache.regions[REGION].art_ready and cache.builds == 0 and cache.owned() == 24, "planning and artwork preparation progress under saturated ownership without allocating actors")
     var retired: int = cache.retire(Time.get_ticks_usec(), 2)
     var built: int = cache.warm(fixture_host, Time.get_ticks_usec(), 2)
     _check(retired == 2 and built == 2 and cache.owned() == 24, "retired capacity is reused without exceeding total actor ownership")

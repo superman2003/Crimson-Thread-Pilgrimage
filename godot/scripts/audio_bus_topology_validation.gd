@@ -39,8 +39,10 @@ func run(tree: SceneTree, callback: Callable) -> void:
     if playback != null:
         _check(playback.push_buffer(frames), "seed actual mixer with generator frames")
         var available_before := playback.get_frames_available()
-        var deadline := Time.get_ticks_msec() + 80
-        while Time.get_ticks_msec() < deadline:
+        # The Dummy mixer uses a wall-clock worker even under --fixed-fps.
+        # Wait for evidence of mixing, with a bounded scheduling allowance.
+        var deadline := Time.get_ticks_msec() + 2000
+        while playback.get_frames_available() <= available_before and Time.get_ticks_msec() < deadline:
             await tree.process_frame
         _check(playback.get_frames_available() > available_before, "audio thread actually consumed frames before mutation stress")
 
