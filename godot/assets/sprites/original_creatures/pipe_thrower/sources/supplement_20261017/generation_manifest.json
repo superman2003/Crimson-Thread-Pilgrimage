@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "pipe_thrower",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/pipe_thrower/atlas.png",
+  "reference_sha256": "0eec5e9326e7001d090b5a5901670fb5648c06c6a49f3968cabf87b3b4e9f995",
+  "prompt": "Use case: identity-preserve. Production keyframe sprite sheet of EXACT pipe_thrower from reference: tall thin rust-orange cockroach insect with pale oval face, very long dark antennae, orange shell shoulder/back plates, ragged blue apron tunic and pouch belt, holding a short hollow rusty pipe club. Preserve exact design, scale and ink-painted style. ONE landscape transparent RGBA image, FOUR columns TWO rows, EIGHT isolated full-body figures, all right-facing. Keep whole antennae, limbs and pipe inside central 65% cell width and 72% height, broad empty transparent gutters. Top row FOUR nonlethal hurt/recovery poses: chest jolts backward; deep backward recoil with bent knees and pipe pulled close; regains balance; returns to standing guard with pipe lowered in hand. Bottom row FOUR death stages: knees buckle and pipe droops; kneels with head bowed; tips onto side with pipe beside body; motionless prone corpse with complete antennae and pipe visible. Real distinct articulation, no shifted duplicates or clipping. True transparent alpha; no scenery, backgrounds, gradients, floor shadows, text, grid, effects or gore.",
+  "image_sha256": "e24efa78f86c0a026c086df0fbf3f6fe8112b6c1336520d7427309212530192f",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        446,
+        504
+      ],
+      "visible_bbox_alpha_gt_24": [
+        96,
+        37,
+        273,
+        428
+      ],
+      "rgba_sha256": "4686330e0563ed49c3d31ab0d07cb8546f6fa8d90182e900b147443ea4c20330"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        446,
+        0,
+        432,
+        504
+      ],
+      "visible_bbox_alpha_gt_24": [
+        524,
+        90,
+        283,
+        374
+      ],
+      "rgba_sha256": "e9c584007e1f203ca497a31022f65cce039d043e35716708a916ec8e5f347d03"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        878,
+        0,
+        479,
+        504
+      ],
+      "visible_bbox_alpha_gt_24": [
+        950,
+        104,
+        351,
+        361
+      ],
+      "rgba_sha256": "23c265e0e0ea7f8644001f6fdbc0494559e8367427bf99f3903cb82e11282eca"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1357,
+        0,
+        417,
+        504
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1414,
+        70,
+        292,
+        395
+      ],
+      "rgba_sha256": "686e747c407c2e35cf6a81486fc2f9f2d24c1932387b76708100b7634372aba3"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        504,
+        428,
+        383
+      ],
+      "visible_bbox_alpha_gt_24": [
+        45,
+        543,
+        348,
+        285
+      ],
+      "rgba_sha256": "de06a55373edd8dd03fbbf5b84239dd96f62d7bb6f1ba5c857bf41035c91f6dc"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        428,
+        504,
+        416,
+        383
+      ],
+      "visible_bbox_alpha_gt_24": [
+        464,
+        611,
+        365,
+        218
+      ],
+      "rgba_sha256": "b4d1f29d1dc95f760216d14039032575102a4343a23e5743e76395d0e8453815"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        844,
+        504,
+        444,
+        383
+      ],
+      "visible_bbox_alpha_gt_24": [
+        861,
+        688,
+        419,
+        150
+      ],
+      "rgba_sha256": "ab7a6ec9fe3a514502c8cb6a78bb4bd54685ddfff3b9d650f0a317244bd8d437"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1288,
+        504,
+        486,
+        383
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1296,
+        713,
+        466,
+        115
+      ],
+      "rgba_sha256": "e1ae4acf532400aaa1df47ed3f3a4083390c809d48818370a1803dab00b42362"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1197321,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete orange-shelled thin insects with long antennae, blue apron and hollow rusty pipe. Distinct backward recoil, regain support and guard; death kneels then collapses prone with pipe beside body.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
