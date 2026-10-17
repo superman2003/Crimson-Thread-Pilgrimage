@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "erasure_bailiff",
+  "image": "bailiff_cleave_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/erasure_bailiff.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/erasure_bailiff.png",
+  "reference_sha256": "9c7bce638f63ef5ac44bb8f926cc7358a0813668067b636ad6a555b2f85ab3bd",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "bailiff_cleave_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "cb4691c60067a6a4d278c1ad5902fec773310906b6452249e04f4e1fdf0fbd8f",
+  "git_blob_sha": "47c625cf20616e5bf0879b92310fe367b4606354",
+  "fully_transparent_pixels": 1224656,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        228,
+        236,
+        506,
+        571
+      ],
+      "component_seed": [
+        265,
+        240
+      ],
+      "bbox_alpha_gt_24": [
+        232,
+        240,
+        498,
+        563
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1013,
+        226,
+        555,
+        581
+      ],
+      "component_seed": [
+        1050,
+        230
+      ],
+      "bbox_alpha_gt_24": [
+        1017,
+        230,
+        547,
+        573
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing pale-shell enforcers with cleaver supported overhead by both hands. Grip remains behind collar, wrists connect through bent elbows, planted feet and flexed knees support load. Near-matching blade angles permit small charge variation; blade/grip/body ratios compared to reference and companion. Transparent outer padding retained. Exact pixel scale, small hand articulation and playback loop need rig acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

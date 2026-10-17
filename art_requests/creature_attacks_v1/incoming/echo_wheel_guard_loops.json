@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_waterwheel_knight",
+  "image": "echo_wheel_guard_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/echo_waterwheel_knight.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_waterwheel_knight.png",
+  "reference_sha256": "389aa8089bd4f19d0cf55170e0a75436046feec8b984c5f9983fa71c8ef5a0d2",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "echo_wheel_guard_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "770d7312571e69ed5046ed2e15587d0831a70a2a5b0c7f26e5f93c4e8365d3e0",
+  "git_blob_sha": "4871a830a663bdea9f9f638e0e53cdd0a075cd68",
+  "fully_transparent_pixels": 1244884,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        130,
+        229,
+        664,
+        481
+      ],
+      "component_seed": [
+        477,
+        233
+      ],
+      "bbox_alpha_gt_24": [
+        134,
+        233,
+        656,
+        473
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        980,
+        238,
+        754,
+        472
+      ],
+      "component_seed": [
+        1364,
+        242
+      ],
+      "bbox_alpha_gt_24": [
+        984,
+        242,
+        746,
+        464
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing braced guard poses. Existing short straight blade is held above forward wheel shield, fist encloses hilt with forearm behind point; separate shield arm visible holding shield. No invented long spear or rear shield. Shield and armor proportions compared to original and companion source at body-relative scale. Fixed pixel scale and seamless playback require later rig acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

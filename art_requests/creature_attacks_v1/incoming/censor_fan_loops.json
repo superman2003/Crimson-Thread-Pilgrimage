@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "phase_censor",
+  "image": "censor_fan_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/phase_censor.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/phase_censor.png",
+  "reference_sha256": "34a7f86e5df414a9e145c2fbbf23755fd1196114b1cda8bb84a3b1fd7fd326f8",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "censor_fan_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "8b6c1875e8baa2b20c6eca1ce4c3f46491e07672e016364aa11da02215e251c7",
+  "git_blob_sha": "3d7b2b56cd7886ddb33f370539f44ccae83de7b4",
+  "fully_transparent_pixels": 1211167,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        108,
+        190,
+        685,
+        549
+      ],
+      "component_seed": [
+        355,
+        194
+      ],
+      "bbox_alpha_gt_24": [
+        112,
+        194,
+        677,
+        541
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1007,
+        191,
+        682,
+        548
+      ],
+      "component_seed": [
+        1243,
+        195
+      ],
+      "bbox_alpha_gt_24": [
+        1011,
+        195,
+        674,
+        540
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete violet/ivory censors with one bronze censer connected below front-hand grip by curved/tensioned chain, slight pendulum offset. Grip/forearm posture stable, other hand empty and feet braced, no smoke/fades/effects. Censer/chain/body dimensions visually compared with original and censor_blink. Fine chain slack/inertia and seamless playback remain art/rig acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

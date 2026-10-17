@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "kneeling_crossbowman",
+  "image": "crossbow_low.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/kneeling_crossbowman.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/kneeling_crossbowman.png",
+  "reference_sha256": "3ad3eba2cc811a99fcd9735429691bd1b057f402685ff643c1493f5095258e54",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "crossbow_low.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "0b0093dd9ed747e230ff833830c497088b1aca2beeedb140dea0296c100916c9",
+  "git_blob_sha": "0fc9e21cb8c106a2868385444d93e792fcd0f5fe",
+  "fully_transparent_pixels": 1031394,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        18,
+        96,
+        291,
+        220
+      ],
+      "component_seed": [
+        191,
+        100
+      ],
+      "bbox_alpha_gt_24": [
+        22,
+        100,
+        283,
+        212
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        339,
+        89,
+        278,
+        227
+      ],
+      "component_seed": [
+        507,
+        93
+      ],
+      "bbox_alpha_gt_24": [
+        343,
+        93,
+        270,
+        219
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        655,
+        82,
+        265,
+        236
+      ],
+      "component_seed": [
+        830,
+        86
+      ],
+      "bbox_alpha_gt_24": [
+        659,
+        86,
+        257,
+        228
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        955,
+        89,
+        272,
+        227
+      ],
+      "component_seed": [
+        1142,
+        93
+      ],
+      "bbox_alpha_gt_24": [
+        959,
+        93,
+        264,
+        219
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        22,
+        408,
+        295,
+        221
+      ],
+      "component_seed": [
+        202,
+        412
+      ],
+      "bbox_alpha_gt_24": [
+        26,
+        412,
+        287,
+        213
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        329,
+        409,
+        299,
+        220
+      ],
+      "component_seed": [
+        487,
+        413
+      ],
+      "bbox_alpha_gt_24": [
+        333,
+        413,
+        291,
+        212
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        644,
+        409,
+        314,
+        220
+      ],
+      "component_seed": [
+        821,
+        413
+      ],
+      "bbox_alpha_gt_24": [
+        648,
+        413,
+        306,
+        212
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        961,
+        414,
+        285,
+        217
+      ],
+      "component_seed": [
+        1138,
+        418
+      ],
+      "bbox_alpha_gt_24": [
+        965,
+        418,
+        277,
+        209
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        22,
+        692,
+        282,
+        247
+      ],
+      "component_seed": [
+        197,
+        696
+      ],
+      "bbox_alpha_gt_24": [
+        26,
+        696,
+        274,
+        239
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        340,
+        681,
+        272,
+        258
+      ],
+      "component_seed": [
+        510,
+        685
+      ],
+      "bbox_alpha_gt_24": [
+        344,
+        685,
+        264,
+        250
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        644,
+        714,
+        279,
+        225
+      ],
+      "component_seed": [
+        810,
+        718
+      ],
+      "bbox_alpha_gt_24": [
+        648,
+        718,
+        271,
+        217
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        961,
+        711,
+        276,
+        228
+      ],
+      "component_seed": [
+        1132,
+        715
+      ],
+      "bbox_alpha_gt_24": [
+        965,
+        715,
+        268,
+        220
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        30,
+        994,
+        290,
+        219
+      ],
+      "component_seed": [
+        210,
+        998
+      ],
+      "bbox_alpha_gt_24": [
+        34,
+        998,
+        282,
+        211
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        344,
+        996,
+        287,
+        217
+      ],
+      "component_seed": [
+        523,
+        1000
+      ],
+      "bbox_alpha_gt_24": [
+        348,
+        1000,
+        279,
+        209
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete dark-armored red-hooded crossbowmen. Wind-up lowers into kneel and moves rear hand toward string/latch, strike holds low-right with modest arm response, recovery rises to crouch. Existing carved bone crossbow dimensions preserved relative to torso; no firearm/muzzleflash/projectile or exaggerated recoil. Support-hand/string separation visually reviewed at sheet scale but fine string mechanics remain art acceptance. Alpha/frame bounds and raw-byte upload verified.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

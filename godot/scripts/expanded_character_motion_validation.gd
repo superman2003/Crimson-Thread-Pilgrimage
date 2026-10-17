@@ -52,6 +52,8 @@ func run() -> void:
         await process_frame
     level.free()
     await _check_live_playback(stage)
+    _check_attack_specific_poses(stage)
+    _check_elite_profiles(stage)
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
     quit(0 if failures == 0 else 1)
@@ -63,7 +65,8 @@ func _check_frames(frames: SpriteFrames, manifest: Dictionary, id: String) -> vo
     for animation in manifest.animations:
         var name := String(animation.name)
         check(frames.get_frame_count(name) == animation.frames.size(), id+"/"+name+" every reviewed pose loads")
-        check(frames.get_animation_loop(name) == (name in ["idle","walk","talk"]), id+"/"+name+" loop mode")
+        var looping := name in ["idle","walk","talk","charge","travel"] or name.ends_with("_charge") or name.ends_with("_travel")
+        check(frames.get_animation_loop(name) == looping, id+"/"+name+" loop mode")
         for index in animation.frames.size():
             var texture := frames.get_frame_texture(name,index)
             check(texture != null and texture.get_size() == canvas, id+"/"+name+" consistent rig canvas")
@@ -101,3 +104,72 @@ func _check_live_playback(stage: Node2D) -> void:
         death_seen[enemy.animated_sprite.frame] = true
         await process_frame
     check(death_seen.size() >= 3, "death presents collapse poses before removal")
+func _check_attack_specific_poses(stage: Node2D) -> void:
+    # Fixture cels stand in for an attack's own art; production frames are untouched.
+    var enemy = ENEMY.new()
+    enemy.configure({"id":"motion_attack_specific","kind":"moss_larva","hp":20}, "")
+    stage.add_child(enemy)
+    enemy.set_physics_process(false)
+    var sprite: AnimatedSprite2D = enemy.animated_sprite
+    var frames: SpriteFrames = sprite.sprite_frames.duplicate()
+    var cel := frames.get_frame_texture("attack", 0)
+    for data in [["larva_curl_windup",false],["larva_curl",false],["larva_curl_recover",false],["larva_curl_charge",true],["larva_curl_travel",true]]:
+        frames.add_animation(data[0])
+        frames.set_animation_loop(data[0], data[1])
+        frames.set_animation_speed(data[0], 8.0)
+        for index in 2: frames.add_frame(data[0], cel)
+    sprite.sprite_frames = frames
+    var command := {"id":"larva_curl","animation":"attack","windup":0.9,"active":0.5,"recover":0.5}
+    enemy.state = "windup"
+    enemy.state_timer = 0.9
+    enemy._pose_sprite("windup", command)
+    check(sprite.animation == &"larva_curl_windup", "attack id selects its own wind-up")
+    check(enemy.pose_loop_animation == "larva_curl_charge", "long wind-up schedules its charge loop")
+    enemy._update_windup(0.3)
+    check(sprite.animation == &"larva_curl_windup", "charge loop waits until the one-shot wind-up was shown")
+    enemy._update_windup(0.2)
+    check(sprite.animation == &"larva_curl_charge" and sprite.is_playing() and enemy.pose_loop_animation.is_empty(), "held wind-up continues as its charge loop")
+    enemy._pose_sprite("active", command)
+    check(sprite.animation == &"larva_curl" and enemy.pose_loop_animation == "larva_curl_travel", "travelling strike schedules its travel loop")
+    enemy._pose_sprite("recover", command)
+    check(sprite.animation == &"larva_curl_recover" and enemy.pose_loop_animation.is_empty(), "recover uses the attack's own cels and clears loops")
+    var short := {"id":"larva_curl","animation":"attack","windup":0.4,"active":0.24,"recover":0.5}
+    enemy._pose_sprite("windup", short)
+    check(enemy.pose_loop_animation.is_empty(), "short wind-up plays its one-shot cels only")
+    enemy._pose_sprite("windup", command)
+    enemy.take_hit(1, 1)
+    check(enemy.pose_loop_animation.is_empty(), "recoil cancels a pending charge loop")
+    var other := {"id":"larva_snap","animation":"attack","windup":0.9,"active":0.24,"recover":0.5}
+    enemy._pose_sprite("windup", other)
+    check(sprite.animation == &"windup" and enemy.pose_loop_animation.is_empty(), "attack without its own cels keeps the species wind-up")
+    enemy._pose_sprite("active", other)
+    check(sprite.animation == &"attack", "attack without its own cels keeps the species strike")
+    enemy.queue_free()
+func _check_elite_profiles(stage: Node2D) -> void:
+    var combat: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/original_creature_combat.json"))
+    var normal = ENEMY.new()
+    normal.configure({"id":"elite_probe_normal","kind":"gear_sentinel","hp":3,"damage":1}, "")
+    stage.add_child(normal)
+    var elite = ENEMY.new()
+    elite.configure({"id":"elite_probe","kind":"gear_sentinel","hp":3,"damage":1,"elite":true}, "")
+    stage.add_child(elite)
+    check(elite.is_elite and not normal.is_elite, "elite flag selects the species elite profile")
+    check(elite.max_hp == 6 and normal.max_hp == 3, "elite health is 1.75x rounded up")
+    check(elite.ai_commands.size() == normal.ai_commands.size() + 1 and String(elite.ai_commands.back().id) == "gear_elite_spin", "elite gains its signature attack")
+    var boosted := true
+    for index in normal.ai_commands.size():
+        boosted = boosted and int(elite.ai_commands[index].get("damage", 1)) == int(normal.ai_commands[index].get("damage", 1)) + 1
+    check(boosted and int(normal.ai_commands[0].get("damage", 1)) == 1, "elite adds damage without changing the shared profile")
+    check(elite.visual_scale > normal.visual_scale, "elite silhouette is larger")
+    check(elite.cooldowns.has("gear_elite_spin"), "signature attack has its own cooldown")
+    normal.queue_free()
+    elite.queue_free()
+    var elite_spawns := 0
+    for path in ["demo_ch01_moss_bell_court","demo_ch02_rain_foundry_canal","demo_ch03_saltwhite_archive","demo_ch04_broken_string_greenhouse","demo_ch05_obsidian_pilgrim_road","demo_ch06_silent_crown_core"]:
+        var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + path + ".json"))
+        for spawn: Dictionary in config.get("enemy_spawns", []):
+            if bool(spawn.get("elite", false)):
+                elite_spawns += 1
+                check(combat.get(String(spawn.kind), {}).get("elite") is Dictionary, path + " elite " + String(spawn.kind) + " has an elite profile")
+    check(elite_spawns == 10, "ten elite spawns across the six regions")
+

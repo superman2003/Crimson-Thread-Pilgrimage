@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "index_scribe",
+  "image": "index_pages_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/index_scribe.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/index_scribe.png",
+  "reference_sha256": "e4e1ad61176351beae012a1034c0b6a4e3113278a671ef885bc42ecd71036f7b",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "index_pages_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "3a5b3b3c6ec23515cda86436671c092e6ab7715500efeea7c8f3a09600d4fb2b",
+  "git_blob_sha": "3c7cfb3e09b661a9ecf51e4d699e6dce8e4e47d3",
+  "fully_transparent_pixels": 1303119,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        78,
+        89,
+        635,
+        710
+      ],
+      "component_seed": [
+        106,
+        93
+      ],
+      "bbox_alpha_gt_24": [
+        82,
+        93,
+        627,
+        702
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1095,
+        97,
+        551,
+        702
+      ],
+      "component_seed": [
+        1304,
+        101
+      ],
+      "bbox_alpha_gt_24": [
+        1099,
+        101,
+        543,
+        694
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing archivists, two spaced hands gripping one rigid feather staff drawn behind shoulder, feet braced. Full staff/nib visible and clear of face/limbs, no ink droplets/effects. Body-relative feather/shaft dimensions compared to original and index_seal; the charge pair varies staff incline, playback loop and fine grip acceptance pending. Original alpha retained, no equal-grid runtime assumptions.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_thorn_sentinel",
+  "image": "echo_thorn_roots_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/echo_thorn_sentinel.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_thorn_sentinel.png",
+  "reference_sha256": "9d9205f33a23406ecfdcf0f6ec9522e8858866c003213758503dfb6231c79f8e",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "echo_thorn_roots_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "f4eb7283a2ffcac93a679030f5c00e790c6e8395d58d4649f16e80ca57627328",
+  "git_blob_sha": "763c0ee13c0f3cb8a7611c92ee21c096472dc19a",
+  "fully_transparent_pixels": 1339452,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        157,
+        340,
+        672,
+        378
+      ],
+      "component_seed": [
+        461,
+        344
+      ],
+      "bbox_alpha_gt_24": [
+        161,
+        344,
+        664,
+        370
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1022,
+        353,
+        706,
+        364
+      ],
+      "component_seed": [
+        1337,
+        357
+      ],
+      "bbox_alpha_gt_24": [
+        1026,
+        357,
+        698,
+        356
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete low braced right-facing thorn sentinels, shield consistently protecting front/right, other hand enclosing sword grip, blade low in front clear of boots. Selected image has outer transparent margins; clipped first candidate discarded. Attached root details are minimal; exact reference pose and loop continuity still need project art acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

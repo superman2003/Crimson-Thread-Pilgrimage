@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "pollen_lutist",
+  "image": "pollen_arcs_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/pollen_lutist.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/pollen_lutist.png",
+  "reference_sha256": "e081c6b10f1c4a748accd32b27e3ecc3e69fcd089bf6526a22c23697f3b198a8",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "pollen_arcs_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "0cc6ce99311ef25adaf21e905f4083d3415a20487cd3237c430abbf446b20233",
+  "git_blob_sha": "d5893a5545921fc4eca8617ca86dd1b58b922fb9",
+  "fully_transparent_pixels": 1216709,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        156,
+        167,
+        612,
+        626
+      ],
+      "component_seed": [
+        440,
+        171
+      ],
+      "bbox_alpha_gt_24": [
+        160,
+        171,
+        604,
+        618
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        987,
+        180,
+        606,
+        614
+      ],
+      "component_seed": [
+        1265,
+        184
+      ],
+      "bbox_alpha_gt_24": [
+        991,
+        184,
+        598,
+        606
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete leaf-cloaked grasshopper musicians with same seedpod lute supported at chest. Neck hand frets while other hand changes plucking fingers over strings; wrists/elbows naturally connected and feet balanced. Instrument/body ratios and line detail compared with original/pollen_spots, no floating instrument, notes or VFX. Exact string/finger rig, shared pixel scale and seamless loop timing pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

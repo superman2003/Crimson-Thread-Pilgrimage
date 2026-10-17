@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "root_cage_hunter",
+  "image": "cage_net_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/root_cage_hunter.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/root_cage_hunter.png",
+  "reference_sha256": "0353480f88080215f2b66a44e87e0cb8279c4cbbbf9b70c24d31f822cc6dba2f",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "cage_net_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "c5d12be7622ecd2ae207c2ca99a62714a0d57aa4a924e2a0479c345ed62cea83",
+  "git_blob_sha": "35a717cee12534719d38173a96d7f9c4bd516b94",
+  "fully_transparent_pixels": 1198667,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        183,
+        148,
+        607,
+        646
+      ],
+      "component_seed": [
+        594,
+        152
+      ],
+      "bbox_alpha_gt_24": [
+        187,
+        152,
+        599,
+        638
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1016,
+        158,
+        629,
+        636
+      ],
+      "component_seed": [
+        1387,
+        162
+      ],
+      "bbox_alpha_gt_24": [
+        1020,
+        162,
+        621,
+        628
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete wooden mantid root-net charge poses. Compact wovenroot bundle held above/back of head by attached hooked forearms, torso cage retained, legs braced beneath load; no humanhands or flying projectile. Rootnet held rather than floating, leaves/hooks/cage/body ratios visually compared to original/cage_pounce. Some far-arm/root overlap needs detailed rig acceptance, as do net deformation and loop timing.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

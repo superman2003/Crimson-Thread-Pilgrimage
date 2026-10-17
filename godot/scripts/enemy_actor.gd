@@ -303,6 +303,30 @@ var attack_desire: float = 0.0
 var last_player_command := "none"
 var last_ai_decision := "patrol"
 var last_attack_id := ""
+# Regular-enemy decision making. Seeded per spawn so prebuilt neighbours and
+# live actors stay in step; bosses keep their tactical layer.
+const MAX_SIMULTANEOUS_ATTACKERS := 2
+const ATTACKER_COORDINATION_RADIUS := 560.0
+const TARGET_MEMORY_SECONDS := 2.4
+const ATTACK_ROLES := {
+    "anti_air": ["nova", "fan", "projectile", "mortar"],
+    "counter": ["guard", "retreat", "feint", "blink", "melee", "combo"],
+    "punish": ["lunge", "dive", "vault", "wave", "rootline", "pool", "combo"],
+    "gap_closer": ["lunge", "dive", "vault", "projectile", "fan", "mortar", "blink", "beam"],
+    "area": ["wave", "rootline", "pool", "nova"],
+}
+var ai_rng := RandomNumberGenerator.new()
+var ai_clock := 0.0
+var attack_repeat_count := 0
+var waiting_for_turn := false
+var last_seen_position := Vector2.ZERO
+var memory_timer := 0.0
+var patrol_direction := 1
+var patrol_pause_timer := 0.0
+var recent_hit_times: Array[float] = []
+var poise_timer := 0.0
+var poise_cooldown := 0.0
+var backstep_cooldown := 0.0
 var command_read_count := 0
 var boss_tactic := "observe"
 var boss_tactic_timer := 0.0
@@ -316,12 +340,20 @@ var windup_vfx: Line2D
 var windup_vfx_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
+# A held wind-up (charge) or travelling strike (travel) switches from its
+# one-shot cels to an authored loop once the one-shot has been shown.
+const POSE_LOOP_LEAD := {"windup": 0.42, "active": 0.2}
+var pose_loop_animation := ""
+var pose_loop_at := 0.0
 var flash_materials: Array = []
 var knockback_velocity := 0.0
 var dying := false
 ## 遭遇编制角色（generated 章节配置 enemy_spawns.encounter_role，如 elite_duo/preboss_elite；
 ## 手工章节无此字段 → 空串天然静默）。
 var encounter_role := ""
+# Elite spawns use the species' "elite" profile: more health, +damage on every
+# attack, a slightly larger silhouette and an extra signature attack.
+var is_elite := false
 ## 首次进战宣告一次性标记（Boss 开场吼 / 精英仪式起手）。
 var engage_announced := false
 ## Boss 半血相变音一次性标记（纯音频钩子，无 HP 阶段行为机）。
@@ -364,6 +396,7 @@ func _physics_process(delta: float) -> void:
         _clear_telegraph()
         state = "patrol"
         active_attack = {}
+        pose_loop_animation = ""
         _set_enemy_animation("phase", true)
         _fit_animation_duration(phase_pause)
         if get_parent().has_method("_toast"):
@@ -373,7 +406,7 @@ func _physics_process(delta: float) -> void:
         return
     _tick_timers(delta)
     var target := _target_player()
-    if target != null and not _is_attack_state():
+    if target != null and not _is_attack_state() and _is_aware_of(target):
         _face_target(target)
     if target != null:
         last_player_command = _read_player_command(target)
@@ -395,6 +428,7 @@ func _physics_process(delta: float) -> void:
 func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, profile: Dictionary = {}) -> void:
     spawn_id = String(data.get("id", "enemy"))
     kind = String(data.get("kind", "moss_larva"))
+    ai_rng.seed = hash(spawn_id + ":" + kind)
     hp = int(data.get("hp", 2))
     max_hp = hp
     damage = int(data.get("damage", 1))
@@ -452,9 +486,29 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
         if not data.has("hurtbox_size"):
             hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
     ai_profile["lure_eligible"] = bool(data.get("lure_eligible", ai_profile.get("lure_eligible", not is_boss and locomotion != "stationary")))
+    is_elite = bool(data.get("elite", false)) and not is_boss and ai_profile.get("elite") is Dictionary
+    if is_elite:
+        _apply_elite_profile(ai_profile.elite)
     ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
+
+
+func _apply_elite_profile(elite: Dictionary) -> void:
+    hp = maxi(hp + 1, ceili(float(hp) * float(elite.get("hp_mult", 1.75))))
+    max_hp = hp
+    var bonus := int(elite.get("damage_bonus", 1))
+    damage += bonus
+    var attacks: Array = []
+    for command: Dictionary in ai_profile.get("attacks", []):
+        var boosted := command.duplicate(true)
+        boosted["damage"] = int(boosted.get("damage", 1)) + bonus
+        attacks.append(boosted)
+    for command: Dictionary in elite.get("attacks", []):
+        attacks.append(command.duplicate(true))
+    ai_profile["attacks"] = attacks
+    if visual_scale > 0.0:
+        visual_scale *= float(elite.get("visual_scale_mult", 1.0))
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
@@ -470,8 +524,11 @@ func take_hit(amount: int, hit_direction: int) -> void:
     else:
         _play_sfx(_hit_tier_key(), -6.0)
     _spawn_hit_spark(hit_direction)
-    _set_enemy_animation("hurt")
-    _pose_sprite("hurt")
+    var armored := not is_boss and hp - amount > 0 and _hit_is_armored()
+    if not armored:
+        pose_loop_animation = ""
+        _set_enemy_animation("hurt")
+        _pose_sprite("hurt")
     hp -= amount
     if is_boss and not boss_phase_shift_played and hp > 0 and hp * 2 <= max_hp:
         # Boss 半血相变音（音频规格 §4.4）：纯音频钩子，不改战术行为机；
@@ -491,14 +548,45 @@ func take_hit(amount: int, hit_direction: int) -> void:
         boss_tactic_timer = float(ai_profile.get("hurt_evade_time", 0.42))
         boss_press_timer = 0.0
     if not is_boss and hp > 0:
-        _cancel_unarmed_attack_effects()
-        active_attack = {}
-        state = "recover"
-        state_timer = 0.16
-        _fit_animation_duration(state_timer)
-        _clear_telegraph()
+        _react_to_hit(hit_direction)
     if hp <= 0:
         _begin_death_dissolve()
+
+
+func _hit_is_armored() -> bool:
+    # Poise: after being chained, the next attack shrugs off interruption.
+    # Elites keep poise through every strike once it has begun.
+    return (poise_timer > 0.0 and state in ["windup", "active"]) or (is_elite and state == "active")
+
+
+func _react_to_hit(hit_direction: int) -> void:
+    recent_hit_times.append(ai_clock)
+    while not recent_hit_times.is_empty() and ai_clock - recent_hit_times[0] > 1.4:
+        recent_hit_times.pop_front()
+    var target := _target_player()
+    if target != null:
+        last_seen_position = target.global_position
+        memory_timer = TARGET_MEMORY_SECONDS
+    attack_desire += 0.25
+    if _hit_is_armored():
+        knockback_velocity *= 0.35
+        return
+    _cancel_unarmed_attack_effects()
+    active_attack = {}
+    pose_loop_animation = ""
+    state = "recover"
+    state_timer = 0.16
+    _fit_animation_duration(state_timer)
+    _clear_telegraph()
+    if recent_hit_times.size() >= 3 and poise_cooldown <= 0.0:
+        poise_timer = 1.8
+        poise_cooldown = 4.5
+        attack_desire = maxf(attack_desire, _attack_desire_threshold())
+    # Close-range ground fighters hop clear of a combo instead of eating it.
+    var close_fighter := locomotion == "ground" and float(ai_profile.get("preferred_range", 54.0)) < 120.0
+    if close_fighter and recent_hit_times.size() >= 2 and backstep_cooldown <= 0.0:
+        knockback_velocity = float(hit_direction) * 560.0
+        backstep_cooldown = 3.0
 
 
 ## 死亡溶解（规格 §3.4 简化通用版）：died 当帧发出、立即离开 enemy 组，
@@ -521,6 +609,7 @@ func _begin_death_dissolve() -> void:
     # 契约碎页散开——纸页撕裂与低频钟声叠层（同走独立宿主避免截断）。
     if is_boss and kind == "saltwhite_contract_judge":
         _play_detached_sfx("ch03_beat_contract_break", -8.0)
+    pose_loop_animation = ""
     _set_enemy_animation("death")
     _pose_sprite("death")
     _clear_telegraph()
@@ -575,6 +664,12 @@ func _tick_timers(delta: float) -> void:
     lure_timer = maxf(0.0, lure_timer - delta)
     trip_timer = maxf(0.0, trip_timer - delta)
     contact_timer = maxf(0.0, contact_timer - delta)
+    ai_clock += delta
+    memory_timer = maxf(0.0, memory_timer - delta)
+    poise_timer = maxf(0.0, poise_timer - delta)
+    poise_cooldown = maxf(0.0, poise_cooldown - delta)
+    backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
+    patrol_pause_timer = maxf(0.0, patrol_pause_timer - delta)
     if flash_timer > 0.0:
         flash_timer -= delta
         if flash_timer <= 0.0:
@@ -762,12 +857,36 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
         _return_to_spawn(delta)
         return
     if engaged:
+        last_seen_position = target.global_position
+        memory_timer = TARGET_MEMORY_SECONDS
         if _try_start_attack(target):
             return
         _move_in_combat(delta, target)
         return
+    waiting_for_turn = false
+    if memory_timer > 0.0 and not is_boss:
+        _investigate(delta)
+        return
     last_ai_decision = "patrol"
     _patrol(delta)
+
+
+func _investigate(delta: float) -> void:
+    # Lost sight: walk to where the player was last seen, then look around.
+    last_ai_decision = "investigate"
+    var dx := last_seen_position.x - global_position.x
+    var limit_ok := leash_radius <= 0.0 or absf(last_seen_position.x - spawn_position.x) <= leash_radius
+    if locomotion == "stationary" or absf(dx) <= 14.0 or not limit_ok:
+        _set_enemy_animation("idle")
+        if fposmod(ai_clock, 0.9) < delta:
+            direction *= -1
+            _set_sprite_flip(direction < 0)
+        return
+    direction = -1 if dx < 0.0 else 1
+    _set_sprite_flip(direction < 0)
+    position.x += direction * _movement_speed() * 0.85 * delta
+    _clamp_movement_bounds()
+    _set_enemy_animation("walk")
 
 
 func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
@@ -788,9 +907,14 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
     var desired := preferred
     if pressured and attack_range > 0.0:
         desired = minf(preferred, maxf(34.0, attack_range * 0.70))
+    if waiting_for_turn:
+        # Circle just outside the player's reach until an attacker slot frees.
+        desired = maxf(desired, 150.0)
+        pressured = false
+    desired += _ally_queue_offset(target)
     var chase_speed := _movement_speed() * (float(ai_profile.get("pressure_speed_multiplier", 1.18)) if pressured else 1.0)
     var movement_direction := 0.0
-    if attack_range > 0.0 and distance > attack_range - 10.0:
+    if attack_range > 0.0 and distance > attack_range - 10.0 and distance > desired + 14.0:
         movement_direction = signf(dx)
         position.x += movement_direction * chase_speed * delta
         moved = true
@@ -817,6 +941,22 @@ func _move_in_combat(delta: float, target: CharacterBody2D) -> void:
         _face_target(target)
     _clamp_movement_bounds()
     _set_enemy_animation("walk" if moved else "idle")
+
+
+func _ally_queue_offset(target: CharacterBody2D) -> float:
+    # A ground ally already closer on the same side: hang back instead of stacking.
+    if is_boss or locomotion != "ground":
+        return 0.0
+    var my_side := signf(global_position.x - target.global_position.x)
+    var my_distance := absf(global_position.x - target.global_position.x)
+    for node in get_tree().get_nodes_in_group("enemy"):
+        if node == self or not is_instance_valid(node) or bool(node.get("is_boss")) or String(node.get("locomotion")) != "ground":
+            continue
+        var other := node as Node2D
+        var other_distance := absf(other.global_position.x - target.global_position.x)
+        if signf(other.global_position.x - target.global_position.x) == my_side and other_distance < my_distance and my_distance - other_distance < 70.0 and absf(other.global_position.y - global_position.y) < 60.0:
+            return 60.0
+    return 0.0
 
 
 func _boss_tactical_enabled() -> bool:
@@ -1011,11 +1151,31 @@ func _patrol(delta: float) -> void:
     if locomotion=="stationary":
         _set_enemy_animation("idle")
         return
+    # Guards whose leash is tighter than their walk hold their post and look around.
+    var walk_range := patrol_distance if leash_radius <= 0.0 else minf(patrol_distance, leash_radius - 50.0)
+    if walk_range < 12.0:
+        _set_enemy_animation("idle")
+        if patrol_pause_timer <= 0.0:
+            patrol_direction *= -1
+            direction = patrol_direction
+            _set_sprite_flip(direction < 0)
+            patrol_pause_timer = ai_rng.randf_range(1.6, 3.2)
+        return
+    if patrol_pause_timer > 0.0:
+        # Stop at the turn, glance back once, then carry on.
+        _set_enemy_animation("idle")
+        if patrol_pause_timer <= delta:
+            direction = patrol_direction
+            _set_sprite_flip(direction < 0)
+        return
+    direction = patrol_direction
+    _set_sprite_flip(direction < 0)
     position.x += direction * _movement_speed() * 0.72 * delta
     _set_enemy_animation("walk")
-    if absf(global_position.x - start_x) > patrol_distance:
-        direction *= -1
-        _set_sprite_flip(direction < 0)
+    var offset := global_position.x - start_x
+    if absf(offset) > walk_range and signf(offset) == float(patrol_direction):
+        patrol_direction *= -1
+        patrol_pause_timer = ai_rng.randf_range(0.5, 1.3)
     _clamp_movement_bounds()
 
 
@@ -1142,22 +1302,89 @@ func _player_command_pressure(command: String) -> float:
 
 func _attack_candidate_score(command: Dictionary, target: CharacterBody2D) -> float:
     var score := float(command.get("priority", 1.0)) * 10.0
-    var attack_type := String(command.get("type", "melee"))
     var dx := absf(target.global_position.x - global_position.x)
     var max_range := maxf(1.0, float(command.get("range", 70.0)))
     score += clampf(1.0 - absf(max_range * 0.55 - dx) / max_range, 0.0, 1.0) * 2.2
-    if ["slash_forward", "dash_toward", "hook"].has(last_player_command):
-        if attack_type == "retreat" or attack_type == "aoe" or attack_type == "melee":
-            score += 3.0
-    elif ["slash_down", "jump", "falling_attack"].has(last_player_command):
-        if attack_type == "aoe" or attack_type == "shockwave":
-            score += 2.4
-    elif last_player_command == "heal":
-        if attack_type == "lunge" or attack_type == "shockwave":
-            score += 2.8
-    elif attack_type == "lunge":
+    # Answer what the player is doing with the attack built for it.
+    var airborne := ["jump", "fall", "falling_attack", "slash_up"].has(last_player_command) or target.global_position.y < global_position.y - 70.0
+    if airborne and _attack_has_role(command, "anti_air"):
+        score += 3.0
+    if ["slash_forward", "slash_down", "dash_toward", "hook", "skill"].has(last_player_command) and dx < 180.0 and _attack_has_role(command, "counter"):
+        score += 3.0
+    if last_player_command == "heal" and _attack_has_role(command, "punish"):
+        score += 3.2
+    if (["run_away", "dash_away"].has(last_player_command) or dx > max_range * 0.7) and _attack_has_role(command, "gap_closer"):
+        score += 2.0
+    if last_player_command == "idle" and _attack_has_role(command, "area"):
         score += 1.0
+    if bool(command.get("elite_only", false)):
+        score += 1.5
+    # Repeating the same move gets steadily less likely, but is never banned.
+    if String(command.get("id", "")) == last_attack_id:
+        score -= 2.5 * float(1 + attack_repeat_count)
     return score
+
+
+func _attack_has_role(command: Dictionary, role: String) -> bool:
+    if command.has("roles"):
+        return Array(command.roles).has(role)
+    if role == "anti_air" and String(command.get("mechanic", "")).contains("截空"):
+        return true
+    return ATTACK_ROLES.get(role, []).has(String(command.get("type", "melee")))
+
+
+func _choose_attack(candidates: Array, target: CharacterBody2D) -> Dictionary:
+    if candidates.size() == 1:
+        return candidates[0]
+    var scores: Array[float] = []
+    var best := -INF
+    for command in candidates:
+        var value := _attack_candidate_score(command, target)
+        scores.append(value)
+        best = maxf(best, value)
+    # Softmax over scores: the best answer usually wins, close seconds still appear.
+    var weights: Array[float] = []
+    var total := 0.0
+    for value in scores:
+        var weight := exp((value - best) / 1.4)
+        weights.append(weight)
+        total += weight
+    var roll := ai_rng.randf() * total
+    for index in candidates.size():
+        roll -= weights[index]
+        if roll <= 0.0:
+            return candidates[index]
+    return candidates.back()
+
+
+func _count_other_attackers(target: CharacterBody2D) -> int:
+    var count := 0
+    for node in get_tree().get_nodes_in_group("enemy"):
+        if node == self or not is_instance_valid(node) or bool(node.get("is_boss")):
+            continue
+        if node.has_method("world_residency_active") and not node.world_residency_active():
+            continue
+        if not (String(node.get("state")) in ["windup", "active"]):
+            continue
+        if (node as Node2D).global_position.distance_to(target.global_position) <= ATTACKER_COORDINATION_RADIUS:
+            count += 1
+    return count
+
+
+func _is_aware_of(target: CharacterBody2D) -> bool:
+    if is_boss or memory_timer > 0.0:
+        return true
+    var aggro_range := float(ai_profile.get("aggro_range", 220.0))
+    return _target_in_engage_window(target, aggro_range * 1.1)
+
+
+func _lead_target(target: CharacterBody2D, lead_seconds: float, max_lead: float) -> Vector2:
+    # Partial lead toward where the player is heading; elites read it better.
+    var accuracy := 0.85 if is_elite else 0.6
+    var lead := target.velocity * clampf(lead_seconds, 0.0, 1.2) * accuracy
+    lead.x = clampf(lead.x, -max_lead, max_lead)
+    lead.y = clampf(lead.y, -max_lead * 0.5, max_lead * 0.5)
+    return target.global_position + lead - Vector2(0, 42)
 
 
 func _read_player_command(target: CharacterBody2D) -> String:
@@ -1234,13 +1461,15 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
             candidates.append(command)
     if candidates.is_empty():
         return false
-    if candidates.size()>1:
-        var alternatives := candidates.filter(func(c): return String(c.get("id",""))!=last_attack_id)
-        if not alternatives.is_empty():
-            candidates=alternatives
-    candidates.sort_custom(func(a, b): return _attack_candidate_score(a, target) > _attack_candidate_score(b, target))
+    # Take turns: a crowd circles while two of them press, elites cut the line.
+    waiting_for_turn = not is_boss and not is_elite and _count_other_attackers(target) >= MAX_SIMULTANEOUS_ATTACKERS
+    if waiting_for_turn:
+        last_ai_decision = "wait_turn"
+        return false
+    var chosen := _choose_attack(candidates, target)
+    attack_repeat_count = attack_repeat_count + 1 if String(chosen.get("id", "")) == last_attack_id else 0
     _face_target(target)
-    _begin_attack(candidates[0])
+    _begin_attack(chosen)
     return true
 
 
@@ -1253,6 +1482,7 @@ func _begin_attack(command: Dictionary) -> void:
     attack_start_position=global_position
     var target_node := _target_player()
     attack_target=target_node.global_position-Vector2(0,42) if target_node!=null else global_position+Vector2(direction*140,-24)
+    _aim_attack(command, target_node as CharacterBody2D)
     attack_has_hit = false
     attack_direction = direction
     last_attack_id = String(command.get("id", "attack"))
@@ -1285,6 +1515,7 @@ func _begin_attack(command: Dictionary) -> void:
 
 func _update_windup(delta: float) -> void:
     state_timer -= delta
+    _advance_pose_loop()
     if state_timer <= 0.0:
         state = "active"
         state_timer = float(active_attack.get("active", 0.16))
@@ -1293,6 +1524,21 @@ func _update_windup(delta: float) -> void:
         _spawn_attack_burst_vfx(active_attack)
         if String(active_attack.get("type","")) not in ["beam","pool","rootline"]:
             _spawn_command_effects(active_attack,false)
+
+
+func _aim_attack(command: Dictionary, target: CharacterBody2D) -> void:
+    # Aimed shots and dives commit at wind-up start to a capped partial lead on
+    # the player's current motion; the telegraph and the release then agree, so
+    # a player who changes direction during the wind-up still slips the shot.
+    # Area attacks keep the spot their warning shows.
+    var attack_type := String(command.get("type", ""))
+    if target == null or not (attack_type in ["projectile", "fan", "blink", "dive", "vault"]):
+        return
+    var windup := float(command.get("windup", 0.4))
+    var travel := float(command.get("active", 0.3)) * 0.5
+    if attack_type in ["projectile", "fan"]:
+        travel = global_position.distance_to(target.global_position) / maxf(60.0, float(command.get("projectile_speed", 220.0)))
+    attack_target = _lead_target(target, windup + travel, 140.0)
 
 
 func _update_active(delta: float) -> void:
@@ -1328,6 +1574,7 @@ func _update_active(delta: float) -> void:
             _effect("pool",global_position+Vector2(0,25),Vector2.ZERO,active_attack,.35,1.1)
 
     state_timer -= delta
+    _advance_pose_loop()
     if state_timer <= 0.0:
         state = "recover"
         state_timer = float(active_attack.get("recover", 0.42))
@@ -1721,6 +1968,25 @@ func _resolve_directional_animation(animation_name: String) -> String:
     return animation_name
 
 
+## An attack's own cels are named after its id; without them it keeps the
+## command's shared animation (normally the species' generic attack).
+func _attack_animation_base(command: Dictionary) -> String:
+    var own := String(command.get("id", ""))
+    if not own.is_empty() and (_has_enemy_animation(own) or _has_enemy_animation(own + "_windup")):
+        return own
+    return String(command.get("animation", "attack"))
+
+
+func _advance_pose_loop() -> void:
+    if pose_loop_animation.is_empty() or state_timer > pose_loop_at:
+        return
+    var loop_name := pose_loop_animation
+    pose_loop_animation = ""
+    _set_enemy_animation(loop_name, true)
+    if animated_sprite != null:
+        animated_sprite.speed_scale = 1.0
+
+
 func _has_enemy_animation(animation_name: String) -> bool:
     if animated_sprite != null and animated_sprite.sprite_frames != null and animated_sprite.sprite_frames.has_animation(animation_name):
         return true
@@ -1772,18 +2038,29 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
         sprite.rotation=0
         sprite.modulate.a = .24 if pose_name=="windup" and bool(command.get("burrow",false)) else 1.0
         var animation_name := pose_name
-        var requested := String(command.get("animation","attack"))
+        var requested := _attack_animation_base(command)
+        var loop_name := ""
         if pose_name=="windup":
             animation_name=requested+"_windup" if _has_enemy_animation(requested+"_windup") else "windup"
+            loop_name=requested+"_charge" if animation_name!="windup" else "charge"
         elif pose_name=="active":
             animation_name=requested if _has_enemy_animation(requested) else "attack"
+            loop_name=requested+"_travel" if animation_name!="attack" else "travel"
         elif pose_name=="recover":
             animation_name=requested+"_recover" if _has_enemy_animation(requested+"_recover") else ("recover" if _has_enemy_animation("recover") else "idle")
+        pose_loop_animation = ""
         _set_enemy_animation(animation_name, pose_name in ["windup", "active", "recover", "hurt", "death"])
         if animated_sprite!=null:
             animated_sprite.speed_scale=1.0
             if pose_name in ["windup","active","recover"] and animation_name != "idle":
-                _fit_animation_duration(float(command.get(pose_name, .3)))
+                var duration := float(command.get(pose_name, .3))
+                var lead := float(POSE_LOOP_LEAD.get(pose_name, 0.0))
+                if not loop_name.is_empty() and _has_enemy_animation(loop_name) and duration > lead + 0.12:
+                    _fit_animation_duration(lead)
+                    pose_loop_animation = loop_name
+                    pose_loop_at = duration - lead
+                else:
+                    _fit_animation_duration(duration)
         return
     _apply_sprite_region("attack" if pose_name == "windup" or pose_name == "active" else pose_name)
     var attack_type := String(command.get("type", "melee"))
@@ -1920,7 +2197,7 @@ func _announce_engagement() -> void:
     engage_announced = true
     if is_boss:
         _play_sfx(_boss_sfx_key("roar"), -4.0, 1.0, 0)
-    elif encounter_role.contains("elite"):
+    elif is_elite or encounter_role.contains("elite"):
         _play_sfx("elite_ritual_start", -6.0)
 
 
