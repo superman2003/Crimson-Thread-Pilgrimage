@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "bell_mote",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/bell_mote/atlas.png",
+  "reference_sha256": "abdea341ba38c13cb0a7ac99b79a3894c62b70691ce965b93e4b87473bd45d7d",
+  "prompt": "Use case: identity-preserve. EXACT bell_mote from reference: floating insect inside weathered turquoise-patina brass bell shell, two amber eyes under bell rim, pale blue veined wings, small dark insect limbs and a dangling brass leaf charm, curved loop atop shell. Preserve exact identity and painted ink texture. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT isolated complete right-facing figures at equal scale. Miniature sprites entirely within central 60% cell width/70% height, broad transparent gutters, all wing tips, loop and charm included. Top row four nonlethal hurt/recovery poses: bell jerks backward, wings unequal; wings tuck as bell tilts back; wings reopen and bell levels; stable neutral hover. Bottom row four death poses: wings droop as hover fails; bell tips down with limp charm; lands sideways with wings folded against shell; motionless side-resting bell insect with dimmed eyes and complete wings/charm. Distinct actual wing/body articulation, not duplicate stamps. True alpha, no background, shadows, floor, labels, grid, particles or gore.",
+  "image_sha256": "88e6b7d8e79d0e971739093b829612a0feb73e3fee21e0be1e60a24e25575e13",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        512,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        67,
+        77,
+        375,
+        315
+      ],
+      "rgba_sha256": "fb0947ad1428c0788a0c8983a0bf24db78242ca130b0fed72d565649ed7012ed"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        512,
+        0,
+        370,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        583,
+        94,
+        277,
+        287
+      ],
+      "rgba_sha256": "c9c0170ae8c2da7b6c28c4ec22f41edd86e6115f65c8cc0701221310470dfc04"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        882,
+        0,
+        422,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        904,
+        90,
+        366,
+        304
+      ],
+      "rgba_sha256": "eec957e40d5b082110cd329b33c7cf7ede2a4fa786674eee26f42b414c91802c"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1304,
+        0,
+        470,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1338,
+        92,
+        371,
+        299
+      ],
+      "rgba_sha256": "85b1755f14a4eb5a91ddaeeabf7f0a489310ccecbf18cad3b32df5e3e971491e"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        444,
+        484,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        79,
+        494,
+        360,
+        301
+      ],
+      "rgba_sha256": "7aca76b5247d2e8d49a3113cdccb4e58442e752ba5cc4e565019adc6bf490aa9"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        484,
+        444,
+        403,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        531,
+        502,
+        313,
+        293
+      ],
+      "rgba_sha256": "7e2d283d7e0b3eea6a5f3e529b7ea3c5ace5f3363330f630f0e36828b6eb6db1"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        887,
+        444,
+        451,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        931,
+        593,
+        378,
+        207
+      ],
+      "rgba_sha256": "a827990f69c9f209cb3605156138ae3734180642aa5aea767e8c2974a7ba6a79"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1338,
+        444,
+        436,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1367,
+        598,
+        360,
+        199
+      ],
+      "rgba_sha256": "27c6c132529665afc477219ab0fe46636f6898d0e52bae394cc2402045961ae8"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1121886,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete patinated brass bell insects with blue wings, loop, insect limbs and leaf charm. Distinct uneven-wing recoil to level hover; death droops and lands sideways with dim eyes.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
