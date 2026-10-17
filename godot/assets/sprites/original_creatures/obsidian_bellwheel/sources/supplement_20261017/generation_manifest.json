@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "obsidian_bellwheel",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/obsidian_bellwheel/atlas.png",
+  "reference_sha256": "75bada7efab2eef5ebf71dcb7d9b2a07c00cb21eb648c7feba5133b595be251e",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact obsidian_bellwheel character identity and painted style. Hunched lean black insect creature with small sharp ivory brow mask, amber eye, two thin long antennae, tattered dark burgundy scarf, hooked black claw forearms and digitigrade legs. Carries a HUGE circular cracked black obsidian bell-wheel on back, bronze circular hub and bronze radial bands with small hanging tags. Keep wheel circular and complete even when body collapses; no detached duplicate wheels. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: impact flinch with torso leaning backward, deeper recoil with bent knees, regains foot support while steadying equipment, returns to upright guard. Bottom row FOUR death-collapse poses: knees buckle and equipment drops, lowers onto one knee, collapses onto side with equipment beside body, lies lifeless prone with all equipment complete. Real joint and cloth articulation. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "0e42bf6bfd3d2bea34506822115c2d4cc8d5ecfe5ca4131cc3c43d91621735b8",
+  "git_blob_sha": "11142bcb2762382706df567c520dbb730f1985d6",
+  "component_seeds": [
+    [
+      99,
+      81
+    ],
+    [
+      638,
+      122
+    ],
+    [
+      1066,
+      113
+    ],
+    [
+      1637,
+      110
+    ],
+    [
+      208,
+      547
+    ],
+    [
+      663,
+      542
+    ],
+    [
+      1051,
+      593
+    ],
+    [
+      1499,
+      619
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        30,
+        77,
+        396,
+        359
+      ],
+      "component_seed": [
+        99,
+        81
+      ],
+      "visible_bbox_alpha_gt_24": [
+        34,
+        81,
+        388,
+        351
+      ],
+      "rgba_sha256": "64da4485d8e447ea783a9a31c3f17519829cc65714924c56ae415a96429bea63"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        520,
+        118,
+        323,
+        321
+      ],
+      "component_seed": [
+        638,
+        122
+      ],
+      "visible_bbox_alpha_gt_24": [
+        524,
+        122,
+        315,
+        313
+      ],
+      "rgba_sha256": "cf0405b9d5a6ed2ecf1f60fc2bbc6dc8a7be91e6b0d850d5711d01929e555506"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        936,
+        109,
+        310,
+        329
+      ],
+      "component_seed": [
+        1066,
+        113
+      ],
+      "visible_bbox_alpha_gt_24": [
+        940,
+        113,
+        302,
+        321
+      ],
+      "rgba_sha256": "96bdc76eb7400840b3a9d988d22e4396197f87528c1951b149dba966edfcc632"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1379,
+        106,
+        315,
+        332
+      ],
+      "component_seed": [
+        1637,
+        110
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1383,
+        110,
+        307,
+        324
+      ],
+      "rgba_sha256": "355759ffb8a95e7d8ccd54c84cf59d75e4eb411595ea086eaa55529a0d2f1fe9"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        77,
+        543,
+        337,
+        290
+      ],
+      "component_seed": [
+        208,
+        547
+      ],
+      "visible_bbox_alpha_gt_24": [
+        81,
+        547,
+        329,
+        282
+      ],
+      "rgba_sha256": "f01242be437058e5754a524721edbfebc5fb3339efd01d8e8a3e88e891b33213"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        513,
+        538,
+        335,
+        296
+      ],
+      "component_seed": [
+        663,
+        542
+      ],
+      "visible_bbox_alpha_gt_24": [
+        517,
+        542,
+        327,
+        288
+      ],
+      "rgba_sha256": "5713332097db3352a8369b4f29c078d3492e8e229b380fc0739e3a89139958df"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        895,
+        589,
+        419,
+        256
+      ],
+      "component_seed": [
+        1051,
+        593
+      ],
+      "visible_bbox_alpha_gt_24": [
+        899,
+        593,
+        411,
+        248
+      ],
+      "rgba_sha256": "3395b05389077a2a4aed6a53d58cf80ab2ad1393376b5f52f7b3dc62d10b94e7"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1324,
+        615,
+        435,
+        213
+      ],
+      "component_seed": [
+        1499,
+        619
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1328,
+        619,
+        427,
+        205
+      ],
+      "rgba_sha256": "3eb3863dfe037bfb7a72ffbce5f6774c5b256f80d16b02a0d008e8aade335126"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1025330,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight isolated wheel-backed insect figures. Complete cracked obsidian wheel, brass bands, antennae and claws retained. Hurt poses recoil then stabilize; collapse progresses to prone. Fine limb details and runtime registration remain unverified.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}
