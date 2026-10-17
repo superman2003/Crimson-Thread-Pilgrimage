@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "npc_lantern_sister",
+  "image": "greet_rest.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_npcs/npc_lantern_sister/atlas.png",
+  "reference_sha256": "bf5e2f605133678e00aa65b780e0f666d6a536f37884c00846e806d0a585abcf",
+  "prompt": "Use case: identity-preserve. Asset type: production game NPC animation keyframe sheet. Use the reference atlas ONLY for character identity and drawing style. Preserve EXACT npc_lantern_sister: slender insect nun with pale ivory almond mask face, amber eye, two long curved dark antennae with gold tips, charcoal veil and long gold-trimmed robes with wine red lining, golden folded luminous insect wings behind her, black segmented slender hands, tall pale bone walking staff with suspended small ornate amber lantern. Same intricate hand-inked dark fantasy painted 2D rendering, costume and proportions. ONE landscape transparent RGBA sprite sheet with precisely EIGHT complete isolated sprites in FOUR COLUMNS and TWO ROWS. Render figures SMALL, only central 60% of cell width and 74% height, with broad EMPTY transparent gutters and margins around antennae, staff, lantern, wings and trailing robe. Exact same character scale, right-facing side view, no extra characters or props. Row 1 = FOUR progressive greeting poses: 1 free hand lifts to chest while other hand holds grounded staff; 2 free palm opens gently toward traveler; 3 head dips in a courteous bow, free hand returns near chest; 4 head rises and free hand lowers to resting position, ready for standing idle. Row 2 = FOUR stand-to-rest poses: 1 knees bend under robe as she leans on grounded staff; 2 lowers onto one knee, folded wings tilt naturally; 3 hips lower into low sitting rest, robe pools gradually; 4 settled low seated rest, free hand on knee, other hand still holds the staff upright beside her. The lantern stays attached to the SAME staff in all eight frames, all antennae and entire staff visible. No floating or duplicated lantern. Real joint/head/hand/wing/cloth articulation, not duplicated stamps or faded copies. True fully transparent alpha background; no scenery, floor, cast shadows, atmospheric glow outside character, gradients, checkerboard, labels or grid lines. Each sprite isolated and wholly within its own cell.",
+  "image_sha256": "e8e2c5ee26129eb79b107b97da0c1cf39c2bbc41924e407233dfa69fd6e593e0",
+  "frames": [
+    {
+      "action": "greet",
+      "index": 0,
+      "pose": "抬手致意",
+      "region": [
+        0,
+        0,
+        444,
+        480
+      ],
+      "visible_bbox_alpha_gt_24": [
+        74,
+        29,
+        329,
+        430
+      ],
+      "rgba_sha256": "c138ef883d43f5d27ec85d85b023d21ba95ca07ccc1eb5d96e11f1cb2a1df1dd"
+    },
+    {
+      "action": "greet",
+      "index": 1,
+      "pose": "摊掌迎接",
+      "region": [
+        444,
+        0,
+        452,
+        480
+      ],
+      "visible_bbox_alpha_gt_24": [
+        506,
+        29,
+        353,
+        430
+      ],
+      "rgba_sha256": "d9fb717886a4c56dd6ee449a6aae5797bf7d6a44780cf1c1fd471428de1eb532"
+    },
+    {
+      "action": "greet",
+      "index": 2,
+      "pose": "低头行礼",
+      "region": [
+        896,
+        0,
+        452,
+        480
+      ],
+      "visible_bbox_alpha_gt_24": [
+        937,
+        57,
+        382,
+        402
+      ],
+      "rgba_sha256": "781add1790cd6172218ac4e4b7254d1424f3d95ce52cb6f37ea31988362d6802"
+    },
+    {
+      "action": "greet",
+      "index": 3,
+      "pose": "站立归位",
+      "region": [
+        1348,
+        0,
+        426,
+        480
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1395,
+        29,
+        319,
+        430
+      ],
+      "rgba_sha256": "8ceaedb95fe7aea3975384a8752555659307ac2bc3ebfc469788886c6df38b92"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 0,
+      "pose": "扶杖屈身",
+      "region": [
+        0,
+        480,
+        444,
+        407
+      ],
+      "visible_bbox_alpha_gt_24": [
+        65,
+        500,
+        326,
+        365
+      ],
+      "rgba_sha256": "2e4569903f701cd50ce2ceb9905ec07e7af7edf8851776625e610465091045f6"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 1,
+      "pose": "屈膝下沉",
+      "region": [
+        444,
+        480,
+        428,
+        407
+      ],
+      "visible_bbox_alpha_gt_24": [
+        492,
+        500,
+        346,
+        365
+      ],
+      "rgba_sha256": "48af92a80ba722a20d281a020734eb94e131208bf507178ebf39b52ab1e3f5f2"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 2,
+      "pose": "落座闭目",
+      "region": [
+        872,
+        480,
+        446,
+        407
+      ],
+      "visible_bbox_alpha_gt_24": [
+        901,
+        501,
+        380,
+        365
+      ],
+      "rgba_sha256": "78008b66127cd473ac20211a2069ee826de3ff59174cb2103ed3f2a06421132b"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 3,
+      "pose": "坐稳睁眼",
+      "region": [
+        1318,
+        480,
+        456,
+        407
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1356,
+        486,
+        388,
+        379
+      ],
+      "rgba_sha256": "3435a293cd33146147f76f250244994ade70dd5a77fb6478f1ef0cf7a532adf0"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 901184,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete isolated nun figures; mask, long antennae, gold wings, robe, held bone staff and attached amber lantern retained. Four greeting poses return upright; four lowering poses finish seated. Actual row boundary is y480 rather than geometric half-height to keep standing feet and staff complete.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
