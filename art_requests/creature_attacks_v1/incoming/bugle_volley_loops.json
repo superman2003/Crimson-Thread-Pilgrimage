@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "silent_bugbler",
+  "image": "bugle_volley_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/silent_bugbler.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/silent_bugbler.png",
+  "reference_sha256": "102f3d8d9b024896e61b881e8cfa05477aa78ae50fbd9b6861e2bc575743ffb3",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "bugle_volley_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "6e8b9a7fa32ccdb1f8919d39890ef7ac2f799c296c95baa130718e97c2193d74",
+  "git_blob_sha": "f2908ffe8bce95120d65ed33957a79b836c82c0a",
+  "fully_transparent_pixels": 1162107,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        112,
+        247,
+        769,
+        533
+      ],
+      "component_seed": [
+        634,
+        251
+      ],
+      "bbox_alpha_gt_24": [
+        116,
+        251,
+        761,
+        525
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        947,
+        184,
+        752,
+        596
+      ],
+      "component_seed": [
+        1416,
+        188
+      ],
+      "bbox_alpha_gt_24": [
+        951,
+        188,
+        744,
+        588
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete charcoal buglers holding one bandaged brassbugle at mouth aimed forward. Twohand tube support and bent elbows visible, rigid armor/horn proportions similar to original and bugle_pulse, no empty-mouth gap or VFX/backgroundblocks. Chargepair varies breathing posture and ribbons; exact root scale and playback acceptance pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
