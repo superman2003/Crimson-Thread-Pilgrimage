@@ -17,5 +17,6 @@
 | drain_leech | [leech_leap.png](leech_leap.png) | 14 |
 | echo_contract_scribe | [echo_scribe_seals.png](echo_scribe_seals.png) | 12 |
 | echo_contract_scribe | [echo_scribe_pages_loops.png](echo_scribe_pages_loops.png) | 2 |
+| echo_moss_larva | [echo_larva_mark.png](echo_larva_mark.png) | 12 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
