@@ -27,11 +27,11 @@
         724
       ],
       "mode": "RGBA",
-      "sha256": "4acbd7982cf955adcad9f303b9054ca9b8fc85371740ea8eb455457bc45c4753",
-      "prompt_sha256": "6b353a253c03f1a55d2d1fbdcd69513c4575094c9801d09cf8d056589253a306",
-      "original_tool_output": "exec-f9a19d01-df0a-45ea-8dcf-33b91eee2328.png",
-      "rgba_alpha_zero_pixels": 1220300,
-      "rgba_alpha_ge_128_pixels": 325173,
+      "sha256": "9bba9ae3ce26a793f04e7d14788f0068378fd48de2e4602ea542042a3b6fde83",
+      "prompt_sha256": "dcc54c66f9e7be344241c4e73d7e993491c1370909d19d38e582ac3eb730b23f",
+      "original_tool_output": "exec-112fc550-61d7-4956-ba1f-f7dafe521789.png",
+      "rgba_alpha_zero_pixels": 1185687,
+      "rgba_alpha_ge_128_pixels": 362065,
       "alpha_extrema": [
         0,
         255
@@ -46,18 +46,18 @@
             724
           ],
           "opaque_bounds_in_region": [
-            73,
-            172,
-            628,
-            573
+            74,
+            139,
+            630,
+            609
           ],
           "opaque_padding_left_top_right_bottom": [
-            73,
-            172,
-            96,
-            151
+            74,
+            139,
+            94,
+            115
           ],
-          "rgba_region_sha256": "a0501a3fa208f80542a7898c6ba1dc2cd204ea6ea401eed1acaf320b4ecda89c"
+          "rgba_region_sha256": "c4c40fea48e098d59cbc79d90f3b1145ec0b6c0b6db68e0fbca22a1100ad8b83"
         },
         {
           "index": 2,
@@ -68,18 +68,18 @@
             724
           ],
           "opaque_bounds_in_region": [
-            106,
-            170,
-            659,
-            596
+            91,
+            140,
+            652,
+            616
           ],
           "opaque_padding_left_top_right_bottom": [
-            106,
-            170,
-            65,
-            128
+            91,
+            140,
+            72,
+            108
           ],
-          "rgba_region_sha256": "62dbbe8f9b5c1fbaac9fa1512ea0a3e62920ba1fd926080b115c20e323542c67"
+          "rgba_region_sha256": "7ac8d8d4f1d0572e43062fc7bd522ff39e817de6690b5210a4daa77c863c2a3a"
         },
         {
           "index": 3,
@@ -90,26 +90,24 @@
             724
           ],
           "opaque_bounds_in_region": [
-            126,
-            168,
-            646,
-            594
+            111,
+            140,
+            652,
+            615
           ],
           "opaque_padding_left_top_right_bottom": [
-            126,
-            168,
-            78,
-            130
+            111,
+            140,
+            72,
+            109
           ],
-          "rgba_region_sha256": "5815fff855560313900cf704b176540dd130e2c602eb64ca50e3961c814b32af"
+          "rgba_region_sha256": "73e375c909e125b3ca1f4fa8973009fd61fc8254b257ec33c25d8a308f8b1817"
         }
       ],
       "visual_review": [
-        "requested cel count",
-        "right-facing silhouettes",
-        "full sword/cloth clearance",
-        "separated frame groups",
-        "matching v4 costume and rendering"
+        "correct cel count and complete silhouettes",
+        "actual alpha channel and clear gutters",
+        "user review correction inspected; runtime acceptance pending"
       ],
       "reference_images": [
         "refs/00_style_run_v4_8frames.png",
@@ -130,7 +128,41 @@
           1
         ]
       ],
-      "passes": 1
+      "passes": 2,
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous": {
+            "sha256": "4acbd7982cf955adcad9f303b9054ca9b8fc85371740ea8eb455457bc45c4753",
+            "dimensions": [
+              2172,
+              724
+            ],
+            "original_tool_output": "exec-f9a19d01-df0a-45ea-8dcf-33b91eee2328.png"
+          },
+          "prompt": "Use case: stylized-concept. Asset type: three cloth-only INBETWEEN cels for an existing 2D game idle animation. Input image 1 is the AUTHORITATIVE eight-phase cloth atlas, exactly 4 columns x 2 rows. Number source cels ZERO-BASED in reading order: TOP ROW 0,1,2,3; BOTTOM ROW 4,5,6,7. Input image 2 is the REJECTED three-cel attempt: use it only to understand that large new scarf curls and invented gussets are WRONG. Draw a replacement with exactly THREE cloth-only cels in ONE horizontal row, wide transparent gutters and complete margins. First new cel: subtle exact visual halfway phase between SOURCE 2 (top row third) and SOURCE 4 (bottom row first). Second new cel: subtle halfway phase SOURCE 6 (bottom row third) to SOURCE 7 (bottom row fourth). Third new cel: subtle halfway phase SOURCE 7 to SOURCE 1 (top row second). All endpoint differences are very small: do NOT invent a new gust, do NOT make a new large upper scarf arc. Carefully preserve each pair's SAME cloth silhouette family, fold topology, torn edge teeth, ink contours and texture. Match the gently sloping thin red scarf in image 1, and the teal hanging cape's existing bottom pointed tears; each new red hem, teal tip and principal fold lies visually halfway between its specified two endpoints. The red scarf's outline must stay within the neighboring endpoints' small contour envelope, not puff up like rejected image 2. Lock the collar at the upper-right at the same local position in every cel, identical uniform cloth scale. Scarf trails left, teal cape trails left-down. Pure detached red scarf plus teal cape ONLY. No person, body, face, hair, skin, arms, hands, legs, weapon, clasp or accessories. Crisp dark ink contours and textured muted red/teal hand-painted rendering exactly matching source atlas. Genuine transparent alpha outside precise cloth, no colored aura, background, shadow, text, labels, border or checkerboard. These must be close intermediate phases, not three unrelated cloth designs. Output original production source sheet with three equal cells.\n",
+          "original_tool_output": "exec-112fc550-61d7-4956-ba1f-f7dafe521789.png",
+          "reference_images": [
+            "godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/cloth_eight_phase_rebalanced.png",
+            "previous A_idle_cloth_bridges.png (rejected example, SHA recorded above)"
+          ],
+          "endpoint_pairs_zero_based": [
+            [
+              2,
+              4
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              1
+            ]
+          ]
+        }
+      ],
+      "review_status": "Redrawn source candidate; actual intermediate shapes must be reviewed with endpoint cels under common registration before runtime acceptance."
     },
     {
       "file": "B_run_attack.png",
@@ -891,7 +923,8 @@
           "prompt": "Use case: identity-preserve. Asset type: two-frame descending airborne idle loop sprite source sheet, facing RIGHT. Input image 1 is EDIT TARGET. Use the first (LEFT) character's complete body pose as the locked pose for BOTH cells. The right character's changing boots/knees are wrong. Exactly TWO equal square cells in ONE horizontal row. In both cells keep IDENTICAL head, face, torso, shoulder, arms, hands, held steel sword angle, belt and tunic, SAME relaxed falling legs, SAME knee bend, SAME two boot shapes and feet placement. Both frames use the LEFT body's pose; do not animate legs, do not kick or pedal. Anchor the same body at identical local cell coordinates and uniform scale. Frame 2 changes ONLY the far-left free tips of the red scarf and teal cape a tiny amount (about 1-2 percent of character height); collar and main folds stay stable. Cloth streams up-left for falling, no floor or crouched landing. No whole-body bob or root shift, no changed hairstyle. Preserve the exact youthful black-ponytailed swordsman, dark worn tunic and trousers, brown leather boots, gold sword hilt, red scarf, teal cape and textured ink hand-painted style from image 1. Preserve all sword tips, fingers, hair and boots, wide genuine transparent margins and gutter. Genuine transparent alpha-zero empty background, no new effects, no glow, haze, shadow, text, border or checkerboard. Highest priority: keep both knee and boot silhouettes identical so the two-frame loop cannot flap its legs.\n",
           "original_tool_output": "exec-2c75749a-5ee8-48e7-b348-af78f3dc9974.png"
         }
-      ]
+      ],
+      "review_status": "Leg pose redrawn from first source cel for both frames; cloth-tip variation inspected; runtime registration/playback acceptance pending."
     }
   ]
 }
