@@ -4,7 +4,7 @@
   "generator": "built-in image_gen",
   "transparent_background": true,
   "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
-  "scope": "Seven generated source sheets (25 cels), with source-only review corrections. Runtime animation wiring is not changed.",
+  "scope": "7 generated source sheets (25 cels). Runtime unchanged.",
   "style_reference": {
     "file": "refs/00_style_run_v4_8frames.png",
     "repository_source": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
@@ -27,11 +27,11 @@
         724
       ],
       "mode": "RGBA",
-      "sha256": "9bba9ae3ce26a793f04e7d14788f0068378fd48de2e4602ea542042a3b6fde83",
-      "prompt_sha256": "dcc54c66f9e7be344241c4e73d7e993491c1370909d19d38e582ac3eb730b23f",
-      "original_tool_output": "exec-112fc550-61d7-4956-ba1f-f7dafe521789.png",
-      "rgba_alpha_zero_pixels": 1185687,
-      "rgba_alpha_ge_128_pixels": 362065,
+      "sha256": "c104ceba25f36b608d68d3a6f54bda5bf5809aff8af063b89f007670f9534367",
+      "prompt_sha256": "62a1506b242db490da69f164b179a5406bc5ab45faf183b1fab7ffae855ee278",
+      "original_tool_output": "exec-34c11a43-377f-4c0b-98ba-011d9e0b6b96.png",
+      "rgba_alpha_zero_pixels": 1146904,
+      "rgba_alpha_ge_128_pixels": 395683,
       "alpha_extrema": [
         0,
         255
@@ -46,18 +46,18 @@
             724
           ],
           "opaque_bounds_in_region": [
-            74,
-            139,
-            630,
-            609
+            82,
+            129,
+            641,
+            646
           ],
           "opaque_padding_left_top_right_bottom": [
-            74,
-            139,
-            94,
-            115
+            82,
+            129,
+            83,
+            78
           ],
-          "rgba_region_sha256": "c4c40fea48e098d59cbc79d90f3b1145ec0b6c0b6db68e0fbca22a1100ad8b83"
+          "rgba_region_sha256": "2a8f29a0e97cd87b5cd77eb0ed80768c5be8b206b56ff125fcf26e61ced89f47"
         },
         {
           "index": 2,
@@ -68,18 +68,18 @@
             724
           ],
           "opaque_bounds_in_region": [
-            91,
-            140,
-            652,
-            616
+            46,
+            129,
+            622,
+            644
           ],
           "opaque_padding_left_top_right_bottom": [
-            91,
-            140,
-            72,
-            108
+            46,
+            129,
+            102,
+            80
           ],
-          "rgba_region_sha256": "7ac8d8d4f1d0572e43062fc7bd522ff39e817de6690b5210a4daa77c863c2a3a"
+          "rgba_region_sha256": "31fb5ad4efb010893d5c890fc9913c5e19a2a578fbfedd6bad229dacb9dd72cf"
         },
         {
           "index": 3,
@@ -90,24 +90,23 @@
             724
           ],
           "opaque_bounds_in_region": [
-            111,
-            140,
-            652,
-            615
+            71,
+            129,
+            650,
+            644
           ],
           "opaque_padding_left_top_right_bottom": [
-            111,
-            140,
-            72,
-            109
+            71,
+            129,
+            74,
+            80
           ],
-          "rgba_region_sha256": "73e375c909e125b3ca1f4fa8973009fd61fc8254b257ec33c25d8a308f8b1817"
+          "rgba_region_sha256": "3cf97549bac9dfd4c313147af76df9a7fbeb04b62207004a88384efda9d9ce11"
         }
       ],
       "visual_review": [
-        "correct cel count and complete silhouettes",
-        "actual alpha channel and clear gutters",
-        "user review correction inspected; runtime acceptance pending"
+        "RGBA and per-cel bounds checked",
+        "No runtime integration or playback claim"
       ],
       "reference_images": [
         "refs/00_style_run_v4_8frames.png",
@@ -128,7 +127,7 @@
           1
         ]
       ],
-      "passes": 2,
+      "passes": 3,
       "review_corrections": [
         {
           "date": "2026-10-17",
@@ -160,9 +159,15 @@
               1
             ]
           ]
+        },
+        {
+          "date": "2026-10-17",
+          "previous_sha256": "9bba9ae3ce26a793f04e7d14788f0068378fd48de2e4602ea542042a3b6fde83",
+          "prompt": "Use case: precise-object-edit. Production animation inbetweens, not concept art. Reference is authoritative 4 columns x 2 rows cloth atlas (zero based 0..7). Generate exactly THREE cloth cels, one horizontal row, transparent alpha. Cel 1 is the exact geometric halfway drawing between atlas cel 2 (top third) and cel 4 (bottom first). Cel 2 halfway between 6 and 7 (bottom third and fourth). Cel 3 halfway between 7 and 1 (bottom fourth and top second). Preserve scale, collar shape and matching tear topology of source. Red scarf remains narrow gently sloping left, teal cape long diagonal downward left. Trace existing endpoint contour language, every tear point and main fold should fall BETWEEN corresponding endpoint positions after collar alignment; never invent new folds or rip teeth, never enlarge scarf or make a gust. Each cel identical scale and collar coordinates; generous transparent margins equal cells. Exactly same muted textured ink painted rendering, same dark teal and red palette. CLOTH ONLY, no person, clasp, weapon, text, shadows. Crucial: subtle HALF phase, source transitions only 1-3% motion; do not redesign silhouettes.\n",
+          "original_tool_output": "exec-34c11a43-377f-4c0b-98ba-011d9e0b6b96.png"
         }
       ],
-      "review_status": "Redrawn source candidate; actual intermediate shapes must be reviewed with endpoint cels under common registration before runtime acceptance."
+      "review_status": "Source candidate only; exact endpoint interpolation NOT accepted."
     },
     {
       "file": "B_run_attack.png",
