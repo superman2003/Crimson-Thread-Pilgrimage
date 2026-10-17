@@ -1,0 +1,216 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "delayed_shadow",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/delayed_shadow/atlas.png",
+  "reference_sha256": "9cb34c3dabf913228cd0161af39c3a9f74336518482706add3270a4dfb938ec4",
+  "prompt": "Use case: identity-preserve. EXACT delayed_shadow from reference: slender dark navy feather-cloaked insect swordsman, ivory oval beak mask with black eye, two long navy feather-like horns, burgundy scarf with long torn tails, black thin limbs, small silver needle sword. Preserve exact identity, anatomy, colors and detailed painted ink style. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT complete isolated right-facing figures at same scale. Miniature sprites within central 60% width/70% height of each cell, full feather horns, scarf, cloak and sword contained, wide empty gutters. Top row FOUR nonlethal recoil-recovery poses: torso flinches backward; crouches with sword close and scarf lagging; regains footing and lowers sword; upright neutral guard. Bottom row FOUR death stages: knees buckle and sword dips; drops to one knee; falls sideways with cloak pooling and sword resting alongside; motionless prone shadow with mask and all feathers/weapon visible. Distinct articulated joints and cloth, no duplicate stamps. Actual transparent alpha; no background, floor shadows, afterimages, fading, text, grids, effects or gore.",
+  "image_sha256": "e25243502fcc915dad12a53a5fcc967bf91c1e4a669f0c3aec4c45041e27593f",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        86,
+        68,
+        352,
+        379
+      ],
+      "visible_bbox_alpha_gt_24": [
+        89,
+        71,
+        346,
+        373
+      ],
+      "rgba_sha256": "1e170df1aece19a00eaea32573d426fd1584e49d08aeb2b0b24f2d4f593ece24",
+      "component_seeds": [
+        [
+          335,
+          281
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        481,
+        140,
+        439,
+        310
+      ],
+      "visible_bbox_alpha_gt_24": [
+        484,
+        143,
+        433,
+        304
+      ],
+      "rgba_sha256": "aaa9a5915ce521b2185f474155dcc734864188f158a6894197c6b93126e3dee7",
+      "component_seeds": [
+        [
+          767,
+          323
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        910,
+        106,
+        405,
+        343
+      ],
+      "visible_bbox_alpha_gt_24": [
+        913,
+        109,
+        399,
+        337
+      ],
+      "rgba_sha256": "63995a2a1bb707378d30f51cd42503e3f98d7fee74822147ff6a2f22be273bf5",
+      "component_seeds": [
+        [
+          1109,
+          302
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1366,
+        50,
+        382,
+        404
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1369,
+        53,
+        376,
+        398
+      ],
+      "rgba_sha256": "a19aeadd5c323ea283739442b0fb2834bada44f1db15a2021322f4e31f894fdb",
+      "component_seeds": [
+        [
+          1444,
+          286
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        83,
+        498,
+        387,
+        319
+      ],
+      "visible_bbox_alpha_gt_24": [
+        86,
+        501,
+        381,
+        313
+      ],
+      "rgba_sha256": "4ec5ef439b9595c2e40d01bdc1779f8b801ce4dd73b09e5ab0f979c67fd5bdb1",
+      "component_seeds": [
+        [
+          185,
+          667
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        494,
+        546,
+        439,
+        264
+      ],
+      "visible_bbox_alpha_gt_24": [
+        497,
+        549,
+        433,
+        258
+      ],
+      "rgba_sha256": "32ac3ffa69b61d872b541310cc6e31d2aa9a87b7bc84f7c57fba8ce41a1ca427",
+      "component_seeds": [
+        [
+          613,
+          713
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        886,
+        650,
+        471,
+        168
+      ],
+      "visible_bbox_alpha_gt_24": [
+        889,
+        653,
+        465,
+        162
+      ],
+      "rgba_sha256": "faa56226cbc87c19a03072e5a909b12baa60f9b20509d6eaba70a1fd095f1372",
+      "component_seeds": [
+        [
+          909,
+          747
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1329,
+        653,
+        433,
+        166
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1332,
+        656,
+        427,
+        160
+      ],
+      "rgba_sha256": "0c98cb1f3e78d5d9f722a430d84dd396da56046adf5cc314990077e23783648d",
+      "component_seeds": [
+        [
+          1552,
+          760
+        ]
+      ]
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1144107,
+    "region_structure": "Seeded alpha>24 silhouettes have at least 2px interior margin; rectangles may overlap, isolate using component_seeds.",
+    "visual_review": "Eight complete navy feather-cloaked swordsmen, ivory mask, feather horns, red scarf and silver needle sword retained. Recoil regains guard; death crouches, kneels and collapses prone.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
