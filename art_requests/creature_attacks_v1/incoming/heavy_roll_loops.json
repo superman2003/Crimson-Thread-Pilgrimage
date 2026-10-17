@@ -1,0 +1,100 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "corridor_heavy",
+  "image": "heavy_roll_loops.png",
+  "requested_frames": 4,
+  "source_brief": "art_requests/creature_attacks_v1/corridor_heavy.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/corridor_heavy.png",
+  "reference_sha256": "3c2a74041600de4004f4ed45ff2f9a2df6f8db8f4b5ca9d720a70f004113e840",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "heavy_roll_loops.txt",
+  "image_size": [
+    2172,
+    724
+  ],
+  "image_sha256": "2c50a11d2b9b1e3e6c818ef7cc7cf2031140432c83c54bfd3989ca9e4445a7e1",
+  "git_blob_sha": "f531a6605e78b7d395e33ebc46120182901f53db",
+  "fully_transparent_pixels": 1159776,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        76,
+        249,
+        477,
+        353
+      ],
+      "component_seed": [
+        286,
+        253
+      ],
+      "bbox_alpha_gt_24": [
+        80,
+        253,
+        469,
+        345
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        630,
+        216,
+        451,
+        383
+      ],
+      "component_seed": [
+        822,
+        220
+      ],
+      "bbox_alpha_gt_24": [
+        634,
+        220,
+        443,
+        375
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        1192,
+        236,
+        346,
+        358
+      ],
+      "component_seed": [
+        1355,
+        240
+      ],
+      "bbox_alpha_gt_24": [
+        1196,
+        240,
+        338,
+        350
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        1742,
+        238,
+        348,
+        347
+      ],
+      "component_seed": [
+        1915,
+        242
+      ],
+      "bbox_alpha_gt_24": [
+        1746,
+        242,
+        340,
+        339
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Four isolated complete heavy guard poses in one row: two crouched charge variations followed by two curled shell rotation poses, hammer retained inside coil. Moss, shell, purple rags and mask retained; no motion trails or ground dust. Cyclic rotation and link to original strike await runtime review.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
