@@ -1,10 +1,31 @@
 {
   "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
   "generator": "built-in image_gen",
+  "scope": "Boss source artwork only; no hero or cloth; runtime integration not included",
   "excluded": [
     "all player/hero assets",
     "cloth/scarf bridges"
   ],
+  "totals": {
+    "source_sheets": 12,
+    "current_sheets": 10,
+    "accepted_pose_count": 52,
+    "superseded_sheets": 2
+  },
+  "pending_clarification": [
+    {
+      "category": "普通怪衔接和画面错误",
+      "frames": 10,
+      "missing": "角色名、动作名、帧号/源图定位"
+    },
+    {
+      "category": "被裁到边的单帧重画",
+      "frames": 5,
+      "missing": "角色名、动作名、帧号/源图定位"
+    }
+  ],
+  "selection_note": "The four phase-2 subjects are grounded in current main's boss_moss_roots, boss_shears_turn, boss_bishop_cage and boss_key_gate definitions; screenshot supplies counts only, no detailed prior audit mapping.",
+  "validation": "PNG alpha verified and main alpha>128 connected silhouettes reviewed. Separated v2 sheets have four/six independent main components. No game/runtime tests run. No slicing or runtime manifest changes.",
   "assets": [
     {
       "id": "E_sunken_hammer_smith_recover",
