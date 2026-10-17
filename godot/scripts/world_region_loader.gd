@@ -172,7 +172,7 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
     else:
         host.world_catalog = startup_source_catalog
         host.world_catalog_prepare_staging = {}
-        last_error = "初始区域准备或构建任务未能完成。"
+        if last_error.is_empty(): last_error = "初始区域准备或构建任务未能完成。"
         _show_startup_error(host)
     if built:
         _clear_loading_canvas()

@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MAIN_SCENE := "res://scenes/Main.tscn"
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 const CONFIG_PATHS := [
     "res://data/demo_ch01_moss_bell_court.json",
     "res://data/demo_ch02_rain_foundry_canal.json",
@@ -284,7 +285,8 @@ func _manifest_has_directional_animation(sprite_path: String, animation_name: St
 
 func _validate_runtime_boss_manifest(config_id: String, state: Dictionary) -> void:
     var config := _load_json("res://data/"+config_id+".json")
-    _assert(String(state.get("boss_asset_path", ""))=="res://assets/sprites/original_creatures/"+String(config.boss.kind)+"/manifest.json",config_id+" runtime uses original boss art")
+    var path := ART.character_manifest("original_creatures", String(config.boss.kind))
+    _assert(String(state.get("boss_asset_path", "")) == path, config_id + " runtime uses the current original-art motion manifest")
 
 
 func _text_has(value, needle: String) -> bool:

@@ -2,6 +2,7 @@ extends SceneTree
 
 const CONFIG_PATH := "res://data/demo_ch02_rain_foundry_canal.json"
 const MAIN_SCENE := "res://scenes/Main.tscn"
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 var failures := 0
 
 
@@ -143,7 +144,7 @@ func _run() -> void:
     _assert(scene.boss_actor.kind == "sunken_hammer_smith", "CH02 boss actor uses CH02 kind")
     _assert(scene.boss_actor.get("arena_min_x") < scene.boss_actor.get("arena_max_x"), "CH02 boss runtime has arena bounds")
     _assert(not bool(scene.boss_actor.get("sprite_faces_left")), "CH02 boss source faces right")
-    _assert(String(scene.boss_actor.get("asset_path")) == String(config.get("boss", {}).get("sprite", "")), "CH02 boss runtime uses high-fidelity boss_02 manifest")
+    _assert(String(scene.boss_actor.get("asset_path")) == ART.character_manifest("original_creatures", String(config.boss.kind)), "CH02 boss runtime uses the current original-art motion manifest")
     scene.boss_actor.set("direction", 1)
     scene.boss_actor._begin_attack({
         "id": "validation_lock",
