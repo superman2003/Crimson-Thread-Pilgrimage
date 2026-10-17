@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "index_scribe",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/index_scribe/atlas.png",
+  "reference_sha256": "5ce1dd5f69b8e346486b8680a90187a0c0d103b05f46d042127a3a3637efe25b",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact index_scribe character identity and painted style. Tall thin black insect scribe, long two antennae, pointed ivory moth mask with black oval eye, ragged parchment-white mantle, brown backpack with rolled scrolls, small antique gold clasps, ONE long dark writing staff topped by a large ivory feather with charcoal tip and gold binding. Keep scroll pack, entire antennae and full feather staff. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: impact flinch with torso leaning backward, deeper recoil with bent knees, regains foot support while steadying equipment, returns to upright guard. Bottom row FOUR death-collapse poses: knees buckle and equipment drops, lowers onto one knee, collapses onto side with equipment beside body, lies lifeless prone with all equipment complete. Real joint and cloth articulation. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "88c3b74f2972ae083d237f56bf22ef066319d8c969ba070431132211ea66352e",
+  "git_blob_sha": "ecdecc85d59320b1da84a04683fe0f13e7979184",
+  "component_seeds": [
+    [
+      307,
+      40
+    ],
+    [
+      828,
+      108
+    ],
+    [
+      1233,
+      57
+    ],
+    [
+      1653,
+      49
+    ],
+    [
+      441,
+      521
+    ],
+    [
+      805,
+      530
+    ],
+    [
+      1119,
+      655
+    ],
+    [
+      1575,
+      714
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        73,
+        36,
+        285,
+        408
+      ],
+      "component_seed": [
+        307,
+        40
+      ],
+      "visible_bbox_alpha_gt_24": [
+        77,
+        40,
+        277,
+        400
+      ],
+      "rgba_sha256": "8fd1eaa1e38089cc5a3dcca86a445ad4091ffd84195f9fd482da2f2aa4afb63c"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        507,
+        104,
+        328,
+        338
+      ],
+      "component_seed": [
+        828,
+        108
+      ],
+      "visible_bbox_alpha_gt_24": [
+        511,
+        108,
+        320,
+        330
+      ],
+      "rgba_sha256": "33470aef29cd88d8fec5436a528fea66e3a2ff03050e2ff1b8d84db276b6e020"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        924,
+        53,
+        318,
+        396
+      ],
+      "component_seed": [
+        1233,
+        57
+      ],
+      "visible_bbox_alpha_gt_24": [
+        928,
+        57,
+        310,
+        388
+      ],
+      "rgba_sha256": "c23afbe0169afdb208a32003b7cd5ddf5f13f44b9ccd1b7c6aaa7dba88057023"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1404,
+        45,
+        257,
+        404
+      ],
+      "component_seed": [
+        1653,
+        49
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1408,
+        49,
+        249,
+        396
+      ],
+      "rgba_sha256": "4eb86966a1f8929eff32461f9ba16d05e2e831bd9776a5e58e72b10495448221"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        81,
+        517,
+        367,
+        322
+      ],
+      "component_seed": [
+        441,
+        521
+      ],
+      "visible_bbox_alpha_gt_24": [
+        85,
+        521,
+        359,
+        314
+      ],
+      "rgba_sha256": "5501a18e22d72ca6871654732d83a4d5a52e748ade1ef299716bc3db0ea42417"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        483,
+        526,
+        332,
+        314
+      ],
+      "component_seed": [
+        805,
+        530
+      ],
+      "visible_bbox_alpha_gt_24": [
+        487,
+        530,
+        324,
+        306
+      ],
+      "rgba_sha256": "750f866e1a9b0345b30f7f51ae380772742533fe632daac802cfcb25c912b343"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        852,
+        651,
+        470,
+        189
+      ],
+      "component_seed": [
+        1119,
+        655
+      ],
+      "visible_bbox_alpha_gt_24": [
+        856,
+        655,
+        462,
+        181
+      ],
+      "rgba_sha256": "4e332360df5c8f2f6aeeb45b49b65bebfa5e6ca857a31fe502696c179858f846"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1335,
+        710,
+        429,
+        134
+      ],
+      "component_seed": [
+        1575,
+        714
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1339,
+        714,
+        421,
+        126
+      ],
+      "rgba_sha256": "09be1be8cd17515be6e30aa4acbdf9e6e2bab995921992bcda4b09a42f5be188"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1213209,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight separate complete scribe silhouettes. Feather staff, long antennae, parchment mantle and scroll backpack retained. Hurt row returns upright; death row kneels then lies prone with staff. No runtime integration or playback claim.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}
