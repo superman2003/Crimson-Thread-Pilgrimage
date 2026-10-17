@@ -127,8 +127,8 @@
       "reference": [
         "godot/assets/sprites/original_creatures/silent_pilgrim_commander/atlas.png"
       ],
-      "status": "source_art_only_not_runtime_integrated",
-      "visual_review": "Six full distinct right facing recovery poses. Veil and long needle complete; first/last left-column needle extends across nominal column, use contour-based crops. No runtime integration.",
+      "status": "superseded_contact_between_adjacent_cels",
+      "visual_review": "Six full distinct right facing recovery poses. Veil and long needle complete; first/last left-column needle extends across nominal column, use contour-based crops. No runtime integration. Strong-alpha component check confirmed adjacent lower poses touch; superseded by separated v2 sheet, do not use this source for slicing.",
       "dimensions": [
         1024,
         1536
@@ -139,7 +139,8 @@
         254
       ],
       "sha256": "309c2c8399330e722ad27063650eb8cdf4a1b73b92591b91621c9f03a07e670f",
-      "blob_sha": "09bc90675e7938b30866fb1edde372e842ac893c"
+      "blob_sha": "09bc90675e7938b30866fb1edde372e842ac893c",
+      "accepted_frames": 0
     },
     {
       "id": "E_silent_crown_core_recover",
@@ -210,8 +211,8 @@
         "godot/assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
         "godot/data/original_creature_combat.json#boss_shears_turn"
       ],
-      "status": "source_art_only_not_runtime_integrated",
-      "visual_review": "Four right-facing phase attack poses including two airborne cels. Full body and scissors retained. Lower-left extended scissors approach lower-right antenna; raw source needs careful contour review before runtime, not an integration-ready atlas.",
+      "status": "superseded_contact_between_adjacent_cels",
+      "visual_review": "Four right-facing phase attack poses including two airborne cels. Full body and scissors retained. Lower-left extended scissors approach lower-right antenna; raw source needs careful contour review before runtime, not an integration-ready atlas. Strong-alpha component check confirmed adjacent lower poses touch; superseded by separated v2 sheet, do not use this source for slicing.",
       "dimensions": [
         1254,
         1254
@@ -222,7 +223,8 @@
         255
       ],
       "sha256": "7209fd922a58869e09e5a0b64ae253caff4c8f2f9aea04d831fd73ae00d58f08",
-      "blob_sha": "685dcfc9f9bcce96763c1213aa923626f396773e"
+      "blob_sha": "685dcfc9f9bcce96763c1213aa923626f396773e",
+      "accepted_frames": 0
     },
     {
       "id": "B_broken_string_gardener_root_cage",
@@ -279,6 +281,34 @@
       ],
       "sha256": "3f4b1eee50b376adf65ddf5e299bd31d6aee6149488fda7a908a3aedb3e66a36",
       "blob_sha": "3b9e4c2af2ee6a3bb41568637fe1a57da781bf1b"
+    },
+    {
+      "id": "B_sunken_hammer_smith_vault_scissors_v2",
+      "file": "B_sunken_hammer_smith_vault_scissors_v2.png",
+      "prompt_file": "B_sunken_hammer_smith_vault_scissors_v2.txt",
+      "requested_frames": 4,
+      "accepted_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "Separated replacement for B_sunken_hammer_smith_vault_scissors: four phase 2 vault-turn cels",
+      "reference": [
+        "godot/assets/sprites/generated_supplements_20261017/B_sunken_hammer_smith_vault_scissors.png"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Four complete phase poses now visibly separated by transparent gaps, including airborne turn and close. Supersedes touching lower pair in original sheet. Contour registration still needed for runtime.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "412b885f46cc6913bfeb85100329eeb1e9be6a94f1257ad805af78316b9b5354",
+      "blob_sha": "43306c7337f4b0738b004d53973913f8e8cc550a"
     }
   ]
 }
