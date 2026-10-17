@@ -50,7 +50,7 @@ jobs:
         run: |
           npm run test:campaign
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --log-dir "$RUNNER_TEMP/ch06-route-logs/import"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/ch06-route-logs/import"
       - name: Walk the optional vault route and verify saved reward uniqueness
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

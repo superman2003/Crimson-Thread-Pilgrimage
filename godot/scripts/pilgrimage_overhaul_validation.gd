@@ -2,6 +2,7 @@ extends SceneTree
 
 var failures := 0
 var moves_tested := 0
+var elite_moves_tested:=0
 var kinds_seen := {}
 var capture := false
 
@@ -101,7 +102,8 @@ func _run() -> void:
                 for step in range(5):actor._update_active(float(command.active)/5.0+.001)
                 check(actor.state=="recover",actor.kind+" enters recovery")
                 actor._update_recover(float(command.recover)+.001)
-                moves_tested+=1
+                if bool(command.get("elite_only",false)): elite_moves_tested+=1
+                else: moves_tested+=1
         scene.player.ui_input_locked=false
         scene.player.debug_invulnerable=true
         for effect in get_nodes_in_group("hostile_attack"):
@@ -127,6 +129,8 @@ func _run() -> void:
         for i in range(3):await process_frame
     check(kinds_seen.size()==46,"46 distinct creature kinds exercised")
     check(moves_tested==104,"104 attack windup/active/recovery sequences exercised")
+    # An elite may be the first actor of its kind; its signature attack is extra.
+    check(elite_moves_tested<=10,"elite signature attacks are counted separately: %d" % elite_moves_tested)
     print("PILGRIMAGE_OVERHAUL_VALIDATION kinds=%d moves=%d failures=%d" %[kinds_seen.size(),moves_tested,failures])
     quit(0 if failures==0 else 1)
 
