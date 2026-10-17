@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "gear_sentinel",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/gear_sentinel/atlas.png",
+  "reference_sha256": "e4444a601c78d76d4758e9f7f403a2b44d841b4e479646728ade68a723047734",
+  "prompt": "Use case: identity-preserve. Production keyframe sprite sheet of EXACT gear_sentinel from reference: brass armored insect soldier with black oval face, two long bent bronze antennae, ragged teal cape, small pointed spear and round toothed cogwheel shield. Preserve exact design and detailed ink-painted style. ONE landscape RGBA sheet, FOUR columns TWO rows, EIGHT isolated complete full-body figures, right facing, same scale. Render characters SMALL with whole spear, shield, antennae and cape within central 65% width and 72% height of cell, broad transparent gutters. Top row FOUR nonlethal recoil-recovery stages: impact jerks torso back; crouches deeper behind tilted cog shield with spear tucked; regains balance; upright guarded rest. Bottom row FOUR death stages: knees buckle and gear shield dips; kneels with lowered spear; tips sideways with shield and spear beside body; motionless prone corpse, whole equipment visible. Genuine articulated joints and weapon orientations, no stamp duplicates, no clipping or touching figures. Actual fully transparent background, no scenery, shadows, glow, text, grid lines or gore.",
+  "image_sha256": "92886f4d919853c4651386aeca7e610c35746e4eb1b737e920c1324e0b57aea3",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        494,
+        490
+      ],
+      "visible_bbox_alpha_gt_24": [
+        77,
+        86,
+        384,
+        351
+      ],
+      "rgba_sha256": "a7d8187e01bba7fb24b1d3efe0bef33fc9797143feca7bf0981818c040e9f305"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        494,
+        0,
+        424,
+        490
+      ],
+      "visible_bbox_alpha_gt_24": [
+        527,
+        190,
+        378,
+        247
+      ],
+      "rgba_sha256": "9515f1ca65b4af3e68afc3055d3e3fef0894b6891192d3a1b68a901a1bc70d53"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        918,
+        0,
+        415,
+        490
+      ],
+      "visible_bbox_alpha_gt_24": [
+        931,
+        122,
+        378,
+        315
+      ],
+      "rgba_sha256": "8ff5bce9c2c1aa534a6a6a80cd019a58fea7464ef5504c0c7328a02e2dc613c2"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1333,
+        0,
+        441,
+        490
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1358,
+        91,
+        359,
+        346
+      ],
+      "rgba_sha256": "76d24f7b8e8eb6c305c46f5e5d22ba19c8c4eb13527d854e911dbf90322d9a6a"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        490,
+        480,
+        397
+      ],
+      "visible_bbox_alpha_gt_24": [
+        82,
+        544,
+        384,
+        259
+      ],
+      "rgba_sha256": "6e24c8172b216ecc52e6fdc85fd7739acd11b3d64f91264fa27cf38c0435c71c"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        480,
+        490,
+        417,
+        397
+      ],
+      "visible_bbox_alpha_gt_24": [
+        496,
+        588,
+        395,
+        227
+      ],
+      "rgba_sha256": "92c60f412a37ac80cc76e21d3b8221093bf9bec7bd279156b0b4c6796571b294"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        897,
+        490,
+        423,
+        397
+      ],
+      "visible_bbox_alpha_gt_24": [
+        904,
+        635,
+        394,
+        182
+      ],
+      "rgba_sha256": "23389e4c01474395c3b23a7df9443695a26730730ec38af1c7ebbf2eebbe3799"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1320,
+        490,
+        454,
+        397
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1342,
+        675,
+        394,
+        158
+      ],
+      "rgba_sha256": "d01c4ff74b6dba6f2ba46aa441aa4a62dfada8689a1e5cc275a1aa7010b97e27"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1117595,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete brass insect sentinels with two antennae, teal cape, cog shield and full pointed spear. Hurt row recovers to guard; death row crouches, kneels, tips sideways and remains prone.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
