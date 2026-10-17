@@ -1,0 +1,503 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "rust_diver",
+  "canvas": [
+    416,
+    224
+  ],
+  "display_height": 102,
+  "visual_scale": 0.5862068965517241,
+  "visual_offset": [
+    0,
+    -3.7019793352421217
+  ],
+  "motion": "ground",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            103,
+            42,
+            234,
+            174
+          ],
+          "margin": [
+            103,
+            42,
+            182,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            515,
+            37,
+            238,
+            179
+          ],
+          "margin": [
+            99,
+            37,
+            178,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            934,
+            41,
+            225,
+            175
+          ],
+          "margin": [
+            102,
+            41,
+            191,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1355,
+            42,
+            218,
+            174
+          ],
+          "margin": [
+            107,
+            42,
+            198,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1768,
+            40,
+            227,
+            176
+          ],
+          "margin": [
+            104,
+            40,
+            189,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            2200,
+            40,
+            221,
+            176
+          ],
+          "margin": [
+            120,
+            40,
+            195,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            114,
+            265,
+            225,
+            175
+          ],
+          "margin": [
+            114,
+            41,
+            191,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            520,
+            268,
+            224,
+            172
+          ],
+          "margin": [
+            104,
+            44,
+            192,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            930,
+            262,
+            239,
+            178
+          ],
+          "margin": [
+            98,
+            38,
+            177,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1342,
+            263,
+            243,
+            177
+          ],
+          "margin": [
+            94,
+            39,
+            173,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1763,
+            261,
+            255,
+            179
+          ],
+          "margin": [
+            99,
+            37,
+            161,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            2193,
+            265,
+            216,
+            175
+          ],
+          "margin": [
+            113,
+            41,
+            200,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            100,
+            490,
+            250,
+            174
+          ],
+          "margin": [
+            100,
+            42,
+            166,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            510,
+            492,
+            228,
+            172
+          ],
+          "margin": [
+            94,
+            44,
+            188,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            915,
+            470,
+            220,
+            194
+          ],
+          "margin": [
+            83,
+            22,
+            196,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1364,
+            456,
+            176,
+            208
+          ],
+          "margin": [
+            116,
+            8,
+            240,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1771,
+            487,
+            301,
+            177
+          ],
+          "margin": [
+            107,
+            39,
+            115,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            2211,
+            500,
+            252,
+            164
+          ],
+          "margin": [
+            131,
+            52,
+            164,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            131,
+            716,
+            249,
+            172
+          ],
+          "margin": [
+            131,
+            44,
+            167,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            542,
+            721,
+            203,
+            167
+          ],
+          "margin": [
+            126,
+            49,
+            213,
+            57
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            942,
+            708,
+            217,
+            180
+          ],
+          "margin": [
+            110,
+            36,
+            199,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1364,
+            701,
+            237,
+            187
+          ],
+          "margin": [
+            116,
+            29,
+            179,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1762,
+            712,
+            225,
+            176
+          ],
+          "margin": [
+            98,
+            40,
+            191,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            2187,
+            710,
+            212,
+            178
+          ],
+          "margin": [
+            107,
+            38,
+            204,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            102,
+            913,
+            235,
+            199
+          ],
+          "margin": [
+            102,
+            17,
+            181,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            521,
+            941,
+            235,
+            171
+          ],
+          "margin": [
+            105,
+            45,
+            181,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            930,
+            991,
+            242,
+            121
+          ],
+          "margin": [
+            98,
+            95,
+            174,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1341,
+            988,
+            230,
+            124
+          ],
+          "margin": [
+            93,
+            92,
+            186,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_diver/motion_runtime.png",
+          "region": [
+            1759,
+            1020,
+            226,
+            92
+          ],
+          "margin": [
+            95,
+            124,
+            190,
+            132
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

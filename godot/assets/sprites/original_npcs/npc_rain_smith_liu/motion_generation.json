@@ -1,0 +1,309 @@
+{
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-e9460703-bedb-4c40-974b-02bf9628d75a.png",
+  "prompt": "Edit the reference atlas into a genuine transparent-alpha SPRITE SHEET. REMOVE ALL of the original brown/black backdrop; empty space must have alpha=0. Keep the exact reference character: elderly rhinoceros beetle smith with tall curved ivory horn/head armor, white beard, stocky body, blue shirt, worn leather tool apron and belt with pliers, red dark wing case with gold rim, metal hammer. Same hand-painted game drawing, no redesign. Exactly SIXTEEN full-body poses arranged 4 columns by 4 rows. Large visible transparent gutters: each entire character including horn and hammer occupies only central 70% of each cell width and height; no cell touching. Same scale, right-facing camera and baseline. Row1 4 distinct idle breathing/blink poses; rows2-3 8 progressive talking hand and head gestures while hammer stays controlled; row4 wave, bow, two distinct seated rest frames. Natural articulated limb, mouth, beard and cloth motion, no translated identical drawings. Transparent background only; NO brown backdrop, NO contact sheet background, NO text or grid or scenery. All 16 silhouettes complete and isolated.",
+  "layout": {
+    "columns": 4,
+    "rows": 4,
+    "order": "row-major",
+    "animations": {
+      "idle": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "talk": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "greet": [
+        12,
+        13
+      ],
+      "rest": [
+        14,
+        15
+      ]
+    }
+  },
+  "qa": {
+    "visual_review": "16 full silhouettes visually reviewed; source costume and props retained; distinct articulated idle, talk, greeting and seated rest poses.",
+    "geometry": "Reviewed all16 independent full alpha>24 eight-connected silhouettes; no silhouettes merge. Explicit seed preserves each complete character and attached props, nearest3px antialias retained. Padded source rectangles isolate interlocking atlas bboxes through packer; no pose redrawn or interpolated.",
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          83,
+          4,
+          216,
+          278
+        ],
+        "anchor_x": 116.3,
+        "component_seeds": [
+          [
+            153,
+            165
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          451,
+          3,
+          227,
+          279
+        ],
+        "anchor_x": 119.5,
+        "component_seeds": [
+          [
+            557,
+            165
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          831,
+          4,
+          223,
+          278
+        ],
+        "anchor_x": 116.5,
+        "component_seeds": [
+          [
+            940,
+            165
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1215,
+          3,
+          221,
+          279
+        ],
+        "anchor_x": 121.5,
+        "component_seeds": [
+          [
+            1320,
+            164
+          ]
+        ]
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          66,
+          271,
+          290,
+          263
+        ],
+        "anchor_x": 122.0,
+        "component_seeds": [
+          [
+            154,
+            414
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          441,
+          272,
+          297,
+          263
+        ],
+        "anchor_x": 128.0,
+        "component_seeds": [
+          [
+            489,
+            413
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          822,
+          271,
+          288,
+          264
+        ],
+        "anchor_x": 118.5,
+        "component_seeds": [
+          [
+            957,
+            415
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1204,
+          272,
+          294,
+          262
+        ],
+        "anchor_x": 129.0,
+        "component_seeds": [
+          [
+            1241,
+            413
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          67,
+          525,
+          245,
+          254
+        ],
+        "anchor_x": 128.5,
+        "component_seeds": [
+          [
+            294,
+            664
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          443,
+          525,
+          283,
+          255
+        ],
+        "anchor_x": 118.0,
+        "component_seeds": [
+          [
+            678,
+            660
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          813,
+          525,
+          314,
+          255
+        ],
+        "anchor_x": 129.0,
+        "component_seeds": [
+          [
+            914,
+            661
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1203,
+          525,
+          264,
+          257
+        ],
+        "anchor_x": 131.0,
+        "component_seeds": [
+          [
+            1339,
+            669
+          ]
+        ]
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          68,
+          771,
+          295,
+          245
+        ],
+        "anchor_x": 130.5,
+        "component_seeds": [
+          [
+            206,
+            897
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          463,
+          786,
+          273,
+          232
+        ],
+        "anchor_x": 119.0,
+        "component_seeds": [
+          [
+            541,
+            889
+          ]
+        ]
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          818,
+          771,
+          271,
+          249
+        ],
+        "anchor_x": 119.5,
+        "component_seeds": [
+          [
+            1030,
+            913
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1174,
+          768,
+          310,
+          253
+        ],
+        "anchor_x": 136.5,
+        "component_seeds": [
+          [
+            1206,
+            927
+          ]
+        ]
+      }
+    ]
+  }
+}

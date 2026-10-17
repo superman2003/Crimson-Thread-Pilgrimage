@@ -1,0 +1,213 @@
+{
+  "tool": "built-in image_gen",
+  "use_case": "identity-preserve",
+  "reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "generated_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-13de1624-c64f-4e52-a99c-8d93b8988d37.png",
+  "prompt": "Use case identity-preserve. Production game animation spritesheet of ONLY the same beeswax vendor in reference: round golden fuzzy bee, round wire spectacles, leaf green cape, cream blouse, honey yellow embroidered apron, little waist honey jar/medal, translucent wings. Preserve exact hand drawn watercolor ink style and design. Transparent alpha backdrop. EXACT 4x4 grid sixteen equal cells. Each character drawn SMALL occupying only inner 65% of cell with large clear empty margins on all 4 sides. Entire feet wings antennae and hands fit inside own cell, no crossing cell boundaries. Same full body size and facing right three-quarter; same bottom foot baseline per cell. Row1 four sequential idle breathing/blink/wing flex poses. Rows2+3 eight sequential talking frames: hands gesture, mouth opens/closes, head nods, cape follows; a real smooth expressive loop with limb deformation. Row4 two greeting hand wave frames then two restful bowed/sleepy frames. No words, no grid, no numbers, no shadows/background, no change of costume or extra props. Leave WIDE EMPTY SPACE between every figure.",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "slot_schema": {
+    "idle": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "talk": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "greet": [
+      12,
+      13
+    ],
+    "rest": [
+      14,
+      15
+    ]
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          94,
+          17,
+          221,
+          254
+        ],
+        "anchor_x": 126.35
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          451,
+          15,
+          216,
+          257
+        ],
+        "anchor_x": 124.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          823,
+          15,
+          216,
+          258
+        ],
+        "anchor_x": 120.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1209,
+          14,
+          222,
+          258
+        ],
+        "anchor_x": 131.2
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          96,
+          286,
+          249,
+          247
+        ],
+        "anchor_x": 117.95
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          452,
+          286,
+          255,
+          247
+        ],
+        "anchor_x": 128.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          831,
+          290,
+          215,
+          242
+        ],
+        "anchor_x": 115.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1218,
+          286,
+          243,
+          247
+        ],
+        "anchor_x": 110.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          96,
+          546,
+          247,
+          240
+        ],
+        "anchor_x": 112.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          456,
+          548,
+          249,
+          238
+        ],
+        "anchor_x": 125.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          841,
+          547,
+          233,
+          241
+        ],
+        "anchor_x": 120.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1221,
+          547,
+          261,
+          242
+        ],
+        "anchor_x": 122.5
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          109,
+          795,
+          229,
+          220
+        ],
+        "anchor_x": 97.55
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          467,
+          795,
+          218,
+          219
+        ],
+        "anchor_x": 95.5
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          844,
+          826,
+          224,
+          188
+        ],
+        "anchor_x": 107.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1221,
+          809,
+          245,
+          198
+        ],
+        "anchor_x": 127.5
+      }
+    ]
+  },
+  "qa": {
+    "visual_inspected": true,
+    "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
+    "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_canal_child",
+  "visual_scale": 0.3448275862068966,
+  "visual_offset": [
+    0,
+    -2.0560881385033625
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_canal_child/atlas.png",
+    "region": [
+      70,
+      14,
+      403,
+      313
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    286,
+    258
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            63,
+            74,
+            211,
+            232
+          ],
+          "margin": [
+            40,
+            18,
+            75,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            365,
+            80,
+            220,
+            225
+          ],
+          "margin": [
+            30,
+            25,
+            66,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            676,
+            72,
+            213,
+            233
+          ],
+          "margin": [
+            35,
+            17,
+            73,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            998,
+            77,
+            217,
+            229
+          ],
+          "margin": [
+            35,
+            21,
+            69,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            67,
+            368,
+            222,
+            238
+          ],
+          "margin": [
+            42,
+            12,
+            64,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            382,
+            369,
+            238,
+            238
+          ],
+          "margin": [
+            26,
+            12,
+            48,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            689,
+            369,
+            227,
+            236
+          ],
+          "margin": [
+            46,
+            14,
+            59,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            1007,
+            370,
+            220,
+            234
+          ],
+          "margin": [
+            40,
+            16,
+            66,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            58,
+            673,
+            233,
+            237
+          ],
+          "margin": [
+            36,
+            13,
+            53,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            376,
+            672,
+            223,
+            241
+          ],
+          "margin": [
+            36,
+            9,
+            63,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            694,
+            680,
+            213,
+            232
+          ],
+          "margin": [
+            50,
+            18,
+            73,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            997,
+            671,
+            225,
+            242
+          ],
+          "margin": [
+            34,
+            8,
+            61,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            67,
+            979,
+            219,
+            235
+          ],
+          "margin": [
+            32,
+            15,
+            67,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            387,
+            977,
+            203,
+            235
+          ],
+          "margin": [
+            58,
+            15,
+            83,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            689,
+            1026,
+            218,
+            174
+          ],
+          "margin": [
+            16,
+            76,
+            68,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_canal_child/motion_expanded.png",
+          "region": [
+            988,
+            1022,
+            223,
+            176
+          ],
+          "margin": [
+            8,
+            74,
+            63,
+            82
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

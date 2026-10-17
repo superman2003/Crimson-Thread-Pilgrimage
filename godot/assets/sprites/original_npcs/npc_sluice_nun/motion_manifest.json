@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_sluice_nun",
+  "visual_scale": 0.3535031847133758,
+  "visual_offset": [
+    0,
+    -15.946680080482885
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/atlas.png",
+    "region": [
+      49,
+      7,
+      447,
+      323
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    420,
+    330
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            26,
+            8,
+            306,
+            314
+          ],
+          "margin": [
+            26,
+            8,
+            114,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            448,
+            11,
+            301,
+            311
+          ],
+          "margin": [
+            28,
+            11,
+            119,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            848,
+            8,
+            339,
+            314
+          ],
+          "margin": [
+            8,
+            8,
+            81,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            1281,
+            13,
+            304,
+            309
+          ],
+          "margin": [
+            21,
+            13,
+            116,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            1720,
+            10,
+            295,
+            312
+          ],
+          "margin": [
+            40,
+            10,
+            125,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            2138,
+            13,
+            290,
+            309
+          ],
+          "margin": [
+            38,
+            13,
+            130,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            31,
+            342,
+            306,
+            310
+          ],
+          "margin": [
+            31,
+            12,
+            114,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            456,
+            345,
+            288,
+            307
+          ],
+          "margin": [
+            36,
+            15,
+            132,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            872,
+            341,
+            307,
+            311
+          ],
+          "margin": [
+            32,
+            11,
+            113,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            1286,
+            345,
+            316,
+            307
+          ],
+          "margin": [
+            26,
+            15,
+            104,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            1706,
+            341,
+            321,
+            311
+          ],
+          "margin": [
+            26,
+            11,
+            99,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            2139,
+            345,
+            286,
+            307
+          ],
+          "margin": [
+            39,
+            15,
+            134,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            38,
+            687,
+            291,
+            295
+          ],
+          "margin": [
+            38,
+            27,
+            129,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            446,
+            711,
+            338,
+            271
+          ],
+          "margin": [
+            26,
+            51,
+            82,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            872,
+            724,
+            314,
+            258
+          ],
+          "margin": [
+            32,
+            64,
+            106,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sluice_nun/motion_runtime.png",
+          "region": [
+            1306,
+            737,
+            294,
+            245
+          ],
+          "margin": [
+            46,
+            77,
+            126,
+            85
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

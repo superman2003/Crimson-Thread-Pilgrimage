@@ -1,0 +1,65 @@
+name: Expanded character motion
+
+on:
+  pull_request:
+    paths:
+      - 'godot/assets/sprites/original_creatures/**'
+      - 'godot/assets/sprites/original_npcs/**'
+      - 'godot/assets/sprites/player/generated_hero_motion_v4/**'
+      - 'godot/assets/sprites/player/generated_hero_v3/manifest.json'
+      - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/hand_drawn_assets.gd'
+      - 'godot/scripts/character_art_*.gd'
+      - 'godot/scripts/world_gameplay_prefetch.gd'
+      - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/expanded_character_motion_validation.gd'
+      - 'tools/build_expanded_*.py'
+      - 'tools/run_godot_regressions.py'
+      - '.github/workflows/expanded-character-motion.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: expanded-character-motion-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  motion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot and validation dependencies
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          python3 -m pip install --break-system-packages pillow numpy scipy
+      - name: Check reproducible production sprites and JavaScript
+        run: |
+          npm run test:character-motion
+          npm test
+      - name: Import all resources
+        run: |
+          python3 tools/run_godot_import.py \
+            --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/motion-logs/import"
+      - name: Exercise production characters, combat and movement
+        run: |
+          python3 tools/run_godot_regressions.py \
+            --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
+            --suite character_art_prewarm --suite expanded_character_motion --suite enemy_atlas_integrity \
+            --suite hero_animation --suite player_motion_continuity \
+            --suite enemy_lifecycle_regression --suite enemy_visibility --suite boss_trial \
+            --timeout 180 --log-dir "$RUNNER_TEMP/motion-logs/runtime"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: expanded-character-motion-logs
+          path: ${{ runner.temp }}/motion-logs

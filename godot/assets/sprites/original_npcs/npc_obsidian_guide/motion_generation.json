@@ -1,0 +1,213 @@
+{
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-57c70a7a-65f0-4934-b606-0de58dac7f5a.png",
+  "prompt": "Use case: identity-preserve. Production 2D hand-painted game NPC sprites. Reference image is the source atlas, preserve EXACT character design, charcoal beetle traveler with white oval mask and black eye hole, two high pointed antennae, ragged red scarf/cape, dark gold embroidered cloak, coin charms, rolled backpack, forked wooden staff with hanging bell. Make one square transparent sprite sheet of EXACTLY 16 full-body animation frames in a precise 4-column 4-row grid, no text/grid/background. Every cell has the same scale, right-facing side camera, aligned feet and 8% transparent margin on all sides, no overlap or cutoffs. Row 1 frames1-4 idle smooth breathing, blinking, antenna/scarf/bell secondary motion. Rows2-3 frames5-12 talking loop: progressive distinct head nods and open palm, point, hand-return gestures, cloth follow-through, seamless first/last loop. Row4 frame13 greeting hand, frame14 bowed greeting, frame15 seated resting, frame16 seated rest breath. Preserve silhouette, props, clothes and hand-painted line/shading. Real articulated new poses, not translations of one drawing. Only this character repeated, transparent alpha.",
+  "layout": {
+    "columns": 4,
+    "rows": 4,
+    "order": "row-major",
+    "animations": {
+      "idle": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "talk": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "greet": [
+        12,
+        13
+      ],
+      "rest": [
+        14,
+        15
+      ]
+    }
+  },
+  "qa": {
+    "visual_review": "Pending root integration QA; source identity preserved by reference; review sheet for geometry, cell margins and pose progression.",
+    "geometry": "Each reviewed pose fully isolated by alpha<=24 horizontal and vertical separator lines; complete silhouette; four clear edges and no neighboring fragment.",
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          0,
+          313,
+          313
+        ],
+        "anchor_x": 200.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          0,
+          314,
+          313
+        ],
+        "anchor_x": 179.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          0,
+          313,
+          313
+        ],
+        "anchor_x": 171.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          0,
+          314,
+          313
+        ],
+        "anchor_x": 163.0
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          313,
+          319,
+          314
+        ],
+        "anchor_x": 193.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          319,
+          313,
+          311,
+          314
+        ],
+        "anchor_x": 189.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          630,
+          313,
+          310,
+          314
+        ],
+        "anchor_x": 172.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          313,
+          314,
+          314
+        ],
+        "anchor_x": 161.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          627,
+          313,
+          311
+        ],
+        "anchor_x": 193.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          627,
+          314,
+          311
+        ],
+        "anchor_x": 184.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          627,
+          313,
+          311
+        ],
+        "anchor_x": 175.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          627,
+          314,
+          311
+        ],
+        "anchor_x": 170.5
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          938,
+          339,
+          316
+        ],
+        "anchor_x": 212.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          339,
+          938,
+          281,
+          316
+        ],
+        "anchor_x": 138.9
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          620,
+          938,
+          320,
+          316
+        ],
+        "anchor_x": 153.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          938,
+          314,
+          316
+        ],
+        "anchor_x": 151.05
+      }
+    ]
+  }
+}

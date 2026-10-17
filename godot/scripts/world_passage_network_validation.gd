@@ -47,10 +47,19 @@ func walk(direction: int) -> bool:
     scene.player.process_mode=Node.PROCESS_MODE_ALWAYS
     var previous: Vector2=scene.player_world_position()
     var max_step := 0.0
-    for tick in 4200:
+    var movement_frames := 0
+    var loading_deadline := 0
+    while movement_frames < 4200:
         await frames()
-        if not scene.world_passage.settling: scene.world_passage.step()
-        if scene.world_passage.settling: scene.player.process_mode=Node.PROCESS_MODE_INHERIT
+        if not scene.world_passage.settling:
+            movement_frames += 1
+            scene.world_passage.step()
+        if scene.world_passage.settling:
+            scene.player.process_mode=Node.PROCESS_MODE_INHERIT
+            # Simulation frames can outpace cold texture workers. Preserve
+            # the physics budget and give terminal IO its own wall deadline.
+            if loading_deadline == 0: loading_deadline = Time.get_ticks_msec() + 15000
+            if Time.get_ticks_msec() >= loading_deadline: break
         var point: Vector2=scene.player_world_position()
         max_step=maxf(max_step,point.distance_to(previous))
         previous=point
@@ -119,7 +128,11 @@ func _run() -> void:
             var save_before := FileAccess.get_file_as_string(SAVE)
             scene._save_world()
             check(FileAccess.get_file_as_string(SAVE)==save_before,"Transit cannot overwrite the source checkpoint")
-            check(await walk(direction),String(route.id)+" "+side+": physical traversal reaches terminal")
+            var arrived := await walk(direction)
+            check(arrived,String(route.id)+" "+side+": physical traversal reaches terminal")
+            if not arrived:
+                quit(1)
+                return
             check(String(scene.config.id)==String(other.region),String(route.id)+" "+side+": terminal commits expected region")
             if String(scene.config.id)!=String(other.region):
                 quit(1)

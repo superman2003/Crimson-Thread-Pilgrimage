@@ -2,6 +2,7 @@ extends RefCounted
 ## Detached gameplay and artwork only. Arrival binds interaction, narrative,
 ## support geometry and enemy signals to the persistent world's current state.
 const PLAN_JOB := preload("res://scripts/world_gameplay_plan_job.gd")
+const ART_WARM_JOB := preload("res://scripts/character_art_warm_job.gd")
 # Secondary count cap; each operation is admitted only before the shared 2ms
 # window expires. Avoid spreading cheap scans over excessive frames.
 const MAX_PLAN_OPERATIONS := 32
@@ -55,7 +56,7 @@ func synchronize(desired: Dictionary, configs: Dictionary, next_generation: int)
         regions[id] = {"entry": desired[id].entry, "stamp": record.stamp, "path": desired[id].path,
             "generation": generation, "source_record": record, "raw": record.raw,
             "prepared": record.prepared, "plan_job": job, "plan_complete": false,
-            "pending": [], "actors": {}}
+            "pending": [], "actors": {}, "art_warm_job": null, "art_ready": false, "art_error": ""}
 
 func _lease_current(id: String, cache: Dictionary) -> bool:
     if cache.generation != generation or not _desired.has(id) or not _configs.has(id):
@@ -133,7 +134,25 @@ func warm(host: Node, started: int, allowance: int) -> int:
             cache.pending = planner.result
             cache.plan_complete = true
             cache.plan_job = null
+            cache.art_warm_job = ART_WARM_JOB.new()
+            cache.art_warm_job.begin({}, cache.pending, true)
             plan_completions += 1
+        if not cache.art_ready:
+            var art_job: RefCounted = cache.art_warm_job
+            if art_job == null or Time.get_ticks_usec() - started >= BUDGET_US: continue
+            art_job.step(2, maxi(0, BUDGET_US - (Time.get_ticks_usec() - started)))
+            if not art_job.done: continue
+            if art_job.cancelled or not _lease_current(id, cache):
+                release_region(id)
+                continue
+            if not String(art_job.error).is_empty():
+                cache.art_error = art_job.error
+                # Foreground preparation reports the failure. Speculation must
+                # not create actors with a hidden synchronous PNG fallback.
+                cache.pending = []
+                continue
+            cache.art_ready = true
+            cache.art_warm_job = null
         while not cache.pending.is_empty():
             if Time.get_ticks_usec() - started >= BUDGET_US: return count
             # Exhausted creation capacity must not starve another region's
@@ -179,6 +198,8 @@ func release_region(id: String) -> void:
     if planner != null:
         planner.cancel()
         plan_cancellations += 1
+    var art_job: RefCounted = regions[id].get("art_warm_job")
+    if art_job != null: art_job.cancel()
     for record in regions[id].actors.values():
         if is_instance_valid(record.actor): retiring.append(record.actor)
     regions.erase(id)

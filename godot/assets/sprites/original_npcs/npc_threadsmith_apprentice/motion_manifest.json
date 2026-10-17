@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_threadsmith_apprentice",
+  "visual_scale": 0.3248407643312102,
+  "visual_offset": [
+    0,
+    -11.59371002275757
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/atlas.png",
+    "region": [
+      59,
+      15,
+      387,
+      307
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    450,
+    331
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            20,
+            0,
+            288,
+            314
+          ],
+          "margin": [
+            86,
+            9,
+            162,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            333,
+            0,
+            294,
+            314
+          ],
+          "margin": [
+            98,
+            9,
+            156,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            651,
+            8,
+            290,
+            306
+          ],
+          "margin": [
+            94,
+            17,
+            160,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            940,
+            0,
+            304,
+            310
+          ],
+          "margin": [
+            86,
+            13,
+            146,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            19,
+            313,
+            318,
+            314
+          ],
+          "margin": [
+            81,
+            9,
+            132,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            336,
+            313,
+            313,
+            314
+          ],
+          "margin": [
+            86,
+            9,
+            137,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            648,
+            313,
+            311,
+            314
+          ],
+          "margin": [
+            87,
+            9,
+            139,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            958,
+            320,
+            292,
+            307
+          ],
+          "margin": [
+            82,
+            16,
+            158,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            15,
+            626,
+            299,
+            315
+          ],
+          "margin": [
+            81,
+            8,
+            151,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            313,
+            626,
+            314,
+            315
+          ],
+          "margin": [
+            66,
+            8,
+            136,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            644,
+            626,
+            285,
+            308
+          ],
+          "margin": [
+            86,
+            15,
+            165,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            962,
+            626,
+            292,
+            311
+          ],
+          "margin": [
+            86,
+            12,
+            158,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            0,
+            940,
+            312,
+            314
+          ],
+          "margin": [
+            66,
+            9,
+            138,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            314,
+            940,
+            304,
+            314
+          ],
+          "margin": [
+            88,
+            9,
+            146,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            617,
+            949,
+            339,
+            291
+          ],
+          "margin": [
+            103,
+            32,
+            111,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_threadsmith_apprentice/motion_expanded.png",
+          "region": [
+            955,
+            964,
+            299,
+            276
+          ],
+          "margin": [
+            97,
+            47,
+            151,
+            55
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

@@ -88,3 +88,10 @@ godot/assets/sprites/player/generated_hero_motion_v4/runtime_idle/*.png -filter 
 
 # Two small enemy integrity framebuffer comparisons are reviewable Git blobs.
 artifacts/enemy_atlas_integrity/*-real-gl-before-after-2x.png -filter -diff -merge -text
+
+# Expanded authored motion sources and review clips are regular Git blobs.
+godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png -filter -diff -merge -text
+godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/*.png -filter -diff -merge -text
+godot/assets/sprites/player/generated_hero_v3/manifest.json -filter diff merge text
+artifacts/expanded_character_motion/*.webp -filter -diff -merge -text
+artifacts/expanded_character_motion/*.png -filter -diff -merge -text

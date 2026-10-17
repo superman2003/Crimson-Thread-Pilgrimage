@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_gate_pilgrim",
+  "visual_scale": 0.421875,
+  "visual_offset": [
+    0,
+    -15.071836890243901
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+    "region": [
+      46,
+      6,
+      422,
+      320
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    396,
+    275
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            95,
+            13,
+            238,
+            256
+          ],
+          "margin": [
+            94,
+            11,
+            158,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            464,
+            13,
+            231,
+            256
+          ],
+          "margin": [
+            98,
+            11,
+            165,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            821,
+            10,
+            239,
+            259
+          ],
+          "margin": [
+            91,
+            8,
+            157,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            1183,
+            12,
+            246,
+            257
+          ],
+          "margin": [
+            90,
+            10,
+            150,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            68,
+            276,
+            260,
+            256
+          ],
+          "margin": [
+            106,
+            11,
+            136,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            438,
+            276,
+            284,
+            257
+          ],
+          "margin": [
+            104,
+            10,
+            112,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            799,
+            277,
+            273,
+            258
+          ],
+          "margin": [
+            102,
+            9,
+            123,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            1180,
+            278,
+            235,
+            256
+          ],
+          "margin": [
+            98,
+            11,
+            161,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            72,
+            538,
+            233,
+            248
+          ],
+          "margin": [
+            97,
+            19,
+            163,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            427,
+            540,
+            281,
+            245
+          ],
+          "margin": [
+            85,
+            22,
+            115,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            817,
+            554,
+            248,
+            233
+          ],
+          "margin": [
+            106,
+            34,
+            148,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            1183,
+            545,
+            231,
+            241
+          ],
+          "margin": [
+            99,
+            26,
+            165,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            68,
+            814,
+            264,
+            197
+          ],
+          "margin": [
+            88,
+            70,
+            132,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            447,
+            784,
+            220,
+            227
+          ],
+          "margin": [
+            96,
+            40,
+            176,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            799,
+            824,
+            294,
+            190
+          ],
+          "margin": [
+            58,
+            77,
+            102,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_gate_pilgrim/motion_expanded.png",
+          "region": [
+            1180,
+            808,
+            292,
+            208
+          ],
+          "margin": [
+            55,
+            59,
+            104,
+            67
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

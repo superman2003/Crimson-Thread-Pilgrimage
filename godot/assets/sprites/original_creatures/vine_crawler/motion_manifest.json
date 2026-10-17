@@ -1,0 +1,548 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "vine_crawler",
+  "canvas": [
+    326,
+    189
+  ],
+  "display_height": 72,
+  "visual_scale": 0.45,
+  "visual_offset": [
+    0,
+    18.549452554744526
+  ],
+  "motion": "ground",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            80,
+            21,
+            203,
+            160
+          ],
+          "margin": [
+            80,
+            21,
+            123,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            400,
+            24,
+            193,
+            157
+          ],
+          "margin": [
+            74,
+            24,
+            133,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            716,
+            29,
+            199,
+            152
+          ],
+          "margin": [
+            64,
+            29,
+            127,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1037,
+            24,
+            185,
+            157
+          ],
+          "margin": [
+            59,
+            24,
+            141,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1384,
+            16,
+            197,
+            165
+          ],
+          "margin": [
+            80,
+            16,
+            129,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1707,
+            32,
+            203,
+            149
+          ],
+          "margin": [
+            77,
+            32,
+            123,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            72,
+            210,
+            196,
+            160
+          ],
+          "margin": [
+            72,
+            21,
+            130,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            388,
+            214,
+            178,
+            156
+          ],
+          "margin": [
+            62,
+            25,
+            148,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            736,
+            212,
+            202,
+            158
+          ],
+          "margin": [
+            84,
+            23,
+            124,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1056,
+            206,
+            196,
+            164
+          ],
+          "margin": [
+            78,
+            17,
+            130,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1375,
+            211,
+            195,
+            159
+          ],
+          "margin": [
+            71,
+            22,
+            131,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1689,
+            212,
+            189,
+            158
+          ],
+          "margin": [
+            59,
+            23,
+            137,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            74,
+            394,
+            207,
+            165
+          ],
+          "margin": [
+            74,
+            16,
+            119,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            391,
+            415,
+            195,
+            144
+          ],
+          "margin": [
+            65,
+            37,
+            131,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            707,
+            411,
+            200,
+            148
+          ],
+          "margin": [
+            55,
+            33,
+            126,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1028,
+            411,
+            200,
+            148
+          ],
+          "margin": [
+            50,
+            33,
+            126,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1374,
+            402,
+            232,
+            157
+          ],
+          "margin": [
+            70,
+            24,
+            94,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1698,
+            403,
+            182,
+            156
+          ],
+          "margin": [
+            68,
+            25,
+            144,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            64,
+            597,
+            253,
+            151
+          ],
+          "margin": [
+            64,
+            30,
+            73,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            410,
+            596,
+            211,
+            152
+          ],
+          "margin": [
+            84,
+            29,
+            115,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            731,
+            584,
+            207,
+            164
+          ],
+          "margin": [
+            79,
+            17,
+            119,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1052,
+            584,
+            189,
+            164
+          ],
+          "margin": [
+            74,
+            17,
+            137,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1370,
+            589,
+            194,
+            159
+          ],
+          "margin": [
+            66,
+            22,
+            132,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1683,
+            582,
+            188,
+            166
+          ],
+          "margin": [
+            53,
+            15,
+            138,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            79,
+            764,
+            183,
+            173
+          ],
+          "margin": [
+            79,
+            8,
+            143,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            408,
+            777,
+            183,
+            160
+          ],
+          "margin": [
+            82,
+            21,
+            143,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            723,
+            801,
+            190,
+            136
+          ],
+          "margin": [
+            71,
+            45,
+            136,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1030,
+            790,
+            190,
+            147
+          ],
+          "margin": [
+            52,
+            34,
+            136,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1383,
+            774,
+            196,
+            163
+          ],
+          "margin": [
+            79,
+            18,
+            130,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            1695,
+            790,
+            186,
+            147
+          ],
+          "margin": [
+            65,
+            34,
+            140,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            52,
+            1004,
+            210,
+            122
+          ],
+          "margin": [
+            52,
+            59,
+            116,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/vine_crawler/motion_runtime.png",
+          "region": [
+            369,
+            1008,
+            205,
+            118
+          ],
+          "margin": [
+            43,
+            63,
+            121,
+            71
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

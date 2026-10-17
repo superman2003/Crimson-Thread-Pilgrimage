@@ -1,0 +1,213 @@
+{
+  "tool": "built-in image_gen",
+  "use_case": "identity-preserve",
+  "reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "generated_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-3c5ce4d5-1421-4f32-91a4-0592a38a9ecc.png",
+  "prompt": "Use case identity-preserve. Transparent production spritesheet of ONLY reference canal child: thin long-legged cricket with ivory face dark eyes, huge nacre conical rain hat with red ties, long fine antennae/whiskers, indigo patterned cape and blue shorts, red scarf, backpack with paper boat, bronze flute and bell. Preserve exact handdrawn watercolor ink style, no redesign. 4 columns x4 rows=16 cells, every figure SMALL with entire hat antennae whiskers fingers toes backpack inside inner60% of cell. Huge transparent gutters separating every pose, fixed camera/scale facing right and consistent foot origin. Row1 four idle breathing/blink frames with antennae and hat tassels flexing. Rows2+3 eight consecutive expressive talking frames, free hand opens, points then returns, mouth/head changes and cape follows: real body/limb deformation not translations. Row4 two greet bow/hand wave frames then two quiet resting seated frames. Genuine transparent alpha background, no text/grid/numbers/shadows or background glow, no additional props/characters. Entire character must never touch or overlap another cell. CRITICAL: The last output rows touched. Make a square canvas not wide. Each sprite MUST have only 50% CELL HEIGHT. At least 25% empty transparent space ABOVE head/antennae and BELOW feet per cell. Absolutely no antenna anywhere near another row's feet. Sixteen small isolated sticker figures with very large 50% blank area gutters.",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "slot_schema": {
+    "idle": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "talk": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "greet": [
+      12,
+      13
+    ],
+    "rest": [
+      14,
+      15
+    ]
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          63,
+          74,
+          211,
+          232
+        ],
+        "anchor_x": 103.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          365,
+          80,
+          220,
+          225
+        ],
+        "anchor_x": 112.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          676,
+          72,
+          213,
+          233
+        ],
+        "anchor_x": 108.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          998,
+          77,
+          217,
+          229
+        ],
+        "anchor_x": 108.0
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          67,
+          368,
+          222,
+          238
+        ],
+        "anchor_x": 101.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          382,
+          369,
+          238,
+          238
+        ],
+        "anchor_x": 117.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          689,
+          369,
+          227,
+          236
+        ],
+        "anchor_x": 97.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1007,
+          370,
+          220,
+          234
+        ],
+        "anchor_x": 102.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          58,
+          673,
+          233,
+          237
+        ],
+        "anchor_x": 106.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          376,
+          672,
+          223,
+          241
+        ],
+        "anchor_x": 106.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          694,
+          680,
+          213,
+          232
+        ],
+        "anchor_x": 93.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          997,
+          671,
+          225,
+          242
+        ],
+        "anchor_x": 109.5
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          67,
+          979,
+          219,
+          235
+        ],
+        "anchor_x": 110.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          387,
+          977,
+          203,
+          235
+        ],
+        "anchor_x": 85.0
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          689,
+          1026,
+          218,
+          174
+        ],
+        "anchor_x": 127.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          988,
+          1022,
+          223,
+          176
+        ],
+        "anchor_x": 135.0
+      }
+    ]
+  },
+  "qa": {
+    "visual_inspected": true,
+    "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
+    "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  }
+}

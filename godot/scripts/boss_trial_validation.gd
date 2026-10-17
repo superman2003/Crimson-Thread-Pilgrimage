@@ -1,4 +1,5 @@
 extends SceneTree
+const ART := preload("res://scripts/hand_drawn_assets.gd")
 
 const MAIN_SCENE := preload("res://scenes/Main.tscn")
 const BOSS_TRIAL_CONFIG_PATH := "res://data/demo_ch01_boss_trial.json"
@@ -59,7 +60,7 @@ func _assert_boss_trial_state(state: Dictionary, phase: String) -> void:
     _assert_true(bool(state.get("boss_unlocked", false)), phase + " boss route unlocked")
     _assert_true(bool(state.get("shortcut_open", false)), phase + " shortcut open")
     _assert_true(bool(state.get("boss_spawned", false)), phase + " boss spawned")
-    _assert_true(String(state.get("boss_asset_path", "")) == String(boss_trial_config.get("boss", {}).get("sprite", "")), phase + " boss uses boss_01 manifest")
+    _assert_true(String(state.get("boss_asset_path", "")) == ART.character_manifest("original_creatures", String(boss_trial_config.get("boss", {}).get("kind", ""))), phase + " boss uses current production manifest")
     _assert_true(state.get("boss_attack_types", []).has("rootline"), phase + " boss has boss_01 root line attack")
     _assert_true(bool(state.get("boss_tactical_ai", false)), phase + " boss tactical AI enabled")
     _assert_true(not String(state.get("boss_tactic", "")).is_empty(), phase + " boss exposes tactical intent")
@@ -168,9 +169,9 @@ func _assert_boss_grounded(state: Dictionary, phase: String) -> void:
     var grounded_y := float(boss_position[1]) + clearance
     _assert_true(absf(grounded_y - floor_rect.position.y) <= 1.0, phase + " boss origin plus clearance sits on floor")
     var visual_scale := float(state.get("boss_visual_scale", 0.0))
-    var visual_offset: Array = boss_data.get("visual_offset", [0, 0])
+    var manifest := _load_json(String(state.get("boss_asset_path", "")))
+    var visual_offset: Array = manifest.get("visual_offset", boss_data.get("visual_offset", [0, 0]))
     var sprite_center_y := float(boss_position[1]) - 30.0 + (float(visual_offset[1]) if visual_offset is Array and visual_offset.size() >= 2 else 0.0)
-    var manifest := _load_json(String(boss_data.get("sprite", "")))
     var idle_frame: Dictionary = manifest.get("animations", [])[0].get("frames", [])[0]
     var region: Array = idle_frame.get("region", [])
     var margin: Array = idle_frame.get("margin", [0, 0, 0, 0])

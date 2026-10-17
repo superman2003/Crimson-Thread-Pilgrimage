@@ -70,6 +70,13 @@ func _run() -> void:
 func _new_enemy(stage: Node2D, kind: String):
     var enemy = ENEMY.new()
     enemy.configure({"id": "atlas_integrity_" + kind, "kind": kind, "hp": 10}, "")
+    # This probe protects the immutable, repaired source poses. Expanded motion
+    # has a separate production acceptance suite and must not replace this check.
+    var source_path := "res://assets/sprites/original_creatures/" + kind + "/manifest.json"
+    var source := _json(source_path)
+    enemy.asset_path = source_path
+    enemy.visual_scale = float(source.visual_scale)
+    enemy.visual_offset = _vec(source.visual_offset)
     enemy.position = ORIGIN
     stage.add_child(enemy)
     enemy.set_physics_process(false)

@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_six_mark_keeper",
+  "visual_scale": 0.36038961038961037,
+  "visual_offset": [
+    0,
+    -16.130499064829692
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/atlas.png",
+    "region": [
+      95,
+      9,
+      332,
+      320
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    396,
+    325
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            36,
+            9,
+            234,
+            308
+          ],
+          "margin": [
+            36,
+            9,
+            162,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            432,
+            11,
+            234,
+            306
+          ],
+          "margin": [
+            36,
+            11,
+            162,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            828,
+            16,
+            237,
+            301
+          ],
+          "margin": [
+            36,
+            16,
+            159,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            1196,
+            15,
+            270,
+            302
+          ],
+          "margin": [
+            8,
+            15,
+            126,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            1604,
+            11,
+            285,
+            306
+          ],
+          "margin": [
+            20,
+            11,
+            111,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            1995,
+            12,
+            284,
+            305
+          ],
+          "margin": [
+            15,
+            12,
+            112,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            28,
+            338,
+            244,
+            304
+          ],
+          "margin": [
+            28,
+            13,
+            152,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            404,
+            335,
+            301,
+            307
+          ],
+          "margin": [
+            8,
+            10,
+            95,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            803,
+            338,
+            304,
+            304
+          ],
+          "margin": [
+            11,
+            13,
+            92,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            1200,
+            336,
+            296,
+            306
+          ],
+          "margin": [
+            12,
+            11,
+            100,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            1611,
+            344,
+            245,
+            298
+          ],
+          "margin": [
+            27,
+            19,
+            151,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            2000,
+            333,
+            251,
+            309
+          ],
+          "margin": [
+            20,
+            8,
+            145,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            30,
+            680,
+            249,
+            287
+          ],
+          "margin": [
+            30,
+            30,
+            147,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            427,
+            693,
+            265,
+            274
+          ],
+          "margin": [
+            31,
+            43,
+            131,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            831,
+            721,
+            317,
+            246
+          ],
+          "margin": [
+            39,
+            71,
+            79,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_six_mark_keeper/motion_runtime.png",
+          "region": [
+            1235,
+            723,
+            310,
+            244
+          ],
+          "margin": [
+            47,
+            73,
+            86,
+            81
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

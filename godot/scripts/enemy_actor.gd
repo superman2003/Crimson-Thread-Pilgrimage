@@ -364,7 +364,8 @@ func _physics_process(delta: float) -> void:
         _clear_telegraph()
         state = "patrol"
         active_attack = {}
-        _set_enemy_animation("phase")
+        _set_enemy_animation("phase", true)
+        _fit_animation_duration(phase_pause)
         if get_parent().has_method("_toast"):
             get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
     if phase_pause>0:
@@ -431,7 +432,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     locomotion = String(ai_profile.get("locomotion",data.get("locomotion","ground")))
     hover_height = float(ai_profile.get("hover_height",95)) if locomotion=="flight" else 0.0
     speed = float(ai_profile.get("move_speed",speed))
-    var original_path := "res://assets/sprites/original_creatures/"+kind+"/manifest.json"
+    var original_path := ORIGINAL_ART.character_manifest("original_creatures", kind)
     var art_data := ORIGINAL_ART.manifest(original_path)
     if not art_data.is_empty():
         asset_path=original_path
@@ -494,6 +495,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
         active_attack = {}
         state = "recover"
         state_timer = 0.16
+        _fit_animation_duration(state_timer)
         _clear_telegraph()
     if hp <= 0:
         _begin_death_dissolve()
@@ -529,6 +531,7 @@ func _begin_death_dissolve() -> void:
         queue_free()
         return
     var duration := 0.9 if is_boss else 0.45
+    _fit_animation_duration(duration)
     var tween := create_tween()
     tween.tween_interval(0.05)
     tween.tween_callback(func() -> void: _set_flash_amount(0.0))
@@ -1262,7 +1265,8 @@ func _begin_attack(command: Dictionary) -> void:
     state = "windup"
     state_timer = float(command.get("windup", 0.25))
     cooldowns[String(command.get("id", "attack"))] = float(command.get("cooldown", 1.2))
-    _set_enemy_animation(String(command.get("animation", "attack")))
+    if not original_visual:
+        _set_enemy_animation(String(command.get("animation", "attack")), true)
     _pose_sprite("windup", command)
     _play_attack_sfx("windup")
     _show_telegraph(command)
@@ -1682,7 +1686,7 @@ func _set_sprite_flip(flip_value: bool) -> void:
     _apply_sprite_flip()
 
 
-func _set_enemy_animation(animation_name: String) -> void:
+func _set_enemy_animation(animation_name: String, restart: bool = false) -> void:
     var next_animation := _resolve_directional_animation(animation_name)
     if animated_sprite != null and animated_sprite.sprite_frames != null and not animated_sprite.sprite_frames.has_animation(next_animation):
         next_animation = "idle"
@@ -1693,8 +1697,18 @@ func _set_enemy_animation(animation_name: String) -> void:
         return
     if next_animation in ["idle", "walk", "phase"]:
         animated_sprite.speed_scale = 1.0
-    if animated_sprite.animation != next_animation:
+    if restart:
+        animated_sprite.stop()
+    if animated_sprite.animation != next_animation or restart:
         animated_sprite.play(next_animation)
+
+
+func _fit_animation_duration(duration: float) -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    var frames := animated_sprite.sprite_frames
+    var animation_name := animated_sprite.animation
+    animated_sprite.speed_scale = frames.get_frame_count(animation_name) / maxf(0.01, frames.get_animation_speed(animation_name) * duration)
 
 
 func _resolve_directional_animation(animation_name: String) -> String:
@@ -1764,14 +1778,12 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
         elif pose_name=="active":
             animation_name=requested if _has_enemy_animation(requested) else "attack"
         elif pose_name=="recover":
-            animation_name="idle"
-        _set_enemy_animation(animation_name)
+            animation_name=requested+"_recover" if _has_enemy_animation(requested+"_recover") else ("recover" if _has_enemy_animation("recover") else "idle")
+        _set_enemy_animation(animation_name, pose_name in ["windup", "active", "recover", "hurt", "death"])
         if animated_sprite!=null:
             animated_sprite.speed_scale=1.0
-            if pose_name in ["windup","active"]:
-                var frames := animated_sprite.sprite_frames
-                var duration := float(command.get("windup" if pose_name=="windup" else "active",.3))
-                animated_sprite.speed_scale=frames.get_frame_count(animation_name)/maxf(.01,frames.get_animation_speed(animation_name)*duration)
+            if pose_name in ["windup","active","recover"] and animation_name != "idle":
+                _fit_animation_duration(float(command.get(pose_name, .3)))
         return
     _apply_sprite_region("attack" if pose_name == "windup" or pose_name == "active" else pose_name)
     var attack_type := String(command.get("type", "melee"))

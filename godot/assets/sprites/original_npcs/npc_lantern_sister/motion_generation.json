@@ -1,0 +1,214 @@
+{
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-394ba372-d6ad-4042-a291-143e73179326.png",
+  "prompt": "Use case: identity-preserve. Asset type: production hand-painted 2D game NPC animation sprite sheet. Input image is the reference character atlas; keep this exact lantern sister insect nun identity: pale almond mask face, long curved antennae, amber eye, charcoal gold-trimmed veil and robes with red lining, luminous golden wings, bone staff with hanging amber lantern. Preserve silhouette, clothes, props, colors, drawing style. Create ONE square transparent 4-column 4-row sheet, EXACTLY 16 evenly spaced full-body frames of the SAME character, no grid lines or text. Identical camera, scale and ground baseline in every cell, ample margin around antennae and staff, no clipping or overlapping cells. Row-major slots 1-6 = smooth idle breathing/blink/wing and lantern sway loop; slots 7-12 = smooth talking loop with distinct modest arm/hand, head and mouth/expression changes while staff remains; slots 13-14 = greeting gesture transition and bow; slots 15-16 = rested low sitting/rest breathing pose. Real articulated pose changes and cloth follow-through, not a translated copy. Idle/talk loops return seamlessly to first pose. Transparent alpha background, no scenery or shadows outside sprite, no text, no extra characters.",
+  "layout": {
+    "columns": 4,
+    "rows": 4,
+    "order": "row-major",
+    "animations": {
+      "idle": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "talk": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "greet": [
+        12,
+        13
+      ],
+      "rest": [
+        14,
+        15
+      ]
+    }
+  },
+  "qa": {
+    "visual_review": "16 full-body figures; original lantern, antennae, robes and wings retained; blink, arm gestures, bow, sitting variations visible. Transparent background, no labels. Tight vertical margins require cell extraction with consistent padding.",
+    "runtime_integration": "Root agent handles slicing, padding and manifests.",
+    "geometry": "Each reviewed pose fully isolated by alpha<=24 horizontal and vertical separator lines; complete silhouette; four clear edges and no neighboring fragment.",
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged. For this right-facing long-robed/long-tailed/winged character, standing/talk/greet support is restricted to the anatomical right half before bottom-band quantiles, excluding left cape/tail/wing drag; seated rest uses the entire contact band."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          0,
+          313,
+          313
+        ],
+        "anchor_x": 202.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          0,
+          314,
+          313
+        ],
+        "anchor_x": 192.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          0,
+          313,
+          313
+        ],
+        "anchor_x": 191.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          0,
+          314,
+          313
+        ],
+        "anchor_x": 192.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          313,
+          313,
+          314
+        ],
+        "anchor_x": 203.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          313,
+          314,
+          314
+        ],
+        "anchor_x": 197.5
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          313,
+          313,
+          314
+        ],
+        "anchor_x": 189.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          313,
+          314,
+          314
+        ],
+        "anchor_x": 189.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          627,
+          313,
+          313
+        ],
+        "anchor_x": 200.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          627,
+          314,
+          313
+        ],
+        "anchor_x": 187.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          627,
+          313,
+          313
+        ],
+        "anchor_x": 190.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          627,
+          314,
+          313
+        ],
+        "anchor_x": 191.7
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          940,
+          313,
+          314
+        ],
+        "anchor_x": 196.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          940,
+          314,
+          314
+        ],
+        "anchor_x": 198.0
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          940,
+          313,
+          314
+        ],
+        "anchor_x": 163.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          940,
+          314,
+          314
+        ],
+        "anchor_x": 151.5
+      }
+    ]
+  }
+}

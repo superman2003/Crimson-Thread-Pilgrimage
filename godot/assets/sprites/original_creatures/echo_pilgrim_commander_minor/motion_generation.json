@@ -1,0 +1,590 @@
+{
+  "kind": "echo_pilgrim_commander_minor",
+  "generator": "built-in image_gen",
+  "prompt": "Create transparent production 2D game sprite sheet of SAME referenced porcelain insect officer: white layered crown plate armor, crimson feather crest and cape, silver spear, black slender legs. Match exact original dark hand-drawn ink and painted aesthetic. STRICT FOUR columns and EIGHT rows:32 full-body drawings. Each sprite SMALL with generous transparent margin including all weapon/cape/crest. Face RIGHT, fixed body proportions, consistent scale. Keep spear compact vertical or diagonal to fit cell, no horizontal long thrust. Row1 FOUR idle breath poses. Row2 FOUR first half march strides. Row3 FOUR second half march strides. Row4 FOUR windup drawing spear up/back. Row5 FOUR diagonal downward spear strike poses. Row6 FOUR recovery spear retract/stand poses. Row7 FOUR hurt stagger poses. Row8 FOUR death collapse poses ending prone. Exactly four figures each row, eight rows total. Real limb and weapon articulation in every pose, no duplicates/translations. Complete silhouettes do not overlap each other. Actual transparent alpha, no background/grid/labels/text/shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-ec6d5610-ca1b-45f8-bb9d-3336a923cac9.png",
+  "qa": {
+    "layout": "Authored sheet reviewed for complete character silhouette and role-specific articulations",
+    "identity": "Original reference design, costume, palette and dark hand-painted contours retained",
+    "motion": "Genuinely articulated idle, gait, windup, attack, recovery, recoil and collapse",
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "attack",
+        [
+          15,
+          964,
+          242,
+          1149
+        ],
+        11,
+        true
+      ],
+      [
+        "attack",
+        [
+          242,
+          962,
+          445,
+          1149
+        ],
+        5,
+        true
+      ],
+      [
+        "death",
+        [
+          448,
+          1651,
+          657,
+          1756
+        ],
+        21,
+        true
+      ],
+      [
+        "death",
+        [
+          653,
+          1681,
+          870,
+          1756
+        ],
+        17,
+        true
+      ]
+    ],
+    "validation": "tools/build_expanded_character_motion.py --character echo_pilgrim_commander_minor passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          41,
+          11,
+          153,
+          226
+        ],
+        "component_seeds": [
+          [
+            157,
+            142
+          ]
+        ],
+        "anchor_x": 69.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          266,
+          10,
+          157,
+          227
+        ],
+        "component_seeds": [
+          [
+            342,
+            142
+          ]
+        ],
+        "anchor_x": 66.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          481,
+          14,
+          156,
+          223
+        ],
+        "component_seeds": [
+          [
+            593,
+            144
+          ]
+        ],
+        "anchor_x": 73.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          713,
+          14,
+          157,
+          223
+        ],
+        "component_seeds": [
+          [
+            825,
+            145
+          ]
+        ],
+        "anchor_x": 63.125
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          19,
+          257,
+          206,
+          210
+        ],
+        "component_seeds": [
+          [
+            93,
+            378
+          ]
+        ],
+        "anchor_x": 91.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          247,
+          259,
+          197,
+          208
+        ],
+        "component_seeds": [
+          [
+            329,
+            378
+          ]
+        ],
+        "anchor_x": 85.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          462,
+          259,
+          198,
+          208
+        ],
+        "component_seeds": [
+          [
+            530,
+            377
+          ]
+        ],
+        "anchor_x": 92.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          689,
+          255,
+          187,
+          212
+        ],
+        "component_seeds": [
+          [
+            790,
+            378
+          ]
+        ],
+        "anchor_x": 87.125
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          20,
+          487,
+          210,
+          213
+        ],
+        "component_seeds": [
+          [
+            135,
+            611
+          ]
+        ],
+        "anchor_x": 90.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          241,
+          490,
+          212,
+          211
+        ],
+        "component_seeds": [
+          [
+            284,
+            612
+          ]
+        ],
+        "anchor_x": 91.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          471,
+          489,
+          198,
+          212
+        ],
+        "component_seeds": [
+          [
+            536,
+            608
+          ]
+        ],
+        "anchor_x": 83.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          687,
+          485,
+          197,
+          216
+        ],
+        "component_seeds": [
+          [
+            754,
+            608
+          ]
+        ],
+        "anchor_x": 89.125
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          12,
+          742,
+          211,
+          200
+        ],
+        "component_seeds": [
+          [
+            26,
+            856
+          ]
+        ],
+        "anchor_x": 98.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          236,
+          713,
+          190,
+          230
+        ],
+        "component_seeds": [
+          [
+            368,
+            846
+          ]
+        ],
+        "anchor_x": 96.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          465,
+          704,
+          195,
+          239
+        ],
+        "component_seeds": [
+          [
+            516,
+            852
+          ]
+        ],
+        "anchor_x": 89.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          688,
+          702,
+          183,
+          241
+        ],
+        "component_seeds": [
+          [
+            855,
+            851
+          ]
+        ],
+        "anchor_x": 88.125
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          13,
+          962,
+          231,
+          189
+        ],
+        "component_seeds": [
+          [
+            166,
+            1072
+          ]
+        ],
+        "anchor_x": 97.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          240,
+          960,
+          207,
+          191
+        ],
+        "component_seeds": [
+          [
+            327,
+            1069
+          ]
+        ],
+        "anchor_x": 92.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          447,
+          968,
+          225,
+          181
+        ],
+        "component_seeds": [
+          [
+            540,
+            1073
+          ]
+        ],
+        "anchor_x": 107.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          683,
+          981,
+          200,
+          176
+        ],
+        "component_seeds": [
+          [
+            724,
+            1085
+          ]
+        ],
+        "anchor_x": 93.125
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          18,
+          1179,
+          220,
+          206
+        ],
+        "component_seeds": [
+          [
+            179,
+            1298
+          ]
+        ],
+        "anchor_x": 92.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          251,
+          1182,
+          186,
+          203
+        ],
+        "component_seeds": [
+          [
+            316,
+            1295
+          ]
+        ],
+        "anchor_x": 81.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          469,
+          1166,
+          172,
+          224
+        ],
+        "component_seeds": [
+          [
+            577,
+            1298
+          ]
+        ],
+        "anchor_x": 85.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          696,
+          1173,
+          151,
+          218
+        ],
+        "component_seeds": [
+          [
+            755,
+            1300
+          ]
+        ],
+        "anchor_x": 80.125
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          17,
+          1383,
+          201,
+          221
+        ],
+        "component_seeds": [
+          [
+            89,
+            1512
+          ]
+        ],
+        "anchor_x": 93.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          238,
+          1396,
+          179,
+          208
+        ],
+        "component_seeds": [
+          [
+            385,
+            1524
+          ]
+        ],
+        "anchor_x": 94.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          447,
+          1437,
+          203,
+          169
+        ],
+        "component_seeds": [
+          [
+            506,
+            1541
+          ]
+        ],
+        "anchor_x": 107.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          653,
+          1437,
+          183,
+          167
+        ],
+        "component_seeds": [
+          [
+            742,
+            1548
+          ]
+        ],
+        "anchor_x": 123.125
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          19,
+          1623,
+          210,
+          136
+        ],
+        "component_seeds": [
+          [
+            147,
+            1703
+          ]
+        ],
+        "anchor_x": 91.875
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          238,
+          1630,
+          207,
+          128
+        ],
+        "component_seeds": [
+          [
+            310,
+            1709
+          ]
+        ],
+        "anchor_x": 94.625
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          446,
+          1649,
+          213,
+          109
+        ],
+        "component_seeds": [
+          [
+            598,
+            1716
+          ]
+        ],
+        "anchor_x": 108.375
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          651,
+          1679,
+          221,
+          79
+        ],
+        "component_seeds": [
+          [
+            689,
+            1722
+          ]
+        ],
+        "anchor_x": 125.125
+      }
+    ]
+  }
+}

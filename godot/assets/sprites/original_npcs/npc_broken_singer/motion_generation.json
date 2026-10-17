@@ -1,0 +1,213 @@
+{
+  "tool": "built-in image_gen",
+  "use_case": "identity-preserve",
+  "reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "generated_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-d4a4d240-2614-457b-86a7-bba1b16c5ab9.png",
+  "prompt": "Use case identity-preserve. Create transparent game animation atlas of ONLY same broken singer reference: tall slender white moth with dark eyes, fine curved antennae, leaf head ornaments, frayed ivory wings and cream/green/rust dress, crimson scarf, little broken wooden lute. Exact ink/watercolor handpainted reference art and design. 4 columns x4 rows sixteen full body poses. HUGE EMPTY transparent gutters. Draw each character SMALL in center of equal cell, figure occupies inner60% height including antennae, full wings/lute/toes no crop or overlap. Same scale and right facing three-quarter, fixed relative foot baseline. Row1 four distinct breathing/blink idle frames, wings gently flex, scarf shifts. Rows2+3 eight sequential talking/singing loop frames, expressive mouth/head and free hand/lute plucking changes with natural joint/cloth deformation, not translations. Row4 two greeting bow/hand frames then two restful quiet/slightly seated poses. Preserve all costume details and lute silhouette. Transparent background, no scene, no shadows, no grid, no labels/numbers/words, no extra character.",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "slot_schema": {
+    "idle": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "talk": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "greet": [
+      12,
+      13
+    ],
+    "rest": [
+      14,
+      15
+    ]
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          127,
+          14,
+          198,
+          244
+        ],
+        "anchor_x": 124.9
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          476,
+          10,
+          205,
+          248
+        ],
+        "anchor_x": 129.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          825,
+          12,
+          204,
+          246
+        ],
+        "anchor_x": 125.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1207,
+          15,
+          193,
+          243
+        ],
+        "anchor_x": 97.0
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          106,
+          279,
+          256,
+          246
+        ],
+        "anchor_x": 131.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          470,
+          278,
+          255,
+          247
+        ],
+        "anchor_x": 125.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          825,
+          279,
+          223,
+          249
+        ],
+        "anchor_x": 109.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1192,
+          284,
+          262,
+          243
+        ],
+        "anchor_x": 126.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          107,
+          536,
+          221,
+          236
+        ],
+        "anchor_x": 88.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          470,
+          542,
+          218,
+          231
+        ],
+        "anchor_x": 104.1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          811,
+          540,
+          221,
+          232
+        ],
+        "anchor_x": 109.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1192,
+          543,
+          258,
+          230
+        ],
+        "anchor_x": 123.0
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          78,
+          794,
+          242,
+          212
+        ],
+        "anchor_x": 134.15
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          455,
+          780,
+          257,
+          230
+        ],
+        "anchor_x": 138.0
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          793,
+          809,
+          299,
+          201
+        ],
+        "anchor_x": 150.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1191,
+          823,
+          290,
+          182
+        ],
+        "anchor_x": 151.5
+      }
+    ]
+  },
+  "qa": {
+    "visual_inspected": true,
+    "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
+    "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  }
+}

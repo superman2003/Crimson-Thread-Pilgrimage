@@ -53,6 +53,7 @@ class LookaheadReader extends "res://scripts/world_config_read_job.gd":
 # Isolate the scheduler from worker timing: the catalog callback has already
 # crossed its final cancellation window when the next prepare job is admitted.
 class SchedulingHost extends Node:
+    var config: Dictionary = {}
     var world_catalog_prepare_staging: Dictionary = {}
     var catalog_resumed_frame := -1
     var next_prepare_frame := -1
@@ -153,7 +154,7 @@ func _catalog_scheduler_probe() -> void:
     var loader := SchedulingLoader.new()
     var ok: bool = await loader._construct_budgeted(host, {}, false)
     _check(ok and host.next_prepare_frame == host.catalog_resumed_frame, "catalog completion admits next prepare job without an empty frame")
-    _check(host.build_plan_frame == host.next_prepare_frame + 1, "synchronous final prepare batch still yields before build planning")
+    _check(host.build_plan_frame == host.next_prepare_frame + 1 + int(loader.last_transition.character_art_batches), "synchronous final prepare batch retains its boundary before artwork preparation and build planning")
     loader.shutdown()
     host.free()
 

@@ -1,0 +1,47 @@
+{
+  "engine": "Godot 4.6.1 stable, real llvmpipe GL",
+  "full_run": {
+    "suites": 113,
+    "passed": 110,
+    "failed": [
+      "all_chapters_demo",
+      "ch02_demo",
+      "world_startup_config_background"
+    ],
+    "log": "pr101-full.log.gz"
+  },
+  "retests": {
+    "all_chapters_demo": {
+      "passing_runs": 1,
+      "log": "pr101-chapters-fix.log.gz"
+    },
+    "ch02_demo": {
+      "passing_runs": 1,
+      "log": "pr101-ch02-fix.log.gz"
+    },
+    "world_startup_config_background": {
+      "passing_runs": 4,
+      "log": "pr101-startup-repeat.log.gz",
+      "additional_log": "pr101-startup-repro.log.gz"
+    }
+  },
+  "startup_cold_process_probes": {
+    "runs": 20,
+    "passed": 20,
+    "method": "Each fresh engine process reuses the production startup suite manifest-read-ahead and new-game/resume probes with isolated user data.",
+    "log": "pr101-startup-probe-summary.log.gz"
+  },
+  "startup_failure_diagnostics": {
+    "injected_unavailable_texture": "specific error retained; no region publication; source catalog restored",
+    "log": "pr101-texture-failure.log.gz"
+  },
+  "limitation": "The one startup_config_background failure was not reproduced in four full isolated reruns and twenty cold-start probes. Its underlying cause is not established; first-error preservation improves diagnosis but is not claimed as its root-cause fix.",
+  "other_checks": [
+    "npm test",
+    "npm run test:campaign",
+    "validate_hero_v3: 84 runtime frames; original 80-frame audit retained",
+    "release builder: 23 unit tests",
+    "Linux actual exported ZIP: first start, resume and resume save writeback passed"
+  ],
+  "ci": "Prior revision 3792d304: 16 of 17 workflows passed; complete integration still running. Latest commit must rerun CI."
+}

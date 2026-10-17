@@ -4844,7 +4844,7 @@ func _make_npc(data: Dictionary) -> Area2D:
     area.add_child(shape)
 
     var art_id := ORIGINAL_ART.npc_art_id(String(data.get("id","")))
-    var manifest_path := "res://assets/sprites/original_npcs/"+art_id+"/manifest.json"
+    var manifest_path := ORIGINAL_ART.character_manifest("original_npcs", art_id)
     var art_data := ORIGINAL_ART.manifest(manifest_path)
     var npc_frames := ORIGINAL_ART.frames(manifest_path)
     if npc_frames != null:

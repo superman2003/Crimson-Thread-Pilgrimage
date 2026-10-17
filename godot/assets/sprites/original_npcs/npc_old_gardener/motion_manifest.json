@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_old_gardener",
+  "visual_scale": 0.34285714285714286,
+  "visual_offset": [
+    0,
+    -14.959646539027979
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/atlas.png",
+    "region": [
+      113,
+      8,
+      313,
+      315
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    332,
+    334
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            32,
+            11,
+            235,
+            315
+          ],
+          "margin": [
+            32,
+            11,
+            97,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            372,
+            11,
+            222,
+            315
+          ],
+          "margin": [
+            40,
+            11,
+            110,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            691,
+            12,
+            238,
+            314
+          ],
+          "margin": [
+            27,
+            12,
+            94,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1036,
+            12,
+            231,
+            314
+          ],
+          "margin": [
+            40,
+            12,
+            101,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1349,
+            17,
+            294,
+            309
+          ],
+          "margin": [
+            21,
+            17,
+            38,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1722,
+            19,
+            210,
+            307
+          ],
+          "margin": [
+            62,
+            19,
+            122,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            32,
+            350,
+            292,
+            310
+          ],
+          "margin": [
+            32,
+            16,
+            40,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            378,
+            349,
+            213,
+            311
+          ],
+          "margin": [
+            46,
+            15,
+            119,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            682,
+            342,
+            297,
+            318
+          ],
+          "margin": [
+            18,
+            8,
+            35,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1058,
+            349,
+            216,
+            311
+          ],
+          "margin": [
+            62,
+            15,
+            116,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1372,
+            350,
+            278,
+            310
+          ],
+          "margin": [
+            44,
+            16,
+            54,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1698,
+            349,
+            239,
+            311
+          ],
+          "margin": [
+            38,
+            15,
+            93,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            22,
+            688,
+            274,
+            306
+          ],
+          "margin": [
+            22,
+            20,
+            58,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            380,
+            698,
+            233,
+            296
+          ],
+          "margin": [
+            48,
+            30,
+            99,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            674,
+            722,
+            291,
+            272
+          ],
+          "margin": [
+            10,
+            54,
+            41,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_old_gardener/motion_runtime.png",
+          "region": [
+            1018,
+            716,
+            276,
+            278
+          ],
+          "margin": [
+            22,
+            48,
+            56,
+            56
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

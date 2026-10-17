@@ -142,8 +142,10 @@ def smoke_package(binary: Path, logs: Path, timeout: float) -> None:
                    XDG_CACHE_HOME=str(isolated / 'cache'), APPDATA=str(user_data),
                    LOCALAPPDATA=str(isolated / 'local-data'), GODOT_SILENCE_ROOT_WARNING='1')
         for attempt in ['first-start', 'resume']:
-            # Preserve exact resource/instance names when strict exit checks fail.
-            run_checked([str(binary), '--headless', '--verbose', '--quit-after', '120'],
+            # Give asynchronous config/art preparation real worker time and
+            # enough bounded frame slices before checking publication on disk.
+            # Unthrottled headless frames can exhaust 120 ticks before loading.
+            run_checked([str(binary), '--headless', '--verbose', '--max-fps', '60', '--quit-after', '1200'],
                         logs / f'{attempt}.log', timeout=timeout, cwd=isolated, env=env)
             save = verify_save(user_data)
             data = json.loads(save.read_text(encoding='utf-8'))

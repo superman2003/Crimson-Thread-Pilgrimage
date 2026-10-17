@@ -1,0 +1,548 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "thorn_sentinel",
+  "canvas": [
+    394,
+    222
+  ],
+  "display_height": 104,
+  "visual_scale": 0.5226130653266332,
+  "visual_offset": [
+    0,
+    3.5020439819677094
+  ],
+  "motion": "stationary",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            123,
+            15,
+            163,
+            199
+          ],
+          "margin": [
+            123,
+            15,
+            231,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            510,
+            15,
+            161,
+            199
+          ],
+          "margin": [
+            116,
+            15,
+            233,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            899,
+            15,
+            164,
+            199
+          ],
+          "margin": [
+            111,
+            15,
+            230,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1290,
+            15,
+            168,
+            199
+          ],
+          "margin": [
+            108,
+            15,
+            226,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1688,
+            16,
+            180,
+            198
+          ],
+          "margin": [
+            112,
+            16,
+            214,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            2080,
+            15,
+            192,
+            199
+          ],
+          "margin": [
+            110,
+            15,
+            202,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            97,
+            246,
+            193,
+            190
+          ],
+          "margin": [
+            97,
+            24,
+            201,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            487,
+            242,
+            197,
+            194
+          ],
+          "margin": [
+            93,
+            20,
+            197,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            900,
+            241,
+            207,
+            195
+          ],
+          "margin": [
+            112,
+            19,
+            187,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1296,
+            240,
+            197,
+            196
+          ],
+          "margin": [
+            114,
+            18,
+            197,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1686,
+            243,
+            198,
+            193
+          ],
+          "margin": [
+            110,
+            21,
+            196,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            2080,
+            241,
+            188,
+            195
+          ],
+          "margin": [
+            110,
+            19,
+            206,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            112,
+            465,
+            170,
+            193
+          ],
+          "margin": [
+            112,
+            21,
+            224,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            505,
+            471,
+            164,
+            187
+          ],
+          "margin": [
+            111,
+            27,
+            230,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            890,
+            452,
+            177,
+            206
+          ],
+          "margin": [
+            102,
+            8,
+            217,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1278,
+            465,
+            178,
+            193
+          ],
+          "margin": [
+            96,
+            21,
+            216,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1684,
+            482,
+            216,
+            176
+          ],
+          "margin": [
+            108,
+            38,
+            178,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            2066,
+            498,
+            229,
+            160
+          ],
+          "margin": [
+            96,
+            54,
+            165,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            94,
+            704,
+            292,
+            176
+          ],
+          "margin": [
+            94,
+            38,
+            102,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            504,
+            707,
+            275,
+            173
+          ],
+          "margin": [
+            110,
+            41,
+            119,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            900,
+            686,
+            167,
+            194
+          ],
+          "margin": [
+            112,
+            20,
+            227,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1291,
+            687,
+            192,
+            193
+          ],
+          "margin": [
+            109,
+            21,
+            202,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1686,
+            686,
+            186,
+            194
+          ],
+          "margin": [
+            110,
+            20,
+            208,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            2078,
+            693,
+            166,
+            187
+          ],
+          "margin": [
+            108,
+            27,
+            228,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            125,
+            919,
+            182,
+            183
+          ],
+          "margin": [
+            125,
+            31,
+            212,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            519,
+            912,
+            175,
+            190
+          ],
+          "margin": [
+            125,
+            24,
+            219,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            908,
+            925,
+            170,
+            177
+          ],
+          "margin": [
+            120,
+            37,
+            224,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1288,
+            922,
+            183,
+            180
+          ],
+          "margin": [
+            106,
+            34,
+            211,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            1699,
+            924,
+            184,
+            178
+          ],
+          "margin": [
+            123,
+            36,
+            210,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            2087,
+            938,
+            194,
+            164
+          ],
+          "margin": [
+            117,
+            50,
+            200,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            103,
+            1183,
+            193,
+            141
+          ],
+          "margin": [
+            103,
+            73,
+            201,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_runtime.png",
+          "region": [
+            472,
+            1232,
+            214,
+            92
+          ],
+          "margin": [
+            78,
+            122,
+            180,
+            130
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

@@ -122,9 +122,11 @@ func _walk_route(route: Dictionary, side: String) -> bool:
     var held_source := true
     var reached_preflight := false
     var frame_count := 0
+    var movement_frames := 0
+    var loading_deadline := 0
     ROUTES.sync_manifest_parses = 0
-    for tick in 4200:
-        frame_count = tick + 1
+    while movement_frames < 4200:
+        frame_count += 1
         await _frames()
         if not invalidated and passage.active and not passage.settling and float(passage.travelled) >= 160:
             ROUTES._cached_stamp = -1
@@ -132,10 +134,15 @@ func _walk_route(route: Dictionary, side: String) -> bool:
             _check(ROUTES.cached_config_path(String(other.region)).is_empty() and passage.destination_config_path == admitted_path and not admitted_path.is_empty(), label + ": stale cache hides lookup but retains the admitted path in transit")
             scene._save_world()
             _check(FileAccess.get_file_as_bytes(save_path()) == source_save, label + ": stale transit cannot overwrite the source checkpoint")
-        if not passage.settling: passage.step()
+        if not passage.settling:
+            movement_frames += 1
+            passage.step()
         if passage.settling:
             scene.player.process_mode = Node.PROCESS_MODE_INHERIT
             reached_preflight = reached_preflight or scene.world_loader.phase == "preflight"
+            # Keep the movement cap independent of real worker scheduling.
+            if loading_deadline == 0: loading_deadline = Time.get_ticks_msec() + 15000
+            if Time.get_ticks_msec() >= loading_deadline: break
         if passage.active:
             held_source = held_source and FileAccess.get_file_as_bytes(save_path()) == source_save
         var point: Vector2 = scene.player_world_position()
@@ -145,7 +152,7 @@ func _walk_route(route: Dictionary, side: String) -> bool:
     _release()
     scene.player.process_mode = Node.PROCESS_MODE_INHERIT
     _check(invalidated and reached_preflight, label + ": invalidation occurs during walking before terminal foreground preflight")
-    _check(not passage.active and scene.world_loader.phase == "idle", label + ": complete physics walk finishes within the frame budget")
+    _check(not passage.active and scene.world_loader.phase == "idle", label + ": complete physics walk finishes within movement and IO budgets")
     _check(max_step < 35, label + ": world position stays continuous through walking and terminal rebase")
     _check(held_source, label + ": original source save survives every unpublished transit frame")
     _check(String(scene.config.get("id", "")) == String(other.region), label + ": current five-link destination commits")

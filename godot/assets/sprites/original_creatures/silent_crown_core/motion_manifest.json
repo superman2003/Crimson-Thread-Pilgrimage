@@ -1,0 +1,950 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "silent_crown_core",
+  "canvas": [
+    522,
+    233
+  ],
+  "display_height": 232,
+  "visual_scale": 1.3488372093023255,
+  "visual_offset": [
+    0,
+    -77.69376474553422
+  ],
+  "motion": "ground",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            181,
+            53,
+            194,
+            172
+          ],
+          "margin": [
+            181,
+            53,
+            328,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            707,
+            53,
+            189,
+            172
+          ],
+          "margin": [
+            185,
+            53,
+            333,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1233,
+            53,
+            193,
+            172
+          ],
+          "margin": [
+            189,
+            53,
+            329,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1750,
+            53,
+            193,
+            172
+          ],
+          "margin": [
+            184,
+            53,
+            329,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2273,
+            64,
+            205,
+            161
+          ],
+          "margin": [
+            185,
+            64,
+            317,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2804,
+            68,
+            207,
+            157
+          ],
+          "margin": [
+            194,
+            68,
+            315,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            134,
+            305,
+            210,
+            153
+          ],
+          "margin": [
+            134,
+            72,
+            312,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            641,
+            302,
+            206,
+            156
+          ],
+          "margin": [
+            119,
+            69,
+            316,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1217,
+            298,
+            206,
+            160
+          ],
+          "margin": [
+            173,
+            65,
+            316,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1748,
+            303,
+            202,
+            155
+          ],
+          "margin": [
+            182,
+            70,
+            320,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2261,
+            304,
+            201,
+            154
+          ],
+          "margin": [
+            173,
+            71,
+            321,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2748,
+            303,
+            204,
+            155
+          ],
+          "margin": [
+            138,
+            70,
+            318,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            189,
+            504,
+            179,
+            187
+          ],
+          "margin": [
+            189,
+            38,
+            343,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            702,
+            512,
+            201,
+            179
+          ],
+          "margin": [
+            180,
+            46,
+            321,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1225,
+            511,
+            187,
+            180
+          ],
+          "margin": [
+            181,
+            45,
+            335,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1760,
+            508,
+            193,
+            183
+          ],
+          "margin": [
+            194,
+            42,
+            329,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2280,
+            523,
+            220,
+            168
+          ],
+          "margin": [
+            192,
+            57,
+            302,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2707,
+            522,
+            266,
+            169
+          ],
+          "margin": [
+            97,
+            56,
+            256,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            72,
+            763,
+            293,
+            161
+          ],
+          "margin": [
+            72,
+            64,
+            229,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            712,
+            757,
+            246,
+            167
+          ],
+          "margin": [
+            190,
+            58,
+            276,
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1201,
+            773,
+            212,
+            151
+          ],
+          "margin": [
+            157,
+            74,
+            310,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1763,
+            759,
+            199,
+            165
+          ],
+          "margin": [
+            197,
+            60,
+            323,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2192,
+            761,
+            217,
+            163
+          ],
+          "margin": [
+            104,
+            62,
+            305,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2796,
+            756,
+            209,
+            168
+          ],
+          "margin": [
+            186,
+            57,
+            313,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            119,
+            985,
+            213,
+            172
+          ],
+          "margin": [
+            119,
+            53,
+            309,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            738,
+            985,
+            194,
+            172
+          ],
+          "margin": [
+            216,
+            53,
+            328,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1129,
+            989,
+            278,
+            168
+          ],
+          "margin": [
+            85,
+            57,
+            244,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1761,
+            984,
+            202,
+            173
+          ],
+          "margin": [
+            195,
+            52,
+            320,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2275,
+            969,
+            214,
+            188
+          ],
+          "margin": [
+            187,
+            37,
+            308,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2779,
+            1019,
+            216,
+            138
+          ],
+          "margin": [
+            169,
+            87,
+            306,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            68,
+            1267,
+            272,
+            123
+          ],
+          "margin": [
+            68,
+            102,
+            250,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            531,
+            1306,
+            269,
+            84
+          ],
+          "margin": [
+            9,
+            141,
+            253,
+            149
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1242,
+            1219,
+            201,
+            171
+          ],
+          "margin": [
+            198,
+            54,
+            321,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1766,
+            1211,
+            194,
+            179
+          ],
+          "margin": [
+            200,
+            46,
+            328,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2274,
+            1182,
+            185,
+            208
+          ],
+          "margin": [
+            186,
+            17,
+            337,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2790,
+            1185,
+            181,
+            205
+          ],
+          "margin": [
+            180,
+            20,
+            341,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            195,
+            1406,
+            198,
+            217
+          ],
+          "margin": [
+            195,
+            8,
+            324,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            712,
+            1422,
+            196,
+            201
+          ],
+          "margin": [
+            190,
+            24,
+            326,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1170,
+            1473,
+            202,
+            150
+          ],
+          "margin": [
+            126,
+            75,
+            320,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1688,
+            1450,
+            192,
+            173
+          ],
+          "margin": [
+            122,
+            52,
+            330,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2279,
+            1435,
+            197,
+            188
+          ],
+          "margin": [
+            191,
+            37,
+            325,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2798,
+            1435,
+            201,
+            188
+          ],
+          "margin": [
+            188,
+            37,
+            321,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            190,
+            1669,
+            196,
+            187
+          ],
+          "margin": [
+            190,
+            38,
+            326,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            718,
+            1674,
+            194,
+            182
+          ],
+          "margin": [
+            196,
+            43,
+            328,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1243,
+            1670,
+            197,
+            186
+          ],
+          "margin": [
+            199,
+            39,
+            325,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1756,
+            1670,
+            219,
+            186
+          ],
+          "margin": [
+            190,
+            39,
+            303,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2276,
+            1671,
+            212,
+            185
+          ],
+          "margin": [
+            188,
+            40,
+            310,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2793,
+            1674,
+            198,
+            182
+          ],
+          "margin": [
+            183,
+            43,
+            324,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            228,
+            1922,
+            189,
+            167
+          ],
+          "margin": [
+            228,
+            58,
+            333,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            706,
+            1926,
+            188,
+            163
+          ],
+          "margin": [
+            184,
+            62,
+            334,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1235,
+            1930,
+            201,
+            159
+          ],
+          "margin": [
+            191,
+            66,
+            321,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            1739,
+            1935,
+            210,
+            154
+          ],
+          "margin": [
+            173,
+            71,
+            312,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2285,
+            1933,
+            217,
+            156
+          ],
+          "margin": [
+            197,
+            69,
+            305,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            2817,
+            1925,
+            281,
+            164
+          ],
+          "margin": [
+            207,
+            61,
+            241,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            110,
+            2185,
+            335,
+            137
+          ],
+          "margin": [
+            110,
+            88,
+            187,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_crown_core/motion_runtime.png",
+          "region": [
+            715,
+            2161,
+            239,
+            161
+          ],
+          "margin": [
+            193,
+            64,
+            283,
+            72
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}
