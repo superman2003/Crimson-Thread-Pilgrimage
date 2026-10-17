@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "rust_diver",
+  "image": "diver_splash.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/rust_diver.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/rust_diver.png",
+  "reference_sha256": "6871de195efc48fe65bfbad1bc0e6dba4b854e9bc9588ff3dc3a5c5661ab49ce",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "diver_splash.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "8e95b7772cfe24e38dc85bcd82c364ee360a4ee5d17ef539ce06ebc5ccea78a7",
+  "git_blob_sha": "aab9805f435d6f76b87e501ff67e930af2a4d6e4",
+  "fully_transparent_pixels": 1038785,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        42,
+        140,
+        257,
+        186
+      ],
+      "component_seed": [
+        204,
+        144
+      ],
+      "bbox_alpha_gt_24": [
+        46,
+        144,
+        249,
+        178
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        364,
+        100,
+        241,
+        223
+      ],
+      "component_seed": [
+        478,
+        104
+      ],
+      "bbox_alpha_gt_24": [
+        368,
+        104,
+        233,
+        215
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        666,
+        65,
+        227,
+        258
+      ],
+      "component_seed": [
+        836,
+        69
+      ],
+      "bbox_alpha_gt_24": [
+        670,
+        69,
+        219,
+        250
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        996,
+        48,
+        203,
+        275
+      ],
+      "component_seed": [
+        1141,
+        52
+      ],
+      "bbox_alpha_gt_24": [
+        1000,
+        52,
+        195,
+        267
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        22,
+        399,
+        258,
+        216
+      ],
+      "component_seed": [
+        174,
+        403
+      ],
+      "bbox_alpha_gt_24": [
+        26,
+        403,
+        250,
+        208
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        330,
+        406,
+        266,
+        209
+      ],
+      "component_seed": [
+        471,
+        410
+      ],
+      "bbox_alpha_gt_24": [
+        334,
+        410,
+        258,
+        201
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        653,
+        457,
+        280,
+        162
+      ],
+      "component_seed": [
+        743,
+        461
+      ],
+      "bbox_alpha_gt_24": [
+        657,
+        461,
+        272,
+        154
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        963,
+        441,
+        268,
+        179
+      ],
+      "component_seed": [
+        1129,
+        445
+      ],
+      "bbox_alpha_gt_24": [
+        967,
+        445,
+        260,
+        171
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        29,
+        711,
+        254,
+        213
+      ],
+      "component_seed": [
+        207,
+        715
+      ],
+      "bbox_alpha_gt_24": [
+        33,
+        715,
+        246,
+        205
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        341,
+        685,
+        245,
+        239
+      ],
+      "component_seed": [
+        535,
+        689
+      ],
+      "bbox_alpha_gt_24": [
+        345,
+        689,
+        237,
+        231
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        657,
+        718,
+        238,
+        206
+      ],
+      "component_seed": [
+        819,
+        722
+      ],
+      "bbox_alpha_gt_24": [
+        661,
+        722,
+        230,
+        198
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        972,
+        718,
+        236,
+        207
+      ],
+      "component_seed": [
+        1131,
+        722
+      ],
+      "bbox_alpha_gt_24": [
+        976,
+        722,
+        228,
+        199
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        38,
+        1014,
+        263,
+        203
+      ],
+      "component_seed": [
+        204,
+        1018
+      ],
+      "bbox_alpha_gt_24": [
+        42,
+        1018,
+        255,
+        195
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        349,
+        988,
+        249,
+        228
+      ],
+      "component_seed": [
+        482,
+        992
+      ],
+      "bbox_alpha_gt_24": [
+        353,
+        992,
+        241,
+        220
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete bronze-helmet divers. Helmet remains attached to neck/shoulders and fixed body-relative diameter; hip/knee bend drives front helmet down while feet/forearms brace. Original spear retained lashed externally to back with existing rope, no disappearance or extra weapon. Body/helmet/spear proportions compared to original, no water/bubbles/VFX. Charge pair depth differs slightly, exact landing contact/loop and shared pixel-scale rig pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

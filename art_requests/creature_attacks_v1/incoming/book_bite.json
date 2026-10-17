@@ -1,0 +1,252 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "salt_bookmite",
+  "image": "book_bite.png",
+  "requested_frames": 12,
+  "source_brief": "art_requests/creature_attacks_v1/salt_bookmite.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/salt_bookmite.png",
+  "reference_sha256": "f118ec20d06ff9a114575d3f4b99b7bf5a531ec9275eb579bff87f01bd0eb438",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "book_bite.txt",
+  "image_size": [
+    1448,
+    1086
+  ],
+  "image_sha256": "788d14e3aebfd1dd301f493a7dd883f5e3a3e56b260a58210e90927d4274437b",
+  "git_blob_sha": "a8228279fbc58f6fda59a97220a6ad82260d49da",
+  "fully_transparent_pixels": 1104444,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        60,
+        166,
+        273,
+        164
+      ],
+      "component_seed": [
+        146,
+        170
+      ],
+      "bbox_alpha_gt_24": [
+        64,
+        170,
+        265,
+        156
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        428,
+        165,
+        272,
+        165
+      ],
+      "component_seed": [
+        510,
+        169
+      ],
+      "bbox_alpha_gt_24": [
+        432,
+        169,
+        264,
+        157
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        780,
+        137,
+        272,
+        196
+      ],
+      "component_seed": [
+        909,
+        141
+      ],
+      "bbox_alpha_gt_24": [
+        784,
+        141,
+        264,
+        188
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        1140,
+        134,
+        276,
+        197
+      ],
+      "component_seed": [
+        1223,
+        138
+      ],
+      "bbox_alpha_gt_24": [
+        1144,
+        138,
+        268,
+        189
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        44,
+        465,
+        326,
+        210
+      ],
+      "component_seed": [
+        158,
+        469
+      ],
+      "bbox_alpha_gt_24": [
+        48,
+        469,
+        318,
+        202
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        418,
+        468,
+        307,
+        207
+      ],
+      "component_seed": [
+        518,
+        472
+      ],
+      "bbox_alpha_gt_24": [
+        422,
+        472,
+        299,
+        199
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        767,
+        464,
+        321,
+        212
+      ],
+      "component_seed": [
+        870,
+        468
+      ],
+      "bbox_alpha_gt_24": [
+        771,
+        468,
+        313,
+        204
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        1133,
+        470,
+        305,
+        206
+      ],
+      "component_seed": [
+        1233,
+        474
+      ],
+      "bbox_alpha_gt_24": [
+        1137,
+        474,
+        297,
+        198
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        50,
+        813,
+        303,
+        188
+      ],
+      "component_seed": [
+        146,
+        817
+      ],
+      "bbox_alpha_gt_24": [
+        54,
+        817,
+        295,
+        180
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        422,
+        816,
+        294,
+        186
+      ],
+      "component_seed": [
+        518,
+        820
+      ],
+      "bbox_alpha_gt_24": [
+        426,
+        820,
+        286,
+        178
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        779,
+        826,
+        286,
+        176
+      ],
+      "component_seed": [
+        897,
+        830
+      ],
+      "bbox_alpha_gt_24": [
+        783,
+        830,
+        278,
+        168
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        1147,
+        828,
+        279,
+        174
+      ],
+      "component_seed": [
+        1242,
+        832
+      ],
+      "bbox_alpha_gt_24": [
+        1151,
+        832,
+        271,
+        166
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Twelve complete crawling bookmites. Boundspine keeps covers/pages connected as shell opens; head/mandibles alternate open-close twice, covers close during recovery, crystals remain attached. Framing reduced to preserve antenna/mandible tips. Book/head/body ratios compared to original, legs brace the mass, no loosepages/salt/VFX. Fine page hinge, leg occlusion and timing require art acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

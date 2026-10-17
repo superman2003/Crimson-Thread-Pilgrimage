@@ -44,5 +44,36 @@
 | moss_larva | [larva_curl_loops.png](larva_curl_loops.png) | 2 |
 | obsidian_bellwheel | [bellwheel_waves.png](bellwheel_waves.png) | 14 |
 | obsidian_bellwheel | [bellwheel_roll_loops.png](bellwheel_roll_loops.png) | 4 |
+| obsidian_spearman | [obsidian_raise.png](obsidian_raise.png) | 12 |
+| obsidian_spearman | [obsidian_elite_impale.png](obsidian_elite_impale.png) | 16 |
+| obsidian_spearman | [obsidian_thrust_loops.png](obsidian_thrust_loops.png) | 2 |
+| page_duelist | [page_feint.png](page_feint.png) | 12 |
+| page_duelist | [page_elite_flurry.png](page_elite_flurry.png) | 16 |
+| page_duelist | [page_combo_loops.png](page_combo_loops.png) | 2 |
+| phase_censor | [censor_blink.png](censor_blink.png) | 14 |
+| phase_censor | [censor_fan_loops.png](censor_fan_loops.png) | 2 |
+| pilgrim_chariot | [chariot_caltrops.png](chariot_caltrops.png) | 14 |
+| pilgrim_chariot | [chariot_elite_drift.png](chariot_elite_drift.png) | 16 |
+| pilgrim_chariot | [chariot_charge_loops.png](chariot_charge_loops.png) | 4 |
+| pipe_thrower | [pipe_mortar.png](pipe_mortar.png) | 14 |
+| pipe_thrower | [pipe_backblast_loops.png](pipe_backblast_loops.png) | 2 |
+| pollen_lutist | [pollen_spots.png](pollen_spots.png) | 14 |
+| pollen_lutist | [pollen_arcs_loops.png](pollen_arcs_loops.png) | 2 |
+| rain_censer_mote | [censer_cloud.png](censer_cloud.png) | 12 |
+| rain_censer_mote | [censer_rain_loops.png](censer_rain_loops.png) | 2 |
+| root_cage_hunter | [cage_pounce.png](cage_pounce.png) | 14 |
+| root_cage_hunter | [cage_elite_snare.png](cage_elite_snare.png) | 14 |
+| root_cage_hunter | [cage_net_loops.png](cage_net_loops.png) | 2 |
+| rust_diver | [diver_splash.png](diver_splash.png) | 14 |
+| rust_diver | [diver_vault_loops.png](diver_vault_loops.png) | 2 |
+| salt_bookmite | [book_bite.png](book_bite.png) | 12 |
+| salt_bookmite | [book_burrow_loops.png](book_burrow_loops.png) | 2 |
+| silent_bugbler | [bugle_pulse.png](bugle_pulse.png) | 14 |
+| silent_bugbler | [bugle_volley_loops.png](bugle_volley_loops.png) | 2 |
+| spore_bellmaker | [bell_fungus.png](bell_fungus.png) | 12 |
+| spore_bellmaker | [bell_spores_loops.png](bell_spores_loops.png) | 2 |
+| summoned_page | [page_orbit.png](page_orbit.png) | 14 |
+| summoned_page | [page_skim_loops.png](page_skim_loops.png) | 2 |
+| thorn_bloom_mote | [bloom_seeds.png](bloom_seeds.png) | 14 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。

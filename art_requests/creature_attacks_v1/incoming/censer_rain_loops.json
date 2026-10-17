@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "rain_censer_mote",
+  "image": "censer_rain_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/rain_censer_mote.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/rain_censer_mote.png",
+  "reference_sha256": "60a83b3a71bc090f531d6aaa7fdb3985b01e4979caa7e383015d5ae5c36ec830",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "censer_rain_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "6a0bc9dc772ef76d60992d8e23566bd74dea5f257a8bd802720947e1dd3cfe8d",
+  "git_blob_sha": "f821e6152332bddac5cf38cb3246ab5196ad8d01",
+  "fully_transparent_pixels": 1314674,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        179,
+        175,
+        659,
+        511
+      ],
+      "component_seed": [
+        306,
+        179
+      ],
+      "bbox_alpha_gt_24": [
+        183,
+        179,
+        651,
+        503
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1035,
+        225,
+        705,
+        475
+      ],
+      "component_seed": [
+        1161,
+        229
+      ],
+      "bbox_alpha_gt_24": [
+        1039,
+        229,
+        697,
+        467
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete airborne bronze-censer insects, proboscis forward-right, attached perforated abdomen and slateblue wings, chain bells hang under gravity. No reference smoke cloud or particles. Similar abdomen/wing/proboscis/body proportions to original and censer_cloud. Some far chain bells occluded; exact appendage topology, shared pixel scale and seamless loop need art acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "pipe_thrower",
+  "image": "pipe_backblast_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/pipe_thrower.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/pipe_thrower.png",
+  "reference_sha256": "505d98e13afed4b0486394de716b9a2b6e94fcdfa021c16fe70cb79987d4ebd2",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "pipe_backblast_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "a7179a4bca13f820c0461a1139a6366b222cdbc1dc6205e3216bc7b09482170f",
+  "git_blob_sha": "aaa07238016d9403033ec79d69df92a96305c728",
+  "fully_transparent_pixels": 1263933,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        162,
+        213,
+        683,
+        536
+      ],
+      "component_seed": [
+        614,
+        217
+      ],
+      "bbox_alpha_gt_24": [
+        166,
+        217,
+        675,
+        528
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        972,
+        214,
+        660,
+        538
+      ],
+      "component_seed": [
+        1398,
+        218
+      ],
+      "bbox_alpha_gt_24": [
+        976,
+        218,
+        652,
+        530
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete copper-shell workers holding one short hollow ironpipe level at hip. Rear grip and supporting underside hand visible, fingers outside muzzle, wrists connected, braced legs. Pipe length/diameter visually compared to original and pipe_mortar, no added stock/trigger or steam/projectiles. Exact shared pixel scale and loop timing pending, full alpha margins retained.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
