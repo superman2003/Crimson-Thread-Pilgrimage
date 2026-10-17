@@ -1,6 +1,6 @@
 # 2026-10-17 动作源素材上传清单
 
-当前已上传 **24种敌人、2位NPC，26张透明RGBA源图、208帧**；敌人待生成22种。用户重新要求继续，严格每张远端提交成功后才生成下一张。
+当前已上传 **25种敌人、2位NPC，27张透明RGBA源图、216帧**；敌人待生成21种。用户重新要求继续，严格每张远端提交成功后才生成下一张。
 
 | 角色ID | 类别 | 帧数 | 素材 |
 | --- | --- | ---: | --- |
@@ -20,6 +20,7 @@
 | `falling_clapper` | ordinary | 8 | [PNG](falling_clapper/sources/supplement_20261017/hurt_death.png) · [清单](falling_clapper/sources/supplement_20261017/generation_manifest.json) |
 | `gear_sentinel` | ordinary | 8 | [PNG](gear_sentinel/sources/supplement_20261017/hurt_death.png) · [清单](gear_sentinel/sources/supplement_20261017/generation_manifest.json) |
 | `index_scribe` | ordinary | 8 | [PNG](index_scribe/sources/supplement_20261017/hurt_death.png) · [清单](index_scribe/sources/supplement_20261017/generation_manifest.json) |
+| `isotope_lumen` | ordinary | 8 | [PNG](isotope_lumen/sources/supplement_20261017/hurt_death.png) · [清单](isotope_lumen/sources/supplement_20261017/generation_manifest.json) |
 | `page_duelist` | ordinary | 8 | [PNG](page_duelist/sources/supplement_20261017/hurt_death.png) · [清单](page_duelist/sources/supplement_20261017/generation_manifest.json) |
 | `pipe_thrower` | ordinary | 8 | [PNG](pipe_thrower/sources/supplement_20261017/hurt_death.png) · [清单](pipe_thrower/sources/supplement_20261017/generation_manifest.json) |
 | `rust_diver` | ordinary | 8 | [PNG](rust_diver/sources/supplement_20261017/hurt_death.png) · [清单](rust_diver/sources/supplement_20261017/generation_manifest.json) |
