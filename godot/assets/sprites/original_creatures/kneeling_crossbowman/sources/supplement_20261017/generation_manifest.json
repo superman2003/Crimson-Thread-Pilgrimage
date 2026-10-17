@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "kneeling_crossbowman",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
+  "reference_sha256": "378723c7abd2aa84a744c82c949381bddc50dbcd716267345de555eab8c28711",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact kneeling_crossbowman character identity and painted style. Hunched insect crossbowman with long curved dark antennae, ivory skull/beak mask, tattered burgundy hood/scarf and cape, dark segmented charcoal armor, brown belt and side quiver, ONE ivory-bone mechanical crossbow held in black hands. Maintain exact crossbow limbs and string, do not add bows or spears. Hurt recovery ends in habitual low crouched guard rather than tall standing. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: impact flinch with torso leaning backward, deeper recoil with bent knees, regains foot support while steadying equipment, returns to upright guard. Bottom row FOUR death-collapse poses: knees buckle and equipment drops, lowers onto one knee, collapses onto side with equipment beside body, lies lifeless prone with all equipment complete. Real joint and cloth articulation. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "ef981b4a8250e5bbe7133f03a568f6f329cda92ddc5aa857d098265d7b7f7fd0",
+  "git_blob_sha": "7e6201a369d259af5005573ff1a66a4bb6566af0",
+  "component_seeds": [
+    [
+      81,
+      103
+    ],
+    [
+      743,
+      123
+    ],
+    [
+      1218,
+      131
+    ],
+    [
+      1638,
+      112
+    ],
+    [
+      330,
+      562
+    ],
+    [
+      791,
+      572
+    ],
+    [
+      1115,
+      672
+    ],
+    [
+      1613,
+      695
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        37,
+        99,
+        358,
+        374
+      ],
+      "component_seed": [
+        81,
+        103
+      ],
+      "visible_bbox_alpha_gt_24": [
+        41,
+        103,
+        350,
+        366
+      ],
+      "rgba_sha256": "d3b113f35d8a256bb6fe36e84027e0ed350880366ccb03e816b9b9d35aaa7a1a"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        471,
+        119,
+        379,
+        356
+      ],
+      "component_seed": [
+        743,
+        123
+      ],
+      "visible_bbox_alpha_gt_24": [
+        475,
+        123,
+        371,
+        348
+      ],
+      "rgba_sha256": "cad96292c90b3bc79494e450145a4064dcb60cf7e3abe73bc972be493e3b5f75"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        916,
+        127,
+        345,
+        349
+      ],
+      "component_seed": [
+        1218,
+        131
+      ],
+      "visible_bbox_alpha_gt_24": [
+        920,
+        131,
+        337,
+        341
+      ],
+      "rgba_sha256": "f6268be5721cc388ea3244427885cebf262f2b7c2703749e842b9cc2244645d8"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1380,
+        108,
+        362,
+        368
+      ],
+      "component_seed": [
+        1638,
+        112
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1384,
+        112,
+        354,
+        360
+      ],
+      "rgba_sha256": "e1ead76b61176a2a96af73836c2db52fcd8aeb34ca07f3bf04b96bf983040dda"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        57,
+        558,
+        360,
+        277
+      ],
+      "component_seed": [
+        330,
+        562
+      ],
+      "visible_bbox_alpha_gt_24": [
+        61,
+        562,
+        352,
+        269
+      ],
+      "rgba_sha256": "8aaea9de072fd4570bba8bc0139ec0849c982473ced39e3d233f426f7fbac888"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        494,
+        568,
+        335,
+        260
+      ],
+      "component_seed": [
+        791,
+        572
+      ],
+      "visible_bbox_alpha_gt_24": [
+        498,
+        572,
+        327,
+        252
+      ],
+      "rgba_sha256": "ad637bf003ccf6fbe98f2fcea3f5c2d584e65730403fafbb575312de16621f71"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        880,
+        668,
+        426,
+        161
+      ],
+      "component_seed": [
+        1115,
+        672
+      ],
+      "visible_bbox_alpha_gt_24": [
+        884,
+        672,
+        418,
+        153
+      ],
+      "rgba_sha256": "955abef77a50c5b99cf78966db54a2dd087e37749e4e977c59123b18336f41a6"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1327,
+        691,
+        436,
+        139
+      ],
+      "component_seed": [
+        1613,
+        695
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1331,
+        695,
+        428,
+        131
+      ],
+      "rgba_sha256": "8fed1249373fc6d8f553965736b1c410f985b240527764a944112b795acb497d"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1105858,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight complete crossbowman poses retain hood, dark armor, bone crossbow and quiver. Upper row recoils back toward crouched guard; lower row knees buckle, kneels and collapses prone. Scale/weapon consistency and runtime endpoints still need integration review.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}
