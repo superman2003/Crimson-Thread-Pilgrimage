@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "falling_clapper",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/falling_clapper/atlas.png",
+  "reference_sha256": "69c389f289aa935f85801008b705723a6c4cca67e2a639a8a7641637c20c0dee",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact falling_clapper character identity and painted style. Small flying bell-abdomen insect with rounded brass bell body and dangling clapper, charcoal fur collar, ivory horned skull helmet with large dark gold-rimmed eye, ivory scythe forearms, translucent pale veined wings and small black legs. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: knocked backward midair, tilts and tucks wings while recoiling, wings reopen and body levels, returns to neutral hover. Bottom row FOUR death poses: loses lift and droops, tips downward with limp wings, falls onto side on an invisible ground line with wings folded, motionless collapsed body. Keep wings and all appendages complete. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "17778ec5c542fce5c80947fcf67c93c0c21eb2b83d5d55f6d9c508fa7b71cff5",
+  "git_blob_sha": "0a0a44fdefc92cd982cbe928588ca4648e55c564",
+  "component_seeds": [
+    [
+      258,
+      104
+    ],
+    [
+      757,
+      149
+    ],
+    [
+      940,
+      125
+    ],
+    [
+      1446,
+      108
+    ],
+    [
+      300,
+      526
+    ],
+    [
+      565,
+      512
+    ],
+    [
+      1220,
+      630
+    ],
+    [
+      1643,
+      653
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        64,
+        100,
+        393,
+        298
+      ],
+      "component_seed": [
+        258,
+        104
+      ],
+      "visible_bbox_alpha_gt_24": [
+        68,
+        104,
+        385,
+        290
+      ],
+      "rgba_sha256": "e3dff595b3a19f817782d8a501d60dfdd7cf23bde5d8e1dc3802e2f5eda4362b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        522,
+        145,
+        289,
+        269
+      ],
+      "component_seed": [
+        757,
+        149
+      ],
+      "visible_bbox_alpha_gt_24": [
+        526,
+        149,
+        281,
+        261
+      ],
+      "rgba_sha256": "9a2514b6b65b4e73ac2c2767d5a5c80e507eb51072e76ae82b0dbbc678c10784"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        923,
+        121,
+        369,
+        280
+      ],
+      "component_seed": [
+        940,
+        125
+      ],
+      "visible_bbox_alpha_gt_24": [
+        927,
+        125,
+        361,
+        272
+      ],
+      "rgba_sha256": "316de567695f7cb9a9bfecc726cfe1ba4364947719f380b2029dfd264332a597"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1360,
+        104,
+        369,
+        295
+      ],
+      "component_seed": [
+        1446,
+        108
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1364,
+        108,
+        361,
+        287
+      ],
+      "rgba_sha256": "03552978bbde8fa0fa691f0baecbeb7cbfc8cd7fd2e79688633ae4410b33c1a4"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        61,
+        522,
+        345,
+        277
+      ],
+      "component_seed": [
+        300,
+        526
+      ],
+      "visible_bbox_alpha_gt_24": [
+        65,
+        526,
+        337,
+        269
+      ],
+      "rgba_sha256": "2f5f2515eac322a1ba9d7c95760b5b4c0dd85fc23b4a6d89e611d5a097c38bce"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        531,
+        508,
+        283,
+        309
+      ],
+      "component_seed": [
+        565,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        535,
+        512,
+        275,
+        301
+      ],
+      "rgba_sha256": "4ea470b28009f8977476fc795b4bbcdc90f9c1c2945573b689d3e4dba9c6c495"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        903,
+        626,
+        402,
+        189
+      ],
+      "component_seed": [
+        1220,
+        630
+      ],
+      "visible_bbox_alpha_gt_24": [
+        907,
+        630,
+        394,
+        181
+      ],
+      "rgba_sha256": "bf37b4dd1bdc937da9dbd6fbed0652fe64ed1ce7bd39d76874a43359e98da5ad"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1349,
+        649,
+        399,
+        163
+      ],
+      "component_seed": [
+        1643,
+        653
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1353,
+        653,
+        391,
+        155
+      ],
+      "rgba_sha256": "05777fff71c41c7aa49debf39416857d967969a32139da444814ffcddd8e6956"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1140459,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight isolated complete bell-bodied flying insects with ivory claws and pale wings. Upper four tilt/recover hover; lower four droop, settle onto side and close eye. Wing/claw/body articulation inspected; source only, final timing and rig registration pending.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}
