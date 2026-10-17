@@ -71,5 +71,6 @@
 | silent_bugbler | [bugle_pulse.png](bugle_pulse.png) | 14 |
 | silent_bugbler | [bugle_volley_loops.png](bugle_volley_loops.png) | 2 |
 | spore_bellmaker | [bell_fungus.png](bell_fungus.png) | 12 |
+| spore_bellmaker | [bell_spores_loops.png](bell_spores_loops.png) | 2 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
