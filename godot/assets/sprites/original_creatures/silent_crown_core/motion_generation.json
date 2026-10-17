@@ -1,0 +1,1038 @@
+{
+  "kind": "silent_crown_core",
+  "generator": "built-in image_gen",
+  "sources": [
+    {
+      "sheet": "motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Hundred Key Gatekeeper exactly reference, towering ivory stag beetle sovereign with massive crescent ivory mandibles, elaborate antique key crown, black and silver segmented armor, white ermine collar, crimson silk royal cloak with gold edges, holding a long heavy brass KEY SCEPTER. Exactly 4 columns by 9 rows =36 full body sprites, tall canvas. Draw sprite SMALL at 60% cell width and height with 20% empty transparent margins EVERY SIDE. Never touch or overlap neighboring sprites, all full weapons must fit. Four frames each row: ROW1 idle breathing; ROW2 walk first four leg poses; ROW3 walk second four opposite leg poses; ROW4 windup lifting key scepter and bracing legs; ROW5 attack four rightward scepter swing/lunge poses; ROW6 recover four scepter retraction poses; ROW7 hurt four recoil/bent poses; ROW8 death stagger kneel fall collapsed; ROW9 extra two attack followthrough then two recover. Preserve identity same scale. No painted background or glow or floor or shadow. All side view facing right. Genuine transparent alpha.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-caa3d5ba-ad46-4df5-90e9-484d96c8e400.png",
+      "sha256": "29b2f792ffd5b5e4e72d4e83f680d2ca96a80ee3f9fdc10cbbca056e0395b405"
+    },
+    {
+      "sheet": "special_motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Hundred Key Gatekeeper as refs, ivory stag beetle royal sovereign, enormous ivory crescent mandibles, tall brass key crown, black silver armor, ermine collar, crimson gold royal cloak and brass heavy key scepter. Exactly FOUR COLUMNS by SIX ROWS 24 independent full body sprites. LARGE TRANSPARENT GUTTERS; entire character only 60% cell width/height, every scepter and horn contained, no overlap. Four distinct consecutive articulated poses per row. Row1 heavy_windup lifting key scepter slowly above crown, knees coil. Row2 heavy four scepter downward slam poses through ground and returning. Row3 cast_windup free hand slowly lifts, key scepter held low. Row4 cast four open-hand royal summoning gestures with claw extended right and returning, no detached effect. Row5 phase_windup crouches, cloak gathers, scepter drawn across chest. Row6 phase four forward scepter thrust poses with body advancing and recoil. Complete dark fantasy hand drawn 2D bodies, all RIGHT side view, same proportions/scale. Transparent background no brown backdrop, shadow, words, or ground.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-481e4221-1e11-447a-b630-613b62b53b46.png",
+      "sha256": "d593bf570fe926113850a0fda1831ee2f3ae8fae6b6fdea9daaf6a6dd3f044fa"
+    },
+    {
+      "sheet": "motion_repair.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character Hundred Key Gatekeeper EXACTLY reference: ivory stag beetle sovereign crescent mandibles, key crown, black silver armor, ermine red gold royal cloak, brass key scepter. SPARSE 4 COLUMNS by 3 ROWS = 12 complete sprites, landscape canvas. EACH sprite takes only half its cell width and half its cell height. Very wide transparent gaps between all figures so NO body, cloak or weapon can touch adjacent figure. ROW ONE four consecutive forward right scepter thrust/slash attack poses, bent knees drive forward, fully complete scepter. ROW TWO four consecutive PHASE ATTACK poses: low coiled crouch holding scepter across chest, explosive forward thrust, maximum extended lunge, recoiling settle. ROW THREE four death poses: severe standing stagger, knee hits ground and head bows, body falling onto side, fully collapsed rightward on ground with complete horns and key. All 12 same scale and species/style identity, side view right. No words, no drawn grid lines, no floor, no shadows, real alpha transparency.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-a8368c3e-1e5d-42c1-8f9c-3cd3d0b03c8e.png",
+      "sha256": "09fb82274bd62796de5c3d0eb063432a0dabfb8a5ac857ab45bd4f4ef99e1f8c"
+    }
+  ],
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          37,
+          8,
+          197,
+          175
+        ],
+        "component_seeds": [
+          [
+            124,
+            113
+          ]
+        ],
+        "anchor_x": 82.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          292,
+          9,
+          191,
+          174
+        ],
+        "component_seeds": [
+          [
+            418,
+            111
+          ]
+        ],
+        "anchor_x": 77.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          530,
+          9,
+          195,
+          174
+        ],
+        "component_seeds": [
+          [
+            677,
+            114
+          ]
+        ],
+        "anchor_x": 73.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          787,
+          8,
+          196,
+          175
+        ],
+        "component_seeds": [
+          [
+            917,
+            115
+          ]
+        ],
+        "anchor_x": 78.0,
+        "scale": 1
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          27,
+          189,
+          208,
+          163
+        ],
+        "component_seeds": [
+          [
+            144,
+            285
+          ]
+        ],
+        "anchor_x": 78.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          280,
+          193,
+          209,
+          159
+        ],
+        "component_seeds": [
+          [
+            417,
+            290
+          ]
+        ],
+        "anchor_x": 68.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          529,
+          195,
+          212,
+          155
+        ],
+        "component_seeds": [
+          [
+            589,
+            290
+          ]
+        ],
+        "anchor_x": 128.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          779,
+          194,
+          208,
+          158
+        ],
+        "component_seeds": [
+          [
+            919,
+            289
+          ]
+        ],
+        "anchor_x": 143.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          26,
+          351,
+          209,
+          162
+        ],
+        "component_seeds": [
+          [
+            175,
+            448
+          ]
+        ],
+        "anchor_x": 90.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          280,
+          356,
+          204,
+          158
+        ],
+        "component_seeds": [
+          [
+            402,
+            452
+          ]
+        ],
+        "anchor_x": 80.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          529,
+          358,
+          203,
+          156
+        ],
+        "component_seeds": [
+          [
+            635,
+            451
+          ]
+        ],
+        "anchor_x": 89.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          779,
+          358,
+          206,
+          157
+        ],
+        "component_seeds": [
+          [
+            828,
+            453
+          ]
+        ],
+        "anchor_x": 124.0,
+        "scale": 1
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          33,
+          514,
+          181,
+          189
+        ],
+        "component_seeds": [
+          [
+            164,
+            634
+          ]
+        ],
+        "anchor_x": 73.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          281,
+          524,
+          204,
+          181
+        ],
+        "component_seeds": [
+          [
+            331,
+            644
+          ]
+        ],
+        "anchor_x": 82.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          533,
+          523,
+          189,
+          182
+        ],
+        "component_seeds": [
+          [
+            631,
+            642
+          ]
+        ],
+        "anchor_x": 81.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          780,
+          520,
+          195,
+          185
+        ],
+        "component_seeds": [
+          [
+            898,
+            638
+          ]
+        ],
+        "anchor_x": 68.0,
+        "scale": 1
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          13,
+          99,
+          341,
+          261
+        ],
+        "component_seeds": [
+          [
+            172,
+            254
+          ]
+        ],
+        "anchor_x": 108.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          370,
+          98,
+          411,
+          262
+        ],
+        "component_seeds": [
+          [
+            732,
+            246
+          ]
+        ],
+        "anchor_x": 253.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          751,
+          114,
+          453,
+          249
+        ],
+        "component_seeds": [
+          [
+            1188,
+            243
+          ]
+        ],
+        "anchor_x": 292.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          1142,
+          104,
+          381,
+          259
+        ],
+        "component_seeds": [
+          [
+            1304,
+            247
+          ]
+        ],
+        "anchor_x": 111.0,
+        "scale": 0.65
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          791,
+          717,
+          214,
+          153
+        ],
+        "component_seeds": [
+          [
+            835,
+            808
+          ]
+        ],
+        "anchor_x": 105.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          25,
+          878,
+          202,
+          167
+        ],
+        "component_seeds": [
+          [
+            85,
+            979
+          ]
+        ],
+        "anchor_x": 66.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          272,
+          879,
+          219,
+          166
+        ],
+        "component_seeds": [
+          [
+            365,
+            977
+          ]
+        ],
+        "anchor_x": 158.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          525,
+          880,
+          212,
+          170
+        ],
+        "component_seeds": [
+          [
+            586,
+            979
+          ]
+        ],
+        "anchor_x": 77.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          780,
+          878,
+          217,
+          174
+        ],
+        "component_seeds": [
+          [
+            853,
+            981
+          ]
+        ],
+        "anchor_x": 144.0,
+        "scale": 1
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          26,
+          1058,
+          196,
+          174
+        ],
+        "component_seeds": [
+          [
+            126,
+            1148
+          ]
+        ],
+        "anchor_x": 46.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          248,
+          1064,
+          281,
+          170
+        ],
+        "component_seeds": [
+          [
+            392,
+            1161
+          ]
+        ],
+        "anchor_x": 178.0,
+        "scale": 1
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          530,
+          1057,
+          204,
+          176
+        ],
+        "component_seeds": [
+          [
+            640,
+            1149
+          ]
+        ],
+        "anchor_x": 67.0,
+        "scale": 1
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          10,
+          695,
+          334,
+          291
+        ],
+        "component_seeds": [
+          [
+            171,
+            878
+          ]
+        ],
+        "anchor_x": 116.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          365,
+          769,
+          334,
+          214
+        ],
+        "component_seeds": [
+          [
+            634,
+            892
+          ]
+        ],
+        "anchor_x": 143.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          688,
+          804,
+          421,
+          191
+        ],
+        "component_seeds": [
+          [
+            877,
+            922
+          ]
+        ],
+        "anchor_x": 298.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          1105,
+          864,
+          417,
+          132
+        ],
+        "component_seeds": [
+          [
+            1377,
+            937
+          ]
+        ],
+        "anchor_x": 389.0,
+        "scale": 0.65
+      }
+    ],
+    "heavy_windup": [
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          9,
+          42,
+          257,
+          220
+        ],
+        "component_seeds": [
+          [
+            174,
+            179
+          ]
+        ],
+        "anchor_x": 82.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          261,
+          32,
+          248,
+          229
+        ],
+        "component_seeds": [
+          [
+            394,
+            176
+          ]
+        ],
+        "anchor_x": 78.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          511,
+          1,
+          236,
+          265
+        ],
+        "component_seeds": [
+          [
+            674,
+            168
+          ]
+        ],
+        "anchor_x": 96.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          758,
+          1,
+          232,
+          263
+        ],
+        "component_seeds": [
+          [
+            924,
+            178
+          ]
+        ],
+        "anchor_x": 104.0,
+        "scale": 0.79
+      }
+    ],
+    "heavy": [
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          6,
+          252,
+          253,
+          277
+        ],
+        "component_seeds": [
+          [
+            135,
+            431
+          ]
+        ],
+        "anchor_x": 85.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          254,
+          271,
+          251,
+          257
+        ],
+        "component_seeds": [
+          [
+            367,
+            435
+          ]
+        ],
+        "anchor_x": 92.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          516,
+          337,
+          258,
+          192
+        ],
+        "component_seeds": [
+          [
+            724,
+            431
+          ]
+        ],
+        "anchor_x": 172.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          773,
+          310,
+          245,
+          222
+        ],
+        "component_seeds": [
+          [
+            852,
+            445
+          ]
+        ],
+        "anchor_x": 177.0,
+        "scale": 0.79
+      }
+    ],
+    "cast_windup": [
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          6,
+          534,
+          251,
+          240
+        ],
+        "component_seeds": [
+          [
+            172,
+            684
+          ]
+        ],
+        "anchor_x": 90.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          254,
+          532,
+          256,
+          241
+        ],
+        "component_seeds": [
+          [
+            430,
+            677
+          ]
+        ],
+        "anchor_x": 94.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          506,
+          536,
+          250,
+          239
+        ],
+        "component_seeds": [
+          [
+            594,
+            684
+          ]
+        ],
+        "anchor_x": 91.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          759,
+          542,
+          249,
+          232
+        ],
+        "component_seeds": [
+          [
+            876,
+            683
+          ]
+        ],
+        "anchor_x": 83.0,
+        "scale": 0.79
+      }
+    ],
+    "cast": [
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          2,
+          780,
+          251,
+          238
+        ],
+        "component_seeds": [
+          [
+            114,
+            924
+          ]
+        ],
+        "anchor_x": 80.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          248,
+          782,
+          280,
+          239
+        ],
+        "component_seeds": [
+          [
+            314,
+            926
+          ]
+        ],
+        "anchor_x": 91.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          494,
+          784,
+          270,
+          236
+        ],
+        "component_seeds": [
+          [
+            553,
+            930
+          ]
+        ],
+        "anchor_x": 93.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          759,
+          786,
+          253,
+          233
+        ],
+        "component_seeds": [
+          [
+            950,
+            929
+          ]
+        ],
+        "anchor_x": 100.0,
+        "scale": 0.79
+      }
+    ],
+    "phase_windup": [
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          14,
+          1033,
+          242,
+          213
+        ],
+        "component_seeds": [
+          [
+            84,
+            1153
+          ]
+        ],
+        "anchor_x": 43.5,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          261,
+          1039,
+          240,
+          209
+        ],
+        "component_seeds": [
+          [
+            428,
+            1159
+          ]
+        ],
+        "anchor_x": 98.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          498,
+          1045,
+          257,
+          203
+        ],
+        "component_seeds": [
+          [
+            586,
+            1161
+          ]
+        ],
+        "anchor_x": 90.0,
+        "scale": 0.79
+      },
+      {
+        "sheet": "special_motion_expanded.png",
+        "region": [
+          753,
+          1052,
+          268,
+          197
+        ],
+        "component_seeds": [
+          [
+            959,
+            1165
+          ]
+        ],
+        "anchor_x": 112.0,
+        "scale": 0.79
+      }
+    ],
+    "phase": [
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          8,
+          435,
+          336,
+          242
+        ],
+        "component_seeds": [
+          [
+            182,
+            577
+          ]
+        ],
+        "anchor_x": 99.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          362,
+          422,
+          435,
+          255
+        ],
+        "component_seeds": [
+          [
+            575,
+            541
+          ]
+        ],
+        "anchor_x": 84.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          695,
+          467,
+          518,
+          213
+        ],
+        "component_seeds": [
+          [
+            811,
+            584
+          ]
+        ],
+        "anchor_x": 234.0,
+        "scale": 0.65
+      },
+      {
+        "sheet": "motion_repair.png",
+        "region": [
+          1153,
+          427,
+          370,
+          250
+        ],
+        "component_seeds": [
+          [
+            1267,
+            580
+          ]
+        ],
+        "anchor_x": 105.0,
+        "scale": 0.65
+      }
+    ]
+  },
+  "qa": {
+    "review": "Source sheets visually reviewed; independent complete alpha components explicitly selected; merged characters and edge-clipped poses excluded. Source atlas and attacks unchanged.",
+    "mechanical_packaging": "Component isolation of authored source pixels, scale normalization and atlas packing; no procedural animation or interpolation."
+  },
+  "slots": {
+    "idle": 4,
+    "walk": 8,
+    "windup": 4,
+    "attack": 4,
+    "recover": 5,
+    "hurt": 3,
+    "death": 4,
+    "heavy_windup": 4,
+    "heavy": 4,
+    "cast_windup": 4,
+    "cast": 4,
+    "phase_windup": 4,
+    "phase": 4
+  }
+}

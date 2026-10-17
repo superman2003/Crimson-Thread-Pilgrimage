@@ -118,7 +118,7 @@ func _check_travel_samples(label: String, initial_phase: float) -> void:
         if float(sample.motion_speed) > player.GROUND_MOTION_EPSILON and float(sample.attack) <= 0.0 and float(sample.heal) <= 0.0:
             _check(sample.animation == &"run", label + ": actual motion retains run despite input/landing transitions")
             _check(bool(sample.flip) == (float(sample.dx) < 0.0), label + ": visible facing follows actual ground travel")
-            var pose_phase := (float(sample.frame) + float(sample.frame_progress)) / 4.0
+            var pose_phase := (float(sample.frame) + float(sample.frame_progress)) / float(player.sprite.sprite_frames.get_frame_count(&"run"))
             _check(absf(pose_phase - float(sample.phase)) < 0.0001, label + ": rendered pose uses the distance phase")
 
 func _check_death_timer_boundary() -> void:

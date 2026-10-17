@@ -1,0 +1,578 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "spore_bellmaker",
+  "canvas": [
+    334,
+    185
+  ],
+  "display_height": 96,
+  "visual_scale": 0.6193548387096774,
+  "visual_offset": [
+    0,
+    5.03293718166384
+  ],
+  "motion": "stationary",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            100,
+            22,
+            163,
+            155
+          ],
+          "margin": [
+            100,
+            22,
+            171,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            438,
+            28,
+            165,
+            149
+          ],
+          "margin": [
+            104,
+            28,
+            169,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            787,
+            23,
+            152,
+            154
+          ],
+          "margin": [
+            119,
+            23,
+            182,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1088,
+            27,
+            173,
+            150
+          ],
+          "margin": [
+            86,
+            27,
+            161,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1436,
+            29,
+            164,
+            148
+          ],
+          "margin": [
+            100,
+            29,
+            170,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1748,
+            26,
+            182,
+            151
+          ],
+          "margin": [
+            78,
+            26,
+            152,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            65,
+            218,
+            187,
+            144
+          ],
+          "margin": [
+            65,
+            33,
+            147,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            401,
+            215,
+            186,
+            147
+          ],
+          "margin": [
+            67,
+            30,
+            148,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            746,
+            214,
+            192,
+            148
+          ],
+          "margin": [
+            78,
+            29,
+            142,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1081,
+            223,
+            182,
+            139
+          ],
+          "margin": [
+            79,
+            38,
+            152,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1416,
+            216,
+            186,
+            146
+          ],
+          "margin": [
+            80,
+            31,
+            148,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1742,
+            222,
+            205,
+            140
+          ],
+          "margin": [
+            72,
+            37,
+            129,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            76,
+            408,
+            190,
+            139
+          ],
+          "margin": [
+            76,
+            38,
+            144,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            420,
+            385,
+            186,
+            162
+          ],
+          "margin": [
+            86,
+            15,
+            148,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            741,
+            378,
+            198,
+            169
+          ],
+          "margin": [
+            73,
+            8,
+            136,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1088,
+            385,
+            178,
+            162
+          ],
+          "margin": [
+            86,
+            15,
+            156,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1387,
+            401,
+            235,
+            146
+          ],
+          "margin": [
+            51,
+            31,
+            99,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1700,
+            420,
+            264,
+            127
+          ],
+          "margin": [
+            30,
+            50,
+            70,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            31,
+            606,
+            271,
+            126
+          ],
+          "margin": [
+            31,
+            51,
+            63,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            390,
+            604,
+            252,
+            128
+          ],
+          "margin": [
+            56,
+            49,
+            82,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            730,
+            607,
+            236,
+            125
+          ],
+          "margin": [
+            62,
+            52,
+            98,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1050,
+            592,
+            235,
+            140
+          ],
+          "margin": [
+            48,
+            37,
+            99,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1422,
+            591,
+            193,
+            141
+          ],
+          "margin": [
+            86,
+            36,
+            141,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1740,
+            598,
+            228,
+            134
+          ],
+          "margin": [
+            70,
+            43,
+            106,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            93,
+            782,
+            194,
+            135
+          ],
+          "margin": [
+            93,
+            42,
+            140,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            423,
+            773,
+            188,
+            144
+          ],
+          "margin": [
+            89,
+            33,
+            146,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            781,
+            778,
+            154,
+            139
+          ],
+          "margin": [
+            113,
+            38,
+            180,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1113,
+            768,
+            153,
+            149
+          ],
+          "margin": [
+            111,
+            28,
+            181,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1431,
+            796,
+            176,
+            121
+          ],
+          "margin": [
+            95,
+            56,
+            158,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1738,
+            781,
+            190,
+            136
+          ],
+          "margin": [
+            68,
+            41,
+            144,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            53,
+            992,
+            236,
+            110
+          ],
+          "margin": [
+            53,
+            67,
+            98,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            382,
+            1000,
+            244,
+            102
+          ],
+          "margin": [
+            48,
+            75,
+            90,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            697,
+            1010,
+            270,
+            92
+          ],
+          "margin": [
+            29,
+            85,
+            64,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/motion_runtime.png",
+          "region": [
+            1034,
+            1020,
+            294,
+            82
+          ],
+          "margin": [
+            32,
+            95,
+            40,
+            103
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_sealed_archivist",
+  "visual_scale": 0.32786885245901637,
+  "visual_offset": [
+    0,
+    -11.4251076611298
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/atlas.png",
+    "region": [
+      69,
+      25,
+      414,
+      294
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    388,
+    327
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            55,
+            14,
+            314,
+            305
+          ],
+          "margin": [
+            55,
+            14,
+            74,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            443,
+            17,
+            299,
+            302
+          ],
+          "margin": [
+            55,
+            17,
+            89,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            830,
+            17,
+            301,
+            302
+          ],
+          "margin": [
+            54,
+            17,
+            87,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1222,
+            15,
+            291,
+            304
+          ],
+          "margin": [
+            58,
+            15,
+            97,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1610,
+            13,
+            307,
+            306
+          ],
+          "margin": [
+            58,
+            13,
+            81,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1999,
+            8,
+            298,
+            311
+          ],
+          "margin": [
+            59,
+            8,
+            90,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            62,
+            337,
+            304,
+            309
+          ],
+          "margin": [
+            62,
+            10,
+            84,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            448,
+            337,
+            286,
+            309
+          ],
+          "margin": [
+            60,
+            10,
+            102,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            832,
+            338,
+            323,
+            308
+          ],
+          "margin": [
+            56,
+            11,
+            65,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1214,
+            340,
+            295,
+            306
+          ],
+          "margin": [
+            50,
+            13,
+            93,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1610,
+            341,
+            273,
+            305
+          ],
+          "margin": [
+            58,
+            14,
+            115,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1998,
+            340,
+            281,
+            306
+          ],
+          "margin": [
+            58,
+            13,
+            107,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            65,
+            674,
+            294,
+            299
+          ],
+          "margin": [
+            65,
+            20,
+            94,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            428,
+            693,
+            306,
+            280
+          ],
+          "margin": [
+            40,
+            39,
+            82,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            823,
+            680,
+            300,
+            293
+          ],
+          "margin": [
+            47,
+            26,
+            88,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_sealed_archivist/motion_runtime.png",
+          "region": [
+            1224,
+            680,
+            289,
+            293
+          ],
+          "margin": [
+            60,
+            26,
+            99,
+            34
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

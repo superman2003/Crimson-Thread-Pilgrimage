@@ -1,0 +1,309 @@
+{
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-7fdfcddd-143c-48f7-a684-4a6cfd256888.png",
+  "prompt": "Use case identity-preserve. Make a transparent sprite animation atlas in the SAME hand-painted game art style, exact reference stag-beetle keeper: ivory long serrated antler-like horns, skull-shaped white mask dark eyes, blue gold-trimmed long cape over cream and burgundy robes, hanging chain of six colored round seals, tassels, long parchment scroll in hands. Keep design props palette silhouette. EXACTLY16 full-body right-facing drawings, 4 columns by4 rows on a SQUARE canvas. Scale character down to leave LARGE EMPTY TRANSPARENT GUTTERS of 20% around EACH cell, horns and long cape entirely inside; all cells same scale and foot baseline. No clipped top/bottom/sides, no touching figures. Row1 four progressive idle breathing/blink/cape sway; rows2-3 eight progressive talk head and arm gestures (open palm, point, hand chest, return) with scroll held and cloth follow-through; row4 wave greeting, bow, two distinct seated rest poses. True articulate changes, no shifted copies, idle/talk first-last loop. Genuine alpha transparency, no source background, no text/labels/grid/shadows/scenery.",
+  "layout": {
+    "columns": 4,
+    "rows": 4,
+    "order": "row-major",
+    "animations": {
+      "idle": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "talk": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "greet": [
+        12,
+        13
+      ],
+      "rest": [
+        14,
+        15
+      ]
+    }
+  },
+  "qa": {
+    "visual_review": "16 full silhouettes visually reviewed; source costume and props retained; distinct articulated idle, talk, greeting and seated rest poses.",
+    "geometry": "Reviewed all16 independent full alpha>24 eight-connected silhouettes; no silhouettes merge. Explicit seed preserves each complete character and attached props, nearest3px antialias retained. Padded source rectangles isolate interlocking atlas bboxes through packer; no pose redrawn or interpolated.",
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged. For this right-facing long-robed/long-tailed/winged character, standing/talk/greet support is restricted to the anatomical right half before bottom-band quantiles, excluding left cape/tail/wing drag; seated rest uses the entire contact band."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          42,
+          6,
+          240,
+          315
+        ],
+        "anchor_x": 165.5,
+        "component_seeds": [
+          [
+            215,
+            201
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          344,
+          7,
+          240,
+          312
+        ],
+        "anchor_x": 164.7,
+        "component_seeds": [
+          [
+            438,
+            205
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          638,
+          11,
+          244,
+          308
+        ],
+        "anchor_x": 165.5,
+        "component_seeds": [
+          [
+            845,
+            205
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          931,
+          10,
+          276,
+          309
+        ],
+        "anchor_x": 193.0,
+        "component_seeds": [
+          [
+            1132,
+            211
+          ]
+        ]
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          28,
+          320,
+          292,
+          313
+        ],
+        "anchor_x": 182.5,
+        "component_seeds": [
+          [
+            253,
+            513
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          336,
+          322,
+          290,
+          311
+        ],
+        "anchor_x": 185.9,
+        "component_seeds": [
+          [
+            477,
+            516
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          640,
+          323,
+          252,
+          311
+        ],
+        "anchor_x": 174.5,
+        "component_seeds": [
+          [
+            850,
+            519
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          930,
+          319,
+          307,
+          314
+        ],
+        "anchor_x": 192.5,
+        "component_seeds": [
+          [
+            1159,
+            513
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          20,
+          632,
+          311,
+          311
+        ],
+        "anchor_x": 190.0,
+        "component_seeds": [
+          [
+            180,
+            819
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          316,
+          632,
+          302,
+          312
+        ],
+        "anchor_x": 189.0,
+        "component_seeds": [
+          [
+            443,
+            823
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          638,
+          641,
+          252,
+          304
+        ],
+        "anchor_x": 174.0,
+        "component_seeds": [
+          [
+            829,
+            833
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          934,
+          630,
+          257,
+          315
+        ],
+        "anchor_x": 181.0,
+        "component_seeds": [
+          [
+            1025,
+            833
+          ]
+        ]
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          18,
+          943,
+          255,
+          293
+        ],
+        "anchor_x": 171.5,
+        "component_seeds": [
+          [
+            180,
+            1114
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          309,
+          957,
+          271,
+          280
+        ],
+        "anchor_x": 170.0,
+        "component_seeds": [
+          [
+            494,
+            1116
+          ]
+        ]
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          601,
+          981,
+          323,
+          252
+        ],
+        "anchor_x": 162.0,
+        "component_seeds": [
+          [
+            777,
+            1157
+          ]
+        ]
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          928,
+          982,
+          317,
+          250
+        ],
+        "anchor_x": 154.0,
+        "component_seeds": [
+          [
+            1175,
+            1156
+          ]
+        ]
+      }
+    ]
+  }
+}

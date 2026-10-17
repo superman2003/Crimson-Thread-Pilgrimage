@@ -1,0 +1,213 @@
+{
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-3ed00cb1-631c-46f2-914c-d2ff1b1b9f45.png",
+  "prompt": "Use case: identity-preserve. Reference source atlas is exact character design. Retain the ivory moth scholar with a patterned peaked ivory bonnet, long fine antennae, segmented curved ivory tail, white layered robes and red lining/tassels, golden wrist rings, holding red gold-edged book; hand-painted warm dark fantasy outlined style. PRODUCTION ANIMATION SHEET: exactly 16 individual full-body right-facing sprites arranged evenly in 4 columns and 4 rows on transparent alpha. VERY LARGE CLEAR GUTTERS REQUIRED: each sprite must be small enough to occupy ONLY central 70% of its cell height and 70% of cell width, leaving at least 15% TRANSPARENT EMPTY BORDER on ALL FOUR SIDES OF EVERY CELL. Antennae, tail, hands and book wholly inside central70%, even the fullest gesture. Identical camera scale and feet baseline each cell. No labels, gridlines, background or shadow. Row1 four idle breathing and blinking poses; rows2-3 eight smooth talking poses with head nods, book-clasp, open palm, pointing and return gestures, cloth and antenna follow through; row4 two greeting poses wave and bow then two distinct seated resting poses. Real new articulated drawing each frame; preserve face, costume and book identity exactly. Idle and talk loop smoothly.",
+  "layout": {
+    "columns": 4,
+    "rows": 4,
+    "order": "row-major",
+    "animations": {
+      "idle": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "talk": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "greet": [
+        12,
+        13
+      ],
+      "rest": [
+        14,
+        15
+      ]
+    }
+  },
+  "qa": {
+    "visual_review": "16 full silhouettes visually reviewed; source costume and props retained; distinct articulated idle, talk, greeting and seated rest poses.",
+    "geometry": "Each reviewed pose fully isolated by alpha<=24 horizontal and vertical separator lines; complete silhouette; four clear edges and no neighboring fragment.",
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged. For this right-facing long-robed/long-tailed/winged character, standing/talk/greet support is restricted to the anatomical right half before bottom-band quantiles, excluding left cape/tail/wing drag; seated rest uses the entire contact band."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          0,
+          399,
+          260
+        ],
+        "anchor_x": 270.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          399,
+          0,
+          369,
+          260
+        ],
+        "anchor_x": 212.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          768,
+          0,
+          380,
+          260
+        ],
+        "anchor_x": 183.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1148,
+          0,
+          388,
+          260
+        ],
+        "anchor_x": 163.0
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          260,
+          384,
+          251
+        ],
+        "anchor_x": 259.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          384,
+          260,
+          384,
+          251
+        ],
+        "anchor_x": 237.6
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          768,
+          260,
+          384,
+          251
+        ],
+        "anchor_x": 204.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1152,
+          260,
+          384,
+          251
+        ],
+        "anchor_x": 182.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          511,
+          388,
+          245
+        ],
+        "anchor_x": 264.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          388,
+          511,
+          380,
+          245
+        ],
+        "anchor_x": 228.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          768,
+          511,
+          384,
+          245
+        ],
+        "anchor_x": 202.4
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1152,
+          511,
+          384,
+          245
+        ],
+        "anchor_x": 190.0
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          756,
+          389,
+          268
+        ],
+        "anchor_x": 263.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          389,
+          756,
+          379,
+          268
+        ],
+        "anchor_x": 218.0
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          768,
+          756,
+          384,
+          268
+        ],
+        "anchor_x": 200.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1152,
+          756,
+          384,
+          268
+        ],
+        "anchor_x": 168.0
+      }
+    ]
+  }
+}

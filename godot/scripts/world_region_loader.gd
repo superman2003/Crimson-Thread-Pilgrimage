@@ -1,4 +1,5 @@
 extends RefCounted
+const CHARACTER_ART_WARM_JOB := preload("res://scripts/character_art_warm_job.gd")
 ## The World node is the persistent host. Only its region-owned children are
 ## evicted; the Player, WorldState and BuildSystem remain the same instances.
 ## This is a coarse active-region chunk, not yet distance-based room streaming.
@@ -1249,6 +1250,31 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     if not catalog_read_ahead.is_empty():
         last_error = "物品目录预读未完成交接。"
         _discard_catalog_staging(host, catalog_read_ahead)
+        return false
+    # Cover the entire target region, including NPCs outside the landing
+    # top-k and original portrait atlases, before any actor can be published.
+    var art_job := CHARACTER_ART_WARM_JOB.new()
+    art_job.begin(host.config)
+    var art_started := Time.get_ticks_usec()
+    var art_batches := 0
+    while not art_job.done:
+        if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+            art_job.cancel()
+            return false
+        art_job.step(MAX_OPERATIONS_PER_FRAME, FRAME_BUDGET_USEC)
+        art_batches += 1
+        await _next_process_frame(prepare_tree)
+        if not _catalog_context_valid(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+            art_job.cancel()
+            return false
+        _cancel_input()
+    last_transition["character_art_batches"] = art_batches
+    last_transition["character_art_textures"] = art_job.paths.size()
+    last_transition["character_art_scanned"] = art_job.scanned
+    last_transition["character_art_max_operations"] = art_job.max_step_operations
+    last_transition["character_art_wall_usec"] = Time.get_ticks_usec() - art_started
+    if not String(art_job.error).is_empty():
+        last_error = String(art_job.error)
         return false
     var jobs: Array = host._region_build_jobs()
     var cursor := 0

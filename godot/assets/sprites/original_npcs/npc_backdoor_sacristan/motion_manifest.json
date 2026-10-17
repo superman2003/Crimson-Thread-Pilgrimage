@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_backdoor_sacristan",
+  "visual_scale": 0.35526315789473684,
+  "visual_offset": [
+    0,
+    -14.45378151260504
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/atlas.png",
+    "region": [
+      112,
+      21,
+      315,
+      309
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    334,
+    320
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            77,
+            9,
+            216,
+            304
+          ],
+          "margin": [
+            73,
+            8,
+            118,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            374,
+            11,
+            205,
+            302
+          ],
+          "margin": [
+            72,
+            10,
+            129,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            679,
+            11,
+            211,
+            302
+          ],
+          "margin": [
+            70,
+            10,
+            123,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            987,
+            9,
+            222,
+            304
+          ],
+          "margin": [
+            66,
+            8,
+            112,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            57,
+            319,
+            245,
+            302
+          ],
+          "margin": [
+            73,
+            10,
+            89,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            371,
+            319,
+            255,
+            303
+          ],
+          "margin": [
+            71,
+            9,
+            79,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            678,
+            321,
+            226,
+            301
+          ],
+          "margin": [
+            66,
+            11,
+            108,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            992,
+            321,
+            245,
+            301
+          ],
+          "margin": [
+            67,
+            11,
+            89,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            56,
+            624,
+            256,
+            300
+          ],
+          "margin": [
+            69,
+            12,
+            78,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            367,
+            629,
+            256,
+            294
+          ],
+          "margin": [
+            64,
+            18,
+            78,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            679,
+            630,
+            234,
+            293
+          ],
+          "margin": [
+            71,
+            19,
+            100,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            996,
+            636,
+            222,
+            287
+          ],
+          "margin": [
+            73,
+            25,
+            112,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            66,
+            928,
+            210,
+            301
+          ],
+          "margin": [
+            72,
+            11,
+            124,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            375,
+            930,
+            222,
+            299
+          ],
+          "margin": [
+            70,
+            13,
+            112,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            689,
+            952,
+            227,
+            277
+          ],
+          "margin": [
+            73,
+            35,
+            107,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_backdoor_sacristan/motion_expanded.png",
+          "region": [
+            975,
+            977,
+            252,
+            246
+          ],
+          "margin": [
+            56,
+            66,
+            82,
+            74
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

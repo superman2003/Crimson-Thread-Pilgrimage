@@ -1,0 +1,579 @@
+{
+  "kind": "echo_contract_scribe",
+  "generator": "built-in image_gen",
+  "prompt": "Create transparent 2D game animation sheet of exactly SAME referenced silver parchment insect scribe: smooth porcelain horned mask, ivory parchment cape, dark navy slender body, red hanging contract scroll with wax seal, narrow gold pen rapier. Preserve inked painted muted palette. A STRICT regular FOUR columns by EIGHT rows sprite sheet, 32 COMPLETE figures. Each full figure SMALL with wide transparent gutters and whole weapon/cape/antennae/scroll inside cell. Facing right; consistent costume, body scale and feet anchor. Row1 FOUR idle breathing poses. Row2 FOUR walk first-half alternating stride poses. Row3 FOUR walk second-half stride poses. Row4 FOUR windup lifting pen arm poses. Row5 FOUR compact downward pen slash/strike poses. Row6 FOUR recovery retracting pen and settling cape poses. Row7 FOUR hurt recoil stagger poses. Row8 FOUR death collapsing poses ending prone. No duplicated or translated figures; real limb and cape articulation between all poses. Exactly four sprites in all EIGHT rows, preserve last recovery row. Actual transparent alpha, no backdrop, grid, text, labels or shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-1430566c-32d5-482e-b02c-563caa11cd93.png",
+  "qa": {
+    "layout": "4 columns by 8 rows, all 32 authored poses visually reviewed",
+    "identity": "Original reference design and hand-painted dark outline preserved",
+    "motion": "Distinct articulated limb, costume and prop poses",
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "attack",
+        [
+          19,
+          865,
+          358,
+          1016
+        ],
+        3237,
+        true
+      ],
+      [
+        "attack",
+        [
+          298,
+          853,
+          579,
+          1016
+        ],
+        324,
+        true
+      ],
+      [
+        "attack",
+        [
+          578,
+          870,
+          786,
+          1016
+        ],
+        8,
+        true
+      ]
+    ],
+    "validation": "tools/build_expanded_character_motion.py --character echo_contract_scribe passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          72,
+          11,
+          115,
+          212
+        ],
+        "component_seeds": [
+          [
+            142,
+            137
+          ]
+        ],
+        "anchor_x": 56.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          325,
+          13,
+          119,
+          210
+        ],
+        "component_seeds": [
+          [
+            422,
+            139
+          ]
+        ],
+        "anchor_x": 59.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          580,
+          10,
+          117,
+          213
+        ],
+        "component_seeds": [
+          [
+            685,
+            136
+          ]
+        ],
+        "anchor_x": 60.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          792,
+          16,
+          163,
+          207
+        ],
+        "component_seeds": [
+          [
+            842,
+            143
+          ]
+        ],
+        "anchor_x": 104.0
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          44,
+          228,
+          167,
+          199
+        ],
+        "component_seeds": [
+          [
+            94,
+            345
+          ]
+        ],
+        "anchor_x": 84.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          280,
+          230,
+          194,
+          197
+        ],
+        "component_seeds": [
+          [
+            291,
+            344
+          ]
+        ],
+        "anchor_x": 104.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          540,
+          228,
+          185,
+          199
+        ],
+        "component_seeds": [
+          [
+            597,
+            346
+          ]
+        ],
+        "anchor_x": 100.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          792,
+          233,
+          195,
+          193
+        ],
+        "component_seeds": [
+          [
+            846,
+            345
+          ]
+        ],
+        "anchor_x": 104.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          42,
+          436,
+          176,
+          199
+        ],
+        "component_seeds": [
+          [
+            160,
+            553
+          ]
+        ],
+        "anchor_x": 86.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          300,
+          432,
+          186,
+          203
+        ],
+        "component_seeds": [
+          [
+            315,
+            551
+          ]
+        ],
+        "anchor_x": 84.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          550,
+          434,
+          182,
+          202
+        ],
+        "component_seeds": [
+          [
+            566,
+            552
+          ]
+        ],
+        "anchor_x": 90.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          813,
+          434,
+          182,
+          201
+        ],
+        "component_seeds": [
+          [
+            864,
+            556
+          ]
+        ],
+        "anchor_x": 83.0
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          34,
+          657,
+          181,
+          195
+        ],
+        "component_seeds": [
+          [
+            80,
+            774
+          ]
+        ],
+        "anchor_x": 94.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          294,
+          648,
+          205,
+          203
+        ],
+        "component_seeds": [
+          [
+            367,
+            770
+          ]
+        ],
+        "anchor_x": 90.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          558,
+          648,
+          187,
+          204
+        ],
+        "component_seeds": [
+          [
+            705,
+            766
+          ]
+        ],
+        "anchor_x": 82.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          804,
+          647,
+          197,
+          205
+        ],
+        "component_seeds": [
+          [
+            867,
+            776
+          ]
+        ],
+        "anchor_x": 92.0
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          17,
+          863,
+          343,
+          155
+        ],
+        "component_seeds": [
+          [
+            102,
+            938
+          ]
+        ],
+        "anchor_x": 111.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          296,
+          851,
+          285,
+          167
+        ],
+        "component_seeds": [
+          [
+            430,
+            947
+          ]
+        ],
+        "anchor_x": 88.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          576,
+          868,
+          212,
+          150
+        ],
+        "component_seeds": [
+          [
+            615,
+            961
+          ]
+        ],
+        "anchor_x": 64.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          793,
+          898,
+          222,
+          119
+        ],
+        "component_seeds": [
+          [
+            849,
+            965
+          ]
+        ],
+        "anchor_x": 103.0
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          27,
+          1027,
+          211,
+          189
+        ],
+        "component_seeds": [
+          [
+            91,
+            1138
+          ]
+        ],
+        "anchor_x": 101.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          281,
+          1028,
+          254,
+          188
+        ],
+        "component_seeds": [
+          [
+            302,
+            1128
+          ]
+        ],
+        "anchor_x": 103.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          554,
+          1031,
+          217,
+          184
+        ],
+        "component_seeds": [
+          [
+            686,
+            1145
+          ]
+        ],
+        "anchor_x": 86.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          826,
+          1025,
+          143,
+          191
+        ],
+        "component_seeds": [
+          [
+            946,
+            1140
+          ]
+        ],
+        "anchor_x": 70.0
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          31,
+          1222,
+          186,
+          172
+        ],
+        "component_seeds": [
+          [
+            86,
+            1320
+          ]
+        ],
+        "anchor_x": 97.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          309,
+          1228,
+          216,
+          166
+        ],
+        "component_seeds": [
+          [
+            473,
+            1315
+          ]
+        ],
+        "anchor_x": 75.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          552,
+          1243,
+          203,
+          150
+        ],
+        "component_seeds": [
+          [
+            608,
+            1325
+          ]
+        ],
+        "anchor_x": 88.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          790,
+          1263,
+          229,
+          133
+        ],
+        "component_seeds": [
+          [
+            901,
+            1335
+          ]
+        ],
+        "anchor_x": 106.0
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          8,
+          1401,
+          238,
+          124
+        ],
+        "component_seeds": [
+          [
+            48,
+            1485
+          ]
+        ],
+        "anchor_x": 120.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          265,
+          1404,
+          241,
+          121
+        ],
+        "component_seeds": [
+          [
+            460,
+            1478
+          ]
+        ],
+        "anchor_x": 119.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          521,
+          1439,
+          244,
+          85
+        ],
+        "component_seeds": [
+          [
+            716,
+            1489
+          ]
+        ],
+        "anchor_x": 119.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          777,
+          1450,
+          236,
+          75
+        ],
+        "component_seeds": [
+          [
+            851,
+            1495
+          ]
+        ],
+        "anchor_x": 119.0
+      }
+    ]
+  }
+}

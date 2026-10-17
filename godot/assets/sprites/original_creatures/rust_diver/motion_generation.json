@@ -1,0 +1,1037 @@
+{
+  "kind": "rust_diver",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-b95d1e20-6f04-49c4-a16d-ced8b5acea8c.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Production 2D hand-painted sprite animation sheet of reference character rust_diver. Preserve exact original character design, proportions, palette and fine ink outlines: squat beetle in algae-patched bronze diving helmet, rope-bound iron armor, short jagged spear. Reference is identity/style only. PORTRAIT sheet with exactly FOUR columns and EIGHT rows, exactly 32 full body sprites, on TRUE TRANSPARENT alpha background, no scenery, no text, labels or grid. Rows in precise order: ROW1 four IDLE breathing poses; ROW2 walk cycle poses 1-4; ROW3 walk cycle poses 5-8; ROW4 four WINDUP anticipation poses; ROW5 four ATTACK strike/follow-through poses; ROW6 four RECOVERY returning to ready; ROW7 four HURT recoil poses; ROW8 four DEATH poses stagger, buckle, collapse, settled. Maintain consistent scale and horizontal registration, feet baseline within every equal cell. Make sprites SMALLER to leave generous safety margin; every full body and COMPLETE antenna, weapon and appendage occupies at most 65% cell width/72% height even during attack. No weapon or limb crosses a cell border, no neighbor overlap. All living frames face RIGHT, orthographic side view. lifts spear then extends it right, legs shift weight. Distinct intentional anatomical poses: real joint rotation, alternating foot contacts, body weight shift and secondary motion. Never simple translated or rotated duplicates.",
+  "qa": {
+    "dimensions": [
+      992,
+      1586
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          19,
+          36,
+          234,
+          174
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            131,
+            137
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          263,
+          32,
+          238,
+          179
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            360,
+            136
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          514,
+          36,
+          225,
+          175
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            541,
+            132
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          767,
+          37,
+          218,
+          174
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            828,
+            134
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          20,
+          229,
+          227,
+          176
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            201,
+            322
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          284,
+          230,
+          221,
+          176
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            390,
+            324
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          526,
+          231,
+          225,
+          175
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            627,
+            325
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          764,
+          234,
+          224,
+          172
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            886,
+            326
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          14,
+          425,
+          239,
+          178
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            109,
+            521
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          258,
+          425,
+          243,
+          177
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            334,
+            518
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          511,
+          424,
+          255,
+          179
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            684,
+            519
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          773,
+          429,
+          216,
+          175
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            874,
+            522
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          16,
+          642,
+          250,
+          174
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            127,
+            734
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          258,
+          644,
+          228,
+          172
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            326,
+            736
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          495,
+          622,
+          220,
+          194
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            520,
+            726
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          776,
+          608,
+          176,
+          208
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            880,
+            725
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          23,
+          853,
+          301,
+          177
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            132,
+            937
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          295,
+          863,
+          252,
+          164
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            410,
+            952
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          543,
+          854,
+          249,
+          172
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            732,
+            946
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          786,
+          859,
+          203,
+          167
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            888,
+            951
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          26,
+          1050,
+          217,
+          180
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            75,
+            1141
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          280,
+          1042,
+          237,
+          187
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            410,
+            1132
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          510,
+          1053,
+          225,
+          176
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            612,
+            1148
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          3
+        ],
+        "region": [
+          767,
+          1052,
+          212,
+          178
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            832,
+            1149
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          18,
+          1262,
+          235,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            57,
+            1364
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          269,
+          1291,
+          235,
+          171
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            390,
+            1381
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          510,
+          1354,
+          242,
+          121
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            564,
+            1419
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          753,
+          1351,
+          230,
+          124
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            809,
+            1419
+          ]
+        ]
+      }
+    ],
+    "status": "reviewed",
+    "frames": 29,
+    "retained_original_poses": "Complete original connected silhouettes, uniform per-source scale based on original and new idle character proportions. Source pixels remain unchanged.",
+    "horizontal_registration": "Fixed four-column cell body origin retained; complete source silhouette and per-source scale preserved.",
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          19,
+          36,
+          234,
+          174
+        ],
+        "component_seeds": [
+          [
+            131,
+            137
+          ]
+        ],
+        "anchor_x": 105.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          263,
+          32,
+          238,
+          179
+        ],
+        "component_seeds": [
+          [
+            360,
+            136
+          ]
+        ],
+        "anchor_x": 109.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          514,
+          36,
+          225,
+          175
+        ],
+        "component_seeds": [
+          [
+            541,
+            132
+          ]
+        ],
+        "anchor_x": 106.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          767,
+          37,
+          218,
+          174
+        ],
+        "component_seeds": [
+          [
+            828,
+            134
+          ]
+        ],
+        "anchor_x": 101.0
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          20,
+          229,
+          227,
+          176
+        ],
+        "component_seeds": [
+          [
+            201,
+            322
+          ]
+        ],
+        "anchor_x": 104.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          284,
+          230,
+          221,
+          176
+        ],
+        "component_seeds": [
+          [
+            390,
+            324
+          ]
+        ],
+        "anchor_x": 88.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          526,
+          231,
+          225,
+          175
+        ],
+        "component_seeds": [
+          [
+            627,
+            325
+          ]
+        ],
+        "anchor_x": 94.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          764,
+          234,
+          224,
+          172
+        ],
+        "component_seeds": [
+          [
+            886,
+            326
+          ]
+        ],
+        "anchor_x": 104.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          14,
+          425,
+          239,
+          178
+        ],
+        "component_seeds": [
+          [
+            109,
+            521
+          ]
+        ],
+        "anchor_x": 110.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          258,
+          425,
+          243,
+          177
+        ],
+        "component_seeds": [
+          [
+            334,
+            518
+          ]
+        ],
+        "anchor_x": 114.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          511,
+          424,
+          255,
+          179
+        ],
+        "component_seeds": [
+          [
+            684,
+            519
+          ]
+        ],
+        "anchor_x": 109.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          773,
+          429,
+          216,
+          175
+        ],
+        "component_seeds": [
+          [
+            874,
+            522
+          ]
+        ],
+        "anchor_x": 95.0
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          16,
+          642,
+          250,
+          174
+        ],
+        "component_seeds": [
+          [
+            127,
+            734
+          ]
+        ],
+        "anchor_x": 108.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          258,
+          644,
+          228,
+          172
+        ],
+        "component_seeds": [
+          [
+            326,
+            736
+          ]
+        ],
+        "anchor_x": 114.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          495,
+          622,
+          220,
+          194
+        ],
+        "component_seeds": [
+          [
+            520,
+            726
+          ]
+        ],
+        "anchor_x": 125.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          776,
+          608,
+          176,
+          208
+        ],
+        "component_seeds": [
+          [
+            880,
+            725
+          ]
+        ],
+        "anchor_x": 92.0
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          23,
+          853,
+          301,
+          177
+        ],
+        "component_seeds": [
+          [
+            132,
+            937
+          ]
+        ],
+        "anchor_x": 101.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          295,
+          863,
+          252,
+          164
+        ],
+        "component_seeds": [
+          [
+            410,
+            952
+          ]
+        ],
+        "anchor_x": 77.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          543,
+          854,
+          249,
+          172
+        ],
+        "component_seeds": [
+          [
+            732,
+            946
+          ]
+        ],
+        "anchor_x": 77.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          786,
+          859,
+          203,
+          167
+        ],
+        "component_seeds": [
+          [
+            888,
+            951
+          ]
+        ],
+        "anchor_x": 82.0
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          26,
+          1050,
+          217,
+          180
+        ],
+        "component_seeds": [
+          [
+            75,
+            1141
+          ]
+        ],
+        "anchor_x": 98.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          280,
+          1042,
+          237,
+          187
+        ],
+        "component_seeds": [
+          [
+            410,
+            1132
+          ]
+        ],
+        "anchor_x": 92.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          510,
+          1053,
+          225,
+          176
+        ],
+        "component_seeds": [
+          [
+            612,
+            1148
+          ]
+        ],
+        "anchor_x": 110.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          767,
+          1052,
+          212,
+          178
+        ],
+        "component_seeds": [
+          [
+            832,
+            1149
+          ]
+        ],
+        "anchor_x": 101.0
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          18,
+          1262,
+          235,
+          199
+        ],
+        "component_seeds": [
+          [
+            57,
+            1364
+          ]
+        ],
+        "anchor_x": 106.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          269,
+          1291,
+          235,
+          171
+        ],
+        "component_seeds": [
+          [
+            390,
+            1381
+          ]
+        ],
+        "anchor_x": 103.0
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          510,
+          1354,
+          242,
+          121
+        ],
+        "component_seeds": [
+          [
+            564,
+            1419
+          ]
+        ],
+        "anchor_x": 110.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          753,
+          1351,
+          230,
+          124
+        ],
+        "component_seeds": [
+          [
+            809,
+            1419
+          ]
+        ],
+        "anchor_x": 115.0
+      },
+      {
+        "sheet": "atlas.png",
+        "region": [
+          1161,
+          844,
+          365,
+          149
+        ],
+        "component_seeds": [
+          [
+            1381,
+            927
+          ]
+        ],
+        "scale": 0.62,
+        "anchor_x": 183.0
+      }
+    ]
+  }
+}

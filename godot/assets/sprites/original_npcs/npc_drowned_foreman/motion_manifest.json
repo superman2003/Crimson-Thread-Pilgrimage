@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_drowned_foreman",
+  "visual_scale": 0.5934065934065934,
+  "visual_offset": [
+    0,
+    -15.645411912927841
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/atlas.png",
+    "region": [
+      63,
+      23,
+      440,
+      306
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    262,
+    202
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            64,
+            101,
+            177,
+            182
+          ],
+          "margin": [
+            42,
+            12,
+            85,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            379,
+            99,
+            178,
+            184
+          ],
+          "margin": [
+            34,
+            10,
+            84,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            687,
+            96,
+            170,
+            186
+          ],
+          "margin": [
+            50,
+            8,
+            92,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            1004,
+            99,
+            177,
+            183
+          ],
+          "margin": [
+            37,
+            11,
+            85,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            65,
+            411,
+            177,
+            184
+          ],
+          "margin": [
+            50,
+            10,
+            85,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            378,
+            417,
+            191,
+            178
+          ],
+          "margin": [
+            44,
+            16,
+            71,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            689,
+            412,
+            174,
+            183
+          ],
+          "margin": [
+            50,
+            11,
+            88,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            1007,
+            416,
+            175,
+            180
+          ],
+          "margin": [
+            40,
+            14,
+            87,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            66,
+            729,
+            184,
+            178
+          ],
+          "margin": [
+            64,
+            16,
+            78,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            379,
+            731,
+            186,
+            176
+          ],
+          "margin": [
+            47,
+            18,
+            76,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            691,
+            732,
+            188,
+            175
+          ],
+          "margin": [
+            46,
+            19,
+            74,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            1006,
+            734,
+            175,
+            173
+          ],
+          "margin": [
+            47,
+            21,
+            87,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            69,
+            1036,
+            190,
+            175
+          ],
+          "margin": [
+            64,
+            19,
+            72,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            381,
+            1044,
+            183,
+            167
+          ],
+          "margin": [
+            67,
+            27,
+            79,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            707,
+            1048,
+            170,
+            163
+          ],
+          "margin": [
+            44,
+            31,
+            92,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_drowned_foreman/motion_expanded.png",
+          "region": [
+            1020,
+            1062,
+            151,
+            148
+          ],
+          "margin": [
+            52,
+            46,
+            111,
+            54
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

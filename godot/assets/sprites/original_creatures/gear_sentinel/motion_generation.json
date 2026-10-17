@@ -1,0 +1,1196 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: identity-preserve. Create a production hand-drawn 2D side-view game animation SPRITE SHEET from this reference atlas. Reference is character identity and style only; produce MORE distinct poses of exactly the SAME character. Preserve costume, colors, materials, anatomy, weapon and hand-painted ink linework. Square sheet, exactly SIX columns and SIX rows, 36 equal invisible cells, one complete character per cell, transparent background with actual alpha. No text, gridlines, borders, background or scenery. Right-facing orthographic side view. Stable scale and feet baseline; entire silhouette and weapon fit within each cell, no clipping and no adjacent-cell overlap, with generous transparent gutters. 36 poses in row-major order, numbered here only for instructions, do NOT render numbers: slots 0-3 four subtle idle breathing poses; 4-11 eight sequential locomotion poses with alternating contact/down/passing/up, articulated knees/feet/body and appendages; 12-15 four progressive attack anticipation poses; 16-21 six progressive attack action poses; 22-27 six recovery poses returning to idle; 28-31 four recoil and regain balance poses; 32-35 four progressive death collapse poses, last lying still. Poses must genuinely change joints, appendages, wings/wheels/tentacles and weapon angle appropriate to character; no duplicate stamps, no rigid translations, no blur trails. Use the same character throughout all 36 cells. Character: a compact clockwork beetle guard with tarnished bronze plate armor, a toothed gear shield and a short spear",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/gear_sentinel/atlas.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-a816f300-3852-4b0b-a398-fbc6c1fc14ea.png",
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            13,
+            14,
+            215,
+            204
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            223,
+            14,
+            215,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            425,
+            14,
+            215,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            629,
+            14,
+            214,
+            203
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            835,
+            13,
+            219,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1052,
+            13,
+            195,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            9,
+            225,
+            237,
+            202
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            230,
+            226,
+            224,
+            201
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            444,
+            227,
+            220,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            650,
+            227,
+            216,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            855,
+            227,
+            205,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1052,
+            230,
+            198,
+            198
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 6,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            10,
+            450,
+            205,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            231,
+            446,
+            212,
+            189
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            444,
+            450,
+            183,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            632,
+            448,
+            213,
+            187
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            843,
+            443,
+            204,
+            192
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1054,
+            449,
+            197,
+            186
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            10,
+            661,
+            292,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            245,
+            655,
+            303,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            455,
+            675,
+            218,
+            171
+          ]
+        },
+        {
+          "sheet": "attack_0_isolated.png",
+          "region": [
+            0,
+            0,
+            768,
+            337
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 6,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            676,
+            656,
+            207,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            862,
+            660,
+            207,
+            188
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1058,
+            660,
+            183,
+            186
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            10,
+            860,
+            232,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            235,
+            860,
+            188,
+            199
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            432,
+            859,
+            205,
+            200
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 5,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            641,
+            891,
+            203,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            849,
+            864,
+            217,
+            196
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1054,
+            861,
+            191,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            19,
+            1053,
+            230,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            220,
+            1064,
+            187,
+            174
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 3,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            428,
+            1107,
+            214,
+            125
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            659,
+            1117,
+            258,
+            114
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            921,
+            1134,
+            313,
+            103
+          ]
+        }
+      ]
+    }
+  },
+  "qa": {
+    "status": "reviewed35 actual poses; death final row5 poses includes3 collapse frames; sourceisolatedattack scaled consistently",
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 6,
+      "attack": 4,
+      "recover": 6,
+      "hurt": 5,
+      "death": 3
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "6 columns and 6 nominal rows, 35 actual authored poses",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          13,
+          14,
+          215,
+          204
+        ],
+        "component_seeds": [
+          [
+            196,
+            122
+          ]
+        ],
+        "anchor_x": 91.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          223,
+          14,
+          215,
+          203
+        ],
+        "component_seeds": [
+          [
+            258,
+            124
+          ]
+        ],
+        "anchor_x": 90.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          425,
+          14,
+          215,
+          203
+        ],
+        "component_seeds": [
+          [
+            590,
+            125
+          ]
+        ],
+        "anchor_x": 97.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          629,
+          14,
+          214,
+          203
+        ],
+        "component_seeds": [
+          [
+            675,
+            129
+          ]
+        ],
+        "anchor_x": 102.5
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          835,
+          13,
+          219,
+          203
+        ],
+        "component_seeds": [
+          [
+            872,
+            127
+          ]
+        ],
+        "anchor_x": 105.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1052,
+          13,
+          195,
+          203
+        ],
+        "component_seeds": [
+          [
+            1222,
+            128
+          ]
+        ],
+        "anchor_x": 97.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          9,
+          225,
+          237,
+          202
+        ],
+        "component_seeds": [
+          [
+            188,
+            334
+          ]
+        ],
+        "anchor_x": 95.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          230,
+          226,
+          224,
+          201
+        ],
+        "component_seeds": [
+          [
+            263,
+            336
+          ]
+        ],
+        "anchor_x": 83.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          444,
+          227,
+          220,
+          200
+        ],
+        "component_seeds": [
+          [
+            547,
+            337
+          ]
+        ],
+        "anchor_x": 78.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          650,
+          227,
+          216,
+          200
+        ],
+        "component_seeds": [
+          [
+            822,
+            338
+          ]
+        ],
+        "anchor_x": 81.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          855,
+          227,
+          205,
+          200
+        ],
+        "component_seeds": [
+          [
+            932,
+            339
+          ]
+        ],
+        "anchor_x": 85.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1052,
+          230,
+          198,
+          198
+        ],
+        "component_seeds": [
+          [
+            1221,
+            339
+          ]
+        ],
+        "anchor_x": 97.5
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          10,
+          450,
+          205,
+          185
+        ],
+        "component_seeds": [
+          [
+            83,
+            560
+          ]
+        ],
+        "anchor_x": 94.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          231,
+          446,
+          212,
+          189
+        ],
+        "component_seeds": [
+          [
+            381,
+            558
+          ]
+        ],
+        "anchor_x": 82.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          444,
+          450,
+          183,
+          185
+        ],
+        "component_seeds": [
+          [
+            489,
+            552
+          ]
+        ],
+        "anchor_x": 78.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          632,
+          448,
+          213,
+          187
+        ],
+        "component_seeds": [
+          [
+            719,
+            553
+          ]
+        ],
+        "anchor_x": 99.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          843,
+          443,
+          204,
+          192
+        ],
+        "component_seeds": [
+          [
+            888,
+            550
+          ]
+        ],
+        "anchor_x": 97.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1054,
+          449,
+          197,
+          186
+        ],
+        "component_seeds": [
+          [
+            1194,
+            556
+          ]
+        ],
+        "anchor_x": 95.5
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          10,
+          661,
+          292,
+          182
+        ],
+        "component_seeds": [
+          [
+            78,
+            749
+          ]
+        ],
+        "anchor_x": 94.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          245,
+          655,
+          303,
+          191
+        ],
+        "component_seeds": [
+          [
+            279,
+            759
+          ]
+        ],
+        "anchor_x": 68.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          455,
+          675,
+          218,
+          171
+        ],
+        "component_seeds": [
+          [
+            521,
+            773
+          ]
+        ],
+        "anchor_x": 67.5
+      },
+      {
+        "sheet": "attack_0_isolated.png",
+        "region": [
+          0,
+          0,
+          768,
+          337
+        ],
+        "component_seeds": [
+          [
+            340,
+            181
+          ]
+        ],
+        "scale": 0.654485049833887,
+        "anchor_x": 384.0
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          676,
+          656,
+          207,
+          191
+        ],
+        "component_seeds": [
+          [
+            710,
+            762
+          ]
+        ],
+        "anchor_x": 55.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          862,
+          660,
+          207,
+          188
+        ],
+        "component_seeds": [
+          [
+            1037,
+            767
+          ]
+        ],
+        "anchor_x": 78.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1058,
+          660,
+          183,
+          186
+        ],
+        "component_seeds": [
+          [
+            1212,
+            773
+          ]
+        ],
+        "anchor_x": 91.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          10,
+          860,
+          232,
+          198
+        ],
+        "component_seeds": [
+          [
+            194,
+            967
+          ]
+        ],
+        "anchor_x": 94.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          235,
+          860,
+          188,
+          199
+        ],
+        "component_seeds": [
+          [
+            297,
+            976
+          ]
+        ],
+        "anchor_x": 78.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          432,
+          859,
+          205,
+          200
+        ],
+        "component_seeds": [
+          [
+            588,
+            970
+          ]
+        ],
+        "anchor_x": 90.5
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          641,
+          891,
+          203,
+          175
+        ],
+        "component_seeds": [
+          [
+            793,
+            996
+          ]
+        ],
+        "anchor_x": 90.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          849,
+          864,
+          217,
+          196
+        ],
+        "component_seeds": [
+          [
+            870,
+            975
+          ]
+        ],
+        "anchor_x": 91.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1054,
+          861,
+          191,
+          198
+        ],
+        "component_seeds": [
+          [
+            1228,
+            972
+          ]
+        ],
+        "anchor_x": 95.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          19,
+          1053,
+          230,
+          185
+        ],
+        "component_seeds": [
+          [
+            70,
+            1156
+          ]
+        ],
+        "anchor_x": 85.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          220,
+          1064,
+          187,
+          174
+        ],
+        "component_seeds": [
+          [
+            245,
+            1160
+          ]
+        ],
+        "anchor_x": 93.5
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          428,
+          1107,
+          214,
+          125
+        ],
+        "component_seeds": [
+          [
+            568,
+            1178
+          ]
+        ],
+        "anchor_x": 107.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          659,
+          1117,
+          258,
+          114
+        ],
+        "component_seeds": [
+          [
+            728,
+            1184
+          ]
+        ],
+        "anchor_x": 129.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          921,
+          1134,
+          313,
+          103
+        ],
+        "component_seeds": [
+          [
+            1025,
+            1193
+          ]
+        ],
+        "anchor_x": 156.5
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      13,
+      14,
+      215,
+      204
+    ],
+    [
+      223,
+      14,
+      215,
+      203
+    ],
+    [
+      425,
+      14,
+      215,
+      203
+    ],
+    [
+      629,
+      14,
+      214,
+      203
+    ],
+    [
+      835,
+      13,
+      219,
+      203
+    ],
+    [
+      1052,
+      13,
+      195,
+      203
+    ],
+    [
+      9,
+      225,
+      237,
+      202
+    ],
+    [
+      230,
+      226,
+      224,
+      201
+    ],
+    [
+      444,
+      227,
+      220,
+      200
+    ],
+    [
+      650,
+      227,
+      216,
+      200
+    ],
+    [
+      855,
+      227,
+      205,
+      200
+    ],
+    [
+      1052,
+      230,
+      198,
+      198
+    ],
+    [
+      10,
+      450,
+      205,
+      185
+    ],
+    [
+      231,
+      446,
+      212,
+      189
+    ],
+    [
+      444,
+      450,
+      183,
+      185
+    ],
+    [
+      632,
+      448,
+      213,
+      187
+    ],
+    [
+      843,
+      443,
+      204,
+      192
+    ],
+    [
+      1054,
+      449,
+      197,
+      186
+    ],
+    [
+      10,
+      661,
+      292,
+      182
+    ],
+    [
+      245,
+      655,
+      303,
+      191
+    ],
+    [
+      455,
+      675,
+      218,
+      171
+    ],
+    [
+      676,
+      656,
+      207,
+      191
+    ],
+    [
+      862,
+      660,
+      207,
+      188
+    ],
+    [
+      1058,
+      660,
+      183,
+      186
+    ],
+    [
+      10,
+      860,
+      232,
+      198
+    ],
+    [
+      235,
+      860,
+      188,
+      199
+    ],
+    [
+      432,
+      859,
+      205,
+      200
+    ],
+    [
+      641,
+      891,
+      203,
+      175
+    ],
+    [
+      849,
+      864,
+      217,
+      196
+    ],
+    [
+      1054,
+      861,
+      191,
+      198
+    ],
+    [
+      19,
+      1053,
+      230,
+      185
+    ],
+    [
+      220,
+      1064,
+      187,
+      174
+    ],
+    [
+      428,
+      1107,
+      214,
+      125
+    ],
+    [
+      659,
+      1117,
+      258,
+      114
+    ],
+    [
+      921,
+      1134,
+      313,
+      103
+    ]
+  ],
+  "tool": "image_gen.imagegen"
+}

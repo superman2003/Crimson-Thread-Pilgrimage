@@ -1,0 +1,213 @@
+{
+  "tool": "built-in image_gen",
+  "use_case": "identity-preserve",
+  "reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "generated_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-5ae96c65-581a-40cb-9507-384a81418af6.png",
+  "prompt": "Use case: identity-preserve. Create a game production sprite animation atlas from this reference: ONLY the same backdoor sacristan, preserve exact ivory long antenna mask, green gold embroidered cape, cream/red vestments, keys and bell, hand drawn ink/watercolor style. Transparent background. Square sheet EXACTLY 4 columns x 4 rows =16 equal cells, one complete full-body figure per cell, no grid lines or text. Row-major frames 0-5 idle breathing: chest/cape/antennae subtly flex and bell sways through a smooth loop. Frames6-11 talk loop: expressive free hand opens and points, head nods, sleeve bends; real limb/body deformation not translated identical images. Frames12-13 greet: free hand rises then returns. Frames14-15 rest: gentle bowed quiet pose. Maintain same camera, scale, facing right three-quarter, fixed feet baseline in every cell with at least 15% transparent cell margins, all antennae/bell/cloak inside own cell. Clean isolated alpha, no background glow, no pedestal, no extra props, no cropping, no silhouettes of other characters.",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "slot_schema": {
+    "idle": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "talk": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "greet": [
+      12,
+      13
+    ],
+    "rest": [
+      14,
+      15
+    ]
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          77,
+          9,
+          216,
+          304
+        ],
+        "anchor_x": 94.4
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          374,
+          11,
+          205,
+          302
+        ],
+        "anchor_x": 95.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          679,
+          11,
+          211,
+          302
+        ],
+        "anchor_x": 96.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          987,
+          9,
+          222,
+          304
+        ],
+        "anchor_x": 100.5
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          57,
+          319,
+          245,
+          302
+        ],
+        "anchor_x": 94.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          371,
+          319,
+          255,
+          303
+        ],
+        "anchor_x": 96.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          678,
+          321,
+          226,
+          301
+        ],
+        "anchor_x": 101.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          992,
+          321,
+          245,
+          301
+        ],
+        "anchor_x": 100.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          56,
+          624,
+          256,
+          300
+        ],
+        "anchor_x": 98.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          367,
+          629,
+          256,
+          294
+        ],
+        "anchor_x": 103.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          679,
+          630,
+          234,
+          293
+        ],
+        "anchor_x": 96.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          996,
+          636,
+          222,
+          287
+        ],
+        "anchor_x": 94.2
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          66,
+          928,
+          210,
+          301
+        ],
+        "anchor_x": 95.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          375,
+          930,
+          222,
+          299
+        ],
+        "anchor_x": 96.5
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          689,
+          952,
+          227,
+          277
+        ],
+        "anchor_x": 93.55
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          975,
+          977,
+          252,
+          246
+        ],
+        "anchor_x": 111.0
+      }
+    ]
+  },
+  "qa": {
+    "visual_inspected": true,
+    "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
+    "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  }
+}

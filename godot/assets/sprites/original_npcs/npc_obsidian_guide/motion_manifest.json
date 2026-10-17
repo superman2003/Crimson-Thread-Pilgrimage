@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_obsidian_guide",
+  "visual_scale": 0.3450479233226837,
+  "visual_offset": [
+    0,
+    -14.610657835900696
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/atlas.png",
+    "region": [
+      149,
+      11,
+      344,
+      320
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    416,
+    330
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            0,
+            0,
+            313,
+            313
+          ],
+          "margin": [
+            8,
+            9,
+            103,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            313,
+            0,
+            304,
+            313
+          ],
+          "margin": [
+            28,
+            9,
+            112,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            628,
+            0,
+            281,
+            313
+          ],
+          "margin": [
+            38,
+            9,
+            135,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            947,
+            1,
+            260,
+            312
+          ],
+          "margin": [
+            52,
+            10,
+            156,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            46,
+            313,
+            273,
+            314
+          ],
+          "margin": [
+            61,
+            8,
+            143,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            319,
+            313,
+            311,
+            314
+          ],
+          "margin": [
+            19,
+            8,
+            105,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            630,
+            313,
+            305,
+            314
+          ],
+          "margin": [
+            36,
+            8,
+            111,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            957,
+            313,
+            266,
+            314
+          ],
+          "margin": [
+            64,
+            8,
+            150,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            49,
+            627,
+            264,
+            311
+          ],
+          "margin": [
+            64,
+            11,
+            152,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            313,
+            627,
+            314,
+            309
+          ],
+          "margin": [
+            24,
+            13,
+            102,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            652,
+            627,
+            288,
+            308
+          ],
+          "margin": [
+            58,
+            14,
+            128,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            940,
+            627,
+            284,
+            308
+          ],
+          "margin": [
+            38,
+            14,
+            132,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            41,
+            938,
+            298,
+            304
+          ],
+          "margin": [
+            36,
+            18,
+            118,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            339,
+            946,
+            281,
+            292
+          ],
+          "margin": [
+            69,
+            30,
+            135,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            620,
+            948,
+            311,
+            292
+          ],
+          "margin": [
+            54,
+            30,
+            105,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_obsidian_guide/motion_expanded.png",
+          "region": [
+            942,
+            952,
+            296,
+            288
+          ],
+          "margin": [
+            59,
+            34,
+            120,
+            42
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

@@ -1,0 +1,531 @@
+{
+  "kind": "erasure_bailiff",
+  "generator": "built-in image_gen",
+  "prompt": "Create transparent production 2D game sprite sheet expanding SAME heavy ivory shell beetle enforcer in reference: ink-black face with pale eyes, cracked white shell armor, aged paper contract seal, red ragged skirt, gold chain waist, huge broad stone cleaver. Preserve fine ink and painterly muted texture. STRICT FOUR columns by EIGHT rows, 32 COMPLETE full-body figures. All sprites SMALL with generous transparent padding including weapon and antennae, never overlap. Facing right and equal scale. Row1 FOUR idle breathing poses. Row2 FOUR first-half heavy walking strides. Row3 FOUR second-half walking strides. Row4 FOUR windup lifting cleaver over head. Row5 FOUR compact vertical cleaver chop strike/followthrough poses. Row6 FOUR recovery lifting cleaver back to guard poses. Row7 FOUR hurt staggering poses. Row8 FOUR death collapse poses ending prone. Keep cleaver inside each cell, no long horizontal extension. Every pose real articulation rather than duplicates or translation. FOUR figures in EVERY one of EIGHT rows. Actual alpha transparency, no background, grid, shadows, borders, text or labels.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-321545fd-1b77-4aad-a12a-ad7a5ddd6356.png",
+  "qa": {
+    "layout": "Authored sheet reviewed for complete character silhouette and role-specific articulations",
+    "identity": "Original reference design, costume, palette and dark hand-painted contours retained",
+    "motion": "Genuinely articulated idle, gait, windup, attack, recovery, recoil and collapse",
+    "component_isolation": "Explicit full silhouette component seeds preserve source RGBA and exclude neighbor ink",
+    "retained_original": "One complete original death pose at common resolution supplements two isolated new collapse poses.",
+    "rectangular_region_issues": "Resolved by explicit 8-connected component extraction and original-RGBA packing; overlapping true silhouettes excluded.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "validation": "tools/build_expanded_character_motion.py --character erasure_bailiff passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          21,
+          8,
+          220,
+          206
+        ],
+        "component_seeds": [
+          [
+            36,
+            134
+          ]
+        ],
+        "anchor_x": 107.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          290,
+          6,
+          221,
+          208
+        ],
+        "component_seeds": [
+          [
+            405,
+            133
+          ]
+        ],
+        "anchor_x": 94.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          522,
+          5,
+          227,
+          207
+        ],
+        "component_seeds": [
+          [
+            631,
+            134
+          ]
+        ],
+        "anchor_x": 118.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          772,
+          5,
+          229,
+          209
+        ],
+        "component_seeds": [
+          [
+            901,
+            131
+          ]
+        ],
+        "anchor_x": 124.0
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          25,
+          205,
+          238,
+          201
+        ],
+        "component_seeds": [
+          [
+            101,
+            328
+          ]
+        ],
+        "anchor_x": 103.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          284,
+          216,
+          232,
+          189
+        ],
+        "component_seeds": [
+          [
+            330,
+            326
+          ]
+        ],
+        "anchor_x": 100.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          526,
+          211,
+          237,
+          195
+        ],
+        "component_seeds": [
+          [
+            609,
+            330
+          ]
+        ],
+        "anchor_x": 114.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          782,
+          209,
+          234,
+          196
+        ],
+        "component_seeds": [
+          [
+            806,
+            329
+          ]
+        ],
+        "anchor_x": 114.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          21,
+          397,
+          241,
+          194
+        ],
+        "component_seeds": [
+          [
+            95,
+            515
+          ]
+        ],
+        "anchor_x": 107.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          277,
+          405,
+          240,
+          185
+        ],
+        "component_seeds": [
+          [
+            384,
+            512
+          ]
+        ],
+        "anchor_x": 107.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          528,
+          407,
+          244,
+          181
+        ],
+        "component_seeds": [
+          [
+            651,
+            513
+          ]
+        ],
+        "anchor_x": 112.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          786,
+          400,
+          234,
+          186
+        ],
+        "component_seeds": [
+          [
+            874,
+            515
+          ]
+        ],
+        "anchor_x": 110.0
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          30,
+          592,
+          236,
+          205
+        ],
+        "component_seeds": [
+          [
+            148,
+            710
+          ]
+        ],
+        "anchor_x": 98.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          289,
+          591,
+          234,
+          203
+        ],
+        "component_seeds": [
+          [
+            377,
+            714
+          ]
+        ],
+        "anchor_x": 95.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          557,
+          580,
+          206,
+          214
+        ],
+        "component_seeds": [
+          [
+            648,
+            696
+          ]
+        ],
+        "anchor_x": 83.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          808,
+          578,
+          187,
+          216
+        ],
+        "component_seeds": [
+          [
+            877,
+            694
+          ]
+        ],
+        "anchor_x": 88.0
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          25,
+          795,
+          199,
+          205
+        ],
+        "component_seeds": [
+          [
+            170,
+            902
+          ]
+        ],
+        "anchor_x": 103.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          283,
+          827,
+          235,
+          184
+        ],
+        "component_seeds": [
+          [
+            406,
+            938
+          ]
+        ],
+        "anchor_x": 101.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          535,
+          835,
+          236,
+          172
+        ],
+        "component_seeds": [
+          [
+            680,
+            936
+          ]
+        ],
+        "anchor_x": 105.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          785,
+          861,
+          233,
+          148
+        ],
+        "component_seeds": [
+          [
+            872,
+            945
+          ]
+        ],
+        "anchor_x": 111.0
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          29,
+          997,
+          238,
+          194
+        ],
+        "component_seeds": [
+          [
+            100,
+            1118
+          ]
+        ],
+        "anchor_x": 99.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          289,
+          1004,
+          239,
+          190
+        ],
+        "component_seeds": [
+          [
+            402,
+            1122
+          ]
+        ],
+        "anchor_x": 95.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          541,
+          1006,
+          242,
+          190
+        ],
+        "component_seeds": [
+          [
+            613,
+            1125
+          ]
+        ],
+        "anchor_x": 99.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          790,
+          1020,
+          229,
+          176
+        ],
+        "component_seeds": [
+          [
+            928,
+            1131
+          ]
+        ],
+        "anchor_x": 106.0
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          23,
+          1206,
+          207,
+          167
+        ],
+        "component_seeds": [
+          [
+            193,
+            1291
+          ]
+        ],
+        "anchor_x": 105.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          283,
+          1208,
+          235,
+          171
+        ],
+        "component_seeds": [
+          [
+            414,
+            1299
+          ]
+        ],
+        "anchor_x": 101.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          538,
+          1222,
+          201,
+          153
+        ],
+        "component_seeds": [
+          [
+            631,
+            1311
+          ]
+        ],
+        "anchor_x": 102.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          744,
+          1259,
+          273,
+          129
+        ],
+        "component_seeds": [
+          [
+            762,
+            1329
+          ]
+        ],
+        "anchor_x": 152.0
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          558,
+          1380,
+          214,
+          137
+        ],
+        "component_seeds": [
+          [
+            587,
+            1468
+          ]
+        ],
+        "anchor_x": 82.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          775,
+          1428,
+          243,
+          97
+        ],
+        "component_seeds": [
+          [
+            985,
+            1480
+          ]
+        ],
+        "anchor_x": 121.0
+      },
+      {
+        "sheet": "atlas.png",
+        "region": [
+          1164,
+          816,
+          365,
+          180
+        ],
+        "component_seeds": [
+          [
+            1327,
+            912
+          ]
+        ],
+        "scale": 0.66,
+        "anchor_x": 180.0
+      }
+    ]
+  }
+}

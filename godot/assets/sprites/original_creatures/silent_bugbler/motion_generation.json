@@ -1,0 +1,865 @@
+{
+  "kind": "silent_bugbler",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-19a210b0-b3b1-4c3f-8c8f-57847cc1b6db.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Expand this reference atlas into a production hand-drawn 2D sprite animation sheet of the SAME character silent_bugbler. Preserve original anatomy, palette, ink line quality and costume: charcoal beetle armor, ivory oval mask, shredded grey cloak and bandaged brass bugle. Transparent background with real alpha, no text, no cell borders, no shadows/background. EXACTLY 6 columns × 6 rows, 36 sprites total with ONE complete full-body sprite centered INSIDE each equal cell. Make sprites relatively small (maximum 68% cell width and 76% cell height), generous transparent gutters, consistent scale and foot/hover baseline. All living poses face RIGHT. Every weapon, antenna, limb must remain inside own cell, never crosses adjacent column or row. Row-major exact sequence by slot index: 0,1,2,3 idle breathing; 4,5,6,7,8,9,10,11 eight consecutive walk poses (alternating contact, down, passing, up on both legs); 12,13,14,15 windup; 16,17,18,19,20,21 attack; 22,23,24,25,26,27 recover to ready; 28,29,30,31 hurt/recoil; 32,33,34,35 death buckling, falling, collapsed, settled. Motion focus: raises bugle to face then forcefully projects toward right and lowers it. Actual articulation and pose differences, not shifted duplicate stamps. Orthographic side-view, detailed ink and flat painted natural colors matching input. Do not add objects or redesign the character.",
+  "qa": {
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          99,
+          9,
+          152,
+          158
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          352,
+          10,
+          157,
+          157
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          618,
+          12,
+          157,
+          155
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          876,
+          10,
+          164,
+          157
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          41,
+          170,
+          149,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          212,
+          170,
+          161,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          393,
+          171,
+          176,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          584,
+          170,
+          155,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          4
+        ],
+        "region": [
+          756,
+          169,
+          172,
+          148
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          5
+        ],
+        "region": [
+          944,
+          175,
+          164,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          6
+        ],
+        "region": [
+          1120,
+          168,
+          183,
+          149
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          7
+        ],
+        "region": [
+          1331,
+          166,
+          167,
+          151
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          69,
+          321,
+          177,
+          150
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          446,
+          321,
+          183,
+          149
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          824,
+          321,
+          185,
+          149
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          1227,
+          320,
+          190,
+          150
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          37,
+          471,
+          212,
+          138
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          288,
+          475,
+          220,
+          134
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          536,
+          468,
+          236,
+          140
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          797,
+          470,
+          215,
+          139
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          4
+        ],
+        "region": [
+          1043,
+          465,
+          237,
+          144
+        ],
+        "bad_edge": true
+      },
+      {
+        "index": [
+          3,
+          5
+        ],
+        "region": [
+          1300,
+          466,
+          214,
+          143
+        ],
+        "bad_edge": true
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          47,
+          612,
+          178,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          314,
+          615,
+          158,
+          139
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          568,
+          612,
+          179,
+          143
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          816,
+          610,
+          169,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          4
+        ],
+        "region": [
+          1070,
+          607,
+          164,
+          148
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          5
+        ],
+        "region": [
+          1312,
+          608,
+          157,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          89,
+          763,
+          175,
+          123
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          422,
+          753,
+          165,
+          136
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          801,
+          759,
+          189,
+          140
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          81,
+          903,
+          244,
+          106
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          480,
+          879,
+          231,
+          131
+        ],
+        "bad_edge": true
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          815,
+          917,
+          310,
+          90
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          1187,
+          902,
+          309,
+          109
+        ],
+        "bad_edge": false
+      }
+    ],
+    "status": "reviewed",
+    "frames": 32,
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "registration_origins_by_source_row": [
+      [
+        176,
+        436,
+        696,
+        956
+      ],
+      [
+        112,
+        296,
+        480,
+        664,
+        848,
+        1032,
+        1216,
+        1400
+      ],
+      [
+        160,
+        548,
+        936,
+        1324
+      ],
+      [
+        144,
+        396,
+        648,
+        900,
+        1152,
+        1404
+      ],
+      [
+        144,
+        396,
+        648,
+        900,
+        1152,
+        1404
+      ],
+      [
+        176,
+        528,
+        912
+      ],
+      [
+        208,
+        592,
+        976,
+        1360
+      ]
+    ],
+    "horizontal_registration": "Explicit authored strip/cell body origins; central strips and variable row counts measured independently. Anchor does not follow weapon or wing bounding-box expansion. Natural pose lean/lunge relative to fixed origin preserved; flying roles do not use feet.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          99,
+          9,
+          152,
+          158
+        ],
+        "anchor_x": 77
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          352,
+          10,
+          157,
+          157
+        ],
+        "anchor_x": 84
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          618,
+          12,
+          157,
+          155
+        ],
+        "anchor_x": 78
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          876,
+          10,
+          164,
+          157
+        ],
+        "anchor_x": 80
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          41,
+          170,
+          149,
+          147
+        ],
+        "anchor_x": 71
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          212,
+          170,
+          161,
+          147
+        ],
+        "anchor_x": 84
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          393,
+          171,
+          176,
+          145
+        ],
+        "anchor_x": 87
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          584,
+          170,
+          155,
+          147
+        ],
+        "anchor_x": 80
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          756,
+          169,
+          172,
+          148
+        ],
+        "anchor_x": 92
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          944,
+          175,
+          164,
+          142
+        ],
+        "anchor_x": 88
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1120,
+          168,
+          183,
+          149
+        ],
+        "anchor_x": 96
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1331,
+          166,
+          167,
+          151
+        ],
+        "anchor_x": 69
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          69,
+          321,
+          177,
+          150
+        ],
+        "anchor_x": 91
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          446,
+          321,
+          183,
+          149
+        ],
+        "anchor_x": 102
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          824,
+          321,
+          185,
+          149
+        ],
+        "anchor_x": 112
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1227,
+          320,
+          190,
+          150
+        ],
+        "anchor_x": 97
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          37,
+          471,
+          212,
+          138
+        ],
+        "anchor_x": 107
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          288,
+          475,
+          220,
+          134
+        ],
+        "anchor_x": 108
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          536,
+          468,
+          236,
+          140
+        ],
+        "anchor_x": 112
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          797,
+          470,
+          215,
+          139
+        ],
+        "anchor_x": 103
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          47,
+          612,
+          178,
+          142
+        ],
+        "anchor_x": 97
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          314,
+          615,
+          158,
+          139
+        ],
+        "anchor_x": 82
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          568,
+          612,
+          179,
+          143
+        ],
+        "anchor_x": 80
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          816,
+          610,
+          169,
+          145
+        ],
+        "anchor_x": 84
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1070,
+          607,
+          164,
+          148
+        ],
+        "anchor_x": 82
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1312,
+          608,
+          157,
+          147
+        ],
+        "anchor_x": 92
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          89,
+          763,
+          175,
+          123
+        ],
+        "anchor_x": 87
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          422,
+          753,
+          165,
+          136
+        ],
+        "anchor_x": 106
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          801,
+          759,
+          189,
+          140
+        ],
+        "anchor_x": 111
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          81,
+          903,
+          244,
+          106
+        ],
+        "anchor_x": 127
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          815,
+          917,
+          310,
+          90
+        ],
+        "anchor_x": 161
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          1187,
+          902,
+          309,
+          109
+        ],
+        "anchor_x": 173
+      }
+    ]
+  }
+}

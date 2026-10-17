@@ -14,7 +14,7 @@ func run() -> void:
     player.set_physics_process(false)
     await process_frame
     var sprite: AnimatedSprite2D = player.sprite
-    check(sprite.sprite_frames.get_frame_count("run")==4,"four authored run poses loaded")
+    check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
     player.current_attack=&"attack_1"
     player.current_attack_direction=Vector2.RIGHT

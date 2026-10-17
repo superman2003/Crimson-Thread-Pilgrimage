@@ -1,0 +1,294 @@
+{
+  "npc_id": "npc_salt_librarian_ye",
+  "visual_scale": 0.35526315789473684,
+  "visual_offset": [
+    0,
+    -16.220760233918128
+  ],
+  "portrait": {
+    "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/atlas.png",
+    "region": [
+      65,
+      12,
+      360,
+      316
+    ]
+  },
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "version": 2,
+  "canvas": [
+    402,
+    330
+  ],
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            33,
+            11,
+            262,
+            304
+          ],
+          "margin": [
+            42,
+            18,
+            140,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            350,
+            10,
+            243,
+            305
+          ],
+          "margin": [
+            52,
+            17,
+            159,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            641,
+            11,
+            300,
+            304
+          ],
+          "margin": [
+            52,
+            18,
+            102,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            940,
+            14,
+            271,
+            301
+          ],
+          "margin": [
+            14,
+            21,
+            131,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "name": "talk",
+      "fps": 10,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            0,
+            314,
+            312,
+            314
+          ],
+          "margin": [
+            22,
+            8,
+            90,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            314,
+            314,
+            314,
+            314
+          ],
+          "margin": [
+            56,
+            8,
+            88,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            627,
+            314,
+            302,
+            314
+          ],
+          "margin": [
+            28,
+            8,
+            100,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            959,
+            314,
+            277,
+            314
+          ],
+          "margin": [
+            52,
+            8,
+            125,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            0,
+            627,
+            318,
+            314
+          ],
+          "margin": [
+            8,
+            8,
+            84,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            317,
+            627,
+            327,
+            314
+          ],
+          "margin": [
+            37,
+            8,
+            75,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            643,
+            627,
+            292,
+            314
+          ],
+          "margin": [
+            28,
+            8,
+            110,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            941,
+            627,
+            297,
+            314
+          ],
+          "margin": [
+            22,
+            8,
+            105,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "greet",
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            0,
+            940,
+            314,
+            299
+          ],
+          "margin": [
+            12,
+            23,
+            88,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            313,
+            940,
+            308,
+            298
+          ],
+          "margin": [
+            50,
+            24,
+            94,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rest",
+      "fps": 4,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            636,
+            940,
+            305,
+            286
+          ],
+          "margin": [
+            48,
+            36,
+            97,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_npcs/npc_salt_librarian_ye/motion_expanded.png",
+          "region": [
+            940,
+            940,
+            304,
+            288
+          ],
+          "margin": [
+            46,
+            34,
+            98,
+            42
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_generation.json"
+}

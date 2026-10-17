@@ -1,0 +1,52 @@
+{
+  "characters": {
+    "small_enemies": 40,
+    "bosses": 6,
+    "npcs": 25,
+    "hero_run": 1
+  },
+  "runtime_frame_references": {
+    "small_enemies": 1288,
+    "bosses": 340,
+    "npcs": 400,
+    "hero_run": 8,
+    "enemy_npc_total": 2028
+  },
+  "static": "71 production characters and hero run reproducibility checks passed",
+  "import": "Godot 4.6.1 strict import passes=2 failures=0",
+  "npm_test": "passed",
+  "runtime": {
+    "expanded_character_motion": [
+      "EXPANDED_CHARACTER_MOTION checks=3291 failures=0 characters=71 poses=2028"
+    ],
+    "enemy_visibility": [
+      "ENEMY_VISIBILITY_VALIDATION checks=641 failures=0"
+    ],
+    "hero_animation": [
+      "HERO_ANIMATION_VALIDATION checks=25 failures=0"
+    ],
+    "player_motion_continuity": [],
+    "character_art_prewarm": [
+      "CHARACTER_ART_PREWARM checks=120 failures=0 sync_loads=0"
+    ],
+    "enemy_lifecycle_regression": [
+      "ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0"
+    ],
+    "enemy_atlas_integrity": [
+      "ENEMY_ATLAS_INTEGRITY checks=3325 failures=0 static_frames=48 playbacks=8"
+    ],
+    "boss_trial": [
+      "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1017.6240234375, 720.0] boss_spawned=true"
+    ],
+    "world_neighbor_gameplay": [],
+    "world_neighbor_entities": [
+      "WORLD NEIGHBOR ENTITIES PASS: 1133 checks"
+    ],
+    "world_prepare_budget": [
+      "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+    ]
+  },
+  "offline_preview": "71 characters, source-atlas composition; not GPU capture",
+  "limitation": "No whole-game frame-time benchmark or claim of universal 60 fps.",
+  "probe_update": "boss_trial now checks the actual selected manifest and its visual offset, instead of mixing the old source offset with the expanded scale; actual old/new foot anchor is unchanged."
+}

@@ -1,0 +1,590 @@
+{
+  "kind": "bronze_moth",
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Create production transparent sprite sheet expanding the SAME bronze moth from reference: velvet dark teal wings edged ornate aged bronze filigree with dangling bronze jewels, fuzzy blue gray body, slender antennae and glowing amber face. Preserve dark ink hand-painted aesthetic. STRICT 4 columns × 8 rows, THIRTY TWO complete full-body poses on portrait canvas. Every sprite SMALL centered with wide transparent gutters, whole wings/antennae/legs inside cell. Never touch neighbor. All face RIGHT. Equal scale and consistent body anchor. Row1 four idle hovering breathing poses. Rows2 and3 eight flight poses with alternating wing up/down and leg movements. Row4 four windup wings folding/drawing backward. Row5 four attack forward diving/stinger jab poses. Row6 four recovery return to hover poses. Row7 four hurt recoil/stagger poses. Row8 four death wings folding then collapse on ground. Exactly FOUR sprites in EACH row. Every drawing genuinely articulated, not duplicates. True alpha transparency, no colored background, no lines, labels, text, grid or shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-b927acb2-4231-4292-ab96-60db7299299e.png",
+  "qa": {
+    "layout": "4 columns by 8 rows, 32 complete pose silhouettes reviewed",
+    "identity": "Original teal and bronze moth appearance retained",
+    "motion": "Distinct wings/legs/torso, attack, recovery, hurt and collapse poses",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "attack",
+        [
+          18,
+          788,
+          292,
+          937
+        ],
+        83,
+        true
+      ],
+      [
+        "attack",
+        [
+          279,
+          784,
+          542,
+          939
+        ],
+        213,
+        true
+      ],
+      [
+        "attack",
+        [
+          523,
+          787,
+          795,
+          954
+        ],
+        201,
+        true
+      ],
+      [
+        "attack",
+        [
+          781,
+          802,
+          1007,
+          951
+        ],
+        53,
+        true
+      ]
+    ],
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "validation": "tools/build_expanded_character_motion.py --character bronze_moth passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          46,
+          17,
+          194,
+          198
+        ],
+        "component_seeds": [
+          [
+            115,
+            111
+          ]
+        ],
+        "anchor_x": 82.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          304,
+          25,
+          186,
+          190
+        ],
+        "component_seeds": [
+          [
+            363,
+            115
+          ]
+        ],
+        "anchor_x": 80.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          537,
+          14,
+          204,
+          200
+        ],
+        "component_seeds": [
+          [
+            733,
+            105
+          ]
+        ],
+        "anchor_x": 103.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          791,
+          30,
+          199,
+          182
+        ],
+        "component_seeds": [
+          [
+            970,
+            116
+          ]
+        ],
+        "anchor_x": 105.0
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          45,
+          219,
+          210,
+          185
+        ],
+        "component_seeds": [
+          [
+            128,
+            306
+          ]
+        ],
+        "anchor_x": 83.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          298,
+          235,
+          200,
+          166
+        ],
+        "component_seeds": [
+          [
+            386,
+            314
+          ]
+        ],
+        "anchor_x": 86.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          547,
+          226,
+          213,
+          170
+        ],
+        "component_seeds": [
+          [
+            584,
+            309
+          ]
+        ],
+        "anchor_x": 93.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          793,
+          238,
+          201,
+          161
+        ],
+        "component_seeds": [
+          [
+            908,
+            315
+          ]
+        ],
+        "anchor_x": 103.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          40,
+          403,
+          212,
+          191
+        ],
+        "component_seeds": [
+          [
+            64,
+            503
+          ]
+        ],
+        "anchor_x": 88.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          299,
+          408,
+          209,
+          192
+        ],
+        "component_seeds": [
+          [
+            467,
+            507
+          ]
+        ],
+        "anchor_x": 85.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          530,
+          421,
+          229,
+          173
+        ],
+        "component_seeds": [
+          [
+            749,
+            502
+          ]
+        ],
+        "anchor_x": 110.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          801,
+          417,
+          194,
+          183
+        ],
+        "component_seeds": [
+          [
+            967,
+            510
+          ]
+        ],
+        "anchor_x": 95.0
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          24,
+          595,
+          215,
+          180
+        ],
+        "component_seeds": [
+          [
+            128,
+            686
+          ]
+        ],
+        "anchor_x": 104.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          279,
+          619,
+          196,
+          152
+        ],
+        "component_seeds": [
+          [
+            429,
+            685
+          ]
+        ],
+        "anchor_x": 105.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          526,
+          619,
+          209,
+          156
+        ],
+        "component_seeds": [
+          [
+            609,
+            689
+          ]
+        ],
+        "anchor_x": 114.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          781,
+          620,
+          210,
+          158
+        ],
+        "component_seeds": [
+          [
+            930,
+            684
+          ]
+        ],
+        "anchor_x": 115.0
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          16,
+          786,
+          278,
+          153
+        ],
+        "component_seeds": [
+          [
+            100,
+            854
+          ]
+        ],
+        "anchor_x": 112.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          277,
+          782,
+          267,
+          159
+        ],
+        "component_seeds": [
+          [
+            411,
+            860
+          ]
+        ],
+        "anchor_x": 107.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          521,
+          785,
+          276,
+          171
+        ],
+        "component_seeds": [
+          [
+            603,
+            858
+          ]
+        ],
+        "anchor_x": 119.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          779,
+          800,
+          230,
+          153
+        ],
+        "component_seeds": [
+          [
+            961,
+            865
+          ]
+        ],
+        "anchor_x": 117.0
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          23,
+          951,
+          209,
+          194
+        ],
+        "component_seeds": [
+          [
+            157,
+            1040
+          ]
+        ],
+        "anchor_x": 105.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          277,
+          968,
+          211,
+          177
+        ],
+        "component_seeds": [
+          [
+            437,
+            1049
+          ]
+        ],
+        "anchor_x": 107.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          541,
+          954,
+          208,
+          194
+        ],
+        "component_seeds": [
+          [
+            644,
+            1048
+          ]
+        ],
+        "anchor_x": 99.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          793,
+          958,
+          201,
+          191
+        ],
+        "component_seeds": [
+          [
+            874,
+            1053
+          ]
+        ],
+        "anchor_x": 103.0
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          24,
+          1152,
+          212,
+          182
+        ],
+        "component_seeds": [
+          [
+            132,
+            1229
+          ]
+        ],
+        "anchor_x": 104.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          279,
+          1163,
+          205,
+          173
+        ],
+        "component_seeds": [
+          [
+            354,
+            1246
+          ]
+        ],
+        "anchor_x": 105.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          543,
+          1152,
+          210,
+          193
+        ],
+        "component_seeds": [
+          [
+            664,
+            1248
+          ]
+        ],
+        "anchor_x": 97.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          788,
+          1179,
+          211,
+          162
+        ],
+        "component_seeds": [
+          [
+            972,
+            1262
+          ]
+        ],
+        "anchor_x": 108.0
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          33,
+          1334,
+          183,
+          184
+        ],
+        "component_seeds": [
+          [
+            146,
+            1426
+          ]
+        ],
+        "anchor_x": 95.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          274,
+          1360,
+          225,
+          155
+        ],
+        "component_seeds": [
+          [
+            339,
+            1453
+          ]
+        ],
+        "anchor_x": 110.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          509,
+          1407,
+          243,
+          105
+        ],
+        "component_seeds": [
+          [
+            685,
+            1471
+          ]
+        ],
+        "anchor_x": 131.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          767,
+          1434,
+          235,
+          84
+        ],
+        "component_seeds": [
+          [
+            950,
+            1481
+          ]
+        ],
+        "anchor_x": 129.0
+      }
+    ]
+  }
+}

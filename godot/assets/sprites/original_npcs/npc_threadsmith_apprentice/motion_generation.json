@@ -1,0 +1,213 @@
+{
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "output": "motion_expanded.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-f5f46e44-ca6b-4b34-ad00-9dad8b1e886f.png",
+  "prompt": "Use case identity-preserve. Exact source character: cream fluffy moth apprentice with long feather antennae, brown eye, ragged red scarf/cape, moss green gold-embroidered coat with cream cuffs and fluffy pantaloons, pale long wings with dark ornate tips, red thread spool and gold scissors at belt, long fine needle. Same detailed hand-painted outlined game art, same colors costume props face and silhouette. Generate SQUARE transparent4 columns x4 rows sheet EXACTLY16 full-body right-facing poses. All frames identical scale/camera and aligned feet. Large empty transparent gutters and generous20% border in EVERY cell, all antennae wings needle feet entirely visible, NO cell contact or canvas clipping. Row1 idle4 breathing/blink/feather scarf sway; rows2-3 talk8 gradual hand and head articulated gestures: open palm, point, hands near spool and return, cloth follows motion. Row4 greeting raised hand, polite bow, then two distinct seated resting poses. Loop idle and talking smoothly, no copied translated poses. Genuine alpha transparent background only, remove original brown gradient. No text, grid, floor, scenery or extra subjects.",
+  "layout": {
+    "columns": 4,
+    "rows": 4,
+    "order": "row-major",
+    "animations": {
+      "idle": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "talk": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "greet": [
+        12,
+        13
+      ],
+      "rest": [
+        14,
+        15
+      ]
+    }
+  },
+  "qa": {
+    "visual_review": "16 full silhouettes visually reviewed; source costume and props retained; distinct articulated idle, talk, greeting and seated rest poses.",
+    "geometry": "Each reviewed pose fully isolated by alpha<=24 horizontal and vertical separator lines; complete silhouette; four clear edges and no neighboring fragment.",
+    "ground_anchor": "Each frame origin uses center of lower 8% full visible silhouette (10th–90th percentile x), computed only from reviewed components where seeded; protects body position from gesture-width expansion. Long robes and seated/hovering poses visually reviewed. Source pixels unchanged."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          0,
+          314,
+          314
+        ],
+        "anchor_x": 159.5
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          0,
+          315,
+          314
+        ],
+        "anchor_x": 146.6
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          0,
+          314,
+          314
+        ],
+        "anchor_x": 155.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          0,
+          314,
+          314
+        ],
+        "anchor_x": 138.5
+      }
+    ],
+    "talk": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          313,
+          337,
+          314
+        ],
+        "anchor_x": 162.7
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          336,
+          313,
+          313,
+          314
+        ],
+        "anchor_x": 139.35
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          648,
+          313,
+          311,
+          314
+        ],
+        "anchor_x": 138.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          958,
+          313,
+          296,
+          314
+        ],
+        "anchor_x": 143.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          626,
+          314,
+          315
+        ],
+        "anchor_x": 159.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          626,
+          315,
+          315
+        ],
+        "anchor_x": 159.4
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          627,
+          626,
+          314,
+          315
+        ],
+        "anchor_x": 156.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          940,
+          626,
+          314,
+          315
+        ],
+        "anchor_x": 161.0
+      }
+    ],
+    "greet": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          0,
+          940,
+          314,
+          314
+        ],
+        "anchor_x": 159.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          313,
+          940,
+          305,
+          314
+        ],
+        "anchor_x": 138.25
+      }
+    ],
+    "rest": [
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          617,
+          940,
+          339,
+          314
+        ],
+        "anchor_x": 122.0
+      },
+      {
+        "sheet": "motion_expanded.png",
+        "region": [
+          955,
+          940,
+          299,
+          314
+        ],
+        "anchor_x": 128.0
+      }
+    ]
+  }
+}
