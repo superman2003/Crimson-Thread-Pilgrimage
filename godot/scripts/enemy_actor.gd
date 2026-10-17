@@ -316,12 +316,20 @@ var windup_vfx: Line2D
 var windup_vfx_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
+# A held wind-up (charge) or travelling strike (travel) switches from its
+# one-shot cels to an authored loop once the one-shot has been shown.
+const POSE_LOOP_LEAD := {"windup": 0.42, "active": 0.2}
+var pose_loop_animation := ""
+var pose_loop_at := 0.0
 var flash_materials: Array = []
 var knockback_velocity := 0.0
 var dying := false
 ## 遭遇编制角色（generated 章节配置 enemy_spawns.encounter_role，如 elite_duo/preboss_elite；
 ## 手工章节无此字段 → 空串天然静默）。
 var encounter_role := ""
+# Elite spawns use the species' "elite" profile: more health, +damage on every
+# attack, a slightly larger silhouette and an extra signature attack.
+var is_elite := false
 ## 首次进战宣告一次性标记（Boss 开场吼 / 精英仪式起手）。
 var engage_announced := false
 ## Boss 半血相变音一次性标记（纯音频钩子，无 HP 阶段行为机）。
@@ -364,6 +372,7 @@ func _physics_process(delta: float) -> void:
         _clear_telegraph()
         state = "patrol"
         active_attack = {}
+        pose_loop_animation = ""
         _set_enemy_animation("phase", true)
         _fit_animation_duration(phase_pause)
         if get_parent().has_method("_toast"):
@@ -452,9 +461,29 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
         if not data.has("hurtbox_size"):
             hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
     ai_profile["lure_eligible"] = bool(data.get("lure_eligible", ai_profile.get("lure_eligible", not is_boss and locomotion != "stationary")))
+    is_elite = bool(data.get("elite", false)) and not is_boss and ai_profile.get("elite") is Dictionary
+    if is_elite:
+        _apply_elite_profile(ai_profile.elite)
     ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
+
+
+func _apply_elite_profile(elite: Dictionary) -> void:
+    hp = maxi(hp + 1, ceili(float(hp) * float(elite.get("hp_mult", 1.75))))
+    max_hp = hp
+    var bonus := int(elite.get("damage_bonus", 1))
+    damage += bonus
+    var attacks: Array = []
+    for command: Dictionary in ai_profile.get("attacks", []):
+        var boosted := command.duplicate(true)
+        boosted["damage"] = int(boosted.get("damage", 1)) + bonus
+        attacks.append(boosted)
+    for command: Dictionary in elite.get("attacks", []):
+        attacks.append(command.duplicate(true))
+    ai_profile["attacks"] = attacks
+    if visual_scale > 0.0:
+        visual_scale *= float(elite.get("visual_scale_mult", 1.0))
 
 
 func take_hit(amount: int, hit_direction: int) -> void:
@@ -470,6 +499,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
     else:
         _play_sfx(_hit_tier_key(), -6.0)
     _spawn_hit_spark(hit_direction)
+    pose_loop_animation = ""
     _set_enemy_animation("hurt")
     _pose_sprite("hurt")
     hp -= amount
@@ -521,6 +551,7 @@ func _begin_death_dissolve() -> void:
     # 契约碎页散开——纸页撕裂与低频钟声叠层（同走独立宿主避免截断）。
     if is_boss and kind == "saltwhite_contract_judge":
         _play_detached_sfx("ch03_beat_contract_break", -8.0)
+    pose_loop_animation = ""
     _set_enemy_animation("death")
     _pose_sprite("death")
     _clear_telegraph()
@@ -1285,6 +1316,7 @@ func _begin_attack(command: Dictionary) -> void:
 
 func _update_windup(delta: float) -> void:
     state_timer -= delta
+    _advance_pose_loop()
     if state_timer <= 0.0:
         state = "active"
         state_timer = float(active_attack.get("active", 0.16))
@@ -1328,6 +1360,7 @@ func _update_active(delta: float) -> void:
             _effect("pool",global_position+Vector2(0,25),Vector2.ZERO,active_attack,.35,1.1)
 
     state_timer -= delta
+    _advance_pose_loop()
     if state_timer <= 0.0:
         state = "recover"
         state_timer = float(active_attack.get("recover", 0.42))
@@ -1721,6 +1754,25 @@ func _resolve_directional_animation(animation_name: String) -> String:
     return animation_name
 
 
+## An attack's own cels are named after its id; without them it keeps the
+## command's shared animation (normally the species' generic attack).
+func _attack_animation_base(command: Dictionary) -> String:
+    var own := String(command.get("id", ""))
+    if not own.is_empty() and (_has_enemy_animation(own) or _has_enemy_animation(own + "_windup")):
+        return own
+    return String(command.get("animation", "attack"))
+
+
+func _advance_pose_loop() -> void:
+    if pose_loop_animation.is_empty() or state_timer > pose_loop_at:
+        return
+    var loop_name := pose_loop_animation
+    pose_loop_animation = ""
+    _set_enemy_animation(loop_name, true)
+    if animated_sprite != null:
+        animated_sprite.speed_scale = 1.0
+
+
 func _has_enemy_animation(animation_name: String) -> bool:
     if animated_sprite != null and animated_sprite.sprite_frames != null and animated_sprite.sprite_frames.has_animation(animation_name):
         return true
@@ -1772,18 +1824,29 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
         sprite.rotation=0
         sprite.modulate.a = .24 if pose_name=="windup" and bool(command.get("burrow",false)) else 1.0
         var animation_name := pose_name
-        var requested := String(command.get("animation","attack"))
+        var requested := _attack_animation_base(command)
+        var loop_name := ""
         if pose_name=="windup":
             animation_name=requested+"_windup" if _has_enemy_animation(requested+"_windup") else "windup"
+            loop_name=requested+"_charge" if animation_name!="windup" else "charge"
         elif pose_name=="active":
             animation_name=requested if _has_enemy_animation(requested) else "attack"
+            loop_name=requested+"_travel" if animation_name!="attack" else "travel"
         elif pose_name=="recover":
             animation_name=requested+"_recover" if _has_enemy_animation(requested+"_recover") else ("recover" if _has_enemy_animation("recover") else "idle")
+        pose_loop_animation = ""
         _set_enemy_animation(animation_name, pose_name in ["windup", "active", "recover", "hurt", "death"])
         if animated_sprite!=null:
             animated_sprite.speed_scale=1.0
             if pose_name in ["windup","active","recover"] and animation_name != "idle":
-                _fit_animation_duration(float(command.get(pose_name, .3)))
+                var duration := float(command.get(pose_name, .3))
+                var lead := float(POSE_LOOP_LEAD.get(pose_name, 0.0))
+                if not loop_name.is_empty() and _has_enemy_animation(loop_name) and duration > lead + 0.12:
+                    _fit_animation_duration(lead)
+                    pose_loop_animation = loop_name
+                    pose_loop_at = duration - lead
+                else:
+                    _fit_animation_duration(duration)
         return
     _apply_sprite_region("attack" if pose_name == "windup" or pose_name == "active" else pose_name)
     var attack_type := String(command.get("type", "melee"))
