@@ -1106,11 +1106,25 @@
           "original_tool_output": "exec-3c07f605-964e-4552-a411-92b72be24f7c.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "airborne",
+        "attack_direction": "down",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     },
     {
       "file": "E_attack_up.png",
@@ -1277,11 +1291,25 @@
           "original_tool_output": "exec-69caa537-3d77-4f74-8a56-9fb41ca09ad0.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "grounded",
+        "attack_direction": "up",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     },
     {
       "file": "E_attack_forward.png",
@@ -1448,11 +1476,25 @@
           "original_tool_output": "exec-5288cf57-f804-48d1-92d3-c9785199340e.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "grounded",
+        "attack_direction": "forward",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     },
     {
       "file": "F_air_attack_up.png",
@@ -1619,11 +1661,25 @@
           "original_tool_output": "exec-70a9eed4-0734-45a4-9ee5-776618ce025a.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "airborne",
+        "attack_direction": "up",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     },
     {
       "file": "F_air_attack_right.png",
@@ -1790,11 +1846,25 @@
           "original_tool_output": "exec-48e80bad-79aa-4664-b967-51187b81c2b4.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "airborne",
+        "attack_direction": "right",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     },
     {
       "file": "E_attack_down_ground.png",
@@ -1961,11 +2031,25 @@
           "original_tool_output": "exec-606930f9-1aff-4dfe-8c78-b278f367b6bf.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "grounded",
+        "attack_direction": "down",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     },
     {
       "file": "F_air_attack_left.png",
@@ -2132,11 +2216,35 @@
           "original_tool_output": "exec-0acf6c9f-bf61-4fe2-87c0-5192f0d7e067.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static source review complete; animation registration, timing and in-game playback pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
-      ]
+        "Six ordered full-body poses inspected for intended direction",
+        "Actual alpha>=128 structure stays inside every declared region",
+        "Source PNG, prompt and all region hashes verified"
+      ],
+      "animation_usage": {
+        "state": "airborne",
+        "attack_direction": "left",
+        "runtime_integrated": false,
+        "phase_order": [
+          "guard",
+          "windup",
+          "active_cut",
+          "extended_hit",
+          "followthrough",
+          "recovery"
+        ]
+      }
     }
-  ]
+  ],
+  "static_validation": {
+    "sheet_count": 14,
+    "cel_count": 67,
+    "new_normal_attack_sheets": 7,
+    "new_normal_attack_cels": 42,
+    "png_prompt_region_hashes": "passed",
+    "new_attack_structural_crop_boundaries": "passed",
+    "runtime_playback": "not run",
+    "idle_cloth_endpoint_art_acceptance": "pending"
+  }
 }
