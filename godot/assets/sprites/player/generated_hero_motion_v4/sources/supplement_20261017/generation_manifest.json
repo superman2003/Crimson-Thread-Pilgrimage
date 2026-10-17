@@ -577,11 +577,11 @@
         1024
       ],
       "mode": "RGBA",
-      "sha256": "4a351ef18947a70e3e3ecc750bd60700afcfa6184bcd42df16116e589fa456ab",
-      "prompt_sha256": "41035b5f78beff718792feba2a7cf25fc11c07f4a5d17dfff4e21bbef2a28f99",
-      "original_tool_output": "exec-5cf47437-19e4-4668-854b-c3978e71a5c8.png",
-      "rgba_alpha_zero_pixels": 1220025,
-      "rgba_alpha_ge_128_pixels": 307366,
+      "sha256": "cdaf6e1ebfd3ed4f12ea67adaf1ced525c7f2954c2a09b2082a5f317e1949350",
+      "prompt_sha256": "bbb3aca284863e1655b2f2c1f539f143780abba927ef85a6cd98d5e04c40fd84",
+      "original_tool_output": "exec-eed956a3-ae35-4cad-8585-220732d5c10b.png",
+      "rgba_alpha_zero_pixels": 1035592,
+      "rgba_alpha_ge_128_pixels": 481479,
       "alpha_extrema": [
         0,
         254
@@ -596,18 +596,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            151,
-            91,
-            585,
-            458
+            118,
+            30,
+            680,
+            483
           ],
           "opaque_padding_left_top_right_bottom": [
-            151,
-            91,
-            183,
-            54
+            118,
+            30,
+            88,
+            29
           ],
-          "rgba_region_sha256": "9bf60545f99a3bab1fecd0bd0743779ff69412370f1eb8b7a4ab31bdd526ff5e"
+          "rgba_region_sha256": "7164f4c10935df96f11858f4ba46ce83fbcd14f78db8d27f528dfc4b3b43c651"
         },
         {
           "index": 2,
@@ -618,18 +618,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            132,
-            90,
-            603,
-            461
+            102,
+            30,
+            690,
+            484
           ],
           "opaque_padding_left_top_right_bottom": [
-            132,
-            90,
-            165,
-            51
+            102,
+            30,
+            78,
+            28
           ],
-          "rgba_region_sha256": "9420002cc29915db606f63eeac474b9a1231acdc8eeed2b06233bd4ed38fe951"
+          "rgba_region_sha256": "68f6a127a2458daa95451c90e03aebff7e8f764d1642322d6e86a5f02cc3c935"
         },
         {
           "index": 3,
@@ -640,18 +640,18 @@
             512
           ],
           "opaque_bounds_in_region": [
-            119,
-            51,
-            726,
-            423
+            81,
+            21,
+            731,
+            474
           ],
           "opaque_padding_left_top_right_bottom": [
-            119,
-            51,
-            42,
-            89
+            81,
+            21,
+            37,
+            38
           ],
-          "rgba_region_sha256": "4e4259f95a2e405e37d92ee5b5bad6428d8100cda8fbbf565cf8b2e075c55429"
+          "rgba_region_sha256": "d29bcd0c1ea9a31341d5410772444a3826d8e05d26bb75598a6dd971174d6d44"
         },
         {
           "index": 4,
@@ -662,32 +662,45 @@
             512
           ],
           "opaque_bounds_in_region": [
-            105,
-            50,
-            672,
-            426
+            102,
+            18,
+            630,
+            474
           ],
           "opaque_padding_left_top_right_bottom": [
-            105,
-            50,
-            96,
-            86
+            102,
+            18,
+            138,
+            38
           ],
-          "rgba_region_sha256": "f3b369d97d9bb01aa9b7ccf6bbffea8bf7db20c160f2cb180f00d28e62ac1b6a"
+          "rgba_region_sha256": "1431a7c5e30729e1d3b268d6921303683e9c04d95a37e13c05562c85c2c27f0f"
         }
       ],
       "visual_review": [
-        "requested cel count",
-        "right-facing silhouettes",
-        "full sword/cloth clearance",
-        "separated frame groups",
-        "matching v4 costume and rendering"
+        "correct cel count and complete silhouettes",
+        "actual alpha channel and clear gutters",
+        "user review correction inspected; runtime acceptance pending"
       ],
       "reference_images": [
         "refs/00_style_run_v4_8frames.png"
       ],
       "refinement_input_sha256": "9a5b2d1a5c573483924a0afb3e71741be6f6e57c336cc4792665d2269ed42680",
-      "passes": 2
+      "passes": 3,
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous": {
+            "sha256": "4a351ef18947a70e3e3ecc750bd60700afcfa6184bcd42df16116e589fa456ab",
+            "dimensions": [
+              1536,
+              1024
+            ],
+            "original_tool_output": "exec-5cf47437-19e4-4668-854b-c3978e71a5c8.png"
+          },
+          "prompt": "Use case: precise-object-edit. Asset type: four-cel 2D game tactical item animation source sheet. Edit target image 1. Preserve the same FOUR chronological full-body poses, character identity, youthful proportions, black ponytail, red scarf, teal cape, muted hand-painted ink rendering, sword, limbs and 2x2 arrangement. Corrections ONLY: (1) remove the detached flying flask from the bottom-left and bottom-right cells, leaving transparent space; KEEP the small flask actually held in the free hand in frames 1 and 2. The game generates its own thrown projectile. (2) A small brown leather belt pouch currently appears at the LEFT hip of the top-right and bottom-right characters. Add the SAME pouch to the same hip of the top-left and bottom-left characters so it is consistently attached in ALL FOUR cells. It may be partly naturally occluded by the near arm but cannot vanish. Preserve the existing two pouches' design, size, brown color and hip attachment. No other body or costume redesign. Same complete sword and hand silhouettes, no frame cropping, no glow or shadow, no diffuse halo, no labels. Genuine alpha-zero transparent background. Generous transparent margins and gutters, complete silhouettes inside equal cells.\n",
+          "original_tool_output": "exec-eed956a3-ae35-4cad-8585-220732d5c10b.png"
+        }
+      ]
     },
     {
       "file": "D_jump_loop.png",
