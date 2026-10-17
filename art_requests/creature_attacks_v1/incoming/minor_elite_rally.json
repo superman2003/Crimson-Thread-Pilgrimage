@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_pilgrim_commander_minor",
+  "image": "minor_elite_rally.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/echo_pilgrim_commander_minor.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_pilgrim_commander_minor.png",
+  "reference_sha256": "316e6d650beb1ef6704fc1cb241632590ab0dd52bb8238cba0f211a0200ddc20",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "minor_elite_rally.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "7f819ada191c574d9c22f5b5c15a5d7e0a860d0303e1853d3b9ed8100d59068b",
+  "git_blob_sha": "fb9070fa43daeb317d28689243635c9f53c6a3e6",
+  "fully_transparent_pixels": 1208936,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        76,
+        128,
+        191,
+        212
+      ],
+      "component_seed": [
+        260,
+        132
+      ],
+      "bbox_alpha_gt_24": [
+        80,
+        132,
+        183,
+        204
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        356,
+        85,
+        204,
+        256
+      ],
+      "component_seed": [
+        551,
+        89
+      ],
+      "bbox_alpha_gt_24": [
+        360,
+        89,
+        196,
+        248
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        684,
+        56,
+        210,
+        285
+      ],
+      "component_seed": [
+        777,
+        60
+      ],
+      "bbox_alpha_gt_24": [
+        688,
+        60,
+        202,
+        277
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        970,
+        4,
+        206,
+        337
+      ],
+      "component_seed": [
+        1030,
+        8
+      ],
+      "bbox_alpha_gt_24": [
+        974,
+        8,
+        198,
+        329
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        60,
+        377,
+        223,
+        253
+      ],
+      "component_seed": [
+        124,
+        381
+      ],
+      "bbox_alpha_gt_24": [
+        64,
+        381,
+        215,
+        245
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        357,
+        439,
+        262,
+        191
+      ],
+      "component_seed": [
+        406,
+        443
+      ],
+      "bbox_alpha_gt_24": [
+        361,
+        443,
+        254,
+        183
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        659,
+        479,
+        276,
+        151
+      ],
+      "component_seed": [
+        769,
+        483
+      ],
+      "bbox_alpha_gt_24": [
+        663,
+        483,
+        268,
+        143
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        961,
+        488,
+        286,
+        142
+      ],
+      "component_seed": [
+        1077,
+        492
+      ],
+      "bbox_alpha_gt_24": [
+        965,
+        492,
+        278,
+        134
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        62,
+        770,
+        281,
+        173
+      ],
+      "component_seed": [
+        169,
+        774
+      ],
+      "bbox_alpha_gt_24": [
+        66,
+        774,
+        273,
+        165
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        357,
+        735,
+        254,
+        208
+      ],
+      "component_seed": [
+        470,
+        739
+      ],
+      "bbox_alpha_gt_24": [
+        361,
+        739,
+        246,
+        200
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        669,
+        656,
+        195,
+        287
+      ],
+      "component_seed": [
+        740,
+        660
+      ],
+      "bbox_alpha_gt_24": [
+        673,
+        660,
+        187,
+        279
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        982,
+        725,
+        198,
+        219
+      ],
+      "component_seed": [
+        1172,
+        729
+      ],
+      "bbox_alpha_gt_24": [
+        986,
+        729,
+        190,
+        211
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        84,
+        972,
+        203,
+        274
+      ],
+      "component_seed": [
+        215,
+        976
+      ],
+      "bbox_alpha_gt_24": [
+        88,
+        976,
+        195,
+        266
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        368,
+        936,
+        210,
+        310
+      ],
+      "component_seed": [
+        431,
+        940
+      ],
+      "bbox_alpha_gt_24": [
+        372,
+        940,
+        202,
+        302
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete ivory/crimson commanders with single-headed silver spear. Wind-up raises spear with strongest head-back gesture in cels2-3; strike sweeps down-forward to low thrust, recovery returns upright, two raised charge poses. No summoned spears or VFX. Head-back consistency, loop and phase timing still require project art acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
