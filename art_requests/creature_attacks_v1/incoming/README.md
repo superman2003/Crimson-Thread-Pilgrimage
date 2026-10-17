@@ -52,5 +52,6 @@
 | page_duelist | [page_combo_loops.png](page_combo_loops.png) | 2 |
 | phase_censor | [censor_blink.png](censor_blink.png) | 14 |
 | phase_censor | [censor_fan_loops.png](censor_fan_loops.png) | 2 |
+| pilgrim_chariot | [chariot_caltrops.png](chariot_caltrops.png) | 14 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
