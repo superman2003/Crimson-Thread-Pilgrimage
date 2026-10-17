@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "echo_pilgrim_commander_minor",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/echo_pilgrim_commander_minor/atlas.png",
+  "reference_sha256": "7005e0891bce7b5614c2b41467275aefc3c866eb669e336b28b1e2d4f21ee894",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Match EXACT reference echo_pilgrim_commander_minor: slender insect lancer in layered ivory bone armor, long pointed ivory mask with black eye opening, tall torn crimson crest, black thin articulated limbs, ragged crimson cape, ONE long dark spear with ivory leaf-shaped point. Preserve detailed dark ink contours, muted textured painted rendering, anatomy, proportions, mask, armor and equipment. Exactly EIGHT distinct full-body poses in FOUR columns TWO rows, same character scale, all face RIGHT. Top row four nonlethal hurt/recovery poses: impact flinch leaning back, deeper recoil bent knees with cape lag, replant feet and steady spear, return to upright guard. Bottom row four death-collapse poses: knees buckle with lowered spear, drops to one knee, rolls onto side cape pooling and spear falling beside body, lifeless prone body with full spear resting beside it. Real joint articulation, not duplicate stamps. Render sprites SMALL, within central 60% of each cell width and 70% height; wide fully transparent gutters, entire crest, cape, spear and feet inside own cell. True transparent RGBA background, no floor, no shadows, no glow, no effects, no grid, no labels, no gore. Landscape canvas 2048x1024. No detached or duplicated weapons.",
+  "image_sha256": "c28fe1d85d9bb4775e74909d602d0aa9b25beea9f8b5351dce3301edb3819644",
+  "git_blob_sha": "b6ab0a1473c8e28f21ed39e6be1995de53abd564",
+  "component_seeds": [
+    [
+      411,
+      57
+    ],
+    [
+      880,
+      93
+    ],
+    [
+      1266,
+      81
+    ],
+    [
+      1659,
+      51
+    ],
+    [
+      260,
+      497
+    ],
+    [
+      724,
+      572
+    ],
+    [
+      1099,
+      627
+    ],
+    [
+      1607,
+      711
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        92,
+        53,
+        326,
+        396
+      ],
+      "component_seed": [
+        411,
+        57
+      ],
+      "visible_bbox_alpha_gt_24": [
+        96,
+        57,
+        318,
+        388
+      ],
+      "rgba_sha256": "550cea95b7ab371ad09c76f50544e110f6aa35f4a2725073eb1a098218903f34"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        493,
+        89,
+        392,
+        359
+      ],
+      "component_seed": [
+        880,
+        93
+      ],
+      "visible_bbox_alpha_gt_24": [
+        497,
+        93,
+        384,
+        351
+      ],
+      "rgba_sha256": "701f376ef9cebb20b2f0911647a56290da62a7ed7f992dceb2be176c652d6ba5"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        952,
+        77,
+        321,
+        373
+      ],
+      "component_seed": [
+        1266,
+        81
+      ],
+      "visible_bbox_alpha_gt_24": [
+        956,
+        81,
+        313,
+        365
+      ],
+      "rgba_sha256": "a342a44727e81fbd7fe3f9d5c0ecd97f2709965a76bb2b64985fda73201dcccc"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1406,
+        47,
+        259,
+        403
+      ],
+      "component_seed": [
+        1659,
+        51
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1410,
+        51,
+        251,
+        395
+      ],
+      "rgba_sha256": "f5a293b8b4c5b7efcb971183d079fd24a8f7755235f5bf1f9d12f9b05a6c080e"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        74,
+        493,
+        398,
+        331
+      ],
+      "component_seed": [
+        260,
+        497
+      ],
+      "visible_bbox_alpha_gt_24": [
+        78,
+        497,
+        390,
+        323
+      ],
+      "rgba_sha256": "232d7e0f6a15b248044d14e9d3eda3194a00f7c88901f1d934341c9fd7b19609"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        478,
+        568,
+        416,
+        256
+      ],
+      "component_seed": [
+        724,
+        572
+      ],
+      "visible_bbox_alpha_gt_24": [
+        482,
+        572,
+        408,
+        248
+      ],
+      "rgba_sha256": "f3a37b278b78a140b58d530386447be30adb45e156fb0b3aa05b24c685c47a67"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        858,
+        623,
+        456,
+        197
+      ],
+      "component_seed": [
+        1099,
+        627
+      ],
+      "visible_bbox_alpha_gt_24": [
+        862,
+        627,
+        448,
+        189
+      ],
+      "rgba_sha256": "3f6666135653207b56488896b6ae2b42a23bea3518f389999802158c782a4566"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1310,
+        707,
+        427,
+        123
+      ],
+      "component_seed": [
+        1607,
+        711
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1314,
+        711,
+        419,
+        115
+      ],
+      "rgba_sha256": "6083e8fb66a36e5511ea58d70c114aab32a3491202e3aad0a37ff0ef1df69380"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1146489,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight complete isolated insect lancer poses; top row recoils then returns to guard, bottom row lowers then lies prone. Ivory mask/armor, crimson crest/cape and spear retained; anatomy and runtime playback still require final integration review.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}

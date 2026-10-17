@@ -1,6 +1,6 @@
 {
   "scope": "40 ordinary creatures + 6 bosses; original runtime roster",
-  "delivery": "source keyframes only; generation stopped at user request",
+  "delivery": "source keyframes only; resumed at user request; each image committed remotely before generating the next",
   "entries": [
     {
       "id": "ash_banner_imp",
@@ -93,9 +93,11 @@
     {
       "id": "echo_pilgrim_commander_minor",
       "role": "ordinary",
-      "status": "paused_not_generated",
-      "source_manifest": null,
-      "frames": 0
+      "status": "uploaded",
+      "source_manifest": "godot/assets/sprites/original_creatures/echo_pilgrim_commander_minor/sources/supplement_20261017/generation_manifest.json",
+      "frames": 8,
+      "image_sha256": "c28fe1d85d9bb4775e74909d602d0aa9b25beea9f8b5351dce3301edb3819644",
+      "git_blob_sha": "b6ab0a1473c8e28f21ed39e6be1995de53abd564"
     },
     {
       "id": "echo_thorn_sentinel",
@@ -366,12 +368,12 @@
     }
   ],
   "summary": {
-    "monster_images": 20,
-    "monster_frames": 160,
+    "monster_images": 21,
+    "monster_frames": 168,
     "npc_images": 2,
     "npc_frames": 16,
-    "total_images": 22,
-    "total_frames": 176,
-    "remaining_monsters_not_generated": 26
+    "total_images": 23,
+    "total_frames": 184,
+    "remaining_monsters_not_generated": 25
   }
 }
