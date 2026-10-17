@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "obsidian_spearman",
+  "image": "obsidian_thrust_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/obsidian_spearman.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/obsidian_spearman.png",
+  "reference_sha256": "c811d37a88fe4a704538bd1ce6ead6c973a3a7bc076053f4428b9aed847bd594",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "obsidian_thrust_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "f9755cc6d244d73ffda93213fce3f8017785fdc6271e91c9e84c291f397b8e84",
+  "git_blob_sha": "2f4711bf4212bb7a6754fb72ac27bfa403d94d62",
+  "fully_transparent_pixels": 1317936,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        85,
+        267,
+        759,
+        462
+      ],
+      "component_seed": [
+        401,
+        271
+      ],
+      "bbox_alpha_gt_24": [
+        89,
+        271,
+        751,
+        454
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        955,
+        268,
+        788,
+        460
+      ],
+      "component_seed": [
+        1279,
+        272
+      ],
+      "bbox_alpha_gt_24": [
+        959,
+        272,
+        780,
+        452
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing spear thrust charge poses, horizontal single-headed obsidian spear held in spaced two-hand grips beside hip, rear hand loaded and front hand guiding with neutral wrists. Braced feet and cloak trail, plain blunt shaft tail. Blade/shaft/body ratios visually compared to original and obsidian_raise, both cels similar proportions and no clipping/effects. Exact root scale and seamless timing pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

@@ -46,5 +46,6 @@
 | obsidian_bellwheel | [bellwheel_roll_loops.png](bellwheel_roll_loops.png) | 4 |
 | obsidian_spearman | [obsidian_raise.png](obsidian_raise.png) | 12 |
 | obsidian_spearman | [obsidian_elite_impale.png](obsidian_elite_impale.png) | 16 |
+| obsidian_spearman | [obsidian_thrust_loops.png](obsidian_thrust_loops.png) | 2 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
