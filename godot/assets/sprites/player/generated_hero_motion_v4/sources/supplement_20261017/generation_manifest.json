@@ -4,7 +4,7 @@
   "generator": "built-in image_gen",
   "transparent_background": true,
   "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
-  "scope": "Seven newly generated source sheets (25 cels), plus seven exact prompt logs. Runtime animation wiring is not changed.",
+  "scope": "Seven generated source sheets (25 cels), with source-only review corrections. Runtime animation wiring is not changed.",
   "style_reference": {
     "file": "refs/00_style_run_v4_8frames.png",
     "repository_source": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
@@ -439,11 +439,11 @@
         1024
       ],
       "mode": "RGBA",
-      "sha256": "1c034c64e45676fcad32d3c3806731f6a0952de2a454ceae1aca8395b03325d1",
-      "prompt_sha256": "5bfff5b7d689358abd2b1e2fdcba4acd47b248216dfa4531c3223e29e5fca6ce",
-      "original_tool_output": "exec-9b0f0275-3a2c-495b-bc0a-ec0ce5bb4533.png",
-      "rgba_alpha_zero_pixels": 1213110,
-      "rgba_alpha_ge_128_pixels": 293108,
+      "sha256": "4f541acbb89be93aff1617e241208041d68c664ca4bcc168e69d4bfffd352473",
+      "prompt_sha256": "3d881a5bf08be131225f5beb235221f05ed0c7cb23a1be87f2e3f1022d0125dc",
+      "original_tool_output": "exec-ee88cdf8-5b84-4017-a437-2fbccde2a8cd.png",
+      "rgba_alpha_zero_pixels": 1123413,
+      "rgba_alpha_ge_128_pixels": 396901,
       "alpha_extrema": [
         0,
         254
@@ -455,21 +455,21 @@
             0,
             0,
             768,
-            540
+            512
           ],
           "opaque_bounds_in_region": [
-            114,
-            137,
-            597,
-            491
+            49,
+            96,
+            616,
+            494
           ],
           "opaque_padding_left_top_right_bottom": [
-            114,
-            137,
-            171,
-            49
+            49,
+            96,
+            152,
+            18
           ],
-          "rgba_region_sha256": "606119d5d62fbacf513d6906b0e358e0cad2e5f5c5287af5999082bf9d9ff3d3"
+          "rgba_region_sha256": "14a595450ecba4996d9228671042418137eeadec4496cabb8b8a55746ea072d2"
         },
         {
           "index": 2,
@@ -477,79 +477,92 @@
             768,
             0,
             768,
-            540
+            512
           ],
           "opaque_bounds_in_region": [
-            160,
-            137,
-            585,
-            490
+            144,
+            98,
+            641,
+            494
           ],
           "opaque_padding_left_top_right_bottom": [
-            160,
-            137,
-            183,
-            50
+            144,
+            98,
+            127,
+            18
           ],
-          "rgba_region_sha256": "f8f3d17d55c42ef143fa4e9edfd6c3f785bdb6bfafef372eb6c5411d6bf571ef"
+          "rgba_region_sha256": "2d3ee139bc5602725107998e35ae2460c3428f7cab487da2588a98d40ee0208a"
         },
         {
           "index": 3,
           "region": [
             0,
-            540,
+            512,
             768,
-            484
+            512
           ],
           "opaque_bounds_in_region": [
-            98,
-            48,
-            716,
-            384
+            63,
+            38,
+            699,
+            430
           ],
           "opaque_padding_left_top_right_bottom": [
-            98,
-            48,
-            52,
-            100
+            63,
+            38,
+            69,
+            82
           ],
-          "rgba_region_sha256": "5a635da4c32bdcc6f23561943cdf2ec1352397d7de5695abdc7c4fea95806f5d"
+          "rgba_region_sha256": "12f44aee7cf7035335809b17e5f2e0efe75a3904faf2da5b002e9d4d7bbc3beb"
         },
         {
           "index": 4,
           "region": [
             768,
-            540,
+            512,
             768,
-            484
+            512
           ],
           "opaque_bounds_in_region": [
-            103,
-            57,
-            687,
-            389
+            110,
+            35,
+            648,
+            432
           ],
           "opaque_padding_left_top_right_bottom": [
-            103,
-            57,
-            81,
-            95
+            110,
+            35,
+            120,
+            80
           ],
-          "rgba_region_sha256": "7cd79f09b7245fceef11bc30d77ef9a5b096476660eb414ea2660d81a419b520"
+          "rgba_region_sha256": "cc68b317b57755e19280e4282c38ede0ba1d08f83f96fc33d9fdd329fa75ba0a"
         }
       ],
       "visual_review": [
-        "requested cel count",
-        "right-facing silhouettes",
-        "full sword/cloth clearance",
-        "separated frame groups",
-        "matching v4 costume and rendering"
+        "correct cel count and complete silhouettes",
+        "actual alpha channel and clear gutters",
+        "user review correction inspected; runtime acceptance pending"
       ],
       "reference_images": [
         "refs/00_style_run_v4_8frames.png"
       ],
       "refinement_input_sha256": "bcede77f4810745fec45c5d25c02eb139663a8687b139b2df2a210558300bd0f",
-      "passes": 2
+      "passes": 3,
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous": {
+            "sha256": "1c034c64e45676fcad32d3c3806731f6a0952de2a454ceae1aca8395b03325d1",
+            "dimensions": [
+              1536,
+              1024
+            ],
+            "original_tool_output": "exec-9b0f0275-3a2c-495b-bc0a-ec0ce5bb4533.png"
+          },
+          "prompt": "Use case: precise-object-edit. Edit target image 1, the four-cell sword-wave animation source sheet. Preserve exactly the same FOUR character poses, all character anatomy, costume, face, hair, teal cape, red scarf, complete steel swords, muted hand-painted ink style and 2x2 arrangement. Remove ONLY the detached cyan energy crescent in bottom-left cell and the detached cyan energy crescent in bottom-right cell, including their glow. Empty space replaces them. Do not remove the steel blade or hand in either cell. Preserve the small cyan marks on the held sword in the top-right cell. No projectile, no crescent, no new effect, no extra objects. Genuine transparent alpha-zero background outside precise sprite silhouettes, no diffuse halos, shadow, gradients, black or white background, checkerboard, labels or border. Keep complete silhouettes well within each cell and ample transparent gutters. Same sheet size and sprite scale.\n",
+          "original_tool_output": "exec-ee88cdf8-5b84-4017-a437-2fbccde2a8cd.png"
+        }
+      ]
     },
     {
       "file": "C_item_use.png",
