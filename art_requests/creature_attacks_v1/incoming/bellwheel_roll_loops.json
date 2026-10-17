@@ -1,0 +1,100 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "obsidian_bellwheel",
+  "image": "bellwheel_roll_loops.png",
+  "requested_frames": 4,
+  "source_brief": "art_requests/creature_attacks_v1/obsidian_bellwheel.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/obsidian_bellwheel.png",
+  "reference_sha256": "ae3b540b034e4fedd24444a826a131784e02a4232ee9f2bca3141ac7845631ec",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "bellwheel_roll_loops.txt",
+  "image_size": [
+    2172,
+    724
+  ],
+  "image_sha256": "f1ffa885a016c1d0be5dc3153ba7bdfd467e7bdf015d2470b4713dba6406203d",
+  "git_blob_sha": "83ffeb5fc41a8a699a8f105d3f18e068fd769bca",
+  "fully_transparent_pixels": 1122416,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        96,
+        160,
+        472,
+        449
+      ],
+      "component_seed": [
+        274,
+        164
+      ],
+      "bbox_alpha_gt_24": [
+        100,
+        164,
+        464,
+        441
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        651,
+        171,
+        422,
+        433
+      ],
+      "component_seed": [
+        775,
+        175
+      ],
+      "bbox_alpha_gt_24": [
+        655,
+        175,
+        414,
+        425
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        1180,
+        239,
+        418,
+        358
+      ],
+      "component_seed": [
+        1347,
+        243
+      ],
+      "bbox_alpha_gt_24": [
+        1184,
+        243,
+        410,
+        350
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        1727,
+        237,
+        396,
+        360
+      ],
+      "component_seed": [
+        1880,
+        241
+      ],
+      "bbox_alpha_gt_24": [
+        1731,
+        241,
+        388,
+        352
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Four complete wheel-backed insects. Charge progresses from braced stance to curled body beside wheel hub; travel pair keeps claws/legs tucked clear with wheel ornament rotated. One rigid connected shell at consistent body-relative size, no detached wheel or VFX. Whole-body rotation is less evident than wheel rotation, so physical hub/rolling contact and seamless loop need rig acceptance. Full outer margins retained.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
