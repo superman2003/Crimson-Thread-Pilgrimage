@@ -1,0 +1,216 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "corridor_heavy",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/corridor_heavy/atlas.png",
+  "reference_sha256": "eb3eeccfa9f838ade68d06c2ece573558cb4fc36e34c5c7d9c6f2067c95418e4",
+  "prompt": "Use case: identity-preserve. EXACT corridor_heavy reference design: massive hunched beetle humanoid in moss-covered cracked stone plate armor, small ivory beak mask with dark eyes and two thin antennae, ragged dark purple waist cloth, wielding a long wooden-handled huge stone bell hammer bound with bronze and rope. Same detailed hand-painted ink style and proportions. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT isolated full-body right-facing sprites at equal scale. Small figures within central 60% width/70% height including complete bell hammer, antennae and armor, broad clear gutters. Top row four nonlethal recoil-recovery poses: chest jolts backward; bends deeply with hammer held close; regains braced footing; returns to grounded guard holding hammer low. Bottom row four death stages: knees buckle and bell head drops; one knee sinks while hammer rests on ground; tips onto side with armor settling; lies motionless low with whole bell hammer beside body. Distinct real joint and weapon articulation, no duplicates or touching neighbors. True transparent alpha, no scenery, shadows, floor, text, grids, effects or gore.",
+  "image_sha256": "bb326ee316dadc04e06a8e45d59ba82351661efff5044ce9dc9b4d389c33e180",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        43,
+        80,
+        399,
+        366
+      ],
+      "visible_bbox_alpha_gt_24": [
+        46,
+        83,
+        393,
+        360
+      ],
+      "rgba_sha256": "181c2487842568c96611275196305360639254784120c6d84a5b76d9c736a0df",
+      "component_seeds": [
+        [
+          114,
+          291
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        547,
+        181,
+        353,
+        273
+      ],
+      "visible_bbox_alpha_gt_24": [
+        550,
+        184,
+        347,
+        267
+      ],
+      "rgba_sha256": "68cd8af2f2bfa36e1dfc9dd6415d1798c1e7f7c3509f098f50478005e2e9d78e",
+      "component_seeds": [
+        [
+          605,
+          335
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        949,
+        137,
+        343,
+        307
+      ],
+      "visible_bbox_alpha_gt_24": [
+        952,
+        140,
+        337,
+        301
+      ],
+      "rgba_sha256": "68d7011ee9c0ea6b14f6b0db8b7b832e282c7530a2efd618cba70833591baa03",
+      "component_seeds": [
+        [
+          1097,
+          318
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1408,
+        132,
+        332,
+        322
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1411,
+        135,
+        326,
+        316
+      ],
+      "rgba_sha256": "d14bae586fd024d798a4798f2f86e512251a299086e2516b1efd6de3c2688df3",
+      "component_seeds": [
+        [
+          1514,
+          317
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        39,
+        535,
+        399,
+        300
+      ],
+      "visible_bbox_alpha_gt_24": [
+        42,
+        538,
+        393,
+        294
+      ],
+      "rgba_sha256": "e96b36870c6c2da8ff52244a08a27acd10e2bf1a40d3746e9a81dcbfe69dee2f",
+      "component_seeds": [
+        [
+          341,
+          706
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        459,
+        574,
+        427,
+        260
+      ],
+      "visible_bbox_alpha_gt_24": [
+        462,
+        577,
+        421,
+        254
+      ],
+      "rgba_sha256": "7d7b4261fb48e6bd27c73140bd513e7fd6b8d32bc74cb55f3afb1fd7f1597813",
+      "component_seeds": [
+        [
+          523,
+          734
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        881,
+        644,
+        425,
+        192
+      ],
+      "visible_bbox_alpha_gt_24": [
+        884,
+        647,
+        419,
+        186
+      ],
+      "rgba_sha256": "a3cb8e716ace0aa26e7a4d88368c87986e5f59aff0c044f34514fbf272cafc79",
+      "component_seeds": [
+        [
+          1219,
+          759
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1304,
+        683,
+        462,
+        151
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1307,
+        686,
+        456,
+        145
+      ],
+      "rgba_sha256": "d15b0bea6964ab29395a185ebb355535a424e578814d38d0a4e182cd3787a3f3",
+      "component_seeds": [
+        [
+          1514,
+          773
+        ]
+      ]
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1033251,
+    "region_structure": "Seeded alpha>24 silhouettes have at least 2px interior margin; rectangles may overlap, isolate using component_seeds.",
+    "visual_review": "Eight complete massive moss-covered stone armored beetles, pale mask, antennae, waist cloth and full bell hammer retained. Recoil returns to grounded guard; death lowers onto knee and prone.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
