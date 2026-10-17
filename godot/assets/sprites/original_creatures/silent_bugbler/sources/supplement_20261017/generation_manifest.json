@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "silent_bugbler",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/silent_bugbler/atlas.png",
+  "reference_sha256": "b387d50fdfc5836490b3d15c18e248bf7c78460caf36377fd4cadf7aef9b6a19",
+  "prompt": "Use case: identity-preserve. Production 2D keyframe sheet of EXACT silent_bugbler from reference: dark gray beetle musician with oval ivory mask and black eye, two long black curved antennae, layered dark brass-edged shell armor, ragged ash-gray cloak/scarf and small antique brass horn held by both hands. Preserve exact reference design and painted ink finish. ONE landscape transparent RGBA sheet, FOUR columns TWO rows, EIGHT isolated full-body right-facing sprites at identical scale. MINIATURE figures entirely within central 60% width/70% height of cells including antennae, cloak and full trumpet, wide transparent gutters. Top row four hurt/recovery stages: torso jolts backward and horn pulls from face; bends knees deeply with horn against chest; regains footing and lifts head; upright neutral pose holding horn near mouth. Bottom row four death stages: knees buckle and trumpet lowers; drops to one knee with horn near ground; collapses sideways, horn beside body; lies lifeless prone with complete trumpet and antennae visible. Genuine joint and cloth changes, distinct poses. No duplicated stamps, touching neighbors, cropped parts, background, shadows, labels, grids, sound waves, effects or gore. True transparent alpha.",
+  "image_sha256": "4492eb53856fd99412255eb80efcbbec98258b3df7fbe0b3df284716ef512e74",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        460,
+        489
+      ],
+      "visible_bbox_alpha_gt_24": [
+        55,
+        69,
+        344,
+        374
+      ],
+      "rgba_sha256": "dcb682dab09e98f7cc8afd3af9ec836c6943d099a4349fead167ed64f8567372"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        460,
+        0,
+        419,
+        489
+      ],
+      "visible_bbox_alpha_gt_24": [
+        522,
+        184,
+        329,
+        261
+      ],
+      "rgba_sha256": "4d742e0f9cc41338db9af40f0416447f97797cba876b54ab58460d3f861a7b09"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        879,
+        0,
+        425,
+        489
+      ],
+      "visible_bbox_alpha_gt_24": [
+        908,
+        130,
+        329,
+        317
+      ],
+      "rgba_sha256": "6ceaa4efd16cbac1e958a83463e1608ae16e5d7423aa6eb6232d8ec51da21b28"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1304,
+        0,
+        470,
+        489
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1372,
+        92,
+        335,
+        354
+      ],
+      "rgba_sha256": "ab66e2087fa6b4695d18293cf1391f49155d3f9c54d178dab0a3e881d6d02946"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        489,
+        424,
+        398
+      ],
+      "visible_bbox_alpha_gt_24": [
+        49,
+        532,
+        339,
+        285
+      ],
+      "rgba_sha256": "4d90511d6e037f71c91a92f7cf8cd5069e9c6e1f45be646e71ff5ebdfea0f6e4"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        424,
+        489,
+        416,
+        398
+      ],
+      "visible_bbox_alpha_gt_24": [
+        460,
+        581,
+        364,
+        236
+      ],
+      "rgba_sha256": "2f6d3a8583b3dcef9bd62595c1733f345ad3a93fd11947b4f1969bd0d160320a"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        840,
+        489,
+        452,
+        398
+      ],
+      "visible_bbox_alpha_gt_24": [
+        857,
+        661,
+        413,
+        165
+      ],
+      "rgba_sha256": "c5d8d6bf302cc15dae777f360d570d83f91afc968a56f6120d254330a9a46b12"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1292,
+        489,
+        482,
+        398
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1315,
+        685,
+        431,
+        148
+      ],
+      "rgba_sha256": "54d5f47b7a592e77ad1a7d101ed1f8d18b06e9c70a411fae7d33637f75f45e24"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1116096,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete dark beetle horn players, oval mask, antennae, ragged cloak and whole brass horn retained. Hurt stages recoil then regain standing; death stages lower horn, kneel and collapse.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
