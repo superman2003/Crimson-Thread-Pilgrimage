@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "phase_censor",
+  "image": "censor_blink.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/phase_censor.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/phase_censor.png",
+  "reference_sha256": "34a7f86e5df414a9e145c2fbbf23755fd1196114b1cda8bb84a3b1fd7fd326f8",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "censor_blink.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "4d202e0723d70b5a336495d08d2c31adb4710d2b6b8af5fd71ba743637ed415c",
+  "git_blob_sha": "37a05c689478d190334b26b39540098145be0cc7",
+  "fully_transparent_pixels": 1045679,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        32,
+        45,
+        246,
+        268
+      ],
+      "component_seed": [
+        103,
+        49
+      ],
+      "bbox_alpha_gt_24": [
+        36,
+        49,
+        238,
+        260
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        355,
+        73,
+        257,
+        240
+      ],
+      "component_seed": [
+        453,
+        77
+      ],
+      "bbox_alpha_gt_24": [
+        359,
+        77,
+        249,
+        232
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        681,
+        51,
+        258,
+        261
+      ],
+      "component_seed": [
+        857,
+        55
+      ],
+      "bbox_alpha_gt_24": [
+        685,
+        55,
+        250,
+        253
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        990,
+        50,
+        225,
+        262
+      ],
+      "component_seed": [
+        1061,
+        54
+      ],
+      "bbox_alpha_gt_24": [
+        994,
+        54,
+        217,
+        254
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        31,
+        385,
+        261,
+        227
+      ],
+      "component_seed": [
+        137,
+        389
+      ],
+      "bbox_alpha_gt_24": [
+        35,
+        389,
+        253,
+        219
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        328,
+        387,
+        324,
+        227
+      ],
+      "component_seed": [
+        451,
+        391
+      ],
+      "bbox_alpha_gt_24": [
+        332,
+        391,
+        316,
+        219
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        645,
+        395,
+        307,
+        220
+      ],
+      "component_seed": [
+        736,
+        399
+      ],
+      "bbox_alpha_gt_24": [
+        649,
+        399,
+        299,
+        212
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        975,
+        409,
+        261,
+        208
+      ],
+      "component_seed": [
+        1073,
+        413
+      ],
+      "bbox_alpha_gt_24": [
+        979,
+        413,
+        253,
+        200
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        39,
+        675,
+        260,
+        246
+      ],
+      "component_seed": [
+        124,
+        679
+      ],
+      "bbox_alpha_gt_24": [
+        43,
+        679,
+        252,
+        238
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        354,
+        668,
+        237,
+        255
+      ],
+      "component_seed": [
+        404,
+        672
+      ],
+      "bbox_alpha_gt_24": [
+        358,
+        672,
+        229,
+        247
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        676,
+        668,
+        246,
+        256
+      ],
+      "component_seed": [
+        753,
+        672
+      ],
+      "bbox_alpha_gt_24": [
+        680,
+        672,
+        238,
+        248
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        992,
+        668,
+        228,
+        257
+      ],
+      "component_seed": [
+        1047,
+        672
+      ],
+      "bbox_alpha_gt_24": [
+        996,
+        672,
+        220,
+        249
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        42,
+        994,
+        267,
+        222
+      ],
+      "component_seed": [
+        137,
+        998
+      ],
+      "bbox_alpha_gt_24": [
+        46,
+        998,
+        259,
+        214
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        352,
+        995,
+        259,
+        221
+      ],
+      "component_seed": [
+        424,
+        999
+      ],
+      "bbox_alpha_gt_24": [
+        356,
+        999,
+        251,
+        213
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete violet/ivory moth censors with one connected bronze chain censer each. Missing cel4 censer restored with visible grip/chain in front of knee. Swing shown via arm/body and hanging weight direction; no smoke, fades, trails or VFX baked in. Censer/body/chain ratios visually compared to original. Exact chain inertia, phase opacity and loop timing remain runtime acceptance items; original alpha preserved.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
