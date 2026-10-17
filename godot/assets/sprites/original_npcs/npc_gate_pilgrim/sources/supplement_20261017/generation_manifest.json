@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "npc_gate_pilgrim",
+  "image": "greet_rest.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_npcs/npc_gate_pilgrim/atlas.png",
+  "reference_sha256": "458df30ba86f7bd488bb9f3ea6199956ea5193b7b5841de28143b287340f6093",
+  "prompt": "Use case: identity-preserve. Asset type: production 2D game NPC animation sprite sheet. Input atlas is DESIGN REFERENCE ONLY, do not copy its layout. Preserve EXACT npc_gate_pilgrim identity: elderly hunched insect pilgrim with long ivory bird-skull mask and branching antlers, tiny brass bell and red thread tassel on antlers, olive green weathered hooded mantle over cream bell sleeves and faded red robe, dark segmented claw hands and feet, rolled bedroll and small satchels on back, curved brass walking staff with hanging bell held in right hand. Same intricate hand-drawn painted ink dark-fantasy style, original palette, exact costume and proportions. Generate ONE landscape TRANSPARENT RGBA sheet with EXACTLY FOUR COLUMNS and TWO ROWS, eight separate full-body articulated poses. Center each complete character within its own cell; uniformly SMALL figures occupying at most 60% cell width and 76% cell height. Entire antlers and staff visible with broad transparent gutters, no contact or overlapping neighbors. All face RIGHT in same three-quarter side view and same scale. Row 1 four greeting keyframes: 1 free left hand starts lifting from chest, staff planted; 2 palm opens warmly toward traveler; 3 modest respectful forward bow, free hand near chest; 4 straightens back to calm standing with hand lowering, staff still grounded. Row 2 four stand-to-rest keyframes: 1 bends knees and shifts weight onto planted staff; 2 lowers onto one knee, robe gathers naturally; 3 lowers hips into seated rest, staff held upright for support; 4 fully settled low seated rest with free hand on knee, both antlers and full staff visible. Complete anatomy and props in every cell. Distinct actual arm, knee, spine and robe articulation, not duplicate stamps or shifted images. Real completely transparent background, no scenery, floor shadows, gradients, checkerboard, text, grid lines, extra people or effects.",
+  "image_sha256": "b196e60160fbe0e16b8f7c0fb1675aab699b87d7a25c02364cce9f574e771508",
+  "frames": [
+    {
+      "action": "greet",
+      "index": 0,
+      "pose": "抬手",
+      "region": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        32,
+        9,
+        359,
+        431
+      ],
+      "rgba_sha256": "040a7b2087d01af46fa7a2ee759e22605ac3dc251b1c0b582c5a187c6776c17b"
+    },
+    {
+      "action": "greet",
+      "index": 1,
+      "pose": "摊掌示意",
+      "region": [
+        444,
+        0,
+        452,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        466,
+        22,
+        413,
+        420
+      ],
+      "rgba_sha256": "bb5723eb93dfc183bf5e4cb450c1eb3230c38268aa71e5ced399aa401ee024ea"
+    },
+    {
+      "action": "greet",
+      "index": 2,
+      "pose": "低头行礼",
+      "region": [
+        896,
+        0,
+        434,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        914,
+        79,
+        378,
+        360
+      ],
+      "rgba_sha256": "a8b3ad73cb6c13062cfe1be9e761b7c0d6cd4ce7aedddcbf2840e346f34aedac"
+    },
+    {
+      "action": "greet",
+      "index": 3,
+      "pose": "站直收手",
+      "region": [
+        1330,
+        0,
+        444,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1365,
+        10,
+        307,
+        430
+      ],
+      "rgba_sha256": "926f6aa09ec51d64131995b641fd4fb8f2d5e8201d294035c17d2f24543e49d4"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 0,
+      "pose": "屈膝扶杖",
+      "region": [
+        0,
+        444,
+        444,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        20,
+        447,
+        379,
+        417
+      ],
+      "rgba_sha256": "c838cf8d5e68b6cd8da13c7bf9bb003d01d520db5550c99153ddc55109e109a8"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 1,
+      "pose": "单膝下沉",
+      "region": [
+        444,
+        444,
+        452,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        470,
+        477,
+        389,
+        379
+      ],
+      "rgba_sha256": "4a4ec3741a03db5ba82b259d7c6e4e133fe404e160230446f0184eeca9d05873"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 2,
+      "pose": "落座",
+      "region": [
+        896,
+        444,
+        448,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        939,
+        512,
+        392,
+        345
+      ],
+      "rgba_sha256": "9de1add31168fe671e41442b333f5b89a215aac5167b87d72a3014f7d9d50aac"
+    },
+    {
+      "action": "stand_to_rest",
+      "index": 3,
+      "pose": "坐稳休息",
+      "region": [
+        1344,
+        444,
+        430,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1359,
+        519,
+        394,
+        336
+      ],
+      "rgba_sha256": "62494ade6e4060ec95ce41553a6c5e51b5902eb4cbc16a5cf086ca6675c5991f"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 905806,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight isolated complete pilgrim figures; skull mask and branching antlers, bell, tassels, packs and curved walking staff retained. Greeting has hand gesture, bow and upright return. Rest row progressively lowers into seated rest. Row-specific separators avoid tall antlers and cape edges.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

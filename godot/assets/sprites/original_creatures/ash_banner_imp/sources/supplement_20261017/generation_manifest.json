@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "ash_banner_imp",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/ash_banner_imp/atlas.png",
+  "reference_sha256": "e6f29cab7479145e1e2a2e1423ad5f83e403e9cdd94ecc4b05b8d95d3f48401e",
+  "prompt": "Use case: identity-preserve. Production 2D game sprite keyframes. Reference is the exact ash_banner_imp design: small gray armored insect soldier, ivory skull mask with two long curved horns, red neck wrap, ragged black and red banner attached to a long spear pole. Preserve its exact identity, equipment, anatomy, palette and intricate painted ink style. Create ONE landscape transparent RGBA sheet with EXACTLY FOUR columns by TWO rows, EIGHT full-body isolated sprites. Same scale, right-facing side view. Every COMPLETE figure including the entire banner and pole must occupy at most 65% of cell width and 72% of cell height; very wide empty transparent gutters. Top row: FOUR nonlethal hurt-recovery poses, impact flinch, leaning backward with bent knees and banner lagging, regaining support, back to stable standing guard. Bottom row: FOUR death-collapse poses, knees buckle, kneels with pole tilting, collapses sideways with banner falling beside body, lifeless prone body with complete pole and flag lying beside it. Real joint and cloth articulation, distinct poses. Keep full horns, pole tip, flag cloth and feet within own cell. No sprite touching neighbors, no clipping, no duplicated stamps. True transparent alpha, no background, floor, shadows, text, grids, extra characters, flashes or gore.",
+  "image_sha256": "e0f7db86a152dd5d92b5e0880f1e947c884d7d34afd37c2f9ba9118f16fd1b93",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        506,
+        462
+      ],
+      "visible_bbox_alpha_gt_24": [
+        19,
+        52,
+        430,
+        396
+      ],
+      "rgba_sha256": "cd6da85f48b09efd4787f4f53cddc6a67db0b763674873beb74eede9f1fda926"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        506,
+        0,
+        429,
+        462
+      ],
+      "visible_bbox_alpha_gt_24": [
+        564,
+        81,
+        321,
+        366
+      ],
+      "rgba_sha256": "aae3461f851c89c066b2aab47d72e57bd81f4c25475e0dbc3378e6e6c9503a43"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        935,
+        0,
+        423,
+        462
+      ],
+      "visible_bbox_alpha_gt_24": [
+        986,
+        67,
+        318,
+        381
+      ],
+      "rgba_sha256": "8f3b7184ae6e0a827839a46c2bf05d5a9e9798e92a06a7534ebb29c8f8e844c5"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1358,
+        0,
+        416,
+        462
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1414,
+        46,
+        300,
+        402
+      ],
+      "rgba_sha256": "61c2104f45064f259f72942de04920d937527df031a09ffd2f6cb1cd61ca8a61"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        462,
+        471,
+        425
+      ],
+      "visible_bbox_alpha_gt_24": [
+        60,
+        477,
+        358,
+        363
+      ],
+      "rgba_sha256": "ef31c2f161ff0e236e13abd480e347a7025a213fba91f0d230d9429033736799"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        471,
+        462,
+        387,
+        425
+      ],
+      "visible_bbox_alpha_gt_24": [
+        525,
+        517,
+        300,
+        324
+      ],
+      "rgba_sha256": "c57668e0b51d140d7131b5a7d4a719bba8e707537cf182a5791ac988bcdfcdf5"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        858,
+        462,
+        462,
+        425
+      ],
+      "visible_bbox_alpha_gt_24": [
+        893,
+        636,
+        424,
+        210
+      ],
+      "rgba_sha256": "35cc82da225236c40ac16967b57332061ac5c214ffa3b01bbafde2a9a39d058a"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1320,
+        462,
+        454,
+        425
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1324,
+        719,
+        439,
+        121
+      ],
+      "rgba_sha256": "6e6bb9c136a3a28bfb2c3f169ae8d14b4bbdf926fd914707a192fcde8ebe3e9a"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1122357,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete figures with skull horns, gray armor, red scarf and full banner pole. Hurt row flinches then regains guard; death row lowers to kneeling then side seated collapse and prone corpse. No clipping or merged neighbors visible.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

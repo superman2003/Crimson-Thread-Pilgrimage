@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "echo_moss_larva",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/echo_moss_larva/atlas.png",
+  "reference_sha256": "0d3b3a15becc22373566120f419708775cd600d2fbd3977e6a5210a868cf3f6a",
+  "prompt": "Use case: identity-preserve. EXACT echo_moss_larva from reference: low segmented caterpillar, pale ivory mask-like shell plates sewn with dark red stitches, ivory oval head mask around dark red slit eye, dark navy fuzzy segmented underside, red pointed mandibles and antennae, small dark hooked legs. Preserve exact design, anatomy, palette and detailed ink-painted finish. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT complete isolated right-facing creatures at same scale. Miniature figures within central 60% width/70% height of each cell including entire tail, antennae, jaws and feet, broad blank gutters. Top row four nonlethal hurt/recovery stages: head snaps back; body curls into strongest recoil with front legs braced; uncurls and lowers front body; stable low neutral stance. Bottom row four death stages: front legs buckle and head dips; body rolls partly onto side; limbs fold and plates settle; motionless flattened low corpse with full stitched shell and jaws visible. Distinct real articulated segments, no stamps, cloning or clipping. Real transparent alpha, no background, shadows, floor, text, grids, effects or gore.",
+  "image_sha256": "b2e257dc44340460bc38f22f63d68da85e8945c7eb6fdd7479d8ce061d4b717d",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        472,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        44,
+        69,
+        373,
+        352
+      ],
+      "rgba_sha256": "667724f49e85ed756981dc0607b03afa5333aa7efc7521807d9a47153384bd6e"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        472,
+        0,
+        392,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        529,
+        129,
+        306,
+        292
+      ],
+      "rgba_sha256": "09fe6af7ffd8993171e1c0ffa5ce4c371673473e721d56552747bfc5636ee49b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        864,
+        0,
+        458,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        893,
+        158,
+        412,
+        263
+      ],
+      "rgba_sha256": "e94839b9f8ac1049cc289f442f9b7d6066691942144ae535f5cf3ce5de8b483b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1322,
+        0,
+        452,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1339,
+        176,
+        404,
+        245
+      ],
+      "rgba_sha256": "aaece4aa34952cb1ddcdc91d4c106178488ef25c9afbc43a513a811f208c7d9f"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        502,
+        463,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        24,
+        613,
+        412,
+        217
+      ],
+      "rgba_sha256": "f0fd360ece2d7eecedf0da14a8bc38f45bf8ac9cb13283737e914a4b9ddc1c80"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        463,
+        502,
+        410,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        491,
+        599,
+        361,
+        225
+      ],
+      "rgba_sha256": "c6cb297d2c36515238e2fdb11346b3a9a91a60995ccc893a0d967a89250f37e7"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        873,
+        502,
+        458,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        895,
+        640,
+        429,
+        184
+      ],
+      "rgba_sha256": "cbb2fac06ef583dc4dcb0bbc86b849f3eb64102a79f431b7a2ced6d1368873c5"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1331,
+        502,
+        443,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1339,
+        688,
+        422,
+        142
+      ],
+      "rgba_sha256": "547c2f5990381400004e6450954d3e39280d72958752a97cd70b5860890fc1f6"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1042432,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete ivory stitched-shell larvae with navy underside, red jaws, antennae and hooked feet. Distinct segmented recoil and uncurled ready stance; progressive leg fold and flattened death.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "echo_thorn_sentinel",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/echo_thorn_sentinel/atlas.png",
+  "reference_sha256": "8b4cdfeb50d66dff476db0ef862dfaee83f0fff6d7e1fcb080c54b5ef6ccf5c2",
+  "prompt": "Use case: identity-preserve. Production 2D game animation sheet for the EXACT echo_thorn_sentinel in the reference: ivory horned insect knight with white layered thorn armor, ragged crimson cape, slender jagged crimson thorn sword and silver leaf-shaped shield. Preserve exact identity, color, armor, weapons and detailed painted ink style. ONE landscape transparent RGBA sheet, FOUR columns TWO rows, eight isolated complete full-body poses, right-facing three-quarter side view, identical scale. Small figures entirely within central 65% cell width and 72% height, including full horns, trailing cape, sword and shield. Broad transparent gutters on every side, never touch neighbors. Top row FOUR nonlethal hurt-recovery keyframes: jolts back behind shield; deeper backward recoil with knees bent, sword close; regains footing with shield forward; returns upright to guarded rest. Bottom row FOUR death-collapse poses: knees buckle and shield droops; one knee grounded with sword lowered; falls sideways with cape pooling and shield alongside; lies motionless, entire sword and shield visible. Real joint, cloth and weapon articulation, distinct poses not copied stamps. No backgrounds, gradients, floor, shadows, text, grid lines, gore or effects. Actual transparent alpha.",
+  "image_sha256": "19cc2cdb4c0107b3e503c6f243d98bb0643382234039759e50cd0dba2e2b4408",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        69,
+        88,
+        424,
+        350
+      ],
+      "visible_bbox_alpha_gt_24": [
+        72,
+        91,
+        418,
+        344
+      ],
+      "rgba_sha256": "78879e55c8147c7f6cf6146cf5e877a63bfabdfb2c24e18582b1a1f469e10597",
+      "component_seeds": [
+        [
+          160,
+          264
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        515,
+        112,
+        393,
+        326
+      ],
+      "visible_bbox_alpha_gt_24": [
+        518,
+        115,
+        387,
+        320
+      ],
+      "rgba_sha256": "d2d47469ef9fe8977a364f9167eb277aa916bed1b16ee567409ed57851a51ff5",
+      "component_seeds": [
+        [
+          590,
+          291
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        908,
+        108,
+        426,
+        335
+      ],
+      "visible_bbox_alpha_gt_24": [
+        911,
+        111,
+        420,
+        329
+      ],
+      "rgba_sha256": "96ee48710231628303ede600383d19c63a24dd30ff4fbb49be938818fe6a2163",
+      "component_seeds": [
+        [
+          1135,
+          300
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1405,
+        62,
+        330,
+        382
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1408,
+        65,
+        324,
+        376
+      ],
+      "rgba_sha256": "1acc65ba78cecf6a1cc7857ee0950b74ae8b603fca6fdcb1bcb902a0aede361e",
+      "component_seeds": [
+        [
+          1620,
+          292
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        64,
+        523,
+        359,
+        308
+      ],
+      "visible_bbox_alpha_gt_24": [
+        67,
+        526,
+        353,
+        302
+      ],
+      "rgba_sha256": "f1d75ca515a672878cfc7938059b1e246fcec42d2d621e55ee316a39ad165cab",
+      "component_seeds": [
+        [
+          75,
+          693
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        463,
+        554,
+        416,
+        257
+      ],
+      "visible_bbox_alpha_gt_24": [
+        466,
+        557,
+        410,
+        251
+      ],
+      "rgba_sha256": "953373a4043dc75f935f148068b8ccf360b0861e7d934f6fbec83a14e037a904",
+      "component_seeds": [
+        [
+          595,
+          706
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        852,
+        628,
+        468,
+        199
+      ],
+      "visible_bbox_alpha_gt_24": [
+        855,
+        631,
+        462,
+        193
+      ],
+      "rgba_sha256": "09cc6b7a9ed08c6720f743e0d178fb652827afd83d19b9af6a8cf7474c10d12c",
+      "component_seeds": [
+        [
+          1134,
+          734
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1320,
+        648,
+        433,
+        170
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1323,
+        651,
+        427,
+        164
+      ],
+      "rgba_sha256": "964446cf7bdfdb494a1e4cf3b29fe95907e396f1778bda635040d424198604ac",
+      "component_seeds": [
+        [
+          1656,
+          743
+        ]
+      ]
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1099503,
+    "region_structure": "Seeded alpha>24 silhouettes have at least 2px interior margin; rectangles may overlap, isolate using component_seeds.",
+    "visual_review": "Eight isolated complete ivory armored knights with long horns, red thorn sword, leaf shield and cape. Recoil regains guard; death progressively kneels and collapses to prone. Weapon extremities retained with row-specific cuts.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

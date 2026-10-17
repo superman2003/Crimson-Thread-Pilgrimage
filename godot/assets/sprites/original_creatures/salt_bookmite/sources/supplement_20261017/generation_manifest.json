@@ -1,0 +1,180 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "salt_bookmite",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/salt_bookmite/atlas.png",
+  "reference_sha256": "a629e809ca166045614b5542ff1d204ec3c1389d978e47cc2c04ba4ce3c58203",
+  "prompt": "Use case: precise-object-edit. Correct ONLY the layout of this eight-pose salt bookmite sprite sheet, retaining exact design, eight poses, colors, book shell, crystal spikes, legs and antennae. The existing sprites touch in places. Make EVERY COMPLETE SPRITE 30 percent SMALLER in both width and height, uniformly. Place each of the eight miniature figures at the center of an EXACT FOUR-COLUMN TWO-ROW grid with at least 50 pixels of completely empty transparent space between neighboring full silhouettes including antennae. All full creatures must fit entirely inside their separate cells with transparent margins. Keep top row four hurt-to-recovery stages and bottom row four progressive death-collapse stages, left to right. No cropped appendages, no removed props, no merging or touching, no text, no grid lines, no background. Actual fully transparent RGBA output.",
+  "image_sha256": "1928adcd3c56ff97ae23331923d80de09218d83abd48c2183a92a49fdcbc7727",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        458,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        83,
+        148,
+        301,
+        277
+      ],
+      "rgba_sha256": "c685b18fcf83caba507703dd795ac3bb1ae303a3095b4ad0bfc0bce27942882b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        458,
+        0,
+        406,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        532,
+        159,
+        270,
+        267
+      ],
+      "rgba_sha256": "289c47e7d49051efdf20a480f4c0f3bb08f463afb369a0388e1f339b3be8827c"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        864,
+        0,
+        454,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        927,
+        198,
+        331,
+        231
+      ],
+      "rgba_sha256": "0bb3270c0f60b958a208c9f1f6ea081d0b17b3b0c7307825d873409bc79ae1f3"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1318,
+        0,
+        456,
+        502
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1378,
+        214,
+        334,
+        219
+      ],
+      "rgba_sha256": "7a80b105911c9a23366a8985bb2a0adc0cbb28bb16c04dbfa2ab136c0a1e6ede"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        502,
+        478,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        88,
+        572,
+        331,
+        216
+      ],
+      "rgba_sha256": "41e8a19a1b2c2c3b8d7b1db6e4d8c4f54bb850eb3df666cd188df7e0c7ea3f6a"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        478,
+        502,
+        400,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        538,
+        597,
+        290,
+        187
+      ],
+      "rgba_sha256": "910d714d8213781573191d793cfd01c955f1638e1ebde5c25c9349f1c0bc48a2"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        878,
+        502,
+        430,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        928,
+        626,
+        334,
+        159
+      ],
+      "rgba_sha256": "131c38f1b59735a6369ff5516365d2d6087e8dfd59fe512373e8c91896a96182"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1308,
+        502,
+        466,
+        385
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1355,
+        646,
+        365,
+        144
+      ],
+      "rgba_sha256": "7218d185906688e5f220fe0a7b42b593195998cd8a7bedb603e8b76f7baf704e"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1193430,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Corrected eight-pose bookmite sheet; original tight-spaced candidate rejected. All book shells, crystals, antennae and legs complete, now separated by generous transparent gutters. Distinct recoil and progressive collapse.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  },
+  "generation_history": [
+    {
+      "stage": "initial",
+      "prompt": "Use case: identity-preserve. Production sprite keyframes of EXACT salt_bookmite from reference: pale many-legged insect with big red eyes, long jointed antennae, aged burgundy leather book shell with packed yellow pages and brass clasp, white salt crystals growing from book spine. Preserve all exact design, proportions and painted ink style. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT isolated complete right-facing creatures of identical scale. Complete antennae, legs, book pages, clasp and every crystal within central 65% width/72% height of its cell, wide transparent gutters. Top row FOUR nonlethal hurt/recovery stages: head recoils, front legs lift and book-shell tilts back; strongest curled recoil with legs braced; front legs regain ground and book settles; returns to stable low walking-ready stance. Bottom row FOUR death stages: front legs buckle and head drops; body tilts sideways and rear legs fold; rests on side with limp legs; fully motionless low collapsed bookmite, all book and crystals retained. Distinct real joint articulation, no duplicate stamps. Actual transparent alpha; no backgrounds, shadows, labels, grids, effects, loose crystal projectiles or gore.",
+      "result": "rejected: touching neighbor silhouettes"
+    },
+    {
+      "stage": "spacing correction",
+      "prompt": "Use case: precise-object-edit. Correct ONLY the layout of this eight-pose salt bookmite sprite sheet, retaining exact design, eight poses, colors, book shell, crystal spikes, legs and antennae. The existing sprites touch in places. Make EVERY COMPLETE SPRITE 30 percent SMALLER in both width and height, uniformly. Place each of the eight miniature figures at the center of an EXACT FOUR-COLUMN TWO-ROW grid with at least 50 pixels of completely empty transparent space between neighboring full silhouettes including antennae. All full creatures must fit entirely inside their separate cells with transparent margins. Keep top row four hurt-to-recovery stages and bottom row four progressive death-collapse stages, left to right. No cropped appendages, no removed props, no merging or touching, no text, no grid lines, no background. Actual fully transparent RGBA output.",
+      "result": "accepted"
+    }
+  ]
+}

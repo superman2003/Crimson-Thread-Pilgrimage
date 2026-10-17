@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "obsidian_spearman",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/obsidian_spearman/atlas.png",
+  "reference_sha256": "e81163389825e91967d55228fba0206c5a40d41a8cc9cf78f846789aa94b9a23",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact obsidian_spearman character identity and painted style. Tall slender obsidian-armored insect spearman, long swept-back narrow black horn/antennae, sharp black angular face with small ivory eye, overlapping cracked charcoal plates edged in bronze, ragged deep crimson cloak fastened with small bronze clasp. ONE long black spear with jagged obsidian point and thin ember-red fissure. Keep all armor dark, do not replace with ivory armor. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: impact flinch with torso leaning backward, deeper recoil with bent knees, regains foot support while steadying equipment, returns to upright guard. Bottom row FOUR death-collapse poses: knees buckle and equipment drops, lowers onto one knee, collapses onto side with equipment beside body, lies lifeless prone with all equipment complete. Real joint and cloth articulation. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "9a66ab6067fd63d27d53dcb5233b75d528ee96c1fbfa10978d834ec62741dc8c",
+  "git_blob_sha": "b14881c15df64ac4c5ea390e2f3ac7783b3bd428",
+  "component_seeds": [
+    [
+      409,
+      104
+    ],
+    [
+      832,
+      68
+    ],
+    [
+      1281,
+      70
+    ],
+    [
+      1673,
+      29
+    ],
+    [
+      212,
+      529
+    ],
+    [
+      659,
+      568
+    ],
+    [
+      1039,
+      642
+    ],
+    [
+      1674,
+      677
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        79,
+        100,
+        336,
+        351
+      ],
+      "component_seed": [
+        409,
+        104
+      ],
+      "visible_bbox_alpha_gt_24": [
+        83,
+        104,
+        328,
+        343
+      ],
+      "rgba_sha256": "2187b872d26ad680915322d6cd8cbd9ffff453888c5905619db1cc3366632732"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        487,
+        64,
+        351,
+        388
+      ],
+      "component_seed": [
+        832,
+        68
+      ],
+      "visible_bbox_alpha_gt_24": [
+        491,
+        68,
+        343,
+        380
+      ],
+      "rgba_sha256": "c48bfb1f67a134cab2707fc60d63ce71d8dce5672f36593b53ae05d21f108877"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        928,
+        66,
+        359,
+        386
+      ],
+      "component_seed": [
+        1281,
+        70
+      ],
+      "visible_bbox_alpha_gt_24": [
+        932,
+        70,
+        351,
+        378
+      ],
+      "rgba_sha256": "c396729c26505f03042628a173f61fc13c376c11f25b9fe45c9bb5e993c1b862"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1422,
+        25,
+        264,
+        428
+      ],
+      "component_seed": [
+        1673,
+        29
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1426,
+        29,
+        256,
+        420
+      ],
+      "rgba_sha256": "54429c25f24bf363a1d468e50ccb4df8407578ac1f449945203ef7887f8a1032"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        27,
+        525,
+        439,
+        277
+      ],
+      "component_seed": [
+        212,
+        529
+      ],
+      "visible_bbox_alpha_gt_24": [
+        31,
+        529,
+        431,
+        269
+      ],
+      "rgba_sha256": "3e5d43a16c946ab3f56697aeffee4df92aecef6298d38b973c620a090bbecefc"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        481,
+        564,
+        406,
+        255
+      ],
+      "component_seed": [
+        659,
+        568
+      ],
+      "visible_bbox_alpha_gt_24": [
+        485,
+        568,
+        398,
+        247
+      ],
+      "rgba_sha256": "9acb2ebebeac6a51dfbd74d9af67f7a2b12a53b1425b7e7d8d4ad7621474e2cb"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        866,
+        638,
+        436,
+        170
+      ],
+      "component_seed": [
+        1039,
+        642
+      ],
+      "visible_bbox_alpha_gt_24": [
+        870,
+        642,
+        428,
+        162
+      ],
+      "rgba_sha256": "b3854247814f79578ccf700142ae812b435d385d51f53b60c2a83f20d90ae4be"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1303,
+        673,
+        466,
+        149
+      ],
+      "component_seed": [
+        1674,
+        677
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1307,
+        677,
+        458,
+        141
+      ],
+      "rgba_sha256": "a0d8179255bf985a1ea263690c65b10f8c51c8979b0df23cfb7fa41387e9aeb8"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1186490,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight complete dark-armored spearmen retain crimson cloak and entire obsidian spear. Upper row recoil and regain guard; lower row kneeling to prone with spear beside body. No runtime integration or playback acceptance.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}

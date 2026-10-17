@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "erasure_bailiff",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/erasure_bailiff/atlas.png",
+  "reference_sha256": "c3fb2a9798b86f6afa28b686e07fe40c551674cedef4fd32cd3292e032970248",
+  "prompt": "Use case: identity-preserve. Production 2D game keyframes of EXACT erasure_bailiff from reference: stocky beetle executioner in cracked ivory shell armor, black mask face with pale small eye, long dark antennae, hanging red wax-seal paper writ, thick chain belt, ragged dark red skirt, massive rectangular gray cleaver. Preserve exact identity and detailed ink-painted style. ONE landscape transparent RGBA sheet, FOUR columns TWO rows, EIGHT complete small full-body sprites, facing RIGHT, same scale. Entire antennae, armor, writ, cleaver and legs contained in central 65% cell width and 72% height with wide blank transparent gutters. Top row four nonlethal hurt/recovery stages: impact jerks torso backward; knees flex deeply and cleaver pulls close; stabilizes legs and lowers cleaver; returns to neutral standing guard. Bottom row four death stages: knees buckle, one knee drops while cleaver lowers, collapses onto side with cleaver resting alongside, motionless prone corpse with complete blade visible. Real distinct articulated joints and weapon orientation. No duplication, motion blur, gore, effects, scenery, shadows, grids or labels; actual fully transparent background. Do not enlarge figures to fill cells or touch neighbors.",
+  "image_sha256": "edab5919eaf9b6cb4d560f84940c703afe405cf49757a9645d6e2a81fac1b22c",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        490,
+        513
+      ],
+      "visible_bbox_alpha_gt_24": [
+        73,
+        97,
+        378,
+        366
+      ],
+      "rgba_sha256": "dd34d79e0e4f4f08e43755ce7aa36fa9b8db69261d580f6da2ba988ee550880c"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        490,
+        0,
+        423,
+        513
+      ],
+      "visible_bbox_alpha_gt_24": [
+        530,
+        167,
+        343,
+        292
+      ],
+      "rgba_sha256": "f9700d6e130fc13cd35f0c97c8136f592d45e8382948f9d3683f0b7c6c1c6ff8"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        913,
+        0,
+        457,
+        513
+      ],
+      "visible_bbox_alpha_gt_24": [
+        954,
+        138,
+        386,
+        321
+      ],
+      "rgba_sha256": "08200aec4ca3a397b77930fb663a5fe9734a9a9519aec8e2342ba5dba8bc7c90"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1370,
+        0,
+        404,
+        513
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1402,
+        114,
+        353,
+        347
+      ],
+      "rgba_sha256": "7539121babff02f1f897266bf57523c98fe4a29e31567baa415c0589403f0650"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        513,
+        452,
+        374
+      ],
+      "visible_bbox_alpha_gt_24": [
+        62,
+        564,
+        377,
+        268
+      ],
+      "rgba_sha256": "6328c5551d4db94265aa53d75dcbdbaefbeaa3526b242f6315585f9303d71fee"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        452,
+        513,
+        434,
+        374
+      ],
+      "visible_bbox_alpha_gt_24": [
+        467,
+        641,
+        405,
+        192
+      ],
+      "rgba_sha256": "391d4a2aaa57317f6afafecad56e2ae75dc7631b9d1df72b4e8b1b2f49a752c7"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        886,
+        513,
+        448,
+        374
+      ],
+      "visible_bbox_alpha_gt_24": [
+        901,
+        665,
+        419,
+        182
+      ],
+      "rgba_sha256": "1a3aad872ed230bfed5d2386132bf7798fd18394e426763a5b5809e3afe62f42"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1334,
+        513,
+        440,
+        374
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1348,
+        684,
+        405,
+        162
+      ],
+      "rgba_sha256": "a12cccd29510cf1fb864ff4dd779d7c608efb83671fa78bc31dd2eb6d8b364d7"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1074999,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete ivory armored beetles with antennae, wax-seal writ, chain and entire cleaver. Distinct recoil to guard and successive kneeling-to-prone death progression.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

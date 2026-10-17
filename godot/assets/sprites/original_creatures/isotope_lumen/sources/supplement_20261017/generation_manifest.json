@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "isotope_lumen",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/isotope_lumen/atlas.png",
+  "reference_sha256": "d314c00e7c020a7ef64062da78fcee7cc94651130c57214688d8a7c67528aa2e",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact isotope_lumen character identity and painted style. Pale ivory moth-like lumen sprite with large black teardrop eye, long crimson antennae, two pairs of translucent ivory wings with dark red oval markings, luminous warm ivory pear-shaped abdomen wrapped in crimson vein lattice, trailing red ribbon tendrils. Keep glow confined inside abdomen, no outside halo. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: knocked backward midair, tilts and tucks wings while recoiling, wings reopen and body levels, returns to neutral hover. Bottom row FOUR death poses: loses lift and droops, tips downward with limp wings, falls onto side on an invisible ground line with wings folded, motionless collapsed body. Keep wings and all appendages complete. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "c76d99894c5f2a43ecfae6d55e68b86d47110e56178cdeef119a72d4c125497c",
+  "git_blob_sha": "3395ab32ba738c538a08ee9526ac6c51582209c2",
+  "component_seeds": [
+    [
+      294,
+      78
+    ],
+    [
+      716,
+      105
+    ],
+    [
+      1169,
+      86
+    ],
+    [
+      1614,
+      91
+    ],
+    [
+      174,
+      509
+    ],
+    [
+      601,
+      519
+    ],
+    [
+      1206,
+      611
+    ],
+    [
+      1533,
+      662
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        80,
+        74,
+        338,
+        314
+      ],
+      "component_seed": [
+        294,
+        78
+      ],
+      "visible_bbox_alpha_gt_24": [
+        84,
+        78,
+        330,
+        306
+      ],
+      "rgba_sha256": "d13853e7084f08334f747cc42a4cb30d66c9c1ef62d576c1fd54a8fffcdfa2e0"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        511,
+        101,
+        311,
+        293
+      ],
+      "component_seed": [
+        716,
+        105
+      ],
+      "visible_bbox_alpha_gt_24": [
+        515,
+        105,
+        303,
+        285
+      ],
+      "rgba_sha256": "663b842b98af9cfc67c01a2fe9e3f8116b94f4d677fe4d7ebaa8ad886cf1bb3b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        914,
+        82,
+        339,
+        318
+      ],
+      "component_seed": [
+        1169,
+        86
+      ],
+      "visible_bbox_alpha_gt_24": [
+        918,
+        86,
+        331,
+        310
+      ],
+      "rgba_sha256": "ce587e012c19296b36b636d50646e76aac3fc36cc7d815d11017a2b2293d7446"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1355,
+        87,
+        338,
+        313
+      ],
+      "component_seed": [
+        1614,
+        91
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1359,
+        91,
+        330,
+        305
+      ],
+      "rgba_sha256": "348ec211e447c653e36734b38a99fe42b4502c137b13d1b8e6e7f3d70321fd24"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        93,
+        505,
+        336,
+        290
+      ],
+      "component_seed": [
+        174,
+        509
+      ],
+      "visible_bbox_alpha_gt_24": [
+        97,
+        509,
+        328,
+        282
+      ],
+      "rgba_sha256": "d5d91e7838d9222663a7c31ad29a151ebbbb815756b5eb7ccf8ec1f58d3b215e"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        547,
+        515,
+        309,
+        297
+      ],
+      "component_seed": [
+        601,
+        519
+      ],
+      "visible_bbox_alpha_gt_24": [
+        551,
+        519,
+        301,
+        289
+      ],
+      "rgba_sha256": "4218341fb39fc34ee3a28b566cb0b548e7e8de9326e7466ca8a1dddc725a1f41"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        909,
+        607,
+        364,
+        180
+      ],
+      "component_seed": [
+        1206,
+        611
+      ],
+      "visible_bbox_alpha_gt_24": [
+        913,
+        611,
+        356,
+        172
+      ],
+      "rgba_sha256": "a70ae579fcf5f603f2b71f0d6e4cb212f8b2e2bc250aaf986d0842987c23e624"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1340,
+        658,
+        391,
+        130
+      ],
+      "component_seed": [
+        1533,
+        662
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1344,
+        662,
+        383,
+        122
+      ],
+      "rgba_sha256": "f64494f088150499942ee564ed429ba9b459a8058aa43a7fd59fcc111d60fe29"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1171456,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight isolated complete lumen moth poses with ivory/red marked wings, crimson antennae and ribbon tails. Upper row tilt/recovery, lower row descent and folded side-rest; luminescent abdomen retained and no generated external slash effects. Frame-to-frame luminous intensity and runtime timing still need integration review.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}

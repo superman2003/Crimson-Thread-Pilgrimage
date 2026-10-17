@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "page_duelist",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/page_duelist/atlas.png",
+  "reference_sha256": "3d7c6492a74755425617edf2c71059dd42fcd9c97a49c36adfcb365e70b77475",
+  "prompt": "Use case: identity-preserve. Create production keyframe sheet of EXACT page_duelist in reference: tall slender insect fencer, ivory leaf-like mask, long thin crimson antennae, dark fitted body, layered ivory page-feather coat tails over red lining with red wax seal, long gold swept-hilt rapier. Keep exact anatomy, costume, palette and detailed painted ink style. ONE landscape RGBA sheet FOUR columns TWO rows, EIGHT fully isolated full-body sprites, right-facing side view, consistent scale. SMALL figures occupy central 65% cell width and 72% height including whole rapier and antennae, broad transparent gutters. Top row four progressive nonlethal hurt-recovery stages: recoils in chest and shoulders; bends knees and pulls rapier close to chest; regains balance as coat tails settle; stands poised in neutral fencing guard. Bottom row four progressive death poses: staggers with knees buckling and rapier lowered; sinks to one knee; rolls onto side with coat spread and whole rapier beside body; lies still prone, head and antennae resting low. All limbs, antennae and complete sword inside each cell. Distinct real articulation, no duplicated stamps or fading. Actual transparent alpha, no background, floor shadows, text, grids, glow, effects or gore.",
+  "image_sha256": "49cf3bf2238765f00eee76226e97e6a8b44df6841990eee60b1b1e55a0cdca86",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        479,
+        497
+      ],
+      "visible_bbox_alpha_gt_24": [
+        48,
+        89,
+        396,
+        381
+      ],
+      "rgba_sha256": "f3fecf05a86e4e956a95d007336f6958297ab25df86ddec55a7d796fe2f83f59"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        479,
+        0,
+        415,
+        497
+      ],
+      "visible_bbox_alpha_gt_24": [
+        515,
+        136,
+        367,
+        333
+      ],
+      "rgba_sha256": "3ec271412ae80821e163c6a423fd16d5ffbef87268db0a7c4bf81814201fa7e6"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        894,
+        0,
+        455,
+        497
+      ],
+      "visible_bbox_alpha_gt_24": [
+        906,
+        106,
+        411,
+        359
+      ],
+      "rgba_sha256": "d02d9535736f35237814c6d24765459c76786fa85f2c46809fc8b8efb2f5f781"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1349,
+        0,
+        425,
+        497
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1382,
+        88,
+        356,
+        390
+      ],
+      "rgba_sha256": "6b5e63ab4918e3fdda09708a29e434e1962d904e05064bdd1c16f9beacb33d3a"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        497,
+        450,
+        390
+      ],
+      "visible_bbox_alpha_gt_24": [
+        60,
+        517,
+        380,
+        316
+      ],
+      "rgba_sha256": "d11798f9e47456ddc312e35b8628bdeaac41eef98c128ae1cd5e548f3fe76a24"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        450,
+        497,
+        425,
+        390
+      ],
+      "visible_bbox_alpha_gt_24": [
+        462,
+        573,
+        399,
+        249
+      ],
+      "rgba_sha256": "846564381841abcf63ec42336aaec1a98029cf72e9740b1ee3c332d8f24897c1"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        875,
+        497,
+        421,
+        390
+      ],
+      "visible_bbox_alpha_gt_24": [
+        890,
+        689,
+        398,
+        130
+      ],
+      "rgba_sha256": "49bb4b5c2c38122db76ddd8e1350f37f100421c445307ca1297d1624dc68d6fc"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1296,
+        497,
+        478,
+        390
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1305,
+        703,
+        446,
+        116
+      ],
+      "rgba_sha256": "fcba87c31a7a458bd86cc3c0c51ba155a1aca15ae412836ac9758ba134bbce3b"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1213106,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete slender insect fencers; leaf mask, long red antennae, page-coat, red seal and entire rapier visible. Four recoil/recovery stages and four progressively grounded death stages.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

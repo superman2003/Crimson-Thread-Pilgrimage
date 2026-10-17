@@ -1,0 +1,216 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "spore_bellmaker",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/spore_bellmaker/atlas.png",
+  "reference_sha256": "79a679857f27c748f97de6e52dd83298c222fb4744aa8e9dfd8b099b36a27e45",
+  "prompt": "Use case: identity-preserve. EXACT spore_bellmaker reference identity: small insect with pale oval mask, black eyes and antennae, mustard yellow hood over cream tattered robes, dark teal shell/wing cloak dotted with little yellow mushrooms, crooked fungal wooden staff bearing a hanging brass bell. Match detailed hand-painted ink style. ONE landscape transparent RGBA sheet with FOUR columns TWO rows, EIGHT isolated complete right-facing figures at equal scale. Render miniature figures within central 60% width and 70% height of each cell, including whole staff, bell, antennae and mushrooms; wide empty gutters. Top row FOUR nonlethal hurt/recovery poses: torso flinches backward; knees bend and staff braces; straightens while bell swings slightly; returns to upright neutral stance. Bottom row FOUR death poses: legs buckle and staff tilts; sinks to one knee; collapses sideways with staff still beside body; motionless prone body with full staff and attached bell resting on ground. Distinct real joint and cloth articulation, retain equipment, no duplicated stamps or clipped parts. True transparent alpha, no background, floor shadows, text, grids, spore particles, effects or gore.",
+  "image_sha256": "99603605e7cb125f69343fe44aa2686d16bc9e105338eee234ee03de2292105a",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        87,
+        43,
+        350,
+        408
+      ],
+      "visible_bbox_alpha_gt_24": [
+        90,
+        46,
+        344,
+        402
+      ],
+      "rgba_sha256": "5b98fd0690f4b68e886de24cbe0d8eecf42ad6a9a4675b8b752f3a793e2aa38d",
+      "component_seeds": [
+        [
+          209,
+          251
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        508,
+        85,
+        378,
+        368
+      ],
+      "visible_bbox_alpha_gt_24": [
+        511,
+        88,
+        372,
+        362
+      ],
+      "rgba_sha256": "5adeacf43a1224ae3d6a23ecca7c89852bab0945f62788c70e5a49e5b2dac146",
+      "component_seeds": [
+        [
+          608,
+          284
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        937,
+        62,
+        371,
+        386
+      ],
+      "visible_bbox_alpha_gt_24": [
+        940,
+        65,
+        365,
+        380
+      ],
+      "rgba_sha256": "dd1179c529807d888e444858d93a03265d98ab0e4a911206eb123bf7cfd2dec0",
+      "component_seeds": [
+        [
+          1153,
+          268
+        ]
+      ]
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1372,
+        65,
+        300,
+        387
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1375,
+        68,
+        294,
+        381
+      ],
+      "rgba_sha256": "17632cbabfd662a2c87915d00c324887fd2276d3680d349d1b95e41f1cc9a307",
+      "component_seeds": [
+        [
+          1596,
+          268
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        66,
+        518,
+        451,
+        297
+      ],
+      "visible_bbox_alpha_gt_24": [
+        69,
+        521,
+        445,
+        291
+      ],
+      "rgba_sha256": "8e6a5593433f75fcd1e535baa87e342db86434f893ea2367353f19a959f76de5",
+      "component_seeds": [
+        [
+          316,
+          665
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        470,
+        521,
+        415,
+        295
+      ],
+      "visible_bbox_alpha_gt_24": [
+        473,
+        524,
+        409,
+        289
+      ],
+      "rgba_sha256": "df3d24d3107bbf1a8e17290af86d0f786af30a35b4f430be7d97dbf16003622c",
+      "component_seeds": [
+        [
+          561,
+          704
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        821,
+        558,
+        441,
+        259
+      ],
+      "visible_bbox_alpha_gt_24": [
+        824,
+        561,
+        435,
+        253
+      ],
+      "rgba_sha256": "6d32af049a9278e8a7ef242b59951d0abf941d1844a54ff01b211de8d4353e8a",
+      "component_seeds": [
+        [
+          889,
+          740
+        ]
+      ]
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1263,
+        684,
+        482,
+        153
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1266,
+        687,
+        476,
+        147
+      ],
+      "rgba_sha256": "baa14999a69f490c7314c1bd9762abf6bfc0849c287bae67bffce45bd0dfb77c",
+      "component_seeds": [
+        [
+          1708,
+          773
+        ]
+      ]
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1041361,
+    "region_structure": "Seeded alpha>24 silhouettes have at least 2px interior margin; rectangles may overlap, isolate using component_seeds.",
+    "visual_review": "Eight complete yellow-hooded mushroom insects, teal shell cloak, pale mask, antennae, full fungal staff and bell. Recoil regains stance; death kneels then lies prone, staff alongside.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

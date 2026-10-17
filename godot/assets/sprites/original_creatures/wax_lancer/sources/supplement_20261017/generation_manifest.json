@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "wax_lancer",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/wax_lancer/atlas.png",
+  "reference_sha256": "745ea414d65d6a6629c8f5374422ff783d95d922a9d54b2d57912e3ad21c727f",
+  "prompt": "Use case: identity-preserve. EXACT wax_lancer from reference: slender golden wax-armored insect lancer, black face opening in gold mask, two long curved antennae, burgundy scarf/cape, amber folded wings, long dark-shaft spear with luminous pointed yellow wax blade and drips. Preserve design, palette and hand-painted ink style. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT full-body isolated right-facing figures at same scale. Miniature sprites within central 60% cell width and 70% height including whole spear and antennae, broad empty gutters. Top row FOUR nonlethal hurt/recovery stages: jolts backward; crouches with spear tucked close and wings folded; regains footing and lowers spear; returns to upright guard with spear vertical. Bottom row FOUR death stages: knees buckle and spear tilts; sinks to one knee; falls sideways as spear settles alongside; motionless low corpse with full spear, wings and cape visible. Genuine articulated poses, no duplicated stamps, touching neighbors or clipping. True alpha transparency, no background, shadows, floor, labels, grid lines, projectile effects or gore.",
+  "image_sha256": "abbbcbede9419c7e6d27358d79d28f5439b749ff0a050c060486bd7355b7f696",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        493,
+        487
+      ],
+      "visible_bbox_alpha_gt_24": [
+        62,
+        65,
+        407,
+        349
+      ],
+      "rgba_sha256": "158d0f48c9d9e08493f47341c2d47d4aba60ca403e878ad343e9132577c4e6e2"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        493,
+        0,
+        393,
+        487
+      ],
+      "visible_bbox_alpha_gt_24": [
+        518,
+        95,
+        347,
+        335
+      ],
+      "rgba_sha256": "bd1d0a1995627c3c0e8ef9f16f94099ac8c550bde1525a82c1a9a87c0eb5f7e7"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        886,
+        0,
+        498,
+        487
+      ],
+      "visible_bbox_alpha_gt_24": [
+        909,
+        136,
+        451,
+        296
+      ],
+      "rgba_sha256": "0a3bcac3045fe3524c256257ea6ad2f25a3424833c49ddf9c01bd160784a0ed1"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1384,
+        0,
+        390,
+        487
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1408,
+        17,
+        292,
+        414
+      ],
+      "rgba_sha256": "b7fe56e6f843736d2508edfef7dcef107f04da6abaca043904b6475889710b7f"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        487,
+        458,
+        400
+      ],
+      "visible_bbox_alpha_gt_24": [
+        62,
+        543,
+        383,
+        288
+      ],
+      "rgba_sha256": "c77a1a900333504ae3cca70cf82ba21ed32354f91924dd1c52d42f0fc728b10b"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        458,
+        487,
+        382,
+        400
+      ],
+      "visible_bbox_alpha_gt_24": [
+        472,
+        608,
+        356,
+        223
+      ],
+      "rgba_sha256": "c6dcd8f7e4562e7e03290513f6aacd4adee3d664f7e25ca6242ad8c7268386f3"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        840,
+        487,
+        482,
+        400
+      ],
+      "visible_bbox_alpha_gt_24": [
+        854,
+        673,
+        459,
+        168
+      ],
+      "rgba_sha256": "f74da1ba992f88741ef356c4b002e06cb9837ec6ba2fb0f8fe23dc526c953810"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1322,
+        487,
+        452,
+        400
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1332,
+        727,
+        427,
+        122
+      ],
+      "rgba_sha256": "69c96236536db1c001de2e5ed741efdee0fd71a08f5036a4ab076a182a28f099"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1176614,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete gold-armored wax insects, antennae, amber wings, burgundy cape and complete wax-bladed spear retained. Recoil returns to upright guard; death progressively kneels and collapses with spear alongside.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}

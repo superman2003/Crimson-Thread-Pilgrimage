@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "drain_leech",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/drain_leech/atlas.png",
+  "reference_sha256": "6e0dc22a566cfaef9105d83d9334a816aeefb55ac8291c7c8ca1acd48009e210",
+  "prompt": "Use case: identity-preserve. Asset type: production 2D game animation keyframe sheet. Input image 1 is DESIGN REFERENCE ONLY, not the output layout. Preserve the EXACT drain_leech creature identity: long low slithering charcoal blue segmented armored shell, rusty red split mandible jaws, two thin brass antennae and short hooked rust legs. Same detailed hand-inked dark fantasy painted rendering and colors. Generate ONE transparent RGBA landscape sheet, exactly FOUR equal columns by TWO equal rows, eight isolated full-body sprites, no text or grid lines. Each full creature fits within central 75 percent of its own cell, with wide completely transparent gutters. All creatures face RIGHT with the same scale and camera. Row 1 = FOUR progressive nonlethal hurt/recovery keyframes: 1 jaws snap shut and front plates jerk back on impact; 2 front body curls up and legs brace, antennae lag; 3 body lowers while plates settle and front legs recover support; 4 neutral low grounded stance, jaws resting, ready to return to idle. Row 2 = FOUR progressive death collapse keyframes: 1 front legs buckle with head dropping; 2 body rolls slightly onto its side and jaws slacken; 3 all legs fold and armor segments settle flat; 4 lifeless flattened side-rest pose, antennae on ground. Death does NOT return to idle, hurt does NOT become death. Actual articulated anatomical changes in each pose, not duplicate stamps, translation, faded copies or motion blur. Keep the entire tail, antennae, mandibles and all visible legs inside each cell. Stable ground baseline within each row. No gore, no scenery, no shadow floor, no glow outside silhouette, no opaque/checkerboard background. Actual transparent alpha.",
+  "image_sha256": "aa54895bde328483996e0e520f94b626b55d794e99a834b6ca0a9970a7bb5457",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击后缩",
+      "region": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        24,
+        181,
+        390,
+        196
+      ],
+      "rgba_sha256": "38c2c8d917463919c301d646bd29b5a21c6f513fec7357c99046e04679865bd0"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "弓身卸力",
+      "region": [
+        444,
+        0,
+        430,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        476,
+        146,
+        385,
+        230
+      ],
+      "rgba_sha256": "8fc48377555597063916c99f26d0df8261e6a0d326b8756630c8b34016570782"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "落回支点",
+      "region": [
+        874,
+        0,
+        436,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        886,
+        190,
+        410,
+        186
+      ],
+      "rgba_sha256": "79cd14dc563b509587f016fcfc58827a52a63c1e531ef024a239c141583cc218"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复低伏",
+      "region": [
+        1310,
+        0,
+        464,
+        444
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1326,
+        215,
+        421,
+        162
+      ],
+      "rgba_sha256": "74f34610a0012e1b970b49fbc3c9abfa9354a9c77c8117439839757c63b2b91d"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "前足失力",
+      "region": [
+        0,
+        444,
+        461,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        20,
+        606,
+        430,
+        178
+      ],
+      "rgba_sha256": "f4a24e035c6bdd589f7f15474e12ccf5e1378f51193e7f1181a11ee48305c799"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "侧倒",
+      "region": [
+        461,
+        444,
+        417,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        472,
+        615,
+        398,
+        176
+      ],
+      "rgba_sha256": "bff9c1238b6d11a635de4b57b72ae5b8da908f6334c35578996e30713e365bf2"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "全身下沉",
+      "region": [
+        878,
+        444,
+        433,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        886,
+        668,
+        415,
+        121
+      ],
+      "rgba_sha256": "1c8cc18030747b646ecf53a93c1dc7f7b4e5e6c301862019f3275882b10439ba"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1311,
+        444,
+        463,
+        443
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1322,
+        675,
+        430,
+        115
+      ],
+      "rgba_sha256": "51b25266d7be2b10643aed671c3dabfd0401a0e9619e7d634191071effd0bba0"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1204965,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight isolated complete right-facing leeches, articulated recoil versus progressive collapse; tail, jaws and antennae present. Individual silhouette review complete. Final hurt pose is a low stance; death sequence stays collapsed.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
