@@ -1,0 +1,180 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "rust_diver",
+  "image": "hurt_death.png",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/rust_diver/atlas.png",
+  "reference_sha256": "3c451523d26881647157841cf8fdfcbbc1000c66fb6dd0578e70e32dde39f04e",
+  "prompt": "Use case: precise-object-edit. Edit the supplied EIGHT-POSE rust_diver sprite sheet. KEEP the exact character identity, same hand-painted ink style, same eight distinct articulated poses and row order: top row nonlethal recoil / strongest recoil / recover / neutral; bottom row buckle / kneel / collapse / lifeless lying. CHANGE ONLY layout and spacing: place the eight complete figures on an EXACT REGULAR FOUR-COLUMN TWO-ROW grid on a wide landscape transparent canvas. Reduce ALL EIGHT complete characters UNIFORMLY to 62% of each cell width including their entire long harpoon spear. Each cell has a completely empty transparent border on all four sides, at least 18% cell width. The character helmet, backpack, limbs and harpoon MUST be fully isolated from every neighbor, NEVER touching or crossing grid cell boundaries. Every pose occupies the center of its own cell with stable ground baseline at 82% of cell height. Preserve all equipment and spear in every pose. Entire isolated sprites on REAL fully transparent alpha, no brown background, no ground, no shadows, no text or lines. NO pose enlargement to fill the canvas. Small sprites with abundant transparent negative space is the main required correction.",
+  "image_sha256": "422ab9b1a754f00ed7c499504da1f913a1753899f1b1e24b2783f7c4f6fd479e",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击后仰",
+      "region": [
+        0,
+        0,
+        400,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        54,
+        163,
+        324,
+        312
+      ],
+      "rgba_sha256": "8d458e0060c3f5a11bb319595cca6b581ed68b529df226b795fd4413fe7f151f"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "收枪卸力",
+      "region": [
+        400,
+        0,
+        368,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        454,
+        170,
+        263,
+        304
+      ],
+      "rgba_sha256": "38ca4d4ce6c9d54c84f2c0b242a0cd5697ce087dd87d7a971df750f1cd2bf863"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        768,
+        0,
+        384,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        820,
+        196,
+        305,
+        277
+      ],
+      "rgba_sha256": "cd5b6c0bafff1d89a8c6141959f5c98a7a78d0e7a9a90846c68e3690745e9a26"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "持枪归位",
+      "region": [
+        1152,
+        0,
+        384,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1207,
+        188,
+        309,
+        285
+      ],
+      "rgba_sha256": "5ff15e5ddaba818f9429ba74215cd6576265f93c90eb837a1905e2e71cbe953b"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "屈膝失力",
+      "region": [
+        0,
+        512,
+        384,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        51,
+        636,
+        297,
+        281
+      ],
+      "rgba_sha256": "eb9553f3d7450894cbaa4c70fb38d422ec1e6402fd3cff79b8e387cb285ba214"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "单膝跪地",
+      "region": [
+        384,
+        512,
+        384,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        422,
+        675,
+        325,
+        245
+      ],
+      "rgba_sha256": "a34014bf73c0230785a4476935271b3c77cf23a732fb01e0c6f0768a5d03795e"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "侧倒",
+      "region": [
+        768,
+        512,
+        364,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        784,
+        753,
+        331,
+        180
+      ],
+      "rgba_sha256": "2aa1e317b39027bd375e4924e11af858e338727ea75822c5d8f3171cb37f99ec"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1132,
+        512,
+        404,
+        512
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1151,
+        786,
+        374,
+        143
+      ],
+      "rgba_sha256": "4134f5fe3fac7b48e563c518f3d0f431391008e7f116414868d4abcd68c6e918"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1171019,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight full-body figures; diving helmet, shell backpack, rope, moss and full harpoon retained. Initial tight-spaced candidate rejected; corrected sheet separates all silhouettes. Four recoil/recovery poses and four progressive grounded collapse poses.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  },
+  "generation_history": [
+    {
+      "stage": "design-reference generation",
+      "prompt": "Use case: identity-preserve. Asset type: 2D game production animation keyframes. Input image is DESIGN REFERENCE ONLY. Preserve the EXACT rust_diver insect enemy design: squat armored beetle humanoid, large antique round brass diving helmet with dark teal barred circular face window, shell backpack tied with thick rope, hanging moss weeds, dark blue segmented limbs, ragged cream waist cloth, two hands holding its long rusty harpoon spear. Match reference detailed hand-inked dark fantasy painted style, palette and proportions. ONE transparent RGBA sprite sheet, exactly FOUR columns and TWO rows, EIGHT separated complete full-body figures. Landscape canvas, same scale and right-facing side/three-quarter view for every figure. Keep every helmet, foot, moss strand, shell, spear shaft and spear tip fully inside its cell with wide transparent gutters. Each figure and spear occupies at most 75% cell width. No text, grids, labels, background, ground shadows, blur or duplicated stamps. Row 1 FOUR nonlethal hurt-to-recovery keyframes: 1 torso jolts back and knees flex, hands maintain spear grip; 2 strongest recoil with helmet tilted back and spear pulled diagonally close to body; 3 knees straighten as helmet returns forward, spear lowers; 4 balanced grounded neutral stance holding spear horizontally to the right. Row 2 FOUR progressive death collapse keyframes: 1 knees buckle and spear points down; 2 drops onto one knee with spear still held; 3 body rolls onto shell sideways with helmet lowered, legs folding and spear resting beside body; 4 motionless low side-lying corpse, helmet, shell and entire spear visible. Distinct actual joint articulation in all eight poses. Death never rises again. No gore or extra characters. Real transparent alpha, crisp readable silhouettes, consistent anatomy and equipment.",
+      "result": "rejected for neighboring silhouettes too close; not uploaded"
+    },
+    {
+      "stage": "layout correction",
+      "prompt": "Use case: precise-object-edit. Edit the supplied EIGHT-POSE rust_diver sprite sheet. KEEP the exact character identity, same hand-painted ink style, same eight distinct articulated poses and row order: top row nonlethal recoil / strongest recoil / recover / neutral; bottom row buckle / kneel / collapse / lifeless lying. CHANGE ONLY layout and spacing: place the eight complete figures on an EXACT REGULAR FOUR-COLUMN TWO-ROW grid on a wide landscape transparent canvas. Reduce ALL EIGHT complete characters UNIFORMLY to 62% of each cell width including their entire long harpoon spear. Each cell has a completely empty transparent border on all four sides, at least 18% cell width. The character helmet, backpack, limbs and harpoon MUST be fully isolated from every neighbor, NEVER touching or crossing grid cell boundaries. Every pose occupies the center of its own cell with stable ground baseline at 82% of cell height. Preserve all equipment and spear in every pose. Entire isolated sprites on REAL fully transparent alpha, no brown background, no ground, no shadows, no text or lines. NO pose enlargement to fill the canvas. Small sprites with abundant transparent negative space is the main required correction.",
+      "result": "accepted; source output hurt_death.png"
+    }
+  ]
+}
