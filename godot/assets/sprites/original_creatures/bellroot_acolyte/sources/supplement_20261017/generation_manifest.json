@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "bellroot_acolyte",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/bellroot_acolyte/atlas.png",
+  "reference_sha256": "ee4b7c882a18844e1885abf4130ee35da85aca1814ed57a8447399e210419b6e",
+  "prompt": "Use case: identity-preserve. EXACT bellroot_acolyte from reference: tall thin wooden mantis insect with ivory long beak mask, branching root antlers bearing a small hanging brass bell, rope-bound torso, layered ragged olive and cream leaf robes, two natural curved scythe forearms, thin jointed legs. Preserve exact character anatomy, equipment and ink-painted style. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT complete isolated right-facing figures, same scale. Small figures within central 60% width/70% height of each cell including full branch antlers, bell and both scythe arms. Wide empty gutters. Top row four nonlethal hurt/recovery poses: torso jolts back; crouches with scythes pulled defensively inward; regains footing and lowers arms; upright neutral mantis guard. Bottom row four death poses: knees buckle and antlers dip; one knee lowers; body falls sideways and scythe arms fold; lifeless prone mantis with complete root antlers, bell and limbs visible. Distinct actual articulation, no duplicated stamps or touching neighbors. Actual transparent alpha, no backgrounds, shadows, floor, text, grids, particles or gore.",
+  "image_sha256": "c065b902b167f11e2848cef6128aa2aa56b8ac4d3d9c0b120eb7cad4141dec0f",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        482,
+        478
+      ],
+      "visible_bbox_alpha_gt_24": [
+        65,
+        58,
+        360,
+        397
+      ],
+      "rgba_sha256": "2c09188cf2a0fb414c0bf3a099ae6bc82682580782ecbb3ae3a0e1da3e24a45d"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        482,
+        0,
+        403,
+        478
+      ],
+      "visible_bbox_alpha_gt_24": [
+        539,
+        129,
+        285,
+        328
+      ],
+      "rgba_sha256": "3afcc5be26bed60adea0b0e08aaaf285057993b350d5f2d0e9e8c790a91cd98e"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        885,
+        0,
+        422,
+        478
+      ],
+      "visible_bbox_alpha_gt_24": [
+        947,
+        85,
+        301,
+        369
+      ],
+      "rgba_sha256": "c19624d25f3d096525f6e8919760b898fd042d17c09ef269ebb8ccd6123cca1b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1307,
+        0,
+        467,
+        478
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1367,
+        27,
+        319,
+        431
+      ],
+      "rgba_sha256": "8b4f497cb2301d5662f801c47b8a93b773e1c83bd5beed65e3e5c925aadd87f4"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        478,
+        414,
+        409
+      ],
+      "visible_bbox_alpha_gt_24": [
+        80,
+        499,
+        284,
+        332
+      ],
+      "rgba_sha256": "40ced8eda2b242ba5d7aeda4a0fc3d8b4e856e279812b05c0be6ccbb4d86d607"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        414,
+        478,
+        436,
+        409
+      ],
+      "visible_bbox_alpha_gt_24": [
+        465,
+        538,
+        360,
+        298
+      ],
+      "rgba_sha256": "d263b0516086784d137a9db5aacb32dfa5b05c1ea552dd990bb523cb72482da2"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        850,
+        478,
+        468,
+        409
+      ],
+      "visible_bbox_alpha_gt_24": [
+        877,
+        700,
+        429,
+        133
+      ],
+      "rgba_sha256": "08ea70ede28f29bbbfcc63d8d70e4d1939b6f577714e4c9e6d61d2046a1e11d3"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1318,
+        478,
+        456,
+        409
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1330,
+        647,
+        427,
+        189
+      ],
+      "rgba_sha256": "41f9ed633ef29ad633a7fe6f1e2a572a876c2ab40e51aa86853c0f5621aeb843"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1091223,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete rooted mantis figures, branch antlers, hanging bell, beak mask, rope, leaf robes and curved forearms preserved. Recoil regains guard; death progressively kneels and folds to prone.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
