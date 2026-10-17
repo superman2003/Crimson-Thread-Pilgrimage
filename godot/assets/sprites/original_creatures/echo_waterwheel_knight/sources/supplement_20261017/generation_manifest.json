@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "echo_waterwheel_knight",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+  "reference_sha256": "b56606e66895cb8c0e8f2be2bcbb443af1fd8d80e39de79db0a3035fd34b2b1e",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact echo_waterwheel_knight character identity and painted style. Ivory horned insect knight, tall two-pronged ivory crown mask with black eye opening, engraved ivory shoulder plates, tattered crimson scarf and cloak over dark thin limbs, circular bronze-and-ivory wheel-spoke shield on front arm, ONE slender straight ivory sword in other hand. Shield remains circular and retains wheel pattern. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: impact flinch with torso leaning backward, deeper recoil with bent knees, regains foot support while steadying equipment, returns to upright guard. Bottom row FOUR death-collapse poses: knees buckle and equipment drops, lowers onto one knee, collapses onto side with equipment beside body, lies lifeless prone with all equipment complete. Real joint and cloth articulation. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "d2e3cbfedbc7953cde444db067886a9506aaea04d9eb6bde32814ef6f5755250",
+  "git_blob_sha": "ef9161f2ec36b73ed2c78b36c37960ce85586986",
+  "component_seeds": [
+    [
+      139,
+      106
+    ],
+    [
+      760,
+      135
+    ],
+    [
+      1161,
+      120
+    ],
+    [
+      1573,
+      85
+    ],
+    [
+      323,
+      565
+    ],
+    [
+      792,
+      602
+    ],
+    [
+      1077,
+      693
+    ],
+    [
+      1531,
+      698
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        57,
+        102,
+        381,
+        347
+      ],
+      "component_seed": [
+        139,
+        106
+      ],
+      "visible_bbox_alpha_gt_24": [
+        61,
+        106,
+        373,
+        339
+      ],
+      "rgba_sha256": "f69ef7aeea77bf40aac57b12c24eeb8cfaa3ea73b60f4219296fc94ad159390b"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        549,
+        131,
+        321,
+        317
+      ],
+      "component_seed": [
+        760,
+        135
+      ],
+      "visible_bbox_alpha_gt_24": [
+        553,
+        135,
+        313,
+        309
+      ],
+      "rgba_sha256": "8e4e4ad79f816a43f8619eaaa694d935a042d82f309269992926f1dddaad7b00"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        957,
+        116,
+        330,
+        325
+      ],
+      "component_seed": [
+        1161,
+        120
+      ],
+      "visible_bbox_alpha_gt_24": [
+        961,
+        120,
+        322,
+        317
+      ],
+      "rgba_sha256": "367d45506e6915b32fd54da45e9a1712d0b9d28d5c240f6ebd592c2fc07acee5"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1427,
+        81,
+        314,
+        368
+      ],
+      "component_seed": [
+        1573,
+        85
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1431,
+        85,
+        306,
+        360
+      ],
+      "rgba_sha256": "ee9e0ec1cd007b54d8d6709e114d6520a10855d0b36207c05a5dda970569e21b"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        59,
+        561,
+        360,
+        263
+      ],
+      "component_seed": [
+        323,
+        565
+      ],
+      "visible_bbox_alpha_gt_24": [
+        63,
+        565,
+        352,
+        255
+      ],
+      "rgba_sha256": "0fd9571c0d49d3ab8dd00b00ca9af7320e044f8527161c5f00f5e555c70518cc"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        488,
+        598,
+        391,
+        227
+      ],
+      "component_seed": [
+        792,
+        602
+      ],
+      "visible_bbox_alpha_gt_24": [
+        492,
+        602,
+        383,
+        219
+      ],
+      "rgba_sha256": "f6a48929ebf7fdf1a219e011db98d55ede2bf971d001d5f91d4f31aad419fc53"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        896,
+        689,
+        399,
+        141
+      ],
+      "component_seed": [
+        1077,
+        693
+      ],
+      "visible_bbox_alpha_gt_24": [
+        900,
+        693,
+        391,
+        133
+      ],
+      "rgba_sha256": "6a7aad49363d01eedd39f74e2a20a29403f83de4fdcc6609358b465930d2e184"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1357,
+        694,
+        392,
+        129
+      ],
+      "component_seed": [
+        1531,
+        698
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1361,
+        698,
+        384,
+        121
+      ],
+      "rgba_sha256": "096ec168be7bf8351579ea443e97376a60217914b924262c180e8302d3a1ea7c"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1201222,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight separate horned ivory knights with crimson cloak, circular wheel shield and straight sword. Hurt row recoils and regains guard; death row kneels then lies on side with shield and sword. Complete silhouettes inspected; source-only, no runtime playback acceptance.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}
