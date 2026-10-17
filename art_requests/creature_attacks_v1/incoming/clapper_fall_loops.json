@@ -1,0 +1,100 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "falling_clapper",
+  "image": "clapper_fall_loops.png",
+  "requested_frames": 4,
+  "source_brief": "art_requests/creature_attacks_v1/falling_clapper.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/falling_clapper.png",
+  "reference_sha256": "b808318b74a161345c243c428db76ad50425b5e5e1a5612e9e2f928dff7a9979",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "clapper_fall_loops.txt",
+  "image_size": [
+    2172,
+    724
+  ],
+  "image_sha256": "e755ce406a049409af7e305e4129867c05d632dc2a2d80b26910cffce56285a7",
+  "git_blob_sha": "da3d574f7b966ec5219dfb52b84412adeddfd638",
+  "fully_transparent_pixels": 1255807,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        56,
+        74,
+        372,
+        476
+      ],
+      "component_seed": [
+        155,
+        78
+      ],
+      "bbox_alpha_gt_24": [
+        60,
+        78,
+        364,
+        468
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        594,
+        72,
+        376,
+        471
+      ],
+      "component_seed": [
+        669,
+        76
+      ],
+      "bbox_alpha_gt_24": [
+        598,
+        76,
+        368,
+        463
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        1192,
+        171,
+        320,
+        449
+      ],
+      "component_seed": [
+        1302,
+        175
+      ],
+      "bbox_alpha_gt_24": [
+        1196,
+        175,
+        312,
+        441
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        1789,
+        171,
+        294,
+        450
+      ],
+      "component_seed": [
+        1854,
+        175
+      ],
+      "bbox_alpha_gt_24": [
+        1793,
+        175,
+        286,
+        442
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Four complete airborne beetles in one row. First pair raises wings with tucked claws and abdomen down; last pair draws claws closer with knob lowest for downward travel. Bronze abdomen stays connected, similar volume and detail relative to thorax as original and companion sheet. Margins clear and no ground/VFX. Hover height and exact loop/separate-phase timing require runtime rig acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
