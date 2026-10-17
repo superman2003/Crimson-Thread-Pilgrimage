@@ -37,5 +37,6 @@
 | index_scribe | [index_seal.png](index_seal.png) | 12 |
 | index_scribe | [index_pages_loops.png](index_pages_loops.png) | 2 |
 | isotope_lumen | [lumen_focus.png](lumen_focus.png) | 12 |
+| isotope_lumen | [lumen_orbits_loops.png](lumen_orbits_loops.png) | 2 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
