@@ -40,6 +40,7 @@ jobs:
           npm test
           npm run test:campaign
           python3 -m pip install -r tools/requirements-hero.txt
+          python3 tools/test_repack_enemy_attack_frames.py
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
       - name: Import resources without editor plugins

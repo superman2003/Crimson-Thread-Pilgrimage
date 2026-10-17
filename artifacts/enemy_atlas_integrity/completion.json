@@ -1,0 +1,98 @@
+{
+  "local_head": "eb51e5b54ed9883a0742122070a86ba94e42340d",
+  "base": "5df88208de2e44cad6fe9f5f6ead0dd13e6152d5",
+  "preceding_asset_commits": [
+    "41414ef5716e8befdf043724bffc410948a99e8c",
+    "623835c3b0ae9e42e86a7b48e41242d4b418462a"
+  ],
+  "own_commit_files": [
+    {
+      "path": ".github/workflows/godot-integration.yml",
+      "sha256": "08dbde9dd39b63ca76fe6672143010fb7bf65cd650655b71d06bef140c7433b7",
+      "bytes": 7919
+    },
+    {
+      "path": "godot/scripts/enemy_atlas_integrity_validation.gd",
+      "sha256": "0f59ffe281c409fac994cc3cd94e16ac53229995fb5c2ec93aa6083e7e08d866",
+      "bytes": 18872
+    },
+    {
+      "path": "godot/scripts/enemy_atlas_integrity_validation.gd.uid",
+      "sha256": "3f06733cbaba663344265c2ec6746167252e03f953198900701cefec9d9965a5",
+      "bytes": 19
+    }
+  ],
+  "publication": "none; local commit only",
+  "warm_import": {
+    "command": [
+      "python3",
+      "tools/run_godot_import.py",
+      "--engine",
+      "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+      "--recovery-mode",
+      "--timeout",
+      "180",
+      "--log-dir",
+      "/workspace/shared/enemy-atlas-runtime-validation/warm-import"
+    ],
+    "returncode": 0,
+    "elapsed_seconds": 35.4364492893219,
+    "cache": "verified warm reuse; four new PNGs actually imported"
+  },
+  "runtime_probe": {
+    "command": [
+      "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+      "--display-driver",
+      "x11",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--fixed-fps",
+      "60",
+      "--path",
+      "/workspace/scratch/4d581c1832c9/crimson-enemy-atlas-integrity/godot",
+      "--script",
+      "res://scripts/enemy_atlas_integrity_validation.gd"
+    ],
+    "elapsed_seconds": 21.116764783859253,
+    "returncode": 0,
+    "engine_errors": [],
+    "completion_marker": true,
+    "pass": true
+  },
+  "related_regressions": {
+    "command": [
+      "python3",
+      "tools/run_godot_regressions.py",
+      "--engine",
+      "/workspace/scratch/4d581c1832c9/tooling/godot-4.6.1/Godot_v4.6.1-stable_linux.x86_64",
+      "--software-gl",
+      "--suite",
+      "enemy_visibility",
+      "--suite",
+      "generated_runtime",
+      "--timeout",
+      "180",
+      "--log-dir",
+      "/workspace/shared/enemy-atlas-runtime-validation/related-regressions"
+    ],
+    "elapsed_seconds": 42.75617265701294,
+    "returncode": 0
+  },
+  "frozen_asset_files_unchanged": 12,
+  "original_source_atlases_exact_base_bytes": 2,
+  "non_attack_frame_facing_gpu_equal": 40,
+  "repaired_attack_frame_facing_direct_canvas_gpu_equal": 8,
+  "authored_attack_mode_facing_playbacks": 8,
+  "new_drawings": 0,
+  "interpolated_asset_frames": 0,
+  "initial_cold_diagnostic": "85s timeout with sandbox XDG errors; preserved, not a pass",
+  "first_runtime_oracle": "Four raw PNG-vs-import nonzero RGB checks failed; resolved by exact public fix_alpha_edges oracle, old evidence retained",
+  "open": [
+    "Cold-import wall time under 180 seconds was not established; successful double import used validated compatible local warm cache.",
+    "No complete damage-enabled natural campaign or broad default suite was run for this narrow asset repair.",
+    "The 20 other poses keep any pre-existing crop/contamination risks exactly; no new drawing or recovery poses.",
+    "Dedicated runtime validation script is not added to default suite; permanent CI addition is the 17-test Python source-integrity gate only."
+  ]
+}

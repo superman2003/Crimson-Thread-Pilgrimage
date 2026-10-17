@@ -1,5 +1,11 @@
 # 深化与验收分阶段计划
 
+## 2026-10-16：角色素材优先，首批两怪攻击裁帧恢复
+
+沿最新#99 `9e33deb0`，修gear_sentinel/page_duelist共4个现有攻击姿态的裁边/串帧，原atlas、身体脚底/握持注册、左右朝向与战斗时序不变；新增绘制0，不能算全动作补帧完成。17项可逆原像素重建（含无Git历史）与实际GL48状态/8播放通过；未改20帧左右40次framebuffer完全相等。原110回归保留、新专用真实绘制门禁加入为111；最终runner3315通过。warm双导入已过但冷导入诊断失败保留，准确新head全CI另核。
+
+71正式怪物/Boss/NPC的逐动作基线清单已记录；全角色素材第一，技能特效/怪物受击反馈第二，其余新功能后排，CI与已知缺陷持续修复。主角待机/呼吸/跑攻、敌NPC缺帧与状态衔接仍OPEN；本批只关闭4帧裁边，不把动画预览当真实60FPS或自然通关。详见 `docs/report/20261016_enemy_attack_atlas_integrity.md` 与 `artifacts/enemy_atlas_integrity/final-chain-verification.json`。
+
 ## 2026-10-16：#99 启动读取/目录合并重叠修复（本地通过，Windows新头待验）
 
 初始JSON读取与既有私有路线复制重叠；同一reader仅预读紧邻下一目录，利用当前目录最后合并yield等待，保持原序优先级、stamp/代际租约、全部取消边界及清理自己票据。未引入#62 metadata或当前区域inventory复用。4.6.1严格双导入、目录177/首区469专项、57工具单测及真实Linux导出包原120帧首启/恢复/备份写回均通过；475源冻结一致，游戏检查无ERROR/ObjectDB。一份独立轻量采样恢复仍观测122帧，保留调度波动风险，不称保证全机器窗口；Windows及新head完整CI尚待验证。所有原8操作/名义2ms/512及64边/120帧/180秒门禁不变。来源：`artifacts/death_respawn_presentation/startup_overlap_verification.json`。
