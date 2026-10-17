@@ -4,7 +4,7 @@
   "generator": "built-in image_gen",
   "transparent_background": true,
   "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
-  "scope": "15 generated source sheets (71 cels). Runtime unchanged.",
+  "scope": "16 generated source sheets (75 cels). Runtime unchanged.",
   "style_reference": {
     "file": "refs/00_style_run_v4_8frames.png",
     "repository_source": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
@@ -2362,16 +2362,145 @@
         "RGBA and per-cel bounds checked",
         "No runtime integration or playback claim"
       ]
+    },
+    {
+      "file": "G_air_turn_right_to_left.png",
+      "prompt_file": "G_air_turn_right_to_left.txt",
+      "frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "passes": 1,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "1e69292781628b255d1946c34dd08a8db9aa07dc9c9c9c2161af3ac47e98cc59",
+      "prompt_sha256": "c6fcab8c5f3f9e98faf087675165dd61441b58cd672ad5f775fb5d90a0c65c0f",
+      "original_tool_output": "exec-5031f54d-3d6d-4e15-acec-d5d82c08e7dd.png",
+      "rgba_alpha_zero_pixels": 1260883,
+      "rgba_alpha_ge_128_pixels": 263644,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            214,
+            116,
+            680,
+            456
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            214,
+            116,
+            88,
+            56
+          ],
+          "rgba_region_sha256": "80b2279873b5ee5c5e252bede3fc0cbc1f29b081511b0b11e673204ecb78df19"
+        },
+        {
+          "index": 2,
+          "region": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            142,
+            113,
+            621,
+            457
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            142,
+            113,
+            147,
+            55
+          ],
+          "rgba_region_sha256": "884c4631ae130046dd480561fca587789b2963a759f31d1c91b333ef54547fdd"
+        },
+        {
+          "index": 3,
+          "region": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            165,
+            76,
+            692,
+            413
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            165,
+            76,
+            76,
+            99
+          ],
+          "rgba_region_sha256": "932cf72b95d80321af4287e7c413758f10c7cb61bf4d42fb724ade51d6d7ea4b"
+        },
+        {
+          "index": 4,
+          "region": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            118,
+            79,
+            610,
+            410
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            118,
+            79,
+            158,
+            102
+          ],
+          "rgba_region_sha256": "ad743b8f9204676ce271e98c6b7a9afff279b5559c24319ee5c6e490c0fa38e3"
+        }
+      ],
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous_sha256": null,
+          "prompt": "Production 2D game animation INBETWEEN source sheet, EXACTLY FOUR new cels in 2 columns by 2 rows, reading left-to-right then top-to-bottom. Same youthful swordsman in references: black ponytail, red scarf, ragged teal cape, charcoal tunic/trousers, brown boots/belt, SHORT straight steel sword with gold hilt; muted textured hand painted anime with crisp dark ink. AIRBORNE throughout: knees stay softly bent and tucked, no standing, walking, landing or kicking. Uniform body scale and identical local hip center in all four cells, no whole-body travel, no jump arc. Draw each full sprite SMALL, within central 50% of its equal cell; huge alpha-zero transparent outer margins and gutters. Full sword tips, hands, hair, cape and boots fit each own cell without cropping or overlap. Opaque character+held sword ONLY, genuine transparent background, no colored haze/glow/shadow/effect trails, text, panels or arrows. These four are actual BETWEEN poses connecting explicit endpoints, not unrelated attacks or duplicated endpoint drawings. Input1 is RIGHT-facing attack sheet; input2 LEFT-facing attack sheet. START endpoint input1 top-left cel (right-facing airborne guard), END endpoint input2 bottom-right cel (left-facing airborne guard). Output exactly FOUR INTERMEDIATE turn poses at 20%,40%,60%,80% of RIGHT-TO-LEFT turn, passing through BACK view. Cel1 right-back three-quarter with nose just visible and torso turning away; cel2 near BACK view with most face hidden and cape attachment centered on back; cel3 back-left three-quarter, nose begins appearing LEFT and bent knees rotate LEFT; cel4 nearly left profile, face LEFT, sword settles low-forward LEFT. Keep sword consistently in anatomical RIGHT hand, one gold hilt/one straight blade; show natural foreshortening and partial cape occlusion through back view, no floating blade and no swapping sword hands. Shoulders, hips and bent knees rotate together steadily, no instant side flip or mirrored endpoint duplicates. Cape and scarf follow the turn with modest lag, maintain existing tear topology and attachment. ALL FOUR are distinct inbetweens; no front-facing cels on this back-view route. Maintain youthful proportions. Huge transparent margins, all silhouettes and swords complete.\n",
+          "original_tool_output": "exec-5031f54d-3d6d-4e15-acec-d5d82c08e7dd.png"
+        }
+      ],
+      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "visual_review": [
+        "RGBA and per-cel bounds checked",
+        "No runtime integration or playback claim"
+      ]
     }
   ],
   "static_validation": {
-    "sheet_count": 14,
-    "cel_count": 67,
+    "sheet_count": 16,
+    "cel_count": 75,
     "new_normal_attack_sheets": 7,
     "new_normal_attack_cels": 42,
     "png_prompt_region_hashes": "passed",
     "new_attack_structural_crop_boundaries": "passed",
     "runtime_playback": "not run",
-    "idle_cloth_endpoint_art_acceptance": "pending"
+    "idle_cloth_endpoint_art_acceptance": "pending",
+    "new_transition_sheets": 2,
+    "new_transition_cels": 8
   }
 }
