@@ -855,11 +855,11 @@
         887
       ],
       "mode": "RGBA",
-      "sha256": "1d0fc9e77cdf88d48d6a572969a8d87d47f13fc56c59378ca597258fb56a4b2f",
-      "prompt_sha256": "58da66ed0c2e3e832e098e7b804bfbc7b69ca6dc044093ae4e1a7fd8d5f2d599",
-      "original_tool_output": "exec-2c75749a-5ee8-48e7-b348-af78f3dc9974.png",
-      "rgba_alpha_zero_pixels": 1071672,
-      "rgba_alpha_ge_128_pixels": 456572,
+      "sha256": "b8b074e72f4babd8dedbe35486a241b002a3527ee4292a409a97724865a681e3",
+      "prompt_sha256": "d9beb4ed6ab4c84e258a6c5d5a6f6e259e6e5d846a3445a210b7aea9bfa7935e",
+      "original_tool_output": "exec-8f5042a8-aea7-4739-9498-d272f386ea1c.png",
+      "rgba_alpha_zero_pixels": 1085362,
+      "rgba_alpha_ge_128_pixels": 449955,
       "alpha_extrema": [
         0,
         255
@@ -874,18 +874,18 @@
             887
           ],
           "opaque_bounds_in_region": [
-            97,
-            94,
-            905,
-            842
+            101,
+            117,
+            906,
+            839
           ],
           "opaque_padding_left_top_right_bottom": [
-            97,
-            94,
-            25,
-            45
+            101,
+            117,
+            24,
+            48
           ],
-          "rgba_region_sha256": "a9f1c8bb81d59f13c9a1413499b3f6f219399dab7c7b1350fb6c3dd5db84d1e6"
+          "rgba_region_sha256": "1d0cf656415ba69b536299c2b00e69e22bf2aae346d8ac15afef4cbbc15f9dae"
         },
         {
           "index": 2,
@@ -896,29 +896,28 @@
             887
           ],
           "opaque_bounds_in_region": [
-            25,
-            91,
-            834,
-            842
+            28,
+            107,
+            833,
+            839
           ],
           "opaque_padding_left_top_right_bottom": [
-            25,
-            91,
-            10,
-            45
+            28,
+            107,
+            11,
+            48
           ],
-          "rgba_region_sha256": "37eab77d90c91b957f21903dbec90b3f40564d5ea331f2736954a3a9dfcd1bc0"
+          "rgba_region_sha256": "d62ed432cebab2f514095a641484932b375f8e450c564121c1964080994038ed"
         }
       ],
       "visual_review": [
-        "correct cel count and complete silhouettes",
-        "actual alpha channel and clear gutters",
-        "user review correction inspected; runtime acceptance pending"
+        "RGBA and per-cel bounds checked",
+        "No runtime integration or playback claim"
       ],
       "reference_images": [
         "refs/00_style_run_v4_8frames.png"
       ],
-      "passes": 2,
+      "passes": 3,
       "review_corrections": [
         {
           "date": "2026-10-17",
@@ -932,9 +931,15 @@
           },
           "prompt": "Use case: identity-preserve. Asset type: two-frame descending airborne idle loop sprite source sheet, facing RIGHT. Input image 1 is EDIT TARGET. Use the first (LEFT) character's complete body pose as the locked pose for BOTH cells. The right character's changing boots/knees are wrong. Exactly TWO equal square cells in ONE horizontal row. In both cells keep IDENTICAL head, face, torso, shoulder, arms, hands, held steel sword angle, belt and tunic, SAME relaxed falling legs, SAME knee bend, SAME two boot shapes and feet placement. Both frames use the LEFT body's pose; do not animate legs, do not kick or pedal. Anchor the same body at identical local cell coordinates and uniform scale. Frame 2 changes ONLY the far-left free tips of the red scarf and teal cape a tiny amount (about 1-2 percent of character height); collar and main folds stay stable. Cloth streams up-left for falling, no floor or crouched landing. No whole-body bob or root shift, no changed hairstyle. Preserve the exact youthful black-ponytailed swordsman, dark worn tunic and trousers, brown leather boots, gold sword hilt, red scarf, teal cape and textured ink hand-painted style from image 1. Preserve all sword tips, fingers, hair and boots, wide genuine transparent margins and gutter. Genuine transparent alpha-zero empty background, no new effects, no glow, haze, shadow, text, border or checkerboard. Highest priority: keep both knee and boot silhouettes identical so the two-frame loop cannot flap its legs.\n",
           "original_tool_output": "exec-2c75749a-5ee8-48e7-b348-af78f3dc9974.png"
+        },
+        {
+          "date": "2026-10-17",
+          "previous_sha256": "1d0fc9e77cdf88d48d6a572969a8d87d47f13fc56c59378ca597258fb56a4b2f",
+          "prompt": "Use case: identity-preserve. Edit target is two-cel falling loop sheet. Exactly two equal square cells in horizontal row on genuine transparent background. LEFT character is locked master: reproduce its precise complete body in BOTH cells at IDENTICAL local coordinates and scale. Same face, hair, arms, hands, belt, tunic, sword angle and blade, both knees, relaxed leg angles, boots and toes. Keep legs and feet stationary, no pose variation, no whole-body offset. In second cel change ONLY the free far left ends of up-streaming scarf and cape in a tiny natural flutter, below 1% character height. Keep all other details identical. Maintain original art style, colors, proportions. Reduce both full master characters enough to center each in equal square with at least 70px clearance from all edges, sword complete and not touching cell boundary. No shadow, glow, labels or additional objects. Main priority strict body registration and identical knee/boot silhouette, a cloth-only airborne loop.\n",
+          "original_tool_output": "exec-8f5042a8-aea7-4739-9498-d272f386ea1c.png"
         }
       ],
-      "review_status": "Leg pose redrawn from first source cel for both frames; cloth-tip variation inspected; runtime registration/playback acceptance pending."
+      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted."
     }
   ]
 }
