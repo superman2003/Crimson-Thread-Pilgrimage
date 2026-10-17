@@ -39,9 +39,9 @@ SHEETS = {
     'jump_loop': {'file': 'D_jump_loop.png', 'relative_scale': 0.58, 'air': True, 'fps': 8, 'loop': True},
     'fall': {'file': 'D_fall_loop.png', 'relative_scale': 0.50, 'air': True, 'fps': 8, 'loop': True},
     'attack_1': {'file': 'E_attack_forward.png', 'relative_scale': 0.93, 'fps': 14, 'blade': True},
-    'up_attack': {'file': 'E_attack_up.png', 'relative_scale': 0.88, 'fps': 14, 'blade': True},
-    'ground_down_attack': {'file': 'E_attack_down_ground.png', 'relative_scale': 0.84, 'fps': 14, 'blade': True},
-    'down_attack': {'file': 'E_attack_down.png', 'relative_scale': 0.93, 'air': True, 'fps': 14, 'blade': True},
+    'up_attack': {'file': 'E_attack_up.png', 'relative_scale': 1.29, 'fps': 14, 'blade': True},
+    'ground_down_attack': {'file': 'E_attack_down_ground.png', 'relative_scale': 1.02, 'fps': 14, 'blade': True},
+    'down_attack': {'file': 'E_attack_down.png', 'relative_scale': 1.03, 'air': True, 'fps': 14, 'blade': True},
     'air_attack': {'file': 'F_air_attack_right.png', 'relative_scale': 0.875, 'air': True, 'fps': 14, 'blade': True},
     'air_up_attack': {'file': 'F_air_attack_up.png', 'relative_scale': 1.06, 'air': True, 'fps': 14, 'blade': True},
 }
