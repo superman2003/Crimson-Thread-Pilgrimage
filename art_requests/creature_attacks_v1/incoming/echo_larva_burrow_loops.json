@@ -1,0 +1,100 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_moss_larva",
+  "image": "echo_larva_burrow_loops.png",
+  "requested_frames": 4,
+  "source_brief": "art_requests/creature_attacks_v1/echo_moss_larva.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_moss_larva.png",
+  "reference_sha256": "e1eb039f5d8ea06ce9f2682ce681b610f04718395ca0959475d8329feb3cf844",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "echo_larva_burrow_loops.txt",
+  "image_size": [
+    2172,
+    724
+  ],
+  "image_sha256": "d732e242b9bc83afd117a832b870c265afc438ed1109173e07b912043700bf08",
+  "git_blob_sha": "fa47a283bc4ab6e44a0c25ee6f8a84c840ed3f07",
+  "fully_transparent_pixels": 1302556,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        57,
+        294,
+        409,
+        253
+      ],
+      "component_seed": [
+        241,
+        298
+      ],
+      "bbox_alpha_gt_24": [
+        61,
+        298,
+        401,
+        245
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        589,
+        297,
+        406,
+        251
+      ],
+      "component_seed": [
+        739,
+        301
+      ],
+      "bbox_alpha_gt_24": [
+        593,
+        301,
+        398,
+        243
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        1102,
+        310,
+        507,
+        237
+      ],
+      "component_seed": [
+        1335,
+        314
+      ],
+      "bbox_alpha_gt_24": [
+        1106,
+        314,
+        499,
+        229
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        1656,
+        323,
+        484,
+        223
+      ],
+      "component_seed": [
+        1834,
+        327
+      ],
+      "bbox_alpha_gt_24": [
+        1660,
+        327,
+        476,
+        215
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Four complete low larva figures: two compressed charging poses, two elongated forward travel poses. Ivory plates, navy body and crimson jaws retained, no soil or particles. Half-buried visibility must be handled by runtime; cycle and anchor alignment not yet accepted.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

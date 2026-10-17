@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_waterwheel_knight",
+  "image": "echo_wheel_wave.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/echo_waterwheel_knight.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_waterwheel_knight.png",
+  "reference_sha256": "389aa8089bd4f19d0cf55170e0a75436046feec8b984c5f9983fa71c8ef5a0d2",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "echo_wheel_wave.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "102de8a945facc60a158b6f34ec4f6eeb9f4532c098cf83ebe54e3972e39eb10",
+  "git_blob_sha": "6b35ec42fe2c36d0f140e4dc384cb74c219dfeef",
+  "fully_transparent_pixels": 1097464,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        35,
+        86,
+        249,
+        226
+      ],
+      "component_seed": [
+        187,
+        90
+      ],
+      "bbox_alpha_gt_24": [
+        39,
+        90,
+        241,
+        218
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        351,
+        80,
+        251,
+        232
+      ],
+      "component_seed": [
+        477,
+        84
+      ],
+      "bbox_alpha_gt_24": [
+        355,
+        84,
+        243,
+        224
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        665,
+        61,
+        234,
+        251
+      ],
+      "component_seed": [
+        790,
+        65
+      ],
+      "bbox_alpha_gt_24": [
+        669,
+        65,
+        226,
+        243
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        976,
+        33,
+        241,
+        280
+      ],
+      "component_seed": [
+        1145,
+        37
+      ],
+      "bbox_alpha_gt_24": [
+        980,
+        37,
+        233,
+        272
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        44,
+        384,
+        255,
+        230
+      ],
+      "component_seed": [
+        214,
+        388
+      ],
+      "bbox_alpha_gt_24": [
+        48,
+        388,
+        247,
+        222
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        344,
+        427,
+        254,
+        194
+      ],
+      "component_seed": [
+        524,
+        431
+      ],
+      "bbox_alpha_gt_24": [
+        348,
+        431,
+        246,
+        186
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        650,
+        444,
+        267,
+        177
+      ],
+      "component_seed": [
+        830,
+        448
+      ],
+      "bbox_alpha_gt_24": [
+        654,
+        448,
+        259,
+        169
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        973,
+        435,
+        259,
+        183
+      ],
+      "component_seed": [
+        1142,
+        439
+      ],
+      "bbox_alpha_gt_24": [
+        977,
+        439,
+        251,
+        175
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        35,
+        687,
+        264,
+        229
+      ],
+      "component_seed": [
+        175,
+        691
+      ],
+      "bbox_alpha_gt_24": [
+        39,
+        691,
+        256,
+        221
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        355,
+        664,
+        243,
+        252
+      ],
+      "component_seed": [
+        475,
+        668
+      ],
+      "bbox_alpha_gt_24": [
+        359,
+        668,
+        235,
+        244
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        661,
+        670,
+        242,
+        245
+      ],
+      "component_seed": [
+        792,
+        674
+      ],
+      "bbox_alpha_gt_24": [
+        665,
+        674,
+        234,
+        237
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        981,
+        671,
+        206,
+        245
+      ],
+      "component_seed": [
+        1102,
+        675
+      ],
+      "bbox_alpha_gt_24": [
+        985,
+        675,
+        198,
+        237
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        36,
+        972,
+        257,
+        260
+      ],
+      "component_seed": [
+        183,
+        976
+      ],
+      "bbox_alpha_gt_24": [
+        40,
+        976,
+        249,
+        252
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        351,
+        971,
+        252,
+        262
+      ],
+      "component_seed": [
+        493,
+        975
+      ],
+      "bbox_alpha_gt_24": [
+        355,
+        975,
+        244,
+        254
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete right-facing knight silhouettes with engraved wheel shield. Front raise, lowered edge slam and forward press with bent knees, recovery and raised charge pair. Shield body-scale diameter stays visually similar; grip silhouettes behind shield support the raised mass. Fine hand details partly occluded; sheathed sword not clearly visible. Cross-sheet pixel scale, loop and rig integration remain pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

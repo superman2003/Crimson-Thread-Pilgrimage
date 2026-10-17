@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "erasure_bailiff",
+  "image": "bailiff_elite_sweep.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/erasure_bailiff.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/erasure_bailiff.png",
+  "reference_sha256": "9c7bce638f63ef5ac44bb8f926cc7358a0813668067b636ad6a555b2f85ab3bd",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "bailiff_elite_sweep.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "14bbebe1098d84614f1eb2c8fead4355a5121ab16fbe5e9e791328b7a15790ad",
+  "git_blob_sha": "f0cedab545f7a9f98924095bfccf8b97de42dfd1",
+  "fully_transparent_pixels": 1160860,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        36,
+        176,
+        236,
+        184
+      ],
+      "component_seed": [
+        196,
+        180
+      ],
+      "bbox_alpha_gt_24": [
+        40,
+        180,
+        228,
+        176
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        365,
+        170,
+        217,
+        191
+      ],
+      "component_seed": [
+        506,
+        174
+      ],
+      "bbox_alpha_gt_24": [
+        369,
+        174,
+        209,
+        183
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        661,
+        168,
+        235,
+        196
+      ],
+      "component_seed": [
+        821,
+        172
+      ],
+      "bbox_alpha_gt_24": [
+        665,
+        172,
+        227,
+        188
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        999,
+        168,
+        203,
+        199
+      ],
+      "component_seed": [
+        1119,
+        172
+      ],
+      "bbox_alpha_gt_24": [
+        1003,
+        172,
+        195,
+        191
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        54,
+        459,
+        252,
+        178
+      ],
+      "component_seed": [
+        186,
+        463
+      ],
+      "bbox_alpha_gt_24": [
+        58,
+        463,
+        244,
+        170
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        343,
+        458,
+        259,
+        179
+      ],
+      "component_seed": [
+        487,
+        462
+      ],
+      "bbox_alpha_gt_24": [
+        347,
+        462,
+        251,
+        171
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        677,
+        466,
+        228,
+        171
+      ],
+      "component_seed": [
+        810,
+        470
+      ],
+      "bbox_alpha_gt_24": [
+        681,
+        470,
+        220,
+        163
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        992,
+        467,
+        253,
+        170
+      ],
+      "component_seed": [
+        1119,
+        471
+      ],
+      "bbox_alpha_gt_24": [
+        996,
+        471,
+        245,
+        162
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        73,
+        785,
+        261,
+        156
+      ],
+      "component_seed": [
+        216,
+        789
+      ],
+      "bbox_alpha_gt_24": [
+        77,
+        789,
+        253,
+        148
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        391,
+        766,
+        244,
+        175
+      ],
+      "component_seed": [
+        517,
+        770
+      ],
+      "bbox_alpha_gt_24": [
+        395,
+        770,
+        236,
+        167
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        689,
+        719,
+        222,
+        222
+      ],
+      "component_seed": [
+        882,
+        723
+      ],
+      "bbox_alpha_gt_24": [
+        693,
+        723,
+        214,
+        214
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        998,
+        766,
+        236,
+        175
+      ],
+      "component_seed": [
+        1083,
+        770
+      ],
+      "bbox_alpha_gt_24": [
+        1002,
+        770,
+        228,
+        167
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        44,
+        1036,
+        238,
+        171
+      ],
+      "component_seed": [
+        209,
+        1040
+      ],
+      "bbox_alpha_gt_24": [
+        48,
+        1040,
+        230,
+        163
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        351,
+        1027,
+        234,
+        182
+      ],
+      "component_seed": [
+        504,
+        1031
+      ],
+      "bbox_alpha_gt_24": [
+        355,
+        1031,
+        226,
+        174
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete enforcers with one visible cleaver each; missing cel2 repaired and margins enlarged. Sweep has right-facing entry, a left/back-quarter body pose then front/right finishing poses, showing whole body changes rather than wrist-only rotation. The sheet does not clearly resolve every angular phase of a full360 spin; angular coverage and rig/loop timing need art acceptance. Blade/body proportions compared against reference and bailiff_erase, no floating VFX.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

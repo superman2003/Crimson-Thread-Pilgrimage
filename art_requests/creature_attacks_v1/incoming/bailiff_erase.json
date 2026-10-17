@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "erasure_bailiff",
+  "image": "bailiff_erase.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/erasure_bailiff.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/erasure_bailiff.png",
+  "reference_sha256": "9c7bce638f63ef5ac44bb8f926cc7358a0813668067b636ad6a555b2f85ab3bd",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "bailiff_erase.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "c595f3d33f00280bd5b2211659532204de0234982d655353b1c1f6958db72381",
+  "git_blob_sha": "b85ba2324906aa9db3882a473212e2afa2e602f7",
+  "fully_transparent_pixels": 1088444,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        49,
+        169,
+        245,
+        197
+      ],
+      "component_seed": [
+        181,
+        173
+      ],
+      "bbox_alpha_gt_24": [
+        53,
+        173,
+        237,
+        189
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        366,
+        166,
+        250,
+        199
+      ],
+      "component_seed": [
+        502,
+        170
+      ],
+      "bbox_alpha_gt_24": [
+        370,
+        170,
+        242,
+        191
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        658,
+        130,
+        253,
+        236
+      ],
+      "component_seed": [
+        876,
+        134
+      ],
+      "bbox_alpha_gt_24": [
+        662,
+        134,
+        245,
+        228
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        998,
+        116,
+        214,
+        250
+      ],
+      "component_seed": [
+        1029,
+        120
+      ],
+      "bbox_alpha_gt_24": [
+        1002,
+        120,
+        206,
+        242
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        38,
+        465,
+        271,
+        187
+      ],
+      "component_seed": [
+        168,
+        469
+      ],
+      "bbox_alpha_gt_24": [
+        42,
+        469,
+        263,
+        179
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        330,
+        465,
+        299,
+        185
+      ],
+      "component_seed": [
+        475,
+        469
+      ],
+      "bbox_alpha_gt_24": [
+        334,
+        469,
+        291,
+        177
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        633,
+        480,
+        316,
+        170
+      ],
+      "component_seed": [
+        796,
+        484
+      ],
+      "bbox_alpha_gt_24": [
+        637,
+        484,
+        308,
+        162
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        947,
+        481,
+        298,
+        169
+      ],
+      "component_seed": [
+        1096,
+        485
+      ],
+      "bbox_alpha_gt_24": [
+        951,
+        485,
+        290,
+        161
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        47,
+        738,
+        273,
+        207
+      ],
+      "component_seed": [
+        178,
+        742
+      ],
+      "bbox_alpha_gt_24": [
+        51,
+        742,
+        265,
+        199
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        361,
+        741,
+        254,
+        205
+      ],
+      "component_seed": [
+        487,
+        745
+      ],
+      "bbox_alpha_gt_24": [
+        365,
+        745,
+        246,
+        197
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        659,
+        754,
+        262,
+        195
+      ],
+      "component_seed": [
+        796,
+        758
+      ],
+      "bbox_alpha_gt_24": [
+        663,
+        758,
+        254,
+        187
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        980,
+        747,
+        247,
+        203
+      ],
+      "component_seed": [
+        1107,
+        751
+      ],
+      "bbox_alpha_gt_24": [
+        984,
+        751,
+        239,
+        195
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        60,
+        967,
+        223,
+        236
+      ],
+      "component_seed": [
+        106,
+        971
+      ],
+      "bbox_alpha_gt_24": [
+        64,
+        971,
+        215,
+        228
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        355,
+        973,
+        242,
+        230
+      ],
+      "component_seed": [
+        413,
+        977
+      ],
+      "bbox_alpha_gt_24": [
+        359,
+        977,
+        234,
+        222
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete pale-shell enforcers, one connected rectangular cleaver per pose. Missing cel3 blade repaired with visible intermediate raise; hands remain behind gold collar on grip. Second row shows braced forward blade press with torso leaning and bent knees, followed by low guard recovery. Blade broad-face-to-enemy rotation is not fully evident in side view; exact broadside articulation and loop timing require art acceptance. No VFX or extra weapons, previous drafts discarded.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

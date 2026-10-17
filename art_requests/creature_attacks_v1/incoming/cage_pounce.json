@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "root_cage_hunter",
+  "image": "cage_pounce.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/root_cage_hunter.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/root_cage_hunter.png",
+  "reference_sha256": "0353480f88080215f2b66a44e87e0cb8279c4cbbbf9b70c24d31f822cc6dba2f",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "cage_pounce.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "57057f0a340fd1059dd5e9c283dd8d812dcf9937306c66f8a96e3bd9f820f023",
+  "git_blob_sha": "afc63b05d80512013d4efce61c4c5fc3989c7284",
+  "fully_transparent_pixels": 1100731,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        30,
+        155,
+        260,
+        153
+      ],
+      "component_seed": [
+        171,
+        159
+      ],
+      "bbox_alpha_gt_24": [
+        34,
+        159,
+        252,
+        145
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        350,
+        135,
+        246,
+        172
+      ],
+      "component_seed": [
+        458,
+        139
+      ],
+      "bbox_alpha_gt_24": [
+        354,
+        139,
+        238,
+        164
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        660,
+        124,
+        245,
+        182
+      ],
+      "component_seed": [
+        771,
+        128
+      ],
+      "bbox_alpha_gt_24": [
+        664,
+        128,
+        237,
+        174
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        973,
+        86,
+        266,
+        220
+      ],
+      "component_seed": [
+        1126,
+        90
+      ],
+      "bbox_alpha_gt_24": [
+        977,
+        90,
+        258,
+        212
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        34,
+        378,
+        287,
+        244
+      ],
+      "component_seed": [
+        185,
+        382
+      ],
+      "bbox_alpha_gt_24": [
+        38,
+        382,
+        279,
+        236
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        382,
+        367,
+        255,
+        242
+      ],
+      "component_seed": [
+        496,
+        371
+      ],
+      "bbox_alpha_gt_24": [
+        386,
+        371,
+        247,
+        234
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        681,
+        337,
+        223,
+        215
+      ],
+      "component_seed": [
+        823,
+        341
+      ],
+      "bbox_alpha_gt_24": [
+        685,
+        341,
+        215,
+        207
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        947,
+        375,
+        260,
+        249
+      ],
+      "component_seed": [
+        1037,
+        379
+      ],
+      "bbox_alpha_gt_24": [
+        951,
+        379,
+        252,
+        241
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        43,
+        755,
+        251,
+        164
+      ],
+      "component_seed": [
+        178,
+        759
+      ],
+      "bbox_alpha_gt_24": [
+        47,
+        759,
+        243,
+        156
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        354,
+        737,
+        260,
+        182
+      ],
+      "component_seed": [
+        476,
+        741
+      ],
+      "bbox_alpha_gt_24": [
+        358,
+        741,
+        252,
+        174
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        659,
+        708,
+        265,
+        211
+      ],
+      "component_seed": [
+        772,
+        712
+      ],
+      "bbox_alpha_gt_24": [
+        663,
+        712,
+        257,
+        203
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        992,
+        689,
+        230,
+        230
+      ],
+      "component_seed": [
+        1108,
+        693
+      ],
+      "bbox_alpha_gt_24": [
+        996,
+        693,
+        222,
+        222
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        36,
+        970,
+        281,
+        240
+      ],
+      "component_seed": [
+        174,
+        974
+      ],
+      "bbox_alpha_gt_24": [
+        40,
+        974,
+        273,
+        232
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        366,
+        970,
+        262,
+        256
+      ],
+      "component_seed": [
+        494,
+        974
+      ],
+      "bbox_alpha_gt_24": [
+        370,
+        974,
+        254,
+        248
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete wooden/leaf mantid hunters with connected root cage and anatomical hooked forearms, no handheld weapons. Deep crouch, leg-driven launch, tucked airborne raised-hook poses then downward hooks and landing crouch/recovery; final pair airborne. Root cage/forearm/body ratios compared to original, full silhouettes within canvas. Occluded limb topology, exact landing support and travel-loop timing remain rig acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

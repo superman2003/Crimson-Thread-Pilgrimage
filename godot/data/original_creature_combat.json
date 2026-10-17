@@ -228,7 +228,36 @@
       }
     ],
     "front_guard": true,
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "gear_elite_spin",
+          "name": "齿轮旋矛",
+          "type": "combo",
+          "range": 220,
+          "windup": 0.75,
+          "active": 0.7,
+          "recover": 0.8,
+          "cooldown": 3.6,
+          "hit_width": 150,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "齿轮旋矛",
+          "blockable": false,
+          "elite_only": true,
+          "lunge_speed": 150
+        }
+      ]
+    }
   },
   "corridor_heavy": {
     "locomotion": "ground",
@@ -286,7 +315,38 @@
         "blockable": false
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "heavy_elite_quake",
+          "name": "连环震地",
+          "type": "wave",
+          "range": 320,
+          "windup": 1.0,
+          "active": 0.24,
+          "recover": 1.1,
+          "cooldown": 3.6,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "连环震地",
+          "blockable": false,
+          "elite_only": true,
+          "shot_count": 3,
+          "projectile_speed": 210,
+          "radius": 22
+        }
+      ]
+    }
   },
   "bellroot_acolyte": {
     "locomotion": "ground",
@@ -520,7 +580,36 @@
         "blockable": true
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "wheel_elite_ride",
+          "name": "轮盾滚袭",
+          "type": "lunge",
+          "range": 380,
+          "windup": 0.8,
+          "active": 0.65,
+          "recover": 0.9,
+          "cooldown": 3.6,
+          "hit_width": 130,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "轮盾滚袭",
+          "blockable": false,
+          "elite_only": true,
+          "lunge_speed": 330
+        }
+      ]
+    }
   },
   "rust_diver": {
     "locomotion": "ground",
@@ -932,7 +1021,36 @@
         "blockable": false
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "page_elite_flurry",
+          "name": "千页连刺",
+          "type": "combo",
+          "range": 260,
+          "windup": 0.7,
+          "active": 0.8,
+          "recover": 0.8,
+          "cooldown": 3.6,
+          "hit_width": 140,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "千页连刺",
+          "blockable": false,
+          "elite_only": true,
+          "lunge_speed": 190
+        }
+      ]
+    }
   },
   "wax_lancer": {
     "locomotion": "ground",
@@ -1046,7 +1164,35 @@
         "blockable": false
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "bailiff_elite_sweep",
+          "name": "断契回斩",
+          "type": "melee",
+          "range": 230,
+          "windup": 1.0,
+          "active": 0.3,
+          "recover": 1.1,
+          "cooldown": 3.6,
+          "hit_width": 260,
+          "hit_height": 70,
+          "offset": 0,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "断契回斩",
+          "blockable": false,
+          "elite_only": true
+        }
+      ]
+    }
   },
   "summoned_page": {
     "locomotion": "flight",
@@ -1223,7 +1369,41 @@
         "blockable": false
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "cage_elite_snare",
+          "name": "根笼囚网",
+          "type": "pool",
+          "range": 420,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.7,
+          "cooldown": 3.6,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "根笼囚网",
+          "blockable": false,
+          "elite_only": true,
+          "shot_count": 2,
+          "spacing": 110,
+          "radius": 34,
+          "warning": 0.8,
+          "hazard_life": 1.4,
+          "snare": 0.8
+        }
+      ]
+    }
   },
   "wax_bee": {
     "locomotion": "flight",
@@ -1526,7 +1706,37 @@
         "blockable": true
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "obsidian_elite_impale",
+          "name": "跃空贯地",
+          "type": "vault",
+          "range": 320,
+          "windup": 0.7,
+          "active": 0.75,
+          "recover": 1.0,
+          "cooldown": 3.6,
+          "hit_width": 110,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "跃空贯地",
+          "blockable": false,
+          "elite_only": true,
+          "jump_height": 160,
+          "lunge_speed": 280
+        }
+      ]
+    }
   },
   "phase_censor": {
     "locomotion": "flight",
@@ -1648,7 +1858,36 @@
         "blockable": false
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "chariot_elite_drift",
+          "name": "回转战车",
+          "type": "lunge",
+          "range": 460,
+          "windup": 1.0,
+          "active": 0.8,
+          "recover": 1.0,
+          "cooldown": 3.6,
+          "hit_width": 135,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "回转战车",
+          "blockable": false,
+          "elite_only": true,
+          "lunge_speed": 360
+        }
+      ]
+    }
   },
   "silent_bugbler": {
     "locomotion": "stationary",
@@ -1942,7 +2181,41 @@
       }
     ],
     "front_guard": true,
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "echo_wheel_elite",
+          "name": "回响双轮",
+          "type": "projectile",
+          "range": 440,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.7,
+          "cooldown": 3.6,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "回响双轮",
+          "blockable": false,
+          "elite_only": true,
+          "shot_count": 2,
+          "spread": 0.35,
+          "returning": true,
+          "projectile_speed": 260,
+          "skin": "wheel",
+          "radius": 17
+        }
+      ]
+    }
   },
   "echo_moss_larva": {
     "locomotion": "ground",
@@ -2307,7 +2580,40 @@
         "blockable": false
       }
     ],
-    "lure_eligible": true
+    "lure_eligible": true,
+    "elite": {
+      "hp_mult": 1.75,
+      "damage_bonus": 1,
+      "visual_scale_mult": 1.12,
+      "attacks": [
+        {
+          "id": "minor_elite_rally",
+          "name": "号令枪阵",
+          "type": "rootline",
+          "range": 520,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 0.8,
+          "cooldown": 3.6,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 2,
+          "telegraph": "e0503c",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.9,
+          "mechanic": "号令枪阵",
+          "blockable": false,
+          "elite_only": true,
+          "shot_count": 6,
+          "spacing": 82,
+          "radius": 22,
+          "warning": 0.7,
+          "hazard_life": 0.6
+        }
+      ]
+    }
   },
   "isotope_lumen": {
     "locomotion": "flight",

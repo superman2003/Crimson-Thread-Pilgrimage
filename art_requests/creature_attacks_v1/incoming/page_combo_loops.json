@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "page_duelist",
+  "image": "page_combo_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/page_duelist.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/page_duelist.png",
+  "reference_sha256": "c0ff433631677438358f7c478c620ad3e360ef931edc2ca0cc8c3b060088dcd2",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "page_combo_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "7e4e161c20f35774cdac36a1c56d51924f5925a9cf629b7a750a5789e4b8af8a",
+  "git_blob_sha": "e05624a4a8e7abaae7a02127befe559ab7ba54df",
+  "fully_transparent_pixels": 1337554,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        88,
+        232,
+        764,
+        498
+      ],
+      "component_seed": [
+        329,
+        236
+      ],
+      "bbox_alpha_gt_24": [
+        92,
+        236,
+        756,
+        490
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        972,
+        232,
+        766,
+        499
+      ],
+      "component_seed": [
+        1216,
+        236
+      ],
+      "bbox_alpha_gt_24": [
+        976,
+        236,
+        758,
+        491
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing mantid fencing guards. Single front hand grips behind integral gold cupguard, wrist/forearm and needle point aligned forward, empty rear hand raised, feet braced. Similar blade/guard/body ratios to original/page_feint, no extra shield or weapon. Elbow quite extended for charge guard; exact rear-foot loading, pixel scale and loop timing require acceptance. Full margins retained.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

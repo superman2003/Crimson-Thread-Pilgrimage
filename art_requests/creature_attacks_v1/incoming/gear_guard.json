@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "gear_sentinel",
+  "image": "gear_guard.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/gear_sentinel.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/gear_sentinel.png",
+  "reference_sha256": "b234589597eab0376ae6b6ceb5b4799d5f289182d80db7b51d56b039f8b5ef61",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "gear_guard.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "bf068e0b20ea4e47452bebba92994ee13e2d55d1c4e638130cdfd308605b42ca",
+  "git_blob_sha": "224c625bed08ae5e6f95e9922587723af2d0ed96",
+  "fully_transparent_pixels": 1025510,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        36,
+        78,
+        263,
+        234
+      ],
+      "component_seed": [
+        178,
+        82
+      ],
+      "bbox_alpha_gt_24": [
+        40,
+        82,
+        255,
+        226
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        349,
+        75,
+        262,
+        237
+      ],
+      "component_seed": [
+        487,
+        79
+      ],
+      "bbox_alpha_gt_24": [
+        353,
+        79,
+        254,
+        229
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        662,
+        82,
+        255,
+        230
+      ],
+      "component_seed": [
+        804,
+        86
+      ],
+      "bbox_alpha_gt_24": [
+        666,
+        86,
+        247,
+        222
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        990,
+        76,
+        230,
+        236
+      ],
+      "component_seed": [
+        1108,
+        80
+      ],
+      "bbox_alpha_gt_24": [
+        994,
+        80,
+        222,
+        228
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        45,
+        377,
+        267,
+        227
+      ],
+      "component_seed": [
+        210,
+        381
+      ],
+      "bbox_alpha_gt_24": [
+        49,
+        381,
+        259,
+        219
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        353,
+        382,
+        272,
+        223
+      ],
+      "component_seed": [
+        517,
+        386
+      ],
+      "bbox_alpha_gt_24": [
+        357,
+        386,
+        264,
+        215
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        655,
+        391,
+        305,
+        214
+      ],
+      "component_seed": [
+        848,
+        395
+      ],
+      "bbox_alpha_gt_24": [
+        659,
+        395,
+        297,
+        206
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        972,
+        389,
+        267,
+        216
+      ],
+      "component_seed": [
+        1127,
+        393
+      ],
+      "bbox_alpha_gt_24": [
+        976,
+        393,
+        259,
+        208
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        41,
+        680,
+        250,
+        238
+      ],
+      "component_seed": [
+        180,
+        684
+      ],
+      "bbox_alpha_gt_24": [
+        45,
+        684,
+        242,
+        230
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        352,
+        678,
+        249,
+        240
+      ],
+      "component_seed": [
+        490,
+        682
+      ],
+      "bbox_alpha_gt_24": [
+        356,
+        682,
+        241,
+        232
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        660,
+        685,
+        259,
+        233
+      ],
+      "component_seed": [
+        812,
+        689
+      ],
+      "bbox_alpha_gt_24": [
+        664,
+        689,
+        251,
+        225
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        964,
+        684,
+        279,
+        234
+      ],
+      "component_seed": [
+        1104,
+        688
+      ],
+      "bbox_alpha_gt_24": [
+        968,
+        688,
+        271,
+        226
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        43,
+        994,
+        254,
+        233
+      ],
+      "component_seed": [
+        179,
+        998
+      ],
+      "bbox_alpha_gt_24": [
+        47,
+        998,
+        246,
+        225
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        358,
+        996,
+        254,
+        231
+      ],
+      "component_seed": [
+        496,
+        1000
+      ],
+      "bbox_alpha_gt_24": [
+        362,
+        1000,
+        246,
+        223
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete bronze/teal guards, each with one gear shield forward of torso and one short spear (partly occluded behind body in bash). Duplicate smooth shield plates removed, missing cel12 shield restored. Shield forearm extends through braced bash with bent knees and rear leg drive. Gear face becomes rear/edge perspective at extension, not a second shield. Ratios compared to original; exact small grip detail, fixed pixel scale and playback pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

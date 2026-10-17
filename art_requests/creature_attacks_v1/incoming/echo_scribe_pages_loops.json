@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_contract_scribe",
+  "image": "echo_scribe_pages_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/echo_contract_scribe.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_contract_scribe.png",
+  "reference_sha256": "51980eb85f3729ee62f3a2d48438705eba236aca5f84dfe230f1bc904d946cea",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "echo_scribe_pages_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "c46c7e4398e1495b900db74a4b3c2440bdac629b2885ae324f8109b97ceeb952",
+  "git_blob_sha": "5b18e210965e46ef968db48b678c9ec3d8fc1d34",
+  "fully_transparent_pixels": 1225536,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        156,
+        156,
+        643,
+        623
+      ],
+      "component_seed": [
+        278,
+        160
+      ],
+      "bbox_alpha_gt_24": [
+        160,
+        160,
+        635,
+        615
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        943,
+        250,
+        593,
+        529
+      ],
+      "component_seed": [
+        1304,
+        254
+      ],
+      "bbox_alpha_gt_24": [
+        947,
+        254,
+        585,
+        521
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete red-and-ivory contract scribes with one gold quill raised beside mask and attached paper cloak variations. No detached projectile pages or halos. Quill/arm displacement and loop continuity remain pending animation review.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

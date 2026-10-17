@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "salt_bookmite",
+  "image": "book_burrow_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/salt_bookmite.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/salt_bookmite.png",
+  "reference_sha256": "f118ec20d06ff9a114575d3f4b99b7bf5a531ec9275eb579bff87f01bd0eb438",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "book_burrow_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "bc75467ad8d36d2033147af7560777f7d80f1ff8869984b0c078e29c3d08e249",
+  "git_blob_sha": "87bfe247251b3f6dddd806c1b67d5585be5e9406",
+  "fully_transparent_pixels": 1287553,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        201,
+        330,
+        617,
+        340
+      ],
+      "component_seed": [
+        459,
+        334
+      ],
+      "bbox_alpha_gt_24": [
+        205,
+        334,
+        609,
+        332
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1028,
+        310,
+        647,
+        373
+      ],
+      "component_seed": [
+        1311,
+        314
+      ],
+      "bbox_alpha_gt_24": [
+        1032,
+        314,
+        639,
+        365
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete low bookmites tucked close beneath closed bookcarapace, small leg tips and front eye/mandible visible, antennae low. Fixed book/crystal/head/body proportions visually compared with original/book_bite, no cropped underground plane, dirt or glint effects. Retraction depth subtle; precise charge-loop/leg topology and shared pixel-scale rig pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

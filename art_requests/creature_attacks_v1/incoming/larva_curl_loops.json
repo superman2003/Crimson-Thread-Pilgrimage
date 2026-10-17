@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "moss_larva",
+  "image": "larva_curl_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/moss_larva.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/moss_larva.png",
+  "reference_sha256": "f33f6382da303a0250250b1cb294975c407e08a0daf150f913532a82f759b7ae",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "larva_curl_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "bc8e3575d4e9cd2fdaf67da497fb9d0e64fb96006ddb99684a872acb22fa2385",
+  "git_blob_sha": "055e0ab955e3fc62bad4750b860cb6fffc31382c",
+  "fully_transparent_pixels": 1146167,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        150,
+        240,
+        666,
+        483
+      ],
+      "component_seed": [
+        467,
+        244
+      ],
+      "bbox_alpha_gt_24": [
+        154,
+        244,
+        658,
+        475
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        1010,
+        267,
+        633,
+        456
+      ],
+      "component_seed": [
+        1254,
+        271
+      ],
+      "bbox_alpha_gt_24": [
+        1014,
+        271,
+        625,
+        448
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete curled moss larvae. Teal body and round eye/head tucked under existing bell rim, only small claws visible, head sprigs lie low, rigid shell rocks slightly. Shell proportions and bronze/moss details compared against original/larva_snap, no floating shell or effects. Soft-body volume transfer, fixed pixel scale and loop timing require runtime art acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

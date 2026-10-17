@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "isotope_lumen",
+  "image": "lumen_orbits_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/isotope_lumen.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/isotope_lumen.png",
+  "reference_sha256": "7418b57d4837ad397547fd692caecc9e2d7c641ab0d6ee617f8394cf58f4a268",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "lumen_orbits_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "515612e7cd167c75e8f8a2cc44a3afb0e15970c11072ac46614cbd4a30808098",
+  "git_blob_sha": "ce8540cdb9584776d893bc37974e8cf3a780529b",
+  "fully_transparent_pixels": 1208327,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        165,
+        171,
+        676,
+        559
+      ],
+      "component_seed": [
+        554,
+        175
+      ],
+      "bbox_alpha_gt_24": [
+        169,
+        175,
+        668,
+        551
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        993,
+        159,
+        674,
+        563
+      ],
+      "component_seed": [
+        1284,
+        163
+      ],
+      "bbox_alpha_gt_24": [
+        997,
+        163,
+        666,
+        555
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete airborne ivory/crimson moths with ribbed abdominal core and spreading attached silk filaments. No detached orb or projectile; brightness inside physical abdomen. Similar body/wing/core proportions to reference and lumen_focus, full outer margins. Filament/antenna fine topology and exact two-frame loop remain art-acceptance items; no runtime scale claim.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
