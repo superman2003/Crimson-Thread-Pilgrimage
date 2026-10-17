@@ -41,5 +41,6 @@
 | kneeling_crossbowman | [crossbow_low.png](crossbow_low.png) | 14 |
 | kneeling_crossbowman | [crossbow_burst_loops.png](crossbow_burst_loops.png) | 2 |
 | moss_larva | [larva_snap.png](larva_snap.png) | 12 |
+| moss_larva | [larva_curl_loops.png](larva_curl_loops.png) | 2 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
