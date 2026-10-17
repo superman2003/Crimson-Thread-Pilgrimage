@@ -1,0 +1,237 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "moss_larva",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/moss_larva/atlas.png",
+  "reference_sha256": "551f78559c983ceaae0b462b440fd2a36cb67a7fcc8b232152cda70d4286a0e8",
+  "prompt": "Use case: identity-preserve. Production 2D game animation SOURCE sheet for Crimson Thread Pilgrimage. Reference image is the exact moss_larva character identity and painted style. Squat plump segmented blue-teal caterpillar with tiny brown claw feet, round ivory face and large glossy black eye, leaflike green antennae, moss and tiny pale mushrooms on its back, ornate weathered brass bell shell with top loop and dark spade-shaped opening. Bell remains attached to back; retain moss, shell loop, face and all feet. Preserve exact anatomy, proportions, colors, costume, equipment and intricate dark ink contours with muted textured hand-painted rendering. ONE landscape transparent RGBA sheet, exactly FOUR columns TWO rows, EIGHT distinct full-body isolated sprites; same character scale, all face RIGHT. Top row FOUR nonlethal hurt/recovery poses: impact compression, recoils with body curled and feet tucked, re-extends body with feet regaining support, returns to neutral crawling guard. Bottom row FOUR death poses: legs buckle, rolls partly onto side, collapses with limp legs, lies fully motionless on side. Real body/limb articulation. Render figures SMALL, in central 60% cell width and 70% height; wide EMPTY transparent gutters, nothing touches a neighbor. All weapons, horns, wings, tails and feet entirely within their own cel. Actual distinct poses, not duplicate stamps, faded copies or interpolated shapes. True transparent alpha; no scenery, floor, shadows, glow outside character, VFX, labels, grid lines or gore. Canvas 2048x1024.",
+  "image_sha256": "831449d41d7c612ffd72de04d93c8182456e9c18a346c35ba77cad6861dfa555",
+  "git_blob_sha": "98e4f4f3b1adb658476d41e77a3e7d7187308b52",
+  "component_seeds": [
+    [
+      225,
+      182
+    ],
+    [
+      613,
+      127
+    ],
+    [
+      1052,
+      150
+    ],
+    [
+      1497,
+      150
+    ],
+    [
+      244,
+      553
+    ],
+    [
+      688,
+      602
+    ],
+    [
+      1080,
+      619
+    ],
+    [
+      1497,
+      644
+    ]
+  ],
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        65,
+        178,
+        376,
+        229
+      ],
+      "component_seed": [
+        225,
+        182
+      ],
+      "visible_bbox_alpha_gt_24": [
+        69,
+        182,
+        368,
+        221
+      ],
+      "rgba_sha256": "a43c7f813599b059b62857f2fa69784ef84c922bde817cc16b81e95f5b26883f"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        540,
+        123,
+        341,
+        283
+      ],
+      "component_seed": [
+        613,
+        127
+      ],
+      "visible_bbox_alpha_gt_24": [
+        544,
+        127,
+        333,
+        275
+      ],
+      "rgba_sha256": "19016fd15d0f450cee33ec5d7f3f724395facbea0a883710779827580c537a99"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        925,
+        146,
+        410,
+        272
+      ],
+      "component_seed": [
+        1052,
+        150
+      ],
+      "visible_bbox_alpha_gt_24": [
+        929,
+        150,
+        402,
+        264
+      ],
+      "rgba_sha256": "9af3c2e8cec49d25f19a66baf33883d86553e12bf11c0dfde3703b899c7a4293"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1374,
+        146,
+        390,
+        271
+      ],
+      "component_seed": [
+        1497,
+        150
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1378,
+        150,
+        382,
+        263
+      ],
+      "rgba_sha256": "06552c090ef5d4923dde174ef2651b4dd9c035ae27133d0cd1da70cd5e994463"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        68,
+        549,
+        390,
+        264
+      ],
+      "component_seed": [
+        244,
+        553
+      ],
+      "visible_bbox_alpha_gt_24": [
+        72,
+        553,
+        382,
+        256
+      ],
+      "rgba_sha256": "c41c2ae313a36ff78f316582920549e188f514bd244e396e3db886f26646d090"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        492,
+        598,
+        408,
+        223
+      ],
+      "component_seed": [
+        688,
+        602
+      ],
+      "visible_bbox_alpha_gt_24": [
+        496,
+        602,
+        400,
+        215
+      ],
+      "rgba_sha256": "56ca2869817d2b1dc0b3201648f43a3e55f78ea5cdda2840912b653ccd376a0b"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        938,
+        615,
+        391,
+        207
+      ],
+      "component_seed": [
+        1080,
+        619
+      ],
+      "visible_bbox_alpha_gt_24": [
+        942,
+        619,
+        383,
+        199
+      ],
+      "rgba_sha256": "761fff6b265b288d7faa306812b48500aaf35e1f3c479ada563d876706d1a052"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1365,
+        640,
+        398,
+        178
+      ],
+      "component_seed": [
+        1497,
+        644
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1369,
+        644,
+        390,
+        170
+      ],
+      "rgba_sha256": "cd4bc478f844ce5668f75951fc3e9552fd0776bc6d69cc9ef33f47f2fcda9e6e"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1116849,
+    "silhouette_count": 8,
+    "canvas_edge_contacts": [],
+    "region_structure": "Tight source-space regions may overlap. Use each global component_seed to select its alpha>24 8-connected silhouette; retain a 3px low-alpha rim, exclude other solid components. Source PNG bytes are unmodified.",
+    "visual_review": "Eight complete moss larva silhouettes with attached ornate bell, moss, mushrooms, ivory face and claw feet. Hurt row compresses/curls then extends; death row settles and tips onto side with closed eye. Source-only, body registration and continuous playback pending.",
+    "runtime_status": "source_only; scale, rig anchors, timing and endpoint playback pending"
+  }
+}
