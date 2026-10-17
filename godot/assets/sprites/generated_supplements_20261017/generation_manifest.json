@@ -195,6 +195,34 @@
       ],
       "sha256": "29d3004358d6844f118c727ba6728c053d7d8b99898d7a2d683d5bd4fa0ce617",
       "blob_sha": "519a95e1bad92026311ed8a1763ff0a244c34a81"
+    },
+    {
+      "id": "B_sunken_hammer_smith_vault_scissors",
+      "file": "B_sunken_hammer_smith_vault_scissors.png",
+      "prompt_file": "B_sunken_hammer_smith_vault_scissors.txt",
+      "requested_frames": 4,
+      "grid": [
+        2,
+        2
+      ],
+      "purpose": "phase 2 boss_shears_turn: crouch/airborne turn/airborne close/landing",
+      "reference": [
+        "godot/assets/sprites/original_creatures/sunken_hammer_smith/atlas.png",
+        "godot/data/original_creature_combat.json#boss_shears_turn"
+      ],
+      "status": "source_art_only_not_runtime_integrated",
+      "visual_review": "Four right-facing phase attack poses including two airborne cels. Full body and scissors retained. Lower-left extended scissors approach lower-right antenna; raw source needs careful contour review before runtime, not an integration-ready atlas.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "7209fd922a58869e09e5a0b64ae253caff4c8f2f9aea04d831fd73ae00d58f08",
+      "blob_sha": "685dcfc9f9bcce96763c1213aa923626f396773e"
     }
   ]
 }
