@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "summoned_page",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/summoned_page/atlas.png",
+  "reference_sha256": "a4eae1c8b1a5ad2e2952ce68701ae8e97423a467ab42e3b380835de32c3352c8",
+  "prompt": "Use case: identity-preserve. EXACT summoned_page from reference: small flying origami moth insect, ivory paper mask with red eye and two angular antennae, dark slender body, folded tattered cream parchment wings bearing crescent sigils, red wax seal on chest and crimson ribbon tails. Preserve exact identity, markings and detailed ink-painted paper texture. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT isolated full-body right-facing creatures at same scale. MINIATURE creatures within central 60% width/70% height of each cell, complete wing tips, antennae and ribbon tails with broad blank gutters. Top row FOUR nonlethal hurt-recovery stages: body jolts backward with wings uneven; wings fold defensively and body curls; wings reopen and body levels; returns to balanced hover. Bottom row FOUR death stages: wingbeats fail and wings droop; tips downward, paper wings folding; lands on side with crumpled but complete wings; motionless low folded paper moth, mask and chest seal visible. Real articulated wings/body, no duplicated stamps, no extra particles. Genuine transparent alpha, no background, floor shadows, labels, grids, effects or gore.",
+  "image_sha256": "da44af65d06f2b7664f08aeae8cdb7d69b1333b5169c2ed524c9f8d9a3ef2c97",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        469,
+        468
+      ],
+      "visible_bbox_alpha_gt_24": [
+        36,
+        48,
+        388,
+        367
+      ],
+      "rgba_sha256": "356602f32f283270556a0cc655e623c71e8376900c749fc7f870e2a42574ad13"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        469,
+        0,
+        395,
+        468
+      ],
+      "visible_bbox_alpha_gt_24": [
+        515,
+        106,
+        312,
+        300
+      ],
+      "rgba_sha256": "3dcc6a96be8788fc014114a8cba623ee81e833983c42f51d997d9ea13fc88b5e"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        864,
+        0,
+        466,
+        468
+      ],
+      "visible_bbox_alpha_gt_24": [
+        902,
+        83,
+        400,
+        336
+      ],
+      "rgba_sha256": "d3b3a9bcdadf916e08dccd2fb503351cd12db47d5927ad315c33b2e1f60a340f"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1330,
+        0,
+        444,
+        468
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1359,
+        76,
+        374,
+        338
+      ],
+      "rgba_sha256": "8d746da4fa1f267a7d7a37a03652e2fd31eb09f55422749e9a2c3c2235db0045"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        468,
+        449,
+        419
+      ],
+      "visible_bbox_alpha_gt_24": [
+        44,
+        519,
+        372,
+        280
+      ],
+      "rgba_sha256": "65c5f892a7e9bbddae3e593a7210e8b56211a1a16547c2e514fb4bd3b43eecf6"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        449,
+        468,
+        443,
+        419
+      ],
+      "visible_bbox_alpha_gt_24": [
+        483,
+        525,
+        387,
+        288
+      ],
+      "rgba_sha256": "c6e98074be24729caadf81e1613707f4e550ebc1efdcfb711e03a5b560b6eae3"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        892,
+        468,
+        428,
+        419
+      ],
+      "visible_bbox_alpha_gt_24": [
+        915,
+        641,
+        388,
+        165
+      ],
+      "rgba_sha256": "03ad3d083187a76ef9e02084e8c729d4f4910cf389f6e9b05dde8ddfd6ee1504"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1320,
+        468,
+        454,
+        419
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1337,
+        664,
+        429,
+        145
+      ],
+      "rgba_sha256": "93b9e58857f5a3cbaafe92345df3268ca1b7f2af25e4e6f4c15a3ba9a8991605"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 1081780,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete origami moth figures with parchment wing sigils, ivory mask, red eye, wax seal, antennae and ribbon tails. Hurt folds wings then returns to hover; death loses flight, tips down and settles folded on ground.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
