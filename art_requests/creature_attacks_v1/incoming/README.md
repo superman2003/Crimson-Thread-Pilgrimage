@@ -13,5 +13,6 @@
 | corridor_heavy | [heavy_elite_quake.png](heavy_elite_quake.png) | 14 |
 | corridor_heavy | [heavy_roll_loops.png](heavy_roll_loops.png) | 4 |
 | delayed_shadow | [shadow_echo.png](shadow_echo.png) | 12 |
+| delayed_shadow | [shadow_blink_loops.png](shadow_blink_loops.png) | 2 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。

@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "delayed_shadow",
+  "image": "shadow_blink_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/delayed_shadow.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/delayed_shadow.png",
+  "reference_sha256": "04c3e79100ddb071c15fd758aad8532817287890203a3728043d7fe0066f2749",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "shadow_blink_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "c15923610e428242e2a27acc2ccfd3ce1ecd47dd0b26ba1d2d0d8ed8498f3965",
+  "git_blob_sha": "cefafaca588fb3dc8728c7204add4a204d610fda",
+  "fully_transparent_pixels": 1283737,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        195,
+        291,
+        577,
+        457
+      ],
+      "component_seed": [
+        668,
+        295
+      ],
+      "bbox_alpha_gt_24": [
+        199,
+        295,
+        569,
+        449
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        995,
+        289,
+        641,
+        460
+      ],
+      "component_seed": [
+        1514,
+        293
+      ],
+      "bbox_alpha_gt_24": [
+        999,
+        293,
+        633,
+        452
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two isolated complete dark navy shades with tilted masks, rear-drawn single swords and small cloth/leg changes. No afterimages or external effects. Half-fade rendering and seamless transition from existing wind-up have not been accepted through runtime playback.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
