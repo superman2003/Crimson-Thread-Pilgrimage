@@ -4,7 +4,7 @@
   "generator": "built-in image_gen",
   "transparent_background": true,
   "base_commit": "c0918c09c43d2fe475776713fa345d68bb9d9d89",
-  "scope": "12 generated source sheets (55 cels). Runtime unchanged.",
+  "scope": "13 generated source sheets (61 cels). Runtime unchanged.",
   "style_reference": {
     "file": "refs/00_style_run_v4_8frames.png",
     "repository_source": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
@@ -1788,6 +1788,177 @@
           "previous_sha256": null,
           "prompt": "Production 2D game animation sprite sheet, EXACT SIX poses in 3 columns by 2 rows. Reference gives exact youthful hero identity, costume and art style. Black ponytail, red scarf, ragged dark teal cape, charcoal tunic/trousers, brown boots/belt, short straight steel sword with gold hilt. Faces RIGHT. AIRBORNE RIGHTWARD normal sword attack, targets enemy horizontally to his RIGHT, all six frames float with bent tucked legs, never planted stance or running. Reading order: 1 compact airborne guard; 2 sword drawn beside shoulder in backswing; 3 blade cuts forward horizontally at chest; 4 full rightward arm extension, complete sword extends RIGHT at chest level; 5 small low-forward followthrough, elbow retracts; 6 airborne guard again. Stable bent-leg silhouette family, keep body center at same local coordinates and scale, no jump arc or root travel. IMPORTANT each FULL character+weapon occupies only central 60% of each equal cell, shrink complete poses so even fully extended sword in frame4 has at least 15% transparent right margin. Cape,hair,boots,blade entirely inside cell, no cropped tips or crossing neighbor. Muted textured hand painted anime with dark ink outlines exactly like reference, no shiny redesign. Genuine transparent background, empty space alpha=0. Only opaque hero and held sword. No gradients, aura, colored haze, slash VFX, floor shadow, labels, borders.\n",
           "original_tool_output": "exec-48e80bad-79aa-4664-b967-51187b81c2b4.png"
+        }
+      ],
+      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "visual_review": [
+        "RGBA and per-cel bounds checked",
+        "No runtime integration or playback claim"
+      ]
+    },
+    {
+      "file": "E_attack_down_ground.png",
+      "prompt_file": "E_attack_down_ground.txt",
+      "frames": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "passes": 1,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "3064e3a51e72d3fb58dbb6faf7b15987297c3f1c691c6f3e2b8de9825ca9c96d",
+      "prompt_sha256": "a0daf461b8039e6fe527cdb4bef1d6fc63f45627a0758f5c72d9d0445e3ffc23",
+      "original_tool_output": "exec-606930f9-1aff-4dfe-8c78-b278f367b6bf.png",
+      "rgba_alpha_zero_pixels": 1082397,
+      "rgba_alpha_ge_128_pixels": 427127,
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "regions": [
+        {
+          "index": 1,
+          "region": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            41,
+            119,
+            473,
+            480
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            41,
+            119,
+            39,
+            32
+          ],
+          "rgba_region_sha256": "7f36b3304d3ca8ca50829d17607fce62efa951aac51098dd99c33f6d2aa8b708"
+        },
+        {
+          "index": 2,
+          "region": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            56,
+            66,
+            429,
+            481
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            56,
+            66,
+            83,
+            31
+          ],
+          "rgba_region_sha256": "59d5be9b858e4072c6082af9f0bbff4db83186512e026c9baafa7ec84df07a81"
+        },
+        {
+          "index": 3,
+          "region": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            45,
+            124,
+            461,
+            481
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            45,
+            124,
+            51,
+            31
+          ],
+          "rgba_region_sha256": "f20315ee9bfb59e431f78b310daf711646f656a81ae85060228fbe72822fd700"
+        },
+        {
+          "index": 4,
+          "region": [
+            0,
+            512,
+            545,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            54,
+            77,
+            537,
+            432
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            54,
+            77,
+            8,
+            80
+          ],
+          "rgba_region_sha256": "1a1459ac2604525c44f288e62052757420eb4549354d72396177118927de820a"
+        },
+        {
+          "index": 5,
+          "region": [
+            545,
+            512,
+            479,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            13,
+            75,
+            445,
+            433
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            13,
+            75,
+            34,
+            79
+          ],
+          "rgba_region_sha256": "3f9905c3b0d37066553f485394dba382b00e0346146c1f2f4c960d271e1aefe8"
+        },
+        {
+          "index": 6,
+          "region": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "opaque_bounds_in_region": [
+            33,
+            75,
+            462,
+            432
+          ],
+          "opaque_padding_left_top_right_bottom": [
+            33,
+            75,
+            50,
+            80
+          ],
+          "rgba_region_sha256": "8580501cbc8a3c6a7cce4c9be39b322c8fca40f381ec7d41163d1db4cae2798e"
+        }
+      ],
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous_sha256": null,
+          "prompt": "Production 2D side-scroller sprite animation source sheet, EXACT SIX complete sequential cels, 3 columns by 2 rows. Reference is authoritative character identity and muted textured ink-painted anime style. Young right-facing swordsman black ponytail, red scarf, ragged teal cape, charcoal tunic and trousers, brown boots and belt, short straight steel sword gold hilt. GROUND NORMAL DOWNWARD SLASH, fast LIGHT ordinary attack, not charged heavy skill. Feet stay grounded on same local baseline in all six cels, no airborne/tucked legs. Chronology: 1 compact neutral guard sword low forward; 2 brief one-handed sword lift beside shoulder; 3 quick diagonal descending stroke to RIGHT, torso turns and front knee softens; 4 complete blade finishes diagonally down-right below waist, modest forward body lean; 5 elbow retracts sword back low forward; 6 returns compact neutral guard. One hand holds sword, free hand balances; no heavy two-handed overhead windup, no giant cleave, no ground impact effects. Same body and sword proportions and scale across frames. Entire character INCLUDING longest sword extension stays within central 60% of each equal cell, wide 15-20% clear transparent margins and gutters. Full hair, boots and sword tip; no cropping or crossing neighboring cels. Opaque ink-painted character and sword on genuine alpha-zero transparent background, no shadows, glow, gradient, energy arc, labels or panels.\n",
+          "original_tool_output": "exec-606930f9-1aff-4dfe-8c78-b278f367b6bf.png"
         }
       ],
       "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
