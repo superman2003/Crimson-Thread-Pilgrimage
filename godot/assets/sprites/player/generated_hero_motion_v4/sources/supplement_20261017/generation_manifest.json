@@ -2357,10 +2357,37 @@
           "original_tool_output": "exec-ada29792-dd22-42de-a7ef-0ea52680206f.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static intermediate source poses inspected; exact endpoint registration and in-game continuity pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
+        "Four ordered intermediate poses inspected",
+        "Intended turning route or successive blade angles inspected",
+        "Full alpha>=128 structural silhouettes inside declared crop regions",
+        "PNG, prompt and per-region hashes verified"
+      ],
+      "transition_usage": {
+        "from": {
+          "file": "F_air_attack_left.png",
+          "frame": 6
+        },
+        "to": {
+          "file": "F_air_attack_right.png",
+          "frame": 1
+        },
+        "route": "front_view",
+        "phases": [
+          "left_front_three_quarter",
+          "near_front",
+          "front_right_three_quarter",
+          "near_right_profile"
+        ],
+        "frame_index_base": 1,
+        "state": "airborne",
+        "runtime_integrated": false,
+        "registration_required": true
+      },
+      "reference_images": [
+        "F_air_attack_left.png",
+        "F_air_attack_right.png"
       ]
     },
     {
@@ -2484,10 +2511,37 @@
           "original_tool_output": "exec-5031f54d-3d6d-4e15-acec-d5d82c08e7dd.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static intermediate source poses inspected; exact endpoint registration and in-game continuity pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
+        "Four ordered intermediate poses inspected",
+        "Intended turning route or successive blade angles inspected",
+        "Full alpha>=128 structural silhouettes inside declared crop regions",
+        "PNG, prompt and per-region hashes verified"
+      ],
+      "transition_usage": {
+        "from": {
+          "file": "F_air_attack_right.png",
+          "frame": 1
+        },
+        "to": {
+          "file": "F_air_attack_left.png",
+          "frame": 6
+        },
+        "route": "back_view",
+        "phases": [
+          "right_back_three_quarter",
+          "near_back",
+          "back_left_three_quarter",
+          "near_left_profile"
+        ],
+        "frame_index_base": 1,
+        "state": "airborne",
+        "runtime_integrated": false,
+        "registration_required": true
+      },
+      "reference_images": [
+        "F_air_attack_right.png",
+        "F_air_attack_left.png"
       ]
     },
     {
@@ -2611,10 +2665,36 @@
           "original_tool_output": "exec-4b8870aa-9b2d-4a1f-9153-4ac1f28f0da1.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static intermediate source poses inspected; exact endpoint registration and in-game continuity pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
+        "Four ordered intermediate poses inspected",
+        "Intended turning route or successive blade angles inspected",
+        "Full alpha>=128 structural silhouettes inside declared crop regions",
+        "PNG, prompt and per-region hashes verified"
+      ],
+      "transition_usage": {
+        "from": {
+          "file": "F_air_attack_up.png",
+          "frame": 4
+        },
+        "to": {
+          "file": "E_attack_down.png",
+          "frame": 4
+        },
+        "phases": [
+          "retract_upward_blade",
+          "cross_guard",
+          "lower_wrist_and_blade",
+          "approach_downward_extension"
+        ],
+        "frame_index_base": 1,
+        "state": "airborne",
+        "runtime_integrated": false,
+        "registration_required": true
+      },
+      "reference_images": [
+        "F_air_attack_up.png",
+        "E_attack_down.png"
       ]
     },
     {
@@ -2738,10 +2818,36 @@
           "original_tool_output": "exec-afaa352f-3e1f-45b3-8cab-59bec24444af.png"
         }
       ],
-      "review_status": "Source silhouettes inspected; cell registration and runtime playback not yet accepted.",
+      "review_status": "Static intermediate source poses inspected; exact endpoint registration and in-game continuity pending.",
       "visual_review": [
-        "RGBA and per-cel bounds checked",
-        "No runtime integration or playback claim"
+        "Four ordered intermediate poses inspected",
+        "Intended turning route or successive blade angles inspected",
+        "Full alpha>=128 structural silhouettes inside declared crop regions",
+        "PNG, prompt and per-region hashes verified"
+      ],
+      "transition_usage": {
+        "from": {
+          "file": "E_attack_down.png",
+          "frame": 4
+        },
+        "to": {
+          "file": "F_air_attack_up.png",
+          "frame": 4
+        },
+        "phases": [
+          "retract_downward_blade",
+          "cross_guard",
+          "raise_hilt",
+          "approach_upward_extension"
+        ],
+        "frame_index_base": 1,
+        "state": "airborne",
+        "runtime_integrated": false,
+        "registration_required": true
+      },
+      "reference_images": [
+        "E_attack_down.png",
+        "F_air_attack_up.png"
       ]
     }
   ],
@@ -2755,6 +2861,7 @@
     "runtime_playback": "not run",
     "idle_cloth_endpoint_art_acceptance": "pending",
     "new_transition_sheets": 4,
-    "new_transition_cels": 16
+    "new_transition_cels": 16,
+    "new_transition_structural_crop_boundaries": "passed"
   }
 }
