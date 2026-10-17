@@ -1,0 +1,168 @@
+{
+  "schema": "source-keyframes-v1",
+  "character": "bronze_moth",
+  "image": "hurt_death.png",
+  "image_size": [
+    1774,
+    887
+  ],
+  "generator": "built-in image_gen.imagegen",
+  "use_case": "identity-preserve",
+  "reference": "godot/assets/sprites/original_creatures/bronze_moth/atlas.png",
+  "reference_sha256": "6780e00a2a582b5b16226683b1556696c0103a01689166945c1a936f72404514",
+  "prompt": "Use case: identity-preserve. EXACT bronze_moth from reference: elegant flying dark teal moth with ornamental bronze filigree along four wing edges, little dangling bronze teardrops, fluffy blue-gray collar, dark thin body and limbs, feathered bronze antennae, amber mask face and glowing orange eye. Preserve exact anatomy, palette and intricate painted ink finish. ONE landscape transparent RGBA sheet FOUR columns TWO rows, EIGHT isolated complete right-facing figures at equal scale. Miniature sprites central 60% cell width and 70% height with wide clear gutters, every wing tip, dangling ornament and antenna included. Top row FOUR nonlethal hurt/recovery poses: body jolts back and wings uneven; wings fold defensively; wings reopen and body levels; neutral balanced hover. Bottom row FOUR death poses: wingbeats fail and wings droop; tips nose downward; lands sideways with folded wings; lifeless grounded moth with wings resting low, orange eye dimmed. Actual wing/body articulation, no duplicated stamps, clipping or touching neighbors. Genuine alpha transparency, no background, floor, shadows, grids, text, particles or gore.",
+  "image_sha256": "67f8c5ca8cf9d29a39b6a929a712053cc61d14496dee3402578bdd0ff185ddbe",
+  "frames": [
+    {
+      "action": "hurt_recover",
+      "index": 0,
+      "pose": "中击",
+      "region": [
+        0,
+        0,
+        474,
+        456
+      ],
+      "visible_bbox_alpha_gt_24": [
+        25,
+        33,
+        414,
+        413
+      ],
+      "rgba_sha256": "626be8486c5042477e8225033b85678a52084b8dd4a2068b12d4c2418b3b1d9c"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 1,
+      "pose": "卸力后缩",
+      "region": [
+        474,
+        0,
+        434,
+        456
+      ],
+      "visible_bbox_alpha_gt_24": [
+        509,
+        149,
+        385,
+        298
+      ],
+      "rgba_sha256": "fb66500c1e516c84a18319adef15661280349ee1316aa4f14d751143ff939305"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 2,
+      "pose": "重新支撑",
+      "region": [
+        908,
+        0,
+        423,
+        456
+      ],
+      "visible_bbox_alpha_gt_24": [
+        924,
+        32,
+        384,
+        414
+      ],
+      "rgba_sha256": "fec341e756d894b0abf4482a4575d2febabbab412ed0a962aab08ff92ac418a0"
+    },
+    {
+      "action": "hurt_recover",
+      "index": 3,
+      "pose": "恢复警戒",
+      "region": [
+        1331,
+        0,
+        443,
+        456
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1355,
+        62,
+        389,
+        383
+      ],
+      "rgba_sha256": "6ca8f435f3822a08bf8152fd3712cd60ca7862b3d51ee805c4286b905cfb9fb1"
+    },
+    {
+      "action": "death",
+      "index": 0,
+      "pose": "失力",
+      "region": [
+        0,
+        456,
+        456,
+        431
+      ],
+      "visible_bbox_alpha_gt_24": [
+        29,
+        537,
+        409,
+        315
+      ],
+      "rgba_sha256": "b7964fc423afb5dc76f11b9f5001103cf0b7b06155e5e4f934e9998f4f122050"
+    },
+    {
+      "action": "death",
+      "index": 1,
+      "pose": "下沉",
+      "region": [
+        456,
+        456,
+        395,
+        431
+      ],
+      "visible_bbox_alpha_gt_24": [
+        476,
+        467,
+        367,
+        385
+      ],
+      "rgba_sha256": "773ce446c50904fd1f982a0ad68202c7d72a49c976b48951a703954d8cc96e3b"
+    },
+    {
+      "action": "death",
+      "index": 2,
+      "pose": "倒地",
+      "region": [
+        851,
+        456,
+        485,
+        431
+      ],
+      "visible_bbox_alpha_gt_24": [
+        860,
+        651,
+        461,
+        201
+      ],
+      "rgba_sha256": "cae9e52583c5e41bf7b4aec80030e0535a7287712d458f0a18b714a1804b1fe1"
+    },
+    {
+      "action": "death",
+      "index": 3,
+      "pose": "停止活动",
+      "region": [
+        1336,
+        456,
+        438,
+        431
+      ],
+      "visible_bbox_alpha_gt_24": [
+        1351,
+        679,
+        399,
+        175
+      ],
+      "rgba_sha256": "c653f5c2f159c6a46262a5b04448fdcbb7cc5eeef63cee41eee557d3906650fa"
+    }
+  ],
+  "qa": {
+    "mode": "RGBA",
+    "fully_transparent_pixels": 976676,
+    "region_structure": "All alpha>24 silhouettes have at least 2px interior margin; exact row-specific regions recorded.",
+    "visual_review": "Eight complete teal moths, bronze filigree wing borders and hanging ornaments, feather antennae, collar, limbs and orange eye retained. Recoil folds then reopens wings; death tips nose down, lands on side and rests.",
+    "runtime_status": "source_only; proportion, rig anchors, timing and endpoint playback require runtime integration review"
+  }
+}
