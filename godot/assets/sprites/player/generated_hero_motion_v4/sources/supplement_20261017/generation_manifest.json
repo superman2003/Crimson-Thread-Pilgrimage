@@ -299,7 +299,8 @@
         "refs/00_style_run_v4_8frames.png"
       ],
       "refinement_input_sha256": "d65675363ecdb447b99731f5a284fecbb60315dd4d8890004830d50901b267c0",
-      "passes": 2
+      "passes": 2,
+      "review_status": "User source-art review passed; unchanged in correction batch."
     },
     {
       "file": "C_skill_melee.png",
@@ -424,7 +425,8 @@
         "refs/00_style_run_v4_8frames.png"
       ],
       "refinement_input_sha256": "7e2d99ca00c62d3ff97f3b32fa65fb31f826b6fc75ce4cc2511618fb9c90775f",
-      "passes": 2
+      "passes": 2,
+      "review_status": "User source-art review passed; unchanged in correction batch."
     },
     {
       "file": "C_skill_wave.png",
@@ -562,7 +564,8 @@
           "prompt": "Use case: precise-object-edit. Edit target image 1, the four-cell sword-wave animation source sheet. Preserve exactly the same FOUR character poses, all character anatomy, costume, face, hair, teal cape, red scarf, complete steel swords, muted hand-painted ink style and 2x2 arrangement. Remove ONLY the detached cyan energy crescent in bottom-left cell and the detached cyan energy crescent in bottom-right cell, including their glow. Empty space replaces them. Do not remove the steel blade or hand in either cell. Preserve the small cyan marks on the held sword in the top-right cell. No projectile, no crescent, no new effect, no extra objects. Genuine transparent alpha-zero background outside precise sprite silhouettes, no diffuse halos, shadow, gradients, black or white background, checkerboard, labels or border. Keep complete silhouettes well within each cell and ample transparent gutters. Same sheet size and sprite scale.\n",
           "original_tool_output": "exec-ee88cdf8-5b84-4017-a437-2fbccde2a8cd.png"
         }
-      ]
+      ],
+      "review_status": "Source correction generated and inspected; runtime registration/playback acceptance pending."
     },
     {
       "file": "C_item_use.png",
@@ -700,7 +703,8 @@
           "prompt": "Use case: precise-object-edit. Asset type: four-cel 2D game tactical item animation source sheet. Edit target image 1. Preserve the same FOUR chronological full-body poses, character identity, youthful proportions, black ponytail, red scarf, teal cape, muted hand-painted ink rendering, sword, limbs and 2x2 arrangement. Corrections ONLY: (1) remove the detached flying flask from the bottom-left and bottom-right cells, leaving transparent space; KEEP the small flask actually held in the free hand in frames 1 and 2. The game generates its own thrown projectile. (2) A small brown leather belt pouch currently appears at the LEFT hip of the top-right and bottom-right characters. Add the SAME pouch to the same hip of the top-left and bottom-left characters so it is consistently attached in ALL FOUR cells. It may be partly naturally occluded by the near arm but cannot vanish. Preserve the existing two pouches' design, size, brown color and hip attachment. No other body or costume redesign. Same complete sword and hand silhouettes, no frame cropping, no glow or shadow, no diffuse halo, no labels. Genuine alpha-zero transparent background. Generous transparent margins and gutters, complete silhouettes inside equal cells.\n",
           "original_tool_output": "exec-eed956a3-ae35-4cad-8585-220732d5c10b.png"
         }
-      ]
+      ],
+      "review_status": "Source correction generated and inspected; runtime registration/playback acceptance pending."
     },
     {
       "file": "D_jump_loop.png",
@@ -793,7 +797,8 @@
           "prompt": "Use case: identity-preserve. Asset type: two-frame rising airborne idle loop sprite source sheet, facing RIGHT. Input image 1 is EDIT TARGET. The first (LEFT) character's pose is approved; the second (RIGHT) character's tucked legs are wrong. Rebuild the sheet as exactly TWO equal square cells in ONE horizontal row. Both cells must depict precisely the LEFT character's complete airborne pose at identical local pixel placement and scale: SAME head, torso, both arms and hands, held short straight steel sword angle, SAME two bent legs, SAME knee angles, SAME boot shapes, SAME feet positions. Do NOT use the original right character's tucked-knee pose. The second cell should look like a locked drawing of the first body, with a tiny cloth flutter only. In cel 2 change ONLY the free far-left tips of the red scarf and teal cape by a very small amount (about 1-2 percent of character height); preserve collar attachment, torso silhouette and all limbs. No pedaling, running, kicking, knee lifting, whole-body bob or root movement. Rising loop: cape hangs/trails left-down; no floor or landing. Keep EXACT original youthful black-ponytailed character, red scarf, worn teal cape, dark tunic and trousers, brown boots, gold sword hilt, textured hand-painted ink style. Full silhouettes and sword tips entirely inside each cell with wide transparent outer margins and gutter. Genuine transparent alpha, no background fill, shadow, gradient, glow, text or borders. Main priority: knee and boot silhouettes must be the SAME in the two cells; variation belongs exclusively to small cloth-tip flutter.\n",
           "original_tool_output": "exec-399e72d5-bf29-4d6b-b145-396fe4fb1389.png"
         }
-      ]
+      ],
+      "review_status": "Leg pose redrawn from first source cel for both frames; cloth-tip variation inspected; runtime registration/playback acceptance pending."
     },
     {
       "file": "D_fall_loop.png",
@@ -808,11 +813,11 @@
         887
       ],
       "mode": "RGBA",
-      "sha256": "ff55dabf2f03c8811b23c6bec61ff1b382cbfdd9b8ba5ab8d89fe6466f7ad91d",
-      "prompt_sha256": "68f299d7f032c13b220bcde0ad42819cd2d90176f2aa4059caa364b85c311549",
-      "original_tool_output": "exec-64d36593-d8af-4e73-8571-8cf3a16071b6.png",
-      "rgba_alpha_zero_pixels": 1191842,
-      "rgba_alpha_ge_128_pixels": 342254,
+      "sha256": "1d0fc9e77cdf88d48d6a572969a8d87d47f13fc56c59378ca597258fb56a4b2f",
+      "prompt_sha256": "58da66ed0c2e3e832e098e7b804bfbc7b69ca6dc044093ae4e1a7fd8d5f2d599",
+      "original_tool_output": "exec-2c75749a-5ee8-48e7-b348-af78f3dc9974.png",
+      "rgba_alpha_zero_pixels": 1071672,
+      "rgba_alpha_ge_128_pixels": 456572,
       "alpha_extrema": [
         0,
         255
@@ -827,18 +832,18 @@
             887
           ],
           "opaque_bounds_in_region": [
-            165,
-            122,
-            865,
-            778
+            97,
+            94,
+            905,
+            842
           ],
           "opaque_padding_left_top_right_bottom": [
-            165,
-            122,
-            65,
-            109
+            97,
+            94,
+            25,
+            45
           ],
-          "rgba_region_sha256": "47cc61b8992fe9e3c384601a71e0e7bd21b24a834d8a478c0d126845306d25d5"
+          "rgba_region_sha256": "a9f1c8bb81d59f13c9a1413499b3f6f219399dab7c7b1350fb6c3dd5db84d1e6"
         },
         {
           "index": 2,
@@ -849,31 +854,44 @@
             887
           ],
           "opaque_bounds_in_region": [
-            62,
-            117,
-            759,
-            789
+            25,
+            91,
+            834,
+            842
           ],
           "opaque_padding_left_top_right_bottom": [
-            62,
-            117,
-            85,
-            98
+            25,
+            91,
+            10,
+            45
           ],
-          "rgba_region_sha256": "1016c39d48a3a105aa7c92ae2b87b2dbcb94bd256c2765f48b498cb2735bb884"
+          "rgba_region_sha256": "37eab77d90c91b957f21903dbec90b3f40564d5ea331f2736954a3a9dfcd1bc0"
         }
       ],
       "visual_review": [
-        "requested cel count",
-        "right-facing silhouettes",
-        "full sword/cloth clearance",
-        "separated frame groups",
-        "matching v4 costume and rendering"
+        "correct cel count and complete silhouettes",
+        "actual alpha channel and clear gutters",
+        "user review correction inspected; runtime acceptance pending"
       ],
       "reference_images": [
         "refs/00_style_run_v4_8frames.png"
       ],
-      "passes": 1
+      "passes": 2,
+      "review_corrections": [
+        {
+          "date": "2026-10-17",
+          "previous": {
+            "sha256": "ff55dabf2f03c8811b23c6bec61ff1b382cbfdd9b8ba5ab8d89fe6466f7ad91d",
+            "dimensions": [
+              1774,
+              887
+            ],
+            "original_tool_output": "exec-64d36593-d8af-4e73-8571-8cf3a16071b6.png"
+          },
+          "prompt": "Use case: identity-preserve. Asset type: two-frame descending airborne idle loop sprite source sheet, facing RIGHT. Input image 1 is EDIT TARGET. Use the first (LEFT) character's complete body pose as the locked pose for BOTH cells. The right character's changing boots/knees are wrong. Exactly TWO equal square cells in ONE horizontal row. In both cells keep IDENTICAL head, face, torso, shoulder, arms, hands, held steel sword angle, belt and tunic, SAME relaxed falling legs, SAME knee bend, SAME two boot shapes and feet placement. Both frames use the LEFT body's pose; do not animate legs, do not kick or pedal. Anchor the same body at identical local cell coordinates and uniform scale. Frame 2 changes ONLY the far-left free tips of the red scarf and teal cape a tiny amount (about 1-2 percent of character height); collar and main folds stay stable. Cloth streams up-left for falling, no floor or crouched landing. No whole-body bob or root shift, no changed hairstyle. Preserve the exact youthful black-ponytailed swordsman, dark worn tunic and trousers, brown leather boots, gold sword hilt, red scarf, teal cape and textured ink hand-painted style from image 1. Preserve all sword tips, fingers, hair and boots, wide genuine transparent margins and gutter. Genuine transparent alpha-zero empty background, no new effects, no glow, haze, shadow, text, border or checkerboard. Highest priority: keep both knee and boot silhouettes identical so the two-frame loop cannot flap its legs.\n",
+          "original_tool_output": "exec-2c75749a-5ee8-48e7-b348-af78f3dc9974.png"
+        }
+      ]
     }
   ]
 }
