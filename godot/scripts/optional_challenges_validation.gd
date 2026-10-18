@@ -237,6 +237,49 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear survives ch04 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_canal_hunt", false)), "ch02 hunt clear survives ch04 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch04 travel")
+
+	# Tracking hunt in ch04 greenhouse: overlook + west spoke tracks -> root vault quarry.
+	await travel(CH04, Vector2(1980, 880))
+	await tick(6)
+	check(String(scene.config.get("id", "")) == CH04, "fixture is in broken string greenhouse for hunt")
+	check(scene.config.get("optional_challenges", []).size() >= 2, "ch04 authors challenge room and tracking hunt")
+	var track_root_a: Area2D = scene.get_node_or_null("hunt_track_ch04_root_a")
+	check(track_root_a != null, "root hunt track A spawns at the canopy overlook")
+	scene._activate_hunt_track(track_root_a)
+	await tick(2)
+	await travel(CH04, Vector2(1400, 1570))
+	await tick(6)
+	var track_root_b: Area2D = scene.get_node_or_null("hunt_track_ch04_root_b")
+	check(track_root_b != null, "root hunt track B spawns on the west spoke")
+	scene._activate_hunt_track(track_root_b)
+	await tick(2)
+	await travel(CH04, Vector2(2480, 1942))
+	await tick(6)
+	var root_hunt := challenge("ch04_root_cage_hunt")
+	check(scene._challenge_tracks_ready(root_hunt), "root hunt becomes ready after both tracks")
+	var shrine_root: Area2D = scene.get_node_or_null(String(root_hunt.get("shrine", {}).get("id", "")))
+	# Anti-skip: missing a track still refuses.
+	scene.story_flags["hunt_track_ch04_root_b"] = false
+	scene._activate_challenge_shrine(shrine_root)
+	await tick(2)
+	check(scene.active_challenge_id.is_empty(), "root hunt still refuses when a track is missing")
+	scene.story_flags["hunt_track_ch04_root_b"] = true
+	# Lock push keeps player on the shrine/enemy side (left of east wall).
+	var ch04_hunt_lock: Rect2 = scene._rect2(root_hunt.get("lock_rect", []))
+	var ch04_hunt_inside: float = scene._challenge_lock_inside_x(root_hunt, ch04_hunt_lock)
+	check(ch04_hunt_inside < ch04_hunt_lock.position.x, "ch04 hunt lock inside is left of the east wall")
+	scene.player.global_position = Vector2(ch04_hunt_lock.position.x + 10.0, 1942)
+	scene._start_optional_challenge(root_hunt)
+	await tick(2)
+	check(scene.player.global_position.x < ch04_hunt_lock.position.x, "ch04 hunt seal push keeps the player inside left of the wall")
+	scene._clear_active_challenge(false)
+	await tick(2)
+	await run_challenge_clear("ch04_root_cage_hunt", "evidence_root_track", "charm_mender_found")
+	check(scene._save_world(), "ch04 hunt progress saves")
+	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear flag is on disk")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_beeswax", false)), "ch04 beeswax clear survives hunt")
+
 	# Challenge room in ch05 war graves (lantern/obsidian reward branch off the banner bridge).
 	await travel(CH05, Vector2(200, 1352))
 	await tick(6)
@@ -261,6 +304,7 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_canal_hunt", false)), "ch02 hunt clear survives ch05 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch05 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_beeswax", false)), "ch04 clear flag survives ch05 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear survives ch05 travel")
 
 
 	# Challenge room in ch06 bell tongue vault (optional crown-side reward room).
@@ -288,6 +332,7 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch06 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_beeswax", false)), "ch04 clear flag survives ch06 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch05_war_graves", false)), "ch05 clear flag survives ch06 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear survives ch06 travel")
 
 	# Reload from disk: cleared challenges stay cleared, rewards do not repeat.
 	scene.free()
