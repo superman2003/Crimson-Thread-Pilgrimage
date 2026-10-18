@@ -109,6 +109,11 @@
         "name": "证词·其五",
         "category": "Relics",
         "description": "六份证词之五：朝圣者冢碑背拼合的拒令条款全文。"
+      },
+      "evidence_lantern_graves_echo": {
+        "name": "证据·军墓灯影",
+        "category": "Relics",
+        "description": "巡礼军墓挑战房留下的灯影残响。不挡主线，却能证明你敲响过军墓余响钟。"
       }
     }
   },
@@ -576,7 +581,7 @@
         168
       ],
       "objective": "在军墓里找到逃旗手与隐藏灯位。",
-      "guide": "隐藏存档点藏在墓碑后。",
+      "guide": "隐藏存档点藏在墓碑后。 余响钟可开启挑战房。",
       "danger": "军墓安静得能听见旗子自己动。",
       "next": "回到旗桥",
       "setpiece": "复活旗军墓",
@@ -7862,5 +7867,86 @@
     "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
   },
   "boss_route_via_exploration": true,
-  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。"
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "optional_challenges": [
+    {
+      "id": "ch05_war_graves_trial",
+      "name": "军墓试炼",
+      "kind": "challenge_room",
+      "room_id": "war_graves",
+      "clear_flag": "challenge_clear_ch05_war_graves",
+      "bypass_note": "不敲钟可拿沉默军令／黑曜碎片与暗灯离开，经旗桥回营地；主线不依赖此房。封门只封东侧旗桥入口，西侧墓区仍可撤离（可绕开设计）。",
+      "shrine": {
+        "id": "challenge_shrine_ch05_war_graves",
+        "position": [
+          200,
+          1352
+        ],
+        "label": "余响钟 · 军墓试炼"
+      },
+      "lock_rect": [
+        348,
+        1280,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH05_N1",
+          "kind": "obsidian_spearman",
+          "position": [
+            110,
+            1352
+          ],
+          "sprite": "res://assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+          "visual_scale": 0.3322884012539185,
+          "visual_offset": [
+            0,
+            4.169278996865202
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/obsidian_spearman/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 66,
+          "elite": true
+        },
+        {
+          "id": "CH05_N2",
+          "kind": "ash_banner_imp",
+          "position": [
+            280,
+            1352
+          ],
+          "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+          "visual_scale": 0.24024024024024024,
+          "visual_offset": [
+            0,
+            17.51951951951952
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 40,
+          "elite": true
+        }
+      ],
+      "reward": {
+        "currency": 40,
+        "material_amount": 2,
+        "item_id": "evidence_lantern_graves_echo",
+        "item_amount": 1,
+        "toast": "军墓首清：取得军墓灯影证据，并得额外碎钱与材料。"
+      }
+    }
+  ]
 }

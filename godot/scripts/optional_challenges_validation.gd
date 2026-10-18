@@ -8,6 +8,7 @@ const CH01 := "demo_ch01_moss_bell_court"
 const CH02 := "demo_ch02_rain_foundry_canal"
 const CH03 := "demo_ch03_saltwhite_archive"
 const CH04 := "demo_ch04_broken_string_greenhouse"
+const CH05 := "demo_ch05_obsidian_pilgrim_road"
 var scene: Node
 var failures := 0
 var checks := 0
@@ -235,6 +236,30 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear survives ch04 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_canal_hunt", false)), "ch02 hunt clear survives ch04 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch04 travel")
+	# Challenge room in ch05 war graves (lantern/obsidian reward branch off the banner bridge).
+	await travel(CH05, Vector2(200, 1352))
+	await tick(6)
+	check(String(scene.config.get("id", "")) == CH05, "fixture is in obsidian pilgrim road")
+	check(scene.config.get("optional_challenges", []).size() >= 1, "ch05 authors at least one optional challenge")
+	var ch05 := challenge("ch05_war_graves_trial")
+	var ch05_lock: Rect2 = scene._rect2(ch05.get("lock_rect", []))
+	var ch05_inside: float = scene._challenge_lock_inside_x(ch05, ch05_lock)
+	check(ch05_inside < ch05_lock.position.x, "ch05 lock inside is left of the east wall")
+	scene.player.global_position = Vector2(ch05_lock.position.x + 10.0, 1352)
+	scene._start_optional_challenge(ch05)
+	await tick(2)
+	check(scene.player.global_position.x < ch05_lock.position.x, "ch05 seal push keeps the player inside left of the wall")
+	scene._clear_active_challenge(false)
+	await tick(2)
+	await run_challenge_clear("ch05_war_graves_trial", "evidence_lantern_graves_echo")
+	check(scene._save_world(), "ch05 challenge progress saves")
+	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch05_war_graves", false)), "ch05 clear flag is on disk")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch01_crown_nook", false)), "ch01 clear flag survives ch05 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear survives ch05 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_canal_hunt", false)), "ch02 hunt clear survives ch05 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch05 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_beeswax", false)), "ch04 clear flag survives ch05 travel")
 
 	# Reload from disk: cleared challenges stay cleared, rewards do not repeat.
 	scene.free()
