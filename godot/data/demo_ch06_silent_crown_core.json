@@ -368,7 +368,7 @@
       ],
       "objective": "顺核心竖井受控下坠，直到钟舌库。",
       "guide": "井里的托板只接得住一次落点。",
-      "danger": "井壁的迟影会跟着你落。",
+      "danger": "托板一块接一块，落下前先看清下一块。",
       "next": "钟舌库",
       "setpiece": "王冠核心井",
       "traversal_focus": "受控坠落",
@@ -410,9 +410,9 @@
         236,
         168
       ],
-      "objective": "拉下钟舌拉杆：清怪后西环门长开，王座之路解锁。",
+      "objective": "拉下钟舌拉杆：西环门长开，王座之路解锁。",
       "guide": "旧王钟舌就吊在你头顶。",
-      "danger": "库底黑潮的声音最近。",
+      "danger": "钟舌库没有敌人，灯下可以缝补；库底黑潮的声音最近。",
       "next": "西环廊",
       "setpiece": "旧王钟舌",
       "traversal_focus": "捷径解锁",
@@ -467,7 +467,7 @@
       ],
       "objective": "沿西环廊爬回上层，穿过黑曜与盐白回声。",
       "guide": "环门打开后，这里直通前厅。",
-      "danger": "回声军令在环廊里回荡。",
+      "danger": "迟影守着中段之字台，顶层光核会隔空落圈。",
       "next": "黑曜回声室",
       "setpiece": "西环白骨廊",
       "traversal_focus": "环廊回爬",
@@ -511,7 +511,7 @@
       ],
       "objective": "清理黑曜回声，取回第五枚印记的证词。",
       "guide": "军令圈的边缘会先亮半拍。",
-      "danger": "回声统帅的军阵比生前更密。",
+      "danger": "回声统帅的军阵比生前更密，棘哨在旗台上封路。",
       "next": "盐白回声室",
       "setpiece": "黑曜回声营",
       "traversal_focus": "回声战斗",
@@ -599,7 +599,7 @@
       ],
       "objective": "在苔庭回声里回望第一座庭院，找到黑潮童声的暗格。",
       "guide": "隐藏存档点藏在回声苔灯后。",
-      "danger": "这里最安静，安静得不该久留。",
+      "danger": "这里最安静，暗格灯下可以久留。",
       "next": "王冠前厅（冠肋攀回）",
       "setpiece": "苔庭回声庭",
       "traversal_focus": "见而未达",
@@ -698,7 +698,7 @@
       ],
       "objective": "穿过前廊直达王座，死亡回跑很短。",
       "guide": "前廊有六印守望者的常明灯。",
-      "danger": "前廊的回声最密集。",
+      "danger": "常明灯下可以喘息；回声骑士只守王座门前，盾波未散时别急着缝补。",
       "next": "无声王座",
       "setpiece": "六印前廊",
       "traversal_focus": "短促冲刺",
@@ -3047,7 +3047,8 @@
       "spawn_visual_height": 70,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "回声盾反击，交替快慢波"
+      "combat_identity": "回声盾反击，交替快慢波",
+      "elite": true
     },
     {
       "id": "E02",
@@ -3198,13 +3199,13 @@
       "id": "E07",
       "kind": "delayed_shadow",
       "position": [
-        2770,
-        2860
+        2270,
+        2538
       ],
-      "platform_id": "vault_floor",
+      "platform_id": "ringW_zig_c",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 40,
       "sprite": "res://assets/sprites/original_creatures/delayed_shadow/manifest.json",
       "visual_scale": 0.29673590504451036,
       "visual_offset": [
@@ -3215,13 +3216,14 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/delayed_shadow/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 90,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 60,
       "clearance": 40,
       "locomotion": "flight",
-      "combat_identity": "闪位后的迟发影刃，位置预警保留到出手"
+      "combat_identity": "闪位后的迟发影刃，位置预警保留到出手",
+      "encounter_role": "ring_zigzag_ambusher"
     },
     {
       "id": "E08",
@@ -3315,13 +3317,13 @@
       "id": "E11",
       "kind": "echo_moss_larva",
       "position": [
-        1780,
-        1550
+        1700,
+        1770
       ],
-      "platform_id": "moss_court_floor",
+      "platform_id": "salt_page_step",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 30,
       "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
       "visual_scale": 0.301255230125523,
       "visual_offset": [
@@ -3332,7 +3334,7 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 70,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 32,
@@ -3344,13 +3346,13 @@
       "id": "E12",
       "kind": "echo_thorn_sentinel",
       "position": [
-        2230,
-        1456
+        1385,
+        2100
       ],
-      "platform_id": "moss_bell_perch",
+      "platform_id": "obs_banner_step",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 0,
       "sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/manifest.json",
       "visual_scale": 0.3564356435643564,
       "visual_offset": [
@@ -3361,25 +3363,26 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 180,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 68,
       "clearance": 40,
       "locomotion": "stationary",
-      "combat_identity": "双环荆针，间隔根刺留下穿行空隙"
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙",
+      "encounter_role": "camp_turret"
     },
     {
       "id": "E13",
       "kind": "isotope_lumen",
       "position": [
-        2370,
-        3000
+        2100,
+        2320
       ],
-      "platform_id": "throne_walk_a",
+      "platform_id": "ringW_walk_e",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 30,
       "sprite": "res://assets/sprites/original_creatures/isotope_lumen/manifest.json",
       "visual_scale": 0.2608695652173913,
       "visual_offset": [
@@ -3390,25 +3393,26 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/isotope_lumen/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 80,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 38,
       "clearance": 40,
       "locomotion": "flight",
-      "combat_identity": "微光环弹与延迟聚光，弹体可以斩回"
+      "combat_identity": "微光环弹与延迟聚光，弹体可以斩回",
+      "encounter_role": "ring_exit_sniper"
     },
     {
       "id": "E14",
       "kind": "echo_waterwheel_knight",
       "position": [
-        2730,
-        3066
+        3050,
+        3020
       ],
-      "platform_id": "throne_rest_b",
+      "platform_id": "boss_threshold",
       "hp": 2,
       "damage": 1,
-      "patrol": 80,
+      "patrol": 25,
       "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
       "visual_scale": 0.30985915492957744,
       "visual_offset": [
@@ -3419,14 +3423,63 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
-      "leash_radius": 220,
+      "leash_radius": 60,
       "sprite_faces_left": false,
       "spawn_half_width": 24,
       "spawn_visual_height": 70,
       "clearance": 40,
       "locomotion": "ground",
       "combat_identity": "回声盾反击，交替快慢波",
-      "elite": true
+      "encounter_role": "boss_door_guard",
+      "encounter_profile": {
+        "attacks": [
+          {
+            "id": "echo_wheel_guard",
+            "name": "回声盾反",
+            "type": "guard",
+            "range": 180,
+            "windup": 0.8,
+            "active": 0.3,
+            "recover": 1.15,
+            "cooldown": 2.1,
+            "hit_width": 142,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "回声盾反",
+            "blockable": false,
+            "start_cooldown": 0.9
+          },
+          {
+            "id": "echo_wheel_wave",
+            "name": "快慢双轮波",
+            "type": "wave",
+            "range": 450,
+            "windup": 0.9,
+            "active": 0.24,
+            "recover": 1.1,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "快慢双轮波",
+            "shot_count": 4,
+            "projectile_speed": 190,
+            "speed_step": 65,
+            "blockable": false,
+            "start_cooldown": 1.5
+          }
+        ]
+      }
     }
   ],
   "boss": {

@@ -1138,6 +1138,310 @@
         ],
         "anchor_x": 119.125
       }
+    ],
+    "thorn_ring_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          58,
+          136,
+          184,
+          163
+        ],
+        "component_seeds": [
+          [
+            161,
+            140
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 95.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          377,
+          107,
+          197,
+          192
+        ],
+        "component_seeds": [
+          [
+            489,
+            111
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 94.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          686,
+          94,
+          183,
+          205
+        ],
+        "component_seeds": [
+          [
+            788,
+            98
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 95.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          1004,
+          94,
+          190,
+          205
+        ],
+        "component_seeds": [
+          [
+            1112,
+            98
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 95.8
+      }
+    ],
+    "thorn_ring": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          58,
+          410,
+          237,
+          197
+        ],
+        "component_seeds": [
+          [
+            151,
+            414
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 90.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          379,
+          405,
+          223,
+          209
+        ],
+        "component_seeds": [
+          [
+            459,
+            409
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 86.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          683,
+          405,
+          226,
+          209
+        ],
+        "component_seeds": [
+          [
+            788,
+            409
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 95.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          1007,
+          407,
+          216,
+          203
+        ],
+        "component_seeds": [
+          [
+            1090,
+            411
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 89.8
+      }
+    ],
+    "thorn_ring_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          67,
+          723,
+          204,
+          176
+        ],
+        "component_seeds": [
+          [
+            174,
+            727
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 98.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          381,
+          721,
+          196,
+          178
+        ],
+        "component_seeds": [
+          [
+            480,
+            725
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 94.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          688,
+          722,
+          195,
+          177
+        ],
+        "component_seeds": [
+          [
+            790,
+            726
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 96.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          1011,
+          725,
+          180,
+          174
+        ],
+        "component_seeds": [
+          [
+            1101,
+            729
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 90.8
+      }
+    ],
+    "thorn_ring_charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          60,
+          978,
+          203,
+          208
+        ],
+        "component_seeds": [
+          [
+            172,
+            982
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 103.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/thorn_ring.png",
+        "region": [
+          367,
+          974,
+          207,
+          213
+        ],
+        "component_seeds": [
+          [
+            482,
+            978
+          ]
+        ],
+        "scale": 1.0133,
+        "anchor_x": 104.8
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/thorn_sentinel.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "thorn_ring_windup",
+      "thorn_ring",
+      "thorn_ring_recover",
+      "thorn_ring_charge"
+    ],
+    "sheets": [
+      {
+        "image": "thorn_ring.png",
+        "image_sha256": "834f1a03c2b7e27703b5f3b001e00ae3c660aff11f66728fc439671b094c1d97",
+        "role": "new",
+        "attack": "thorn_ring",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 1.0133,
+        "anchors": [
+          95.8,
+          94.8,
+          95.8,
+          95.8,
+          90.8,
+          86.8,
+          95.8,
+          89.8,
+          98.8,
+          94.8,
+          96.8,
+          90.8,
+          103.8,
+          104.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 1.027,
+          "last_recover_ratio": 0.9999
+        }
+      }
     ]
   }
 }

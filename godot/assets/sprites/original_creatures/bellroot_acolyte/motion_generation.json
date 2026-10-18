@@ -580,6 +580,310 @@
         "scale": 0.68,
         "anchor_x": 157.0
       }
+    ],
+    "root_bell_wave_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          59,
+          92,
+          255,
+          239
+        ],
+        "component_seeds": [
+          [
+            110,
+            96
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 103.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          385,
+          51,
+          224,
+          279
+        ],
+        "component_seeds": [
+          [
+            436,
+            55
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 88.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          703,
+          16,
+          205,
+          315
+        ],
+        "component_seeds": [
+          [
+            752,
+            20
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 87.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          1013,
+          3,
+          199,
+          328
+        ],
+        "component_seeds": [
+          [
+            1055,
+            7
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 95.4
+      }
+    ],
+    "root_bell_wave": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          40,
+          355,
+          278,
+          281
+        ],
+        "component_seeds": [
+          [
+            161,
+            359
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 120.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          368,
+          387,
+          267,
+          249
+        ],
+        "component_seeds": [
+          [
+            530,
+            391
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 142.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          684,
+          410,
+          251,
+          226
+        ],
+        "component_seeds": [
+          [
+            848,
+            414
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 134.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          985,
+          409,
+          256,
+          227
+        ],
+        "component_seeds": [
+          [
+            1159,
+            413
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 146.4
+      }
+    ],
+    "root_bell_wave_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          59,
+          684,
+          239,
+          259
+        ],
+        "component_seeds": [
+          [
+            224,
+            688
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 127.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          381,
+          666,
+          254,
+          277
+        ],
+        "component_seeds": [
+          [
+            534,
+            670
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 121.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          701,
+          648,
+          242,
+          296
+        ],
+        "component_seeds": [
+          [
+            810,
+            652
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 104.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          1012,
+          689,
+          221,
+          256
+        ],
+        "component_seeds": [
+          [
+            1090,
+            693
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 96.4
+      }
+    ],
+    "root_bell_wave_charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          86,
+          953,
+          197,
+          299
+        ],
+        "component_seeds": [
+          [
+            144,
+            957
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 90.4
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/root_bell_wave.png",
+        "region": [
+          391,
+          950,
+          201,
+          302
+        ],
+        "component_seeds": [
+          [
+            455,
+            954
+          ]
+        ],
+        "scale": 0.7799,
+        "anchor_x": 94.4
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/bellroot_acolyte.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "root_bell_wave_windup",
+      "root_bell_wave",
+      "root_bell_wave_recover",
+      "root_bell_wave_charge"
+    ],
+    "sheets": [
+      {
+        "image": "root_bell_wave.png",
+        "image_sha256": "e2f520a5490c0c83ece29fc1fd6382131d4c8c820ed39e99e3593edbb810c7f8",
+        "role": "new",
+        "attack": "root_bell_wave",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7799,
+        "anchors": [
+          103.4,
+          88.4,
+          87.4,
+          95.4,
+          120.4,
+          142.4,
+          134.4,
+          146.4,
+          127.4,
+          121.4,
+          104.4,
+          96.4,
+          90.4,
+          94.4
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7886,
+          "last_recover_ratio": 0.7713
+        }
+      }
     ]
   }
 }

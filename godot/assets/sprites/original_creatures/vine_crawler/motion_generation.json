@@ -1138,6 +1138,310 @@
         ],
         "anchor_x": 120.125
       }
+    ],
+    "vine_roots_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          47,
+          136,
+          253,
+          177
+        ],
+        "component_seeds": [
+          [
+            145,
+            140
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 114.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          354,
+          113,
+          234,
+          200
+        ],
+        "component_seeds": [
+          [
+            541,
+            117
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 120.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          672,
+          89,
+          255,
+          223
+        ],
+        "component_seeds": [
+          [
+            880,
+            93
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 122.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          978,
+          74,
+          259,
+          239
+        ],
+        "component_seeds": [
+          [
+            1135,
+            78
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 125.3
+      }
+    ],
+    "vine_roots": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          32,
+          420,
+          279,
+          181
+        ],
+        "component_seeds": [
+          [
+            121,
+            424
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 130.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          348,
+          424,
+          271,
+          177
+        ],
+        "component_seeds": [
+          [
+            439,
+            428
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 117.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          649,
+          437,
+          286,
+          164
+        ],
+        "component_seeds": [
+          [
+            760,
+            441
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 122.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          964,
+          447,
+          274,
+          154
+        ],
+        "component_seeds": [
+          [
+            1075,
+            451
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 123.3
+      }
+    ],
+    "vine_roots_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          44,
+          698,
+          259,
+          236
+        ],
+        "component_seeds": [
+          [
+            227,
+            702
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 127.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          350,
+          703,
+          249,
+          231
+        ],
+        "component_seeds": [
+          [
+            534,
+            707
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 129.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          671,
+          716,
+          247,
+          218
+        ],
+        "component_seeds": [
+          [
+            859,
+            720
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 125.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          984,
+          752,
+          239,
+          182
+        ],
+        "component_seeds": [
+          [
+            1180,
+            756
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 118.3
+      }
+    ],
+    "vine_roots_charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          44,
+          983,
+          263,
+          244
+        ],
+        "component_seeds": [
+          [
+            215,
+            987
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 128.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/vine_roots.png",
+        "region": [
+          356,
+          984,
+          261,
+          243
+        ],
+        "component_seeds": [
+          [
+            532,
+            988
+          ]
+        ],
+        "scale": 0.8202,
+        "anchor_x": 130.3
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/vine_crawler.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "vine_roots_windup",
+      "vine_roots",
+      "vine_roots_recover",
+      "vine_roots_charge"
+    ],
+    "sheets": [
+      {
+        "image": "vine_roots.png",
+        "image_sha256": "e3d851bf05be23d8b9f317f1f893cec45c4adea4ebb986b70fc23d8f9d30fe3b",
+        "role": "new",
+        "attack": "vine_roots",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.8202,
+        "anchors": [
+          114.3,
+          120.3,
+          122.3,
+          125.3,
+          130.3,
+          117.3,
+          122.3,
+          123.3,
+          127.3,
+          129.3,
+          125.3,
+          118.3,
+          128.3,
+          130.3
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8261,
+          "last_recover_ratio": 0.8143
+        }
+      }
     ]
   }
 }
