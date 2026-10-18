@@ -75,7 +75,8 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 117)
+        self.assertEqual(len(all_suites), 118)
+        self.assertIn("hidden_route_plan", DEFAULT_SUITES)
         self.assertIn("expanded_character_motion", DEFAULT_SUITES)
         self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
         self.assertIn("character_art_prewarm", DEFAULT_SUITES)
@@ -98,6 +99,13 @@ class RunnerTests(unittest.TestCase):
         for marker in SUCCESS_MARKERS.values():
             self.assertTrue(marker.startswith('^') and marker.endswith('$'))
             re.compile(marker)
+
+    def test_hidden_route_plan_marker_requires_zero_failures(self):
+        passed = self.run_engine('print("HIDDEN_ROUTE_PLAN_VALIDATION: 90 checks; 0 failures")\n', suite='hidden_route_plan')
+        self.assertEqual(passed.returncode, 0)
+        failed = self.run_engine('print("HIDDEN_ROUTE_PLAN_VALIDATION: 90 checks; 1 failures")\n', suite='hidden_route_plan')
+        self.assertEqual(failed.returncode, 1)
+        self.assertIn('completion_marker=False', failed.stdout)
 
     def test_workshop_groups_require_full_room_and_restart_counts(self):
         for suffix, count in [('one', 10), ('two', 9)]:

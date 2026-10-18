@@ -11,7 +11,7 @@
 
 ## 验证
 
-- `hidden_route_plan_validation`：82 项，0 失败。
+- `hidden_route_plan_validation`：90 项，0 失败。线索／离场强制「可见线索」「安全离开」；奖励 `platform_id` 须落在章节平台上。套件已挂进 `run_godot_regressions` 与 focused workflow。
 - `audit_economy`：income=2570 sinks=900 share=0.35。
 
 ## 仍待

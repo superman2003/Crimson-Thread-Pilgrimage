@@ -24,7 +24,7 @@ DEFAULT_SUITES = (
     'ui_build_accessibility ui_world_integration ui_redesign '
     'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation seal_identity world_prepare_budget world_save_candidate map_player_pins world_preflight_budget world_config_background world_catalog_background world_startup_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression input_prompt player_action_buffer player_motion_continuity player_layered_idle player_melee_feedback camera_focus room_camera_stability first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience '
     'world_startup_budget world_variant_copy survey_map_knowledge ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush '
-    'melee_recovery combat_resource_cycle build_slots build_transaction_runtime enemy_encounter_roles enemy_ai_behavior build_slots_ui narrative_outcomes'
+    'melee_recovery combat_resource_cycle build_slots build_transaction_runtime enemy_encounter_roles enemy_ai_behavior build_slots_ui narrative_outcomes hidden_route_plan'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 SUCCESS_MARKERS = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text())

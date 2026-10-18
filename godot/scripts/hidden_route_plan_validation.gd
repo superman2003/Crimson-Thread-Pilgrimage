@@ -30,6 +30,11 @@ func _initialize() -> void:
 		var rooms: Dictionary = {}
 		for room in chapter.get("map_rooms", []):
 			rooms[String(room.id)] = room
+		var platforms: Dictionary = {}
+		for platform in chapter.get("platforms", []):
+			var platform_key := String(platform.get("id", ""))
+			if not platform_key.is_empty():
+				platforms[platform_key] = true
 		checks += 3
 		if not rooms.has(clue_id):
 			failures += 1
@@ -43,15 +48,15 @@ func _initialize() -> void:
 		if rooms.has(clue_id):
 			var clue_guide := String(rooms[clue_id].get("guide", ""))
 			checks += 1
-			if clue_guide.find("可见线索") < 0 and clue_guide.find("通向") < 0 and clue_guide.find("通往") < 0 and clue_guide.find("可选") < 0 and clue_guide.find("旗桥") < 0 and clue_guide.find("坠入") < 0:
+			if clue_guide.find("可见线索") < 0:
 				failures += 1
-				push_error("clue room lacks observable pointer text: " + clue_id)
+				push_error("clue room lacks 可见线索: " + clue_id)
 		if rooms.has(hidden_id):
 			var hidden_guide := String(rooms[hidden_id].get("guide", ""))
 			checks += 1
-			if hidden_guide.find("安全离开") < 0 and hidden_guide.find("可折回") < 0 and hidden_guide.find("撤离") < 0 and hidden_guide.find("退回") < 0 and hidden_guide.find("向东") < 0:
+			if hidden_guide.find("安全离开") < 0:
 				failures += 1
-				push_error("hidden room lacks safe-exit wording: " + hidden_id)
+				push_error("hidden room lacks 安全离开: " + hidden_id)
 		var reward_found := false
 		for col in chapter.get("collectibles", []):
 			if String(col.get("id", "")) == reward_id:
@@ -66,6 +71,11 @@ func _initialize() -> void:
 				if String(col.get("room_id", "")) != hidden_id:
 					failures += 1
 					push_error("reward not placed in hidden room: " + reward_id)
+				var platform_id := String(col.get("platform_id", ""))
+				checks += 1
+				if platform_id.is_empty() or not platforms.has(platform_id):
+					failures += 1
+					push_error("reward platform missing in chapter: " + reward_id)
 				# No raw currency dumps on hidden pockets.
 				if col.has("currency") and int(col.get("currency", 0)) > 0:
 					failures += 1
