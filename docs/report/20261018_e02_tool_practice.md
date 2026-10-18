@@ -11,7 +11,7 @@
 - 镜像 `seal_practice_plan`：新增 `tool_practice_plan`（四件主战具各一架，挂在已有工房，`safe`、伤害 0）。
 - 盐雾瓶练习架带零伤远程预表（`ranged_dummy`），方便理解“挡索敌、不挡已飞弹体”。
 - 新增 `tool_encounter_plan`：把合适遭遇写成短注，并写入对应房间 `guide`（苔落走廊／立管井口／雨栅长堤／根须南廊）。
-- 练习架复用 `seal_training_target.gd`，生成后清掉 `seal_training_target`、改标 `tool_training_target`，避免把第一章技能练习计数从 2 抬高。
+- 练习架复用 `seal_training_target.gd`。`_ready` 会写入 `seal_training_target`，生成后用 `remove_meta` 去掉该键并改标 `tool_training_target`，这样 `has_meta` 也不会把战具架算进技能练习。
 
 ## 改动
 
@@ -23,7 +23,7 @@
 ## 验证
 
 - `seal_acquisition_validation`：100 项，0 失败。
-- `seal_acceptance_validation`：41 项，0 失败（含第一章 shard 练习架与技能练习架并存）。
+- `seal_acceptance_validation`：42 项，0 失败（含第一章 shard 练习架与技能练习架并存，且战具架不再带 `seal_training_target` 键）。
 - `tools/audit_economy.py`：income=2570 sinks=900 share=0.35。
 
 ## 仍待验收

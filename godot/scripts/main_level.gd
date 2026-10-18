@@ -3562,8 +3562,10 @@ func _spawn_tool_practice_targets() -> void:
             "lure_eligible": true
         }, "res://assets/ui/seals/ward.svg", false, {"attacks": attacks})
         add_child(target)
-        # Keep skill-practice counters intact: seal racks use seal_training_target meta.
-        target.set_meta("seal_training_target", false)
+        # _ready stamps seal_training_target. Drop the key so has_meta stays
+        # false and skill-practice counters ignore these tool racks.
+        if target.has_meta("seal_training_target"):
+            target.remove_meta("seal_training_target")
         target.set_meta("tool_training_target", true)
         target.set_meta("tool_practice_id", String(entry.get("tool_id", "")))
         var label := Label.new()
