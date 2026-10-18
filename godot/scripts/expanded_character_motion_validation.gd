@@ -53,6 +53,7 @@ func run() -> void:
     level.free()
     await _check_live_playback(stage)
     _check_attack_specific_poses(stage)
+    _check_production_attack_cels(stage)
     _check_elite_profiles(stage)
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
@@ -105,7 +106,7 @@ func _check_live_playback(stage: Node2D) -> void:
         await process_frame
     check(death_seen.size() >= 3, "death presents collapse poses before removal")
 func _check_attack_specific_poses(stage: Node2D) -> void:
-    # Fixture cels stand in for an attack's own art; production frames are untouched.
+    # Fixture cels under a probe id exercise the loop timing; production frames are untouched.
     var enemy = ENEMY.new()
     enemy.configure({"id":"motion_attack_specific","kind":"moss_larva","hp":20}, "")
     stage.add_child(enemy)
@@ -113,38 +114,69 @@ func _check_attack_specific_poses(stage: Node2D) -> void:
     var sprite: AnimatedSprite2D = enemy.animated_sprite
     var frames: SpriteFrames = sprite.sprite_frames.duplicate()
     var cel := frames.get_frame_texture("attack", 0)
-    for data in [["larva_curl_windup",false],["larva_curl",false],["larva_curl_recover",false],["larva_curl_charge",true],["larva_curl_travel",true]]:
+    for data in [["probe_curl_windup",false],["probe_curl",false],["probe_curl_recover",false],["probe_curl_charge",true],["probe_curl_travel",true]]:
         frames.add_animation(data[0])
         frames.set_animation_loop(data[0], data[1])
         frames.set_animation_speed(data[0], 8.0)
         for index in 2: frames.add_frame(data[0], cel)
     sprite.sprite_frames = frames
-    var command := {"id":"larva_curl","animation":"attack","windup":0.9,"active":0.5,"recover":0.5}
+    var command := {"id":"probe_curl","animation":"attack","windup":0.9,"active":0.5,"recover":0.5}
     enemy.state = "windup"
     enemy.state_timer = 0.9
     enemy._pose_sprite("windup", command)
-    check(sprite.animation == &"larva_curl_windup", "attack id selects its own wind-up")
-    check(enemy.pose_loop_animation == "larva_curl_charge", "long wind-up schedules its charge loop")
+    check(sprite.animation == &"probe_curl_windup", "attack id selects its own wind-up")
+    check(enemy.pose_loop_animation == "probe_curl_charge", "long wind-up schedules its charge loop")
     enemy._update_windup(0.3)
-    check(sprite.animation == &"larva_curl_windup", "charge loop waits until the one-shot wind-up was shown")
+    check(sprite.animation == &"probe_curl_windup", "charge loop waits until the one-shot wind-up was shown")
     enemy._update_windup(0.2)
-    check(sprite.animation == &"larva_curl_charge" and sprite.is_playing() and enemy.pose_loop_animation.is_empty(), "held wind-up continues as its charge loop")
+    check(sprite.animation == &"probe_curl_charge" and sprite.is_playing() and enemy.pose_loop_animation.is_empty(), "held wind-up continues as its charge loop")
     enemy._pose_sprite("active", command)
-    check(sprite.animation == &"larva_curl" and enemy.pose_loop_animation == "larva_curl_travel", "travelling strike schedules its travel loop")
+    check(sprite.animation == &"probe_curl" and enemy.pose_loop_animation == "probe_curl_travel", "travelling strike schedules its travel loop")
     enemy._pose_sprite("recover", command)
-    check(sprite.animation == &"larva_curl_recover" and enemy.pose_loop_animation.is_empty(), "recover uses the attack's own cels and clears loops")
-    var short := {"id":"larva_curl","animation":"attack","windup":0.4,"active":0.24,"recover":0.5}
+    check(sprite.animation == &"probe_curl_recover" and enemy.pose_loop_animation.is_empty(), "recover uses the attack's own cels and clears loops")
+    var short := {"id":"probe_curl","animation":"attack","windup":0.4,"active":0.24,"recover":0.5}
     enemy._pose_sprite("windup", short)
     check(enemy.pose_loop_animation.is_empty(), "short wind-up plays its one-shot cels only")
     enemy._pose_sprite("windup", command)
     enemy.take_hit(1, 1)
     check(enemy.pose_loop_animation.is_empty(), "recoil cancels a pending charge loop")
-    var other := {"id":"larva_snap","animation":"attack","windup":0.9,"active":0.24,"recover":0.5}
+    var other := {"id":"larva_curl","animation":"attack","windup":0.9,"active":0.24,"recover":0.5}
     enemy._pose_sprite("windup", other)
-    check(sprite.animation == &"windup" and enemy.pose_loop_animation.is_empty(), "attack without its own cels keeps the species wind-up")
+    check(sprite.animation == &"windup" and enemy.pose_loop_animation == "charge", "kept attack holds the species wind-up with its own charge loop")
     enemy._pose_sprite("active", other)
-    check(sprite.animation == &"attack", "attack without its own cels keeps the species strike")
+    check(sprite.animation == &"attack" and enemy.pose_loop_animation.is_empty(), "kept attack keeps the species strike")
     enemy.queue_free()
+## Every regular creature: one attack keeps the species cels, every other attack
+## (the elite signature included) plays its own wind-up, strike and recovery.
+func _check_production_attack_cels(stage: Node2D) -> void:
+    var combat: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/original_creature_combat.json"))
+    var designs: Dictionary = ART.manifest("res://data/original_creature_designs.json")
+    var kinds := 0
+    var own_total := 0
+    for design in designs.designs:
+        if bool(design.boss): continue
+        var kind := String(design.kind)
+        var enemy = ENEMY.new()
+        enemy.configure({"id":"attack_cels_"+kind,"kind":kind,"hp":20,"elite":combat.get(kind, {}).get("elite") is Dictionary}, "")
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+        var sprite: AnimatedSprite2D = enemy.animated_sprite
+        var own := 0
+        for command: Dictionary in enemy.ai_commands:
+            var id := String(command.id)
+            enemy._pose_sprite("windup", command)
+            var mine := sprite.animation == StringName(id + "_windup")
+            check(mine or sprite.animation == &"windup", kind+"/"+id+" wind-up resolves")
+            enemy._pose_sprite("active", command)
+            check(sprite.animation == (StringName(id) if mine else &"attack"), kind+"/"+id+" strike matches its wind-up")
+            enemy._pose_sprite("recover", command)
+            check(sprite.animation == (StringName(id + "_recover") if mine else &"recover"), kind+"/"+id+" recovery matches its wind-up")
+            if mine: own += 1
+        check(own == enemy.ai_commands.size() - 1, kind+" draws every attack but the kept one")
+        own_total += own
+        kinds += 1
+        enemy.queue_free()
+    check(kinds == 40 and own_total == 50, "40 regular creatures with 40 new and 10 elite attacks")
 func _check_elite_profiles(stage: Node2D) -> void:
     var combat: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/original_creature_combat.json"))
     var normal = ENEMY.new()

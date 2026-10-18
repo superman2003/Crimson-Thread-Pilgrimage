@@ -531,6 +531,252 @@
         ],
         "anchor_x": 75.125
       }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_curl_loops.png",
+        "region": [
+          150,
+          240,
+          666,
+          483
+        ],
+        "component_seeds": [
+          [
+            467,
+            244
+          ]
+        ],
+        "scale": 0.3063,
+        "anchor_x": 334.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_curl_loops.png",
+        "region": [
+          1010,
+          267,
+          633,
+          456
+        ],
+        "component_seeds": [
+          [
+            1254,
+            271
+          ]
+        ],
+        "scale": 0.3063,
+        "anchor_x": 308.1
+      }
+    ],
+    "larva_snap_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          41,
+          174,
+          279,
+          217
+        ],
+        "component_seeds": [
+          [
+            211,
+            178
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 154.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          424,
+          147,
+          270,
+          242
+        ],
+        "component_seeds": [
+          [
+            545,
+            151
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 150.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          795,
+          112,
+          253,
+          277
+        ],
+        "component_seeds": [
+          [
+            936,
+            116
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 141.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          1161,
+          87,
+          243,
+          301
+        ],
+        "component_seeds": [
+          [
+            1283,
+            91
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 139.8
+      }
+    ],
+    "larva_snap": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          44,
+          476,
+          292,
+          231
+        ],
+        "component_seeds": [
+          [
+            214,
+            480
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 153.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          389,
+          495,
+          324,
+          213
+        ],
+        "component_seeds": [
+          [
+            513,
+            499
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 162.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          757,
+          521,
+          354,
+          189
+        ],
+        "component_seeds": [
+          [
+            895,
+            525
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 175.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          1135,
+          501,
+          297,
+          207
+        ],
+        "component_seeds": [
+          [
+            1325,
+            505
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 158.8
+      }
+    ],
+    "larva_snap_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          40,
+          806,
+          305,
+          232
+        ],
+        "component_seeds": [
+          [
+            223,
+            810
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 166.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          404,
+          831,
+          300,
+          208
+        ],
+        "component_seeds": [
+          [
+            514,
+            835
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 159.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          764,
+          841,
+          300,
+          202
+        ],
+        "component_seeds": [
+          [
+            880,
+            845
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 159.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/larva_snap.png",
+        "region": [
+          1126,
+          840,
+          306,
+          203
+        ],
+        "component_seeds": [
+          [
+            1243,
+            844
+          ]
+        ],
+        "scale": 0.7533,
+        "anchor_x": 152.8
+      }
     ]
   },
   "frame_regions": [
@@ -1083,5 +1329,81 @@
       ]
     }
   },
-  "tool": "image_gen.imagegen"
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/moss_larva.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "larva_snap_windup",
+      "larva_snap",
+      "larva_snap_recover"
+    ],
+    "sheets": [
+      {
+        "image": "larva_curl_loops.png",
+        "image_sha256": "bc8e3575d4e9cd2fdaf67da497fb9d0e64fb96006ddb99684a872acb22fa2385",
+        "role": "keep",
+        "attack": "larva_curl",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3063,
+        "anchors": [
+          334.1,
+          308.1
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.299,
+            0.3138
+          ]
+        }
+      },
+      {
+        "image": "larva_snap.png",
+        "image_sha256": "e7d4c946c96624595d99a397aa0978464b526bbfa77620767b9b22c72e257d41",
+        "role": "new",
+        "attack": "larva_snap",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7533,
+        "anchors": [
+          154.8,
+          150.8,
+          141.8,
+          139.8,
+          153.8,
+          162.8,
+          175.8,
+          158.8,
+          166.8,
+          159.8,
+          159.8,
+          152.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7372,
+          "last_recover_ratio": 0.7698
+        }
+      }
+    ]
+  }
 }

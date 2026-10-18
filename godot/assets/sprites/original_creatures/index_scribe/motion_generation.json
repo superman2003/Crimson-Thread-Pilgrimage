@@ -535,6 +535,252 @@
         ],
         "anchor_x": 152.125
       }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_pages_loops.png",
+        "region": [
+          78,
+          89,
+          635,
+          710
+        ],
+        "component_seeds": [
+          [
+            106,
+            93
+          ]
+        ],
+        "scale": 0.2833,
+        "anchor_x": 318.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_pages_loops.png",
+        "region": [
+          1095,
+          97,
+          551,
+          702
+        ],
+        "component_seeds": [
+          [
+            1304,
+            101
+          ]
+        ],
+        "scale": 0.2833,
+        "anchor_x": 195.7
+      }
+    ],
+    "index_seal_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          94,
+          141,
+          186,
+          256
+        ],
+        "component_seeds": [
+          [
+            272,
+            145
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 96.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          462,
+          103,
+          176,
+          295
+        ],
+        "component_seeds": [
+          [
+            608,
+            107
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 102.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          815,
+          61,
+          184,
+          337
+        ],
+        "component_seeds": [
+          [
+            981,
+            65
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 102.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          1183,
+          58,
+          185,
+          339
+        ],
+        "component_seeds": [
+          [
+            1313,
+            62
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 105.2
+      }
+    ],
+    "index_seal": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          88,
+          472,
+          219,
+          254
+        ],
+        "component_seeds": [
+          [
+            297,
+            476
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 122.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          459,
+          496,
+          205,
+          229
+        ],
+        "component_seeds": [
+          [
+            640,
+            500
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 118.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          830,
+          491,
+          188,
+          235
+        ],
+        "component_seeds": [
+          [
+            985,
+            495
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 115.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          1188,
+          495,
+          190,
+          231
+        ],
+        "component_seeds": [
+          [
+            1359,
+            499
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 116.2
+      }
+    ],
+    "index_seal_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          100,
+          797,
+          200,
+          238
+        ],
+        "component_seeds": [
+          [
+            294,
+            801
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 100.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          466,
+          767,
+          211,
+          269
+        ],
+        "component_seeds": [
+          [
+            671,
+            771
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 103.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          826,
+          798,
+          209,
+          239
+        ],
+        "component_seeds": [
+          [
+            1027,
+            802
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 99.2
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/index_seal.png",
+        "region": [
+          1208,
+          765,
+          177,
+          271
+        ],
+        "component_seeds": [
+          [
+            1377,
+            769
+          ]
+        ],
+        "scale": 0.7558,
+        "anchor_x": 88.2
+      }
     ]
   },
   "frame_regions": [
@@ -1087,5 +1333,81 @@
       ]
     }
   },
-  "tool": "image_gen.imagegen"
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/index_scribe.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "index_seal_windup",
+      "index_seal",
+      "index_seal_recover"
+    ],
+    "sheets": [
+      {
+        "image": "index_pages_loops.png",
+        "image_sha256": "3a5b3b3c6ec23515cda86436671c092e6ab7715500efeea7c8f3a09600d4fb2b",
+        "role": "keep",
+        "attack": "index_pages",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.2833,
+        "anchors": [
+          318.7,
+          195.7
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.2794,
+            0.2873
+          ]
+        }
+      },
+      {
+        "image": "index_seal.png",
+        "image_sha256": "30c62a93c329586b8f52e17054467c086703ea8fa2968baa0ee542de542eed5b",
+        "role": "new",
+        "attack": "index_seal",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7558,
+        "anchors": [
+          96.2,
+          102.2,
+          102.2,
+          105.2,
+          122.2,
+          118.2,
+          115.2,
+          116.2,
+          100.2,
+          103.2,
+          99.2,
+          88.2
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7658,
+          "last_recover_ratio": 0.7459
+        }
+      }
+    ]
+  }
 }

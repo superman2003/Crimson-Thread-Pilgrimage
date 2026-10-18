@@ -1,5 +1,9 @@
 # 深化升级进度
 
+## 2026-10-18：小怪专属攻击动作接入运行时（82 张源图、760 格）
+
+#107 的出图说明对应的 82 张源图（含 10-18 重画的 8 张）此前只上传、未接入运行时，游戏里小怪仍共用一套攻击动作。新增 `tools/build_creature_attack_motion.py`：按写说明时的同一份格子规划，把每张源图登记成 `<id>_windup`/`<id>`/`<id>_recover`/`<id>_charge`/`<id>_travel`，沿用招式的补循环登记为通用 `charge`/`travel`。每张源图的比例按配对姿势的 alpha 面积对齐现有待机姿势或被接续的姿势，水平锚点取 alpha 质量中位数并对齐现有姿势；源图字节不改，不做插帧。打包器支持 incoming 源图，循环动画标为 loop，运行时图集改为紧凑货架排列：46 种怪物合计约 577→473 MB，姿势 1628→2388，6 个 Boss 每帧像素不变。40 种小怪的 40 个新招和 10 个精英招全部播放自己的动作；`expanded_character_motion` 4845 项（新增逐招选图检查）、22 套敌人/区域/战斗回归、本机真实显示下的 `enemy_atlas_integrity`、`test:character-motion`、`test:boss-assets`、`npm test` 均通过；另有 24 张真实 GL 实拍截图。pilgrim_chariot 车轮比例偏大、部分循环与被接续姿势不完全衔接，仍待实机目检（OPEN）。见[本批报告](report/20261018_creature_attack_runtime.md)。
+
 ## 2026-10-16：角色素材优先，首批两怪攻击裁帧恢复
 
 沿最新#99 `9e33deb0`，修gear_sentinel/page_duelist共4个现有攻击姿态的裁边/串帧，原atlas、身体脚底/握持注册、左右朝向与战斗时序不变；新增绘制0，不能算全动作补帧完成。17项可逆原像素重建（含无Git历史）与实际GL48状态/8播放通过；未改20帧左右40次framebuffer完全相等。原110回归保留、新专用真实绘制门禁加入为111；最终runner3315通过。warm双导入已过但冷导入诊断失败保留，准确新head全CI另核。
