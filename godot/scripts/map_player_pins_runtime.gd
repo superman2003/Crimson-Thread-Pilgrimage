@@ -91,23 +91,71 @@ static func refresh(level: Node) -> void:
     var known := PINS.visible(level.story_flags, configs)
     var list: OptionButton = toolbar.get_node("PinList")
     _refresh_list(list, known, configs)
+    var markers: Array[Label] = []
     for record in known:
         if not level.world_map_view and record.region_id != String(level.config.id): continue
         var marker := Label.new()
         marker.name = "PlayerMapPin_" + str(record.id)
         marker.mouse_filter = Control.MOUSE_FILTER_IGNORE
         marker.text = PINS.SYMBOLS[PINS.KINDS.find(record.kind)] + str(record.id)
-        marker.position = project(level, record.region_id, Vector2(record.position[0], record.position[1])) - Vector2(8, 12)
+        var anchor := project(level, record.region_id, Vector2(record.position[0], record.position[1]))
+        marker.position = anchor - LABEL_ORIGIN
         marker.add_theme_font_size_override("font_size", 19)
         marker.add_theme_color_override("font_color", [Color("b35a38"), Color("9a342f"), Color("486f82")][PINS.KINDS.find(record.kind)])
         marker.set_meta("pin_id", int(record.id))
         marker.set_meta("region_id", record.region_id)
         marker.set_meta("local_position", Vector2(record.position[0], record.position[1]))
+        marker.set_meta("map_anchor", anchor)
         level.map_draw_root.add_child(marker)
+        markers.append(marker)
+    declutter(markers)
     toolbar.get_node("PinCurrent").disabled = level.world_save_blocked or not PINS.allowed(level.story_flags, String(level.config.id), level.config, level.player.global_position)
     toolbar.get_node("PinDelete").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     level.map_text.text += "    右键标记 · 上方按钮支持手柄"
+
+const LABEL_ORIGIN := Vector2(8, 12)
+const CLUSTER_RADIUS := 24.0
+const CLUSTER_STEP := 30.0
+
+## Pins from nearby rooms (or neighbouring regions on the world overview) can
+## project onto almost the same point. Each label keeps its true anchor in
+## metadata; labels within CLUSTER_RADIUS of a group fan out in a row around
+## the group's centre so every number stays readable.
+static func declutter(markers: Array[Label]) -> void:
+    var groups: Array = []
+    for marker in markers:
+        var anchor: Vector2 = marker.get_meta("map_anchor")
+        var joined := false
+        for group in groups:
+            if (group.center as Vector2).distance_to(anchor) < CLUSTER_RADIUS:
+                group.members.append(marker)
+                group.center = ((group.center as Vector2) * (group.members.size() - 1) + anchor) / group.members.size()
+                joined = true
+                break
+        if not joined: groups.append({"center": anchor, "members": [marker]})
+    for group in groups:
+        var count: int = group.members.size()
+        # Lay the row out by real label widths so two-digit numbers never touch.
+        var widths: Array[float] = []
+        var total := 0.0
+        for marker in group.members:
+            var width := maxf(CLUSTER_STEP, _text_width(marker) + 6.0)
+            widths.append(width)
+            total += width
+        var left := (group.center as Vector2).x - total * 0.5
+        for index in count:
+            var marker: Label = group.members[index]
+            marker.set_meta("cluster_size", count)
+            if count > 1:
+                marker.position = Vector2(left + widths[index] * 0.5, (group.center as Vector2).y) - LABEL_ORIGIN
+            left += widths[index]
+
+## A fresh Label has no layout yet, so measure its text with its own font.
+static func _text_width(label: Label) -> float:
+    var font := label.get_theme_font("font")
+    if font == null: return 0.0
+    return font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x
 
 ## Main redraws the map every frame. Clearing an unchanged OptionButton also
 ## clears its open PopupMenu's uncommitted keyboard/controller focus.
