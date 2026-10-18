@@ -148,6 +148,22 @@ static func _apply_owned_cached(config: Dictionary) -> void:
         return
     _apply_overlay(config, _cached_data)
 
+
+## Keep 可见线索／安全离开 from the authored room when an override guide omits them.
+static func _preserve_hidden_route_guide(authored: String, override_guide: String) -> String:
+    if override_guide.is_empty():
+        return authored
+    var merged := override_guide
+    for marker in ["可见线索", "安全离开"]:
+        if authored.find(marker) < 0:
+            continue
+        if merged.find(marker) >= 0:
+            continue
+        var frag := authored.substr(authored.find(marker)).strip_edges()
+        if not frag.is_empty():
+            merged = "%s %s" % [merged.strip_edges(), frag]
+    return merged
+
 static func _apply_owned(config: Dictionary) -> void:
     _ensure_manifest_cache()
     _apply_overlay(config, _cached_data)
@@ -163,7 +179,14 @@ static func _apply_overlay(config: Dictionary, manifest: Dictionary) -> void:
     for room_override in overlay.get("map_room_overrides", []):
         for room in config.get("map_rooms", []):
             if str(room.get("id", "")) == str(room_override.get("id", "")):
+                # W04: workshop overrides must not wipe hidden-route clue/exit copy.
+                var preserved_guide := _preserve_hidden_route_guide(
+                    String(room.get("guide", "")),
+                    String(room_override.get("guide", ""))
+                )
                 room.merge(room_override.duplicate(true), true)
+                if not preserved_guide.is_empty():
+                    room["guide"] = preserved_guide
     for terrain_override in overlay.get("terrain_overrides", []):
         for terrain in config.get("terrain", []):
             if str(terrain.get("id", "")) == str(terrain_override.get("id", "")):

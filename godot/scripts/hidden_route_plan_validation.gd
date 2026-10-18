@@ -1,4 +1,6 @@
 extends SceneTree
+
+const WorldRoutes := preload("res://scripts/world_routes.gd")
 ## W04: authored hidden routes need observable clues, safe exits, and optional rewards.
 ## Data-only checks against world_routes.hidden_route_plan and chapter JSON.
 
@@ -89,5 +91,38 @@ func _initialize() -> void:
 	if seen_regions.size() < 6:
 		failures += 1
 		push_error("hidden_route_plan must touch all six regions")
+	# After map_room_overrides merge, World guides must still show W04 markers.
+	var chapters: Dictionary = routes.get("chapters", {})
+	for entry in plan:
+		var region_id := String(entry.get("region_id", ""))
+		var clue_id := String(entry.get("clue_room_id", ""))
+		var hidden_id := String(entry.get("hidden_room_id", ""))
+		var chapter_path := "res://data/%s.json" % region_id
+		if not FileAccess.file_exists(chapter_path):
+			continue
+		var chapter: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(chapter_path))
+		var overlay: Dictionary = chapters.get(region_id, {})
+		var override_by_id: Dictionary = {}
+		for room_override in overlay.get("map_room_overrides", []):
+			override_by_id[String(room_override.get("id", ""))] = room_override
+		for pair in [[clue_id, "可见线索"], [hidden_id, "安全离开"]]:
+			var room_id := String(pair[0])
+			var marker := String(pair[1])
+			var authored := ""
+			for room in chapter.get("map_rooms", []):
+				if String(room.get("id", "")) == room_id:
+					authored = String(room.get("guide", ""))
+					break
+			var override_guide := ""
+			if override_by_id.has(room_id):
+				override_guide = String(override_by_id[room_id].get("guide", ""))
+			var live := authored if override_guide.is_empty() else WorldRoutes._preserve_hidden_route_guide(authored, override_guide)
+			# Prefer authored override text when already merged in data.
+			if not override_guide.is_empty():
+				live = WorldRoutes._preserve_hidden_route_guide(authored, override_guide)
+			checks += 1
+			if live.find(marker) < 0:
+				failures += 1
+				push_error("%s live guide after overrides missing %s" % [room_id, marker])
 	print("HIDDEN_ROUTE_PLAN_VALIDATION: ", checks, " checks; ", failures, " failures")
 	quit(1 if failures else 0)
