@@ -92,3 +92,5 @@
 | wax_lancer | [wax_charge_loops.png](wax_charge_loops.png) | 4 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
+
+重画记录（2026-10-18）：`wheel_elite_ride.png` — 以原参考和已认可的 wheel_return 为标尺，将轮盾缩为站立高度约一半，接地盾顶位于腰胸之间；保留 16 格并修正重复盾牌。
