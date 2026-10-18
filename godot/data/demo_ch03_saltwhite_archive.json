@@ -109,6 +109,11 @@
         "name": "证词·其三",
         "category": "Relics",
         "description": "六份证词之三：禁书夹层里被封存的守门者採选名录。"
+      },
+      "evidence_salt_ledger": {
+        "name": "证据·封蜡账册",
+        "category": "Relics",
+        "description": "可选首领身上搜出的残页账册。记录被蜡封的名字借据，不挡主线。"
       }
     }
   },
@@ -620,12 +625,12 @@
         168
       ],
       "objective": "拉下封蜡拉杆：清怪后盐门长开，首领之路解锁。",
-      "guide": "从背面打开的捷径会长期有效。",
+      "guide": "从背面打开的捷径会长期有效。 余响钟可召唤可选首领。",
       "danger": "库房里封蜡枪兵仍在换岗。",
       "next": "盐门步道 / 契约索道厅",
       "setpiece": "封蜡火漆闸",
       "traversal_focus": "捷径解锁",
-      "pacing_role": "reward",
+      "pacing_role": "optional_challenge",
       "visit_rects": [
         [
           4255,
@@ -650,7 +655,8 @@
         2220,
         500,
         660
-      ]
+      ],
+      "optional_challenge": "ch03_wax_optional_boss"
     },
     {
       "id": "salt_gate_walk",
@@ -7087,5 +7093,65 @@
     "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
   },
   "boss_route_via_exploration": true,
-  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。"
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "optional_challenges": [
+    {
+      "id": "ch03_wax_optional_boss",
+      "name": "封蜡库余响",
+      "kind": "optional_boss",
+      "room_id": "wax_seal_vault",
+      "clear_flag": "challenge_clear_ch03_wax_boss",
+      "bypass_note": "封蜡库本就是可选支路；不敲钟可拿走碎晶离开。",
+      "shrine": {
+        "id": "challenge_shrine_ch03_wax_boss",
+        "position": [
+          4340,
+          2634
+        ],
+        "label": "余响钟 · 封蜡库可选首领"
+      },
+      "lock_rect": [
+        4255,
+        2530,
+        42,
+        256
+      ],
+      "enemies": [
+        {
+          "id": "CH03_OB1",
+          "kind": "erasure_bailiff",
+          "position": [
+            4520,
+            2634
+          ],
+          "sprite": "res://assets/sprites/original_creatures/erasure_bailiff/manifest.json",
+          "visual_scale": 0.37623762376237624,
+          "visual_offset": [
+            0,
+            -5.960396039603964
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 42,
+          "spawn_visual_height": 72,
+          "elite": true,
+          "hp": 10,
+          "encounter_role": "optional_boss"
+        }
+      ],
+      "reward": {
+        "currency": 60,
+        "material_amount": 3,
+        "item_id": "evidence_salt_ledger",
+        "item_amount": 1,
+        "unlock_event": "charm_stride_found",
+        "toast": "封蜡库首清：取得账册证据，并唤回巡礼鞋结印记。"
+      }
+    }
+  ]
 }
