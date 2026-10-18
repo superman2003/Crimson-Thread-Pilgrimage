@@ -1,19 +1,13 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3]
-
-[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_zone"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://dkbpkuos453kl"]
 
 [sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_master"]
 ceiling_db = -0.5
 
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_zone"]
+
 [resource]
-bus/0/name = &"Master"
-bus/0/solo = false
-bus/0/mute = false
-bus/0/bypass_fx = false
-bus/0/volume_db = 0.0
 bus/0/effect/0/effect = SubResource("AudioEffectLimiter_master")
 bus/0/effect/0/enabled = true
-bus/0/send = &""
 bus/1/name = &"BGM"
 bus/1/solo = false
 bus/1/mute = false
@@ -73,9 +67,9 @@ bus/10/solo = false
 bus/10/mute = false
 bus/10/bypass_fx = false
 bus/10/volume_db = 0.0
+bus/10/send = &"Master"
 bus/10/effect/0/effect = SubResource("AudioEffectReverb_zone")
 bus/10/effect/0/enabled = true
-bus/10/send = &"Master"
 bus/11/name = &"SFXPlayer"
 bus/11/solo = false
 bus/11/mute = false

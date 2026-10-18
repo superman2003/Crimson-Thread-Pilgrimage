@@ -531,6 +531,252 @@
         ],
         "anchor_x": 113.125
       }
+    ],
+    "lumen_focus_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          60,
+          84,
+          225,
+          219
+        ],
+        "component_seeds": [
+          [
+            238,
+            88
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 96.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          424,
+          77,
+          246,
+          218
+        ],
+        "component_seeds": [
+          [
+            608,
+            81
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 114.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          805,
+          68,
+          222,
+          217
+        ],
+        "component_seeds": [
+          [
+            951,
+            72
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 99.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          1172,
+          50,
+          214,
+          205
+        ],
+        "component_seeds": [
+          [
+            1183,
+            54
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 88.9
+      }
+    ],
+    "lumen_focus": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          70,
+          410,
+          231,
+          264
+        ],
+        "component_seeds": [
+          [
+            119,
+            414
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 102.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          456,
+          400,
+          226,
+          298
+        ],
+        "component_seeds": [
+          [
+            492,
+            404
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 97.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          826,
+          415,
+          222,
+          300
+        ],
+        "component_seeds": [
+          [
+            862,
+            419
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 99.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          1174,
+          396,
+          225,
+          315
+        ],
+        "component_seeds": [
+          [
+            1205,
+            400
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 103.9
+      }
+    ],
+    "lumen_focus_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          77,
+          768,
+          219,
+          250
+        ],
+        "component_seeds": [
+          [
+            100,
+            772
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 97.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          438,
+          781,
+          240,
+          231
+        ],
+        "component_seeds": [
+          [
+            617,
+            785
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 109.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          799,
+          789,
+          238,
+          221
+        ],
+        "component_seeds": [
+          [
+            849,
+            793
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 108.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_focus.png",
+        "region": [
+          1145,
+          784,
+          239,
+          217
+        ],
+        "component_seeds": [
+          [
+            1330,
+            788
+          ]
+        ],
+        "scale": 0.7786,
+        "anchor_x": 107.9
+      }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_orbits_loops.png",
+        "region": [
+          165,
+          171,
+          676,
+          559
+        ],
+        "component_seeds": [
+          [
+            554,
+            175
+          ]
+        ],
+        "scale": 0.3212,
+        "anchor_x": 361.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/lumen_orbits_loops.png",
+        "region": [
+          993,
+          159,
+          674,
+          563
+        ],
+        "component_seeds": [
+          [
+            1284,
+            163
+          ]
+        ],
+        "scale": 0.3212,
+        "anchor_x": 340.9
+      }
     ]
   },
   "frame_regions": [
@@ -1083,5 +1329,81 @@
       ]
     }
   },
-  "tool": "image_gen.imagegen"
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/isotope_lumen.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "lumen_focus_windup",
+      "lumen_focus",
+      "lumen_focus_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "lumen_focus.png",
+        "image_sha256": "c5ad25c4b848e60c82a66216ef1cfe1bee0c1efd8906ea376d39ae0fc7deb7fc",
+        "role": "new",
+        "attack": "lumen_focus",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7786,
+        "anchors": [
+          96.9,
+          114.9,
+          99.9,
+          88.9,
+          102.9,
+          97.9,
+          99.9,
+          103.9,
+          97.9,
+          109.9,
+          108.9,
+          107.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7895,
+          "last_recover_ratio": 0.7679
+        }
+      },
+      {
+        "image": "lumen_orbits_loops.png",
+        "image_sha256": "515612e7cd167c75e8f8a2cc44a3afb0e15970c11072ac46614cbd4a30808098",
+        "role": "keep",
+        "attack": "lumen_orbits",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3212,
+        "anchors": [
+          361.9,
+          340.9
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3217,
+            0.3207
+          ]
+        }
+      }
+    ]
+  }
 }

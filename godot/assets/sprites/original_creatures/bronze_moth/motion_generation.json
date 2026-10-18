@@ -585,6 +585,328 @@
         ],
         "anchor_x": 129.0
       }
+    ],
+    "travel": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dive_loops.png",
+        "region": [
+          125,
+          256,
+          707,
+          392
+        ],
+        "component_seeds": [
+          [
+            164,
+            260
+          ]
+        ],
+        "scale": 0.3816,
+        "anchor_x": 286.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dive_loops.png",
+        "region": [
+          966,
+          250,
+          725,
+          389
+        ],
+        "component_seeds": [
+          [
+            1054,
+            254
+          ]
+        ],
+        "scale": 0.3816,
+        "anchor_x": 265.8
+      }
+    ],
+    "moth_dust_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          45,
+          126,
+          282,
+          225
+        ],
+        "component_seeds": [
+          [
+            96,
+            130
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 146.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          438,
+          94,
+          269,
+          256
+        ],
+        "component_seeds": [
+          [
+            482,
+            98
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 134.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          850,
+          46,
+          229,
+          305
+        ],
+        "component_seeds": [
+          [
+            933,
+            50
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 104.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          1209,
+          23,
+          222,
+          326
+        ],
+        "component_seeds": [
+          [
+            1216,
+            27
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 101.9
+      }
+    ],
+    "moth_dust": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          20,
+          429,
+          331,
+          264
+        ],
+        "component_seeds": [
+          [
+            74,
+            433
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 161.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          376,
+          455,
+          375,
+          220
+        ],
+        "component_seeds": [
+          [
+            467,
+            459
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 181.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          752,
+          485,
+          371,
+          211
+        ],
+        "component_seeds": [
+          [
+            940,
+            489
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 168.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          1131,
+          496,
+          300,
+          222
+        ],
+        "component_seeds": [
+          [
+            1307,
+            500
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 137.9
+      }
+    ],
+    "moth_dust_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          35,
+          826,
+          316,
+          207
+        ],
+        "component_seeds": [
+          [
+            103,
+            830
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 159.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          393,
+          793,
+          301,
+          230
+        ],
+        "component_seeds": [
+          [
+            462,
+            797
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 163.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          770,
+          778,
+          299,
+          247
+        ],
+        "component_seeds": [
+          [
+            790,
+            782
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 162.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/moth_dust.png",
+        "region": [
+          1131,
+          807,
+          272,
+          224
+        ],
+        "component_seeds": [
+          [
+            1164,
+            811
+          ]
+        ],
+        "scale": 0.7855,
+        "anchor_x": 139.9
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/bronze_moth.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "travel",
+      "moth_dust_windup",
+      "moth_dust",
+      "moth_dust_recover"
+    ],
+    "sheets": [
+      {
+        "image": "moth_dive_loops.png",
+        "image_sha256": "0e5281f2935cc59b1293f976f5985de2f38326e77777414dfd2b1c391a7473ee",
+        "role": "keep",
+        "attack": "moth_dive",
+        "plan": [
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.3816,
+        "anchors": [
+          286.8,
+          265.8
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3944,
+            0.3693
+          ]
+        }
+      },
+      {
+        "image": "moth_dust.png",
+        "image_sha256": "2da073bfe36b2d7db5680659e4362206ded9decc15bdb89a0d3248d1148a2d50",
+        "role": "new",
+        "attack": "moth_dust",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7855,
+        "anchors": [
+          146.9,
+          134.9,
+          104.9,
+          101.9,
+          161.9,
+          181.9,
+          168.9,
+          137.9,
+          159.9,
+          163.9,
+          162.9,
+          139.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7867,
+          "last_recover_ratio": 0.7842
+        }
+      }
     ]
   }
 }
