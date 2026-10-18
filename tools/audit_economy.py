@@ -34,6 +34,10 @@ def load(name: str):
 def audit() -> tuple[dict, list[str]]:
     errors: list[str] = []
     main = MAIN.read_text()
+    # The runtime must charge the seller's price, not a shared constant.
+    cartography = (ROOT / "godot/scripts/cartography_runtime.gd").read_text()
+    if 'seller.get("price"' not in cartography or "JOURNAL.PRICE," in cartography.replace("JOURNAL.PRICE))", ""):
+        errors.append("cartography_runtime.gd must charge each seller's own price from cartography_sellers.json")
     for amount in (KILL_CURRENCY, BOSS_CURRENCY):
         if f"_add_currency({amount})" not in main:
             errors.append(f"main_level.gd no longer grants {amount} currency; update the audit constants")
