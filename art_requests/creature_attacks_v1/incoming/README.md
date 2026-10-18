@@ -2,6 +2,10 @@
 
 依据 PR #107 的逐格说明，内置 image_gen 生图；每张上传成功并验证远端分支后，才生成下一张。
 
+已交付源图 **82 张、760 格**；本次补齐最后 **11 张、110 格**。每张只保留选定源图、实际提示词和逐帧坐标记录。
+
+生成器保留原生透明 PNG 字节，实际画布尺寸见同名 JSON，与提示词请求尺寸有差异；不要直接等格切片。角色骨架缩放、根节点、阶段衔接和循环播放仍需运行时验收，源图数量齐全不代表最终动作验收通过。
+
 | 角色 | 已上传图 | 帧数 |
 | --- | --- | ---: |
 | ash_banner_imp | [imp_retreat.png](imp_retreat.png) | 12 |
@@ -75,25 +79,16 @@
 | summoned_page | [page_orbit.png](page_orbit.png) | 14 |
 | summoned_page | [page_skim_loops.png](page_skim_loops.png) | 2 |
 | thorn_bloom_mote | [bloom_seeds.png](bloom_seeds.png) | 14 |
-
 | thorn_sentinel | [thorn_ring.png](thorn_ring.png) | 14 |
-
 | valve_crawler | [valve_vent.png](valve_vent.png) | 14 |
-
 | valve_crawler | [valve_roll_loops.png](valve_roll_loops.png) | 2 |
-
 | vine_crawler | [vine_roots.png](vine_roots.png) | 14 |
-
 | waterwheel_knight | [wheel_return.png](wheel_return.png) | 14 |
-
 | waterwheel_knight | [wheel_elite_ride.png](wheel_elite_ride.png) | 16 |
-
 | waterwheel_knight | [wheel_charge_loops.png](wheel_charge_loops.png) | 2 |
-
 | wax_bee | [bee_stingers.png](bee_stingers.png) | 14 |
-
 | wax_bee | [bee_dive_loops.png](bee_dive_loops.png) | 4 |
-
 | wax_lancer | [wax_high.png](wax_high.png) | 12 |
+| wax_lancer | [wax_charge_loops.png](wax_charge_loops.png) | 4 |
 
 同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
