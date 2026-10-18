@@ -360,9 +360,65 @@ func _run() -> void:
     player.set_physics_process(false)
     player.energy = 100
     check(not player.cast_selected_skill() and player.energy == 100, "airborne grounded-wave denied without resource spend")
+    await thread_skill_limits(player)
     print("SEAL_COMBAT_VALIDATION %s checks=%d failures=%d" % ["PASS" if failures == 0 else "FAIL",checks,failures])
     enemy.queue_free()
     player.queue_free()
     floor.queue_free()
     await frames(100)
     quit(0 if failures == 0 else 1)
+
+## C03: thread cost and the action's own timing limit every skill; the
+## catalog cooldown is only a short recovery lock, never the main gate.
+func thread_skill_limits(player) -> void:
+    var build = preload("res://scripts/build_system.gd").new()
+    build.state.unlocked_crests = build.catalog.crests.keys()
+    build.state.unlocked_skills = build.catalog.skills.keys()
+    build.state.mechanisms = ["crimson", "bell", "salt"]
+    player.build_system = build
+    player.global_position = Vector2(0, -2)
+    player.velocity = Vector2.ZERO
+    player.set_physics_process(true)
+    await frames(6)
+    for id in build.catalog.skills:
+        var row: Dictionary = build.catalog.skills[id]
+        var crest := ""
+        var slot := -1
+        for candidate in build.catalog.crests:
+            for index in 2:
+                if crest.is_empty() and build._slot_accepts("thread_skill", index, id, candidate):
+                    crest = candidate
+                    slot = index
+        check(not crest.is_empty(), id + ": some seal can equip it in a thread slot")
+        if crest.is_empty(): continue
+        build.state.crest = crest
+        build.state.equipped_families.thread_skill = [id, ""] if slot == 0 else ["", id]
+        build._normalize_active_slots()
+        build.cooldowns.clear()
+        player.apply_build_stats(build.profile())
+        player.global_position = Vector2(0, -2)
+        player.velocity = Vector2.ZERO
+        await frames(4)
+        var action: float = float(row.windup) + float(row.active) + float(row.recovery) + (float(row.get("duration", 0.0)) if String(row.kind) == "defense" else 0.0)
+        check(float(row.cooldown) <= maxf(action + 0.4, 2.0), id + ": cooldown is a short recovery lock, not a multi-second gate")
+        player.energy = player.max_energy
+        var cost := int(build.selected_skill(slot).energy_cost)
+        var casts := 0
+        for attempt in 12:
+            var before: int = player.energy
+            if not player.cast_selected_skill(slot):
+                check(player.energy == before, id + ": a refused cast spends nothing")
+                break
+            casts += 1
+            check(player.energy == before - cost, id + ": each cast pays its listed thread")
+            var spent: int = player.energy
+            check(not player.cast_selected_skill(slot) and player.energy == spent, id + ": the running action cannot be recast or paid twice")
+            for tick in 240:
+                await frames(1)
+                if player.attack_timer <= 0.0 and float(build.cooldowns.get(id, 0.0)) <= 0.0: break
+            player.global_position = Vector2(0, -2)
+            player.velocity = Vector2.ZERO
+        check(casts == int(player.max_energy / cost), id + ": a full meter pays for exactly %d casts (got %d)" % [int(player.max_energy / cost), casts])
+    player.set_physics_process(false)
+    player.build_system = null
+
