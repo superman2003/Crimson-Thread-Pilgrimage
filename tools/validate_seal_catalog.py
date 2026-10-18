@@ -42,7 +42,23 @@ def validate(data: dict) -> list[str]:
     check(data.get('skills', {}).get('needle', {}).get('pierce') == 1, 'echo needle remains single target')
     for key, row in data.get('tools', {}).items():
         check(row.get('boss_immune_control') is True, f'{key}: boss crowd-control immunity is explicit')
-        check('免费' in row.get('refill_rule', ''), f'{key}: free shrine refill is readable')
+        # Supplies are paid at the shrine (E02); the rule text and the actual cost must agree.
+        resupply = row.get('resupply', {})
+        check(int(resupply.get('currency', 0)) > 0 and bool(resupply.get('materials')), f'{key}: shrine resupply costs currency and a material')
+        check('免费' not in row.get('refill_rule', '') and str(resupply.get('currency')) in row.get('refill_rule', ''), f'{key}: refill text states the actual paid cost')
+    # Healing is part of each seal's identity (C02/E01): no two seals heal the same way,
+    # every heal is affordable from a full meter, and only a light seal heals airborne.
+    crests = data.get('crests', {})
+    styles = {(row.get('heal_cost'), row.get('heal_amount'), row.get('heal_duration'), bool(row.get('heal_airborne'))) for row in crests.values()}
+    check(len(styles) == len(crests), 'each seal has its own heal cost/amount/duration/air rule')
+    for key, row in crests.items():
+        check(0 < row.get('heal_cost', 0) <= row.get('max_energy', 0), f'{key}: one heal fits in a full meter')
+        check(1 <= row.get('heal_amount', 0) <= 2 and 0.3 <= row.get('heal_duration', 0) <= 1.5, f'{key}: heal amount and channel time stay in a readable range')
+        check(0.0 <= row.get('heal_interrupt_loss_ratio', -1) <= 1.0, f'{key}: interrupted heal loss is a ratio')
+        check(row.get('heal_cost', 0) / row.get('heal_amount', 1) >= 40, f'{key}: healing never costs under 40 thread per mask')
+        check(str(row.get('heal_cost')) in row.get('heal_effect', '') and str(row.get('heal_amount')) in row.get('heal_effect', ''), f'{key}: heal text names the real cost and amount')
+        if row.get('heal_airborne'):
+            check(row.get('heal_duration', 9) <= 0.6 and row.get('heal_amount') == 1, f'{key}: airborne healing is reserved for a short one-mask stitch')
     for key, row in data.get('passives', {}).items():
         forbidden = {'jump_height', 'jump_velocity', 'dash_unlocked', 'double_jump_unlocked', 'thread_grapple_unlocked'}
         check(not (set(row.get('modifiers', {})) & forbidden), f'{key}: does not alter permanent exploration gates')

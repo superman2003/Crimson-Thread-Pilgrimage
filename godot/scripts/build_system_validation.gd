@@ -40,11 +40,12 @@ func _initialize() -> void:
     for id in ["crimson", "bell", "salt"]:
         _check(build.switch_crest(id).ok, "seal switch " + id)
         var stats := build.profile()
-        _check(stats.max_hp == 5 and stats.max_energy == 100 and stats.heal_amount == 1 and stats.heal_cost == 60 and stats.heal_duration == 0.8, "fixed resources " + id)
+        var crest: Dictionary = build.catalog.crests[id]
+        _check(stats.max_hp == 5 and stats.max_energy == 100 and stats.heal_amount == crest.heal_amount and stats.heal_cost == crest.heal_cost and stats.heal_duration == crest.heal_duration and stats.heal_airborne == bool(crest.get("heal_airborne", false)), "seal heal comes from its own catalog row " + id)
         _check(build.state.tool_counts == before.tool_counts and build.cooldowns == before.cooldowns, "switch does not refresh stock/cooldown " + id)
     _check(build.equip_passives(["shell", "stride"]).ok, "capacity valid")
     var stats := build.profile()
-    _check(stats.max_hp == 5 and stats.max_energy == 100 and is_equal_approx(stats.move_mult, 1.08) and stats.heal_duration > 0.8 and stats.knockback_mult < 1, "charm benefit and drawback")
+    _check(stats.max_hp == 5 and stats.max_energy == 100 and is_equal_approx(stats.move_mult, 1.08) and is_equal_approx(stats.heal_duration, float(build.catalog.crests[build.state.crest].heal_duration) * 1.15) and stats.knockback_mult < 1, "charm benefit and drawback")
     _check(build.profile() == stats and build.profile() == stats, "profile idempotent")
     _check(not build.equip_passives(["stride", "stride"]).ok and not build.equip_passives(["reflux", "spur"]).ok, "duplicate and capacity rejection")
     _check(build.save_loadout("记名").ok, "save dual-slot build")
