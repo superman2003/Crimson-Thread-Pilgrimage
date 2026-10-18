@@ -17,7 +17,9 @@ jobs:
   runtime:
     runs-on: ubuntu-24.04
     # Keep the full suite together; individual strict budgets are unchanged.
-    timeout-minutes: 45
+    # 60 min since the creature attack atlases (+760 poses, 92 -> 129 MB of
+    # lossless textures) slowed software-GL decoding on the runner.
+    timeout-minutes: 60
     steps:
       - name: Check out the exact commit and hydrate runtime assets
         env:
