@@ -2,6 +2,27 @@ extends RefCounted
 ## JSON-only survey journal inside the existing world story_flags container.
 const KEY := "cartography_v1"
 const PRICE := 20
+## 盐墨绘针: one quill charts every owned map at a shrine. Without it, travel
+## notes are kept as pending and are charted at the first rest after buying it.
+const QUILL_FLAG := "cartography_quill"
+const QUILL_PRICE := 10
+static func has_quill(flags: Dictionary) -> bool:
+    return bool(flags.get(QUILL_FLAG, false))
+static func grant_quill(flags: Dictionary) -> void:
+    flags[QUILL_FLAG] = true
+## Saves from before the quill already charted at shrines; keep that ability.
+static func legacy_quill(flags: Dictionary) -> void:
+    if has_quill(flags) or not flags.get(KEY) is Dictionary: return
+    for id in flags[KEY]:
+        if flags[KEY][id] is Dictionary and bool(flags[KEY][id].get("owned", false)):
+            grant_quill(flags)
+            return
+static func pending_count(flags: Dictionary) -> int:
+    var count := 0
+    for id in flags.get(KEY, {}).keys():
+        var journal := region(flags, String(id))
+        if bool(journal.get("owned", false)): count += journal.pending.size()
+    return count
 static func region(flags: Dictionary, id: String) -> Dictionary:
     if not flags.get(KEY) is Dictionary: flags[KEY] = {}
     if not flags[KEY].get(id) is Dictionary:
@@ -29,6 +50,7 @@ static func purchase(flags: Dictionary, id: String, wallet: int) -> Dictionary:
     return {"ok":true,"reason":"收好底图。安坐钟龛时，才能把旅途笔记补绘上去。","wallet":wallet-PRICE}
 static func rest(flags: Dictionary) -> int:
     var count := 0
+    if not has_quill(flags): return 0
     for id in flags.get(KEY,{}).keys():
         var journal := region(flags,String(id))
         if not bool(journal.get("owned",false)): continue

@@ -1160,6 +1160,7 @@ func _restore_world_inventory_and_region() -> void:
     if world_narrative != null:
         story_flags = world_narrative.restored_ending_flags(story_flags)
     CARTOGRAPHY.migrate(story_flags, snapshot.regions)
+    CARTOGRAPHY.legacy_quill(story_flags)
     var region := world_state.get_region(String(config.get("id", "")))
     world_collected_ids = region.collected_ids.duplicate(true)
     opened_shortcuts = region.opened_shortcuts.duplicate(true)
@@ -5698,7 +5699,10 @@ func _activate_save_point(area: Area2D) -> void:
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
     _save_world()
-    _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
+    var rest_message := "安坐钟龛 · 已记下归途，恢复生命与绯线。"
+    if world_mode and not CARTOGRAPHY.has_quill(story_flags) and CARTOGRAPHY.pending_count(story_flags) > 0:
+        rest_message += "途中笔记已记下；要有盐墨绘针才能补绘进地图（地图商人有售）。"
+    _toast(rest_message)
     _refresh_hud()
 
 

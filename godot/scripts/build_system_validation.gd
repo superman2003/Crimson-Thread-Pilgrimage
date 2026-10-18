@@ -97,7 +97,7 @@ func _initialize() -> void:
         before = restart.serialize()
         _check(not restart.restore(corrupt).ok and restart.serialize() == before, "transactional corruption rejection " + corrupt_kind)
     var snapshot := build.get_snapshot()
-    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == 6 and snapshot.recipes.size() == 6, "full UI catalog")
+    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 6, "full UI catalog")
     _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
     if failures.is_empty():
         print("BUILD SYSTEM PASS: %d checks" % checks)

@@ -9,7 +9,7 @@ EXPECTED = {
     'crests': {'crimson': ('缝名契印', 4), 'bell': ('司铸契印', 5), 'salt': ('校录契印', 3)},
     'skills': {'cleave': ('绯线穿刺', 25), 'needle': ('回声针', 20), 'shockwave': ('钟鸣震波', 35), 'ward': ('守钟架势', 20), 'snare': ('盐印缚线', 30), 'crosscut': ('断弦回斩', 30)},
     'tools': {'shard': ('铜铃投罐', 3), 'mine': ('绊线钉', 2), 'fog': ('盐雾瓶', 2), 'lure': ('回响诱铃', 2)},
-    'passives': {'reflux': ('工匠线轴', 2), 'spur': ('盐页书签', 2), 'shell': ('铜背扣', 2), 'stride': ('巡礼鞋结', 1), 'mender': ('静钟碎片', 1), 'needlecase': ('余声针匣', 2)},
+    'passives': {'reflux': ('工匠线轴', 2), 'spur': ('盐页书签', 2), 'shell': ('铜背扣', 2), 'stride': ('巡礼鞋结', 1), 'mender': ('静钟碎片', 1), 'needlecase': ('余声针匣', 2), 'compass': ('钟骨罗盘', 1)},
 }
 
 def validate(data: dict) -> list[str]:
@@ -55,7 +55,7 @@ def main() -> int:
     data = json.loads((ROOT / 'godot/data/build_catalog.json').read_text())
     errors = validate(data)
     for error in errors: print('FAIL: ' + error)
-    print(f'SEAL_CATALOG {"FAIL" if errors else "PASS"}: 3 seals, 6 skills, 4 tools, 6 adornments; errors={len(errors)}')
+    print(f'SEAL_CATALOG {"FAIL" if errors else "PASS"}: 3 seals, 6 skills, 4 tools, 7 adornments; errors={len(errors)}')
     return bool(errors)
 
 if __name__ == '__main__':
