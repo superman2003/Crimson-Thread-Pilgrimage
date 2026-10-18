@@ -26,6 +26,8 @@ func run() -> void:
     check(JOURNAL.rest(flags)==1 and JOURNAL.charted(flags,"a","room_a"),"with the quill a rest commits owned map notes")
     check(not JOURNAL.charted(flags,"b","room_b") and JOURNAL.region(flags,"b").pending.has("room_b"),"unowned remote notes remain pending")
     check(JOURNAL.rest(flags)==0,"rest is idempotent")
+    var priced: Dictionary={}
+    check(not JOURNAL.purchase(priced,"c",44,45).ok and JOURNAL.purchase(priced,"c",50,45).wallet==5,"purchase charges the seller's own price")
     var legacy: Dictionary={"quest_old":true}
     JOURNAL.migrate(legacy,{"a":{"visited_rooms":{"old_room":true}}})
     check(legacy.quest_old and JOURNAL.region(legacy,"a").pending.has("old_room"),"legacy exploration retained without free map or detail")
@@ -66,11 +68,19 @@ func run() -> void:
     dialog.confirmed.emit()
     check(not JOURNAL.owned(scene.story_flags,id) and scene.currency_count==0,"failed UI transaction does not charge or grant")
     check(not scene.player.ui_input_locked and not dialog.visible,"confirmation returns player control")
+    # A later region's seller price, applied to this live stall, must be what the dialog shows and charges.
+    var seller_data: Dictionary=stall.get_meta("map_seller_data")
+    seller_data["price"]=35
+    stall.set_meta("map_seller_data",seller_data)
+    scene.currency_count=34
+    scene._try_interact()
+    check(dialog.get_ok_button().disabled and dialog.dialog_text.contains("35枚"),"live shop shows the seller's price and refuses one coin short")
+    scene._close_overlays()
     scene.currency_count=40
     scene._try_interact()
     check(not dialog.get_ok_button().disabled,"sufficient currency enables purchase button")
     dialog.confirmed.emit()
-    check(JOURNAL.owned(scene.story_flags,id) and scene.currency_count==20,"real confirmation buys current region map")
+    check(JOURNAL.owned(scene.story_flags,id) and scene.currency_count==5,"real confirmation buys current region map at the seller's price")
     scene.player.position=scene._vec2(scene.config.player_start)
     scene._update_room_visit()
     scene._toggle_map()

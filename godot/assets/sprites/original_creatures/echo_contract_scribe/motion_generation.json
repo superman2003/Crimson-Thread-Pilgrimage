@@ -574,6 +574,328 @@
         ],
         "anchor_x": 119.0
       }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_pages_loops.png",
+        "region": [
+          156,
+          156,
+          643,
+          623
+        ],
+        "component_seeds": [
+          [
+            278,
+            160
+          ]
+        ],
+        "scale": 0.3352,
+        "anchor_x": 302.3
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_pages_loops.png",
+        "region": [
+          943,
+          250,
+          593,
+          529
+        ],
+        "component_seeds": [
+          [
+            1304,
+            254
+          ]
+        ],
+        "scale": 0.3352,
+        "anchor_x": 286.3
+      }
+    ],
+    "echo_scribe_seals_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          52,
+          34,
+          276,
+          346
+        ],
+        "component_seeds": [
+          [
+            262,
+            38
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 146.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          419,
+          76,
+          307,
+          304
+        ],
+        "component_seeds": [
+          [
+            643,
+            80
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 139.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          781,
+          106,
+          306,
+          274
+        ],
+        "component_seeds": [
+          [
+            1005,
+            110
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 140.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          1135,
+          45,
+          287,
+          336
+        ],
+        "component_seeds": [
+          [
+            1295,
+            49
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 135.0
+      }
+    ],
+    "echo_scribe_seals": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          35,
+          467,
+          370,
+          238
+        ],
+        "component_seeds": [
+          [
+            226,
+            471
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 166.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          399,
+          496,
+          344,
+          209
+        ],
+        "component_seeds": [
+          [
+            586,
+            500
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 146.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          755,
+          548,
+          375,
+          162
+        ],
+        "component_seeds": [
+          [
+            927,
+            552
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 127.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          1115,
+          527,
+          313,
+          180
+        ],
+        "component_seeds": [
+          [
+            1275,
+            531
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 132.0
+      }
+    ],
+    "echo_scribe_seals_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          44,
+          793,
+          315,
+          239
+        ],
+        "component_seeds": [
+          [
+            206,
+            797
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 155.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          417,
+          758,
+          288,
+          274
+        ],
+        "component_seeds": [
+          [
+            571,
+            762
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 139.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          769,
+          754,
+          249,
+          279
+        ],
+        "component_seeds": [
+          [
+            918,
+            758
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 131.0
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/echo_scribe_seals.png",
+        "region": [
+          1127,
+          764,
+          244,
+          269
+        ],
+        "component_seeds": [
+          [
+            1269,
+            768
+          ]
+        ],
+        "scale": 0.6199,
+        "anchor_x": 133.0
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/echo_contract_scribe.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "echo_scribe_seals_windup",
+      "echo_scribe_seals",
+      "echo_scribe_seals_recover"
+    ],
+    "sheets": [
+      {
+        "image": "echo_scribe_pages_loops.png",
+        "image_sha256": "c46c7e4398e1495b900db74a4b3c2440bdac629b2885ae324f8109b97ceeb952",
+        "role": "keep",
+        "attack": "echo_scribe_pages",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3352,
+        "anchors": [
+          302.3,
+          286.3
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3256,
+            0.3451
+          ]
+        }
+      },
+      {
+        "image": "echo_scribe_seals.png",
+        "image_sha256": "46af9b29cefc677442fda757c98d4d264f308fa159f7fdf4cd26063e16008708",
+        "role": "new",
+        "attack": "echo_scribe_seals",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.6199,
+        "anchors": [
+          146.0,
+          139.0,
+          140.0,
+          135.0,
+          166.0,
+          146.0,
+          127.0,
+          132.0,
+          155.0,
+          139.0,
+          131.0,
+          133.0
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.5973,
+          "last_recover_ratio": 0.6433
+        }
+      }
     ]
   }
 }

@@ -35,9 +35,9 @@ class IntegrationWorkflowTests(unittest.TestCase):
         self.assertNotIn('--suites', self.runtime)
 
     def test_jobs_keep_original_bounds_and_strict_failure_behavior(self):
-        for job in (self.runtime, self.visual):
+        for job, minutes in ((self.runtime, 60), (self.visual, 45)):
             with self.subTest(job=job[:40]):
-                self.assertIn('    timeout-minutes: 45\n', job)
+                self.assertIn('    timeout-minutes: %d\n' % minutes, job)
                 self.assertNotIn('continue-on-error', job)
                 self.assertNotIn('|| true', job)
                 self.assertNotIn('needs:', job)

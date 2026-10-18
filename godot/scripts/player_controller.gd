@@ -46,6 +46,11 @@ var bell_pressure := 0
 var heal_speed_timer := 0.0
 var heal_stability_timer := 0.0
 var status_resist_timer := 0.0
+## Thread drawn from practice racks stays at the rack: leaving takes back
+## whatever of it is still unspent, so racks cannot fill the meter for a fight.
+var practice_energy := 0
+var heal_reserved_practice := 0
+const PRACTICE_ENERGY_RADIUS := 520.0
 var crosscut_refund_paid := false
 var seal_presentation: Node2D = null
 var seal_recovery_shown := false
@@ -92,6 +97,22 @@ func _seal_tick(delta: float) -> void:
     heal_speed_timer = maxf(0.0, heal_speed_timer - delta)
     heal_stability_timer = maxf(0.0, heal_stability_timer - delta)
     status_resist_timer = maxf(0.0, status_resist_timer - delta)
+    _settle_practice_energy()
+
+func _settle_practice_energy() -> void:
+    practice_energy = mini(practice_energy, energy)
+    if practice_energy <= 0:
+        practice_energy = 0
+        return
+    for node in get_tree().get_nodes_in_group("enemy"):
+        if node is Node2D and node.has_meta("seal_training_target") and node.global_position.distance_to(global_position) <= PRACTICE_ENERGY_RADIUS:
+            return
+    var unspent := practice_energy
+    practice_energy = 0
+    gain_energy(-unspent)
+
+func _heal_airborne() -> bool:
+    return bool(build_profile.get("heal_airborne", false))
 
 func _crest() -> String:
     return String(build_profile.get("crest_id", "crimson"))
@@ -928,7 +949,7 @@ func get_heal_readiness() -> Dictionary:
     elif heal_cooldown > 0.0: reason = "cooldown"
     elif hp >= max_hp: reason = "full_health"
     elif energy < heal_energy_cost: reason = "energy"
-    elif not is_on_floor(): reason = "airborne"
+    elif not is_on_floor() and not _heal_airborne(): reason = "airborne"
     elif absf(_move_axis()) > 0.1 or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"): reason = "moving"
     return {"available":reason=="ready", "reason":reason, "cost":heal_energy_cost,
         "missing_energy":maxi(0,heal_energy_cost-energy), "amount":mini(heal_amount,maxi(0,max_hp-hp)),
@@ -944,6 +965,7 @@ func _try_heal() -> bool:
     var reservation_generation := heal_reservation_generation
     heal_reserved_cost = heal_energy_cost
     heal_reserved_loss_ratio = clampf(float(build_profile.get("heal_interrupt_loss_ratio",1.0)),0.0,1.0)
+    heal_reserved_practice = mini(practice_energy, heal_reserved_cost)
     heal_timer = heal_duration
     velocity.x = 0.0
     gain_energy(-heal_reserved_cost)
@@ -960,13 +982,14 @@ func _try_heal() -> bool:
 func _update_heal(delta: float) -> void:
     if heal_timer <= 0.0:
         return
-    if not is_on_floor() or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash") or absf(_move_axis()) > 0.1:
+    if (not is_on_floor() and not _heal_airborne()) or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash") or absf(_move_axis()) > 0.1:
         _interrupt_heal()
         return
     heal_timer = maxf(0.0, heal_timer - delta)
     if heal_timer <= 0.0:
         heal_reservation_generation += 1
         heal_reserved_cost = 0
+        heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
         heal_cooldown = 0.4
         # Settle the paid build before HP listeners can replace that build.
@@ -984,7 +1007,11 @@ func _interrupt_heal() -> void:
         heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
+        var practice_refund := mini(refund, heal_reserved_practice)
+        heal_reserved_practice = 0
         gain_energy(refund)
+        # A refund of practice thread stays practice thread.
+        practice_energy = mini(energy, practice_energy + practice_refund)
         heal_state_changed.emit("interrupted")
 
 
@@ -1316,12 +1343,15 @@ func _apply_attack_hits() -> void:
                 if footstep_material == "copper":
                     _play_sfx("ch02_beat_echo_hook", -10.0)
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
+            var energy_before := energy
             if active_skill.is_empty():
                 gain_energy(energy_per_hit)
                 _basic_seal_hit()
             elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
                 gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
                 crosscut_refund_paid = true
+            if is_instance_valid(node) and node.has_meta("seal_training_target"):
+                practice_energy += energy - energy_before
             if active_skill.is_empty() and _crest() == "bell" and _seal_mechanism_ready() and bell_pressure > 0 and current_attack == &"attack_2":
                 if node.has_method("apply_stagger"):
                     node.apply_stagger(bell_pressure * 0.3)
@@ -1439,6 +1469,9 @@ func _play_pogo_squash() -> void:
 func gain_energy(amount: int) -> void:
     var before := energy
     energy = clampi(energy + amount, 0, max_energy)
+    # Spending uses rack-earned practice thread first.
+    if amount < 0:
+        practice_energy = maxi(0, practice_energy - (before - energy))
     if energy != before:
         energy_changed.emit(energy, max_energy)
 
@@ -2217,6 +2250,7 @@ func restore_at_save_point() -> void:
     snare_timer = 0.0
     hp = max_hp
     energy = max_energy
+    practice_energy = 0
     hurt_timer = 0.0
     death_timer = 0.0
     heal_cooldown = 0.0

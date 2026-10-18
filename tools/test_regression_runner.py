@@ -75,7 +75,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 114)
+        self.assertEqual(len(all_suites), 116)
         self.assertIn("expanded_character_motion", DEFAULT_SUITES)
         self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
         self.assertIn("character_art_prewarm", DEFAULT_SUITES)

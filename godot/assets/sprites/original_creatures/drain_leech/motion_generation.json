@@ -493,6 +493,310 @@
         "scale": 0.75,
         "anchor_x": 227.0
       }
+    ],
+    "leech_leap_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          67,
+          169,
+          197,
+          116
+        ],
+        "component_seeds": [
+          [
+            173,
+            173
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 96.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          377,
+          138,
+          199,
+          148
+        ],
+        "component_seeds": [
+          [
+            494,
+            142
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 100.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          684,
+          109,
+          196,
+          177
+        ],
+        "component_seeds": [
+          [
+            808,
+            113
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 98.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          976,
+          94,
+          218,
+          192
+        ],
+        "component_seeds": [
+          [
+            1120,
+            98
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 115.7
+      }
+    ],
+    "leech_leap": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          49,
+          390,
+          254,
+          210
+        ],
+        "component_seeds": [
+          [
+            263,
+            394
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 129.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          345,
+          371,
+          266,
+          214
+        ],
+        "component_seeds": [
+          [
+            547,
+            375
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 131.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          636,
+          383,
+          322,
+          109
+        ],
+        "component_seeds": [
+          [
+            845,
+            387
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 178.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          986,
+          415,
+          239,
+          176
+        ],
+        "component_seeds": [
+          [
+            1165,
+            419
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 124.7
+      }
+    ],
+    "leech_leap_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          14,
+          802,
+          312,
+          94
+        ],
+        "component_seeds": [
+          [
+            226,
+            806
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 171.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          348,
+          781,
+          290,
+          116
+        ],
+        "component_seeds": [
+          [
+            540,
+            785
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 156.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          670,
+          778,
+          238,
+          118
+        ],
+        "component_seeds": [
+          [
+            823,
+            782
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 127.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          957,
+          786,
+          277,
+          114
+        ],
+        "component_seeds": [
+          [
+            1142,
+            790
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 150.7
+      }
+    ],
+    "leech_leap_travel": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          17,
+          1031,
+          308,
+          112
+        ],
+        "component_seeds": [
+          [
+            217,
+            1035
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 165.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/leech_leap.png",
+        "region": [
+          331,
+          1047,
+          306,
+          105
+        ],
+        "component_seeds": [
+          [
+            524,
+            1051
+          ]
+        ],
+        "scale": 0.9985,
+        "anchor_x": 169.7
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/drain_leech.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "leech_leap_windup",
+      "leech_leap",
+      "leech_leap_recover",
+      "leech_leap_travel"
+    ],
+    "sheets": [
+      {
+        "image": "leech_leap.png",
+        "image_sha256": "3d30c215e442699557707213ac76a6a6184cd1f109dc2d89906ab2c32e81468f",
+        "role": "new",
+        "attack": "leech_leap",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.9985,
+        "anchors": [
+          96.7,
+          100.7,
+          98.7,
+          115.7,
+          129.7,
+          131.7,
+          178.7,
+          124.7,
+          171.7,
+          156.7,
+          127.7,
+          150.7,
+          165.7,
+          169.7
+        ],
+        "calibration": {
+          "method": "recovery idle stance",
+          "first_windup_ratio": 1.1304,
+          "last_recover_ratio": 0.9985
+        }
+      }
     ]
   }
 }

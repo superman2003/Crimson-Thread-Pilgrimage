@@ -43,11 +43,14 @@ static func visit(flags: Dictionary, id: String, room: String) -> void:
     if room.is_empty(): return
     var journal := region(flags,id)
     if not bool(journal.charted.get(room,false)): journal.pending[room] = true
-static func purchase(flags: Dictionary, id: String, wallet: int) -> Dictionary:
+## Each region's seller sets its own price (cartography_sellers.json); PRICE is
+## only the fallback for a seller record without one.
+static func purchase(flags: Dictionary, id: String, wallet: int, price: int = PRICE) -> Dictionary:
     if owned(flags,id): return {"ok":false,"reason":"这张底图已经收进旅册。","wallet":wallet}
-    if wallet<PRICE: return {"ok":false,"reason":"需要%d枚松脂碎钱。" % PRICE,"wallet":wallet}
+    if price <= 0: return {"ok":false,"reason":"这张底图暂不出售。","wallet":wallet}
+    if wallet<price: return {"ok":false,"reason":"需要%d枚松脂碎钱。" % price,"wallet":wallet}
     region(flags,id).owned = true
-    return {"ok":true,"reason":"收好底图。安坐钟龛时，才能把旅途笔记补绘上去。","wallet":wallet-PRICE}
+    return {"ok":true,"reason":"收好底图。安坐钟龛时，才能把旅途笔记补绘上去。","wallet":wallet-price}
 static func rest(flags: Dictionary) -> int:
     var count := 0
     if not has_quill(flags): return 0

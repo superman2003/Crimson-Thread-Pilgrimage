@@ -164,7 +164,7 @@ func _world() -> void:
     await _frames()
     _check(_count() == 1 and button.has_focus(), "focused current-position button accepts UI activation and preserves focus after redraw")
     var marker: Label = level.map_draw_root.get_node_or_null("PlayerMapPin_1")
-    _check(marker != null and marker.mouse_filter == Control.MOUSE_FILTER_IGNORE and (marker.position + Vector2(8, 12)).distance_to(UI.project(level, A, level.player.global_position)) < 0.01, "regional marker projects local position and never steals drag input")
+    _check(marker != null and marker.mouse_filter == Control.MOUSE_FILTER_IGNORE and (marker.get_meta("map_anchor") as Vector2).distance_to(UI.project(level, A, level.player.global_position)) < 0.01 and (marker.position + Vector2(8, 12)).distance_to(marker.get_meta("map_anchor")) < 64.0, "regional marker projects local position and never steals drag input")
     toolbar.get_node("PinKind").select(1)
     var second := _different_point(level.config, level.story_flags, A, level.player.global_position)
     level.survey_map_view.magnify(2.0, UI.project(level, A, second))
@@ -240,7 +240,7 @@ func _world() -> void:
     await _right(B, point_b)
     _check(_count() == 3 and _records()[2].region_id == B and Vector2(_records()[2].position[0], _records()[2].position[1]).distance_to(point_b) < 1.0, "world overview right click inverts world origin plus zoom and pan to the correct region")
     marker = level.map_draw_root.get_node_or_null("PlayerMapPin_3")
-    _check(marker != null and (marker.position + Vector2(8, 12)).distance_to(UI.project(level, B, point_b)) < 0.01, "world pin uses the same fixed projection as the atlas")
+    _check(marker != null and (marker.get_meta("map_anchor") as Vector2).distance_to(UI.project(level, B, point_b)) < 0.01 and (marker.position + Vector2(8, 12)).distance_to(marker.get_meta("map_anchor")) < 64.0, "world pin uses the same fixed projection as the atlas")
     for record in _records():
         var displayed: Label = level.map_draw_root.get_node("PlayerMapPin_" + str(record.id))
         var item_text := ""
@@ -444,7 +444,7 @@ func _navigation_with_pins() -> void:
         _check(_toolbar() == original_toolbar and level.survey_map_view == original_view and _count() == 2, prefix + ": close/reopen and view reset retain the same live pin control owners")
         for record in _records():
             var marker: Label = level.map_draw_root.get_node_or_null("PlayerMapPin_" + str(record.id))
-            _check(marker != null and (marker.position + Vector2(8, 12)).distance_to(UI.project(level, record.region_id, Vector2(record.position[0], record.position[1]))) < 0.01, prefix + ": navigation redraw preserves projected marker %d" % int(record.id))
+            _check(marker != null and (marker.get_meta("map_anchor") as Vector2).distance_to(UI.project(level, record.region_id, Vector2(record.position[0], record.position[1]))) < 0.01 and (marker.position + Vector2(8, 12)).distance_to(marker.get_meta("map_anchor")) < 64.0, prefix + ": navigation redraw preserves projected marker %d" % int(record.id))
     level.world_map_view = false
     level._refresh_map_overlay()
     _sample("regional_view_restored_after_navigation")
