@@ -95,3 +95,6 @@ godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/*.png -filter -
 godot/assets/sprites/player/generated_hero_v3/manifest.json -filter diff merge text
 artifacts/expanded_character_motion/*.webp -filter -diff -merge -text
 artifacts/expanded_character_motion/*.png -filter -diff -merge -text
+
+# Silent crown positioned captures are small, directly viewable Git blobs.
+artifacts/silent_crown/*.webp -filter -diff -merge -text
