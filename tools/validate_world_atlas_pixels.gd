@@ -50,6 +50,7 @@ func run() -> void:
         for room in ATLAS.configuration(id).map_rooms:
             JOURNAL.visit(scene.story_flags,id,String(room.id))
     await capture("02_pending_notes")
+    JOURNAL.grant_quill(scene.story_flags)
     JOURNAL.rest(scene.story_flags)
     await capture("03_charted_world")
     var camera: Control = scene.survey_map_view

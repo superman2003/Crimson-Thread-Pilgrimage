@@ -31,10 +31,19 @@ static func setup(level: Node) -> void:
     level.add_child(dialog)
     var talk := dialog.add_button("交谈",true,"talk")
     talk.name="MapSellerTalk"
+    # Every seller stocks the two survey tools until the player owns them, so
+    # missing one cartographer never locks out charting or positioning.
+    var quill := dialog.add_button("盐墨绘针",false,"quill")
+    quill.name="MapSellerQuill"
+    var compass := dialog.add_button("钟骨罗盘",false,"compass")
+    compass.name="MapSellerCompass"
     dialog.custom_action.connect(func(action: String):
         if action=="talk":
             level._close_overlays()
-            level._talk_to_npc(area))
+            level._talk_to_npc(area)
+        elif action in ["quill","compass"]:
+            purchase_tool(level,area,action)
+            open_shop(level,area))
     dialog.confirmed.connect(func():
         purchase(level,area)
         level._close_overlays())
@@ -48,6 +57,15 @@ static func open_shop(level: Node, area: Area2D) -> void:
     var price := seller_price(area.get_meta("map_seller_data",{}))
     dialog.dialog_text=String(area.get_meta("map_seller_data",{}).get("note",""))+"\n\n"+("已获得此区域地图。安坐钟龛补绘途中笔记。" if is_owned else "本区地图：%d枚松脂碎钱 · 当前%d枚" % [price,level.currency_count])
     dialog.get_ok_button().disabled=is_owned or level.currency_count<price
+    for kind in ["quill","compass"]:
+        var button: Button=dialog.find_child("MapSeller"+kind.capitalize(),true,false)
+        var tool_cost := tool_price(kind)
+        button.visible=not owns_tool(level,kind)
+        button.text=("盐墨绘针" if kind=="quill" else "钟骨罗盘")+" · %d枚" % tool_cost
+        button.disabled=level.currency_count<tool_cost
+        button.tooltip_text="安坐钟龛时把途中笔记补绘进所有已购地图。" if kind=="quill" else "行旅铭饰：装备后地图标出你的位置。"
+    if not owns_tool(level,"quill"):
+        dialog.dialog_text+="\n盐墨绘针：没有它，钟龛无法补绘途中笔记（笔记会保留）。"
     dialog.popup_centered(Vector2i(530,250))
     (dialog.get_ok_button() if not dialog.get_ok_button().disabled else dialog.get_cancel_button()).grab_focus()
 static func purchase(level: Node, area: Area2D) -> Dictionary:
@@ -61,6 +79,41 @@ static func purchase(level: Node, area: Area2D) -> Dictionary:
         level._refresh_hud()
     level._toast(String(result.reason))
     return result
+const COMPASS_PRICE := 15
+static func tool_price(kind: String) -> int:
+    return JOURNAL.QUILL_PRICE if kind=="quill" else COMPASS_PRICE
+static func owns_tool(level: Node, kind: String) -> bool:
+    if kind=="quill": return JOURNAL.has_quill(level.story_flags)
+    return level.build_system!=null and level.build_system.state.unlocked_passives.has("compass")
+static func purchase_tool(level: Node, area: Area2D, kind: String) -> Dictionary:
+    if not level.world_mode or not is_instance_valid(area) or String(area.get_meta("map_seller_region",""))!=String(level.config.id) or level.player.global_position.distance_to(area.global_position)>150 or level.player.hp<=0 or level.player.death_timer>0 or level.chapter_transitioning:
+        return {"ok":false,"reason":"请靠近地图NPC购买。"}
+    if kind not in ["quill","compass"]: return {"ok":false,"reason":"没有这件工具。"}
+    if owns_tool(level,kind):
+        level._toast("已经有了。")
+        return {"ok":false,"reason":"已经有了。"}
+    var price := tool_price(kind)
+    if level.currency_count<price:
+        level._toast("需要%d枚松脂碎钱。" % price)
+        return {"ok":false,"reason":"需要%d枚松脂碎钱。" % price}
+    level.currency_count-=price
+    var message := ""
+    if kind=="quill":
+        JOURNAL.grant_quill(level.story_flags)
+        message="收好盐墨绘针。之后安坐钟龛，途中笔记会补绘进所有已购地图。"
+    else:
+        level.build_system.unlock_event("charm_compass_found")
+        message="收好钟骨罗盘。装在行旅铭饰槽，地图就会标出你的位置。"
+    level._save_world()
+    level._refresh_hud()
+    level._toast(message)
+    return {"ok":true,"reason":message}
+## Position on the map comes from an equipped compass, or the navigation-assist
+## accessibility setting. Outside the world (single demos) it always shows.
+static func shows_position(level: Node) -> bool:
+    if not level.world_mode: return true
+    if level.ui_shell!=null and bool(level.ui_shell.get_accessibility("navigation_assist",false)): return true
+    return level.build_system!=null and level.build_system.state.passives.has("compass")
 static func seller_price(seller: Dictionary) -> int:
     return int(seller.get("price", JOURNAL.PRICE))
 static func public_room(room: Dictionary) -> bool:
@@ -235,7 +288,8 @@ static func render(level: Node) -> void:
         host.add_child(marker)
     # Position is a navigation aid, not a newly inked room outline.
     var current: Dictionary=level._room_for_position(level.player.global_position)
-    if ids.has(String(current.get("id",""))):
+    var positioned := shows_position(level)
+    if positioned and ids.has(String(current.get("id",""))):
         var dot:=Label.new()
         dot.mouse_filter=Control.MOUSE_FILTER_IGNORE
         dot.name="SurveyPlayerMarker"
@@ -243,5 +297,5 @@ static func render(level: Node) -> void:
         dot.text="◆"
         dot.add_theme_color_override("font_color",SURFACE.ACCENT)
         host.add_child(dot)
-    level.map_text.text="◆ 位置    ◎ 钟龛    ◇ 旧路    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
+    level.map_text.text=("◆ 位置" if positioned else "无罗盘·看地标")+"    ◎ 钟龛    ◇ 旧路    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
     level.map_text.tooltip_text="已补绘 %d 室，待补绘 %d 笔。安坐钟龛可补绘途中笔记；悬停查看房间名称。" % [journal.charted.size(),journal.pending.size()]

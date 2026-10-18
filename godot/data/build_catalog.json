@@ -81,14 +81,16 @@
             "compatible": [
               "stride",
               "spur",
-              "needlecase"
+              "needlecase",
+              "compass"
             ]
           },
           {
             "compatible": [
               "needlecase",
               "spur",
-              "stride"
+              "stride",
+              "compass"
             ],
             "requires_mechanism": "crimson"
           },
@@ -96,7 +98,8 @@
             "compatible": [
               "spur",
               "stride",
-              "needlecase"
+              "needlecase",
+              "compass"
             ],
             "requires_mechanism": "crimson"
           }
@@ -202,14 +205,16 @@
             "compatible": [
               "spur",
               "needlecase",
-              "stride"
+              "stride",
+              "compass"
             ]
           },
           {
             "compatible": [
               "stride",
               "needlecase",
-              "spur"
+              "spur",
+              "compass"
             ],
             "requires_mechanism": "bell"
           },
@@ -217,7 +222,8 @@
             "compatible": [
               "spur",
               "stride",
-              "needlecase"
+              "needlecase",
+              "compass"
             ],
             "requires_mechanism": "bell"
           }
@@ -324,21 +330,24 @@
             "compatible": [
               "spur",
               "stride",
-              "needlecase"
+              "needlecase",
+              "compass"
             ]
           },
           {
             "compatible": [
               "needlecase",
               "stride",
-              "spur"
+              "spur",
+              "compass"
             ]
           },
           {
             "compatible": [
               "stride",
               "spur",
-              "needlecase"
+              "needlecase",
+              "compass"
             ],
             "requires_mechanism": "salt"
           }
@@ -737,6 +746,21 @@
       "risk": "铜铃投罐与绊线钉容量增加一次，技能消耗增加10%。",
       "synergy": "效果由契印统一计算，不影响永久探索能力。",
       "family": "travel_accessory"
+    },
+    "compass": {
+      "name": "钟骨罗盘",
+      "description": "装在行旅铭饰槽时，地图会标出你的当前位置；不装时只能靠地标辨认。",
+      "cost": 1,
+      "group": "",
+      "modifiers": {},
+      "unlock_flag": "charm_compass_found",
+      "unlock_item": "relic_passive_compass",
+      "icon": "res://assets/ui/seals/compass.svg",
+      "risk": "不改变战斗数值；占用一个行旅铭饰槽。",
+      "synergy": "只影响地图定位；可在设置里开启导航辅助代替。",
+      "family": "travel_accessory",
+      "source": "地图商人出售：钟楼报时骨片磨成的指针。",
+      "unlock_hint": "向任一地区的地图商人购买"
     }
   },
   "recipes": {
@@ -911,6 +935,11 @@
         "salt"
       ],
       "mechanism": "salt"
+    },
+    "charm_compass_found": {
+      "passives": [
+        "compass"
+      ]
     }
   }
 }

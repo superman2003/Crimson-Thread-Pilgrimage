@@ -1,4 +1,5 @@
 extends SceneTree
+const SURVEY_UI := preload("res://scripts/cartography_runtime.gd")
 ## Bounded component fixtures for the repaired manifest on modern main.
 ## Fault injection changes only cache generations, isolated saves and detached
 ## candidates. Terminal placement below tests recovery, NEVER complete travel.
@@ -398,7 +399,7 @@ func _atlas_refresh() -> void:
     for unused in 3000:
         if not scene.world_loader.manifest_refresh_running: break
         await process_frame
-    _check(ROUTES.cached_generation() > old_generation and scene.map_draw_root.get_node_or_null("WorldRegion_" + id) != null and scene.map_draw_root.get_node_or_null("WorldSurveyPlayer") != null, "completed background refresh redraws the still-open modern world map")
+    _check(ROUTES.cached_generation() > old_generation and scene.map_draw_root.get_node_or_null("WorldRegion_" + id) != null and (scene.map_draw_root.get_node_or_null("WorldSurveyPlayer") != null) == SURVEY_UI.shows_position(scene), "completed background refresh redraws the still-open modern world map")
     _check(camera.zoom == 2.0 and scene.map_draw_root.position == pan and scene.active_overlay == "map", "background atlas redraw preserves zoom/pan and the chosen map view")
     var event := InputEventKey.new()
     event.physical_keycode = KEY_D

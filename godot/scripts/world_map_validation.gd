@@ -54,7 +54,10 @@ func _run() -> void:
             _check(child.points.size() == 2, "atlas edges represent actual paired endpoints")
     _check(panels == 6, "atlas contains six canonical regions")
     _check(edges == 0, "atlas does not reveal routes before buying and charting a map")
-    _check(scene.map_draw_root.get_node_or_null("WorldSurveyPlayer") != null, "atlas projects the live player")
+    _check(scene.map_draw_root.get_node_or_null("WorldSurveyPlayer") == null, "atlas hides the position without a compass or navigation assist")
+    scene.ui_shell.accessibility["navigation_assist"] = true
+    scene._refresh_map_overlay()
+    _check(scene.map_draw_root.get_node_or_null("WorldSurveyPlayer") != null, "atlas projects the live player with navigation assist")
     var layout: Dictionary = scene.map_draw_root.get_meta("world_atlas_frame")
     var original_flags: Dictionary = scene.story_flags.duplicate(true)
     for id in COORD.manifest().regions:
@@ -84,6 +87,8 @@ func _run() -> void:
     scene._refresh_map_overlay()
     for name in hidden:
         _check(scene.map_draw_root.get_node_or_null(name) == null, name + " pending notes cannot reveal hidden rooms")
+    _check(JOURNAL.rest(scene.story_flags) == 0, "resting without the quill charts nothing")
+    JOURNAL.grant_quill(scene.story_flags)
     JOURNAL.rest(scene.story_flags)
     scene._refresh_map_overlay()
     _check(scene.map_draw_root.get_meta("world_atlas_frame") == layout, "charting all hidden rooms leaves atlas frame fixed")
