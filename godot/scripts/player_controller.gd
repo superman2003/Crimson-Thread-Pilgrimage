@@ -49,6 +49,7 @@ var status_resist_timer := 0.0
 ## Thread drawn from practice racks stays at the rack: leaving takes back
 ## whatever of it is still unspent, so racks cannot fill the meter for a fight.
 var practice_energy := 0
+var heal_reserved_practice := 0
 const PRACTICE_ENERGY_RADIUS := 520.0
 var crosscut_refund_paid := false
 var seal_presentation: Node2D = null
@@ -964,6 +965,7 @@ func _try_heal() -> bool:
     var reservation_generation := heal_reservation_generation
     heal_reserved_cost = heal_energy_cost
     heal_reserved_loss_ratio = clampf(float(build_profile.get("heal_interrupt_loss_ratio",1.0)),0.0,1.0)
+    heal_reserved_practice = mini(practice_energy, heal_reserved_cost)
     heal_timer = heal_duration
     velocity.x = 0.0
     gain_energy(-heal_reserved_cost)
@@ -987,6 +989,7 @@ func _update_heal(delta: float) -> void:
     if heal_timer <= 0.0:
         heal_reservation_generation += 1
         heal_reserved_cost = 0
+        heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
         heal_cooldown = 0.4
         # Settle the paid build before HP listeners can replace that build.
@@ -1004,7 +1007,11 @@ func _interrupt_heal() -> void:
         heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
+        var practice_refund := mini(refund, heal_reserved_practice)
+        heal_reserved_practice = 0
         gain_energy(refund)
+        # A refund of practice thread stays practice thread.
+        practice_energy = mini(energy, practice_energy + practice_refund)
         heal_state_changed.emit("interrupted")
 
 
@@ -1462,6 +1469,9 @@ func _play_pogo_squash() -> void:
 func gain_energy(amount: int) -> void:
     var before := energy
     energy = clampi(energy + amount, 0, max_energy)
+    # Spending uses rack-earned practice thread first.
+    if amount < 0:
+        practice_energy = maxi(0, practice_energy - (before - energy))
     if energy != before:
         energy_changed.emit(energy, max_energy)
 

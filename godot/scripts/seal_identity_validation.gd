@@ -226,6 +226,58 @@ func practice_energy() -> void:
     await pulse("attack")
     await frames(4)
     check(player.energy > real_before and player.practice_energy == 0, "Real enemies still grant thread that the player keeps")
+    # Review case: arrive with 50 real thread, earn practice, spend 10 at the rack.
+    await stand()
+    player.energy = 50
+    player.practice_energy = 0
+    for swing in 2:
+        await stand()
+        await pulse("attack")
+    var earned: int = player.practice_energy
+    check(earned > 10 and player.energy == 50 + earned, "Rack hits add practice thread on top of real thread")
+    player.gain_energy(-10)
+    check(player.practice_energy == earned - 10, "Spending uses practice thread first")
+    await stand(Vector2(1200, 180))
+    check(player.energy == 50 and player.practice_energy == 0, "Leaving after spending keeps every point of real thread")
+    # An interrupted bell heal paid with practice thread cannot launder it.
+    build.state.crest = "bell"
+    player.apply_build_stats(build.profile())
+    await stand()
+    player.hp = player.max_hp - 2
+    player.energy = player.max_energy
+    player.practice_energy = player.max_energy
+    player.heal_cooldown = 0.0
+    check(player._try_heal() and player.practice_energy == player.max_energy - player.heal_energy_cost, "Heal payment draws on practice thread first")
+    await frames(3)
+    player.arrival_guard_timer = 0.0
+    player.take_damage(1, player.global_position + Vector2(80, 0), false)
+    player.hurt_timer = 0.0
+    var refund: int = player.heal_energy_cost - int(ceil(player.heal_energy_cost * float(build.catalog.crests.bell.heal_interrupt_loss_ratio)))
+    check(player.practice_energy == player.max_energy - player.heal_energy_cost + refund, "An interrupted heal refunds practice thread as practice thread")
+    await stand(Vector2(1200, 180))
+    check(player.energy == mini(player.max_energy, player.energy_on_damage), "Leaving after the interrupted heal keeps only the thread the hit itself granted")
     rack.queue_free()
     enemy.queue_free()
     await frames(2)
+    await practice_energy_save()
+
+## Autosaves near a rack must not commit practice thread to disk.
+func practice_energy_save() -> void:
+    var save_path := "user://seal_identity_practice.json"
+    for suffix in ["", ".bak", ".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(save_path + suffix))
+    var world = load("res://scenes/World.tscn").instantiate()
+    world.world_resume = false
+    world.world_save_path = save_path
+    root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
+    world.set_process(false)
+    world.player.set_physics_process(false)
+    world.player.energy = 80
+    world.player.practice_energy = 30
+    check(world._save_world(), "Production World saves while practice thread is held")
+    var saved = JSON.parse_string(FileAccess.get_file_as_string(save_path))
+    check(saved is Dictionary and int(saved.get("energy", -1)) == 50, "The save stores only real thread, not the practice share")
+    check(world.player.energy == 80 and world.player.practice_energy == 30, "Saving does not change the live meter or ledger")
+    world.queue_free()
+    await frames(4)
+    for suffix in ["", ".bak", ".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(save_path + suffix))
