@@ -117,9 +117,6 @@ func _initialize() -> void:
 			if override_by_id.has(room_id):
 				override_guide = String(override_by_id[room_id].get("guide", ""))
 			var live := authored if override_guide.is_empty() else WorldRoutes._preserve_hidden_route_guide(authored, override_guide)
-			# Prefer authored override text when already merged in data.
-			if not override_guide.is_empty():
-				live = WorldRoutes._preserve_hidden_route_guide(authored, override_guide)
 			checks += 1
 			if live.find(marker) < 0:
 				failures += 1
