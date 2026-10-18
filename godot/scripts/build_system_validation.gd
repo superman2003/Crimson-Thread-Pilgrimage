@@ -59,7 +59,7 @@ func _initialize() -> void:
     _check(build.select_skill("needle", 1).ok, "upgrade target")
     var zero := build.selected_skill()
     var purchase := build.transact("upgrade_needle", wallet)
-    _check(purchase.ok and purchase.wallet.currency == 165 and wallet == wallet_before, "upgrade atomic wallet")
+    _check(purchase.ok and purchase.wallet.currency == 200 - int(build.catalog.recipes.upgrade_needle.currency) and wallet == wallet_before, "upgrade atomic wallet charges the catalog price")
     _check(build.selected_skill().pierce == 1 and build.selected_skill().range > zero.range, "upgrade remains single target")
     _check(build.transact("upgrade_needle", wallet).ok and not build.transact("upgrade_needle", wallet).ok, "upgrade cap")
     _check(build.select_tool("shard", 0).ok, "select tool")

@@ -485,7 +485,7 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
         return _fail("携带量已满")
     var cost := int(recipe.currency)
     if kind == "skill":
-        cost += int(state.skill_levels[target]) * 20
+        cost += int(state.skill_levels[target]) * int(recipe.get("currency_per_level", 20))
     if int(wallet.currency) < cost:
         return _fail("松脂碎片不足：需要%d" % cost)
     for material in recipe.materials:
@@ -832,7 +832,7 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
         var entry: Dictionary = catalog.recipes[id].duplicate(true)
         entry.id = id
         if entry.kind == "skill":
-            entry.currency = int(entry.currency) + int(state.skill_levels[entry.target]) * 20
+            entry.currency = int(entry.currency) + int(state.skill_levels[entry.target]) * int(entry.get("currency_per_level", 20))
         result.recipes.append(entry)
     return result
 
