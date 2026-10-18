@@ -387,6 +387,310 @@
         ],
         "anchor_x": 125.0
       }
+    ],
+    "mote_seek_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          47,
+          119,
+          226,
+          174
+        ],
+        "component_seeds": [
+          [
+            161,
+            123
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 99.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          362,
+          117,
+          222,
+          174
+        ],
+        "component_seeds": [
+          [
+            456,
+            121
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 87.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          676,
+          108,
+          226,
+          183
+        ],
+        "component_seeds": [
+          [
+            778,
+            112
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 92.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          986,
+          99,
+          225,
+          171
+        ],
+        "component_seeds": [
+          [
+            1081,
+            103
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 89.6
+      }
+    ],
+    "mote_seek": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          45,
+          404,
+          271,
+          176
+        ],
+        "component_seeds": [
+          [
+            94,
+            408
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 91.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          362,
+          412,
+          270,
+          169
+        ],
+        "component_seeds": [
+          [
+            410,
+            416
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 92.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          671,
+          428,
+          265,
+          152
+        ],
+        "component_seeds": [
+          [
+            708,
+            432
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 96.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          992,
+          400,
+          220,
+          178
+        ],
+        "component_seeds": [
+          [
+            1008,
+            404
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 84.6
+      }
+    ],
+    "mote_seek_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          50,
+          714,
+          256,
+          174
+        ],
+        "component_seeds": [
+          [
+            97,
+            718
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 94.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          368,
+          722,
+          216,
+          169
+        ],
+        "component_seeds": [
+          [
+            495,
+            726
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 89.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          675,
+          723,
+          221,
+          167
+        ],
+        "component_seeds": [
+          [
+            789,
+            727
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 93.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          983,
+          723,
+          226,
+          167
+        ],
+        "component_seeds": [
+          [
+            1102,
+            727
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 98.6
+      }
+    ],
+    "mote_seek_charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          51,
+          1009,
+          223,
+          176
+        ],
+        "component_seeds": [
+          [
+            140,
+            1013
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 86.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/mote_seek.png",
+        "region": [
+          362,
+          1004,
+          223,
+          175
+        ],
+        "component_seeds": [
+          [
+            458,
+            1008
+          ]
+        ],
+        "scale": 0.8261,
+        "anchor_x": 86.6
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/bell_mote.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "mote_seek_windup",
+      "mote_seek",
+      "mote_seek_recover",
+      "mote_seek_charge"
+    ],
+    "sheets": [
+      {
+        "image": "mote_seek.png",
+        "image_sha256": "96cff75cda16e4676bc24aacf14c449f16515b7b7776b51052c1591c01a5ded1",
+        "role": "new",
+        "attack": "mote_seek",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.8261,
+        "anchors": [
+          99.6,
+          87.6,
+          92.6,
+          89.6,
+          91.6,
+          92.6,
+          96.6,
+          84.6,
+          94.6,
+          89.6,
+          93.6,
+          98.6,
+          86.6,
+          86.6
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8209,
+          "last_recover_ratio": 0.8314
+        }
+      }
     ]
   }
 }

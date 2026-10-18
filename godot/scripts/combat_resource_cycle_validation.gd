@@ -111,7 +111,8 @@ func run() -> void:
         await pulse("heal",1,0)
         check(player.heal_timer>0.0 and player.energy==before-cost and player.hp==hp_before,crest+": input reserves once without early healing")
         var channel: Dictionary=player.get_combat_ui_state().heal
-        check(channel.reason=="channeling" and channel.interrupt_loss==cost,crest+": HUD exposes the active reservation")
+        var loss: int=int(ceil(cost*float(build.profile().heal_interrupt_loss_ratio)))
+        check(channel.reason=="channeling" and channel.interrupt_loss==loss,crest+": HUD exposes the active reservation and the seal's interruption loss")
         await frames(int(ceil(player.heal_duration*60.0))+3)
         check(player.hp==hp_before+player.heal_amount and player.energy==before-cost and player.heal_reserved_cost==0,crest+": completion grants exactly authored HP and spends exactly one cost")
         var profile: Dictionary=build.profile()
@@ -153,7 +154,7 @@ func run() -> void:
         hp_before=player.hp
         player.arrival_guard_timer=0.0
         player.take_damage(1,Vector2(200,180),false)
-        check(player.heal_timer==0.0 and player.heal_reserved_cost==0 and player.energy==mini(player.max_energy,100-cost+player.energy_on_damage) and player.hp==hp_before-1,crest+": damaging hit settles the reservation without healing")
+        check(player.heal_timer==0.0 and player.heal_reserved_cost==0 and player.energy==mini(player.max_energy,100-loss+player.energy_on_damage) and player.hp==hp_before-1,crest+": damaging hit settles the reservation under the seal's loss ratio without healing")
         await frames(65)
         check(player.hp==hp_before-1,crest+": interrupted heal cannot complete later")
         print("COMBAT_RESOURCE_CYCLE crest=",crest," actual_hits=true actual_heal_input=true upgraded_followup=true")
@@ -328,14 +329,17 @@ func verify_world_hud() -> void:
             world.player.line_stacks=2
             world.player.line_expiry=2.8
         elif crest=="bell": world.player.bell_pressure=1
-        world.player.energy=59
+        var row: Dictionary=world.build_system.catalog.crests[crest]
+        var heal_cost: int=int(row.heal_cost)
+        var heal_loss: int=int(ceil(heal_cost*float(row.heal_interrupt_loss_ratio)))
+        world.player.energy=heal_cost-1
         world.ui_shell._refresh_combat_status(world.player)
         var label: Label=world.ui_shell.healing_status
-        check(label.visible and label.text.contains("60") and label.text.contains("缺 1 绯线"),crest+": production HUD displays actual heal cost and shortage")
-        check(label.tooltip_text.contains("中断损失 60") and label.tooltip_text.contains("0.80秒"),crest+": production HUD displays the authored duration and interruption cost")
+        check(label.visible and label.text.contains(str(heal_cost)) and label.text.contains("缺 1 绯线"),crest+": production HUD displays actual heal cost and shortage")
+        check(label.tooltip_text.contains("中断损失 %d" % heal_loss) and label.tooltip_text.contains("%.2f秒" % float(row.heal_duration)),crest+": production HUD displays the seal's own duration and interruption cost")
         check(label.position.y+label.size.y<world.ui_shell.healing_bar.position.y and world.ui_shell.healing_bar.position.y+world.ui_shell.healing_bar.size.y<world.ui_shell.pinned.position.y,"Resource text, channel bar and pinned objective have separate bounds")
         world.ui_shell._process(0.0)
-        check(world.ui_shell.energy_status.text=="59 / 100" and world.ui_shell.hearts.text=="%d / %d" % [world.player.hp,world.player.max_hp],crest+": full HUD and readiness display the same live resources")
+        check(world.ui_shell.energy_status.text=="%d / 100" % (heal_cost-1) and world.ui_shell.hearts.text=="%d / %d" % [world.player.hp,world.player.max_hp],crest+": full HUD and readiness display the same live resources")
         if DisplayServer.get_name()!="headless":
             await process_frame
             await RenderingServer.frame_post_draw
