@@ -1235,7 +1235,7 @@
       ],
       "objective": "搜刮沉在淤泥里的库房。",
       "guide": "半沉工头想找回三枚工牌。",
-      "danger": "孢箱会炸。",
+      "danger": "孢箱会炸；工头身边没有渠虫，可以放心交谈。",
       "next": "水轮竖井",
       "setpiece": "半埋的货箱阵",
       "traversal_focus": "奖励与叙事",
@@ -1510,7 +1510,7 @@
       ],
       "objective": "沿泄洪栈梯一路爬回泵房中庭。",
       "guide": "这是沉渠唯一的回程。",
-      "danger": "栈梯上有伏兵。",
+      "danger": "栈梯脚下伏着一条渠虫，落地前先看清。",
       "next": "泵房中庭",
       "setpiece": "贯穿三层的泄洪栈梯",
       "traversal_focus": "纵向回环",
@@ -7499,10 +7499,10 @@
       "id": "E10",
       "kind": "drain_leech",
       "position": [
-        4030,
-        4430
+        4424,
+        4490
       ],
-      "platform_id": "sv_floor",
+      "platform_id": "sv_e",
       "sprite": "res://assets/sprites/original_creatures/drain_leech/manifest.json",
       "visual_scale": 0.46808510638297873,
       "visual_offset": [
@@ -7514,13 +7514,14 @@
       "visual_source": "original_hand_drawn",
       "visual_role": "dark_fantasy_enemy",
       "source_sprite": "res://assets/sprites/original_creatures/drain_leech/atlas.png",
-      "patrol": 80,
-      "leash_radius": 220,
+      "patrol": 30,
+      "leash_radius": 60,
       "spawn_half_width": 24,
       "spawn_visual_height": 26,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "低位潜咬吸血，弧跃贴近目标"
+      "combat_identity": "低位潜咬吸血，弧跃贴近目标",
+      "encounter_role": "ladder_foot_ambusher"
     },
     {
       "id": "E11",
@@ -7612,7 +7613,7 @@
       "id": "E14",
       "kind": "waterwheel_knight",
       "position": [
-        1050,
+        1170,
         3620
       ],
       "platform_id": "gtc_floor",
