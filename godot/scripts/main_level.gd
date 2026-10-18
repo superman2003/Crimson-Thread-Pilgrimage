@@ -5404,6 +5404,44 @@ func _activate_challenge_shrine(area: Area2D) -> void:
     _start_optional_challenge(challenge)
 
 
+func _challenge_lock_inside_x(challenge: Dictionary, lock_rect: Rect2) -> float:
+    # Prefer shrine / enemy centroid so the push side matches the trial chamber,
+    # not a hard-coded "always right of the wall".
+    var anchor_x := lock_rect.get_center().x
+    var shrine: Dictionary = challenge.get("shrine", {})
+    if shrine is Dictionary and shrine.has("position"):
+        anchor_x = _vec2(shrine.get("position", [anchor_x, 0])).x
+    else:
+        var sum_x := 0.0
+        var count := 0
+        for spawn in challenge.get("enemies", []):
+            if spawn is Dictionary and spawn.has("position"):
+                sum_x += _vec2(spawn.get("position", [anchor_x, 0])).x
+                count += 1
+        if count > 0:
+            anchor_x = sum_x / float(count)
+    var authored := String(challenge.get("lock_inside", "")).strip_edges().to_lower()
+    if authored == "left" or authored == "right":
+        if authored == "left":
+            return lock_rect.position.x - 54.0
+        return lock_rect.position.x + lock_rect.size.x + 54.0
+    if anchor_x < lock_rect.position.x:
+        return lock_rect.position.x - 54.0
+    return lock_rect.position.x + lock_rect.size.x + 54.0
+
+
+func _is_optional_challenge_spawn(spawn_id: String) -> bool:
+    if challenge_alive_ids.has(spawn_id):
+        return true
+    for entry in config.get("optional_challenges", []):
+        if not (entry is Dictionary):
+            continue
+        for spawn in entry.get("enemies", []):
+            if spawn is Dictionary and String(spawn.get("id", "")) == spawn_id:
+                return true
+    return false
+
+
 func _start_optional_challenge(challenge: Dictionary) -> void:
     var challenge_id := String(challenge.get("id", ""))
     if challenge_id.is_empty():
@@ -5412,7 +5450,8 @@ func _start_optional_challenge(challenge: Dictionary) -> void:
     challenge_alive_ids.clear()
     var lock_rect_value = challenge.get("lock_rect", [])
     if lock_rect_value is Array and lock_rect_value.size() >= 4:
-        _set_challenge_arena_locked(true, _rect2(lock_rect_value))
+        var lock_rect := _rect2(lock_rect_value)
+        _set_challenge_arena_locked(true, lock_rect, _challenge_lock_inside_x(challenge, lock_rect))
     var kind_label := "可选首领" if String(challenge.get("kind", "")) == "optional_boss" else "挑战房"
     _toast("%s · %s" % [kind_label, String(challenge.get("name", "余响试炼"))])
     for spawn in challenge.get("enemies", []):
@@ -5432,7 +5471,7 @@ func _start_optional_challenge(challenge: Dictionary) -> void:
         _toast("试炼钟空响了一声。")
 
 
-func _set_challenge_arena_locked(locked: bool, lock_rect: Rect2 = Rect2()) -> void:
+func _set_challenge_arena_locked(locked: bool, lock_rect: Rect2 = Rect2(), inside_x: float = NAN) -> void:
     if locked:
         if challenge_arena_lock_body != null and is_instance_valid(challenge_arena_lock_body):
             return
@@ -5441,8 +5480,15 @@ func _set_challenge_arena_locked(locked: bool, lock_rect: Rect2 = Rect2()) -> vo
         challenge_arena_lock_body = _platform("challenge_arena_lock_wall", lock_rect, _color("2a1715"), _theme_boss_material())
         challenge_arena_lock_body.set_meta("temporary_challenge_lock", true)
         if player != null and is_instance_valid(player):
-            var safe_x := lock_rect.position.x + lock_rect.size.x + 54.0
-            if absf(player.global_position.x - lock_rect.position.x) < lock_rect.size.x + 40.0 and player.global_position.x < safe_x:
+            var safe_x := inside_x
+            if is_nan(safe_x):
+                safe_x = lock_rect.position.x + lock_rect.size.x + 54.0
+            var wall_left := lock_rect.position.x
+            var wall_right := lock_rect.position.x + lock_rect.size.x
+            var near_wall := absf(player.global_position.x - lock_rect.get_center().x) < lock_rect.size.x + 80.0
+            var inside_is_left := safe_x < wall_left
+            var outside := (inside_is_left and player.global_position.x >= wall_left - 8.0) or ((not inside_is_left) and player.global_position.x <= wall_right + 8.0)
+            if near_wall and outside:
                 player.global_position = Vector2(safe_x, player.global_position.y)
                 player.set("velocity", Vector2.ZERO)
         return
@@ -6363,7 +6409,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             _toast("前往下一片土地 · " + String(transition.get("entry_hint", _next_campaign_chapter_name())))
     else:
         var drop_item := String(config.get("enemy_drop_item", "moss_chitin"))
-        var challenge_spawn := challenge_alive_ids.has(spawn_id)
+        var challenge_spawn := _is_optional_challenge_spawn(spawn_id)
         # Challenge spawns are not part of the region's combat-clear tally.
         if not challenge_spawn:
             enemy_defeated += 1
