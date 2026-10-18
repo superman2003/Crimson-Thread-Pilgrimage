@@ -1,5 +1,12 @@
 extends Node2D
 
+const WARNING_ALPHA_MIN := 0.45
+const WARNING_ALPHA_MAX := 0.75
+const WARNING_WIDTH := 3.0
+const OUTLINE_COLOR := Color(0.07,0.05,0.04,0.85)
+const OUTLINE_WIDTH := 1.5
+const ORB_CORE_SCALE := 0.73
+
 var effect_kind := "projectile"
 var velocity := Vector2.ZERO
 var gravity := 0.0
@@ -128,18 +135,19 @@ func _hits_player(center: Vector2) -> bool:
 
 func _draw() -> void:
     if age<arm_delay:
-        var pulse := .35+.35*sin(age*18)
+        # Pulse never drops below a readable floor, so a glance mid-warning still sees the cue.
+        var pulse := WARNING_ALPHA_MIN+(WARNING_ALPHA_MAX-WARNING_ALPHA_MIN)*(.5+.5*sin(age*18))
         var warning := Color(0.96,0.72,0.36,pulse)
         if effect_kind=="beam":
             var channel := _beam_channel_corners()
             draw_colored_polygon(channel,Color(warning,warning.a*.22))
-            _draw_beam_channel_outline(channel,warning,2.0)
-            draw_line(Vector2.ZERO,heading*length,Color(1.0,0.91,0.71,pulse),2.0,true)
+            _draw_beam_channel_outline(channel,warning,WARNING_WIDTH)
+            draw_line(Vector2.ZERO,heading*length,Color(1.0,0.91,0.71,pulse),WARNING_WIDTH,true)
         elif effect_kind=="eruption":
-            draw_arc(Vector2.ZERO,radius,PI,TAU,24,warning,2.0,true)
-            draw_line(Vector2(-radius,0),Vector2(radius,0),warning,2.0,true)
+            draw_arc(Vector2.ZERO,radius,PI,TAU,24,warning,WARNING_WIDTH,true)
+            draw_line(Vector2(-radius,0),Vector2(radius,0),warning,WARNING_WIDTH,true)
         else:
-            draw_arc(Vector2.ZERO,radius,0,TAU,32,warning,2.0,true)
+            draw_arc(Vector2.ZERO,radius,0,TAU,32,warning,WARNING_WIDTH,true)
         return
     var active_color := tint
     active_color.a=clampf((duration-age)/.18,0,1)
@@ -161,26 +169,47 @@ func _draw() -> void:
             var v := Vector2.from_angle(i*TAU/5+age)*radius*.6
             draw_circle(v,3.0,Color(0.9,0.78,0.5,active_color.a*.6))
     elif effect_kind=="wave":
+        var outline := _outline_color(active_color.a)
+        draw_arc(Vector2.ZERO,radius,PI*.55,PI*1.8,18,outline,4+OUTLINE_WIDTH*2,true)
+        draw_line(Vector2(-radius,8),Vector2(radius,8),outline,2+OUTLINE_WIDTH*2,true)
         draw_arc(Vector2.ZERO,radius,PI*.55,PI*1.8,18,active_color,4,true)
         draw_line(Vector2(-radius,8),Vector2(radius,8),Color(0.96,0.85,0.58,active_color.a),2,true)
     else:
         var axis := velocity.normalized() if velocity.length()>1 else Vector2.RIGHT
         var side := axis.orthogonal()
+        var outline := _outline_color(active_color.a)
         if skin in ["spore","pollen","light"]:
+            var core := radius*ORB_CORE_SCALE
             draw_circle(Vector2.ZERO,radius,Color(active_color,.22))
-            draw_circle(Vector2.ZERO,radius*.56,active_color)
-            draw_circle(-axis*radius*.2,radius*.16,Color(1,.91,.69,active_color.a))
+            draw_circle(Vector2.ZERO,core+OUTLINE_WIDTH,outline)
+            draw_circle(Vector2.ZERO,core,active_color)
+            draw_circle(-axis*core*.36,core*.29,Color(1,.91,.69,active_color.a))
         elif skin=="page":
             var points := PackedVector2Array([-axis*radius-side*radius*.7,axis*radius-side*radius*.55,axis*radius*.8+side*radius*.65,-axis*radius+side*radius*.7])
+            _draw_polygon_outline(points,outline)
             draw_colored_polygon(points,Color(0.88,0.83,0.66,active_color.a))
             draw_line(-axis*radius*.5,axis*radius*.65,active_color,2,true)
         elif skin=="key":
+            draw_line(-axis*radius,axis*radius,outline,4+OUTLINE_WIDTH*2,true)
+            draw_arc(-axis*radius,radius*.5,0,TAU,12,outline,2+OUTLINE_WIDTH*2,true)
+            draw_line(axis*radius*.65,axis*radius*.65+side*radius*.55,outline,3+OUTLINE_WIDTH*2,true)
             draw_line(-axis*radius,axis*radius,active_color,4,true)
             draw_arc(-axis*radius,radius*.5,0,TAU,12,active_color,2,true)
             draw_line(axis*radius*.65,axis*radius*.65+side*radius*.55,active_color,3,true)
         else:
-            draw_colored_polygon(PackedVector2Array([axis*radius*1.5,-axis*radius+side*radius*.45,-axis*radius-side*radius*.45]),active_color)
+            var points := PackedVector2Array([axis*radius*1.5,-axis*radius+side*radius*.45,-axis*radius-side*radius*.45])
+            _draw_polygon_outline(points,outline)
+            draw_colored_polygon(points,active_color)
             draw_line(-axis*radius,axis*radius*1.4,Color(.95,.87,.67,active_color.a),1,true)
+
+func _outline_color(alpha: float) -> Color:
+    return Color(OUTLINE_COLOR,OUTLINE_COLOR.a*alpha)
+
+# Dark rim drawn under a projectile body so it separates from both pale and dark backgrounds.
+func _draw_polygon_outline(points: PackedVector2Array, color: Color) -> void:
+    var closed := points.duplicate()
+    closed.append(points[0])
+    draw_polyline(closed,color,OUTLINE_WIDTH*2,true)
 
 func _beam_channel_corners() -> PackedVector2Array:
     var axis := heading.normalized() if heading.length_squared() > 0.0001 else Vector2.RIGHT
