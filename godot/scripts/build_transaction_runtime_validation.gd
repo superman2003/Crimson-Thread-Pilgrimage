@@ -81,6 +81,7 @@ func _run() -> void:
 		player.skill_cooldown = 1.25
 		build.cooldowns["cleave"] = 2.75
 		scene.currency_count = 100
+		scene.inventory_counts["moss_chitin"] = 1
 		scene.world_save_failure_injected_for_validation = true
 		var build_before: Dictionary = build.serialize()
 		var wallet_before: Dictionary = scene._build_wallet_snapshot()

@@ -790,57 +790,109 @@
   "recipes": {
     "upgrade_cleave": {
       "name": "绯线穿刺校习",
-      "description": "校习一：突刺触及再延约一肩，伤害+1；仍不穿墙、不带无敌。 校习二：触及再延，伤害再+1；准备与收势节奏不变，适合清近身群前的点杀。",
+      "description": "校习一：突刺触及再延约一肩，伤害+1；仍不穿墙、不带无敌。 校习二：触及再延，伤害再+1；准备与收势节奏不变，适合清近身群前的点杀。 每次校习另耗1苔壳。",
       "currency": 40,
-      "materials": {},
+      "materials": {
+        "moss_chitin": 1
+      },
       "kind": "skill",
       "target": "cleave",
       "currency_per_level": 30
     },
     "upgrade_needle": {
       "name": "回声针校习",
-      "description": "校习一：射程明显加长，伤害+1；仍单次单目标，碰墙即止。 校习二：射程再延，伤害再+1；盐记与消耗不变，适合远台点名。",
+      "description": "校习一：射程明显加长，伤害+1；仍单次单目标，碰墙即止。 校习二：射程再延，伤害再+1；盐记与消耗不变，适合远台点名。 每次校习另耗1盐晶碎片。",
       "currency": 40,
-      "materials": {},
+      "materials": {
+        "salt_crystal_shard": 1
+      },
       "kind": "skill",
       "target": "needle",
       "currency_per_level": 30
     },
     "upgrade_snare": {
       "name": "盐印缚线校习",
-      "description": "校习一：束缚持续时间略增，伤害+1；线阵数量上限不变。 校习二：持续时间再增，伤害再+1；仍受线阵数量限制，适合控场而非爆发。",
+      "description": "校习一：束缚持续时间略增，伤害+1；线阵数量上限不变。 校习二：持续时间再增，伤害再+1；仍受线阵数量限制，适合控场而非爆发。 每次校习另耗1盐晶碎片。",
       "currency": 40,
-      "materials": {},
+      "materials": {
+        "salt_crystal_shard": 1
+      },
       "kind": "skill",
       "target": "snare",
       "currency_per_level": 30
     },
     "upgrade_ward": {
       "name": "守钟架势校习",
-      "description": "校习一：架势窗口略延长；不靠加伤，靠更稳的格挡节奏换反击。 校习二：窗口再延；精准窗口结束后仍不能硬接攻击。",
+      "description": "校习一：架势窗口略延长；不靠加伤，靠更稳的格挡节奏换反击。 校习二：窗口再延；精准窗口结束后仍不能硬接攻击。 每次校习另耗1湿壳。",
       "currency": 40,
-      "materials": {},
+      "materials": {
+        "wet_chitin": 1
+      },
       "kind": "skill",
       "target": "ward",
       "currency_per_level": 30
     },
     "upgrade_shockwave": {
       "name": "钟鸣震波校习",
-      "description": "校习一：冲击范围略扩，伤害+1；仍须站地，不击碎探索地形。 校习二：范围再扩，伤害再+1；钟压增强逻辑不变。",
+      "description": "校习一：冲击范围略扩，伤害+1；仍须站地，不击碎探索地形。 校习二：范围再扩，伤害再+1；钟压增强逻辑不变。 每次校习另耗1湿壳。",
       "currency": 40,
-      "materials": {},
+      "materials": {
+        "wet_chitin": 1
+      },
       "kind": "skill",
       "target": "shockwave",
       "currency_per_level": 30
     },
     "upgrade_crosscut": {
       "name": "断弦回斩校习",
-      "description": "校习一：交叉斩触及略扩，伤害+1；仍原地无位移，线势回能低于消耗。 校习二：触及再扩，伤害再+1；适合贴身清场而非突进。",
+      "description": "校习一：交叉斩触及略扩，伤害+1；仍原地无位移，线势回能低于消耗。 校习二：触及再扩，伤害再+1；适合贴身清场而非突进。 每次校习另耗1苔壳。",
       "currency": 40,
-      "materials": {},
+      "materials": {
+        "moss_chitin": 1
+      },
       "kind": "skill",
       "target": "crosscut",
       "currency_per_level": 30
+    },
+    "craft_reflux": {
+      "name": "缀回工匠线轴",
+      "description": "苔钟庭工坊：用苔壳重新缠绕断线，唤回工匠线轴印记。与缝名学徒传授并列。",
+      "currency": 20,
+      "materials": {
+        "moss_chitin": 2
+      },
+      "kind": "passive",
+      "target": "reflux"
+    },
+    "craft_shell": {
+      "name": "重铸铜背扣",
+      "description": "铸雨渠工坊：湿壳与松脂压合铜背扣。与雨渠铁匠／狩猎唤回并列。",
+      "currency": 25,
+      "materials": {
+        "wet_chitin": 2
+      },
+      "kind": "passive",
+      "target": "shell"
+    },
+    "craft_spur": {
+      "name": "装订盐页书签",
+      "description": "盐白书库：盐晶磨边夹入旧页，制盐页书签。与书库线索并列。",
+      "currency": 25,
+      "materials": {
+        "salt_crystal_shard": 2
+      },
+      "kind": "passive",
+      "target": "spur"
+    },
+    "craft_mender": {
+      "name": "封蜡静钟碎片",
+      "description": "断弦暖房：花蜡封住裂片，成静钟碎片。与蜂蜡商人／根网狩猎并列。",
+      "currency": 30,
+      "materials": {
+        "pollen_wax": 2
+      },
+      "kind": "passive",
+      "target": "mender"
     }
   },
   "events": {
