@@ -5637,12 +5637,21 @@ func _grant_optional_challenge_reward(challenge: Dictionary) -> void:
     if not item_id.is_empty():
         _add_inventory_item(item_id, int(reward.get("item_amount", 1)), false)
         _announce_lore_pickup(item_id)
+    var unlock_ids: Array[String] = []
     var unlock_event := String(reward.get("unlock_event", ""))
     if not unlock_event.is_empty():
-        story_flags[unlock_event] = true
+        unlock_ids.append(unlock_event)
+    for entry in reward.get("unlock_events", []):
+        var extra := String(entry)
+        if extra.is_empty() or unlock_ids.has(extra):
+            continue
+        unlock_ids.append(extra)
+    for unlock_id in unlock_ids:
+        story_flags[unlock_id] = true
         if build_system != null:
-            build_system.unlock_event(unlock_event)
-            _sync_player_build()
+            build_system.unlock_event(unlock_id)
+    if not unlock_ids.is_empty() and build_system != null:
+        _sync_player_build()
     var message := String(reward.get("toast", "%s首清。" % String(challenge.get("name", "可选挑战"))))
     _toast(message)
     var shrine: Dictionary = challenge.get("shrine", {})
