@@ -25,7 +25,7 @@ static func setup(level: Node) -> void:
     dialog.get_label().autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     dialog.get_label().custom_minimum_size=Vector2(450,130)
     dialog.title=String(area.get_meta("label","地图NPC"))+" · 本区地图"
-    dialog.dialog_text=String(seller.get("note",""))+"\n\n本区地图：%d枚松脂碎钱" % JOURNAL.PRICE
+    dialog.dialog_text=String(seller.get("note",""))+"\n\n本区地图：%d枚松脂碎钱" % seller_price(seller)
     dialog.ok_button_text="购买底图"
     dialog.cancel_button_text="暂不购买"
     level.add_child(dialog)
@@ -45,14 +45,15 @@ static func open_shop(level: Node, area: Area2D) -> void:
     level._sync_ui_input_lock()
     var dialog: ConfirmationDialog=level.get_node("MapPurchaseDialog")
     var is_owned := JOURNAL.owned(level.story_flags,String(level.config.id))
-    dialog.dialog_text=String(area.get_meta("map_seller_data",{}).get("note",""))+"\n\n"+("已获得此区域地图。安坐钟龛补绘途中笔记。" if is_owned else "本区地图：%d枚松脂碎钱 · 当前%d枚" % [JOURNAL.PRICE,level.currency_count])
-    dialog.get_ok_button().disabled=is_owned or level.currency_count<JOURNAL.PRICE
+    var price := seller_price(area.get_meta("map_seller_data",{}))
+    dialog.dialog_text=String(area.get_meta("map_seller_data",{}).get("note",""))+"\n\n"+("已获得此区域地图。安坐钟龛补绘途中笔记。" if is_owned else "本区地图：%d枚松脂碎钱 · 当前%d枚" % [price,level.currency_count])
+    dialog.get_ok_button().disabled=is_owned or level.currency_count<price
     dialog.popup_centered(Vector2i(530,250))
     (dialog.get_ok_button() if not dialog.get_ok_button().disabled else dialog.get_cancel_button()).grab_focus()
 static func purchase(level: Node, area: Area2D) -> Dictionary:
     if not level.world_mode or not is_instance_valid(area) or String(area.get_meta("map_seller_region",""))!=String(level.config.id) or level.player.global_position.distance_to(area.global_position)>150 or level.player.hp<=0 or level.player.death_timer>0 or level.chapter_transitioning:
         return {"ok":false,"reason":"请靠近本区地图NPC购买。"}
-    var result := JOURNAL.purchase(level.story_flags,String(level.config.id),level.currency_count)
+    var result := JOURNAL.purchase(level.story_flags,String(level.config.id),level.currency_count,seller_price(area.get_meta("map_seller_data",{})))
     if result.ok:
         level.currency_count=int(result.wallet)
         area.set_meta("interaction_label",String(area.get_meta("label","地图NPC"))+" · 交谈 / 已购地图")
@@ -60,6 +61,8 @@ static func purchase(level: Node, area: Area2D) -> Dictionary:
         level._refresh_hud()
     level._toast(String(result.reason))
     return result
+static func seller_price(seller: Dictionary) -> int:
+    return int(seller.get("price", JOURNAL.PRICE))
 static func public_room(room: Dictionary) -> bool:
     return String(room.get("kind","")) not in ["secret","reward","treasure","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
 static func region_bounds(level: Node) -> Rect2:
@@ -220,6 +223,16 @@ static func render(level: Node) -> void:
         marker.position = map_position(level, room, record.rect.get_center(), bounds, draw_size) - Vector2(7, 10)
         marker.add_theme_color_override("font_color", Color("b44e43") if record.kind == "hazard" else SURFACE.GOLD)
         host.add_child(marker)
+    for record in KNOWLEDGE.shortcut_records(level.config, level.story_flags, id, level.opened_shortcuts):
+        var room: Dictionary = KNOWLEDGE.owner_room(level.config, record.rect)
+        var marker := Label.new()
+        marker.name = "SurveyShortcut_" + String(record.id)
+        marker.mouse_filter = Control.MOUSE_FILTER_PASS
+        marker.tooltip_text = String(record.tooltip)
+        marker.text = String(record.text)
+        marker.position = map_position(level, room, record.rect.get_center(), bounds, draw_size) - Vector2(7, 10)
+        marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else Color("8d6a5a"))
+        host.add_child(marker)
     # Position is a navigation aid, not a newly inked room outline.
     var current: Dictionary=level._room_for_position(level.player.global_position)
     if ids.has(String(current.get("id",""))):
@@ -230,5 +243,5 @@ static func render(level: Node) -> void:
         dot.text="◆"
         dot.add_theme_color_override("font_color",SURFACE.ACCENT)
         host.add_child(dot)
-    level.map_text.text="◆ 位置    ◎ 钟龛    ◇ 旧路    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
+    level.map_text.text="◆ 位置    ◎ 钟龛    ◇ 旧路    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
     level.map_text.tooltip_text="已补绘 %d 室，待补绘 %d 笔。安坐钟龛可补绘途中笔记；悬停查看房间名称。" % [journal.charted.size(),journal.pending.size()]

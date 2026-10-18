@@ -4,6 +4,9 @@
 The source manifest and portrait remain immutable. New production sequences live
 in motion_manifest.json. Each input region must be explicitly reviewed and listed
 in motion_generation.json under runtime_frames: {animation: [{sheet, region}]}.
+An entry may instead name a delivered source sheet outside the folder
+({source: "art_requests/<batch>/incoming/<sheet>.png", ...}); those poses are
+always packed into motion_runtime.png, so the runtime never loads the sheet.
 Only atlas coordinates/margins change; source RGBA bytes are never edited.
 """
 from __future__ import annotations
@@ -22,10 +25,37 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "godot/assets/sprites"
 MIN_CREATURE = {"idle": 4, "walk": 8, "windup": 4, "attack": 4, "recover": 4, "hurt": 2, "death": 3}
 MIN_NPC = {"idle": 4, "talk": 6, "greet": 2, "rest": 2}
+SOURCE_ROOTS = (ROOT / "art_requests",)
 FPS = {"idle": 8, "walk": 16, "windup": 12, "attack": 18, "recover": 14, "hurt": 16, "death": 10, "talk": 10, "greet": 8, "rest": 4}
 
 def read(path):
     return json.loads(path.read_text())
+
+def looping(name):
+    return name in ("idle","walk","talk","charge","travel") or name.endswith("_charge") or name.endswith("_travel")
+
+def sheet_path(folder, entry):
+    if "source" in entry:
+        path = (ROOT / entry["source"]).resolve()
+        if not entry["source"].endswith(".png") or not any(path.is_relative_to(root) and path.parent.name == "incoming" for root in SOURCE_ROOTS):
+            raise ValueError(f"unsafe source sheet: {entry['source']}")
+        return entry["source"], path
+    sheet = entry.get("sheet", "motion_expanded.png")
+    if Path(sheet).name != sheet or not sheet.endswith(".png"):
+        raise ValueError(f"unsafe sheet: {sheet}")
+    return sheet, folder / sheet
+
+def shelf_pack(sizes, max_width):
+    """Row-major shelf packing in pose order with a 2px gutter."""
+    placements, x, y, shelf, width = [], 0, 0, 0, 0
+    for w, h in sizes:
+        if x and x + w > max_width:
+            x, y, shelf = 0, y + shelf + 2, 0
+        placements.append((x, y))
+        x += w + 2
+        shelf = max(shelf, h)
+        width = max(width, x - 2)
+    return placements, (width, y + shelf)
 
 def build(folder: Path, check=False):
     source = read(folder / "manifest.json")
@@ -49,11 +79,9 @@ def build(folder: Path, check=False):
         hashes = set()
         per_animation[name] = []
         for entry in entries:
-            sheet = entry.get("sheet", "motion_expanded.png")
-            if Path(sheet).name != sheet or not sheet.endswith(".png"):
-                raise ValueError(f"unsafe sheet: {sheet}")
+            sheet, path = sheet_path(folder, entry)
             if sheet not in images:
-                im = Image.open(folder / sheet)
+                im = Image.open(path)
                 if im.mode != "RGBA" or im.getchannel("A").getextrema()[0] != 0:
                     raise ValueError(f"{folder.name}/{sheet}: genuine RGBA transparency required")
                 images[sheet] = im
@@ -109,7 +137,7 @@ def build(folder: Path, check=False):
                 raise ValueError(f"{folder.name}/{name}: invalid packaging scale {scale}")
             if scale != 1.0:
                 cropped = cropped.resize((max(1,round(cropped.width*scale)),max(1,round(cropped.height*scale))),Image.Resampling.LANCZOS)
-            pose = {"sheet":sheet, "region":[x+bx,y+by,cropped.width,cropped.height], "left":(bx-anchor)*scale, "height":cropped.height, "hash":digest, "image":cropped, "scale":scale, "isolated":bool(entry.get("component_seeds"))}
+            pose = {"sheet":sheet, "region":[x+bx,y+by,cropped.width,cropped.height], "left":(bx-anchor)*scale, "height":cropped.height, "hash":digest, "image":cropped, "scale":scale, "isolated":bool(entry.get("component_seeds")) or "source" in entry}
             poses.append(pose)
             per_animation[name].append(pose)
         if len(hashes) != len(entries):
@@ -123,11 +151,11 @@ def build(folder: Path, check=False):
         # Some separately authored action strips have a different resolution.
         # Normalize their entire silhouettes with the reviewer's single scale;
         # this is mechanical crop/resize/packing, never generated in-betweens.
-        cols = 6
-        atlas = Image.new("RGBA", (canvas[0]*cols,canvas[1]*math.ceil(len(poses)/cols)))
-        for index, pose in enumerate(poses):
-            x = (index%cols)*canvas[0]+int(round(half+pose["left"]))
-            y = (index//cols)*canvas[1]+height-8-pose["height"]
+        # Poses are shelf-packed tightly: the margin, not the atlas position,
+        # places each one on the rig canvas.
+        placements, size = shelf_pack([p["image"].size for p in poses], max(4096, max(p["image"].width for p in poses)))
+        atlas = Image.new("RGBA", size)
+        for pose, (x, y) in zip(poses, placements):
             atlas.alpha_composite(pose["image"], (x,y))
             pose["sheet"] = "motion_runtime.png"
             pose["region"] = [x,y,pose["image"].width,pose["image"].height]
@@ -159,7 +187,7 @@ def build(folder: Path, check=False):
         if name in ("idle", "walk"):
             old = source_animations[name]
             fps = len(entries) * float(old["fps"]) / len(old["frames"])
-        animations.append({"name":name,"fps":fps,"loop":name in ("idle","walk","talk"),"frames":frames})
+        animations.append({"name":name,"fps":fps,"loop":looping(name),"frames":frames})
     output = {k:v for k,v in source.items() if k not in ("animations","attack_integrity","atlas_size")}
     output.update({"source":"imagegen authored expanded poses; reviewed atlas regions; no interpolation", "version":2,"canvas":canvas,"visual_scale":scale,"visual_offset":offset,"animations":animations,"generation_record":"motion_generation.json"})
     encoded=json.dumps(output,ensure_ascii=False,indent=2)+"\n"
