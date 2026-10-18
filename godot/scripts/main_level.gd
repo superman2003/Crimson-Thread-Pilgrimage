@@ -5426,7 +5426,7 @@ func _hunt_track(challenge: Dictionary, track: Dictionary) -> void:
     area.set_meta("track_hint", String(track.get("hint", "")))
     area.set_meta("object_id", "interactable/" + track_id)
     var found := bool(story_flags.get(String(track.get("flag", "")), false))
-    var label := String(track.get("label", "渠影残迹"))
+    var label := String(track.get("label", "残迹"))
     if found:
         label = "%s · 已循" % label
     area.set_meta("label", label)
@@ -5465,7 +5465,7 @@ func _activate_hunt_track(area: Area2D) -> void:
     if not already:
         story_flags[flag] = true
         _save_world()
-    var base_label := String(area.get_meta("label", "渠影残迹")).replace(" · 已循", "")
+    var base_label := String(area.get_meta("label", "残迹")).replace(" · 已循", "")
     area.set_meta("label", "%s · 已循" % base_label)
     area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回看")
     var sprite := area.get_node_or_null("HuntTrackSprite") as Sprite2D
@@ -5496,7 +5496,7 @@ func _activate_challenge_shrine(area: Area2D) -> void:
         _toast("%s已清·可回访，奖励不会再发。" % String(challenge.get("name", "可选挑战")))
         return
     if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
-        _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
+        _toast("%s · 猎物尚未显形，先循齐残迹。" % String(challenge.get("name", "追踪狩猎")))
         return
     if not active_challenge_id.is_empty():
         _toast("先了结当前的可选挑战。")
@@ -5632,7 +5632,10 @@ func _grant_optional_challenge_reward(challenge: Dictionary) -> void:
         _add_currency(currency)
     var material_amount := int(reward.get("material_amount", 0))
     if material_amount > 0:
-        _add_inventory_item(String(config.get("enemy_drop_item", "moss_chitin")), material_amount, false)
+        var material_id := String(reward.get("material_id", "")).strip_edges()
+        if material_id.is_empty():
+            material_id = String(config.get("enemy_drop_item", "moss_chitin"))
+        _add_inventory_item(material_id, material_amount, false)
     var item_id := String(reward.get("item_id", ""))
     if not item_id.is_empty():
         _add_inventory_item(item_id, int(reward.get("item_amount", 1)), false)

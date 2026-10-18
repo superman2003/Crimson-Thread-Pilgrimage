@@ -69,7 +69,14 @@ func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unloc
 	check(shrine != null, challenge_id + " shrine exists in the live region")
 	var before_currency: int = scene.currency_count
 	var drop := String(scene.config.get("enemy_drop_item", ""))
-	var before_mats: int = int(scene.inventory_counts.get(drop, 0))
+	var reward: Dictionary = data.get("reward", {})
+	var material_id := String(reward.get("material_id", "")).strip_edges()
+	var material_amount := int(reward.get("material_amount", 0))
+	if material_amount > 0:
+		check(not material_id.is_empty(), challenge_id + " names a material_id for its material reward")
+		check(material_id == drop, challenge_id + " material_id matches the chapter material")
+	var mat_key := material_id if not material_id.is_empty() else drop
+	var before_mats: int = int(scene.inventory_counts.get(mat_key, 0))
 	var before_evidence: int = int(scene.inventory_counts.get(evidence_id, 0))
 	var before_defeated: int = scene.enemy_defeated
 	var before_total: int = scene.enemy_total
@@ -88,10 +95,10 @@ func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unloc
 	check(scene.active_challenge_id.is_empty(), challenge_id + " clears the active challenge after the last foe")
 	check(scene.challenge_arena_lock_body == null or not is_instance_valid(scene.challenge_arena_lock_body), challenge_id + " opens the seal after clear")
 	check(bool(scene.story_flags.get(clear_flag, false)), challenge_id + " writes the clear flag")
-	var reward: Dictionary = data.get("reward", {})
 	var expect_currency: int = before_currency + 8 * int(data.get("enemies", []).size()) + int(reward.get("currency", 0))
 	check(scene.currency_count == expect_currency, challenge_id + " pays kill loot plus the one-time challenge reward")
-	check(int(scene.inventory_counts.get(drop, 0)) == before_mats + int(data.get("enemies", []).size()) + int(reward.get("material_amount", 0)), challenge_id + " pays materials once")
+	var kill_mats := int(data.get("enemies", []).size()) if mat_key == drop else 0
+	check(int(scene.inventory_counts.get(mat_key, 0)) == before_mats + kill_mats + material_amount, challenge_id + " pays materials once")
 	check(int(scene.inventory_counts.get(evidence_id, 0)) == before_evidence + int(reward.get("item_amount", 1)), challenge_id + " grants its evidence / growth item once")
 	check(scene.enemy_defeated == before_defeated, challenge_id + " never advances the region's combat-clear counter")
 	if not expect_unlock.is_empty():
@@ -108,7 +115,7 @@ func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unloc
 	check(scene.currency_count == currency_after and int(scene.inventory_counts.get(evidence_id, 0)) == evidence_after, challenge_id + " grant helper stays latched by the clear flag")
 
 
-func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_unlock: String = "") -> void:
+func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_unlock: String = "", lock_side: String = "") -> void:
 	var data := challenge(challenge_id)
 	check(not data.is_empty(), challenge_id + " is authored on the active region")
 	check(String(data.get("kind", "")) == "tracking_hunt", challenge_id + " is a tracking hunt")
@@ -117,7 +124,7 @@ func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_un
 	var shrine_id := String(data.get("shrine", {}).get("id", ""))
 	var shrine: Area2D = scene.get_node_or_null(shrine_id)
 	check(shrine != null, challenge_id + " quarry shrine exists")
-	# Before tracks: shrine must refuse to start.
+	# Zero tracks: shrine must refuse to start.
 	scene._activate_challenge_shrine(shrine)
 	await tick(2)
 	check(scene.active_challenge_id.is_empty(), challenge_id + " refuses to start before tracks are found")
@@ -131,6 +138,33 @@ func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_un
 		await tick(2)
 		check(bool(scene.story_flags.get(flag, false)), challenge_id + " track " + track_id + " writes its flag")
 	check(scene._challenge_tracks_ready(data), challenge_id + " becomes ready after all tracks")
+	# Anti-skip: dropping one track still refuses, then the hunt can start again.
+	var last_track = tracks[tracks.size() - 1]
+	var last_flag := String(last_track.get("flag", ""))
+	scene.story_flags[last_flag] = false
+	scene._activate_challenge_shrine(shrine)
+	await tick(2)
+	check(scene.active_challenge_id.is_empty(), challenge_id + " still refuses when a track is missing")
+	scene.story_flags[last_flag] = true
+	check(scene._challenge_tracks_ready(data), challenge_id + " is ready again after the missing track returns")
+	if lock_side == "left" or lock_side == "right":
+		var lock_rect: Rect2 = scene._rect2(data.get("lock_rect", []))
+		var inside: float = scene._challenge_lock_inside_x(data, lock_rect)
+		var shrine_y: float = scene._vec2(data.get("shrine", {}).get("position", [0, 0])).y
+		if lock_side == "left":
+			check(inside < lock_rect.position.x, challenge_id + " lock inside is left of the east wall")
+			scene.player.global_position = Vector2(lock_rect.position.x + 10.0, shrine_y)
+			scene._start_optional_challenge(data)
+			await tick(2)
+			check(scene.player.global_position.x < lock_rect.position.x, challenge_id + " seal push keeps the player inside left of the wall")
+		else:
+			check(inside > lock_rect.position.x + lock_rect.size.x, challenge_id + " lock inside is right of the west wall")
+			scene.player.global_position = Vector2(lock_rect.position.x - 10.0, shrine_y)
+			scene._start_optional_challenge(data)
+			await tick(2)
+			check(scene.player.global_position.x > lock_rect.position.x + lock_rect.size.x, challenge_id + " seal push keeps the player inside right of the wall")
+		scene._clear_active_challenge(false)
+		await tick(2)
 	await run_challenge_clear(challenge_id, evidence_id, expect_unlock)
 
 func run() -> void:
@@ -162,33 +196,11 @@ func run() -> void:
 	check(String(scene.config.get("id", "")) == CH02, "fixture is in rain foundry canal")
 	check(scene.config.get("optional_challenges", []).size() >= 2, "ch02 authors challenge room and tracking hunt")
 	await run_challenge_clear("ch02_counterweight_trial", "evidence_counterweight_echo", "tool_mine_found")
-	# Hunt tracks live across wish board / gauge gallery; travel near the quarry shrine.
-	await travel(CH02, Vector2(3200, 1740))
-	await tick(6)
-	var track_a: Area2D = scene.get_node_or_null("hunt_track_ch02_canal_a")
-	check(track_a != null, "canal hunt track A spawns at the wish board")
-	scene._activate_hunt_track(track_a)
-	await tick(2)
-	await travel(CH02, Vector2(3340, 2208))
-	await tick(6)
-	var track_b: Area2D = scene.get_node_or_null("hunt_track_ch02_canal_b")
-	check(track_b != null, "canal hunt track B spawns in the gauge gallery")
-	scene._activate_hunt_track(track_b)
-	await tick(2)
+	# Tracks spawn with the region. The shared gate covers zero-track refusal,
+	# each track flag, the missing-track refusal, then the one-time clear.
 	await travel(CH02, Vector2(3580, 4760))
 	await tick(6)
-	var hunt := challenge("ch02_canal_shadow_hunt")
-	check(scene._challenge_tracks_ready(hunt), "canal hunt becomes ready after both tracks")
-	var shrine_hunt: Area2D = scene.get_node_or_null(String(hunt.get("shrine", {}).get("id", "")))
-	# Without tracks the shrine would refuse; with tracks, clear through the shared path.
-	# Re-clear gate: wipe track readiness check already passed; run full clear.
-	# Ensure shrine still refuses if we strip a track flag (anti-skip).
-	scene.story_flags["hunt_track_ch02_canal_b"] = false
-	scene._activate_challenge_shrine(shrine_hunt)
-	await tick(2)
-	check(scene.active_challenge_id.is_empty(), "canal hunt still refuses when a track is missing")
-	scene.story_flags["hunt_track_ch02_canal_b"] = true
-	await run_challenge_clear("ch02_canal_shadow_hunt", "evidence_canal_track", "charm_shell_found")
+	await run_tracking_hunt_gate("ch02_canal_shadow_hunt", "evidence_canal_track", "charm_shell_found")
 	check(scene._save_world(), "ch02 challenge progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear flag is on disk")
@@ -240,42 +252,11 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch04 travel")
 
 	# Tracking hunt in ch04 greenhouse: overlook + west spoke tracks -> root vault quarry.
-	await travel(CH04, Vector2(1980, 880))
+	await travel(CH04, Vector2(2480, 1942))
 	await tick(6)
 	check(String(scene.config.get("id", "")) == CH04, "fixture is in broken string greenhouse for hunt")
 	check(scene.config.get("optional_challenges", []).size() >= 2, "ch04 authors challenge room and tracking hunt")
-	var track_root_a: Area2D = scene.get_node_or_null("hunt_track_ch04_root_a")
-	check(track_root_a != null, "root hunt track A spawns at the canopy overlook")
-	scene._activate_hunt_track(track_root_a)
-	await tick(2)
-	await travel(CH04, Vector2(1400, 1570))
-	await tick(6)
-	var track_root_b: Area2D = scene.get_node_or_null("hunt_track_ch04_root_b")
-	check(track_root_b != null, "root hunt track B spawns on the west spoke")
-	scene._activate_hunt_track(track_root_b)
-	await tick(2)
-	await travel(CH04, Vector2(2480, 1942))
-	await tick(6)
-	var root_hunt := challenge("ch04_root_cage_hunt")
-	check(scene._challenge_tracks_ready(root_hunt), "root hunt becomes ready after both tracks")
-	var shrine_root: Area2D = scene.get_node_or_null(String(root_hunt.get("shrine", {}).get("id", "")))
-	# Anti-skip: missing a track still refuses.
-	scene.story_flags["hunt_track_ch04_root_b"] = false
-	scene._activate_challenge_shrine(shrine_root)
-	await tick(2)
-	check(scene.active_challenge_id.is_empty(), "root hunt still refuses when a track is missing")
-	scene.story_flags["hunt_track_ch04_root_b"] = true
-	# Lock push keeps player on the shrine/enemy side (left of east wall).
-	var ch04_hunt_lock: Rect2 = scene._rect2(root_hunt.get("lock_rect", []))
-	var ch04_hunt_inside: float = scene._challenge_lock_inside_x(root_hunt, ch04_hunt_lock)
-	check(ch04_hunt_inside < ch04_hunt_lock.position.x, "ch04 hunt lock inside is left of the east wall")
-	scene.player.global_position = Vector2(ch04_hunt_lock.position.x + 10.0, 1942)
-	scene._start_optional_challenge(root_hunt)
-	await tick(2)
-	check(scene.player.global_position.x < ch04_hunt_lock.position.x, "ch04 hunt seal push keeps the player inside left of the wall")
-	scene._clear_active_challenge(false)
-	await tick(2)
-	await run_challenge_clear("ch04_root_cage_hunt", "evidence_root_track", "charm_mender_found")
+	await run_tracking_hunt_gate("ch04_root_cage_hunt", "evidence_root_track", "charm_mender_found", "left")
 	check(scene._save_world(), "ch04 hunt progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear flag is on disk")
@@ -310,40 +291,11 @@ func run() -> void:
 
 
 	# Tracking hunt in ch05 obsidian: base road + pilgrim camp tracks -> ash pit quarry.
-	await travel(CH05, Vector2(1560, 2675))
+	await travel(CH05, Vector2(3400, 2856))
 	await tick(6)
 	check(String(scene.config.get("id", "")) == CH05, "fixture is in obsidian pilgrim road for hunt")
 	check(scene.config.get("optional_challenges", []).size() >= 2, "ch05 authors challenge room and tracking hunt")
-	var track_ash_a: Area2D = scene.get_node_or_null("hunt_track_ch05_ash_a")
-	check(track_ash_a != null, "ash hunt track A spawns on the base road")
-	scene._activate_hunt_track(track_ash_a)
-	await tick(2)
-	await travel(CH05, Vector2(700, 1870))
-	await tick(6)
-	var track_ash_b: Area2D = scene.get_node_or_null("hunt_track_ch05_ash_b")
-	check(track_ash_b != null, "ash hunt track B spawns at the pilgrim camp")
-	scene._activate_hunt_track(track_ash_b)
-	await tick(2)
-	await travel(CH05, Vector2(3400, 2856))
-	await tick(6)
-	var ash_hunt := challenge("ch05_ash_banner_hunt")
-	check(scene._challenge_tracks_ready(ash_hunt), "ash hunt becomes ready after both tracks")
-	var shrine_ash: Area2D = scene.get_node_or_null(String(ash_hunt.get("shrine", {}).get("id", "")))
-	scene.story_flags["hunt_track_ch05_ash_b"] = false
-	scene._activate_challenge_shrine(shrine_ash)
-	await tick(2)
-	check(scene.active_challenge_id.is_empty(), "ash hunt still refuses when a track is missing")
-	scene.story_flags["hunt_track_ch05_ash_b"] = true
-	var ch05_hunt_lock: Rect2 = scene._rect2(ash_hunt.get("lock_rect", []))
-	var ch05_hunt_inside: float = scene._challenge_lock_inside_x(ash_hunt, ch05_hunt_lock)
-	check(ch05_hunt_inside > ch05_hunt_lock.position.x + ch05_hunt_lock.size.x, "ch05 hunt lock inside is right of the west wall")
-	scene.player.global_position = Vector2(ch05_hunt_lock.position.x - 10.0, 2856)
-	scene._start_optional_challenge(ash_hunt)
-	await tick(2)
-	check(scene.player.global_position.x > ch05_hunt_lock.position.x + ch05_hunt_lock.size.x, "ch05 hunt seal push keeps the player inside right of the wall")
-	scene._clear_active_challenge(false)
-	await tick(2)
-	await run_challenge_clear("ch05_ash_banner_hunt", "evidence_ash_track", "charm_needlecase_found")
+	await run_tracking_hunt_gate("ch05_ash_banner_hunt", "evidence_ash_track", "charm_needlecase_found", "right")
 	check(scene._save_world(), "ch05 hunt progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch05_ash_hunt", false)), "ch05 hunt clear flag is on disk")
