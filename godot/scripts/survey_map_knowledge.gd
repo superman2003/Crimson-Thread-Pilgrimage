@@ -47,6 +47,29 @@ static func marker_records(config: Dictionary, flags: Dictionary, region_id: Str
 			records.append({"kind":"gate", "id":String(gate.get("id", "")), "rect":rect, "room_id":String(room.id), "text":marker_text(gate, inventory, flags), "tooltip":String(gate.get("required_ability_name", gate.get("required_ability", "能力门")))})
 	return records
 
+## Lever shortcuts are dynamic doors: the map shows whether each charted lever
+## has been pulled, and names the two rooms it joins.
+static func shortcut_records(config: Dictionary, flags: Dictionary, region_id: String, opened: Dictionary) -> Array[Dictionary]:
+	var records: Array[Dictionary] = []
+	var names := {}
+	for room in config.get("map_rooms", []): names[String(room.get("id", ""))] = String(room.get("name", room.get("id", "")))
+	for lever in config.get("interactives", []):
+		var shortcut := String(lever.get("shortcut_id", ""))
+		if shortcut.is_empty() or String(lever.get("kind", "")) != "lever": continue
+		var position: Array = lever.get("position", [])
+		if position.size() < 2: continue
+		var rect := Rect2(float(position[0]) - 8.0, float(position[1]) - 8.0, 16.0, 16.0)
+		if not visible(flags, region_id, config, rect): continue
+		var joins := ""
+		for connection in config.get("connections", []):
+			if connection is Dictionary and String(connection.get("shortcut_id", "")) == shortcut:
+				joins = "%s ⇄ %s" % [names.get(String(connection.get("from", "")), connection.get("from", "")), names.get(String(connection.get("to", "")), connection.get("to", ""))]
+		var is_open := opened.has(shortcut)
+		var room := owner_room(config, rect)
+		records.append({"kind":"shortcut", "id":shortcut, "rect":rect, "room_id":String(room.get("id", "")), "open":is_open,
+			"text":"⇆" if is_open else "⊣", "tooltip":("捷径已接通：" if is_open else "捷径未接通，拉杆在此：") + joins})
+	return records
+
 static func _room_rect(room: Dictionary) -> Rect2:
 	var value: Array = room.get("layout_rect", room.get("play_rect", []))
 	return Rect2(value[0], value[1], value[2], value[3]) if value.size() >= 4 else Rect2()

@@ -537,6 +537,252 @@
         ],
         "anchor_x": 123.0
       }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_blink_loops.png",
+        "region": [
+          195,
+          291,
+          577,
+          457
+        ],
+        "component_seeds": [
+          [
+            668,
+            295
+          ]
+        ],
+        "scale": 0.3574,
+        "anchor_x": 300.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_blink_loops.png",
+        "region": [
+          995,
+          289,
+          641,
+          460
+        ],
+        "component_seeds": [
+          [
+            1514,
+            293
+          ]
+        ],
+        "scale": 0.3574,
+        "anchor_x": 348.5
+      }
+    ],
+    "shadow_echo_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          54,
+          79,
+          242,
+          286
+        ],
+        "component_seeds": [
+          [
+            155,
+            83
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 114.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          415,
+          72,
+          243,
+          292
+        ],
+        "component_seeds": [
+          [
+            507,
+            76
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 110.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          777,
+          1,
+          243,
+          363
+        ],
+        "component_seeds": [
+          [
+            865,
+            5
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 104.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          1135,
+          9,
+          244,
+          356
+        ],
+        "component_seeds": [
+          [
+            1218,
+            13
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 110.8
+      }
+    ],
+    "shadow_echo": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          18,
+          453,
+          290,
+          246
+        ],
+        "component_seeds": [
+          [
+            98,
+            457
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 125.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          374,
+          462,
+          354,
+          238
+        ],
+        "component_seeds": [
+          [
+            539,
+            466
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 119.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          730,
+          490,
+          413,
+          209
+        ],
+        "component_seeds": [
+          [
+            861,
+            494
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 150.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          1173,
+          467,
+          271,
+          233
+        ],
+        "component_seeds": [
+          [
+            1276,
+            471
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 99.8
+      }
+    ],
+    "shadow_echo_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          53,
+          781,
+          285,
+          258
+        ],
+        "component_seeds": [
+          [
+            224,
+            785
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 105.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          382,
+          786,
+          318,
+          254
+        ],
+        "component_seeds": [
+          [
+            562,
+            790
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 116.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          748,
+          785,
+          262,
+          254
+        ],
+        "component_seeds": [
+          [
+            952,
+            789
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 121.8
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/shadow_echo.png",
+        "region": [
+          1132,
+          785,
+          249,
+          256
+        ],
+        "component_seeds": [
+          [
+            1314,
+            789
+          ]
+        ],
+        "scale": 0.7048,
+        "anchor_x": 116.8
+      }
     ]
   },
   "frame_regions": [
@@ -1058,5 +1304,81 @@
         }
       ]
     }
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/delayed_shadow.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "shadow_echo_windup",
+      "shadow_echo",
+      "shadow_echo_recover"
+    ],
+    "sheets": [
+      {
+        "image": "shadow_blink_loops.png",
+        "image_sha256": "c15923610e428242e2a27acc2ccfd3ce1ecd47dd0b26ba1d2d0d8ed8498f3965",
+        "role": "keep",
+        "attack": "shadow_blink",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3574,
+        "anchors": [
+          300.5,
+          348.5
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3594,
+            0.3553
+          ]
+        }
+      },
+      {
+        "image": "shadow_echo.png",
+        "image_sha256": "6758eddcbceaa1b7f5769b13fa249d0ef4e3e9c7d7ef87adf17637a361b514d3",
+        "role": "new",
+        "attack": "shadow_echo",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7048,
+        "anchors": [
+          114.8,
+          110.8,
+          104.8,
+          110.8,
+          125.8,
+          119.8,
+          150.8,
+          99.8,
+          105.8,
+          116.8,
+          121.8,
+          116.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.6994,
+          "last_recover_ratio": 0.7103
+        }
+      }
+    ]
   }
 }

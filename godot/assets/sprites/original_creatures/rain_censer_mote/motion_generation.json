@@ -531,6 +531,252 @@
         ],
         "anchor_x": 110.125
       }
+    ],
+    "censer_cloud_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          52,
+          96,
+          277,
+          248
+        ],
+        "component_seeds": [
+          [
+            131,
+            100
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 138.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          398,
+          74,
+          297,
+          270
+        ],
+        "component_seeds": [
+          [
+            470,
+            78
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 146.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          779,
+          72,
+          272,
+          284
+        ],
+        "component_seeds": [
+          [
+            881,
+            76
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 132.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          1195,
+          37,
+          185,
+          284
+        ],
+        "component_seeds": [
+          [
+            1202,
+            41
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 91.9
+      }
+    ],
+    "censer_cloud": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          48,
+          416,
+          265,
+          273
+        ],
+        "component_seeds": [
+          [
+            121,
+            420
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 139.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          413,
+          399,
+          264,
+          290
+        ],
+        "component_seeds": [
+          [
+            509,
+            403
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 143.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          786,
+          402,
+          246,
+          283
+        ],
+        "component_seeds": [
+          [
+            863,
+            406
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 128.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          1144,
+          427,
+          266,
+          262
+        ],
+        "component_seeds": [
+          [
+            1217,
+            431
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 131.9
+      }
+    ],
+    "censer_cloud_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          61,
+          756,
+          260,
+          263
+        ],
+        "component_seeds": [
+          [
+            144,
+            760
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 120.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          398,
+          768,
+          313,
+          251
+        ],
+        "component_seeds": [
+          [
+            465,
+            772
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 146.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          767,
+          763,
+          313,
+          253
+        ],
+        "component_seeds": [
+          [
+            855,
+            767
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 141.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_cloud.png",
+        "region": [
+          1143,
+          772,
+          282,
+          250
+        ],
+        "component_seeds": [
+          [
+            1229,
+            776
+          ]
+        ],
+        "scale": 0.6911,
+        "anchor_x": 138.9
+      }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_rain_loops.png",
+        "region": [
+          179,
+          175,
+          659,
+          511
+        ],
+        "component_seeds": [
+          [
+            306,
+            179
+          ]
+        ],
+        "scale": 0.3889,
+        "anchor_x": 234.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/censer_rain_loops.png",
+        "region": [
+          1035,
+          225,
+          705,
+          475
+        ],
+        "component_seeds": [
+          [
+            1161,
+            229
+          ]
+        ],
+        "scale": 0.3889,
+        "anchor_x": 256.6
+      }
     ]
   },
   "frame_regions": [
@@ -1083,5 +1329,81 @@
       ]
     }
   },
-  "tool": "image_gen.imagegen"
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/rain_censer_mote.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "censer_cloud_windup",
+      "censer_cloud",
+      "censer_cloud_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "censer_cloud.png",
+        "image_sha256": "73bf14055cafc123a44249657765187bed5aff835c6c2694ca83eb585659ca5e",
+        "role": "new",
+        "attack": "censer_cloud",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.6911,
+        "anchors": [
+          138.9,
+          146.9,
+          132.9,
+          91.9,
+          139.9,
+          143.9,
+          128.9,
+          131.9,
+          120.9,
+          146.9,
+          141.9,
+          138.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7,
+          "last_recover_ratio": 0.6824
+        }
+      },
+      {
+        "image": "censer_rain_loops.png",
+        "image_sha256": "6a0bc9dc772ef76d60992d8e23566bd74dea5f257a8bd802720947e1dd3cfe8d",
+        "role": "keep",
+        "attack": "censer_rain",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3889,
+        "anchors": [
+          234.6,
+          256.6
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.388,
+            0.3898
+          ]
+        }
+      }
+    ]
+  }
 }

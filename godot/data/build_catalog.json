@@ -15,7 +15,7 @@
       "damage_taken_mult": 1.0,
       "heal_cost": 60,
       "heal_amount": 1,
-      "heal_duration": 0.8,
+      "heal_duration": 0.55,
       "energy_gain_mult": 1,
       "skill_cost_mult": 1.0,
       "skill_damage_mult": 1.0,
@@ -28,7 +28,7 @@
       "pogo_bounce_mult": 1.2,
       "unlock_flag": "quest_bring_names_complete",
       "mechanism_flag": "quest_bring_names_complete",
-      "heal_effect": "完成后地面移速短暂提高，不增加跳高。",
+      "heal_effect": "快缝：耗60绯线，0.55秒缝回1格，可在空中缝补；完成后地面移速短暂提高，不增加跳高。",
       "heal_move_duration": 2.0,
       "heal_knockback_duration": 0.0,
       "heal_mark_extension": 0.0,
@@ -119,7 +119,8 @@
             "requires_mechanism": "crimson"
           }
         ]
-      }
+      },
+      "heal_airborne": true
     },
     "bell": {
       "name": "司铸契印",
@@ -133,9 +134,9 @@
       "attack_speed_mult": 0.78,
       "move_mult": 1.0,
       "damage_taken_mult": 1.0,
-      "heal_cost": 60,
-      "heal_amount": 1,
-      "heal_duration": 0.8,
+      "heal_cost": 80,
+      "heal_amount": 2,
+      "heal_duration": 1.15,
       "energy_gain_mult": 1,
       "skill_cost_mult": 1.0,
       "skill_damage_mult": 1.0,
@@ -144,11 +145,11 @@
       "knockback_mult": 1.0,
       "status_buildup_mult": 1.0,
       "tool_capacity_bonus": 0,
-      "heal_interrupt_loss_ratio": 1.0,
+      "heal_interrupt_loss_ratio": 0.5,
       "pogo_bounce_mult": 0.75,
       "unlock_flag": "seal_bell_repaired",
       "mechanism_flag": "seal_bell_repaired",
-      "heal_effect": "完成后一次限时抗击退；仍承受伤害。",
+      "heal_effect": "承力缝：须落地，耗80绯线，1.15秒缝回2格；被打断只损失一半。完成后一次限时抗击退，仍承受伤害。",
       "heal_move_duration": 0.0,
       "heal_knockback_duration": 3.0,
       "heal_mark_extension": 0.0,
@@ -240,7 +241,8 @@
             "requires_mechanism": "bell"
           }
         ]
-      }
+      },
+      "heal_airborne": false
     },
     "salt": {
       "name": "校录契印",
@@ -254,9 +256,9 @@
       "attack_speed_mult": 0.9,
       "move_mult": 1.0,
       "damage_taken_mult": 1.0,
-      "heal_cost": 60,
+      "heal_cost": 50,
       "heal_amount": 1,
-      "heal_duration": 0.8,
+      "heal_duration": 0.9,
       "energy_gain_mult": 0.8,
       "skill_cost_mult": 1.0,
       "skill_damage_mult": 1.0,
@@ -269,7 +271,7 @@
       "pogo_bounce_mult": 1,
       "unlock_flag": "seal_salt_restored",
       "mechanism_flag": "seal_salt_restored",
-      "heal_effect": "延长附近已有盐记一次；不能反复延长。",
+      "heal_effect": "校录缝：须落地，只耗50绯线，0.9秒缝回1格；延长附近已有盐记一次，不能反复延长。",
       "heal_move_duration": 0.0,
       "heal_knockback_duration": 0.0,
       "heal_mark_extension": 2.0,
@@ -359,7 +361,8 @@
             "requires_mechanism": "salt"
           }
         ]
-      }
+      },
+      "heal_airborne": false
     }
   },
   "skills": {

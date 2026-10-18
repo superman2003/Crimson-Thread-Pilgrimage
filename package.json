@@ -23,10 +23,12 @@
     "test:world-neighbor-config": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite world_neighbor_config",
     "test:world-preflight-budget": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite world_preflight_budget",
     "test:world-prepare-budget": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite world_prepare_budget",
-    "test:campaign": "node tools/run_python_tool.mjs tools/audit_economy.py && node tools/run_python_tool.mjs tools/validate_campaign_chapters.py && node tools/run_python_tool.mjs tools/validate_chapter_files.py && node tools/run_python_tool.mjs tools/validate_world_routes.py && node tools/run_python_tool.mjs tools/validate_world_passages.py && node tools/run_python_tool.mjs tools/validate_world_narrative.py && node tools/run_python_tool.mjs tools/validate_world_upgrade.py",
+    "test:campaign": "node tools/run_python_tool.mjs tools/audit_economy.py && node tools/run_python_tool.mjs tools/validate_seal_catalog.py && node tools/run_python_tool.mjs tools/validate_campaign_chapters.py && node tools/run_python_tool.mjs tools/validate_chapter_files.py && node tools/run_python_tool.mjs tools/validate_world_routes.py && node tools/run_python_tool.mjs tools/validate_world_passages.py && node tools/run_python_tool.mjs tools/validate_world_narrative.py && node tools/run_python_tool.mjs tools/validate_world_upgrade.py",
     "test:runner": "node tools/run_python_tool.mjs tools/test_regression_runner.py && node tools/run_python_tool.mjs tools/test_godot_import.py && node tools/run_python_tool.mjs tools/test_rock_gpu_validation.py",
+    "test:seal-identity": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite seal_identity",
+    "test:silent-crown-experience": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite silent_crown_experience",
     "test:obsidian-experience": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite obsidian_experience",
     "test:combat-upgrade": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite melee_recovery --suite build_slots --suite build_transaction_runtime --suite enemy_encounter_roles --suite build_slots_ui --suite narrative_outcomes",
-    "test:character-motion": "node tools/run_python_tool.mjs tools/build_expanded_character_motion.py --all --check && node tools/run_python_tool.mjs tools/build_expanded_hero_run.py --check && node tools/run_python_tool.mjs tools/build_hero_supplement_motion.py --check"
+    "test:character-motion": "node tools/run_python_tool.mjs tools/build_creature_attack_motion.py --check && node tools/run_python_tool.mjs tools/build_expanded_character_motion.py --all --check && node tools/run_python_tool.mjs tools/build_expanded_hero_run.py --check && node tools/run_python_tool.mjs tools/build_hero_supplement_motion.py --check"
   }
 }

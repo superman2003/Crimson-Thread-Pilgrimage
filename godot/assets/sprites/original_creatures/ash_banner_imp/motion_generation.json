@@ -514,6 +514,267 @@
         ],
         "anchor_x": 136.5
       }
+    ],
+    "imp_retreat_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          52,
+          88,
+          259,
+          266
+        ],
+        "component_seeds": [
+          [
+            255,
+            92
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 126.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          426,
+          84,
+          257,
+          270
+        ],
+        "component_seeds": [
+          [
+            639,
+            88
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 118.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          784,
+          61,
+          226,
+          293
+        ],
+        "component_seeds": [
+          [
+            954,
+            65
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 98.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          1115,
+          84,
+          268,
+          271
+        ],
+        "component_seeds": [
+          [
+            1333,
+            88
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 127.5
+      }
+    ],
+    "imp_retreat": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          40,
+          449,
+          327,
+          213
+        ],
+        "component_seeds": [
+          [
+            162,
+            453
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 109.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          373,
+          457,
+          353,
+          185
+        ],
+        "component_seeds": [
+          [
+            500,
+            461
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 121.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          736,
+          463,
+          350,
+          184
+        ],
+        "component_seeds": [
+          [
+            867,
+            467
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 124.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          1097,
+          488,
+          336,
+          170
+        ],
+        "component_seeds": [
+          [
+            1219,
+            492
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 127.5
+      }
+    ],
+    "imp_retreat_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          46,
+          745,
+          293,
+          279
+        ],
+        "component_seeds": [
+          [
+            254,
+            749
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 137.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          445,
+          727,
+          258,
+          297
+        ],
+        "component_seeds": [
+          [
+            650,
+            731
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 122.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          793,
+          703,
+          254,
+          321
+        ],
+        "component_seeds": [
+          [
+            994,
+            707
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 120.5
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/imp_retreat.png",
+        "region": [
+          1139,
+          718,
+          265,
+          306
+        ],
+        "component_seeds": [
+          [
+            1329,
+            722
+          ]
+        ],
+        "scale": 0.7057,
+        "anchor_x": 124.5
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/ash_banner_imp.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "imp_retreat_windup",
+      "imp_retreat",
+      "imp_retreat_recover"
+    ],
+    "sheets": [
+      {
+        "image": "imp_retreat.png",
+        "image_sha256": "e7c81aec23711a5d1bf7f69af090eef3c2387718ccba50d271d8aebdce17c064",
+        "role": "new",
+        "attack": "imp_retreat",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7057,
+        "anchors": [
+          126.5,
+          118.5,
+          98.5,
+          127.5,
+          109.5,
+          121.5,
+          124.5,
+          127.5,
+          137.5,
+          122.5,
+          120.5,
+          124.5
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7229,
+          "last_recover_ratio": 0.6889
+        }
+      }
     ]
   }
 }

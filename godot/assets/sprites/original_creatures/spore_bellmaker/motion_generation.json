@@ -1315,6 +1315,328 @@
         ],
         "anchor_x": 135
       }
+    ],
+    "bell_fungus_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          52,
+          174,
+          253,
+          217
+        ],
+        "component_seeds": [
+          [
+            257,
+            178
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 106.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          420,
+          128,
+          280,
+          263
+        ],
+        "component_seeds": [
+          [
+            644,
+            132
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 126.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          784,
+          88,
+          243,
+          304
+        ],
+        "component_seeds": [
+          [
+            960,
+            92
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 127.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          1171,
+          65,
+          234,
+          327
+        ],
+        "component_seeds": [
+          [
+            1285,
+            69
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 111.1
+      }
+    ],
+    "bell_fungus": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          59,
+          489,
+          298,
+          208
+        ],
+        "component_seeds": [
+          [
+            311,
+            493
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 128.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          413,
+          484,
+          280,
+          214
+        ],
+        "component_seeds": [
+          [
+            632,
+            488
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 150.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          747,
+          483,
+          311,
+          217
+        ],
+        "component_seeds": [
+          [
+            1005,
+            487
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 154.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          1115,
+          470,
+          292,
+          228
+        ],
+        "component_seeds": [
+          [
+            1349,
+            474
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 154.1
+      }
+    ],
+    "bell_fungus_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          55,
+          779,
+          286,
+          259
+        ],
+        "component_seeds": [
+          [
+            282,
+            783
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 131.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          417,
+          776,
+          294,
+          259
+        ],
+        "component_seeds": [
+          [
+            648,
+            780
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 136.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          778,
+          755,
+          265,
+          281
+        ],
+        "component_seeds": [
+          [
+            991,
+            759
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 123.1
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_fungus.png",
+        "region": [
+          1139,
+          821,
+          256,
+          216
+        ],
+        "component_seeds": [
+          [
+            1348,
+            825
+          ]
+        ],
+        "scale": 0.6973,
+        "anchor_x": 106.1
+      }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_spores_loops.png",
+        "region": [
+          156,
+          265,
+          642,
+          530
+        ],
+        "component_seeds": [
+          [
+            656,
+            269
+          ]
+        ],
+        "scale": 0.282,
+        "anchor_x": 306.6
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/bell_spores_loops.png",
+        "region": [
+          980,
+          266,
+          630,
+          529
+        ],
+        "component_seeds": [
+          [
+            1476,
+            270
+          ]
+        ],
+        "scale": 0.282,
+        "anchor_x": 311.6
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/spore_bellmaker.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "bell_fungus_windup",
+      "bell_fungus",
+      "bell_fungus_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "bell_fungus.png",
+        "image_sha256": "b72a8f0b3d0ebef501a1edef5ab0de0e8bb6bbd645a12082b670cc533e6bb7a0",
+        "role": "new",
+        "attack": "bell_fungus",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.6973,
+        "anchors": [
+          106.1,
+          126.1,
+          127.1,
+          111.1,
+          128.1,
+          150.1,
+          154.1,
+          154.1,
+          131.1,
+          136.1,
+          123.1,
+          106.1
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7003,
+          "last_recover_ratio": 0.6944
+        }
+      },
+      {
+        "image": "bell_spores_loops.png",
+        "image_sha256": "ec408b4fb63ae95769ec635f55a64c45077ae497d77297978817e175635cdf19",
+        "role": "keep",
+        "attack": "bell_spores",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.282,
+        "anchors": [
+          306.6,
+          311.6
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.2802,
+            0.2838
+          ]
+        }
+      }
     ]
   }
 }
