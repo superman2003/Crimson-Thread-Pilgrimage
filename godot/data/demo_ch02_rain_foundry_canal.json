@@ -151,6 +151,16 @@
         "name": "锈工牌",
         "category": "Quest",
         "description": "半沉工头点名要的工牌。牌上的坑坑洼洼，都是工人自己敲的。"
+      },
+      "evidence_counterweight_echo": {
+        "name": "证据·配重余响",
+        "category": "Relics",
+        "description": "配重暗格挑战房留下的水轮残响。不挡主线，却能证明你敲响过暗格余响钟。"
+      },
+      "evidence_canal_track": {
+        "name": "证据·渠影爪痕",
+        "category": "Relics",
+        "description": "追踪狩猎取得的锈湿爪痕拓片。循着残迹才显形的猎物，不挡主线。"
       }
     }
   },
@@ -563,7 +573,7 @@
         168
       ],
       "objective": "查看巡礼愿板上钉着的求助。",
-      "guide": "工头在找三枚工牌。",
+      "guide": "工头在找三枚工牌。 台侧有渠影残迹可循。",
       "danger": "平台悬在中庭高处。",
       "next": "水表回廊",
       "setpiece": "钉满湿纸的愿板",
@@ -607,7 +617,7 @@
         168
       ],
       "objective": "沿水表回廊横越中庭上层。",
-      "guide": "东端通向阀顶眺台。",
+      "guide": "东端通向阀顶眺台。 回廊上残留第二道渠影。",
       "danger": "回廊悬空，钟蛾游弋。",
       "next": "阀顶眺台",
       "setpiece": "成排的黄铜水表",
@@ -1289,12 +1299,12 @@
         168
       ],
       "objective": "冲过淤水间隙，读取沉没档案舱里的证词。",
-      "guide": "需要绯线冲刺。",
+      "guide": "需要绯线冲刺。 循齐残迹后可敲响猎物余响钟。",
       "danger": "舱里的名单不愿被读。",
       "next": "淤金库",
       "setpiece": "灌满水的青铜档案舱",
       "traversal_focus": "回访门",
-      "pacing_role": "reward",
+      "pacing_role": "optional_challenge",
       "visit_rects": [
         [
           3160,
@@ -1308,7 +1318,8 @@
         4150,
         760,
         850
-      ]
+      ],
+      "optional_challenge": "ch02_canal_shadow_hunt"
     },
     {
       "id": "wheel_shaft",
@@ -1421,12 +1432,12 @@
         168
       ],
       "objective": "在配重块后找到藏起的地图残页。",
-      "guide": "从水轮内部向上爬。",
+      "guide": "从水轮内部向上爬。 余响钟可开启挑战房。",
       "danger": "配重随水位起落。",
       "next": "水轮内部",
       "setpiece": "嵌着残页的配重块",
       "traversal_focus": "隐藏探索",
-      "pacing_role": "reward",
+      "pacing_role": "optional_challenge",
       "visit_rects": [
         [
           5430,
@@ -1440,7 +1451,8 @@
         3660,
         360,
         576
-      ]
+      ],
+      "optional_challenge": "ch02_counterweight_trial"
     },
     {
       "id": "furnace_floor",
@@ -14486,5 +14498,168 @@
     "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
   },
   "boss_route_via_exploration": true,
-  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。"
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "optional_challenges": [
+    {
+      "id": "ch02_counterweight_trial",
+      "name": "配重试炼",
+      "kind": "challenge_room",
+      "room_id": "counterweight_niche",
+      "clear_flag": "challenge_clear_ch02_counterweight",
+      "bypass_note": "不敲钟可拿走地图残页离开；主线不依赖此房。水轮内的暗格可选。",
+      "shrine": {
+        "id": "challenge_shrine_ch02_counterweight",
+        "position": [
+          5500,
+          4140
+        ],
+        "label": "余响钟 · 配重试炼"
+      },
+      "lock_rect": [
+        5435,
+        3990,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH02_N1",
+          "kind": "pipe_thrower",
+          "position": [
+            5560,
+            4140
+          ],
+          "sprite": "res://assets/sprites/original_creatures/pipe_thrower/manifest.json",
+          "visual_scale": 0.3096774193548387,
+          "visual_offset": [
+            0,
+            7.987096774193546
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/pipe_thrower/atlas.png",
+          "patrol": 0,
+          "leash_radius": 140,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 56,
+          "elite": true
+        },
+        {
+          "id": "CH02_N2",
+          "kind": "rust_diver",
+          "position": [
+            5640,
+            4140
+          ],
+          "sprite": "res://assets/sprites/original_creatures/rust_diver/manifest.json",
+          "visual_scale": 0.36823104693140796,
+          "visual_offset": [
+            0,
+            -0.18050541516245744
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/rust_diver/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 62,
+          "elite": true
+        }
+      ],
+      "reward": {
+        "currency": 40,
+        "material_amount": 2,
+        "item_id": "evidence_counterweight_echo",
+        "item_amount": 1,
+        "toast": "配重首清：取得配重余响证据，并得额外碎钱与材料。"
+      }
+    },
+    {
+      "id": "ch02_canal_shadow_hunt",
+      "name": "渠影追踪",
+      "kind": "tracking_hunt",
+      "room_id": "drowned_archive_pod",
+      "clear_flag": "challenge_clear_ch02_canal_hunt",
+      "bypass_note": "不循残迹、不敲钟可照常取证词离开；主线不依赖此猎。",
+      "tracks": [
+        {
+          "id": "hunt_track_ch02_canal_a",
+          "flag": "hunt_track_ch02_canal_a",
+          "room_id": "wish_board_landing",
+          "position": [
+            3180,
+            1740
+          ],
+          "label": "渠影残迹 · 愿板侧",
+          "hint": "锈湿爪印往水表回廊去。"
+        },
+        {
+          "id": "hunt_track_ch02_canal_b",
+          "flag": "hunt_track_ch02_canal_b",
+          "room_id": "gauge_gallery",
+          "position": [
+            3340,
+            2208
+          ],
+          "label": "渠影残迹 · 水表",
+          "hint": "爪痕沉向档案舱深处。"
+        }
+      ],
+      "shrine": {
+        "id": "challenge_shrine_ch02_canal_hunt",
+        "position": [
+          3580,
+          4760
+        ],
+        "label": "余响钟 · 渠影猎物"
+      },
+      "lock_rect": [
+        3185,
+        4520,
+        42,
+        280
+      ],
+      "enemies": [
+        {
+          "id": "CH02_H1",
+          "kind": "waterwheel_knight",
+          "position": [
+            3480,
+            4760
+          ],
+          "sprite": "res://assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+          "visual_scale": 0.36486486486486486,
+          "visual_offset": [
+            0,
+            0.5337837837837824
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/waterwheel_knight/atlas.png",
+          "patrol": 60,
+          "leash_radius": 200,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 68,
+          "elite": true,
+          "hp": 9,
+          "encounter_role": "tracking_hunt_quarry"
+        }
+      ],
+      "reward": {
+        "currency": 50,
+        "material_amount": 2,
+        "item_id": "evidence_canal_track",
+        "item_amount": 1,
+        "unlock_event": "charm_shell_found",
+        "toast": "渠影首清：取得爪痕证据，并唤回铜背扣印记。"
+      }
+    }
+  ]
 }

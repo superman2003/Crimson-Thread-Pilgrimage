@@ -5,6 +5,7 @@ const ROUTES := preload("res://scripts/world_routes.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const SAVE := "user://optional_challenges_validation.json"
 const CH01 := "demo_ch01_moss_bell_court"
+const CH02 := "demo_ch02_rain_foundry_canal"
 const CH03 := "demo_ch03_saltwhite_archive"
 var scene: Node
 var failures := 0
@@ -103,6 +104,32 @@ func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unloc
 	scene._grant_optional_challenge_reward(data)
 	check(scene.currency_count == currency_after and int(scene.inventory_counts.get(evidence_id, 0)) == evidence_after, challenge_id + " grant helper stays latched by the clear flag")
 
+
+func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_unlock: String = "") -> void:
+	var data := challenge(challenge_id)
+	check(not data.is_empty(), challenge_id + " is authored on the active region")
+	check(String(data.get("kind", "")) == "tracking_hunt", challenge_id + " is a tracking hunt")
+	var tracks: Array = data.get("tracks", [])
+	check(tracks.size() >= 2, challenge_id + " authors at least two tracks")
+	var shrine_id := String(data.get("shrine", {}).get("id", ""))
+	var shrine: Area2D = scene.get_node_or_null(shrine_id)
+	check(shrine != null, challenge_id + " quarry shrine exists")
+	# Before tracks: shrine must refuse to start.
+	scene._activate_challenge_shrine(shrine)
+	await tick(2)
+	check(scene.active_challenge_id.is_empty(), challenge_id + " refuses to start before tracks are found")
+	for track in tracks:
+		var track_id := String(track.get("id", ""))
+		var area: Area2D = scene.get_node_or_null(track_id)
+		check(area != null, challenge_id + " track " + track_id + " exists in the live region")
+		var flag := String(track.get("flag", ""))
+		check(not bool(scene.story_flags.get(flag, false)), challenge_id + " track " + track_id + " starts unread")
+		scene._activate_hunt_track(area)
+		await tick(2)
+		check(bool(scene.story_flags.get(flag, false)), challenge_id + " track " + track_id + " writes its flag")
+	check(scene._challenge_tracks_ready(data), challenge_id + " becomes ready after all tracks")
+	await run_challenge_clear(challenge_id, evidence_id, expect_unlock)
+
 func run() -> void:
 	wipe_save()
 	await boot(false)
@@ -126,6 +153,43 @@ func run() -> void:
 	check(scene._save_world(), "challenge progress saves")
 	var saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch01_crown_nook", false)), "ch01 clear flag is on disk")
+	# Challenge room + tracking hunt in ch02 rain foundry (optional side content).
+	await travel(CH02, Vector2(5560, 4140))
+	await tick(6)
+	check(String(scene.config.get("id", "")) == CH02, "fixture is in rain foundry canal")
+	check(scene.config.get("optional_challenges", []).size() >= 2, "ch02 authors challenge room and tracking hunt")
+	await run_challenge_clear("ch02_counterweight_trial", "evidence_counterweight_echo")
+	# Hunt tracks live across wish board / gauge gallery; travel near the quarry shrine.
+	await travel(CH02, Vector2(3200, 1740))
+	await tick(6)
+	var track_a: Area2D = scene.get_node_or_null("hunt_track_ch02_canal_a")
+	check(track_a != null, "canal hunt track A spawns at the wish board")
+	scene._activate_hunt_track(track_a)
+	await tick(2)
+	await travel(CH02, Vector2(3340, 2208))
+	await tick(6)
+	var track_b: Area2D = scene.get_node_or_null("hunt_track_ch02_canal_b")
+	check(track_b != null, "canal hunt track B spawns in the gauge gallery")
+	scene._activate_hunt_track(track_b)
+	await tick(2)
+	await travel(CH02, Vector2(3580, 4760))
+	await tick(6)
+	var hunt := challenge("ch02_canal_shadow_hunt")
+	check(scene._challenge_tracks_ready(hunt), "canal hunt becomes ready after both tracks")
+	var shrine_hunt: Area2D = scene.get_node_or_null(String(hunt.get("shrine", {}).get("id", "")))
+	# Without tracks the shrine would refuse; with tracks, clear through the shared path.
+	# Re-clear gate: wipe track readiness check already passed; run full clear.
+	# Ensure shrine still refuses if we strip a track flag (anti-skip).
+	scene.story_flags["hunt_track_ch02_canal_b"] = false
+	scene._activate_challenge_shrine(shrine_hunt)
+	await tick(2)
+	check(scene.active_challenge_id.is_empty(), "canal hunt still refuses when a track is missing")
+	scene.story_flags["hunt_track_ch02_canal_b"] = true
+	await run_challenge_clear("ch02_canal_shadow_hunt", "evidence_canal_track", "charm_shell_found")
+	check(scene._save_world(), "ch02 challenge progress saves")
+	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear flag is on disk")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_canal_hunt", false)), "ch02 hunt clear flag is on disk")
 	# Optional boss in ch03 wax seal vault (already an optional branch).
 	await travel(CH03, Vector2(4465, 2634))
 	await tick(6)
@@ -145,6 +209,8 @@ func run() -> void:
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag is on disk")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch01_crown_nook", false)), "ch01 clear flag survives travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear survives travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch02_canal_hunt", false)), "ch02 hunt clear survives travel")
 	# Reload from disk: cleared challenges stay cleared, rewards do not repeat.
 	scene.free()
 	current_scene = null

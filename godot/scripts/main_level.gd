@@ -3430,6 +3430,9 @@ func _region_build_jobs() -> Array:
     for data in config.get("optional_challenges", []):
         if data is Dictionary:
             jobs.append({"method": "_challenge_shrine", "args": [data]})
+            for track in data.get("tracks", []):
+                if track is Dictionary:
+                    jobs.append({"method": "_hunt_track", "args": [data, track]})
     for data in config.get("save_points", []):
         jobs.append({"method": "_save_point", "args": [data]})
     for data in config.get("npcs", []):
@@ -5386,6 +5389,100 @@ func _challenge_shrine(challenge: Dictionary) -> void:
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
 
 
+func _challenge_kind_label(challenge: Dictionary) -> String:
+    var kind := String(challenge.get("kind", ""))
+    if kind == "optional_boss":
+        return "可选首领"
+    if kind == "tracking_hunt":
+        return "追踪狩猎"
+    return "挑战房"
+
+
+func _challenge_tracks_ready(challenge: Dictionary) -> bool:
+    var tracks = challenge.get("tracks", [])
+    if not (tracks is Array) or tracks.is_empty():
+        return true
+    for track in tracks:
+        if not (track is Dictionary):
+            continue
+        var flag := String(track.get("flag", ""))
+        if flag.is_empty() or not bool(story_flags.get(flag, false)):
+            return false
+    return true
+
+
+func _hunt_track(challenge: Dictionary, track: Dictionary) -> void:
+    if track.is_empty():
+        return
+    var track_id := String(track.get("id", ""))
+    if track_id.is_empty():
+        return
+    var area := Area2D.new()
+    area.name = track_id
+    area.position = _vec2(track.get("position", [0, 0]))
+    area.set_meta("kind", "hunt_track")
+    area.set_meta("challenge_id", String(challenge.get("id", "")))
+    area.set_meta("track_flag", String(track.get("flag", "")))
+    area.set_meta("track_hint", String(track.get("hint", "")))
+    area.set_meta("object_id", "interactable/" + track_id)
+    var found := bool(story_flags.get(String(track.get("flag", "")), false))
+    var label := String(track.get("label", "渠影残迹"))
+    if found:
+        label = "%s · 已循" % label
+    area.set_meta("label", label)
+    area.set_meta("interaction_label", label + (" · 回看" if found else " · F 辨认"))
+    var shape := CollisionShape2D.new()
+    var rectangle := RectangleShape2D.new()
+    rectangle.size = Vector2(48, 56)
+    shape.shape = rectangle
+    area.add_child(shape)
+    var sprite := Sprite2D.new()
+    sprite.texture = load(SPRITES["lever"])
+    sprite.scale = Vector2(0.36, 0.36)
+    sprite.name = "HuntTrackSprite"
+    _apply_original_prop(sprite, "lever_open" if found else "lever_closed", 52 if found else 64)
+    area.add_child(sprite)
+    _add_wayfinding(area)
+    area.body_entered.connect(_on_interactable_entered.bind(area))
+    area.body_exited.connect(_on_interactable_exited.bind(area))
+    add_child(area)
+    if metsys_bridge != null:
+        var room := _room_for_position(area.global_position)
+        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+
+
+func _activate_hunt_track(area: Area2D) -> void:
+    if area == null or not is_instance_valid(area):
+        return
+    var flag := String(area.get_meta("track_flag", ""))
+    var hint := String(area.get_meta("track_hint", ""))
+    var challenge_id := String(area.get_meta("challenge_id", ""))
+    var challenge := _optional_challenge(challenge_id)
+    if flag.is_empty():
+        _toast("这道残迹已经模糊了。")
+        return
+    var already := bool(story_flags.get(flag, false))
+    if not already:
+        story_flags[flag] = true
+        _save_world()
+    var base_label := String(area.get_meta("label", "渠影残迹")).replace(" · 已循", "")
+    area.set_meta("label", "%s · 已循" % base_label)
+    area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回看")
+    var sprite := area.get_node_or_null("HuntTrackSprite") as Sprite2D
+    if sprite != null:
+        _apply_original_prop(sprite, "lever_open", 52)
+    if already:
+        _toast(hint if not hint.is_empty() else "残迹已循过。")
+    else:
+        var ready := _challenge_tracks_ready(challenge)
+        if ready and not challenge.is_empty():
+            _toast("%s · 残迹齐了，去敲响猎物的余响钟。" % String(challenge.get("name", "追踪狩猎")))
+        elif not hint.is_empty():
+            _toast(hint)
+        else:
+            _toast("循着残迹，猎物还在前方。")
+
+
 func _activate_challenge_shrine(area: Area2D) -> void:
     if area == null or not is_instance_valid(area):
         return
@@ -5397,6 +5494,9 @@ func _activate_challenge_shrine(area: Area2D) -> void:
     var clear_flag := String(challenge.get("clear_flag", ""))
     if not clear_flag.is_empty() and bool(story_flags.get(clear_flag, false)):
         _toast("%s已清·可回访，奖励不会再发。" % String(challenge.get("name", "可选挑战")))
+        return
+    if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
+        _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
         return
     if not active_challenge_id.is_empty():
         _toast("先了结当前的可选挑战。")
@@ -5452,7 +5552,7 @@ func _start_optional_challenge(challenge: Dictionary) -> void:
     if lock_rect_value is Array and lock_rect_value.size() >= 4:
         var lock_rect := _rect2(lock_rect_value)
         _set_challenge_arena_locked(true, lock_rect, _challenge_lock_inside_x(challenge, lock_rect))
-    var kind_label := "可选首领" if String(challenge.get("kind", "")) == "optional_boss" else "挑战房"
+    var kind_label := _challenge_kind_label(challenge)
     _toast("%s · %s" % [kind_label, String(challenge.get("name", "余响试炼"))])
     for spawn in challenge.get("enemies", []):
         if not (spawn is Dictionary):
@@ -5805,6 +5905,8 @@ func _try_interact() -> void:
         _activate_ending_gate(nearby_interactable)
     elif kind == "challenge_shrine":
         _activate_challenge_shrine(nearby_interactable)
+    elif kind == "hunt_track":
+        _activate_hunt_track(nearby_interactable)
 
 
 func interaction_target(prompt_candidate: Area2D = null) -> Area2D:
