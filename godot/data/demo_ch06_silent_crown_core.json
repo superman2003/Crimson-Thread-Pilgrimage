@@ -284,7 +284,7 @@
         168
       ],
       "objective": "穿过弦室回声，向下接入东环廊。",
-      "guide": "断弦的震颤会暴露隐形的哨兵。",
+      "guide": "断弦的震颤会暴露隐形的哨兵。 可见线索：弦室西向苔影里有一盏不该亮的回声灯——苔庭回声暗格在那边。",
       "danger": "回声棘藤哨兵仍会缠脚。",
       "next": "东环廊",
       "setpiece": "断弦回声棚",
@@ -372,7 +372,7 @@
         168
       ],
       "objective": "顺核心竖井受控下坠，直到钟舌库。",
-      "guide": "井里的托板只接得住一次落点。",
+      "guide": "井里的托板只接得住一次落点。 可见线索：井底托板断裂处可坠入钟舌库；库内有可选冠下回声碎片。",
       "danger": "托板一块接一块，落下前先看清下一块。",
       "next": "钟舌库",
       "setpiece": "王冠核心井",
@@ -416,7 +416,7 @@
         168
       ],
       "objective": "拉下钟舌拉杆：西环门长开，王座之路解锁。",
-      "guide": "旧王钟舌就吊在你头顶。余响钟可开启挑战房。",
+      "guide": "旧王钟舌就吊在你头顶。余响钟可开启挑战房。 安全离开：向东步行可回王座前廊，向西折回西环廊；均不强制开战。",
       "danger": "平时灯下可以缝补；敲余响钟后会召出精英。库底黑潮的声音最近。",
       "next": "西环廊",
       "setpiece": "旧王钟舌",
@@ -603,7 +603,7 @@
         168
       ],
       "objective": "在苔庭回声里回望第一座庭院，找到黑潮童声的暗格。",
-      "guide": "隐藏存档点藏在回声苔灯后。",
+      "guide": "隐藏存档点藏在回声苔灯后。 安全离开：东折回弦室回声／西环，暗灯为可选停靠。",
       "danger": "这里最安静，暗格灯下可以久留。",
       "next": "王冠前厅（冠肋攀回）",
       "setpiece": "苔庭回声庭",
@@ -2785,6 +2785,21 @@
       "room_id": "bell_tongue_vault",
       "platform_id": "vault_floor",
       "reward_role": "optional_exploration"
+    },
+    {
+      "id": "col_branch_echo_moss",
+      "kind": "item",
+      "item_id": "crown_echo_shard",
+      "amount": 3,
+      "position": [
+        1965,
+        1355
+      ],
+      "room_id": "echo_moss",
+      "platform_id": "moss_secret_shelf",
+      "reward_role": "optional_exploration",
+      "label": "苔庭回声碎片",
+      "note": "苔庭回声暗灯旁的冠下残响，可选探索奖励。"
     }
   ],
   "interactives": [

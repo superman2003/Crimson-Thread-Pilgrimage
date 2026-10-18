@@ -655,7 +655,7 @@
         168
       ],
       "objective": "登顶钟塔，俯瞰整座苔钟庭。",
-      "guide": "西沿是钟冠悬廊的起点。",
+      "guide": "西沿是钟冠悬廊的起点。 可见线索：半钟顶东侧梁影缺了一角——暗格入口在上方。",
       "danger": "顶阁边缘狭窄，风势不稳。",
       "next": "钟冠悬廊",
       "setpiece": "顶阁观景台",
@@ -710,7 +710,7 @@
         168
       ],
       "objective": "找到暗格里的隐苔存档点。",
-      "guide": "暗格藏在半钟平台东上方。",
+      "guide": "暗格藏在半钟平台东上方。 安全离开：原路退回半钟顶，不挡主线。",
       "danger": "暗格无声。",
       "next": "盐风走廊",
       "setpiece": "隐苔龛",
@@ -1155,7 +1155,7 @@
         168
       ],
       "objective": "沿双层环廊探索水窖。",
-      "guide": "上层苔面有一段颜色不对。",
+      "guide": "上层苔面有一段颜色不对。 可见线索：环廊湿苔板有新鲜塌口，塌方下方不是死路。",
       "danger": "假苔地板一踩就塌。",
       "next": "暗河走道",
       "setpiece": "绕柱双层环廊",
@@ -1199,7 +1199,7 @@
         168
       ],
       "objective": "从塌落的苔板下探出隐藏石穴。",
-      "guide": "塌方不是终点，是入口。",
+      "guide": "塌方不是终点，是入口。 安全离开：沿塌口攀回蓄水环廊，石穴为可选支路。",
       "danger": "穴内没有灯火，只有身边近处可见；离开假苔穴后恢复正常视野。",
       "next": "暗河走道",
       "setpiece": "苔板塌出的石穴",
@@ -6541,6 +6541,36 @@
       "ability_name": "证词其一",
       "label": "证词·其一",
       "note": "井喉冠门后，真结局收集品。"
+    },
+    {
+      "id": "col_branch_hidden_attic",
+      "kind": "item",
+      "item_id": "moss_chitin",
+      "amount": 5,
+      "position": [
+        4470,
+        670
+      ],
+      "room_id": "hidden_attic",
+      "platform_id": "attic_floor",
+      "reward_role": "optional_exploration",
+      "label": "暗格苔壳束",
+      "note": "顶阁暗格里积着的苔壳，可选探索奖励。"
+    },
+    {
+      "id": "col_branch_fake_moss_grotto",
+      "kind": "item",
+      "item_id": "moss_chitin",
+      "amount": 3,
+      "position": [
+        3360,
+        5378
+      ],
+      "room_id": "fake_moss_grotto",
+      "platform_id": "fg_floor",
+      "reward_role": "optional_exploration",
+      "label": "塌穴苔壳",
+      "note": "假死塌穴深处的苔壳，可选探索奖励。"
     }
   ],
   "interactives": [

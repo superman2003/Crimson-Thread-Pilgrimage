@@ -1112,7 +1112,7 @@
         168
       ],
       "objective": "沿暗渠西行到最深处。",
-      "guide": "井底有人敲三下，不要回答第四下。",
+      "guide": "井底有人敲三下，不要回答第四下。 可见线索：渠底水声突然变空——前方塌苔板通向听潮暗室。",
       "danger": "低照度，水面下有影子。",
       "next": "沉渠尽头",
       "setpiece": "半沉的暗渠栈道",
@@ -1156,7 +1156,7 @@
         168
       ],
       "objective": "从塌落的湿苔板坠入听潮暗室。",
-      "guide": "黑潮在这里学人敲击；隐藏钟龛也在这里。",
+      "guide": "黑潮在这里学人敲击；隐藏钟龛也在这里。 安全离开：攀回地下渠廊，听潮室不挡泵井主线。",
       "danger": "敲击声从墙那边来。",
       "next": "暗渠走道",
       "setpiece": "黑潮水面与隐苔龛",
@@ -6959,6 +6959,21 @@
       "ability_name": "工牌",
       "label": "锈工牌·其三",
       "note": "钩环链暗室，钩索门后。"
+    },
+    {
+      "id": "col_branch_tide_listening_cell",
+      "kind": "item",
+      "item_id": "wet_chitin",
+      "amount": 5,
+      "position": [
+        1780,
+        4910
+      ],
+      "room_id": "tide_listening_cell",
+      "platform_id": "tide_floor",
+      "reward_role": "optional_exploration",
+      "label": "听潮湿壳束",
+      "note": "听潮暗室潮线旁的湿壳，可选探索奖励。"
     }
   ],
   "interactives": [
