@@ -8566,5 +8566,90 @@
       "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
       "traversal_focus": "crown_terminal_dais → 高台奖励 → 底道返程"
     }
+  ],
+  "tool_practice_plan": [
+    {
+      "tool_id": "shard",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_thread_dash_1",
+      "position": [
+        8245,
+        540
+      ],
+      "label": "战具练习·铜铃投罐：抛物落地后再爆；对练针架练习投点，不消耗永久探索能力。",
+      "training_id": "tool_training_shard",
+      "safe": true,
+      "requires_equipment": true,
+      "damage_to_player": 0
+    },
+    {
+      "tool_id": "mine",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_silk_wall_grip_2",
+      "position": [
+        7785,
+        1080
+      ],
+      "label": "战具练习·绊线钉：地面陷阱绊住普通敌人；Boss 不被定身。对练针架踩触发练习。",
+      "training_id": "tool_training_mine",
+      "safe": true,
+      "requires_equipment": true,
+      "damage_to_player": 0
+    },
+    {
+      "tool_id": "fog",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_echo_hook_2",
+      "position": [
+        8165,
+        540
+      ],
+      "label": "战具练习·盐雾瓶：只干扰普通远程索敌，挡不住已飞出的弹体。对带远程预表的练针架试喷。",
+      "training_id": "tool_training_fog",
+      "safe": true,
+      "requires_equipment": true,
+      "damage_to_player": 0,
+      "ranged_dummy": true
+    },
+    {
+      "tool_id": "lure",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "upgrade_lantern_phase_2",
+      "position": [
+        8160,
+        1070
+      ],
+      "label": "战具练习·回响诱铃：引诱小怪去调查落点；Boss 免疫。对可诱导的练针架试响。",
+      "training_id": "tool_training_lure",
+      "safe": true,
+      "requires_equipment": true,
+      "damage_to_player": 0
+    }
+  ],
+  "tool_encounter_plan": [
+    {
+      "tool_id": "shard",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "moss_descent",
+      "note": "铜铃投罐适合在苔落走廊点杀近身苔幼；落地爆裂有短暂预警。"
+    },
+    {
+      "tool_id": "mine",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "well_a",
+      "note": "绊线钉适合预埋在立管井口通道，拦下从井侧绕来的地面敌人。"
+    },
+    {
+      "tool_id": "fog",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "rain_deck",
+      "note": "盐雾瓶适合对付雨栅长堤的远程抛管手：先喷雾再贴近，已出手的弹体仍会飞来。"
+    },
+    {
+      "tool_id": "lure",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "south_rootrun",
+      "note": "回响诱铃适合根须南廊拉开蜂群／藤虫，再逐个处理；勿对首领使用。"
+    }
   ]
 }

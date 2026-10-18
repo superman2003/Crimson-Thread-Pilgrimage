@@ -3442,6 +3442,7 @@ func _region_build_jobs() -> Array:
             jobs.append({"method": "_enemy", "args": [data]})
     if world_mode:
         jobs.append({"method": "_spawn_seal_practice_targets", "args": []})
+        jobs.append({"method": "_spawn_tool_practice_targets", "args": []})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
@@ -3517,6 +3518,63 @@ func _spawn_seal_practice_targets() -> void:
         label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
+
+
+func _spawn_tool_practice_targets() -> void:
+    # E02: primary tools get safe practice racks beside skill practice, plus
+    # authored suitable-encounter room tips (see tool_encounter_plan).
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("tool_practice_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        var target := Area2D.new()
+        target.set_script(load("res://scripts/seal_training_target.gd"))
+        target.name = String(entry.training_id)
+        target.position = _vec2(entry.position)
+        for platform in config.get("platforms", []):
+            if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
+                target.position.y = float(platform.rect[1]) - 23.0
+                if world_platforms != null:
+                    _hold_actor_support(String(platform.id))
+        var attacks: Array = []
+        if bool(entry.get("ranged_dummy", false)):
+            attacks = [{
+                "id": "practice_shot",
+                "name": "练习弹",
+                "type": "projectile",
+                "range": 220,
+                "windup": 0.4,
+                "active": 0.2,
+                "recover": 0.6,
+                "cooldown": 2.0,
+                "damage": 0,
+                "projectile_speed": 160
+            }]
+        target.configure({
+            "id": String(entry.training_id),
+            "kind": "tool_training",
+            "hp": 30,
+            "visual_scale": 0.7,
+            "body_size": [50, 46],
+            "hurtbox_size": [58, 56],
+            "hurtbox_offset": [0, 0],
+            "speed": 0,
+            "damage": 0,
+            "lure_eligible": true
+        }, "res://assets/ui/seals/ward.svg", false, {"attacks": attacks})
+        add_child(target)
+        # Keep skill-practice counters intact: seal racks use seal_training_target meta.
+        target.set_meta("seal_training_target", false)
+        target.set_meta("tool_training_target", true)
+        target.set_meta("tool_practice_id", String(entry.get("tool_id", "")))
+        var label := Label.new()
+        label.position = Vector2(-110, -132)
+        label.size = Vector2(220, 90)
+        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+        label.text = String(entry.get("label", "战具练习架：安全试投，击倒后复位。"))
+        label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+        label.add_theme_font_size_override("font_size", 13)
+        target.add_child(label)
+
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:

@@ -52,6 +52,17 @@ func _run() -> void:
             _check(not enemy.get_world_2d().direct_space_state.intersect_ray(ray).is_empty(), "actual practice target stands on supporting floor")
     _check(practice_count == 2, "first region has both acquired-skill practice targets")
     _check(load("res://scripts/world_routes.gd")._data().get("seal_practice_plan", []).size() == 6, "all six skills have authored practice spaces")
+    var tool_practice_count := 0
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy.get_meta("tool_training_target", false):
+            tool_practice_count += 1
+            var tool_ray := PhysicsRayQueryParameters2D.create(enemy.global_position + Vector2(0, 10), enemy.global_position + Vector2(0, 40), 1)
+            tool_ray.collide_with_areas = false
+            _check(not enemy.get_world_2d().direct_space_state.intersect_ray(tool_ray).is_empty(), "actual tool practice target stands on supporting floor")
+            _check(String(enemy.get_meta("tool_practice_id", "")) == "shard", "first region hosts the copper-bell tool practice rack")
+    _check(tool_practice_count == 1, "first region has the shard tool practice rack")
+    _check(load("res://scripts/world_routes.gd")._data().get("tool_practice_plan", []).size() == 4, "all four tools have authored practice spaces")
+    _check(load("res://scripts/world_routes.gd")._data().get("tool_encounter_plan", []).size() == 4, "all four tools have authored encounter tips")
     var build: RefCounted = scene.build_system
     _check(build.state.skills.size() == 2 and build.state.tools.size() == 2, "two skill and tool positions exist")
     _check(not build.select_skill("needle", 1).ok, "fresh run cannot equip an undiscovered skill")

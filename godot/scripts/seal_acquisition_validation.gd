@@ -58,5 +58,33 @@ func run_checks() -> void:
     check(seen.size() == 6, "All six skills have distinct practice assignments")
     for skill in ["cleave", "needle", "snare", "ward", "shockwave", "crosscut"]:
         check(seen.has(skill), "Practice includes " + skill)
+    var tool_seen: Dictionary = {}
+    for practice in routes.get("tool_practice_plan", []):
+        tool_seen[String(practice.tool_id)] = true
+        check(int(practice.damage_to_player) == 0, "Tool practice does not deal damage")
+        check(bool(practice.safe), "Tool practice stays a safe rack")
+        var tool_room_found := false
+        for room in routes.chapters[practice.region_id].map_rooms:
+            if room.id == practice.room_id:
+                tool_room_found = true
+        check(tool_room_found, "Tool practice references a real workshop " + String(practice.room_id))
+    check(tool_seen.size() == 4, "All four tools have distinct practice assignments")
+    for tool_id in ["shard", "mine", "fog", "lure"]:
+        check(tool_seen.has(tool_id), "Tool practice includes " + tool_id)
+    var encounter_seen: Dictionary = {}
+    for encounter in routes.get("tool_encounter_plan", []):
+        encounter_seen[String(encounter.tool_id)] = true
+        check(not String(encounter.get("note", "")).is_empty(), "Tool encounter tip is authored for " + String(encounter.tool_id))
+        check(routes.chapters.has(encounter.region_id), "Tool encounter references region " + String(encounter.region_id))
+        var chapter_path := "res://data/%s.json" % String(encounter.region_id)
+        var chapter: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(chapter_path))
+        var encounter_room_found := false
+        for room in chapter.get("map_rooms", []):
+            if room.id == encounter.room_id:
+                encounter_room_found = true
+                check(String(room.get("guide", "")).find(String(encounter.note)) >= 0, "Encounter tip appears in room guide for " + String(encounter.room_id))
+                break
+        check(encounter_room_found, "Tool encounter references a real combat room " + String(encounter.room_id))
+    check(encounter_seen.size() == 4, "All four tools have a suitable authored encounter tip")
     print("SEAL_ACQUISITION_VALIDATION: ", checks, " checks; ", failures, " failures")
     quit(1 if failures else 0)
