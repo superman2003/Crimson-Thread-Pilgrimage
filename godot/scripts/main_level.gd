@@ -630,6 +630,7 @@ var world_start_region_id := ""
 const CARTOGRAPHY := preload("res://scripts/pilgrimage_cartography.gd")
 const WORLD_ATLAS := preload("res://scripts/world_atlas.gd")
 const CARTOGRAPHY_UI := preload("res://scripts/cartography_runtime.gd")
+const DEATH_RECALL := preload("res://scripts/death_recall.gd")
 const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
 
 func _ready() -> void:
@@ -902,6 +903,7 @@ func _bind_region_audio() -> void:
 
 func _setup_cartography() -> void:
     CARTOGRAPHY_UI.setup(self)
+    DEATH_RECALL.setup(self)
     MAP_PLAYER_PINS.setup(self)
 
 
@@ -2693,7 +2695,7 @@ func _refresh_wish_board_overlay() -> void:
 
 
 func _toggle_backpack() -> void:
-    if active_overlay == "cartographer": _close_overlays()
+    if active_overlay in ["cartographer", "recall"]: _close_overlays()
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     if active_overlay == "backpack":
@@ -2720,7 +2722,7 @@ func _toggle_map() -> void:
     if active_overlay == "map":
         _close_overlays()
         return
-    if active_overlay == "cartographer":
+    if active_overlay in ["cartographer", "recall"]:
         _close_overlays()
     world_map_view = false
     _play_sfx("ui_map_open", -2.0)
@@ -2747,7 +2749,7 @@ func _build_settings_overlay() -> void:
     _refresh_settings_overlay()
 
 func _toggle_audio_settings() -> void:
-    if active_overlay == "cartographer": _close_overlays()
+    if active_overlay in ["cartographer", "recall"]: _close_overlays()
     if ui_shell != null and is_instance_valid(ui_shell.get("build_panel")):
         ui_shell.build_panel.visible = false
     if active_overlay == "settings":
@@ -2827,6 +2829,9 @@ func _close_overlays() -> void:
     var map_purchase := get_node_or_null("MapPurchaseDialog")
     if map_purchase != null:
         map_purchase.hide()
+    var recall_dialog := get_node_or_null(DEATH_RECALL.DIALOG)
+    if recall_dialog != null:
+        recall_dialog.hide()
     _notify_dialogue_closed()
     active_overlay = ""
     if backpack_panel != null:
@@ -5700,6 +5705,7 @@ func _activate_save_point(area: Area2D) -> void:
     _save_world()
     _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
     _refresh_hud()
+    DEATH_RECALL.offer(self)
 
 
 func _activate_chapter_exit(area: Area2D) -> void:

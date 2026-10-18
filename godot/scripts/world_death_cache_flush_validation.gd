@@ -113,6 +113,7 @@ func run() -> void:
     Input.action_release("move_right")
     check(scene.player.velocity.x > 0.0 and scene.player._can_start_action(),
         "Normal movement and action input are available after the complete World respawn")
+    await remote_recall(scene, shrine)
     scene.player.player_respawned.disconnect(on_respawn)
     scene.free()
     await process_frame
@@ -120,3 +121,35 @@ func run() -> void:
     for label in failures: push_error(label)
     print("WORLD_DEATH_CACHE_FLUSH checks=%d failures=%d" % [checks, failures.size()])
     call_deferred("quit", 0 if failures.is_empty() else 1)
+
+## G02 late-game remote recovery: offered only on a deliberate shrine rest
+## after three guardians, never on respawn, and keeps only 60%.
+func remote_recall(scene: Node, shrine: Area2D) -> void:
+    var recall := preload("res://scripts/death_recall.gd")
+    var dialog: ConfirmationDialog = scene.get_node_or_null(recall.DIALOG)
+    check(dialog != null and not dialog.visible and scene.active_overlay == "", "respawning never offers the remote recall")
+    var knot: int = int(scene.world_state.data.death_cache.get("currency", 0))
+    var wallet: int = scene.currency_count
+    scene.player.global_position = shrine.global_position
+    scene._activate_save_point(shrine)
+    check(not dialog.visible and int(scene.world_state.data.death_cache.get("currency", 0)) == knot, "before three guardians fall a rest offers no recall")
+    for chapter in ["ch01", "ch02", "ch03"]: scene.story_flags["boss_down_" + chapter] = true
+    scene._activate_save_point(shrine)
+    check(dialog.visible and scene.active_overlay == "recall" and scene.player.ui_input_locked, "a rest after three guardians offers the recall and locks gameplay input")
+    check(dialog.get_cancel_button().has_focus() and dialog.dialog_text.contains(str(int(floor(knot * recall.KEEP_RATIO)))), "the offer focuses walking back and states the 60% amount")
+    dialog.canceled.emit()
+    check(not dialog.visible and scene.active_overlay == "" and int(scene.world_state.data.death_cache.get("currency", 0)) == knot and scene.currency_count == wallet, "declining keeps the knot where it lies")
+    scene._activate_save_point(shrine)
+    scene._toggle_map()
+    check(not dialog.visible and scene.active_overlay == "map", "opening the map closes the recall offer")
+    scene._close_overlays()
+    scene._activate_save_point(shrine)
+    dialog.confirmed.emit()
+    var kept := int(floor(knot * recall.KEEP_RATIO))
+    check(scene.currency_count == wallet + kept and scene.world_state.data.death_cache.is_empty(), "recalling keeps exactly 60% and clears the knot")
+    check(scene.death_cache_area == null and scene.active_overlay == "", "the recalled knot leaves the world and control returns")
+    var saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+    check(saved is Dictionary and int(saved.get("currency", -1)) == scene.currency_count, "the recall is written to disk")
+    scene._activate_save_point(shrine)
+    check(not dialog.visible, "with no knot left a rest offers nothing")
+
