@@ -77,7 +77,7 @@ func run() -> void:
     ui.build_slot_buttons[1].pressed.emit()
     check(click_id(ui,"shell"),"Second combat accessory slot accepts a compatible ornament")
     ui.family_selector_buttons[1].pressed.emit()
-    check(ui.build_grid.get_child_count()==3 and click_id(ui,"stride"),"Travel accessory family exposes and equips its own compatible option")
+    check(ui.build_grid.get_child_count()==model._slot_spec("travel_accessory",0).compatible.size() and click_id(ui,"stride"),"Travel accessory family exposes and equips its own compatible option")
     check(model.state.passives.size()==3,"Family API includes the equipped combat and travel accessories")
     ui._show_build_detail(model.catalog.passives.needlecase)
     check(ui.build_detail.text.contains("容量不足") and ui.build_detail.text.contains("容量比较"),"Family-based capacity failure compares replacement cost and displays the rejection")

@@ -137,6 +137,18 @@ static func render(level: Node) -> void:
             marker.add_theme_font_size_override("font_size", 11)
             marker.add_theme_color_override("font_color", Color("b44e43") if record.kind == "hazard" else SURFACE.GOLD)
             host.add_child(marker)
+        # Shortcut state lives with each region; the current region's is live.
+        var opened: Dictionary = level.opened_shortcuts if id == String(level.config.get("id", "")) else level.world_state.get_region(id).get("opened_shortcuts", {})
+        for record in KNOWLEDGE.shortcut_records(data, level.story_flags, id, opened):
+            var marker := Label.new()
+            marker.name = "WorldShortcut_" + id + "_" + String(record.id)
+            marker.position = project(COORD.to_world(id, record.rect.get_center()), layout) - Vector2(6, 9)
+            marker.mouse_filter = Control.MOUSE_FILTER_PASS
+            marker.text = String(record.text)
+            marker.tooltip_text = String(record.tooltip)
+            marker.add_theme_font_size_override("font_size", 11)
+            marker.add_theme_color_override("font_color", SURFACE.GOLD if record.open else Color("8d6a5a"))
+            host.add_child(marker)
     var drawn: Dictionary = {}
     for id_value in COORD.manifest().regions:
         var id := String(id_value)
@@ -201,12 +213,14 @@ static func render(level: Node) -> void:
         child.mouse_exited.connect(func():
             for route in links:
                 if is_instance_valid(route): route.visible = false)
-    var dot := Label.new()
-    dot.name = "WorldSurveyPlayer"
-    dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    dot.text = "◆"
-    dot.position = project(level.player_world_position(), layout) - Vector2(6, 9)
-    dot.add_theme_color_override("font_color", SURFACE.ACCENT)
-    host.add_child(dot)
-    level.map_text.text = "◆ 位置    ◇ 门槛    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
+    var positioned: bool = SURVEY.shows_position(level)
+    if positioned:
+        var dot := Label.new()
+        dot.name = "WorldSurveyPlayer"
+        dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+        dot.text = "◆"
+        dot.position = project(level.player_world_position(), layout) - Vector2(6, 9)
+        dot.add_theme_color_override("font_color", SURFACE.ACCENT)
+        host.add_child(dot)
+    level.map_text.text = ("◆ 位置" if positioned else "无罗盘·看地标") + "    ◇ 门槛    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
     level.map_text.tooltip_text = "实线是实体钟管；悬停房间可查看名称和旧路端点关系，悬停门槛可查看通行条件。"

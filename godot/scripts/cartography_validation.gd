@@ -21,12 +21,21 @@ func run() -> void:
     check(sale.ok and sale.wallet==20,"purchase deducts exactly twenty")
     check(not JOURNAL.charted(flags,"a","room_a"),"purchase grants coarse base map, not pending detail")
     check(not JOURNAL.purchase(flags,"a",20).ok,"repeat purchase cannot charge again")
-    check(JOURNAL.rest(flags)==1 and JOURNAL.charted(flags,"a","room_a"),"rest commits owned map notes")
+    check(JOURNAL.rest(flags)==0 and not JOURNAL.charted(flags,"a","room_a") and JOURNAL.region(flags,"a").pending.has("room_a"),"without the quill a rest keeps notes pending")
+    JOURNAL.grant_quill(flags)
+    check(JOURNAL.rest(flags)==1 and JOURNAL.charted(flags,"a","room_a"),"with the quill a rest commits owned map notes")
     check(not JOURNAL.charted(flags,"b","room_b") and JOURNAL.region(flags,"b").pending.has("room_b"),"unowned remote notes remain pending")
     check(JOURNAL.rest(flags)==0,"rest is idempotent")
+    var priced: Dictionary={}
+    check(not JOURNAL.purchase(priced,"c",44,45).ok and JOURNAL.purchase(priced,"c",50,45).wallet==5,"purchase charges the seller's own price")
     var legacy: Dictionary={"quest_old":true}
     JOURNAL.migrate(legacy,{"a":{"visited_rooms":{"old_room":true}}})
     check(legacy.quest_old and JOURNAL.region(legacy,"a").pending.has("old_room"),"legacy exploration retained without free map or detail")
+    JOURNAL.legacy_quill(legacy)
+    check(not JOURNAL.has_quill(legacy),"a save without any map does not receive a free quill")
+    JOURNAL.region(legacy,"a").owned=true
+    JOURNAL.legacy_quill(legacy)
+    check(JOURNAL.has_quill(legacy),"a save that already owned a map keeps charting at shrines")
     var scene: Node=load("res://scenes/World.tscn").instantiate()
     scene.world_save_path=SAVE
     scene.world_resume=false
@@ -59,11 +68,19 @@ func run() -> void:
     dialog.confirmed.emit()
     check(not JOURNAL.owned(scene.story_flags,id) and scene.currency_count==0,"failed UI transaction does not charge or grant")
     check(not scene.player.ui_input_locked and not dialog.visible,"confirmation returns player control")
+    # A later region's seller price, applied to this live stall, must be what the dialog shows and charges.
+    var seller_data: Dictionary=stall.get_meta("map_seller_data")
+    seller_data["price"]=35
+    stall.set_meta("map_seller_data",seller_data)
+    scene.currency_count=34
+    scene._try_interact()
+    check(dialog.get_ok_button().disabled and dialog.dialog_text.contains("35枚"),"live shop shows the seller's price and refuses one coin short")
+    scene._close_overlays()
     scene.currency_count=40
     scene._try_interact()
     check(not dialog.get_ok_button().disabled,"sufficient currency enables purchase button")
     dialog.confirmed.emit()
-    check(JOURNAL.owned(scene.story_flags,id) and scene.currency_count==20,"real confirmation buys current region map")
+    check(JOURNAL.owned(scene.story_flags,id) and scene.currency_count==5,"real confirmation buys current region map at the seller's price")
     scene.player.position=scene._vec2(scene.config.player_start)
     scene._update_room_visit()
     scene._toggle_map()
@@ -74,9 +91,38 @@ func run() -> void:
     scene._close_overlays()
     var shrine: Area2D=scene.get_node("save_first_bell")
     scene._activate_save_point(shrine)
+    check(not JOURNAL.charted(scene.story_flags,id,"entry_bell") and scene.toast_label.text.contains("盐墨绘针"),"a rest without the quill keeps notes and says why")
+    # Buy the quill and compass through the live seller dialog.
+    scene.player.position=stall.position
+    scene.currency_count=RUNTIME.tool_price("quill")-1
+    scene._try_interact()
+    var quill_button: Button=dialog.find_child("MapSellerQuill",true,false)
+    var compass_button: Button=dialog.find_child("MapSellerCompass",true,false)
+    check(quill_button.visible and quill_button.disabled and compass_button.visible,"seller offers both survey tools and refuses the quill one coin short")
+    scene.currency_count=RUNTIME.tool_price("quill")+RUNTIME.tool_price("compass")
+    RUNTIME.open_shop(scene,stall)
+    dialog.custom_action.emit("quill")
+    check(JOURNAL.has_quill(scene.story_flags) and scene.currency_count==RUNTIME.tool_price("compass") and not quill_button.visible,"real shop sells the quill once at its price")
+    dialog.custom_action.emit("compass")
+    check(scene.build_system.state.unlocked_passives.has("compass") and scene.currency_count==0 and not compass_button.visible,"real shop sells the compass once at its price")
+    check(not RUNTIME.purchase_tool(scene,stall,"quill").ok and not RUNTIME.purchase_tool(scene,stall,"compass").ok and scene.currency_count==0,"survey tools cannot be bought twice")
+    scene._close_overlays()
+    scene.player.position=scene._vec2(scene.config.player_start)
+    scene._activate_save_point(shrine)
     scene._toggle_map()
     base=scene.map_draw_root.get_node_or_null("SurveyRoom_entry_bell")
-    check(base!=null and bool(base.get_meta("charted")),"live bell-shrine rest inks visited room")
+    check(base!=null and bool(base.get_meta("charted")),"live bell-shrine rest with the quill inks visited room")
+    check(scene.map_draw_root.get_node_or_null("SurveyPlayerMarker")==null and scene.map_text.text.contains("无罗盘"),"an unequipped compass shows no position marker")
+    var travel: Array=scene.build_system.state.equipped_families.travel_accessory
+    var free_slot := travel.find("")
+    check(free_slot >= 0 and scene.build_system.equip_family_slot("compass","travel_accessory",free_slot).ok,"compass equips in a travel accessory slot")
+    scene._refresh_map_overlay()
+    check(scene.map_draw_root.get_node_or_null("SurveyPlayerMarker")!=null,"an equipped compass marks the player's position")
+    scene.build_system.equip_family_slot("","travel_accessory",free_slot)
+    scene.ui_shell.accessibility["navigation_assist"]=true
+    scene._refresh_map_overlay()
+    check(scene.map_draw_root.get_node_or_null("SurveyPlayerMarker")!=null,"navigation assist shows the position without a compass")
+    scene.ui_shell.accessibility["navigation_assist"]=false
     check(scene.map_draw_root.get_node_or_null("SurveyPin_moss_archive_return")!=null,"charted room reveals its real portal")
     var wallet: int=scene.currency_count
     scene._close_overlays()
@@ -148,6 +194,7 @@ func run() -> void:
         for room_id in positions:
             var node: Control=test_scene.map_draw_root.get_node("SurveyRoom_"+room_id)
             check(Rect2(node.position,node.size)==positions[room_id],String(region_id)+": pending notes preserve base transform")
+        JOURNAL.grant_quill(test_scene.story_flags)
         JOURNAL.rest(test_scene.story_flags)
         test_scene._refresh_map_overlay()
         check(RUNTIME.region_bounds(test_scene)==initial_bounds,String(region_id)+": secret charting preserves region bounds")

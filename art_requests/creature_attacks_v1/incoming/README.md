@@ -91,7 +91,9 @@
 | wax_lancer | [wax_high.png](wax_high.png) | 12 |
 | wax_lancer | [wax_charge_loops.png](wax_charge_loops.png) | 4 |
 
-同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节，尚未接入运行时；动作质量与连续循环仍需项目方验收。
+同名 .txt 为实际提示词，.json 为参考/图像哈希、逐帧坐标和目检记录。源图保留原生成字节。
+
+**运行时接入（2026-10-18）**：已由 `tools/build_creature_attack_motion.py` 登记进各小怪的 `motion_generation.json`，并打包进 `motion_runtime.png`（比例/锚点校准与验证见 `docs/report/20261018_creature_attack_runtime.md`）。替换源图后重跑该工具与 `tools/build_expanded_character_motion.py`；`npm run test:character-motion` 会检查登记与源图哈希一致。连续播放手感与个别比例（如 pilgrim_chariot 车轮）仍以实机目检为准。
 
 重画记录（2026-10-18）：`wheel_elite_ride.png` — 以原参考和已认可的 wheel_return 为标尺，将轮盾缩为站立高度约一半，接地盾顶位于腰胸之间；保留 16 格并修正重复盾牌。
 

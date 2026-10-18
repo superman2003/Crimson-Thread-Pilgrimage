@@ -54,6 +54,7 @@ func run() -> void:
     var journal = preload("res://scripts/pilgrimage_cartography.gd")
     journal.region(scene.story_flags,String(scene.config.id)).owned=true
     journal.visit(scene.story_flags,String(scene.config.id),String(entry.room_id))
+    journal.grant_quill(scene.story_flags)
     journal.rest(scene.story_flags)
     scene._toggle_map()
     scene.world_map_view=true

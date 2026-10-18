@@ -39,6 +39,7 @@ func _run() -> void:
     scene.story_flags["host_validation_story"] = true
     CARTO.purchase(scene.story_flags, first_region, scene.currency_count)
     CARTO.visit(scene.story_flags, first_region, "entry_bell")
+    CARTO.grant_quill(scene.story_flags)
     CARTO.rest(scene.story_flags)
     CARTO.visit(scene.story_flags, first_region, "secret_fixture")
     scene.world_collected_ids["host_validation_pickup"] = true

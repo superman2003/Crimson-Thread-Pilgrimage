@@ -912,6 +912,328 @@
         ],
         "anchor_x": 124
       }
+    ],
+    "book_bite_windup": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          60,
+          166,
+          273,
+          164
+        ],
+        "component_seeds": [
+          [
+            146,
+            170
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 118.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          428,
+          165,
+          272,
+          165
+        ],
+        "component_seeds": [
+          [
+            510,
+            169
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 119.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          780,
+          137,
+          272,
+          196
+        ],
+        "component_seeds": [
+          [
+            909,
+            141
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 124.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          1140,
+          134,
+          276,
+          197
+        ],
+        "component_seeds": [
+          [
+            1223,
+            138
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 117.7
+      }
+    ],
+    "book_bite": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          44,
+          465,
+          326,
+          210
+        ],
+        "component_seeds": [
+          [
+            158,
+            469
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 143.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          418,
+          468,
+          307,
+          207
+        ],
+        "component_seeds": [
+          [
+            518,
+            472
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 131.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          767,
+          464,
+          321,
+          212
+        ],
+        "component_seeds": [
+          [
+            870,
+            468
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 135.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          1133,
+          470,
+          305,
+          206
+        ],
+        "component_seeds": [
+          [
+            1233,
+            474
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 132.7
+      }
+    ],
+    "book_bite_recover": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          50,
+          813,
+          303,
+          188
+        ],
+        "component_seeds": [
+          [
+            146,
+            817
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 129.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          422,
+          816,
+          294,
+          186
+        ],
+        "component_seeds": [
+          [
+            518,
+            820
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 127.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          779,
+          826,
+          286,
+          176
+        ],
+        "component_seeds": [
+          [
+            897,
+            830
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 122.7
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_bite.png",
+        "region": [
+          1147,
+          828,
+          279,
+          174
+        ],
+        "component_seeds": [
+          [
+            1242,
+            832
+          ]
+        ],
+        "scale": 0.8057,
+        "anchor_x": 121.7
+      }
+    ],
+    "charge": [
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_burrow_loops.png",
+        "region": [
+          201,
+          330,
+          617,
+          340
+        ],
+        "component_seeds": [
+          [
+            459,
+            334
+          ]
+        ],
+        "scale": 0.3381,
+        "anchor_x": 279.9
+      },
+      {
+        "source": "art_requests/creature_attacks_v1/incoming/book_burrow_loops.png",
+        "region": [
+          1028,
+          310,
+          647,
+          373
+        ],
+        "component_seeds": [
+          [
+            1311,
+            314
+          ]
+        ],
+        "scale": 0.3381,
+        "anchor_x": 299.9
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/salt_bookmite.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "book_bite_windup",
+      "book_bite",
+      "book_bite_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "book_bite.png",
+        "image_sha256": "788d14e3aebfd1dd301f493a7dd883f5e3a3e56b260a58210e90927d4274437b",
+        "role": "new",
+        "attack": "book_bite",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.8057,
+        "anchors": [
+          118.7,
+          119.7,
+          124.7,
+          117.7,
+          143.7,
+          131.7,
+          135.7,
+          132.7,
+          129.7,
+          127.7,
+          122.7,
+          121.7
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8225,
+          "last_recover_ratio": 0.7893
+        }
+      },
+      {
+        "image": "book_burrow_loops.png",
+        "image_sha256": "bc75467ad8d36d2033147af7560777f7d80f1ff8869984b0c078e29c3d08e249",
+        "role": "keep",
+        "attack": "book_burrow",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3381,
+        "anchors": [
+          279.9,
+          299.9
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3443,
+            0.3321
+          ]
+        }
+      }
     ]
   }
 }

@@ -80,7 +80,7 @@ var healing_bar: ProgressBar
 var healing_status: Label
 var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
-var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false}
+var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -623,6 +623,7 @@ func _build_settings() -> void:
     _accessibility_toggle("flash_enabled","受击闪光",Vector2(512,305))
     _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
     _accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
+    _accessibility_toggle("navigation_assist","导航辅助",Vector2(725,339))
     _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,394),Vector2(928,28),17,GOLD)
     var action_index:=0
     for action in REMAPPABLE_ACTIONS:
@@ -681,7 +682,7 @@ func _load_accessibility() -> void:
     var config:=ConfigFile.new()
     if config.load(accessibility_path)!=OK:return
     # A malformed preference must not prevent the settings screen from opening.
-    for key in ["flash_enabled","vibration_enabled","tutorial_hints"]:
+    for key in ["flash_enabled","vibration_enabled","tutorial_hints","navigation_assist"]:
         var value: Variant=config.get_value("accessibility",key,accessibility[key])
         if value is bool:accessibility[key]=value
     accessibility["subtitle_size"]=int(_finite_setting(config,"subtitle_size",17,26))

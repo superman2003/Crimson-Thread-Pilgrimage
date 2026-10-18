@@ -117,7 +117,7 @@ const ITEM_DISPLAY := {
     "currency": {"name": "松脂碎片", "description": ""},
     "bell_key": {"name": "敌群", "description": "唤醒捷径钟门的锈蚀战斗标记。"},
     "thread_burst": {"name": "绯线爆裂", "description": "消耗30点能量，打出一次重型线刃。"},
-    "menders_right": {"name": "缝补右手", "description": "鼠标右键消耗60点能量，恢复1点生命。"},
+    "menders_right": {"name": "缝补右手", "description": "按治疗键缝补伤口；消耗、回复量与能否空中缝补由所装契印决定，详见构筑页的契印说明。"},
     "moss_lens": {"name": "苔光镜", "description": "会记录已探索房间的破损镜片。"},
     "moss_chitin": {"name": "苔壳", "description": "近战庭兽留下的硬壳。"},
     "crown_splinter": {"name": "王冠裂片", "description": "苔钟守母体内仍带余温的金属碎片。"}
@@ -1162,6 +1162,7 @@ func _restore_world_inventory_and_region() -> void:
     if world_narrative != null:
         story_flags = world_narrative.restored_ending_flags(story_flags)
     CARTOGRAPHY.migrate(story_flags, snapshot.regions)
+    CARTOGRAPHY.legacy_quill(story_flags)
     var region := world_state.get_region(String(config.get("id", "")))
     world_collected_ids = region.collected_ids.duplicate(true)
     opened_shortcuts = region.opened_shortcuts.duplicate(true)
@@ -1255,7 +1256,7 @@ func _save_world() -> bool:
         "checkpoint_id": active_save_point_id}, {
         "inventory_counts": inventory_counts, "currency": currency_count,
         "story_flags": story_flags, "current_region": region_id,
-        "entry": active_spawn, "hp": player.hp, "energy": player.energy,
+        "entry": active_spawn, "hp": player.hp, "energy": maxi(0, player.energy - int(player.get("practice_energy") if player.get("practice_energy") != null else 0)),
         "build_state": build_system.serialize() if build_system != null else {}})
     if not prepared.ok:
         if not world_write_error_shown:
@@ -5703,7 +5704,10 @@ func _activate_save_point(area: Area2D) -> void:
     if metsys_bridge != null:
         metsys_bridge.store_object(area)
     _save_world()
-    _toast("安坐钟龛 · 已记下归途，恢复生命与绯线。")
+    var rest_message := "安坐钟龛 · 已记下归途，恢复生命与绯线。"
+    if world_mode and not CARTOGRAPHY.has_quill(story_flags) and CARTOGRAPHY.pending_count(story_flags) > 0:
+        rest_message += "途中笔记已记下；要有盐墨绘针才能补绘进地图（地图商人有售）。"
+    _toast(rest_message)
     _refresh_hud()
     DEATH_RECALL.offer(self)
 

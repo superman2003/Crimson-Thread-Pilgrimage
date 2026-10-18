@@ -2,6 +2,27 @@ extends RefCounted
 ## JSON-only survey journal inside the existing world story_flags container.
 const KEY := "cartography_v1"
 const PRICE := 20
+## 盐墨绘针: one quill charts every owned map at a shrine. Without it, travel
+## notes are kept as pending and are charted at the first rest after buying it.
+const QUILL_FLAG := "cartography_quill"
+const QUILL_PRICE := 10
+static func has_quill(flags: Dictionary) -> bool:
+    return bool(flags.get(QUILL_FLAG, false))
+static func grant_quill(flags: Dictionary) -> void:
+    flags[QUILL_FLAG] = true
+## Saves from before the quill already charted at shrines; keep that ability.
+static func legacy_quill(flags: Dictionary) -> void:
+    if has_quill(flags) or not flags.get(KEY) is Dictionary: return
+    for id in flags[KEY]:
+        if flags[KEY][id] is Dictionary and bool(flags[KEY][id].get("owned", false)):
+            grant_quill(flags)
+            return
+static func pending_count(flags: Dictionary) -> int:
+    var count := 0
+    for id in flags.get(KEY, {}).keys():
+        var journal := region(flags, String(id))
+        if bool(journal.get("owned", false)): count += journal.pending.size()
+    return count
 static func region(flags: Dictionary, id: String) -> Dictionary:
     if not flags.get(KEY) is Dictionary: flags[KEY] = {}
     if not flags[KEY].get(id) is Dictionary:
@@ -22,13 +43,17 @@ static func visit(flags: Dictionary, id: String, room: String) -> void:
     if room.is_empty(): return
     var journal := region(flags,id)
     if not bool(journal.charted.get(room,false)): journal.pending[room] = true
-static func purchase(flags: Dictionary, id: String, wallet: int) -> Dictionary:
+## Each region's seller sets its own price (cartography_sellers.json); PRICE is
+## only the fallback for a seller record without one.
+static func purchase(flags: Dictionary, id: String, wallet: int, price: int = PRICE) -> Dictionary:
     if owned(flags,id): return {"ok":false,"reason":"这张底图已经收进旅册。","wallet":wallet}
-    if wallet<PRICE: return {"ok":false,"reason":"需要%d枚松脂碎钱。" % PRICE,"wallet":wallet}
+    if price <= 0: return {"ok":false,"reason":"这张底图暂不出售。","wallet":wallet}
+    if wallet<price: return {"ok":false,"reason":"需要%d枚松脂碎钱。" % price,"wallet":wallet}
     region(flags,id).owned = true
-    return {"ok":true,"reason":"收好底图。安坐钟龛时，才能把旅途笔记补绘上去。","wallet":wallet-PRICE}
+    return {"ok":true,"reason":"收好底图。安坐钟龛时，才能把旅途笔记补绘上去。","wallet":wallet-price}
 static func rest(flags: Dictionary) -> int:
     var count := 0
+    if not has_quill(flags): return 0
     for id in flags.get(KEY,{}).keys():
         var journal := region(flags,String(id))
         if not bool(journal.get("owned",false)): continue

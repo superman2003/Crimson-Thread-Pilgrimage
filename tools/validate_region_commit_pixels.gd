@@ -82,6 +82,7 @@ func run() -> void:
         JOURNAL.region(scene.story_flags, id).owned = true
         for room in ATLAS.configuration(id).map_rooms:
             JOURNAL.visit(scene.story_flags, id, String(room.id))
+    JOURNAL.grant_quill(scene.story_flags)
     JOURNAL.rest(scene.story_flags)
     for id in ["demo_ch01_moss_bell_court", "demo_ch02_rain_foundry_canal"]:
         var path := ROUTES.config_path(id)
