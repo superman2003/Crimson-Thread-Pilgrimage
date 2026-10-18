@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "summoned_page",
+  "image": "page_skim_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/summoned_page.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/summoned_page.png",
+  "reference_sha256": "d4d8e6e99cb9ebd8d39f12d63e76c031ffd8d36c7312f84773b9139afc3ab8ca",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "page_skim_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "e7b712ef753ed4ae329264defc311d43edf4ec2e363ad98c97d21693dd3fa8a4",
+  "git_blob_sha": "3344d4649d3551bf96589a9b1f2d0698e6b66cdd",
+  "fully_transparent_pixels": 1308774,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        125,
+        296,
+        656,
+        380
+      ],
+      "component_seed": [
+        547,
+        300
+      ],
+      "bbox_alpha_gt_24": [
+        129,
+        300,
+        648,
+        372
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        983,
+        297,
+        688,
+        370
+      ],
+      "component_seed": [
+        1516,
+        301
+      ],
+      "bbox_alpha_gt_24": [
+        987,
+        301,
+        680,
+        362
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete airborne parchment moths aimed right with folded/swept-back connected paperwings and trailing attached crimsonstrips, redwaxseal fixed to torso. Core/head/wing ratios compared with original/page_orbit, no detachedpaper or speedblur. Similar hoverheight and full margins. Exact crease/panel topology, shared pixel scale and travel-loop timing pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

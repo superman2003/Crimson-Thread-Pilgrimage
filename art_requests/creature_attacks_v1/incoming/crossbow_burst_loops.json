@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "kneeling_crossbowman",
+  "image": "crossbow_burst_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/kneeling_crossbowman.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/kneeling_crossbowman.png",
+  "reference_sha256": "3ad3eba2cc811a99fcd9735429691bd1b057f402685ff643c1493f5095258e54",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "crossbow_burst_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "0dd29d47d6318c42d8cb296d834bf91aa727cce530ed36b9bcbb2a13326398b3",
+  "git_blob_sha": "c85e4a2ed3570662749c1aa48f91fcf027f8b07a",
+  "fully_transparent_pixels": 1198208,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        84,
+        197,
+        804,
+        548
+      ],
+      "component_seed": [
+        499,
+        201
+      ],
+      "bbox_alpha_gt_24": [
+        88,
+        201,
+        796,
+        540
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        953,
+        224,
+        793,
+        522
+      ],
+      "component_seed": [
+        1366,
+        228
+      ],
+      "bbox_alpha_gt_24": [
+        957,
+        228,
+        785,
+        514
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing shoulder/chest-level aiming crossbowmen in braced crouch. Same carved bone weapon relative to torso as original/companion, rear grip and underside support visible, no projectile or recoil blast. Hood and breathing pose differ subtly, full weapon ends inside canvas. Fine string geometry, fixed pixel scale and seamless loop require art acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

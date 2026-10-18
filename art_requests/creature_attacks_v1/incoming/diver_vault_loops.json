@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "rust_diver",
+  "image": "diver_vault_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/rust_diver.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/rust_diver.png",
+  "reference_sha256": "6871de195efc48fe65bfbad1bc0e6dba4b854e9bc9588ff3dc3a5c5661ab49ce",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "diver_vault_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "363d86c3b5effd03050482844710da45a375843a812fb142dabfbc1ee12ec1a5",
+  "git_blob_sha": "9dd260a505533f20f71b10ccd344b1b693d22fc2",
+  "fully_transparent_pixels": 1313015,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        90,
+        289,
+        806,
+        387
+      ],
+      "component_seed": [
+        444,
+        293
+      ],
+      "bbox_alpha_gt_24": [
+        94,
+        293,
+        798,
+        379
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        918,
+        281,
+        786,
+        403
+      ],
+      "component_seed": [
+        1324,
+        285
+      ],
+      "bbox_alpha_gt_24": [
+        922,
+        285,
+        778,
+        395
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete airborne bronze-helmet divers, tucked legs and algae/rope trailing back, one forward spear held in two spaced grips with forearms aligned. Back-stowed duplicate absent. Helmet/body/spear dimensions visually compared to original and diver_splash. Spear stays clear of helmet/knees, no water/bubbles/effects. Exact shaft-tail occlusion, leap trajectory, pixel scale and seamless loop pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

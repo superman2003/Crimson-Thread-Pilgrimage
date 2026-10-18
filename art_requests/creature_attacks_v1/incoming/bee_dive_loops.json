@@ -1,0 +1,104 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "wax_bee",
+  "image": "bee_dive_loops.png",
+  "requested_frames": 4,
+  "source_brief": "art_requests/creature_attacks_v1/wax_bee.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/wax_bee.png",
+  "reference_sha256": "fa9f01f98dbd3ba25ac20a90d94526cb73a23cd8cc1467d30296437e980646ac",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "bee_dive_loops.txt",
+  "image_size": [
+    2172,
+    724
+  ],
+  "image_sha256": "6cccc04a61ae3c180f79df58548e43c38a67d6461c23f1224e6030e675b3261d",
+  "git_blob_sha": "7423ea99fb512d2466ef73db1e5b7534d1950614",
+  "fully_transparent_pixels": 1326266,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        89,
+        171,
+        389,
+        351
+      ],
+      "component_seed": [
+        178,
+        175
+      ],
+      "bbox_alpha_gt_24": [
+        93,
+        175,
+        381,
+        343
+      ],
+      "alpha_component_pixels": 55397
+    },
+    {
+      "cel": 2,
+      "region": [
+        654,
+        157,
+        365,
+        380
+      ],
+      "component_seed": [
+        752,
+        161
+      ],
+      "bbox_alpha_gt_24": [
+        658,
+        161,
+        357,
+        372
+      ],
+      "alpha_component_pixels": 54883
+    },
+    {
+      "cel": 3,
+      "region": [
+        1152,
+        244,
+        409,
+        268
+      ],
+      "component_seed": [
+        1221,
+        248
+      ],
+      "bbox_alpha_gt_24": [
+        1156,
+        248,
+        401,
+        260
+      ],
+      "alpha_component_pixels": 51604
+    },
+    {
+      "cel": 4,
+      "region": [
+        1687,
+        233,
+        400,
+        287
+      ],
+      "component_seed": [
+        1717,
+        237
+      ],
+      "bbox_alpha_gt_24": [
+        1691,
+        237,
+        392,
+        279
+      ],
+      "alpha_component_pixels": 50517
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Four isolated bee poses in one row: two raised-wing windup holds and two compact forward strike/travel poses following the original reference attack profile. Dark green anatomy, amber abdomen, cream collar and veined ivory wings match the selected bee source. No detached sting or effects. Original strike attachment anatomy, final-windup transition and cyclic movement require runtime art acceptance.",
+  "usage": "Original imagegen PNG bytes preserved without raster edits. Regions are source coordinates; isolate each alpha>24 8-connected component using its global seed and retain nearby antialiasing. Native canvas resolution differs from the requested layout; do not blindly equal-grid slice. Source delivery only; skeleton scale, roots, timing and seamless runtime playback remain subject to project acceptance."
+}

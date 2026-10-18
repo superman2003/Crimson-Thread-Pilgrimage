@@ -1,0 +1,278 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "wax_lancer",
+  "image": "wax_high.png",
+  "requested_frames": 12,
+  "source_brief": "art_requests/creature_attacks_v1/wax_lancer.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/wax_lancer.png",
+  "reference_sha256": "e5f1f3c76707804d360a49431080a5a3ce29981294e7864ea5dd37dd9f2cbd0a",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "wax_high.txt",
+  "image_size": [
+    1448,
+    1086
+  ],
+  "image_sha256": "2279d14e83c3867d5d6f71e285fa64181b394b0e3101bac2c7e342547e008666",
+  "git_blob_sha": "7a7abad07c7db5df69e9243bea583eb9fe2ade8c",
+  "fully_transparent_pixels": 1114350,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        32,
+        124,
+        343,
+        230
+      ],
+      "component_seed": [
+        156,
+        128
+      ],
+      "bbox_alpha_gt_24": [
+        36,
+        128,
+        335,
+        222
+      ],
+      "alpha_component_pixels": 25860
+    },
+    {
+      "cel": 2,
+      "region": [
+        400,
+        151,
+        324,
+        203
+      ],
+      "component_seed": [
+        518,
+        155
+      ],
+      "bbox_alpha_gt_24": [
+        404,
+        155,
+        316,
+        195
+      ],
+      "alpha_component_pixels": 23047
+    },
+    {
+      "cel": 3,
+      "region": [
+        756,
+        175,
+        323,
+        179
+      ],
+      "component_seed": [
+        877,
+        179
+      ],
+      "bbox_alpha_gt_24": [
+        760,
+        179,
+        315,
+        171
+      ],
+      "alpha_component_pixels": 21658
+    },
+    {
+      "cel": 4,
+      "region": [
+        1134,
+        188,
+        314,
+        166
+      ],
+      "component_seed": [
+        1269,
+        192
+      ],
+      "bbox_alpha_gt_24": [
+        1138,
+        192,
+        306,
+        158
+      ],
+      "alpha_component_pixels": 21863
+    },
+    {
+      "cel": 5,
+      "region": [
+        28,
+        514,
+        350,
+        189
+      ],
+      "component_seed": [
+        150,
+        518
+      ],
+      "bbox_alpha_gt_24": [
+        32,
+        518,
+        342,
+        181
+      ],
+      "alpha_component_pixels": 23422
+    },
+    {
+      "cel": 6,
+      "region": [
+        415,
+        474,
+        327,
+        229
+      ],
+      "component_seed": [
+        736,
+        478
+      ],
+      "bbox_alpha_gt_24": [
+        419,
+        478,
+        319,
+        221
+      ],
+      "alpha_component_pixels": 23985
+    },
+    {
+      "cel": 7,
+      "region": [
+        778,
+        404,
+        249,
+        299
+      ],
+      "component_seed": [
+        1020,
+        408
+      ],
+      "bbox_alpha_gt_24": [
+        782,
+        408,
+        241,
+        291
+      ],
+      "alpha_component_pixels": 22965
+    },
+    {
+      "cel": 8,
+      "region": [
+        1125,
+        373,
+        226,
+        330
+      ],
+      "component_seed": [
+        1304,
+        377
+      ],
+      "bbox_alpha_gt_24": [
+        1129,
+        377,
+        218,
+        322
+      ],
+      "alpha_component_pixels": 23619
+    },
+    {
+      "cel": 9,
+      "region": [
+        50,
+        748,
+        247,
+        279
+      ],
+      "component_seed": [
+        291,
+        752
+      ],
+      "bbox_alpha_gt_24": [
+        54,
+        752,
+        239,
+        271
+      ],
+      "alpha_component_pixels": 25641
+    },
+    {
+      "cel": 10,
+      "region": [
+        406,
+        722,
+        217,
+        305
+      ],
+      "component_seed": [
+        597,
+        726
+      ],
+      "bbox_alpha_gt_24": [
+        410,
+        726,
+        209,
+        297
+      ],
+      "alpha_component_pixels": 25398
+    },
+    {
+      "cel": 11,
+      "region": [
+        783,
+        742,
+        199,
+        285
+      ],
+      "component_seed": [
+        957,
+        746
+      ],
+      "bbox_alpha_gt_24": [
+        787,
+        746,
+        191,
+        277
+      ],
+      "alpha_component_pixels": 24016
+    },
+    {
+      "cel": 12,
+      "region": [
+        1149,
+        741,
+        204,
+        286
+      ],
+      "component_seed": [
+        1329,
+        745
+      ],
+      "bbox_alpha_gt_24": [
+        1153,
+        745,
+        196,
+        278
+      ],
+      "alpha_component_pixels": 24845
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Selected fresh twelve-cel redraw from the original wax-lancer strip. In top-row cels1-4 the lance tip is visibly below both hands and moves toward the foot-sole plane; cel4 is a low planted crouch with its tip immediately above the forward-foot baseline. The second row rises through level, upward diagonal, steep diagonal and vertical. Recovery cel10 was locally corrected to an upright guard so all four recoveries settle upright. Original candle-blade/handle model and character materials retained; no detached wax or VFX. Twelve separate whole silhouettes, alpha and no canvas-edge contacts verified. Exact dimensional calibration and continuous playback remain subject to runtime art acceptance.",
+  "usage": "Original imagegen PNG bytes preserved without raster edits. Regions are source coordinates; isolate each alpha>24 8-connected component using its global seed and retain nearby antialiasing. Native canvas resolution differs from the requested layout; do not blindly equal-grid slice. Source delivery only; skeleton scale, roots, timing and seamless runtime playback remain subject to project acceptance.",
+  "revision": "2026-10-18: redraw requested by user, lower windup lance tips",
+  "supersedes_image_sha256": "014ab3ed9659b7f8eb3d63fe5e19913370053b5bef2e355b4d32106c5188339f",
+  "reference_assets": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/wax_lancer.png",
+      "sha256": "e5f1f3c76707804d360a49431080a5a3ce29981294e7864ea5dd37dd9f2cbd0a"
+    }
+  ],
+  "intermediate_images": [
+    {
+      "sha256": "5b4f41f5edbdd5bb07c0a905fbacd36b9cd5d95a0f3fd028e0e61f707bb8d5eb",
+      "delivery": "non-selected intermediate, retained locally by imagegen"
+    }
+  ]
+}

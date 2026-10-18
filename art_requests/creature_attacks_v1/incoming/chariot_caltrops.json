@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "pilgrim_chariot",
+  "image": "chariot_caltrops.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/pilgrim_chariot.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/pilgrim_chariot.png",
+  "reference_sha256": "d394b27f77581b02cc116624513522b102c367d0a49a1ba90644304c01e05ecf",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "chariot_caltrops.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "116a9116fc5430da0526da28ecc99b221b0838cda185296ffb37fa8c14430e6c",
+  "git_blob_sha": "d4a297664399f8dd8307bfe8238b02bdcf861d67",
+  "fully_transparent_pixels": 1103873,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        37,
+        104,
+        234,
+        206
+      ],
+      "component_seed": [
+        121,
+        108
+      ],
+      "bbox_alpha_gt_24": [
+        41,
+        108,
+        226,
+        198
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        343,
+        104,
+        257,
+        207
+      ],
+      "component_seed": [
+        438,
+        108
+      ],
+      "bbox_alpha_gt_24": [
+        347,
+        108,
+        249,
+        199
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        678,
+        91,
+        233,
+        219
+      ],
+      "component_seed": [
+        773,
+        95
+      ],
+      "bbox_alpha_gt_24": [
+        682,
+        95,
+        225,
+        211
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        985,
+        104,
+        228,
+        206
+      ],
+      "component_seed": [
+        1116,
+        108
+      ],
+      "bbox_alpha_gt_24": [
+        989,
+        108,
+        220,
+        198
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        44,
+        405,
+        255,
+        200
+      ],
+      "component_seed": [
+        143,
+        409
+      ],
+      "bbox_alpha_gt_24": [
+        48,
+        409,
+        247,
+        192
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        342,
+        402,
+        270,
+        202
+      ],
+      "component_seed": [
+        446,
+        406
+      ],
+      "bbox_alpha_gt_24": [
+        346,
+        406,
+        262,
+        194
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        628,
+        406,
+        313,
+        197
+      ],
+      "component_seed": [
+        733,
+        410
+      ],
+      "bbox_alpha_gt_24": [
+        632,
+        410,
+        305,
+        189
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        957,
+        408,
+        282,
+        196
+      ],
+      "component_seed": [
+        1051,
+        412
+      ],
+      "bbox_alpha_gt_24": [
+        961,
+        412,
+        274,
+        188
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        39,
+        703,
+        260,
+        207
+      ],
+      "component_seed": [
+        128,
+        707
+      ],
+      "bbox_alpha_gt_24": [
+        43,
+        707,
+        252,
+        199
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        346,
+        701,
+        261,
+        209
+      ],
+      "component_seed": [
+        429,
+        705
+      ],
+      "bbox_alpha_gt_24": [
+        350,
+        705,
+        253,
+        201
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        648,
+        708,
+        269,
+        203
+      ],
+      "component_seed": [
+        736,
+        712
+      ],
+      "bbox_alpha_gt_24": [
+        652,
+        712,
+        261,
+        195
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        975,
+        710,
+        243,
+        201
+      ],
+      "component_seed": [
+        1059,
+        714
+      ],
+      "bbox_alpha_gt_24": [
+        979,
+        714,
+        235,
+        193
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        41,
+        992,
+        248,
+        210
+      ],
+      "component_seed": [
+        152,
+        996
+      ],
+      "bbox_alpha_gt_24": [
+        45,
+        996,
+        240,
+        202
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        361,
+        997,
+        240,
+        206
+      ],
+      "component_seed": [
+        489,
+        1001
+      ],
+      "bbox_alpha_gt_24": [
+        365,
+        1001,
+        232,
+        198
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete red crab chariots with connected side wheel shells, original paired banner mounts and jointed pincer. Closed reach-back to open forward throw, no flying nails/props/effects. Rightmost pincer clipping repaired with reduced layout, wheel/chassis/pincer/mast ratios visually compared to original. Far wheel partly occluded naturally; exact grab storage placement, root scale and loop timing pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

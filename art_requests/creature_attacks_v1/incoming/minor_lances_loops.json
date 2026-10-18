@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "echo_pilgrim_commander_minor",
+  "image": "minor_lances_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/echo_pilgrim_commander_minor.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/echo_pilgrim_commander_minor.png",
+  "reference_sha256": "316e6d650beb1ef6704fc1cb241632590ab0dd52bb8238cba0f211a0200ddc20",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "minor_lances_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "185193c3af2eb00e4b2df1bbc1e335a5e97218b0a76fd6869ff2e08d23198387",
+  "git_blob_sha": "8ce418a3bf3257217ebde6545356c6091e75cf91",
+  "fully_transparent_pixels": 1285196,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        168,
+        251,
+        702,
+        499
+      ],
+      "component_seed": [
+        483,
+        255
+      ],
+      "bbox_alpha_gt_24": [
+        172,
+        255,
+        694,
+        491
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        944,
+        251,
+        766,
+        500
+      ],
+      "component_seed": [
+        1281,
+        255
+      ],
+      "bbox_alpha_gt_24": [
+        948,
+        255,
+        758,
+        492
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing commanders, ivory armor and crimson crest/cape, single-headed spear lowered forward in braced charging stance. Spear and limbs remain within canvas. Back-foot weight and reference last-windup pose differ; loop continuity and exact pose match require project acceptance.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

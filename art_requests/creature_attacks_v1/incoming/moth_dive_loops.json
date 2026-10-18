@@ -1,0 +1,62 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "bronze_moth",
+  "image": "moth_dive_loops.png",
+  "requested_frames": 2,
+  "source_brief": "art_requests/creature_attacks_v1/bronze_moth.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/bronze_moth.png",
+  "reference_sha256": "489e98912fc2170b7f76a5a4e693ca3fca229685d33a5d002398e9647a435fa9",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "moth_dive_loops.txt",
+  "image_size": [
+    1774,
+    887
+  ],
+  "image_sha256": "0e5281f2935cc59b1293f976f5985de2f38326e77777414dfd2b1c391a7473ee",
+  "git_blob_sha": "2e6a0281fdb22e0459f03316aaedcd0e75211e4a",
+  "fully_transparent_pixels": 1339151,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        125,
+        256,
+        707,
+        392
+      ],
+      "component_seed": [
+        164,
+        260
+      ],
+      "bbox_alpha_gt_24": [
+        129,
+        260,
+        699,
+        384
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        966,
+        250,
+        725,
+        389
+      ],
+      "component_seed": [
+        1054,
+        254
+      ],
+      "bbox_alpha_gt_24": [
+        970,
+        254,
+        717,
+        381
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Two complete right-facing bronze moth dive poses with extended forelimbs and swept-back teal wings. Small wingtip/body variation without trails or effects; actual seamless cycle and alignment to existing strike pose require runtime review.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}

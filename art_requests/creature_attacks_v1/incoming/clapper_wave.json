@@ -1,0 +1,290 @@
+{
+  "schema": "creature-attack-source-v1",
+  "kind": "falling_clapper",
+  "image": "clapper_wave.png",
+  "requested_frames": 14,
+  "source_brief": "art_requests/creature_attacks_v1/falling_clapper.md",
+  "source_brief_commit": "1469204435e13b3b00678205f273661cdf2b7513",
+  "reference": "art_requests/creature_attacks_v1/refs/falling_clapper.png",
+  "reference_sha256": "b808318b74a161345c243c428db76ad50425b5e5e1a5612e9e2f928dff7a9979",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "clapper_wave.txt",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "image_sha256": "8337994a7b83d3561540a1ec56feae56c48b7ae8fc7aef975bd877eb237c5ec0",
+  "git_blob_sha": "5882b7dd355955eafc44715f825820bd6f9f9890",
+  "fully_transparent_pixels": 1063418,
+  "frames": [
+    {
+      "cel": 1,
+      "region": [
+        45,
+        58,
+        261,
+        235
+      ],
+      "component_seed": [
+        111,
+        62
+      ],
+      "bbox_alpha_gt_24": [
+        49,
+        62,
+        253,
+        227
+      ]
+    },
+    {
+      "cel": 2,
+      "region": [
+        367,
+        84,
+        269,
+        200
+      ],
+      "component_seed": [
+        404,
+        88
+      ],
+      "bbox_alpha_gt_24": [
+        371,
+        88,
+        261,
+        192
+      ]
+    },
+    {
+      "cel": 3,
+      "region": [
+        668,
+        52,
+        260,
+        242
+      ],
+      "component_seed": [
+        738,
+        56
+      ],
+      "bbox_alpha_gt_24": [
+        672,
+        56,
+        252,
+        234
+      ]
+    },
+    {
+      "cel": 4,
+      "region": [
+        978,
+        31,
+        243,
+        268
+      ],
+      "component_seed": [
+        1087,
+        35
+      ],
+      "bbox_alpha_gt_24": [
+        982,
+        35,
+        235,
+        260
+      ]
+    },
+    {
+      "cel": 5,
+      "region": [
+        60,
+        374,
+        261,
+        217
+      ],
+      "component_seed": [
+        78,
+        378
+      ],
+      "bbox_alpha_gt_24": [
+        64,
+        378,
+        253,
+        209
+      ]
+    },
+    {
+      "cel": 6,
+      "region": [
+        360,
+        365,
+        267,
+        245
+      ],
+      "component_seed": [
+        389,
+        369
+      ],
+      "bbox_alpha_gt_24": [
+        364,
+        369,
+        259,
+        237
+      ]
+    },
+    {
+      "cel": 7,
+      "region": [
+        663,
+        368,
+        289,
+        208
+      ],
+      "component_seed": [
+        675,
+        372
+      ],
+      "bbox_alpha_gt_24": [
+        667,
+        372,
+        281,
+        200
+      ]
+    },
+    {
+      "cel": 8,
+      "region": [
+        957,
+        343,
+        283,
+        225
+      ],
+      "component_seed": [
+        1096,
+        347
+      ],
+      "bbox_alpha_gt_24": [
+        961,
+        347,
+        275,
+        217
+      ]
+    },
+    {
+      "cel": 9,
+      "region": [
+        54,
+        677,
+        264,
+        229
+      ],
+      "component_seed": [
+        79,
+        681
+      ],
+      "bbox_alpha_gt_24": [
+        58,
+        681,
+        256,
+        221
+      ]
+    },
+    {
+      "cel": 10,
+      "region": [
+        361,
+        684,
+        270,
+        216
+      ],
+      "component_seed": [
+        391,
+        688
+      ],
+      "bbox_alpha_gt_24": [
+        365,
+        688,
+        262,
+        208
+      ]
+    },
+    {
+      "cel": 11,
+      "region": [
+        673,
+        683,
+        256,
+        220
+      ],
+      "component_seed": [
+        694,
+        687
+      ],
+      "bbox_alpha_gt_24": [
+        677,
+        687,
+        248,
+        212
+      ]
+    },
+    {
+      "cel": 12,
+      "region": [
+        983,
+        682,
+        240,
+        219
+      ],
+      "component_seed": [
+        1003,
+        686
+      ],
+      "bbox_alpha_gt_24": [
+        987,
+        686,
+        232,
+        211
+      ]
+    },
+    {
+      "cel": 13,
+      "region": [
+        52,
+        972,
+        253,
+        230
+      ],
+      "component_seed": [
+        144,
+        976
+      ],
+      "bbox_alpha_gt_24": [
+        56,
+        976,
+        245,
+        222
+      ]
+    },
+    {
+      "cel": 14,
+      "region": [
+        340,
+        967,
+        274,
+        244
+      ],
+      "component_seed": [
+        421,
+        971
+      ],
+      "bbox_alpha_gt_24": [
+        344,
+        971,
+        266,
+        236
+      ]
+    }
+  ],
+  "canvas_edge_contacts": [],
+  "visual_review": "Fourteen complete airborne clapper beetles; bronze segmented abdomen remains attached to thorax throughout backward draw and forward swing. Wings/claws and abdomen proportions compared to original reference. Preview red/yellow edge contamination inspected: sampled bright red/yellow pixels have alpha1-2/255, none above24; no opaque effects. Original generated alpha retained. Exact wing/body continuity and runtime scale/loop acceptance pending.",
+  "usage": "Original imagegen PNG bytes. Regions are tight global source coordinates, may overlap. Isolate the alpha>24 8-connected component at each global seed, preserve nearby low-alpha antialiasing. Do not blindly equal-grid slice. Source delivery only; rig, scale, timing, loop continuity and runtime manifest integration pending."
+}
