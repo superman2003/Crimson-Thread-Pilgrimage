@@ -16,6 +16,7 @@ on:
       - 'godot/scripts/expanded_character_motion_validation.gd'
       - 'tools/build_expanded_*.py'
       - 'tools/build_creature_attack_motion.py'
+      - 'tools/requirements-hero.txt'
       - 'art_requests/creature_attacks_v1/design.py'
       - 'art_requests/creature_attacks_v1/build_docs.py'
       - 'art_requests/creature_attacks_v1/incoming/**'
@@ -45,7 +46,7 @@ jobs:
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libgl1-mesa-dri
-          python3 -m pip install --break-system-packages pillow numpy scipy
+          python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
       - name: Check reproducible production sprites and JavaScript
         run: |
           npm run test:character-motion
