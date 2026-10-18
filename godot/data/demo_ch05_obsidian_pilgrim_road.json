@@ -114,6 +114,11 @@
         "name": "证据·军墓灯影",
         "category": "Relics",
         "description": "巡礼军墓挑战房留下的灯影残响。不挡主线，却能证明你敲响过军墓余响钟。"
+      },
+      "evidence_ash_track": {
+        "name": "证据·灰旗爪痕",
+        "category": "Relics",
+        "description": "灰烬坑猎物留下的灰旗爪痕。不挡主线，却能证明你循迹敲响过灰烬余响钟。"
       }
     }
   },
@@ -240,7 +245,7 @@
         168
       ],
       "objective": "拉下缆车拉杆：清怪后缆车井恢复运转，直通营地并解锁首领之路。",
-      "guide": "从背面打开的捷径会长期有效。",
+      "guide": "从背面打开的捷径会长期有效。 余响钟可开启追踪狩猎。",
       "danger": "坑底灰烬没过脚踝，退路要数好。",
       "next": "缆车井",
       "setpiece": "灰烬缆车绞盘",
@@ -7946,6 +7951,88 @@
         "item_id": "evidence_lantern_graves_echo",
         "item_amount": 1,
         "toast": "军墓首清：取得军墓灯影证据，并得额外碎钱与材料。"
+      }
+    },
+    {
+      "id": "ch05_ash_banner_hunt",
+      "name": "灰旗追踪",
+      "kind": "tracking_hunt",
+      "room_id": "ash_pit",
+      "clear_flag": "challenge_clear_ch05_ash_hunt",
+      "bypass_note": "不循残迹、不敲钟可照常取黑曜碎片、拉缆车拉杆离开，经缆车井回营地；主线不依赖此猎。封门只封西侧山根／井口入口，东侧坑底仍可撤离（可绕开设计）。",
+      "tracks": [
+        {
+          "id": "hunt_track_ch05_ash_a",
+          "flag": "hunt_track_ch05_ash_a",
+          "room_id": "base_road",
+          "position": [
+            1560,
+            2675
+          ],
+          "label": "灰旗残迹 · 山根古道",
+          "hint": "焦黑旗屑往巡礼营地飘去。"
+        },
+        {
+          "id": "hunt_track_ch05_ash_b",
+          "flag": "hunt_track_ch05_ash_b",
+          "room_id": "pilgrim_camp",
+          "position": [
+            700,
+            1870
+          ],
+          "label": "灰旗残迹 · 营地",
+          "hint": "爪痕沉向缆井底的灰烬坑。"
+        }
+      ],
+      "shrine": {
+        "id": "challenge_shrine_ch05_ash_hunt",
+        "position": [
+          3400,
+          2856
+        ],
+        "label": "余响钟 · 灰旗猎物"
+      },
+      "lock_rect": [
+        3010,
+        2760,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH05_H1",
+          "kind": "ash_banner_imp",
+          "position": [
+            3480,
+            2856
+          ],
+          "sprite": "res://assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+          "visual_scale": 0.24024024024024024,
+          "visual_offset": [
+            0,
+            17.51951951951952
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/ash_banner_imp/atlas.png",
+          "patrol": 60,
+          "leash_radius": 200,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 40,
+          "elite": true,
+          "hp": 9,
+          "encounter_role": "tracking_hunt_quarry"
+        }
+      ],
+      "reward": {
+        "currency": 0,
+        "material_amount": 2,
+        "item_id": "evidence_ash_track",
+        "item_amount": 1,
+        "unlock_event": "charm_needlecase_found",
+        "toast": "灰旗首清：取得灰旗爪痕证据与材料，并唤回余声针匣印记。"
       }
     }
   ]

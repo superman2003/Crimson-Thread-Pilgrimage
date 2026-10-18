@@ -307,6 +307,48 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear survives ch05 travel")
 
 
+
+	# Tracking hunt in ch05 obsidian: base road + pilgrim camp tracks -> ash pit quarry.
+	await travel(CH05, Vector2(1560, 2675))
+	await tick(6)
+	check(String(scene.config.get("id", "")) == CH05, "fixture is in obsidian pilgrim road for hunt")
+	check(scene.config.get("optional_challenges", []).size() >= 2, "ch05 authors challenge room and tracking hunt")
+	var track_ash_a: Area2D = scene.get_node_or_null("hunt_track_ch05_ash_a")
+	check(track_ash_a != null, "ash hunt track A spawns on the base road")
+	scene._activate_hunt_track(track_ash_a)
+	await tick(2)
+	await travel(CH05, Vector2(700, 1870))
+	await tick(6)
+	var track_ash_b: Area2D = scene.get_node_or_null("hunt_track_ch05_ash_b")
+	check(track_ash_b != null, "ash hunt track B spawns at the pilgrim camp")
+	scene._activate_hunt_track(track_ash_b)
+	await tick(2)
+	await travel(CH05, Vector2(3400, 2856))
+	await tick(6)
+	var ash_hunt := challenge("ch05_ash_banner_hunt")
+	check(scene._challenge_tracks_ready(ash_hunt), "ash hunt becomes ready after both tracks")
+	var shrine_ash: Area2D = scene.get_node_or_null(String(ash_hunt.get("shrine", {}).get("id", "")))
+	scene.story_flags["hunt_track_ch05_ash_b"] = false
+	scene._activate_challenge_shrine(shrine_ash)
+	await tick(2)
+	check(scene.active_challenge_id.is_empty(), "ash hunt still refuses when a track is missing")
+	scene.story_flags["hunt_track_ch05_ash_b"] = true
+	var ch05_hunt_lock: Rect2 = scene._rect2(ash_hunt.get("lock_rect", []))
+	var ch05_hunt_inside: float = scene._challenge_lock_inside_x(ash_hunt, ch05_hunt_lock)
+	check(ch05_hunt_inside > ch05_hunt_lock.position.x + ch05_hunt_lock.size.x, "ch05 hunt lock inside is right of the west wall")
+	scene.player.global_position = Vector2(ch05_hunt_lock.position.x - 10.0, 2856)
+	scene._start_optional_challenge(ash_hunt)
+	await tick(2)
+	check(scene.player.global_position.x > ch05_hunt_lock.position.x + ch05_hunt_lock.size.x, "ch05 hunt seal push keeps the player inside right of the wall")
+	scene._clear_active_challenge(false)
+	await tick(2)
+	await run_challenge_clear("ch05_ash_banner_hunt", "evidence_ash_track", "charm_needlecase_found")
+	check(scene._save_world(), "ch05 hunt progress saves")
+	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch05_ash_hunt", false)), "ch05 hunt clear flag is on disk")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch05_war_graves", false)), "ch05 war graves clear survives hunt")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear survives ch05 hunt")
+
 	# Challenge room in ch06 bell tongue vault (optional crown-side reward room).
 	await travel(CH06, Vector2(2660, 2860))
 	await tick(6)
@@ -332,6 +374,7 @@ func run() -> void:
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag survives ch06 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_beeswax", false)), "ch04 clear flag survives ch06 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch05_war_graves", false)), "ch05 clear flag survives ch06 travel")
+	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch05_ash_hunt", false)), "ch05 hunt clear survives ch06 travel")
 	check(bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear survives ch06 travel")
 
 	# Reload from disk: cleared challenges stay cleared, rewards do not repeat.
