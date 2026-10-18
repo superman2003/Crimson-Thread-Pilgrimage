@@ -2,6 +2,7 @@ extends RefCounted
 ## Budget-owned world-route overlay. Array scans and appended values advance
 ## incrementally; nested values are copied through the shared Variant job.
 const COPY_JOB := preload("res://scripts/world_variant_copy_job.gd")
+const ROUTES := preload("res://scripts/world_routes.gd")
 const OVERRIDE_FIELDS := [
 	["map_room_overrides", "map_rooms"], ["terrain_overrides", "terrain"],
 	["platform_overrides", "platforms"], ["locked_gate_overrides", "locked_gates"],
@@ -31,6 +32,7 @@ var _manifest_version: Variant = 1
 var _merge_target: Dictionary = {}
 var _merge_source: Dictionary = {}
 var _merge_keys: Array = []
+var _merge_preserve_room_guide := false
 var _merge_i := 0
 var _merge_next := ""
 var _interactive_pending: Dictionary = {}
@@ -62,6 +64,7 @@ func begin(config: Dictionary, overlay: Variant, version: Variant) -> void:
 	_merge_keys = []
 	_merge_i = 0
 	_merge_next = ""
+	_merge_preserve_room_guide = false
 	_interactive_pending = {}
 	_remove_index = 0
 	_interactive_removed = false
@@ -143,7 +146,7 @@ func _step_override() -> void:
 	if str(target.get("id", "")) == str(overrides[_item_i].get("id", "")):
 		_pending_target = target
 		_pending_kind = "merge"
-		_pending_field = ""
+		_pending_field = String(fields[1])
 		_begin_copy(overrides[_item_i])
 
 func _step_append() -> void:
@@ -238,7 +241,7 @@ func _finish_copy() -> void:
 	match _pending_kind:
 		"world":
 			_start_merge(_config["world"], value, "override")
-		"merge": _start_merge(_pending_target, value, "override")
+		"merge": _start_merge(_pending_target, value, "override", _pending_field == "map_rooms")
 		"append": _config[_pending_field].append(value)
 		"portal": _interactive_result.append(value)
 		"catalog":
@@ -249,7 +252,7 @@ func _finish_copy() -> void:
 	_pending_target = {}
 	_pending_field = ""
 
-func _start_merge(target: Dictionary, source: Dictionary, next_stage: String) -> void:
+func _start_merge(target: Dictionary, source: Dictionary, next_stage: String, preserve_room_guide: bool = false) -> void:
 	_merge_target = target
 	_merge_source = source
 	# This shallow key enumeration is the largest remaining indivisible route
@@ -258,6 +261,7 @@ func _start_merge(target: Dictionary, source: Dictionary, next_stage: String) ->
 	_merge_keys = source.keys()
 	_merge_i = 0
 	_merge_next = next_stage
+	_merge_preserve_room_guide = preserve_room_guide
 	_stage = "merge"
 
 func _step_merge() -> void:
@@ -267,12 +271,17 @@ func _step_merge() -> void:
 		if _merge_next == "done" and not _merge_source[key] is Dictionary:
 			return _fail("巡礼路线的inventory_catalog条目无效。")
 		_merge_i += 1
-		_merge_target[key] = _merge_source[key]
+		# W04: workshop overrides must not wipe 可见线索／安全离开 on the live path.
+		if _merge_preserve_room_guide and str(key) == "guide" and _merge_source[key] is String:
+			_merge_target[key] = ROUTES._preserve_hidden_route_guide(String(_merge_target.get("guide", "")), String(_merge_source[key]))
+		else:
+			_merge_target[key] = _merge_source[key]
 		edge_steps += 1
 		return
 	_merge_target = {}
 	_merge_source = {}
 	_merge_keys = []
+	_merge_preserve_room_guide = false
 	_stage = _merge_next
 
 func _finish() -> void:
@@ -294,3 +303,4 @@ func _fail(message: String) -> void:
 	_merge_target = {}
 	_merge_source = {}
 	_merge_keys = []
+	_merge_preserve_room_guide = false
