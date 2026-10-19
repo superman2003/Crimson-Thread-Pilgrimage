@@ -88,7 +88,9 @@ def audit() -> tuple[dict, list[str]]:
         for material in materials:
             if material != rows[region]["drop"]:
                 errors.append(f"{tool_id}: resupply material {material} does not drop in {region} where the tool is obtained ({rows[region]['drop']})")
-        refill = int(tool.get("resupply", {}).get("currency", 0)) * int(tool.get("capacity", 0))
+        # build_system.tool_capacity(): capacity bonuses (needlecase) apply to shard and mine.
+        bonus = max(int(p.get("modifiers", {}).get("tool_capacity_bonus", 0)) for p in catalog["passives"].values()) if tool_id in ("shard", "mine") else 0
+        refill = int(tool.get("resupply", {}).get("currency", 0)) * (int(tool.get("capacity", 0)) + bonus)
         if refill > TOOL_REFILL_KILLS * KILL_CURRENCY:
             errors.append(f"{tool_id}: a full refill costs {refill}, more than {TOOL_REFILL_KILLS} regular kills")
     # Totals.
