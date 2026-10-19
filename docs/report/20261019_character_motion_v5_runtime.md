@@ -54,7 +54,13 @@ v5 清单（#138，`art_requests/character_motion_v5/`）按 2026-10-19 的 main
 
 ## 验证
 
-VALIDATION_PLACEHOLDER
+以下均在合并 main（含 #139）之后的本分支上执行：
+
+- `npm run test:character-motion`：新增本批登记 `--check`（含“4 个 Boss 的二阶段出招不再重复普通攻击帧”的像素检查），71 个角色的打包重现检查全部通过。
+- `npm test`、`npm run test:boss-assets` 通过；recovery-mode 双导入通过。
+- `expanded_character_motion`：5052 项全部通过，71 个角色、2828 帧。新增检查：6 个 Boss 共 22 招收招先播 2 格过渡、0.18 秒后接通用收招（或待机），通用收招拉伸到剩余时间。
+- 通过的套件：`enemy_ai_behavior`、`boss_trial`、`combat`、`character_art_prewarm`、`silent_crown_experience`、`obsidian_experience`、`greenhouse_experience`。合并 main 之前另跑过 `enemy_lifecycle_regression`、`enemy_effect_lifetime`、`enemy_visibility`、`enemy_encounter_roles`、`melee_recovery`、`combat_resource_cycle`、`all_chapters_demo`、`first_court_experience`、`rain_foundry_experience`、`salt_archive_experience`、`world_enemy_residency`、`world_neighbor_entities`、`seal_combat`，全部通过。
+- `enemy_atlas_integrity`：本机用 x11 + llvmpipe 真实显示直接运行，3325 项全部通过（本机没有 Xvfb，运行器本身要求 Xvfb）。
 
 ## 仍需目检（OPEN）
 
