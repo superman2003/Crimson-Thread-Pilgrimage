@@ -62,9 +62,13 @@ def validate(data: dict) -> list[str]:
     for key, row in data.get('passives', {}).items():
         forbidden = {'jump_height', 'jump_velocity', 'dash_unlocked', 'double_jump_unlocked', 'thread_grapple_unlocked'}
         check(not (set(row.get('modifiers', {})) & forbidden), f'{key}: does not alter permanent exploration gates')
+    # Skill校习 targets a skill row. Artisan crafts (E04) recall an existing passive
+    # (kind: passive); their ids are not skills and must not be retargeted.
+    recipe_tables = {'skill': 'skills', 'passive': 'passives'}
     for key, row in data.get('recipes', {}).items():
         check(row.get('kind') != 'refill', f'{key}: tool supplies are not sold as recipes')
-        check(row.get('target') in data.get('skills', {}), f'{key}: recipe target exists')
+        table = recipe_tables.get(row.get('kind'))
+        check(table is not None and row.get('target') in data.get(table, {}), f'{key}: recipe target exists')
     return errors
 
 def main() -> int:
