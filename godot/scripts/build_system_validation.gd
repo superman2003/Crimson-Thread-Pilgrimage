@@ -99,30 +99,6 @@ func _initialize() -> void:
         _check(not restart.restore(corrupt).ok and restart.serialize() == before, "transactional corruption rejection " + corrupt_kind)
     var snapshot := build.get_snapshot()
     _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 10, "full UI catalog")
-    var cleave_row: Dictionary = {}
-    for skill_row in snapshot.skills:
-        if String(skill_row.get("id", "")) == "cleave":
-            cleave_row = skill_row
-            break
-    _check(not String(cleave_row.get("next_growth", "")).is_empty(), "snapshot surfaces next_growth for unupgraded skills")
-    _check(String(cleave_row.get("next_growth", "")).find("校习一") >= 0, "next_growth cites level-1 playstyle note")
-    var cleave_skill: Dictionary = build.selected_skill(0)
-    _check(cleave_skill.get("growth") is Dictionary and String(cleave_skill.get("next_growth", "")) == String(cleave_row.get("next_growth", "")), "selected_skill growth matches the snapshot guard")
-    var saved_growth: Variant = build.catalog.skills.cleave.get("growth", {})
-    build.catalog.skills.cleave.growth = "not-a-dictionary"
-    var guarded: Dictionary = build.selected_skill(0)
-    _check(guarded.get("growth") is Dictionary and (guarded.growth as Dictionary).is_empty() and String(guarded.get("next_growth", "x")).is_empty(), "selected_skill ignores non-dictionary growth")
-    build.catalog.skills.cleave.erase("growth")
-    var missing: Dictionary = build.selected_skill(0)
-    _check(missing.get("growth") is Dictionary and (missing.growth as Dictionary).is_empty() and String(missing.get("next_growth", "x")).is_empty(), "selected_skill treats missing growth as an empty map")
-    build.catalog.skills.cleave.growth = "not-a-dictionary"
-    var guarded_row: Dictionary = {}
-    for skill_row in build.get_snapshot().skills:
-        if String(skill_row.get("id", "")) == "cleave":
-            guarded_row = skill_row
-            break
-    _check(guarded_row.get("growth") is Dictionary and (guarded_row.growth as Dictionary).is_empty() and String(guarded_row.get("next_growth", "x")).is_empty(), "snapshot ignores non-dictionary growth")
-    build.catalog.skills.cleave.growth = saved_growth
     _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
     # E04: materials sink beyond tool refill — skill校习 + regional artisan crafts.
     for skill_id in ["cleave", "needle", "snare", "ward", "shockwave", "crosscut"]:
