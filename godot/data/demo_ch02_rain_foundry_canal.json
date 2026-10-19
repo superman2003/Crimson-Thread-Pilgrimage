@@ -14506,7 +14506,7 @@
       "kind": "challenge_room",
       "room_id": "counterweight_niche",
       "clear_flag": "challenge_clear_ch02_counterweight",
-      "bypass_note": "不敲钟可拿走地图残页离开；主线不依赖此房。水轮内的暗格可选。",
+      "bypass_note": "不敲钟可拿走地图残页离开；主线不依赖此房。水轮内的暗格可选。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
       "shrine": {
         "id": "challenge_shrine_ch02_counterweight",
         "position": [
@@ -14572,7 +14572,7 @@
         }
       ],
       "reward": {
-        "currency": 40,
+        "currency": 30,
         "material_amount": 2,
         "item_id": "evidence_counterweight_echo",
         "item_amount": 1,
@@ -14585,7 +14585,7 @@
       "kind": "tracking_hunt",
       "room_id": "drowned_archive_pod",
       "clear_flag": "challenge_clear_ch02_canal_hunt",
-      "bypass_note": "不循残迹、不敲钟可照常取证词离开；主线不依赖此猎。",
+      "bypass_note": "不循残迹、不敲钟可照常取证词离开；主线不依赖此猎。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
       "tracks": [
         {
           "id": "hunt_track_ch02_canal_a",
@@ -14653,12 +14653,11 @@
         }
       ],
       "reward": {
-        "currency": 50,
-        "material_amount": 2,
+        "currency": 40,
+        "material_amount": 3,
         "item_id": "evidence_canal_track",
         "item_amount": 1,
-        "unlock_event": "charm_shell_found",
-        "toast": "渠影首清：取得爪痕证据，并唤回铜背扣印记。"
+        "toast": "渠影首清：取得渠影爪痕证据，并得额外碎钱与湿锈甲片。"
       }
     }
   ]

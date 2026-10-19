@@ -2990,6 +2990,7 @@ func _update_room_visit() -> void:
         if metsys_bridge != null:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
         if current_room_id != previous_room_id:
+            _abort_challenge_if_left_room()
             _save_world()
             _trigger_whispers("enter_room", current_room_id)
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
@@ -5606,6 +5607,24 @@ func _clear_active_challenge(grant_if_empty: bool) -> void:
     challenge_alive_ids.clear()
 
 
+## The seal only closes one entrance. Walking out through the other side ends
+## the attempt: the foes go, the seal opens and the bell can be rung again later.
+func _abort_challenge_if_left_room() -> void:
+    if active_challenge_id.is_empty():
+        return
+    var room_id := String(_optional_challenge(active_challenge_id).get("room_id", ""))
+    if room_id.is_empty() or current_room_id == room_id:
+        return
+    for enemy_node in get_tree().get_nodes_in_group("enemy"):
+        if String(enemy_node.get_meta("optional_challenge_id", "")) != active_challenge_id:
+            continue
+        if enemy_node.has_method("_cancel_attack_effects"):
+            enemy_node._cancel_attack_effects()
+        enemy_node.queue_free()
+    _clear_active_challenge(false)
+    _toast("离开试炼，余响钟复位；随时可以回来再敲。")
+
+
 func _on_challenge_enemy_died(spawn_id: String) -> void:
     if not challenge_alive_ids.has(spawn_id):
         return
@@ -6512,14 +6531,15 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
     else:
         var drop_item := String(config.get("enemy_drop_item", "moss_chitin"))
         var challenge_spawn := _is_optional_challenge_spawn(spawn_id)
-        # Challenge spawns are not part of the region's combat-clear tally.
+        # Challenge foes pay only through the one-time clear reward: they are not
+        # in the region's combat-clear tally, and a failed attempt cannot be farmed.
         if not challenge_spawn:
             enemy_defeated += 1
-        _add_currency(8)
-        _add_inventory_item(drop_item, 1, false)
+            _add_currency(8)
+            _add_inventory_item(drop_item, 1, false)
         if player != null:
             player.gain_energy(20)
-        _toast("拾得碎钱与材料 · 绯线回充")
+        _toast("试炼之敌倒下 · 绯线回充" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
         if challenge_spawn:
             _on_challenge_enemy_died(spawn_id)
         elif _combat_progression_enabled() and _combat_goal_met():

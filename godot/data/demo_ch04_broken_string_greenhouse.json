@@ -7700,7 +7700,7 @@
       "kind": "challenge_room",
       "room_id": "beeswax_nook",
       "clear_flag": "challenge_clear_ch04_beeswax",
-      "bypass_note": "不敲钟可拿花粉蜡与暗灯离开，继续东藤壁；主线不依赖此房。封门只封西侧根须南廊入口，东侧仍可撤离（可绕开设计）。",
+      "bypass_note": "不敲钟可拿花粉蜡与暗灯离开，继续东藤壁；主线不依赖此房。封门只封西侧根须南廊入口，东侧仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
       "shrine": {
         "id": "challenge_shrine_ch04_beeswax",
         "position": [
@@ -7766,7 +7766,7 @@
         }
       ],
       "reward": {
-        "currency": 40,
+        "currency": 30,
         "material_amount": 2,
         "item_id": "evidence_beeswax_echo",
         "item_amount": 1,
@@ -7779,7 +7779,7 @@
       "kind": "tracking_hunt",
       "room_id": "root_vault",
       "clear_flag": "challenge_clear_ch04_root_hunt",
-      "bypass_note": "不循残迹、不敲钟可照常取花粉蜡、与根笼囚徒对话、拉根库拉杆离开，经树心继续；主线不依赖此猎。封门只封东侧树心阶入口，西侧库底仍可撤离（可绕开设计）。",
+      "bypass_note": "不循残迹、不敲钟可照常取花粉蜡、与根笼囚徒对话、拉根库拉杆离开，经树心继续；主线不依赖此猎。封门只封东侧树心阶入口，西侧库底仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
       "tracks": [
         {
           "id": "hunt_track_ch04_root_a",
@@ -7847,12 +7847,11 @@
         }
       ],
       "reward": {
-        "currency": 50,
-        "material_amount": 2,
+        "currency": 40,
+        "material_amount": 3,
         "item_id": "evidence_root_track",
         "item_amount": 1,
-        "unlock_event": "charm_mender_found",
-        "toast": "根网首清：取得根网爪痕证据，并唤回静钟碎片印记。"
+        "toast": "根网首清：取得根网爪痕证据，并得额外碎钱与花粉蜂蜡。"
       }
     }
   ]

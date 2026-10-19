@@ -53,7 +53,7 @@ def audit() -> tuple[dict, list[str]]:
         config = load(f"{cid}.json")
         kills = len(config.get("enemy_spawns", [])) * KILL_CURRENCY
         workshops = sum(int(c.get("amount", 0)) for c in routes[cid].get("collectibles", []) if c.get("kind") == "currency")
-        # B04 optional challenges: one-time clear currency (not farmable after clear_flag).
+        # B04 optional challenges: one-time clear currency. Challenge foes pay no per-kill loot.
         challenges = sum(int((c.get("reward") or {}).get("currency", 0)) for c in config.get("optional_challenges", []) if isinstance(c, dict))
         rows[cid] = {"first_clear_kills": kills, "boss": BOSS_CURRENCY if config.get("boss") else 0, "workshops": workshops,
                      "optional_challenges": challenges, "quests": 0, "map_price": int(sellers.get(cid, {}).get("price", 0)), "drop": config.get("enemy_drop_item", "")}

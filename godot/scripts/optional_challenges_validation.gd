@@ -58,7 +58,13 @@ func travel(region: String, at: Vector2) -> void:
 func challenge(region_challenge_id: String) -> Dictionary:
 	return scene._optional_challenge(region_challenge_id)
 
-func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unlock: String = "") -> void:
+func challenge_enemy(spawn_id: String) -> Area2D:
+	for node in scene.get_tree().get_nodes_in_group("enemy"):
+		if String(node.get("spawn_id")) == spawn_id and node.has_meta("optional_challenge_id"):
+			return node as Area2D
+	return null
+
+func run_challenge_clear(challenge_id: String, evidence_id: String) -> void:
 	var data := challenge(challenge_id)
 	check(not data.is_empty(), challenge_id + " is authored on the active region")
 	var clear_flag := String(data.get("clear_flag", ""))
@@ -79,23 +85,39 @@ func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unloc
 	check(scene.challenge_arena_lock_body != null and is_instance_valid(scene.challenge_arena_lock_body), challenge_id + " seals the entrance while active")
 	check(scene.challenge_alive_ids.size() == data.get("enemies", []).size(), challenge_id + " spawns every authored challenge enemy")
 	check(scene.enemy_total == before_total, challenge_id + " does not inflate the region's combat-clear total")
-	# Defeat each challenge enemy through the normal death path.
+	# Each foe must stand on real floor, then fall to real hits through its died signal.
 	for spawn in data.get("enemies", []):
 		var spawn_id := String(spawn.get("id", ""))
-		var kind := String(spawn.get("kind", "moss_larva"))
-		scene._on_enemy_died(spawn_id, false, kind)
-		await tick(2)
+		var enemy := challenge_enemy(spawn_id)
+		check(enemy != null, challenge_id + " foe " + spawn_id + " is live in the region")
+		if enemy == null:
+			continue
+		# A spawn point off its floor is silently moved to the nearest other floor,
+		# which can be a different room the player never reaches mid-trial.
+		# Fliers hover above their floor point; judge them by that floor point.
+		var ground_point: Vector2 = enemy.global_position + Vector2(0, float(enemy.hover_height))
+		check(String(scene._room_for_position(ground_point).get("id", "")) == String(data.get("room_id", "")), challenge_id + " foe " + spawn_id + " spawns inside the trial room")
+		if String(enemy.locomotion) != "flight":
+			var ray := PhysicsRayQueryParameters2D.create(enemy.global_position + Vector2(0, -8), enemy.global_position + Vector2(0, 80), 1)
+			ray.collide_with_areas = false
+			check(not enemy.get_world_2d().direct_space_state.intersect_ray(ray).is_empty(), challenge_id + " foe " + spawn_id + " stands on floor")
+		for attempt in 40:
+			if not scene.challenge_alive_ids.has(spawn_id):
+				break
+			# Strike from its back as well: front-guard elites block head-on hits.
+			if is_instance_valid(enemy) and not enemy.dying:
+				enemy.take_hit(99, int(enemy.direction))
+			await tick(2)
+		check(not scene.challenge_alive_ids.has(spawn_id), challenge_id + " foe " + spawn_id + " dies to real hits")
 	check(scene.active_challenge_id.is_empty(), challenge_id + " clears the active challenge after the last foe")
 	check(scene.challenge_arena_lock_body == null or not is_instance_valid(scene.challenge_arena_lock_body), challenge_id + " opens the seal after clear")
 	check(bool(scene.story_flags.get(clear_flag, false)), challenge_id + " writes the clear flag")
 	var reward: Dictionary = data.get("reward", {})
-	var expect_currency: int = before_currency + 8 * int(data.get("enemies", []).size()) + int(reward.get("currency", 0))
-	check(scene.currency_count == expect_currency, challenge_id + " pays kill loot plus the one-time challenge reward")
-	check(int(scene.inventory_counts.get(drop, 0)) == before_mats + int(data.get("enemies", []).size()) + int(reward.get("material_amount", 0)), challenge_id + " pays materials once")
+	check(scene.currency_count == before_currency + int(reward.get("currency", 0)), challenge_id + " pays only the one-time clear reward, no per-foe loot")
+	check(int(scene.inventory_counts.get(drop, 0)) == before_mats + int(reward.get("material_amount", 0)), challenge_id + " pays materials once")
+	check(not reward.has("unlock_event") and not reward.has("unlock_events"), challenge_id + " does not re-grant a charm or tool an NPC already teaches")
 	check(int(scene.inventory_counts.get(evidence_id, 0)) == before_evidence + int(reward.get("item_amount", 1)), challenge_id + " grants its evidence / growth item once")
 	check(scene.enemy_defeated == before_defeated, challenge_id + " never advances the region's combat-clear counter")
-	if not expect_unlock.is_empty():
-		check(bool(scene.story_flags.get(expect_unlock, false)), challenge_id + " records the growth unlock flag")
 	# Anti-farm: starting again after clear must no-op on rewards.
 	var currency_after: int = scene.currency_count
 	var evidence_after: int = int(scene.inventory_counts.get(evidence_id, 0))
@@ -108,7 +130,7 @@ func run_challenge_clear(challenge_id: String, evidence_id: String, expect_unloc
 	check(scene.currency_count == currency_after and int(scene.inventory_counts.get(evidence_id, 0)) == evidence_after, challenge_id + " grant helper stays latched by the clear flag")
 
 
-func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_unlock: String = "") -> void:
+func run_tracking_hunt_gate(challenge_id: String, evidence_id: String) -> void:
 	var data := challenge(challenge_id)
 	check(not data.is_empty(), challenge_id + " is authored on the active region")
 	check(String(data.get("kind", "")) == "tracking_hunt", challenge_id + " is a tracking hunt")
@@ -131,7 +153,7 @@ func run_tracking_hunt_gate(challenge_id: String, evidence_id: String, expect_un
 		await tick(2)
 		check(bool(scene.story_flags.get(flag, false)), challenge_id + " track " + track_id + " writes its flag")
 	check(scene._challenge_tracks_ready(data), challenge_id + " becomes ready after all tracks")
-	await run_challenge_clear(challenge_id, evidence_id, expect_unlock)
+	await run_challenge_clear(challenge_id, evidence_id)
 
 func run() -> void:
 	wipe_save()
@@ -152,6 +174,25 @@ func run() -> void:
 	check(scene.player.global_position.x < ch01_lock.position.x, "ch01 seal push keeps the player inside left of the wall")
 	scene._clear_active_challenge(false)
 	await tick(2)
+	# Walking out through the unsealed side ends the attempt instead of leaving
+	# the seal and the foes behind.
+	scene.player.global_position = Vector2(ch01_inside, 700)
+	await tick(4)
+	check(scene.current_room_id == String(ch01.get("room_id", "")), "ch01 fixture stands in the trial room")
+	var currency_before_abort: int = scene.currency_count
+	scene._start_optional_challenge(ch01)
+	await tick(4)
+	check(scene.active_challenge_id == "ch01_crown_nook_trial", "ch01 trial starts for the leave-room check")
+	var outside := Vector2(ch01_lock.position.x + ch01_lock.size.x + 54.0, 700)
+	check(String(scene._room_for_position(outside).get("id", "")) != String(ch01.get("room_id", "")), "ch01 outside point is another room")
+	scene.player.global_position = outside
+	await tick(6)
+	check(scene.active_challenge_id.is_empty(), "leaving the trial room ends the attempt")
+	check(scene.challenge_arena_lock_body == null or not is_instance_valid(scene.challenge_arena_lock_body), "leaving the trial room opens the seal")
+	check(challenge_enemy("CH01_N1") == null and challenge_enemy("CH01_N2") == null, "leaving the trial room removes the trial foes")
+	check(not bool(scene.story_flags.get(String(ch01.get("clear_flag", "")), false)) and scene.currency_count == currency_before_abort, "an abandoned attempt pays nothing and stays uncleared")
+	scene.player.global_position = Vector2(ch01_inside, 700)
+	await tick(4)
 	await run_challenge_clear("ch01_crown_nook_trial", "evidence_crown_echo")
 	check(scene._save_world(), "challenge progress saves")
 	var saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
@@ -188,7 +229,7 @@ func run() -> void:
 	await tick(2)
 	check(scene.active_challenge_id.is_empty(), "canal hunt still refuses when a track is missing")
 	scene.story_flags["hunt_track_ch02_canal_b"] = true
-	await run_challenge_clear("ch02_canal_shadow_hunt", "evidence_canal_track", "charm_shell_found")
+	await run_challenge_clear("ch02_canal_shadow_hunt", "evidence_canal_track")
 	check(scene._save_world(), "ch02 challenge progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch02_counterweight", false)), "ch02 challenge-room clear flag is on disk")
@@ -207,7 +248,7 @@ func run() -> void:
 	check(scene.player.global_position.x > ch03_lock.position.x + ch03_lock.size.x, "ch03 seal push keeps the player inside right of the wall")
 	scene._clear_active_challenge(false)
 	await tick(2)
-	await run_challenge_clear("ch03_wax_optional_boss", "evidence_salt_ledger", "charm_stride_found")
+	await run_challenge_clear("ch03_wax_optional_boss", "evidence_salt_ledger")
 	check(scene._save_world(), "optional boss progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch03_wax_boss", false)), "ch03 clear flag is on disk")
@@ -274,7 +315,7 @@ func run() -> void:
 	check(scene.player.global_position.x < ch04_hunt_lock.position.x, "ch04 hunt seal push keeps the player inside left of the wall")
 	scene._clear_active_challenge(false)
 	await tick(2)
-	await run_challenge_clear("ch04_root_cage_hunt", "evidence_root_track", "charm_mender_found")
+	await run_challenge_clear("ch04_root_cage_hunt", "evidence_root_track")
 	check(scene._save_world(), "ch04 hunt progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch04_root_hunt", false)), "ch04 hunt clear flag is on disk")
@@ -342,7 +383,7 @@ func run() -> void:
 	check(scene.player.global_position.x > ch05_hunt_lock.position.x + ch05_hunt_lock.size.x, "ch05 hunt seal push keeps the player inside right of the wall")
 	scene._clear_active_challenge(false)
 	await tick(2)
-	await run_challenge_clear("ch05_ash_banner_hunt", "evidence_ash_track", "charm_needlecase_found")
+	await run_challenge_clear("ch05_ash_banner_hunt", "evidence_ash_track")
 	check(scene._save_world(), "ch05 hunt progress saves")
 	saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 	check(saved is Dictionary and bool(saved.get("story_flags", {}).get("challenge_clear_ch05_ash_hunt", false)), "ch05 hunt clear flag is on disk")
