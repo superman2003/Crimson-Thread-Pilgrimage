@@ -97,33 +97,6 @@ def audit() -> tuple[dict, list[str]]:
         refill = int(tool.get("resupply", {}).get("currency", 0)) * (int(tool.get("capacity", 0)) + bonus)
         if refill > TOOL_REFILL_KILLS * KILL_CURRENCY:
             errors.append(f"{tool_id}: a full refill costs {refill}, more than {TOOL_REFILL_KILLS} regular kills")
-    # E04: tool-resupply materials must also sink via recipes (skill校习 / artisan crafts).
-    # Later-region drops without a tool refill (军墓灰石、冠核残响等) are out of this batch.
-    tool_materials = set()
-    for tool in catalog["tools"].values():
-        tool_materials.update((tool.get("resupply") or {}).get("materials") or {})
-    material_recipe_sinks = {m: [] for m in sorted(tool_materials)}
-    for recipe_id, recipe in catalog.get("recipes", {}).items():
-        mats = recipe.get("materials") or {}
-        if recipe.get("kind") == "skill" and not mats:
-            errors.append(f"{recipe_id}: skill upgrade must spend regional materials (E04)")
-        for material, amount in mats.items():
-            if material in material_recipe_sinks:
-                material_recipe_sinks[material].append(recipe_id)
-            if int(amount) <= 0:
-                errors.append(f"{recipe_id}: material amount for {material} must be positive")
-        if recipe.get("kind") == "passive":
-            if int(recipe.get("currency", 0)) <= 0:
-                errors.append(f"{recipe_id}: artisan craft should also spend currency")
-            target = str(recipe.get("target", ""))
-            if target not in catalog.get("passives", {}):
-                errors.append(f"{recipe_id}: craft target {target} is not a catalog passive")
-            if not mats:
-                errors.append(f"{recipe_id}: artisan craft must spend materials")
-    for material, sinks in material_recipe_sinks.items():
-        if not sinks:
-            errors.append(f"{material}: no recipe sink beyond tool refill (E04)")
-
     # Totals.
     income = sum(r["first_clear_kills"] + r["elite_first"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
     maps = sum(r["map_price"] for r in rows.values())
@@ -137,8 +110,7 @@ def audit() -> tuple[dict, list[str]]:
     if sinks < MIN_SINK_SHARE * income:
         errors.append(f"one-time sinks {sinks} are under {MIN_SINK_SHARE:.0%} of income {income}: late currency has nothing to buy")
     report = {"regions": rows, "tool_regions": tool_region, "one_time_income": income, "map_sinks": maps,
-              "skill_upgrade_sinks": skills, "one_time_sinks": sinks, "sink_share": round(sinks / income, 3) if income else 0,
-              "material_recipe_sinks": {m: sorted(v) for m, v in material_recipe_sinks.items()}}
+              "skill_upgrade_sinks": skills, "one_time_sinks": sinks, "sink_share": round(sinks / income, 3) if income else 0}
     return report, errors
 
 

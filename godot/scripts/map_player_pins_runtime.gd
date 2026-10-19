@@ -148,6 +148,9 @@ static func declutter(markers: Array[Label]) -> void:
     for attempt in markers.size():
         if _layout(groups): return
         var pair := _nearest_merge(groups)
+        # Too crowded to keep every number near its pin: a farther number is
+        # still readable, an overlap is not, so merge the nearest pair anyway.
+        if pair.is_empty(): pair = _nearest_merge(groups, false)
         if pair.is_empty(): return
         _join(groups[pair[0]], groups[pair[1]])
         groups.remove_at(pair[1])
@@ -161,7 +164,7 @@ static func _layout(groups: Array[Label]) -> bool:
         placed.append(marker)
     return true
 
-static func _nearest_merge(groups: Array[Label]) -> Array[int]:
+static func _nearest_merge(groups: Array[Label], bounded: bool = true) -> Array[int]:
     var best: Array[int] = []
     var distance := INF
     for i in groups.size():
@@ -172,7 +175,7 @@ static func _nearest_merge(groups: Array[Label]) -> Array[int]:
             for anchor in anchors: center += anchor
             center /= anchors.size()
             var near := true
-            for anchor in anchors:
+            for anchor in (anchors if bounded else []):
                 if center.distance_to(anchor) > MAX_DRIFT:
                     near = false
                     break

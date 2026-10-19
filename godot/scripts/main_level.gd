@@ -520,6 +520,9 @@ var locked_gate_bodies: Dictionary = {}
 var unlocked_abilities: Dictionary = {}
 var boss_actor: Area2D
 var boss_arena_lock_body: StaticBody2D
+## E02: this region's tool practice rooms and encounter hints, built with the region.
+var tool_practice_rooms: Dictionary = {}
+var tool_encounter_hints: Dictionary = {}
 ## B04 optional challenge rooms / optional bosses: sealed on demand, one-time clear.
 var challenge_arena_lock_body: StaticBody2D
 var active_challenge_id := ""
@@ -3534,9 +3537,18 @@ func _spawn_seal_practice_targets() -> void:
 ## E02: each primary tool has a practice puppet beside the skill racks. The
 ## puppet runs real AI from its plan profile so the tool visibly acts on it.
 func _spawn_tool_practice_targets() -> void:
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("tool_practice_plan", []):
+    # cached_data() deep-copies the whole route manifest, so read it once per
+    # region and keep only this region's rooms for the per-cast / per-room checks.
+    var routes: Dictionary = WORLD_ROUTES_SCRIPT.cached_data()
+    tool_practice_rooms.clear()
+    tool_encounter_hints.clear()
+    for entry in routes.get("tool_encounter_plan", []):
+        if String(entry.get("region_id", "")) == String(config.get("id", "")):
+            tool_encounter_hints[String(entry.get("room_id", ""))] = entry
+    for entry in routes.get("tool_practice_plan", []):
         if String(entry.get("region_id", "")) != String(config.get("id", "")):
             continue
+        tool_practice_rooms[String(entry.get("room_id", ""))] = true
         var target := Area2D.new()
         target.set_script(load("res://scripts/tool_training_target.gd"))
         target.name = String(entry.training_id)
@@ -3569,10 +3581,7 @@ func _spawn_tool_practice_targets() -> void:
 
 
 func _in_tool_practice_room() -> bool:
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("tool_practice_plan", []):
-        if String(entry.get("region_id", "")) == String(config.get("id", "")) and String(entry.get("room_id", "")) == current_room_id:
-            return true
-    return false
+    return tool_practice_rooms.has(current_room_id)
 
 
 ## E02: the first time an equipped tool's suited encounter room is entered, say
@@ -3580,13 +3589,12 @@ func _in_tool_practice_room() -> bool:
 func _show_tool_encounter_hint() -> void:
     if build_system == null:
         return
-    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("tool_encounter_plan", []):
-        if String(entry.get("region_id", "")) != String(config.get("id", "")) or String(entry.get("room_id", "")) != current_room_id:
-            continue
+    if tool_encounter_hints.has(current_room_id):
+        var entry: Dictionary = tool_encounter_hints[current_room_id]
         var tool_id := String(entry.get("tool_id", ""))
         var flag := "tool_hint_%s_%s" % [String(config.get("id", "")), current_room_id]
         if bool(story_flags.get(flag, false)) or not build_system.state.unlocked_tools.has(tool_id) or not build_system.state.tools.has(tool_id):
-            continue
+            return
         story_flags[flag] = true
         _toast("战具提示 · %s：%s" % [String(build_system.catalog.tools[tool_id].get("name", tool_id)), String(entry.get("note", ""))])
 
@@ -7301,18 +7309,13 @@ func _near_workstation(crafting: bool = false) -> bool:
             return true
         if crafting and kind == "npc":
             var id := String(child.get_meta("npc_id", child.name))
-            # U02: artisans host校习／工匠制作；盐白司书负责盐页书签一脉。
-            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor", "npc_salt_librarian_ye"]:
+            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]:
                 return true
     return false
 
 ## Read-only proximity query used by UI affordances and explicit quote actions.
 func is_near_shrine() -> bool:
     return _near_workstation(false)
-
-## Shrine or artisan. The build UI keeps every tab at a shrine, and only 强化／制作 beside an artisan.
-func is_near_build_station() -> bool:
-    return _near_workstation(false) or _near_workstation(true)
 
 func _build_wallet_snapshot() -> Dictionary:
     return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
@@ -7390,7 +7393,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                 _set_build_wallet(result.wallet)
         "transact", "craft":
             if not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒、蜂蜡商人或盐白司书面对面强化／制作"}
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化"}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
                 if result.get("ok", false):
