@@ -100,10 +100,17 @@ def audit() -> tuple[dict, list[str]]:
     # Totals.
     income = sum(r["first_clear_kills"] + r["elite_first"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
     maps = sum(r["map_price"] for r in rows.values())
-    skills = 0
+    # C04: each skill takes one 校习 direction; count the cheaper one as the
+    # one-time sink. Switching direction later is an optional repeat purchase.
+    cheapest_branch: dict[str, int] = {}
     for recipe in catalog["recipes"].values():
-        if recipe.get("kind") == "skill":
-            skills += sum(int(recipe["currency"]) + level * int(recipe.get("currency_per_level", 20)) for level in range(2))
+        if recipe.get("kind") == "skill_branch":
+            target = recipe["target"]
+            cheapest_branch[target] = min(cheapest_branch.get(target, 10**9), int(recipe["currency"]))
+    for skill_id in catalog["skills"]:
+        if skill_id not in cheapest_branch:
+            errors.append(f"{skill_id}: no 校习 direction can be bought")
+    skills = sum(cheapest_branch.values())
     sinks = maps + skills
     if income < INCOME_HEADROOM * sinks:
         errors.append(f"one-time income {income} is below {INCOME_HEADROOM}x one-time sinks {sinks}: purchases would need grinding")

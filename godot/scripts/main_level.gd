@@ -523,6 +523,9 @@ var boss_arena_lock_body: StaticBody2D
 ## E02: this region's tool practice rooms and encounter hints, built with the region.
 var tool_practice_rooms: Dictionary = {}
 var tool_encounter_hints: Dictionary = {}
+
+## C04: practice hits per skill this session; three open its 校习 directions.
+var skill_practice_hits: Dictionary = {}
 ## B04 optional challenge rooms / optional bosses: sealed on demand, one-time clear.
 var challenge_arena_lock_body: StaticBody2D
 var active_challenge_id := ""
@@ -3655,6 +3658,26 @@ func _mark_hidden_route_found() -> void:
             continue
         clue.found = true
         story_flags["hidden_found_" + String(entry.id)] = true
+
+const SKILL_PRACTICE_HITS := 3
+const SKILL_PRACTICE_WINDOW_MSEC := 1500
+
+## A practice rack counts a hit only right after its own skill was cast, so
+## basic attacks never train a skill.
+func _on_skill_practice_hit(skill_id: String) -> void:
+    if player == null or not is_instance_valid(player) or build_system == null:
+        return
+    if String(player.last_skill_cast) != skill_id or Time.get_ticks_msec() - int(player.last_skill_cast_msec) > SKILL_PRACTICE_WINDOW_MSEC:
+        return
+    var flag := "skill_practiced_" + skill_id
+    if bool(story_flags.get(flag, false)):
+        return
+    skill_practice_hits[skill_id] = int(skill_practice_hits.get(skill_id, 0)) + 1
+    if int(skill_practice_hits[skill_id]) < SKILL_PRACTICE_HITS:
+        return
+    story_flags[flag] = true
+    _save_world()
+    _toast("已练熟「%s」：可找织线学徒、雨铸匠或蜂蜡商人选择校习方向。" % String(build_system.catalog.skills[skill_id].get("name", skill_id)))
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
@@ -7335,6 +7358,10 @@ func _near_workstation(crafting: bool = false) -> bool:
 func is_near_shrine() -> bool:
     return _near_workstation(false)
 
+## U02: beside an artisan the build page opens on 强化, where 校习 is bought.
+func is_near_artisan() -> bool:
+    return _near_workstation(true)
+
 func _build_wallet_snapshot() -> Dictionary:
     return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
 
@@ -7410,8 +7437,12 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             if result.get("ok", false):
                 _set_build_wallet(result.wallet)
         "transact", "craft":
-            if not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化"}
+            var recipe: Dictionary = build_system.catalog.recipes.get(id, {})
+            var practice_target := String(recipe.get("target", ""))
+            if String(recipe.get("kind", "")) == "skill_branch" and not bool(story_flags.get("skill_practiced_" + practice_target, false)):
+                result = {"ok": false, "reason": "先在练针架上练熟「%s」，再选校习方向" % String(build_system.catalog.skills.get(practice_target, {}).get("name", practice_target))}
+            elif not _near_workstation(true):
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面校习"}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
                 if result.get("ok", false):

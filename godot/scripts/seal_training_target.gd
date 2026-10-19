@@ -27,7 +27,8 @@ func _physics_process(delta: float) -> void:
         if guard_practice_clock >= 2.0:
             guard_practice_clock = 0.0
             if practice_player != null and practice_player.global_position.distance_to(global_position) < 115.0 and practice_player.has_method("practice_guard_contact"):
-                practice_player.practice_guard_contact(global_position)
+                if practice_player.practice_guard_contact(global_position):
+                    _report_practice()
 
 func _draw() -> void:
     if String(name) == "seal_training_ward" and guard_practice_clock > 1.5:
@@ -40,3 +41,10 @@ func take_hit(amount: int, _hit_direction: int) -> void:
     hp = maxi(0, hp - maxi(0, amount))
     hit_count += 1
     training_reset = 1.5 if hp <= 0 else 0.0
+    _report_practice()
+
+## C04: tell the level this rack's skill was practised; it checks the last cast.
+func _report_practice() -> void:
+    var level := get_parent()
+    if level != null and level.has_method("_on_skill_practice_hit"):
+        level._on_skill_practice_hit(String(name).trim_prefix("seal_training_"))

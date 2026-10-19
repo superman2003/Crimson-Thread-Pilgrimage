@@ -53,15 +53,25 @@ func _initialize() -> void:
     var cds := build.cooldowns.duplicate(true)
     _check(build.switch_crest("bell").ok and build.equip_passives([]).ok and build.restore_loadout("记名").ok, "restore exact build")
     _check(build.state.skills == ["cleave", "needle"] and build.state.passives == ["shell", "stride"] and stock == build.state.tool_counts and cds == build.cooldowns, "loadout preserves stock/CD")
-    var wallet := {"currency": 200, "inventory_counts": {"echo_hook": 1}}
+    var wallet := {"currency": 400, "inventory_counts": {"echo_hook": 1, "salt_crystal_shard": 4}}
     var wallet_before := wallet.duplicate(true)
     _check(build.switch_crest("crimson").ok, "return to a crest whose open skill slot accepts needle")
-    _check(build.select_skill("needle", 1).ok, "upgrade target")
+    _check(build.select_skill("needle", 1).ok, "校习 target")
     var zero := build.selected_skill()
-    var purchase := build.transact("upgrade_needle", wallet)
-    _check(purchase.ok and purchase.wallet.currency == 200 - int(build.catalog.recipes.upgrade_needle.currency) and wallet == wallet_before, "upgrade atomic wallet charges the catalog price")
-    _check(build.selected_skill().pierce == 1 and build.selected_skill().range > zero.range, "upgrade remains single target")
-    _check(build.transact("upgrade_needle", wallet).ok and not build.transact("upgrade_needle", wallet).ok, "upgrade cap")
+    var far_recipe: Dictionary = build.catalog.recipes.branch_needle_a
+    var purchase := build.transact("branch_needle_a", wallet)
+    _check(purchase.ok and purchase.wallet.currency == 400 - int(far_recipe.currency) and purchase.wallet.inventory_counts.salt_crystal_shard == 4 - int(far_recipe.materials.salt_crystal_shard) and wallet == wallet_before, "校习 charges catalog currency and materials on a copied wallet")
+    var far := build.selected_skill()
+    _check(far.branch == "a" and far.range > zero.range and far.damage == zero.damage and far.pierce == 1, "远针 reaches further at the same damage and stays single target")
+    _check(not build.transact("branch_needle_a", purchase.wallet).ok, "the chosen direction cannot be bought twice")
+    var heavy_purchase := build.transact("branch_needle_b", purchase.wallet)
+    var heavy := build.selected_skill()
+    _check(heavy_purchase.ok and heavy.branch == "b" and heavy.damage > zero.damage and heavy.range < zero.range and heavy.energy_cost > zero.energy_cost, "switching to 重针 replaces 远针: more damage, less range, more thread")
+    _check(int(build.state.skill_levels.needle) == 2, "the save keeps one direction per skill")
+    _check(not build.transact("branch_needle_a", {"currency": 400, "inventory_counts": {}}).ok and build.selected_skill().branch == "b", "missing materials refuse a switch without changing the direction")
+    for skill_id in build.catalog.skills:
+        var directions: Dictionary = build.catalog.skills[skill_id].get("branches", {})
+        _check(directions.size() == 2 and build.catalog.recipes.has("branch_%s_a" % skill_id) and build.catalog.recipes.has("branch_%s_b" % skill_id), skill_id + " has two exclusive 校习 directions")
     _check(build.select_tool("shard", 0).ok, "select tool")
     for unused in range(3):
         _check(build.use_tool().ok, "finite tool consumption")
@@ -98,7 +108,7 @@ func _initialize() -> void:
         before = restart.serialize()
         _check(not restart.restore(corrupt).ok and restart.serialize() == before, "transactional corruption rejection " + corrupt_kind)
     var snapshot := build.get_snapshot()
-    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 6, "full UI catalog")
+    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 12, "full UI catalog")
     _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
     if failures.is_empty():
         print("BUILD SYSTEM PASS: %d checks" % checks)

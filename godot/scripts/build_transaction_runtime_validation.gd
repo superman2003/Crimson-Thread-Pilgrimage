@@ -80,14 +80,16 @@ func _run() -> void:
 		player.energy = 47
 		player.skill_cooldown = 1.25
 		build.cooldowns["cleave"] = 2.75
-		scene.currency_count = 100
+		scene.currency_count = 200
+		scene.inventory_counts["moss_chitin"] = 2
+		scene.story_flags["skill_practiced_cleave"] = true
 		scene.world_save_failure_injected_for_validation = true
 		var build_before: Dictionary = build.serialize()
 		var wallet_before: Dictionary = scene._build_wallet_snapshot()
-		var result: Dictionary = scene.perform_build_action("transact", "upgrade_cleave")
+		var result: Dictionary = scene.perform_build_action("transact", "branch_cleave_a")
 		_check(not result.get("ok", false) and String(result.get("reason", "")).begins_with("归途记录未能写入"),
 			"valid craft reaches and reports failed persistence")
-		_check(int(build_before.skill_levels.get("cleave", 0)) == 0 and int(wallet_before.currency) == 100,
+		_check(int(build_before.skill_levels.get("cleave", 0)) == 0 and int(wallet_before.currency) == 200,
 			"craft failure fixture starts with an affordable, unapplied upgrade")
 		_check(build.serialize() == build_before, "failed craft rolls back build progress and cooldowns")
 		_check(scene.currency_count == wallet_before.currency and scene.inventory_counts == wallet_before.inventory_counts,

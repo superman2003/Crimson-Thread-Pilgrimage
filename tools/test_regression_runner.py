@@ -75,7 +75,8 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 121)
+        self.assertEqual(len(all_suites), 122)
+        self.assertIn("skill_branches", DEFAULT_SUITES)
         self.assertIn("tool_practice", DEFAULT_SUITES)
         self.assertIn("shrine_exit_probe", DEFAULT_SUITES)
         self.assertIn("shrine_exit_routes", DEFAULT_SUITES)
