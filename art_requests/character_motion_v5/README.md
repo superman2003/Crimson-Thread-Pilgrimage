@@ -1,257 +1,460 @@
-# 全項目角色動作素材出圖清單（v5）
+# 角色動作素材出圖清單（v5，仍需出圖）
 
-依據 2026-10-17 對 main `c0918c0` 的全項目審計。審計沒有直接採用 PR #101 報告的結論，而是從遊戲代碼實際請求的動作出發，逐個角色核對運行時讀到的幀。
+2026-10-19 依 main `cae227c1` 重新核對。主角（原 A–D 組與上劈/下劈弧線重畫）已在 #102 及之後的提交接入，不再列出；下面每一項都用目前遊戲實際讀到的幀確認過問題仍在。
 
-## 審計範圍與結論
+## 清單
 
-| 範圍 | 數量 | 結論 |
-| --- | ---: | --- |
-| 主角 | 1 | **缺得最多**：待機披風跳幀、沒有跑攻、3 個技能/道具動作借用別的動作的圖、空中循環只有 1 幀 |
-| 普通怪 | 40 | 每種都有 idle4 / walk8 / windup4 / attack4 / recover4 / hurt / death，沒有缺動作。**3 種有銜接或畫面錯誤要補圖，另有 2 種可能只是幀順序問題** |
-| Boss | 6 | 動作齊全。**4 個 Boss 的二階段攻擊直接複製普通攻擊的圖**；6 個 Boss 的重擊、施法、二階段攻擊結束後都接通用收招，跳變明顯 |
-| 正式 NPC | 25 | 全部有獨立的 idle4 / talk8 / greet2 / rest2，沒有缺動作。2 張圖被裁到邊 |
-| 生成地圖的佔位 NPC | 36 | 只出現在 `GeneratedMain.tscn`（生成地圖試玩場景），不在主遊戲 World 裡。共用 6 個章節 NPC 的圖。**不建議做**，見最後一節 |
+| 順序 | 組 | 檔名 | 幀數 | 依賴 |
+| ---: | --- | --- | ---: | --- |
+| 1 | E | `E_phase_broken_string_gardener.png` | 4 |  |
+| 2 | E | `E_phase_rust_crown_guardian.png` | 4 |  |
+| 3 | E | `E_phase_saltwhite_contract_judge.png` | 4 |  |
+| 4 | E | `E_phase_sunken_hammer_smith.png` | 4 |  |
+| 5 | G | `G_ash_banner_imp_attack0.png` | 1 |  |
+| 6 | G | `G_ash_banner_imp_windup.png` | 4 | 先做 `G_ash_banner_imp_attack0.png` |
+| 7 | G | `G_ash_banner_imp_recover.png` | 2 |  |
+| 8 | G | `G_echo_contract_scribe_attack3.png` | 1 |  |
+| 9 | G | `G_wax_lancer_recover.png` | 2 |  |
+| 10 | F | `F_recover_broken_string_gardener_heavy.png` | 2 |  |
+| 11 | F | `F_recover_broken_string_gardener_cast.png` | 2 |  |
+| 12 | F | `F_recover_broken_string_gardener_phase.png` | 2 | 先做 `E_phase_broken_string_gardener.png` |
+| 13 | F | `F_recover_rust_crown_guardian_heavy.png` | 2 |  |
+| 14 | F | `F_recover_rust_crown_guardian_cast.png` | 2 |  |
+| 15 | F | `F_recover_rust_crown_guardian_phase.png` | 2 | 先做 `E_phase_rust_crown_guardian.png` |
+| 16 | F | `F_recover_saltwhite_contract_judge_heavy.png` | 2 |  |
+| 17 | F | `F_recover_saltwhite_contract_judge_cast.png` | 2 |  |
+| 18 | F | `F_recover_saltwhite_contract_judge_phase.png` | 2 | 先做 `E_phase_saltwhite_contract_judge.png` |
+| 19 | F | `F_recover_sunken_hammer_smith_heavy.png` | 2 |  |
+| 20 | F | `F_recover_sunken_hammer_smith_cast.png` | 2 |  |
+| 21 | F | `F_recover_sunken_hammer_smith_phase.png` | 2 | 先做 `E_phase_sunken_hammer_smith.png` |
+| 22 | F | `F_recover_silent_crown_core_heavy.png` | 2 |  |
+| 23 | F | `F_recover_silent_crown_core_cast.png` | 2 |  |
+| 24 | F | `F_recover_silent_crown_core_phase.png` | 2 |  |
+| 25 | F | `F_recover_silent_pilgrim_commander_heavy.png` | 2 |  |
+| 26 | F | `F_recover_silent_pilgrim_commander_cast.png` | 2 |  |
+| 27 | F | `F_recover_silent_pilgrim_commander_phase.png` | 2 |  |
+| 28 | H | `H_broken_string_gardener_death3.png` | 1 |  |
+| 29 | H | `H_delayed_shadow_recover0.png` | 1 |  |
+| 30 | H | `H_pipe_thrower_hurt2.png` | 1 |  |
+| 31 | H | `H_npc_blind_bell_knight_talk3.png` | 1 |  |
+| 32 | H | `H_npc_deserter_flagbearer_talk6.png` | 1 |  |
 
-自動檢查覆蓋 71 個正式角色的 2028 個幀引用：空幀、裁邊、重複像素、跨動作複製、相鄰幀尺寸跳變、狀態銜接處的輪廓跳變。然後逐一人工看過 71 個角色的全部幀，以及 64 條「待機→前搖→出招→收招→待機」的銜接序列。
+共 **32 張、67 幀**：E 16、G 10、F 36、H 5。順序就是建議的出圖順序（優先 1 的 E、G 在前）。
 
-普通怪在遊戲數據裡沒有中文名，以下用代碼 ID 稱呼。
+## 通用要求
 
-## 通用要求（每一張都適用）
+- 每張附上下面寫明的參考圖（在 `refs/`），提示詞整段複製，不要刪減。
+- 一律面朝右、真透明 PNG、不要地面陰影和文字；畫面上只有角色和武器，**不要任何特效**（刀光、殘影、光波、塵土都由遊戲繪製）。
+- 尺寸照提示詞裡的畫布；生成器不支持就用最接近的比例，格子數和順序不能變。
+- 角色大小要和參考圖裡同一角色一致，同一張內每格一樣大。導入時我會統一縮放和腳底對齊，但不會修姿勢。
+- 只上傳選定的那一張，放進 `incoming/`，檔名照清單；當次實際用的提示詞存成同名 `.txt`。
+- 退回標準：格數不對、角色走樣、帶特效或背景、被裁邊、接不上前後幀。
 
-- **人物一致**：主角以 `refs/00_style_run_v4_8frames.png` 為畫風參考；怪物、Boss、NPC 以清單裡列出的該角色現有幀為參考，要求「同一角色、同一畫風」（identity-preserve）。
-- **朝向**：一律面朝右。
-- **背景**：真透明 PNG。不要白底、灰底或棋盤格，也不要陰影、地面、文字和邊框。
-- **排版**：一張 sheet 放一個動作的全部幀，從左到右、從上到下依序排列。每幀之間留寬一點的空白，角色和武器都不能被裁到或互相重疊。
-- **鏡頭**：同一張 sheet 內鏡頭和比例固定，與參考圖的角色大小一致，腳底在同一條水平線上（飛行和空中動作除外）。
-- **解析度**：每格至少 400×400。
-- **檔名**：用清單裡的「檔名」欄。只上傳最後選定的那一張。
-- **提示詞**：當次用的提示詞存成同名 `.txt` 一起放上來，我會寫進生成記錄。
+## E. Boss 二階段攻擊專屬出招（4 張 × 4 幀，優先 1）
 
-## 清單總覽
+這 4 個 Boss 的二階段出招 4 幀和普通攻擊的像素完全相同（10-19 逐幀比對 4/4 相同）。參考圖依序是：待機 1、二階段前搖 4、目前被複製的普通攻擊 4。新出招要從第 5 個（前搖最後一幀）接下去，而且**不能**畫得像最後 4 個。
 
-| 優先 | 組 | 內容 | 幀數 |
-| --- | --- | --- | ---: |
-| 1 | A | 主角待機披風過渡幀 | 3 |
-| 1 | B | 主角跑攻（新動作） | 6 |
-| 1 | E | Boss 二階段攻擊專屬出招幀（4 個 Boss） | 16 |
-| 1 | G | 普通怪銜接和畫面錯誤（3 種） | 10 |
-| 2 | C | 主角獨立技能/道具動作 | 12 |
-| 2 | D | 主角空中循環 | 4 |
-| 2 | F | Boss 招式收招過渡幀（6 個 Boss × 3 招） | 36 |
-| 3 | H | 被裁到邊的單幀重畫 | 5 |
+#### 銅根主教（broken_string_gardener） · `E_phase_broken_string_gardener.png`
 
-**必做（優先 1）35 幀；全部 92 幀。** 另外有 2 項可能不用出圖，我會先試著調整幀順序，見 G 組最後。
+- 幀數：4
+- 附參考圖：`refs/50_boss_phase_broken_string_gardener.png`
 
----
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/50_boss_phase_broken_string_gardener.png): a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: idle 1, second-phase wind-up 4, current normal attack 4. Draw a NEW four-cel second-phase signature strike that continues directly from the LAST wind-up figure (the 5th figure). It must be a larger, more violent and clearly different attack from the normal attack (the last four figures); do not reuse those poses.
+Layout: exactly 4 cels on a 2-column x 2-row grid (1536x1024 px canvas, one 768x512 px cel each), read left-to-right then top-to-bottom.
+Cel 1: steps forward out of the tall wind-up and swings the crozier up overhead with both hands, root-hair crown flaring, leafy cloak lifting.
+Cel 2: brings the crozier down in a huge overhead arc in front of the body, lace stoles and leaf cloak whipping forward.
+Cel 3: deep forward lunge, the crozier head slammed onto the ground line well in front of the feet, root claws gripping, leafy mantle splayed wide.
+Cel 4: holds the impact low and heavy, hunched over the crozier still planted on the ground ahead.
+```
+#### 苔鐘守母（rust_crown_guardian） · `E_phase_rust_crown_guardian.png`
 
-## 主角
+- 幀數：4
+- 附參考圖：`refs/50_boss_phase_rust_crown_guardian.png`
 
-### A. 待機披風過渡幀（3 幀）· `A_idle_cloth_bridges.png`
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/50_boss_phase_rust_crown_guardian.png): a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: idle 1, second-phase wind-up 4, current normal attack 4. Draw a NEW four-cel second-phase signature strike that continues directly from the LAST wind-up figure (the 5th figure). It must be a larger, more violent and clearly different attack from the normal attack (the last four figures); do not reuse those poses.
+Layout: exactly 4 cels on a 2-column x 2-row grid (1536x1024 px canvas, one 768x512 px cel each), read left-to-right then top-to-bottom.
+Cel 1: launches from the raised wind-up into a long low lunge, both scythes thrust far ahead, fern cloak streaming back, bells swinging.
+Cel 2: twists the torso and sweeps both scythes wide outward at full reach, one high and one low.
+Cel 3: continues the turn, both scythes swung around overhead in a big crossing arc, cloak flung open.
+Cel 4: plants low and wide with both scythes crossed and driven down at the ground line in front.
+```
+#### 灰冠螳將（saltwhite_contract_judge） · `E_phase_saltwhite_contract_judge.png`
 
-待機是一張固定身體，加上 7 張循環播放的披風圖。7 張披風的輪廓分成兩組，在 cel2→cel4、cel6→cel7、cel7→cel1 三處跳得明顯。要畫的是 3 張「中間形狀」：
+- 幀數：4
+- 附參考圖：`refs/50_boss_phase_saltwhite_contract_judge.png`
 
-- A1：介於 cel2 和 cel4 之間
-- A2：介於 cel6 和 cel7 之間
-- A3：介於 cel7 和 cel1 之間
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/50_boss_phase_saltwhite_contract_judge.png): a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: idle 1, second-phase wind-up 4, current normal attack 4. Draw a NEW four-cel second-phase signature strike that continues directly from the LAST wind-up figure (the 5th figure). It must be a larger, more violent and clearly different attack from the normal attack (the last four figures); do not reuse those poses.
+Layout: exactly 4 cels on a 2-column x 2-row grid (1536x1024 px canvas, one 768x512 px cel each), read left-to-right then top-to-bottom.
+Cel 1: rising diagonal sweep with the front scythe blade from low behind to high in front, body uncoiling from the wind-up.
+Cel 2: reverse diagonal sweep with the rear blade from high to low, torso twisting the other way, crimson cloak whipping.
+Cel 3: deep lunge with both blades thrust straight forward and crossed in an X at full extension.
+Cel 4: exhausted low stance, both blades lowered and crossed near the ground, shoulders dropped, cloak settling.
+```
+#### 緋線執剪者（sunken_hammer_smith） · `E_phase_sunken_hammer_smith.png`
 
-參考圖：`11_bridge_A1/A2/A3_*.png`（每張左右兩個是要銜接的兩端）、`10_idle_cloth_cel*.png`。
+- 幀數：4
+- 附參考圖：`refs/50_boss_phase_sunken_hammer_smith.png`
+- 緋線執剪者普通攻擊第 4 幀縮小的問題我會用調比例修，不用另外畫。
 
-**只畫披風加圍巾**，透明背景，右上角是領口掛點，布料往左下飄。領口位置、大小、線條粗細、上色方式和現有披風圖完全一致，只改下擺和圍巾尾端的形狀。3 張橫排。
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/50_boss_phase_sunken_hammer_smith.png): a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: idle 1, second-phase wind-up 4, current normal attack 4. Draw a NEW four-cel second-phase signature strike that continues directly from the LAST wind-up figure (the 5th figure). It must be a larger, more violent and clearly different attack from the normal attack (the last four figures); do not reuse those poses.
+Layout: exactly 4 cels on a 2-column x 2-row grid (1536x1024 px canvas, one 768x512 px cel each), read left-to-right then top-to-bottom.
+Cel 1: leaps up and forward out of the wind-up with the enormous shears held wide open overhead, feet off the ground.
+Cel 2: airborne, body curled in a tight forward spin, the open shears hugged close, crimson feather cloak wrapping around.
+Cel 3: still airborne, uncurls and snaps the shears shut in a horizontal sweep at full arm extension in front of the chest.
+Cel 4: lands in a deep low crouch, the closed shears pointing forward along the ground line. Same body size as every other cel; do not shrink.
+```
+## G. 普通怪銜接和畫面錯誤（5 張共 10 幀，優先 1）
 
-> Cloth-only sprite cels for a 2D game: a red scarf and a teal tattered cape, attached at the top-right collar point, flowing to the lower left in a gentle idle breeze. Exactly 3 cels in one row, generous transparent gutters. Cel 1 is the in-between shape of reference A1 left and right, cel 2 of A2, cel 3 of A3. Keep the collar position, scale, line weight and painted shading identical to the references; only the hem and scarf tail shapes change. No body, no character, no background, no text, genuine transparency.
+#### ash_banner_imp：出招第 1 幀（旗色錯） · `G_ash_banner_imp_attack0.png`
 
-### B. 跑攻（6 幀）· `B_run_attack.png`
+- 幀數：1
+- 附參考圖：`refs/60_ash_banner_imp_full_attack.png`
+- 先做這張；前搖第 4 幀要接上它。
 
-現在地面攻擊不管有沒有在跑，播的都是站姿攻擊圖，跑步中出刀時腳步會突然停住。新動作讓雙腿維持跑步步幅、上半身揮劍：1–2 前搖、3–4 水平斬、5–6 收回跑步持劍。3 列 × 2 行。參考：`00_style_run_v4_8frames.png`、`20_v3_attack_1.png`。
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/60_ash_banner_imp_full_attack.png): a small nimble ash grey beetle imp: a pale bone skull face with black eye holes, two curved white horns, a round grey shell on its back, thin dark limbs, red silk ribbons tied around its neck, and a tall spear that carries a ragged black banner edged with red silk. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: idle 1, wind-up 4, strike 4, recovery 2. Redraw ONLY strike figure 1 (the 6th figure): the same low forward lunge with the banner spear thrust forward at hip height. The banner and its red silk must look like they do in strike figures 2-4 (the 7th to 9th figures), so the four strike cels share one consistent banner color.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+#### ash_banner_imp：前搖 4 幀（現在和待機幾乎一樣） · `G_ash_banner_imp_windup.png`
 
-> Same black-haired swordsman with red scarf, teal cape, dark costume and boots as the reference. Six sequential right-facing poses of a running horizontal sword slash in 3 columns x 2 rows: 1-2 wind-up raising the sword while running, 3-4 forward horizontal slash with full arm extension, 5-6 recovery back to running sword hold. Legs keep a real running stride throughout. Fixed camera and scale, full body and sword visible, generous gutters, genuine transparency, no text or background. Preserve the reference drawing style exactly.
+- 幀數：4
+- 附參考圖：`refs/60_ash_banner_imp_full_attack.png`＋你選定的 `G_ash_banner_imp_attack0.png`
 
-### C. 獨立技能/道具動作（3 × 4 幀）
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/60_ash_banner_imp_full_attack.png): a small nimble ash grey beetle imp: a pale bone skull face with black eye holes, two curved white horns, a round grey shell on its back, thin dark limbs, red silk ribbons tied around its neck, and a tall spear that carries a ragged black banner edged with red silk. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference image 2 is the new strike figure 1. Draw a NEW four-cel wind-up that clearly reads as preparing a lunge: it starts from the upright idle stance (first figure of reference 1) and ends one step before the low lunge of reference image 2.
+Cel 1: weight shifts back, the upright banner spear starts to tilt forward.
+Cel 2: spear brought down to shoulder height and drawn back, body coiling, banner swinging behind.
+Cel 3: deep crouch, spear held level and pulled far back at the hip, horns lowered.
+Cel 4: front foot sliding forward, body low and stretched, spear tip aimed forward low, about to lunge into reference image 2.
+Layout: exactly 4 cels on a 2-column x 2-row grid (1536x1024 px canvas, one 768x512 px cel each), read left-to-right then top-to-bottom.
+```
+#### ash_banner_imp：收招過渡 2 幀 · `G_ash_banner_imp_recover.png`
 
-現在這三個動作直接借用別的動作的圖。每個 4 幀橫排：起手 → 發動 → 持續 → 收招。
+- 幀數：2
+- 附參考圖：`refs/60_ash_banner_imp_full_attack.png`
 
-| 檔名 | 內容 | 目前借用 | 參考 |
-| --- | --- | --- | --- |
-| `C_skill_melee.png` | 蓄力重斬，幅度比普攻大，可帶少量紅色線光 | attack_2 | `20_v3_attack_2.png` |
-| `C_skill_wave.png` | 向前揮出劍氣，劍身前方一道紅色弧形光波，不蓋住身體 | skill_control | `30_v3_skill_control_used_by_skill_wave.png` |
-| `C_item_use.png` | 左手從腰間取出小型戰具往前拋出或啟動，右手持劍放低 | skill_projectile | `30_v3_skill_projectile_used_by_item_use.png` |
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/60_ash_banner_imp_full_attack.png): a small nimble ash grey beetle imp: a pale bone skull face with black eye holes, two curved white horns, a round grey shell on its back, thin dark limbs, red silk ribbons tied around its neck, and a tall spear that carries a ragged black banner edged with red silk. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Draw exactly two in-between poses that bridge from strike figure 4 (the 9th figure, low forward thrust) to recovery figure 1 (the 10th figure, standing upright holding the banner high).
+Cel 1: pulls the spear back and rises halfway, spear angled up at about 45 degrees, banner starting to lift.
+Cel 2: almost upright, spear nearly vertical, banner falling into place, one short step from the 10th figure.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### echo_contract_scribe：出招第 4 幀（縮成一團） · `G_echo_contract_scribe_attack3.png`
 
-> Same swordsman as the reference. Four sequential right-facing poses in one row: [動作描述]. Start, activation, sustain, recovery. Fixed camera and scale, feet on the same baseline, full body and sword visible, generous gutters, genuine transparency, no text or background. Preserve the reference drawing style exactly.
+- 幀數：1
+- 附參考圖：`refs/62_echo_contract_scribe_attack3.png`
 
-### D. 空中循環（2 × 2 幀）
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/62_echo_contract_scribe_attack3.png): a slender paper scribe insect: a pale bone mask face with black eyes and two curved antennae, a tattered cream parchment cloak, a crimson scarf and a long red sash with small gold seal ornaments, thin black limbs, and a long golden quill-spear. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: strike 1-4, then recovery 1. Strike figure 4 (the 4th figure) is wrong: the body curls up like a hurt pose. Redraw it as the follow-through of the thrust: still in the low wide stance of the 3rd figure, the golden quill-spear tip lowered toward the ground ahead and beginning to draw back, head up and facing right, body not curled. It must flow from the 3rd figure into the 5th figure.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+#### wax_lancer：收招過渡 2 幀 · `G_wax_lancer_recover.png`
 
-| 檔名 | 內容 | 參考 |
-| --- | --- | --- |
-| `D_jump_loop.png` | 上升途中，膝蓋收起，披風和圍巾往下飄；2 幀只差布料擺動 | `40_v3_jump.png` |
-| `D_fall_loop.png` | 下落途中，雙腿往下伸準備落地，披風和圍巾往上揚；2 幀只差布料擺動 | `40_v3_landing.png` |
+- 幀數：2
+- 附參考圖：`refs/63_wax_lancer_attack_to_recover.png`
 
----
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/63_wax_lancer_attack_to_recover.png): an amber wax wasp knight: glossy golden-orange wax armour plates, a black head with dark eyes and two antennae, translucent amber wings, a deep crimson cape, dark segmented limbs, and a long melting wax lance dripping with amber wax. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: strike 1-4, recovery 1-4. Draw exactly two in-between poses that bridge from strike figure 4 (the 4th figure, low horizontal lance thrust) to recovery figure 1 (the 5th figure, standing with the lance upright).
+Cel 1: pulls the lance back toward the chest and rises halfway, lance tilted up at about 45 degrees.
+Cel 2: almost upright, lance nearly vertical beside the body, cape settling, one short step from the 5th figure.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+## F. Boss 招式收招過渡（18 張 × 2 幀，優先 2）
 
-## Boss
+6 個 Boss 的重擊（heavy）、施法（cast）、二階段攻擊（phase）結束後都直接跳到同一套通用收招。參考圖 `51_boss_recover_<Boss>_<招式>.png` 依序是：該招最後一幀、通用收招第 1 幀、待機第 1 幀。要畫的是第 1 個和第 2 個之間的 2 幀。
 
-### E. 二階段攻擊專屬出招幀（4 × 4 幀）
+**例外**：銅根主教、苔鐘守母、灰冠螳將、緋線執剪者的 `phase` 要等 E 組定稿後再做，起點改成你選定的 E 圖第 4 格（參考圖 2），終點仍是 `51_…_phase.png` 的第 2 個。
 
-下面 4 個 Boss 的 `phase`（二階段攻擊）只有前搖是自己的，出招 4 幀**和普通攻擊的像素完全一樣**，玩家看不出這是另一招。每個要畫 4 幀新的出招，比普通攻擊更大、更狠，並且要能接上二階段前搖的最後一幀。
+### 銅根主教（broken_string_gardener）
 
-| 檔名 | Boss | 參考（順序：待機、二階段前搖 4 幀、目前複製的普通攻擊 4 幀） |
-| --- | --- | --- |
-| `E_phase_broken_string_gardener.png` | 銅根主教（broken_string_gardener） | `50_boss_phase_broken_string_gardener.png` |
-| `E_phase_rust_crown_guardian.png` | 苔鐘守母（rust_crown_guardian） | `50_boss_phase_rust_crown_guardian.png` |
-| `E_phase_saltwhite_contract_judge.png` | 灰冠螳將（saltwhite_contract_judge） | `50_boss_phase_saltwhite_contract_judge.png` |
-| `E_phase_sunken_hammer_smith.png` | 緋線執剪者（sunken_hammer_smith） | `50_boss_phase_sunken_hammer_smith.png` |
+#### 銅根主教 重擊 · `F_recover_broken_string_gardener_heavy.png`
 
-緋線執剪者的普通攻擊第 4 幀（attack[3]）也有問題：整個角色縮小了約三分之一（`52_boss_sunken_attack3_scale.png`）。二階段攻擊換新圖後，這一幀我會先試著用調整比例的方式修，修不好再請你補 1 幀。
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_broken_string_gardener_heavy.png`
 
-> Use case identity-preserve. Same [Boss 外觀描述] as the reference, same hand-drawn ink and watercolor style. Four sequential right-facing poses in one row of a second-phase signature attack that continues from the last wind-up pose of the reference: a larger, more violent strike than the normal attack. Fixed camera and scale matching the reference, feet on the same baseline, full body and weapon visible, generous gutters, genuine transparency, no text or background.
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_broken_string_gardener_heavy.png): a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 銅根主教 施法 · `F_recover_broken_string_gardener_cast.png`
 
-### F. 招式收招過渡幀（6 × 3 × 2 幀，優先 2）
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_broken_string_gardener_cast.png`
 
-6 個 Boss 的 heavy（重擊）、cast（施法）、phase（二階段攻擊）結束後，都直接接同一套通用收招，姿勢跳變很明顯。每招補 2 幀過渡：從該招最後一幀過渡到通用收招第一幀。
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_broken_string_gardener_cast.png): a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 銅根主教 二階段攻擊 · `F_recover_broken_string_gardener_phase.png`
 
-參考：`51_boss_recover_<Boss>_<招式>.png`。每張依序是該招最後一幀、通用收招第一幀、待機第一幀。要畫的就是第一張和第二張之間的 2 幀。
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_broken_string_gardener_phase.png`＋你選定的 `E_phase_broken_string_gardener.png`
 
-檔名：`F_recover_<Boss>_<heavy|cast|phase>.png`，共 18 張，每張 2 幀橫排。例如 `F_recover_sunken_hammer_smith_heavy.png`。
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_broken_string_gardener_phase.png): a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference image 2 is the new second-phase strike sheet. Draw exactly two in-between poses that bridge from the LAST cel of reference image 2 (end of the strike) to the SECOND figure of reference image 1 (first pose of the shared recovery); ignore the first figure of reference image 1.
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+### 苔鐘守母（rust_crown_guardian）
 
-> Use case identity-preserve. Same character and style as the reference. Exactly 2 in-between poses in one row that bridge from the left reference pose to the middle reference pose, smooth recovery after the attack. Fixed camera and scale matching the reference, feet on the same baseline, generous gutters, genuine transparency, no text or background.
+#### 苔鐘守母 重擊 · `F_recover_rust_crown_guardian_heavy.png`
 
----
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_rust_crown_guardian_heavy.png`
 
-## 普通怪
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_rust_crown_guardian_heavy.png): a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 苔鐘守母 施法 · `F_recover_rust_crown_guardian_cast.png`
 
-### G. 銜接和畫面錯誤
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_rust_crown_guardian_cast.png`
 
-| 檔名 | 怪物 | 問題 | 要畫 | 參考 |
-| --- | --- | --- | ---: | --- |
-| `G_ash_banner_imp_windup.png` | ash_banner_imp | 前搖 4 幀和待機幾乎一樣，看不出要出招 | 4 | `60_ash_banner_imp_full_attack.png` |
-| `G_ash_banner_imp_attack0.png` | ash_banner_imp | 出招第 1 幀的旗子變成黑色，其他幀都是紅色 | 1 | 同上 |
-| `G_ash_banner_imp_recover.png` | ash_banner_imp | 出招結束是壓低突刺，收招第 1 幀直接跳回站直舉旗 | 2 | 同上 |
-| `G_echo_contract_scribe_attack3.png` | echo_contract_scribe | 出招第 4 幀縮成一團，像受擊姿勢 | 1 | `62_echo_contract_scribe_attack3.png` |
-| `G_wax_lancer_recover.png` | wax_lancer | 出招是水平突刺，收招 4 幀全是豎槍站姿，中間沒有過渡 | 2 | `63_wax_lancer_attack_to_recover.png` |
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_rust_crown_guardian_cast.png): a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 苔鐘守母 二階段攻擊 · `F_recover_rust_crown_guardian_phase.png`
 
-小計 10 幀。ash_banner_imp 的前搖：從待機姿勢開始，逐步把旗槍往後拉、身體下壓，最後一幀接上出招第 1 幀的突刺。
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_rust_crown_guardian_phase.png`＋你選定的 `E_phase_rust_crown_guardian.png`
 
-下面兩項我會先試著**只調整幀的順序**，不行才請你出圖：
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_rust_crown_guardian_phase.png): a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference image 2 is the new second-phase strike sheet. Draw exactly two in-between poses that bridge from the LAST cel of reference image 2 (end of the strike) to the SECOND figure of reference image 1 (first pose of the shared recovery); ignore the first figure of reference image 1.
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+### 灰冠螳將（saltwhite_contract_judge）
 
-- **delayed_shadow**（`61_delayed_shadow_full_attack.png`）：前搖 4 幀已經是持刃前刺的姿勢，出招第 1 幀反而是高舉蓄力，前搖和出招的姿勢像是排反了。
-- **銅根主教**（broken_string_gardener）的重擊前搖和二階段前搖、**corridor_heavy** 的前搖：姿勢高、低、高來回跳，可能只是順序問題。
+#### 灰冠螳將 重擊 · `F_recover_saltwhite_contract_judge_heavy.png`
 
----
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_saltwhite_contract_judge_heavy.png`
 
-## 被裁到邊的單幀（H，優先 3）
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_saltwhite_contract_judge_heavy.png): a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 灰冠螳將 施法 · `F_recover_saltwhite_contract_judge_cast.png`
 
-下面 5 幀在原始生成圖裡就被裁到了，邊緣是一條直線。範圍都很小（槍尖、旗角、觸鬚、尾巴），玩家不一定注意得到。
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_saltwhite_contract_judge_cast.png`
 
-| 檔名 | 角色 | 被裁位置 | 參考（第 2 張是要重畫的幀） |
-| --- | --- | --- | --- |
-| `H_broken_string_gardener_death3.png` | 銅根主教 死亡第 4 幀 | 右側 | `70_crop_broken_string_gardener_death3.png` |
-| `H_delayed_shadow_recover0.png` | delayed_shadow 收招第 1 幀 | 頂部（第 1 張是要重畫的幀） | `70_crop_delayed_shadow_recover0.png` |
-| `H_pipe_thrower_hurt2.png` | pipe_thrower 受擊第 3 幀 | 右側 | `70_crop_pipe_thrower_hurt2.png` |
-| `H_npc_blind_bell_knight_talk3.png` | 盲鐘騎士（npc_blind_bell_knight）交談第 4 幀 | 頂部槍尖 | `70_crop_npc_blind_bell_knight_talk3.png` |
-| `H_npc_deserter_flagbearer_talk6.png` | 逃旗手（npc_deserter_flagbearer）交談第 7 幀 | 左側旗角 | `70_crop_npc_deserter_flagbearer_talk6.png` |
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_saltwhite_contract_judge_cast.png): a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 灰冠螳將 二階段攻擊 · `F_recover_saltwhite_contract_judge_phase.png`
 
-每個檔案畫 1 幀，姿勢和參考的那一幀相同，只是完整不被裁。
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_saltwhite_contract_judge_phase.png`＋你選定的 `E_phase_saltwhite_contract_judge.png`
 
----
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_saltwhite_contract_judge_phase.png): a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference image 2 is the new second-phase strike sheet. Draw exactly two in-between poses that bridge from the LAST cel of reference image 2 (end of the strike) to the SECOND figure of reference image 1 (first pose of the shared recovery); ignore the first figure of reference image 1.
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+### 緋線執剪者（sunken_hammer_smith）
 
-## 不建議做：生成地圖的 36 個佔位 NPC
+#### 緋線執剪者 重擊 · `F_recover_sunken_hammer_smith_heavy.png`
 
-`GeneratedMain.tscn` 裡有 36 個 NPC（`npc_ch01_05_1` 這類編號），沒有自己的圖，按章節共用 6 個正式 NPC 的圖。這個場景是生成地圖的試玩版，主遊戲 World 不會用到。要給它們各自的外觀，需要設計 36 個新角色，每個 16 幀，共 576 幀，投入太大。除非你打算正式使用生成地圖，否則不建議做。
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_sunken_hammer_smith_heavy.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_sunken_hammer_smith_heavy.png): a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 緋線執剪者 施法 · `F_recover_sunken_hammer_smith_cast.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_sunken_hammer_smith_cast.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_sunken_hammer_smith_cast.png): a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 緋線執剪者 二階段攻擊 · `F_recover_sunken_hammer_smith_phase.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_sunken_hammer_smith_phase.png`＋你選定的 `E_phase_sunken_hammer_smith.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_sunken_hammer_smith_phase.png): a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference image 2 is the new second-phase strike sheet. Draw exactly two in-between poses that bridge from the LAST cel of reference image 2 (end of the strike) to the SECOND figure of reference image 1 (first pose of the shared recovery); ignore the first figure of reference image 1.
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+### 無聲王冠（silent_crown_core）
+
+#### 無聲王冠 重擊 · `F_recover_silent_crown_core_heavy.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_silent_crown_core_heavy.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_silent_crown_core_heavy.png): an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 無聲王冠 施法 · `F_recover_silent_crown_core_cast.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_silent_crown_core_cast.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_silent_crown_core_cast.png): an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 無聲王冠 二階段攻擊 · `F_recover_silent_crown_core_phase.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_silent_crown_core_phase.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_silent_crown_core_phase.png): an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+### 靜音巡禮統帥（silent_pilgrim_commander）
+
+#### 靜音巡禮統帥 重擊 · `F_recover_silent_pilgrim_commander_heavy.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_silent_pilgrim_commander_heavy.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_silent_pilgrim_commander_heavy.png): a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 靜音巡禮統帥 施法 · `F_recover_silent_pilgrim_commander_cast.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_silent_pilgrim_commander_cast.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_silent_pilgrim_commander_cast.png): a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+#### 靜音巡禮統帥 二階段攻擊 · `F_recover_silent_pilgrim_commander_phase.png`
+
+- 幀數：2
+- 附參考圖：`refs/51_boss_recover_silent_pilgrim_commander_phase.png`
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/51_boss_recover_silent_pilgrim_commander_phase.png): a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Reference figure order: last pose of this attack, first pose of the shared recovery, idle. Draw exactly two in-between poses that bridge from the FIRST figure (end of the attack) to the SECOND figure (start of the recovery).
+Cel 1 is about one third of the way, cel 2 about two thirds of the way: the body, cloak and weapon move smoothly and consistently, with no new gesture that appears in neither end pose.
+Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x1024 px cel each), read left-to-right.
+```
+## H. 被裁到邊的單幀（5 張 × 1 幀，優先 3）
+
+原圖在生成時就被裁到，邊緣是一條直線。畫同一個姿勢，只是完整不被裁。
+
+#### 銅根主教 死亡第 4 幀 · `H_broken_string_gardener_death3.png`
+
+- 幀數：1
+- 附參考圖：`refs/70_crop_broken_string_gardener_death3.png`（要重畫的是第 2 個）
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/70_crop_broken_string_gardener_death3.png): a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Redraw ONLY the second figure of the reference, in exactly the same pose, so that it is complete: in the reference its right edge is cut off by a straight line. Show the whole figure, cloak and weapon with clear transparent space on every side.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+#### delayed_shadow 收招第 1 幀 · `H_delayed_shadow_recover0.png`
+
+- 幀數：1
+- 附參考圖：`refs/70_crop_delayed_shadow_recover0.png`（要重畫的是第 1 個）
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/70_crop_delayed_shadow_recover0.png): a dark navy feathered shadow insect: a white oval mask face, two long dark plume antennae, a red scarf streaming back, a tattered navy feather cloak with small pale eye spots, thin dark limbs, and a long thin silver needle rapier. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Redraw ONLY the first figure of the reference, in exactly the same pose, so that it is complete: in the reference its top edge is cut off by a straight line. Show the whole figure, cloak and weapon with clear transparent space on every side.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+#### pipe_thrower 受擊第 3 幀 · `H_pipe_thrower_hurt2.png`
+
+- 幀數：1
+- 附參考圖：`refs/70_crop_pipe_thrower_hurt2.png`（要重畫的是第 2 個）
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/70_crop_pipe_thrower_hurt2.png): a hunched worker beetle: a rust-orange shell, a white oval mask face with long antennae, a tattered blue work coat, a brown belt with pouches, thin dark limbs, and a short heavy iron pipe. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Redraw ONLY the second figure of the reference, in exactly the same pose, so that it is complete: in the reference its right edge is cut off by a straight line. Show the whole figure, cloak and weapon with clear transparent space on every side.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+#### 盲鐘騎士 交談第 4 幀 · `H_npc_blind_bell_knight_talk3.png`
+
+- 幀數：1
+- 附參考圖：`refs/70_crop_npc_blind_bell_knight_talk3.png`（要重畫的是第 2 個）
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/70_crop_npc_blind_bell_knight_talk3.png): a stout armoured beetle knight: two dark curved horns, a white bandage blindfold over the face, dark plate armour, a tattered red cape and white sash, a large round brass shield, small brass bells hanging at the waist, and a tall spear with a bell and red tassel below its blade. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Redraw ONLY the second figure of the reference, in exactly the same pose, so that it is complete: in the reference its top edge (the spear tip) is cut off by a straight line. Show the whole figure, cloak and weapon with clear transparent space on every side.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+#### 逃旗手 交談第 7 幀 · `H_npc_deserter_flagbearer_talk6.png`
+
+- 幀數：1
+- 附參考圖：`refs/70_crop_npc_deserter_flagbearer_talk6.png`（要重畫的是第 2 個）
+
+```text
+Use case: identity-preserve. Reference image 1 is the existing animation strip of this exact character (refs/70_crop_npc_deserter_flagbearer_talk6.png): a tall thin insect flagbearer: a long pale bone-white head with an amber eye and long thin antennae, a tattered red-and-black cloak, a cream tabard with brass medallions, thin jointed legs, and a tall wooden pole carrying a ragged red pennant. Preserve its design, colors, proportions, crisp dark ink contours and hand-painted dark fantasy insect style exactly. Production animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage. Every cel shows ONLY this one character, full body and full weapon, facing RIGHT, fixed side-view camera, identical character scale in every cel and the same scale as the reference figures, feet on the same baseline unless the action leaves the ground. Each figure stays inside its own cel within 80% of the cel width and 85% of the cel height with generous fully transparent gutters; no part of the body, cloak or weapon touches a neighbouring cel or the canvas edge. Genuine transparent alpha background: no white, no checkerboard, no floor, no shadow, no text, no numbers, no grid lines. Do NOT draw projectiles, waves, beams, ground spikes, dust, smoke, sparks, motion trails, afterimages or glow; the game draws all attack effects itself. Show the action only through the body, limbs, cloak and weapon. Distinct hand-drawn poses, never copies, blends or fades.
+Redraw ONLY the second figure of the reference, in exactly the same pose, so that it is complete: in the reference its left edge is cut off by a straight line. Show the whole figure, cloak and weapon with clear transparent space on every side.
+Layout: exactly ONE cel, the figure centred on a 1024x1024 px canvas.
+```
+## 不在清單內
+
+- **主角待機披風過渡（原 A 組）**：10-17 交過一版，A1、A2 稍有改善，A3 沒有改善。用不用要看對比動圖決定，決定之前不重畫。
+- **delayed_shadow 前搖與出招順序、銅根主教重擊與二階段前搖、corridor_heavy 前搖**：像是幀順序問題，我先調順序，不行再補出圖。
+- **緋線執剪者普通攻擊第 4 幀縮小**：先用比例修正。
+- **生成地圖的 36 個佔位 NPC**：只在 `GeneratedMain.tscn` 試玩場景出現，主遊戲不用，不建議做（36 × 16 = 576 幀）。
 
 ## 上傳方式
 
-這台電腦上的倉庫在 `~/code/Crimson-Thread-Pilgrimage`，直接把檔案放進 `art_requests/character_motion_v5/incoming/` 就好，不用自己 commit，我會用 Git LFS 提交。
+本機直接放進 `art_requests/character_motion_v5/incoming/`，不用自己 commit。在別的電腦就上傳到新分支（例如 `art/character-motion-v5`）的同一資料夾，不要直接傳 main。
 
-如果是在別的電腦上傳到 GitHub，請傳到新分支（例如 `art/character-motion-v5`）的同一個資料夾，不要直接傳到 main。
+## 收到後
 
-## 我收到後會做什麼
+逐張檢查（透明、裁切、身份、動作語義、前後銜接）→ 統一比例和腳底 → 寫入 manifest 與生成記錄 → 接入遊戲（Boss 二階段換圖；收招新增「招式專屬過渡 → 通用收招」；普通怪換對應幀）→ 跑 `test:character-motion`、`test:boss-assets` 和相關真實渲染回歸，附前後對比截圖開 PR。
 
-1. 逐張檢查：透明度、裁切完整、角色和畫風一致、動作語義正確、能接上前後幀。不合格的會指出是哪一幀、問題在哪。
-2. 裁切、統一比例和腳底注冊，寫入 manifest 和生成記錄（提示詞、參考圖、選幀）。
-3. 接入遊戲：
-   - 主角：待機換新的披風循環；跑攻要新增狀態和切換邏輯；技能、道具、空中動作改用各自的素材。
-   - Boss：二階段出招換新圖；收招支援「招式專屬收招 → 通用收招」，目前代碼只會找 `<招式>_recover`，找不到就直接用通用收招。
-   - 普通怪：替換對應幀。
-4. 跑 `test:character-motion`、相關的 Godot 真實渲染回歸，並截實機畫面給你看。
-5. 開 PR，附上前後對比。
-
----
-
-## 追加：上劈/下劈弧線重畫（4 套 × 6 幀）
-
-現在的上劈、下劈在出刀的兩幀裡劍幾乎不動（例如地面上劈 52°→45°、空中下劈 -44°→-44°），而且沒有揮到頭頂或腳下，看起來像直直戳出去。重畫要讓劍身逐幀掃過一道弧線。角度以面朝右為準：0° = 正前方（3 點鐘）、90° = 正上方（12 點鐘）、-90° = 正下方（6 點鐘）。
-
-| 檔名（覆蓋原檔） | 1 架勢 | 2 前搖 | 3 出刀開始 | 4 出刀結束 | 5 隨勢 | 6 收招 | 角度示意圖 |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| `E_attack_up.png` 地面上劈 | 10° | -150° | 0° | 90° | 125° | 10° | `refs/80_arc_guide_E_attack_up.png` |
-| `F_air_attack_up.png` 空中上劈 | 10° | -150° | 0° | 90° | 125° | 10° | `refs/81_arc_guide_F_air_attack_up.png` |
-| `E_attack_down_ground.png` 地面下劈 | 10° | 120° | 20° | -80° | -60° | 10° | `refs/82_arc_guide_E_attack_down_ground.png` |
-| `E_attack_down.png` 空中下劈 | 10° | 110° | 20° | -85° | -60° | 10° | `refs/83_arc_guide_E_attack_down.png` |
-
-每次生成附 3 張參考圖：① `refs/00_style_run_v4_8frames.png`（畫風）② 要覆蓋的那張舊圖（人物、站姿/空中腿姿）③ 對應的角度示意圖（只參考劍的方向，不參考畫風）。提示詞見對話或下方。
-
-**不要畫刀光、殘影、光暈或弧形特效**，弧線特效由遊戲繪製；畫面上只要人物和劍。
-
-### 共用開頭（4 個提示詞都以這段開始）
-
-```text
-Use case: stylized-concept.
-Asset type: production source animation sheet for the 2D side-scrolling game Crimson Thread Pilgrimage.
-Reference image 1 is the style reference (refs/00_style_run_v4_8frames.png): match this exact character identity, proportions, crisp dark ink contours, textured hand-painted anime rendering and muted palette: black ponytail, red scarf, worn teal cape, charcoal tunic and trousers, brown leather belt and boots, ONE short straight steel sword with a gold cross-guard, held in the RIGHT (front) hand, both hands on the grip when swinging. Reference image 2 is the previous version of this sheet: keep its character scale and leg stance. Reference image 3 is a stick-figure guide that shows ONLY the sword direction for each cel; follow its blade angles exactly but do not copy its drawing style.
-All poses face RIGHT, fixed side-view camera, identical character scale and identical sword length in every cel.
-Layout: exactly SIX cels in 3 columns x 2 rows, read left-to-right then top-to-bottom, on a 1536x1024 canvas. The character occupies at most 55% of the cel height so that a fully raised or lowered sword stays inside its own cel. Generous fully transparent gutters between cels and around the edges; nothing touches a neighbouring cel.
-Background: genuine transparent alpha, no white fill, no checkerboard, no floor, no shadow, no text, no frame numbers, no panel borders.
-Do NOT draw any slash trail, motion blur, afterimage, glow, speed lines or arc effect; the game draws the swing arc itself. Only the character and the sword.
-The sword must visibly sweep along a continuous arc across the six cels; the blade angle must change between every consecutive cel, especially between cel 3 and cel 4.
-```
-
-### ① 地面上劈 `E_attack_up.png`
-
-```text
-[共用開頭]
-Action: grounded rising upward slash, feet planted on the same ground line in all six cels.
-Cel 1 guard: balanced stance, sword held forward at waist height, blade pointing forward (about 3 o'clock).
-Cel 2 wind-up: crouch and twist back, sword drawn low behind the body, blade tip pointing back and down (about 8 o'clock).
-Cel 3 slash begins: sword swung forward past the hip, blade horizontal pointing straight forward (3 o'clock), body rising.
-Cel 4 slash ends: arms fully extended overhead, blade pointing straight UP (12 o'clock), body stretched upward, front heel slightly lifted.
-Cel 5 follow-through: blade continues slightly past vertical toward the back (about 11 o'clock), weight settling.
-Cel 6 recover: return to the cel-1 guard, blade forward (about 3 o'clock).
-```
-
-### ② 空中上劈 `F_air_attack_up.png`
-
-```text
-[共用開頭]
-Action: airborne rising upward slash; in all six cels the character is in mid-air with the same tucked jumping legs as reference image 2, never standing.
-Cel 1 guard: sword held forward at chest height, blade pointing forward (about 3 o'clock).
-Cel 2 wind-up: sword drawn low behind the hip, blade tip pointing back and down (about 8 o'clock), shoulders twisted back.
-Cel 3 slash begins: blade swung forward to horizontal, pointing straight forward (3 o'clock).
-Cel 4 slash ends: arms fully extended above the head, blade pointing straight UP (12 o'clock), body stretched upward.
-Cel 5 follow-through: blade slightly past vertical toward the back (about 11 o'clock).
-Cel 6 recover: back to the cel-1 guard, blade forward (about 3 o'clock).
-```
-
-### ③ 地面下劈 `E_attack_down_ground.png`
-
-```text
-[共用開頭]
-Action: grounded downward chopping slash aimed at the ground just in front of the feet; feet planted on the same ground line in all six cels.
-Cel 1 guard: balanced stance, sword held forward at waist height, blade pointing forward (about 3 o'clock).
-Cel 2 wind-up: sword raised high above and slightly behind the head, blade pointing up and back (about 11 o'clock).
-Cel 3 slash begins: sword coming down in front of the body, blade pointing forward and slightly up (about 2 o'clock).
-Cel 4 slash ends: deep lunge with bent front knee, blade pointing almost straight DOWN at the ground in front of the front foot (between 5 and 6 o'clock), tip just above the ground line.
-Cel 5 follow-through: blade eases back to point down and forward (about 5 o'clock).
-Cel 6 recover: return to the cel-1 guard, blade forward (about 3 o'clock).
-```
-
-### ④ 空中下劈 `E_attack_down.png`
-
-```text
-[共用開頭]
-Action: airborne downward slash striking straight below the body; in all six cels the character is in mid-air with the same tucked legs as reference image 2, never standing.
-Cel 1 guard: sword held forward at chest height, blade pointing forward (about 3 o'clock).
-Cel 2 wind-up: sword raised above and slightly behind the head with both hands, blade pointing up and back (about 11 o'clock).
-Cel 3 slash begins: sword coming down in front of the chest, blade pointing forward and slightly up (about 2 o'clock).
-Cel 4 slash ends: both arms driven down, blade pointing straight DOWN beneath the body (6 o'clock), legs tucked up and out of the blade's way.
-Cel 5 follow-through: blade eases to point down and forward (about 5 o'clock).
-Cel 6 recover: back to the cel-1 guard, blade forward (about 3 o'clock).
-```
+本檔由 `build_list.py` 生成，改內容請改腳本後重跑。
