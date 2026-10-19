@@ -223,12 +223,20 @@ def build():
             # Combat practice is a separate equipment system layered onto these
             # exploration workshops. Rebuild its metadata from the retained plan
             # so regeneration cannot silently erase the six training stations.
+            # A longer plan label replaces the previous sentence in the room guide;
+            # appending would leave the stale guidance beside the updated one.
             combat_practice = practices.get((r, room_id), previous_room.get('combat_practice'))
             if combat_practice:
                 authored_room['combat_practice'] = deepcopy(combat_practice)
                 label = combat_practice['label']
-                if label not in authored_room['guide']:
-                    authored_room['guide'] += ' ' + label
+                guide = authored_room.get('guide', '')
+                if label not in guide:
+                    previous_label = str((previous_room.get('combat_practice') or {}).get('label') or '')
+                    # C04 rewrote the closing punctuation, so the new label is not a prefix.
+                    if previous_label and previous_label != label and previous_label in guide:
+                        authored_room['guide'] = guide.replace(previous_label, label, 1)
+                    else:
+                        authored_room['guide'] = (guide + ' ' + label).strip()
                 objective = '门外练针架提供特殊技能练习，不消耗永久探索能力。'
                 if objective not in authored_room['objective']:
                     authored_room['objective'] += ' ' + objective

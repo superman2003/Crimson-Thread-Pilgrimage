@@ -58,5 +58,43 @@ func run_checks() -> void:
     check(seen.size() == 6, "All six skills have distinct practice assignments")
     for skill in ["cleave", "needle", "snare", "ward", "shockwave", "crosscut"]:
         check(seen.has(skill), "Practice includes " + skill)
+    var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/build_catalog.json"))
+    for skill_id in ["cleave", "needle", "snare", "ward", "shockwave", "crosscut"]:
+        var skill: Dictionary = catalog.skills[skill_id]
+        check(skill.has("growth") and skill.growth.has("level_1") and skill.growth.has("level_2"), "Skill growth notes exist for " + skill_id)
+        check(not String(skill.growth.level_1).is_empty() and not String(skill.growth.level_2).is_empty(), "Skill growth notes are authored for " + skill_id)
+        var recipe: Dictionary = catalog.recipes["upgrade_" + skill_id]
+        check(String(recipe.description).find(String(skill.growth.level_1)) >= 0, "Upgrade recipe cites level 1 growth for " + skill_id)
+        check(String(recipe.description).find(String(skill.growth.level_2)) >= 0, "Upgrade recipe cites level 2 growth for " + skill_id)
+    for practice in routes.get("seal_practice_plan", []):
+        check(String(practice.get("label", "")).find("校习") >= 0, "Practice label mentions upgrade direction for " + String(practice.skill_id))
+    var build: RefCounted = load("res://scripts/build_system.gd").new()
+    build.state.unlocked_skills = ["cleave", "needle", "snare", "ward", "shockwave", "crosscut"]
+    build.state.skills = ["cleave", "needle"]
+    build.state.equipped_families.thread_skill = ["cleave", "needle"]
+    build.state.skill = "cleave"
+    build.state.skill_levels.cleave = 0
+    var base_skill: Dictionary = build.selected_skill(0)
+    check(not String(base_skill.get("next_growth", "")).is_empty(), "Unupgraded skill exposes next growth note")
+    var base_damage := int(base_skill.damage)
+    var base_range := float(base_skill.range)
+    build.state.skill_levels.cleave = 1
+    var upgraded: Dictionary = build.selected_skill(0)
+    check(int(upgraded.damage) > base_damage, "Cleave level 1 raises damage")
+    check(float(upgraded.range) > base_range, "Cleave level 1 raises reach")
+    check(String(upgraded.get("next_growth", "")).find("校习二") >= 0, "Level 1 skill points at level 2 growth note")
+    # Ward is crest-compatible on bell slot 0; duration growth is the playstyle fork (no damage).
+    build.state.crest = "bell"
+    build.state.unlocked_crests = ["crimson", "bell", "salt"]
+    build.state.skills = ["ward", ""]
+    build.state.equipped_families.thread_skill = ["ward", ""]
+    build.state.skill = "ward"
+    build.state.skill_levels.ward = 0
+    var ward_base: Dictionary = build.selected_skill(0)
+    build.state.skill_levels.ward = 1
+    var ward_up: Dictionary = build.selected_skill(0)
+    check(not ward_base.is_empty() and not ward_up.is_empty(), "Ward selectable on bell crest")
+    check(float(ward_up.get("duration", 0)) > float(ward_base.get("duration", 0)), "Ward level extends duration instead of raw damage")
+    check(int(ward_up.get("damage", -1)) == 0, "Ward growth does not invent damage")
     print("SEAL_ACQUISITION_VALIDATION: ", checks, " checks; ", failures, " failures")
     quit(1 if failures else 0)
