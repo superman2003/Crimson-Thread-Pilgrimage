@@ -33,6 +33,8 @@ var save_point_residency_memory: Dictionary = {}
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
+const HIDDEN_ROUTE_CLUE_SCRIPT := preload("res://scripts/hidden_route_clue.gd")
+const HIDDEN_CLUE_NOTICE_RANGE := 260.0
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 const WORLD_ABILITIES := ["thread_dash", "silk_wall_grip", "echo_hook", "double_thread_jump", "bell_guard", "thorn_downstrike", "lantern_phase", "crown_resonance"]
 const DEFAULT_CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
@@ -527,6 +529,7 @@ var active_challenge_id := ""
 var challenge_alive_ids: Dictionary = {}
 ## Validation-only: these spawn ids are treated as `_enemy` returning null.
 var challenge_spawn_null_ids_for_validation: Dictionary = {}
+var hidden_route_clues: Array[Node2D] = []
 var nearby_interactable: Area2D
 var active_spawn := Vector2(120, 500)
 var bell_count := 0
@@ -1057,6 +1060,7 @@ func _process(_delta: float) -> void:
         if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position):
             last_safe_ground = player.global_position
         _update_room_visit()
+        _notice_hidden_route_clues()
         _update_first_journey_hint()
         if active_overlay == "map":
             _refresh_map_overlay()
@@ -1233,6 +1237,7 @@ func _restore_world_routes() -> void:
 
 
 func _restore_world_discovery() -> void:
+    _sync_hidden_route_clues_with_visits()
     # Reconstruct discovered cells after MetSys builds this region's map.
     if metsys_bridge != null:
         for room_id in visited_rooms:
@@ -2997,6 +3002,8 @@ func _update_room_visit() -> void:
         if current_room_id != previous_room_id:
             _abort_challenge_if_left_room()
             _show_tool_encounter_hint()
+
+            _mark_hidden_route_found()
             _save_world()
             _trigger_whispers("enter_room", current_room_id)
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
@@ -3450,6 +3457,8 @@ func _region_build_jobs() -> Array:
     if world_mode:
         jobs.append({"method": "_spawn_seal_practice_targets", "args": []})
         jobs.append({"method": "_spawn_tool_practice_targets", "args": []})
+
+        jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
@@ -3589,6 +3598,63 @@ func _show_tool_encounter_hint() -> void:
             return
         story_flags[flag] = true
         _toast("战具提示 · %s：%s" % [String(build_system.catalog.tools[tool_id].get("name", tool_id)), String(entry.get("note", ""))])
+
+## W04: each planned hidden room leaks light into its entrance room. Coming
+## near the crack says what the player notices, once; finding the room dims it.
+func _spawn_hidden_route_clues() -> void:
+    hidden_route_clues.clear()
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        var clue := Node2D.new()
+        clue.set_script(HIDDEN_ROUTE_CLUE_SCRIPT)
+        clue.name = "HiddenClue_" + String(entry.id)
+        clue.clue_id = String(entry.id)
+        clue.found = bool(story_flags.get("hidden_found_" + String(entry.id), false))
+        clue.position = _vec2(entry.clue.position)
+        clue.set_meta("hidden_route", entry)
+        add_child(clue)
+        hidden_route_clues.append(clue)
+    _sync_hidden_route_clues_with_visits()
+
+
+## Saves from before these clues already record visits to the hidden rooms;
+## a room the player has been in counts as found.
+func _sync_hidden_route_clues_with_visits() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if bool(visited_rooms.get(String(entry.get("hidden_room_id", "")), false)):
+            clue.found = true
+            story_flags["hidden_found_" + String(entry.id)] = true
+
+
+func _notice_hidden_route_clues() -> void:
+    # A notice behind the map or a dialogue would be lost; wait until it closes.
+    if not active_overlay.is_empty():
+        return
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        var flag := "hidden_clue_seen_" + String(entry.id)
+        if bool(story_flags.get(flag, false)) or player.global_position.distance_to(clue.global_position) > HIDDEN_CLUE_NOTICE_RANGE:
+            continue
+        story_flags[flag] = true
+        _save_world()
+        _toast(String(entry.clue.get("line", "")))
+
+
+func _mark_hidden_route_found() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if String(entry.get("hidden_room_id", "")) != current_room_id:
+            continue
+        clue.found = true
+        story_flags["hidden_found_" + String(entry.id)] = true
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
