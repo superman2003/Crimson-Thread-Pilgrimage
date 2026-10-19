@@ -6,6 +6,8 @@ Layout: exactly 2 cels on a 2-column x 1-row grid (1536x1024 px canvas, one 768x
 
 Production layout: exactly TWO separate full-body sprites side by side, not a strip of three. Center the complete silhouette including every weapon tip within each 768x1024 cel. Leave 80 pixels of completely transparent clearance on every side of each cel, including the middle gutter. Same character scale and foot baseline across both figures. No labels from the reference.
 
-Follow-up edit prompts:
-Reduce both complete sprites uniformly to 75 percent of their size on the unchanged canvas, centering the whole silhouette in each half.
+Follow-up edit prompt:
+Reduce BOTH complete sprites uniformly to 75 percent of their current size on this unchanged 1536x1024 canvas. Center the whole left silhouette, from cape to lance tip, within the left 768x1024 half; center the whole right silhouette in the right half. Match body scale and foot baseline. Keep exact two poses, full cape, weapon, wing shapes, ink style and colors. Wide transparent margin around both complete figures, no clipping at middle or outer edges. True alpha transparency.
+
+Follow-up edit prompt:
 Make a transparent game sprite sheet. Shift the whole LEFT sprite 40 pixels LEFT, without changing its scale or pose; preserve the whole cape and lance inside the left half. Keep the right sprite unchanged. Same 1536x1024 canvas. IMPORTANT: preserve the input's fully transparent alpha background. The background between and around figures must have alpha exactly 0. Do not draw any background, glow or shadow. Keep both characters opaque, ink outlines crisp, colors and details identical.

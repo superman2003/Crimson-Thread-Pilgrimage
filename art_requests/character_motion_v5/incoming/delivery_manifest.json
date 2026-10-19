@@ -1,0 +1,1236 @@
+{
+  "request": "PR #138 character_motion_v5",
+  "generator": "built-in image_gen",
+  "sheet_count": 32,
+  "frame_count": 67,
+  "groups": {
+    "E": {
+      "sheets": 4,
+      "frames": 16
+    },
+    "G": {
+      "sheets": 5,
+      "frames": 10
+    },
+    "F": {
+      "sheets": 18,
+      "frames": 36
+    },
+    "H": {
+      "sheets": 5,
+      "frames": 5
+    }
+  },
+  "layouts": {
+    "E_and_G_windup": "1536x1024, 2 columns x 2 rows, row-major",
+    "two_frame_transitions": "1536x1024, 2 columns x 1 row",
+    "single_frames": "1024x1024, centered complete silhouette"
+  },
+  "postprocessing_authorization": "User approved uniform scaling, transparent padding and cel layout; no script-redrawn poses.",
+  "validation_command": "python art_requests/character_motion_v5/validate_incoming.py",
+  "validation_scope": "Asset delivery only. Runtime manifests and game code are unchanged; in-game timing and playback remain for integration.",
+  "assets": [
+    {
+      "name": "E_phase_broken_string_gardener.png",
+      "frames": 4,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          201,
+          50,
+          567,
+          462
+        ],
+        [
+          134,
+          108,
+          633,
+          462
+        ],
+        [
+          98,
+          175,
+          668,
+          463
+        ],
+        [
+          118,
+          197,
+          650,
+          462
+        ]
+      ],
+      "sha256": "72d49096ae472842d3102eb2b23135c14c81b0eb7928f3819604f80c48b15080",
+      "prompt": "E_phase_broken_string_gardener.txt",
+      "postprocessing": {
+        "source": "exec-7510d7d4-49f7-43ec-905b-18eb9accf932.png",
+        "uniform_scale": 0.9786480186480185,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "E_phase_rust_crown_guardian.png",
+      "frames": 4,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          255,
+          680,
+          463
+        ],
+        [
+          141,
+          163,
+          626,
+          463
+        ],
+        [
+          187,
+          117,
+          581,
+          463
+        ],
+        [
+          127,
+          192,
+          640,
+          462
+        ]
+      ],
+      "sha256": "accc9a5de2b92ba6603a48c6856f6f757f0967d56c84924e1779af4cfbfd952e",
+      "prompt": "E_phase_rust_crown_guardian.txt",
+      "postprocessing": {
+        "source": "exec-de8146f2-3720-4310-83da-49699a0660c5.png",
+        "uniform_scale": 0.8389915966386554,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "E_phase_saltwhite_contract_judge.png",
+      "frames": 4,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          160,
+          144,
+          606,
+          463
+        ],
+        [
+          159,
+          194,
+          608,
+          463
+        ],
+        [
+          87,
+          257,
+          679,
+          462
+        ],
+        [
+          157,
+          256,
+          610,
+          463
+        ]
+      ],
+      "sha256": "ce3a8f0f2f5aa78b1a4fe0a8205ce8f898c8cf9c4083c45861c3ce58b627b3da",
+      "prompt": "E_phase_saltwhite_contract_judge.txt",
+      "postprocessing": {
+        "source": "exec-70eb31cc-1772-4795-848b-6add35696221.png",
+        "uniform_scale": 0.9508571428571428,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "E_phase_sunken_hammer_smith.png",
+      "frames": 4,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          237,
+          50,
+          531,
+          463
+        ],
+        [
+          224,
+          209,
+          543,
+          462
+        ],
+        [
+          137,
+          221,
+          630,
+          463
+        ],
+        [
+          136,
+          249,
+          631,
+          463
+        ]
+      ],
+      "sha256": "392c55ec83da9d700b4cc490b2c359c11baed8dfcc80af02f1d51181931d685b",
+      "prompt": "E_phase_sunken_hammer_smith.txt",
+      "postprocessing": {
+        "source": "exec-4926a726-dc05-464d-96e3-5f050681b0fb.png",
+        "uniform_scale": 0.8746666666666666,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "G_ash_banner_imp_attack0.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          115,
+          341,
+          908,
+          682
+        ]
+      ],
+      "sha256": "58c18eb7de7b09e290d4512701e5ba7cc44f2788c6783ca0b085e7216aa537ed",
+      "prompt": "G_ash_banner_imp_attack0.txt",
+      "postprocessing": {
+        "source": "exec-b0d7657f-ec69-491e-b0e3-81973152d6ae.png",
+        "uniform_scale": 0.7443802423112769,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "G_ash_banner_imp_windup.png",
+      "frames": 4,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          209,
+          92,
+          558,
+          462
+        ],
+        [
+          103,
+          243,
+          663,
+          462
+        ],
+        [
+          116,
+          247,
+          651,
+          462
+        ],
+        [
+          88,
+          242,
+          679,
+          462
+        ]
+      ],
+      "sha256": "fc3ca085b13c66c68b5b2db6bbc4101696f73a6c8a02e41076dce1c4439414f4",
+      "prompt": "G_ash_banner_imp_windup.txt",
+      "postprocessing": {
+        "source": "exec-55235f8b-4590-47f8-bb31-5049c3738e43.png",
+        "uniform_scale": 0.9076363636363636,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "G_ash_banner_imp_recover.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        254
+      ],
+      "cel_bounds": [
+        [
+          98,
+          217,
+          670,
+          928
+        ],
+        [
+          157,
+          104,
+          611,
+          928
+        ]
+      ],
+      "sha256": "941bd23467f114f31bbbf0f6538f5182887138e7cf088070dd3d23841b2794aa",
+      "prompt": "G_ash_banner_imp_recover.txt",
+      "postprocessing": {
+        "source": "exec-d6359e69-b7bd-43ff-a686-a42aaa3f7168.png",
+        "uniform_scale": 1.0,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "G_echo_contract_scribe_attack3.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          115,
+          304,
+          908,
+          719
+        ]
+      ],
+      "sha256": "0e5f7a1e6aee23b1afb58945888c0ec1cd7501917bc4ca002a0411e80730112b",
+      "prompt": "G_echo_contract_scribe_attack3.txt",
+      "postprocessing": {
+        "source": "exec-8a34b10a-189a-4e29-837b-9f76554e8036.png",
+        "uniform_scale": 0.7815264187866928,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "G_wax_lancer_recover.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          452,
+          680,
+          929
+        ],
+        [
+          185,
+          351,
+          582,
+          928
+        ]
+      ],
+      "sha256": "949e37dd18d51299dc0261acb4affb0034c18ad8e5f7858658bae7ceb760d067",
+      "prompt": "G_wax_lancer_recover.txt",
+      "postprocessing": {
+        "source": "exec-a3d616fd-46af-40bf-b799-88a61f32f524.png",
+        "uniform_scale": 0.8378181818181818,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_broken_string_gardener_heavy.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          458,
+          680,
+          928
+        ],
+        [
+          131,
+          448,
+          637,
+          928
+        ]
+      ],
+      "sha256": "2a480f5d73a9add6bea134e9bff50cf3202fc28fa0d36f96bb5079bc9667f23d",
+      "prompt": "F_recover_broken_string_gardener_heavy.txt",
+      "postprocessing": {
+        "source": "exec-fed3e46f-22ab-4698-9dd9-96b01aad8714.png",
+        "uniform_scale": 0.8861538461538461,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_broken_string_gardener_cast.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          88,
+          405,
+          679,
+          928
+        ],
+        [
+          115,
+          438,
+          653,
+          929
+        ]
+      ],
+      "sha256": "3d305c57d723fd4bf7f6584855274aecd2de192ad7a16661f9a2202a35010b3d",
+      "prompt": "F_recover_broken_string_gardener_cast.txt",
+      "postprocessing": {
+        "source": "exec-4df0ab5f-2502-4af9-a311-6c02901e696e.png",
+        "uniform_scale": 0.949350237717908,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_broken_string_gardener_phase.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          456,
+          680,
+          929
+        ],
+        [
+          147,
+          394,
+          621,
+          929
+        ]
+      ],
+      "sha256": "0a5aa590cc261d8cc31daa7690523464eacac73a40874921532e407bab000d5f",
+      "prompt": "F_recover_broken_string_gardener_phase.txt",
+      "postprocessing": {
+        "source": "exec-8eca75fe-e8f6-4324-9bb7-928c7f9a2b78.png",
+        "uniform_scale": 0.7670166453265045,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_rust_crown_guardian_heavy.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          346,
+          680,
+          929
+        ],
+        [
+          120,
+          346,
+          648,
+          928
+        ]
+      ],
+      "sha256": "b315de7b9307b5f6cc75793814bfb829ebc66f428eb1ba7602ab1dc97ae870b6",
+      "prompt": "F_recover_rust_crown_guardian_heavy.txt",
+      "postprocessing": {
+        "source": "exec-ecb0b829-9f06-4891-818f-3e2a0dca9775.png",
+        "uniform_scale": 0.8631700288184437,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_rust_crown_guardian_cast.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          392,
+          680,
+          929
+        ],
+        [
+          125,
+          386,
+          643,
+          928
+        ]
+      ],
+      "sha256": "37f3cfa850fcba21d576ee9b2b74db1955aad354c1769343d91981e64ec918ac",
+      "prompt": "F_recover_rust_crown_guardian_cast.txt",
+      "postprocessing": {
+        "source": "exec-2d664706-84c6-4222-9f0d-61773f3d044f.png",
+        "uniform_scale": 0.8413483146067415,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_rust_crown_guardian_phase.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          505,
+          680,
+          929
+        ],
+        [
+          151,
+          454,
+          617,
+          929
+        ]
+      ],
+      "sha256": "fbb886c3f4c5afb22695cde60ab1ea01cc463d446cf8b9a9637e2f864bedcb1b",
+      "prompt": "F_recover_rust_crown_guardian_phase.txt",
+      "postprocessing": {
+        "source": "exec-6bf30125-46f2-4f8d-8db3-56722c9f782b.png",
+        "uniform_scale": 0.7650574712643677,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_saltwhite_contract_judge_heavy.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          497,
+          679,
+          929
+        ],
+        [
+          131,
+          559,
+          636,
+          929
+        ]
+      ],
+      "sha256": "cc6ee8511d8a74aab22810e376b50c1a728a9cd40eb28180ab8ce9cb08ea83be",
+      "prompt": "F_recover_saltwhite_contract_judge_heavy.txt",
+      "postprocessing": {
+        "source": "exec-09eef482-bd6c-463c-ad85-e7a15e19cda0.png",
+        "uniform_scale": 0.8437183098591549,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_saltwhite_contract_judge_cast.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          493,
+          680,
+          929
+        ],
+        [
+          139,
+          547,
+          629,
+          929
+        ]
+      ],
+      "sha256": "35558ac5a23e680fd0d756ab3fcf5722d3a623302caa743cd90b7f4d477b4e1d",
+      "prompt": "F_recover_saltwhite_contract_judge_cast.txt",
+      "postprocessing": {
+        "source": "exec-1ae6f9a3-1a39-4812-868a-58acbfa355b3.png",
+        "uniform_scale": 0.776964980544747,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_saltwhite_contract_judge_phase.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          639,
+          679,
+          929
+        ],
+        [
+          148,
+          586,
+          619,
+          929
+        ]
+      ],
+      "sha256": "79369004fa88a97b26dcd91f9f29ed0c2ffb62a544c49bffe97644be80762ac9",
+      "prompt": "F_recover_saltwhite_contract_judge_phase.txt",
+      "postprocessing": {
+        "source": "exec-0beb967f-dffd-4578-911f-ce0f0c418a1c.png",
+        "uniform_scale": 0.7506766917293233,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_sunken_hammer_smith_heavy.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          95,
+          220,
+          672,
+          928
+        ],
+        [
+          88,
+          397,
+          679,
+          928
+        ]
+      ],
+      "sha256": "689e8aa4283014420acc1298de20f46efcc053e503b1f6091f6411cca8b8c3cf",
+      "prompt": "F_recover_sunken_hammer_smith_heavy.txt",
+      "postprocessing": {
+        "source": "exec-0ee12516-a795-4e41-aed6-e6424b855256.png",
+        "uniform_scale": 0.9508571428571428,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_sunken_hammer_smith_cast.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          371,
+          680,
+          929
+        ],
+        [
+          126,
+          367,
+          641,
+          929
+        ]
+      ],
+      "sha256": "35a87ed16565d0cacd94460a86e61fcba336f7e489a16ffcd95bb3352446a59b",
+      "prompt": "F_recover_sunken_hammer_smith_cast.txt",
+      "postprocessing": {
+        "source": "exec-c5d9773c-20dc-4cd3-86bd-222b386e1cbb.png",
+        "uniform_scale": 0.8262620689655172,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_sunken_hammer_smith_phase.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          516,
+          680,
+          929
+        ],
+        [
+          154,
+          460,
+          613,
+          929
+        ]
+      ],
+      "sha256": "aacc67bad4d2eee55538e389f1a4804a4339e71801a8a6de1517b94176df2536",
+      "prompt": "F_recover_sunken_hammer_smith_phase.txt",
+      "postprocessing": {
+        "source": "exec-47e2936b-086b-440b-aad6-9d7d6e59e675.png",
+        "uniform_scale": 0.7902902374670184,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_silent_crown_core_heavy.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          481,
+          680,
+          928
+        ],
+        [
+          100,
+          508,
+          667,
+          929
+        ]
+      ],
+      "sha256": "3de47c3f53fb51ce226adbc2538cf452ab92db0ddd2936c40a4fe0826da7e5b9",
+      "prompt": "F_recover_silent_crown_core_heavy.txt",
+      "postprocessing": {
+        "source": "exec-ba93bb86-131c-4ff5-ba3c-0e9e55f981fd.png",
+        "uniform_scale": 0.8533333333333333,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_silent_crown_core_cast.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          397,
+          680,
+          929
+        ],
+        [
+          92,
+          473,
+          677,
+          929
+        ]
+      ],
+      "sha256": "b470cc044715170f689484c1d5480620fcabafb5e85ac124cc1d7b3c64033f9d",
+      "prompt": "F_recover_silent_crown_core_cast.txt",
+      "postprocessing": {
+        "source": "exec-c1e32715-cecf-4e54-a7cc-523b76563243.png",
+        "uniform_scale": 0.8378181818181818,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_silent_crown_core_phase.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          526,
+          680,
+          929
+        ],
+        [
+          112,
+          567,
+          656,
+          929
+        ]
+      ],
+      "sha256": "f7f8fbfcbe061b8b7415127158c6cefcb4619e4cca997744a43f83b1f755fa4b",
+      "prompt": "F_recover_silent_crown_core_phase.txt",
+      "postprocessing": {
+        "source": "exec-c09fba3c-a179-4fb0-8262-0ace36eea286.png",
+        "uniform_scale": 0.7861417322834645,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_silent_pilgrim_commander_heavy.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          492,
+          680,
+          929
+        ],
+        [
+          97,
+          574,
+          671,
+          929
+        ]
+      ],
+      "sha256": "69f93e0e594558133d38000aa9f06033c19f5f123068c29939f62fe80af992ab",
+      "prompt": "F_recover_silent_pilgrim_commander_heavy.txt",
+      "postprocessing": {
+        "source": "exec-e9b3f092-895a-4c7d-86e4-48dc09adc8cd.png",
+        "uniform_scale": 0.8472984441301272,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_silent_pilgrim_commander_cast.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          87,
+          489,
+          680,
+          929
+        ],
+        [
+          118,
+          607,
+          650,
+          929
+        ]
+      ],
+      "sha256": "26aa6d7cd4b0a1bb7bb96572e12a1fbd764d35709e66d9f1e4545c4eb804afaf",
+      "prompt": "F_recover_silent_pilgrim_commander_cast.txt",
+      "postprocessing": {
+        "source": "exec-8608fd19-8952-4d45-adab-d98d1b702038.png",
+        "uniform_scale": 0.7830588235294117,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "F_recover_silent_pilgrim_commander_phase.png",
+      "frames": 2,
+      "size": [
+        1536,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          95,
+          513,
+          674,
+          928
+        ],
+        [
+          87,
+          519,
+          679,
+          928
+        ]
+      ],
+      "sha256": "804ebf46cf6a06fb605a29a2bc2b45b12c766f4b56de7ecfa4011fcfdca49dbb",
+      "prompt": "F_recover_silent_pilgrim_commander_phase.txt",
+      "postprocessing": {
+        "source": "exec-fe457ca9-05a6-4335-b34c-c1eccf1d515a.png",
+        "uniform_scale": 0.866917510853835,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "H_broken_string_gardener_death3.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          114,
+          394,
+          908,
+          630
+        ]
+      ],
+      "sha256": "36aa15187718fbc70577255f354862117e5db51a2d9cfc5824ad0fd7f3ba92aa",
+      "prompt": "H_broken_string_gardener_death3.txt",
+      "postprocessing": {
+        "source": "exec-a3e57855-2388-48f1-82ab-654ef45b14b3.png",
+        "uniform_scale": 0.6945391304347827,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "H_delayed_shadow_recover0.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          115,
+          246,
+          908,
+          777
+        ]
+      ],
+      "sha256": "01ea1ad38934d9b47383d0945f6863e3198e33b32e299c295cf17f96c0db2c0f",
+      "prompt": "H_delayed_shadow_recover0.txt",
+      "postprocessing": {
+        "source": "exec-0ac135cd-a909-4001-920d-61109783c822.png",
+        "uniform_scale": 0.6639401496259352,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "H_pipe_thrower_hurt2.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          134,
+          95,
+          890,
+          929
+        ]
+      ],
+      "sha256": "393847b4aeab6ef41eedf0187aee6cef3aafe6324a2039f7df47623a24275bb1",
+      "prompt": "H_pipe_thrower_hurt2.txt",
+      "postprocessing": {
+        "source": "exec-df937d05-b675-4232-a885-2cad8caf317e.png",
+        "uniform_scale": 0.795151515151515,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "H_npc_blind_bell_knight_talk3.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          193,
+          95,
+          831,
+          929
+        ]
+      ],
+      "sha256": "31115be15dcfe4784cace6d483f0bf2710824f737006e4bd5831ac559b3a0c48",
+      "prompt": "H_npc_blind_bell_knight_talk3.txt",
+      "postprocessing": {
+        "source": "exec-3d1b52e8-5f78-4dba-9946-fe29b4864a8e.png",
+        "uniform_scale": 0.7128013582342954,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "name": "H_npc_deserter_flagbearer_talk6.png",
+      "frames": 1,
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "cel_bounds": [
+        [
+          115,
+          133,
+          909,
+          891
+        ]
+      ],
+      "sha256": "809fcfe0a6c96b2cde94a50b4d60bc039d9c8c8d993cbd12764a0a2ebed34acf",
+      "prompt": "H_npc_deserter_flagbearer_talk6.txt",
+      "postprocessing": {
+        "source": "exec-ba340fdc-8d67-4c8b-966f-71f8a87b1f18.png",
+        "uniform_scale": 0.678606627017842,
+        "operation": "transparent padding, uniform scale, whole-silhouette cel placement",
+        "size": [
+          1024,
+          1024
+        ]
+      }
+    }
+  ]
+}
