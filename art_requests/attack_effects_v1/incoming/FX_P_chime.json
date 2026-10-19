@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_chime.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_chime.txt",
+  "prompt_sha256": "2991cc2cc30a01ab2cb3549123a6ab6c5c101ed51eb1d18bf79683055aa777cd",
+  "image_sha256": "9bf4bed58dbcb49fa1a7e44e72372daa23702054cd9b976965acdbcc571b0118",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 984987,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/silent_bugbler.png",
+      "sha256": "102f3d8d9b024896e61b881e8cfa05477aa78ae50fbd9b6861e2bc575743ffb3"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/falling_clapper.png",
+      "sha256": "b808318b74a161345c243c428db76ad50425b5e5e1a5612e9e2f928dff7a9979"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        437,
+        419
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        91,
+        128,
+        356,
+        350
+      ],
+      "fully_transparent_pixels": 115679
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        437,
+        0,
+        873,
+        419
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        528,
+        127,
+        808,
+        352
+      ],
+      "fully_transparent_pixels": 113128
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        873,
+        0,
+        1335,
+        419
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        958,
+        128,
+        1246,
+        354
+      ],
+      "fully_transparent_pixels": 118196
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1335,
+        0,
+        1774,
+        419
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1424,
+        128,
+        1689,
+        350
+      ],
+      "fully_transparent_pixels": 118211
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        419,
+        467,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        104,
+        532,
+        424,
+        801
+      ],
+      "fully_transparent_pixels": 133441
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        467,
+        419,
+        917,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        526,
+        530,
+        839,
+        806
+      ],
+      "fully_transparent_pixels": 120309
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        917,
+        419,
+        1348,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        995,
+        552,
+        1265,
+        797
+      ],
+      "fully_transparent_pixels": 122948
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1348,
+        419,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1446,
+        590,
+        1689,
+        762
+      ],
+      "fully_transparent_pixels": 143075
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "鐘聲彈",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

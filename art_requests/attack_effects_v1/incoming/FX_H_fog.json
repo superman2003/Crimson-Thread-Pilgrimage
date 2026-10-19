@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_H_fog.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_H_fog.txt",
+  "prompt_sha256": "85185b5bfbc06b7651ef95b3596d6226d68e88449f86819fde5f641a8f045640",
+  "image_sha256": "1eabb9954c0fd39c02b1a607da14a04cc07eb8a269177255823bfce0a4042bc1",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 899803,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/hero_style.png",
+      "sha256": "34d1391facab3ceefedf44db26e7b7679526481a5d39dbf998c49fe7e08f3123"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        427,
+        438
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        70,
+        118,
+        401,
+        370
+      ],
+      "fully_transparent_pixels": 123897
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        427,
+        0,
+        882,
+        438
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        463,
+        68,
+        850,
+        387
+      ],
+      "fully_transparent_pixels": 98650
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        882,
+        0,
+        1333,
+        438
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        917,
+        76,
+        1303,
+        398
+      ],
+      "fully_transparent_pixels": 92775
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1333,
+        0,
+        1774,
+        438
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1368,
+        94,
+        1739,
+        385
+      ],
+      "fully_transparent_pixels": 91167
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        438,
+        449,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        35,
+        526,
+        412,
+        824
+      ],
+      "fully_transparent_pixels": 103499
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        449,
+        438,
+        889,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        483,
+        511,
+        854,
+        829
+      ],
+      "fully_transparent_pixels": 97199
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        889,
+        438,
+        1335,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        932,
+        534,
+        1279,
+        790
+      ],
+      "fully_transparent_pixels": 127548
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1335,
+        438,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1395,
+        593,
+        1726,
+        781
+      ],
+      "fully_transparent_pixels": 165068
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "鹽霧瓶（戰具）",
+    "observed_cels": 8,
+    "note": "已目检指定格数的主角技能/战具效果，无角色。放置锚点、循环、触发时序、淡出与判定大小需运行时验收。"
+  }
+}

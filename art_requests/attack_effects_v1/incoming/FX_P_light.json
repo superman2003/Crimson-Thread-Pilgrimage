@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_light.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_light.txt",
+  "prompt_sha256": "19885437a3a8f63c32688d52077113323008cba41ed536e7cff8299e3a2f0b00",
+  "image_sha256": "d4c8fbeb2ee8cf816552215cc167e66fef2ef39db6359ac5e3727ff8a8312045",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1029931,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/bell_mote.png",
+      "sha256": "d79c0e992811c0bb15efbdaa10cee77d3944f3e46867972a7b20319416461f73"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/isotope_lumen.png",
+      "sha256": "7418b57d4837ad397547fd692caecc9e2d7c641ab0d6ee617f8394cf58f4a268"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        451,
+        446
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        80,
+        145,
+        380,
+        328
+      ],
+      "fully_transparent_pixels": 136458
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        451,
+        0,
+        905,
+        446
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        510,
+        136,
+        804,
+        325
+      ],
+      "fully_transparent_pixels": 131618
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        905,
+        0,
+        1330,
+        446
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        962,
+        147,
+        1238,
+        332
+      ],
+      "fully_transparent_pixels": 121761
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1330,
+        0,
+        1774,
+        446
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1395,
+        139,
+        1690,
+        324
+      ],
+      "fully_transparent_pixels": 134841
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        446,
+        445,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        81,
+        532,
+        375,
+        792
+      ],
+      "fully_transparent_pixels": 118198
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        445,
+        446,
+        893,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        517,
+        544,
+        821,
+        777
+      ],
+      "fully_transparent_pixels": 117495
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        893,
+        446,
+        1348,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        969,
+        575,
+        1257,
+        757
+      ],
+      "fully_transparent_pixels": 135595
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1348,
+        446,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1440,
+        604,
+        1683,
+        755
+      ],
+      "fully_transparent_pixels": 133965
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "光珠",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

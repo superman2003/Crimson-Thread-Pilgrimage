@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_stinger.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_stinger.txt",
+  "prompt_sha256": "1422786a5cf7f457315474a38d93d6a337b02f4aeea27136813e94872a10a038",
+  "image_sha256": "c018e268272fc3486e362bb27e6703e3963be491308c3dcec181965fdb33de59",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1357225,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/wax_bee.png",
+      "sha256": "fa9f01f98dbd3ba25ac20a90d94526cb73a23cd8cc1467d30296437e980646ac"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        458,
+        399
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        40,
+        188,
+        411,
+        310
+      ],
+      "fully_transparent_pixels": 160850
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        458,
+        0,
+        903,
+        399
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        510,
+        177,
+        854,
+        307
+      ],
+      "fully_transparent_pixels": 155806
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        903,
+        0,
+        1334,
+        399
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        953,
+        178,
+        1296,
+        316
+      ],
+      "fully_transparent_pixels": 149080
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1334,
+        0,
+        1774,
+        399
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1376,
+        183,
+        1738,
+        304
+      ],
+      "fully_transparent_pixels": 152752
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        399,
+        452,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        69,
+        548,
+        404,
+        777
+      ],
+      "fully_transparent_pixels": 178908
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        452,
+        399,
+        901,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        503,
+        542,
+        838,
+        797
+      ],
+      "fully_transparent_pixels": 178335
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        901,
+        399,
+        1361,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        969,
+        578,
+        1285,
+        765
+      ],
+      "fully_transparent_pixels": 197934
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1361,
+        399,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1445,
+        638,
+        1691,
+        716
+      ],
+      "fully_transparent_pixels": 183560
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "蠟針",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

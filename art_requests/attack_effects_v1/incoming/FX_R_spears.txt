@@ -1,0 +1,10 @@
+Use case: game VFX sprite sheet. Production effect sprites for the 2D side-scrolling game Crimson Thread Pilgrimage, a hand-painted dark fantasy insect world: muted earthy palette, crisp dark ink contours, textured painted shading; not neon, not pixel art, not a 3D render. The reference image(s) show the creature that uses this effect: match its palette and materials, but do NOT draw the creature. Every cel shows ONLY the effect, at the same scale in every cel. The game shrinks it to about a 44 px wide, 100 px tall burst, so it needs one bold, simple silhouette, a high-contrast core and a thin dark ink rim around its solid parts so it reads on both dark and pale backgrounds. Genuine transparent alpha background (soft semi-transparent glow edges are fine): no black or white fill, no checkerboard, no scenery, no ground surface, no cast shadow, no text, no numbers, no grid lines, no characters. Generous fully transparent gutters; nothing touches a neighbouring cel or the canvas edge.
+The effect: a cluster of ghostly black spears with tattered grey pennants thrusting straight up out of the ground.
+Layout: exactly 6 cels on a 3-column x 2-row grid (1536x1024 px canvas, one 512x512 px cel each), read left-to-right then top-to-bottom. The burst grows straight up from an invisible ground line at 90% of the cel height, centred horizontally, about 40% of the cel width wide and up to 85% of the cel height tall.
+Cel 1: emerge: tips just breaking the ground.
+Cel 2: emerge: shooting up to about two thirds height.
+Cel 3: full height, hold frame 1.
+Cel 4: full height, hold frame 2 (slight sway), loops with cel 3.
+Cel 5: retract: cracking and sinking back down.
+Cel 6: retract: almost gone, a few fragments at ground level.
+Strict sprite packing: each complete effect, including every root tip, spear point, splash and fragment, must stay inside its own cel with clear transparent gutters on all sides. All cels share exactly the same invisible ground baseline and horizontal anchor. The active-loop cels keep the same dimensions and anchor; only internal details move. Final cel has only a few faint traces, with no intact active effect.

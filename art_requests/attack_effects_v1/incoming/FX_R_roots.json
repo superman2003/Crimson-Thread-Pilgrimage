@@ -1,0 +1,149 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_R_roots.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_R_roots.txt",
+  "prompt_sha256": "edf38acdb1c8b6e67e8d0cf8e622110ec87cab8403106907e74e2d042326b514",
+  "image_sha256": "bab0d40d7cb02ee38b3a7121009edcf5cb47b5551cdff136b1e02068ba0ff14a",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "requested_frames": 6,
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "fully_transparent_pixels": 1134360,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/vine_crawler.png",
+      "sha256": "b75b1b70cfe4ea168a763fe637c8d864bc6800e63ee11590ef08dd7286e034f5"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/thorn_sentinel.png",
+      "sha256": "382ba567a1b26b0ca7a51127272e9ebd81b919ff38a0428c79bc4f144a592d8c"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/thorn_bloom_mote.png",
+      "sha256": "23fb697088643690ed8e77ce12e82b4e63c8d771fd216bb5215f9a7fc5a723ba"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/rust_crown_guardian.png",
+      "sha256": "99d9b22e80128af4ed68ccaa57e1009e2102f9afa90a0a9f5b22b3a0fade3770"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/broken_string_gardener.png",
+      "sha256": "b2a55df17302fefafa59296ea26a021536b9663d0b20f8fa80d424e762b13f3d"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        516,
+        520
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        98,
+        340,
+        432,
+        508
+      ],
+      "fully_transparent_pixels": 236733
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        516,
+        0,
+        1023,
+        520
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        603,
+        182,
+        942,
+        508
+      ],
+      "fully_transparent_pixels": 193177
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1023,
+        0,
+        1536,
+        520
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1107,
+        16,
+        1484,
+        510
+      ],
+      "fully_transparent_pixels": 160284
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        520,
+        536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        75,
+        531,
+        479,
+        998
+      ],
+      "fully_transparent_pixels": 144670
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        536,
+        520,
+        1034,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        596,
+        678,
+        959,
+        996
+      ],
+      "fully_transparent_pixels": 178341
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1034,
+        520,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1109,
+        801,
+        1462,
+        997
+      ],
+      "fully_transparent_pixels": 221155
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "根刺",
+    "observed_cels": 6,
+    "note": "已目检冒出、满高与回收共 6 格，根部在下、尖端朝上。实际高度、地面线与判定矩形需运行时验收。"
+  }
+}
