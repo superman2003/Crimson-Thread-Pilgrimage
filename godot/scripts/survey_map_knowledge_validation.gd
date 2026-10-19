@@ -163,6 +163,29 @@ func run() -> void:
 	check(dense_overlaps == 0, "twelve pins packed into a few pixels never overlap (overlaps %d)" % dense_overlaps)
 	check(all_shown, "every packed pin number is still shown on some label")
 	check(dense_far < 64.0, "packed labels stay within 64 px of their pins (farthest %.1f)" % dense_far)
+	# Review case: forty pins over 126 x 72 px. Once no merge keeps every number
+	# within the drift limit, labels must still merge rather than overlap.
+	var crowd: Array[Label] = []
+	for index in 40:
+		var crowd_label := Label.new()
+		crowd_label.text = "★" + str(index + 1)
+		crowd_label.add_theme_font_size_override("font_size", 19)
+		crowd_label.set_meta("pin_id", index + 1)
+		crowd_label.set_meta("map_anchor", Vector2(500 + (index % 8) * 18, 300 + int(index / 8) * 18))
+		crowd_label.position = (crowd_label.get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN
+		crowd.append(crowd_label)
+	pins.declutter(crowd)
+	var crowd_overlaps := 0
+	var crowd_shown := ""
+	for i in crowd.size():
+		if not crowd[i].visible: continue
+		crowd_shown += " " + crowd[i].text.replace("\n", " ") + " "
+		for j in range(i + 1, crowd.size()):
+			if crowd[j].visible and pins._label_rect(crowd[i], crowd[i].position).intersects(pins._label_rect(crowd[j], crowd[j].position)): crowd_overlaps += 1
+	var crowd_all := true
+	for index in 40: crowd_all = crowd_all and crowd_shown.contains("★" + str(index + 1) + " ")
+	check(crowd_overlaps == 0 and crowd_all, "forty crowded pins never overlap and every number is shown (overlaps %d)" % crowd_overlaps)
+	for crowd_label in crowd: crowd_label.free()
 	var hidden := 0
 	for pin_label in dense: hidden += 0 if pin_label.visible else 1
 	check(hidden > 0, "the packed case really exercises joining (%d numbers joined)" % hidden)
