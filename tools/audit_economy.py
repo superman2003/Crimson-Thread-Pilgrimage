@@ -21,6 +21,7 @@ MAIN = ROOT / "godot/scripts/main_level.gd"
 # Kill rewards live in main_level.gd; the audit fails if they drift.
 KILL_CURRENCY = 8
 BOSS_CURRENCY = 30
+ELITE_FIRST_CURRENCY = 30        # main_level.gd: one-time bonus for each elite's first defeat
 MAP_SHARE_OF_FIRST_CLEAR = 0.5   # a map costs at most half the region's first-clear kill income
 TOOL_REFILL_KILLS = 2            # a full tool refill costs at most two regular kills
 INCOME_HEADROOM = 1.5            # one-time income covers one-time sinks 1.5x: no forced grind
@@ -28,19 +29,21 @@ MIN_SINK_SHARE = 0.35            # but sinks still take at least 35% of it: mone
 
 
 def load(name: str):
-    return json.loads((DATA / name).read_text())
+    return json.loads((DATA / name).read_text(encoding="utf-8"))
 
 
 def audit() -> tuple[dict, list[str]]:
     errors: list[str] = []
-    main = MAIN.read_text()
+    main = MAIN.read_text(encoding="utf-8")
     # The runtime must charge the seller's price, not a shared constant.
-    cartography = (ROOT / "godot/scripts/cartography_runtime.gd").read_text()
+    cartography = (ROOT / "godot/scripts/cartography_runtime.gd").read_text(encoding="utf-8")
     if 'seller.get("price"' not in cartography or "JOURNAL.PRICE," in cartography.replace("JOURNAL.PRICE))", ""):
         errors.append("cartography_runtime.gd must charge each seller's own price from cartography_sellers.json")
     for amount in (KILL_CURRENCY, BOSS_CURRENCY):
         if f"_add_currency({amount})" not in main:
             errors.append(f"main_level.gd no longer grants {amount} currency; update the audit constants")
+    if f"const ELITE_FIRST_CURRENCY := {ELITE_FIRST_CURRENCY}" not in main:
+        errors.append("main_level.gd elite first-defeat bonus changed; update the audit constant")
     chapters = sorted(load("campaign_chapters.json").get("chapters", []), key=lambda c: int(c.get("index", 0)))
     order = [str(c.get("runtime_config_id", "")) for c in chapters]
     routes = load("world_routes.json")["chapters"]
@@ -52,11 +55,12 @@ def audit() -> tuple[dict, list[str]]:
     for cid in regions:
         config = load(f"{cid}.json")
         kills = len(config.get("enemy_spawns", [])) * KILL_CURRENCY
+        elites = sum(1 for s in config.get("enemy_spawns", []) if s.get("elite")) * ELITE_FIRST_CURRENCY
         workshops = sum(int(c.get("amount", 0)) for c in routes[cid].get("collectibles", []) if c.get("kind") == "currency")
         # B04 optional challenges: one-time clear currency. Challenge foes pay no per-kill loot.
         challenges = sum(int((c.get("reward") or {}).get("currency", 0)) for c in config.get("optional_challenges", []) if isinstance(c, dict))
         rows[cid] = {"first_clear_kills": kills, "boss": BOSS_CURRENCY if config.get("boss") else 0, "workshops": workshops,
-                     "optional_challenges": challenges, "quests": 0, "map_price": int(sellers.get(cid, {}).get("price", 0)), "drop": config.get("enemy_drop_item", "")}
+                     "optional_challenges": challenges, "elite_first": elites, "quests": 0, "map_price": int(sellers.get(cid, {}).get("price", 0)), "drop": config.get("enemy_drop_item", "")}
     region_by_short = {cid.replace("demo_", ""): cid for cid in regions}
     tool_region: dict[str, str] = {}
     npcs = narrative["npcs"]
@@ -88,11 +92,13 @@ def audit() -> tuple[dict, list[str]]:
         for material in materials:
             if material != rows[region]["drop"]:
                 errors.append(f"{tool_id}: resupply material {material} does not drop in {region} where the tool is obtained ({rows[region]['drop']})")
-        refill = int(tool.get("resupply", {}).get("currency", 0)) * int(tool.get("capacity", 0))
+        # build_system.tool_capacity(): capacity bonuses (needlecase) apply to shard and mine.
+        bonus = max(int(p.get("modifiers", {}).get("tool_capacity_bonus", 0)) for p in catalog["passives"].values()) if tool_id in ("shard", "mine") else 0
+        refill = int(tool.get("resupply", {}).get("currency", 0)) * (int(tool.get("capacity", 0)) + bonus)
         if refill > TOOL_REFILL_KILLS * KILL_CURRENCY:
             errors.append(f"{tool_id}: a full refill costs {refill}, more than {TOOL_REFILL_KILLS} regular kills")
     # Totals.
-    income = sum(r["first_clear_kills"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
+    income = sum(r["first_clear_kills"] + r["elite_first"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
     maps = sum(r["map_price"] for r in rows.values())
     # C04: each skill takes one 校习 direction; count the cheaper one as the
     # one-time sink. Switching direction later is an optional repeat purchase.

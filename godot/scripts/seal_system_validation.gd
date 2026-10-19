@@ -25,7 +25,8 @@ func _initialize() -> void:
     fresh.unlock_event("tool_mine_found")
     _check(fresh.state.tool_counts.mine == 0, "discovery does not create free stock away from shrine")
     _check(not fresh.refill_tools(true).ok and fresh.state.tool_counts.mine == 0, "shrine no longer gives free tool stock")
-    var supply := fresh.resupply_tools({"currency": 6, "inventory_counts": {"wet_chitin": 1}}, true)
+    var mine_price := int(fresh.catalog.tools.mine.resupply.currency)
+    var supply := fresh.resupply_tools({"currency": mine_price, "inventory_counts": {"wet_chitin": 1}}, true)
     _check(supply.ok and fresh.state.tool_counts.mine == 1 and supply.wallet.currency == 0 and supply.wallet.inventory_counts.wet_chitin == 0,
         "paid mine resupply spends its renewable material and currency")
     fresh.select_tool("mine", 1)
