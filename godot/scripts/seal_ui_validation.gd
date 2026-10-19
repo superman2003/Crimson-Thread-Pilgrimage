@@ -61,7 +61,7 @@ func run() -> void:
     ui.build_slot_buttons[1].pressed.emit()
     click_id(ui,"mine")
     check(model.state.tools[0]=="fog" and model.state.tools[1]=="mine","Compatible tools occupy separate persistent family slots")
-    check(ui.build_detail.text.contains("免费补满") and ui.build_detail.text.contains("不会补充"),"Refill rules distinguish shrine rest from loadout switching")
+    check(ui.build_detail.text.contains("碎钱与材料") and ui.build_detail.text.contains("不会补充"),"Refill rules: paid shrine resupply, loadout switching never refills")
     ui.build_category="契印"
     ui.refresh_build()
     check(ui.build_slot_buttons.is_empty(),"Seal page removes typed slot selectors that do not apply")

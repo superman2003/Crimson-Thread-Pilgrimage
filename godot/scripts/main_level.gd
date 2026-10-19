@@ -33,6 +33,8 @@ var save_point_residency_memory: Dictionary = {}
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
+const HIDDEN_ROUTE_CLUE_SCRIPT := preload("res://scripts/hidden_route_clue.gd")
+const HIDDEN_CLUE_NOTICE_RANGE := 260.0
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 const WORLD_ABILITIES := ["thread_dash", "silk_wall_grip", "echo_hook", "double_thread_jump", "bell_guard", "thorn_downstrike", "lantern_phase", "crown_resonance"]
 const DEFAULT_CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
@@ -518,12 +520,16 @@ var locked_gate_bodies: Dictionary = {}
 var unlocked_abilities: Dictionary = {}
 var boss_actor: Area2D
 var boss_arena_lock_body: StaticBody2D
+## E02: this region's tool practice rooms and encounter hints, built with the region.
+var tool_practice_rooms: Dictionary = {}
+var tool_encounter_hints: Dictionary = {}
 ## B04 optional challenge rooms / optional bosses: sealed on demand, one-time clear.
 var challenge_arena_lock_body: StaticBody2D
 var active_challenge_id := ""
 var challenge_alive_ids: Dictionary = {}
 ## Validation-only: these spawn ids are treated as `_enemy` returning null.
 var challenge_spawn_null_ids_for_validation: Dictionary = {}
+var hidden_route_clues: Array[Node2D] = []
 var nearby_interactable: Area2D
 var active_spawn := Vector2(120, 500)
 var bell_count := 0
@@ -1054,6 +1060,7 @@ func _process(_delta: float) -> void:
         if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position):
             last_safe_ground = player.global_position
         _update_room_visit()
+        _notice_hidden_route_clues()
         _update_first_journey_hint()
         if active_overlay == "map":
             _refresh_map_overlay()
@@ -1230,6 +1237,7 @@ func _restore_world_routes() -> void:
 
 
 func _restore_world_discovery() -> void:
+    _sync_hidden_route_clues_with_visits()
     # Reconstruct discovered cells after MetSys builds this region's map.
     if metsys_bridge != null:
         for room_id in visited_rooms:
@@ -2993,6 +3001,9 @@ func _update_room_visit() -> void:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
         if current_room_id != previous_room_id:
             _abort_challenge_if_left_room()
+            _show_tool_encounter_hint()
+
+            _mark_hidden_route_found()
             _save_world()
             _trigger_whispers("enter_room", current_room_id)
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
@@ -3445,6 +3456,9 @@ func _region_build_jobs() -> Array:
             jobs.append({"method": "_enemy", "args": [data]})
     if world_mode:
         jobs.append({"method": "_spawn_seal_practice_targets", "args": []})
+        jobs.append({"method": "_spawn_tool_practice_targets", "args": []})
+
+        jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
@@ -3510,7 +3524,7 @@ func _spawn_seal_practice_targets() -> void:
                     _hold_actor_support(String(platform.id))
         target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
             "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
-            "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": []})
+            "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": [], "locomotion": "stationary"})
         add_child(target)
         var label := Label.new()
         label.position = Vector2(-100, -132)
@@ -3520,6 +3534,127 @@ func _spawn_seal_practice_targets() -> void:
         label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
+
+## E02: each primary tool has a practice puppet beside the skill racks. The
+## puppet runs real AI from its plan profile so the tool visibly acts on it.
+func _spawn_tool_practice_targets() -> void:
+    # cached_data() deep-copies the whole route manifest, so read it once per
+    # region and keep only this region's rooms for the per-cast / per-room checks.
+    var routes: Dictionary = WORLD_ROUTES_SCRIPT.cached_data()
+    tool_practice_rooms.clear()
+    tool_encounter_hints.clear()
+    for entry in routes.get("tool_encounter_plan", []):
+        if String(entry.get("region_id", "")) == String(config.get("id", "")):
+            tool_encounter_hints[String(entry.get("room_id", ""))] = entry
+    for entry in routes.get("tool_practice_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        tool_practice_rooms[String(entry.get("room_id", ""))] = true
+        var target := Area2D.new()
+        target.set_script(load("res://scripts/tool_training_target.gd"))
+        target.name = String(entry.training_id)
+        target.position = _vec2(entry.position)
+        var floor_id := ""
+        for platform in config.get("platforms", []):
+            if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
+                floor_id = String(platform.id)
+                target.position.y = float(platform.rect[1]) - 23.0
+                if world_platforms != null:
+                    _hold_actor_support(floor_id)
+        var data := {"id": String(entry.training_id), "kind": "tool_training", "hp": 30,
+            "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
+            "damage": 0, "patrol": 40, "combat_resistance": {"trip_immune": false, "lure_immune": false, "snare_mult": 1.0}}
+        target.configure(data, "res://assets/ui/seals/ward.svg", false, Dictionary(entry.get("puppet", {})).duplicate(true))
+        target.set_meta("tool_practice_id", String(entry.get("tool_id", "")))
+        target.set_meta("tool_practice_room", String(entry.room_id))
+        var bounds := _enemy_platform_movement_bounds(floor_id, target.position, data)
+        if bounds.size() >= 2:
+            target.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
+        add_child(target)
+        var label := Label.new()
+        label.position = Vector2(-120, -150)
+        label.size = Vector2(240, 100)
+        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
+        label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+        label.add_theme_font_size_override("font_size", 13)
+        target.add_child(label)
+
+
+func _in_tool_practice_room() -> bool:
+    return tool_practice_rooms.has(current_room_id)
+
+
+## E02: the first time an equipped tool's suited encounter room is entered, say
+## why the tool fits there. Shown once per room, kept in the save.
+func _show_tool_encounter_hint() -> void:
+    if build_system == null:
+        return
+    if tool_encounter_hints.has(current_room_id):
+        var entry: Dictionary = tool_encounter_hints[current_room_id]
+        var tool_id := String(entry.get("tool_id", ""))
+        var flag := "tool_hint_%s_%s" % [String(config.get("id", "")), current_room_id]
+        if bool(story_flags.get(flag, false)) or not build_system.state.unlocked_tools.has(tool_id) or not build_system.state.tools.has(tool_id):
+            return
+        story_flags[flag] = true
+        _toast("战具提示 · %s：%s" % [String(build_system.catalog.tools[tool_id].get("name", tool_id)), String(entry.get("note", ""))])
+
+## W04: each planned hidden room leaks light into its entrance room. Coming
+## near the crack says what the player notices, once; finding the room dims it.
+func _spawn_hidden_route_clues() -> void:
+    hidden_route_clues.clear()
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        var clue := Node2D.new()
+        clue.set_script(HIDDEN_ROUTE_CLUE_SCRIPT)
+        clue.name = "HiddenClue_" + String(entry.id)
+        clue.clue_id = String(entry.id)
+        clue.found = bool(story_flags.get("hidden_found_" + String(entry.id), false))
+        clue.position = _vec2(entry.clue.position)
+        clue.set_meta("hidden_route", entry)
+        add_child(clue)
+        hidden_route_clues.append(clue)
+    _sync_hidden_route_clues_with_visits()
+
+
+## Saves from before these clues already record visits to the hidden rooms;
+## a room the player has been in counts as found.
+func _sync_hidden_route_clues_with_visits() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if bool(visited_rooms.get(String(entry.get("hidden_room_id", "")), false)):
+            clue.found = true
+            story_flags["hidden_found_" + String(entry.id)] = true
+
+
+func _notice_hidden_route_clues() -> void:
+    # A notice behind the map or a dialogue would be lost; wait until it closes.
+    if not active_overlay.is_empty():
+        return
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        var flag := "hidden_clue_seen_" + String(entry.id)
+        if bool(story_flags.get(flag, false)) or player.global_position.distance_to(clue.global_position) > HIDDEN_CLUE_NOTICE_RANGE:
+            continue
+        story_flags[flag] = true
+        _save_world()
+        _toast(String(entry.clue.get("line", "")))
+
+
+func _mark_hidden_route_found() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if String(entry.get("hidden_room_id", "")) != current_room_id:
+            continue
+        clue.found = true
+        story_flags["hidden_found_" + String(entry.id)] = true
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
@@ -6553,14 +6688,42 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             if player != null:
                 player.gain_energy(20)
         _toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
+        var elite_message := "" if challenge_spawn else _grant_elite_first_defeat(spawn_id, drop_item)
         if challenge_spawn:
             _on_challenge_enemy_died(spawn_id)
         elif _combat_progression_enabled() and _combat_goal_met():
             _open_combat_clear_route()
             _play_sfx("door_open", -9.0)
-            _toast("本区敌群已清，钟门前的道路开启。")
+            # One toast label: keep the elite reward visible alongside the clear.
+            _toast("本区敌群已清，钟门前的道路开启。" + ("" if elite_message.is_empty() else " " + elite_message))
     _refresh_hud()
     _save_world()
+
+
+## B04: an elite is an optional, harder fight. Its first defeat pays a one-time
+## bonus (kept in story flags), so respawned elites cannot be farmed for it.
+const ELITE_FIRST_CURRENCY := 30
+const ELITE_FIRST_MATERIALS := 2
+
+func _spawn_is_elite(spawn_id: String) -> bool:
+    for spawn in config.get("enemy_spawns", []):
+        if spawn is Dictionary and String(spawn.get("id", "")) == spawn_id:
+            return bool(spawn.get("elite", false))
+    return false
+
+## Returns the reward message ("" when no bonus) so a following toast can keep it.
+func _grant_elite_first_defeat(spawn_id: String, drop_item: String) -> String:
+    if not world_mode or not _spawn_is_elite(spawn_id):
+        return ""
+    var flag := "elite_first_%s_%s" % [String(config.get("id", "")), spawn_id]
+    if bool(story_flags.get(flag, false)):
+        return ""
+    story_flags[flag] = true
+    _add_currency(ELITE_FIRST_CURRENCY)
+    _add_inventory_item(drop_item, ELITE_FIRST_MATERIALS, false)
+    var message := "精英首胜：额外 %d 枚碎钱与 %d 份材料。" % [ELITE_FIRST_CURRENCY, ELITE_FIRST_MATERIALS]
+    _toast(message)
+    return message
 
 
 func _on_player_respawned() -> void:
@@ -6589,6 +6752,9 @@ func _reset_encounters_after_player_death() -> void:
     for enemy_node in get_tree().get_nodes_in_group("enemy"):
         var enemy_area := enemy_node as Area2D
         if enemy_area == null or not is_instance_valid(enemy_area):
+            continue
+        # Practice racks and puppets are built once per region and never respawn.
+        if enemy_area.has_meta("seal_training_target") or enemy_area.has_meta("tool_training_target"):
             continue
         if enemy_area.has_method("_cancel_attack_effects"):
             enemy_area._cancel_attack_effects()
@@ -7261,7 +7427,15 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                         owned_traps += 1
                 if owned_traps >= 2:
                     return {"ok": false, "reason": "场上已有两枚布置中的地雷"}
+            # E02: tools used in a practice room cost nothing and give nothing:
+            # the stock is put back to what it was, even when it was empty.
+            var practice := _in_tool_practice_room()
+            var practice_count := int(build_system.state.tool_counts.get(selected_tool_id, 0))
+            if practice and practice_count <= 0:
+                build_system.state.tool_counts[selected_tool_id] = 1
             result = build_system.use_tool()
+            if practice:
+                build_system.state.tool_counts[selected_tool_id] = practice_count
     if result.get("ok", false):
         result = _finish_build_transaction(result, build_before, wallet_before, materials_before)
         if result.get("ok", false) and action == "use_tool" and not player.cast_tool(result):

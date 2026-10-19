@@ -222,5 +222,5 @@ static func render(level: Node) -> void:
         dot.position = project(level.player_world_position(), layout) - Vector2(6, 9)
         dot.add_theme_color_override("font_color", SURFACE.ACCENT)
         host.add_child(dot)
-    level.map_text.text = ("◆ 位置" if positioned else "无罗盘·看地标") + "    ◇ 门槛    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
+    level.map_text.text = ("◆ 位置" if positioned else "无罗盘·看地标") + "    ◇ 门槛    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
     level.map_text.tooltip_text = "实线是实体钟管；悬停房间可查看名称和旧路端点关系，悬停门槛可查看通行条件。"

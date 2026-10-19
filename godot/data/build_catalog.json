@@ -557,6 +557,8 @@
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "抛物线投掷，落地后提示再爆裂；不穿墙。 补给消耗碎钱与材料。",
       "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "practice": "苔钟庭·排水计时闸门外的练习傀儡。练习区内使用不消耗次数。",
+      "encounter": "苔钟庭·水窖环廊：两只地面敌人常并排走来，爆圈能一次命中两只。",
       "resupply": {
         "currency": 4,
         "materials": {
@@ -576,14 +578,16 @@
       "boss_immune_control": true,
       "unlock_flag": "tool_mine_found",
       "unlock_item": "relic_tool_mine",
-      "refill_rule": "钟龛补给：每份消耗6松脂碎片与1湿壳",
+      "refill_rule": "钟龛补给：每份消耗5松脂碎片与1湿壳",
       "icon": "res://assets/ui/seals/mine.svg",
       "source": "人物传授、生活遗物或旧设施发现",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "地面陷阱，最多两个；Boss不被定身。 补给消耗碎钱与材料。",
       "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "practice": "铸雨渠·泵房上检修舱门外的练习傀儡，会走向你。练习区内使用不消耗次数。",
+      "encounter": "铸雨渠·立管井口：敌人沿管道直冲过来，先在来路布钉。",
       "resupply": {
-        "currency": 6,
+        "currency": 5,
         "materials": {
           "wet_chitin": 1
         }
@@ -607,6 +611,8 @@
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "干扰普通远程敌人索敌；不影响已发射弹体。 补给消耗碎钱与材料。",
       "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "practice": "盐白书库·运书吊篮仓门外的练习傀儡，会射出无害的练习光束。练习区内使用不消耗次数。",
+      "encounter": "盐白书库·封存书堆：先罩住远程擦除的法警，再处理近身的书虫。",
       "resupply": {
         "currency": 5,
         "materials": {
@@ -632,6 +638,8 @@
       "unlock_hint": "相关人物回应或发现遗物后解锁",
       "risk": "可诱导小怪调查落点，之后可重新发现玩家；Boss免疫。 补给消耗碎钱与材料。",
       "synergy": "效果由契印统一计算，不影响永久探索能力。",
+      "practice": "断弦温室·蜂蜡影闩室门外的练习傀儡，会跟着你走。练习区内使用不消耗次数。",
+      "encounter": "断弦温室·根须南廊：把会走动的敌人引开，再逐个处理。",
       "resupply": {
         "currency": 5,
         "materials": {
@@ -771,7 +779,7 @@
       "materials": {},
       "kind": "skill",
       "target": "cleave",
-      "currency_per_level": 30
+      "currency_per_level": 50
     },
     "upgrade_needle": {
       "name": "回声针校习",
@@ -780,7 +788,7 @@
       "materials": {},
       "kind": "skill",
       "target": "needle",
-      "currency_per_level": 30
+      "currency_per_level": 50
     },
     "upgrade_snare": {
       "name": "盐印缚线校习",
@@ -789,7 +797,7 @@
       "materials": {},
       "kind": "skill",
       "target": "snare",
-      "currency_per_level": 30
+      "currency_per_level": 50
     },
     "upgrade_ward": {
       "name": "守钟架势校习",
@@ -798,7 +806,7 @@
       "materials": {},
       "kind": "skill",
       "target": "ward",
-      "currency_per_level": 30
+      "currency_per_level": 50
     },
     "upgrade_shockwave": {
       "name": "钟鸣震波校习",
@@ -807,7 +815,7 @@
       "materials": {},
       "kind": "skill",
       "target": "shockwave",
-      "currency_per_level": 30
+      "currency_per_level": 50
     },
     "upgrade_crosscut": {
       "name": "断弦回斩校习",
@@ -816,7 +824,7 @@
       "materials": {},
       "kind": "skill",
       "target": "crosscut",
-      "currency_per_level": 30
+      "currency_per_level": 50
     }
   },
   "events": {

@@ -8566,5 +8566,284 @@
       "danger": "安全工房无敌群；失足落回底层维护道，可重新起跳或原路退出。",
       "traversal_focus": "crown_terminal_dais → 高台奖励 → 底道返程"
     }
+  ],
+  "tool_practice_plan": [
+    {
+      "tool_id": "shard",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "upgrade_thread_dash_1",
+      "position": [
+        8110,
+        540
+      ],
+      "training_id": "tool_training_shard",
+      "label": "战具练习·铜铃投罐：抛出后落地，短暂预警再爆裂，爆圈能同时命中并排的敌人。练习区内使用不消耗次数。",
+      "puppet": {
+        "locomotion": "stationary",
+        "lure_eligible": false,
+        "attacks": []
+      }
+    },
+    {
+      "tool_id": "mine",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "upgrade_silk_wall_grip_2",
+      "position": [
+        7650,
+        1080
+      ],
+      "training_id": "tool_training_mine",
+      "label": "战具练习·绊线钉：傀儡会走向你。把钉布在它的来路上，踩中即被绊倒。练习区内使用不消耗次数。",
+      "puppet": {
+        "locomotion": "ground",
+        "move_speed": 42,
+        "aggro_range": 320,
+        "aggro_vertical_tolerance": 120,
+        "preferred_range": 40,
+        "leash_radius": 220,
+        "lure_eligible": true,
+        "attacks": [
+          {
+            "id": "practice_shove",
+            "name": "练习轻推",
+            "type": "melee",
+            "range": 70,
+            "windup": 0.6,
+            "active": 0.2,
+            "recover": 0.8,
+            "cooldown": 2.0,
+            "hit_width": 80,
+            "hit_height": 70,
+            "offset": 40,
+            "damage": 0,
+            "telegraph": "c99558",
+            "vertical_tolerance": 120,
+            "animation": "attack",
+            "desire_cost": 0.6,
+            "blockable": true
+          }
+        ]
+      }
+    },
+    {
+      "tool_id": "fog",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "upgrade_echo_hook_2",
+      "position": [
+        8060,
+        540
+      ],
+      "training_id": "tool_training_fog",
+      "label": "战具练习·盐雾瓶：傀儡每隔几秒射出无害的练习光束。喷雾罩住它后，它找不到你，不再出手；已经射出的光束不受影响。练习区内使用不消耗次数。",
+      "puppet": {
+        "locomotion": "stationary",
+        "aggro_range": 460,
+        "aggro_vertical_tolerance": 160,
+        "lure_eligible": false,
+        "attack_desire_threshold": 0.4,
+        "attack_desire_gain": 1.4,
+        "attacks": [
+          {
+            "id": "practice_beam",
+            "name": "练习光束",
+            "type": "beam",
+            "range": 440,
+            "windup": 1.0,
+            "active": 0.24,
+            "recover": 0.6,
+            "cooldown": 2.4,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 40,
+            "damage": 0,
+            "telegraph": "c99558",
+            "vertical_tolerance": 160,
+            "animation": "attack",
+            "desire_cost": 0.6,
+            "beam_length": 440,
+            "radius": 16,
+            "hazard_life": 0.3,
+            "blockable": true
+          }
+        ]
+      }
+    },
+    {
+      "tool_id": "lure",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "upgrade_lantern_phase_2",
+      "position": [
+        8060,
+        1080
+      ],
+      "training_id": "tool_training_lure",
+      "label": "战具练习·回响诱铃：傀儡会跟着你走。摇响诱铃后，它会转身去查看铃声落点。练习区内使用不消耗次数。",
+      "puppet": {
+        "locomotion": "ground",
+        "move_speed": 42,
+        "aggro_range": 320,
+        "aggro_vertical_tolerance": 120,
+        "preferred_range": 40,
+        "leash_radius": 220,
+        "lure_eligible": true,
+        "attacks": [
+          {
+            "id": "practice_shove",
+            "name": "练习轻推",
+            "type": "melee",
+            "range": 70,
+            "windup": 0.6,
+            "active": 0.2,
+            "recover": 0.8,
+            "cooldown": 2.0,
+            "hit_width": 80,
+            "hit_height": 70,
+            "offset": 40,
+            "damage": 0,
+            "telegraph": "c99558",
+            "vertical_tolerance": 120,
+            "animation": "attack",
+            "desire_cost": 0.6,
+            "blockable": true
+          }
+        ]
+      }
+    }
+  ],
+  "tool_encounter_plan": [
+    {
+      "tool_id": "shard",
+      "region_id": "demo_ch01_moss_bell_court",
+      "room_id": "cistern_ring",
+      "note": "水窖环廊常有两只地面敌人并排走来，铜铃投罐的爆圈能一次命中两只。"
+    },
+    {
+      "tool_id": "mine",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "room_id": "well_a",
+      "note": "立管井口的敌人会沿管道直冲过来，在它的来路先布下绊线钉。"
+    },
+    {
+      "tool_id": "fog",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "room_id": "sealed_stacks",
+      "note": "封存书堆里有会远程擦除的法警；先用盐雾瓶罩住他，再处理近身的书虫。"
+    },
+    {
+      "tool_id": "lure",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "south_rootrun",
+      "note": "根须南廊敌群密集；用回响诱铃把会走动的敌人引开，再逐个处理。不动的敌人与守门者不受诱铃影响。"
+    }
+  ],
+  "hidden_route_plan": [
+    {
+      "id": "ch01_hidden_attic",
+      "region_id": "demo_ch01_moss_bell_court",
+      "entrance_room_id": "belfry_mid",
+      "hidden_room_id": "hidden_attic",
+      "clue": {
+        "position": [
+          4250,
+          790
+        ],
+        "line": "半钟平台东角上方的梁缝透出一线光，有风从上面灌下来。"
+      },
+      "reward_id": "col_branch_hidden_attic"
+    },
+    {
+      "id": "ch01_fake_moss_grotto",
+      "region_id": "demo_ch01_moss_bell_court",
+      "entrance_room_id": "cistern_ring",
+      "hidden_room_id": "fake_moss_grotto",
+      "clue": {
+        "position": [
+          3370,
+          5190
+        ],
+        "line": "环廊湿苔板上有一段颜色发暗，踩上去发空。"
+      },
+      "reward_id": "col_branch_fake_moss_grotto"
+    },
+    {
+      "id": "ch02_tide_listening_cell",
+      "region_id": "demo_ch02_rain_foundry_canal",
+      "entrance_room_id": "undercanal",
+      "hidden_room_id": "tide_listening_cell",
+      "clue": {
+        "position": [
+          1830,
+          4690
+        ],
+        "line": "脚下的水声忽然变空，像下面还有一间屋。"
+      },
+      "reward_id": "col_branch_tide_listening_cell"
+    },
+    {
+      "id": "ch03_secret_nook",
+      "region_id": "demo_ch03_saltwhite_archive",
+      "entrance_room_id": "mezz_reading_ledges",
+      "hidden_room_id": "secret_nook",
+      "clue": {
+        "position": [
+          1720,
+          1620
+        ],
+        "line": "左上方书堆后透出一道盐灯的光。"
+      }
+    },
+    {
+      "id": "ch04_beeswax_nook",
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "entrance_room_id": "south_rootrun",
+      "hidden_room_id": "beeswax_nook",
+      "clue": {
+        "position": [
+          4570,
+          2330
+        ],
+        "line": "南廊尽头的蜡壁缝里透出暖光。"
+      }
+    },
+    {
+      "id": "ch05_war_graves",
+      "region_id": "demo_ch05_obsidian_pilgrim_road",
+      "entrance_room_id": "banner_bridge",
+      "hidden_room_id": "war_graves",
+      "clue": {
+        "position": [
+          405,
+          1540
+        ],
+        "line": "旗桥西端的栏杆断了，西边的碑林里亮着灯。"
+      }
+    },
+    {
+      "id": "ch06_echo_moss",
+      "region_id": "demo_ch06_silent_crown_core",
+      "entrance_room_id": "echo_salt",
+      "hidden_room_id": "echo_moss",
+      "clue": {
+        "position": [
+          1640,
+          1700
+        ],
+        "line": "右上方苔丛里有一盏不该亮着的回声灯。"
+      },
+      "reward_id": "col_branch_echo_moss"
+    },
+    {
+      "id": "ch06_bell_tongue_vault",
+      "region_id": "demo_ch06_silent_crown_core",
+      "entrance_room_id": "core_shaft",
+      "hidden_room_id": "bell_tongue_vault",
+      "clue": {
+        "position": [
+          2830,
+          2700
+        ],
+        "line": "井底托板裂开一道缝，下面传来钟舌的嗡鸣。"
+      }
+    }
   ]
 }
