@@ -933,14 +933,32 @@ func _build_snapshot() -> Dictionary:
     for skill in snapshot.get("skills",[]):skill.erase("cooldown_remaining")
     return snapshot
 
-func _is_at_build_workstation(snapshot: Dictionary) -> bool:
+func _build_place(snapshot: Dictionary) -> String:
+    # "shrine" edits every tab. "artisan" is 强化／制作 only. "road" cycles equipped slots.
+    # A fixture snapshot flag stays authoritative so tests can pin either page.
     if snapshot.has("at_workstation"):
-        return bool(snapshot.at_workstation)
-    if level.has_method("is_near_shrine"):
-        return bool(level.call("is_near_shrine"))
-    # Legacy/demo adapters have no location state. The production adapter
-    # supplies the authoritative live snapshot field above.
-    return not level.has_method("_near_workstation") or bool(level.call("_near_workstation"))
+        return "shrine" if bool(snapshot.at_workstation) else "road"
+    var near_shrine:=false
+    var knows_place:=false
+    if level!=null and level.has_method("is_near_shrine"):
+        knows_place=true
+        near_shrine=bool(level.call("is_near_shrine"))
+    elif level!=null and level.has_method("_near_workstation"):
+        knows_place=true
+        near_shrine=bool(level.call("_near_workstation",false))
+    if near_shrine:
+        return "shrine"
+    var near_artisan:=false
+    if level!=null and level.has_method("is_near_build_station"):
+        knows_place=true
+        near_artisan=bool(level.call("is_near_build_station"))
+    elif level!=null and level.has_method("_near_workstation"):
+        knows_place=true
+        near_artisan=bool(level.call("_near_workstation",true))
+    if near_artisan:
+        return "artisan"
+    # Legacy/demo adapters have no location state and keep the full page.
+    return "road" if knows_place else "shrine"
 
 func _family_row(snapshot: Dictionary, family_id: String) -> Dictionary:
     var families: Variant=snapshot.get("slot_families",{})
@@ -1160,8 +1178,8 @@ func refresh_build() -> void:
         build_summary.text="行装系统尚未就绪"
         build_detail.text="请从完整世界入口开始巡礼。"
         return
-    var at_workstation:=_is_at_build_workstation(snapshot)
-    if not at_workstation:
+    var place:=_build_place(snapshot)
+    if place=="road":
         for tab in build_tabs:tab.hide()
         for button in family_selector_buttons:button.hide()
         for button in build_slot_buttons:button.hide()
@@ -1169,7 +1187,7 @@ func refresh_build() -> void:
         resupply_preview_button.hide()
         resupply_confirm_button.hide()
         build_summary.text="巡行配置 · 碎钱 %d · 钟龛可调整四类装备并查看补给报价" % int(level.currency_count)
-        build_detail.text="离开钟龛时，行装只允许切换已配置的技能与战具。请前往钟龛进行装备调整。"
+        build_detail.text="离开钟龛／工匠时，行装只允许切换已配置的技能与战具。请前往钟龛，或靠近雨铸匠、织线学徒、蜂蜡商人、盐白司书进行强化与制作。"
         var current_skill:=String(snapshot.get("skill","未配置"))
         var current_tool:=String(snapshot.get("tool","未配置"))
         var cycle_skill:=_button(build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():_perform_build_action("cycle_skill",""))
@@ -1181,8 +1199,16 @@ func refresh_build() -> void:
         var current_focus:=get_viewport().gui_get_focus_owner()
         if build_panel.visible and (current_focus==null or not build_panel.is_ancestor_of(current_focus)):cycle_skill.grab_focus()
         return
-    for tab in build_tabs:tab.show()
-    build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),_all_family_count_summary(snapshot)]
+    var artisan_only:=place=="artisan"
+    if artisan_only and build_category!="强化":
+        build_category="强化"
+        build_selection=""
+    for tab in build_tabs:
+        tab.visible=not artisan_only or String(tab.get_meta("build_category",""))=="强化"
+    if artisan_only:
+        build_summary.text="工匠 · 碎钱 %d · 此处只做强化／制作；契印、技能、战具、铭饰与方案请回钟龛" % int(level.currency_count)
+    else:
+        build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),_all_family_count_summary(snapshot)]
     var family_id:=_build_family_for_page()
     var slots:=_family_slots(snapshot,family_id) if not family_id.is_empty() else []
     var has_typed_layout: bool=snapshot.get("slot_layout",{}).has(family_id) if snapshot.get("slot_layout",{}) is Dictionary and not family_id.is_empty() else false
@@ -1192,9 +1218,9 @@ func refresh_build() -> void:
         var accessory_id: String=["combat_accessory","travel_accessory"][index]
         var family_info:=_family_row(snapshot,accessory_id)
         family_button.text=String(family_info.get("name",accessory_id))
-        family_button.visible=build_category=="铭饰"
+        family_button.visible=build_category=="铭饰" and not artisan_only
         family_button.add_theme_stylebox_override("normal",_tab_style(build_family==accessory_id))
-    clear_family_slot_button.visible=has_typed_layout and not slots.is_empty()
+    clear_family_slot_button.visible=has_typed_layout and not slots.is_empty() and not artisan_only
     if clear_family_slot_button.visible:
         var selected_slot: Dictionary=slots[build_assign_slot]
         clear_family_slot_button.disabled=not bool(selected_slot.get("unlocked",false)) or String(selected_slot.get("equipped_id","")).is_empty()
@@ -1203,9 +1229,9 @@ func refresh_build() -> void:
     if not skill_family.is_empty():build_tabs[1].text=String(skill_family.get("name","技能"))
     if not tool_family.is_empty():build_tabs[2].text=String(tool_family.get("name","战具"))
     for index in build_slot_buttons.size():
-        if not has_typed_layout:build_slot_buttons[index].visible=build_category in ["技能","战具"] and index<2
-    resupply_preview_button.visible=build_category=="战具"
-    resupply_confirm_button.visible=build_category=="战具"
+        if artisan_only or not has_typed_layout:build_slot_buttons[index].visible=not artisan_only and build_category in ["技能","战具"] and index<2
+    resupply_preview_button.visible=build_category=="战具" and not artisan_only
+    resupply_confirm_button.visible=build_category=="战具" and not artisan_only
     resupply_confirm_button.disabled=resupply_quote.is_empty() or not bool(resupply_quote.get("ok",false))
     var entries: Array=[]
     var action:=""
@@ -1383,11 +1409,26 @@ func _show_build_detail(entry: Dictionary) -> void:
                 lines.append("%s：%s → %s" % [pair[1],str(crest.get(pair[0],0)),str(entry.get(pair[0],0))])
             lines.append("治疗时间：%.2f → %.2f 秒" % [float(crest.get("heal_duration",0)),float(entry.get("heal_duration",0))])
             lines.append("铭饰效果在装备后合并计算。")
+    # U02: skill page — surface next校习打法 before long body copy.
+    if build_category=="技能" or (entry.has("level") and entry.has("growth") and not entry.has("target")):
+        var next_growth:=String(entry.get("next_growth",""))
+        if next_growth.is_empty() and entry.get("growth") is Dictionary:
+            var growth_notes: Dictionary=entry.growth
+            next_growth=String(growth_notes.get("level_%d" % (int(entry.get("level",0))+1),""))
+        if not next_growth.is_empty():
+            lines.append("\n【下一档校习】\n%s" % next_growth)
+        elif int(entry.get("level",0))>=2:
+            lines.append("\n【校习】已达当前上限。")
     if String(entry.get("kind",""))=="skill" and entry.has("target"):
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))==String(entry.target):
                 var level_value:=int(skill.get("level",0))
                 lines.append("\n%s：Lv.%d → Lv.%d" % [String(skill.get("name","")),level_value,mini(2,level_value+1)] if level_value<2 else "\n此技能已达当前强化上限。")
+                var recipe_growth:=String(skill.get("next_growth",""))
+                if recipe_growth.is_empty() and skill.get("growth") is Dictionary:
+                    recipe_growth=String(skill.growth.get("level_%d" % (level_value+1),""))
+                if not recipe_growth.is_empty():
+                    lines.append("【下一档校习】\n%s" % recipe_growth)
                 lines.append(String(skill.get("description","")))
     if not bool(entry.get("unlocked",true)):
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))

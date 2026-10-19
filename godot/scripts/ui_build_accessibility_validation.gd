@@ -35,7 +35,10 @@ class MockRuntime extends Node:
     var last_slot := -1
     var last_extra: Variant
     var selected_save_slot := 0
+    var near_shrine := true
     func get_build_system() -> RefCounted:return build_system
+    func is_near_build_station() -> bool:return true
+    func is_near_shrine() -> bool:return near_shrine
     func perform_build_action(action: String,id: String,extra: Variant=null) -> Dictionary:
         last_action=action
         last_id=id
@@ -86,16 +89,44 @@ func run() -> void:
     check(runtime.last_action=="switch_crest","Crest confirm invokes real runtime action adapter")
     ui.build_category="技能"
     ui.refresh_build()
+    if ui.build_grid.get_child_count()>0:
+        (ui.build_grid.get_child(0) as Button).focus_entered.emit()
     check(ui.build_detail.text.contains("消耗绯线") and ui.build_detail.text.contains("冷却"),"Skill preview shows actual resource cost and cooldown")
+    check(ui.build_detail.text.contains("下一档校习"),"Skill detail surfaces next_growth prominently")
     (ui.build_grid.get_child(0) as Button).pressed.emit()
     check(runtime.last_action=="equip_family_slot" and runtime.last_extra is Dictionary and runtime.last_extra.get("family")=="thread_skill" and runtime.last_extra.get("slot")==0,"Skill confirm uses the typed family-slot runtime action")
     check(runtime.build_system.state.skill=="cleave","Pressed skill button updates the persistent model")
     ui.build_category="强化"
     ui.refresh_build()
+    if ui.build_grid.get_child_count()>0:
+        (ui.build_grid.get_child(0) as Button).focus_entered.emit()
+    check(ui.build_detail.text.contains("下一档校习") or ui.build_detail.text.contains("校习一"),"Upgrade recipe detail surfaces growth note")
     (ui.build_grid.get_child(0) as Button).pressed.emit()
     check(runtime.last_action=="transact","Craft button invokes runtime transaction adapter")
+    runtime.near_shrine=false
+    ui.build_category="契印"
+    ui.refresh_build()
+    var artisan_tabs: Array[String]=[]
+    for tab in ui.build_tabs:
+        if tab.visible:artisan_tabs.append(String(tab.get_meta("build_category","")))
+    check(ui.build_category=="强化" and artisan_tabs.size()==1 and artisan_tabs[0]=="强化","Artisan view keeps only the enhancement and crafting tab")
+    check(ui.build_summary.text.contains("强化／制作"),"Artisan summary says enhancement and crafting stay here")
+    var shrine_controls_hidden:=not ui.clear_family_slot_button.visible and not ui.resupply_preview_button.visible and not ui.resupply_confirm_button.visible
+    for button in ui.family_selector_buttons:
+        if button.visible:shrine_controls_hidden=false
+    for button in ui.build_slot_buttons:
+        if button.visible:shrine_controls_hidden=false
+    check(shrine_controls_hidden,"Artisan view hides crest, skill, gear, and resupply controls")
+    check(ui.build_grid.get_child_count()>0,"Artisan view lists enhancement and crafting recipes")
+    (ui.build_grid.get_child(0) as Button).pressed.emit()
+    check(runtime.last_action=="transact","Artisan recipe button invokes crafting, not a shrine loadout action")
+    runtime.near_shrine=true
     ui.build_category="构筑"
     ui.refresh_build()
+    var shrine_tabs:=0
+    for tab in ui.build_tabs:
+        if tab.visible:shrine_tabs+=1
+    check(shrine_tabs==ui.build_tabs.size(),"Shrine view keeps crest, skill, gear, enhancement, and loadout tabs")
     (ui.build_grid.get_child(1) as Button).pressed.emit()
     check(runtime.last_action=="save_loadout" and runtime.last_id=="巡礼方案 1","Visible save button names and saves a build")
     runtime.active_overlay=""

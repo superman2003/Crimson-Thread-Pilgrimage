@@ -7189,13 +7189,18 @@ func _near_workstation(crafting: bool = false) -> bool:
             return true
         if crafting and kind == "npc":
             var id := String(child.get_meta("npc_id", child.name))
-            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]:
+            # U02: artisans host校习／工匠制作；盐白司书负责盐页书签一脉。
+            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor", "npc_salt_librarian_ye"]:
                 return true
     return false
 
 ## Read-only proximity query used by UI affordances and explicit quote actions.
 func is_near_shrine() -> bool:
     return _near_workstation(false)
+
+## Shrine or artisan. The build UI keeps every tab at a shrine, and only 强化／制作 beside an artisan.
+func is_near_build_station() -> bool:
+    return _near_workstation(false) or _near_workstation(true)
 
 func _build_wallet_snapshot() -> Dictionary:
     return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
@@ -7273,7 +7278,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                 _set_build_wallet(result.wallet)
         "transact", "craft":
             if not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化"}
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒、蜂蜡商人或盐白司书面对面强化／制作"}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
                 if result.get("ok", false):

@@ -331,8 +331,9 @@ func selected_skill(slot: int = -1) -> Dictionary:
     skill.skill_id = id
     skill.level = level
     # C04: surface authored growth notes so UI/artisan can show the next playstyle fork.
-    var growth: Dictionary = skill.get("growth", {})
-    skill.growth = growth.duplicate(true) if growth is Dictionary else {}
+    # Same guard as get_snapshot: missing or non-dictionary growth stays an empty map.
+    var growth := _authored_growth(skill)
+    skill.growth = growth
     skill.next_growth = String(growth.get("level_%d" % (level + 1), "")) if level < 2 else ""
     skill.crest_id = state.crest
     skill.mechanism_unlocked = derived.mechanism_unlocked
@@ -786,8 +787,12 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
         result.crests.append(entry)
     for id in catalog.skills:
         var entry: Dictionary = catalog.skills[id].duplicate(true)
+        var skill_level := int(state.skill_levels[id])
+        var growth := _authored_growth(entry)
+        entry.growth = growth
         entry.merge({"id": id, "unlocked": state.unlocked_skills.has(id), "selected": state.skill == id,
-            "equipped_slots": _equipped_slots(state.skills, id), "level": int(state.skill_levels[id]), "cooldown_remaining": float(cooldowns.get(id, 0.0))}, true)
+            "equipped_slots": _equipped_slots(state.skills, id), "level": skill_level, "cooldown_remaining": float(cooldowns.get(id, 0.0)),
+            "next_growth": String(growth.get("level_%d" % (skill_level + 1), "")) if skill_level < 2 else ""}, true)
         entry.energy_cost = maxi(1, int(ceil(float(entry.energy_cost) * float(profile().skill_cost_mult))))
         result.skills.append(entry)
     for id in catalog.tools:
@@ -842,6 +847,13 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
             entry.currency = int(entry.currency) + int(state.skill_levels[entry.target]) * int(entry.get("currency_per_level", 20))
         result.recipes.append(entry)
     return result
+
+func _authored_growth(entry: Dictionary) -> Dictionary:
+    var raw: Variant = entry.get("growth", {})
+    if raw is Dictionary:
+        var notes: Dictionary = raw
+        return notes.duplicate(true)
+    return {}
 
 func _equipped_slots(ids: Array, id: String) -> Array:
     var slots := []
