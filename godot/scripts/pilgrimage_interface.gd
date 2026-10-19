@@ -1434,10 +1434,10 @@ func _show_build_detail(entry: Dictionary) -> void:
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
         if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % level._item_display_name(String(entry.unlock_item))
         lines.append("\n尚未解锁 · "+unlock_hint)
-    for field in [["source","来源"],["attack_description","攻击"],["mechanism","专属机制"],["heal_effect","治疗完成"],["risk","动作风险与代价"],["synergy","契印协同"]]:
+    for field in [["source","来源"],["attack_description","攻击"],["mechanism","专属机制"],["heal_effect","治疗完成"],["risk","动作风险与代价"],["synergy","契印协同"],["practice","练习"],["encounter","适合遭遇"]]:
         if entry.has(field[0]):lines.append("\n%s：%s" % [field[1],str(entry[field[0]])])
     if not family_id.is_empty():lines.append("\n确认后装备到所选位置 %d；上方按钮选择位置。" % (build_assign_slot+1))
-    if build_category=="战具":lines.append("钟龛休整免费补满；换装与恢复构筑不会补充次数。")
+    if build_category=="战具":lines.append("钟龛补给需碎钱与材料，可先查看报价；换装与恢复构筑不会补充次数。")
     if entry.has("cost"):
         var used:=int(snapshot.get("slots_used",0))
         var total:=int(snapshot.get("slots_total",0))

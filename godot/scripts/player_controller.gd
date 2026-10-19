@@ -105,7 +105,7 @@ func _settle_practice_energy() -> void:
         practice_energy = 0
         return
     for node in get_tree().get_nodes_in_group("enemy"):
-        if node is Node2D and node.has_meta("seal_training_target") and node.global_position.distance_to(global_position) <= PRACTICE_ENERGY_RADIUS:
+        if node is Node2D and (node.has_meta("seal_training_target") or node.has_meta("tool_training_target")) and node.global_position.distance_to(global_position) <= PRACTICE_ENERGY_RADIUS:
             return
     var unspent := practice_energy
     practice_energy = 0
@@ -1350,7 +1350,7 @@ func _apply_attack_hits() -> void:
             elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
                 gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
                 crosscut_refund_paid = true
-            if is_instance_valid(node) and node.has_meta("seal_training_target"):
+            if is_instance_valid(node) and (node.has_meta("seal_training_target") or node.has_meta("tool_training_target")):
                 practice_energy += energy - energy_before
             if active_skill.is_empty() and _crest() == "bell" and _seal_mechanism_ready() and bell_pressure > 0 and current_attack == &"attack_2":
                 if node.has_method("apply_stagger"):
