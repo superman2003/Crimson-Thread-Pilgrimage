@@ -90,11 +90,22 @@ func run() -> void:
 		var away: Vector2 = clue_at + (clue_at - hidden_rect.get_center()).normalized() * 380.0
 		await park(away)
 		scene.story_flags.erase("hidden_clue_seen_" + id)
+		if entry == plan[0]:
+			# With the backpack open the notice waits instead of playing behind it.
+			scene._toggle_backpack()
+			scene.toast_label.text = ""
+			scene.player.global_position = clue_at
+			await tick(2)
+			check(scene.active_overlay != "" and not bool(scene.story_flags.get("hidden_clue_seen_" + id, false)) and scene.toast_label.text != String(entry.clue.line), id + " no notice is spent while an overlay is open")
+			scene._close_overlays()
+			await park(away)
 		scene.toast_label.text = ""
 		scene.player.global_position = clue_at
 		await tick(1)
 		check(scene.toast_label.text == String(entry.clue.line), id + " coming near the clue says what the player notices (got: " + scene.toast_label.text + ")")
 		check(bool(scene.story_flags.get("hidden_clue_seen_" + id, false)), id + " noticing the clue is remembered")
+		var noticed_save = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+		check(noticed_save is Dictionary and bool(noticed_save.get("story_flags", {}).get("hidden_clue_seen_" + id, false)), id + " the noticed clue is saved at once")
 		await park(away)
 		scene.toast_label.text = ""
 		scene.player.global_position = clue_at
@@ -130,5 +141,24 @@ func run() -> void:
 	await tick(12)
 	var rebuilt: Node2D = scene.get_node_or_null("HiddenClue_" + String(first.id))
 	check(rebuilt != null and rebuilt.found, "a found clue stays dim after leaving and returning")
+	# A save from before the clues: the hidden room is visited but has no found flag.
+	scene.story_flags.erase("hidden_found_" + String(first.id))
+	check(bool(scene.visited_rooms.get(String(first.hidden_room_id), false)), "the fixture has visited the first hidden room")
+	check(scene._save_world(), "an old-style save is written")
+	scene.free()
+	current_scene = null
+	await tick(4)
+	scene = load("res://scenes/World.tscn").instantiate()
+	scene.world_resume = true
+	scene.world_save_path = SAVE
+	root.add_child(scene)
+	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+	current_scene = scene
+	await tick(4)
+	if String(scene.config.get("id", "")) != String(first.region_id):
+		scene._travel_world(ROUTES.config_path(String(first.region_id)), scene._vec2(first.clue.position))
+		await tick(12)
+	var migrated: Node2D = scene.get_node_or_null("HiddenClue_" + String(first.id))
+	check(migrated != null and migrated.found and bool(scene.story_flags.get("hidden_found_" + String(first.id), false)), "a hidden room visited in an old save loads as found")
 	print("HIDDEN_ROUTES checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)

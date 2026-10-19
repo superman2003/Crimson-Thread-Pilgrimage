@@ -1237,6 +1237,7 @@ func _restore_world_routes() -> void:
 
 
 func _restore_world_discovery() -> void:
+    _sync_hidden_route_clues_with_visits()
     # Reconstruct discovered cells after MetSys builds this region's map.
     if metsys_bridge != null:
         for room_id in visited_rooms:
@@ -3614,9 +3615,25 @@ func _spawn_hidden_route_clues() -> void:
         clue.set_meta("hidden_route", entry)
         add_child(clue)
         hidden_route_clues.append(clue)
+    _sync_hidden_route_clues_with_visits()
+
+
+## Saves from before these clues already record visits to the hidden rooms;
+## a room the player has been in counts as found.
+func _sync_hidden_route_clues_with_visits() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if bool(visited_rooms.get(String(entry.get("hidden_room_id", "")), false)):
+            clue.found = true
+            story_flags["hidden_found_" + String(entry.id)] = true
 
 
 func _notice_hidden_route_clues() -> void:
+    # A notice behind the map or a dialogue would be lost; wait until it closes.
+    if not active_overlay.is_empty():
+        return
     for clue in hidden_route_clues:
         if not is_instance_valid(clue) or clue.found:
             continue
@@ -3625,6 +3642,7 @@ func _notice_hidden_route_clues() -> void:
         if bool(story_flags.get(flag, false)) or player.global_position.distance_to(clue.global_position) > HIDDEN_CLUE_NOTICE_RANGE:
             continue
         story_flags[flag] = true
+        _save_world()
         _toast(String(entry.clue.get("line", "")))
 
 
