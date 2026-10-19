@@ -962,6 +962,56 @@
     ],
     "recover": [
       {
+        "source": "art_requests/character_motion_v5/incoming/G_wax_lancer_recover.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            676,
+            452
+          ]
+        ],
+        "scale": 0.3661,
+        "anchor_x": 350.3,
+        "grade": {
+          "saturation": 1.086,
+          "rgb": [
+            0.968,
+            0.971,
+            1.115
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/G_wax_lancer_recover.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1332,
+            351
+          ]
+        ],
+        "scale": 0.3661,
+        "anchor_x": 412.5,
+        "grade": {
+          "saturation": 1.086,
+          "rgb": [
+            0.968,
+            0.971,
+            1.115
+          ]
+        }
+      },
+      {
         "sheet": "motion_expanded.png",
         "region": [
           29,
@@ -1507,6 +1557,46 @@
           "first_windup_ratio": 0.6837,
           "last_recover_ratio": 0.6976
         }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "G_wax_lancer_recover.png",
+        "image_sha256": "949e37dd18d51299dc0261acb4affb0034c18ad8e5f7858658bae7ceb760d067",
+        "op": "prepend_frames",
+        "animation": "recover",
+        "scale": 0.3661,
+        "anchors": [
+          350.3,
+          412.5
+        ],
+        "grade": {
+          "saturation": 1.086,
+          "rgb": [
+            0.968,
+            0.971,
+            1.115
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "attack[3]": 0.3442,
+            "recover[0]": 0.3893
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "G_wax_lancer_recover.png",
+        "op": "prepend_frames",
+        "animation": "recover",
+        "count": 2
       }
     ]
   }

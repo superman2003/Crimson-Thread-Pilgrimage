@@ -1042,6 +1042,162 @@
         "anchor_x": 75.0,
         "scale": 0.85
       }
+    ],
+    "heavy_bridge": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_pilgrim_commander_heavy.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            370,
+            492
+          ]
+        ],
+        "scale": 0.4545,
+        "anchor_x": 297.8,
+        "grade": {
+          "saturation": 0.832,
+          "rgb": [
+            0.958,
+            0.949,
+            0.982
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_pilgrim_commander_heavy.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1174,
+            574
+          ]
+        ],
+        "scale": 0.4545,
+        "anchor_x": 303.8,
+        "grade": {
+          "saturation": 0.832,
+          "rgb": [
+            0.958,
+            0.949,
+            0.982
+          ]
+        }
+      }
+    ],
+    "cast_bridge": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_pilgrim_commander_cast.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            424,
+            489
+          ]
+        ],
+        "scale": 0.484,
+        "anchor_x": 332.8,
+        "grade": {
+          "saturation": 0.898,
+          "rgb": [
+            0.988,
+            0.99,
+            1.007
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_pilgrim_commander_cast.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1239,
+            608
+          ]
+        ],
+        "scale": 0.484,
+        "anchor_x": 333.9,
+        "grade": {
+          "saturation": 0.898,
+          "rgb": [
+            0.988,
+            0.99,
+            1.007
+          ]
+        }
+      }
+    ],
+    "phase_bridge": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_pilgrim_commander_phase.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            477,
+            514
+          ]
+        ],
+        "scale": 0.4311,
+        "anchor_x": 294.3,
+        "grade": {
+          "saturation": 0.902,
+          "rgb": [
+            0.966,
+            0.963,
+            0.97
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_pilgrim_commander_phase.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1208,
+            519
+          ]
+        ],
+        "scale": 0.4311,
+        "anchor_x": 316.8,
+        "grade": {
+          "saturation": 0.902,
+          "rgb": [
+            0.966,
+            0.963,
+            0.97
+          ]
+        }
+      }
     ]
   },
   "qa": {
@@ -1062,5 +1218,106 @@
     "cast": 4,
     "phase_windup": 4,
     "phase": 4
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "F_recover_silent_pilgrim_commander_heavy.png",
+        "image_sha256": "69f93e0e594558133d38000aa9f06033c19f5f123068c29939f62fe80af992ab",
+        "op": "new_animation",
+        "animation": "heavy_bridge",
+        "scale": 0.4545,
+        "anchors": [
+          297.8,
+          303.8
+        ],
+        "grade": {
+          "saturation": 0.832,
+          "rgb": [
+            0.958,
+            0.949,
+            0.982
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "heavy[-1]": 0.3553,
+            "recover[0]": 0.4545
+          }
+        }
+      },
+      {
+        "image": "F_recover_silent_pilgrim_commander_cast.png",
+        "image_sha256": "26aa6d7cd4b0a1bb7bb96572e12a1fbd764d35709e66d9f1e4545c4eb804afaf",
+        "op": "new_animation",
+        "animation": "cast_bridge",
+        "scale": 0.484,
+        "anchors": [
+          332.8,
+          333.9
+        ],
+        "grade": {
+          "saturation": 0.898,
+          "rgb": [
+            0.988,
+            0.99,
+            1.007
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "cast[-1]": 0.435,
+            "recover[0]": 0.484
+          }
+        }
+      },
+      {
+        "image": "F_recover_silent_pilgrim_commander_phase.png",
+        "image_sha256": "804ebf46cf6a06fb605a29a2bc2b45b12c766f4b56de7ecfa4011fcfdca49dbb",
+        "op": "new_animation",
+        "animation": "phase_bridge",
+        "scale": 0.4311,
+        "anchors": [
+          294.3,
+          316.8
+        ],
+        "grade": {
+          "saturation": 0.902,
+          "rgb": [
+            0.966,
+            0.963,
+            0.97
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "phase[-1]": 0.3428,
+            "recover[0]": 0.4311
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "F_recover_silent_pilgrim_commander_heavy.png",
+        "op": "new_animation",
+        "animation": "heavy_bridge"
+      },
+      {
+        "image": "F_recover_silent_pilgrim_commander_cast.png",
+        "op": "new_animation",
+        "animation": "cast_bridge"
+      },
+      {
+        "image": "F_recover_silent_pilgrim_commander_phase.png",
+        "op": "new_animation",
+        "animation": "phase_bridge"
+      }
+    ]
   }
 }

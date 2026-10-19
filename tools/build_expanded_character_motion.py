@@ -45,6 +45,22 @@ def sheet_path(folder, entry):
         raise ValueError(f"unsafe sheet: {sheet}")
     return sheet, folder / sheet
 
+def apply_grade(image, saturation, rgb):
+    """Uniform colour match for a whole source sheet's palette drift: one HSV
+    saturation gain, then one gain per RGB channel (fixes a hue cast too).
+
+    Mechanical colour matching only: alpha, silhouette and every pose are kept."""
+    if not 0.5 <= saturation <= 1.5 or len(rgb) != 3 or not all(0.5 <= g <= 1.5 for g in rgb):
+        raise ValueError(f"invalid colour grade {saturation}/{rgb}")
+    alpha = image.getchannel("A")
+    hsv = np.asarray(image.convert("RGB").convert("HSV")).astype(np.float32)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * saturation, 0, 255)
+    rgb_pixels = np.asarray(Image.fromarray(np.round(hsv).astype(np.uint8), "HSV").convert("RGB")).astype(np.float32)
+    rgb_pixels = np.clip(rgb_pixels * np.asarray(rgb, dtype=np.float32), 0, 255)
+    graded = Image.fromarray(np.round(rgb_pixels).astype(np.uint8), "RGB").convert("RGBA")
+    graded.putalpha(alpha)
+    return graded
+
 def shelf_pack(sizes, max_width):
     """Row-major shelf packing in pose order with a 2px gutter."""
     placements, x, y, shelf, width = [], 0, 0, 0, 0
@@ -135,9 +151,12 @@ def build(folder: Path, check=False):
             scale = float(entry.get("scale", 1.0))
             if not math.isfinite(scale) or not 0.1 <= scale <= 4.0:
                 raise ValueError(f"{folder.name}/{name}: invalid packaging scale {scale}")
+            grade = entry.get("grade")
+            if grade:
+                cropped = apply_grade(cropped, float(grade["saturation"]), [float(g) for g in grade["rgb"]])
             if scale != 1.0:
                 cropped = cropped.resize((max(1,round(cropped.width*scale)),max(1,round(cropped.height*scale))),Image.Resampling.LANCZOS)
-            pose = {"sheet":sheet, "region":[x+bx,y+by,cropped.width,cropped.height], "left":(bx-anchor)*scale, "height":cropped.height, "hash":digest, "image":cropped, "scale":scale, "isolated":bool(entry.get("component_seeds")) or "source" in entry}
+            pose = {"sheet":sheet, "region":[x+bx,y+by,cropped.width,cropped.height], "left":(bx-anchor)*scale, "height":cropped.height, "hash":digest, "image":cropped, "scale":scale, "isolated":bool(entry.get("component_seeds")) or "source" in entry or bool(grade)}
             poses.append(pose)
             per_animation[name].append(pose)
         if len(hashes) != len(entries):

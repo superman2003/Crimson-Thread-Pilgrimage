@@ -140,14 +140,29 @@
         "anchor_x": 141.0
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/H_npc_deserter_flagbearer_talk6.png",
         "region": [
-          828,
-          517,
-          260,
-          244
+          0,
+          0,
+          1024,
+          1024
         ],
-        "anchor_x": 126.4
+        "component_seeds": [
+          [
+            746,
+            133
+          ]
+        ],
+        "scale": 0.3148,
+        "anchor_x": 489.7,
+        "grade": {
+          "saturation": 0.896,
+          "rgb": [
+            1.012,
+            1.054,
+            1.014
+          ]
+        }
       },
       {
         "sheet": "motion_expanded.png",
@@ -209,5 +224,56 @@
     "visual_inspected": true,
     "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
     "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "H_npc_deserter_flagbearer_talk6.png",
+        "image_sha256": "809fcfe0a6c96b2cde94a50b4d60bc039d9c8c8d993cbd12764a0a2ebed34acf",
+        "op": "replace_frames",
+        "animation": "talk",
+        "scale": 0.3148,
+        "anchors": [
+          489.7
+        ],
+        "grade": {
+          "saturation": 0.896,
+          "rgb": [
+            1.012,
+            1.054,
+            1.014
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "talk[6]": 0.3149,
+            "talk[5]": 0.3157,
+            "talk[7]": 0.3137
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "H_npc_deserter_flagbearer_talk6.png",
+        "op": "replace_frames",
+        "animation": "talk",
+        "replaced": {
+          "6": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              828,
+              517,
+              260,
+              244
+            ],
+            "anchor_x": 126.4
+          }
+        }
+      }
+    ]
   }
 }

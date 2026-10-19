@@ -1014,6 +1014,162 @@
         "anchor_x": 105.0,
         "scale": 0.65
       }
+    ],
+    "heavy_bridge": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_heavy.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            563,
+            481
+          ]
+        ],
+        "scale": 0.3532,
+        "anchor_x": 518.2,
+        "grade": {
+          "saturation": 0.845,
+          "rgb": [
+            0.959,
+            0.961,
+            0.947
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_heavy.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1249,
+            509
+          ]
+        ],
+        "scale": 0.3532,
+        "anchor_x": 392.4,
+        "grade": {
+          "saturation": 0.845,
+          "rgb": [
+            0.959,
+            0.961,
+            0.947
+          ]
+        }
+      }
+    ],
+    "cast_bridge": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_cast.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            543,
+            398
+          ]
+        ],
+        "scale": 0.3333,
+        "anchor_x": 337.0,
+        "grade": {
+          "saturation": 0.882,
+          "rgb": [
+            0.96,
+            0.965,
+            0.938
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_cast.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1238,
+            473
+          ]
+        ],
+        "scale": 0.3333,
+        "anchor_x": 389.0,
+        "grade": {
+          "saturation": 0.882,
+          "rgb": [
+            0.96,
+            0.965,
+            0.938
+          ]
+        }
+      }
+    ],
+    "phase_bridge": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_phase.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            446,
+            526
+          ]
+        ],
+        "scale": 0.3907,
+        "anchor_x": 262.1,
+        "grade": {
+          "saturation": 0.906,
+          "rgb": [
+            0.949,
+            0.938,
+            0.916
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_phase.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1221,
+            567
+          ]
+        ],
+        "scale": 0.3907,
+        "anchor_x": 383.7,
+        "grade": {
+          "saturation": 0.906,
+          "rgb": [
+            0.949,
+            0.938,
+            0.916
+          ]
+        }
+      }
     ]
   },
   "qa": {
@@ -1034,5 +1190,106 @@
     "cast": 4,
     "phase_windup": 4,
     "phase": 4
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "F_recover_silent_crown_core_heavy.png",
+        "image_sha256": "3de47c3f53fb51ce226adbc2538cf452ab92db0ddd2936c40a4fe0826da7e5b9",
+        "op": "new_animation",
+        "animation": "heavy_bridge",
+        "scale": 0.3532,
+        "anchors": [
+          518.2,
+          392.4
+        ],
+        "grade": {
+          "saturation": 0.845,
+          "rgb": [
+            0.959,
+            0.961,
+            0.947
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "heavy[-1]": 0.3492,
+            "recover[0]": 0.3532
+          }
+        }
+      },
+      {
+        "image": "F_recover_silent_crown_core_cast.png",
+        "image_sha256": "b470cc044715170f689484c1d5480620fcabafb5e85ac124cc1d7b3c64033f9d",
+        "op": "new_animation",
+        "animation": "cast_bridge",
+        "scale": 0.3333,
+        "anchors": [
+          337.0,
+          389.0
+        ],
+        "grade": {
+          "saturation": 0.882,
+          "rgb": [
+            0.96,
+            0.965,
+            0.938
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "cast[-1]": 0.341,
+            "recover[0]": 0.3333
+          }
+        }
+      },
+      {
+        "image": "F_recover_silent_crown_core_phase.png",
+        "image_sha256": "f7f8fbfcbe061b8b7415127158c6cefcb4619e4cca997744a43f83b1f755fa4b",
+        "op": "new_animation",
+        "animation": "phase_bridge",
+        "scale": 0.3907,
+        "anchors": [
+          262.1,
+          383.7
+        ],
+        "grade": {
+          "saturation": 0.906,
+          "rgb": [
+            0.949,
+            0.938,
+            0.916
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "phase[-1]": 0.3924,
+            "recover[0]": 0.3907
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "F_recover_silent_crown_core_heavy.png",
+        "op": "new_animation",
+        "animation": "heavy_bridge"
+      },
+      {
+        "image": "F_recover_silent_crown_core_cast.png",
+        "op": "new_animation",
+        "animation": "cast_bridge"
+      },
+      {
+        "image": "F_recover_silent_crown_core_phase.png",
+        "op": "new_animation",
+        "animation": "phase_bridge"
+      }
+    ]
   }
 }
