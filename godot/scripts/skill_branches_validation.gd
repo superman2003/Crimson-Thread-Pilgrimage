@@ -3,6 +3,7 @@ extends SceneTree
 ## two exclusive 校习 directions is bought from a real artisan for currency and
 ## that region's material, and the chosen direction changes the actual cast.
 const ROUTES := preload("res://scripts/world_routes.gd")
+const AUDIO := preload("res://scripts/audio_retirement.gd")
 const SAVE := "user://skill_branches_validation.json"
 const CH01 := "demo_ch01_moss_bell_court"
 const CH02 := "demo_ch02_rain_foundry_canal"
@@ -215,5 +216,13 @@ func run() -> void:
 	player.cast_selected_skill(0)
 	await tick(1)
 	check(is_equal_approx(float(player.attack_active_time), float(build.selected_skill().duration)) and float(build.selected_skill().duration) > float(build.catalog.skills.ward.duration), "长架 lengthens the real guard window")
+	# Toasts and casts leave sounds playing; release them before the engine exits.
+	scene._close_overlays()
+	AUDIO.retire_tree(scene)
+	scene.queue_free()
+	await tick(6)
+	check(await AUDIO.drain(self), "the fixture releases playback")
+	for suffix in ["", ".bak", ".tmp"]:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
 	print("SKILL_BRANCHES checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
