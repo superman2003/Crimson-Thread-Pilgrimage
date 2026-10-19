@@ -330,10 +330,6 @@ func selected_skill(slot: int = -1) -> Dictionary:
     skill.id = id
     skill.skill_id = id
     skill.level = level
-    # C04: surface authored growth notes so UI/artisan can show the next playstyle fork.
-    var growth: Dictionary = skill.get("growth", {})
-    skill.growth = growth.duplicate(true) if growth is Dictionary else {}
-    skill.next_growth = String(growth.get("level_%d" % (level + 1), "")) if level < 2 else ""
     skill.crest_id = state.crest
     skill.mechanism_unlocked = derived.mechanism_unlocked
     skill.energy_cost = maxi(1, int(ceil(float(skill.energy_cost) * float(derived.skill_cost_mult))))
@@ -345,11 +341,8 @@ func selected_skill(slot: int = -1) -> Dictionary:
     skill.range = float(skill.range) + (40.0 if id == "cleave" else 20.0) * level
     if id == "needle":
         skill.range = (float(catalog.skills[id].range) + 80.0 * level) * float(derived.ranged_range_mult)
-    if id == "snare":
+    if id == "snare" or id == "ward":
         skill.duration = float(skill.duration) + 0.2 * level
-    elif id == "ward":
-        # Both upgrades must remain below the Player's 0.65-second guard cap.
-        skill.duration = minf(0.65, float(skill.duration) + 0.05 * level)
     skill.cooldown_remaining = float(cooldowns.get(id, 0.0))
     return skill
 
