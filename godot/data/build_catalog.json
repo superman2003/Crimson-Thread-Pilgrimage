@@ -101,7 +101,8 @@
               "needlecase",
               "compass"
             ],
-            "requires_mechanism": "crimson"
+            "requires_mechanism": "crimson",
+            "requires_part": "travel_clasp"
           }
         ],
         "thread_skill": [
@@ -225,7 +226,8 @@
               "needlecase",
               "compass"
             ],
-            "requires_mechanism": "bell"
+            "requires_mechanism": "bell",
+            "requires_part": "travel_clasp"
           }
         ],
         "thread_skill": [
@@ -349,7 +351,8 @@
               "needlecase",
               "compass"
             ],
-            "requires_mechanism": "salt"
+            "requires_mechanism": "salt",
+            "requires_part": "travel_clasp"
           }
         ],
         "thread_skill": [
@@ -1009,6 +1012,98 @@
       "kind": "skill_branch",
       "target": "crosscut",
       "branch": 2
+    },
+    "mod_shard": {
+      "name": "铜铃投罐·双层罐腔",
+      "description": "罐口加缝一圈承力线，罐腔分作两层：携带上限 +1。",
+      "kind": "tool_capacity",
+      "target": "shard",
+      "amount": 1,
+      "currency": 60,
+      "materials": {
+        "moss_chitin": 3
+      },
+      "requires_items": [
+        "evidence_crown_echo"
+      ],
+      "artisan": "npc_threadsmith_apprentice",
+      "artisan_name": "织线学徒",
+      "source": "冠隙余响里留着旧钟匠缠罐口的手法，织线学徒照着拓下的余响缝制。",
+      "unlock_hint": "苔钟庭·冠隙试炼首清取得「证据·冠隙余响」（只作图样，不会被收走）"
+    },
+    "mod_mine": {
+      "name": "绊线钉·配重卷簧",
+      "description": "配重暗格的旧卷簧压得更紧，多卷一枚钉：携带上限 +1；场上仍最多两枚。",
+      "kind": "tool_capacity",
+      "target": "mine",
+      "amount": 1,
+      "currency": 80,
+      "materials": {
+        "wet_chitin": 3
+      },
+      "requires_items": [
+        "evidence_counterweight_echo"
+      ],
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "雨铸匠认得配重余响里的卷簧节拍，那是泵房停摆前最后一批配重的做法。",
+      "unlock_hint": "铸雨渠·配重试炼首清取得「证据·配重余响」（只作图样，不会被收走）"
+    },
+    "mod_fog": {
+      "name": "盐雾瓶·蜡封瓶口",
+      "description": "按封蜡账册的配方封口，瓶身更薄、装得更多：携带上限 +1。",
+      "kind": "tool_capacity",
+      "target": "fog",
+      "amount": 1,
+      "currency": 90,
+      "materials": {
+        "salt_crystal_shard": 3
+      },
+      "requires_items": [
+        "evidence_salt_ledger"
+      ],
+      "artisan": "npc_beeswax_vendor",
+      "artisan_name": "蜂蜡商人",
+      "source": "封蜡账册记着书库给盐瓶封蜡的比例，蜂蜡商人一看就认出是自家旧蜡。",
+      "unlock_hint": "盐白书库·封蜡库余响首清取得「证据·封蜡账册」（只作图样，不会被收走）"
+    },
+    "mod_lure": {
+      "name": "回响诱铃·根网铃舌",
+      "description": "照根网猎物循声的爪痕改短铃舌，小铃也够响：携带上限 +1。",
+      "kind": "tool_capacity",
+      "target": "lure",
+      "amount": 1,
+      "currency": 90,
+      "materials": {
+        "pollen_wax": 3
+      },
+      "requires_items": [
+        "evidence_root_track"
+      ],
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "铃要铸，雨铸匠才做得了；爪痕拓片告诉铸匠猎物听得见多短的铃舌。",
+      "unlock_hint": "断弦温室·根网追踪首清取得「证据·根网爪痕」（只作图样，不会被收走）"
+    },
+    "clasp_travel": {
+      "name": "行旅承力扣",
+      "description": "巡礼军墓里阵亡旗手背带上的承力扣，改铸后能多挂一件行旅铭饰：三枚契印的第三个行旅铭饰槽都需要它。",
+      "kind": "slot_part",
+      "part": "travel_clasp",
+      "target": "travel_accessory",
+      "currency": 120,
+      "materials": {
+        "obsidian_splinter": 3
+      },
+      "requires_items": [
+        "evidence_lantern_graves_echo"
+      ],
+      "requires_flag": "seal_bell_repaired",
+      "requires_flag_hint": "雨铸匠修好无名工人的铜徽章（司铸契印）之后，才懂承力扣的做法。",
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "军墓灯影照出旗手背带的扣法；司铸契印修好之后，雨铸匠认得这是同一种承力线结。",
+      "unlock_hint": "黑曜巡礼道·军墓试炼首清取得「证据·军墓灯影」（只作图样，不会被收走）"
     }
   },
   "events": {
