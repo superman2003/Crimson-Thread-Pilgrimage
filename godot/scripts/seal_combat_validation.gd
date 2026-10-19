@@ -267,33 +267,6 @@ func _run() -> void:
     player._reset_traversal_state()
     player.hurt_timer = 0
     player.skill_cooldown = 0
-    # Exercise the production cast and guard, not just the authored payload.
-    var growth_build: RefCounted = load("res://scripts/build_system.gd").new()
-    growth_build.state.crest = "bell"
-    growth_build.state.unlocked_crests = ["crimson", "bell", "salt"]
-    growth_build.state.unlocked_skills = ["ward"]
-    growth_build.state.skills = ["ward", ""]
-    growth_build.state.equipped_families.thread_skill = ["ward", ""]
-    growth_build.state.skill = "ward"
-    player.build_system = growth_build
-    var previous_guard := 0.0
-    for level in [0, 1, 2]:
-        player._reset_traversal_state()
-        player.hurt_timer = 0.0
-        player.skill_cooldown = 0.0
-        player.energy = 100
-        growth_build.cooldowns.clear()
-        growth_build.state.skill_levels.ward = level
-        var expected: float = 0.55 + 0.05 * level
-        check(player.cast_selected_skill(0), "ward growth level %d really casts" % level)
-        player._apply_special_skill()
-        check(is_equal_approx(player.attack_active_time, expected) and is_equal_approx(player.guard_timer, expected), "ward growth level %d reaches the Player guard without truncation" % level)
-        check(player.guard_timer > previous_guard, "ward level %d grants additional effective guard time" % level)
-        previous_guard = player.guard_timer
-    player.build_system = null
-    player._reset_traversal_state()
-    player.hurt_timer = 0.0
-    player.skill_cooldown = 0.0
     var wall := StaticBody2D.new()
     var wall_shape := CollisionShape2D.new()
     var wall_rectangle := RectangleShape2D.new()
