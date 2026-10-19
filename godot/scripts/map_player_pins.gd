@@ -22,7 +22,8 @@ static func allowed(flags: Dictionary, region: String, config: Dictionary, point
     var journals: Variant = flags.get(JOURNAL.KEY, {})
     if room.is_empty() or not journals is Dictionary: return false
     var journal: Variant = journals.get(region, {})
-    return journal is Dictionary and journal.get("owned") is bool and journal.owned and journal.get("charted") is Dictionary and journal.charted.get(String(room.get("id", "")), false) is bool and bool(journal.charted.get(String(room.get("id", "")), false))
+    # Only on charted paper: in a large room, the charted section under the pin.
+    return journal is Dictionary and JOURNAL.charted_at(flags, region, room, point)
 
 static func records(flags: Dictionary, configs: Dictionary) -> Array[Dictionary]:
     var result: Array[Dictionary] = []
