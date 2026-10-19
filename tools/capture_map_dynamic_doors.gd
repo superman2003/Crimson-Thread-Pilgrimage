@@ -14,7 +14,8 @@ func _initialize() -> void: call_deferred("run")
 func shot(name: String) -> void:
     for i in 3: await process_frame
     await RenderingServer.frame_post_draw
-    root.get_texture().get_image().save_png(output.path_join(name + ".png"))
+    # Same names and format as the committed evidence.
+    root.get_texture().get_image().save_webp(output.path_join(name + ".webp"), true, 0.85)
 
 func run() -> void:
     root.size = Vector2i(1280, 720)

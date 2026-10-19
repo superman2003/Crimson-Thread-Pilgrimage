@@ -120,42 +120,140 @@ const CLUSTER_STEP := 30.0
 
 ## Pins from nearby rooms (or neighbouring regions on the world overview) can
 ## project onto almost the same point. Each label keeps its true anchor in
-## metadata; labels within CLUSTER_RADIUS of a group fan out in a row around
-## the group's centre so every number stays readable.
+## metadata and is placed at the nearest free spot around it: candidates are
+## tried ring by ring out to MAX_DRIFT, so a number never sits more than
+## MAX_DRIFT from its pin. Pins with fewer neighbours are placed first, so an
+## isolated pin keeps its exact projected position.
+const MAX_DRIFT := 62.0
+
 static func declutter(markers: Array[Label]) -> void:
-    var groups: Array = []
+    var neighbours := {}
     for marker in markers:
         var anchor: Vector2 = marker.get_meta("map_anchor")
-        var joined := false
-        for group in groups:
-            if (group.center as Vector2).distance_to(anchor) < CLUSTER_RADIUS:
-                group.members.append(marker)
-                group.center = ((group.center as Vector2) * (group.members.size() - 1) + anchor) / group.members.size()
-                joined = true
+        var count := 1
+        for other in markers:
+            if other != marker and (other.get_meta("map_anchor") as Vector2).distance_to(anchor) < CLUSTER_RADIUS: count += 1
+        neighbours[marker] = count
+        marker.set_meta("cluster_size", count)
+    var ordered := markers.duplicate()
+    ordered.sort_custom(func(a, b):
+        if neighbours[a] != neighbours[b]: return neighbours[a] < neighbours[b]
+        var pa: Vector2 = a.get_meta("map_anchor")
+        var pb: Vector2 = b.get_meta("map_anchor")
+        return pa.x < pb.x or (pa.x == pb.x and pa.y < pb.y))
+    # Retry the whole layout after each merge. A merge is legal only when its
+    # centre is near every represented anchor; never absorb a distant label just
+    # because an increasingly wide row happens to cover it.
+    var groups: Array[Label] = ordered
+    for attempt in markers.size():
+        if _layout(groups): return
+        var pair := _nearest_merge(groups)
+        if pair.is_empty(): return
+        _join(groups[pair[0]], groups[pair[1]])
+        groups.remove_at(pair[1])
+
+static func _layout(groups: Array[Label]) -> bool:
+    var placed: Array[Label] = []
+    for marker in groups:
+        var spot: Variant = _free_spot(marker, placed)
+        if spot == null: return false
+        marker.position = spot
+        placed.append(marker)
+    return true
+
+static func _nearest_merge(groups: Array[Label]) -> Array[int]:
+    var best: Array[int] = []
+    var distance := INF
+    for i in groups.size():
+        for j in range(i + 1, groups.size()):
+            var anchors := represented(groups[i])
+            anchors.append_array(represented(groups[j]))
+            var center := Vector2.ZERO
+            for anchor in anchors: center += anchor
+            center /= anchors.size()
+            var near := true
+            for anchor in anchors:
+                if center.distance_to(anchor) > MAX_DRIFT:
+                    near = false
+                    break
+            if not near: continue
+            var gap := (groups[i].get_meta("map_anchor") as Vector2).distance_squared_to(groups[j].get_meta("map_anchor"))
+            if gap < distance:
+                distance = gap
+                best.assign([i, j])
+    return best
+
+## Every pin a label shows: its own and any it has absorbed.
+static func represented(label: Label) -> Array:
+    var anchors: Array = [label.get_meta("map_anchor")]
+    anchors.append_array(label.get_meta("joined_anchors", []))
+    return anchors
+
+static func _join(host: Label, marker: Label) -> void:
+    var numbers: Array = host.get_meta("pin_numbers", [host.text])
+    numbers.append_array(marker.get_meta("pin_numbers", [marker.text]))
+    host.set_meta("pin_numbers", numbers)
+    var rows: Array[String] = []
+    for index in numbers.size():
+        if index % 3 == 0: rows.append(String(numbers[index]))
+        else: rows[rows.size() - 1] += " " + String(numbers[index])
+    host.text = "\n".join(rows)
+    var pins: Array = host.get_meta("joined_pins", [])
+    pins.append(int(marker.get_meta("pin_id", -1)))
+    pins.append_array(marker.get_meta("joined_pins", []))
+    host.set_meta("joined_pins", pins)
+    var anchors: Array = host.get_meta("joined_anchors", [])
+    anchors.append_array(represented(marker))
+    host.set_meta("joined_anchors", anchors)
+    marker.visible = false
+    marker.position = (marker.get_meta("map_anchor") as Vector2) - LABEL_ORIGIN
+    marker.set_meta("joined_into", int(host.get_meta("pin_id", -1)))
+
+## The nearest free candidate around the centre of every pin the label shows,
+## within MAX_DRIFT of each of them; null when none is free.
+static func _free_spot(marker: Label, placed: Array) -> Variant:
+    var anchors := represented(marker)
+    var center := Vector2.ZERO
+    for anchor in anchors: center += anchor
+    center /= anchors.size()
+    for offset in _candidate_offsets():
+        var point: Vector2 = center + offset
+        var near := true
+        for anchor in anchors:
+            if point.distance_to(anchor) > MAX_DRIFT:
+                near = false
                 break
-        if not joined: groups.append({"center": anchor, "members": [marker]})
-    for group in groups:
-        var count: int = group.members.size()
-        # Lay the row out by real label widths so two-digit numbers never touch.
-        var widths: Array[float] = []
-        var total := 0.0
-        for marker in group.members:
-            var width := maxf(CLUSTER_STEP, _text_width(marker) + 6.0)
-            widths.append(width)
-            total += width
-        var left := (group.center as Vector2).x - total * 0.5
-        for index in count:
-            var marker: Label = group.members[index]
-            marker.set_meta("cluster_size", count)
-            if count > 1:
-                marker.position = Vector2(left + widths[index] * 0.5, (group.center as Vector2).y) - LABEL_ORIGIN
-            left += widths[index]
+        if not near: continue
+        var rect := _label_rect(marker, point - LABEL_ORIGIN)
+        var clear := true
+        for other in placed:
+            if other == marker or not other.visible: continue
+            if rect.intersects(_label_rect(other, other.position)):
+                clear = false
+                break
+        if clear: return point - LABEL_ORIGIN
+    return null
+
+## Offsets around a pin, nearest first, never farther than MAX_DRIFT.
+static func _candidate_offsets() -> Array[Vector2]:
+    var offsets: Array[Vector2] = [Vector2.ZERO]
+    for radius in [16.0, 28.0, 40.0, 52.0, MAX_DRIFT]:
+        for step in 16:
+            var angle := TAU * float(step) / 16.0
+            offsets.append(Vector2(cos(angle), sin(angle)) * radius)
+    return offsets
+
+static func _label_rect(marker: Label, position: Vector2) -> Rect2:
+    return Rect2(position, Vector2(maxf(CLUSTER_STEP, _text_width(marker) + 6.0), 26.0 * marker.text.split("\n").size()))
 
 ## A fresh Label has no layout yet, so measure its text with its own font.
 static func _text_width(label: Label) -> float:
     var font := label.get_theme_font("font")
     if font == null: return 0.0
-    return font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x
+    var width := 0.0
+    for line in label.text.split("\n"):
+        width = maxf(width, font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x)
+    return width
 
 ## Main redraws the map every frame. Clearing an unchanged OptionButton also
 ## clears its open PopupMenu's uncommitted keyboard/controller focus.

@@ -79,6 +79,141 @@ func run() -> void:
 	check(near,"fanned pins stay within 64 px of their true anchor")
 	check(int(labels[3].get_meta("cluster_size")) == 1 and labels[3].position == (labels[3].get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN,"a lone pin keeps its exact projected position")
 	for label in labels: label.free()
+	# Adjacent groups (review case: anchors at x = 0, 23, 47, 70) must not collide after fanning out.
+	var row: Array[Label] = []
+	for x in [0.0, 23.0, 47.0, 70.0]:
+		var pin := Label.new()
+		pin.text = "★12"
+		pin.add_theme_font_size_override("font_size", 19)
+		pin.set_meta("map_anchor", Vector2(400.0 + x, 300.0))
+		pin.position = (pin.get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN
+		row.append(pin)
+	pins.declutter(row)
+	var collisions := 0
+	for i in row.size():
+		for j in range(i + 1, row.size()):
+			if Rect2(row[i].position, Vector2(pins._text_width(row[i]), 26)).intersects(Rect2(row[j].position, Vector2(pins._text_width(row[j]), 26))): collisions += 1
+	check(collisions == 0, "neighbouring pin groups merge instead of overlapping after fanning out")
+	for pin in row: pin.free()
+	# Review case: the full 12 pins along a chain about 24 px apart, created in
+	# alternating order, must stay readable and near their own pins.
+	var chain: Array[Label] = []
+	var order := [0, 11, 1, 10, 2, 9, 3, 8, 4, 7, 5, 6]
+	for index in order:
+		var link := Label.new()
+		link.text = "★" + str(index + 1)
+		link.add_theme_font_size_override("font_size", 19)
+		link.set_meta("map_anchor", Vector2(300.0 + index * 24.0, 300.0))
+		link.position = (link.get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN
+		chain.append(link)
+	pins.declutter(chain)
+	var chain_overlaps := 0
+	var farthest := 0.0
+	for i in chain.size():
+		farthest = maxf(farthest, (chain[i].position + pins.LABEL_ORIGIN).distance_to(chain[i].get_meta("map_anchor")))
+		for j in range(i + 1, chain.size()):
+			if pins._label_rect(chain[i], chain[i].position).intersects(pins._label_rect(chain[j], chain[j].position)): chain_overlaps += 1
+	check(chain_overlaps == 0, "twelve chained pins lay out without overlapping")
+	check(farthest < 64.0, "every chained pin label stays within 64 px of its pin (farthest %.1f)" % farthest)
+	for link in chain: link.free()
+	# Review case: an irregular two-dimensional cluster of eight pins.
+	var scatter: Array[Label] = []
+	var points := [Vector2(156,3), Vector2(145,21), Vector2(124,4), Vector2(128,28), Vector2(123,82), Vector2(99,79), Vector2(70,46), Vector2(98,57)]
+	for index in points.size():
+		var dot := Label.new()
+		dot.text = "★" + str(index + 4)
+		dot.add_theme_font_size_override("font_size", 19)
+		dot.set_meta("map_anchor", Vector2(300, 300) + points[index])
+		dot.position = (dot.get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN
+		scatter.append(dot)
+	pins.declutter(scatter)
+	var scatter_overlaps := 0
+	var scatter_far := 0.0
+	for i in scatter.size():
+		scatter_far = maxf(scatter_far, (scatter[i].position + pins.LABEL_ORIGIN).distance_to(scatter[i].get_meta("map_anchor")))
+		for j in range(i + 1, scatter.size()):
+			if pins._label_rect(scatter[i], scatter[i].position).intersects(pins._label_rect(scatter[j], scatter[j].position)): scatter_overlaps += 1
+	check(scatter_overlaps == 0 and scatter_far < 64.0, "an irregular eight-pin cluster stays readable within 64 px (farthest %.1f, overlaps %d)" % [scatter_far, scatter_overlaps])
+	for dot in scatter: dot.free()
+	# Review case: all 12 pins on one room's grid, compressed by the regional
+	# projection to a few pixels apart. Numbers may share a label but never overlap.
+	var dense: Array[Label] = []
+	for index in 12:
+		var pin_label := Label.new()
+		pin_label.text = "★" + str(index + 1)
+		pin_label.add_theme_font_size_override("font_size", 19)
+		pin_label.set_meta("pin_id", index + 1)
+		pin_label.set_meta("map_anchor", Vector2(500 + (index % 4) * 4, 300 + int(index / 4) * 4))
+		pin_label.position = (pin_label.get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN
+		dense.append(pin_label)
+	pins.declutter(dense)
+	var dense_overlaps := 0
+	var dense_far := 0.0
+	var shown := ""
+	for i in dense.size():
+		if not dense[i].visible: continue
+		shown += " " + dense[i].text.replace("\n", " ") + " "
+		# Measure against every pin this label shows, not only its own.
+		for anchor in pins.represented(dense[i]):
+			dense_far = maxf(dense_far, (dense[i].position + pins.LABEL_ORIGIN).distance_to(anchor))
+		for j in range(i + 1, dense.size()):
+			if dense[j].visible and pins._label_rect(dense[i], dense[i].position).intersects(pins._label_rect(dense[j], dense[j].position)): dense_overlaps += 1
+	var all_shown := true
+	for index in 12: all_shown = all_shown and shown.contains("★" + str(index + 1) + " ")
+	check(dense_overlaps == 0, "twelve pins packed into a few pixels never overlap (overlaps %d)" % dense_overlaps)
+	check(all_shown, "every packed pin number is still shown on some label")
+	check(dense_far < 64.0, "packed labels stay within 64 px of their pins (farthest %.1f)" % dense_far)
+	var hidden := 0
+	for pin_label in dense: hidden += 0 if pin_label.visible else 1
+	check(hidden > 0, "the packed case really exercises joining (%d numbers joined)" % hidden)
+	for pin_label in dense: pin_label.free()
+	var spread: Array[Label] = []
+	for index in 12:
+		var spread_label := Label.new()
+		spread_label.text = "★" + str(index + 1)
+		spread_label.add_theme_font_size_override("font_size", 19)
+		spread_label.set_meta("pin_id", index + 1)
+		spread_label.set_meta("map_anchor", Vector2(700 + (index % 4) * 12, 300 + int(index / 4) * 12))
+		spread_label.position = (spread_label.get_meta("map_anchor") as Vector2) - pins.LABEL_ORIGIN
+		spread.append(spread_label)
+	pins.declutter(spread)
+	var spread_overlaps := 0
+	var spread_far := 0.0
+	for i in spread.size():
+		if not spread[i].visible: continue
+		for anchor in pins.represented(spread[i]):
+			spread_far = maxf(spread_far, (spread[i].position + pins.LABEL_ORIGIN).distance_to(anchor))
+		for j in range(i + 1, spread.size()):
+			if spread[j].visible and pins._label_rect(spread[i], spread[i].position).intersects(pins._label_rect(spread[j], spread[j].position)): spread_overlaps += 1
+	check(spread_overlaps == 0 and spread_far < 64.0, "twelve pins on a 12 px grid: no overlap, every number within 64 px of its pin (farthest %.1f)" % spread_far)
+	for spread_label in spread: spread_label.free()
+	# Regression: a dense group must never absorb the separate pin at x=215.
+	var counterexample := [Vector2(7.233161,54.20648),Vector2(51.16418,21.96101),Vector2(56.01644,7.503717),Vector2(71.92576,13.78688),Vector2(72.44984,4.383442),Vector2(139.153,26.10359),Vector2(82.49238,10.31527),Vector2(101.0306,52.04563),Vector2(33.27414,77.93373),Vector2(30.8481,9.266716),Vector2(56.89198,21.40412),Vector2(214.9092,4.81169)]
+	for use_project_font in [false, true]:
+		var regression: Array[Label] = []
+		for index in counterexample.size():
+			var label := Label.new()
+			label.text = "★" + str(index + 1)
+			label.add_theme_font_size_override("font_size", 19)
+			if use_project_font: label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+			label.set_meta("pin_id", index + 1)
+			label.set_meta("map_anchor", counterexample[index])
+			regression.append(label)
+		pins.declutter(regression)
+		var near_all := true
+		var clear_all := true
+		var numbers := " "
+		for i in regression.size():
+			if not regression[i].visible: continue
+			numbers += regression[i].text.replace("\n", " ") + " "
+			for anchor in pins.represented(regression[i]):
+				near_all = near_all and (regression[i].position + pins.LABEL_ORIGIN).distance_to(anchor) <= pins.MAX_DRIFT + 0.01
+			for j in range(i + 1, regression.size()):
+				if regression[j].visible and pins._label_rect(regression[i], regression[i].position).intersects(pins._label_rect(regression[j], regression[j].position)): clear_all = false
+		var complete := true
+		for index in regression.size(): complete = complete and numbers.contains("★" + str(index + 1) + " ")
+		check(near_all and clear_all and complete, "bounded pin merge keeps all twelve numbers readable and near every represented anchor (project_font=%s)" % use_project_font)
+		for label in regression: label.free()
 	var scene: Node = load("res://scenes/World.tscn").instantiate()
 	scene.world_save_path = SAVE
 	scene.world_resume = false
