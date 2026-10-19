@@ -942,6 +942,35 @@ func _is_at_build_workstation(snapshot: Dictionary) -> bool:
     # supplies the authoritative live snapshot field above.
     return not level.has_method("_near_workstation") or bool(level.call("_near_workstation"))
 
+func _skill_practiced(skill_id: String) -> bool:
+    var flags: Variant=level.get("story_flags") if level!=null else null
+    # Fixture adapters without story state are not gated.
+    if not flags is Dictionary:return true
+    return bool(flags.get("skill_practiced_"+skill_id,false))
+
+## C04: compare one 校习 direction with the untrained skill and the other direction.
+func _skill_branch_lines(skill: Dictionary, recipe: Dictionary) -> Array:
+    var lines: Array=[]
+    var branches: Dictionary=skill.get("branches",{})
+    var key:="a" if int(recipe.get("branch",1))==1 else "b"
+    var other:="b" if key=="a" else "a"
+    var current:=String(skill.get("branch",""))
+    lines.append("\n%s · 当前：%s" % [String(skill.get("name","")),String(branches.get(current,{}).get("name","未校习")) if not current.is_empty() else "未校习"])
+    lines.append("「%s」的改变：" % String(branches.get(key,{}).get("name","")))
+    var labels:={"damage":"伤害","range":"距离","windup":"起手（秒）","recovery":"收势（秒）","duration":"持续（秒）","energy_cost":"绯线消耗","stagger":"踉跄（秒）"}
+    var modifiers: Dictionary=branches.get(key,{}).get("modifiers",{})
+    for stat in modifiers:
+        var delta:=float(modifiers[stat])
+        var amount:=str(int(delta)) if is_equal_approx(delta,roundf(delta)) else "%.2f" % delta
+        lines.append("  %s %s%s" % [String(labels.get(stat,stat)),"+" if delta>0.0 else "",amount])
+    lines.append("另一方向「%s」：%s" % [String(branches.get(other,{}).get("name","")),String(branches.get(other,{}).get("description",""))])
+    lines.append("两个方向只能取其一；之后改选另一方向需再付全价。")
+    if not _skill_practiced(String(recipe.get("target",""))):
+        lines.append("◇ 先在练针架上用这个技能命中三次，练熟后才能选方向。")
+    if level!=null and level.has_method("is_near_artisan") and not bool(level.call("is_near_artisan")):
+        lines.append("◇ 校习要与织线学徒、雨铸匠或蜂蜡商人面对面进行。")
+    return lines
+
 func _family_row(snapshot: Dictionary, family_id: String) -> Dictionary:
     var families: Variant=snapshot.get("slot_families",{})
     if families is Dictionary and families.get(family_id) is Dictionary:return families[family_id]
@@ -1161,7 +1190,8 @@ func refresh_build() -> void:
         build_detail.text="请从完整世界入口开始巡礼。"
         return
     var at_workstation:=_is_at_build_workstation(snapshot)
-    if not at_workstation:
+    var at_artisan:=not at_workstation and level!=null and level.has_method("is_near_artisan") and bool(level.call("is_near_artisan"))
+    if not at_workstation and not at_artisan:
         for tab in build_tabs:tab.hide()
         for button in family_selector_buttons:button.hide()
         for button in build_slot_buttons:button.hide()
@@ -1169,7 +1199,7 @@ func refresh_build() -> void:
         resupply_preview_button.hide()
         resupply_confirm_button.hide()
         build_summary.text="巡行配置 · 碎钱 %d · 钟龛可调整四类装备并查看补给报价" % int(level.currency_count)
-        build_detail.text="离开钟龛时，行装只允许切换已配置的技能与战具。请前往钟龛进行装备调整。"
+        build_detail.text="离开钟龛时，行装只允许切换已配置的技能与战具。请前往钟龛调整装备；技能校习请找织线学徒、雨铸匠或蜂蜡商人。"
         var current_skill:=String(snapshot.get("skill","未配置"))
         var current_tool:=String(snapshot.get("tool","未配置"))
         var cycle_skill:=_button(build_grid,"切换技能 · 当前 %s" % current_skill,Vector2.ZERO,Vector2(563,58),func():_perform_build_action("cycle_skill",""))
@@ -1181,8 +1211,14 @@ func refresh_build() -> void:
         var current_focus:=get_viewport().gui_get_focus_owner()
         if build_panel.visible and (current_focus==null or not build_panel.is_ancestor_of(current_focus)):cycle_skill.grab_focus()
         return
-    for tab in build_tabs:tab.show()
-    build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),_all_family_count_summary(snapshot)]
+    if at_artisan and build_category!="强化":
+        build_category="强化"
+        build_selection=""
+    for tab in build_tabs:tab.visible=not at_artisan or String(tab.get_meta("build_category",""))=="强化"
+    if at_artisan:
+        build_summary.text="工匠 · 碎钱 %d · 此处只做技能校习；装备调整请回钟龛" % int(level.currency_count)
+    else:
+        build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),_all_family_count_summary(snapshot)]
     var family_id:=_build_family_for_page()
     var slots:=_family_slots(snapshot,family_id) if not family_id.is_empty() else []
     var has_typed_layout: bool=snapshot.get("slot_layout",{}).has(family_id) if snapshot.get("slot_layout",{}) is Dictionary and not family_id.is_empty() else false
@@ -1235,7 +1271,10 @@ func refresh_build() -> void:
         if entry.has("count"):
             text+=" · %d/%d 次" % [int(entry.count),int(entry.get("capacity",entry.count))]
             if int(entry.count)<=0:text+=" · 已用尽"
-        if entry.has("level"):text+=" · Lv.%d" % int(entry.level)
+        if entry.get("branch","") is String and not String(entry.get("branch","")).is_empty():text+=" · 校习："+String(entry.get("branches",{}).get(String(entry.branch),{}).get("name",""))
+        if String(entry.get("kind",""))=="skill_branch":
+            if bool(entry.get("current",false)):text="◆ "+text+" · 当前方向"
+            elif not _skill_practiced(String(entry.get("target",""))):text+=" · 需先练熟"
         var slot: Dictionary=slots[build_assign_slot] if has_typed_layout and build_assign_slot<slots.size() else {}
         var compatible: Array=slot.get("compatible",[]) if not slot.is_empty() else []
         var item_family:=String(entry.get("slot_family",family_id))
@@ -1383,12 +1422,10 @@ func _show_build_detail(entry: Dictionary) -> void:
                 lines.append("%s：%s → %s" % [pair[1],str(crest.get(pair[0],0)),str(entry.get(pair[0],0))])
             lines.append("治疗时间：%.2f → %.2f 秒" % [float(crest.get("heal_duration",0)),float(entry.get("heal_duration",0))])
             lines.append("铭饰效果在装备后合并计算。")
-    if String(entry.get("kind",""))=="skill" and entry.has("target"):
+    if String(entry.get("kind",""))=="skill_branch" and entry.has("target"):
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))==String(entry.target):
-                var level_value:=int(skill.get("level",0))
-                lines.append("\n%s：Lv.%d → Lv.%d" % [String(skill.get("name","")),level_value,mini(2,level_value+1)] if level_value<2 else "\n此技能已达当前强化上限。")
-                lines.append(String(skill.get("description","")))
+                lines.append_array(_skill_branch_lines(skill,entry))
     if not bool(entry.get("unlocked",true)):
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
         if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % level._item_display_name(String(entry.unlock_item))

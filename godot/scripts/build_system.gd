@@ -23,6 +23,7 @@ func reset() -> void:
             "travel_accessory": ["", "", ""], "thread_skill": ["cleave", ""]},
         "passives": [], "unlocked_crests": ["crimson"], "unlocked_skills": ["cleave"],
         "unlocked_tools": ["shard"], "unlocked_passives": ["stride"], "mechanisms": [],
+        # skill_levels: 0 = not trained; 1 / 2 = the chosen 校习 direction (branches a / b).
         "tool_counts": {}, "skill_levels": {}, "loadouts": {}}
     for id in catalog.tools:
         state.tool_counts[id] = int(catalog.tools[id].capacity) if id == "shard" else 0
@@ -332,19 +333,28 @@ func selected_skill(slot: int = -1) -> Dictionary:
     skill.level = level
     skill.crest_id = state.crest
     skill.mechanism_unlocked = derived.mechanism_unlocked
+    # C04: a 校习 direction changes how the skill plays, not just its numbers.
+    var branch := skill_branch(id)
+    skill.branch = branch
+    skill.branch_name = String(skill.get("branches", {}).get(branch, {}).get("name", ""))
+    var modifiers: Dictionary = skill.get("branches", {}).get(branch, {}).get("modifiers", {})
+    for key in modifiers:
+        skill[key] = float(skill.get(key, 0.0)) + float(modifiers[key])
     skill.energy_cost = maxi(1, int(ceil(float(skill.energy_cost) * float(derived.skill_cost_mult))))
     skill.cost = skill.energy_cost
-    skill.damage = maxi(0, int(round(float(int(skill.damage) + (level if id != "ward" else 0)) * float(derived.skill_damage_mult))))
+    skill.damage = maxi(0, int(round(float(skill.damage) * float(derived.skill_damage_mult))))
     skill.warmup = skill.windup
     skill.prep = skill.windup
     skill.pierce = 1
-    skill.range = float(skill.range) + (40.0 if id == "cleave" else 20.0) * level
+    skill.range = float(skill.range)
     if id == "needle":
-        skill.range = (float(catalog.skills[id].range) + 80.0 * level) * float(derived.ranged_range_mult)
-    if id == "snare" or id == "ward":
-        skill.duration = float(skill.duration) + 0.2 * level
+        skill.range *= float(derived.ranged_range_mult)
     skill.cooldown_remaining = float(cooldowns.get(id, 0.0))
     return skill
+
+## "a" / "b" for the chosen 校习 direction, "" while untrained.
+func skill_branch(id: String) -> String:
+    return {1: "a", 2: "b"}.get(int(state.skill_levels.get(id, 0)), "")
 
 func try_cast(energy: int, slot: int = -1) -> Dictionary:
     var skill := selected_skill(slot)
@@ -474,18 +484,16 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
     var recipe: Dictionary = catalog.recipes[recipe_id]
     var target := String(recipe.target)
     var kind := String(recipe.kind)
-    if kind == "skill":
+    if kind == "skill_branch":
         if not state.unlocked_skills.has(target):
-            return _fail("先取得技能再强化")
-        if int(state.skill_levels.get(target, 0)) >= 2:
-            return _fail("技能已达到当前强化上限")
+            return _fail("先取得技能再校习")
+        if int(state.skill_levels.get(target, 0)) == int(recipe.branch):
+            return _fail("已是这个校习方向")
     if kind == "passive" and state.unlocked_passives.has(target):
         return _fail("此装备已经获得")
     if kind == "refill" and int(state.tool_counts[target]) >= int(catalog.tools[target].capacity):
         return _fail("携带量已满")
     var cost := int(recipe.currency)
-    if kind == "skill":
-        cost += int(state.skill_levels[target]) * int(recipe.get("currency_per_level", 20))
     if int(wallet.currency) < cost:
         return _fail("松脂碎片不足：需要%d" % cost)
     for material in recipe.materials:
@@ -499,8 +507,9 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
         state.tool_counts[target] = mini(int(catalog.tools[target].capacity), int(state.tool_counts[target]) + int(recipe.amount))
     elif kind == "passive":
         _unlock("unlocked_passives", target)
-    elif kind == "skill":
-        state.skill_levels[target] = int(state.skill_levels[target]) + 1
+    elif kind == "skill_branch":
+        # Choosing the other direction later replaces this one at full price.
+        state.skill_levels[target] = int(recipe.branch)
     return _ok({"wallet": next_wallet, "currency_spent": cost, "recipe_id": recipe_id})
 
 func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
@@ -780,7 +789,7 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
     for id in catalog.skills:
         var entry: Dictionary = catalog.skills[id].duplicate(true)
         entry.merge({"id": id, "unlocked": state.unlocked_skills.has(id), "selected": state.skill == id,
-            "equipped_slots": _equipped_slots(state.skills, id), "level": int(state.skill_levels[id]), "cooldown_remaining": float(cooldowns.get(id, 0.0))}, true)
+            "equipped_slots": _equipped_slots(state.skills, id), "level": int(state.skill_levels[id]), "branch": skill_branch(id), "cooldown_remaining": float(cooldowns.get(id, 0.0))}, true)
         entry.energy_cost = maxi(1, int(ceil(float(entry.energy_cost) * float(profile().skill_cost_mult))))
         result.skills.append(entry)
     for id in catalog.tools:
@@ -831,8 +840,8 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
     for id in catalog.recipes:
         var entry: Dictionary = catalog.recipes[id].duplicate(true)
         entry.id = id
-        if entry.kind == "skill":
-            entry.currency = int(entry.currency) + int(state.skill_levels[entry.target]) * int(entry.get("currency_per_level", 20))
+        if entry.kind == "skill_branch":
+            entry.current = int(state.skill_levels.get(entry.target, 0)) == int(entry.branch)
         result.recipes.append(entry)
     return result
 

@@ -49,6 +49,9 @@ var status_resist_timer := 0.0
 ## Thread drawn from practice racks stays at the rack: leaving takes back
 ## whatever of it is still unspent, so racks cannot fill the meter for a fight.
 var practice_energy := 0
+## C04: the last cast skill lets a practice rack tell which skill hit it.
+var last_skill_cast := ""
+var last_skill_cast_msec := -100000
 var heal_reserved_practice := 0
 const PRACTICE_ENERGY_RADIUS := 520.0
 var crosscut_refund_paid := false
@@ -936,6 +939,8 @@ func cast_selected_skill(slot: int = -1) -> bool:
     seal_recovery_shown = false
     skill_displacement_done = 0.0
     _seal_present(String(payload.get("id", "cleave")), "prepare")
+    last_skill_cast = String(payload.get("id", ""))
+    last_skill_cast_msec = Time.get_ticks_msec()
     skill_cast.emit(String(payload.get("skill_id", payload.get("id", "thread_burst"))))
     return true
 
