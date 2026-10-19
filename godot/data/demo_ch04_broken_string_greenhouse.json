@@ -114,6 +114,16 @@
         "name": "证词·其四",
         "category": "Relics",
         "description": "六份证词之四：枯萎母株的最后一段歌，第四守门者的遗音。"
+      },
+      "evidence_beeswax_echo": {
+        "name": "证据·蜂蜡余响",
+        "category": "Relics",
+        "description": "蜂蜡暗屋挑战房留下的蜡膜残响。不挡主线，却能证明你敲响过暗屋余响钟。"
+      },
+      "evidence_root_track": {
+        "name": "证据·根网爪痕",
+        "category": "Relics",
+        "description": "根笼猎物留下的根网爪痕。不挡主线，却能证明你循迹敲响过根库余响钟。"
       }
     }
   },
@@ -284,7 +294,7 @@
         168
       ],
       "objective": "在蜂蜡暗屋补给，找到藏在蜡壁后的暗灯。",
-      "guide": "隐藏存档点藏在蜡壁后。",
+      "guide": "隐藏存档点藏在蜡壁后。 余响钟可开启挑战房。",
       "danger": "蜂蜡地板黏脚，撤退要提前。",
       "next": "东藤壁",
       "setpiece": "蜂蜡商屋",
@@ -669,7 +679,7 @@
         168
       ],
       "objective": "拉下根库拉杆：清怪后西辐桥接通，首领之路解锁。",
-      "guide": "从背面打开的捷径会长期有效。",
+      "guide": "从背面打开的捷径会长期有效。 余响钟可开启追踪狩猎。",
       "danger": "库房狭窄，根笼囚徒的话别全信。",
       "next": "断弦辐桥",
       "setpiece": "根库绞盘",
@@ -7682,5 +7692,167 @@
     "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
   },
   "boss_route_via_exploration": true,
-  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。"
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "optional_challenges": [
+    {
+      "id": "ch04_beeswax_nook_trial",
+      "name": "蜂蜡试炼",
+      "kind": "challenge_room",
+      "room_id": "beeswax_nook",
+      "clear_flag": "challenge_clear_ch04_beeswax",
+      "bypass_note": "不敲钟可拿花粉蜡与暗灯离开，继续东藤壁；主线不依赖此房。封门只封西侧根须南廊入口，东侧仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
+      "shrine": {
+        "id": "challenge_shrine_ch04_beeswax",
+        "position": [
+          4920,
+          2265
+        ],
+        "label": "余响钟 · 蜂蜡试炼"
+      },
+      "lock_rect": [
+        4648,
+        2160,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH04_N1",
+          "kind": "thorn_sentinel",
+          "position": [
+            5040,
+            2265
+          ],
+          "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+          "visual_scale": 0.33440514469453375,
+          "visual_offset": [
+            0,
+            4.662379421221864
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 64,
+          "elite": true
+        },
+        {
+          "id": "CH04_N2",
+          "kind": "wax_bee",
+          "position": [
+            5160,
+            2265
+          ],
+          "sprite": "res://assets/sprites/original_creatures/wax_bee/manifest.json",
+          "visual_scale": 0.26936026936026936,
+          "visual_offset": [
+            0,
+            13.824915824915827
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/wax_bee/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 40,
+          "elite": true
+        }
+      ],
+      "reward": {
+        "currency": 30,
+        "material_amount": 2,
+        "item_id": "evidence_beeswax_echo",
+        "item_amount": 1,
+        "toast": "蜂蜡首清：取得蜂蜡余响证据，并得额外碎钱与材料。"
+      }
+    },
+    {
+      "id": "ch04_root_cage_hunt",
+      "name": "根网追踪",
+      "kind": "tracking_hunt",
+      "room_id": "root_vault",
+      "clear_flag": "challenge_clear_ch04_root_hunt",
+      "bypass_note": "不循残迹、不敲钟可照常取花粉蜡、与根笼囚徒对话、拉根库拉杆离开，经树心继续；主线不依赖此猎。封门只封东侧树心阶入口，西侧库底仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
+      "tracks": [
+        {
+          "id": "hunt_track_ch04_root_a",
+          "flag": "hunt_track_ch04_root_a",
+          "room_id": "canopy_overlook",
+          "position": [
+            1980,
+            880
+          ],
+          "label": "根网残迹 · 西眺台",
+          "hint": "干裂根丝往断弦辐桥坠去。"
+        },
+        {
+          "id": "hunt_track_ch04_root_b",
+          "flag": "hunt_track_ch04_root_b",
+          "room_id": "west_spoke",
+          "position": [
+            1400,
+            1570
+          ],
+          "label": "根网残迹 · 辐桥",
+          "hint": "爪痕沉向树心下的根库。"
+        }
+      ],
+      "shrine": {
+        "id": "challenge_shrine_ch04_root_hunt",
+        "position": [
+          2480,
+          1942
+        ],
+        "label": "余响钟 · 根笼猎物"
+      },
+      "lock_rect": [
+        2688,
+        1860,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH04_H1",
+          "kind": "root_cage_hunter",
+          "position": [
+            2560,
+            1942
+          ],
+          "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+          "visual_scale": 0.33226837060702874,
+          "visual_offset": [
+            0,
+            5.335463258785943
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "patrol": 60,
+          "leash_radius": 200,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 64,
+          "elite": true,
+          "hp": 9,
+          "encounter_role": "tracking_hunt_quarry"
+        }
+      ],
+      "reward": {
+        "currency": 40,
+        "material_amount": 3,
+        "item_id": "evidence_root_track",
+        "item_amount": 1,
+        "toast": "根网首清：取得根网爪痕证据，并得额外碎钱与花粉蜂蜡。"
+      }
+    }
+  ]
 }

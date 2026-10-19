@@ -53,8 +53,10 @@ def audit() -> tuple[dict, list[str]]:
         config = load(f"{cid}.json")
         kills = len(config.get("enemy_spawns", [])) * KILL_CURRENCY
         workshops = sum(int(c.get("amount", 0)) for c in routes[cid].get("collectibles", []) if c.get("kind") == "currency")
+        # B04 optional challenges: one-time clear currency. Challenge foes pay no per-kill loot.
+        challenges = sum(int((c.get("reward") or {}).get("currency", 0)) for c in config.get("optional_challenges", []) if isinstance(c, dict))
         rows[cid] = {"first_clear_kills": kills, "boss": BOSS_CURRENCY if config.get("boss") else 0, "workshops": workshops,
-                     "quests": 0, "map_price": int(sellers.get(cid, {}).get("price", 0)), "drop": config.get("enemy_drop_item", "")}
+                     "optional_challenges": challenges, "quests": 0, "map_price": int(sellers.get(cid, {}).get("price", 0)), "drop": config.get("enemy_drop_item", "")}
     region_by_short = {cid.replace("demo_", ""): cid for cid in regions}
     tool_region: dict[str, str] = {}
     npcs = narrative["npcs"]
@@ -90,7 +92,7 @@ def audit() -> tuple[dict, list[str]]:
         if refill > TOOL_REFILL_KILLS * KILL_CURRENCY:
             errors.append(f"{tool_id}: a full refill costs {refill}, more than {TOOL_REFILL_KILLS} regular kills")
     # Totals.
-    income = sum(r["first_clear_kills"] + r["boss"] + r["workshops"] + r["quests"] for r in rows.values())
+    income = sum(r["first_clear_kills"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
     maps = sum(r["map_price"] for r in rows.values())
     skills = 0
     for recipe in catalog["recipes"].values():

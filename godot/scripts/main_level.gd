@@ -518,6 +518,12 @@ var locked_gate_bodies: Dictionary = {}
 var unlocked_abilities: Dictionary = {}
 var boss_actor: Area2D
 var boss_arena_lock_body: StaticBody2D
+## B04 optional challenge rooms / optional bosses: sealed on demand, one-time clear.
+var challenge_arena_lock_body: StaticBody2D
+var active_challenge_id := ""
+var challenge_alive_ids: Dictionary = {}
+## Validation-only: these spawn ids are treated as `_enemy` returning null.
+var challenge_spawn_null_ids_for_validation: Dictionary = {}
 var nearby_interactable: Area2D
 var active_spawn := Vector2(120, 500)
 var bell_count := 0
@@ -2986,6 +2992,7 @@ func _update_room_visit() -> void:
         if metsys_bridge != null:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
         if current_room_id != previous_room_id:
+            _abort_challenge_if_left_room()
             _save_world()
             _trigger_whispers("enter_room", current_room_id)
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
@@ -3420,9 +3427,15 @@ func _region_build_jobs() -> Array:
             jobs.append({"method": "_collectible", "args": [data]})
             collectible_total += 1
     for data in config.get("interactives", []):
-        var method: String = {"lever": "_lever", "boss_gate": "_boss_door", "world_portal": "_world_portal", "chapter_exit": "_chapter_exit", "ending_exit": "_chapter_exit"}.get(String(data.get("kind", "")), "")
+        var method: String = {"lever": "_lever", "boss_gate": "_boss_door", "world_portal": "_world_portal", "chapter_exit": "_chapter_exit", "ending_exit": "_chapter_exit", "challenge_shrine": "_challenge_shrine_from_interactive"}.get(String(data.get("kind", "")), "")
         if not String(method).is_empty():
             jobs.append({"method": method, "args": [data]})
+    for data in config.get("optional_challenges", []):
+        if data is Dictionary:
+            jobs.append({"method": "_challenge_shrine", "args": [data]})
+            for track in data.get("tracks", []):
+                if track is Dictionary:
+                    jobs.append({"method": "_hunt_track", "args": [data, track]})
     for data in config.get("save_points", []):
         jobs.append({"method": "_save_point", "args": [data]})
     for data in config.get("npcs", []):
@@ -5325,6 +5338,356 @@ func _set_boss_arena_locked(locked: bool) -> void:
         player.remove_camera_lock("boss_arena")
 
 
+
+## B04: optional challenge shrine / sealed room / optional boss helpers.
+func _optional_challenge(challenge_id: String) -> Dictionary:
+    for entry in config.get("optional_challenges", []):
+        if entry is Dictionary and String(entry.get("id", "")) == challenge_id:
+            return entry
+    return {}
+
+
+func _challenge_shrine_from_interactive(data: Dictionary) -> void:
+    # Allow authored interactives of kind challenge_shrine to reuse the same path.
+    var challenge := _optional_challenge(String(data.get("challenge_id", "")))
+    if challenge.is_empty():
+        challenge = {"id": String(data.get("challenge_id", data.get("id", ""))), "shrine": data, "clear_flag": String(data.get("clear_flag", "")), "name": String(data.get("label", "可选挑战"))}
+    _challenge_shrine(challenge)
+
+
+func _challenge_shrine(challenge: Dictionary) -> void:
+    var shrine: Dictionary = challenge.get("shrine", {})
+    if shrine.is_empty():
+        return
+    var area := Area2D.new()
+    var shrine_id := String(shrine.get("id", "challenge_shrine_%s" % String(challenge.get("id", "trial"))))
+    area.name = shrine_id
+    area.position = _vec2(shrine.get("position", [0, 0]))
+    area.set_meta("kind", "challenge_shrine")
+    area.set_meta("challenge_id", String(challenge.get("id", "")))
+    area.set_meta("object_id", "interactable/" + shrine_id)
+    var cleared := bool(story_flags.get(String(challenge.get("clear_flag", "")), false))
+    var label := String(shrine.get("label", String(challenge.get("name", "可选挑战"))))
+    if cleared:
+        label = "%s · 已清" % String(challenge.get("name", "可选挑战"))
+    area.set_meta("label", label)
+    area.set_meta("interaction_label", label + (" · 回访" if cleared else " · F 敲响"))
+    var shape := CollisionShape2D.new()
+    var rectangle := RectangleShape2D.new()
+    rectangle.size = Vector2(54, 78)
+    shape.shape = rectangle
+    area.add_child(shape)
+    var sprite := Sprite2D.new()
+    sprite.texture = load(SPRITES["lever"])
+    sprite.scale = Vector2(0.48, 0.48)
+    sprite.name = "ChallengeShrineSprite"
+    _apply_original_prop(sprite, "lever_closed" if not cleared else "lever_open", 78 if not cleared else 52)
+    area.add_child(sprite)
+    _add_wayfinding(area)
+    area.body_entered.connect(_on_interactable_entered.bind(area))
+    area.body_exited.connect(_on_interactable_exited.bind(area))
+    add_child(area)
+    if metsys_bridge != null:
+        var room := _room_for_position(area.global_position)
+        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+
+
+func _challenge_kind_label(challenge: Dictionary) -> String:
+    var kind := String(challenge.get("kind", ""))
+    if kind == "optional_boss":
+        return "可选首领"
+    if kind == "tracking_hunt":
+        return "追踪狩猎"
+    return "挑战房"
+
+
+func _challenge_tracks_ready(challenge: Dictionary) -> bool:
+    var tracks = challenge.get("tracks", [])
+    if not (tracks is Array) or tracks.is_empty():
+        return true
+    for track in tracks:
+        if not (track is Dictionary):
+            continue
+        var flag := String(track.get("flag", ""))
+        if flag.is_empty() or not bool(story_flags.get(flag, false)):
+            return false
+    return true
+
+
+func _hunt_track(challenge: Dictionary, track: Dictionary) -> void:
+    if track.is_empty():
+        return
+    var track_id := String(track.get("id", ""))
+    if track_id.is_empty():
+        return
+    var area := Area2D.new()
+    area.name = track_id
+    area.position = _vec2(track.get("position", [0, 0]))
+    area.set_meta("kind", "hunt_track")
+    area.set_meta("challenge_id", String(challenge.get("id", "")))
+    area.set_meta("track_flag", String(track.get("flag", "")))
+    area.set_meta("track_hint", String(track.get("hint", "")))
+    area.set_meta("object_id", "interactable/" + track_id)
+    var found := bool(story_flags.get(String(track.get("flag", "")), false))
+    var label := String(track.get("label", "渠影残迹"))
+    if found:
+        label = "%s · 已循" % label
+    area.set_meta("label", label)
+    area.set_meta("interaction_label", label + (" · 回看" if found else " · F 辨认"))
+    var shape := CollisionShape2D.new()
+    var rectangle := RectangleShape2D.new()
+    rectangle.size = Vector2(48, 56)
+    shape.shape = rectangle
+    area.add_child(shape)
+    var sprite := Sprite2D.new()
+    sprite.texture = load(SPRITES["lever"])
+    sprite.scale = Vector2(0.36, 0.36)
+    sprite.name = "HuntTrackSprite"
+    _apply_original_prop(sprite, "lever_open" if found else "lever_closed", 52 if found else 64)
+    area.add_child(sprite)
+    _add_wayfinding(area)
+    area.body_entered.connect(_on_interactable_entered.bind(area))
+    area.body_exited.connect(_on_interactable_exited.bind(area))
+    add_child(area)
+    if metsys_bridge != null:
+        var room := _room_for_position(area.global_position)
+        metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
+
+
+func _activate_hunt_track(area: Area2D) -> void:
+    if area == null or not is_instance_valid(area):
+        return
+    var flag := String(area.get_meta("track_flag", ""))
+    var hint := String(area.get_meta("track_hint", ""))
+    var challenge_id := String(area.get_meta("challenge_id", ""))
+    var challenge := _optional_challenge(challenge_id)
+    if flag.is_empty():
+        _toast("这道残迹已经模糊了。")
+        return
+    var already := bool(story_flags.get(flag, false))
+    if not already:
+        story_flags[flag] = true
+        _save_world()
+    var base_label := String(area.get_meta("label", "渠影残迹")).replace(" · 已循", "")
+    area.set_meta("label", "%s · 已循" % base_label)
+    area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回看")
+    var sprite := area.get_node_or_null("HuntTrackSprite") as Sprite2D
+    if sprite != null:
+        _apply_original_prop(sprite, "lever_open", 52)
+    if already:
+        _toast(hint if not hint.is_empty() else "残迹已循过。")
+    else:
+        var ready := _challenge_tracks_ready(challenge)
+        if ready and not challenge.is_empty():
+            _toast("%s · 残迹齐了，去敲响猎物的余响钟。" % String(challenge.get("name", "追踪狩猎")))
+        elif not hint.is_empty():
+            _toast(hint)
+        else:
+            _toast("循着残迹，猎物还在前方。")
+
+
+func _activate_challenge_shrine(area: Area2D) -> void:
+    if area == null or not is_instance_valid(area):
+        return
+    var challenge_id := String(area.get_meta("challenge_id", ""))
+    var challenge := _optional_challenge(challenge_id)
+    if challenge.is_empty():
+        _toast("这座余响钟已经哑了。")
+        return
+    var clear_flag := String(challenge.get("clear_flag", ""))
+    if not clear_flag.is_empty() and bool(story_flags.get(clear_flag, false)):
+        _toast("%s已清·可回访，奖励不会再发。" % String(challenge.get("name", "可选挑战")))
+        return
+    if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
+        _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
+        return
+    if not active_challenge_id.is_empty():
+        _toast("先了结当前的可选挑战。")
+        return
+    _start_optional_challenge(challenge)
+
+
+func _challenge_lock_inside_x(challenge: Dictionary, lock_rect: Rect2) -> float:
+    # Prefer shrine / enemy centroid so the push side matches the trial chamber,
+    # not a hard-coded "always right of the wall".
+    var anchor_x := lock_rect.get_center().x
+    var shrine: Dictionary = challenge.get("shrine", {})
+    if shrine is Dictionary and shrine.has("position"):
+        anchor_x = _vec2(shrine.get("position", [anchor_x, 0])).x
+    else:
+        var sum_x := 0.0
+        var count := 0
+        for spawn in challenge.get("enemies", []):
+            if spawn is Dictionary and spawn.has("position"):
+                sum_x += _vec2(spawn.get("position", [anchor_x, 0])).x
+                count += 1
+        if count > 0:
+            anchor_x = sum_x / float(count)
+    var authored := String(challenge.get("lock_inside", "")).strip_edges().to_lower()
+    if authored == "left" or authored == "right":
+        if authored == "left":
+            return lock_rect.position.x - 54.0
+        return lock_rect.position.x + lock_rect.size.x + 54.0
+    if anchor_x < lock_rect.position.x:
+        return lock_rect.position.x - 54.0
+    return lock_rect.position.x + lock_rect.size.x + 54.0
+
+
+func _is_optional_challenge_spawn(spawn_id: String) -> bool:
+    if challenge_alive_ids.has(spawn_id):
+        return true
+    for entry in config.get("optional_challenges", []):
+        if not (entry is Dictionary):
+            continue
+        for spawn in entry.get("enemies", []):
+            if spawn is Dictionary and String(spawn.get("id", "")) == spawn_id:
+                return true
+    return false
+
+
+func _start_optional_challenge(challenge: Dictionary) -> void:
+    var challenge_id := String(challenge.get("id", ""))
+    if challenge_id.is_empty():
+        return
+    active_challenge_id = challenge_id
+    challenge_alive_ids.clear()
+    var lock_rect_value = challenge.get("lock_rect", [])
+    if lock_rect_value is Array and lock_rect_value.size() >= 4:
+        var lock_rect := _rect2(lock_rect_value)
+        _set_challenge_arena_locked(true, lock_rect, _challenge_lock_inside_x(challenge, lock_rect))
+    var kind_label := _challenge_kind_label(challenge)
+    _toast("%s · %s" % [kind_label, String(challenge.get("name", "余响试炼"))])
+    var skipped_spawns := 0
+    for spawn in challenge.get("enemies", []):
+        if not (spawn is Dictionary):
+            continue
+        var spawn_data: Dictionary = spawn.duplicate(true)
+        var spawn_id := String(spawn_data.get("id", ""))
+        if spawn_id.is_empty():
+            continue
+        spawn_data["challenge_id"] = challenge_id
+        # Register only after a live actor exists. A null / invalid spawn must
+        # not stick in the alive set, or the trial can never clear by kills.
+        var enemy: Area2D = null
+        if not challenge_spawn_null_ids_for_validation.has(spawn_id):
+            enemy = _enemy(spawn_data)
+        if enemy != null and is_instance_valid(enemy):
+            challenge_alive_ids[spawn_id] = true
+            enemy.set_meta("optional_challenge_id", challenge_id)
+        else:
+            skipped_spawns += 1
+            push_warning("Optional challenge spawn failed, skipping %s" % spawn_id)
+    if challenge_alive_ids.is_empty():
+        _clear_active_challenge(false)
+        _toast("试炼钟空响了一声。")
+    elif skipped_spawns > 0:
+        _toast("有试炼之敌没有显形。")
+
+
+func _set_challenge_arena_locked(locked: bool, lock_rect: Rect2 = Rect2(), inside_x: float = NAN) -> void:
+    if locked:
+        if challenge_arena_lock_body != null and is_instance_valid(challenge_arena_lock_body):
+            return
+        if lock_rect.size == Vector2.ZERO:
+            return
+        challenge_arena_lock_body = _platform("challenge_arena_lock_wall", lock_rect, _color("2a1715"), _theme_boss_material())
+        challenge_arena_lock_body.set_meta("temporary_challenge_lock", true)
+        if player != null and is_instance_valid(player):
+            var safe_x := inside_x
+            if is_nan(safe_x):
+                safe_x = lock_rect.position.x + lock_rect.size.x + 54.0
+            var wall_left := lock_rect.position.x
+            var wall_right := lock_rect.position.x + lock_rect.size.x
+            var near_wall := absf(player.global_position.x - lock_rect.get_center().x) < lock_rect.size.x + 80.0
+            var inside_is_left := safe_x < wall_left
+            var outside := (inside_is_left and player.global_position.x >= wall_left - 8.0) or ((not inside_is_left) and player.global_position.x <= wall_right + 8.0)
+            if near_wall and outside:
+                player.global_position = Vector2(safe_x, player.global_position.y)
+                player.set("velocity", Vector2.ZERO)
+        return
+    if challenge_arena_lock_body != null and is_instance_valid(challenge_arena_lock_body):
+        _spawn_route_open_effect(challenge_arena_lock_body.global_position)
+        challenge_arena_lock_body.queue_free()
+    challenge_arena_lock_body = null
+
+
+func _clear_active_challenge(grant_if_empty: bool) -> void:
+    if grant_if_empty and not active_challenge_id.is_empty() and challenge_alive_ids.is_empty():
+        _grant_optional_challenge_reward(_optional_challenge(active_challenge_id))
+    _set_challenge_arena_locked(false)
+    active_challenge_id = ""
+    challenge_alive_ids.clear()
+
+
+## The seal only closes one entrance. Walking out through the other side ends
+## the attempt: the foes go, the seal opens and the bell can be rung again later.
+func _abort_challenge_if_left_room() -> void:
+    if active_challenge_id.is_empty():
+        return
+    var room_id := String(_optional_challenge(active_challenge_id).get("room_id", ""))
+    if room_id.is_empty() or current_room_id == room_id:
+        return
+    for enemy_node in get_tree().get_nodes_in_group("enemy"):
+        if String(enemy_node.get_meta("optional_challenge_id", "")) != active_challenge_id:
+            continue
+        if enemy_node.has_method("_cancel_attack_effects"):
+            enemy_node._cancel_attack_effects()
+        enemy_node.queue_free()
+    _clear_active_challenge(false)
+    _toast("离开试炼，余响钟复位；随时可以回来再敲。")
+
+
+func _on_challenge_enemy_died(spawn_id: String) -> void:
+    if not challenge_alive_ids.has(spawn_id):
+        return
+    challenge_alive_ids.erase(spawn_id)
+    if challenge_alive_ids.is_empty() and not active_challenge_id.is_empty():
+        var challenge := _optional_challenge(active_challenge_id)
+        _set_challenge_arena_locked(false)
+        _grant_optional_challenge_reward(challenge)
+        active_challenge_id = ""
+
+
+func _grant_optional_challenge_reward(challenge: Dictionary) -> void:
+    if challenge.is_empty():
+        return
+    var clear_flag := String(challenge.get("clear_flag", ""))
+    if clear_flag.is_empty():
+        return
+    if bool(story_flags.get(clear_flag, false)):
+        return
+    story_flags[clear_flag] = true
+    var reward: Dictionary = challenge.get("reward", {})
+    var currency := int(reward.get("currency", 0))
+    if currency > 0:
+        _add_currency(currency)
+    var material_amount := int(reward.get("material_amount", 0))
+    if material_amount > 0:
+        _add_inventory_item(String(config.get("enemy_drop_item", "moss_chitin")), material_amount, false)
+    var item_id := String(reward.get("item_id", ""))
+    if not item_id.is_empty():
+        _add_inventory_item(item_id, int(reward.get("item_amount", 1)), false)
+        _announce_lore_pickup(item_id)
+    var unlock_event := String(reward.get("unlock_event", ""))
+    if not unlock_event.is_empty():
+        story_flags[unlock_event] = true
+        if build_system != null:
+            build_system.unlock_event(unlock_event)
+            _sync_player_build()
+    var message := String(reward.get("toast", "%s首清。" % String(challenge.get("name", "可选挑战"))))
+    _toast(message)
+    var shrine: Dictionary = challenge.get("shrine", {})
+    var shrine_id := String(shrine.get("id", "challenge_shrine_%s" % String(challenge.get("id", ""))))
+    var area := get_node_or_null(NodePath(shrine_id))
+    if area != null and is_instance_valid(area):
+        area.set_meta("label", "%s · 已清" % String(challenge.get("name", "可选挑战")))
+        area.set_meta("interaction_label", String(area.get_meta("label")) + " · 回访")
+        var sprite := area.get_node_or_null("ChallengeShrineSprite") as Sprite2D
+        if sprite != null:
+            _apply_original_prop(sprite, "lever_open", 52)
+    _save_world()
+
+
 func _lock_boss_camera() -> void:
     if not is_instance_valid(player):
         return
@@ -5571,6 +5934,10 @@ func _try_interact() -> void:
         _activate_world_portal(nearby_interactable)
     elif kind == "ending_gate":
         _activate_ending_gate(nearby_interactable)
+    elif kind == "challenge_shrine":
+        _activate_challenge_shrine(nearby_interactable)
+    elif kind == "hunt_track":
+        _activate_hunt_track(nearby_interactable)
 
 
 func interaction_target(prompt_candidate: Area2D = null) -> Area2D:
@@ -6175,13 +6542,20 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             _toast("前往下一片土地 · " + String(transition.get("entry_hint", _next_campaign_chapter_name())))
     else:
         var drop_item := String(config.get("enemy_drop_item", "moss_chitin"))
-        enemy_defeated += 1
-        _add_currency(8)
-        _add_inventory_item(drop_item, 1, false)
-        if player != null:
-            player.gain_energy(20)
-        _toast("拾得碎钱与材料 · 绯线回充")
-        if _combat_progression_enabled() and _combat_goal_met():
+        var challenge_spawn := _is_optional_challenge_spawn(spawn_id)
+        # Challenge foes pay only through the one-time clear reward: they are not
+        # in the region's combat-clear tally, and a failed attempt cannot be farmed
+        # for currency, materials, or energy (ring the bell, kill one, leave).
+        if not challenge_spawn:
+            enemy_defeated += 1
+            _add_currency(8)
+            _add_inventory_item(drop_item, 1, false)
+            if player != null:
+                player.gain_energy(20)
+        _toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
+        if challenge_spawn:
+            _on_challenge_enemy_died(spawn_id)
+        elif _combat_progression_enabled() and _combat_goal_met():
             _open_combat_clear_route()
             _play_sfx("door_open", -9.0)
             _toast("本区敌群已清，钟门前的道路开启。")
@@ -6209,6 +6583,7 @@ func _reset_encounters_after_player_death() -> void:
         _refresh_hud()
         return
     _set_boss_arena_locked(false)
+    _clear_active_challenge(false)
     if world_gameplay_residency != null:
         world_gameplay_residency.clear_enemy_actors()
     for enemy_node in get_tree().get_nodes_in_group("enemy"):

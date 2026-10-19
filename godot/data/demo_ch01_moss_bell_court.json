@@ -106,6 +106,11 @@
         "name": "证词·其一",
         "category": "Relics",
         "description": "六份证词之一：井喉里封着的第一句真话。"
+      },
+      "evidence_crown_echo": {
+        "name": "证据·冠隙余响",
+        "category": "Relics",
+        "description": "可选挑战留下的钟隙残响。不挡主线，却能证明你走进过冠后暗格。"
       }
     }
   },
@@ -842,7 +847,7 @@
       "next": "钟冠悬廊",
       "setpiece": "嵌着残页的裂缝",
       "traversal_focus": "冲刺门",
-      "pacing_role": "reward",
+      "pacing_role": "optional_challenge",
       "visit_rects": [
         [
           1910,
@@ -856,7 +861,8 @@
         204,
         300,
         576
-      ]
+      ],
+      "optional_challenge": "ch01_crown_nook_trial"
     },
     {
       "id": "east_balcony",
@@ -14702,5 +14708,86 @@
   },
   "boss_route_via_exploration": true,
   "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
-  "first_journey_teaching": true
+  "first_journey_teaching": true,
+  "optional_challenges": [
+    {
+      "id": "ch01_crown_nook_trial",
+      "name": "冠隙试炼",
+      "kind": "challenge_room",
+      "room_id": "crown_splinter_nook",
+      "clear_flag": "challenge_clear_ch01_crown_nook",
+      "bypass_note": "不敲钟可直接离开；主线不依赖此房。冲刺门后的暗格可选。封门只封东侧冲刺门方向，西侧仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
+      "shrine": {
+        "id": "challenge_shrine_ch01_crown_nook",
+        "position": [
+          1980,
+          720
+        ],
+        "label": "余响钟 · 冠隙试炼"
+      },
+      "lock_rect": [
+        2188,
+        550,
+        42,
+        240
+      ],
+      "enemies": [
+        {
+          "id": "CH01_N1",
+          "kind": "corridor_heavy",
+          "position": [
+            2050,
+            720
+          ],
+          "sprite": "res://assets/sprites/original_creatures/corridor_heavy/manifest.json",
+          "visual_scale": 0.3959731543624161,
+          "visual_offset": [
+            0,
+            -13.275167785234899
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/corridor_heavy/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 78,
+          "elite": true
+        },
+        {
+          "id": "CH01_N2",
+          "kind": "gear_sentinel",
+          "position": [
+            2115,
+            720
+          ],
+          "sprite": "res://assets/sprites/original_creatures/gear_sentinel/manifest.json",
+          "visual_scale": 0.3388704318936877,
+          "visual_offset": [
+            0,
+            6.322259136212622
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/gear_sentinel/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 62,
+          "elite": true
+        }
+      ],
+      "reward": {
+        "currency": 30,
+        "material_amount": 2,
+        "item_id": "evidence_crown_echo",
+        "item_amount": 1,
+        "toast": "冠隙首清：取得冠隙余响证据，并得额外碎钱与材料。"
+      }
+    }
+  ]
 }
