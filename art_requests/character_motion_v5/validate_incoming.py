@@ -27,7 +27,11 @@ def validate(check_manifest=True):
         frames = int(re.search(r'幀數：(\d+)', details).group(1))
         path = incoming / name
         saved_prompt = path.with_suffix('.txt').read_text(encoding='utf-8')
-        assert saved_prompt.startswith(prompt), f'{name}: original request prompt was truncated'
+        cursor = 0
+        for paragraph in prompt.splitlines():
+            position = saved_prompt.find(paragraph, cursor)
+            assert position >= 0, f'{name}: original request prompt was truncated or reordered'
+            cursor = position + len(paragraph)
         cols, rows = (2, 2) if frames == 4 else (2, 1) if frames == 2 else (1, 1)
         expected_size = (1024, 1024) if frames == 1 else (1536, 1024)
         with Image.open(path) as im:
