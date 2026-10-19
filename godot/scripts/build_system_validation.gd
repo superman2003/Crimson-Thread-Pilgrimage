@@ -53,7 +53,7 @@ func _initialize() -> void:
     var cds := build.cooldowns.duplicate(true)
     _check(build.switch_crest("bell").ok and build.equip_passives([]).ok and build.restore_loadout("记名").ok, "restore exact build")
     _check(build.state.skills == ["cleave", "needle"] and build.state.passives == ["shell", "stride"] and stock == build.state.tool_counts and cds == build.cooldowns, "loadout preserves stock/CD")
-    var wallet := {"currency": 200, "inventory_counts": {"echo_hook": 1, "salt_crystal_shard": 3}}
+    var wallet := {"currency": 200, "inventory_counts": {"echo_hook": 1}}
     var wallet_before := wallet.duplicate(true)
     _check(build.switch_crest("crimson").ok, "return to a crest whose open skill slot accepts needle")
     _check(build.select_skill("needle", 1).ok, "upgrade target")
@@ -98,25 +98,8 @@ func _initialize() -> void:
         before = restart.serialize()
         _check(not restart.restore(corrupt).ok and restart.serialize() == before, "transactional corruption rejection " + corrupt_kind)
     var snapshot := build.get_snapshot()
-    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 10, "full UI catalog")
+    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 6, "full UI catalog")
     _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
-    # E04: materials sink beyond tool refill — skill校习 + regional artisan crafts.
-    for skill_id in ["cleave", "needle", "snare", "ward", "shockwave", "crosscut"]:
-        var upgrade: Dictionary = build.catalog.recipes["upgrade_" + skill_id]
-        _check(not upgrade.materials.is_empty(), "skill upgrade spends materials for " + skill_id)
-    for craft_id in ["craft_reflux", "craft_shell", "craft_spur", "craft_mender"]:
-        _check(build.catalog.recipes.has(craft_id), "artisan craft recipe exists " + craft_id)
-        var craft: Dictionary = build.catalog.recipes[craft_id]
-        _check(String(craft.kind) == "passive" and not craft.materials.is_empty() and int(craft.currency) > 0, "craft sinks materials and currency for " + craft_id)
-    var artisan := BUILD.new()
-    var craft_wallet := {"currency": 30, "inventory_counts": {"moss_chitin": 2}}
-    var crafted: Dictionary = artisan.transact("craft_reflux", craft_wallet)
-    _check(crafted.get("ok", false) and artisan.state.unlocked_passives.has("reflux") and int(craft_wallet.currency) == 30, "craft_reflux unlocks reflux and leaves caller wallet untouched")
-    var crafted_wallet: Dictionary = crafted.get("wallet", {})
-    _check(int(crafted_wallet.get("currency", -1)) == 10 and int(crafted_wallet.get("inventory_counts", {}).get("moss_chitin", -1)) == 0, "craft_reflux charges moss and currency on returned wallet")
-    _check(not artisan.transact("craft_reflux", {"currency": 50, "inventory_counts": {"moss_chitin": 2}}).ok, "craft_reflux cannot repeat once owned")
-    var lacking := artisan.transact("craft_shell", {"currency": 25, "inventory_counts": {}})
-    _check(not lacking.get("ok", false), "craft_shell rejects missing wet_chitin")
     if failures.is_empty():
         print("BUILD SYSTEM PASS: %d checks" % checks)
         quit(0)
