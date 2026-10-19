@@ -6553,14 +6553,42 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             if player != null:
                 player.gain_energy(20)
         _toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
+        var elite_message := "" if challenge_spawn else _grant_elite_first_defeat(spawn_id, drop_item)
         if challenge_spawn:
             _on_challenge_enemy_died(spawn_id)
         elif _combat_progression_enabled() and _combat_goal_met():
             _open_combat_clear_route()
             _play_sfx("door_open", -9.0)
-            _toast("本区敌群已清，钟门前的道路开启。")
+            # One toast label: keep the elite reward visible alongside the clear.
+            _toast("本区敌群已清，钟门前的道路开启。" + ("" if elite_message.is_empty() else " " + elite_message))
     _refresh_hud()
     _save_world()
+
+
+## B04: an elite is an optional, harder fight. Its first defeat pays a one-time
+## bonus (kept in story flags), so respawned elites cannot be farmed for it.
+const ELITE_FIRST_CURRENCY := 30
+const ELITE_FIRST_MATERIALS := 2
+
+func _spawn_is_elite(spawn_id: String) -> bool:
+    for spawn in config.get("enemy_spawns", []):
+        if spawn is Dictionary and String(spawn.get("id", "")) == spawn_id:
+            return bool(spawn.get("elite", false))
+    return false
+
+## Returns the reward message ("" when no bonus) so a following toast can keep it.
+func _grant_elite_first_defeat(spawn_id: String, drop_item: String) -> String:
+    if not world_mode or not _spawn_is_elite(spawn_id):
+        return ""
+    var flag := "elite_first_%s_%s" % [String(config.get("id", "")), spawn_id]
+    if bool(story_flags.get(flag, false)):
+        return ""
+    story_flags[flag] = true
+    _add_currency(ELITE_FIRST_CURRENCY)
+    _add_inventory_item(drop_item, ELITE_FIRST_MATERIALS, false)
+    var message := "精英首胜：额外 %d 枚碎钱与 %d 份材料。" % [ELITE_FIRST_CURRENCY, ELITE_FIRST_MATERIALS]
+    _toast(message)
+    return message
 
 
 func _on_player_respawned() -> void:
