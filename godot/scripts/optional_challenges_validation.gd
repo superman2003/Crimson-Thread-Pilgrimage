@@ -58,6 +58,15 @@ func travel(region: String, at: Vector2) -> void:
 func challenge(region_challenge_id: String) -> Dictionary:
 	return scene._optional_challenge(region_challenge_id)
 
+func free_challenge_foes() -> void:
+	for node in scene.get_tree().get_nodes_in_group("enemy"):
+		if not node.has_meta("optional_challenge_id"):
+			continue
+		if node.has_method("_cancel_attack_effects"):
+			node._cancel_attack_effects()
+		node.queue_free()
+	await tick(2)
+
 func challenge_enemy(spawn_id: String) -> Area2D:
 	for node in scene.get_tree().get_nodes_in_group("enemy"):
 		if String(node.get("spawn_id")) == spawn_id and node.has_meta("optional_challenge_id"):
@@ -79,6 +88,9 @@ func run_challenge_clear(challenge_id: String, evidence_id: String) -> void:
 	var before_evidence: int = int(scene.inventory_counts.get(evidence_id, 0))
 	var before_defeated: int = scene.enemy_defeated
 	var before_total: int = scene.enemy_total
+	if scene.player != null:
+		scene.player.energy = mini(30, maxi(0, scene.player.max_energy - 21))
+	var before_energy: int = scene.player.energy if scene.player != null else 0
 	scene._start_optional_challenge(data)
 	await tick(4)
 	check(scene.active_challenge_id == challenge_id, challenge_id + " becomes the active challenge")
@@ -118,6 +130,7 @@ func run_challenge_clear(challenge_id: String, evidence_id: String) -> void:
 	check(not reward.has("unlock_event") and not reward.has("unlock_events"), challenge_id + " does not re-grant a charm or tool an NPC already teaches")
 	check(int(scene.inventory_counts.get(evidence_id, 0)) == before_evidence + int(reward.get("item_amount", 1)), challenge_id + " grants its evidence / growth item once")
 	check(scene.enemy_defeated == before_defeated, challenge_id + " never advances the region's combat-clear counter")
+	check(scene.player != null and scene.player.energy == before_energy, challenge_id + " challenge kills and the clear reward grant no energy")
 	# Anti-farm: starting again after clear must no-op on rewards.
 	var currency_after: int = scene.currency_count
 	var evidence_after: int = int(scene.inventory_counts.get(evidence_id, 0))
@@ -174,15 +187,47 @@ func run() -> void:
 	check(scene.player.global_position.x < ch01_lock.position.x, "ch01 seal push keeps the player inside left of the wall")
 	scene._clear_active_challenge(false)
 	await tick(2)
+	await free_challenge_foes()
+	# A spawn `_enemy` does not return must not stay in the alive set, or the
+	# trial can never clear by kills. The validation seam stands in for that null.
+	scene.challenge_spawn_null_ids_for_validation = {"CH01_N2": true}
+	scene._start_optional_challenge(ch01)
+	await tick(3)
+	check(scene.challenge_alive_ids.has("CH01_N1") and not scene.challenge_alive_ids.has("CH01_N2"), "a failed challenge spawn is not latched in the alive set")
+	check(challenge_enemy("CH01_N2") == null, "a failed challenge spawn leaves no foe")
+	scene._clear_active_challenge(false)
+	await free_challenge_foes()
+	scene.challenge_spawn_null_ids_for_validation = {"CH01_N1": true, "CH01_N2": true}
+	var currency_before_fail: int = scene.currency_count
+	scene._start_optional_challenge(ch01)
+	await tick(2)
+	check(scene.active_challenge_id.is_empty() and scene.challenge_alive_ids.is_empty(), "a trial whose spawns all fail does not stay active")
+	check(scene.currency_count == currency_before_fail and not bool(scene.story_flags.get(String(ch01.get("clear_flag", "")), false)), "a fully failed spawn grants nothing and stays uncleared")
+	scene.challenge_spawn_null_ids_for_validation.clear()
+	await tick(2)
 	# Walking out through the unsealed side ends the attempt instead of leaving
 	# the seal and the foes behind.
 	scene.player.global_position = Vector2(ch01_inside, 700)
 	await tick(4)
 	check(scene.current_room_id == String(ch01.get("room_id", "")), "ch01 fixture stands in the trial room")
 	var currency_before_abort: int = scene.currency_count
+	scene.player.energy = mini(30, maxi(0, scene.player.max_energy - 21))
+	var energy_before_abort: int = scene.player.energy
 	scene._start_optional_challenge(ch01)
 	await tick(4)
 	check(scene.active_challenge_id == "ch01_crown_nook_trial", "ch01 trial starts for the leave-room check")
+	var farm_foe := challenge_enemy("CH01_N1")
+	check(farm_foe != null, "ch01 leave-room check has a live foe")
+	if farm_foe != null:
+		for attempt in 40:
+			if not scene.challenge_alive_ids.has("CH01_N1"):
+				break
+			if is_instance_valid(farm_foe) and not farm_foe.dying:
+				farm_foe.take_hit(99, int(farm_foe.direction))
+			await tick(2)
+	check(not scene.challenge_alive_ids.has("CH01_N1"), "killing one ch01 foe removes only that spawn")
+	check(scene.active_challenge_id == "ch01_crown_nook_trial", "one ch01 kill does not finish the trial")
+	check(scene.player.energy == energy_before_abort, "killing one challenge foe grants no energy")
 	var outside := Vector2(ch01_lock.position.x + ch01_lock.size.x + 54.0, 700)
 	check(String(scene._room_for_position(outside).get("id", "")) != String(ch01.get("room_id", "")), "ch01 outside point is another room")
 	scene.player.global_position = outside
@@ -190,7 +235,7 @@ func run() -> void:
 	check(scene.active_challenge_id.is_empty(), "leaving the trial room ends the attempt")
 	check(scene.challenge_arena_lock_body == null or not is_instance_valid(scene.challenge_arena_lock_body), "leaving the trial room opens the seal")
 	check(challenge_enemy("CH01_N1") == null and challenge_enemy("CH01_N2") == null, "leaving the trial room removes the trial foes")
-	check(not bool(scene.story_flags.get(String(ch01.get("clear_flag", "")), false)) and scene.currency_count == currency_before_abort, "an abandoned attempt pays nothing and stays uncleared")
+	check(not bool(scene.story_flags.get(String(ch01.get("clear_flag", "")), false)) and scene.currency_count == currency_before_abort and scene.player.energy == energy_before_abort, "an abandoned attempt pays nothing, grants no energy, and stays uncleared")
 	scene.player.global_position = Vector2(ch01_inside, 700)
 	await tick(4)
 	await run_challenge_clear("ch01_crown_nook_trial", "evidence_crown_echo")

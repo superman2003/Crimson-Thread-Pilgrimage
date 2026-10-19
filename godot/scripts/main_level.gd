@@ -522,6 +522,8 @@ var boss_arena_lock_body: StaticBody2D
 var challenge_arena_lock_body: StaticBody2D
 var active_challenge_id := ""
 var challenge_alive_ids: Dictionary = {}
+## Validation-only: these spawn ids are treated as `_enemy` returning null.
+var challenge_spawn_null_ids_for_validation: Dictionary = {}
 var nearby_interactable: Area2D
 var active_spawn := Vector2(120, 500)
 var bell_count := 0
@@ -5555,6 +5557,7 @@ func _start_optional_challenge(challenge: Dictionary) -> void:
         _set_challenge_arena_locked(true, lock_rect, _challenge_lock_inside_x(challenge, lock_rect))
     var kind_label := _challenge_kind_label(challenge)
     _toast("%s · %s" % [kind_label, String(challenge.get("name", "余响试炼"))])
+    var skipped_spawns := 0
     for spawn in challenge.get("enemies", []):
         if not (spawn is Dictionary):
             continue
@@ -5562,14 +5565,23 @@ func _start_optional_challenge(challenge: Dictionary) -> void:
         var spawn_id := String(spawn_data.get("id", ""))
         if spawn_id.is_empty():
             continue
-        challenge_alive_ids[spawn_id] = true
         spawn_data["challenge_id"] = challenge_id
-        var enemy := _enemy(spawn_data)
+        # Register only after a live actor exists. A null / invalid spawn must
+        # not stick in the alive set, or the trial can never clear by kills.
+        var enemy: Area2D = null
+        if not challenge_spawn_null_ids_for_validation.has(spawn_id):
+            enemy = _enemy(spawn_data)
         if enemy != null and is_instance_valid(enemy):
+            challenge_alive_ids[spawn_id] = true
             enemy.set_meta("optional_challenge_id", challenge_id)
+        else:
+            skipped_spawns += 1
+            push_warning("Optional challenge spawn failed, skipping %s" % spawn_id)
     if challenge_alive_ids.is_empty():
         _clear_active_challenge(false)
         _toast("试炼钟空响了一声。")
+    elif skipped_spawns > 0:
+        _toast("有试炼之敌没有显形。")
 
 
 func _set_challenge_arena_locked(locked: bool, lock_rect: Rect2 = Rect2(), inside_x: float = NAN) -> void:
@@ -6532,14 +6544,15 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         var drop_item := String(config.get("enemy_drop_item", "moss_chitin"))
         var challenge_spawn := _is_optional_challenge_spawn(spawn_id)
         # Challenge foes pay only through the one-time clear reward: they are not
-        # in the region's combat-clear tally, and a failed attempt cannot be farmed.
+        # in the region's combat-clear tally, and a failed attempt cannot be farmed
+        # for currency, materials, or energy (ring the bell, kill one, leave).
         if not challenge_spawn:
             enemy_defeated += 1
             _add_currency(8)
             _add_inventory_item(drop_item, 1, false)
-        if player != null:
-            player.gain_energy(20)
-        _toast("试炼之敌倒下 · 绯线回充" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
+            if player != null:
+                player.gain_energy(20)
+        _toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
         if challenge_spawn:
             _on_challenge_enemy_died(spawn_id)
         elif _combat_progression_enabled() and _combat_goal_met():
