@@ -396,7 +396,7 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
             engaged = true
             # An encounter has one quiet material voice accent, never one per poll.
             if not combat_active:
-                play_enemy_alert(String(enemy_node.get("kind")))
+                play_enemy_alert(String(enemy_node.get("kind")), enemy_node as Node2D)
             break
     if engaged:
         combat_calm_time = 0.0
@@ -1186,7 +1186,14 @@ static func npc_voice_stream(profile: String) -> AudioStreamWAV:
 
 ## Optional vocal accent for enemy alert, separate from existing impact/death SFX.
 ## Call only on an AI transition into aggro, not every AI poll or strike.
-func play_enemy_alert(kind: String) -> bool:
+func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
+    var spatial := preload("res://scripts/spatial_enemy_alert.gd")
+    var listener := runtime_player as Node2D
+    if not is_instance_valid(source) or not is_instance_valid(listener): return false
+    if source.is_queued_for_deletion() or listener.is_queued_for_deletion(): return false
+    if not source.is_inside_tree() or not listener.is_inside_tree(): return false
+    if source.get_world_2d() != listener.get_world_2d(): return false
+    if not spatial.in_range(source.global_position, listener.global_position): return false
     var family := "soft"
     if kind.contains("knight") or kind.contains("lancer") or kind.contains("spearman"):
         family = "armor"
@@ -1200,12 +1207,15 @@ func play_enemy_alert(kind: String) -> bool:
     if stream == null:
         release_voice(key)
         return false
-    var voice := AudioStreamPlayer.new()
+    var voice := spatial.new()
     voice.bus = _bus_or("SFXEnemy", "SFX")
-    voice.volume_db = -19.0
     voice.pitch_scale = 0.72 if family == "armor" else 1.24
     voice.stream = stream
     add_child(voice)
+    if not voice.place(source.global_position, listener):
+        voice.free()
+        release_voice(key)
+        return false
     voice.finished.connect(voice.queue_free)
     voice.play()
     return true
