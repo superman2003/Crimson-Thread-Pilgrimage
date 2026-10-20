@@ -393,8 +393,11 @@ func use_tool(slot: int = -1) -> Dictionary:
 
 func refund_tool(id: String) -> void:
     if catalog.tools.has(id):
-        var stored_capacity := int(catalog.tools[id].capacity) + (1 if id in ["shard", "mine"] and state.unlocked_passives.has("needlecase") else 0)
-        state.tool_counts[id] = mini(stored_capacity, int(state.tool_counts.get(id, 0)) + 1)
+        state.tool_counts[id] = mini(_stored_capacity(id), int(state.tool_counts.get(id, 0)) + 1)
+
+## Most charges a save may hold: equipment bonuses count while merely owned.
+func _stored_capacity(id: String) -> int:
+    return int(catalog.tools[id].capacity) + (1 if id in ["shard", "mine"] and state.unlocked_passives.has("needlecase") else 0)
 
 func refill_tools(at_bell: bool = false) -> Dictionary:
     if not at_bell:
@@ -772,6 +775,75 @@ func restore(snapshot: Dictionary) -> Dictionary:
     cooldowns = restored_cooldowns.duplicate(true)
     _normalize_active_slots()
     return _ok()
+
+## Only builds this version wrote (or migrates) are rebuilt; a newer game's
+## build stays untouched so its progress is never overwritten by an older one.
+func salvageable(snapshot: Dictionary) -> bool:
+    return _counter(snapshot.get("version"), 3) and int(snapshot.version) >= 1
+
+## T02: rebuild a build that restore() rejects (e.g. a save naming equipment this
+## version no longer has). Unlocks come back from story flags and relics, then
+## every saved entry this version still knows is carried over through the normal
+## validated paths; whatever cannot be is listed in `dropped`. Commits only on
+## success, like restore().
+func salvage(snapshot: Dictionary, inventory_counts: Dictionary, story_flags: Dictionary) -> Dictionary:
+    if not salvageable(snapshot): return _fail("构筑记录来自更新的版本")
+    var dropped: Array = []
+    var rebuilt := get_script().new() as RefCounted
+    rebuilt.sync_progress(inventory_counts, "", story_flags)
+    var tables := {"unlocked_crests": "crests", "unlocked_skills": "skills", "unlocked_tools": "tools", "unlocked_passives": "passives", "mechanisms": "crests"}
+    for field in tables:
+        var saved: Variant = snapshot.get(field, [])
+        for id in (saved if saved is Array else []):
+            if id is String and catalog[tables[field]].has(id): rebuilt._unlock(field, id)
+            elif not dropped.has(str(id)): dropped.append(str(id))
+    var levels: Variant = snapshot.get("skill_levels", {})
+    for id in (levels if levels is Dictionary else {}):
+        if catalog.skills.has(id) and _counter(levels[id], 2): rebuilt.state.skill_levels[id] = int(levels[id])
+    var crest := String(snapshot.get("crest", "")) if snapshot.get("crest") is String else ""
+    if rebuilt.state.unlocked_crests.has(crest): rebuilt.switch_crest(crest)
+    elif not crest.is_empty() and not dropped.has(crest): dropped.append(crest)
+    var families: Variant = snapshot.get("equipped_families", {})
+    if not families is Dictionary or families.is_empty():
+        families = rebuilt._legacy_family_arrays(String(rebuilt.state.crest), snapshot.get("skills", []) if snapshot.get("skills") is Array else [],
+            snapshot.get("tools", []) if snapshot.get("tools") is Array else [], snapshot.get("passives", []) if snapshot.get("passives") is Array else [])
+    for family in FAMILY_KEYS:
+        var values: Variant = families.get(family, [])
+        for slot in range(values.size() if values is Array else 0):
+            var id: Variant = values[slot]
+            if not id is String: continue
+            if not rebuilt.equip_family_slot(id, family, slot).ok and not id.is_empty() and not rebuilt.state.equipped_families[family].has(id) and not dropped.has(id):
+                dropped.append(id)
+    for pair in [["active_skill_slot", "thread_skill"], ["active_tool_slot", "tool"]]:
+        if _counter(snapshot.get(pair[0]), 1): rebuilt.state[pair[0]] = int(snapshot[pair[0]])
+    rebuilt._normalize_active_slots()
+    var counts: Variant = snapshot.get("tool_counts", {})
+    for id in catalog.tools:
+        if counts is Dictionary and _counter(counts.get(id), 1000):
+            rebuilt.state.tool_counts[id] = mini(int(counts[id]), rebuilt._stored_capacity(String(id)))
+    var loadouts: Variant = snapshot.get("loadouts", {})
+    for name in (loadouts if loadouts is Dictionary else {}):
+        var saved_build: Variant = loadouts[name]
+        if name is String and not name.is_empty() and name.length() <= 24 and saved_build is Dictionary and rebuilt.state.loadouts.size() < 8 \
+                and saved_build.has("equipped_families") and rebuilt._validate_loadout(saved_build).is_empty():
+            rebuilt.state.loadouts[name] = saved_build.duplicate(true)
+        else:
+            dropped.append("方案「%s」" % str(name))
+    # Fields this version keeps beyond the ones above (validated by restore()).
+    var candidate: Dictionary = rebuilt.serialize()
+    var handled := ["version", "crest", "skill", "tool", "skills", "tools", "passives", "equipped_families", "active_skill_slot", "active_tool_slot",
+        "tool_counts", "skill_levels", "loadouts", "cooldowns", "unlocked_crests", "unlocked_skills", "unlocked_tools", "unlocked_passives", "mechanisms"]
+    for key in snapshot:
+        if rebuilt.state.has(key) and not handled.has(key): candidate[key] = snapshot[key]
+    var check := get_script().new() as RefCounted
+    if not check.restore(candidate).ok:
+        for key in snapshot:
+            if rebuilt.state.has(key) and not handled.has(key) and not dropped.has(key): dropped.append(key)
+        candidate = rebuilt.serialize()
+        if not check.restore(candidate).ok: return _fail("构筑无法按剧情进度重建")
+    state = check.state.duplicate(true)
+    cooldowns.clear()
+    return _ok({"dropped": dropped})
 
 func get_snapshot(wallet: Variant = null) -> Dictionary:
     var result := {"crest": state.crest, "skill": state.skill, "tool": state.tool,

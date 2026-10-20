@@ -312,7 +312,7 @@ func restore_backup(path: String = DEFAULT_PATH) -> bool:
         return _fail("copied backup failed validation")
     var preserved := ""
     if FileAccess.file_exists(path):
-        preserved = _unique_restore_backup(absolute)
+        preserved = _unique_copy_path(absolute, "before_restore")
         if DirAccess.copy_absolute(absolute, preserved) != OK:
             DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
             return _fail("cannot preserve original save")
@@ -335,8 +335,15 @@ func restore_backup(path: String = DEFAULT_PATH) -> bool:
     last_error = ""
     return true
 
-func _unique_restore_backup(absolute: String) -> String:
-    var stem := absolute + ".before_restore_" + str(Time.get_unix_time_from_system()) + "_" + str(Time.get_ticks_usec())
+## Copy a save aside under a name nothing else uses; "" when the copy failed.
+## Earlier copies are never overwritten.
+static func preserve_copy(path: String, label: String) -> String:
+    var absolute := ProjectSettings.globalize_path(path)
+    var target := _unique_copy_path(absolute, label)
+    return target if DirAccess.copy_absolute(absolute, target) == OK else ""
+
+static func _unique_copy_path(absolute: String, label: String) -> String:
+    var stem := absolute + "." + label + "_" + str(Time.get_unix_time_from_system()) + "_" + str(Time.get_ticks_usec())
     var candidate := stem
     var suffix := 0
     while FileAccess.file_exists(candidate):
