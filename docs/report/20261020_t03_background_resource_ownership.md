@@ -24,4 +24,4 @@
 
 新增 `texture_request_exit`：独立 SceneTree 启动两个真实图片请求后立即退出，不手动 poll／shutdown，也不构造 World。移除退出钩子的原生产实现有 3 项断言失败，并出现两条未 join Thread 的警告；修复后 4 项检查通过，退出没有 ERROR、Thread、ObjectDB 或资源残留警告。独立 CI 同时运行原图集预热和新退出检查，严格检查两份日志。
 
-Godot 4.6.1 原生 GL 的新退出检查、图集预热（本轮 837 项、首次同步读取为零）、`world_startup_budget` 与 `world_streaming` 四套全部通过，四套退出均无泄漏警告；严格双轮资源导入、`npm test` 和 workflow 内嵌 Python 语法检查通过，既有 Windows POSIX 夹具跳过规则保留。原始成功／失败日志及机器结果在 `artifacts/t03_background_resource_ownership/review_followup/`。这些定向检查不代替最终整合长跑、发布包与实听验收。
+Godot 4.6.1 原生 GL 的新退出检查、图集预热（首次同步读取为零）、`world_startup_budget` 与 `world_streaming` 四套全部通过，四套退出均无泄漏警告；严格双轮资源导入、`npm test` 和 workflow 内嵌 Python 语法检查通过，既有 Windows POSIX 夹具跳过规则保留。原始成功／失败日志及机器结果在 `artifacts/t03_background_resource_ownership/review_followup/`，main `30b75661` 的四套复验另存于其 `latest_main_30b75661/` 子目录，保留先前 `af210f7f` 的结果。两套独立退出／预热检查和两套 World 检查在最新基底上同样退出零警告。这些定向检查不代替最终整合长跑、发布包与实听验收。
