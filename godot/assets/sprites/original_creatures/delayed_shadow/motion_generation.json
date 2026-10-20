@@ -338,21 +338,29 @@
     ],
     "recover": [
       {
-        "sheet": "motion_recover.png",
+        "source": "art_requests/character_motion_v5/incoming/H_delayed_shadow_recover0.png",
         "region": [
-          60,
-          192,
-          634,
-          407
+          0,
+          0,
+          1024,
+          1024
         ],
         "component_seeds": [
           [
-            248,
-            423
+            558,
+            246
           ]
         ],
-        "scale": 0.44763860369609854,
-        "anchor_x": 211.5
+        "scale": 0.3326,
+        "anchor_x": 383.9,
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            1.002,
+            0.997,
+            1.001
+          ]
+        }
       },
       {
         "sheet": "motion_recover.png",
@@ -1377,6 +1385,63 @@
           "method": "idle stance",
           "first_windup_ratio": 0.6994,
           "last_recover_ratio": 0.7103
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "H_delayed_shadow_recover0.png",
+        "image_sha256": "01ea1ad38934d9b47383d0945f6863e3198e33b32e299c295cf17f96c0db2c0f",
+        "op": "replace_frames",
+        "animation": "recover",
+        "scale": 0.3326,
+        "anchors": [
+          383.9
+        ],
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            1.002,
+            0.997,
+            1.001
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "recover[0]": 0.3405,
+            "recover[1]": 0.3248
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "H_delayed_shadow_recover0.png",
+        "op": "replace_frames",
+        "animation": "recover",
+        "replaced": {
+          "0": {
+            "sheet": "motion_recover.png",
+            "region": [
+              60,
+              192,
+              634,
+              407
+            ],
+            "component_seeds": [
+              [
+                248,
+                423
+              ]
+            ],
+            "scale": 0.44763860369609854,
+            "anchor_x": 211.5
+          }
         }
       }
     ]

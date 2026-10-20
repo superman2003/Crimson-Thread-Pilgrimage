@@ -110,14 +110,29 @@
         "anchor_x": 117.05
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/H_npc_blind_bell_knight_talk3.png",
         "region": [
-          984,
-          351,
-          199,
-          272
+          0,
+          0,
+          1024,
+          1024
         ],
-        "anchor_x": 108.5
+        "component_seeds": [
+          [
+            745,
+            95
+          ]
+        ],
+        "scale": 0.3238,
+        "anchor_x": 533.4,
+        "grade": {
+          "saturation": 0.88,
+          "rgb": [
+            0.965,
+            0.997,
+            0.981
+          ]
+        }
       },
       {
         "sheet": "motion_expanded.png",
@@ -209,5 +224,56 @@
     "visual_inspected": true,
     "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
     "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "H_npc_blind_bell_knight_talk3.png",
+        "image_sha256": "31115be15dcfe4784cace6d483f0bf2710824f737006e4bd5831ac559b3a0c48",
+        "op": "replace_frames",
+        "animation": "talk",
+        "scale": 0.3238,
+        "anchors": [
+          533.4
+        ],
+        "grade": {
+          "saturation": 0.88,
+          "rgb": [
+            0.965,
+            0.997,
+            0.981
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "talk[3]": 0.3194,
+            "talk[2]": 0.3285,
+            "talk[4]": 0.3237
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "H_npc_blind_bell_knight_talk3.png",
+        "op": "replace_frames",
+        "animation": "talk",
+        "replaced": {
+          "3": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              984,
+              351,
+              199,
+              272
+            ],
+            "anchor_x": 108.5
+          }
+        }
+      }
+    ]
   }
 }
