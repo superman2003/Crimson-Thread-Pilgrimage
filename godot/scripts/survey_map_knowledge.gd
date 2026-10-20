@@ -19,7 +19,8 @@ static func owner_room(config: Dictionary, area: Rect2) -> Dictionary:
 static func visible(flags: Dictionary, region_id: String, config: Dictionary, area: Rect2) -> bool:
 	if not JOURNAL.owned(flags, region_id): return false
 	var room := owner_room(config, area)
-	return not room.is_empty() and JOURNAL.charted(flags, region_id, String(room.get("id", "")))
+	# In a large room only the charted sections show their features.
+	return not room.is_empty() and JOURNAL.charted_at(flags, region_id, room, area.get_center())
 
 static func gate_open(gate: Dictionary, inventory: Dictionary, flags: Dictionary) -> bool:
 	var ability := String(gate.get("required_ability", ""))
