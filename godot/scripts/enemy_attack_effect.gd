@@ -28,6 +28,8 @@ var heading := Vector2.RIGHT
 var tint := Color(0.84,0.33,0.25)
 var skin := "thorn"
 var owner_actor: Node2D
+const PROJECTILE_ART := preload("res://scripts/projectile_art.gd")
+
 var travelled := 0.0
 var impact_pool := false
 var cancelled := false
@@ -96,14 +98,14 @@ func _physics_process(delta: float) -> void:
                     duration=1.4
                     queue_redraw()
                     return
-                cancel()
+                _finish_impact(wall.position)
                 return
     if reflected:
         for actor in get_tree().get_nodes_in_group("enemy"):
             if not is_instance_valid(actor) or actor.is_queued_for_deletion() or (actor.get("dying") == true): continue
             if actor.has_method("world_residency_active") and not actor.world_residency_active(): continue
             if actor is Node2D and actor.has_method("take_hit") and actor.global_position.distance_to(global_position)<44:
-                cancel()
+                _finish_impact(global_position)
                 actor.take_hit(1,1 if velocity.x>0 else -1)
                 return
     elif target != null:
@@ -123,7 +125,7 @@ func _physics_process(delta: float) -> void:
             if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):
                 target.apply_snare(snare)
             if effect_kind=="projectile":
-                cancel()
+                _finish_impact(global_position)
     queue_redraw()
 
 func _hits_player(center: Vector2) -> bool:
@@ -153,6 +155,10 @@ func _draw() -> void:
         return
     var active_color := tint
     active_color.a=clampf((duration-age)/.18,0,1)
+    if effect_kind == "projectile":
+        var axis := velocity.normalized() if velocity.length() > 1.0 else heading
+        if PROJECTILE_ART.draw_frame(self, PROJECTILE_ART.family_for(skin, owner_actor), PROJECTILE_ART.flight_frame(age - arm_delay), radius, axis, active_color.a, reflected):
+            return
     if effect_kind=="beam":
         draw_line(Vector2.ZERO,heading*length,Color(active_color,.15),radius*2+9,true)
         draw_line(Vector2.ZERO,heading*length,active_color,radius*2,true)
@@ -234,3 +240,14 @@ func cancel() -> void:
     set_physics_process(false)
     remove_from_group("hostile_attack")
     queue_free()
+
+# Hits retire the damaging object immediately. The four impact cels are a
+# separate budgeted decoration; cancellation/expiry/owner death emit no hit.
+func _finish_impact(point: Vector2) -> void:
+    if cancelled or is_queued_for_deletion():
+        return
+    if effect_kind == "projectile":
+        var host := get_parent() as Node2D
+        var axis := velocity.normalized() if velocity.length() > 1.0 else heading
+        PROJECTILE_ART.spawn_impact(host, point, PROJECTILE_ART.family_for(skin, owner_actor), radius, axis, reflected)
+    cancel()

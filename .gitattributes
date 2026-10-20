@@ -110,3 +110,8 @@ artifacts/creature_attack_motion/*.jpg -filter -diff -merge -text
 
 # V04 real-GL review captures remain directly browsable.
 artifacts/combat_visual_budget/*.webp -filter -diff -merge -text
+
+# Generated projectile runtime pixels and real-renderer review captures.
+godot/assets/vfx/projectiles/*.png -filter -diff -merge -text
+artifacts/projectile_art/*.gif -filter -diff -merge -text
+artifacts/projectile_art/*.webp -filter -diff -merge -text
