@@ -19,6 +19,7 @@ func _initialize() -> void:
 
 func _run() -> void:
 	narrative = NARRATIVE.new()
+	preload("res://scripts/protagonist_response_validation.gd").new().run(narrative,_check)
 	_test_evidence_orders_and_visibility()
 	print("NARRATIVE_GROUP evidence_visibility checks=%d failures=%d" % [checks, failures])
 	_test_reward_transactions_and_recovery()
