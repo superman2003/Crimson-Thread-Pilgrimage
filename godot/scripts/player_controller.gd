@@ -877,6 +877,19 @@ func _can_start_action(allow_grapple: bool = false) -> bool:
         return false
     return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
 
+## Read-only HUD query; shares the real action gate, including traversal handoff.
+func get_cast_readiness(skill_id: String = "") -> Dictionary:
+    if hp <= 0 or death_timer > 0.0:
+        return {"available":false, "text":"复生中", "detail":"等待复生后使用。"}
+    if not _can_start_action():
+        return {"available":false, "text":"动作中", "detail":"当前动作或界面结束后可用。"}
+    if not skill_id.is_empty():
+        if skill_cooldown > 0.0:
+            return {"available":false, "text":"%.1fs" % skill_cooldown, "detail":"上一招仍在收势。"}
+        if skill_id == "shockwave" and not is_on_floor():
+            return {"available":false, "text":"需落地", "detail":"钟鸣震波需要接触地面。"}
+    return {"available":true}
+
 
 func configure_selected_skill(skill: Dictionary) -> void:
     selected_skill = skill.duplicate(true)

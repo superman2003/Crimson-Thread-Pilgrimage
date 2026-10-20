@@ -64,6 +64,7 @@ func run() -> void:
     check(not journal_text.contains("雨铸渠的工匠名字") and not journal_text.contains("雨泵侧室的锤语"),"Live journal withholds unencountered evidence titles and location hints")
     check(ui.bag_description.text.length()>0,"Journal selection supplies readable clue or task phase")
     main._close_overlays()
+    preload("res://scripts/combat_hud_readiness_validation.gd").new().run(main,check)
     main._toggle_audio_settings()
     await process_frame
     ui._process(0.0)
