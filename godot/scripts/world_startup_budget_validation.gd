@@ -107,6 +107,8 @@ func _run() -> void:
 		"successful owned startup releases its token and frame connection")
 	_check(not bool(metrics.get("route_manifest_worker_is_main", true)), "cold World route manifest read and JSON parse run on the shared worker")
 	_check(int(ROUTES.sync_manifest_parses) == 0, "cold production World startup never falls back to synchronous manifest parsing")
+	_check(int(metrics.get("player_art_textures",0)) > 0 and not bool(metrics.get("player_art_worker_is_main",true)), "actual startup warms the Player's body and layered idle on the private worker")
+	_check(loader.player_art_job == null and loader.player_art_resources.is_empty(), "ready Player owns its resource references and releases the temporary warmup owner")
 	_check(ROUTES.cache_is_current() and not ROUTES.cached_config_path(String(host.config.get("id", ""))).is_empty(), "startup atomically publishes a current manifest before resolving the first region")
 	_check(int(metrics.get("route_manifest_copy_batches", 0)) > 0 and int(metrics.get("route_manifest_copy_edges", 0)) > 0, "worker manifest ownership is handed off through incremental copy batches")
 	_check(int(metrics.get("max_prepare_operations", 99)) <= loader.MAX_OPERATIONS_PER_FRAME, "startup prepare batches honor the operation cap")
