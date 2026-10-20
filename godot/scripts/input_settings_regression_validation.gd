@@ -246,7 +246,7 @@ func _test_binding_recovery(ui: Control) -> void:
     for button in UI.BINDING_POLICY.RESERVED_BUTTONS:
         _load_bindings(ui,{"heal":[_joy(button,9)]})
         _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER,2),"heal"),"Reserved controller config preserves working controller")
-    _load_bindings(ui,{"heal":[_key(KEY_P),_joy(JOY_BUTTON_START),null]})
+    _load_bindings(ui,{"heal":[_key(KEY_P),_joy(JOY_BUTTON_LEFT_STICK),null]})
     _check(InputMap.event_is_action(_key(KEY_P),"heal") and not InputMap.event_is_action(_key(KEY_H),"heal"),"Valid keyboard family restores independently")
     _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER,5),"heal") and InputMap.event_is_action(_mouse(MOUSE_BUTTON_RIGHT),"heal"),"Corrupt or absent families preserve controller and mouse")
     ui._save_accessibility()

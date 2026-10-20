@@ -6,6 +6,7 @@ const POLICY := preload("res://scripts/combat_visual_policy.gd")
 const IDS := ["crimson", "bell", "salt", "cleave", "needle", "snare", "ward", "shockwave", "crosscut", "shard", "mine", "fog", "lure", "reflux", "spur", "shell", "stride", "mender", "needlecase"]
 const MAX_EFFECTS := 8
 const MAX_VOICES := 4
+const AUDIO := preload("res://scripts/audio_director.gd")
 var muted := false
 var reduced_flash := false
 var _effects: Array[Node2D] = []
@@ -140,11 +141,23 @@ func _sound(cue: String, world_position: Vector2) -> void:
             return
         _streams[cue] = load(path)
     _voices = _voices.filter(func(voice): return is_instance_valid(voice) and not voice.is_queued_for_deletion())
+    var priority := 0 if cue == "unblockable" else 2
     if _voices.size() >= MAX_VOICES:
-        var oldest := _voices.pop_front() as AudioStreamPlayer2D
+        var victim := -1
+        var victim_priority := priority-1
+        for index in _voices.size():
+            var candidate_priority := int(_voices[index].get_meta("voice_priority",2))
+            if candidate_priority >= priority and candidate_priority > victim_priority:
+                victim=index
+                victim_priority=candidate_priority
+        if victim < 0:return
+        var oldest := _voices.pop_at(victim) as AudioStreamPlayer2D
         _retire_voice(oldest)
         oldest.queue_free()
+    var ticket := AUDIO.reserve_voice("seal_"+cue,priority,0,AUDIO.MAX_GLOBAL_VOICES)
+    if ticket == 0:return
     var voice := AudioStreamPlayer2D.new()
+    voice.set_meta("voice_priority",priority)
     voice.stream = _streams[cue]
     voice.volume_db = -6
     voice.max_distance = 1200
@@ -156,7 +169,7 @@ func _sound(cue: String, world_position: Vector2) -> void:
     voice.finished.connect(voice.queue_free)
     voice.tree_exiting.connect(_retire_voice.bind(voice))
     _voices.append(voice)
-    voice.play()
+    AUDIO.start_reserved_voice(ticket,voice)
     RETIREMENT.watch(voice)
 
 func active_effect_count() -> int:

@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-20",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "narrative_outcomes",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.2,
+      "markers": [
+        "NARRATIVE_GROUP reward_transactions checks=217 failures=0",
+        "NARRATIVE_GROUP variable_quest_order checks=227 failures=0",
+        "NARRATIVE_GROUP ending_world_phase checks=234 failures=0",
+        "NARRATIVE_OUTCOMES checks=9798 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "narrative_return_runtime",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 7.47,
+      "markers": [
+        "NARRATIVE_RETURN_RUNTIME_PASS checks=27 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "chinese_story",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.17,
+      "markers": [
+        "PASS: NPC help text describes the Chinese interaction controls",
+        "PASS: Chinese route choice shows authored combat guidance",
+        "PASS: visible map labels include Chinese",
+        "CHINESE_STORY_VALIDATION_PASS chinese_story_visible=true npc_prompt_chinese=true"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

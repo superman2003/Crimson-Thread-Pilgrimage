@@ -95,6 +95,10 @@ var build_refresh_elapsed := 0.0
 var last_build_signature := ""
 var applied_player: Node
 var save_slot_buttons: Dictionary={}
+var journey_history_button: Button
+var journey_history_dialog: AcceptDialog
+var journey_history_text: RichTextLabel
+var journey_history_close_frame := -1
 var journal_selection := 0
 var construction_complete := false
 var inventory_build_selection := ""
@@ -105,7 +109,8 @@ var binding_recovery_notice := ""
 const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动",
     # U06: movement and the four permanent abilities are remappable too.
     "move_left":"左移","move_right":"右移","aim_up":"向上","aim_down":"向下",
-    "hook":"回声钩索","bell_guard":"钟壳格挡","lantern_phase":"灯影相位","crown_resonance":"王冠共鸣"}
+    "hook":"回声钩索","bell_guard":"钟壳格挡","lantern_phase":"灯影相位","crown_resonance":"王冠共鸣",
+    "inventory":"行囊","map":"地图","audio_settings":"设置"}
 const REMAP_COLUMNS := 4
 ## Bindings as the game ships them, recorded once per run before saved ones apply.
 static var default_bindings: Dictionary = {}
@@ -672,7 +677,9 @@ func _build_settings() -> void:
         save_slot_buttons[slot]=_button(settings,"存档槽 %d" % slot,Vector2(34+slot_index*219,573),Vector2(206,30),func():_select_save_slot(slot))
         save_slot_buttons[slot].add_theme_font_size_override("font_size",13)
         save_slot_buttons[slot].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(281,30),_restore_save_backup)
+    _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",13)
+    journey_history_button=_button(settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),_show_journey_history)
+    journey_history_button.add_theme_font_size_override("font_size",13)
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false
     refresh_settings_selection()
@@ -1022,6 +1029,8 @@ func _craft_lines(entry: Dictionary, snapshot: Dictionary) -> Array:
         if not bool(entry.get("target_unlocked",true)):lines.append("◇ 先取得%s，工匠才能改制。" % tool_name)
     elif String(entry.get("kind",""))=="slot_part":
         lines.append("\n解锁：三枚契印的第 3 个行旅铭饰槽。各契印仍需先修复自己的专属机制。")
+    elif String(entry.get("kind",""))=="passive":
+        lines.append("制作后在钟龛选择铭饰槽装备；不会自动穿戴或补充生命、绯线。")
     var counts: Variant=level.get("inventory_counts") if level!=null else {}
     for item in entry.get("requires_items",[]):
         var owned: bool=counts is Dictionary and int(counts.get(item,0))>0
@@ -1373,7 +1382,7 @@ func refresh_build() -> void:
         if String(entry.get("kind",""))=="skill_branch":
             if bool(entry.get("current",false)):text="◆ "+text+" · 当前方向"
             elif not _skill_practiced(String(entry.get("target",""))):text+=" · 需先练熟"
-        elif String(entry.get("kind","")) in ["tool_capacity","slot_part"]:
+        elif String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:
             if bool(entry.get("crafted",false)):text="◆ "+text+" · 已制作"
             else:
                 text+=" · "+String(entry.get("artisan_name","工匠"))
@@ -1556,7 +1565,7 @@ func _show_build_detail(entry: Dictionary) -> void:
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))==String(entry.target):
                 lines.append_array(_skill_branch_lines(skill,entry))
-    if String(entry.get("kind","")) in ["tool_capacity","slot_part"]:lines.append_array(_craft_lines(entry,snapshot))
+    if String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:lines.append_array(_craft_lines(entry,snapshot))
     if not bool(entry.get("unlocked",true)):
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
         if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % level._item_display_name(String(entry.unlock_item))
@@ -1607,6 +1616,46 @@ func _restore_save_backup() -> void:
     var result: bool=level.call("restore_save_backup")
     remap_status.text="已恢复当前槽备份。" if result else "未找到可恢复的有效备份。"
 
+func _show_journey_history() -> void:
+    if level == null or not level.has_method("get_journey_history"):return
+    if journey_history_dialog == null:
+        journey_history_dialog=AcceptDialog.new()
+        journey_history_dialog.title="当前存档槽 · 旧旅途"
+        journey_history_dialog.ok_button_text="返回设置"
+        journey_history_dialog.min_size=Vector2i(760,480)
+        add_child(journey_history_dialog)
+        journey_history_text=RichTextLabel.new()
+        journey_history_text.custom_minimum_size=Vector2(720,390)
+        journey_history_text.bbcode_enabled=false
+        journey_history_text.scroll_active=true
+        journey_history_text.add_theme_font_size_override("normal_font_size",17)
+        journey_history_dialog.add_child(journey_history_text)
+        journey_history_dialog.confirmed.connect(_journey_history_closed)
+        journey_history_dialog.canceled.connect(_journey_history_closed)
+    var history: Dictionary=level.get_journey_history()
+    var lines: Array[String]=["只读浏览；关闭后继续当前旅途。", ""]
+    for row in history.entries:
+        var date:=Time.get_datetime_string_from_unix_time(int(row.modified)).replace("T"," ")+" UTC"
+        lines.append("归档 "+date+" · "+String(row.file))
+        if not bool(row.valid):
+            lines.append("无法读取此记录："+String(row.error)+"；文件仍保留。")
+        else:
+            lines.append("停留：%s · %d 区 / %d 房间 · 守门者 %d · 碎钱 %d" % [String(row.region_name),int(row.regions),int(row.rooms),int(row.bosses),int(row.currency)])
+            if not String(row.ending).is_empty():lines.append("结局："+String({"ending_a":"重鸣","ending_b":"断冠","ending_c":"改写"}.get(row.ending,row.ending)))
+        lines.append("")
+    if int(history.total)==0:lines.append("还没有旧旅途。另起新旅途时，当前槽的旧进度会另存保留。")
+    if int(history.total)>int(history.shown):lines.append("显示最近 %d / %d 份；更早的记录仍保留在存档目录。" % [int(history.shown),int(history.total)])
+    journey_history_text.text="\n".join(lines)
+    journey_history_text.scroll_to_line(0)
+    journey_history_dialog.popup_centered()
+
+func _journey_history_closed() -> void:
+    journey_history_close_frame=Engine.get_process_frames()
+    journey_history_button.grab_focus()
+
+func is_browsing_journey_history() -> bool:
+    return (journey_history_dialog != null and journey_history_dialog.visible) or journey_history_close_frame==Engine.get_process_frames()
+
 func _refresh_save_slots() -> void:
     if not level.has_method("get_save_slots"):return
     for value in level.call("get_save_slots"):
@@ -1622,6 +1671,7 @@ func _refresh_save_slots() -> void:
 
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
+    _refresh_quick_action_bindings()
     if dialogue.visible:
         dialogue_hint.text=_dialogue_binding_hint()
         dialogue_hint.tooltip_text=dialogue_hint.text
@@ -1743,6 +1793,15 @@ func _binding_name(event: InputEvent) -> String:
 
 func _short_binding(action: String) -> String:
     return PROMPT_BINDINGS.action_label(action)
+
+func _refresh_quick_action_bindings() -> void:
+    var actions := ["", "inventory", "map", "audio_settings"]
+    var titles := ["构筑", "行囊", "地图", "设置"]
+    for index in mini(quick_actions.size(), actions.size()):
+        var hint := ("手柄 L3" if PROMPT_BINDINGS.controller_device >= 0 else "B") if index == 0 else _short_binding(actions[index])
+        quick_actions[index].text = hint + " " + titles[index]
+        quick_actions[index].text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+        quick_actions[index].tooltip_text = quick_actions[index].text
 
 func _dialogue_binding_hint() -> String:
     return "%s 继续\n%s 离开" % [_short_binding("interact"), _short_binding("close_overlay")]
