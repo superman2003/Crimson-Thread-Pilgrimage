@@ -5263,9 +5263,13 @@ func _safe_enemy_spawn_on_platform(data: Dictionary, requested: Vector2, platfor
     for candidate_value in candidate_xs:
         var x := clampf(float(candidate_value), min_x, max_x)
         var position_value := Vector2(x, rect.position.y - clearance)
+        var score := absf(x - requested.x)
+        # Clearance is pure geometry. A tied/worse candidate cannot replace
+        # the first winner, so do not spend collision queries on that candidate.
+        if score >= best_score:
+            continue
         if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
             continue
-        var score := absf(x - requested.x)
         if score < best_score:
             best_score = score
             best_position = position_value
@@ -5307,10 +5311,12 @@ func _fallback_enemy_spawn_position(data: Dictionary, requested: Vector2, cleara
         for candidate_value in candidate_xs:
             var x := clampf(float(candidate_value), min_x, max_x)
             var position_value := Vector2(x, rect.position.y - clearance)
-            if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
-                continue
             var platform_bias := 0.0 if platform_id == preferred_platform_id else 220.0
             var score := absf(rect.position.y - requested_top) * 1.8 + absf(x - requested.x) * 0.35 + platform_bias
+            if score >= best_score:
+                continue
+            if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
+                continue
             if score < best_score:
                 best_score = score
                 best_position = position_value
