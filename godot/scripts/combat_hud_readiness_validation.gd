@@ -67,4 +67,3 @@ func run(main: Node, check: Callable) -> void:
     system.restore(before)
     player.global_position = old_position
     player.hp = old_hp
-
