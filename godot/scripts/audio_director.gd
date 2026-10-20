@@ -113,6 +113,13 @@ const STINGER_TRACKS := {
 const BELLWAY_TRANSIT_LOOP := "res://assets/audio/bgm/generated/bellway_transit_loop.ogg"
 
 static var _npc_voice_cache: Dictionary = {}
+## Session-only phrase positions. Values are seconds/instance IDs, never streams.
+static var _explore_resume: Dictionary = {}
+static var _explore_owners: Dictionary = {}
+static var _explore_epoch := 0
+const MAX_EXPLORE_BOOKMARKS := 8
+var _explore_path := ""
+var _explore_session := 0
 var _npc_voice_player: AudioStreamPlayer
 
 var autoplay_enabled := true
@@ -162,6 +169,9 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+    _remember_explore_position()
+    if _explore_owners.get(_explore_path, 0) == get_instance_id():
+        _explore_owners.erase(_explore_path)
     # Stop local envelopes before retirement. Global mix belongs to the latest
     # director; a queued old scene must never strip a new scene's death/HP filter.
     for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, low_hp_tween, death_tween]:
@@ -489,12 +499,26 @@ func _play_explore_track(path: String) -> void:
         explore_player.volume_db = EXPLORE_DB
         add_child(explore_player)
     # Reapplying a region/room music state must not restart its audible phrase.
-    if explore_player.stream == stream and explore_player.playing:
+    if explore_player.stream == stream and (explore_player.playing or explore_player.stream_paused) and _explore_path == path:
         return
+    _remember_explore_position()
+    # A queued older region may still own the same phrase. Capture it before
+    # transferring the lease; its later exit cannot overwrite this player.
+    var previous_id := int(_explore_owners.get(path, 0))
+    var previous := instance_from_id(previous_id) as AudioDirector if previous_id != 0 else null
+    if is_instance_valid(previous) and previous != self:
+        previous._remember_explore_position()
+    if _explore_owners.get(_explore_path, 0) == get_instance_id(): _explore_owners.erase(_explore_path)
+    _explore_path = path
+    _explore_session = _explore_epoch
+    _explore_owners[path] = get_instance_id()
     _kill_explore_tween()
     explore_player.stream_paused = false
     explore_player.stream = stream
-    explore_player.play()
+    var position := float(_explore_resume.get(path, 0.0))
+    var length := stream.get_length()
+    if not is_finite(position) or position < 0.0: position = 0.0
+    explore_player.play(fposmod(position, length) if length > 0.0 else 0.0)
     # 章节起播淡入：从静音 0.8s 升到基准（转场后新章不撞门）。
     if is_inside_tree():
         explore_player.volume_db = SILENT_DB
@@ -502,6 +526,23 @@ func _play_explore_track(path: String) -> void:
         explore_tween.tween_property(explore_player, "volume_db", EXPLORE_DB, CHAPTER_ENTER_EXPLORE_FADE_S)
     else:
         explore_player.volume_db = EXPLORE_DB
+
+
+func _remember_explore_position() -> void:
+    if _explore_session != _explore_epoch or _explore_owners.get(_explore_path, 0) != get_instance_id(): return
+    if not is_instance_valid(explore_player) or explore_player.stream == null: return
+    if not explore_player.playing and not explore_player.stream_paused: return
+    var position := explore_player.get_playback_position()
+    if not is_finite(position) or position < 0.0: return
+    _explore_resume.erase(_explore_path)
+    _explore_resume[_explore_path] = position
+    while _explore_resume.size() > MAX_EXPLORE_BOOKMARKS: _explore_resume.erase(_explore_resume.keys()[0])
+
+
+static func clear_exploration_resume() -> void:
+    _explore_epoch += 1
+    _explore_resume.clear()
+    _explore_owners.clear()
 
 
 func _bus_or(bus_name: String, fallback: String) -> String:

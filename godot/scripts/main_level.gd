@@ -1789,6 +1789,7 @@ func _start_new_journey() -> void:
         _sync_ui_input_lock()
         return
     # Keep the old scene's shared snapshot valid until it has left the tree.
+    AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     world_loading = true
     _replace_with_save_slot(world_slot, world_save_path)
 
