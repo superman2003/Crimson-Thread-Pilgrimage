@@ -949,7 +949,17 @@ func _restore_saved_build() -> void:
     if not world_mode or world_state == null or world_state.data.get("build_state", {}).is_empty():
         return
     var restored: Dictionary = build_system.restore(world_state.data.build_state)
-    if not restored.get("ok", false):
+    if restored.get("ok", false):
+        return
+    # T02: keep the original file, then rebuild the build from story progress so
+    # autosave can continue instead of pausing for the rest of the journey.
+    var repairable: bool = build_system.salvageable(world_state.data.build_state) and FileAccess.file_exists(world_save_path)
+    var preserved: String = WORLD_STATE_SCRIPT.preserve_copy(world_save_path, "before_build_repair") if repairable else ""
+    var salvaged: Dictionary = build_system.salvage(world_state.data.build_state, inventory_counts, story_flags) if not preserved.is_empty() else {}
+    if salvaged.get("ok", false):
+        var dropped: Array = salvaged.get("dropped", [])
+        world_initial_error = "构筑记录有本版本无法识别的内容，已按剧情进度重建构筑%s；原存档已另存。" % ("（未能保留：%s）" % "、".join(dropped.slice(0, 4)) if not dropped.is_empty() else "")
+    else:
         world_save_blocked = true
         world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑，自动保存已暂停。请恢复备份或开始新旅途。"
 
@@ -1135,14 +1145,27 @@ func _prepare_world_start() -> void:
             entry_spawn_override_enabled = true
             entry_spawn_override = world_state.resume_local_position()
         elif world_resume and world_state.last_error != "missing":
-            world_initial_error = "归途记录无法读取，本次不会覆盖原记录。"
+            world_initial_error = _damaged_save_message()
+
+## T02: the damaged file stays untouched; tell the player whether its backup can
+## bring the journey back, and where.
+func _damaged_save_message() -> String:
+    var backup = WORLD_STATE_SCRIPT.new()
+    if backup.read(world_save_path + ".bak"):
+        return "归途记录损坏，原文件已保留，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [backup.data.regions.size(), int(backup.data.currency)]
+    return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
 
 func _resolve_world_start_route() -> bool:
     if world_start_region_id.is_empty():
         return true
     var saved_path := WORLD_ROUTES_SCRIPT.cached_config_path(world_start_region_id)
     if saved_path.is_empty():
-        return false
+        # T02: a save naming a region this version no longer routes keeps all
+        # of its progress and resumes at the route start instead of failing.
+        world_start_region_id = ""
+        entry_spawn_override_enabled = false
+        world_initial_error = "存档所在的区域不在当前巡礼路线中；进度全部保留，从巡礼起点继续。"
+        return true
     config_path = saved_path
     return true
 
@@ -1179,6 +1202,11 @@ func _restore_world_inventory_and_region() -> void:
         story_flags = world_narrative.restored_ending_flags(story_flags)
     CARTOGRAPHY.migrate(story_flags, snapshot.regions)
     CARTOGRAPHY.legacy_quill(story_flags)
+    var cache: Dictionary = snapshot.get("death_cache", {})
+    if not cache.is_empty() and WORLD_ROUTES_SCRIPT.cached_config_path(String(cache.get("region_id", ""))).is_empty():
+        # T02: an 归途结 left in a region this version no longer has could never be reached.
+        currency_count += int(cache.get("currency", 0))
+        world_state.capture_global({"death_cache": {}, "currency": currency_count})
     var region := world_state.get_region(String(config.get("id", "")))
     world_collected_ids = region.collected_ids.duplicate(true)
     opened_shortcuts = region.opened_shortcuts.duplicate(true)
@@ -1740,6 +1768,10 @@ func _preserve_previous_journey() -> bool:
         return true
     var absolute := ProjectSettings.globalize_path(world_save_path)
     if DirAccess.dir_exists_absolute(absolute + ".previous"):
+        return false
+    # T02: `.previous` holds the latest abandoned journey; an earlier one moves
+    # to its own name first instead of being overwritten.
+    if FileAccess.file_exists(world_save_path + ".previous") and WORLD_STATE_SCRIPT.preserve_copy(world_save_path + ".previous", "earlier").is_empty():
         return false
     if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
         return false
@@ -7595,12 +7627,14 @@ func restore_save_backup(index: int = 0) -> bool:
     if not world_mode or chapter_transitioning:
         return false
     var slot := world_slot if index == 0 else clampi(index, 1, 3)
+    # The current slot restores the file this journey actually uses.
+    var path := world_save_path if slot == world_slot else WORLD_STATE_SCRIPT.slot_path(slot)
     var recovered = WORLD_STATE_SCRIPT.new()
-    if not recovered.restore_backup(WORLD_STATE_SCRIPT.slot_path(slot)):
+    if not recovered.restore_backup(path):
         _toast("备份恢复失败：" + recovered.last_error)
         return false
     chapter_transitioning = true
-    _defer_region_call("_replace_with_save_slot", [slot])
+    _defer_region_call("_replace_with_save_slot", [slot, path])
     return true
 
 func _ground_is_hazardous(position_value: Vector2) -> bool:
