@@ -1,6 +1,6 @@
 # V04 子项：危险优先与全屏反馈预算
 
-基于 main `a91d1b3e`。推进修订方案 V04 的危险优先、同屏层级与闪光预算，同时检查 U06 设置与 T03 回收。没有合入 PR #141／#142／#143 的未合并内容。
+最初基于 main `a91d1b3e`，现已同步 main `418321cd`（含 PR #141／#142／#143）。推进修订方案 V04 的危险优先、同屏层级与闪光预算，同时检查 U06 设置与 T03 回收。
 
 ## 行为
 
@@ -27,3 +27,9 @@ V04 保持部分完成：本批名额只覆盖命中火花/小切口，没有覆
 ![预警与命中标记](../../artifacts/combat_visual_budget/warning_over_contacts.webp)
 
 ![生效光束与命中标记](../../artifacts/combat_visual_budget/active_over_contacts.webp)
+
+## 2026-10-20：同步主分支并解决合并冲突
+
+合并 main `418321cd`，保留角色动作 v5 的收招过渡和大房间地图分段。三处文本冲突分别合并两边台账、两个新增完成标记与运行器测试入口；默认注册共 124 套（含四套叙事脚本），`combat_visual_budget` 与 `survey_room_segments` 均保留。`enemy_actor.gd` 自动合并后逐段核对，相对 main 只增加本批视觉层级和命中装饰预算，没有回退角色动作。
+
+双轮资源导入、npm、章节审计、角色素材校验与 12 套相关真实 GL 回归通过，包含视觉预算 32 项、角色动作 5052 项、地图分段 27 项；既有 ObjectDB 退出警告保留，未计作修复。本次合并的独立验证记录见 `artifacts/combat_visual_budget/main_sync_verification.json`；上文 123 套及旧源码哈希属于首次提交的历史记录。远端 CI 仍按新的合并提交单独核验。

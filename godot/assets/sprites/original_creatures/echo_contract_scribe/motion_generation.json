@@ -361,20 +361,29 @@
         "anchor_x": 64.0
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/G_echo_contract_scribe_attack3.png",
         "region": [
-          793,
-          898,
-          222,
-          119
+          0,
+          0,
+          1024,
+          1024
         ],
         "component_seeds": [
           [
-            849,
-            965
+            520,
+            304
           ]
         ],
-        "anchor_x": 103.0
+        "scale": 0.3818,
+        "anchor_x": 429.4,
+        "grade": {
+          "saturation": 0.948,
+          "rgb": [
+            0.953,
+            0.959,
+            0.946
+          ]
+        }
       }
     ],
     "recover": [
@@ -894,6 +903,61 @@
           "method": "idle stance",
           "first_windup_ratio": 0.5973,
           "last_recover_ratio": 0.6433
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "G_echo_contract_scribe_attack3.png",
+        "image_sha256": "0e5f7a1e6aee23b1afb58945888c0ec1cd7501917bc4ca002a0411e80730112b",
+        "op": "replace_frames",
+        "animation": "attack",
+        "scale": 0.3818,
+        "anchors": [
+          429.4
+        ],
+        "grade": {
+          "saturation": 0.948,
+          "rgb": [
+            0.953,
+            0.959,
+            0.946
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "attack[0]": 0.3818
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "G_echo_contract_scribe_attack3.png",
+        "op": "replace_frames",
+        "animation": "attack",
+        "replaced": {
+          "3": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              793,
+              898,
+              222,
+              119
+            ],
+            "component_seeds": [
+              [
+                849,
+                965
+              ]
+            ],
+            "anchor_x": 103.0
+          }
         }
       }
     ]

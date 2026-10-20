@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_H_mine.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_H_mine.txt",
+  "prompt_sha256": "284a97aecb0352eca2fde87f794a8f17d967a189a0168ecf777ed804d2c76bec",
+  "image_sha256": "f3053d3fff622a91ec7edf15c7b533bc94afdff2b6a27891d2abaf996a57f25c",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1365079,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/hero_style.png",
+      "sha256": "34d1391facab3ceefedf44db26e7b7679526481a5d39dbf998c49fe7e08f3123"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        460,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        69,
+        119,
+        418,
+        393
+      ],
+      "fully_transparent_pixels": 180435
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        460,
+        0,
+        904,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        506,
+        233,
+        861,
+        386
+      ],
+      "fully_transparent_pixels": 187773
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        904,
+        0,
+        1346,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        949,
+        230,
+        1304,
+        386
+      ],
+      "fully_transparent_pixels": 186882
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1346,
+        0,
+        1774,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1389,
+        174,
+        1746,
+        386
+      ],
+      "fully_transparent_pixels": 172229
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        467,
+        476,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        74,
+        541,
+        448,
+        813
+      ],
+      "fully_transparent_pixels": 159439
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        476,
+        467,
+        916,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        506,
+        656,
+        872,
+        809
+      ],
+      "fully_transparent_pixels": 160982
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        916,
+        467,
+        1345,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        962,
+        644,
+        1275,
+        819
+      ],
+      "fully_transparent_pixels": 150245
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1345,
+        467,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1414,
+        692,
+        1724,
+        808
+      ],
+      "fully_transparent_pixels": 167094
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "絆線釘（戰具）",
+    "observed_cels": 8,
+    "note": "已目检指定格数的主角技能/战具效果，无角色。放置锚点、循环、触发时序、淡出与判定大小需运行时验收。"
+  }
+}

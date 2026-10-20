@@ -138,6 +138,13 @@ static func terrain_polygons(level: Node) -> Array[PackedVector2Array]:
         var rect: Rect2=level._rect2(platform.rect)
         polygons.append(rect_polygon(rect))
     return polygons
+## Charted sections of a partly explored large room, in overlay coordinates.
+static func map_parts(level: Node, id: String, room: Dictionary, bounds: Rect2, draw_size: Vector2) -> Array[Rect2]:
+    var result: Array[Rect2]=[]
+    for part in JOURNAL.charted_parts(level.story_flags,id,room):
+        var top_left: Vector2=level._map_world_to_overlay(part.position,bounds,draw_size)
+        result.append(Rect2(top_left,level._map_world_to_overlay(part.end,bounds,draw_size)-top_left))
+    return result
 static func rect_polygon(rect: Rect2) -> PackedVector2Array:
     return PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
 static func map_position(level: Node, room: Dictionary, point: Vector2, bounds: Rect2, draw_size: Vector2) -> Vector2:
@@ -238,15 +245,26 @@ static func render(level: Node) -> void:
         outline.size=rect.size
         outline.draw_ink=false
         outline.detailed=detailed
-        if detailed: surface.charted_rooms.append(rect)
-        else: surface.base_rooms.append(rect)
+        # A large room explored only in part shows just its charted sections.
+        var parts: Array[Rect2]=[]
+        if detailed and not JOURNAL.charted_whole(level.story_flags,id,room): parts=map_parts(level,id,room,bounds,draw_size)
+        if not detailed: surface.base_rooms.append(rect)
+        elif parts.is_empty(): surface.charted_rooms.append(rect)
+        else:
+            if public_room(room): surface.base_rooms.append(rect)
+            surface.charted_rooms.append_array(parts)
         outline.seed_value=room_id.hash()
         if detailed:
             outline.contours=room_terrain(level,room,terrain)
             for contour in outline.contours:
                 var points := PackedVector2Array()
                 for point in contour: points.append(rect.position + point * rect.size)
-                surface.terrain.append(points)
+                if parts.is_empty():
+                    surface.terrain.append(points)
+                    continue
+                for part in parts:
+                    surface.terrain.append_array(Geometry2D.intersect_polygons(points,rect_polygon(part)))
+        outline.set_meta("charted_sections",parts.size())
         outline.mouse_filter=Control.MOUSE_FILTER_PASS
         outline.tooltip_text=level._room_name(room_id)
         outline.set_meta("charted",detailed)
@@ -255,7 +273,7 @@ static func render(level: Node) -> void:
     for data in level.config.get("interactives",[])+level.config.get("save_points",[]):
         var point: Vector2=level._vec2(data.get("position",[0,0]))
         var room: Dictionary=level._room_for_position(point)
-        if not JOURNAL.charted(level.story_flags,id,String(room.get("id",""))): continue
+        if not JOURNAL.charted_at(level.story_flags,id,room,point): continue
         var kind:=String(data.get("kind","save_point"))
         if kind not in ["save_point","world_portal","boss_gate"]: continue
         var marker:=Label.new()
@@ -298,4 +316,4 @@ static func render(level: Node) -> void:
         dot.add_theme_color_override("font_color",SURFACE.ACCENT)
         host.add_child(dot)
     level.map_text.text=("◆ 位置" if positioned else "无罗盘·看地标")+"    ◎ 钟龛    ◇ 旧路    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
-    level.map_text.tooltip_text="已补绘 %d 室，待补绘 %d 笔。安坐钟龛可补绘途中笔记；悬停查看房间名称。" % [journal.charted.size(),journal.pending.size()]
+    level.map_text.tooltip_text="已补绘 %d 室，待补绘 %d 笔。安坐钟龛可补绘途中笔记；大厅与长井按走过的段落补绘；悬停查看房间名称。" % [JOURNAL.charted_room_count(level.story_flags,id),journal.pending.size()]

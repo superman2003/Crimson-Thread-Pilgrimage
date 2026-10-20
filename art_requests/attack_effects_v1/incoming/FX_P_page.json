@@ -1,0 +1,173 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_page.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_page.txt",
+  "prompt_sha256": "6d6292bf993342e8b4cda93b6ce7baa67784154b90f76e468794fcb947047f59",
+  "image_sha256": "09af52500d43b8d3424ba4938c616d248c3bdf6e81e9785071c31fa0ce42d30f",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1279974,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/index_scribe.png",
+      "sha256": "e4e1ad61176351beae012a1034c0b6a4e3113278a671ef885bc42ecd71036f7b"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/summoned_page.png",
+      "sha256": "d4d8e6e99cb9ebd8d39f12d63e76c031ffd8d36c7312f84773b9139afc3ab8ca"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/echo_contract_scribe.png",
+      "sha256": "51980eb85f3729ee62f3a2d48438705eba236aca5f84dfe230f1bc904d946cea"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        451,
+        432
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        62,
+        159,
+        362,
+        309
+      ],
+      "fully_transparent_pixels": 163817
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        451,
+        0,
+        871,
+        432
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        543,
+        144,
+        773,
+        318
+      ],
+      "fully_transparent_pixels": 153525
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        871,
+        0,
+        1336,
+        432
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        960,
+        149,
+        1260,
+        320
+      ],
+      "fully_transparent_pixels": 168092
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1336,
+        0,
+        1774,
+        432
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1413,
+        135,
+        1675,
+        324
+      ],
+      "fully_transparent_pixels": 155828
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        432,
+        443,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        75,
+        529,
+        381,
+        779
+      ],
+      "fully_transparent_pixels": 149347
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        443,
+        432,
+        894,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        508,
+        549,
+        814,
+        765
+      ],
+      "fully_transparent_pixels": 154026
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        894,
+        432,
+        1327,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        976,
+        551,
+        1236,
+        765
+      ],
+      "fully_transparent_pixels": 160343
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1327,
+        432,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1415,
+        545,
+        1676,
+        759
+      ],
+      "fully_transparent_pixels": 174996
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "書頁",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}
