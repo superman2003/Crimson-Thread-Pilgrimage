@@ -72,6 +72,19 @@ func run() -> void:
     ui.dialogue_body.text="长文本无障碍验证。".repeat(60)
     await process_frame
     check(ui.dialogue_body.get_minimum_size().y>ui.dialogue_scroll.size.y,"Oversize dialogue expands within scrollable container")
+    var saved_bytes := FileAccess.get_file_as_bytes(main.world_save_path)
+    check(DirAccess.copy_absolute(ProjectSettings.globalize_path(main.world_save_path),ProjectSettings.globalize_path(main.world_save_path+".previous"))==OK,"history UI fixture preserves a journey")
+    ui.journey_history_button.pressed.emit()
+    await process_frame
+    check(ui.journey_history_dialog.visible and ui.is_browsing_journey_history(),"settings history button opens an input-isolated browser")
+    check(ui.journey_history_text.text.contains("只读浏览") and ui.journey_history_text.text.contains("苔钟庭"),"browser displays the archived progress in Chinese")
+    check(FileAccess.get_file_as_bytes(main.world_save_path)==saved_bytes and not main.chapter_transitioning,"browsing never replaces or reloads the active journey")
+    ui.journey_history_dialog.hide()
+    ui.journey_history_dialog.canceled.emit()
+    check(ui.is_browsing_journey_history(),"closing browser blocks the same-frame Escape from closing settings")
+    await process_frame
+    check(not ui.is_browsing_journey_history() and main.active_overlay=="settings","browser returns to settings after its capture frame")
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(main.world_save_path+".previous"))
     main.free()
     await process_frame
     for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_world_integration_validation.json"+suffix))

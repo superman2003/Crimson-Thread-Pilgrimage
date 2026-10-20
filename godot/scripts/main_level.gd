@@ -1013,6 +1013,9 @@ func _process(_delta: float) -> void:
     if ui_shell != null and ui_shell.has_method("is_remapping_input") and ui_shell.is_remapping_input():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
         return
+    if ui_shell != null and ui_shell.has_method("is_browsing_journey_history") and ui_shell.is_browsing_journey_history():
+        world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
+        return
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
@@ -7639,6 +7642,9 @@ func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 
 func get_save_slots() -> Array:
     return WORLD_STATE_SCRIPT.slot_summaries()
+
+func get_journey_history() -> Dictionary:
+    return preload("res://scripts/journey_history.gd").summaries(world_save_path)
 
 func select_save_slot(index: int) -> bool:
     if not world_mode or index < 1 or index > 3 or chapter_transitioning or player.hp <= 0:
