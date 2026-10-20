@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-20",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "artisan_crafts",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.74,
+      "markers": [
+        "ARTISAN_CRAFTS checks=92 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_system",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.59,
+      "markers": [
+        "BUILD SYSTEM PASS: 91 checks"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "seal_identity",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 14.72,
+      "markers": [
+        "SEAL_IDENTITY checks=4889 failures=0 crests=3"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_slots",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.69,
+      "markers": [
+        "BUILD SLOTS PASS: 48 checks"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "seal_ui",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.03,
+      "markers": [
+        "SEAL_UI_VALIDATION_PASS checks=31 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.0,
+      "markers": [
+        "FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=true",
+        "UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_transaction_runtime",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.88,
+      "markers": [
+        "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "save_recovery",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 15.14,
+      "markers": [
+        "SAVE_RECOVERY checks=35 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "optional_challenges",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 27.11,
+      "markers": [
+        "OPTIONAL_CHALLENGES checks=350 failures=0 fixture_scope=production_world_challenge_clear_and_antibuse"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

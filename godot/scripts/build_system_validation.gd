@@ -27,7 +27,14 @@ func _initialize() -> void:
     for id in build.catalog.tools:
         _check(build.unlock_event("tool_" + id + "_found").ok, "tool event " + id)
     for id in build.catalog.passives:
-        _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+        var recipe_id := String(build.catalog.passives[id].get("craft_recipe",""))
+        if recipe_id.is_empty():
+            _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+        else:
+            var recipe: Dictionary=build.catalog.recipes[recipe_id]
+            var counts: Dictionary=recipe.materials.duplicate(true)
+            for pattern in recipe.requires_items:counts[pattern]=1
+            _check(build.transact(recipe_id,{"currency":1000,"inventory_counts":counts}).ok,"artisan source " + id)
     _check(build.select_skill("needle", 1).ok and build.state.skills == ["cleave", "needle"], "equip second skill")
     _check(not build.select_skill("cleave", 1).ok, "duplicate skill rejected")
     _check(build.cycle_skill().ok and build.state.skill == "cleave", "cycle preserves active alias")

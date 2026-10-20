@@ -999,6 +999,8 @@ func _craft_lines(entry: Dictionary, snapshot: Dictionary) -> Array:
         if not bool(entry.get("target_unlocked",true)):lines.append("◇ 先取得%s，工匠才能改制。" % tool_name)
     elif String(entry.get("kind",""))=="slot_part":
         lines.append("\n解锁：三枚契印的第 3 个行旅铭饰槽。各契印仍需先修复自己的专属机制。")
+    elif String(entry.get("kind",""))=="passive":
+        lines.append("制作后在钟龛选择铭饰槽装备；不会自动穿戴或补充生命、绯线。")
     var counts: Variant=level.get("inventory_counts") if level!=null else {}
     for item in entry.get("requires_items",[]):
         var owned: bool=counts is Dictionary and int(counts.get(item,0))>0
@@ -1350,7 +1352,7 @@ func refresh_build() -> void:
         if String(entry.get("kind",""))=="skill_branch":
             if bool(entry.get("current",false)):text="◆ "+text+" · 当前方向"
             elif not _skill_practiced(String(entry.get("target",""))):text+=" · 需先练熟"
-        elif String(entry.get("kind","")) in ["tool_capacity","slot_part"]:
+        elif String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:
             if bool(entry.get("crafted",false)):text="◆ "+text+" · 已制作"
             else:
                 text+=" · "+String(entry.get("artisan_name","工匠"))
@@ -1511,7 +1513,7 @@ func _show_build_detail(entry: Dictionary) -> void:
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))==String(entry.target):
                 lines.append_array(_skill_branch_lines(skill,entry))
-    if String(entry.get("kind","")) in ["tool_capacity","slot_part"]:lines.append_array(_craft_lines(entry,snapshot))
+    if String(entry.get("kind","")) in ["tool_capacity","slot_part","passive"]:lines.append_array(_craft_lines(entry,snapshot))
     if not bool(entry.get("unlocked",true)):
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
         if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % level._item_display_name(String(entry.unlock_item))

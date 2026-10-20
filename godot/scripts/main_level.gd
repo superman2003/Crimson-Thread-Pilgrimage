@@ -7550,7 +7550,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                 result = {"ok": false, "reason": "先在练针架上练熟「%s」，再选校习方向" % String(build_system.catalog.skills.get(practice_target, {}).get("name", practice_target))}
             elif not _near_workstation(true):
                 result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面校习"}
-            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part"] and not artisan_craft_block(recipe).is_empty():
+            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part", "passive"] and not artisan_craft_block(recipe).is_empty():
                 result = {"ok": false, "reason": artisan_craft_block(recipe)}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
