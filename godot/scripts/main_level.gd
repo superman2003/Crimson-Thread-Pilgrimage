@@ -638,7 +638,6 @@ var subtitle_seconds := 0.0
 var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
 var world_map_view := false
-var world_map_key_held := false
 var applied_build_profile: Dictionary = {}
 var world_start_region_id := ""
 
@@ -1013,16 +1012,10 @@ func _process(_delta: float) -> void:
         world_gameplay_residency.update(self, player.global_position, player.velocity, _delta)
     if ui_shell != null and ui_shell.has_method("is_remapping_input") and ui_shell.is_remapping_input():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
-        world_map_key_held = Input.is_physical_key_pressed(KEY_TAB)
         return
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
-    var map_key := Input.is_physical_key_pressed(KEY_TAB)
-    if world_mode and active_overlay == "map" and map_key and not world_map_key_held:
-        world_map_view = not world_map_view
-        _refresh_map_overlay()
-    world_map_key_held = map_key
     if world_mode and new_requested and new_journey_dialog != null and not new_journey_dialog.visible:
         new_journey_dialog.popup_centered()
         active_overlay = "new_journey"
@@ -1042,7 +1035,11 @@ func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("close_overlay"):
         _close_overlays()
     elif Input.is_action_just_pressed("inventory"):
-        _toggle_backpack()
+        if world_mode and active_overlay == "map":
+            world_map_view = not world_map_view
+            _refresh_map_overlay()
+        else:
+            _toggle_backpack()
     elif Input.is_action_just_pressed("map"):
         _toggle_map()
     elif Input.is_action_just_pressed("audio_settings"):
@@ -2160,7 +2157,7 @@ func _campaign_chapter_for_id(chapter_id: String) -> Dictionary:
 
 func _chapter_objective_text() -> String:
     if world_mode:
-        return _world_exploration_hint() + "  M 地图 / Tab 世界图 · F9 新旅途。"
+        return _world_exploration_hint() + "  %s 地图 / %s 世界图 · F9 新旅途。" % [ui_shell._short_binding("map"), ui_shell._short_binding("inventory")]
     if bool(config.get("boss_route_via_exploration",false)):
         return "第%d章 %s：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name","")))]
     if current_campaign_chapter.is_empty():
@@ -2957,7 +2954,7 @@ func _refresh_backpack_overlay(render_inventory: bool = true) -> void:
             var count_suffix := " x%d" % count if count > 1 else ""
             lines.append("%s%s%s" % [_selection_marker(item_id), _item_display_name(item_id), count_suffix])
     lines.append("")
-    lines.append("Tab/I 背包   W/S 查看铭文   M 地图   Esc 关闭")
+    lines.append("%s 行囊   %s/%s 查看铭文   %s 地图   %s 关闭" % [ui_shell._short_binding("inventory"), ui_shell._short_binding("aim_up"), ui_shell._short_binding("aim_down"), ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay")])
     backpack_text.text = "\n".join(lines)
     _refresh_backpack_detail()
     if render_inventory and ui_shell!=null:
@@ -3213,8 +3210,8 @@ func _refresh_map_overlay() -> void:
     if world_mode:
         objective = "找回被删去的名字，接通旧运书线。"
         guide = _world_exploration_hint()
-        next_step = "金色出口待解锁；蓝色出口已接通 · Tab 世界图"
-    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\nM / Esc 返回  ·  F 与附近人物或机关互动" % [
+        next_step = "金色出口待解锁；蓝色出口已接通 · %s 世界图" % ui_shell._short_binding("inventory")
+    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\n%s / %s 返回  ·  %s 与附近人物或机关互动" % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
         visited_rooms.size(),
@@ -3224,7 +3221,8 @@ func _refresh_map_overlay() -> void:
         objective,
         guide,
         next_step,
-        danger
+        danger,
+        ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay"), ui_shell._short_binding("interact")
     ]
 
 

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-20",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "settings_remap",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.38,
+      "markers": [
+        "SETTINGS_REMAP checks=23 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_settings_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.8,
+      "markers": [
+        "INPUT_SETTINGS_REGRESSION checks=76 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.03,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "inventory_map",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.38,
+      "markers": [
+        "PASS: combat clear unlocks boss route",
+        "PASS: boss drops unique material",
+        "PASS: Esc closes overlays",
+        "INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=2 currency=38"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}
