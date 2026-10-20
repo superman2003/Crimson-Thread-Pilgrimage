@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-20",
+  "base": "a8071dd47b5581b409d6996863ff5bde9abe5b12",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "scene_history",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 16.17,
+      "markers": [
+        "SCENE_HISTORY_VALIDATION checks=170 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 7.02,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "MUSIC_PHRASE_RESUME checks=10",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.64,
+      "markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_redesign",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.61,
+      "markers": [
+        "UI_REDESIGN_VALIDATION_PASS checks=42 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "narrative_outcomes",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.86,
+      "markers": [
+        "NARRATIVE_GROUP reward_transactions checks=217 failures=0",
+        "NARRATIVE_GROUP variable_quest_order checks=227 failures=0",
+        "NARRATIVE_GROUP ending_world_phase checks=234 failures=0",
+        "NARRATIVE_OUTCOMES checks=9798 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.48,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.31,
+      "markers": [
+        "SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_startup_budget",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 11.03,
+      "markers": [
+        "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_enemy_residency",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 14.49,
+      "markers": [
+        "WORLD_ENEMY_RESIDENCY checks=56 failures=0 snapshot={\"arrival_ready\":true,\"authored\":7,\"builds\":0,\"checkpoint_id\":\"start\",\"checkpoint_resident\":true,\"critical_builds\":0,\"eligible\":7,\"enemy_activations\":6,\"enemy_active\":5,\"enemy_arrival_suspensions\":2,\"enemy_authored\":14,\"enemy_deactivations\":15,\"enemy_frame_activation_limit\":4,\"enemy_frame_deactivation_limit\":4,\"enemy_last_frame_activations\":0,\"enemy_last_frame_deactivations\":0,\"enemy_suspended\":9,\"enemy_tracked\":14,\"excluded_map_sellers\":1,\"excluded_workshops\":0,\"generation\":8,\"last_frame_builds\":0,\"last_frame_releases\":0,\"max_owned\":3,\"normal_max_operations\":4,\"pending_build\":0,\"pending_release\":0,\"releases\":3,\"resident\":0,\"warm_bypass_builds\":0,\"window\":\"[P: (3441.819, 280.0), S: (2560.0, 1800.0)]\",\"window_eligible\":0,\"window_ready\":true,\"window_resident\":0}"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_resume_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 11.64,
+      "markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}
