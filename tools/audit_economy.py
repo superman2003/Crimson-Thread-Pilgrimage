@@ -34,7 +34,7 @@ def load(name: str):
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
 
-def audit() -> tuple[dict, list[str]]:
+def audit(catalog_override: dict | None = None) -> tuple[dict, list[str]]:
     errors: list[str] = []
     main = MAIN.read_text(encoding="utf-8")
     # The runtime must charge the seller's price, not a shared constant.
@@ -50,7 +50,7 @@ def audit() -> tuple[dict, list[str]]:
     order = [str(c.get("runtime_config_id", "")) for c in chapters]
     routes = load("world_routes.json")["chapters"]
     sellers = load("cartography_sellers.json")
-    catalog = load("build_catalog.json")
+    catalog = load("build_catalog.json") if catalog_override is None else catalog_override
     narrative = load("world_narrative.json")
     regions = sorted(routes)
     rows = {}
@@ -114,7 +114,7 @@ def audit() -> tuple[dict, list[str]]:
     drops = {r["drop"]: cid for cid, r in rows.items()}
     crafts = 0
     for recipe_id, recipe in catalog["recipes"].items():
-        if recipe.get("kind") not in ("tool_capacity", "slot_part"):
+        if recipe.get("kind") not in ("tool_capacity", "slot_part", "passive"):
             continue
         crafts += int(recipe.get("currency", 0))
         if recipe.get("artisan") not in ARTISANS or recipe.get("artisan") not in npcs:
@@ -136,6 +136,14 @@ def audit() -> tuple[dict, list[str]]:
             parts = [s for c in catalog["crests"].values() for slots in c.get("slot_layout", {}).values() for s in slots if s.get("requires_part") == recipe.get("part")]
             if len(parts) != len(catalog["crests"]) or any(not s.get("requires_mechanism") for s in parts):
                 errors.append(f"{recipe_id}: part {recipe.get('part')} must open one mechanism-gated slot on every crest")
+    # Every optional proof now has at least one explicit, non-consumed growth use.
+    used_patterns = {item for recipe in catalog["recipes"].values() for item in recipe.get("requires_items", [])}
+    for pattern in sorted(set(challenge_patterns) - used_patterns):
+        errors.append(f"{pattern}: optional challenge proof has no growth use")
+    consumed_materials = {item for recipe in catalog["recipes"].values() for item in recipe.get("materials", {})}
+    for material in drops:
+        if material not in consumed_materials:
+            errors.append(f"{material}: regional material has no crafting sink")
     # Totals.
     income = sum(r["first_clear_kills"] + r["elite_first"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
     maps = sum(r["map_price"] for r in rows.values())
