@@ -54,6 +54,12 @@ static func request_texture(path: String) -> void:
     if not ResourceLoader.exists(path):
         texture_failures[path] = "Texture resource does not exist: " + path
         return
+    # Standalone SceneTree tools may never construct a World/region loader.
+    # Keep the shared owners until the entire tree exits, then join them while
+    # the resource/render backends are still alive. One hook serves every host.
+    var tree := Engine.get_main_loop() as SceneTree
+    if tree != null and not tree.root.tree_exiting.is_connected(shutdown_texture_requests):
+        tree.root.tree_exiting.connect(shutdown_texture_requests, CONNECT_ONE_SHOT)
     var job := RESOURCE_JOB.new()
     var error := job.start(path, "Texture2D")
     if error != OK:

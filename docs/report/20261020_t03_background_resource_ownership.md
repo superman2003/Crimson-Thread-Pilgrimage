@@ -17,3 +17,11 @@
 最终 9476eea942a96db471cae9e9e88992b8023cfe42 组合的五份生产/验证文件与本 PR 逐字节相同，834 项预热退出零泄漏后，已在独立 QA 工作区启动新的 1800 秒测量，证据目录 runtime_soak_30min_resource_jobs_01，尚无终态。完整独立复现源、无损压缩日志、最终源码哈希、短测指标与失败记录见 artifacts/t03_background_resource_ownership/。T03、目标硬件帧率、实听和自然六区流程继续待验收。
 
 提交前合入最新 main 17f192b4（已含 #161 HUD 与 #167 音乐退休修复）。冻结 275 份生产／数据源后，重新执行图集预热 833 项、ui_world_integration 与 world_startup_budget，全部断言通过，源前后一致；预热仍零同步纹理读取、零泄漏，另外两套退出警告保留，未据此关闭 T03。本批五份生产／验证文件继续与正在运行的 9476eea9 组合逐字节相同。
+
+## 2026-10-20：按 #170 复查同步与独立工具退出清理
+
+后续修复基于 main `30b75661`（已合入 #168／#170），台账保留后台资源所有权与 V04 瞬态装饰预算等原有条目。共享纹理队列在首次接收请求时，向 SceneTree 根节点注册一次退出清理；没有 World／region loader 的独立工具直接退出，也会等待并回收仍持有的 Thread，将成功图片保留到不可变缓存。普通取消、两请求上限和每帧准入预算保留。
+
+新增 `texture_request_exit`：独立 SceneTree 启动两个真实图片请求后立即退出，不手动 poll／shutdown，也不构造 World。移除退出钩子的原生产实现有 3 项断言失败，并出现两条未 join Thread 的警告；修复后 4 项检查通过，退出没有 ERROR、Thread、ObjectDB 或资源残留警告。独立 CI 同时运行原图集预热和新退出检查，严格检查两份日志。
+
+Godot 4.6.1 原生 GL 的新退出检查、图集预热（本轮 837 项、首次同步读取为零）、`world_startup_budget` 与 `world_streaming` 四套全部通过，四套退出均无泄漏警告；严格双轮资源导入、`npm test` 和 workflow 内嵌 Python 语法检查通过，既有 Windows POSIX 夹具跳过规则保留。原始成功／失败日志及机器结果在 `artifacts/t03_background_resource_ownership/review_followup/`。这些定向检查不代替最终整合长跑、发布包与实听验收。
