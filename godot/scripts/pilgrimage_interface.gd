@@ -1396,8 +1396,17 @@ func refresh_build() -> void:
         if first==null or id==build_selection:first=button
         if build_category=="构筑":
             var name_value:=id
+            var preview:=_loadout_quote(id)
+            button.disabled=not bool(preview.get("can_restore",false))
+            button.tooltip_text=String(preview.get("reason","可在钟龛恢复"))
             var save:=_button(build_grid,"保存为「%s」" % id,Vector2.ZERO,Vector2(563,36),func():_perform_build_action("save_loadout",name_value))
             save.custom_minimum_size=Vector2(563,36)
+            save.set_meta("build_id",id)
+            save.focus_entered.connect(func():
+                build_selection=id
+                _show_build_detail(entry))
+            save.mouse_entered.connect(func():_show_build_detail(entry))
+            if first==button and button.disabled:first=save
             button.text="恢复「%s」%s" % [id,"" if bool(entry.get("exists",false)) else " · 尚未保存"]
     if first!=null:
         var current_focus:=get_viewport().gui_get_focus_owner()
@@ -1442,6 +1451,12 @@ func _entry_equipped_slots(snapshot: Dictionary, id: String) -> String:
     else:
         for index in equipped:slots.append(str(int(index)+1))
     return "/".join(slots)
+
+func _loadout_quote(name: String) -> Dictionary:
+    var system: Variant=level.call("get_build_system")
+    if system!=null and system.has_method("preview_loadout"):
+        return system.preview_loadout(name,_is_at_build_workstation(_build_snapshot()))
+    return {"can_restore":false,"reason":"方案预览尚未就绪"}
 
 func _loadout_preview(build: Dictionary, system: RefCounted) -> String:
     var crest_id:=String(build.get("crest","crimson"))
@@ -1495,9 +1510,16 @@ func _show_build_detail(entry: Dictionary) -> void:
     if build_category=="构筑":
         var system: Variant=level.call("get_build_system")
         lines.append("\n当前整体配置\n"+_loadout_preview(system.state,system))
-        var saved_build: Dictionary=system.state.loadouts.get(String(entry.get("id","")),{})
+        var saved_value: Variant=system.state.loadouts.get(String(entry.get("id","")),{})
+        var saved_build: Dictionary=saved_value if saved_value is Dictionary else {}
         if not saved_build.is_empty():lines.append("\n已保存配置\n"+_loadout_preview(saved_build,system))
-        lines.append("生命、能量、次数与冷却不会因方案恢复刷新。")
+        var preview:=_loadout_quote(String(entry.get("id","")))
+        lines.append("\n恢复条件："+("可以恢复 · 不花碎钱或材料" if bool(preview.get("can_restore",false)) else String(preview.get("reason","当前不可恢复"))))
+        var projected: Dictionary=preview.get("profile",{})
+        if not projected.is_empty():
+            lines.append("生命上限：%d → %d" % [int(level.player.max_hp),int(projected.get("max_hp",level.player.max_hp))])
+            lines.append("绯线上限：%d → %d" % [int(level.player.max_energy),int(projected.get("max_energy",level.player.max_energy))])
+        lines.append("恢复不补充生命、绯线或次数，不清空冷却；超出新上限的生命与绯线会截断。")
     if entry.has("mechanism_unlocked") and not bool(entry.mechanism_unlocked):lines.append("\n◇ 专属机制尚未修复：基础战斗与永久探索能力仍可使用，完成来源委托后启用。")
     if entry.has("slots"):
         for crest in snapshot.get("crests",[]):

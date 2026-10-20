@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-20",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "build_system",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.66,
+      "markers": [
+        "BUILD SYSTEM PASS: 94 checks"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_slots_ui",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.76,
+      "markers": [
+        "BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=36 failures=0 capture=user://build_slots_ui_validation_fixture.png"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_transaction_runtime",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.7,
+      "markers": [
+        "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}
