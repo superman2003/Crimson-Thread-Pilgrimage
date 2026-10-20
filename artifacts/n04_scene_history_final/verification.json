@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-20",
+  "base": "6d8fa2678d1a685e9a3cd8893114018e306dff96",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "scene_history",
+      "passed": false,
+      "engine_errors": [
+        "ERROR: AUDIO_RETIREMENT timeout pending={\"stream\":12} elapsed_msec=3005",
+        "ERROR: SCENE_HISTORY: history fixture releases scene audio playback"
+      ],
+      "seconds": 15.33,
+      "markers": [
+        "SCENE_HISTORY_VALIDATION checks=169 failures=1"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.11,
+      "markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_redesign",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.51,
+      "markers": [
+        "UI_REDESIGN_VALIDATION_PASS checks=42 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "narrative_outcomes",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.31,
+      "markers": [
+        "NARRATIVE_GROUP reward_transactions checks=217 failures=0",
+        "NARRATIVE_GROUP variable_quest_order checks=227 failures=0",
+        "NARRATIVE_GROUP ending_world_phase checks=234 failures=0",
+        "NARRATIVE_OUTCOMES checks=9798 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.53,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.86,
+      "markers": [
+        "SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

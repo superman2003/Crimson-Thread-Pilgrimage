@@ -52,6 +52,8 @@ var dialogue_hint: Label
 var dialogue_portrait: TextureRect
 var dialogue_area: Area2D
 var dialogue_quest_button: Button
+var dialogue_continue_button: Button
+var dialogue_route_button: Button
 var dialogue_reading := preload("res://scripts/dialogue_reading_memory.gd").new()
 var dialogue_reading_key := ""
 var settings: ColorRect
@@ -546,11 +548,11 @@ func _build_dialogue() -> void:
     dialogue_hint=_label(dialogue,_dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),13,MUTED)
     dialogue_hint.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     dialogue_hint.mouse_filter=Control.MOUSE_FILTER_PASS
-    _button(dialogue,"继续交谈",Vector2(221,250),Vector2(147,34),func():
+    dialogue_continue_button=_button(dialogue,"继续交谈",Vector2(221,250),Vector2(147,34),func():
         if is_instance_valid(dialogue_area):
             if level.world_mode:level._try_interact()
             else:level._talk_to_npc(dialogue_area))
-    _button(dialogue,"问问道路",Vector2(380,250),Vector2(147,34),func():_topic("route"))
+    dialogue_route_button=_button(dialogue,"问问道路",Vector2(380,250),Vector2(147,34),func():_topic("route"))
     dialogue_quest_button=_button(dialogue,"询问心愿",Vector2(540,250),Vector2(147,34),func():_topic("wish"))
 
 func show_speaker(area: Area2D) -> void:
@@ -559,7 +561,11 @@ func show_speaker(area: Area2D) -> void:
     dialogue_reading_key=_dialogue_reading_key(area,dialogue_body.text)
     var reading:=dialogue_reading.restore(dialogue_reading_key)
     if not reading.is_empty():_restore_dialogue_scroll(dialogue_reading_key,int(reading.scroll))
-    dialogue_portrait.texture=ART.portrait(String(area.get_meta("npc_id","")))
+    var history := String(area.get_meta("kind",""))=="history"
+    dialogue_portrait.texture=ART.item("moss_lens") if history else ART.portrait(String(area.get_meta("npc_id","")))
+    dialogue_continue_button.text="记入旅记" if history else "继续交谈"
+    dialogue_route_button.visible=not history
+    dialogue_quest_button.visible=not history
     dialogue_hint.text=_dialogue_binding_hint()
     dialogue_hint.tooltip_text=dialogue_hint.text
     var topics: Dictionary=area.get_meta("dialogue_topics",{})
@@ -1804,7 +1810,8 @@ func _refresh_quick_action_bindings() -> void:
         quick_actions[index].tooltip_text = quick_actions[index].text
 
 func _dialogue_binding_hint() -> String:
-    return "%s 继续\n%s 离开" % [_short_binding("interact"), _short_binding("close_overlay")]
+    var action := "继续查看 / 记入旅记" if is_instance_valid(dialogue_area) and String(dialogue_area.get_meta("kind",""))=="history" else "继续"
+    return "%s %s\n%s 离开" % [_short_binding("interact"),action,_short_binding("close_overlay")]
 
 func _refresh_combat_status(player: Node) -> void:
     var state: Dictionary={}
@@ -1876,7 +1883,7 @@ func _refresh_journal() -> void:
         return
     var narrative: Variant=level.get("world_narrative")
     if narrative==null:return
-    var records: Array=[]
+    var records: Array=preload("res://scripts/scene_history.gd").records(level.story_flags)
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
@@ -1885,7 +1892,7 @@ func _refresh_journal() -> void:
         if progress.get("main_line") is Dictionary and not progress.main_line.is_empty():
             var main_entry: Dictionary=progress.main_line.duplicate(true)
             main_entry["record_kind"]="main"
-            records.append(main_entry)
+            records.push_front(main_entry)
         for value in progress.get("quests",[]):
             var entry: Dictionary=value.duplicate(true)
             entry["record_kind"]="quest"
@@ -1937,7 +1944,12 @@ func _refresh_journal() -> void:
 func _show_journal_record(entry: Dictionary) -> void:
     bag_name.text=String(entry.get("title",entry.get("id","")))
     var lines: Array[String]=[]
-    if String(entry.get("record_kind",""))=="ending":
+    if bool(entry.get("history_note",false)):
+        bag_category_label.text="环境见闻 · 已观察"
+        lines.append(String(entry.get("text","")))
+        lines.append("\n地点："+String(entry.get("place","")))
+        lines.append("\n环境见闻保留了观察，不计入六区原始证词。")
+    elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
         var ready:=bool(entry.get("available",false))
         bag_category_label.text="结局选择 · "+_ending_status_label(entry)

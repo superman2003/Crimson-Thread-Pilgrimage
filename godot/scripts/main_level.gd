@@ -33,6 +33,8 @@ var save_point_residency_memory: Dictionary = {}
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
+const SCENE_HISTORY := preload("res://scripts/scene_history.gd")
+const HISTORY_PROP := preload("res://scripts/scene_history_prop.gd")
 const HIDDEN_ROUTE_CLUE_SCRIPT := preload("res://scripts/hidden_route_clue.gd")
 const ENDING_AFTERMATH_SCRIPT := preload("res://scripts/ending_aftermath_scene.gd")
 const AFTERMATH_NOTICE_RANGE := 260.0
@@ -1108,6 +1110,8 @@ func _release_region_audio() -> void:
     if bgm_player != null:
         bgm_player.stop()
         bgm_player.stream = null
+    # Region field reset must not orphan the voices awaiting attachment.
+    _cancel_pending_sfx()
     var active_director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if active_director != null and active_director != audio_director:
         if bgm_duck_tween != null and bgm_duck_tween.is_valid():
@@ -1425,7 +1429,7 @@ func _add_wayfinding(area: Area2D) -> void:
     marker.host = self
     marker.area = area
     var kind := String(area.get_meta("kind", ""))
-    marker.symbol = "rest" if kind == "save_point" else "lever" if kind == "lever" else "talk" if kind == "npc" else "passage"
+    marker.symbol = "rest" if kind == "save_point" else "lever" if kind == "lever" else "talk" if kind == "npc" else "book" if kind == "history" else "passage"
     if kind == "world_portal":
         marker.configure_portal(area.get_meta("world_portal_data", {}), String(config.id))
         marker.position.y = 20
@@ -1651,6 +1655,9 @@ func _commit_world_dialogue() -> void:
     if not is_instance_valid(area):
         return
     if bool(area.get_meta("world_line_committed", false)):
+        return
+    if String(area.get_meta("kind",""))=="history":
+        _commit_history_prop(area)
         return
     var flags_before := story_flags.duplicate(true)
     var currency_before := currency_count
@@ -2920,7 +2927,8 @@ func _sync_ui_input_lock() -> void:
 
 ## 对话面板关闭时归还 BGM/Ambience 压低（所有关闭路径共用：Esc、走远、切换 overlay）。
 func _notify_dialogue_closed() -> void:
-    _commit_world_dialogue()
+    var history := ui_shell!=null and is_instance_valid(ui_shell.dialogue_area) and String(ui_shell.dialogue_area.get_meta("kind",""))=="history"
+    if not history:_commit_world_dialogue()
     if ui_shell!=null:
         ui_shell.close_dialogue()
     if active_overlay == "dialogue" and audio_director != null:
@@ -3508,6 +3516,8 @@ func _region_build_jobs() -> Array:
 
         jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
         jobs.append({"method": "_spawn_ending_aftermath", "args": []})
+        for entry in SCENE_HISTORY.region_entries(String(config.get("id",""))):
+            jobs.append({"method":"_spawn_history_prop","args":[entry]})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
@@ -3650,6 +3660,52 @@ func _show_tool_encounter_hint() -> void:
 
 ## W04: each planned hidden room leaks light into its entrance room. Coming
 ## near the crack says what the player notices, once; finding the room dims it.
+func _spawn_history_prop(entry: Dictionary) -> void:
+    var prop := HISTORY_PROP.new()
+    prop.entry=entry.duplicate(true)
+    prop.name="History_"+String(entry.id)
+    prop.position=_vec2(entry.position)
+    prop.seen=SCENE_HISTORY.discovered(story_flags,String(entry.id))
+    prop.set_meta("kind","history")
+    prop.set_meta("label",String(entry.title))
+    prop.set_meta("identity","环境痕迹 · 观察不会代替原始证词")
+    prop.set_meta("interaction_label","查看 · "+String(entry.title))
+    prop.set_meta("history_data",entry.duplicate(true))
+    prop.body_entered.connect(_on_interactable_entered.bind(prop))
+    prop.body_exited.connect(_on_interactable_exited.bind(prop))
+    add_child(prop)
+    _add_wayfinding(prop)
+
+func _read_history_prop(area: Area2D) -> void:
+    if active_overlay=="dialogue" and ui_shell.dialogue_area==area:
+        if bool(area.get_meta("world_line_committed",false)):_close_overlays()
+        return
+    area.set_meta("world_line_committed",false)
+    area.set_meta("dialogue_state","history")
+    area.set_meta("world_displayed_index",0)
+    area.set_meta("world_displayed_total",1)
+    _show_dialogue(area,String(area.get_meta("history_data",{}).get("text","")))
+
+func _commit_history_prop(area: Area2D) -> void:
+    if not area.is_inside_tree() or area.is_queued_for_deletion() or not area.is_visible_in_tree() or not area.accessible_from(player) or player.global_position.distance_to(area.global_position)>INTERACTION_REACH:
+        return
+    var entry: Dictionary=area.get_meta("history_data",{})
+    if SCENE_HISTORY.discovered(story_flags,String(entry.id)):
+        area.set_meta("world_line_committed",true)
+        ui_shell.forget_dialogue_reading()
+        return
+    var flags_before := story_flags.duplicate(true)
+    var world_before := world_state.data.duplicate(true)
+    story_flags[SCENE_HISTORY.FLAG_PREFIX+String(entry.id)]=true
+    if not _save_world():
+        story_flags=flags_before
+        world_state.data=world_before
+        _toast("观察尚未记下；归途记录写入失败，请重试。")
+        return
+    area.set_meta("world_line_committed",true)
+    area.mark_seen()
+    ui_shell.forget_dialogue_reading()
+
 func _spawn_hidden_route_clues() -> void:
     hidden_route_clues.clear()
     for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
@@ -6109,7 +6165,7 @@ func _on_interactable_exited(body: Node, area: Area2D) -> void:
         return
     if nearby_interactable == area:
         nearby_interactable = null
-    if String(area.get_meta("kind", "")) == "npc" and dialogue_panel != null and dialogue_panel.visible:
+    if String(area.get_meta("kind", "")) in ["npc","history"] and dialogue_panel != null and dialogue_panel.visible:
         _close_overlays()
 
 
@@ -6162,6 +6218,8 @@ func _try_interact() -> void:
             CARTOGRAPHY_UI.open_shop(self, nearby_interactable)
         else:
             _talk_to_npc(nearby_interactable)
+    elif kind == "history":
+        _read_history_prop(nearby_interactable)
     elif kind == "save_point":
         _activate_save_point(nearby_interactable)
     elif kind == "chapter_exit" or kind == "ending_exit":
@@ -6202,12 +6260,14 @@ func _nearest_interactable(radius: float) -> Area2D:
         if area == null or not is_instance_valid(area) or area.is_queued_for_deletion() or not area.is_visible_in_tree():
             continue
         var kind := String(area.get_meta("kind", ""))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache"].has(kind):
+        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache", "history"].has(kind):
             continue
         if kind == "item" and not bool(area.get_meta("manual_pickup", false)):
             continue
         var distance: float = player.global_position.distance_squared_to(area.global_position)
         if not is_finite(distance) or distance > radius * radius:
+            continue
+        if kind=="history" and not area.accessible_from(player):
             continue
         if kind in ["chapter_exit", "ending_exit"] and _chapter_exit_can_open(area) and _better_interaction_target(area, distance, preferred_best, preferred_distance):
             preferred_best = area
@@ -6734,7 +6794,7 @@ func _show_dialogue(area: Area2D, line: String) -> void:
             var reading: Dictionary = ui_shell.dialogue_reading_state(area, line) if ui_shell != null and ui_shell.has_method("dialogue_reading_state") else {}
             subtitle_elapsed = subtitle_seconds * float(reading.get("progress", 0.0))
             dialogue_text_label.visible_characters = int(reading.get("characters", 0))
-            if audio_director != null and reading.is_empty():
+            if audio_director != null and reading.is_empty() and String(area.get_meta("kind",""))!="history":
                 var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
                 audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile)
         else:
