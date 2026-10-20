@@ -7,3 +7,11 @@
 数据校验约束正式种类覆盖、中文名称和实际习性。真实 World 检查使用正式敌人的受击／死亡信号和保存重读，覆盖分类、未知信息保密、重复击败、按身份恢复选择、筛选行缩放后布局；与原 UI、旅记、输入和存档套件共同运行。原生 GL 六套回归通过，原始日志见 `artifacts/u05_journal_enemy_records`；`test:campaign` 通过。新检查已接入叙事 CI。
 
 这是分类和记录功能的完成证据。自然交战时的文字理解、不同字号和实体手柄长文体验仍保留在完整验收清单，不用定位／额外生成的测试敌人冒充自然流程。
+
+## 2026-10-20：按 #166 复查兼容已合入的环境见闻
+
+合入最新 main `af210f7f`。`ui_world_integration` 同时保留敌人旅记和 HUD 可用性检查；叙事 workflow 同时保留旅记分类与 `scene_history` 检查；`test:campaign` 同时保留工匠经济、敌人旅记和环境见闻数据校验。
+
+实际六区观察流程扩展为 9 项分类兼容检查：十二条已观察见闻都出现在“全部”中，身份为 `evidence:scene_history_<id>`；“证词”包含见闻，其余四种分类不混入见闻；选中一条非首行记录后，切换分类以及关闭再打开旅记，均按 `record_kind:id` 恢复。原先真实读取前后比较证词数量的检查继续通过，见闻不替代六区原始证词或结局条件。
+
+Godot 4.6.1 原生 GL 的 `ui_world_integration`、`scene_history`、`ui_redesign`、`inventory_map` 四套断言及章节数据、5 项 workflow 门禁通过。前三套退出无警告，库存地图夹具的一条原有 ObjectDB 退出警告保留，未据此宣称 T03 完成。原始日志和结果见 `artifacts/u05_journal_enemy_records/review_followup_scene_history/`。
