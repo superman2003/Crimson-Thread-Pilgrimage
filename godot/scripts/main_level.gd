@@ -7523,6 +7523,8 @@ func get_tool_readiness(id: String) -> Dictionary:
             if effect.get("owner_player") == player:owned_traps += 1
         if owned_traps >= 2:
             return {"available":false,"text":"已布满","detail":"场上已有两枚布置中的地雷"}
+    if id.is_empty():
+        return {"available":false,"text":"空槽","detail":"此战具槽位为空"}
     if _in_tool_practice_room():
         return {"available":true,"text":"练习","detail":"练习房免费使用，不消耗携带次数。"}
     if build_system == null or int(build_system.state.tool_counts.get(id,0)) <= 0:
@@ -7532,6 +7534,15 @@ func get_tool_readiness(id: String) -> Dictionary:
 func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
     if build_system == null or not world_mode:
         return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
+    if action == "use_tool":
+        var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
+        var readiness := get_tool_readiness(selected_tool_id)
+        if not bool(readiness.available):
+            # Recovery and mine-cap rejections were always silent; the other
+            # unavailable states must still explain why the input did nothing.
+            if String(readiness.text) not in ["动作中", "已布满"]:
+                _toast(String(readiness.detail))
+            return {"ok":false,"reason":String(readiness.detail)}
     if player == null or player.hp <= 0 or chapter_transitioning or world_loading:
         return {"ok": false, "reason": "当前无法更换构筑"}
     if action == "quote_resupply":
@@ -7586,9 +7597,6 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                     _set_build_wallet(result.wallet)
         "use_tool":
             var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
-            var readiness := get_tool_readiness(selected_tool_id)
-            if not bool(readiness.available):
-                return {"ok":false,"reason":String(readiness.detail)}
             # E02: tools used in a practice room cost nothing and give nothing:
             # the stock is put back to what it was, even when it was empty.
             var practice := _in_tool_practice_room()
