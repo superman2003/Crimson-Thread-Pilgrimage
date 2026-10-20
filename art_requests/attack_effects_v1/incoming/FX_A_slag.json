@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_slag.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_slag.txt",
+  "prompt_sha256": "d6e9f721fbb770f021c2632758c620f395930cba6a02c1ac097d57d9df5fe786",
+  "image_sha256": "da7d321225e0b44352283a563eba0711e7cd9363e28171b234eaf3cd0485590f",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1177552,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/pipe_thrower.png",
+      "sha256": "505d98e13afed4b0486394de716b9a2b6e94fcdfa021c16fe70cb79987d4ebd2"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        435,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        64,
+        222,
+        382,
+        395
+      ],
+      "fully_transparent_pixels": 170814
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        435,
+        0,
+        873,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        488,
+        152,
+        843,
+        396
+      ],
+      "fully_transparent_pixels": 153128
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        873,
+        0,
+        1333,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        905,
+        162,
+        1309,
+        401
+      ],
+      "fully_transparent_pixels": 152848
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1333,
+        0,
+        1774,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1361,
+        134,
+        1734,
+        396
+      ],
+      "fully_transparent_pixels": 148840
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        475,
+        439,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        43,
+        586,
+        407,
+        805
+      ],
+      "fully_transparent_pixels": 125713
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        439,
+        475,
+        888,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        477,
+        583,
+        856,
+        806
+      ],
+      "fully_transparent_pixels": 128131
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        888,
+        475,
+        1340,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        923,
+        625,
+        1288,
+        803
+      ],
+      "fully_transparent_pixels": 145571
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1340,
+        475,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1396,
+        654,
+        1714,
+        796
+      ],
+      "fully_transparent_pixels": 152507
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "鐵渣灘",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

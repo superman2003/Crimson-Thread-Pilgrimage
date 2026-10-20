@@ -2999,7 +2999,7 @@ func _update_room_visit() -> void:
     if not current_room_id.is_empty():
         visited_rooms[current_room_id] = true
         if world_mode:
-            CARTOGRAPHY.visit(story_flags, String(config.id), current_room_id)
+            CARTOGRAPHY.visit_at(story_flags, String(config.id), room, player.global_position)
         if metsys_bridge != null:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
         if current_room_id != previous_room_id:

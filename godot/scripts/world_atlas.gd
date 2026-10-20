@@ -88,7 +88,7 @@ static func render(level: Node) -> void:
         title.add_theme_font_size_override("font_size", 14)
         title.add_theme_color_override("font_color", SURFACE.ACCENT if id == current else SURFACE.INK)
         title.mouse_filter = Control.MOUSE_FILTER_PASS
-        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(level.story_flags, id) else "已补绘 %d 室" % JOURNAL.region(level.story_flags, id).charted.size()
+        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(level.story_flags, id) else "已补绘 %d 室" % JOURNAL.charted_room_count(level.story_flags, id)
         host.add_child(title)
         if not JOURNAL.owned(level.story_flags, id): continue
         var surface := SURFACE.new()
@@ -109,8 +109,13 @@ static func render(level: Node) -> void:
             outline.draw_ink = false
             outline.detailed = detailed
             var footprint := Rect2(outline.position, outline.size)
-            if detailed: surface.charted_rooms.append(footprint)
-            else: surface.base_rooms.append(footprint)
+            if not detailed: surface.base_rooms.append(footprint)
+            elif JOURNAL.charted_whole(level.story_flags, id, room): surface.charted_rooms.append(footprint)
+            else:
+                # A partly explored large room: only its charted sections.
+                if SURVEY.public_room(room): surface.base_rooms.append(footprint)
+                for part in JOURNAL.charted_parts(level.story_flags, id, room):
+                    surface.charted_rooms.append(Rect2(project(COORD.to_world(id, part.position), layout), part.size * layout.scale))
             outline.seed_value = room_id.hash()
             outline.stroke_scale = 0.6
             if detailed:

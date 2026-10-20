@@ -341,10 +341,14 @@ var windup_vfx_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
 # A held wind-up (charge) or travelling strike (travel) switches from its
-# one-shot cels to an authored loop once the one-shot has been shown.
-const POSE_LOOP_LEAD := {"windup": 0.42, "active": 0.2}
+# one-shot cels to an authored loop once the one-shot has been shown; a
+# recovery bridge hands over to the shared recovery (or idle) the same way.
+const POSE_LOOP_LEAD := {"windup": 0.42, "active": 0.2, "recover": 0.18}
 var pose_loop_animation := ""
 var pose_loop_at := 0.0
+## A follow-up that is not a loop (a bridge's shared recovery) is fitted to the
+## time left in the state instead of playing at its own speed.
+var pose_loop_fit := 0.0
 var flash_materials: Array = []
 var knockback_velocity := 0.0
 var dying := false
@@ -1586,6 +1590,7 @@ func _update_active(delta: float) -> void:
 
 func _update_recover(delta: float) -> void:
     state_timer -= delta
+    _advance_pose_loop()
     if state_timer <= 0.0:
         active_attack = {}
         state = "patrol"
@@ -1985,6 +1990,8 @@ func _advance_pose_loop() -> void:
     _set_enemy_animation(loop_name, true)
     if animated_sprite != null:
         animated_sprite.speed_scale = 1.0
+        if pose_loop_fit > 0.0:
+            _fit_animation_duration(pose_loop_fit)
 
 
 func _has_enemy_animation(animation_name: String) -> bool:
@@ -2048,7 +2055,16 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
             loop_name=requested+"_travel" if animation_name!="attack" else "travel"
         elif pose_name=="recover":
             animation_name=requested+"_recover" if _has_enemy_animation(requested+"_recover") else ("recover" if _has_enemy_animation("recover") else "idle")
+            # A move whose last strike cel is far from the shared recovery draws a
+            # short bridge into it; a bridge already ending upright settles into idle.
+            if animation_name=="recover" and _has_enemy_animation(requested+"_bridge"):
+                animation_name=requested+"_bridge"
+                loop_name="recover"
+            elif animation_name=="recover" and _has_enemy_animation(requested+"_settle"):
+                animation_name=requested+"_settle"
+                loop_name="idle"
         pose_loop_animation = ""
+        pose_loop_fit = 0.0
         _set_enemy_animation(animation_name, pose_name in ["windup", "active", "recover", "hurt", "death"])
         if animated_sprite!=null:
             animated_sprite.speed_scale=1.0
@@ -2059,6 +2075,7 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
                     _fit_animation_duration(lead)
                     pose_loop_animation = loop_name
                     pose_loop_at = duration - lead
+                    pose_loop_fit = duration - lead if loop_name == "recover" else 0.0
                 else:
                     _fit_animation_duration(duration)
         return

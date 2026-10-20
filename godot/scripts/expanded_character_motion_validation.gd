@@ -54,6 +54,7 @@ func run() -> void:
     await _check_live_playback(stage)
     _check_attack_specific_poses(stage)
     _check_production_attack_cels(stage)
+    await _check_boss_recovery_bridges(stage)
     _check_elite_profiles(stage)
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
@@ -177,6 +178,44 @@ func _check_production_attack_cels(stage: Node2D) -> void:
         kinds += 1
         enemy.queue_free()
     check(kinds == 40 and own_total == 50, "40 regular creatures with 40 new and 10 elite attacks")
+## Every boss heavy/cast/phase recovery first plays its drawn bridge, then hands
+## over to the shared recovery fitted to the remaining time (the root bishop's
+## heavy and phase bridges end upright and settle straight into idle).
+func _check_boss_recovery_bridges(stage: Node2D) -> void:
+    var settle := {"broken_string_gardener": ["heavy", "phase"]}
+    var bridged := 0
+    for kind in ["broken_string_gardener","rust_crown_guardian","saltwhite_contract_judge","sunken_hammer_smith","silent_crown_core","silent_pilgrim_commander"]:
+        var enemy = ENEMY.new()
+        enemy.configure({"id":"bridge_"+kind,"kind":kind,"hp":20}, "", true)
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+        var sprite: AnimatedSprite2D = enemy.animated_sprite
+        for command: Dictionary in enemy.ai_commands:
+            var move := String(command.get("animation", "attack"))
+            if not move in ["heavy", "cast", "phase"]: continue
+            var settles: bool = move in settle.get(kind, [])
+            var bridge := move + ("_settle" if settles else "_bridge")
+            var after := "idle" if settles else "recover"
+            var label: String = kind+"/"+String(command.id)
+            check(sprite.sprite_frames.get_frame_count(bridge) == 2, label+" has a two-cel "+bridge)
+            enemy.state = "recover"
+            enemy.state_timer = float(command.get("recover", 0.5))
+            enemy._pose_sprite("recover", command)
+            check(sprite.animation == StringName(bridge) and sprite.frame == 0, label+" recovery opens on its bridge")
+            check(enemy.pose_loop_animation == after, label+" bridge hands over to "+after)
+            enemy._update_recover(0.12)
+            check(sprite.animation == StringName(bridge), label+" bridge is shown before the hand-over")
+            enemy._update_recover(0.08)
+            check(sprite.animation == StringName(after) and enemy.pose_loop_animation.is_empty(), label+" continues as "+after)
+            if after == "recover":
+                var remaining := float(command.get("recover", 0.5)) - 0.18
+                var expected := sprite.sprite_frames.get_frame_count("recover") / (sprite.sprite_frames.get_animation_speed("recover") * remaining)
+                check(absf(sprite.speed_scale - expected) < 0.001, label+" shared recovery fills the remaining time")
+            enemy._pose_sprite("idle")
+            bridged += 1
+        enemy.queue_free()
+        await process_frame
+    check(bridged == 22, "22 boss heavy/cast/phase attacks recover through a drawn bridge")
 func _check_elite_profiles(stage: Node2D) -> void:
     var combat: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/original_creature_combat.json"))
     var normal = ENEMY.new()

@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_H_shard.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_H_shard.txt",
+  "prompt_sha256": "8691ad1b21eccde1e9769fc5c9a3e7f241af1905532bc68d45136172c8fdbaf8",
+  "image_sha256": "a355ad01dc35e9dba8771c7fbe59f7f396405981a8f9214c2fe5527998aabfb9",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1013047,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/hero_style.png",
+      "sha256": "34d1391facab3ceefedf44db26e7b7679526481a5d39dbf998c49fe7e08f3123"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        436,
+        413
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        92,
+        169,
+        323,
+        308
+      ],
+      "fully_transparent_pixels": 160507
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        436,
+        0,
+        887,
+        413
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        534,
+        112,
+        760,
+        300
+      ],
+      "fully_transparent_pixels": 160702
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        887,
+        0,
+        1322,
+        413
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1002,
+        192,
+        1219,
+        370
+      ],
+      "fully_transparent_pixels": 141605
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1322,
+        0,
+        1774,
+        413
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1420,
+        165,
+        1707,
+        370
+      ],
+      "fully_transparent_pixels": 138942
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        413,
+        437,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        52,
+        498,
+        419,
+        835
+      ],
+      "fully_transparent_pixels": 103884
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        437,
+        413,
+        904,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        457,
+        460,
+        877,
+        854
+      ],
+      "fully_transparent_pixels": 76422
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        904,
+        413,
+        1356,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        932,
+        498,
+        1307,
+        827
+      ],
+      "fully_transparent_pixels": 106178
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1356,
+        413,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1409,
+        508,
+        1712,
+        804
+      ],
+      "fully_transparent_pixels": 124807
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "銅鈴投罐（戰具）",
+    "observed_cels": 8,
+    "note": "已目检指定格数的主角技能/战具效果，无角色。放置锚点、循环、触发时序、淡出与判定大小需运行时验收。"
+  }
+}

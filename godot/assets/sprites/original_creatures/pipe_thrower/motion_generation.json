@@ -434,20 +434,29 @@
         "anchor_x": 80.625
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/H_pipe_thrower_hurt2.png",
         "region": [
-          488,
-          1356,
-          175,
-          199
+          0,
+          0,
+          1024,
+          1024
         ],
         "component_seeds": [
           [
-            603,
-            1468
+            590,
+            95
           ]
         ],
-        "anchor_x": 66.375
+        "scale": 0.2245,
+        "anchor_x": 437.3,
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            1.091,
+            1.074,
+            1.078
+          ]
+        }
       }
     ],
     "death": [
@@ -1414,6 +1423,62 @@
           "method": "idle stance",
           "first_windup_ratio": 0.727,
           "last_recover_ratio": 0.7168
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "H_pipe_thrower_hurt2.png",
+        "image_sha256": "393847b4aeab6ef41eedf0187aee6cef3aafe6324a2039f7df47623a24275bb1",
+        "op": "replace_frames",
+        "animation": "hurt",
+        "scale": 0.2245,
+        "anchors": [
+          437.3
+        ],
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            1.091,
+            1.074,
+            1.078
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "hurt[2]": 0.2262,
+            "hurt[1]": 0.2228
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "H_pipe_thrower_hurt2.png",
+        "op": "replace_frames",
+        "animation": "hurt",
+        "replaced": {
+          "2": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              488,
+              1356,
+              175,
+              199
+            ],
+            "component_seeds": [
+              [
+                603,
+                1468
+              ]
+            ],
+            "anchor_x": 66.375
+          }
         }
       }
     ]

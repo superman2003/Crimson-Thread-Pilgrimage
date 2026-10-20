@@ -1,0 +1,105 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_B_steam.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_B_steam.txt",
+  "prompt_sha256": "c7237a0fdb883de42d1d7256e2d59b9e28bc93ba922529a106000172b2430560",
+  "image_sha256": "df3da203fa060f58339e7c4dc0b1634a72ec6ea6b08190d68fb09f01609b8231",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "requested_frames": 4,
+  "nominal_grid": [
+    1,
+    4
+  ],
+  "fully_transparent_pixels": 276373,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/pipe_thrower.png",
+      "sha256": "505d98e13afed4b0486394de716b9a2b6e94fcdfa021c16fe70cb79987d4ebd2"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/valve_crawler.png",
+      "sha256": "42a72669f3c047b89e8a41b5f42e2d5c50468cd8231852989e02a99910d15822"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        1536,
+        311
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        163,
+        34,
+        1518,
+        288
+      ],
+      "fully_transparent_pixels": 148616
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        0,
+        311,
+        1536,
+        516
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        333,
+        1536,
+        497
+      ],
+      "fully_transparent_pixels": 22796
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        0,
+        516,
+        1536,
+        745
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        559,
+        1536,
+        736
+      ],
+      "fully_transparent_pixels": 28650
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        745,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        755,
+        1443,
+        998
+      ],
+      "fully_transparent_pixels": 76311
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "蒸汽",
+    "observed_cels": 4,
+    "note": "已目检 4 条横带：起点、中段 A、中段 B、末端。中段到达左右边缘；逐像素接缝、统一粗细与锚点需运行时验收。"
+  }
+}

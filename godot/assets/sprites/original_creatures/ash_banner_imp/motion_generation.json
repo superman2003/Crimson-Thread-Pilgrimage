@@ -217,87 +217,131 @@
     ],
     "windup": [
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_windup.png",
         "region": [
-          18,
-          455,
-          197,
-          226
+          0,
+          0,
+          768,
+          512
         ],
         "component_seeds": [
           [
-            80,
-            580
+            478,
+            92
           ]
         ],
-        "anchor_x": 86.5
+        "scale": 0.5528,
+        "anchor_x": 368.8,
+        "grade": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        }
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_windup.png",
         "region": [
-          250,
-          463,
-          190,
-          218
+          768,
+          0,
+          768,
+          512
         ],
         "component_seeds": [
           [
-            268,
-            582
+            1235,
+            243
           ]
         ],
-        "anchor_x": 63.5
+        "scale": 0.5528,
+        "anchor_x": 392.8,
+        "grade": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        }
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_windup.png",
         "region": [
-          445,
-          457,
-          204,
-          224
+          0,
+          512,
+          768,
+          512
         ],
         "component_seeds": [
           [
-            470,
-            573
+            538,
+            759
           ]
         ],
-        "anchor_x": 77.5
+        "scale": 0.5528,
+        "anchor_x": 376.8,
+        "grade": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        }
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_windup.png",
         "region": [
-          647,
-          458,
-          173,
-          223
+          768,
+          512,
+          768,
+          512
         ],
         "component_seeds": [
           [
-            763,
-            576
+            1159,
+            754
           ]
         ],
-        "anchor_x": 84.5
+        "scale": 0.5528,
+        "anchor_x": 347.8,
+        "grade": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        }
       }
     ],
     "attack": [
       {
-        "sheet": "atlas.png",
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_attack0.png",
         "region": [
-          17,
-          786,
-          418,
-          208
+          0,
+          0,
+          1024,
+          1024
         ],
         "component_seeds": [
           [
-            123,
-            895
+            385,
+            341
           ]
         ],
-        "scale": 0.62,
-        "anchor_x": 175.0
+        "scale": 0.3454,
+        "anchor_x": 437.7,
+        "grade": {
+          "saturation": 0.853,
+          "rgb": [
+            0.928,
+            0.978,
+            0.959
+          ]
+        }
       },
       {
         "sheet": "motion_expanded.png",
@@ -349,6 +393,56 @@
       }
     ],
     "recover": [
+      {
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_recover.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            678,
+            441
+          ]
+        ],
+        "scale": 0.4572,
+        "anchor_x": 317.5,
+        "grade": {
+          "saturation": 0.849,
+          "rgb": [
+            0.8,
+            0.818,
+            0.807
+          ]
+        }
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/G_ash_banner_imp_recover.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "component_seeds": [
+          [
+            1266,
+            420
+          ]
+        ],
+        "scale": 0.4572,
+        "anchor_x": 406.6,
+        "grade": {
+          "saturation": 0.849,
+          "rgb": [
+            0.8,
+            0.818,
+            0.807
+          ]
+        }
+      },
       {
         "sheet": "motion_expanded.png",
         "region": [
@@ -774,6 +868,194 @@
           "first_windup_ratio": 0.7229,
           "last_recover_ratio": 0.6889
         }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "G_ash_banner_imp_attack0.png",
+        "image_sha256": "58c18eb7de7b09e290d4512701e5ba7cc44f2788c6783ca0b085e7216aa537ed",
+        "op": "replace_frames",
+        "animation": "attack",
+        "scale": 0.3454,
+        "anchors": [
+          437.7
+        ],
+        "grade": {
+          "saturation": 0.853,
+          "rgb": [
+            0.928,
+            0.978,
+            0.959
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "attack[0]": 0.3454
+          }
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_windup.png",
+        "image_sha256": "fc3ca085b13c66c68b5b2db6bbc4101696f73a6c8a02e41076dce1c4439414f4",
+        "op": "replace_animation",
+        "animation": "windup",
+        "scale": 0.5528,
+        "anchors": [
+          368.8,
+          392.8,
+          376.8,
+          347.8
+        ],
+        "grade": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "idle[0]": 0.5528
+          }
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_recover.png",
+        "image_sha256": "1431033875c3e5b56eb1c013de84c7ea94bf8530a8a37b4b1d8cbff3b61016b3",
+        "op": "prepend_frames",
+        "animation": "recover",
+        "scale": 0.4572,
+        "anchors": [
+          317.5,
+          406.6
+        ],
+        "grade": {
+          "saturation": 0.849,
+          "rgb": [
+            0.8,
+            0.818,
+            0.807
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "attack[3]": 0.3647,
+            "recover[0]": 0.4572
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "G_ash_banner_imp_attack0.png",
+        "op": "replace_frames",
+        "animation": "attack",
+        "replaced": {
+          "0": {
+            "sheet": "atlas.png",
+            "region": [
+              17,
+              786,
+              418,
+              208
+            ],
+            "component_seeds": [
+              [
+                123,
+                895
+              ]
+            ],
+            "scale": 0.62,
+            "anchor_x": 175.0
+          }
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_windup.png",
+        "op": "replace_animation",
+        "animation": "windup",
+        "replaced": {
+          "all": [
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                18,
+                455,
+                197,
+                226
+              ],
+              "component_seeds": [
+                [
+                  80,
+                  580
+                ]
+              ],
+              "anchor_x": 86.5
+            },
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                250,
+                463,
+                190,
+                218
+              ],
+              "component_seeds": [
+                [
+                  268,
+                  582
+                ]
+              ],
+              "anchor_x": 63.5
+            },
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                445,
+                457,
+                204,
+                224
+              ],
+              "component_seeds": [
+                [
+                  470,
+                  573
+                ]
+              ],
+              "anchor_x": 77.5
+            },
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                647,
+                458,
+                173,
+                223
+              ],
+              "component_seeds": [
+                [
+                  763,
+                  576
+                ]
+              ],
+              "anchor_x": 84.5
+            }
+          ]
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_recover.png",
+        "op": "prepend_frames",
+        "animation": "recover",
+        "count": 2
       }
     ]
   }
