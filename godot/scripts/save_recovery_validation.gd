@@ -134,6 +134,10 @@ func unknown_build_entries() -> void:
 	data.build_state.loadouts["旧方案"] = data.build_state.loadouts["守钟"].duplicate(true)
 	data.build_state.loadouts["旧方案"].equipped_families.travel_accessory[0] = "wayfinder"
 	data.build_state.mechanisms.append("lantern")
+	# A crafted clasp holding the compass in the third travel slot (E04).
+	data.build_state.crafted = ["clasp_travel"]
+	data.build_state.unlocked_passives.append("compass")
+	data.build_state.equipped_families.travel_accessory[2] = "compass"
 	var original := JSON.stringify(data)
 	write_raw(original)
 	check(not BUILD.new().restore(data.build_state).ok, "fixture: this build is rejected as it stands")
@@ -145,6 +149,7 @@ func unknown_build_entries() -> void:
 	check(build.state.passives.has("shell") and int(build.state.skill_levels.ward) == 1, "the worn charm and the trained direction are kept")
 	check(build.state.loadouts.has("守钟") and not build.state.loadouts.has("旧方案"), "a valid loadout is kept, one naming the unknown charm is dropped")
 	check(not build.state.unlocked_passives.has("wayfinder") and not build.state.mechanisms.has("lantern"), "unknown entries are dropped")
+	check(build.has_part("travel_clasp") and build.state.equipped_families.travel_accessory[2] == "compass" and build.state.passives.has("compass"), "the artisan clasp comes back before the third travel slot is refilled")
 	var copies := preserved("before_build_repair")
 	check(copies.size() == 1 and FileAccess.get_file_as_string(copies[0]) == original, "the original save is kept byte for byte before any write")
 	check(scene._save_world(), "the rebuilt journey saves")

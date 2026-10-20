@@ -4,6 +4,8 @@ extends RefCounted
 ## effect assets or combat geometry live here.
 ## The brief blade smear follows the rendered weapon, never the hitbox envelope.
 
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 const SOURCE_SIZE := Vector2(384.0, 384.0)
 const TRACE_SECONDS := 0.10
 ## Below this swept angle the trace stays a thin tail along the blade.
@@ -62,7 +64,8 @@ static func spawn_swing(owner_node: Node2D, sprite: AnimatedSprite2D, active_sec
     trace.lifetime = minf(TRACE_SECONDS, active_seconds)
     trace.reduced_flash = not bool(preferences.get("flash_enabled", true))
     trace.sample_blade = blade_points
-    trace.z_index = 60
+    trace.z_as_relative = false
+    trace.z_index = VISUAL_POLICY.BLADE_Z
     owner_node.add_child(trace)
     return trace
 
@@ -75,8 +78,8 @@ static func spawn_hit(parent_node: Node2D, world_position: Vector2, direction: V
     contact.strike_direction = direction.normalized() if not direction.is_zero_approx() else Vector2.RIGHT
     contact.length = 16.0 if animation == &"attack_2" else 11.0
     contact.reduced_flash = not bool(preferences.get("flash_enabled", true))
-    contact.z_index = 80
-    parent_node.add_child(contact)
+    if not VISUAL_POLICY.attach_contact(parent_node, contact):
+        return null
     contact.global_position = world_position
     return contact
 

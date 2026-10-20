@@ -24,7 +24,8 @@ func reset() -> void:
         "passives": [], "unlocked_crests": ["crimson"], "unlocked_skills": ["cleave"],
         "unlocked_tools": ["shard"], "unlocked_passives": ["stride"], "mechanisms": [],
         # skill_levels: 0 = not trained; 1 / 2 = the chosen 校习 direction (branches a / b).
-        "tool_counts": {}, "skill_levels": {}, "loadouts": {}}
+        # crafted: E04 artisan recipes already made (tool capacity, slot parts); each is made once.
+        "tool_counts": {}, "skill_levels": {}, "loadouts": {}, "crafted": []}
     for id in catalog.tools:
         state.tool_counts[id] = int(catalog.tools[id].capacity) if id == "shard" else 0
     for id in catalog.skills:
@@ -114,8 +115,30 @@ func _slot_spec(family: String, slot: int, crest: String = "") -> Dictionary:
 func _slot_unlocked(family: String, slot: int, crest: String = "") -> bool:
     var spec := _slot_spec(family, slot, crest)
     if spec.is_empty(): return false
+    var part := String(spec.get("requires_part", ""))
+    if not part.is_empty() and not has_part(part): return false
     var requirement := String(spec.get("requires_mechanism", ""))
     return requirement.is_empty() or state.get("mechanisms", []).has(requirement)
+
+## E04: a slot part (承力扣) made by an artisan; it opens the matching slot on every crest.
+func has_part(part: String) -> bool:
+    for id in state.get("crafted", []):
+        if String(catalog.recipes.get(id, {}).get("part", "")) == part: return true
+    return false
+
+func part_recipe(part: String) -> String:
+    for id in catalog.recipes:
+        if String(catalog.recipes[id].get("part", "")) == part: return String(id)
+    return ""
+
+## E04: permanent capacity an artisan added to this tool.
+func crafted_capacity(id: String, crafted: Variant = null) -> int:
+    var bonus := 0
+    for recipe_id in (crafted if crafted is Array else state.get("crafted", [])):
+        var recipe: Dictionary = catalog.recipes.get(recipe_id, {})
+        if String(recipe.get("kind", "")) == "tool_capacity" and String(recipe.get("target", "")) == id:
+            bonus += int(recipe.get("amount", 0))
+    return bonus
 
 func _slot_accepts(family: String, slot: int, item_id: String, crest: String = "") -> bool:
     if item_id.is_empty(): return true
@@ -374,7 +397,7 @@ func tick(delta: float) -> void:
 func tool_capacity(id: String) -> int:
     if not catalog.tools.has(id):
         return 0
-    return int(catalog.tools[id].capacity) + (int(profile().tool_capacity_bonus) if id in ["shard", "mine"] else 0)
+    return int(catalog.tools[id].capacity) + crafted_capacity(id) + (int(profile().tool_capacity_bonus) if id in ["shard", "mine"] else 0)
 
 func use_tool(slot: int = -1) -> Dictionary:
     slot = _slot(slot, "tool")
@@ -397,7 +420,7 @@ func refund_tool(id: String) -> void:
 
 ## Most charges a save may hold: equipment bonuses count while merely owned.
 func _stored_capacity(id: String) -> int:
-    return int(catalog.tools[id].capacity) + (1 if id in ["shard", "mine"] and state.unlocked_passives.has("needlecase") else 0)
+    return int(catalog.tools[id].capacity) + crafted_capacity(id) + (1 if id in ["shard", "mine"] and state.unlocked_passives.has("needlecase") else 0)
 
 func refill_tools(at_bell: bool = false) -> Dictionary:
     if not at_bell:
@@ -496,6 +519,16 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
         return _fail("此装备已经获得")
     if kind == "refill" and int(state.tool_counts[target]) >= int(catalog.tools[target].capacity):
         return _fail("携带量已满")
+    if kind in ["tool_capacity", "slot_part"]:
+        if not state.get("crafted") is Array: state.crafted = []
+        if state.crafted.has(recipe_id):
+            return _fail("已经制作过「%s」" % String(recipe.get("name", recipe_id)))
+        if kind == "tool_capacity" and not state.unlocked_tools.has(target):
+            return _fail("先取得这件战具，工匠才能改制")
+        # Patterns (challenge evidence) are shown to the artisan, never consumed.
+        for item in recipe.get("requires_items", []):
+            if not _counter(wallet.inventory_counts.get(item, 0)) or int(wallet.inventory_counts.get(item, 0)) <= 0:
+                return _fail("缺少图样：%s" % String(item))
     var cost := int(recipe.currency)
     if int(wallet.currency) < cost:
         return _fail("松脂碎片不足：需要%d" % cost)
@@ -513,7 +546,36 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
     elif kind == "skill_branch":
         # Choosing the other direction later replaces this one at full price.
         state.skill_levels[target] = int(recipe.branch)
+    elif kind == "tool_capacity":
+        # A larger pouch holds more; it is filled at the shrine like any other charge.
+        state.crafted.append(recipe_id)
+    elif kind == "slot_part":
+        state.crafted.append(recipe_id)
+        _settle_unlocked_slots()
     return _ok({"wallet": next_wallet, "currency_spent": cost, "recipe_id": recipe_id})
+
+## A new part may wake an item that a legacy migration parked in a locked slot.
+## Keep the live build and every saved loadout valid: drop woken accessories
+## that would overflow the crest's capacity, then refresh the aliases.
+func _settle_unlocked_slots() -> void:
+    _settle_families(state.equipped_families, String(state.crest))
+    _sync_aliases()
+    for name in state.loadouts:
+        var saved: Dictionary = state.loadouts[name]
+        _settle_families(saved.equipped_families, String(saved.crest))
+        saved.passives = _active_accessories(saved.equipped_families, String(saved.crest))
+
+func _settle_families(families: Dictionary, crest: String) -> void:
+    while not _validate_passives(_active_accessories(families, crest), crest).is_empty():
+        var removed := false
+        for family in ["travel_accessory", "combat_accessory"]:
+            for slot in range(families[family].size() - 1, -1, -1):
+                if _slot_unlocked(family, slot, crest) and not String(families[family][slot]).is_empty():
+                    families[family][slot] = ""
+                    removed = true
+                    break
+            if removed: break
+        if not removed: break
 
 func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
     if not at_bell: return _fail("请在钟龛保存构筑方案")
@@ -564,14 +626,27 @@ func _validate_loadout(build: Dictionary) -> String:
     var tools: Array = families.tool
     var active_skill := int(build.active_skill_slot)
     var active_tool := int(build.active_tool_slot)
-    if not _slot_unlocked("thread_skill", active_skill, String(build.crest)) or not _slot_accepts("thread_skill", active_skill, String(skills[active_skill]), String(build.crest)):
+    if not _active_slot_valid("thread_skill", active_skill, skills, String(build.crest)):
         return "活动线技槽位无效"
-    if not _slot_unlocked("tool", active_tool, String(build.crest)) or not _slot_accepts("tool", active_tool, String(tools[active_tool]), String(build.crest)):
+    if not _active_slot_valid("tool", active_tool, tools, String(build.crest)):
         return "活动战具槽位无效"
     var expected_passives: Array = _active_accessories(families, String(build.crest))
     if build.get("skills") != skills or build.get("tools") != tools or build.get("passives") != expected_passives:
         return "方案兼容装备别名不一致"
     return ""
+
+## Mirrors _normalize_active_slots(): when a crest switch leaves no usable item in
+## a family (e.g. only a dormant copper pot under 司铸), the active slot falls back
+## to 0. That state is what the game saves, so it must also load.
+func _active_slot_valid(family: String, active: int, values: Array, crest: String) -> bool:
+    if _slot_unlocked(family, active, crest) and _slot_accepts(family, active, String(values[active]), crest):
+        return true
+    if active != 0:
+        return false
+    for slot in range(values.size()):
+        if _slot_unlocked(family, slot, crest) and not String(values[slot]).is_empty() and _slot_accepts(family, slot, String(values[slot]), crest):
+            return false
+    return true
 
 func serialize() -> Dictionary:
     var snapshot := state.duplicate(true)
@@ -650,6 +725,7 @@ func restore(snapshot: Dictionary) -> Dictionary:
     var allowed := ["version", "crest", "skill", "tool", "passives", "unlocked_crests", "unlocked_skills", "unlocked_passives", "tool_counts", "skill_levels", "loadouts", "cooldowns"]
     if int(version) >= 2: allowed.append_array(["skills", "tools", "active_skill_slot", "active_tool_slot", "unlocked_tools", "mechanisms"])
     if int(version) >= 3: allowed.append("equipped_families")
+    allowed.append("crafted")
     for field in snapshot:
         if not allowed.has(field): return _fail("未知构筑存档字段")
     var candidate := get_script().new() as RefCounted
@@ -658,6 +734,22 @@ func restore(snapshot: Dictionary) -> Dictionary:
         if not migrated.get(field) is Array: return _fail("构筑列表数据损坏")
     for field in ["tool_counts", "skill_levels", "loadouts"]:
         if not migrated.get(field) is Dictionary: return _fail("构筑计数数据损坏")
+    if migrated.has("crafted"):
+        if not migrated.crafted is Array: return _fail("工匠制作记录损坏")
+        var made := {}
+        for id in migrated.crafted:
+            if not id is String or made.has(id) or not String(catalog.recipes.get(id, {}).get("kind", "")) in ["tool_capacity", "slot_part"]:
+                return _fail("未知或重复的工匠制作记录")
+            made[id] = true
+    else:
+        # E04 legacy: the third travel slot used to open with the crest's mechanism
+        # alone. Saves from before the clasp keep that slot: any repaired mechanism
+        # grants the clasp, and the slot still needs that crest's own mechanism.
+        migrated["crafted"] = []
+        var legacy_mechanisms: Variant = migrated.get("mechanisms", [])
+        var clasp := part_recipe("travel_clasp")
+        if legacy_mechanisms is Array and not legacy_mechanisms.is_empty() and not clasp.is_empty():
+            migrated.crafted.append(clasp)
     if int(version) == 1:
         if not migrated.get("skill") is String or not migrated.get("tool") is String: return _fail("旧构筑引用无效")
         for id in ["shard", "mine"]:
@@ -739,7 +831,7 @@ func restore(snapshot: Dictionary) -> Dictionary:
     if not loadout_reason.is_empty(): return _fail(loadout_reason)
     if migrated.tool_counts.size() != catalog.tools.size() or migrated.skill_levels.size() != catalog.skills.size(): return _fail("构筑计数条目数量无效")
     for id in catalog.tools:
-        var stock_bonus := 1 if id in ["shard", "mine"] and migrated.unlocked_passives.has("needlecase") else 0
+        var stock_bonus := crafted_capacity(id, migrated.crafted) + (1 if id in ["shard", "mine"] and migrated.unlocked_passives.has("needlecase") else 0)
         if not _counter(migrated.tool_counts.get(id), int(catalog.tools[id].capacity) + stock_bonus): return _fail("战具携带量无效")
     for id in catalog.skills:
         if not _counter(migrated.skill_levels.get(id), 2): return _fail("技能强化等级无效")
@@ -797,6 +889,13 @@ func salvage(snapshot: Dictionary, inventory_counts: Dictionary, story_flags: Di
         for id in (saved if saved is Array else []):
             if id is String and catalog[tables[field]].has(id): rebuilt._unlock(field, id)
             elif not dropped.has(str(id)): dropped.append(str(id))
+    # E04 crafts first: the clasp opens the slot that equipment below may need.
+    var crafted: Variant = snapshot.get("crafted", [])
+    for id in (crafted if crafted is Array else []):
+        if id is String and String(catalog.recipes.get(id, {}).get("kind", "")) in ["tool_capacity", "slot_part"] and not rebuilt.state.crafted.has(id):
+            rebuilt.state.crafted.append(id)
+        elif not dropped.has(str(id)):
+            dropped.append(str(id))
     var levels: Variant = snapshot.get("skill_levels", {})
     for id in (levels if levels is Dictionary else {}):
         if catalog.skills.has(id) and _counter(levels[id], 2): rebuilt.state.skill_levels[id] = int(levels[id])
@@ -832,7 +931,7 @@ func salvage(snapshot: Dictionary, inventory_counts: Dictionary, story_flags: Di
     # Fields this version keeps beyond the ones above (validated by restore()).
     var candidate: Dictionary = rebuilt.serialize()
     var handled := ["version", "crest", "skill", "tool", "skills", "tools", "passives", "equipped_families", "active_skill_slot", "active_tool_slot",
-        "tool_counts", "skill_levels", "loadouts", "cooldowns", "unlocked_crests", "unlocked_skills", "unlocked_tools", "unlocked_passives", "mechanisms"]
+        "tool_counts", "skill_levels", "loadouts", "cooldowns", "unlocked_crests", "unlocked_skills", "unlocked_tools", "unlocked_passives", "mechanisms", "crafted"]
     for key in snapshot:
         if rebuilt.state.has(key) and not handled.has(key): candidate[key] = snapshot[key]
     var check := get_script().new() as RefCounted
@@ -890,7 +989,9 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
             var compatibility: Array = spec.get("compatible", []).duplicate()
             slots.append({"id": "%s:%d" % [family, slot], "family": family, "index": slot,
                 "compatible": compatibility, "unlocked": _slot_unlocked(family, slot),
-                "requires_mechanism": String(spec.get("requires_mechanism", "")), "equipped_id": String(equipped[slot])})
+                "requires_mechanism": String(spec.get("requires_mechanism", "")), "equipped_id": String(equipped[slot]),
+                "requires_part": String(spec.get("requires_part", "")), "part_ready": String(spec.get("requires_part", "")).is_empty() or has_part(String(spec.get("requires_part", ""))),
+                "part_recipe": part_recipe(String(spec.get("requires_part", "")))})
         for id in catalog[table]:
             if table == "passives" and String(catalog[table][id].get("family", "")) != family: continue
             var compatible_slots: Array[int] = []
@@ -914,6 +1015,11 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
         entry.id = id
         if entry.kind == "skill_branch":
             entry.current = int(state.skill_levels.get(entry.target, 0)) == int(entry.branch)
+        elif entry.kind in ["tool_capacity", "slot_part"]:
+            entry.crafted = state.get("crafted", []).has(id)
+            if entry.kind == "tool_capacity":
+                entry.capacity_now = tool_capacity(String(entry.target))
+                entry.target_unlocked = state.unlocked_tools.has(String(entry.target))
         result.recipes.append(entry)
     return result
 

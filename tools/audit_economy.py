@@ -24,6 +24,8 @@ BOSS_CURRENCY = 30
 ELITE_FIRST_CURRENCY = 30        # main_level.gd: one-time bonus for each elite's first defeat
 MAP_SHARE_OF_FIRST_CLEAR = 0.5   # a map costs at most half the region's first-clear kill income
 TOOL_REFILL_KILLS = 2            # a full tool refill costs at most two regular kills
+UPGRADED_REFILL_KILLS = 3        # with every capacity upgrade owned, at most three
+ARTISANS = ("npc_threadsmith_apprentice", "npc_rain_smith_liu", "npc_beeswax_vendor")
 INCOME_HEADROOM = 1.5            # one-time income covers one-time sinks 1.5x: no forced grind
 MIN_SINK_SHARE = 0.35            # but sinks still take at least 35% of it: money matters late
 
@@ -52,6 +54,7 @@ def audit() -> tuple[dict, list[str]]:
     narrative = load("world_narrative.json")
     regions = sorted(routes)
     rows = {}
+    challenge_patterns: dict[str, str] = {}
     for cid in regions:
         config = load(f"{cid}.json")
         kills = len(config.get("enemy_spawns", [])) * KILL_CURRENCY
@@ -59,6 +62,10 @@ def audit() -> tuple[dict, list[str]]:
         workshops = sum(int(c.get("amount", 0)) for c in routes[cid].get("collectibles", []) if c.get("kind") == "currency")
         # B04 optional challenges: one-time clear currency. Challenge foes pay no per-kill loot.
         challenges = sum(int((c.get("reward") or {}).get("currency", 0)) for c in config.get("optional_challenges", []) if isinstance(c, dict))
+        for challenge in config.get("optional_challenges", []):
+            item = str(((challenge or {}).get("reward") or {}).get("item_id", ""))
+            if item:
+                challenge_patterns[item] = cid
         rows[cid] = {"first_clear_kills": kills, "boss": BOSS_CURRENCY if config.get("boss") else 0, "workshops": workshops,
                      "optional_challenges": challenges, "elite_first": elites, "quests": 0, "map_price": int(sellers.get(cid, {}).get("price", 0)), "drop": config.get("enemy_drop_item", "")}
     region_by_short = {cid.replace("demo_", ""): cid for cid in regions}
@@ -97,6 +104,38 @@ def audit() -> tuple[dict, list[str]]:
         refill = int(tool.get("resupply", {}).get("currency", 0)) * (int(tool.get("capacity", 0)) + bonus)
         if refill > TOOL_REFILL_KILLS * KILL_CURRENCY:
             errors.append(f"{tool_id}: a full refill costs {refill}, more than {TOOL_REFILL_KILLS} regular kills")
+        # E04: artisan capacity upgrades raise the refill bill, but not past three kills.
+        crafted = sum(int(r.get("amount", 0)) for r in catalog["recipes"].values() if r.get("kind") == "tool_capacity" and r.get("target") == tool_id)
+        upgraded = int(tool.get("resupply", {}).get("currency", 0)) * (int(tool.get("capacity", 0)) + bonus + crafted)
+        if upgraded > UPGRADED_REFILL_KILLS * KILL_CURRENCY:
+            errors.append(f"{tool_id}: a full refill with every capacity upgrade costs {upgraded}, more than {UPGRADED_REFILL_KILLS} regular kills")
+    # E04: artisan crafts use a challenge's evidence as a pattern (never consumed),
+    # a material that drops somewhere, and a named artisan who actually exists.
+    drops = {r["drop"]: cid for cid, r in rows.items()}
+    crafts = 0
+    for recipe_id, recipe in catalog["recipes"].items():
+        if recipe.get("kind") not in ("tool_capacity", "slot_part"):
+            continue
+        crafts += int(recipe.get("currency", 0))
+        if recipe.get("artisan") not in ARTISANS or recipe.get("artisan") not in npcs:
+            errors.append(f"{recipe_id}: artisan {recipe.get('artisan')} is not one of the three artisans")
+        patterns = recipe.get("requires_items", [])
+        if not patterns:
+            errors.append(f"{recipe_id}: an artisan craft needs a pattern from an optional challenge")
+        for item in patterns:
+            if item not in challenge_patterns:
+                errors.append(f"{recipe_id}: pattern {item} is not an optional challenge reward")
+        for material in recipe.get("materials", {}):
+            if material not in drops:
+                errors.append(f"{recipe_id}: material {material} drops in no region")
+        if recipe.get("kind") == "tool_capacity":
+            tool = catalog["tools"].get(recipe.get("target"), {})
+            if set(recipe.get("materials", {})) != set(tool.get("resupply", {}).get("materials", {})):
+                errors.append(f"{recipe_id}: a capacity upgrade uses the tool's own resupply material")
+        if recipe.get("kind") == "slot_part":
+            parts = [s for c in catalog["crests"].values() for slots in c.get("slot_layout", {}).values() for s in slots if s.get("requires_part") == recipe.get("part")]
+            if len(parts) != len(catalog["crests"]) or any(not s.get("requires_mechanism") for s in parts):
+                errors.append(f"{recipe_id}: part {recipe.get('part')} must open one mechanism-gated slot on every crest")
     # Totals.
     income = sum(r["first_clear_kills"] + r["elite_first"] + r["boss"] + r["workshops"] + r["optional_challenges"] + r["quests"] for r in rows.values())
     maps = sum(r["map_price"] for r in rows.values())
@@ -111,13 +150,13 @@ def audit() -> tuple[dict, list[str]]:
         if skill_id not in cheapest_branch:
             errors.append(f"{skill_id}: no 校习 direction can be bought")
     skills = sum(cheapest_branch.values())
-    sinks = maps + skills
+    sinks = maps + skills + crafts
     if income < INCOME_HEADROOM * sinks:
         errors.append(f"one-time income {income} is below {INCOME_HEADROOM}x one-time sinks {sinks}: purchases would need grinding")
     if sinks < MIN_SINK_SHARE * income:
         errors.append(f"one-time sinks {sinks} are under {MIN_SINK_SHARE:.0%} of income {income}: late currency has nothing to buy")
     report = {"regions": rows, "tool_regions": tool_region, "one_time_income": income, "map_sinks": maps,
-              "skill_upgrade_sinks": skills, "one_time_sinks": sinks, "sink_share": round(sinks / income, 3) if income else 0}
+              "skill_upgrade_sinks": skills, "artisan_craft_sinks": crafts, "one_time_sinks": sinks, "sink_share": round(sinks / income, 3) if income else 0}
     return report, errors
 
 
@@ -131,7 +170,7 @@ def main() -> int:
     for error in errors:
         print("FAIL: " + error)
     print(f"ECONOMY_AUDIT {'FAIL' if errors else 'PASS'}: income={report['one_time_income']} sinks={report['one_time_sinks']} "
-          f"share={report['sink_share']} maps={report['map_sinks']} skills={report['skill_upgrade_sinks']} errors={len(errors)}")
+          f"share={report['sink_share']} maps={report['map_sinks']} skills={report['skill_upgrade_sinks']} crafts={report['artisan_craft_sinks']} errors={len(errors)}")
     return 1 if errors else 0
 
 

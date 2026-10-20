@@ -948,6 +948,43 @@ func _skill_practiced(skill_id: String) -> bool:
     if not flags is Dictionary:return true
     return bool(flags.get("skill_practiced_"+skill_id,false))
 
+func _has_patterns(recipe: Dictionary) -> bool:
+    var counts: Variant=level.get("inventory_counts") if level!=null else null
+    if not counts is Dictionary:return true
+    for item in recipe.get("requires_items",[]):
+        if int(counts.get(item,0))<=0:return false
+    return true
+
+## E04: who makes it, what pattern it needs, and what it changes, before any spending.
+func _craft_lines(entry: Dictionary, snapshot: Dictionary) -> Array:
+    var lines: Array=[]
+    if bool(entry.get("crafted",false)):lines.append("\n◆ 已制作；每件只做一次。")
+    if String(entry.get("kind",""))=="tool_capacity":
+        var tool_name:=String(entry.get("target",""))
+        for tool in snapshot.get("tools",[]):
+            if String(tool.get("id",""))==tool_name:tool_name=String(tool.get("name",tool_name))
+        var now:=int(entry.get("capacity_now",0))
+        if bool(entry.get("crafted",false)):lines.append("%s 携带上限：%d（含改制 +%d）" % [tool_name,now,int(entry.get("amount",1))])
+        else:lines.append("\n%s 携带上限：%d → %d" % [tool_name,now,now+int(entry.get("amount",1))])
+        lines.append("改制不附带次数；多出的一份在钟龛按原价补给。")
+        if not bool(entry.get("target_unlocked",true)):lines.append("◇ 先取得%s，工匠才能改制。" % tool_name)
+    elif String(entry.get("kind",""))=="slot_part":
+        lines.append("\n解锁：三枚契印的第 3 个行旅铭饰槽。各契印仍需先修复自己的专属机制。")
+    var counts: Variant=level.get("inventory_counts") if level!=null else {}
+    for item in entry.get("requires_items",[]):
+        var owned: bool=counts is Dictionary and int(counts.get(item,0))>0
+        var item_name:=String(level.call("_item_display_name",String(item))) if level!=null and level.has_method("_item_display_name") else String(item)
+        lines.append("图样「%s」：%s" % [item_name,"已取得，制作时只给工匠看，不会收走" if owned else "未取得"])
+        if not owned:lines.append("◇ "+String(entry.get("unlock_hint","")))
+    var flags: Variant=level.get("story_flags") if level!=null else null
+    var flag:=String(entry.get("requires_flag",""))
+    if not flag.is_empty() and flags is Dictionary and not bool(flags.get(flag,false)):lines.append("◇ "+String(entry.get("requires_flag_hint","")))
+    var artisan_name:=String(entry.get("artisan_name","工匠"))
+    lines.append("制作者：%s" % artisan_name)
+    if level!=null and level.has_method("near_artisan_id") and String(level.call("near_artisan_id"))!=String(entry.get("artisan","")):
+        lines.append("◇ 要到%s面前才能制作。" % artisan_name)
+    return lines
+
 ## C04: compare one 校习 direction with the untrained skill and the other direction.
 func _skill_branch_lines(skill: Dictionary, recipe: Dictionary) -> Array:
     var lines: Array=[]
@@ -1216,7 +1253,7 @@ func refresh_build() -> void:
         build_selection=""
     for tab in build_tabs:tab.visible=not at_artisan or String(tab.get_meta("build_category",""))=="强化"
     if at_artisan:
-        build_summary.text="工匠 · 碎钱 %d · 此处只做技能校习；装备调整请回钟龛" % int(level.currency_count)
+        build_summary.text="工匠 · 碎钱 %d · 此处校习技能、改制战具；装备调整请回钟龛" % int(level.currency_count)
     else:
         build_summary.text="碎钱 %d · 饰品容量 %d / %d · %s" % [int(level.currency_count),int(snapshot.get("slots_used",0)),int(snapshot.get("slots_total",0)),_all_family_count_summary(snapshot)]
     var family_id:=_build_family_for_page()
@@ -1250,7 +1287,16 @@ func refresh_build() -> void:
         "技能":entries=_family_options(snapshot,"thread_skill");action="equip_family_slot"
         "战具":entries=_family_options(snapshot,"tool");action="equip_family_slot"
         "铭饰":entries=_family_options(snapshot,build_family);action="equip_family_slot"
-        "强化":entries=snapshot.get("recipes",[]);action="transact"
+        "强化":
+            entries=snapshot.get("recipes",[])
+            action="transact"
+            # E04: beside an artisan, that artisan's own 改制 come first.
+            var here:=String(level.call("near_artisan_id")) if at_artisan and level.has_method("near_artisan_id") else ""
+            if not here.is_empty():
+                var own: Array=[]
+                var rest: Array=[]
+                for recipe in entries:(own if String(recipe.get("artisan",""))==here else rest).append(recipe)
+                entries=own+rest
         "构筑":
             for i in 3:
                 var id:="巡礼方案 %d" % (i+1)
@@ -1275,6 +1321,11 @@ func refresh_build() -> void:
         if String(entry.get("kind",""))=="skill_branch":
             if bool(entry.get("current",false)):text="◆ "+text+" · 当前方向"
             elif not _skill_practiced(String(entry.get("target",""))):text+=" · 需先练熟"
+        elif String(entry.get("kind","")) in ["tool_capacity","slot_part"]:
+            if bool(entry.get("crafted",false)):text="◆ "+text+" · 已制作"
+            else:
+                text+=" · "+String(entry.get("artisan_name","工匠"))
+                if not _has_patterns(entry):text+=" · 缺图样"
         var slot: Dictionary=slots[build_assign_slot] if has_typed_layout and build_assign_slot<slots.size() else {}
         var compatible: Array=slot.get("compatible",[]) if not slot.is_empty() else []
         var item_family:=String(entry.get("slot_family",family_id))
@@ -1397,6 +1448,11 @@ func _show_build_detail(entry: Dictionary) -> void:
             lines.append("当前装备：%s" % String(current_entry.get("name",equipped_id if not equipped_id.is_empty() else "空")))
             if not bool(target_slot.get("unlocked",false)):
                 lines.append("该槽位尚未解锁，无法装备。")
+                if not bool(target_slot.get("part_ready",true)):
+                    var part_entry: Dictionary={}
+                    for recipe in snapshot.get("recipes",[]):
+                        if String(recipe.get("id",""))==String(target_slot.get("part_recipe","")):part_entry=recipe
+                    lines.append("◇ 需要工匠制作「%s」（%s）。" % [String(part_entry.get("name","承力扣")),String(part_entry.get("artisan_name","工匠"))])
             var compatible: Array=target_slot.get("compatible",[])
             if not compatible.is_empty():lines.append("兼容条目："+"、".join(_family_option_names(snapshot,family_id,compatible)))
             if not compatible.is_empty() and not compatible.has(String(entry.get("id",""))):
@@ -1426,6 +1482,7 @@ func _show_build_detail(entry: Dictionary) -> void:
         for skill in snapshot.get("skills",[]):
             if String(skill.get("id",""))==String(entry.target):
                 lines.append_array(_skill_branch_lines(skill,entry))
+    if String(entry.get("kind","")) in ["tool_capacity","slot_part"]:lines.append_array(_craft_lines(entry,snapshot))
     if not bool(entry.get("unlocked",true)):
         var unlock_hint:=String(entry.get("unlock_hint","继续探索、完成委托或挑战后获得。"))
         if not String(entry.get("unlock_item","")).is_empty():unlock_hint="需要取得「%s」。" % level._item_display_name(String(entry.unlock_item))
