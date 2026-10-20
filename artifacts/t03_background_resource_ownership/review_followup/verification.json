@@ -1,0 +1,46 @@
+{
+  "base_main": "af210f7f",
+  "engine": "Godot 4.6.1 Windows native GL",
+  "results": [
+    {
+      "suite": "texture_request_exit",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 1.45,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 3.92,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "world_startup_budget",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 10.31,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "world_streaming",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 12.44,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    }
+  ],
+  "baseline": "8c123c57 without SceneTree exit hook",
+  "baseline_expected_assertion_failures": 3,
+  "baseline_unjoined_thread_warnings": 2,
+  "ci": "pending on updated PR"
+}
