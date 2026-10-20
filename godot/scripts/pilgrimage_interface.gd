@@ -86,6 +86,7 @@ var remap_target := ""
 var remap_capture_frame := -1
 var remap_buttons: Dictionary={}
 var remap_status: Label
+var reset_bindings_button: Button
 var last_overlay := ""
 var overlay_focus_memory: Dictionary = {}
 var build_refresh_elapsed := 0.0
@@ -99,7 +100,13 @@ var inventory_build_selection := ""
 const BINDING_POLICY = preload("res://scripts/input_binding_policy.gd")
 var binding_recovery_notice := ""
 
-const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动"}
+const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动",
+    # U06: movement and the four permanent abilities are remappable too.
+    "move_left":"左移","move_right":"右移","aim_up":"向上","aim_down":"向下",
+    "hook":"回声钩索","bell_guard":"钟壳格挡","lantern_phase":"灯影相位","crown_resonance":"王冠共鸣"}
+const REMAP_COLUMNS := 4
+## Bindings as the game ships them, recorded once per run before saved ones apply.
+static var default_bindings: Dictionary = {}
 
 func bind(runtime: Node) -> void:
     begin_bind(runtime)
@@ -624,15 +631,17 @@ func _build_settings() -> void:
     _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
     _accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
     _accessibility_toggle("navigation_assist","导航辅助",Vector2(725,339))
-    _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,394),Vector2(928,28),17,GOLD)
+    _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,384),Vector2(740,28),17,GOLD)
+    reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
+    reset_bindings_button.add_theme_font_size_override("font_size",13)
     var action_index:=0
     for action in REMAPPABLE_ACTIONS:
         var action_id:=String(action)
-        var button:=_button(settings,"",Vector2(34+(action_index%3)*311,426+(action_index/3)*33),Vector2(294,29),func():_begin_remap(action_id))
-        button.add_theme_font_size_override("font_size",13)
+        var button:=_button(settings,"",Vector2(34+(action_index%REMAP_COLUMNS)*236,414+(action_index/REMAP_COLUMNS)*27),Vector2(226,26),func():_begin_remap(action_id))
+        button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
         action_index+=1
-    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,532),Vector2(927,35),13,MUTED)
+    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),13,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     for slot_index in 3:
@@ -679,6 +688,8 @@ func get_accessibility(key: String, fallback: Variant=null) -> Variant:
     return accessibility.get(key,fallback)
 
 func _load_accessibility() -> void:
+    # Before any saved preference applies, even when there is no preference file yet.
+    _record_default_bindings()
     var config:=ConfigFile.new()
     if config.load(accessibility_path)!=OK:return
     # A malformed preference must not prevent the settings screen from opening.
@@ -790,6 +801,24 @@ func _apply_accessibility() -> void:
     if level!=null and is_instance_valid(level.player):
         level.player.set_meta("accessibility",accessibility.duplicate())
         applied_player=level.player
+
+func _record_default_bindings() -> void:
+    if not default_bindings.is_empty():return
+    for action in REMAPPABLE_ACTIONS:
+        if not InputMap.has_action(action):continue
+        var events: Array=[]
+        for event in InputMap.action_get_events(action):events.append(event.duplicate())
+        default_bindings[action]=events
+
+## U06: one press puts every remappable action back to the shipped bindings.
+func _reset_bindings() -> void:
+    remap_target=""
+    for action in default_bindings:
+        InputMap.action_erase_events(action)
+        for event in default_bindings[action]:InputMap.action_add_event(action,event.duplicate())
+    _save_accessibility()
+    _refresh_remap_labels()
+    remap_status.text="已恢复全部默认按键；声音、字幕与画面设置不变。"
 
 func _begin_remap(action: String) -> void:
     remap_target=action
