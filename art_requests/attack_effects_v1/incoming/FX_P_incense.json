@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_incense.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_incense.txt",
+  "prompt_sha256": "1e795d12e497ea978841f0751327acfadbed7d6bc7a6531e7e8f4098de08c1cb",
+  "image_sha256": "3ebdefbc29fc43d8b724f6ff4bdd6eeeb48ad1c996ef99d1c3cf4e08233ed62c",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1091258,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/rain_censer_mote.png",
+      "sha256": "60a83b3a71bc090f531d6aaa7fdb3985b01e4979caa7e383015d5ae5c36ec830"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        471,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        81,
+        145,
+        380,
+        336
+      ],
+      "fully_transparent_pixels": 147493
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        471,
+        0,
+        881,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        501,
+        152,
+        833,
+        338
+      ],
+      "fully_transparent_pixels": 114135
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        881,
+        0,
+        1334,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        934,
+        154,
+        1275,
+        342
+      ],
+      "fully_transparent_pixels": 129112
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1334,
+        0,
+        1774,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1395,
+        156,
+        1715,
+        346
+      ],
+      "fully_transparent_pixels": 121278
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        427,
+        430,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        71,
+        506,
+        397,
+        811
+      ],
+      "fully_transparent_pixels": 120614
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        430,
+        427,
+        899,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        512,
+        537,
+        820,
+        792
+      ],
+      "fully_transparent_pixels": 142888
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        899,
+        427,
+        1338,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        980,
+        569,
+        1241,
+        794
+      ],
+      "fully_transparent_pixels": 146548
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1338,
+        427,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1463,
+        597,
+        1662,
+        752
+      ],
+      "fully_transparent_pixels": 169190
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "香灰滴",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

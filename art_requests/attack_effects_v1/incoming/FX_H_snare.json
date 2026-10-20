@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_H_snare.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_H_snare.txt",
+  "prompt_sha256": "3b9e519e78ca6da113318568d72888e953f82c0922f6ecf135c97cd011deca4d",
+  "image_sha256": "aac9111899ed8ad75ef5b86556aaefe35740f8f8a03d0e9fe005a8032f79704f",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1175723,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/hero_style.png",
+      "sha256": "34d1391facab3ceefedf44db26e7b7679526481a5d39dbf998c49fe7e08f3123"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        431,
+        448
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        56,
+        166,
+        387,
+        338
+      ],
+      "fully_transparent_pixels": 161669
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        431,
+        0,
+        885,
+        448
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        475,
+        106,
+        854,
+        358
+      ],
+      "fully_transparent_pixels": 151567
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        885,
+        0,
+        1331,
+        448
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        915,
+        113,
+        1301,
+        370
+      ],
+      "fully_transparent_pixels": 140413
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1331,
+        0,
+        1774,
+        448
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1362,
+        112,
+        1742,
+        372
+      ],
+      "fully_transparent_pixels": 138337
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        448,
+        444,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        30,
+        528,
+        416,
+        777
+      ],
+      "fully_transparent_pixels": 137739
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        444,
+        448,
+        898,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        476,
+        532,
+        861,
+        781
+      ],
+      "fully_transparent_pixels": 140792
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        898,
+        448,
+        1336,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        937,
+        518,
+        1283,
+        766
+      ],
+      "fully_transparent_pixels": 145787
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1336,
+        448,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1385,
+        572,
+        1722,
+        758
+      ],
+      "fully_transparent_pixels": 159419
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "鹽印縛線（技能）",
+    "observed_cels": 8,
+    "note": "已目检指定格数的主角技能/战具效果，无角色。放置锚点、循环、触发时序、淡出与判定大小需运行时验收。"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_H_needle.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_H_needle.txt",
+  "prompt_sha256": "61fe22903c9146a524cd3f48bd10e937defb950d27e6e245a6004ceb3b1ae94d",
+  "image_sha256": "daa08e4da981a2d6a62d471e47a8d8e62847db80c2259bad6390bcdd43f26932",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1340934,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/hero_style.png",
+      "sha256": "34d1391facab3ceefedf44db26e7b7679526481a5d39dbf998c49fe7e08f3123"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        439,
+        428
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        64,
+        180,
+        383,
+        298
+      ],
+      "fully_transparent_pixels": 168530
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        439,
+        0,
+        889,
+        428
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        495,
+        179,
+        832,
+        295
+      ],
+      "fully_transparent_pixels": 171194
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        889,
+        0,
+        1315,
+        428
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        945,
+        145,
+        1270,
+        311
+      ],
+      "fully_transparent_pixels": 160617
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1315,
+        0,
+        1774,
+        428
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1365,
+        161,
+        1700,
+        306
+      ],
+      "fully_transparent_pixels": 173216
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        428,
+        447,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        58,
+        535,
+        400,
+        770
+      ],
+      "fully_transparent_pixels": 161951
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        447,
+        428,
+        889,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        497,
+        519,
+        848,
+        772
+      ],
+      "fully_transparent_pixels": 148175
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        889,
+        428,
+        1339,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        932,
+        564,
+        1279,
+        743
+      ],
+      "fully_transparent_pixels": 169551
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1339,
+        428,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1402,
+        611,
+        1700,
+        704
+      ],
+      "fully_transparent_pixels": 187700
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "回聲針（技能）",
+    "observed_cels": 8,
+    "note": "已目检指定格数的主角技能/战具效果，无角色。放置锚点、循环、触发时序、淡出与判定大小需运行时验收。"
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_shadow.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_shadow.txt",
+  "prompt_sha256": "c90b821f63a730879faf383ae4718b6e1a67f8c02cdfcb2f66c6f15ddcaefa5a",
+  "image_sha256": "80212fc6cde834e59e7e783ef053d060f5eb52343cd84c676797c152233d7cbf",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1105677,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/delayed_shadow.png",
+      "sha256": "04c3e79100ddb071c15fd758aad8532817287890203a3728043d7fe0066f2749"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/silent_pilgrim_commander.png",
+      "sha256": "8f8cb1b0bafc0771724c84126efb725c505d978061f5de1cea51c2ef2a141dfe"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        436,
+        464
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        66,
+        245,
+        387,
+        403
+      ],
+      "fully_transparent_pixels": 169140
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        436,
+        0,
+        876,
+        464
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        487,
+        154,
+        844,
+        410
+      ],
+      "fully_transparent_pixels": 142587
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        876,
+        0,
+        1326,
+        464
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        910,
+        107,
+        1296,
+        421
+      ],
+      "fully_transparent_pixels": 136053
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1326,
+        0,
+        1774,
+        464
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1357,
+        142,
+        1738,
+        420
+      ],
+      "fully_transparent_pixels": 127078
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        464,
+        444,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        40,
+        533,
+        413,
+        828
+      ],
+      "fully_transparent_pixels": 118327
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        444,
+        464,
+        896,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        476,
+        517,
+        859,
+        828
+      ],
+      "fully_transparent_pixels": 116180
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        896,
+        464,
+        1351,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        929,
+        579,
+        1297,
+        814
+      ],
+      "fully_transparent_pixels": 146779
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1351,
+        464,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1406,
+        646,
+        1696,
+        813
+      ],
+      "fully_transparent_pixels": 149533
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "影池",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_H_lure.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_H_lure.txt",
+  "prompt_sha256": "488011debf6566abfaf74f81c336fe249b99acdd62c47391252b5e477364a108",
+  "image_sha256": "40bea37cf706199967d6085f01d7a840a9955f62ae6eefb0d627509e156bba01",
+  "image_size": [
+    2172,
+    724
+  ],
+  "requested_frames": 4,
+  "nominal_grid": [
+    4,
+    1
+  ],
+  "fully_transparent_pixels": 1370438,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/hero_style.png",
+      "sha256": "34d1391facab3ceefedf44db26e7b7679526481a5d39dbf998c49fe7e08f3123"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        508,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        45,
+        373,
+        418,
+        519
+      ],
+      "fully_transparent_pixels": 333252
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        508,
+        0,
+        1074,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        600,
+        233,
+        1028,
+        521
+      ],
+      "fully_transparent_pixels": 350191
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1074,
+        0,
+        1630,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1120,
+        238,
+        1590,
+        539
+      ],
+      "fully_transparent_pixels": 337999
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1630,
+        0,
+        2172,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1671,
+        323,
+        2116,
+        522
+      ],
+      "fully_transparent_pixels": 348996
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "回響誘鈴（戰具）",
+    "observed_cels": 4,
+    "note": "已目检指定格数的主角技能/战具效果，无角色。放置锚点、循环、触发时序、淡出与判定大小需运行时验收。 第 4 格保留完整铃体，只收敛声弧。"
+  }
+}
