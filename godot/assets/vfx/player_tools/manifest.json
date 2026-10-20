@@ -1,0 +1,923 @@
+{
+  "schema": 1,
+  "families": [
+    "shard",
+    "mine",
+    "fog",
+    "lure"
+  ],
+  "cell": 256,
+  "frame_count": 28,
+  "atlas_size": [
+    2048,
+    1024
+  ],
+  "atlas_rgba_sha256": "ba86e01504e44158d769ede2558cfb2fa2e7275eaade2b0ca6cd36bdd35459a0",
+  "registration": "center; ground bottom for mine/lure/landed jar; two explicit jar/blast scales",
+  "sources": {
+    "shard": {
+      "source": "art_requests/attack_effects_v1/incoming/FX_H_shard.png",
+      "sha256": "a355ad01dc35e9dba8771c7fbe59f7f396405981a8f9214c2fe5527998aabfb9",
+      "prompt_sha256": "8691ad1b21eccde1e9769fc5c9a3e7f241af1905532bc68d45136172c8fdbaf8",
+      "metadata_sha256": "a1116f060bfcfd396272167c433835575bb326f3a821c33545e8ea0fc350a451",
+      "opacity": 1.0,
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            436,
+            413
+          ],
+          "source_anchor": [
+            207.5,
+            238.5
+          ],
+          "shared_stage_scale": 0.2229965156794425,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 64,
+          "native_width": 20,
+          "atlas_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            101,
+            111,
+            155,
+            145
+          ]
+        },
+        {
+          "source_rect": [
+            436,
+            0,
+            887,
+            413
+          ],
+          "source_anchor": [
+            647.0,
+            206.0
+          ],
+          "shared_stage_scale": 0.2229965156794425,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 64,
+          "native_width": 20,
+          "atlas_rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            101,
+            105,
+            155,
+            151
+          ]
+        },
+        {
+          "source_rect": [
+            887,
+            0,
+            1322,
+            413
+          ],
+          "source_anchor": [
+            1110.5,
+            370
+          ],
+          "shared_stage_scale": 0.2229965156794425,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 64,
+          "native_width": 20,
+          "atlas_rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            102,
+            151,
+            153,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            1322,
+            0,
+            1774,
+            413
+          ],
+          "source_anchor": [
+            1563.5,
+            370
+          ],
+          "shared_stage_scale": 0.2229965156794425,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 64,
+          "native_width": 20,
+          "atlas_rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            95,
+            145,
+            162,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            413,
+            437,
+            887
+          ],
+          "source_anchor": [
+            235.5,
+            666.5
+          ],
+          "shared_stage_scale": 0.3047619047619048,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 150,
+          "atlas_rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            72,
+            75,
+            184,
+            180
+          ]
+        },
+        {
+          "source_rect": [
+            437,
+            413,
+            904,
+            887
+          ],
+          "source_anchor": [
+            667.0,
+            657.0
+          ],
+          "shared_stage_scale": 0.3047619047619048,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 150,
+          "atlas_rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            62,
+            68,
+            191,
+            190
+          ]
+        },
+        {
+          "source_rect": [
+            904,
+            413,
+            1356,
+            887
+          ],
+          "source_anchor": [
+            1119.5,
+            662.5
+          ],
+          "shared_stage_scale": 0.3047619047619048,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 150,
+          "atlas_rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            70,
+            77,
+            187,
+            180
+          ]
+        },
+        {
+          "source_rect": [
+            1356,
+            413,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            1560.5,
+            656.0
+          ],
+          "shared_stage_scale": 0.3047619047619048,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 150,
+          "atlas_rect": [
+            1792,
+            0,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            81,
+            82,
+            176,
+            175
+          ]
+        }
+      ]
+    },
+    "mine": {
+      "source": "art_requests/attack_effects_v1/incoming/FX_H_mine.png",
+      "sha256": "f3053d3fff622a91ec7edf15c7b533bc94afdff2b6a27891d2abaf996a57f25c",
+      "prompt_sha256": "284a97aecb0352eca2fde87f794a8f17d967a189a0168ecf777ed804d2c76bec",
+      "metadata_sha256": "24875427d5502d14bfdb7753348003f4dc9f5173314d90bb2bf161ba74c3dd50",
+      "opacity": 1.0,
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            460,
+            467
+          ],
+          "source_anchor": [
+            243.5,
+            393
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            66,
+            97,
+            187,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            460,
+            0,
+            904,
+            467
+          ],
+          "source_anchor": [
+            683.5,
+            386
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            66,
+            138,
+            189,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            904,
+            0,
+            1346,
+            467
+          ],
+          "source_anchor": [
+            1126.5,
+            386
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            66,
+            138,
+            189,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            1346,
+            0,
+            1774,
+            467
+          ],
+          "source_anchor": [
+            1567.5,
+            386
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            65,
+            118,
+            191,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            467,
+            476,
+            887
+          ],
+          "source_anchor": [
+            261.0,
+            813
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            1024,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            63,
+            97,
+            194,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            476,
+            467,
+            916,
+            887
+          ],
+          "source_anchor": [
+            689.0,
+            809
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            1280,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            65,
+            138,
+            192,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            916,
+            467,
+            1345,
+            887
+          ],
+          "source_anchor": [
+            1118.5,
+            819
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            1536,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            73,
+            131,
+            181,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            1345,
+            467,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            1569.0,
+            808
+          ],
+          "shared_stage_scale": 0.3422459893048128,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 72,
+          "atlas_rect": [
+            1792,
+            256,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            73,
+            151,
+            180,
+            194
+          ]
+        }
+      ]
+    },
+    "fog": {
+      "source": "art_requests/attack_effects_v1/incoming/FX_H_fog.png",
+      "sha256": "1eabb9954c0fd39c02b1a607da14a04cc07eb8a269177255823bfce0a4042bc1",
+      "prompt_sha256": "85185b5bfbc06b7651ef95b3596d6226d68e88449f86819fde5f641a8f045640",
+      "metadata_sha256": "62bdb4e77e825db73ebef08462c39a1415fbbc1b67900302fd45403d1c2e2d4b",
+      "opacity": 0.45,
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            427,
+            438
+          ],
+          "source_anchor": [
+            235.5,
+            244.0
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            72,
+            85,
+            183,
+            172
+          ]
+        },
+        {
+          "source_rect": [
+            427,
+            0,
+            882,
+            438
+          ],
+          "source_anchor": [
+            656.5,
+            227.5
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            62,
+            74,
+            194,
+            182
+          ]
+        },
+        {
+          "source_rect": [
+            882,
+            0,
+            1333,
+            438
+          ],
+          "source_anchor": [
+            1110.0,
+            237.0
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            62,
+            73,
+            193,
+            183
+          ]
+        },
+        {
+          "source_rect": [
+            1333,
+            0,
+            1774,
+            438
+          ],
+          "source_anchor": [
+            1553.5,
+            239.5
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            65,
+            78,
+            191,
+            178
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            438,
+            449,
+            887
+          ],
+          "source_anchor": [
+            223.5,
+            675.0
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            1024,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            64,
+            77,
+            192,
+            179
+          ]
+        },
+        {
+          "source_rect": [
+            449,
+            438,
+            889,
+            887
+          ],
+          "source_anchor": [
+            668.5,
+            670.0
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            1280,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            65,
+            74,
+            189,
+            182
+          ]
+        },
+        {
+          "source_rect": [
+            889,
+            438,
+            1335,
+            887
+          ],
+          "source_anchor": [
+            1105.5,
+            662.0
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            1536,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            69,
+            84,
+            187,
+            172
+          ]
+        },
+        {
+          "source_rect": [
+            1335,
+            438,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            1560.5,
+            687.0
+          ],
+          "shared_stage_scale": 0.330749354005168,
+          "packed_anchor": [
+            128,
+            128
+          ],
+          "body_width": 128,
+          "native_width": 260,
+          "atlas_rect": [
+            1792,
+            512,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            72,
+            95,
+            184,
+            161
+          ]
+        }
+      ]
+    },
+    "lure": {
+      "source": "art_requests/attack_effects_v1/incoming/FX_H_lure.png",
+      "sha256": "40bea37cf706199967d6085f01d7a840a9955f62ae6eefb0d627509e156bba01",
+      "prompt_sha256": "488011debf6566abfaf74f81c336fe249b99acdd62c47391252b5e477364a108",
+      "metadata_sha256": "71784f84ce0c13b46b35aae7657ca57ba890efcb3554b5414e65d79ededa0e3a",
+      "opacity": 1.0,
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            508,
+            724
+          ],
+          "source_anchor": [
+            231.5,
+            519
+          ],
+          "shared_stage_scale": 0.2723404255319149,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 40,
+          "atlas_rect": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            76,
+            150,
+            180,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            508,
+            0,
+            1074,
+            724
+          ],
+          "source_anchor": [
+            814.0,
+            521
+          ],
+          "shared_stage_scale": 0.2723404255319149,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 40,
+          "atlas_rect": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            69,
+            112,
+            188,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            1074,
+            0,
+            1630,
+            724
+          ],
+          "source_anchor": [
+            1355.0,
+            539
+          ],
+          "shared_stage_scale": 0.2723404255319149,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 40,
+          "atlas_rect": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            62,
+            110,
+            194,
+            194
+          ]
+        },
+        {
+          "source_rect": [
+            1630,
+            0,
+            2172,
+            724
+          ],
+          "source_anchor": [
+            1893.5,
+            522
+          ],
+          "shared_stage_scale": 0.2723404255319149,
+          "packed_anchor": [
+            128,
+            192
+          ],
+          "body_width": 128,
+          "native_width": 40,
+          "atlas_rect": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "packed_alpha_gt_24_bbox": [
+            66,
+            136,
+            189,
+            194
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -236,7 +236,7 @@ func _physics(tree:SceneTree)->void:
     var owner_again:=CharacterBody2D.new();stage.add_child(owner_again)
     var uncapped:=_effect(stage,owner_again,{"kind":"snare_field","skill_effect":true,"duration":1.4},Vector2.ZERO)
     _check(uncapped.is_in_group("player_snare_field") and not uncapped.is_queued_for_deletion(),"decoration saturation does not cull active control")
-    var legacy:=_effect(stage,owner_again,{"id":"mine","kind":"trap","duration":6},Vector2.ZERO)
-    _check(legacy.art_family.is_empty() and legacy.get_child_count()==1 and legacy.get_child(0) is Polygon2D,"unconverted tools retain original procedural visual")
+    var legacy:=_effect(stage,owner_again,{"id":"unknown","kind":"trap","duration":6},Vector2.ZERO)
+    _check(legacy.art_family.is_empty() and legacy.get_child_count()==1 and legacy.get_child(0) is Polygon2D,"unknown payloads retain original procedural fallback")
     stage.queue_free();await tree.process_frame;await tree.process_frame
     _check(tree.get_nodes_in_group(POLICY.CONTACT_GROUP).is_empty(),"scene retirement releases all cosmetic capacity")
