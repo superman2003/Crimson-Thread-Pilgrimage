@@ -1894,6 +1894,9 @@ func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dicti
     var detail := "需要 %d 绯线；当前 %d。" % [cost, energy]
     if remaining > 0.0:
         return {"text":"%.1fs" % remaining, "available":false, "detail":"冷却中。" + detail}
+    if level != null and is_instance_valid(level.player) and level.player.has_method("get_cast_readiness"):
+        var action: Dictionary = level.player.get_cast_readiness(String(item.get("id","")))
+        if not bool(action.available):return {"text":action.text,"available":false,"detail":String(action.detail)+detail}
     if energy < cost:
         return {"text":"缺%d" % (cost - energy), "available":false, "detail":"绯线不足。" + detail}
     return {"text":_short_binding("skill_1") if active else "待切换", "available":true, "detail":detail}
@@ -1938,5 +1941,8 @@ func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, syst
                 tactical_cards[index].tooltip_text=item_name+" · "+String(readiness.detail)
                 tactical_icons[index].modulate=Color.WHITE if readiness.available else Color(0.45,0.45,0.45)
             else:
-                tactical_values[index].text="× %d" % int(item.get("count",0))
-                tactical_icons[index].modulate=Color.WHITE if int(item.get("count",0))>0 else Color(0.45,0.45,0.45)
+                var count := int(item.get("count",0))
+                var readiness: Dictionary = level.get_tool_readiness(id) if level.has_method("get_tool_readiness") else {"available":count>0,"text":"" if count>0 else "已用尽","detail":""}
+                tactical_values[index].text=String(readiness.text) if not String(readiness.text).is_empty() else "× %d" % count
+                tactical_cards[index].tooltip_text=item_name+" · 剩余 %d / %d 次。" % [count,int(item.get("capacity",count))]+String(readiness.detail)
+                tactical_icons[index].modulate=Color.WHITE if bool(readiness.available) else Color(0.45,0.45,0.45)
