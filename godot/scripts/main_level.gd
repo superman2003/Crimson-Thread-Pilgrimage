@@ -1101,6 +1101,9 @@ func _exit_tree() -> void:
 
 
 func _release_region_audio() -> void:
+    # Preserve phrase position while the actual player still owns playback.
+    # The Director exits after this host has already detached every stream.
+    if is_instance_valid(audio_director):audio_director._remember_explore_position()
     # Snapshot weak playback/stream handles before stopping and detaching any
     # owned players. AudioServer can retain a completed Ogg voice until its next
     # mix tick, so the shutdown probe drains these exact objects afterward.
