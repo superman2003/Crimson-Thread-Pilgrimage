@@ -587,6 +587,22 @@ func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
         "active_tool_slot": state.active_tool_slot, "equipped_families": state.equipped_families.duplicate(true)}
     return _ok()
 
+## Read-only quote using the same validator and profile as an actual restore.
+func preview_loadout(name: String, at_bell: bool = true) -> Dictionary:
+    if not state.loadouts.has(name): return _fail("方案尚未保存")
+    var saved: Variant = state.loadouts[name]
+    if not saved is Dictionary: return _fail("方案数据损坏")
+    var reason := _validate_loadout(saved)
+    if not reason.is_empty(): return _fail(reason)
+    var candidate = get_script().new()
+    candidate.state = state.duplicate(true)
+    candidate.cooldowns = cooldowns.duplicate(true)
+    var result: Dictionary = candidate.restore_loadout(name, true)
+    if not bool(result.get("ok", false)): return result
+    return _ok({"can_restore": at_bell, "reason": "" if at_bell else "请在钟龛恢复构筑",
+        "profile": candidate.profile(), "equipped_families": candidate.state.equipped_families.duplicate(true),
+        "currency_cost": 0, "refills_resources": false})
+
 func restore_loadout(name: String, at_bell: bool = true) -> Dictionary:
     if not at_bell: return _fail("请在钟龛恢复构筑")
     if not state.loadouts.has(name): return _fail("方案不存在")

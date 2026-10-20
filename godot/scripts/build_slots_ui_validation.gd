@@ -6,10 +6,13 @@ var checks := 0
 var failures: Array[String]=[]
 
 class MockBuild extends RefCounted:
+    var catalog: Dictionary=preload("res://scripts/build_system.gd").new().catalog
+    var previews: Dictionary={}
     var snapshot: Dictionary={}
     var state: Dictionary={"crest":"crimson","skills":["cleave","needle"],"tools":["shard","mine"],"active_skill_slot":0,"active_tool_slot":0}
     var cooldowns: Dictionary={}
     func get_snapshot() -> Dictionary:return snapshot.duplicate(true)
+    func preview_loadout(name: String,_at_bell: bool=true) -> Dictionary:return previews.get(name,{"can_restore":false,"reason":"方案尚未保存"}).duplicate(true)
 
 class MockNarrative extends RefCounted:
     var encountered_choice:=false
@@ -208,6 +211,30 @@ func _run() -> void:
     ending_button.pressed.emit()
     _check(ui.bag_name.text=="续线结局" and ui.bag_description.text.contains("检查钟龛旁的石刻。"),"Encountered ending readiness shows only known clue guidance")
     _check(not ui.bag_description.text.contains("绝密位置") and not ui.bag_description.text.contains("不可见证词"),"Journal never renders hidden missing proof details")
+    runtime.build_system.state["passives"]=[]
+    var saved_plan:=runtime.build_system.state.duplicate(true)
+    runtime.build_system.state["loadouts"]={"巡礼方案 2":saved_plan}
+    runtime.build_system.snapshot.loadouts=["巡礼方案 2"]
+    runtime.build_system.snapshot.at_workstation=true
+    runtime.build_system.previews["巡礼方案 2"]={"can_restore":true,"reason":"","profile":{"max_hp":6,"max_energy":120}}
+    ui.build_category="构筑"
+    ui.build_selection=""
+    ui.refresh_build()
+    var restore_empty: Button=ui.build_grid.get_child(0)
+    var save_first: Button=ui.build_grid.get_child(1)
+    var restore_second: Button=ui.build_grid.get_child(2)
+    var save_second: Button=ui.build_grid.get_child(3)
+    _check(restore_empty.disabled and restore_empty.tooltip_text.contains("尚未保存"),"Empty plan cannot be restored and explains why")
+    _check(not restore_second.disabled,"Compatible plan keeps its restore action available")
+    save_second.grab_focus()
+    await process_frame
+    _check(ui.build_selection=="巡礼方案 2" and ui.build_heading.text=="巡礼方案 2","Controller focus on a save row previews that same plan")
+    _check(ui.build_detail.text.contains("可以恢复") and ui.build_detail.text.contains("生命上限：8 → 6") and ui.build_detail.text.contains("绯线上限：100 → 120"),"Plan detail shows actual restore conditions and capacity changes")
+    save_first.grab_focus()
+    await process_frame
+    _check(ui.build_detail.text.contains("方案尚未保存") and ui.build_detail.text.contains("不清空冷却"),"Empty plan focus explains resource preservation and permits saving")
+    save_second.pressed.emit()
+    _check(runtime.last_action=="save_loadout" and runtime.last_id=="巡礼方案 2","Save row dispatch keeps the focused plan identity")
     runtime.free()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(SETTINGS_PATH))
     await process_frame
