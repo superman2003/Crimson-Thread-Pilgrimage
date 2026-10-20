@@ -1,5 +1,7 @@
 extends Area2D
 
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
 var locomotion := "ground"
@@ -1666,7 +1668,7 @@ func _show_telegraph(command: Dictionary) -> void:
         Vector2(offset - width * 0.5, -26.0 + height * 0.5)
     ])
     telegraph.color = color
-    telegraph.z_index = 8
+    VISUAL_POLICY.place_danger(telegraph, true)
     add_child(telegraph)
     _add_attack_type_signature(telegraph, command, Vector2(offset, -26.0), width, height, dir)
     telegraph_tween = _combat_tween()
@@ -2264,7 +2266,7 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     line.name = "OriginalAttackWarning" if warning else "OriginalAttackArc"
     line.width = 1.6 if warning else 3.5
     line.default_color = Color(.95,.77,.45,.68) if warning else Color(.86,.33,.25,.85)
-    line.z_index = 8
+    VISUAL_POLICY.place_danger(line, warning)
     var points := PackedVector2Array()
     var reach := float(command.get("hit_width",80))*.62
     if type in ["beam", "pool", "rootline"]:
@@ -2343,7 +2345,7 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
     ])
     warning.width = 3.0 if is_boss else 2.0
     warning.default_color = Color(1.0, 0.72, 0.28, 0.92)
-    warning.z_index = 22
+    VISUAL_POLICY.place_danger(warning, true)
     add_child(warning)
     windup_vfx_tween = _combat_tween()
     windup_vfx_tween.tween_property(warning, "scale", Vector2(1.16, 1.16), float(command.get("windup", 0.25)))
@@ -2378,7 +2380,7 @@ func _spawn_attack_burst_vfx(command: Dictionary) -> void:
         height = float(command.get("hit_height", 72.0))
     burst.width = 5.0 if is_boss else 3.0
     burst.default_color = Color(1.0, 0.34, 0.22, 0.88) if is_boss else Color(1.0, 0.78, 0.34, 0.86)
-    burst.z_index = 24
+    VISUAL_POLICY.place_danger(burst)
     if attack_type == "aoe":
         var points := PackedVector2Array()
         for step in range(26):
@@ -2475,7 +2477,6 @@ func _spawn_hit_spark(hit_direction: int) -> void:
     spark.name = "HitSpark"
     spark.width = 4.0 if is_boss else 3.0
     spark.default_color = Color(1.0, 0.957, 0.902, 0.95)
-    spark.z_index = 40
     var x := 24.0 * -hit_direction
     spark.points = PackedVector2Array([
         Vector2(x, -30.0),
@@ -2483,7 +2484,8 @@ func _spawn_hit_spark(hit_direction: int) -> void:
         Vector2(x + 7.0 * hit_direction, -22.0),
         Vector2(x + 34.0 * hit_direction, -12.0)
     ])
-    add_child(spark)
+    if not VISUAL_POLICY.attach_contact(self, spark):
+        return
     var tween := _combat_tween()
     tween.tween_property(spark, "scale", Vector2(1.55, 1.55), 0.16)
     tween.parallel().tween_property(spark, "modulate:a", 0.0, 0.16)
