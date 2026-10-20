@@ -64,6 +64,7 @@ func run() -> void:
     check(not journal_text.contains("雨铸渠的工匠名字") and not journal_text.contains("雨泵侧室的锤语"),"Live journal withholds unencountered evidence titles and location hints")
     check(ui.bag_description.text.length()>0,"Journal selection supplies readable clue or task phase")
     main._close_overlays()
+    await preload("res://scripts/journal_records_validation.gd").new().run(main,self,check)
     main._toggle_audio_settings()
     await process_frame
     ui._process(0.0)
@@ -72,7 +73,6 @@ func run() -> void:
     ui.dialogue_body.text="长文本无障碍验证。".repeat(60)
     await process_frame
     check(ui.dialogue_body.get_minimum_size().y>ui.dialogue_scroll.size.y,"Oversize dialogue expands within scrollable container")
-    await preload("res://scripts/journal_records_validation.gd").new().run(main,self,check)
     main.free()
     await process_frame
     for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_world_integration_validation.json"+suffix))
