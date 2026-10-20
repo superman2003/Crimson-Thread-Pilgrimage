@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
 const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
@@ -690,6 +691,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    VISUAL_POLICY.clear_secondary(self)
     respawn_reveal_timer = 0.0
     _set_death_visibility(1.0)
     camera_focus.clear_look()
@@ -725,8 +727,8 @@ func _spawn_double_jump_vfx() -> void:
         thread.width = 3.0
         thread.default_color = THREAD_T2_CORE if index == 0 else THREAD_T1_CORE
         thread.z_index = 58
-        add_child(thread)
-        var tween := create_tween()
+        if not VISUAL_POLICY.attach_secondary(self, thread, &"motion", self): continue
+        var tween := thread.create_tween()
         tween.tween_property(thread, "scale", Vector2(1.5, 1.0), 0.22)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.22)
         tween.finished.connect(Callable(thread, "queue_free"))
@@ -1164,8 +1166,9 @@ func _ability_ring(radius: float, color: Color) -> void:
     for step in range(32):
         var angle := TAU * float(step) / 32.0
         ring.add_point(Vector2(cos(angle), sin(angle)) * radius + Vector2(0, -42))
-    add_child(ring)
-    var tween := create_tween()
+    ring.z_index = 60
+    if not VISUAL_POLICY.attach_secondary(self, ring, &"state", self): return
+    var tween := ring.create_tween()
     tween.tween_property(ring, "modulate:a", 0.0, 0.3)
     tween.finished.connect(ring.queue_free)
 
@@ -1718,7 +1721,7 @@ func _spawn_dash_ghost() -> void:
     var ghost_material := CanvasItemMaterial.new()
     ghost_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
     ghost.material = ghost_material
-    parent_node.add_child(ghost)
+    if not VISUAL_POLICY.attach_secondary(parent_node, ghost, &"motion", self): return
     ghost.global_transform = sprite.global_transform
     var tween := ghost.create_tween()
     tween.tween_property(ghost, "self_modulate:a", 0.0, 0.24).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -1741,7 +1744,6 @@ func _spawn_dash_trail() -> void:
     trail.default_color = THREAD_T2_CORE
     trail.z_index = 56
     trail.points = PackedVector2Array([from, to])
-    parent_node.add_child(trail)
     var glow := Line2D.new()
     glow.name = "DashTrailGlow"
     glow.width = 3.0 * 2.6
@@ -1751,7 +1753,7 @@ func _spawn_dash_trail() -> void:
     var glow_material := CanvasItemMaterial.new()
     glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
     glow.material = glow_material
-    parent_node.add_child(glow)
+    if not VISUAL_POLICY.attach_secondary_batch(parent_node, [trail, glow], &"motion", self): return
     var tween := trail.create_tween()
     tween.tween_method(func(t: float) -> void:
         var retracted := PackedVector2Array([from.lerp(to, t), to])
@@ -1909,8 +1911,8 @@ func _spawn_heal_effect() -> void:
         thread.width = 2.0
         thread.default_color = Color(THREAD_T3_CORE.r, THREAD_T3_CORE.g, THREAD_T3_CORE.b, 0.82)
         thread.z_index = 44
-        add_child(thread)
-        var tween := create_tween()
+        if not VISUAL_POLICY.attach_secondary(self, thread, &"state", self): continue
+        var tween := thread.create_tween()
         tween.tween_property(thread, "position:y", -18.0, 0.42).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.42)
         tween.finished.connect(Callable(thread, "queue_free"))
@@ -1928,9 +1930,9 @@ func _add_heal_ring(radius: float, delay: float) -> void:
     ring.width = 3.0
     ring.default_color = THREAD_T3_CORE
     ring.z_index = 45
-    add_child(ring)
+    if not VISUAL_POLICY.attach_secondary(self, ring, &"state", self): return
     ring.scale = Vector2(0.38, 0.38)
-    var tween := create_tween()
+    var tween := ring.create_tween()
     tween.tween_interval(delay)
     tween.tween_property(ring, "scale", Vector2(1.9, 1.9), 0.46).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
     tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.46)
@@ -1975,7 +1977,6 @@ func _spawn_hook_trail_vfx() -> void:
         Vector2(70.0 * facing, -54.0),
         Vector2(145.0 * facing, -38.0)
     ])
-    add_child(trail)
     var hook_tip := Polygon2D.new()
     hook_tip.name = "HookTipVfx"
     hook_tip.polygon = PackedVector2Array([
@@ -1985,8 +1986,8 @@ func _spawn_hook_trail_vfx() -> void:
     ])
     hook_tip.color = Color(0.68, 1.0, 0.86, 0.86)
     hook_tip.z_index = 59
-    add_child(hook_tip)
-    var tween := create_tween()
+    if not VISUAL_POLICY.attach_secondary_batch(self, [trail, hook_tip], &"state", self): return
+    var tween := trail.create_tween()
     tween.tween_property(trail, "modulate:a", 0.0, 0.22)
     tween.parallel().tween_property(hook_tip, "modulate:a", 0.0, 0.22)
     tween.finished.connect(Callable(trail, "queue_free"))
@@ -2021,7 +2022,6 @@ func _spawn_skill_slash_vfx() -> void:
             Vector2(84.0 * facing, -24.0),
             Vector2(112.0 * facing, 8.0)
         ])
-    add_child(burst)
     var ring := Line2D.new()
     ring.name = "SkillBurstRingVfx"
     var points := PackedVector2Array()
@@ -2033,8 +2033,8 @@ func _spawn_skill_slash_vfx() -> void:
     ring.width = 3.0
     ring.default_color = Color(0.46, 1.0, 0.90, 0.70)
     ring.z_index = 60
-    add_child(ring)
-    var tween := create_tween()
+    if not VISUAL_POLICY.attach_secondary_batch(self, [burst, ring], &"state", self): return
+    var tween := burst.create_tween()
     tween.tween_property(burst, "scale", Vector2(1.22, 1.22), 0.22)
     tween.parallel().tween_property(burst, "modulate:a", 0.0, 0.22)
     tween.parallel().tween_property(ring, "scale", Vector2(1.8, 1.8), 0.22)
@@ -2059,8 +2059,8 @@ func _spawn_land_vfx() -> void:
     dust.width = 3.0
     dust.default_color = Color(0.64, 0.92, 0.56, 0.72)
     dust.z_index = 34
-    add_child(dust)
-    var tween := create_tween()
+    if not VISUAL_POLICY.attach_secondary(self, dust, &"motion", self): return
+    var tween := dust.create_tween()
     tween.tween_property(dust, "scale", Vector2(1.7, 1.0), 0.18)
     tween.parallel().tween_property(dust, "modulate:a", 0.0, 0.18)
     tween.finished.connect(Callable(dust, "queue_free"))
@@ -2178,7 +2178,7 @@ func _spawn_thread_snap_vfx(source_position: Vector2) -> void:
         thread.default_color = THREAD_T2_CORE
         thread.z_index = 80
         thread.position = origin
-        parent_node.add_child(thread)
+        if not VISUAL_POLICY.attach_secondary(parent_node, thread, &"state", self): continue
         var tween := thread.create_tween()
         tween.tween_property(thread, "position", origin + tip * 0.8, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.25)
@@ -2534,3 +2534,7 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
     joy.axis = axis
     joy.axis_value = axis_value
     InputMap.action_add_event(action_name, joy)
+
+
+func _exit_tree() -> void:
+    VISUAL_POLICY.clear_secondary(self)

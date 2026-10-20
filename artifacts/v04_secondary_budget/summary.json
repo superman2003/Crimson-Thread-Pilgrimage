@@ -1,0 +1,72 @@
+{
+  "base": "17f192b44bbb0647b45ffe42be823d9473d65775",
+  "before": "Original production factories plus new unused policy/prototype fixture: 10 expected failures; initial prototype has 23 checks, not final 50.",
+  "final_checks": {
+    "secondary": 50,
+    "combat_visual": 44,
+    "player_melee": 112,
+    "motion_continuity": 1192
+  },
+  "final_matrix_suites": 10,
+  "source_files": 275,
+  "source_changes": [],
+  "scope": "Cosmetic saturation/lifetime and real GL danger overlap only; does not certify natural combat, human comfort, long-session frame times or whole V04.",
+  "development_failure": "A test-local untyped instance ID failed compilation; corrected to int. Logged separately, not counted as production regression.",
+  "screenshots": {
+    "fixture": "Scripted World, paused tweens and enemies, dummy audio; artificially shifted player ghosts.",
+    "secondary_units": {
+      "total": 24,
+      "motion": 12,
+      "state": 4,
+      "environment": 8
+    },
+    "engine_errors": 0,
+    "zero_ref_exit_instances": 1,
+    "note": "Screenshot baseline still uses the pre-170 resource loading path; not T03 acceptance.",
+    "files": {
+      "active_over_secondary.webp": "9e75b0b2b815a8cfc35b765461efd7a1ad331d8f3f7d21de5026970e2455e134",
+      "warning_over_secondary.webp": "24a681203dd7c918b608fbeb4f76a01682dcdf31a367a9ba40a9f8b9e8425485"
+    }
+  },
+  "evidence_sha256": {
+    "development_compile_error.log.gz": "98dafb5b5052131a36550ccdb4b8a2c188acb0c8200712f11f998b1a0c2ee040",
+    "import-1.log.gz": "94bfe1c7cc16d290f9db6e76a043f0836e3f533555986337ea59b9056183c1dc",
+    "import-2.log.gz": "db0d8321612ef64563a7c78dc3fa8883a2313dc4814593bf7cdb491696ed1ca6",
+    "main_integration/combat_visual_budget.log.gz": "31f85c6e63cf02d4d06e7f3dd83bc49ecb54aa2c98ce6336e2bc28bf856059f6",
+    "main_integration/save_product.log.gz": "fe17decd80efc85ac968377e0c3f8cd43d0274104c18362a92d9ec2c5ef88206",
+    "main_integration/scene_history.log.gz": "da0fb673a337ce272835de6515ae5368fb306cb95d28e960d973044b07385d04",
+    "main_integration/sources_after.json": "48b08bd61034465aaf1b8ec1e884b286bfe35d1b0c3c8510369e8ce4c3d10491",
+    "main_integration/verification.json": "467de9d2935bd77358aa4c93bae01c53a110354c125356d416e4e2cb75adec2c",
+    "v04_secondary_before/combat_visual_budget.log.gz": "4d87cd27aff9baec5773b569e56f35b45aad1867f9b6c5e74e34325f7791d4f6",
+    "v04_secondary_before/verification.json": "125aeff7f5c9bfa0d94e345a27848c3dfa25bee026aefd4bcf945ba7d6f70148",
+    "v04_secondary_final_matrix/ability_movement.log.gz": "a25454a621d126e349289ac520146079b95a783e6f9dbd3393e2141654f36f31",
+    "v04_secondary_final_matrix/combat_visual_budget.log.gz": "31f85c6e63cf02d4d06e7f3dd83bc49ecb54aa2c98ce6336e2bc28bf856059f6",
+    "v04_secondary_final_matrix/player_melee_feedback.log.gz": "4e6d8b6f1e18b4dcd52afc1de3c13aff00dfe712ca9bf6ddcfc00c7fa7435fc0",
+    "v04_secondary_final_matrix/player_motion_continuity.log.gz": "5a74b10daa3b32c640967f19ac7688c6d8f9c5a55aeecb5409f9508d34eac908",
+    "v04_secondary_final_matrix/player_state_cleanup.log.gz": "a66c05a96c36a17fef1bd70dac48256b4d2b8b5c88c0f5c184df9030a3d57979",
+    "v04_secondary_final_matrix/save_product.log.gz": "fe17decd80efc85ac968377e0c3f8cd43d0274104c18362a92d9ec2c5ef88206",
+    "v04_secondary_final_matrix/seal_combat.log.gz": "6090289e76497a1e20575fb2475587e2a846ee54f869e0ac3e7546c6eca551a6",
+    "v04_secondary_final_matrix/seal_presentation.log.gz": "18d77c2bce0fe4751fd6b167f0529a813197827e10c5905805fd084a1eb01127",
+    "v04_secondary_final_matrix/sources_before.json": "35466294700b0bbc665f4fe24852c82854aa6687a396cb8fc7f6c55bb2463ec9",
+    "v04_secondary_final_matrix/verification.json": "496b2dc8981f1bc792b5f4838d48e2057a6d794aa8296fa62e41d4a28630c796",
+    "v04_secondary_final_matrix/world_death_cache_flush.log.gz": "bc2e34d0abb81656cdc294650099d6664398cda8f87623e2d22618f23d3099dc",
+    "v04_secondary_final_matrix/world_resume_regression.log.gz": "9d9fbbc976b31e55137820333570a90cd81beaa5684ec71ab3b70e6ad0348eed"
+  },
+  "main_integration": {
+    "base": "bb81601a6563bd57442e0deb076b3945a990b9b1",
+    "local_test_revision": "b25ca37ae9e5a277e8629874f04abd5a5742b080",
+    "suites": [
+      "combat_visual_budget",
+      "scene_history",
+      "save_product"
+    ],
+    "checks": {
+      "secondary": 50,
+      "combat_visual": 44,
+      "scene_history": 183,
+      "save_product": 45
+    },
+    "source_scope": "Post-run snapshot plus clean canonical Git diff for scripts/data/project. Not a before/after byte-freeze claim.",
+    "strict_import_passes": 2
+  }
+}

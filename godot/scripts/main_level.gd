@@ -8,6 +8,7 @@ const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
 const CAVE_LIFT_SCRIPT := preload("res://scripts/cave_lift.gd")
 const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 var ui_shell: Control
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 var flat_map_art: Node2D
 var chapter_terrain: Node2D
@@ -5125,7 +5126,7 @@ func _play_save_point_activation(area: Area2D) -> void:
             var angle := TAU * float(step) / 32.0
             points.append(Vector2(cos(angle), sin(angle)) * (24.0 + float(index) * 8.0))
         echo.points = points
-        add_child(echo)
+        if not VISUAL_POLICY.attach_secondary(self, echo, &"environment", self): continue
         var tween := _region_tween()
         tween.bind_node(echo)
         tween.tween_interval(float(index) * 0.07)
@@ -6993,7 +6994,7 @@ func _spawn_route_open_effect(position_value: Vector2) -> void:
         ])
         ring.position = position_value
         ring.z_index = 12
-        add_child(ring)
+        if not VISUAL_POLICY.attach_secondary(self, ring, &"environment", self): continue
         var tween := _region_tween()
         tween.tween_interval(float(index) * 0.08)
         tween.tween_property(ring, "scale", Vector2(1.65, 1.65), 0.42)
@@ -7127,7 +7128,6 @@ func _spawn_pickup_effect(world_position: Vector2) -> void:
     ring.width = 3.0
     ring.default_color = Color(1.0, 0.78, 0.25, 0.95)
     ring.z_index = 90
-    add_child(ring)
 
     var ray := Line2D.new()
     ray.name = "PickupSparkVfx"
@@ -7141,7 +7141,7 @@ func _spawn_pickup_effect(world_position: Vector2) -> void:
     ray.width = 2.0
     ray.default_color = Color(0.64, 1.0, 0.76, 0.86)
     ray.z_index = 91
-    add_child(ray)
+    if not VISUAL_POLICY.attach_secondary_batch(self, [ring, ray], &"environment", self): return
 
     var tween := _region_tween()
     tween.tween_property(ring, "scale", Vector2(2.0, 2.0), 0.28)

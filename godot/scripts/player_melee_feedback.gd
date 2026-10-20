@@ -66,7 +66,8 @@ static func spawn_swing(owner_node: Node2D, sprite: AnimatedSprite2D, active_sec
     trace.sample_blade = blade_points
     trace.z_as_relative = false
     trace.z_index = VISUAL_POLICY.BLADE_Z
-    owner_node.add_child(trace)
+    if not VISUAL_POLICY.attach_action_trace(owner_node, trace):
+        return null
     return trace
 
 
