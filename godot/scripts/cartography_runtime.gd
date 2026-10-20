@@ -217,7 +217,7 @@ static func render(level: Node) -> void:
         notice.add_theme_color_override("font_color",SURFACE.INK)
         notice.add_theme_font_size_override("font_size",21)
         host.add_child(notice)
-        level.map_text.text="M / Esc 返回 · Tab 世界总览"
+        level.map_text.text="%s / %s 返回 · %s 世界总览" % [level.ui_shell._short_binding("map"),level.ui_shell._short_binding("close_overlay"),level.ui_shell._short_binding("inventory")]
         return
     var rooms: Array=[]
     var ids := {}
@@ -315,5 +315,5 @@ static func render(level: Node) -> void:
         dot.text="◆"
         dot.add_theme_color_override("font_color",SURFACE.ACCENT)
         host.add_child(dot)
-    level.map_text.text=("◆ 位置" if positioned else "无罗盘·看地标")+"    ◎ 钟龛    ◇ 旧路    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 世界地图    M / Esc 返回"
+    level.map_text.text=("◆ 位置" if positioned else "无罗盘·看地标")+"    ◎ 钟龛    ◇ 旧路    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    %s 世界地图    %s / %s 返回" % [level.ui_shell._short_binding("inventory"),level.ui_shell._short_binding("map"),level.ui_shell._short_binding("close_overlay")]
     level.map_text.tooltip_text="已补绘 %d 室，待补绘 %d 笔。安坐钟龛可补绘途中笔记；大厅与长井按走过的段落补绘；悬停查看房间名称。" % [JOURNAL.charted_room_count(level.story_flags,id),journal.pending.size()]

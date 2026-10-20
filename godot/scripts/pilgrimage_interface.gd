@@ -103,7 +103,8 @@ var binding_recovery_notice := ""
 const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动",
     # U06: movement and the four permanent abilities are remappable too.
     "move_left":"左移","move_right":"右移","aim_up":"向上","aim_down":"向下",
-    "hook":"回声钩索","bell_guard":"钟壳格挡","lantern_phase":"灯影相位","crown_resonance":"王冠共鸣"}
+    "hook":"回声钩索","bell_guard":"钟壳格挡","lantern_phase":"灯影相位","crown_resonance":"王冠共鸣",
+    "inventory":"行囊","map":"地图","audio_settings":"设置"}
 const REMAP_COLUMNS := 4
 ## Bindings as the game ships them, recorded once per run before saved ones apply.
 static var default_bindings: Dictionary = {}
@@ -1577,6 +1578,7 @@ func _refresh_save_slots() -> void:
 
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
+    _refresh_quick_action_bindings()
     if dialogue.visible:
         dialogue_hint.text=_dialogue_binding_hint()
         dialogue_hint.tooltip_text=dialogue_hint.text
@@ -1698,6 +1700,15 @@ func _binding_name(event: InputEvent) -> String:
 
 func _short_binding(action: String) -> String:
     return PROMPT_BINDINGS.action_label(action)
+
+func _refresh_quick_action_bindings() -> void:
+    var actions := ["", "inventory", "map", "audio_settings"]
+    var titles := ["构筑", "行囊", "地图", "设置"]
+    for index in mini(quick_actions.size(), actions.size()):
+        var hint := ("手柄 L3" if PROMPT_BINDINGS.controller_device >= 0 else "B") if index == 0 else _short_binding(actions[index])
+        quick_actions[index].text = hint + " " + titles[index]
+        quick_actions[index].text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+        quick_actions[index].tooltip_text = quick_actions[index].text
 
 func _dialogue_binding_hint() -> String:
     return "%s 继续\n%s 离开" % [_short_binding("interact"), _short_binding("close_overlay")]

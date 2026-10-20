@@ -1,7 +1,7 @@
 extends RefCounted
 ## Shared capture/load policy. Builds a complete candidate before touching InputMap.
-const RESERVED_KEYS := [KEY_ESCAPE, KEY_B, KEY_TAB, KEY_I, KEY_M, KEY_V, KEY_F9]
-const RESERVED_BUTTONS := [JOY_BUTTON_START, JOY_BUTTON_LEFT_STICK, JOY_BUTTON_RIGHT_STICK]
+const RESERVED_KEYS := [KEY_ESCAPE, KEY_B, KEY_F9]
+const RESERVED_BUTTONS := [JOY_BUTTON_LEFT_STICK]
 
 static func normalize(value: Variant) -> InputEvent:
     if not value is InputEvent:return null
