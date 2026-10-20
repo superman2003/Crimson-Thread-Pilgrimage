@@ -28,6 +28,7 @@ var heading := Vector2.RIGHT
 var tint := Color(0.84,0.33,0.25)
 var skin := "thorn"
 var owner_actor: Node2D
+const BEAM_ART := preload("res://scripts/beam_art.gd")
 const TERRAIN_ART := preload("res://scripts/terrain_attack_art.gd")
 const GROUND_ART := preload("res://scripts/ground_hazard_art.gd")
 const PROJECTILE_ART := preload("res://scripts/projectile_art.gd")
@@ -183,6 +184,12 @@ func _draw() -> void:
         return
     var active_color := tint
     active_color.a=clampf((duration-age)/.18,0,1)
+    if effect_kind == "beam":
+        if BEAM_ART.draw_frame(self,BEAM_ART.family_for(skin,owner_actor),length,radius,heading,age-arm_delay):
+            if length > 0:
+                # Keep the exact channel visible for the entire damaging period.
+                _draw_beam_channel_outline(_beam_channel_corners(),Color(.99,.91,.71,.9),1.5)
+            return
     if effect_kind == "projectile":
         var axis := velocity.normalized() if velocity.length() > 1.0 else heading
         if PROJECTILE_ART.draw_frame(self, PROJECTILE_ART.family_for(skin, owner_actor), PROJECTILE_ART.flight_frame(age - arm_delay), radius, axis, active_color.a, reflected):
