@@ -2,10 +2,10 @@ extends Node2D
 ## Original needle/thread/copper action cues. Visual only: never mutates combat stats.
 ## Add as player child. Effects are world anchored and expire even if the player moves.
 const RETIREMENT := preload("res://scripts/audio_retirement.gd")
-const AUDIO := preload("res://scripts/audio_director.gd")
 const IDS := ["crimson", "bell", "salt", "cleave", "needle", "snare", "ward", "shockwave", "crosscut", "shard", "mine", "fog", "lure", "reflux", "spur", "shell", "stride", "mender", "needlecase"]
 const MAX_EFFECTS := 8
 const MAX_VOICES := 4
+const AUDIO := preload("res://scripts/audio_director.gd")
 var muted := false
 var reduced_flash := false
 var _effects: Array[Node2D] = []
