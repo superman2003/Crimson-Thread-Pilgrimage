@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-20",
+  "base": "17f192b44bbb0647b45ffe42be823d9473d65775",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "combat_visual_budget",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 3.59,
+      "markers": [
+        "SECONDARY_VISUAL_BUDGET checks=50 failures=0",
+        "COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "player_melee_feedback",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.88,
+      "markers": [
+        "PLAYER_MELEE_FEEDBACK_PASS checks=112 hardware=simulated physical_feel=unverified"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "seal_combat",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 26.09,
+      "markers": [
+        "PLAYER_SKILL_ART_VALIDATION checks=254 failures=0 families=3 frames=24",
+        "SEAL_COMBAT_VALIDATION PASS checks=138 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "seal_presentation",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.34,
+      "markers": [
+        "SEAL_PRESENTATION_VALIDATION: 175 checks, 0 failures"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "player_state_cleanup",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.53,
+      "markers": [
+        "PLAYER_STATE_CLEANUP_PASS checks=9 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "player_motion_continuity",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.94,
+      "markers": [
+        "PLAYER_MOTION_CONTINUITY checks=1192 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ability_movement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 8.27,
+      "markers": [
+        "PASS: reachable anchor is available again",
+        "PASS: freed anchor cancels without retaining an invalid reference",
+        "PASS: respawn resets traversal impulses and air jump",
+        "ABILITY_MOVEMENT_VALIDATION failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_resume_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.23,
+      "markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_death_cache_flush",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.88,
+      "markers": [
+        "WORLD_DEATH_CACHE_FLUSH checks=27 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.69,
+      "markers": [
+        "SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

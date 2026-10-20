@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'godot/data/world_narrative.json'
+      - 'godot/data/scene_history.json'
+      - 'godot/scripts/scene_history*.gd'
+      - 'tools/validate_scene_history.py'
       - 'godot/scripts/world_narrative.gd'
       - 'godot/scripts/enemy_journal.gd'
       - 'godot/data/enemy_journal.json'
@@ -70,6 +73,13 @@ jobs:
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite ui_world_integration --suite ui_redesign --suite inventory_map \
             --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/journal"
+      - name: Validate observed environment history through the real World
+        env:
+          SCENE_HISTORY_CAPTURE_DIR: ${{ runner.temp }}/narrative-return-journey-logs/scene-history/captures
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl --suite scene_history \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/scene-history"
       - name: Preserve regression logs
         if: always()
         uses: actions/upload-artifact@v4

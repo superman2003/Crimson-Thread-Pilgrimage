@@ -32,6 +32,7 @@ func _run() -> void:
     if not real_gl:
         quit(1)
         return
+    failures += await preload("res://scripts/secondary_visual_budget_validation.gd").new().run(self)
     _screen_budget()
     await _contact_budget()
     await _overlap_pixels()
@@ -160,6 +161,18 @@ func _overlap_pixels() -> void:
     await process_frame
     await RenderingServer.frame_post_draw
     var baseline := viewport.get_texture().get_image()
+    # Fill both high-priority cosmetic families with nested opaque shapes.
+    # Their deliberately extreme parent/child Z must still stay below dangers.
+    for category in [&"motion", &"state"]:
+        for index in 6:
+            var bundle := Node2D.new()
+            bundle.z_index = 3000
+            var fill := Polygon2D.new()
+            fill.z_index = 2000
+            fill.polygon = PackedVector2Array([Vector2.ZERO,Vector2(480,0),Vector2(480,300),Vector2(0,300)])
+            fill.color = Color(0.15,0.65,0.40)
+            bundle.add_child(fill)
+            _check(POLICY.attach_secondary(arena,bundle,category), "Nested cosmetic saturation admits only its protected budget")
     var cover := Polygon2D.new()
     cover.polygon = PackedVector2Array([Vector2.ZERO, Vector2(480, 0), Vector2(480, 300), Vector2(0, 300)])
     cover.color = Color(0.12, 0.22, 0.32)

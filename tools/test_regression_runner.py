@@ -95,7 +95,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 128)
+        self.assertEqual(len(all_suites), 129)
         self.assertIn("combat_visual_budget", DEFAULT_SUITES)
         self.assertIn("skill_branches", DEFAULT_SUITES)
         self.assertIn("artisan_crafts", DEFAULT_SUITES)
