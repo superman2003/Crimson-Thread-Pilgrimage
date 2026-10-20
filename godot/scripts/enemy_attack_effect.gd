@@ -28,6 +28,7 @@ var heading := Vector2.RIGHT
 var tint := Color(0.84,0.33,0.25)
 var skin := "thorn"
 var owner_actor: Node2D
+const TERRAIN_ART := preload("res://scripts/terrain_attack_art.gd")
 const GROUND_ART := preload("res://scripts/ground_hazard_art.gd")
 const PROJECTILE_ART := preload("res://scripts/projectile_art.gd")
 
@@ -59,6 +60,8 @@ func _physics_process(delta: float) -> void:
         # A skipped entire warning/lifetime or owner cancellation emits no fade.
         if effect_kind == "pool" and duration > arm_delay and age - delta >= arm_delay:
             GROUND_ART.spawn_fade(get_parent(), global_position, GROUND_ART.family_for(skin, owner_actor), radius, tint)
+        if effect_kind in ["wave","eruption"] and duration > arm_delay and age - delta >= arm_delay:
+            TERRAIN_ART.spawn_fade(get_parent(), global_position, TERRAIN_ART.family_for(effect_kind,skin,owner_actor), radius, velocity.x if effect_kind == "wave" else heading.x, tint)
         cancel()
         return
     if age < arm_delay:
@@ -143,6 +146,15 @@ func _hits_player(center: Vector2) -> bool:
     return center.distance_to(global_position)<radius+23
 
 func _draw() -> void:
+    if effect_kind in ["wave","eruption"]:
+        var family := TERRAIN_ART.family_for(effect_kind,skin,owner_actor)
+        var frame := TERRAIN_ART.frame_for(effect_kind,age,arm_delay)
+        var direction := velocity.x if effect_kind == "wave" else heading.x
+        if age < arm_delay:
+            TERRAIN_ART.draw_frame(self,family,frame,radius,direction,Color(tint,.55))
+        elif TERRAIN_ART.draw_frame(self,family,frame,radius,direction,Color(tint,1)):
+            _draw_terrain_boundary()
+            return
     if effect_kind == "pool":
         var family := GROUND_ART.family_for(skin, owner_actor)
         var frame := GROUND_ART.frame_for(age, arm_delay)
@@ -267,3 +279,20 @@ func _finish_impact(point: Vector2) -> void:
         var axis := velocity.normalized() if velocity.length() > 1.0 else heading
         PROJECTILE_ART.spawn_impact(host, point, PROJECTILE_ART.family_for(skin, owner_actor), radius, axis, reflected)
     cancel()
+
+# The hand-painted silhouette can be smaller than collision during rise/sway.
+# Retain an explicit, stable cue until the original damaging object expires.
+func _draw_terrain_boundary() -> void:
+    var dark := Color(.07,.05,.04,.9)
+    var pale := Color(.98,.76,.4,.9)
+    if effect_kind == "wave":
+        draw_arc(Vector2.ZERO,radius,0,TAU,28,dark,3,true)
+        draw_arc(Vector2.ZERO,radius,0,TAU,28,pale,1,true)
+    else:
+        var corners := [Vector2(-radius,-92),Vector2(radius,-92),Vector2(radius,8),Vector2(-radius,8)]
+        for i in range(4):
+            var point: Vector2 = corners[i]
+            var inward := Vector2(1 if i in [0,3] else -1,1 if i < 2 else -1)
+            var marker := PackedVector2Array([point+Vector2(inward.x*6,0),point,point+Vector2(0,inward.y*7)])
+            draw_polyline(marker,dark,3,true)
+            draw_polyline(marker,pale,1,true)

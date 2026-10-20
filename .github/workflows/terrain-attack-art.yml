@@ -1,0 +1,71 @@
+name: Authored terrain attack art
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/terrain-attack-art.yml'
+      - 'godot/assets/vfx/terrain_attacks/**'
+      - 'godot/scripts/terrain_attack_art*.gd'
+      - 'godot/scripts/enemy_attack_effect.gd'
+      - 'godot/scripts/enemy_effect_lifetime_validation.gd'
+      - 'tools/build_terrain_attack_art.py'
+      - 'art_requests/attack_effects_v1/incoming/FX_W_*'
+      - 'art_requests/attack_effects_v1/incoming/FX_R_*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: terrain-attack-art-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact PR head and hydrate runtime and terrain-attack source pixels
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**,art_requests/attack_effects_v1/incoming/FX_W_*.png,art_requests/attack_effects_v1/incoming/FX_R_*.png'
+      - name: Validate reproducible runtime pixels against all five delivered sources
+        run: |
+          python3 -m pip install 'Pillow>=10,<13'
+          python3 tools/build_terrain_attack_art.py --check
+          npm test
+          npm run test:campaign
+      - name: Install Godot and software GL
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Import resources with strict diagnostics
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/terrain-attack-logs/import"
+      - name: Validate authored rendering, collision, timing, retirement and startup budgets
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite enemy_effect_lifetime --suite combat_visual_budget \
+            --suite enemy_visibility --suite enemy_lifecycle_regression \
+            --suite combat --suite seal_combat --suite player_melee_feedback \
+            --suite world_enemy_residency --suite world_startup_budget \
+            --suite character_art_prewarm --suite enemy_ai_behavior \
+            --suite greenhouse_experience --suite obsidian_experience \
+            --suite optional_challenges --log-dir "$RUNNER_TEMP/terrain-attack-logs"
+      - name: Preserve validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terrain-attack-art-logs
+          path: ${{ runner.temp }}/terrain-attack-logs
+          if-no-files-found: ignore

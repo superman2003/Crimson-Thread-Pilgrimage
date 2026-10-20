@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "d6ef17f57ad37c176ef140eadecdc0d53c41e27a",
+  "base_branch": "codex/v04-ground-hazard-runtime",
+  "scope": "V04 three travelling wave and two eruption families, 36 cels",
+  "engine": "Godot 4.6.1 stable",
+  "renderer": "real OpenGL Mesa llvmpipe, controlled production attack fixtures",
+  "terrain_attack_checks": 609,
+  "terrain_attack_failures": 0,
+  "retained_projectile_checks": 300,
+  "retained_ground_hazard_checks": 375,
+  "retained_lifetime_checks": 46,
+  "mutations": [
+    {
+      "disabled": "authored terrain rendering branch",
+      "checks": 609,
+      "failures": 124
+    },
+    {
+      "disabled": "horizontal mirror",
+      "checks": 609,
+      "failures": 48
+    }
+  ],
+  "restored_pass": true,
+  "suites": [
+    "enemy_effect_lifetime",
+    "character_art_prewarm",
+    "combat",
+    "combat_visual_budget",
+    "enemy_ai_behavior",
+    "enemy_lifecycle_regression",
+    "enemy_visibility",
+    "greenhouse_experience",
+    "obsidian_experience",
+    "optional_challenges",
+    "player_melee_feedback",
+    "seal_combat",
+    "world_enemy_residency",
+    "world_startup_budget"
+  ],
+  "suite_failures": 0,
+  "strict_import_passes": 2,
+  "npm_test_passed": true,
+  "campaign_passed": true,
+  "source_and_atlas_check_passed": true,
+  "workflow_structure_passed": true,
+  "preview_frames": 13,
+  "source_hashes": {
+    "chime": {
+      "sha256": "da232a95b23cd9b324e8cc78973c66bb2e280b2f7b8a1baa88ccc9caab75b5bd",
+      "prompt_sha256": "a60605b9408c02b35675ba3929c155a62f30688179a523770ee8d95211042f29",
+      "metadata_sha256": "1958a37a18ff4c384d34812be41bbbae08d944a54bc897243d1cde24ec17ae12"
+    },
+    "quake": {
+      "sha256": "e2de2528ac8ddef2d4c9f8a70958839bcb9e2cb8d1cf35fa415ef50e480ed328",
+      "prompt_sha256": "b1a655ae34ed0c3a21329e1608f127f59d058097c5fe92ec7c899c803fc45787",
+      "metadata_sha256": "559d41522121312dbadd1e6b0281d469a42007537400ba9b503c46022f4e0221"
+    },
+    "surge": {
+      "sha256": "9161ffd60b039bfe69c1618cd0754c1979995ef8fffe3ab70fa9aea0977b48e8",
+      "prompt_sha256": "95e1c0f7ef2cf70723da4f5e9f25cd202bb9cd49dc24cdb7325a5e81f0895d96",
+      "metadata_sha256": "384b033e32f6bb570d538caeba4977ec0548f00f46d0cbc331ed8faa705e3b97"
+    },
+    "roots": {
+      "sha256": "bab0d40d7cb02ee38b3a7121009edcf5cb47b5551cdff136b1e02068ba0ff14a",
+      "prompt_sha256": "edf38acdb1c8b6e67e8d0cf8e622110ec87cab8403106907e74e2d042326b514",
+      "metadata_sha256": "d3fc9d7db6dff205cfe3a04fe7f1743700760767ac350a72f3f87100c3a07221"
+    },
+    "spears": {
+      "sha256": "3c7b41ee8217eac4edf334e349e61a01f87b710312cb483c1113b08a6f88261b",
+      "prompt_sha256": "3e1c32558d7314d43a10b5f3b2b1686c95d7325c753b192519d6b55f8551849d",
+      "metadata_sha256": "1311e16419ca8f47ef596c0d702e15485113ff6c35f5a335970cd2b2ca937671"
+    }
+  },
+  "atlas": {
+    "dimensions": [
+      1152,
+      1024
+    ],
+    "decoded_rgba_bytes": 4718592,
+    "png_bytes": 465850,
+    "rgba_sha256": "3fc56aedb58cac9ea847288f38a93fbd42d5b55ff5f2f3b2a7a00d2b6a794793"
+  },
+  "excluded": {
+    "godot/scripts/world_state.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528"
+    },
+    "godot/scripts/build_system.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "3a0dc3d1ea403e9f3ebd46b41bc4a5e932ced9dddbac6c310010c3741cb1abb4"
+    },
+    "godot/scripts/main_level.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "89b94a332f49d8c683d096a9278bc686f45f64aa26bd41f56ab2bdd2fdf74d02"
+    },
+    "godot/scripts/save_recovery_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "tools/run_godot_regressions.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "4afd99333dffb83dd782c6a3ee3714a7a0998458cfa8d034e96ecc7a2bd2ba8d"
+    },
+    "tools/godot_suite_success_markers.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "d72e6b1fb077d6ea8e4951d20bedb2a17f26b3156efe708dba0ca99eef5cc210"
+    },
+    "tools/test_regression_runner.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "ae76a982dfd36fa39ff350f3d683abeaa3e8f539cfda2e2c33eaf6c6dd6f4b45"
+    },
+    "package.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "3d0a78d670ec5d81444f0b0328cf2f5ba16da8950f4dfcbc36042efbda2a4f3a"
+    },
+    "docs/UPGRADE_TASK_LEDGER.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5c5cdd7304da3ebd94fe362c6d7d339dd00b3310b0710f7832ce8814b1783d29"
+    },
+    "docs/UPGRADE_PROGRESS.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "9a471c55d859f66aedf8abbff9a9b26ef621cd09a6a77adc904eea11c6433c93"
+    },
+    "docs/report/20261020_t02_save_recovery.md": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/data/world_narrative.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5e90b2558969bd163c92db4a0596901646ca5af733daa8ccd6383ab83092be8f"
+    },
+    "godot/scripts/capture_ending_aftermath.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/ending_aftermath_scene.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/ending_aftermath_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/pilgrimage_interface.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "6dcfb110d952fed7cd135f031e68a0bcf2d9f8b96e839bcdc832cb60d0202e41"
+    },
+    "godot/scripts/ui_world_integration_validation.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "33aa198b8111f5cedf1a0a49ed6a6d3f146b4d650b5b92392a51744510aa40d4"
+    },
+    "godot/scripts/world_narrative.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "00ec5b28210865d96a4ea113bfd72b234686397e3f8cfa69176a9a6475b51b3c"
+    },
+    "tools/validate_world_narrative.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "932ba7823ea00e617a9d26211db450d655f13b3cf8fb06b12459772ccb745350"
+    }
+  },
+  "limitations": [
+    "Existing ObjectDB/StringName exit warnings remain in old suites.",
+    "Controlled GL fixtures do not certify natural six-chapter playthrough, long-run memory or target-hardware frame time.",
+    "Local run covers 14 related registered suites; full default set is delegated to CI."
+  ]
+}
