@@ -17,11 +17,13 @@ static var instance: AudioDirector
 
 # ---- 静态声部管理 ----
 const MAX_GLOBAL_VOICES := 24
-## 无法追踪一次性 SFX 的真实结束点，按名义时长做并发记账。
+## Only unclaimed reservations expire; bound voices follow actual playback.
 const VOICE_NOMINAL_MS := 900
 
+static var _voice_serial := 0
 static var _voice_entries: Array = []
 static var _voice_last_ms: Dictionary = {}
+static var _voice_last_ticket: Dictionary = {}
 
 # ---- 静态流缓存（契约：键 "%s|%d" % [path, int(looped)]；缺失/解码失败缓存 null）----
 static var _stream_cache: Dictionary = {}
@@ -194,47 +196,114 @@ func _exit_tree() -> void:
         set_low_hp(false)
 
 
-## 声部管理（规格 §5.4）：instance 为 null 时也可用。返回 false 则调用方不播。
+## Legacy boolean admission remains available to probes; production uses a ticket
+## so deferred playback cannot bind another request's reservation.
 static func request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+    return reserve_voice(key,priority,min_interval_ms,max_voices) != 0
+
+static func reserve_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> int:
     var now := Time.get_ticks_msec()
-    var alive: Array = []
+    _prune_voices()
+    if _voice_last_ms.has(key) and now-int(_voice_last_ms[key]) < min_interval_ms:return 0
     var same_key := 0
     for entry in _voice_entries:
-        if int(entry.get("end_ms", 0)) > now:
-            alive.append(entry)
-            if String(entry.get("key", "")) == key:
-                same_key += 1
-    _voice_entries = alive
-    if _voice_last_ms.has(key) and now - int(_voice_last_ms[key]) < min_interval_ms:
-        return false
-    if same_key >= max_voices:
-        return false
+        if String(entry.key)==key:same_key += 1
+    if same_key >= max_voices:return 0
     if _voice_entries.size() >= MAX_GLOBAL_VOICES:
-        # 全局满员：抢占数值最大（优先级最低）的声部；无更低者则拒绝。
-        var worst_index := -1
+        var worst := -1
         var worst_priority := priority
         for index in _voice_entries.size():
-            var entry_priority := int(_voice_entries[index].get("priority", 1))
-            if entry_priority > worst_priority:
-                worst_priority = entry_priority
-                worst_index = index
-        if worst_index == -1:
-            return false
-        _voice_entries.remove_at(worst_index)
-    _voice_last_ms[key] = now
-    _voice_entries.append({"key": key, "priority": priority, "end_ms": now + VOICE_NOMINAL_MS})
+            if int(_voice_entries[index].priority)>worst_priority:
+                worst_priority=int(_voice_entries[index].priority)
+                worst=index
+        if worst < 0:return 0
+        _remove_voice(worst,true)
+    _voice_serial += 1
+    _voice_last_ms[key]=now
+    _voice_last_ticket[key]=_voice_serial
+    _voice_entries.append({"ticket":_voice_serial,"key":key,"priority":priority,"end_ms":now+VOICE_NOMINAL_MS,"reserved_ms":now})
+    return _voice_serial
+
+## Claim and start in one synchronous operation; live voices never expire by
+## nominal duration. Persistent players survive preemption for later reuse.
+static func start_reserved_voice(ticket: int, voice: Node, persistent: bool = false) -> bool:
+    _prune_voices()
+    var target := -1
+    for index in _voice_entries.size():
+        if int(_voice_entries[index].ticket)==ticket and not _voice_entries[index].has("voice"):target=index
+    if target < 0 or not is_instance_valid(voice) or not voice.is_inside_tree() or voice.is_queued_for_deletion() or not (voice is AudioStreamPlayer or voice is AudioStreamPlayer2D) or voice.stream == null:
+        if target >= 0:release_ticket(ticket)
+        for entry in _voice_entries:
+            if _entry_voice(entry)==voice:return false
+        if is_instance_valid(voice) and (voice is AudioStreamPlayer or voice is AudioStreamPlayer2D):
+            voice.stop()
+            if not persistent:voice.queue_free()
+        return false
+    # Reusing the dedicated NPC/wall player retires only its previous lease.
+    for index in range(_voice_entries.size()-1,-1,-1):
+        if index != target and _entry_voice(_voice_entries[index])==voice:
+            _remove_voice(index,false)
+            if index < target:target -= 1
+    var finished := _forget_voice.bind(ticket)
+    var exiting := _forget_voice.bind(ticket)
+    _voice_entries[target].merge({"voice":weakref(voice),"persistent":persistent,"finished":finished,"exiting":exiting})
+    voice.finished.connect(finished,CONNECT_ONE_SHOT)
+    voice.tree_exiting.connect(exiting,CONNECT_ONE_SHOT)
+    voice.play()
     return true
 
+static func _entry_voice(entry: Dictionary) -> Node:
+    return entry.voice.get_ref() if entry.has("voice") else null
 
-## 声部回滚（契约）：request_voice 批准后拿不到流时调用，撤销计数与时间戳，
-## 避免"占坑不发声"挤掉真实声部或卡住同 key 限频窗口。
+static func _prune_voices() -> void:
+    var now := Time.get_ticks_msec()
+    for index in range(_voice_entries.size()-1,-1,-1):
+        var entry: Dictionary=_voice_entries[index]
+        var voice := _entry_voice(entry)
+        if entry.has("voice"):
+            if not is_instance_valid(voice) or not voice.is_inside_tree() or voice.is_queued_for_deletion() or not voice.has_stream_playback():_remove_voice(index,false)
+        elif int(entry.end_ms)<=now:_remove_voice(index,false)
+
+static func _forget_voice(ticket: int) -> void:
+    for index in _voice_entries.size():
+        if int(_voice_entries[index].ticket)==ticket:
+            _remove_voice(index,false)
+            return
+
+static func _remove_voice(index: int, stop_playback: bool) -> void:
+    var entry: Dictionary=_voice_entries[index]
+    _voice_entries.remove_at(index)
+    var voice := _entry_voice(entry)
+    if not is_instance_valid(voice):return
+    if entry.has("finished") and voice.finished.is_connected(entry.finished):voice.finished.disconnect(entry.finished)
+    if entry.has("exiting") and voice.tree_exiting.is_connected(entry.exiting):voice.tree_exiting.disconnect(entry.exiting)
+    if stop_playback:
+        preload("res://scripts/audio_retirement.gd").watch_player(voice)
+        voice.stop()
+        if not bool(entry.get("persistent",false)):
+            voice.stream=null
+            voice.queue_free()
+
+static func release_ticket(ticket: int) -> void:
+    for index in _voice_entries.size():
+        var entry: Dictionary=_voice_entries[index]
+        if int(entry.ticket)==ticket:
+            if int(_voice_last_ticket.get(entry.key,-1))==ticket:
+                _voice_last_ms.erase(entry.key)
+                _voice_last_ticket.erase(entry.key)
+            _remove_voice(index,true)
+            return
+
+## Compatibility rollback affects an unclaimed reservation only.
 static func release_voice(key: String) -> void:
-    for index in range(_voice_entries.size() - 1, -1, -1):
-        if String(_voice_entries[index].get("key", "")) == key:
-            _voice_entries.remove_at(index)
-            break
-    _voice_last_ms.erase(key)
+    for index in range(_voice_entries.size()-1,-1,-1):
+        if String(_voice_entries[index].key)==key and not _voice_entries[index].has("voice"):
+            release_ticket(int(_voice_entries[index].ticket))
+            return
 
+static func active_voice_count() -> int:
+    _prune_voices()
+    return _voice_entries.size()
 
 ## 幂等补建子总线；UI 总线保证干声（无混响）。main_level._ensure_audio_buses 转调。
 ## SFXDry（send→Master 干声，濒死心跳等不吃章节混响）；Master 挂限幅器防求和削波。
@@ -863,11 +932,12 @@ func _on_anvil_timer() -> void:
 func _play_ambience_oneshot(path: String, volume_db: float) -> void:
     if not autoplay_enabled:
         return
-    if not request_voice("amb_oneshot", 2, 250, 2):
+    var voice_ticket := reserve_voice("amb_oneshot", 2, 250, 2)
+    if voice_ticket == 0:
         return
     var stream := load_cached(path)
     if stream == null:
-        release_voice("amb_oneshot")
+        release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "AmbienceOneShot"
@@ -876,7 +946,7 @@ func _play_ambience_oneshot(path: String, volume_db: float) -> void:
     player_node.volume_db = volume_db
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    start_reserved_voice(voice_ticket,player_node)
 
 
 # ---- 混音状态（规格 §5.3/§5.5）----
@@ -1182,7 +1252,8 @@ func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> b
     if line.strip_edges().is_empty() or not is_inside_tree():
         return false
     var key := "npc_greeting_" + npc_id
-    if not request_voice(key, 2, 450, 1):
+    var voice_ticket := reserve_voice(key, 2, 450, 1)
+    if voice_ticket == 0:
         return false
     var stream := npc_voice_stream(profile)
     if _npc_voice_player == null or not is_instance_valid(_npc_voice_player):
@@ -1193,8 +1264,7 @@ func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> b
         add_child(_npc_voice_player)
     _npc_voice_player.stream = stream
     _npc_voice_player.pitch_scale = 0.96 + float(abs(npc_id.hash()) % 9) * 0.01
-    _npc_voice_player.play()
-    return true
+    return start_reserved_voice(voice_ticket,_npc_voice_player,true)
 
 
 static func npc_voice_stream(profile: String) -> AudioStreamWAV:
@@ -1241,12 +1311,14 @@ func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
     elif kind.contains("mite") or kind.contains("crawler") or kind.contains("bee"):
         family = "shell"
     var key := "enemy_alert_" + family
-    if not is_inside_tree() or not request_voice(key, 2, 1800, 1):
+    if not is_inside_tree():return false
+    var voice_ticket := reserve_voice(key,2,1800,1)
+    if voice_ticket == 0:
         return false
     var path := "res://assets/audio/sfx/generated/enemy_hit_%s.ogg" % family
     var stream := load_cached(path)
     if stream == null:
-        release_voice(key)
+        release_ticket(voice_ticket)
         return false
     var voice := spatial.new()
     voice.bus = _bus_or("SFXEnemy", "SFX")
@@ -1258,5 +1330,4 @@ func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
         release_voice(key)
         return false
     voice.finished.connect(voice.queue_free)
-    voice.play()
-    return true
+    return start_reserved_voice(voice_ticket,voice)
