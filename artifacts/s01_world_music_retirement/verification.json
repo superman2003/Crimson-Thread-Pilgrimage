@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-20",
+  "base": "0694d1b84504923b2dc06ec2549fbfa480992c14",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.3,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "MUSIC_PHRASE_RESUME checks=15",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_enemy_residency",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 13.41,
+      "markers": [
+        "WORLD_ENEMY_RESIDENCY checks=56 failures=0 snapshot={\"arrival_ready\":true,\"authored\":7,\"builds\":0,\"checkpoint_id\":\"start\",\"checkpoint_resident\":true,\"critical_builds\":0,\"eligible\":7,\"enemy_activations\":6,\"enemy_active\":5,\"enemy_arrival_suspensions\":2,\"enemy_authored\":14,\"enemy_deactivations\":15,\"enemy_frame_activation_limit\":4,\"enemy_frame_deactivation_limit\":4,\"enemy_last_frame_activations\":0,\"enemy_last_frame_deactivations\":0,\"enemy_suspended\":9,\"enemy_tracked\":14,\"excluded_map_sellers\":1,\"excluded_workshops\":0,\"generation\":8,\"last_frame_builds\":0,\"last_frame_releases\":0,\"max_owned\":3,\"normal_max_operations\":4,\"pending_build\":0,\"pending_release\":0,\"releases\":3,\"resident\":0,\"warm_bypass_builds\":0,\"window\":\"[P: (3441.819, 280.0), S: (2560.0, 1800.0)]\",\"window_eligible\":0,\"window_ready\":true,\"window_resident\":0}"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_resume_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.62,
+      "markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_death_cache_flush",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.06,
+      "markers": [
+        "WORLD_DEATH_CACHE_FLUSH checks=27 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.89,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.66,
+      "markers": [
+        "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

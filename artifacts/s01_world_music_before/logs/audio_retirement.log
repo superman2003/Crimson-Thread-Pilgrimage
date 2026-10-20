@@ -1,0 +1,31 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.62 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=88 observed=1 retired=1
+AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32
+AUDIO_RETIREMENT pending=0 elapsed_msec=39 observed=2 retired=2
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 通过旧通路。
+ERROR: FAIL: MUSIC_RESUME: MainLevel snapshots the outgoing phrase before retiring its players
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check_volume (res://scripts/audio_retirement_validation.gd:83)
+       [1] check (res://scripts/music_phrase_resume_validation.gd:8)
+       [2] run (res://scripts/music_phrase_resume_validation.gd:69)
+ERROR: FAIL: MUSIC_RESUME: actual World can resume after its production retirement boundary
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check_volume (res://scripts/audio_retirement_validation.gd:83)
+       [1] check (res://scripts/music_phrase_resume_validation.gd:8)
+       [2] run (res://scripts/music_phrase_resume_validation.gd:72)
+AUDIO_RETIREMENT pending=0 elapsed_msec=25 observed=5 retired=8
+MUSIC_PHRASE_RESUME checks=15
+AUDIO_RETIREMENT pending=0 elapsed_msec=73 observed=17 retired=8
+AUDIO_RETIREMENT pending=0 elapsed_msec=85 observed=20 retired=11
+AUDIO_USER_VOLUME checks=37 failures=0
+ERROR: audio retirement or user-volume regression failed
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_retirement_validation.gd:76)
+       [1] run (res://scripts/audio_user_volume_validation.gd:89)
+AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=2

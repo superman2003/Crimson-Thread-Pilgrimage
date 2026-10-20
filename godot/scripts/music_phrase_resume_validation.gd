@@ -49,4 +49,31 @@ func run(tree: SceneTree, callback: Callable) -> void:
     for key in keys: DIRECTOR._stream_cache.erase(key + "|1")
     stream = null
     check(await AUDIO.drain(tree), "music fixture releases native playback")
+    # Real MainLevel retirement used to detach BGM before its Director exited.
+    # Standalone Director tests above do not cover that production call order.
+    var world: Node=load("res://scenes/World.tscn").instantiate()
+    world.world_resume=false
+    world.world_save_path="user://music_phrase_host_validation.json"
+    tree.root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
+    world.player.set_physics_process(false)
+    for enemy in tree.get_nodes_in_group("enemy"):enemy.set_physics_process(false)
+    world.audio_director.autoplay_enabled=true
+    var path: String=world.audio_director._explore_track_path()
+    world.audio_director._play_explore_track(path)
+    world.audio_director.explore_player.seek(7.0)
+    await tree.create_timer(.08).timeout
+    var host_phrase: float=world.audio_director.explore_player.get_playback_position()
+    check(host_phrase>=6.9,"actual World exploration player reaches a nonzero phrase")
+    world._release_region_audio()
+    check(float(DIRECTOR._explore_resume.get(path,0.0))>=6.9,"MainLevel snapshots the outgoing phrase before retiring its players")
+    check(world.audio_director.explore_player.stream==null,"normal World retirement still releases the BGM stream")
+    world.audio_director._play_explore_track(path)
+    check(absf(world.audio_director.explore_player.get_playback_position()-host_phrase)<.25,"actual World can resume after its production retirement boundary")
+    world.queue_free()
+    await tree.process_frame
+    await tree.process_frame
+    check(await AUDIO.drain(tree),"actual World music fixture releases streams and playback")
+    for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://music_phrase_host_validation.json"+suffix))
+    DIRECTOR.clear_exploration_resume()
     print("MUSIC_PHRASE_RESUME checks=%d" % checks)
