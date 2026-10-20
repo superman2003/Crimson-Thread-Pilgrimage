@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "01ccabd2ce5fea59b394002da6e5f18cd4f9c09f",
+  "base_branch": "main",
+  "scope": "V04 three player skill families, twenty-four cels",
+  "ledger_basis": {
+    "path": "docs/UPGRADE_TASK_LEDGER.md",
+    "commit": "01ccabd2ce5fea59b394002da6e5f18cd4f9c09f",
+    "sha256": "27108c1c00336d4eda93a5081788071f7c916984f48504520caf6c4b08b333d9",
+    "v04_row": "| V04 | 危险/前摇绝对层级；命中装饰 12 名额；全屏单层 50ms/200ms 与透明度预算 | 特效源图接入、其它粒子预算与真实混战/舒适度验收 |",
+    "remaining_after_this_batch": "four player tools, other budgets and natural combat/comfort acceptance"
+  },
+  "engine": "Godot 4.6.1 stable",
+  "renderer": "real OpenGL Mesa llvmpipe, controlled production effect fixtures",
+  "player_skill_checks": 254,
+  "player_skill_failures": 0,
+  "retained_seal_combat_checks": 138,
+  "mutations": [
+    {
+      "disabled": "final-disabled-art",
+      "checks": 254,
+      "failures": 88
+    },
+    {
+      "disabled": "final-disabled-mirror",
+      "checks": 254,
+      "failures": 32
+    }
+  ],
+  "restored_pass": true,
+  "suites": [
+    "seal_combat",
+    "artisan_crafts",
+    "character_art_prewarm",
+    "combat",
+    "combat_visual_budget",
+    "enemy_effect_lifetime",
+    "player_melee_feedback",
+    "player_state_cleanup",
+    "seal_acceptance",
+    "seal_identity",
+    "seal_system",
+    "skill_branches",
+    "tool_practice",
+    "world_enemy_residency",
+    "world_startup_budget"
+  ],
+  "suite_failures": 0,
+  "strict_import_passes": 2,
+  "npm_test_passed": true,
+  "campaign_passed": true,
+  "source_and_atlas_check_passed": true,
+  "workflow_structure_passed": true,
+  "preview_frames": 9,
+  "source_hashes": {
+    "needle": {
+      "sha256": "daa08e4da981a2d6a62d471e47a8d8e62847db80c2259bad6390bcdd43f26932",
+      "prompt_sha256": "61fe22903c9146a524cd3f48bd10e937defb950d27e6e245a6004ceb3b1ae94d",
+      "metadata_sha256": "365c7150f4aa3db7dc354f5ae2f39eb030282df8f32bc9454e840570d268596d"
+    },
+    "shockwave": {
+      "sha256": "ffaf3c254fc9f05741fdc983a20d66b3ea200f6afd36b0baafa906abd29aa4b6",
+      "prompt_sha256": "bd590355be2a5a279ac9a266a0d822af7bf97c654a7240a3019d8c0525773951",
+      "metadata_sha256": "ad54d2045e97a8400e6132e7250ae7389fa4d716a40e1f5e8179dd97109501b9"
+    },
+    "snare": {
+      "sha256": "aac9111899ed8ad75ef5b86556aaefe35740f8f8a03d0e9fe005a8032f79704f",
+      "prompt_sha256": "3b9e519e78ca6da113318568d72888e953f82c0922f6ecf135c97cd011deca4d",
+      "metadata_sha256": "9143f0b4ce9611cd0b713530eeb5b8d3816eaaf1ca646e88fe226b73aec33261"
+    }
+  },
+  "atlas": {
+    "dimensions": [
+      1536,
+      576
+    ],
+    "decoded_rgba_bytes": 3538944,
+    "png_bytes": 183412,
+    "rgba_sha256": "c94bfefb8c9d4b94417ed5f3e44ab7f9eb471f07d40ff78582451236f3a6658f"
+  },
+  "excluded": {
+    "godot/scripts/player_controller.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "fdba13bf26c3170566072a4ffee2bb656e6d24cb1963e1d8e6bdb319f31c1c91"
+    },
+    "godot/scripts/build_system.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "4a4b4b49ae30aff642e1f303187c3bd0662ddabf72edf0023380234ccc70c494"
+    },
+    "godot/scripts/world_state.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "6898eb5291e753d0b3834a86e98a1b4ba986501c057b3ae5cd328ce14694bb08"
+    },
+    "godot/scripts/main_level.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "e48af147e258d3440f938a466e5dfdf91f707e7ac18a272f3240d1dd937fade7"
+    },
+    "godot/scripts/pilgrimage_interface.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "246533dbc503113191b75248c344928bcfca866fa8c7f61b5700987725163af9"
+    },
+    "godot/scripts/world_narrative.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "00ec5b28210865d96a4ea113bfd72b234686397e3f8cfa69176a9a6475b51b3c"
+    },
+    "godot/data/world_narrative.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5e90b2558969bd163c92db4a0596901646ca5af733daa8ccd6383ab83092be8f"
+    },
+    "godot/scripts/ui_world_integration_validation.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "33aa198b8111f5cedf1a0a49ed6a6d3f146b4d650b5b92392a51744510aa40d4"
+    },
+    "tools/run_godot_regressions.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5b1f3843fd17778467a3d77cbf89bc3629a3ac469721f5ba428f97bc3d8c7fd4"
+    },
+    "tools/godot_suite_success_markers.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "776bada5aad713fb2ca5c32627215e1cec157987e886c4ea253b94c49f7ec18e"
+    },
+    "tools/test_regression_runner.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "0a57533d67b8774313070b4bd7b1840a3e05ae4a921b52996dc9844a40618d10"
+    },
+    "tools/validate_world_narrative.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "932ba7823ea00e617a9d26211db450d655f13b3cf8fb06b12459772ccb745350"
+    },
+    "package.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "d78594627cf72cda5c8a901638f729c7115608ae00758a70d17a772097cb20d1"
+    },
+    "docs/UPGRADE_TASK_LEDGER.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "27108c1c00336d4eda93a5081788071f7c916984f48504520caf6c4b08b333d9"
+    },
+    "docs/UPGRADE_PROGRESS.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "90d2838e0c0daa3f95a01cca60c5dc270b6a376945ba20d96af9cc8e3d1372da"
+    },
+    "godot/scripts/save_recovery_validation.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "9d84b20f1c66d5280e1feab0d7bd34df0350f06022d68a13fa1f9f890b6842ed"
+    },
+    "godot/scripts/ending_aftermath_scene.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/ending_aftermath_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/settings_remap_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/capture_settings_remap.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    ".gitattributes": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "81ee270a8f236ab80eb6b3c86b093327eeccbdcb0e5f2cd5c6838b5b4f501f44"
+    },
+    "godot/scripts/enemy_attack_effect.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "069ddd92dbe5ca8b193eea7afbaf3f30ac1b021a0966a19cdd65dba937225bbd"
+    },
+    "godot/scripts/enemy_effect_lifetime_validation.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "e1cf735a9b1bbfe8d02b396977f789997da6698361c95a233b8211469f02a4bb"
+    }
+  },
+  "limitations": [
+    "Wave keeps existing horizontal path; no new slope tracking.",
+    "Existing ObjectDB/StringName warnings remain in old suites.",
+    "Controlled fixtures do not certify natural six-region play, keyboard/gamepad interruption completeness, long-run memory or target-hardware frame time.",
+    "Local run covers fifteen related registered suites; full default set is delegated to CI."
+  ]
+}

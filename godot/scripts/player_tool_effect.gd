@@ -1,5 +1,7 @@
 extends Node2D
 ## Finite swept effects; tools never generate attack energy.
+const SKILL_ART := preload("res://scripts/player_skill_art.gd")
+var art_family := ""
 var payload: Dictionary = {}
 var direction := 1
 var owner_player: Node2D = null
@@ -20,16 +22,29 @@ func _ready() -> void:
         add_to_group("player_snare_field" if String(payload.get("kind", "")) == "snare_field" else "player_trap")
     if id == "shard":
         ballistic_velocity = Vector2(direction * 290.0, -270.0)
+    art_family = SKILL_ART.family_for(payload)
+    if not art_family.is_empty():
+        z_as_relative = false
+        z_index = SKILL_ART.POLICY.BLADE_Z
+        queue_redraw()
+        return
     var visual := Polygon2D.new()
     visual.polygon = PackedVector2Array([Vector2(-8, -5), Vector2(8, -5), Vector2(8, 5), Vector2(-8, 5)])
     visual.color = Color(0.86, 0.65, 0.28) if id in ["shard", "lure"] else Color(0.88, 0.86, 0.72)
     add_child(visual)
 
 func _physics_process(delta: float) -> void:
+    if is_queued_for_deletion():
+        return
     elapsed += delta
+    if not art_family.is_empty():
+        queue_redraw()
     var id := String(payload.get("id", ""))
-    if elapsed >= float(payload.get("duration", 5.0)) or travelled >= float(payload.get("range", 420.0)) or not is_instance_valid(owner_player):
+    if not is_instance_valid(owner_player):
         queue_free()
+        return
+    if elapsed >= float(payload.get("duration", 5.0)) or travelled >= float(payload.get("range", 420.0)):
+        _finish_skill("expiry", global_position)
         return
     var previous := global_position
     var next := previous
@@ -54,7 +69,7 @@ func _physics_process(delta: float) -> void:
                 warning_timer = 0.35
                 modulate = Color(1.0, 0.45, 0.15)
             else:
-                queue_free()
+                _finish_skill("wall", hit.position)
                 return
         else:
             global_position = next
@@ -109,7 +124,25 @@ func _physics_process(delta: float) -> void:
         elif trap and enemy.has_method("apply_snare"):
             enemy.apply_snare(1.5)
         if not trap and id != "shard" and String(payload.get("kind", "")) != "wave":
-            queue_free()
+            _finish_skill("hit", point)
             return
     if id == "shard" or id == "mine" and not targets.is_empty():
         queue_free()
+
+func _draw() -> void:
+    if art_family.is_empty():
+        return
+    SKILL_ART.draw_frame(self, art_family, SKILL_ART.active_frame(art_family, elapsed), direction)
+    if art_family == "snare":
+        # Appearance does not delay the original active control radius.
+        draw_arc(Vector2.ZERO,36,0,TAU,32,Color(.08,.1,.12,.8),3,true)
+        draw_arc(Vector2.ZERO,36,0,TAU,32,Color(.9,.92,.84,.7),1,true)
+
+func _finish_skill(reason: String, point: Vector2) -> void:
+    if is_queued_for_deletion():
+        return
+    if not art_family.is_empty():
+        SKILL_ART.spawn_terminal(get_parent(),point,art_family,direction,reason)
+    hide()
+    set_physics_process(false)
+    queue_free()

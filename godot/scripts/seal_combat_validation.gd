@@ -361,11 +361,12 @@ func _run() -> void:
     player.energy = 100
     check(not player.cast_selected_skill() and player.energy == 100, "airborne grounded-wave denied without resource spend")
     await thread_skill_limits(player)
-    print("SEAL_COMBAT_VALIDATION %s checks=%d failures=%d" % ["PASS" if failures == 0 else "FAIL",checks,failures])
     enemy.queue_free()
     player.queue_free()
     floor.queue_free()
     await frames(100)
+    failures += await preload("res://scripts/player_skill_art_validation.gd").new().run(self)
+    print("SEAL_COMBAT_VALIDATION %s checks=%d failures=%d" % ["PASS" if failures == 0 else "FAIL",checks,failures])
     quit(0 if failures == 0 else 1)
 
 ## C03: thread cost and the action's own timing limit every skill; the
