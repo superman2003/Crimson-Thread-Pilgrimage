@@ -88,6 +88,7 @@ func _run() -> void:
     _check(summaries.size() == 3, "all slots are described")
     for row in summaries:
         _check(row.has("exists") and row.has("valid") and row.has("error"), "slot validity is explicit")
+    preload("res://scripts/journey_history_validation.gd").new().run(_check)
     var dir := DirAccess.open("user://")
     for name in dir.get_files():
         if name.begins_with("save_product_validation.json"):

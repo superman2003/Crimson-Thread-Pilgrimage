@@ -638,7 +638,6 @@ var subtitle_seconds := 0.0
 var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
 var world_map_view := false
-var world_map_key_held := false
 var applied_build_profile: Dictionary = {}
 var world_start_region_id := ""
 
@@ -1013,16 +1012,13 @@ func _process(_delta: float) -> void:
         world_gameplay_residency.update(self, player.global_position, player.velocity, _delta)
     if ui_shell != null and ui_shell.has_method("is_remapping_input") and ui_shell.is_remapping_input():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
-        world_map_key_held = Input.is_physical_key_pressed(KEY_TAB)
+        return
+    if ui_shell != null and ui_shell.has_method("is_browsing_journey_history") and ui_shell.is_browsing_journey_history():
+        world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
         return
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
-    var map_key := Input.is_physical_key_pressed(KEY_TAB)
-    if world_mode and active_overlay == "map" and map_key and not world_map_key_held:
-        world_map_view = not world_map_view
-        _refresh_map_overlay()
-    world_map_key_held = map_key
     if world_mode and new_requested and new_journey_dialog != null and not new_journey_dialog.visible:
         new_journey_dialog.popup_centered()
         active_overlay = "new_journey"
@@ -1042,7 +1038,11 @@ func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("close_overlay"):
         _close_overlays()
     elif Input.is_action_just_pressed("inventory"):
-        _toggle_backpack()
+        if world_mode and active_overlay == "map":
+            world_map_view = not world_map_view
+            _refresh_map_overlay()
+        else:
+            _toggle_backpack()
     elif Input.is_action_just_pressed("map"):
         _toggle_map()
     elif Input.is_action_just_pressed("audio_settings"):
@@ -1684,8 +1684,12 @@ func _commit_world_dialogue() -> void:
         _toast("归途记录未能写入；本次交谈尚未确认，请重试。")
         return
     area.set_meta("world_line_committed", true)
+    if ui_shell != null and ui_shell.has_method("forget_dialogue_reading"):
+        ui_shell.forget_dialogue_reading()
     if not fresh_flags.is_empty():
-        var response := String(result.get("response", ""))
+        # Only a saved, fully read, fresh conversation earns a short response.
+        # A toast never takes control or starts another dialogue/voice sequence.
+        var response := WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
         if not response.is_empty():
             _toast(response)
         elif not rewards.is_empty():
@@ -1789,6 +1793,7 @@ func _start_new_journey() -> void:
         _sync_ui_input_lock()
         return
     # Keep the old scene's shared snapshot valid until it has left the tree.
+    AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     world_loading = true
     _replace_with_save_slot(world_slot, world_save_path)
 
@@ -2157,7 +2162,7 @@ func _campaign_chapter_for_id(chapter_id: String) -> Dictionary:
 
 func _chapter_objective_text() -> String:
     if world_mode:
-        return _world_exploration_hint() + "  M 地图 / Tab 世界图 · F9 新旅途。"
+        return _world_exploration_hint() + "  %s 地图 / %s 世界图 · F9 新旅途。" % [ui_shell._short_binding("map"), ui_shell._short_binding("inventory")]
     if bool(config.get("boss_route_via_exploration",false)):
         return "第%d章 %s：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name","")))]
     if current_campaign_chapter.is_empty():
@@ -2414,7 +2419,8 @@ func _start_low_hp_heartbeat() -> void:
         low_hp_heartbeat_player.volume_db = -10.0
         add_child(low_hp_heartbeat_player)
     if not low_hp_heartbeat_player.playing:
-        low_hp_heartbeat_player.play()
+        var ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
+        if ticket != 0:AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(ticket,low_hp_heartbeat_player,true)
 
 
 func _first_existing_bus(bus_names: Array) -> String:
@@ -2466,12 +2472,13 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     if not _should_autoplay_audio() or not is_inside_tree() or is_queued_for_deletion():
         return
     # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
-    if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
+    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    if voice_ticket == 0:
         return
     var stream := _load_audio_stream(audio_key)
     if stream == null:
         # 声部回滚（契约 release_voice）：拿不到流就撤销刚批准的登记。
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "Sfx_" + audio_key
@@ -2479,7 +2486,7 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.stream = stream
     player_node.volume_db = volume_db
     var instance_id := player_node.get_instance_id()
-    pending_sfx_players[instance_id] = {"player": player_node, "audio_key": audio_key}
+    pending_sfx_players[instance_id] = {"player": player_node, "voice_ticket": voice_ticket}
     # Interactable signals can close an overlay while this level or one of its
     # children is entering/exiting the tree. Defer attachment until scene-tree
     # notifications finish, then play only after the player is actually inside.
@@ -2492,21 +2499,21 @@ func _attach_pending_sfx(instance_id: int) -> void:
     var pending: Dictionary = pending_sfx_players[instance_id]
     pending_sfx_players.erase(instance_id)
     var player_node: AudioStreamPlayer = pending.get("player")
-    var audio_key: String = String(pending.get("audio_key", ""))
+    var voice_ticket := int(pending.get("voice_ticket",0))
     if not is_instance_valid(player_node):
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     if not is_inside_tree() or is_queued_for_deletion():
         player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     add_child(player_node)
     if not player_node.is_inside_tree():
         player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 func _cancel_pending_sfx() -> void:
@@ -2515,7 +2522,7 @@ func _cancel_pending_sfx() -> void:
         var player_node: AudioStreamPlayer = pending.get("player")
         if is_instance_valid(player_node):
             player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(String(pending.get("audio_key", "")))
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(int(pending.get("voice_ticket",0)))
     pending_sfx_players.clear()
 
 
@@ -2538,12 +2545,13 @@ func _load_audio_stream(audio_key: String) -> AudioStream:
 func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
     if not _should_autoplay_audio():
         return
-    if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
+    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    if voice_ticket == 0:
         return
     var stream := _load_audio_stream(audio_key)
     if stream == null or not is_inside_tree():
         # 声部回滚（契约 release_voice）：拿不到流/不在树上都不会真正发声。
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "PersistentSfx_" + audio_key
@@ -2552,7 +2560,7 @@ func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.volume_db = volume_db
     get_tree().root.add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 ## 同事件多变体随机轮播（Kenney 变体组用）。
@@ -2954,7 +2962,7 @@ func _refresh_backpack_overlay(render_inventory: bool = true) -> void:
             var count_suffix := " x%d" % count if count > 1 else ""
             lines.append("%s%s%s" % [_selection_marker(item_id), _item_display_name(item_id), count_suffix])
     lines.append("")
-    lines.append("Tab/I 背包   W/S 查看铭文   M 地图   Esc 关闭")
+    lines.append("%s 行囊   %s/%s 查看铭文   %s 地图   %s 关闭" % [ui_shell._short_binding("inventory"), ui_shell._short_binding("aim_up"), ui_shell._short_binding("aim_down"), ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay")])
     backpack_text.text = "\n".join(lines)
     _refresh_backpack_detail()
     if render_inventory and ui_shell!=null:
@@ -3210,8 +3218,8 @@ func _refresh_map_overlay() -> void:
     if world_mode:
         objective = "找回被删去的名字，接通旧运书线。"
         guide = _world_exploration_hint()
-        next_step = "金色出口待解锁；蓝色出口已接通 · Tab 世界图"
-    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\nM / Esc 返回  ·  F 与附近人物或机关互动" % [
+        next_step = "金色出口待解锁；蓝色出口已接通 · %s 世界图" % ui_shell._short_binding("inventory")
+    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\n%s / %s 返回  ·  %s 与附近人物或机关互动" % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
         visited_rooms.size(),
@@ -3221,7 +3229,8 @@ func _refresh_map_overlay() -> void:
         objective,
         guide,
         next_step,
-        danger
+        danger,
+        ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay"), ui_shell._short_binding("interact")
     ]
 
 
@@ -6721,10 +6730,11 @@ func _show_dialogue(area: Area2D, line: String) -> void:
     if dialogue_text_label != null:
         dialogue_text_label.text = line
         if world_mode:
-            subtitle_elapsed = 0.0
             subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(ui_shell.get_accessibility("subtitle_speed")) if ui_shell != null and ui_shell.has_method("get_accessibility") else 1.0)
-            dialogue_text_label.visible_characters = 0
-            if audio_director != null:
+            var reading: Dictionary = ui_shell.dialogue_reading_state(area, line) if ui_shell != null and ui_shell.has_method("dialogue_reading_state") else {}
+            subtitle_elapsed = subtitle_seconds * float(reading.get("progress", 0.0))
+            dialogue_text_label.visible_characters = int(reading.get("characters", 0))
+            if audio_director != null and reading.is_empty():
                 var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
                 audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile)
         else:
@@ -7555,7 +7565,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                 result = {"ok": false, "reason": "先在练针架上练熟「%s」，再选校习方向" % String(build_system.catalog.skills.get(practice_target, {}).get("name", practice_target))}
             elif not _near_workstation(true):
                 result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面校习"}
-            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part"] and not artisan_craft_block(recipe).is_empty():
+            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part", "passive"] and not artisan_craft_block(recipe).is_empty():
                 result = {"ok": false, "reason": artisan_craft_block(recipe)}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
@@ -7642,6 +7652,9 @@ func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 
 func get_save_slots() -> Array:
     return WORLD_STATE_SCRIPT.slot_summaries()
+
+func get_journey_history() -> Dictionary:
+    return preload("res://scripts/journey_history.gd").summaries(world_save_path)
 
 func select_save_slot(index: int) -> bool:
     if not world_mode or index < 1 or index > 3 or chapter_transitioning or player.hp <= 0:

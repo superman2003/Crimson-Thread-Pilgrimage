@@ -75,7 +75,9 @@
           "grant_rewards": {
             "currency": 40
           },
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "speech",
+          "response": "你念出两地找回的名字：“他们回来了。”"
         },
         {
           "id": "names_waiting",
@@ -100,7 +102,9 @@
           "continues_after_ending": true,
           "flags_none": [
             "quest_bring_names_complete"
-          ]
+          ],
+          "response_mode": "gesture",
+          "response": "你把针横在掌心，点了点头。"
         }
       ],
       "display_name": "织线学徒",
@@ -157,7 +161,9 @@
             "quest_bring_names_started",
             "quest_bring_names_canal_heard"
           ],
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "speech",
+          "response": "“阿禾。我会记住。”"
         }
       ],
       "display_name": "管渠童子",
@@ -224,7 +230,9 @@
             "tool_mine_found",
             "charm_shell_found"
           ],
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "gesture",
+          "response": "你握住修好的铜徽章，向工匠欠身。"
         },
         {
           "id": "names_smith_grip",
@@ -377,7 +385,9 @@
             "tool_fog_found",
             "charm_spur_found"
           ],
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "gesture",
+          "response": "你用针尖指向原件，把空白处留给名字。"
         },
         {
           "id": "names_librarian_jump",
@@ -532,7 +542,8 @@
             "currency": 45
           },
           "response": "你把线端递给囚徒，指向西门。",
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "gesture"
         },
         {
           "id": "root_waiting",
@@ -608,7 +619,9 @@
           "grant_flags": [
             "heard_guardian_greenhouse"
           ],
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "resonance",
+          "response": "你轻拨绯线，让余音接住那段未完的清唱。"
         },
         {
           "id": "singer_first",
@@ -885,7 +898,8 @@
             "currency": 55
           },
           "response": "你收起军令，把灯转向回程的石阶。",
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "gesture"
         },
         {
           "id": "watch_request",
@@ -969,7 +983,9 @@
           "grant_rewards": {
             "currency": 40
           },
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "speech",
+          "response": "“旗可以放下。名字留下。”"
         },
         {
           "id": "flag_request",
@@ -1051,7 +1067,8 @@
             "heard_contract_original"
           ],
           "response": "你把六份证词铺开，将自己的线结放在空白处。",
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "gesture"
         },
         {
           "id": "echo_first",
@@ -1164,7 +1181,9 @@
           "grant_flags": [
             "six_evidence_reviewed"
           ],
-          "continues_after_ending": true
+          "continues_after_ending": true,
+          "response_mode": "resonance",
+          "response": "你将六枚线结并排，针尖轻触共同的回声。"
         },
         {
           "id": "keeper_partial",

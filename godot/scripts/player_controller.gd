@@ -1623,12 +1623,13 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
         return
     # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
     var resolved_voice_key := voice_key if not voice_key.is_empty() else "player_" + audio_key
-    if not _request_voice(resolved_voice_key, voice_priority):
+    var voice_ticket := _request_voice(resolved_voice_key, voice_priority)
+    if voice_ticket == 0:
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
-        _release_voice(resolved_voice_key)
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
@@ -1640,7 +1641,7 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 ## 落地分档（音频规格 §4.1）：按触地前一帧的下落速度选软/硬落地采样。
@@ -1666,17 +1667,24 @@ static func _ensure_audio_director() -> bool:
 
 
 ## AudioDirector.request_voice 静态转调：脚本尚未落盘（headless 局部验证）时放行，
-## 返回 false 表示本次不播。
-static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+## 返回 0 拒绝，正数为唯一票据；-1 为脚本缺席的局部验证回退。
+static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> int:
     if not _ensure_audio_director():
-        return true
-    return bool(audio_director_script.request_voice(key, priority, min_interval_ms, max_voices))
+        return -1
+    return int(audio_director_script.reserve_voice(key, priority, min_interval_ms, max_voices))
 
 
-## AudioDirector.release_voice 静态转调（声部回滚契约）：拿不到流时释放已批准的声部。
-static func _release_voice(key: String) -> void:
-    if _ensure_audio_director() and audio_director_script.has_method("release_voice"):
-        audio_director_script.release_voice(key)
+## 绑定唯一票据并开始播放。
+static func _start_voice(ticket: int, voice: Node, persistent: bool = false) -> void:
+    if ticket == -1:
+        voice.play()
+    elif _ensure_audio_director():
+        audio_director_script.start_reserved_voice(ticket,voice,persistent)
+
+## 拿不到流时只回滚这张票据，不影响同 key 的其他声音。
+static func _release_voice(ticket: int) -> void:
+    if _ensure_audio_director() and audio_director_script.has_method("release_ticket"):
+        audio_director_script.release_ticket(ticket)
 
 
 ## 冲刺残影（规格 §2.3）：每 2 物理帧留 1 影，绯红加法混合，前重后轻褪色。
@@ -1807,15 +1815,17 @@ func _update_wall_slide_audio() -> void:
 
 
 func _start_wall_slide_loop() -> void:
+    if is_instance_valid(wall_slide_audio) and wall_slide_audio.playing:return
     if not _should_play_sfx():
         return
-    if not _request_voice("player_wall_slide_loop", 1, 40, 1):
+    var voice_ticket := _request_voice("player_wall_slide_loop", 1, 40, 1)
+    if voice_ticket == 0:
         return
     if wall_slide_audio == null or not is_instance_valid(wall_slide_audio):
         # looped=true 走独立缓存键（AudioDirector 契约）：不原地改缓存流的 loop 标记。
         var stream := _load_sfx_stream("wall_slide_loop", true)
         if stream == null:
-            _release_voice("player_wall_slide_loop")
+            _release_voice(voice_ticket)
             return
         wall_slide_audio = AudioStreamPlayer2D.new()
         wall_slide_audio.name = "SfxLoop_wall_slide"
@@ -1825,7 +1835,7 @@ func _start_wall_slide_loop() -> void:
         wall_slide_audio.max_distance = 900.0
         add_child(wall_slide_audio)
     if not wall_slide_audio.playing:
-        wall_slide_audio.play()
+        _start_voice(voice_ticket,wall_slide_audio,true)
 
 
 func _stop_wall_slide_loop() -> void:
@@ -1849,16 +1859,18 @@ func _update_footsteps(delta: float) -> void:
 func _play_footstep() -> void:
     if not _should_play_sfx():
         return
-    if not _request_voice("player_footstep", 2, 90, 2):
+    var voice_ticket := _request_voice("player_footstep", 2, 90, 2)
+    if voice_ticket == 0:
         return
     var material_key := String(FOOTSTEP_MATERIAL_REMAP.get(footstep_material, footstep_material))
     var variants: Array = FOOTSTEP_VARIANTS.get(material_key, FOOTSTEP_VARIANTS["moss"])
     if variants.is_empty():
+        _release_voice(voice_ticket)
         return
     var path := String(variants[randi() % variants.size()])
     var stream := _load_stream_for_path(path)
     if stream == null:
-        _release_voice("player_footstep")
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "SfxStep"
@@ -1870,7 +1882,7 @@ func _play_footstep() -> void:
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 func _spawn_heal_effect() -> void:

@@ -275,8 +275,8 @@ func _validate_passives(ids: Array, crest: String) -> String:
         var group := String(item.group)
         if not group.is_empty():
             if groups.has(group):
-                return "回能线轴与尖针契约互斥"
-            groups[group] = true
+                return "铭饰「%s」与「%s」互斥" % [String(catalog.passives[groups[group]].name),String(item.name)]
+            groups[group] = id
     if used > int(catalog.crests[crest].slots):
         return "契印槽位不足"
     return ""
@@ -519,7 +519,7 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
         return _fail("此装备已经获得")
     if kind == "refill" and int(state.tool_counts[target]) >= int(catalog.tools[target].capacity):
         return _fail("携带量已满")
-    if kind in ["tool_capacity", "slot_part"]:
+    if kind in ["tool_capacity", "slot_part", "passive"]:
         if not state.get("crafted") is Array: state.crafted = []
         if state.crafted.has(recipe_id):
             return _fail("已经制作过「%s」" % String(recipe.get("name", recipe_id)))
@@ -586,6 +586,22 @@ func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
         "passives": state.passives.duplicate(), "active_skill_slot": state.active_skill_slot,
         "active_tool_slot": state.active_tool_slot, "equipped_families": state.equipped_families.duplicate(true)}
     return _ok()
+
+## Read-only quote using the same validator and profile as an actual restore.
+func preview_loadout(name: String, at_bell: bool = true) -> Dictionary:
+    if not state.loadouts.has(name): return _fail("方案尚未保存")
+    var saved: Variant = state.loadouts[name]
+    if not saved is Dictionary: return _fail("方案数据损坏")
+    var reason := _validate_loadout(saved)
+    if not reason.is_empty(): return _fail(reason)
+    var candidate = get_script().new()
+    candidate.state = state.duplicate(true)
+    candidate.cooldowns = cooldowns.duplicate(true)
+    var result: Dictionary = candidate.restore_loadout(name, true)
+    if not bool(result.get("ok", false)): return result
+    return _ok({"can_restore": at_bell, "reason": "" if at_bell else "请在钟龛恢复构筑",
+        "profile": candidate.profile(), "equipped_families": candidate.state.equipped_families.duplicate(true),
+        "currency_cost": 0, "refills_resources": false})
 
 func restore_loadout(name: String, at_bell: bool = true) -> Dictionary:
     if not at_bell: return _fail("请在钟龛恢复构筑")
@@ -1015,8 +1031,8 @@ func get_snapshot(wallet: Variant = null) -> Dictionary:
         entry.id = id
         if entry.kind == "skill_branch":
             entry.current = int(state.skill_levels.get(entry.target, 0)) == int(entry.branch)
-        elif entry.kind in ["tool_capacity", "slot_part"]:
-            entry.crafted = state.get("crafted", []).has(id)
+        elif entry.kind in ["tool_capacity", "slot_part", "passive"]:
+            entry.crafted = state.unlocked_passives.has(String(entry.target)) if entry.kind == "passive" else state.get("crafted", []).has(id)
             if entry.kind == "tool_capacity":
                 entry.capacity_now = tool_capacity(String(entry.target))
                 entry.target_unlocked = state.unlocked_tools.has(String(entry.target))

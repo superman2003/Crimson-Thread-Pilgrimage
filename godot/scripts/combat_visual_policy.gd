@@ -7,6 +7,28 @@ const CONTACT_Z := 80
 const BLADE_Z := 60
 const MAX_CONTACTS := 12
 const CONTACT_GROUP := &"combat_contact_decoration"
+const MAX_ACTION_TRACES := 8
+const ACTION_TRACE_GROUP := &"combat_action_decoration"
+
+
+## Actor-local caps do not bound a crowd. Only harmless action traces share
+## this pool; unblockable cues retain their warning layer and admission.
+static func attach_action_trace(host: Node, item: Node2D, warning: bool = false) -> bool:
+    if not is_instance_valid(host) or not host.is_inside_tree() or host.is_queued_for_deletion():
+        item.free()
+        return false
+    if not warning:
+        var count := 0
+        for trace in host.get_tree().get_nodes_in_group(ACTION_TRACE_GROUP):
+            if not trace.is_queued_for_deletion(): count += 1
+        if count >= MAX_ACTION_TRACES:
+            item.free()
+            return false
+    item.z_as_relative = false
+    item.z_index = WARNING_Z if warning else BLADE_Z
+    host.add_child(item)
+    if not warning: item.add_to_group(ACTION_TRACE_GROUP)
+    return true
 
 
 static func place_danger(item: CanvasItem, warning: bool = false) -> void:

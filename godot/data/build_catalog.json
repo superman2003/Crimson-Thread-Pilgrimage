@@ -57,21 +57,30 @@
             "compatible": [
               "reflux",
               "shell",
-              "mender"
+              "mender",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ]
           },
           {
             "compatible": [
               "shell",
               "mender",
-              "reflux"
+              "reflux",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ]
           },
           {
             "compatible": [
               "reflux",
               "shell",
-              "mender"
+              "mender",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ],
             "requires_mechanism": "crimson"
           }
@@ -82,7 +91,8 @@
               "stride",
               "spur",
               "needlecase",
-              "compass"
+              "compass",
+              "ash_ring"
             ]
           },
           {
@@ -90,7 +100,8 @@
               "needlecase",
               "spur",
               "stride",
-              "compass"
+              "compass",
+              "ash_ring"
             ],
             "requires_mechanism": "crimson"
           },
@@ -99,7 +110,8 @@
               "spur",
               "stride",
               "needlecase",
-              "compass"
+              "compass",
+              "ash_ring"
             ],
             "requires_mechanism": "crimson",
             "requires_part": "travel_clasp"
@@ -182,21 +194,30 @@
             "compatible": [
               "shell",
               "mender",
-              "reflux"
+              "reflux",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ]
           },
           {
             "compatible": [
               "reflux",
               "shell",
-              "mender"
+              "mender",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ]
           },
           {
             "compatible": [
               "mender",
               "reflux",
-              "shell"
+              "shell",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ],
             "requires_mechanism": "bell"
           }
@@ -207,7 +228,8 @@
               "spur",
               "needlecase",
               "stride",
-              "compass"
+              "compass",
+              "ash_ring"
             ]
           },
           {
@@ -215,7 +237,8 @@
               "stride",
               "needlecase",
               "spur",
-              "compass"
+              "compass",
+              "ash_ring"
             ],
             "requires_mechanism": "bell"
           },
@@ -224,7 +247,8 @@
               "spur",
               "stride",
               "needlecase",
-              "compass"
+              "compass",
+              "ash_ring"
             ],
             "requires_mechanism": "bell",
             "requires_part": "travel_clasp"
@@ -307,14 +331,20 @@
           {
             "compatible": [
               "reflux",
-              "mender"
+              "mender",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ]
           },
           {
             "compatible": [
               "shell",
               "mender",
-              "reflux"
+              "reflux",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ],
             "requires_mechanism": "salt"
           },
@@ -322,7 +352,10 @@
             "compatible": [
               "shell",
               "reflux",
-              "mender"
+              "mender",
+              "tide_reel",
+              "wax_stitch",
+              "crown_pendant"
             ],
             "requires_mechanism": "salt"
           }
@@ -333,7 +366,8 @@
               "spur",
               "stride",
               "needlecase",
-              "compass"
+              "compass",
+              "ash_ring"
             ]
           },
           {
@@ -341,7 +375,8 @@
               "needlecase",
               "stride",
               "spur",
-              "compass"
+              "compass",
+              "ash_ring"
             ]
           },
           {
@@ -349,7 +384,8 @@
               "stride",
               "spur",
               "needlecase",
-              "compass"
+              "compass",
+              "ash_ring"
             ],
             "requires_mechanism": "salt",
             "requires_part": "travel_clasp"
@@ -762,7 +798,7 @@
       "name": "工匠线轴",
       "description": "普攻回能提高20%，技能伤害降低10%。",
       "cost": 2,
-      "group": "",
+      "group": "thread_spool",
       "modifiers": {
         "energy_gain_mult": 0.2,
         "skill_damage_mult": -0.1
@@ -878,6 +914,74 @@
       "family": "travel_accessory",
       "source": "地图商人出售：钟楼报时骨片磨成的指针。",
       "unlock_hint": "向任一地区的地图商人购买"
+    },
+    "tide_reel": {
+      "name": "逆潮线轴",
+      "description": "远程触及增加15%，技能伤害降低10%；与工匠线轴、冠舌调线坠互斥。",
+      "cost": 2,
+      "group": "thread_spool",
+      "modifiers": {
+        "ranged_range_mult": 0.15,
+        "skill_damage_mult": -0.1
+      },
+      "craft_recipe": "craft_tide_reel",
+      "icon": "res://assets/ui/seals/tide_reel.svg",
+      "source": "渠影追踪的爪痕显示逆水时如何收紧线圈，雨铸匠据此反绕线轴。",
+      "unlock_hint": "铸雨渠·渠影追踪首清后，向雨铸匠出示「证据·渠影爪痕」。",
+      "risk": "远程触及增加15%，技能伤害降低10%；与工匠线轴、冠舌调线坠互斥。",
+      "synergy": "效果只在装备后计算；不改变永久探索能力。",
+      "family": "combat_accessory"
+    },
+    "wax_stitch": {
+      "name": "蜂蜡缝托",
+      "description": "治疗准备时间缩短12%，受到的击退提高15%；治疗耗线与回复量不变。",
+      "cost": 2,
+      "group": "",
+      "modifiers": {
+        "heal_duration": -0.12,
+        "knockback_mult": 0.15
+      },
+      "craft_recipe": "craft_wax_stitch",
+      "icon": "res://assets/ui/seals/wax_stitch.svg",
+      "source": "蜂蜡余响保留了软化缝托的配方，蜂蜡商人能使绯线收紧得更快，却较易受撞。",
+      "unlock_hint": "断弦温室·蜂蜡试炼首清后，向蜂蜡商人出示「证据·蜂蜡余响」。",
+      "risk": "治疗准备时间缩短12%，受到的击退提高15%；治疗耗线与回复量不变。",
+      "synergy": "效果只在装备后计算；不改变永久探索能力。",
+      "family": "combat_accessory"
+    },
+    "ash_ring": {
+      "name": "灰旗收针环",
+      "description": "地面移动速度提高6%，受到的击退提高15%；不改变跳跃或永久能力。",
+      "cost": 1,
+      "group": "",
+      "modifiers": {
+        "move_mult": 0.06,
+        "knockback_mult": 0.15
+      },
+      "craft_recipe": "craft_ash_ring",
+      "icon": "res://assets/ui/seals/ash_ring.svg",
+      "source": "灰旗的针迹显示如何收住散线，织线学徒把旧旗环缝成较沉的收针环。",
+      "unlock_hint": "黑曜巡礼道·灰旗追踪首清后，回苔钟庭找织线学徒出示「证据·灰旗爪痕」。",
+      "risk": "地面移动速度提高6%，受到的击退提高15%；不改变跳跃或永久能力。",
+      "synergy": "效果只在装备后计算；不改变永久探索能力。",
+      "family": "travel_accessory"
+    },
+    "crown_pendant": {
+      "name": "冠舌调线坠",
+      "description": "普攻回能提高10%，治疗准备时间增加12%；与工匠线轴、逆潮线轴互斥。",
+      "cost": 2,
+      "group": "thread_spool",
+      "modifiers": {
+        "energy_gain_mult": 0.1,
+        "heal_duration": 0.12
+      },
+      "craft_recipe": "craft_crown_pendant",
+      "icon": "res://assets/ui/seals/crown_pendant.svg",
+      "source": "钟舌余响留下最后一次调音的节拍，雨铸匠用冠响碎片铆成调线坠，让命中更易收线，缝补却更慢。",
+      "unlock_hint": "无声王冠·钟舌试炼首清后，带冠响碎片回铸雨渠找雨铸匠。",
+      "risk": "普攻回能提高10%，治疗准备时间增加12%；与工匠线轴、逆潮线轴互斥。",
+      "synergy": "效果只在装备后计算；不改变永久探索能力。",
+      "family": "combat_accessory"
     }
   },
   "recipes": {
@@ -1104,6 +1208,74 @@
       "artisan_name": "雨铸匠",
       "source": "军墓灯影照出旗手背带的扣法；司铸契印修好之后，雨铸匠认得这是同一种承力线结。",
       "unlock_hint": "黑曜巡礼道·军墓试炼首清取得「证据·军墓灯影」（只作图样，不会被收走）"
+    },
+    "craft_tide_reel": {
+      "name": "逆潮线轴·制作",
+      "description": "远程触及增加15%，技能伤害降低10%；与工匠线轴、冠舌调线坠互斥。",
+      "kind": "passive",
+      "target": "tide_reel",
+      "currency": 60,
+      "materials": {
+        "wet_chitin": 3
+      },
+      "requires_items": [
+        "evidence_canal_track"
+      ],
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "渠影追踪的爪痕显示逆水时如何收紧线圈，雨铸匠据此反绕线轴。",
+      "unlock_hint": "铸雨渠·渠影追踪首清后，向雨铸匠出示「证据·渠影爪痕」。"
+    },
+    "craft_wax_stitch": {
+      "name": "蜂蜡缝托·制作",
+      "description": "治疗准备时间缩短12%，受到的击退提高15%；治疗耗线与回复量不变。",
+      "kind": "passive",
+      "target": "wax_stitch",
+      "currency": 70,
+      "materials": {
+        "pollen_wax": 3
+      },
+      "requires_items": [
+        "evidence_beeswax_echo"
+      ],
+      "artisan": "npc_beeswax_vendor",
+      "artisan_name": "蜂蜡商人",
+      "source": "蜂蜡余响保留了软化缝托的配方，蜂蜡商人能使绯线收紧得更快，却较易受撞。",
+      "unlock_hint": "断弦温室·蜂蜡试炼首清后，向蜂蜡商人出示「证据·蜂蜡余响」。"
+    },
+    "craft_ash_ring": {
+      "name": "灰旗收针环·制作",
+      "description": "地面移动速度提高6%，受到的击退提高15%；不改变跳跃或永久能力。",
+      "kind": "passive",
+      "target": "ash_ring",
+      "currency": 80,
+      "materials": {
+        "obsidian_splinter": 3
+      },
+      "requires_items": [
+        "evidence_ash_track"
+      ],
+      "artisan": "npc_threadsmith_apprentice",
+      "artisan_name": "织线学徒",
+      "source": "灰旗的针迹显示如何收住散线，织线学徒把旧旗环缝成较沉的收针环。",
+      "unlock_hint": "黑曜巡礼道·灰旗追踪首清后，回苔钟庭找织线学徒出示「证据·灰旗爪痕」。"
+    },
+    "craft_crown_pendant": {
+      "name": "冠舌调线坠·制作",
+      "description": "普攻回能提高10%，治疗准备时间增加12%；与工匠线轴、逆潮线轴互斥。",
+      "kind": "passive",
+      "target": "crown_pendant",
+      "currency": 90,
+      "materials": {
+        "crown_echo_shard": 3
+      },
+      "requires_items": [
+        "evidence_bell_tongue_echo"
+      ],
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "钟舌余响留下最后一次调音的节拍，雨铸匠用冠响碎片铆成调线坠，让命中更易收线，缝补却更慢。",
+      "unlock_hint": "无声王冠·钟舌试炼首清后，带冠响碎片回铸雨渠找雨铸匠。"
     }
   },
   "events": {

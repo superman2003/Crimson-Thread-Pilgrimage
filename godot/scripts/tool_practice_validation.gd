@@ -142,6 +142,7 @@ func check_practice_energy(puppet: Area2D) -> void:
 	player.global_position = original_position
 
 func run() -> void:
+	failures += await preload("res://scripts/player_tool_art_validation.gd").new().run(self)
 	for suffix in ["", ".bak", ".tmp"]:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
 	scene = load("res://scenes/World.tscn").instantiate()

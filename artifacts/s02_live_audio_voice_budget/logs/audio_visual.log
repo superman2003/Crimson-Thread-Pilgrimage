@@ -1,0 +1,689 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.62 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+PASS: audio file exists: res://assets/audio/bgm/ch01_cave_loop.ogg
+PASS: audio stream loads: res://assets/audio/bgm/ch01_cave_loop.ogg
+PASS: audio file exists: res://assets/audio/bgm/boss_rust_crown_loop.ogg
+PASS: audio stream loads: res://assets/audio/bgm/boss_rust_crown_loop.ogg
+PASS: audio file exists: res://assets/audio/sfx/player_attack.ogg
+PASS: audio stream loads: res://assets/audio/sfx/player_attack.ogg
+PASS: audio file exists: res://assets/audio/sfx/player_hook.ogg
+PASS: audio stream loads: res://assets/audio/sfx/player_hook.ogg
+PASS: audio file exists: res://assets/audio/sfx/player_dash.ogg
+PASS: audio stream loads: res://assets/audio/sfx/player_dash.ogg
+PASS: audio file exists: res://assets/audio/sfx/player_jump.ogg
+PASS: audio stream loads: res://assets/audio/sfx/player_jump.ogg
+PASS: audio file exists: res://assets/audio/sfx/player_heal.ogg
+PASS: audio stream loads: res://assets/audio/sfx/player_heal.ogg
+PASS: audio file exists: res://assets/audio/sfx/player_hurt.ogg
+PASS: audio stream loads: res://assets/audio/sfx/player_hurt.ogg
+PASS: audio file exists: res://assets/audio/sfx/enemy_hit.ogg
+PASS: audio stream loads: res://assets/audio/sfx/enemy_hit.ogg
+PASS: audio file exists: res://assets/audio/sfx/heavy_hit.ogg
+PASS: audio stream loads: res://assets/audio/sfx/heavy_hit.ogg
+PASS: audio file exists: res://assets/audio/sfx/pickup.ogg
+PASS: audio stream loads: res://assets/audio/sfx/pickup.ogg
+PASS: audio file exists: res://assets/audio/sfx/lever.ogg
+PASS: audio stream loads: res://assets/audio/sfx/lever.ogg
+PASS: audio file exists: res://assets/audio/sfx/interact.ogg
+PASS: audio stream loads: res://assets/audio/sfx/interact.ogg
+ERROR: Error opening file 'res://assets/sprites/original_map/moss_cavern/platform_mid.png'.
+   at: load_image (core/io/image_loader.cpp:89)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Failed to load image. Error 7
+   at: load_from_file (core/io/image.cpp:2773)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: FAIL: CH01 original map texture loads: res://assets/sprites/original_map/moss_cavern/platform_mid.png
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _assert (res://scripts/audio_visual_validation.gd:347)
+       [1] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Error opening file 'res://assets/sprites/original_map/moss_cavern/platform_cap_small.png'.
+   at: load_image (core/io/image_loader.cpp:89)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Failed to load image. Error 7
+   at: load_from_file (core/io/image.cpp:2773)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: FAIL: CH01 original map texture loads: res://assets/sprites/original_map/moss_cavern/platform_cap_small.png
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _assert (res://scripts/audio_visual_validation.gd:347)
+       [1] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Error opening file 'res://assets/sprites/original_map/moss_cavern/wall.png'.
+   at: load_image (core/io/image_loader.cpp:89)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Failed to load image. Error 7
+   at: load_from_file (core/io/image.cpp:2773)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: FAIL: CH01 original map texture loads: res://assets/sprites/original_map/moss_cavern/wall.png
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _assert (res://scripts/audio_visual_validation.gd:347)
+       [1] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Error opening file 'res://assets/sprites/original_map/moss_cavern/map.png'.
+   at: load_image (core/io/image_loader.cpp:89)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: Failed to load image. Error 7
+   at: load_from_file (core/io/image.cpp:2773)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:42)
+ERROR: FAIL: CH01 original map texture loads: res://assets/sprites/original_map/moss_cavern/map.png
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _assert (res://scripts/audio_visual_validation.gd:347)
+       [1] _run (res://scripts/audio_visual_validation.gd:42)
+PASS: third-party asset notice exists
+第1章 苔钟庭：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。
+PASS: background music player is active
+PASS: default bus layout resource loads
+PASS: audio bus exists: BGM
+PASS: audio bus exists: SFX
+PASS: audio bus exists: Ambience
+PASS: audio bus exists: UI
+PASS: bgm player routed to BGM bus
+PASS: SFX bus carries chapter reverb
+PASS: Ambience bus carries chapter reverb
+PASS: main level exposes duck_bgm
+PASS: low hp lowpass engages on BGM bus
+PASS: low hp lowpass releases on BGM bus
+PASS: audio sub-bus exists: MusicExplore
+PASS: audio sub-bus exists: MusicCombat
+PASS: audio sub-bus exists: MusicStinger
+PASS: audio sub-bus exists: SFXPlayer
+PASS: audio sub-bus exists: SFXEnemy
+PASS: audio sub-bus exists: SFXWorld
+PASS: audio sub-bus exists: ReverbZone
+PASS: ReverbZone bus carries reverb effect
+PASS: UI bus stays dry (no reverb effect)
+PASS: audio_director script loads
+PASS: request_voice grants 3 concurrent voices for same key
+PASS: request_voice rejects 4th rapid same-key voice
+PASS: request_voice first call passes min-interval gate
+PASS: request_voice blocks same-key retrigger inside min interval
+PASS: bgm stream carries seamless loop flag
+PASS: AV manifest upgraded to v2
+PASS: AV manifest v2 block present: buses
+PASS: AV manifest v2 block present: sfx_catalog
+PASS: AV manifest v2 block present: ambience_zones
+PASS: AV manifest v2 block present: reverb_zones
+PASS: AV manifest v2 block present: mix_states
+PASS: manifest wired entry declares path: player_attack_swing
+PASS: manifest asset_ready entry declares path: player_attack_hit_light
+PASS: manifest asset_ready entry declares path: player_attack_hit_heavy
+PASS: manifest wired entry declares path: player_attack_kill
+PASS: manifest wired entry declares path: enemy_hit_soft
+PASS: manifest wired entry declares path: enemy_hit_shell
+PASS: manifest wired entry declares path: enemy_hit_armor
+PASS: manifest local_audio entry declares path: player_jump
+PASS: manifest local_audio entry declares path: player_wall_jump
+PASS: manifest wired entry declares path: player_land_soft
+PASS: manifest wired entry declares path: player_land_hard
+PASS: manifest wired entry declares path: player_pogo_bounce
+PASS: manifest local_audio entry declares path: player_dash_start
+PASS: manifest local_audio entry declares path: player_skill_burst
+PASS: manifest local_audio entry declares path: player_hook_fire
+PASS: manifest wired entry declares path: player_hook_latch
+PASS: manifest wired entry declares path: player_hook_reel
+PASS: manifest asset_ready entry declares path: player_double_jump_wings
+PASS: manifest wired entry declares path: player_wall_grip_attach
+PASS: manifest wired entry declares path: player_wall_slide_loop
+PASS: manifest asset_ready entry declares path: player_guard_block
+PASS: manifest asset_ready entry declares path: player_guard_perfect
+PASS: manifest asset_ready entry declares path: player_downstrike_crack
+PASS: manifest wired entry declares path: player_downstrike_break
+PASS: manifest asset_ready entry declares path: player_bind_channel
+PASS: manifest asset_ready entry declares path: player_bind_tighten
+PASS: manifest local_audio entry declares path: player_bind_complete
+PASS: manifest asset_ready entry declares path: player_bind_interrupt
+PASS: manifest local_audio entry declares path: player_hurt_snap
+PASS: manifest wired entry declares path: player_death_cocoon
+PASS: manifest wired entry declares path: player_respawn_weave
+PASS: manifest wired entry declares path: player_low_hp_heartbeat
+PASS: manifest wired entry declares path: enemy_windup_light
+PASS: manifest local_audio entry declares path: enemy_attack_impact
+PASS: manifest wired entry declares path: enemy_death_moss
+PASS: manifest wired entry declares path: enemy_death_copper
+PASS: manifest wired entry declares path: enemy_death_salt
+PASS: manifest wired entry declares path: enemy_death_fiber
+PASS: manifest wired entry declares path: enemy_death_obsidian
+PASS: manifest wired entry declares path: enemy_death_silent
+PASS: manifest wired entry declares path: elite_ritual_start
+PASS: manifest wired entry declares path: boss_windup_light
+PASS: manifest local_audio entry declares path: boss_windup_heavy
+PASS: manifest wired entry declares path: boss_windup_lethal
+PASS: manifest wired entry declares path: boss_roar
+PASS: manifest wired entry declares path: boss_phase_shift
+PASS: manifest wired entry declares path: boss_atk_light
+PASS: manifest wired entry declares path: boss_atk_heavy
+PASS: manifest wired entry declares path: boss_death_slowmo
+PASS: manifest local_audio entry declares path: ui_pickup
+PASS: manifest local_audio entry declares path: ui_lever
+PASS: manifest local_audio entry declares path: ui_dialogue_next
+PASS: manifest local_audio entry declares path: player_step
+PASS: manifest local_audio entry declares path: ui_inventory_open
+PASS: manifest local_audio entry declares path: ui_inventory_close
+PASS: manifest local_audio entry declares path: ui_map_open
+PASS: manifest local_audio entry declares path: ui_map_close
+PASS: manifest local_audio entry declares path: ui_dialogue_close
+PASS: manifest local_audio entry declares path: ui_menu_move
+PASS: manifest local_audio entry declares path: ui_menu_confirm
+PASS: manifest local_audio entry declares path: ui_menu_cancel
+PASS: manifest local_audio entry declares path: ui_toast
+PASS: manifest asset_ready entry declares path: ui_ability_unlock
+PASS: manifest asset_ready entry declares path: ui_pickup_key_item
+PASS: manifest asset_ready entry declares path: ui_testimony_complete
+PASS: manifest local_audio entry declares path: ui_door_open
+PASS: manifest local_audio entry declares path: ui_pickup_resin
+PASS: manifest wired entry declares path: env_shrine_rest
+PASS: manifest wired entry declares path: env_shrine_wrap
+PASS: manifest wired entry declares path: env_gate_dash
+PASS: manifest wired entry declares path: env_gate_wallshaft
+PASS: manifest wired entry declares path: env_gate_hookring
+PASS: manifest wired entry declares path: env_gate_doublejump
+PASS: manifest asset_ready entry declares path: env_gate_guardbreak
+PASS: manifest wired entry declares path: env_gate_shadow
+PASS: manifest wired entry declares path: env_gate_crown
+PASS: manifest wired entry declares path: env_chapter_transition
+PASS: manifest wired entry declares path: story_ending_a_rebell
+PASS: manifest wired entry declares path: story_ending_b_severance
+PASS: manifest wired entry declares path: story_ending_c_reweave
+PASS: manifest wired entry declares path: amb_ch01_bed
+PASS: manifest wired entry declares path: amb_ch01_os_1
+PASS: manifest wired entry declares path: amb_ch01_os_2
+PASS: manifest wired entry declares path: amb_ch01_os_3
+PASS: manifest wired entry declares path: amb_ch01_os_4
+PASS: manifest wired entry declares path: amb_ch01_os_5
+PASS: manifest wired entry declares path: amb_ch01_os_6
+PASS: manifest wired entry declares path: amb_ch01_os_7
+PASS: manifest wired entry declares path: amb_ch01_os_8
+PASS: manifest wired entry declares path: amb_ch02_bed
+PASS: manifest wired entry declares path: amb_ch02_anvil_far
+PASS: manifest wired entry declares path: amb_ch02_os_1
+PASS: manifest wired entry declares path: amb_ch02_os_2
+PASS: manifest wired entry declares path: amb_ch02_os_3
+PASS: manifest wired entry declares path: amb_ch02_os_4
+PASS: manifest wired entry declares path: amb_ch02_os_5
+PASS: manifest wired entry declares path: amb_ch02_os_6
+PASS: manifest wired entry declares path: amb_ch02_os_7
+PASS: manifest wired entry declares path: amb_ch02_os_8
+PASS: manifest wired entry declares path: amb_ch03_bed
+PASS: manifest wired entry declares path: amb_ch03_os_1
+PASS: manifest wired entry declares path: amb_ch03_os_2
+PASS: manifest wired entry declares path: amb_ch03_os_3
+PASS: manifest wired entry declares path: amb_ch03_os_4
+PASS: manifest wired entry declares path: amb_ch03_os_5
+PASS: manifest wired entry declares path: amb_ch03_os_6
+PASS: manifest wired entry declares path: amb_ch03_os_7
+PASS: manifest wired entry declares path: amb_ch03_os_8
+PASS: manifest wired entry declares path: amb_ch04_bed
+PASS: manifest wired entry declares path: amb_ch04_os_1
+PASS: manifest wired entry declares path: amb_ch04_os_2
+PASS: manifest wired entry declares path: amb_ch04_os_3
+PASS: manifest wired entry declares path: amb_ch04_os_4
+PASS: manifest wired entry declares path: amb_ch04_os_5
+PASS: manifest wired entry declares path: amb_ch04_os_6
+PASS: manifest wired entry declares path: amb_ch04_os_7
+PASS: manifest wired entry declares path: amb_ch04_os_8
+PASS: manifest wired entry declares path: amb_ch05_bed
+PASS: manifest wired entry declares path: amb_ch05_os_1
+PASS: manifest wired entry declares path: amb_ch05_os_2
+PASS: manifest wired entry declares path: amb_ch05_os_3
+PASS: manifest wired entry declares path: amb_ch05_os_4
+PASS: manifest wired entry declares path: amb_ch05_os_5
+PASS: manifest wired entry declares path: amb_ch05_os_6
+PASS: manifest wired entry declares path: amb_ch05_os_7
+PASS: manifest wired entry declares path: amb_ch05_os_8
+PASS: manifest wired entry declares path: amb_ch06_bed
+PASS: manifest wired entry declares path: amb_ch06_os_1
+PASS: manifest wired entry declares path: amb_ch06_os_2
+PASS: manifest wired entry declares path: amb_ch06_os_3
+PASS: manifest wired entry declares path: amb_ch06_os_4
+PASS: manifest wired entry declares path: amb_ch06_os_5
+PASS: manifest wired entry declares path: amb_ch06_os_6
+PASS: manifest wired entry declares path: amb_ch06_os_7
+PASS: manifest wired entry declares path: amb_ch06_os_8
+PASS: manifest wired entry declares path: boss_final_silent_crown_mvt1
+PASS: manifest wired entry declares path: boss_final_silent_crown_mvt2
+PASS: manifest wired entry declares path: boss_final_silent_crown_mvt3
+PASS: manifest asset_ready entry declares path: ending_a_rebell
+PASS: manifest asset_ready entry declares path: ending_b_severance
+PASS: manifest asset_ready entry declares path: ending_c_reweave
+PASS: manifest asset_ready entry declares path: bellway_transit_loop
+PASS: manifest asset_ready entry declares path: bellway_depart_jingle
+PASS: manifest asset_ready entry declares path: bellway_arrive_jingle
+PASS: manifest asset_ready entry declares path: hidden_black_tide_drone
+PASS: manifest wired entry declares path: player_attack_swing
+PASS: manifest local_audio entry declares path: player_hook
+PASS: manifest local_audio entry declares path: player_skill
+PASS: manifest local_audio entry declares path: player_heal
+PASS: manifest wired entry declares path: enemy_windup
+PASS: manifest local_audio entry declares path: enemy_attack
+PASS: manifest wired entry declares path: boss_windup_light
+PASS: manifest wired entry declares path: boss_windup_lethal
+PASS: manifest wired entry declares path: boss_atk_light/boss_atk_heavy
+PASS: manifest local_audio entry declares path: pickup
+PASS: manifest local_audio entry declares path: ch01_cave_loop
+PASS: manifest local_audio entry declares path: ch01_boss_loop
+PASS: manifest wired entry declares path: ch01_moss_bell_court_combat_layer
+PASS: manifest wired entry declares path: ch01_moss_bell_court_shrine_lullaby
+PASS: manifest local_audio entry declares path: player_attack
+PASS: manifest local_audio entry declares path: player_hook
+PASS: manifest local_audio entry declares path: heavy_hit
+PASS: manifest wired entry declares path: ch02_rain_foundry_canal_explore_loop
+PASS: manifest wired entry declares path: ch02_rain_foundry_canal_combat_layer
+PASS: manifest wired entry declares path: ch02_rain_foundry_canal_boss_loop
+PASS: manifest wired entry declares path: ch02_rain_foundry_canal_shrine_lullaby
+PASS: manifest asset_ready entry declares path: ch02_rain_foundry_canal_beat_01_audio
+PASS: manifest asset_ready entry declares path: ch02_rain_foundry_canal_beat_02_audio
+PASS: manifest asset_ready entry declares path: ch02_rain_foundry_canal_beat_03_audio
+PASS: manifest wired entry declares path: ch03_saltwhite_archive_explore_loop
+PASS: manifest wired entry declares path: ch03_saltwhite_archive_combat_layer
+PASS: manifest wired entry declares path: ch03_saltwhite_archive_boss_loop
+PASS: manifest wired entry declares path: ch03_saltwhite_archive_shrine_lullaby
+PASS: manifest asset_ready entry declares path: ch03_saltwhite_archive_beat_01_audio
+PASS: manifest asset_ready entry declares path: ch03_saltwhite_archive_beat_02_audio
+PASS: manifest asset_ready entry declares path: ch03_saltwhite_archive_beat_03_audio
+PASS: manifest wired entry declares path: ch04_broken_string_greenhouse_explore_loop
+PASS: manifest wired entry declares path: ch04_broken_string_greenhouse_combat_layer
+PASS: manifest wired entry declares path: ch04_broken_string_greenhouse_boss_loop
+PASS: manifest wired entry declares path: ch04_broken_string_greenhouse_shrine_lullaby
+PASS: manifest asset_ready entry declares path: ch04_broken_string_greenhouse_beat_01_audio
+PASS: manifest asset_ready entry declares path: ch04_broken_string_greenhouse_beat_02_audio
+PASS: manifest asset_ready entry declares path: ch04_broken_string_greenhouse_beat_03_audio
+PASS: manifest wired entry declares path: ch05_obsidian_pilgrim_road_explore_loop
+PASS: manifest wired entry declares path: ch05_obsidian_pilgrim_road_combat_layer
+PASS: manifest wired entry declares path: ch05_obsidian_pilgrim_road_boss_loop
+PASS: manifest wired entry declares path: ch05_obsidian_pilgrim_road_shrine_lullaby
+PASS: manifest asset_ready entry declares path: ch05_obsidian_pilgrim_road_beat_01_audio
+PASS: manifest asset_ready entry declares path: ch05_obsidian_pilgrim_road_beat_02_audio
+PASS: manifest asset_ready entry declares path: ch05_obsidian_pilgrim_road_beat_03_audio
+PASS: manifest wired entry declares path: ch06_silent_crown_core_explore_loop
+PASS: manifest wired entry declares path: ch06_silent_crown_core_combat_layer
+PASS: manifest wired entry declares path: ch06_silent_crown_core_boss_loop
+PASS: manifest wired entry declares path: ch06_silent_crown_core_shrine_lullaby
+PASS: manifest asset_ready entry declares path: ch06_silent_crown_core_beat_01_audio
+PASS: manifest asset_ready entry declares path: ch06_silent_crown_core_beat_02_audio
+PASS: manifest asset_ready entry declares path: ch06_silent_crown_core_beat_03_audio
+PASS: manifest landed audio entry count sane (197)
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_bed.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_bed.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_1.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_2.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_2.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_3.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_3.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_4.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_4.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_5.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_5.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_6.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_6.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_7.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_7.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch01_os_8.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch01_os_8.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_anvil_far.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_anvil_far.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_bed.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_bed.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_1.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_2.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_2.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_3.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_3.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_4.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_4.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_5.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_5.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_6.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_6.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_7.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_7.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch02_os_8.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch02_os_8.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_bed.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_bed.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_1.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_2.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_2.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_3.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_3.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_4.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_4.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_5.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_5.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_6.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_6.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_7.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_7.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch03_os_8.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch03_os_8.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_bed.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_bed.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_1.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_2.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_2.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_3.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_3.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_4.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_4.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_5.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_5.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_6.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_6.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_7.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_7.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch04_os_8.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch04_os_8.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_bed.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_bed.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_1.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_2.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_2.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_3.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_3.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_4.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_4.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_5.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_5.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_6.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_6.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_7.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_7.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch05_os_8.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch05_os_8.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_bed.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_bed.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_1.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_2.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_2.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_3.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_3.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_4.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_4.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_5.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_5.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_6.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_6.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_7.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_7.ogg
+PASS: manifest audio file exists: res://assets/audio/ambience/amb_ch06_os_8.ogg
+PASS: manifest audio stream loads: res://assets/audio/ambience/amb_ch06_os_8.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/boss_rust_crown_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/boss_rust_crown_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/ch01_cave_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/ch01_cave_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/bellway_arrive_jingle.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/bellway_arrive_jingle.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/bellway_depart_jingle.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/bellway_depart_jingle.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/bellway_transit_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/bellway_transit_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/boss_final_silent_crown_mvt1.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/boss_final_silent_crown_mvt1.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/boss_final_silent_crown_mvt2.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/boss_final_silent_crown_mvt2.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/boss_final_silent_crown_mvt3.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/boss_final_silent_crown_mvt3.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch01_moss_bell_court_combat_layer.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch01_moss_bell_court_combat_layer.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch01_moss_bell_court_shrine_lullaby.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch01_moss_bell_court_shrine_lullaby.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_boss_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_boss_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_combat_layer.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_combat_layer.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_explore_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_explore_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_shrine_lullaby.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch02_rain_foundry_canal_shrine_lullaby.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch03_saltwhite_archive_boss_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch03_saltwhite_archive_boss_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch03_saltwhite_archive_combat_layer.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch03_saltwhite_archive_combat_layer.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch03_saltwhite_archive_explore_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch03_saltwhite_archive_explore_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch03_saltwhite_archive_shrine_lullaby.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch03_saltwhite_archive_shrine_lullaby.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_boss_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_boss_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_combat_layer.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_combat_layer.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_explore_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_explore_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_shrine_lullaby.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_shrine_lullaby.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_boss_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_boss_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_combat_layer.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_combat_layer.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_explore_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_explore_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_shrine_lullaby.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_shrine_lullaby.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch06_silent_crown_core_boss_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch06_silent_crown_core_boss_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch06_silent_crown_core_combat_layer.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch06_silent_crown_core_combat_layer.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch06_silent_crown_core_explore_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch06_silent_crown_core_explore_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ch06_silent_crown_core_shrine_lullaby.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ch06_silent_crown_core_shrine_lullaby.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ending_a_rebell.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ending_a_rebell.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ending_b_severance.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ending_b_severance.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/ending_c_reweave.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/ending_c_reweave.ogg
+PASS: manifest audio file exists: res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg
+PASS: manifest audio stream loads: res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/enemy_hit.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/enemy_hit.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_ch01_atk_heavy.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_ch01_atk_heavy.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_ch01_atk_light.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_ch01_atk_light.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_ch01_phase_shift.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_ch01_phase_shift.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_ch01_roar.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_ch01_roar.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_death_slowmo.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_death_slowmo.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_windup_lethal.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_windup_lethal.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/boss_windup_light.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/boss_windup_light.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_02_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_02_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_02_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_02_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_02_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_02_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_03_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_03_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_01_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_01_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_03_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_03_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_01_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_01_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_03_audio.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_03_audio.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/elite_ritual_start.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/elite_ritual_start.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_death_copper.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_death_copper.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_death_fiber.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_death_fiber.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_death_moss.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_death_moss.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_death_obsidian.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_death_obsidian.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_death_salt.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_death_salt.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_death_silent.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_death_silent.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_hit_armor.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_hit_armor.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_hit_shell.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_hit_shell.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/enemy_hit_soft.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/enemy_hit_soft.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_chapter_transition.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_chapter_transition.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_crown.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_crown.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_dash.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_dash.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_doublejump.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_doublejump.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_guardbreak.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_guardbreak.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_hookring.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_hookring.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_shadow.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_shadow.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_gate_wallshaft.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_gate_wallshaft.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_shrine_rest_ch01.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_shrine_rest_ch01.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/env_shrine_wrap.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/env_shrine_wrap.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_attack_01.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_attack_01.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_attack_hit_heavy.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_attack_hit_heavy.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_attack_hit_light.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_attack_hit_light.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_attack_kill.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_attack_kill.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_bind_channel.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_bind_channel.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_bind_interrupt.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_bind_interrupt.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_bind_tighten.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_bind_tighten.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_death_cocoon.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_death_cocoon.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_double_jump_wings.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_double_jump_wings.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_downstrike_break.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_downstrike_break.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_downstrike_crack.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_downstrike_crack.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_guard_block.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_guard_block.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_guard_perfect.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_guard_perfect.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_hook_latch.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_hook_latch.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_hook_reel.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_hook_reel.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_land_hard.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_land_hard.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_land_soft.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_land_soft.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_low_hp_heartbeat.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_low_hp_heartbeat.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_pogo_bounce.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_pogo_bounce.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_respawn_weave.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_respawn_weave.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_wall_grip_attach.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_wall_grip_attach.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/player_wall_slide_loop.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/player_wall_slide_loop.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/story_ending_a_rebell.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/story_ending_a_rebell.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/story_ending_b_severance.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/story_ending_b_severance.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/story_ending_c_reweave.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/story_ending_c_reweave.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ui_ability_unlock.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ui_ability_unlock.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ui_pickup_key_item.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ui_pickup_key_item.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/generated/ui_testimony_complete.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/generated/ui_testimony_complete.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/heavy_hit.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/heavy_hit.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/interact.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/interact.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/impact/footstep_grass_000.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/impact/footstep_grass_000.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/back_002.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/back_002.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/close_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/close_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/confirmation_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/confirmation_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/error_004.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/error_004.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/maximize_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/maximize_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/minimize_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/minimize_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/open_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/open_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/pluck_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/pluck_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/interface/tick_001.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/interface/tick_001.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/rpg/doorOpen_1.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/rpg/doorOpen_1.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/kenney/rpg/handleCoins.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/kenney/rpg/handleCoins.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/lever.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/lever.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/pickup.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/pickup.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/player_attack.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/player_attack.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/player_dash.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/player_dash.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/player_heal.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/player_heal.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/player_hook.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/player_hook.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/player_hurt.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/player_hurt.ogg
+PASS: manifest audio file exists: res://assets/audio/sfx/player_jump.ogg
+PASS: manifest audio stream loads: res://assets/audio/sfx/player_jump.ogg
+PASS: all 51 P0 keys have at least one landed variant
+ERROR: FAIL: start platform exists
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _assert (res://scripts/audio_visual_validation.gd:347)
+       [1] _run (res://scripts/audio_visual_validation.gd:142)
+SCRIPT ERROR: Cannot call method 'get_node_or_null' on a null value.
+   at: _run (res://scripts/audio_visual_validation.gd:143)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/audio_visual_validation.gd:143)
+用 A / D 移动，沿苔灯走向断阶。
