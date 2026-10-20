@@ -2414,7 +2414,8 @@ func _start_low_hp_heartbeat() -> void:
         low_hp_heartbeat_player.volume_db = -10.0
         add_child(low_hp_heartbeat_player)
     if not low_hp_heartbeat_player.playing:
-        low_hp_heartbeat_player.play()
+        var ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
+        if ticket != 0:AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(ticket,low_hp_heartbeat_player,true)
 
 
 func _first_existing_bus(bus_names: Array) -> String:
@@ -2466,12 +2467,13 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     if not _should_autoplay_audio() or not is_inside_tree() or is_queued_for_deletion():
         return
     # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
-    if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
+    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    if voice_ticket == 0:
         return
     var stream := _load_audio_stream(audio_key)
     if stream == null:
         # 声部回滚（契约 release_voice）：拿不到流就撤销刚批准的登记。
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "Sfx_" + audio_key
@@ -2479,7 +2481,7 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.stream = stream
     player_node.volume_db = volume_db
     var instance_id := player_node.get_instance_id()
-    pending_sfx_players[instance_id] = {"player": player_node, "audio_key": audio_key}
+    pending_sfx_players[instance_id] = {"player": player_node, "voice_ticket": voice_ticket}
     # Interactable signals can close an overlay while this level or one of its
     # children is entering/exiting the tree. Defer attachment until scene-tree
     # notifications finish, then play only after the player is actually inside.
@@ -2492,21 +2494,21 @@ func _attach_pending_sfx(instance_id: int) -> void:
     var pending: Dictionary = pending_sfx_players[instance_id]
     pending_sfx_players.erase(instance_id)
     var player_node: AudioStreamPlayer = pending.get("player")
-    var audio_key: String = String(pending.get("audio_key", ""))
+    var voice_ticket := int(pending.get("voice_ticket",0))
     if not is_instance_valid(player_node):
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     if not is_inside_tree() or is_queued_for_deletion():
         player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     add_child(player_node)
     if not player_node.is_inside_tree():
         player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 func _cancel_pending_sfx() -> void:
@@ -2515,7 +2517,7 @@ func _cancel_pending_sfx() -> void:
         var player_node: AudioStreamPlayer = pending.get("player")
         if is_instance_valid(player_node):
             player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(String(pending.get("audio_key", "")))
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(int(pending.get("voice_ticket",0)))
     pending_sfx_players.clear()
 
 
@@ -2538,12 +2540,13 @@ func _load_audio_stream(audio_key: String) -> AudioStream:
 func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
     if not _should_autoplay_audio():
         return
-    if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
+    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    if voice_ticket == 0:
         return
     var stream := _load_audio_stream(audio_key)
     if stream == null or not is_inside_tree():
         # 声部回滚（契约 release_voice）：拿不到流/不在树上都不会真正发声。
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "PersistentSfx_" + audio_key
@@ -2552,7 +2555,7 @@ func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.volume_db = volume_db
     get_tree().root.add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 ## 同事件多变体随机轮播（Kenney 变体组用）。

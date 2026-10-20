@@ -6,6 +6,7 @@ var failures := 0
 func _initialize() -> void:
     call_deferred("_run")
 func _run() -> void:
+    await preload("res://scripts/audio_voice_budget_validation.gd").new().run(self,_check_volume)
     var topology_checks := preload("res://scripts/audio_bus_topology_validation.gd").new()
     await topology_checks.run(self, _check_volume)
     var watches := RETIREMENT.observed
