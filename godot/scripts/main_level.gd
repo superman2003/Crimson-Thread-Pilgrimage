@@ -1684,6 +1684,8 @@ func _commit_world_dialogue() -> void:
         _toast("归途记录未能写入；本次交谈尚未确认，请重试。")
         return
     area.set_meta("world_line_committed", true)
+    if ui_shell != null and ui_shell.has_method("forget_dialogue_reading"):
+        ui_shell.forget_dialogue_reading()
     if not fresh_flags.is_empty():
         var response := String(result.get("response", ""))
         if not response.is_empty():
@@ -6722,10 +6724,11 @@ func _show_dialogue(area: Area2D, line: String) -> void:
     if dialogue_text_label != null:
         dialogue_text_label.text = line
         if world_mode:
-            subtitle_elapsed = 0.0
             subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(ui_shell.get_accessibility("subtitle_speed")) if ui_shell != null and ui_shell.has_method("get_accessibility") else 1.0)
-            dialogue_text_label.visible_characters = 0
-            if audio_director != null:
+            var reading: Dictionary = ui_shell.dialogue_reading_state(area, line) if ui_shell != null and ui_shell.has_method("dialogue_reading_state") else {}
+            subtitle_elapsed = subtitle_seconds * float(reading.get("progress", 0.0))
+            dialogue_text_label.visible_characters = int(reading.get("characters", 0))
+            if audio_director != null and reading.is_empty():
                 var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
                 audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile)
         else:
