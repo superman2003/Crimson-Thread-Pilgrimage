@@ -9,6 +9,7 @@ func _run() -> void:
     var topology_checks := preload("res://scripts/audio_bus_topology_validation.gd").new()
     await topology_checks.run(self, _check_volume)
     await preload("res://scripts/music_phrase_resume_validation.gd").new().run(self, _check_volume)
+    await preload("res://scripts/player_audio_retirement_validation.gd").new().run(self, _check_volume)
     var watches := RETIREMENT.observed
     var presentation := PRESENTATION.new()
     root.add_child(presentation)
