@@ -15,6 +15,7 @@ func _run() -> void:
     failures += await preload("res://scripts/projectile_art_validation.gd").new().run(self, enemy)
     failures += await preload("res://scripts/ground_hazard_art_validation.gd").new().run(self, enemy)
     failures += await preload("res://scripts/terrain_attack_art_validation.gd").new().run(self, enemy)
+    failures += await preload("res://scripts/beam_art_validation.gd").new().run(self, enemy)
     await _verify_beam_channel(enemy)
     for round_index in range(5):
         var effect: Node2D = enemy._effect("projectile", Vector2(100, 100), Vector2.RIGHT * 30.0, {}, 0.0, 0.02)
