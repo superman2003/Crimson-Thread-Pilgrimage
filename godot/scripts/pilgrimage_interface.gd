@@ -52,6 +52,8 @@ var dialogue_hint: Label
 var dialogue_portrait: TextureRect
 var dialogue_area: Area2D
 var dialogue_quest_button: Button
+var dialogue_reading := preload("res://scripts/dialogue_reading_memory.gd").new()
+var dialogue_reading_key := ""
 var settings: ColorRect
 var legacy_settings: Label
 var toast: Label
@@ -549,6 +551,9 @@ func _build_dialogue() -> void:
 func show_speaker(area: Area2D) -> void:
     dialogue_area=area
     dialogue_scroll.scroll_vertical=0
+    dialogue_reading_key=_dialogue_reading_key(area,dialogue_body.text)
+    var reading:=dialogue_reading.restore(dialogue_reading_key)
+    if not reading.is_empty():_restore_dialogue_scroll(dialogue_reading_key,int(reading.scroll))
     dialogue_portrait.texture=ART.portrait(String(area.get_meta("npc_id","")))
     dialogue_hint.text=_dialogue_binding_hint()
     dialogue_hint.tooltip_text=dialogue_hint.text
@@ -592,11 +597,29 @@ func _topic(key: String) -> void:
     level._show_dialogue(dialogue_area,line)
     if level.world_mode:level._save_world()
 
+func _dialogue_reading_key(area: Area2D,line: String) -> String:
+    return "%s|%s|%s|%d|%s" % [String(level.config.get("id","")),String(area.get_meta("npc_id",area.name)),String(area.get_meta("dialogue_state","")),int(area.get_meta("world_displayed_index",-1)),line.sha256_text()]
+
+func dialogue_reading_state(area: Area2D,line: String) -> Dictionary:
+    return dialogue_reading.restore(_dialogue_reading_key(area,line))
+
+func forget_dialogue_reading() -> void:
+    dialogue_reading.forget(dialogue_reading_key)
+
+func _restore_dialogue_scroll(key: String,value: int) -> void:
+    await get_tree().process_frame
+    if is_inside_tree() and key==dialogue_reading_key and dialogue.visible and is_instance_valid(dialogue_area):
+        dialogue_scroll.scroll_vertical=value
+
 func close_dialogue() -> void:
     if is_instance_valid(dialogue_area):
+        if level.world_mode:
+            var committed:=bool(dialogue_area.get_meta("world_line_committed",false)) and int(dialogue_area.get_meta("world_displayed_index",-1))>=0
+            dialogue_reading.capture(dialogue_reading_key,dialogue_body.text.length(),dialogue_body.visible_characters,dialogue_scroll.scroll_vertical,committed)
         var sprite:=dialogue_area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
         if sprite!=null:sprite.play("idle")
     dialogue_area=null
+    dialogue_reading_key=""
 
 func _build_settings() -> void:
     settings=_panel(self,"设置与无障碍",Vector2(135,48),Vector2(1010,618))
