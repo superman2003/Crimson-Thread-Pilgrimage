@@ -891,6 +891,7 @@ func shutdown() -> void:
         startup_token.cancel()
     _discard_startup_config_read_ahead()
     config_read_job.shutdown()
+    CHARACTER_ART_WARM_JOB.ART.shutdown_texture_requests()
     phase = "idle"
     _clear_loading_canvas()
     _disconnect_startup_frames()
