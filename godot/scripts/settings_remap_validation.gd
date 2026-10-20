@@ -101,7 +101,7 @@ func run() -> void:
 	# --- The settings page lays out all of them inside the panel without overlap. ---
 	scene._toggle_audio_settings()
 	await tick(3)
-	check(ui.settings.visible and ui.remap_buttons.size() == UI.REMAPPABLE_ACTIONS.size() and UI.REMAPPABLE_ACTIONS.size() == 17, "the settings page shows a button for each of the 17 actions")
+	check(ui.settings.visible and ui.remap_buttons.size() == UI.REMAPPABLE_ACTIONS.size() and UI.REMAPPABLE_ACTIONS.size() == 20, "the settings page shows a button for each of the 20 actions")
 	var panel := Rect2(Vector2.ZERO, ui.settings.size)
 	var rects: Array = []
 	for action in ui.remap_buttons:
@@ -128,15 +128,37 @@ func run() -> void:
 	message = await remap_action("attack", key(KEY_Q))
 	check(message.contains("钟壳格挡") and not keys("attack").has(KEY_Q), "a clash with an ability key is refused and names the ability")
 	message = await remap_action("jump", key(KEY_M))
-	check(message.contains("保留") and not keys("jump").has(KEY_M), "the map key stays reserved for the interface")
+	check(message.contains("地图") and not keys("jump").has(KEY_M), "an overlay binding is protected by named conflict detection")
 	# A remapped key is free for another action.
 	message = await remap_action("attack", key(KEY_K))
 	check(keys("attack") == [KEY_K], "the key 回声钩索 gave up can be taken by 普攻")
+
+	message = await remap_action("map", key(KEY_O))
+	check(keys("map") == [KEY_O], "map shortcut can be remapped")
+	message = await remap_action("inventory", key(KEY_U))
+	check(keys("inventory") == [KEY_U], "inventory shortcut can be remapped")
+	message = await remap_action("audio_settings", key(KEY_Y))
+	check(keys("audio_settings") == [KEY_Y], "settings shortcut can be remapped")
+	message = await remap_action("jump", key(KEY_M))
+	check(keys("jump") == [KEY_M], "released map key is reusable for gameplay")
+	scene._close_overlays()
+	Input.action_press("map")
+	await tick(2)
+	Input.action_release("map")
+	check(scene.active_overlay == "map", "remapped map action opens the real map")
+	Input.action_press("inventory")
+	await tick(2)
+	Input.action_release("inventory")
+	check(scene.active_overlay == "map" and scene.world_map_view, "inventory action inside map changes to world view without opening bag")
+	scene._close_overlays()
+	ui._refresh_quick_action_bindings()
+	check(ui.quick_actions[1].text.contains("U") and ui.quick_actions[2].text.contains("O") and ui.quick_actions[3].text.contains("Y"), "HUD shortcuts follow live remaps")
 
 	# --- Remaps survive a restart (a new World and a new player). ---
 	await retire()
 	await boot()
 	ui = scene.ui_shell
+	check(keys("map") == [KEY_O] and keys("inventory") == [KEY_U] and keys("audio_settings") == [KEY_Y], "overlay remaps survive world replacement")
 	check(keys("hook") == [KEY_P] and keys("move_left") == [KEY_Z] and keys("attack") == [KEY_K], "remaps survive a restart")
 
 	# --- One press restores the shipped bindings, and that is saved too. ---
@@ -146,6 +168,7 @@ func run() -> void:
 	ui.reset_bindings_button.pressed.emit()
 	await tick(2)
 	check(keys("hook") == [KEY_K, KEY_X] and keys("move_left") == [KEY_A, KEY_LEFT] and keys("attack") == [KEY_J], "恢复默认按键 restores hook, movement and attack")
+	check(keys("map") == [KEY_M] and keys("inventory") == [KEY_I, KEY_TAB] and keys("audio_settings") == [KEY_V], "reset restores overlay shortcuts too")
 	check(String(ui.remap_status.text).contains("已恢复全部默认按键") and is_equal_approx(float(ui.get_accessibility("camera_shake")), shake_before), "the reset says so and leaves other settings alone")
 	await retire()
 	await boot()
