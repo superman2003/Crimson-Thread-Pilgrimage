@@ -174,11 +174,26 @@ func _overlap_pixels() -> void:
     var warning_image := viewport.get_texture().get_image()
     _check(warning_image.get_pixel(180, 90).r > 0.6, "Beam warning draws over an opaque decorative layer (real GL pixel)")
     var projectile_equal := true
+    var opaque_samples := 0
+    var projectile_art := preload("res://scripts/projectile_art.gd")
+    var pixels := projectile_art.ATLAS.get_image()
+    var source_rect: Rect2 = projectile_art.atlas_rect("spore", 0)
     for y in range(191, 210):
         for x in range(191, 210):
-            if Vector2(x - 200, y - 200).length_squared() <= 64.0 and baseline.get_pixel(x, y) != warning_image.get_pixel(x, y):
-                projectile_equal = false
-    _check(projectile_equal and warning_image.get_pixel(200, 200).r > 0.6, "Opaque projectile core is pixel-identical under late contact/decoration (real GL)")
+            # The 128px cel is rendered at 64px here; require all bilinear
+            # neighbours to be opaque before asserting exact pixel equality.
+            var u := int(source_rect.position.x) + 64 + (x - 200) * 2
+            var v := int(source_rect.position.y) + 64 + (y - 200) * 2
+            var opaque := true
+            for dy in range(-1, 3):
+                for dx in range(-1, 3):
+                    if pixels.get_pixel(u + dx, v + dy).a < 1.0:
+                        opaque = false
+            if opaque:
+                opaque_samples += 1
+                if baseline.get_pixel(x, y) != warning_image.get_pixel(x, y):
+                    projectile_equal = false
+    _check(projectile_equal and opaque_samples >= 20, "Opaque authored projectile pixels remain identical under late contact/decoration (real GL)")
     beam.age = beam.arm_delay + 0.01
     beam.queue_redraw()
     await process_frame

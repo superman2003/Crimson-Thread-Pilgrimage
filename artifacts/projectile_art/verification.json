@@ -1,0 +1,66 @@
+{
+  "base_commit": "e7e9a5206bf22ea858c1764e9d760a4ef7b2ff5e",
+  "dependency_pr": 144,
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe real GL",
+  "families": 15,
+  "source_frames": 120,
+  "new_validation_checks": 300,
+  "mutation_disabled_authored_rendering_failures": 30,
+  "related_suites_passed": 14,
+  "default_suite_registry": "unchanged",
+  "source_sha256": {
+    "godot/scripts/projectile_art.gd": "d95db55f77f34d4ea48d88f3aff6093472da21716dc7ffe9e27a8fb40a1d93df",
+    "godot/scripts/projectile_art_validation.gd": "8ebc420287f7bdeebbfe0a7a5858e0c26f0c05d24008a3d348a913dd9e619f85",
+    "godot/scripts/enemy_attack_effect.gd": "628e381a813c4099eb008be28312a862bfb4133e8ef2113aef3dbb719ee7554d",
+    "godot/scripts/enemy_effect_lifetime_validation.gd": "50ef568b58cd2776c1cde494ca17d81c634dd4a57a76279c7ebfd4c20186f418",
+    "godot/scripts/combat_visual_budget_validation.gd": "47cabc423506d0858eec5c1f23aecb04a9ea18ea21fa69a0b98a1b14bfb33c9e",
+    "tools/build_projectile_art.py": "f64519251ba88960e86be7f54d1c458d4c86ee2f4da98587dbcf52a7eaf86cd5",
+    "tools/capture_projectile_art.gd": "f726d756da0de86796037c4ee79a31dbd3ee00a5616c48c1840d5ef99fe7a4a2",
+    "tools/build_projectile_previews.py": "df017b6dd3cc446c466029b1ff9d94e85162c9dde950b9314069ebf7c1140435",
+    ".github/workflows/projectile-art.yml": "47a07c635803f36f5cb19193ee8d781b06f8bbdf652de5d09b884e20e16dd52c"
+  },
+  "runtime_atlas": {
+    "size": [
+      1024,
+      1920
+    ],
+    "bytes": 677332,
+    "sha256": "03e66b0b5148a5b77b787526d207dac0920bf4b7abaaf18778cfd45fd093ec2d"
+  },
+  "excluded_t02_files_unchanged": [
+    "godot/scripts/world_state.gd",
+    "godot/scripts/build_system.gd",
+    "godot/scripts/main_level.gd",
+    "godot/scripts/save_recovery_validation.gd",
+    "tools/run_godot_regressions.py",
+    "tools/godot_suite_success_markers.json",
+    "tools/test_regression_runner.py",
+    "package.json",
+    "docs/UPGRADE_TASK_LEDGER.md",
+    "docs/UPGRADE_PROGRESS.md",
+    "docs/report/20261020_t02_save_recovery.md"
+  ],
+  "captures": {
+    "scope": "real renderer gallery; physics disabled, impacts captured in batches within the production decoration cap",
+    "sha256": {
+      "flight.gif": "23c6835289d368495bd23a4650e01151ac3208bc7173c9899f1ab72b2fe4057d",
+      "impact.gif": "765c25f846f19bfcdf2a2d99b8b9a0008c60496ed73be21fdfe9a29d347cbf11",
+      "flight.webp": "27b29387cb046b3ab988bd06749aa537b2e13d07034f2e94b6a5a0494f73ef1a",
+      "impact.webp": "678b37c064b13788ebd79680d458c71bd37b75e566607f1d1d21bfcbfdf36596"
+    }
+  },
+  "tests": {
+    "npm": "passed",
+    "campaign": "passed",
+    "reproducible_atlas_pixels": "passed",
+    "imports": "final summary in diagnostics/import.txt"
+  },
+  "known_warnings": "Existing ObjectDB/StringName exit warnings retained. No engine errors hidden.",
+  "not_claimed": [
+    "full default suite rerun",
+    "natural six-region playthrough",
+    "long-term frame-time or memory certification",
+    "remaining 24 source sheets integrated"
+  ]
+}

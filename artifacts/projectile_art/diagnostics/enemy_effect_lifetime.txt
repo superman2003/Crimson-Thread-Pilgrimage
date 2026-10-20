@@ -1,0 +1,53 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+PROJECTILE_ART_VALIDATION checks=300 failures=0 families=15
+PASS: configured beam is created through the enemy attack path
+PASS: beam effect kind is preserved
+PASS: beam channel follows configured attack direction
+PASS: beam visual half-width uses configured radius
+PASS: beam channel ends at configured length
+PASS: visual geometry leaves configured damage unchanged
+PASS: beam warning duration remains unchanged
+PASS: beam total lifetime remains unchanged
+PASS: beam channel geometry has four corners
+PASS: beam channel begins at negative radius edge
+PASS: beam channel begins at positive radius edge
+PASS: beam channel ends at positive radius edge
+PASS: beam channel ends at negative radius edge
+PASS: beam player-center hit threshold includes player half-width and tolerance
+PASS: beam player-center threshold remains separate from visual radius
+PASS: beam test fixture uses the production cancellation path
+PASS: cancelled beam is freed before lifetime rounds begin
+PASS: round 0 spawns after prior effects expire
+PASS: round 0 prunes freed effect references
+PASS: round 0 prunes finished tween references
+PASS: round 0 effect expires through its real physics lifetime
+PASS: round 0 combat tween finishes naturally
+PASS: round 1 spawns after prior effects expire
+PASS: round 1 prunes freed effect references
+PASS: round 1 prunes finished tween references
+PASS: round 1 effect expires through its real physics lifetime
+PASS: round 1 combat tween finishes naturally
+PASS: round 2 spawns after prior effects expire
+PASS: round 2 prunes freed effect references
+PASS: round 2 prunes finished tween references
+PASS: round 2 effect expires through its real physics lifetime
+PASS: round 2 combat tween finishes naturally
+PASS: round 3 spawns after prior effects expire
+PASS: round 3 prunes freed effect references
+PASS: round 3 prunes finished tween references
+PASS: round 3 effect expires through its real physics lifetime
+PASS: round 3 combat tween finishes naturally
+PASS: round 4 spawns after prior effects expire
+PASS: round 4 prunes freed effect references
+PASS: round 4 prunes finished tween references
+PASS: round 4 effect expires through its real physics lifetime
+PASS: round 4 combat tween finishes naturally
+PASS: queued deletion is pruned before the next projectile
+PASS: owner cancellation clears remaining effects
+PASS: cancelled effect is freed
+PASS: enemy removal cancels its live attack effects
+ENEMY_EFFECT_LIFETIME_VALIDATION checks=46 failures=0
