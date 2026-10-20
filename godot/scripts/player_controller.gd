@@ -1649,6 +1649,7 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
+    player_node.set_meta("retire_after_playback",true)
     # 总线归位（音频规格 §5.1）：玩家动作音走 SFXPlayer 子总线，缺席时回落 SFX/Master。
     player_node.bus = _sfx_bus_name()
     player_node.stream = stream
@@ -1837,18 +1838,19 @@ func _start_wall_slide_loop() -> void:
     if voice_ticket == 0:
         return
     if wall_slide_audio == null or not is_instance_valid(wall_slide_audio):
-        # looped=true 走独立缓存键（AudioDirector 契约）：不原地改缓存流的 loop 标记。
+        wall_slide_audio = AudioStreamPlayer2D.new()
+        wall_slide_audio.name = "SfxLoop_wall_slide"
+        wall_slide_audio.bus = _sfx_bus_name()
+        wall_slide_audio.volume_db = -13.0
+        wall_slide_audio.max_distance = 900.0
+        add_child(wall_slide_audio)
+    if wall_slide_audio.stream == null:
+        # Region retirement releases streams while the persistent player survives.
         var stream := _load_sfx_stream("wall_slide_loop", true)
         if stream == null:
             _release_voice(voice_ticket)
             return
-        wall_slide_audio = AudioStreamPlayer2D.new()
-        wall_slide_audio.name = "SfxLoop_wall_slide"
-        wall_slide_audio.bus = _sfx_bus_name()
         wall_slide_audio.stream = stream
-        wall_slide_audio.volume_db = -13.0
-        wall_slide_audio.max_distance = 900.0
-        add_child(wall_slide_audio)
     if not wall_slide_audio.playing:
         _start_voice(voice_ticket,wall_slide_audio,true)
 
@@ -1889,6 +1891,7 @@ func _play_footstep() -> void:
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "SfxStep"
+    player_node.set_meta("retire_after_playback",true)
     player_node.bus = _sfx_bus_name()
     player_node.stream = stream
     player_node.volume_db = FOOTSTEP_VOLUME_DB

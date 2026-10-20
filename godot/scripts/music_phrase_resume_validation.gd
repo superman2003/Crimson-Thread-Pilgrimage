@@ -65,7 +65,12 @@ func run(tree: SceneTree, callback: Callable) -> void:
     await tree.create_timer(.08).timeout
     var host_phrase: float=world.audio_director.explore_player.get_playback_position()
     check(host_phrase>=6.9,"actual World exploration player reaches a nonzero phrase")
+    world.process_mode=Node.PROCESS_MODE_DISABLED
+    await tree.process_frame
+    var observed_before: int=AUDIO.observed
     world._release_region_audio()
+    check(AUDIO.observed>observed_before,"disabled World still observes its actual native playback before stopping it")
+    world.process_mode=Node.PROCESS_MODE_INHERIT
     check(float(DIRECTOR._explore_resume.get(path,0.0))>=6.9,"MainLevel snapshots the outgoing phrase before retiring its players")
     check(world.audio_director.explore_player.stream==null,"normal World retirement still releases the BGM stream")
     world.audio_director._play_explore_track(path)

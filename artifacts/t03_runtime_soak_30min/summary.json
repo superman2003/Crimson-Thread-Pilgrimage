@@ -1,0 +1,42 @@
+{
+  "revision": "b04a1b0977167092b66b5e11433a97002713596f",
+  "source_files": 8667,
+  "source_changes": [],
+  "wall_seconds": 1918.155999999999,
+  "measured_seconds": 1815.465,
+  "cycles": 40,
+  "transitions": 280,
+  "deaths": 40,
+  "anchor_node_counts": [
+    1234
+  ],
+  "final_orphans": 0,
+  "audio_drained": true,
+  "remaining_voices": 0,
+  "zero_reference_instances_at_exit": 15,
+  "assessment": {
+    "passed": false,
+    "errors": [
+      "engine reports leaked objects or resources at teardown"
+    ],
+    "long_session": false,
+    "net_static_growth_bytes": 1795525,
+    "static_growth_bytes_per_minute": 61863.8004300708,
+    "budgets": {
+      "net_static_growth_bytes": 67108864,
+      "static_growth_bytes_per_minute": 1048576
+    },
+    "scope": "lifecycle fixtures; does not prove natural routes, difficulty, target-hardware FPS or human comfort"
+  },
+  "raw_log_sha256": "7670983a6cb3db01d3cacf912de9901dac5d550e7f1dc994f6ecd2df5343a595",
+  "raw_log_bytes": 1213745,
+  "files": {
+    "runtime.log.gz": "1ce59608853b33ca1966617c1efea372e9c752efae7e105a48948059ab932289",
+    "exit_excerpt.txt": "e6e6e7e8a4ec8b7c78309cbc8db79cbec496534652e4dcdad6bb5b6a36e1d59b",
+    "engine_metrics.json": "3df3d8c08f4e897bd147f42f43f32b6b450d9fa43b07200214e49107b5bc7024",
+    "verification.json": "9469f444e660d14bb0c8dab7ef1c955c52865e036b45ee26f4c8406c74e75869",
+    "sources_before.json": "cf3a567826588f6d16862246ca49f08ce3406459566c758372c6195c8d8862c1"
+  },
+  "scope": "Frozen b04a1b09 only; explicit lifecycle fixtures, no natural playthrough, no final-head equivalence; long acceptance fails on teardown warning.",
+  "serialization": "Published JSON uses LF newlines; decoded metrics and freeze manifest values are unchanged. runtime.log.gz preserves the original log bytes."
+}
