@@ -1,0 +1,53 @@
+{
+  "base_commit": "a91d1b3e73bd3f389e24a22a77aebb291e3a6f69",
+  "core_commit": "d4490f009f1aa98d461ca4fc44595c02d1888dcf",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Mesa llvmpipe OpenGL compatibility",
+  "runtime_suites_passed": 10,
+  "default_suite_contract_count": 123,
+  "default_full_suite_run_locally": false,
+  "new_suite_checks": 32,
+  "old_layer_mutation_failures": 6,
+  "npm_test": "passed",
+  "campaign": "passed",
+  "workflow_structure_tests": 5,
+  "imports": [
+    {
+      "pass": "import-1",
+      "engine_errors": 0,
+      "sha256": "6a6cf1c9009420222c9a4d9fe0543e0bf8dc5934b28726fba1df8712a5a9ca01"
+    },
+    {
+      "pass": "import-2",
+      "engine_errors": 0,
+      "sha256": "13f2cbf92373661b5bd3f1fa4cfc5a44990e31e2c80ffedeae450f9d8aedafab"
+    }
+  ],
+  "source_sha256": {
+    "godot/scripts/combat_visual_policy.gd": "e8ed3926a0cb8c271f7c4825b33f4eeb41f9d8953de38c89098545d56a08b48e",
+    "godot/scripts/combat_visual_budget_validation.gd": "01645675a5d09f631b3e85e159d79a6b388d709c5613a4e3da282f7f07305231",
+    "godot/scripts/enemy_actor.gd": "69f7283a7a07d60f78f933c914187ec6e4557df5cd7203aa1e5f3c307a207036",
+    "godot/scripts/enemy_attack_effect.gd": "6212e0e5e0eb2c71f2af96d87b1f3d9d8d8cc58a8c4f99e0e44fd9807a545dca",
+    "godot/scripts/feel_kit.gd": "17c16dc25ae65b78b507567ef9e79a2e759e9d8491097727f5b9cedc52c44f19",
+    "godot/scripts/feel_accessibility_validation.gd": "0a1118451917e29f1927cc5060b28a8a2ba554df840d65d1aa9d6d32588813a2",
+    "godot/scripts/player_melee_feedback.gd": "8e81bdad544d583aabf769d71890a43e36af0b20d3aa7fe05b251d026d956921",
+    "tools/run_godot_regressions.py": "66cfcfca5652964d2b5bb51ecb32159f73a74251debd22a6865faa412a7b415a",
+    "tools/godot_suite_success_markers.json": "d05429b15ffe26250262c341dff56f28639568ef17f6dd9b05b1cc32aab4628b",
+    "tools/test_regression_runner.py": "5bb8db70b743b3e304650ca209e297c26ffa168ec6c26c1108f7d8877c9dced5",
+    "tools/capture_combat_visual_budget.gd": "10b0a8723cac97548dce6f77ccb10d59d37e4631b51a6a8b61f56de726918529"
+  },
+  "screenshots": {
+    "delivery": "Included in PR #144 as game-only validation captures. Reproduce with tools/capture_combat_visual_budget.gd.",
+    "scope": "paused production World fixture; not natural playthrough",
+    "sha256": {
+      "warning_over_contacts.webp": "7595cb0d32cdfc6f23fdc71a882fc0248ca4b07eff9032851d13c47cfa62a451",
+      "active_over_contacts.webp": "1a307bc0bb8dc6af5b8173586317695e04ad7b66799cf6543104087e90e91235"
+    }
+  },
+  "known_warnings": {
+    "combat_and_enemy_lifecycle": "ObjectDB warning on both unchanged base and candidate; logs retained.",
+    "new_visual_suite": "No ObjectDB warning. Audio isolated only in visual probe subclass; real playback tested in audio_retirement.",
+    "capture": "Ogg ObjectDB warning at teardown; not claimed fixed."
+  },
+  "limits": "No full default suite locally, natural six-region playthrough, subjective flash comfort, all effect-art integration, all emitters or long-term resource certification."
+}
