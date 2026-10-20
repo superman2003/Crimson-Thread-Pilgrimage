@@ -1685,7 +1685,9 @@ func _commit_world_dialogue() -> void:
         return
     area.set_meta("world_line_committed", true)
     if not fresh_flags.is_empty():
-        var response := String(result.get("response", ""))
+        # Only a saved, fully read, fresh conversation earns a short response.
+        # A toast never takes control or starts another dialogue/voice sequence.
+        var response := WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
         if not response.is_empty():
             _toast(response)
         elif not rewards.is_empty():
