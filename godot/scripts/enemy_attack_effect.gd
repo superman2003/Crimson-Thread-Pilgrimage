@@ -28,6 +28,7 @@ var heading := Vector2.RIGHT
 var tint := Color(0.84,0.33,0.25)
 var skin := "thorn"
 var owner_actor: Node2D
+const GROUND_ART := preload("res://scripts/ground_hazard_art.gd")
 const PROJECTILE_ART := preload("res://scripts/projectile_art.gd")
 
 var travelled := 0.0
@@ -54,6 +55,10 @@ func _physics_process(delta: float) -> void:
         return
     age += delta
     if age >= duration:
+        # Fade is cosmetic and starts only after the existing damaging lifetime.
+        # A skipped entire warning/lifetime or owner cancellation emits no fade.
+        if effect_kind == "pool" and duration > arm_delay and age - delta >= arm_delay:
+            GROUND_ART.spawn_fade(get_parent(), global_position, GROUND_ART.family_for(skin, owner_actor), radius, tint)
         cancel()
         return
     if age < arm_delay:
@@ -138,6 +143,17 @@ func _hits_player(center: Vector2) -> bool:
     return center.distance_to(global_position)<radius+23
 
 func _draw() -> void:
+    if effect_kind == "pool":
+        var family := GROUND_ART.family_for(skin, owner_actor)
+        var frame := GROUND_ART.frame_for(age, arm_delay)
+        if age < arm_delay:
+            GROUND_ART.draw_frame(self, family, frame, radius, Color(tint, 0.55))
+        elif GROUND_ART.draw_frame(self, family, frame, radius, Color(tint, 1.0)):
+            # A flat painted footprint cannot express circular player collision.
+            # Keep the existing radius explicit and fully readable until expiry.
+            draw_arc(Vector2.ZERO, radius, 0, TAU, 32, Color(0.07,0.05,0.04,0.9), 3.5, true)
+            draw_arc(Vector2.ZERO, radius, 0, TAU, 32, Color(0.98,0.76,0.4,0.95), 1.5, true)
+            return
     if age<arm_delay:
         # Pulse never drops below a readable floor, so a glance mid-warning still sees the cue.
         var pulse := WARNING_ALPHA_MIN+(WARNING_ALPHA_MAX-WARNING_ALPHA_MIN)*(.5+.5*sin(age*18))

@@ -59,7 +59,8 @@ func run() -> void:
     var journal_text:=""
     for record in ui.bag_grid.get_children():journal_text+=String((record as Button).text)+"\n"
     journal_text+="\n"+ui.bag_description.text
-    check(ui.bag_grid.get_child_count()==2 and journal_text.contains("把名字带回来") and journal_text.contains("苔钟庭的自愿抵押"),"Live journal shows the encountered quest and explicitly known evidence row")
+    # N05 adds the main line as the first record.
+    check(ui.bag_grid.get_child_count()==3 and String((ui.bag_grid.get_child(0) as Button).text).contains("主线") and journal_text.contains("把名字带回来") and journal_text.contains("苔钟庭的自愿抵押"),"Live journal shows the main line, the encountered quest and explicitly known evidence row")
     check(not journal_text.contains("雨铸渠的工匠名字") and not journal_text.contains("雨泵侧室的锤语"),"Live journal withholds unencountered evidence titles and location hints")
     check(ui.bag_description.text.length()>0,"Journal selection supplies readable clue or task phase")
     main._close_overlays()
