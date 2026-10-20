@@ -32,6 +32,7 @@
     "test:character-motion": "node tools/run_python_tool.mjs tools/build_creature_attack_motion.py --check && node tools/run_python_tool.mjs tools/build_character_motion_v5.py --check && node tools/run_python_tool.mjs tools/build_expanded_character_motion.py --all --check && node tools/run_python_tool.mjs tools/build_expanded_hero_run.py --check && node tools/run_python_tool.mjs tools/build_hero_supplement_motion.py --check",
     "test:optional-challenges": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite optional_challenges",
     "test:artisan-crafts": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite artisan_crafts",
-    "test:save-recovery": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite save_recovery"
+    "test:save-recovery": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite save_recovery",
+    "test:ending-aftermath": "node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite ending_aftermath"
   }
 }

@@ -34,6 +34,8 @@ const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
 const HIDDEN_ROUTE_CLUE_SCRIPT := preload("res://scripts/hidden_route_clue.gd")
+const ENDING_AFTERMATH_SCRIPT := preload("res://scripts/ending_aftermath_scene.gd")
+const AFTERMATH_NOTICE_RANGE := 260.0
 const HIDDEN_CLUE_NOTICE_RANGE := 260.0
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 const WORLD_ABILITIES := ["thread_dash", "silk_wall_grip", "echo_hook", "double_thread_jump", "bell_guard", "thorn_downstrike", "lantern_phase", "crown_resonance"]
@@ -533,6 +535,7 @@ var challenge_alive_ids: Dictionary = {}
 ## Validation-only: these spawn ids are treated as `_enemy` returning null.
 var challenge_spawn_null_ids_for_validation: Dictionary = {}
 var hidden_route_clues: Array[Node2D] = []
+var ending_aftermath: Node2D = null
 var nearby_interactable: Area2D
 var active_spawn := Vector2(120, 500)
 var bell_count := 0
@@ -1074,6 +1077,7 @@ func _process(_delta: float) -> void:
             last_safe_ground = player.global_position
         _update_room_visit()
         _notice_hidden_route_clues()
+        _notice_ending_aftermath()
         _update_first_journey_hint()
         if active_overlay == "map":
             _refresh_map_overlay()
@@ -3494,6 +3498,7 @@ func _region_build_jobs() -> Array:
         jobs.append({"method": "_spawn_tool_practice_targets", "args": []})
 
         jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
+        jobs.append({"method": "_spawn_ending_aftermath", "args": []})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
@@ -3652,6 +3657,38 @@ func _spawn_hidden_route_clues() -> void:
         hidden_route_clues.append(clue)
     _sync_hidden_route_clues_with_visits()
 
+
+## N05: once an ending is chosen, each region's main shrine shows what it changed.
+func _spawn_ending_aftermath() -> void:
+    if ending_aftermath != null and is_instance_valid(ending_aftermath):
+        ending_aftermath.queue_free()
+    ending_aftermath = null
+    if world_narrative == null:
+        return
+    var scene: Dictionary = world_narrative.aftermath_scene(String(config.get("id", "")), story_flags)
+    for data in config.get("save_points", []) if not scene.is_empty() else []:
+        if String(data.get("id", "")) != String(scene.anchor):
+            continue
+        ending_aftermath = Node2D.new()
+        ending_aftermath.set_script(ENDING_AFTERMATH_SCRIPT)
+        ending_aftermath.name = "EndingAftermath"
+        ending_aftermath.look = String(scene.get("look", "bells"))
+        # Beside the lamp, standing on the floor the pedestal stands on.
+        ending_aftermath.position = _vec2(data.position) + Vector2(70, 28)
+        ending_aftermath.set_meta("aftermath", scene)
+        add_child(ending_aftermath)
+
+func _notice_ending_aftermath() -> void:
+    if not active_overlay.is_empty() or ending_aftermath == null or not is_instance_valid(ending_aftermath):
+        return
+    var scene: Dictionary = ending_aftermath.get_meta("aftermath")
+    var flag := String(scene.get("seen_flag", ""))
+    if bool(story_flags.get(flag, false)) or player.global_position.distance_to(ending_aftermath.global_position) > AFTERMATH_NOTICE_RANGE:
+        return
+    story_flags[flag] = true
+    _save_world()
+    # The shrine's own prompt would cover a toast at once; the banner stays.
+    _show_lore_banner("%s · %s" % [String(scene.get("region_name", "")), String(scene.get("line", ""))])
 
 ## Saves from before these clues already record visits to the hidden rooms;
 ## a room the player has been in counts as found.
@@ -6498,6 +6535,7 @@ func _activate_ending_gate(area: Area2D) -> void:
         return
     if not evaluated.is_empty():
         area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
+    _spawn_ending_aftermath()
     for child in get_children():
         if child is Area2D and String(child.get_meta("kind", "")) == "npc":
             _apply_world_npc_state(child)
@@ -6981,11 +7019,16 @@ func _announce_lore_pickup(item_id: String) -> void:
     if lore_lines.is_empty():
         return
     var text := "拾获「%s」——%s" % [_item_display_name(item_id), String(lore_lines[0])]
+    _show_lore_banner(text)
+    print("LORE_PICKUP " + text)
+
+
+## The story banner stays longer than a toast and later toasts never cover it.
+func _show_lore_banner(text: String) -> void:
     lore_banner_time_left = LORE_BANNER_SECONDS
     if lore_banner_label != null:
         lore_banner_label.text = text
         lore_banner_label.visible = true
-    print("LORE_PICKUP " + text)
 
 
 # _process 驱动的横幅倒计时：不挂定时器/回调，headless 退出无残留。

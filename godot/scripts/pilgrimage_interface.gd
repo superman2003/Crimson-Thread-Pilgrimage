@@ -1748,6 +1748,11 @@ func _refresh_journal() -> void:
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
     if not progress.is_empty():
+        # N05: the main line leads the journal, so its conditions are always traceable.
+        if progress.get("main_line") is Dictionary and not progress.main_line.is_empty():
+            var main_entry: Dictionary=progress.main_line.duplicate(true)
+            main_entry["record_kind"]="main"
+            records.append(main_entry)
         for value in progress.get("quests",[]):
             var entry: Dictionary=value.duplicate(true)
             entry["record_kind"]="quest"
@@ -1781,6 +1786,7 @@ func _refresh_journal() -> void:
         var title:=String(entry.get("title",entry.get("id","")))
         var status:="已发现" if bool(entry.get("acquired",false)) else "待发现"
         if entry.record_kind=="quest":status="已完成" if String(entry.get("status",""))=="complete" else "进行中"
+        elif entry.record_kind=="main":status="主线"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
         var button:=_button(bag_grid,title+"\n"+status,Vector2.ZERO,Vector2(309,74),func():_show_journal_record(entry))
         button.custom_minimum_size=Vector2(309,74)
@@ -1817,6 +1823,16 @@ func _show_journal_record(entry: Dictionary) -> void:
                 lines.append("\n结局影响")
                 for consequence in entry.get("consequence_rows",[]):
                     lines.append("· %s：%s" % [String(consequence.get("title","六城")),String(consequence.get("text",""))])
+        if chosen and not entry.get("aftermath_rows",[]).is_empty():
+            lines.append("\n各地变化")
+            for row in entry.get("aftermath_rows",[]):
+                if bool(row.get("seen",false)):lines.append("● %s：%s" % [String(row.get("region_name","")),String(row.get("text",""))])
+                else:lines.append("○ %s：回到那里的钟龛看看。" % String(row.get("region_name","")))
+    elif String(entry.get("record_kind",""))=="main":
+        bag_category_label.text="主线"
+        lines.append(String(entry.get("goal","")))
+        for step in entry.get("steps",[]):lines.append(("● " if bool(step.get("complete",false)) else "○ ")+String(step.get("label","")))
+        lines.append("\n"+String(entry.get("guidance","")))
     elif String(entry.get("record_kind",""))=="quest":
         bag_category_label.text="委托 · "+("已完成" if String(entry.get("status",""))=="complete" else "进行中")
         lines.append(String(entry.get("description","")))
