@@ -72,6 +72,7 @@ func run() -> void:
     ui.dialogue_body.text="长文本无障碍验证。".repeat(60)
     await process_frame
     check(ui.dialogue_body.get_minimum_size().y>ui.dialogue_scroll.size.y,"Oversize dialogue expands within scrollable container")
+    await preload("res://scripts/journal_records_validation.gd").new().run(main,self,check)
     main.free()
     await process_frame
     for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_world_integration_validation.json"+suffix))

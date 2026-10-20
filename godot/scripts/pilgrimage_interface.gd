@@ -94,6 +94,11 @@ var last_build_signature := ""
 var applied_player: Node
 var save_slot_buttons: Dictionary={}
 var journal_selection := 0
+var journal_filter := "all"
+var journal_filter_buttons: Dictionary = {}
+var journal_filters: HBoxContainer
+var journal_memory: Dictionary = {}
+var bag_scroll: ScrollContainer
 var construction_complete := false
 var inventory_build_selection := ""
 
@@ -410,6 +415,22 @@ func _build_bag() -> void:
     scroll.size=Vector2(645,337)
     scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
     bag.add_child(scroll)
+    bag_scroll=scroll
+    journal_filters=HBoxContainer.new()
+    journal_filters.position=Vector2(34,189)
+    journal_filters.add_theme_constant_override("separation",9)
+    journal_filters.visible=false
+    bag.add_child(journal_filters)
+    for pair in [["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"]]:
+        var filter_id:=String(pair[0])
+        var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(100,28),func():
+            journal_filter=filter_id
+            journal_selection=0
+            bag_scroll.scroll_vertical=0
+            refresh_inventory())
+        filter_button.custom_minimum_size=Vector2(100,28)
+        filter_button.add_theme_font_size_override("font_size",13)
+        journal_filter_buttons[filter_id]=filter_button
     bag_grid=GridContainer.new()
     bag_grid.columns=6
     bag_grid.add_theme_constant_override("h_separation",9)
@@ -450,6 +471,10 @@ func _matches(category: String) -> bool:
 
 func refresh_inventory() -> void:
     if bag_grid==null:return
+    if journal_filters!=null:
+        journal_filters.visible=bag_category=="旅记"
+        bag_scroll.position.y=226 if journal_filters.visible else 194
+        bag_scroll.size.y=305 if journal_filters.visible else 337
     begin_inventory_refresh()
     if bag_category=="旅记":
         _refresh_journal()
@@ -1676,7 +1701,9 @@ func _reconcile_inventory_selection() -> String:
 
 func move_inventory_selection(delta: int) -> void:
     if bag_category=="旅记":
-        if bag_grid.get_child_count()>0:journal_selection=wrapi(journal_selection+delta,0,bag_grid.get_child_count())
+        if bag_grid.get_child_count()>0:
+            journal_selection=wrapi(journal_selection+delta,0,bag_grid.get_child_count())
+            journal_memory[journal_filter]=String(bag_grid.get_child(journal_selection).get_meta("journal_key",""))
         return
     var selected := _reconcile_inventory_selection()
     var visible_ids := _visible_inventory_ids()
@@ -1762,10 +1789,11 @@ func _refresh_combat_status(player: Node) -> void:
 func _refresh_journal() -> void:
     bag_grid.columns=2
     bag_pin.disabled=true
-    bag_name.text="六区证词与委托"
+    bag_name.text="六区旅途记录"
     bag_category_label.text="旅途记录"
     bag_icon.texture=ART.item("moss_lens")
-    bag_description.text="委托随跨区推进更新。证词按实际拾取记录；缺页只提示线索。"
+    bag_description.text="按分类查看主线、委托、证词、已击败敌人与结局；只显示旅途中已知的内容。"
+    for filter_id in journal_filter_buttons:journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",_tab_style(filter_id==journal_filter))
     for tab in bag_tabs:tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     if not bool(level.get("world_mode")):
         bag_description.text="完整互联世界旅途中会记录跨区委托与六区证词。"
@@ -1808,6 +1836,15 @@ func _refresh_journal() -> void:
                 var entry: Dictionary=value.duplicate(true)
                 entry["record_kind"]="evidence"
                 records.append(entry)
+    records.append_array(preload("res://scripts/enemy_journal.gd").records(level.story_flags))
+    if journal_filter!="all":records=records.filter(func(entry):return String(entry.get("record_kind",""))==journal_filter)
+    var remembered:=String(journal_memory.get(journal_filter,""))
+    for index in records.size():
+        if String(records[index].get("record_kind",""))+":"+String(records[index].get("id",""))==remembered:journal_selection=index
+    journal_selection=clampi(journal_selection,0,maxi(0,records.size()-1))
+    if records.is_empty():
+        bag_name.text="尚无敌人记录" if journal_filter=="enemy" else "这一分类暂无记录"
+        bag_description.text="击败后会留下战斗笔记；未交战的敌人不会提前列出。" if journal_filter=="enemy" else "继续探索并与人物交谈，已知的记录会保存在这里。"
     var selected_button: Button
     for record_index in records.size():
         var value: Variant=records[record_index]
@@ -1816,12 +1853,16 @@ func _refresh_journal() -> void:
         var status:="已发现" if bool(entry.get("acquired",false)) else "待发现"
         if entry.record_kind=="quest":status="已完成" if String(entry.get("status",""))=="complete" else "进行中"
         elif entry.record_kind=="main":status="主线"
+        elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
         var button:=_button(bag_grid,title+"\n"+status,Vector2.ZERO,Vector2(309,74),func():_show_journal_record(entry))
         button.custom_minimum_size=Vector2(309,74)
         button.tooltip_text=title+" · "+status
+        var record_key:=String(entry.record_kind)+":"+String(entry.get("id",""))
+        button.set_meta("journal_key",record_key)
         button.focus_entered.connect(func():
             journal_selection=record_index
+            journal_memory[journal_filter]=record_key
             _show_journal_record(entry))
         button.mouse_entered.connect(func():_show_journal_record(entry))
         if record_index==journal_selection:selected_button=button
@@ -1857,6 +1898,10 @@ func _show_journal_record(entry: Dictionary) -> void:
             for row in entry.get("aftermath_rows",[]):
                 if bool(row.get("seen",false)):lines.append("● %s：%s" % [String(row.get("region_name","")),String(row.get("text",""))])
                 else:lines.append("○ %s：回到那里的钟龛看看。" % String(row.get("region_name","")))
+    elif String(entry.get("record_kind",""))=="enemy":
+        bag_category_label.text="敌人 · 已击败"
+        lines.append(String(entry.get("description","")))
+        lines.append("\n战斗笔记按已击败种类保存；休息后敌人复现不会重复添加。")
     elif String(entry.get("record_kind",""))=="main":
         bag_category_label.text="主线"
         lines.append(String(entry.get("goal","")))
