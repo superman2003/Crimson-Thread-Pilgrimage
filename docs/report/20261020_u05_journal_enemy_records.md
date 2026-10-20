@@ -15,3 +15,5 @@
 实际六区观察流程扩展为 9 项分类兼容检查：十二条已观察见闻都出现在“全部”中，身份为 `evidence:scene_history_<id>`；“证词”包含见闻，其余四种分类不混入见闻；选中一条非首行记录后，切换分类以及关闭再打开旅记，均按 `record_kind:id` 恢复。原先真实读取前后比较证词数量的检查继续通过，见闻不替代六区原始证词或结局条件。
 
 Godot 4.6.1 原生 GL 的 `ui_world_integration`、`scene_history`、`ui_redesign`、`inventory_map` 四套断言及章节数据、5 项 workflow 门禁通过。前三套退出无警告，库存地图夹具的一条原有 ObjectDB 退出警告保留，未据此宣称 T03 完成。原始日志和结果见 `artifacts/u05_journal_enemy_records/review_followup_scene_history/`。
+
+在 #168／#170 合入后再同步 main `30b75661`，上述四套重新通过，环境见闻分类兼容仍为 9 项。最新组合的 UI World 与库存地图各有一条 ObjectDB 退出警告，环境见闻与 UI 重设计退出无警告；本轮完整日志另存于同一证据目录的 `latest_main_30b75661/`，保留前一源码边界的结果。
