@@ -4,6 +4,29 @@ const WORLD := preload("res://scripts/world_state.gd")
 var failures: Array[String] = []
 var checks := 0
 
+func _loadout_quotes() -> void:
+    var model := BUILD.new()
+    model.save_loadout("saved")
+    var saved_profile := model.profile()
+    model.unlock_event("seal_bell_repaired")
+    model.switch_crest("bell")
+    model.state.tool_counts.shard = 1
+    model.cooldowns.cleave = .42
+    var before := model.serialize()
+    var quote := model.preview_loadout("saved")
+    _check(quote.ok and quote.can_restore and quote.profile == saved_profile, "read-only plan quote predicts actual target profile")
+    _check(model.serialize() == before and quote.currency_cost == 0 and not quote.refills_resources, "preview spends nothing and cannot refill or change cooldowns")
+    quote.equipped_families.tool[0] = ""
+    _check(model.serialize() == before, "preview owns its nested arrays")
+    var road := model.preview_loadout("saved", false)
+    _check(road.ok and not road.can_restore and road.reason.contains("钟龛") and model.serialize() == before, "road preview explains location rule without applying equipment")
+    _check(not model.preview_loadout("missing").ok and model.serialize() == before, "missing plan is rejected without mutation")
+    model.state.loadouts.bad = model.state.loadouts.saved.duplicate(true)
+    model.state.loadouts.bad.crest = "unknown"
+    before = model.serialize()
+    _check(not model.preview_loadout("bad").ok and model.preview_loadout("bad").reason.contains("契印") and model.serialize() == before, "incompatible plan reports the actual restore validator reason")
+    _check(model.restore_loadout("saved").ok and model.profile() == saved_profile and model.state.tool_counts.shard == 1 and is_equal_approx(model.cooldowns.cleave,.42), "accepted restore matches quote and preserves stock/cooldown")
+
 func _initialize() -> void:
     var build := BUILD.new()
     _check(build.catalog.crests.size() == 3 and build.catalog.skills.size() == 6 and build.catalog.tools.size() == 4, "three seals, six skills and four tools")
@@ -27,7 +50,14 @@ func _initialize() -> void:
     for id in build.catalog.tools:
         _check(build.unlock_event("tool_" + id + "_found").ok, "tool event " + id)
     for id in build.catalog.passives:
-        _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+        var recipe_id := String(build.catalog.passives[id].get("craft_recipe",""))
+        if recipe_id.is_empty():
+            _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+        else:
+            var recipe: Dictionary=build.catalog.recipes[recipe_id]
+            var counts: Dictionary=recipe.materials.duplicate(true)
+            for pattern in recipe.requires_items:counts[pattern]=1
+            _check(build.transact(recipe_id,{"currency":1000,"inventory_counts":counts}).ok,"artisan source " + id)
     _check(build.select_skill("needle", 1).ok and build.state.skills == ["cleave", "needle"], "equip second skill")
     _check(not build.select_skill("cleave", 1).ok, "duplicate skill rejected")
     _check(build.cycle_skill().ok and build.state.skill == "cleave", "cycle preserves active alias")
@@ -110,6 +140,7 @@ func _initialize() -> void:
     var snapshot := build.get_snapshot()
     _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == build.catalog.recipes.size(), "full UI catalog")
     _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
+    _loadout_quotes()
     if failures.is_empty():
         print("BUILD SYSTEM PASS: %d checks" % checks)
         quit(0)

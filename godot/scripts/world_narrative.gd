@@ -45,7 +45,7 @@ func resolve(npc_id: String, fallback_lines: Array, abilities: Array, flags: Dic
     return {}
 
 func _state_result(entry: Dictionary, state: Dictionary, fallback_lines: Array) -> Dictionary:
-    return {"state": String(state.get("id", "world_repeat")), "lines": state.get("lines", fallback_lines).duplicate(), "grant_flags": state.get("grant_flags", []).duplicate(), "grant_rewards": state.get("grant_rewards", {}).duplicate(true), "reward_flag": String(state.get("reward_flag", "")), "voice_profile": String(entry.get("voice_profile", "warm")), "response": String(state.get("response", ""))}
+    return {"state": String(state.get("id", "world_repeat")), "lines": state.get("lines", fallback_lines).duplicate(), "grant_flags": state.get("grant_flags", []).duplicate(), "grant_rewards": state.get("grant_rewards", {}).duplicate(true), "reward_flag": String(state.get("reward_flag", "")), "voice_profile": String(entry.get("voice_profile", "warm")), "response": String(state.get("response", "")), "response_mode":String(state.get("response_mode","gesture"))}
 
 func _has_unclaimed_completed_reward(state: Dictionary, flags: Dictionary) -> bool:
     var reward_flag := String(state.get("reward_flag", ""))
@@ -103,6 +103,13 @@ static func completion_rewards(result: Dictionary, displayed_index: int, flags: 
 
 ## Single pure transaction evaluation for interrupted, complete, and repeat visits.
 ## Runtime callers commit `flags` and `rewards` together with their save operation.
+static func completion_response(result: Dictionary, displayed_index: int, flags_before: Dictionary) -> String:
+    var text := String(result.get("response","")).strip_edges()
+    if text.is_empty() or text.length() > 48 or text.contains("\n"):return ""
+    if not String(result.get("response_mode","gesture")) in ["speech","gesture","resonance"]:return ""
+    if completion_outcome(result,displayed_index,flags_before).flags.is_empty():return ""
+    return "巡礼者 · " + text
+
 static func completion_outcome(result: Dictionary, displayed_index: int, flags: Dictionary) -> Dictionary:
     var lines: Array = result.get("lines", [])
     var complete := not lines.is_empty() and displayed_index >= lines.size() - 1

@@ -184,5 +184,6 @@ func run() -> void:
     hunter._update_patrol_or_aggro(0.1, null)
     check(hunter.last_ai_decision == "patrol", "search gives up after the memory window")
 
+    await preload("res://scripts/spatial_enemy_alert_validation.gd").new().run(self, check)
     print("ENEMY_AI_BEHAVIOR checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)

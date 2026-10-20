@@ -207,6 +207,7 @@ func run() -> void:
 	overstock.tool_counts.mine = base_capacity + 1
 	check(not BUILD.new().restore(overstock).ok, "stock above capacity is rejected without the upgrade")
 
+	await preload("res://scripts/proof_crafts_validation.gd").new().run(self)
 	scene._close_overlays()
 	AUDIO.retire_tree(scene)
 	scene.queue_free()

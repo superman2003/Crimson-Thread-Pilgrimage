@@ -37,7 +37,56 @@ func run() -> void:
     ui._process(0.0)
     check(not ui.modal_shade.visible and ui.hud_card.visible and ui.tactical_cards[0].visible,"Closing restores combat HUD")
     check(not world.player.ui_input_locked,"Closing returns player controls")
+    await _reading_resume(world,ui)
+    preload("res://scripts/audio_retirement.gd").retire_tree(world)
     world.free()
+    await process_frame;await process_frame
+    check(await preload("res://scripts/audio_retirement.gd").drain(self),"UI fixture releases actual dialogue playback")
     for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_redesign_validation.json"+suffix))
     print("UI_REDESIGN_VALIDATION_%s checks=%d failures=%d" % ["PASS" if failures==0 else "FAIL",checks,failures])
     quit(1 if failures else 0)
+
+func _reading_resume(world: Node,ui: Control) -> void:
+    var speaker:=Area2D.new()
+    speaker.name="ReadingResumeFixture"
+    speaker.set_meta("npc_id","reading_resume_fixture")
+    speaker.set_meta("dialogue_state","first_meet")
+    speaker.set_meta("world_displayed_index",0)
+    speaker.set_meta("world_displayed_total",1)
+    speaker.set_meta("world_line_committed",false)
+    world.add_child(speaker)
+    var line:="钟声仍记得每一位走过这里的人。".repeat(100)
+    var flags: Dictionary=world.story_flags.duplicate(true)
+    var money: int=world.currency_count
+    world._show_dialogue(speaker,line)
+    check(ui.dialogue_body.visible_characters==0,"New line starts from its own beginning")
+    ui.dialogue_body.visible_characters=800
+    world.subtitle_elapsed=world.subtitle_seconds*800.0/line.length()
+    await process_frame;await process_frame
+    ui.dialogue_scroll.scroll_vertical=120
+    await process_frame
+    var scroll: int=ui.dialogue_scroll.scroll_vertical
+    world._toggle_backpack()
+    check(world.story_flags==flags and world.currency_count==money,"Partial subtitle interruption commits no story progress or rewards")
+    check(not bool(speaker.get_meta("world_line_committed")),"Unread line remains uncommitted")
+    ui.accessibility.subtitle_speed=2.0
+    world._show_dialogue(speaker,line)
+    await process_frame;await process_frame
+    check(ui.dialogue_body.visible_characters==800 and is_equal_approx(world.subtitle_elapsed/world.subtitle_seconds,800.0/line.length()),"Reopen resumes visible characters even after subtitle speed changes")
+    check(scroll>0 and ui.dialogue_scroll.scroll_vertical==scroll,"Long paragraph resumes its actual scroll position: saved=%d restored=%d max=%f" % [scroll,ui.dialogue_scroll.scroll_vertical,ui.dialogue_scroll.get_v_scroll_bar().max_value])
+    world._show_dialogue(speaker,"一条新的短句。")
+    check(ui.dialogue_body.visible_characters==0,"Changed text never inherits another paragraph's progress")
+    world._show_dialogue(speaker,line)
+    ui.dialogue_body.visible_characters=-1
+    world._commit_world_dialogue()
+    check(bool(speaker.get_meta("world_line_committed")) and ui.dialogue_reading_state(speaker,line).is_empty(),"Successful real story commit clears the completed bookmark")
+    world._close_overlays()
+    check(world.currency_count==money,"Resume and completion cannot create duplicate rewards")
+    var memory:=preload("res://scripts/dialogue_reading_memory.gd").new()
+    for index in range(100):memory.capture(str(index),10,4,20,false)
+    check(memory._entries.size()==64 and memory.restore("0").is_empty(),"Reading history evicts old numeric bookmarks at sixty-four entries")
+    var copy:=memory.restore("99");copy.scroll=999
+    check(memory.restore("99").scroll==20,"Returned bookmark cannot mutate stored progress")
+    memory.capture("99",10,4,20,true)
+    check(memory.restore("99").is_empty(),"Committed lines retain no reading bookmark")
+    speaker.queue_free()

@@ -72,7 +72,7 @@ func run() -> void:
     ui.build_category="铭饰"
     ui.build_assign_slot=0
     ui.refresh_build()
-    check(ui.build_grid.get_child_count()==3,"Combat accessory page shows its three typed family options")
+    check(ui.build_grid.get_child_count()==6,"Combat accessory page shows the original three and three crafted options")
     check(click_id(ui,"reflux"),"Combat accessory slot accepts an unlocked ornament by actual button")
     ui.build_slot_buttons[1].pressed.emit()
     check(click_id(ui,"shell"),"Second combat accessory slot accepts a compatible ornament")

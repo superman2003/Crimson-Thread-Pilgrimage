@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-20",
+  "base": "a07af5ba3dad3775ff8b40bb8389c530b1d4621c",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "seal_presentation",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.22,
+      "markers": [
+        "SEAL_PRESENTATION_VALIDATION: 175 checks, 0 failures"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "combat_visual_budget",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.86,
+      "markers": [
+        "COMBAT_VISUAL_BUDGET checks=32 failures=0 real_gl=true"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.89,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "MUSIC_PHRASE_RESUME checks=10",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "enemy_ai_behavior",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.14,
+      "markers": [
+        "SPATIAL_ENEMY_ALERT checks=13",
+        "ENEMY_AI_BEHAVIOR checks=38 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_system",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.39,
+      "markers": [
+        "BUILD SYSTEM PASS: 94 checks"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_slots_ui",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.78,
+      "markers": [
+        "BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=36 failures=0 capture=user://build_slots_ui_validation_fixture.png"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_transaction_runtime",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.67,
+      "markers": [
+        "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_redesign",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.91,
+      "markers": [
+        "UI_REDESIGN_VALIDATION_PASS checks=42 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "narrative_outcomes",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.14,
+      "markers": [
+        "NARRATIVE_GROUP reward_transactions checks=170 failures=0",
+        "NARRATIVE_GROUP variable_quest_order checks=180 failures=0",
+        "NARRATIVE_GROUP ending_world_phase checks=187 failures=0",
+        "NARRATIVE_OUTCOMES checks=9751 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.72,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "tool_practice",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 31.03,
+      "markers": [
+        "PLAYER_TOOL_ART_VALIDATION checks=312 failures=0 families=4 frames=28",
+        "TOOL_PRACTICE checks=98 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "save_recovery",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 18.66,
+      "markers": [
+        "SAVE_RECOVERY checks=35 failures=0"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR",
+  "included_heads": {
+    "codex/v04-player-tool-runtime": "536266f64d163f6b9c4593e29a78499d2254a443",
+    "codex/v04-action-trace-budget": "5719b0241147f7c831402e2c8c04bcf2162a8372",
+    "codex/s01-exploration-music-resume": "98cfbf6eecb3d49e5c167ddce9a800f210d2c788",
+    "codex/s03-spatial-enemy-alerts": "6a3de2b21f2aed48a75cf7a9500ec8d00ec8c483",
+    "codex/e05-loadout-restore-preview": "c5285284d410e6d41602c249389592ef54004e8a",
+    "codex/u05-dialogue-reading-resume": "1c8f7e6eef9fc60c3a3d71a96a42c5528451c7cb"
+  },
+  "merge_conflicts": 0,
+  "scope": "Local integration of PRs #154 through #159; does not change their independent main targets or merge them on GitHub."
+}

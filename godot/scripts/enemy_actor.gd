@@ -2146,12 +2146,13 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 
     if not _should_play_sfx():
         return
     # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
-    if not _request_voice("enemy_" + audio_key, voice_priority):
+    var voice_ticket := _request_voice("enemy_" + audio_key, voice_priority)
+    if voice_ticket == 0:
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
-        _release_voice("enemy_" + audio_key)
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
@@ -2163,17 +2164,17 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 func _play_attack_sfx(phase: String) -> void:
     if phase == "windup":
         if is_boss:
             # Boss 前摇分档（音频规格 §4.4）：damage>=2（各 Boss aoe/shockwave 大招）走 lethal 档。
-            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0)
+            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0, 1.0, 0)
         else:
             # 普通敌前摇=windup_light 低配版：升调 + 压量，与 Boss 档拉开距离。
-            _play_sfx("enemy_windup", -13.0, 1.22)
+            _play_sfx("enemy_windup", -13.0, 1.22, 0)
         # ch5 beat `silent_order`（manifest ch05_beat_02）：黑曜巡礼道（obsidian 材质族）
         # 敌方前摇附一段低频压迫声（军令低鸣叠层）。
         if death_sfx_key == "death_obsidian":
@@ -2235,17 +2236,24 @@ static func _ensure_audio_director() -> bool:
 
 
 ## AudioDirector.request_voice 静态转调：脚本尚未落盘（headless 局部验证）时放行，
-## 返回 false 表示本次不播。
-static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+## 返回 0 拒绝，正数为唯一票据；-1 为脚本缺席的局部验证回退。
+static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> int:
     if not _ensure_audio_director():
-        return true
-    return bool(audio_director_script.request_voice(key, priority, min_interval_ms, max_voices))
+        return -1
+    return int(audio_director_script.reserve_voice(key, priority, min_interval_ms, max_voices))
 
 
-## AudioDirector.release_voice 静态转调（声部回滚契约）：拿不到流时释放已批准的声部。
-static func _release_voice(key: String) -> void:
-    if _ensure_audio_director() and audio_director_script.has_method("release_voice"):
-        audio_director_script.release_voice(key)
+## 绑定唯一票据并开始播放。
+static func _start_voice(ticket: int, voice: Node, persistent: bool = false) -> void:
+    if ticket == -1:
+        voice.play()
+    elif _ensure_audio_director():
+        audio_director_script.start_reserved_voice(ticket,voice,persistent)
+
+## 拿不到流时只回滚这张票据，不影响同 key 的其他声音。
+static func _release_voice(ticket: int) -> void:
+    if _ensure_audio_director() and audio_director_script.has_method("release_ticket"):
+        audio_director_script.release_ticket(ticket)
 
 
 ## 独立宿主播放（死亡音专用）：播放器父挂 enemy 的父节点并定位到当前位置，
@@ -2254,15 +2262,17 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     if not _should_play_sfx():
         return
     # 死亡音属 P0：声部抢占最高优先级。
-    if not _request_voice("enemy_" + audio_key, 0):
+    var voice_ticket := _request_voice("enemy_" + audio_key, 0)
+    if voice_ticket == 0:
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
-        _release_voice("enemy_" + audio_key)
+        _release_voice(voice_ticket)
         return
     var host := get_parent()
     if host == null:
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
@@ -2273,7 +2283,7 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     host.add_child(player_node)
     player_node.global_position = global_position
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 func _original_attack_arc(command: Dictionary, warning: bool) -> void:
