@@ -63,6 +63,26 @@ class RunnerTests(unittest.TestCase):
         result = self.run_engine('print("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 0)
 
+    def test_audio_retirement_uses_wall_clock_with_both_renderers(self):
+        # Real audio mixing and reservation expiry do not follow the accelerated
+        # simulation clock. Check the actual child command used by both paths.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'assert "--fixed-fps" not in sys.argv, "audio needs wall-clock timing"\n'
+                + 'print("AUDIO RETIREMENT PASS: fixture, failures=0")\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            for real_gl in [False, True]:
+                with self.subTest(real_gl=real_gl):
+                    failures = run_suites(str(engine), ['audio_retirement'], 2,
+                                          logs, root / 'scratch', real_gl, {})
+                    self.assertEqual(failures, [])
+
     def test_zero_exit_without_completion_is_failure(self):
         result = self.run_engine('print("PASS: first assertion only")\n')
         self.assertEqual(result.returncode, 1)

@@ -12,6 +12,14 @@ Boss／小怪前摇与不可格挡提示列为 P0，普通契印动作音 P2；�
 
 原生 GL／Dummy 音频驱动证明播放生命周期和配额，不代替最终混音听感验收。
 
+## PR #164 Linux CI 计时修复
+
+`Audio user volume` 与 `Enemy warning readability` 的失败均来自 `audio_retirement`。运行器误把它列入 `--fixed-fps 60` 加速模拟列表：`SceneTreeTimer` 已走完 0.3／1.0 秒时，真实 Dummy 音频混合和 `Time.get_ticks_msec()` 尚未经过相同时长，导致自然播放完成和 900ms 预订过期的断言提前执行。未过期票据随后成功启动循环音，继续持有 WAV，使后面的退休屏障和总线拓扑检查连锁失败。
+
+从加速列表移除 `audio_retirement`，使其使用正常播放计时。保留全部真实播放器断言、退休超时和失败传播；新增运行器回归，通过实际子进程分别检查 headless 与软件 GL 路径均不会传入 `--fixed-fps`。该回归在修复前两条路径均失败，修复后通过。
+
+本次使用 Godot 4.6.1、Linux llvmpipe／Dummy 重放原 CI 参数，复现全部 10 项失败；修复后 `audio_retirement` 的声部 46 项、总线拓扑 21 项、音量 37 项全部通过，四次退休屏障均为 `pending=0`。同次软件 GL 运行的 `input_settings_regression`、`ui_build_accessibility`、`enemy_visibility`、`obsidian_experience` 也通过（共 5 套、0 失败）；headless 单独运行音频套件同样通过。资源导入两遍、运行器 31 项测试、`npm test`、`npm run test:campaign` 和改动文件的 `git diff --check` 均通过。
+
 ## 两轮升级组合验证
 
 上一轮 #154–159 与本轮 #160–164 在本地组合后，14 套原生 GL 回归全部通过，覆盖改键、界面、构筑恢复、旧档、对白、音乐恢复、空间接敌声、全局动作／音频预算与战具素材。精确生产提交、日志及范围在 `artifacts/next_five_batch_integration`；此处只提供组合证据，没有在 GitHub 合并 main。组合时保留了 POLICY 和 AUDIO 两个常量；随后把本 PR 的 AUDIO 声明移到声部常量旁，避免与 #155 的插入位置冲突。#161 的 HUD 夹具也已移到打开设置前，避免两批测试互相关闭界面。
