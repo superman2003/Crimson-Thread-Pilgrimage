@@ -1,4 +1,7 @@
 extends RefCounted
+const PLAYER_ART_WARM_JOB := preload("res://scripts/player_art_warm_job.gd")
+var player_art_job: RefCounted
+var player_art_resources: Dictionary = {}
 const CHARACTER_ART_WARM_JOB := preload("res://scripts/character_art_warm_job.gd")
 ## The World node is the persistent host. Only its region-owned children are
 ## evicted; the Player, WorldState and BuildSystem remain the same instances.
@@ -113,6 +116,9 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
     var tree: SceneTree = host.get_tree()
     phase = "startup"
     _show_loading_canvas(host)
+    if not _begin_player_art(host):
+        _show_startup_error(host)
+        return false
     # Share the bounded JSON worker with foreground config reads. The ticket
     # ties the result to this startup generation and the manifest mtime.
     if not await _prepare_routes_manifest(host, tree):
@@ -851,7 +857,9 @@ func _startup_exit_snapshot() -> Dictionary:
         "startup_cancelled": startup_token != null and startup_token.cancelled,
         "shutting_down": shutting_down, "cancel_requested": cancel_requested,
         "reader_busy": config_read_job.busy(),
-        "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed}
+        "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed,
+        "player_art_pending": player_art_job != null, "player_art_retained": player_art_resources.size(),
+        "player_art_worker_is_main": bool(last_transition.get("player_art_worker_is_main", true))}
     for key in ["route_manifest_copy_batches", "route_manifest_worker_usec", "route_manifest_copy_wall_usec",
             "startup_config_wait_frames", "startup_config_worker_usec", "startup_config_manifest_overlap_frames",
             "startup_config_open_usec", "startup_config_read_usec", "startup_config_parse_usec", "startup_config_context_copy_batches",
@@ -859,7 +867,8 @@ func _startup_exit_snapshot() -> Dictionary:
             "startup_config_validation_wait_frames", "startup_config_validation_worker_usec", "startup_config_wall_usec",
             "prepare_cursor", "prepare_jobs", "prepare_batches", "prepare_work_usec", "prepare_wall_usec",
             "jobs", "build_cursor", "build_batches", "commit_cursor", "commit_jobs", "commit_batches",
-            "commit_work_usec", "commit_wall_usec", "max_build_operations", "max_commit_operations", "max_batch_usec"]:
+            "commit_work_usec", "commit_wall_usec", "max_build_operations", "max_commit_operations", "max_batch_usec",
+            "player_art_wait_frames", "player_art_worker_usec", "player_art_textures", "player_art_optional_skipped"]:
         var value: Variant = last_transition.get(key, 0)
         snapshot[key] = value if value is int or value is float else -1
     snapshot["catalog_read_count"] = 0
@@ -891,6 +900,10 @@ func shutdown() -> void:
         startup_token.cancel()
     _discard_startup_config_read_ahead()
     config_read_job.shutdown()
+    if player_art_job != null:
+        player_art_job.shutdown()
+        player_art_job = null
+    player_art_resources.clear()
     CHARACTER_ART_WARM_JOB.ART.shutdown_texture_requests()
     phase = "idle"
     _clear_loading_canvas()
@@ -1304,8 +1317,38 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             _discard_catalog_staging(host, catalog_read_ahead)
             return false
         _cancel_input()
+    if not await _await_player_art(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+        return false
     return not (cancellable and cancel_requested)
 
+
+func _begin_player_art(host: Node) -> bool:
+    if not host.has_method("_spawn_player") or is_instance_valid(host.get("player")) or player_art_job != null or not player_art_resources.is_empty(): return true
+    player_art_job = PLAYER_ART_WARM_JOB.new()
+    if player_art_job.begin() != OK:
+        player_art_job = null
+        last_error = "无法启动主角素材预读。"
+        return false
+    return true
+
+func _await_player_art(host: Node, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
+    if player_art_job == null: return true
+    var wait_frames := 0
+    while not player_art_job.ready():
+        await _next_process_frame(tree)
+        wait_frames += 1
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable): return false
+    var result: Dictionary = player_art_job.take()
+    player_art_job = null
+    last_transition["player_art_wait_frames"] = wait_frames
+    last_transition["player_art_worker_usec"] = result.get("worker_usec", 0)
+    last_transition["player_art_worker_is_main"] = result.get("worker_is_main", true)
+    last_error = String(result.get("error", "主角素材预读结果无效。"))
+    if not last_error.is_empty(): return false
+    player_art_resources = result.get("textures", {})
+    last_transition["player_art_textures"] = player_art_resources.size()
+    last_transition["player_art_optional_skipped"] = result.get("optional_skipped", []).size()
+    return true
 
 func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
     last_transition["prepare_wall_usec"] = Time.get_ticks_usec() - wall_started
@@ -1343,6 +1386,8 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
             var job: Dictionary = jobs[cursor]
             var job_started := Time.get_ticks_usec()
             host.callv(job.method, job.args)
+            if String(job.method) == "_finish_region_spawn" and is_instance_valid(host.get("player")):
+                player_art_resources.clear()
             var job_usec := Time.get_ticks_usec() - job_started
             var key: String = job.method if job.args.is_empty() else String(job.args[0])
             var timings: Dictionary = last_transition.get("commit_operation_usec", {})
