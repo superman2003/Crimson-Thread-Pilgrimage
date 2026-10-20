@@ -20,6 +20,10 @@
 
 ## 画面与后续
 
-已在本地目检生产 World 暂停夹具的预警/生效画面；可用 `tools/capture_combat_visual_budget.gd` 重现。截图不附入 PR，脚本布置角色、飞弹、光束和 12 个命中标记，不能代替自然流程或帧率验收。展示夹具退出仍有 Ogg ObjectDB 警告，未声称修复。
+已在本地目检生产 World 暂停夹具的预警/生效画面；可用 `tools/capture_combat_visual_budget.gd` 重现。截图已附入 PR，脚本布置角色、飞弹、光束和 12 个命中标记，不能代替自然流程或帧率验收。展示夹具退出仍有 Ogg ObjectDB 警告，未声称修复。
 
 V04 保持部分完成：本批名额只覆盖命中火花/小切口，没有覆盖所有冲刺残影、技能及环境粒子。特效源图逐格接入、全房间混战目检、闪光舒适度、T04 自然六区流程、T03 长期资源曲线仍待验收。下一批在攻击特效源图合入后按实际帧矩形、锚点、判定范围与正常游玩尺度接入，并扩展其它装饰预算。
+
+![预警与命中标记](../../artifacts/combat_visual_budget/warning_over_contacts.webp)
+
+![生效光束与命中标记](../../artifacts/combat_visual_budget/active_over_contacts.webp)
