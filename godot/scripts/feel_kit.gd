@@ -10,6 +10,12 @@ const TRAUMA_AMPLITUDE := 14.0
 const TRAUMA_ROTATION_DEG := 0.5
 const RUMBLE_MAX_SECONDS := 0.09
 const RUMBLE_INPUT_THRESHOLD := 0.55
+# One full-screen envelope, shared by kill/parry flashes and damage shade.
+# Damage may replace a live kill flash but cannot extend its original deadline.
+const FLASH_MAX_ALPHA := 0.12
+const DAMAGE_SHADE_MAX_ALPHA := 0.24
+const FLASH_MAX_USEC := 50000
+const FLASH_INTERVAL_USEC := 200000
 const BLACK_FRAME_SHADER := preload("res://shaders/black_frame.gdshader")
 
 var _hitstop_remaining := 0.0
@@ -21,6 +27,10 @@ var _noise_time := 0.0
 var _flash_enabled := true
 var _shake_enabled := true
 var _overlay_layer: CanvasLayer
+var _screen_effect: ColorRect
+var _screen_effect_priority := -1
+var _screen_effect_deadline_usec := 0
+var _last_screen_effect_usec := -FLASH_INTERVAL_USEC
 var _vibration_enabled := true
 var _vibration_strength := 1.0
 var _active_joy_device := -1
@@ -42,6 +52,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+    if is_instance_valid(_screen_effect) and _now_usec() >= _screen_effect_deadline_usec:
+        _clear_screen_effect()
     # Hardware vibration uses wall time, not the slowed hitstop clock.
     if _rumble_device >= 0 and (get_tree().paused or _now_usec() >= _rumble_deadline_usec or not _joy_devices().has(_rumble_device)):
         cancel_rumble()
@@ -63,6 +75,7 @@ func register_camera(camera: Camera2D) -> void:
     if _camera == camera:
         return
     _clear_camera_shake()
+    _clear_screen_effect()
     _trauma = 0.0
     _camera = camera
 
@@ -79,10 +92,9 @@ func set_accessibility(preferences: Dictionary) -> void:
     if not _shake_enabled:
         _trauma = 0.0
         _clear_camera_shake()
-    if not _flash_enabled and is_instance_valid(_overlay_layer):
-        for effect in _overlay_layer.get_children():
-            _overlay_layer.remove_child(effect)
-            effect.queue_free()
+    if not _flash_enabled:
+        _clear_screen_effect()
+        _last_screen_effect_usec = -FLASH_INTERVAL_USEC
 
 
 func _clear_camera_shake() -> void:
@@ -108,34 +120,63 @@ func add_trauma(amount: float) -> void:
         _trauma = clampf(_trauma + amount, 0.0, 1.0)
 
 
-## 全屏纯色闪帧（击杀提亮/完美格挡等）。frames 按 60fps 真实帧计。
+## Full-screen accents share a wall-clock budget, including during hitstop.
 func flash_screen(color: Color, alpha: float, frames: int = 1) -> void:
-    if not _flash_enabled or _is_headless() or _overlay_layer == null:
+    if not (is_finite(color.r) and is_finite(color.g) and is_finite(color.b) and is_finite(color.a)) or not is_finite(alpha) or alpha <= 0.0:
         return
-    var rect := ColorRect.new()
-    rect.name = "FeelKitFlash"
-    rect.color = Color(color.r, color.g, color.b, alpha)
-    rect.set_anchors_preset(Control.PRESET_FULL_RECT)
-    rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    _overlay_layer.add_child(rect)
-    _free_after_real_seconds(rect, float(frames) / 60.0)
+    var rect := _begin_screen_effect(0, frames)
+    if rect != null:
+        rect.name = "FeelKitFlash"
+        rect.color = Color(clampf(color.r, 0.0, 1.0), clampf(color.g, 0.0, 1.0), clampf(color.b, 0.0, 1.0), minf(alpha, FLASH_MAX_ALPHA))
 
 
-## 受击黑屏帧：全屏压暗 2 帧，只在受击世界坐标处留一个径向亮孔。
+## A short, translucent damage shade retains the impact-position opening.
 func black_frame(world_position: Vector2, frames: int = 2) -> void:
-    if not _flash_enabled or _is_headless() or _overlay_layer == null:
+    if not world_position.is_finite():
         return
-    var rect := ColorRect.new()
+    var rect := _begin_screen_effect(1, frames)
+    if rect == null:
+        return
     rect.name = "FeelKitBlackFrame"
-    rect.set_anchors_preset(Control.PRESET_FULL_RECT)
-    rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
     var material := ShaderMaterial.new()
     material.shader = BLACK_FRAME_SHADER
     material.set_shader_parameter("hole_center_px", _world_to_screen(world_position))
     material.set_shader_parameter("hole_radius_px", 90.0)
+    material.set_shader_parameter("tint", Color(0.078, 0.063, 0.118, DAMAGE_SHADE_MAX_ALPHA))
     rect.material = material
-    _overlay_layer.add_child(rect)
-    _free_after_real_seconds(rect, float(frames) / 60.0)
+
+
+func _begin_screen_effect(priority: int, frames: int) -> ColorRect:
+    if not _flash_enabled or _is_headless() or not is_instance_valid(_overlay_layer) or frames <= 0:
+        return null
+    var now := _now_usec()
+    if is_instance_valid(_screen_effect) and now >= _screen_effect_deadline_usec:
+        _clear_screen_effect()
+    var deadline: int = now + int(mini(frames, 3) * 1000000.0 / 60.0)
+    if now - _last_screen_effect_usec < FLASH_INTERVAL_USEC:
+        if not is_instance_valid(_screen_effect) or priority <= _screen_effect_priority:
+            return null
+        deadline = mini(deadline, _screen_effect_deadline_usec)
+    else:
+        _last_screen_effect_usec = now
+    _clear_screen_effect()
+    _screen_effect = ColorRect.new()
+    _screen_effect.set_anchors_preset(Control.PRESET_FULL_RECT)
+    _screen_effect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    _screen_effect_priority = priority
+    _screen_effect_deadline_usec = mini(deadline, now + FLASH_MAX_USEC)
+    _overlay_layer.add_child(_screen_effect)
+    return _screen_effect
+
+
+func _clear_screen_effect() -> void:
+    if is_instance_valid(_screen_effect):
+        # Detach immediately: queued controls would still stack this frame.
+        _overlay_layer.remove_child(_screen_effect)
+        _screen_effect.queue_free()
+    _screen_effect = null
+    _screen_effect_priority = -1
+    _screen_effect_deadline_usec = 0
 
 
 func _apply_camera_shake() -> void:
@@ -154,14 +195,6 @@ func _world_to_screen(world_position: Vector2) -> Vector2:
     if viewport == null:
         return Vector2(640.0, 360.0)
     return viewport.get_canvas_transform() * world_position
-
-
-func _free_after_real_seconds(node: Node, seconds: float) -> void:
-    var timer := get_tree().create_timer(seconds, true, false, true)
-    timer.timeout.connect(func() -> void:
-        if is_instance_valid(node):
-            node.queue_free()
-    )
 
 
 func _is_headless() -> bool:

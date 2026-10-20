@@ -1,0 +1,42 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+ERROR: Warning ignores parent Z in visual mode false
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/combat_visual_budget_validation.gd:27)
+       [1] _overlap_pixels (res://scripts/combat_visual_budget_validation.gd:151)
+       [2] _run (res://scripts/combat_visual_budget_validation.gd:37)
+       [3] _contact_budget (res://scripts/combat_visual_budget_validation.gd:132)
+ERROR: Filled telegraph shares protected warning layer
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/combat_visual_budget_validation.gd:27)
+       [1] _overlap_pixels (res://scripts/combat_visual_budget_validation.gd:153)
+       [2] _run (res://scripts/combat_visual_budget_validation.gd:37)
+       [3] _contact_budget (res://scripts/combat_visual_budget_validation.gd:132)
+ERROR: Warning ignores parent Z in visual mode true
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/combat_visual_budget_validation.gd:27)
+       [1] _overlap_pixels (res://scripts/combat_visual_budget_validation.gd:151)
+       [2] _run (res://scripts/combat_visual_budget_validation.gd:37)
+       [3] _contact_budget (res://scripts/combat_visual_budget_validation.gd:132)
+ERROR: Beam warning draws over an opaque decorative layer (real GL pixel)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/combat_visual_budget_validation.gd:27)
+       [1] _overlap_pixels (res://scripts/combat_visual_budget_validation.gd:175)
+ERROR: Opaque projectile core is pixel-identical under late contact/decoration (real GL)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/combat_visual_budget_validation.gd:27)
+       [1] _overlap_pixels (res://scripts/combat_visual_budget_validation.gd:181)
+ERROR: Armed beam remains visible above decoration (real GL pixel)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://scripts/combat_visual_budget_validation.gd:27)
+       [1] _overlap_pixels (res://scripts/combat_visual_budget_validation.gd:187)
+COMBAT_VISUAL_BUDGET checks=32 failures=6 real_gl=true

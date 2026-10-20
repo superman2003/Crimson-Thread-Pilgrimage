@@ -1,5 +1,7 @@
 extends Node2D
 
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 const WARNING_ALPHA_MIN := 0.45
 const WARNING_ALPHA_MAX := 0.75
 const WARNING_WIDTH := 3.0
@@ -34,7 +36,7 @@ var owner_required := false
 func _ready() -> void:
     owner_required = is_instance_valid(owner_actor)
     add_to_group("hostile_attack")
-    z_index = 7
+    VISUAL_POLICY.place_danger(self)
 
 func _physics_process(delta: float) -> void:
     if cancelled or is_queued_for_deletion() or (owner_required and not is_instance_valid(owner_actor)):
