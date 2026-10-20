@@ -64,7 +64,11 @@ def validate(data: dict) -> list[str]:
         check(not (set(row.get('modifiers', {})) & forbidden), f'{key}: does not alter permanent exploration gates')
     for key, row in data.get('recipes', {}).items():
         check(row.get('kind') != 'refill', f'{key}: tool supplies are not sold as recipes')
-        check(row.get('target') in data.get('skills', {}), f'{key}: recipe target exists')
+        targets = {'skill_branch': data.get('skills', {}), 'tool_capacity': data.get('tools', {}), 'slot_part': {'travel_accessory': True}}
+        check(row.get('kind') in targets, f'{key}: recipe kind is 校习 or an artisan craft')
+        check(row.get('target') in targets.get(row.get('kind'), {}), f'{key}: recipe target exists')
+        if row.get('kind') == 'tool_capacity':
+            check(row.get('amount') == 1, f'{key}: a capacity upgrade adds exactly one charge')
     return errors
 
 def main() -> int:

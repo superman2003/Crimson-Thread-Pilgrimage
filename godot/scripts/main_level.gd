@@ -7339,6 +7339,9 @@ func _bind_build_inputs() -> void:
             trigger.axis_value = 1.0
             InputMap.action_add_event(action, trigger)
 
+## Artisans who sell 校习 and make 改制 (E04); each recipe names its own maker.
+const ARTISAN_NPCS := ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]
+
 func _near_workstation(crafting: bool = false) -> bool:
     if player == null or player.hp <= 0 or player.death_timer > 0.0 or (boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body)):
         return false
@@ -7350,7 +7353,7 @@ func _near_workstation(crafting: bool = false) -> bool:
             return true
         if crafting and kind == "npc":
             var id := String(child.get_meta("npc_id", child.name))
-            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]:
+            if id in ARTISAN_NPCS:
                 return true
     return false
 
@@ -7361,6 +7364,35 @@ func is_near_shrine() -> bool:
 ## U02: beside an artisan the build page opens on 强化, where 校习 is bought.
 func is_near_artisan() -> bool:
     return _near_workstation(true)
+
+## E04: which artisan is in reach; each one makes only their own 改制.
+func near_artisan_id() -> String:
+    if not _near_workstation(true):
+        return ""
+    var best := ""
+    var best_distance := INF
+    for child in get_children():
+        if not child is Area2D or String(child.get_meta("kind", "")) != "npc":
+            continue
+        var id := String(child.get_meta("npc_id", child.name))
+        var distance := player.global_position.distance_to(child.global_position)
+        if id in ARTISAN_NPCS and distance <= 120.0 and distance < best_distance:
+            best = id
+            best_distance = distance
+    return best
+
+## E04: why this artisan cannot make the recipe yet; "" when only the price remains.
+func artisan_craft_block(recipe: Dictionary) -> String:
+    var artisan := String(recipe.get("artisan", ""))
+    if not artisan.is_empty() and near_artisan_id() != artisan:
+        return "「%s」要找%s制作" % [String(recipe.get("name", "")), String(recipe.get("artisan_name", "工匠"))]
+    var flag := String(recipe.get("requires_flag", ""))
+    if not flag.is_empty() and not bool(story_flags.get(flag, false)):
+        return String(recipe.get("requires_flag_hint", "工匠还不会这门手艺"))
+    for item in recipe.get("requires_items", []):
+        if int(inventory_counts.get(item, 0)) <= 0:
+            return "需要「%s」作图样（不会被收走）" % _item_display_name(String(item))
+    return ""
 
 func _build_wallet_snapshot() -> Dictionary:
     return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
@@ -7443,6 +7475,8 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
                 result = {"ok": false, "reason": "先在练针架上练熟「%s」，再选校习方向" % String(build_system.catalog.skills.get(practice_target, {}).get("name", practice_target))}
             elif not _near_workstation(true):
                 result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面校习"}
+            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part"] and not artisan_craft_block(recipe).is_empty():
+                result = {"ok": false, "reason": artisan_craft_block(recipe)}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
                 if result.get("ok", false):
