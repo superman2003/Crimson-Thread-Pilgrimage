@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-20",
+  "base": "a05099e41981f36d5517c9cd3573aabd5954084a",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 3.92,
+      "markers": [
+        "PLAYER_ART_PREWARM checks=173 failures=0 ready_usec=3005",
+        "CHARACTER_ART_PREWARM checks=831 failures=0 sync_loads=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_startup_budget",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 9.14,
+      "markers": [
+        "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_startup_config_background",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 19.83,
+      "markers": [
+        "WORLD STARTUP CONFIG BACKGROUND PASS checks=1054"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "player_layered_idle",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.55,
+      "markers": [
+        "LAYERED_IDLE_REVEAL_PIXELS checks=12",
+        "PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=true"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "player_motion_continuity",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.8,
+      "markers": [
+        "PLAYER_MOTION_CONTINUITY checks=1192 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_resume_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 9.44,
+      "markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

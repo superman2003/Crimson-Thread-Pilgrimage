@@ -14,6 +14,7 @@ func check(ok: bool, label: String) -> void:
         failures += 1
         push_error(label)
 func run() -> void:
+    failures += await preload("res://scripts/player_art_prewarm_validation.gd").new().run(self)
     await resource_job_lifecycle()
     await shared_request_shutdown()
     var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/demo_ch01_moss_bell_court.json"))

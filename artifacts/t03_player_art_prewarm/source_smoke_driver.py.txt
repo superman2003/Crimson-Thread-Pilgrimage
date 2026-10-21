@@ -1,0 +1,36 @@
+from pathlib import Path
+import subprocess,sys,os,tempfile,json,re,hashlib,time
+root=Path(sys.argv[1]).resolve();logs=root/'artifacts'/(sys.argv[2] if len(sys.argv)>2 else 't03_player_art_source_smoke');logs.mkdir(exist_ok=True,parents=True)
+sys.path.insert(0,str(root/'tools'))
+from build_release import verify_save
+engine=Path(os.environ['TEMP'])/'ctp-godot-4.6.1/Godot_v4.6.1-stable_win64.exe'
+results=[]
+with tempfile.TemporaryDirectory(prefix='ctp-source-smoke-') as temporary:
+ isolated=Path(temporary).resolve();assert isolated.is_relative_to(Path(tempfile.gettempdir()).resolve())
+ user_data=isolated/'user-data'
+ env=dict(os.environ,XDG_DATA_HOME=str(user_data),XDG_CONFIG_HOME=str(isolated/'config'),XDG_CACHE_HOME=str(isolated/'cache'),APPDATA=str(user_data),LOCALAPPDATA=str(isolated/'local-data'),GODOT_SILENCE_ROOT_WARNING='1')
+ for attempt in ['first-start','resume']:
+  command=[str(engine),'--path',str(root/'godot'),'--headless','--verbose','--max-fps','60','--quit-after','1200']
+  start=time.monotonic()
+  with (logs/(attempt+'.log')).open('w',encoding='utf-8') as log:
+   run=subprocess.run(command,cwd=isolated,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=90,creationflags=subprocess.CREATE_NO_WINDOW)
+  plain=(logs/(attempt+'.log')).read_text(encoding='utf-8')
+  errors=re.findall(r'^\s*(?:ERROR:|SCRIPT ERROR:).+$',plain,re.M);warnings=re.findall(r'^\s*WARNING:.+$',plain,re.M)
+  assert run.returncode==0 and not errors,(run.returncode,errors)
+  assert not any('ObjectDB' in x or 'resources still in use' in x for x in warnings),warnings
+  save=verify_save(user_data);data=json.loads(save.read_text(encoding='utf-8'))
+  snapshots=[json.loads(x.split('WORLD_STARTUP_EXIT ',1)[1]) for x in plain.splitlines() if x.startswith('WORLD_STARTUP_EXIT ')]
+  assert snapshots and snapshots[-1]['stage']=='published',snapshots
+  assert not snapshots[-1]['player_art_pending'] and snapshots[-1]['player_art_retained']==0 and not snapshots[-1]['player_art_worker_is_main']
+  if attempt=='first-start':
+   data.setdefault('story_flags',{})['release_resume_probe']=True
+   save.write_text(json.dumps(data,ensure_ascii=False),encoding='utf-8')
+   save.with_name(save.name+'.bak').unlink(missing_ok=True)
+  else:
+   assert data.get('story_flags',{}).get('release_resume_probe') is True
+   backup=save.with_name(save.name+'.bak');assert backup.is_file()
+   previous=json.loads(backup.read_text(encoding='utf-8'));assert previous.get('story_flags',{}).get('release_resume_probe') is True
+  row={'attempt':attempt,'exit_code':run.returncode,'wall_seconds':time.monotonic()-start,'engine_errors':errors,'warnings':warnings,'startup_snapshot':snapshots[-1]};results.append(row);print(json.dumps(row,ensure_ascii=False),flush=True)
+report={'scope':'Actual source project with unchanged 60 FPS /1200 frame release smoke settings, isolated userdata. Not an exported release package.','engine_version':subprocess.check_output([str(engine),'--version'],text=True).strip(),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'passed':True,'results':results}
+(logs/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
+print('SOURCE_BOOT_RESUME_PASS original_budget=true writeback=true no_leak_warnings=true',flush=True)
