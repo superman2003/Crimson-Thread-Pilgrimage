@@ -2,6 +2,7 @@ extends RefCounted
 ## Real imported-image worker and actual Player ready path; no timing gate is
 ## inferred from a warm process. Published cold startup timing is separate.
 const JOB := preload("res://scripts/player_art_warm_job.gd")
+const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
 var checks := 0
 var failures := 0
 
@@ -32,7 +33,7 @@ func run(tree: SceneTree) -> int:
     await wait_for(tree,job)
     if not job.ready(): job.shutdown();return failures
     var result: Dictionary = job.take()
-    check(String(result.get("error","missing")).is_empty() and not bool(result.get("worker_is_main",true)), "actual image decode runs in the private worker")
+    check(String(result.get("error","missing")).is_empty() and bool(result.get("worker_is_main",true)) != RESOURCE_JOB.off_thread_loading_safe(), "actual image decode runs in the private worker, or inline under the headless Dummy renderer")
     check(result.get("textures",{}).size() > 0 and job._thread == null, "completed owner transfers real native resource references")
     for path in result.get("textures",{}):
         check(ResourceLoader.has_cached(path) and result.textures[path] is Texture2D, "every retained native entry is a real imported image")

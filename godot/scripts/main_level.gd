@@ -1019,6 +1019,14 @@ func _process(_delta: float) -> void:
     if ui_shell != null and ui_shell.has_method("is_browsing_journey_history") and ui_shell.is_browsing_journey_history():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
         return
+    # Native transaction dialogs own keyboard focus (Tab also binds inventory).
+    # Polling global overlay shortcuts would close the dialog before GUI focus
+    # can reach its purchase buttons. Escape keeps its normal close behavior.
+    if active_overlay in ["cartographer", "recall"]:
+        world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
+        if Input.is_action_just_pressed("close_overlay"):
+            _close_overlays()
+        return
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
