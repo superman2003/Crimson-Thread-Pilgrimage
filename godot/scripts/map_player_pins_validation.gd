@@ -141,6 +141,8 @@ func _world() -> void:
     await _spawn(false)
     level._toggle_map()
     var toolbar := _toolbar()
+    _check(not toolbar.get_node("PinKind").get_theme_font("font").multichannel_signed_distance_field and not toolbar.get_node("PinCurrent").get_theme_font("font").multichannel_signed_distance_field, "fixed pin controls use the ordinary HUD font cache")
+    _check(not level.map_panel.get_node("SurveyMapTitle").get_theme_font("font").multichannel_signed_distance_field and not level.map_panel.get_node("PlayerPinStatus").get_theme_font("font").multichannel_signed_distance_field, "fixed title and instructions avoid zoom-only glyph rasterization")
     _check(toolbar.get_node("PinCurrent").focus_mode == Control.FOCUS_ALL and toolbar.get_node("PinKind").focus_mode == Control.FOCUS_ALL, "current-position and type controls support focus navigation")
     _check(toolbar.get_node("PinCurrent").disabled and _count() == 0, "unowned actual map disables current-position marker")
     await _right(A, level.player.global_position)
@@ -164,10 +166,13 @@ func _world() -> void:
     await _frames()
     _check(_count() == 1 and button.has_focus(), "focused current-position button accepts UI activation and preserves focus after redraw")
     var marker: Label = level.map_draw_root.get_node_or_null("PlayerMapPin_1")
+    _check(marker != null and marker.get_theme_font("font").multichannel_signed_distance_field, "actual map marker retains scalable glyphs inside the zoomed content")
+    var toolbar_before: Transform2D=toolbar.get_global_transform_with_canvas()
     _check(marker != null and marker.mouse_filter == Control.MOUSE_FILTER_IGNORE and (marker.get_meta("map_anchor") as Vector2).distance_to(UI.project(level, A, level.player.global_position)) < 0.01 and (marker.position + Vector2(8, 12)).distance_to(marker.get_meta("map_anchor")) < 64.0, "regional marker projects local position and never steals drag input")
     toolbar.get_node("PinKind").select(1)
     var second := _different_point(level.config, level.story_flags, A, level.player.global_position)
     level.survey_map_view.magnify(2.0, UI.project(level, A, second))
+    _check(toolbar.get_global_transform_with_canvas()==toolbar_before and marker.get_global_transform_with_canvas().get_scale().x>1.0, "zoom transforms map content while fixed toolbar remains in screen space")
     await _right(A, second)
     _check(_count() == 2 and _records()[1].kind == "warning" and Vector2(_records()[1].position[0], _records()[1].position[1]).distance_to(second) < 1.0, "real right mouse inverse zoom/pan stores the chosen local point and type")
     var signal_count := {"value": 0}
@@ -460,15 +465,19 @@ func _capture() -> void:
     label.add_theme_font_size_override("font_size", 13)
     layer.add_child(label)
     var rows := []
-    for name in ["region", "world"]:
+    for name in ["region", "world", "region_zoom4"]:
         level.world_map_view = name == "world"
         level._refresh_map_overlay()
+        if name == "region_zoom4":
+            level.survey_map_view.magnify(4.0, UI.project(level, String(level.config.id), level.player.global_position))
         await _frames(5)
         await RenderingServer.frame_post_draw
         var path := capture_output.path_join(name + ".webp")
         var image := root.get_texture().get_image()
         _check(image.get_size() == Vector2i(1280, 720) and image.save_webp(path, true, 0.88) == OK, "optional actual GL " + name + " screenshot writes")
-        rows.append({"file": name + ".webp", "sha256": FileAccess.get_sha256(path), "fixture": true, "frame_post_draw": true})
+        rows.append({"file": name + ".webp", "sha256": FileAccess.get_sha256(path), "fixture": true, "frame_post_draw": true,
+            "zoom": level.survey_map_view.zoom, "toolbar_msdf": _toolbar().get_node("PinKind").get_theme_font("font").multichannel_signed_distance_field,
+            "content_msdf": level.map_draw_root.get_theme_font("font").multichannel_signed_distance_field})
     var hashes := {}
     for file in ["main_level.gd", "survey_map_view.gd", "map_player_pins.gd", "map_player_pins_runtime.gd", "map_player_pins_validation.gd", "survey_navigation_validation.gd", "world_state.gd"]: hashes[file] = FileAccess.get_sha256("res://scripts/" + file)
     var handle := FileAccess.open(capture_output.path_join("manifest.json"), FileAccess.WRITE)
