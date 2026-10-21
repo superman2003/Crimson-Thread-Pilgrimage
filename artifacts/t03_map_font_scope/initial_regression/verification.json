@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-20",
+  "base": "af210f7f5a8b919fda002ff8fff95d1eb7d2e260",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "map_player_pins",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 16.03,
+      "markers": [
+        "MAP PLAYER PINS PASS checks=153"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "cartography",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 21.88,
+      "markers": [
+        "CARTOGRAPHY checks=4229 failures=0 fixture_positioning=true"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "survey_map_knowledge",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 8.42,
+      "markers": [
+        "SURVEY_MAP_KNOWLEDGE checks=43 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_map",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.72,
+      "markers": [
+        "WORLD_MAP checks=673 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_async_loading",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 36.05,
+      "markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.23,
+      "markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

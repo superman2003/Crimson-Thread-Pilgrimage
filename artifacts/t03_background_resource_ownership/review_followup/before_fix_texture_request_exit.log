@@ -1,0 +1,25 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.62 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ERROR: SceneTree exit reaps the shared requests without a World shutdown
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/texture_request_exit_validation.gd:17)
+       [1] check_exit (res://scripts/texture_request_exit_validation.gd:28)
+ERROR: standalone exit joins every unclaimed Thread
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/texture_request_exit_validation.gd:17)
+       [1] check_exit (res://scripts/texture_request_exit_validation.gd:29)
+ERROR: exit preserves the successfully decoded immutable textures
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/texture_request_exit_validation.gd:17)
+       [1] check_exit (res://scripts/texture_request_exit_validation.gd:30)
+TEXTURE_REQUEST_EXIT checks=4 failures=3
+WARNING: A Thread object is being destroyed without its completion having been realized.
+Please call wait_to_finish() on it to ensure correct cleanup.
+   at: ~Thread (core/os/thread.cpp:102)
+WARNING: A Thread object is being destroyed without its completion having been realized.
+Please call wait_to_finish() on it to ensure correct cleanup.
+   at: ~Thread (core/os/thread.cpp:102)

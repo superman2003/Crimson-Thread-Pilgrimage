@@ -14,6 +14,12 @@
 
 四张 1280×720 正式 GL 画面已目检：[旧上缘](../../artifacts/u04_pin_boundaries_visual/before/edge.webp)、[修复后上缘](../../artifacts/u04_pin_boundaries_visual/final/edge.webp)、[旧下缘](../../artifacts/u04_pin_boundaries_visual/before/far.webp)、[修复后下缘与引线](../../artifacts/u04_pin_boundaries_visual/final/far.webp)。捕获脚本读取同一组合法记录、等待实际 frame_post_draw；房间补绘和暂停角色是明确夹具，不是自然获取图钉／自然探索或实体手柄反馈。
 
-完整原始日志的无损压缩、基线探针、两种反向检查、最终源码与画面清单见 [证据摘要](../../artifacts/u04_map_pin_boundaries/verification.json)。本批独立基于 main `61b9ec8e`，不复制仍开放的 #173／#174／#175；本地结果先于新 PR 头 CI，远端与 Windows／Linux 发布包结果单独报告。
+完整原始日志的无损压缩、基线探针、两种反向检查、最终源码与画面清单见 [证据摘要](../../artifacts/u04_map_pin_boundaries/verification.json)。初轮证据独立基于 main `61b9ec8e`；下方同步复验另行记录，不能用初轮结果代替更新后 PR 头的 CI 或 Windows／Linux 发布包验证。
 
 台账同时回填已合入 #166 的旅记六分类／敌人记录证据，避免把已实现功能重复计为待开发。46 个任务包的最终验收仍全部开放；U04 楼层语义、自然获取／使用与全流程体验，T03 稳定性、T04 真实游玩和 T05 最终发布继续推进。
+
+## 2026-10-21：按 #176 留言同步最新 main
+
+合入 main `92f60b9a5d88a1b1bbea33cbec7358d4301ecfa3`（已包含 #173／#174／#175），解决 `UPGRADE_TASK_LEDGER.md` 顶部追加条目的冲突，完整保留本批图钉边界、地图字体复用与敌人落点剪枝记录。完成清单中的最新证据及未验收范围一并保留。图钉运行时、边界 helper 和地图知识套件三个文件与复查通过的原 PR 头 `eac4e0f1` 的 Git 内容一致。
+
+合并后 Godot 4.6.1 原生 GL 四套通过：地图知识 190、图钉 150、世界地图 673、补绘 4,229 项，零 ERROR；前三套各保留一条 ObjectDB 退出警告，补绘无退出警告。`npm test`、`test:campaign` 通过；Windows 既有 41 项 POSIX 跳过仍不算执行通过。该复验验证同步兼容性，不重测初轮画面、反向变异或帧率，也不关闭 T03。原始日志、源码哈希与来源见 [同步复验证据](../../artifacts/u04_map_pin_boundaries/review_followup/verification.json)。远端 CI 以更新后 PR 头的实际检查状态为准。

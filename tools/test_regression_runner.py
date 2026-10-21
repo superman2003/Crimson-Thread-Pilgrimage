@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Use real child processes to check CI error/timeout propagation."""
+"""Check portable completion contracts and CI error/timeout propagation."""
 import os
 from pathlib import Path
 import subprocess
@@ -13,6 +13,47 @@ import re
 from run_godot_regressions import run_suites
 
 ROOT = Path(__file__).resolve().parents[1]
+
+class CompletionContractTests(unittest.TestCase):
+    """Static suite contracts apply on every host, including Windows."""
+    def test_default_suites_all_have_compilable_completion_contracts(self):
+        all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
+        self.assertEqual(len(all_suites), 130)
+        self.assertIn("combat_visual_budget", DEFAULT_SUITES)
+        self.assertIn("skill_branches", DEFAULT_SUITES)
+        self.assertIn("artisan_crafts", DEFAULT_SUITES)
+        self.assertIn("survey_room_segments", DEFAULT_SUITES)
+        self.assertIn("save_recovery", DEFAULT_SUITES)
+        self.assertIn("ending_aftermath", DEFAULT_SUITES)
+        self.assertIn("settings_remap", DEFAULT_SUITES)
+        self.assertIn("tool_practice", DEFAULT_SUITES)
+        self.assertIn("shrine_exit_probe", DEFAULT_SUITES)
+        self.assertIn("shrine_exit_routes", DEFAULT_SUITES)
+        self.assertIn("hidden_routes", DEFAULT_SUITES)
+        self.assertIn("expanded_character_motion", DEFAULT_SUITES)
+        self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
+        self.assertIn("character_art_prewarm", DEFAULT_SUITES)
+        self.assertIn("texture_request_exit", DEFAULT_SUITES)
+        self.assertIn("enemy_atlas_integrity", DEFAULT_SUITES)
+        self.assertIn("world_save_candidate", DEFAULT_SUITES)
+        self.assertIn("map_player_pins", DEFAULT_SUITES)
+        self.assertIn("world_startup_config_background", DEFAULT_SUITES)
+        self.assertIn("world_catalog_background", DEFAULT_SUITES)
+        self.assertIn("room_camera_stability", DEFAULT_SUITES)
+        self.assertIn("player_layered_idle", DEFAULT_SUITES)
+        self.assertIn("input_prompt", DEFAULT_SUITES)
+        self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
+        self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
+        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
+        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
+        for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
+            self.assertIn(suite, DEFAULT_SUITES)
+        self.assertEqual(len(all_suites), len(set(all_suites)))
+        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
+        for marker in SUCCESS_MARKERS.values():
+            self.assertTrue(marker.startswith('^') and marker.endswith('$'))
+            re.compile(marker)
+
 
 @unittest.skipIf(os.name == 'nt', 'executable shebang fixtures run on Linux/macOS CI')
 class RunnerTests(unittest.TestCase):
@@ -92,43 +133,6 @@ class RunnerTests(unittest.TestCase):
         result = self.run_engine('print("WORLD_MAP checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 1)
         self.assertIn('completion_marker=False', result.stdout)
-
-    def test_default_suites_all_have_compilable_completion_contracts(self):
-        all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 129)
-        self.assertIn("combat_visual_budget", DEFAULT_SUITES)
-        self.assertIn("skill_branches", DEFAULT_SUITES)
-        self.assertIn("artisan_crafts", DEFAULT_SUITES)
-        self.assertIn("survey_room_segments", DEFAULT_SUITES)
-        self.assertIn("save_recovery", DEFAULT_SUITES)
-        self.assertIn("ending_aftermath", DEFAULT_SUITES)
-        self.assertIn("settings_remap", DEFAULT_SUITES)
-        self.assertIn("tool_practice", DEFAULT_SUITES)
-        self.assertIn("shrine_exit_probe", DEFAULT_SUITES)
-        self.assertIn("shrine_exit_routes", DEFAULT_SUITES)
-        self.assertIn("hidden_routes", DEFAULT_SUITES)
-        self.assertIn("expanded_character_motion", DEFAULT_SUITES)
-        self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
-        self.assertIn("character_art_prewarm", DEFAULT_SUITES)
-        self.assertIn("enemy_atlas_integrity", DEFAULT_SUITES)
-        self.assertIn("world_save_candidate", DEFAULT_SUITES)
-        self.assertIn("map_player_pins", DEFAULT_SUITES)
-        self.assertIn("world_startup_config_background", DEFAULT_SUITES)
-        self.assertIn("world_catalog_background", DEFAULT_SUITES)
-        self.assertIn("room_camera_stability", DEFAULT_SUITES)
-        self.assertIn("player_layered_idle", DEFAULT_SUITES)
-        self.assertIn("input_prompt", DEFAULT_SUITES)
-        self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
-        self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
-        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
-        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
-        for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
-            self.assertIn(suite, DEFAULT_SUITES)
-        self.assertEqual(len(all_suites), len(set(all_suites)))
-        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
-        for marker in SUCCESS_MARKERS.values():
-            self.assertTrue(marker.startswith('^') and marker.endswith('$'))
-            re.compile(marker)
 
     def test_workshop_groups_require_full_room_and_restart_counts(self):
         for suffix, count in [('one', 10), ('two', 9)]:
