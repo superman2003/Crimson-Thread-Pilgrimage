@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-21T17:00:48.221395+08:00",
+  "head": "8467e946ad98535e4d511589545c6d3053b2264b",
+  "source_files": 8730,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "seal_combat",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/seal_combat_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 16.62,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "SEAL_COMBAT_VALIDATION PASS checks=194 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "tool_practice",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/tool_practice_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 21.28,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "TOOL_PRACTICE checks=98 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "build_transaction_runtime",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/build_transaction_runtime_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 4.47,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "BUILD TRANSACTION RUNTIME PASS: 30 checks, real shrine, paid partial resupply and failed-save rollback",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "combat_resource_cycle",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/combat_resource_cycle_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 14.16,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "combat_visual_budget",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/combat_visual_budget_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 3.5,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/enemy_effect_lifetime_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 4.01,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "ENEMY_EFFECT_LIFETIME_VALIDATION checks=46 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    }
+  ]
+}

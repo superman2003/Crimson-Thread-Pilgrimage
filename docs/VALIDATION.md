@@ -27,6 +27,8 @@ Repeated collision silhouettes are visible review warnings. Different names alon
 
 The optional `python tools/run_damage_route.py --engine /path/to/godot --native-gl --log-dir /tmp/damage-route` replays a damage-enabled three-region journey with earned map/quill purchases, shrine charting, return gates and no position marker. It then exits the engine and verifies the same save in a second process. Omit `--native-gl` for software GL on Linux. Project hashes must remain unchanged, both phases must have the required completion markers, and their combined deadline stays at 180 seconds. Errors and warnings are retained. Accelerated 60Hz input is not an FPS measurement, full campaign acceptance or a human playtest. See [the current report](report/20261021_t04_cartography_journey.md) and [the earlier partial route](report/20261021_t04_candle_route.md).
 
+The optional `python tools/run_pot_route.py --engine /path/to/godot --native-gl --log-dir /tmp/pot-route` copies a hash-checked, normally earned #180 checkpoint into a dedicated test save and replays the 14-step canal-to-overflow route with damage enabled. It verifies one finite-stock pot use, the actual ground enemy kill and normal reward. Its source/runner/seed freeze and strict 180-second limit do not establish a fresh-save campaign or FPS. See [the pot report](report/20261021_e02_pot_landing_fuse.md).
+
 ## Outstanding product acceptance
 
 T04 still requires a new save, damage enabled, six-region completion using multiple exploration orders and builds, plus sessions with unfamiliar players. Record actual confusion, blocked progression, difficulty changes and repeated travel, then reproduce and fix each issue. Automated acceptance does not replace these sessions.

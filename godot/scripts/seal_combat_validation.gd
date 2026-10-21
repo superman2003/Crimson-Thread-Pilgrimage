@@ -365,9 +365,109 @@ func _run() -> void:
     player.queue_free()
     floor.queue_free()
     await frames(100)
+    await natural_pot_landings(catalog)
     failures += await preload("res://scripts/player_skill_art_validation.gd").new().run(self)
     print("SEAL_COMBAT_VALIDATION %s checks=%d failures=%d" % ["PASS" if failures == 0 else "FAIL",checks,failures])
     quit(0 if failures == 0 else 1)
+
+## Real ballistic flight and terrain contact; the older pot test above starts
+## with an already-landed fixture and cannot detect expiry during its fuse.
+func natural_pot_landings(catalog: Dictionary) -> void:
+    for direction in [-1, 1]:
+        for lower_floor in [0.0, 20.0]:
+            await natural_pot_case(catalog, direction, lower_floor, false)
+    # A floor below the original flight lifetime remains out of reach. Waiting
+    # for a fuse must not turn a missed throw into an unbounded falling object.
+    await natural_pot_case(catalog, 1, 180.0, true)
+    await natural_pot_case(catalog, 1, 0.0, true, {"range":80.0, "duration":5.0})
+    await natural_pot_case(catalog, 1, 0.0, false, {}, true)
+
+func natural_pot_case(catalog: Dictionary, direction: int, lower_floor: float, expires_in_air: bool, limits: Dictionary = {}, blocked: bool = false) -> void:
+    var label := "natural pot direction=%d lower_floor=%d range_limited=%s blocked=%s" % [direction, int(lower_floor), not limits.is_empty(), blocked]
+    var stage := Node2D.new()
+    stage.position = Vector2(2000, 700)
+    root.add_child(stage)
+    var ground := StaticBody2D.new()
+    var floor_shape := CollisionShape2D.new()
+    var floor_rect := RectangleShape2D.new()
+    floor_rect.size = Vector2(1200, 20)
+    floor_shape.shape = floor_rect
+    ground.position.y = lower_floor + 10
+    ground.add_child(floor_shape)
+    stage.add_child(ground)
+    if lower_floor > 0:
+        var ledge := StaticBody2D.new()
+        var ledge_shape := CollisionShape2D.new()
+        var ledge_rect := RectangleShape2D.new()
+        ledge_rect.size = Vector2(120, 20)
+        ledge_shape.shape = ledge_rect
+        ledge.position = Vector2(-direction * 320, 10)
+        ledge.add_child(ledge_shape)
+        stage.add_child(ledge)
+    var caster = load("res://scenes/Player.tscn").instantiate()
+    caster.position = Vector2(-direction * 300, 0)
+    stage.add_child(caster)
+    await frames(8)
+    check(caster.is_on_floor(), label + " begins on a real launch floor")
+    caster.set_physics_process(false)
+    caster.facing = direction
+    var target = load("res://scripts/enemy_actor.gd").new()
+    target.configure({"id":"pot_fuse_target", "hp":10, "kind":"moss_larva", "hurtbox_size":[40,40], "hurtbox_offset":[0,0]}, "", false, {})
+    target.position = Vector2(0, lower_floor - 20)
+    stage.add_child(target)
+    target.set_physics_process(false)
+    if blocked:
+        var wall := StaticBody2D.new()
+        var wall_shape := CollisionShape2D.new()
+        var wall_rect := RectangleShape2D.new()
+        wall_rect.size = Vector2(20, 160)
+        wall_shape.shape = wall_rect
+        wall.position = Vector2(-60, -80)
+        wall.add_child(wall_shape)
+        stage.add_child(wall)
+        await frames(2)
+    var hp_before: int = target.hp
+    var energy_before: int = caster.energy
+    var payload: Dictionary = catalog.tools.shard.duplicate(true)
+    payload.merge(limits, true)
+    check(caster.cast_tool(payload), label + " launches the production pot")
+    var pot: Node2D
+    for child in stage.get_children():
+        if child.get_script() == preload("res://scripts/player_tool_effect.gd"):
+            pot = child
+    check(pot != null, label + " creates one physical effect")
+    var observed_landing := false
+    var warned_past_flight_limit := false
+    var damaged_during_warning := false
+    var landed_frame := -1
+    var damage_frame := -1
+    for frame in 100:
+        await frames(1)
+        if target.hp != hp_before and damage_frame < 0:
+            damage_frame = frame
+        if is_instance_valid(pot) and not pot.is_queued_for_deletion() and pot.landed:
+            observed_landing = true
+            if landed_frame < 0:
+                landed_frame = frame
+            if pot.warning_timer > 0:
+                damaged_during_warning = damaged_during_warning or target.hp != hp_before
+                warned_past_flight_limit = warned_past_flight_limit or pot.elapsed >= float(payload.duration)
+    if expires_in_air:
+        check(not observed_landing and target.hp == hp_before, label + " preserves airborne expiry without damage")
+    else:
+        check(observed_landing, label + " reaches the floor without forcing landed state")
+        check(warned_past_flight_limit and not damaged_during_warning, label + " finishes its full landed warning beyond the flight limit")
+        if blocked:
+            check(target.hp == hp_before, label + " cannot damage through its landing wall")
+        else:
+            var warning_seconds := float(damage_frame - landed_frame) / float(Engine.physics_ticks_per_second)
+            check(damage_frame > landed_frame and absf(warning_seconds - 0.35) <= 2.0 / Engine.physics_ticks_per_second, label + " measures the actual 0.35-second fuse")
+            check(target.hp == hp_before - int(catalog.tools.shard.damage), label + " explodes once for catalog damage")
+    check(not is_instance_valid(pot) or pot.is_queued_for_deletion(), label + " retires its gameplay effect")
+    check(caster.energy == energy_before, label + " never generates combat energy")
+    print("POT_FLIGHT_CASE direction=%d drop=%d range_limited=%s blocked=%s landed=%s warned_after_limit=%s damage=%d" % [direction, int(lower_floor), not limits.is_empty(), blocked, observed_landing, warned_past_flight_limit, hp_before - target.hp])
+    stage.queue_free()
+    await frames(8)
 
 ## C03: thread cost and the action's own timing limit every skill; the
 ## catalog cooldown is only a short recovery lock, never the main gate.
