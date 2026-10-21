@@ -332,6 +332,8 @@ var last_seen_position := Vector2.ZERO
 var memory_timer := 0.0
 var tactical_role := "patrol"
 var alarm_cooldown := 0.0
+## Searching a point another actor called out; already clamped to this territory.
+var alarm_search := false
 ## Allies told by this actor's most recent alarm (diagnostic, not gameplay).
 var alarm_alerted := 0
 var patrol_direction := 1
@@ -801,6 +803,7 @@ func reset_for_respawn() -> void:
     memory_timer = 0.0
     alarm_cooldown = 0.0
     alarm_alerted = 0
+    alarm_search = false
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -879,7 +882,11 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
     if engaged and not engage_announced:
         _announce_engagement()
     _update_attack_desire(delta, target, engaged)
-    if _should_return_to_spawn(target, aggro_range):
+    if engaged or memory_timer <= 0.0:
+        alarm_search = false
+    # While answering a call, only leaving the territory sends an ally home; the
+    # player's own position (outside this leash) must not cancel the search.
+    if _should_return_to_spawn(null if alarm_search else target, aggro_range):
         last_ai_decision = "return"
         _return_to_spawn(delta)
         return
@@ -902,6 +909,9 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
         return
     if tactical_role == "ambush":
         _return_to_post(delta, "lurk")
+        return
+    if tactical_role == "guard":
+        _return_to_post(delta, "hold_post")
         return
     last_ai_decision = "patrol"
     _patrol(delta)
@@ -955,6 +965,7 @@ func hear_alarm(seen_at: Vector2) -> bool:
         var reach := maxf(0.0, leash_radius - 20.0)
         last_seen_position.x = clampf(seen_at.x, spawn_position.x - reach, spawn_position.x + reach)
     memory_timer = TARGET_MEMORY_SECONDS
+    alarm_search = true
     return true
 
 
@@ -1461,6 +1472,10 @@ func _count_other_attackers(target: CharacterBody2D) -> int:
 func _is_aware_of(target: CharacterBody2D) -> bool:
     if is_boss or memory_timer > 0.0:
         return true
+    if tactical_role == "ambush":
+        # A lurking ambusher must not turn toward the player before it reveals.
+        var reveal := _fresh_engage_range(float(ai_profile.get("aggro_range", 220.0)))
+        return _target_in_engage_window(target, reveal) and _has_line_of_sight(target)
     var aggro_range := float(ai_profile.get("aggro_range", 220.0))
     return _target_in_engage_window(target, aggro_range * 1.1)
 

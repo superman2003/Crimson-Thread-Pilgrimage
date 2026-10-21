@@ -22,11 +22,13 @@ func check(ok: bool, label: String) -> void:
         failures += 1
         push_error(label)
 
-func spawn(kind: String, id: String, at: Vector2, boss := false) -> Area2D:
+func spawn(kind: String, id: String, at: Vector2, boss := false, extra := {}) -> Area2D:
     var enemy: Area2D = ENEMY.new()
     # Chapters pass the species profile, so territory matches the authored leash.
     var species: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PROFILE_PATH)).get(kind, {})
-    enemy.configure({"id": id, "kind": kind, "hp": 6, "damage": 1, "patrol": 80.0}, "", boss, species)
+    var data := {"id": id, "kind": kind, "hp": 6, "damage": 1, "patrol": 80.0}
+    data.merge(extra, true)
+    enemy.configure(data, "", boss, species)
     enemy.position = at
     stage.add_child(enemy)
     enemy.set_physics_process(false)
@@ -107,6 +109,17 @@ func _ambush() -> void:
     step(bookmite, target, 10)
     check(bookmite.last_ai_decision == "lurk" and is_equal_approx(bookmite.global_position.x, 300.0), "ambusher stays hidden at its post outside its reveal range")
     check(bookmite.memory_timer == 0.0, "an unrevealed ambusher does not start tracking")
+    check(not bookmite._is_aware_of(target), "a lurking ambusher does not turn toward a player outside its reveal range")
+    target.position = Vector2(420, 300)
+    var screen := wall(360)
+    await physics_frame
+    await physics_frame
+    check(not bookmite._is_aware_of(target), "a lurking ambusher does not react through terrain")
+    screen.free()
+    await physics_frame
+    await physics_frame
+    check(bookmite._is_aware_of(target), "a nearby visible player is noticed by the ambusher")
+    target.position = Vector2(520, 300)
     target.position = Vector2(520, 600)
     await physics_frame
     step(larva, target)
@@ -157,6 +170,16 @@ func _alarm() -> void:
     target.position = Vector2(400, 300)
     edge.hear_alarm(target.global_position)
     check(is_equal_approx(edge.last_seen_position.x, -20.0), "a distant call is searched for only to the edge of the ally's own territory")
+    # Leash tighter than aggro: the player stands just outside the ally's territory.
+    var tight := spawn("moss_larva", "alarm_tight", Vector2(-1000, 900), false, {"leash_radius": 220.0})
+    var tight_bell := spawn("spore_bellmaker", "alarm_tight_bell", Vector2(-850, 900))
+    target.position = Vector2(-750, 900)
+    await physics_frame
+    step(tight_bell, target)
+    check(tight.memory_timer > 0.0 and tight.alarm_search, "the tight-leash ally hears the call")
+    var start_x: float = tight.global_position.x
+    step(tight, target, 5)
+    check(tight.last_ai_decision == "investigate" and tight.global_position.x > start_x, "a player just outside the ally's leash does not cancel the search")
     var quiet := spawn("moss_larva", "alarm_quiet_caller", Vector2(500, 600))
     var bystander := spawn("moss_larva", "alarm_bystander", Vector2(300, 600))
     target.position = Vector2(620, 600)
@@ -191,6 +214,8 @@ func _occlusion_and_disengage() -> void:
 
 func _guard_post() -> void:
     var sentinel := spawn("gear_sentinel", "guard_sentinel", Vector2(300, 300))
+    step(sentinel, null, 20)
+    check(sentinel.last_ai_decision == "hold_post" and is_equal_approx(sentinel.global_position.x, 300.0), "a guard stands its post instead of patrolling before any encounter")
     target.position = Vector2(420, 300)
     await physics_frame
     step(sentinel, target)
@@ -201,6 +226,9 @@ func _guard_post() -> void:
     check(sentinel.last_ai_decision == "return_post" and sentinel.global_position.x < 360.0, "a guard returns to its post instead of searching the last-seen point")
     step(sentinel, null, 40)
     check(sentinel.last_ai_decision == "hold_post" and absf(sentinel.global_position.x - 300.0) <= 6.0, "the guard holds its post while still alert")
+    sentinel.memory_timer = 0.0
+    step(sentinel, null, 20)
+    check(sentinel.last_ai_decision == "hold_post" and absf(sentinel.global_position.x - 300.0) <= 6.0, "the guard keeps its post after its memory expires")
     await clear_stage()
 
 func _ambush_placement() -> void:

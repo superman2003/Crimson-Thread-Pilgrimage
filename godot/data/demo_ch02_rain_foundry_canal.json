@@ -1954,6 +1954,7 @@
     "drain_leech": {
       "locomotion": "ground",
       "combat_identity": "低位潜咬吸血，弧跃贴近目标",
+      "tactical_role": "ambush",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -2008,6 +2009,7 @@
     "pipe_thrower": {
       "locomotion": "stationary",
       "combat_identity": "向上抛射管弹，落地溅出短暂危险区",
+      "tactical_role": "ranged",
       "move_speed": 62,
       "aggro_range": 440,
       "preferred_range": 230,
@@ -2067,6 +2069,7 @@
     "rust_diver": {
       "locomotion": "ground",
       "combat_identity": "跳刺后落地水波，腾空时可绕到身后",
+      "tactical_role": "patrol",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -2123,6 +2126,7 @@
     "bell_mote": {
       "locomotion": "flight",
       "combat_identity": "慢速追踪钟珠，与短距离扑击交替",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -2178,6 +2182,7 @@
     "waterwheel_knight": {
       "locomotion": "ground",
       "combat_identity": "轮盾冲锋，回旋刃飞出后返身",
+      "tactical_role": "patrol",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -2234,6 +2239,7 @@
     "sunken_hammer_smith": {
       "locomotion": "ground",
       "combat_identity": "剪口夹击、交叉绯线；半血后跃转剪迫使换边",
+      "tactical_role": "boss",
       "move_speed": 66,
       "aggro_range": 780,
       "preferred_range": 145,
@@ -2337,6 +2343,7 @@
     "valve_crawler": {
       "locomotion": "ground",
       "combat_identity": "滚阀靠近，停下排出水平蒸汽",
+      "tactical_role": "patrol",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -2392,6 +2399,7 @@
     "rain_censer_mote": {
       "locomotion": "flight",
       "combat_identity": "悬空撒落香灰弹，持续迫使玩家移动",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -7220,6 +7228,9 @@
     {
       "id": "E01",
       "kind": "drain_leech",
+      "encounter_profile": {
+        "tactical_role": "patrol"
+      },
       "position": [
         980,
         840
