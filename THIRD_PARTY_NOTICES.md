@@ -12,6 +12,31 @@ This project uses third-party assets and plugins under their own licenses. The g
 | Godot Platformer 2D | `godot/assets/third_party/godot_platformer_2d` | MIT | Chapter 6 background elements |
 | Metroidvania System | `godot/addons/MetroidvaniaSystem` | MIT | Map/metroidvania plugin |
 
+## UI fonts and lettering
+
+`tools/font_assets/FengMingInscription.otf` (缝名刻宋) and the active `GlobalTypeface.otf` are
+SIL OFL 1.1 derivatives of the serif below. The font builder preserves the
+original Bezier outlines and adds small diagonal incisions to broad strokes;
+the derivative is renamed Feng Ming Inscription. See `tools/build_inscription_font.py`
+and `godot/assets/fonts/FengMingInscription.json`. The active font is applied to
+all game text, including body text and dialogue, by `tools/apply_global_font.py`.
+
+The build intermediate `tmp/inscription/PilgrimageSerif.otf` is a renamed,
+full-Unicode derivative of Noto Serif CJK SC Regular, licensed under SIL
+OFL 1.1. It retains every one of the upstream font's 44,777 encoded characters;
+only unencoded regional alternates are omitted. Its source outlines are unchanged.
+The final derivative additionally contains three project-authored monochrome
+UI symbols (U+21A9, U+22A3, U+1F512), under the same OFL license.
+The upstream license is included at
+`godot/assets/fonts/OFL-NotoSerifCJK.txt`; source URL, SHA-256 and character count
+are recorded in `godot/assets/ui/inscription/manifest.json`. Rebuild with
+`tools/build_inscription_assets.py` and the upstream OTF. The engraved lettering
+SVGs in that folder add project-owned cuts, eyelets and thread to these outlines.
+Noto Sans SC remains in the repository for historical rollback under the existing
+`godot/assets/fonts/OFL.txt` license; runtime text uses the full inscription font,
+with system fallback disabled. Build intermediates and the development default
+font copy are outside the Godot resource directory and excluded from exports.
+
 ## Project-generated audio (not third-party)
 
 The following audio packs are synthesized offline by project-owned tools with no third-party recordings or samples as input, and are released as project-generated CC0 alongside the MIT game code:

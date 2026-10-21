@@ -39,7 +39,7 @@ func configure(data: Dictionary, owner_scene: Node2D) -> void:
     add_child(basket)
     var prompt:=Label.new()
     prompt.text="F · 升降笼"
-    prompt.add_theme_font_override("font",load("res://assets/fonts/NotoSansSC.ttf"))
+    prompt.add_theme_font_override("font",load("res://assets/fonts/GlobalTypeface.otf"))
     prompt.add_theme_font_size_override("font_size",15)
     prompt.position=Vector2(-48,-100)
     basket.add_child(prompt)

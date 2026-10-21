@@ -1,8 +1,14 @@
+/* global-typeface:start */
+@font-face {
+  font-family: "FengMingGlobal";
+  src: url("../godot/assets/fonts/GlobalTypeface.otf") format("opentype");
+  font-display: swap;
+}
+/* global-typeface:end */
+
 :root {
   color-scheme: dark;
-  font-family:
-    Inter, "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui,
-    sans-serif;
+  font-family: "FengMingGlobal", serif;
   background: #090a0f;
   color: #f5f1e8;
 }

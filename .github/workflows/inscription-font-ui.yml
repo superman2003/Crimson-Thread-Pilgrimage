@@ -1,0 +1,79 @@
+name: Inscription typography and UI
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/inscription-font-ui.yml'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/ui/inscription/**'
+      - 'godot/assets/ui/global_typeface.tres'
+      - 'godot/scripts/global_typography.gd'
+      - 'godot/scripts/global_font_validation.gd'
+      - 'godot/scripts/pilgrimage_*.gd'
+      - 'godot/**/*.gd'
+      - 'godot/**/*.json'
+      - 'godot/**/*.tscn'
+      - 'godot/**/*.tres'
+      - 'godot/project.godot'
+      - 'tools/*global_font*.py'
+      - 'tools/build_inscription*.py'
+      - 'tools/*font_coverage.py'
+      - 'tools/font_assets/**'
+      - 'src/**'
+      - 'index.html'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: inscription-font-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typography-and-ui:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Check global replacement and safe restore behavior
+        run: |
+          npm run check
+          npm run test:font
+      - name: Validate a fresh resource import
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/inscription-font-logs/import"
+      - name: Validate inherited fonts and current main UI integrations
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite global_font --suite ui_redesign --suite ui_world_integration \
+            --suite ui_build_accessibility --suite input_prompt --suite settings_remap \
+            --suite build_slots_ui --suite seal_ui --suite world_map \
+            --suite map_player_pins --suite artisan_crafts --suite save_recovery \
+            --log-dir "$RUNNER_TEMP/inscription-font-logs"
+      - name: Preserve typography validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inscription-font-ui-logs
+          path: ${{ runner.temp }}/inscription-font-logs
+          if-no-files-found: ignore
