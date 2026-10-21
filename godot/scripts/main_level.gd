@@ -2610,7 +2610,6 @@ func _build_map_overlay() -> void:
     map_panel.color = Color("10191f")
     if world_mode:
         map_panel.theme = ui_shell.theme.duplicate()
-        map_panel.theme.default_font = PILGRIMAGE_UI_SCRIPT.survey_font()
     map_panel.visible = false
     ui_shell.add_child(map_panel)
 
@@ -2640,6 +2639,11 @@ func _build_map_overlay() -> void:
     map_draw_root.position = Vector2(34, 78) if world_mode else Vector2(34, 106)
     map_draw_root.size = Vector2(1108, 504) if world_mode else Vector2(1108, 396)
     if world_mode:
+        # Only the zoomed content needs MSDF glyphs. Fixed titles, hints and
+        # pin controls reuse the ordinary HUD font instead of rasterizing a
+        # second CJK glyph atlas during every cold map setup.
+        map_draw_root.theme = ui_shell.theme.duplicate()
+        map_draw_root.theme.default_font = PILGRIMAGE_UI_SCRIPT.survey_font()
         survey_map_view = preload("res://scripts/survey_map_view.gd").new()
         survey_map_view.name = "SurveyMapViewport"
         survey_map_view.position = map_draw_root.position
