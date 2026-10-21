@@ -1,0 +1,41 @@
+{
+  "base_main": "61b9ec8e7472f95ba5b8da56c97007a9829556ce",
+  "total_default_suites": 130,
+  "completion_contract_executed": true,
+  "windows_runner_fixtures_skipped": 30,
+  "npm_test": "passed",
+  "campaign": "passed",
+  "original_failed_run": 39453923818,
+  "results": [
+    {
+      "suite": "texture_request_exit",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 1.98,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 5.23,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "world_startup_budget",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 13.12,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ]
+    }
+  ],
+  "ci": "pending on updated PR"
+}
