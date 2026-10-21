@@ -308,6 +308,7 @@ func run() -> void:
 	var world_ability: Label = scene.map_draw_root.get_node_or_null("WorldGate_"+region_id+"_"+ability_gate_id)
 	var world_action: Label = scene.map_draw_root.get_node_or_null("WorldGate_"+region_id+"_"+action_gate_id)
 	check(world_ability!=null and world_ability.text=="▢" and world_action!=null and world_action.text=="▢","real world atlas reads that region's live ability and action state")
+	preload("res://scripts/map_pin_layout_checks.gd").run(scene, check)
 	scene.queue_free()
 	await process_frame
 	for suffix in ["", ".tmp", ".bak"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
