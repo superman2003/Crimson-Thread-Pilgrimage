@@ -1,4 +1,5 @@
 extends RefCounted
+const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
 const COORDINATES := preload("res://scripts/world_coordinates.gd")
 ## Bounded detached landing geometry. Neighbors never enter source physics.
 const GEOMETRY := preload("res://scripts/world_collision_geometry.gd")
@@ -117,15 +118,16 @@ func step(host: Node, delta: float) -> void:
     gameplay.synchronize(desired, configs, generation)
     var retired := _retire_entities(started)
     gameplay.retire(started, 2 - retired)
-    # Never block on load_threaded_get until its status is LOADED/FAILED.
+    # A completed plain Thread is joined exactly once; polling never waits.
     for index in range(jobs.size() - 1, -1, -1):
         var job := jobs[index]
-        var status := ResourceLoader.load_threaded_get_status(job.path)
-        if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+        var worker: RefCounted = job.worker
+        if not worker.ready():
             continue
-        if status == ResourceLoader.THREAD_LOAD_LOADED:
-            var texture := ResourceLoader.load_threaded_get(job.path) as Texture2D
-            if job.generation == generation and desired.has(job.region) and configs.has(job.region) and job.get("stamp", -1) == configs[job.region].stamp and texture != null:
+        var result: Dictionary = worker.take()
+        var texture := result.get("resource") as Texture2D
+        if texture != null:
+            if job.generation == generation and desired.has(job.region) and configs.has(job.region) and job.get("stamp", -1) == configs[job.region].stamp:
                 if not retained.has(job.region):
                     retained[job.region] = {}
                 retained[job.region][job.path] = texture
@@ -151,11 +153,14 @@ func step(host: Node, delta: float) -> void:
             queue.append(job)
         elif not ResourceLoader.exists(job.path):
             failures += 1
-        elif ResourceLoader.load_threaded_request(job.path, "Texture2D") == OK:
-            jobs.append(job)
-            max_jobs_seen = maxi(max_jobs_seen, jobs.size())
         else:
-            failures += 1
+            var worker := RESOURCE_JOB.new()
+            if worker.start(job.path, "Texture2D") == OK:
+                job["worker"] = worker
+                jobs.append(job)
+                max_jobs_seen = maxi(max_jobs_seen, jobs.size())
+            else:
+                failures += 1
     if Time.get_ticks_usec() - started < BUDGET_US:
         gameplay.synchronize(desired, configs, generation)
         var built := _warm_entities(host, started)
@@ -497,10 +502,9 @@ func snapshot() -> Dictionary:
 func shutdown() -> void:
     cancel_config()
     # Only whole-journey teardown may wait for the <=2 outstanding jobs.
-    # Godot has no threaded-load cancellation; drain requests to release them.
+    # Ordinary generation changes retain them until ready; teardown joins all.
     for job in jobs:
-        if ResourceLoader.load_threaded_get_status(job.path) in [ResourceLoader.THREAD_LOAD_IN_PROGRESS, ResourceLoader.THREAD_LOAD_LOADED]:
-            ResourceLoader.load_threaded_get(job.path)
+        job.worker.shutdown()
     _clear_entities()
     _retire_entities(Time.get_ticks_usec(), true)
     gameplay.shutdown()

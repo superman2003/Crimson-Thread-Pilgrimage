@@ -1,0 +1,48 @@
+{
+  "engine": "Godot 4.6.1 Windows native GL",
+  "results": [
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 4.88,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ]
+    },
+    {
+      "suite": "scene_history",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 11.17,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "ui_redesign",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 4.74,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "inventory_map",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 3.73,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ]
+    }
+  ],
+  "base_main": "30b75661daf5b00542b8e30e88d462de69cbceea",
+  "filter_integration_checks": 9,
+  "ci": "pending on updated PR"
+}

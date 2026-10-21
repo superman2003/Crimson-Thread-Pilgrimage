@@ -1,4 +1,5 @@
 extends RefCounted
+const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
 
 static var textures: Dictionary = {}
 static var frame_cache: Dictionary = {}
@@ -53,31 +54,47 @@ static func request_texture(path: String) -> void:
     if not ResourceLoader.exists(path):
         texture_failures[path] = "Texture resource does not exist: " + path
         return
-    var error := ResourceLoader.load_threaded_request(path, "Texture2D")
+    # Standalone SceneTree tools may never construct a World/region loader.
+    # Keep the shared owners until the entire tree exits, then join them while
+    # the resource/render backends are still alive. One hook serves every host.
+    var tree := Engine.get_main_loop() as SceneTree
+    if tree != null and not tree.root.tree_exiting.is_connected(shutdown_texture_requests):
+        tree.root.tree_exiting.connect(shutdown_texture_requests, CONNECT_ONE_SHOT)
+    var job := RESOURCE_JOB.new()
+    var error := job.start(path, "Texture2D")
     if error != OK:
         texture_failures[path] = "Texture request failed: " + path
         return
-    texture_requests[path] = true
+    texture_requests[path] = job
 
 static func poll_textures(max_operations: int = 2, budget_usec: int = 2000) -> int:
     var operations := 0
     var started := Time.get_ticks_usec()
     for path in texture_requests.keys():
         if operations >= max_operations or Time.get_ticks_usec() - started >= budget_usec: break
-        var status := ResourceLoader.load_threaded_get_status(path)
-        if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS: continue
+        var job: RefCounted = texture_requests[path]
+        if not job.ready(): continue
         operations += 1
-        if status == ResourceLoader.THREAD_LOAD_LOADED:
-            var loaded := ResourceLoader.load_threaded_get(path) as Texture2D
-            if loaded != null:
-                textures[path] = loaded
-                threaded_texture_loads += 1
-            else:
-                texture_failures[path] = "Texture result is not Texture2D: " + path
-        else:
-            texture_failures[path] = "Texture background load failed: " + path
+        _accept_texture(path, job.take())
         texture_requests.erase(path)
     return operations
+
+
+static func _accept_texture(path: String, result: Dictionary) -> void:
+    var loaded := result.get("resource") as Texture2D
+    if loaded != null:
+        textures[path] = loaded
+        threaded_texture_loads += 1
+    else:
+        texture_failures[path] = "Texture background load failed: " + path
+
+static func shutdown_texture_requests() -> void:
+    # Whole-host teardown only. Publish immutable completed atlases so another
+    # live host sharing this cache can still use them; never discard a Thread.
+    for path in texture_requests:
+        var job: RefCounted = texture_requests[path]
+        _accept_texture(path, job.finish())
+    texture_requests.clear()
 
 
 static func manifest(path: String) -> Dictionary:

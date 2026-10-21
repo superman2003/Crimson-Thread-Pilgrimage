@@ -8,6 +8,10 @@ on:
       - 'godot/scripts/scene_history*.gd'
       - 'tools/validate_scene_history.py'
       - 'godot/scripts/world_narrative.gd'
+      - 'godot/scripts/enemy_journal.gd'
+      - 'godot/data/enemy_journal.json'
+      - 'godot/scripts/journal_records_validation.gd'
+      - 'tools/validate_enemy_journal.py'
       - 'godot/scripts/main_level.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
       - 'godot/scripts/narrative_outcomes_validation.gd'
@@ -63,6 +67,12 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_narrative_return_journey.py --engine "$engine" --software-gl \
             --log-dir "$RUNNER_TEMP/narrative-return-journey-logs"
+      - name: Validate journal filters and real enemy discovery
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite ui_world_integration --suite ui_redesign --suite inventory_map \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/journal"
       - name: Validate observed environment history through the real World
         env:
           SCENE_HISTORY_CAPTURE_DIR: ${{ runner.temp }}/narrative-return-journey-logs/scene-history/captures
