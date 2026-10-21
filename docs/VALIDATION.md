@@ -29,6 +29,8 @@ The optional `python tools/run_damage_route.py --engine /path/to/godot --native-
 
 The optional `python tools/run_pot_route.py --engine /path/to/godot --native-gl --log-dir /tmp/pot-route` copies a hash-checked, normally earned #180 checkpoint into a dedicated test save and replays the 14-step canal-to-overflow route with damage enabled. It verifies one finite-stock pot use, the actual ground enemy kill and normal reward. Its source/runner/seed freeze and strict 180-second limit do not establish a fresh-save campaign or FPS. See [the pot report](report/20261021_e02_pot_landing_fuse.md).
 
+The optional `python tools/run_waterwheel_route.py --engine /path/to/godot --native-gl --log-dir /tmp/waterwheel-route` continues from the same hash-checked, normally earned #180 checkpoint. Its 51 real-input steps cover the lower foundry, live enemies, waterwheel lever, spillway return to the pump atrium and forge rest with damage enabled. It uses a dedicated save and a strict 180-second timeout, and freezes the Godot sources, playback, generators, runner and seed. This is checkpoint continuation, not a fresh-save campaign, human assessment or FPS test. See [the bridge report](report/20261021_w02_spillway_bridge.md).
+
 ## Outstanding product acceptance
 
 T04 still requires a new save, damage enabled, six-region completion using multiple exploration orders and builds, plus sessions with unfamiliar players. Record actual confusion, blocked progression, difficulty changes and repeated travel, then reproduce and fix each issue. Automated acceptance does not replace these sessions.

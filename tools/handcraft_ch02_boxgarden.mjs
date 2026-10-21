@@ -313,7 +313,8 @@ add("pr_lip",         3830, 3400, 140, 26, "preboss_causeway", { oneway: true })
 add("pc_step1",       3960, 3500, 150, 26, "preboss_causeway", { oneway: true });
 add("pc_step2",       4180, 3620, 150, 26, "preboss_causeway", { oneway: true });
 add("ra_a",           4060, 3760, 340, 42, "preboss_causeway", {});
-add("ra_b",           4500, 3800, 260, 38, "preboss_causeway", {});
+// The spillway returns through this open metal crossing from below.
+add("ra_b",           4500, 3800, 260, 38, "preboss_causeway", { oneway: true, mat: "sluice_bridge" });
 add("fs_floor",       4820, 3760, 320, 40, "forge_shrine", {});
 add("boss_floor",     5260, 3820, 700, 52, "smith_arena", { mat: "foundry_boss", color: "241a16" });
 add("eo_floor",       6080, 3780, 320, 44, "echo_outfall", {});
