@@ -2615,7 +2615,7 @@ func _build_map_overlay() -> void:
     map_panel.name = "CourtMapOverlay"
     map_panel.position = Vector2(52, 54)
     map_panel.size = Vector2(1176, 640)
-    map_panel.color = Color("10191f")
+    map_panel.color = Color("091719")
     if world_mode:
         map_panel.theme = ui_shell.theme.duplicate()
     map_panel.visible = false
@@ -2631,13 +2631,18 @@ func _build_map_overlay() -> void:
     map_art.modulate = Color(1,1,1,.07)
     map_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
     map_panel.add_child(map_art)
+    ui_shell.frame(map_panel)
+    map_panel.get_child(0).kind="map"
+    map_panel.move_child(map_panel.get_child(0),1)
+    ui_shell._icon(map_panel,preload("res://assets/ui/inscription/v2/map.png"),Vector2(23,2),Vector2(112,65))
 
     var title := Label.new()
     title.text = _theme_map_title()
     title.name = "SurveyMapTitle"
-    title.position = Vector2(28, 18)
-    title.add_theme_font_size_override("font_size", 24)
-    title.add_theme_color_override("font_color", Color("b5a17c"))
+    title.position = Vector2(155, 20)
+    title.add_theme_font_override("font",PILGRIMAGE_UI_SCRIPT.display_font())
+    title.add_theme_font_size_override("font_size", 23)
+    title.add_theme_color_override("font_color", Color("e8d7b8"))
     map_panel.add_child(title)
 
     ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
@@ -3606,7 +3611,7 @@ func _spawn_seal_practice_targets() -> void:
         label.size = Vector2(200, 80)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
-        label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+        label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
 
@@ -3651,7 +3656,7 @@ func _spawn_tool_practice_targets() -> void:
         label.size = Vector2(240, 100)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
-        label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+        label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
 

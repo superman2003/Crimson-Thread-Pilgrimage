@@ -16,7 +16,7 @@ static func setup(level: Node) -> void:
     var dialog := ConfirmationDialog.new()
     dialog.name="MapPurchaseDialog"
     dialog.theme=level.ui_shell.theme.duplicate()
-    dialog.theme.set_font("title_font","Window",preload("res://assets/fonts/NotoSansSC.ttf"))
+    dialog.theme.set_font("title_font","Window",preload("res://assets/fonts/GlobalTypeface.otf"))
     var frame:=StyleBoxFlat.new()
     frame.bg_color=Color("18252c")
     frame.border_color=Color("bda176")

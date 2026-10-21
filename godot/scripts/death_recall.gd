@@ -27,7 +27,7 @@ static func setup(level: Node) -> void:
     var dialog := ConfirmationDialog.new()
     dialog.name = DIALOG
     dialog.theme = level.ui_shell.theme.duplicate()
-    dialog.theme.set_font("title_font", "Window", preload("res://assets/fonts/NotoSansSC.ttf"))
+    dialog.theme.set_font("title_font", "Window", preload("res://assets/fonts/GlobalTypeface.otf"))
     dialog.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     dialog.get_label().custom_minimum_size = Vector2(430, 90)
     dialog.title = "钟龛 · 召回归途结"

@@ -8,6 +8,7 @@ on:
       - 'godot/scripts/character_art_warm_job.gd'
       - 'godot/scripts/character_art_prewarm_validation.gd'
       - 'godot/scripts/texture_request_exit_validation.gd'
+      - 'godot/scripts/background_texture_contention_validation.gd'
       - 'tools/godot_suite_success_markers.json'
       - 'godot/scripts/player_art_warm_job.gd'
       - 'godot/scripts/player_art_prewarm_validation.gd'
@@ -52,16 +53,23 @@ jobs:
       - name: Exercise actual resource ownership and production atlas consumers
         run: |
           python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
-            --software-gl --suite character_art_prewarm --suite texture_request_exit --log-dir "$RUNNER_TEMP/background-resource/regressions"
+            --software-gl --suite character_art_prewarm --suite texture_request_exit --suite background_texture_contention --log-dir "$RUNNER_TEMP/background-resource/regressions"
           python3 - <<'PY'
           import os
           from pathlib import Path
           logs = Path(os.environ['RUNNER_TEMP'])/'background-resource/regressions'
-          for suite in ['character_art_prewarm', 'texture_request_exit']:
+          for suite in ['character_art_prewarm', 'texture_request_exit', 'background_texture_contention']:
               text = (logs/(suite+'.log')).read_text(encoding='utf-8')
               if any(marker in text for marker in ['ObjectDB instances leaked', 'resources still in use', 'Leaked instance:', 'without its completion']):
                   raise SystemExit(suite+': background resource ownership leaked at teardown')
           PY
+      - name: Contend for textures under the headless Dummy renderer
+        run: |
+          # Exported release boots run headless. Dummy texture RIDs are not
+          # thread-safe on 4.6.1, so background jobs must load inline there.
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --suite background_texture_contention --suite texture_request_exit --log-dir "$RUNNER_TEMP/background-resource/headless"
+          grep -q 'threaded=false' "$RUNNER_TEMP/background-resource/headless/background_texture_contention.log"
       - name: Preserve all logs including failures
         if: always()
         uses: actions/upload-artifact@v4

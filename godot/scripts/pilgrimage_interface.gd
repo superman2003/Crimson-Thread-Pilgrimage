@@ -2,15 +2,17 @@ extends Control
 
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
-const FONT := preload("res://assets/fonts/NotoSansSC.ttf")
+const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
+const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
 static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
-const IVORY := Color("eee3ce")
-const GOLD := Color("bda176")
-const MUTED := Color("a5afa9")
-const RED := Color("d5686b")
+const IVORY := Color("e8d7b8")
+const GOLD := Color("bca07a")
+const MUTED := Color("a2b3aa")
+const RED := Color("c85450")
 var level: Node
 var hud_card: Control
+var location_rule: Control
 var hearts: Label
 var hud_crest: TextureRect
 var health_glyphs: Control
@@ -23,9 +25,12 @@ var mechanism_status: Label
 var quick_actions: Array[Button]=[]
 var build_heading: Label
 var build_emblem: TextureRect
+var build_art: Control
+var build_art_caption: Label
 var tactical_signatures: Array[String]=["","","",""]
 var thread_bar: ProgressBar
 var currency: Label
+var currency_emblem: TextureRect
 var location: Label
 var prompt: Label
 var boss_name: Label
@@ -139,6 +144,11 @@ static func survey_font() -> FontFile:
         _survey_font.multichannel_signed_distance_field=true
     return _survey_font
 
+static func display_font() -> FontFile:
+    # A duplicate with this same font as its own fallback produced different
+    # glyph-cache pixels before/after opening the map. Share the primary font.
+    return FONT
+
 func begin_bind(runtime: Node) -> void:
     construction_complete=false
     set_process(false)
@@ -149,6 +159,7 @@ func begin_bind(runtime: Node) -> void:
     var ui_theme := Theme.new()
     ui_theme.default_font=FONT
     ui_theme.default_font_size=18
+    ui_theme.set_font("font","Button",display_font())
     theme=ui_theme
     _install_theme(ui_theme)
     modal_shade=ColorRect.new()
@@ -180,6 +191,10 @@ func _label(parent: Node, text: String, position_value: Vector2, size_value: Vec
     label.position=position_value
     label.size=size_value
     label.add_theme_font_size_override("font_size",font_size)
+    if font_size>=20:
+        label.add_theme_font_override("font",display_font())
+    label.add_theme_color_override("font_shadow_color",Color(0,0,0,.7))
+    label.add_theme_constant_override("shadow_offset_y",1)
     label.add_theme_color_override("font_color",tint)
     label.mouse_filter=Control.MOUSE_FILTER_IGNORE
     parent.add_child(label)
@@ -188,9 +203,11 @@ func _label(parent: Node, text: String, position_value: Vector2, size_value: Vec
 func _style(tint: Color, border: Color, width: int=1) -> StyleBoxFlat:
     var style:=StyleBoxFlat.new()
     style.bg_color=tint
-    style.border_color=border
+    # Native borders stay clear; etched strokes are drawn once by the button.
+    style.border_color=Color(0,0,0,0)
     style.set_border_width_all(width)
-    style.set_corner_radius_all(5)
+    style.set_corner_radius_all(0)
+    style.corner_detail=1
     style.content_margin_top=4
     style.content_margin_bottom=4
     style.content_margin_left=10
@@ -207,22 +224,22 @@ func _meter_style(tint: Color) -> StyleBoxFlat:
     return result
 
 func _tab_style(selected: bool) -> StyleBoxFlat:
-    var result:=_style(Color("29332e") if selected else Color("172228"),GOLD if selected else Color("43504a"),0)
+    var result:=_style(Color(0,0,0,0),RED if selected else Color("43504a"),0)
     result.border_width_bottom=2 if selected else 1
     result.set_corner_radius_all(0)
     return result
 
 func _button(parent: Node, text: String, position_value: Vector2, size_value: Vector2, action: Callable) -> Button:
-    var button:=Button.new()
+    var button:=INSCRIBED_BUTTON.new()
     button.text=text
     button.position=position_value
     button.size=size_value
     button.add_theme_font_size_override("font_size",17)
     button.add_theme_color_override("font_color",IVORY)
-    button.add_theme_stylebox_override("normal",_style(Color("1c282d"),Color("4a5148")))
-    button.add_theme_stylebox_override("hover",_style(Color("304045"),GOLD))
+    button.add_theme_stylebox_override("normal",_style(Color(.01,.025,.028,.35),Color("61553f")))
+    button.add_theme_stylebox_override("hover",_style(Color(.18,.06,.055,.25),RED))
     button.add_theme_stylebox_override("focus",_style(Color(0,0,0,0),GOLD,2))
-    button.add_theme_stylebox_override("pressed",_style(Color("503639"),RED,2))
+    button.add_theme_stylebox_override("pressed",_style(Color(.25,.07,.06,.3),RED,2))
     button.add_theme_color_override("font_disabled_color",MUTED.darkened(0.3))
     button.add_theme_stylebox_override("disabled",_style(Color("182025"),Color("303c3d")))
     button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
@@ -240,8 +257,17 @@ func _panel(parent: Node, title: String, position_value: Vector2, size_value: Ve
     root.visible=false
     parent.add_child(root)
     frame(root)
-    _label(root,title,Vector2(34,16),Vector2(size_value.x*0.44,44),28)
-    if not title.is_empty():_label(root,"绯线巡礼  /  归途手札",Vector2(36,59),Vector2(420,23),12,GOLD)
+    var marks := {"契印与构筑":["seal","行装与构筑"],"巡礼行囊":["inventory","器物与旧物"],"设置与无障碍":["settings","声音与无障碍"]}
+    if marks.has(title):
+        var mark: Array=marks[title]
+        var title_mark:=_icon(root,load("res://assets/ui/inscription/v2/%s.png" % mark[0]),Vector2(26,5),Vector2(166,82))
+        title_mark.name="InscribedTitle"
+        var subtitle:=_label(root,String(mark[1]),Vector2(198,24),Vector2(310,28),18,GOLD)
+        subtitle.name="InscriptionSubtitle"
+        subtitle.add_theme_font_override("font",display_font())
+        _label(root,"绯线巡礼  /  归途手札",Vector2(200,58),Vector2(380,20),11,MUTED)
+    elif not title.is_empty():
+        _label(root,title,Vector2(34,16),Vector2(size_value.x*0.65,44),30)
     _button(root,"返回",Vector2(size_value.x-91,24),Vector2(62,34),func():level._close_overlays())
     return root
 
@@ -255,11 +281,11 @@ func frame(control: Control) -> void:
     control.move_child(chrome,0)
 
 func _well(parent: Control, point: Vector2, dimensions: Vector2) -> void:
-    var well:=Panel.new()
+    var well:=CHROME.new()
+    well.kind="well"
     well.position=point
     well.size=dimensions
     well.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    well.add_theme_stylebox_override("panel",_style(Color("0c1419"),Color("36423f")))
     parent.add_child(well)
     parent.move_child(well,1)
 
@@ -288,6 +314,17 @@ func _install_theme(target: Theme) -> void:
     target.set_stylebox("grabber_area","HSlider",_style(GOLD,GOLD,0))
     target.set_stylebox("grabber_area_highlight","HSlider",_style(IVORY,IVORY,0))
     target.set_stylebox("panel","AcceptDialog",_style(Color("10191f"),GOLD,2))
+    target.set_font("font","OptionButton",display_font())
+    target.set_font_size("font_size","OptionButton",16)
+    target.set_color("font_color","OptionButton",IVORY)
+    target.set_stylebox("normal","OptionButton",_style(Color("101f20"),Color("61553f")))
+    target.set_stylebox("hover","OptionButton",_style(Color("2c2522"),RED))
+    target.set_stylebox("pressed","OptionButton",_style(Color("302220"),RED))
+    target.set_stylebox("focus","OptionButton",_style(Color(0,0,0,0),RED,1))
+    target.set_stylebox("panel","PopupMenu",_style(Color("0b1c1e"),GOLD))
+    target.set_stylebox("hover","PopupMenu",_style(Color("302220"),RED))
+    target.set_color("font_color","PopupMenu",IVORY)
+    target.set_font("font","PopupMenu",display_font())
 
 func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: Vector2) -> TextureRect:
     var icon:=TextureRect.new()
@@ -303,28 +340,29 @@ func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: 
 func _build_hud() -> void:
     hud_card=Control.new()
     hud_card.position=Vector2(26,24)
-    hud_card.size=Vector2(322,112)
+    hud_card.size=Vector2(330,106)
     hud_card.mouse_filter=Control.MOUSE_FILTER_IGNORE
     add_child(hud_card)
-    var backing:=Panel.new()
+    var backing:=CHROME.new()
+    backing.kind="hud"
     backing.size=hud_card.size
     backing.mouse_filter=Control.MOUSE_FILTER_IGNORE
-    backing.add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.88),Color("514e3e")))
     hud_card.add_child(backing)
-    hud_crest=_icon(hud_card,load("res://assets/ui/seals/crimson.svg"),Vector2(14,20),Vector2(54,54))
-    _label(hud_card,"巡礼者",Vector2(80,8),Vector2(210,22),12,GOLD)
+    hud_crest=_icon(hud_card,load("res://assets/ui/seals/crimson.svg"),Vector2(10,16),Vector2(55,55))
     health_glyphs=CHROME.new()
     health_glyphs.kind="health"
-    health_glyphs.position=Vector2(80,33)
-    health_glyphs.size=Vector2(214,30)
+    health_glyphs.position=Vector2(77,7)
+    health_glyphs.size=Vector2(205,46)
     hud_card.add_child(health_glyphs)
-    hearts=_label(hud_card,"",Vector2(245,8),Vector2(63,22),12,MUTED)
+    hearts=_label(hud_card,"",Vector2(266,17),Vector2(55,27),17,IVORY)
+    hearts.add_theme_font_override("font",display_font())
     hearts.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-    _label(hud_card,"绯线",Vector2(81,69),Vector2(65,22),12,GOLD)
-    energy_status=_label(hud_card,"",Vector2(194,69),Vector2(112,22),12,MUTED)
+    _label(hud_card,"绯线",Vector2(79,58),Vector2(65,22),13,GOLD).add_theme_font_override("font",display_font())
+    energy_status=_label(hud_card,"",Vector2(205,58),Vector2(112,22),13,IVORY)
+    energy_status.add_theme_font_override("font",display_font())
     energy_status.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
     thread_bar=ProgressBar.new()
-    thread_bar.position=Vector2(82,96)
+    thread_bar.position=Vector2(80,85)
     thread_bar.size=Vector2(224,5)
     thread_bar.custom_minimum_size=Vector2(0,5)
     thread_bar.show_percentage=false
@@ -337,11 +375,15 @@ func _build_hud() -> void:
     hud_card.add_child(thread_bar)
     thread_bar.update_minimum_size()
     thread_bar.size=Vector2(224,5)
-    _icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
+    currency_emblem=_icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
     currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),21,GOLD)
-    location=_label(self,"",Vector2(400,28),Vector2(480,28),18,IVORY)
+    location_rule=CHROME.new()
+    location_rule.kind="location"
+    location_rule.position=Vector2(443,24)
+    location_rule.size=Vector2(394,51)
+    add_child(location_rule)
+    location=_label(self,"",Vector2(478,27),Vector2(324,38),25,IVORY)
     location.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    _label(self,"—  绯 线 巡 礼  —",Vector2(480,60),Vector2(320,20),11,GOLD).horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     toast=_label(self,"",Vector2(395,102),Vector2(490,60),16,IVORY)
     toast.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
     toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -375,15 +417,19 @@ func _build_hud() -> void:
     pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     for index in 4:
         var card:=Panel.new()
-        card.position=Vector2(28+index*114,612)
-        card.size=Vector2(106,68)
+        card.position=Vector2(28+index*105,610)
+        card.size=Vector2(96,78)
         card.mouse_filter=Control.MOUSE_FILTER_IGNORE
         card.add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
         add_child(card)
         tactical_cards.append(card)
-        tactical_icons.append(_icon(card,null,Vector2(8,9),Vector2(32,32)))
-        tactical_values.append(_label(card,"",Vector2(45,9),Vector2(54,29),13,GOLD))
-        tactical_names.append(_label(card,"",Vector2(7,43),Vector2(92,18),11,IVORY))
+        var card_frame:=CHROME.new()
+        card_frame.kind="tactical"
+        card_frame.size=card.size
+        card.add_child(card_frame)
+        tactical_icons.append(_icon(card,null,Vector2(6,6),Vector2(46,46)))
+        tactical_values.append(_label(card,"",Vector2(53,13),Vector2(39,30),13,GOLD))
+        tactical_names.append(_label(card,"",Vector2(8,54),Vector2(83,20),11,IVORY))
         tactical_names[-1].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),11,MUTED)
     for entry in [["B  构筑",_request_build_toggle],["Tab  行囊",func():level._toggle_backpack()],["M  地图",func():level._toggle_map()],["V  设置",func():level._toggle_audio_settings()]]:
@@ -419,6 +465,8 @@ func _build_bag() -> void:
             bag_category=category
             refresh_inventory())
         bag_tabs.append(button)
+        button.set_meta("inscription_tab",true)
+        button.add_theme_font_size_override("font_size",20)
     var scroll:=ScrollContainer.new()
     scroll.position=Vector2(34,194)
     scroll.size=Vector2(645,337)
@@ -493,6 +541,8 @@ func refresh_inventory() -> void:
     finish_inventory_refresh()
 
 func begin_inventory_refresh() -> void:
+    (bag.get_node("InscribedTitle") as TextureRect).texture=load("res://assets/ui/inscription/v2/%s.png" % ("journal" if bag_category=="旅记" else "inventory"))
+    (bag.get_node("InscriptionSubtitle") as Label).text="证词与心愿" if bag_category=="旅记" else "器物与旧物"
     for node in bag_grid.get_children():
         bag_grid.remove_child(node)
         node.queue_free()
@@ -508,7 +558,7 @@ func append_inventory_item(item_id: String) -> void:
     button.set_meta("item_id",item_id)
     button.custom_minimum_size=Vector2(94,98)
     if item_id==inventory_build_selection:
-        button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
+        button.add_theme_stylebox_override("normal",_style(Color(.2,.065,.055,.2),RED,2))
     _icon(button,ART.item(item_id),Vector2(15,8),Vector2(64,58))
     var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
     var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
@@ -567,6 +617,7 @@ func _build_dialogue() -> void:
     dialogue_scroll.focus_mode=Control.FOCUS_ALL
     dialogue.add_child(dialogue_scroll)
     dialogue_body=_label(dialogue_scroll,"",Vector2.ZERO,Vector2(854,140),int(accessibility["subtitle_size"]),IVORY)
+    dialogue_body.add_theme_font_override("font",FONT)
     dialogue_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     dialogue_body.custom_minimum_size=Vector2(825,0)
     dialogue_body.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -953,6 +1004,13 @@ func _build_build_panel() -> void:
     build_panel.name="BuildOverlay"
     _well(build_panel,Vector2(627,174),Vector2(457,368))
     _well(build_panel,Vector2(26,174),Vector2(588,368))
+    build_art=CHROME.new()
+    build_art.kind="seal_art"
+    build_art.position=Vector2(288,192)
+    build_art.size=Vector2(309,309)
+    build_panel.add_child(build_art)
+    build_art_caption=_label(build_panel,"以线缝名，借势出针。",Vector2(278,508),Vector2(332,28),18,GOLD)
+    build_art_caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     build_summary=_label(build_panel,"",Vector2(34,101),Vector2(1030,26),16,GOLD)
     # Keep the six established pages while exposing both accessory families
     # through an explicit selector inside the 铭饰 page.
@@ -965,6 +1023,8 @@ func _build_build_panel() -> void:
             if category=="铭饰":build_family="combat_accessory"
             refresh_build())
         tab.set_meta("build_category",category)
+        tab.set_meta("inscription_tab",true)
+        tab.add_theme_font_size_override("font_size",21)
         build_tabs.append(tab)
     var scroll:=ScrollContainer.new()
     scroll.position=Vector2(34,180)
@@ -1320,6 +1380,13 @@ func refresh_build() -> void:
         return
     var at_workstation:=_is_at_build_workstation(snapshot)
     var at_artisan:=not at_workstation and level!=null and level.has_method("is_near_artisan") and bool(level.call("is_near_artisan"))
+    var seal_page:=at_workstation and build_category=="契印"
+    build_art.visible=seal_page
+    build_art_caption.visible=seal_page
+    build_emblem.position=Vector2(645,188 if seal_page else 290)
+    build_heading.position=Vector2(710,188 if seal_page else 290)
+    build_detail.position=Vector2(646,245 if seal_page else 340)
+    build_detail.size=Vector2(418,280 if seal_page else 185)
     if not at_workstation and not at_artisan:
         for tab in build_tabs:tab.hide()
         for button in family_selector_buttons:button.hide()
@@ -1440,6 +1507,10 @@ func refresh_build() -> void:
                 elif build_category=="铭饰":fallback_action="equip_passive"
                 _perform_build_action("restore_loadout" if build_category=="构筑" else fallback_action,id,build_assign_slot if build_category in ["技能","战具"] else -1))
         button.custom_minimum_size=Vector2(563,64)
+        if seal_page:
+            button.custom_minimum_size=Vector2(230,66)
+            button.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
+            button.set_meta("inscription_tab",true)
         button.alignment=HORIZONTAL_ALIGNMENT_LEFT
         button.add_theme_font_size_override("font_size",17)
         button.set_meta("build_id",id)
@@ -1455,7 +1526,7 @@ func refresh_build() -> void:
         button.focus_entered.connect(func():
             build_selection=id
             _show_build_detail(entry))
-        if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",_style(Color("3b3d32"),GOLD,2))
+        if bool(entry.get("selected",false)):button.add_theme_stylebox_override("normal",_style(Color(.2,.065,.055,.2),RED,2))
         if first==null or id==build_selection:first=button
         if build_category=="构筑":
             var name_value:=id
@@ -1533,6 +1604,9 @@ func _loadout_preview(build: Dictionary, system: RefCounted) -> String:
     return "\n".join(lines)
 
 func _show_build_detail(entry: Dictionary) -> void:
+    if build_art!=null and entry.has("slots"):
+        build_art.seal_id=String(entry.get("id","crimson"))
+        build_art.queue_redraw()
     var entry_name:=String(entry.get("name",entry.get("id","")))
     build_heading.text=entry_name
     var icon_path:="res://assets/ui/seals/%s.svg" % String(entry.get("id",""))
@@ -1708,6 +1782,10 @@ func _process(delta: float) -> void:
         dialogue_hint.tooltip_text=dialogue_hint.text
     modal_shade.visible=not String(level.active_overlay).is_empty()
     hud_card.visible=not modal_shade.visible
+    location_rule.visible=not modal_shade.visible
+    location.visible=not modal_shade.visible
+    currency.visible=not modal_shade.visible
+    currency_emblem.visible=not modal_shade.visible
     mechanism_status.visible=not modal_shade.visible
     for card in tactical_cards:card.visible=not modal_shade.visible
     for button in quick_actions:button.visible=not modal_shade.visible
@@ -2085,7 +2163,11 @@ func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, syst
         var signature:=id+str(active)+dormant_reason
         if tactical_signatures[index]!=signature:
             tactical_signatures[index]=signature
-            tactical_cards[index].add_theme_stylebox_override("panel",_style(Color(0.04,0.07,0.08,0.94),GOLD if active else Color("454d43")))
+            tactical_cards[index].set_meta("inscription_active",active)
+            tactical_cards[index].get_child(0).queue_redraw()
+            var card_style:=_style(Color(.025,.065,.07,.94),RED if active else Color("65583f"))
+            card_style.border_width_bottom=2 if active else 1
+            tactical_cards[index].add_theme_stylebox_override("panel",card_style)
         for item in snapshot.get("skills" if is_skill else "tools",[]):
             if String(item.get("id",""))!=id:continue
             var item_name:=String(item.get("name",id))
