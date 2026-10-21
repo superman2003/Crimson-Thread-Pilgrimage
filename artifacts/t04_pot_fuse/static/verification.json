@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-21T17:00:50.366552+08:00",
+  "results": [
+    {
+      "name": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "python_compile",
+      "command": [
+        "python",
+        "-m",
+        "py_compile",
+        "tools/run_pot_route.py"
+      ],
+      "exit": 0
+    }
+  ],
+  "runner_sha256": "5682b4dc53811dcdd76d85992a13ab876503068c0789a05a5714fccd89388f4a"
+}

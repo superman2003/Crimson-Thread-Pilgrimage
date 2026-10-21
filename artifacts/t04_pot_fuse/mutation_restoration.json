@@ -1,0 +1,37 @@
+{
+  "final_sha256": "4aa83e3b3585e4208ea6c8050b5be5c445e84fabaabf3fa1220e7940aed78e09",
+  "restored_exactly": true,
+  "results": [
+    {
+      "variant": "original",
+      "sha256": "826d644baffd01d9b64faf1dc99f0cf628451945a4d781a205f34806cb76ca20",
+      "exit": 1,
+      "expected_failure": true,
+      "errors": [
+        "\nERROR: natural pot direction=-1 lower_floor=0 range_limited=false blocked=false finishes its full landed warning beyond the flight limit",
+        "ERROR: natural pot direction=-1 lower_floor=0 range_limited=false blocked=false measures the actual 0.35-second fuse",
+        "ERROR: natural pot direction=-1 lower_floor=0 range_limited=false blocked=false explodes once for catalog damage",
+        "ERROR: natural pot direction=-1 lower_floor=20 range_limited=false blocked=false finishes its full landed warning beyond the flight limit",
+        "ERROR: natural pot direction=-1 lower_floor=20 range_limited=false blocked=false measures the actual 0.35-second fuse",
+        "ERROR: natural pot direction=-1 lower_floor=20 range_limited=false blocked=false explodes once for catalog damage",
+        "ERROR: natural pot direction=1 lower_floor=0 range_limited=false blocked=false finishes its full landed warning beyond the flight limit",
+        "ERROR: natural pot direction=1 lower_floor=0 range_limited=false blocked=false measures the actual 0.35-second fuse",
+        "ERROR: natural pot direction=1 lower_floor=0 range_limited=false blocked=false explodes once for catalog damage",
+        "ERROR: natural pot direction=1 lower_floor=20 range_limited=false blocked=false finishes its full landed warning beyond the flight limit",
+        "ERROR: natural pot direction=1 lower_floor=20 range_limited=false blocked=false measures the actual 0.35-second fuse",
+        "ERROR: natural pot direction=1 lower_floor=20 range_limited=false blocked=false explodes once for catalog damage",
+        "ERROR: natural pot direction=1 lower_floor=0 range_limited=false blocked=true finishes its full landed warning beyond the flight limit"
+      ]
+    },
+    {
+      "variant": "fuse_only",
+      "sha256": "4745a0d5098f546d87166530947f088e66ac8209ba30eae0344b7d71ea667067",
+      "exit": 1,
+      "expected_failure": true,
+      "errors": [
+        "ERROR: a naturally thrown pot defeats the actual overflow ground foe",
+        "ERROR: the real foe awards its normal eight-fragment reward"
+      ]
+    }
+  ]
+}

@@ -14,6 +14,7 @@ var trap := false
 var ballistic_velocity := Vector2.ZERO
 var landed := false
 var warning_timer := -1.0
+var landing_ray_origin := Vector2.INF
 
 func _ready() -> void:
     var id := String(payload.get("id", ""))
@@ -46,7 +47,10 @@ func _physics_process(delta: float) -> void:
     if not is_instance_valid(owner_player):
         queue_free()
         return
-    if elapsed >= float(payload.get("duration", 5.0)) or travelled >= float(payload.get("range", 420.0)):
+    # Flight limits still retire missed throws. Once a pot lands, its bounded
+    # warning must finish even when the flight used almost all of its lifetime.
+    var waiting_for_fuse := id == "shard" and landed
+    if not waiting_for_fuse and (elapsed >= float(payload.get("duration", 5.0)) or travelled >= float(payload.get("range", 420.0))):
         _finish_skill("expiry", global_position)
         return
     var previous := global_position
@@ -69,6 +73,10 @@ func _physics_process(delta: float) -> void:
             global_position = hit.position
             if id == "shard":
                 landed = true
+                # Retain a known free point outside the contacted surface.
+                # Rays starting exactly on that surface can miss a wall or
+                # intersect the floor at distance zero in authored geometry.
+                landing_ray_origin = previous
                 warning_timer = 0.35
                 modulate = Color(1.0, 0.45, 0.15)
             else:
@@ -100,10 +108,11 @@ func _physics_process(delta: float) -> void:
         var point := Geometry2D.get_closest_point_to_segment(hurtbox.get_center(), previous, global_position)
         if not hurtbox.grow(radius).has_point(point):
             continue
+        var ray_origin := landing_ray_origin if id == "shard" and landing_ray_origin.is_finite() else global_position
         if get_parent().has_method("_ensure_collision_segment"):
-            get_parent()._ensure_collision_segment(global_position, hurtbox.get_center())
-        var ray := PhysicsRayQueryParameters2D.create(global_position, hurtbox.get_center(), 1, [owner_player.get_rid()])
-        if get_parent().has_method("_rock_ray_hit") and not get_parent()._rock_ray_hit(global_position, hurtbox.get_center()).is_empty():
+            get_parent()._ensure_collision_segment(ray_origin, hurtbox.get_center())
+        var ray := PhysicsRayQueryParameters2D.create(ray_origin, hurtbox.get_center(), 1, [owner_player.get_rid()])
+        if get_parent().has_method("_rock_ray_hit") and not get_parent()._rock_ray_hit(ray_origin, hurtbox.get_center()).is_empty():
             continue
         if not get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
             continue
