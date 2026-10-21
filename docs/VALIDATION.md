@@ -25,6 +25,8 @@ Repeated collision silhouettes are visible review warnings. Different names alon
 - The process-runner negative fixtures exercise real subprocess failures, zero-exit script errors, absent scripts, timeouts and signal termination. A killed Python validator must fail the caller.
 - `world_neighbor_config` reads all six authored configurations through the loader's shared worker and incrementally validates them before publishing. It covers foreground priority, completed-ticket ownership, changed entrances/file leases, generation/range cancellation, failed-file retry, source/save isolation and teardown. Its frozen source and explicit target descriptors establish those contracts, not natural exploration, FPS or a hard 2 ms frame limit.
 
+The optional `python tools/run_damage_route.py --engine /path/to/godot --native-gl --log-dir /tmp/damage-route` replays one damage-enabled three-region journey with real movement, combat, healing, ability pickups, return gates and World recreation from save. Omit `--native-gl` for software GL on Linux. It freezes project hashes, retains engine errors and uses a strict 180-second timeout. Its accelerated 60Hz input steps are not an FPS measurement, full campaign acceptance or a human playtest. See [the report](report/20261021_t04_candle_route.md).
+
 ## Outstanding product acceptance
 
 T04 still requires a new save, damage enabled, six-region completion using multiple exploration orders and builds, plus sessions with unfamiliar players. Record actual confusion, blocked progression, difficulty changes and repeated travel, then reproduce and fix each issue. Automated acceptance does not replace these sessions.
