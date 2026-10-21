@@ -1,0 +1,24 @@
+{
+  "source": "final_natural_02/runtime.log.gz",
+  "expected": [
+    "boss_shears_close",
+    "boss_shears_thread",
+    "boss_shears_knots",
+    "boss_shears_turn"
+  ],
+  "observed": {
+    "active": {
+      "boss_shears_close": 15,
+      "boss_shears_knots": 4,
+      "boss_shears_thread": 9,
+      "boss_shears_turn": 6
+    },
+    "windups": {
+      "boss_shears_close": 16,
+      "boss_shears_knots": 4,
+      "boss_shears_thread": 9,
+      "boss_shears_turn": 6
+    }
+  },
+  "all_four_active": true
+}

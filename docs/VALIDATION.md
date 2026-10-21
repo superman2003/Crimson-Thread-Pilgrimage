@@ -31,6 +31,8 @@ The optional `python tools/run_pot_route.py --engine /path/to/godot --native-gl 
 
 The optional `python tools/run_waterwheel_route.py --engine /path/to/godot --native-gl --log-dir /tmp/waterwheel-route` continues from the same hash-checked, normally earned #180 checkpoint. Its 51 real-input steps cover the lower foundry, live enemies, waterwheel lever, spillway return to the pump atrium and forge rest with damage enabled. It uses a dedicated save and a strict 180-second timeout, and freezes the Godot sources, playback, generators, runner and seed. This is checkpoint continuation, not a fresh-save campaign, human assessment or FPS test. See [the bridge report](report/20261021_w02_spillway_bridge.md).
 
+The optional `python tools/run_smith_route.py --engine /path/to/godot --native-gl --log-dir /tmp/smith-route` continues from the hash-checked, normally earned #182 forge save. Its 31 real-input steps cover the full-health smith, active moves in both phases, the earned hook, copper ring, vault reward and return. A second engine process loads the resulting real save and checks exact income/items and Boss/ability persistence. Both processes retain the strict 180-second limit and source freeze. This is checkpoint continuation, not a fresh six-region campaign, human assessment or FPS test. See [the HUD retirement report](report/20261021_u03_boss_hud_retirement.md).
+
 ## Outstanding product acceptance
 
 T04 still requires a new save, damage enabled, six-region completion using multiple exploration orders and builds, plus sessions with unfamiliar players. Record actual confusion, blocked progression, difficulty changes and repeated travel, then reproduce and fix each issue. Automated acceptance does not replace these sessions.

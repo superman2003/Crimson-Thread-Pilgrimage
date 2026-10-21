@@ -151,3 +151,7 @@ artifacts/v04_secondary_visual/*.webp -filter -diff -merge -text
 artifacts/t03_map_font_scope_visual/*.webp -filter -diff -merge -text
 artifacts/t04_pot_fuse/** -text whitespace=cr-at-eol
 artifacts/w02_spillway/** -text whitespace=cr-at-eol
+# Plain binaries: the original LFS pointers were pushed without their objects.
+artifacts/w02_spillway/*.png -filter -diff -merge -text
+
+artifacts/t04_smith_hud/** -text whitespace=cr-at-eol

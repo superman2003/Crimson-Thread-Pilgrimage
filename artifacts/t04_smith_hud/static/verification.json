@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-21T18:41:01.529239+08:00",
+  "head": "521aeaae08c3d63330ca0c367e0e11bb489c15b3",
+  "results": [
+    {
+      "name": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "python_compile",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "py_compile",
+        "tools/run_smith_route.py"
+      ],
+      "exit": 0
+    }
+  ]
+}
