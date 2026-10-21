@@ -1,43 +1,113 @@
 extends Control
-## Original needle, stitch and hammered-bronze geometry, rendered at UI scale.
+## Resolution-independent engraved copper, name tags, and stitched folio edges.
 var kind := "frame"
 var hp := 0
 var maximum := 1
-const COPPER := Color("bda176")
-const THREAD := Color("d5686b")
+var seal_id := "crimson"
+const FOLIO := preload("res://assets/ui/inscription/v2/folio.png")
+const NEEDLE := preload("res://assets/ui/inscription/v2/needle_seal.svg")
+const COPPER := Color("b29168")
+const THREAD := Color("c85450")
+const BONE := Color("e8d7b8")
+const INK := Color("091719")
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_IGNORE
     resized.connect(queue_redraw)
 
+func _diamond(c: Vector2, radius: float, tint: Color = COPPER) -> void:
+    draw_polyline(PackedVector2Array([c+Vector2(0,-radius),c+Vector2(radius*.65,0),c+Vector2(0,radius),c-Vector2(radius*.65,0),c+Vector2(0,-radius)]),tint,1.0,true)
+
+func _thread(points: PackedVector2Array) -> void:
+    draw_polyline(points,Color("51272a"),1.6,true)
+    draw_polyline(points,THREAD,.7,true)
+
+func _compass(center: Vector2, radius: float) -> void:
+    var tint := Color(COPPER,.32)
+    draw_arc(center,radius,0,TAU,48,tint,1,true)
+    draw_arc(center,radius*.64,0,TAU,40,tint,1,true)
+    draw_line(center-Vector2(radius+9,0),center+Vector2(radius+9,0),tint,1,true)
+    draw_line(center-Vector2(0,radius+9),center+Vector2(0,radius+9),tint,1,true)
+    _diamond(center,6,Color(COPPER,.7))
+
+func _health() -> void:
+    var spacing := minf(37.0,(size.x-20)/maxf(1.0,maximum))
+    var previous := Vector2(0,10)
+    for index in maximum:
+        var center := Vector2(13+index*spacing,23)
+        var eye := center+Vector2(0,-12)
+        var strand := PackedVector2Array()
+        for step in 13:
+            var t := float(step)/12.0
+            strand.append(previous.lerp(eye,t)+Vector2(0,sin(t*PI)*5))
+        _thread(strand)
+        previous=eye
+        var silhouette := PackedVector2Array([center+Vector2(0,-20),center+Vector2(8,-14),center+Vector2(8,11),center+Vector2(0,21),center+Vector2(-8,12),center+Vector2(-8,-14)])
+        var alive := index<hp
+        draw_colored_polygon(silhouette,BONE if alive else Color("152326"))
+        silhouette.append(silhouette[0])
+        draw_polyline(silhouette,THREAD if hp<=1 and alive else Color(COPPER,.6),.6,true)
+        if alive:
+            for grain in 28:
+                var gx := float((grain*17+index*5)%13)-6
+                var gy := float((grain*11+index*3)%29)-13
+                draw_line(center+Vector2(gx,gy),center+Vector2(gx+1,gy+2),Color(.28,.22,.15,.12),.6,true)
+        draw_circle(eye,2.7,INK)
+        draw_arc(eye,3.0,0,TAU,16,COPPER,.8,true)
+        draw_line(center+Vector2(2,-6),center+Vector2(1,14),Color(.3,.24,.17,.35),.5,true)
+        if not alive:
+            draw_polyline(PackedVector2Array([center+Vector2(-3,-8),center+Vector2(3,-2),center+Vector2(-2,4),center+Vector2(3,10)]),INK,2,true)
+    _thread(PackedVector2Array([previous,previous+Vector2(12,4),previous+Vector2(23,1)]))
+
 func _draw() -> void:
-    if kind == "health":
-        var spacing := minf(27.0, size.x / maxf(1.0, maximum))
-        for index in maximum:
-            var center := Vector2(12 + index * spacing, 14)
-            var points := PackedVector2Array([center+Vector2(0,-11),center+Vector2(7,-4),center+Vector2(5,6),center+Vector2(0,11),center+Vector2(-5,6),center+Vector2(-7,-4)])
-            draw_colored_polygon(points, Color("f1dfc0") if index < hp else Color("272e31"))
-            points.append(points[0])
-            draw_polyline(points, THREAD if hp <= 1 and index < hp else COPPER, 1.0, true)
-            if index < hp:
-                draw_line(center+Vector2(0,-6),center+Vector2(0,6), THREAD, 1.5, true)
+    if size.x<4 or size.y<4:return
+    if kind=="health":
+        _health()
         return
-    var bounds := Rect2(Vector2(1,1),size-Vector2(2,2))
-    draw_rect(bounds, Color("10191f"))
-    draw_rect(Rect2(1,1,size.x-2,68),Color("1b252a"))
-    draw_rect(bounds, Color("655b48"),false,1)
-    draw_rect(Rect2(8,8,size.x-16,size.y-16),Color("353b38"),false,1)
-    for x in range(26,int(size.x)-26,14):
-        draw_line(Vector2(x,size.y-12),Vector2(x+4,size.y-12),Color("675c46"),1,true)
-    for corner in [Vector2(17,17),Vector2(size.x-17,17),Vector2(17,size.y-17),Vector2(size.x-17,size.y-17)]:
-        var dx := 1.0 if corner.x < size.x/2 else -1.0
-        var dy := 1.0 if corner.y < size.y/2 else -1.0
-        draw_polyline(PackedVector2Array([corner+Vector2(0,19*dy),corner,corner+Vector2(19*dx,0)]),COPPER,1.5,true)
-        draw_line(corner+Vector2(4*dx,4*dy),corner+Vector2(13*dx,13*dy),THREAD,1,true)
-    if kind == "frame":
-        draw_line(Vector2(32,94),Vector2(size.x-32,94),Color("494b40"),1,true)
-        draw_line(Vector2(32,94),Vector2(106,94),THREAD,2,true)
-        var c := Vector2(size.x/2,35)
-        draw_line(c-Vector2(55,0),c+Vector2(55,0),Color("625841"),1,true)
-        draw_arc(c,11,0,TAU,32,COPPER,1,true)
-        draw_line(c+Vector2(-5,7),c+Vector2(5,-7),THREAD,2,true)
+    if kind=="seal_art":
+        if seal_id=="crimson":
+            draw_texture_rect(NEEDLE,Rect2(Vector2.ZERO,size),false)
+        else:
+            var c := size*.5
+            _compass(c,minf(size.x,size.y)*.38)
+            if seal_id=="bell":
+                var d := minf(size.x,size.y)*.32
+                draw_arc(c-Vector2(0,d*.42),d*.48,PI,TAU,48,BONE,1.2,true)
+                draw_polyline(PackedVector2Array([c+Vector2(-d*.48,-d*.42),c+Vector2(-d*.62,d*.58),c+Vector2(-d*.8,d*.73),c+Vector2(d*.8,d*.73),c+Vector2(d*.62,d*.58),c+Vector2(d*.48,-d*.42)]),BONE,1.2,true)
+                draw_circle(c+Vector2(0,d*.88),5,COPPER)
+            else:
+                draw_rect(Rect2(c-Vector2(55,77),Vector2(110,154)),BONE,false,1.0)
+                for y in range(-52,60,23):draw_line(c+Vector2(-32,y),c+Vector2(33,y),COPPER,.8,true)
+        return
+    if kind=="tactical":
+        var active := bool(get_parent().get_meta("inscription_active",false))
+        var tint := THREAD if active else Color(COPPER,.65)
+        var edge := PackedVector2Array([Vector2(8,1),Vector2(size.x-9,1),Vector2(size.x-1,9),Vector2(size.x-1,size.y-8),Vector2(size.x-8,size.y-1),Vector2(1,size.y-1),Vector2(1,8),Vector2(8,1)])
+        draw_polyline(edge,tint,.7,true)
+        if active:_diamond(Vector2(1,9),4,THREAD)
+        return
+    if kind=="location":
+        var y := size.y*.5
+        draw_line(Vector2(0,y),Vector2(69,y),Color(COPPER,.6),1,true)
+        draw_line(Vector2(size.x-69,y),Vector2(size.x,y),Color(COPPER,.6),1,true)
+        _diamond(Vector2(54,y),6)
+        _diamond(Vector2(size.x-54,y),6)
+        draw_line(Vector2(size.x*.5-47,size.y-3),Vector2(size.x*.5+47,size.y-3),Color(COPPER,.4),1,true)
+        _diamond(Vector2(size.x*.5,size.y-3),4)
+        return
+    if kind=="well":
+        draw_rect(Rect2(Vector2.ZERO,size),Color(.015,.025,.025,.13))
+        draw_line(Vector2(0,0),Vector2(0,size.y),Color(COPPER,.28),.7,true)
+        _diamond(Vector2(0,12),3,Color(COPPER,.6))
+        return
+    if kind=="hud":
+        for i in 24:
+            draw_rect(Rect2(size.x*float(i)/24,0,size.x/24+1,size.y),Color(.01,.025,.028,.35*(1.0-float(i)/24)))
+        return
+    draw_texture_rect(FOLIO,Rect2(Vector2.ZERO,size),false)
+    if kind in ["frame","map"]:
+        var y := 70.0 if kind=="map" else 94.0
+        draw_line(Vector2(30,y),Vector2(size.x-30,y),Color(COPPER,.45),.7,true)
+        draw_line(Vector2(30,y),Vector2(171,y),Color(COPPER,.7),.7,true)
+        _diamond(Vector2(180,y),5)
+        _diamond(Vector2(size.x-32,y),3)

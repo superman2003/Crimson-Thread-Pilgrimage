@@ -1047,7 +1047,7 @@ function drawForeground(chapter) {
     ctx.fillStyle = "rgba(0,0,0,0.42)";
     ctx.fillRect(SETTINGS.width / 2 - 178, 82, 356, 52);
     ctx.fillStyle = "#fff6dc";
-    ctx.font = "800 22px Microsoft YaHei, sans-serif";
+    ctx.font = "22px FengMingGlobal, serif";
     ctx.textAlign = "center";
     ctx.fillText("门已苏醒", SETTINGS.width / 2, 116);
   }

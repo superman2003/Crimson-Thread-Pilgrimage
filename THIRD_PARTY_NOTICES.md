@@ -12,6 +12,25 @@ This project uses third-party assets and plugins under their own licenses. The g
 | Godot Platformer 2D | `godot/assets/third_party/godot_platformer_2d` | MIT | Chapter 6 background elements |
 | Metroidvania System | `godot/addons/MetroidvaniaSystem` | MIT | Map/metroidvania plugin |
 
+## UI fonts and lettering
+
+`FengMingInscription.otf` (缝名刻宋) and the active `GlobalTypeface.otf` are
+SIL OFL 1.1 derivatives of the serif below. The font builder preserves the
+original Bezier outlines and adds small diagonal incisions to broad strokes;
+the derivative is renamed Feng Ming Inscription. See `tools/build_inscription_font.py`
+and `godot/assets/fonts/FengMingInscription.json`. The active font is applied to
+all game text, including body text and dialogue, by `tools/apply_global_font.py`.
+
+The UI serif font `godot/assets/fonts/PilgrimageSerif.otf` is a renamed,
+character-subset derivative of Noto Serif CJK SC Regular, licensed under SIL
+OFL 1.1. Its source outlines are unchanged. The upstream license is included at
+`godot/assets/fonts/OFL-NotoSerifCJK.txt`; source URL, SHA-256 and character count
+are recorded in `godot/assets/ui/inscription/manifest.json`. Rebuild with
+`tools/build_inscription_assets.py` and the upstream OTF. The engraved lettering
+SVGs in that folder add project-owned cuts, eyelets and thread to these outlines.
+Noto Sans SC remains the readable body/fallback font under the existing
+`godot/assets/fonts/OFL.txt` license.
+
 ## Project-generated audio (not third-party)
 
 The following audio packs are synthesized offline by project-owned tools with no third-party recordings or samples as input, and are released as project-generated CC0 alongside the MIT game code:

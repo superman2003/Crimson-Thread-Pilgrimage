@@ -99,7 +99,7 @@ func _draw() -> void:
         if gate_state != "open":
             _icon("lock" if gate_state == "far_side" else "ability",c+Vector2(0,39),0.65)
     if nearby and not key_hint.is_empty():
-        var font := ThemeDB.fallback_font
+        var font := preload("res://assets/fonts/GlobalTypeface.otf")
         # Small scene signs keep their interaction key at a readable size.
         var text_scale := 1.0 / maxf(0.1, minf(scale.x, scale.y))
         var font_size := ceili(14 * text_scale)

@@ -218,7 +218,7 @@ func run() -> void:
 			var label := Label.new()
 			label.text = "★" + str(index + 1)
 			label.add_theme_font_size_override("font_size", 19)
-			if use_project_font: label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+			if use_project_font: label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
 			label.set_meta("pin_id", index + 1)
 			label.set_meta("map_anchor", counterexample[index])
 			regression.append(label)
