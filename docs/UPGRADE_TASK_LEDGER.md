@@ -1,5 +1,9 @@
 # 升级任务台账：以可玩验收为完成标准
 
+## 2026-10-21：headless 下后台纹理加载就地执行，消除 Dummy 渲染器 RID 竞争（T03 子项）
+
+导出包 headless 启动检查偶发 `Initializing already initialized RID`：Godot 4.6.1 Dummy 渲染器的纹理 RID 表不是线程安全的，后台纹理任务与主线程同时建纹理会损坏它。`BackgroundResourceJob` 与 `PlayerArtWarmJob` 在 headless 时改为调用方就地加载并按原所有者约定交出结果，GL 下仍走后台线程。新增默认套件 `background_texture_contention`：去掉修复时 headless 4/4 失败，修复后 headless 5/5、真实 GL 2/2 通过；相关预热、退出与启动预算套件两种渲染器均通过。见[报告](report/20261021_t03_headless_texture_race.md)。
+
 ## 2026-10-21：烛台落点与开启伤害的三地区回环（T04 子项）
 
 书库烛台伤害区原本超出平台右沿 20px；移入平台内部并把二段跳拾取放到左侧安全边缘。新档、伤害开启的真实输入回放已完成苔钟庭—铸雨渠—盐白书库—苔钟庭：取得攀墙/二段跳、回访证词、双向捷径与重建 World 读档，26 步、3 次扣血、2 次耗能疗伤、0 死亡，8679 份源前后一致，退出零 ERROR/泄漏警告。购图扩展尚未通过，不算六区自然流程或人工验收，不关闭 T04。见[报告与重放方法](report/20261021_t04_candle_route.md)。

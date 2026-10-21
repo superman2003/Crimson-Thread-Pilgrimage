@@ -3,27 +3,42 @@ extends RefCounted
 ## scripts' mutable caches, gameplay state or SpriteFrames. Its result keeps
 ## native cache entries alive until the actual Player has taken its own refs.
 const PLAYER := preload("res://scripts/player_controller.gd")
+const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
 var _thread: Thread
+## Headless Dummy-renderer result; see RESOURCE_JOB.off_thread_loading_safe().
+var _inline_result: Dictionary = {}
+var _inline_pending := false
 var closed := false
 
 func begin(manifest_path: String = PLAYER.PLAYER_MANIFEST, idle_path: String = PLAYER.LAYERED_IDLE.MANIFEST_PATH) -> int:
-    if closed or _thread != null: return ERR_ALREADY_IN_USE
+    if closed or _thread != null or _inline_pending: return ERR_ALREADY_IN_USE
+    if not RESOURCE_JOB.off_thread_loading_safe():
+        _inline_result = _load(manifest_path, idle_path)
+        _inline_pending = true
+        return OK
     _thread = Thread.new()
     var error := _thread.start(_load.bind(manifest_path, idle_path), Thread.PRIORITY_LOW)
     if error != OK: _thread = null
     return error
 
 func ready() -> bool:
-    return _thread != null and not _thread.is_alive()
+    return _inline_pending or (_thread != null and not _thread.is_alive())
 
 func take() -> Dictionary:
     if not ready(): return {}
+    if _inline_pending:
+        var inline := _inline_result
+        _inline_result = {}
+        _inline_pending = false
+        return inline
     var result: Dictionary = _thread.wait_to_finish()
     _thread = null
     return result
 
 func shutdown() -> void:
     closed = true
+    _inline_result = {}
+    _inline_pending = false
     # Whole-host teardown only. Cancellation keeps this one bounded owner;
     # background cache data cannot publish a player or alter a save by itself.
     if _thread != null:
