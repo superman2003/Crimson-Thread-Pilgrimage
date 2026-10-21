@@ -1,0 +1,270 @@
+extends SceneTree
+## Production lifecycle stress with explicit travel/focus/damage fixtures.
+## Never a natural playthrough, economy or difficulty acceptance certificate.
+const ROUTES := preload("res://scripts/world_routes.gd")
+const AUDIO := preload("res://scripts/audio_director.gd")
+const RETIRE := preload("res://scripts/audio_retirement.gd")
+const REGIONS := ["demo_ch01_moss_bell_court", "demo_ch02_rain_foundry_canal", "demo_ch03_saltwhite_archive", "demo_ch04_broken_string_greenhouse", "demo_ch05_obsidian_pilgrim_road", "demo_ch06_silent_crown_core"]
+var ui_profiles := []
+var boot_timings := {}
+var frame_context: Array[Dictionary] = []
+var profile_operation := "bootstrap"
+var transition_profiles: Array[Dictionary] = []
+var scene: Node
+var failures: Array[String] = []
+var samples: Array[Dictionary] = []
+var retired_actors: Array[WeakRef] = []
+var seconds := 1800.0
+var output := ""
+var save_path := ""
+var cycle := 0
+var measured_start := 0
+var frames := 0
+var previous_frame := 0
+var frame_max_usec := 0
+var frame_bins := [0,0,0,0,0,0,0,0]
+var transitions := 0
+var deaths := 0
+var ui_opens := 0
+var dialogue_opens := 0
+var attack_inputs := 0
+var observed_defeats := 0
+var peak_memory := 0
+var peak_texture_memory := 0
+var previous_orphans := -1
+var initial_orphans := 0
+
+func _initialize() -> void:
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--soak-seconds="): seconds=float(argument.get_slice("=",1))
+        elif argument.begins_with("--soak-output="): output=argument.trim_prefix("--soak-output=")
+        elif argument.begins_with("--soak-save="): save_path=argument.trim_prefix("--soak-save=")
+    call_deferred("run")
+
+func check(ok: bool,label: String) -> void:
+    if not ok:
+        failures.append(label)
+        push_error("RUNTIME_SOAK: "+label)
+
+func _process(_delta: float) -> bool:
+    var now := Time.get_ticks_usec()
+    if previous_frame>0:
+        var interval := now-previous_frame
+        frame_max_usec=maxi(frame_max_usec,interval)
+        if interval > 50000 and frame_context.size() < 256:
+            var context := {"usec": interval, "operation": profile_operation, "time_usec": now}
+            if is_instance_valid(scene):
+                context["region"] = String(scene.config.get("id", ""))
+                var loader: RefCounted = scene.world_loader
+                if loader != null:
+                    context["loader_phase"] = loader.phase
+                    for key in ["prepare_cursor", "build_cursor", "commit_cursor", "max_prepare_job_usec", "max_prepare_batch_usec", "max_batch_usec", "max_commit_job_usec"]:
+                        context[key] = loader.last_transition.get(key, 0)
+                    context["prepare_operations"] = loader.last_transition.get("prepare_operation_usec", {}).duplicate()
+                    context["commit_operations"] = loader.last_transition.get("commit_operation_usec", {}).duplicate()
+            frame_context.append(context)
+        var bin := 7
+        for index in 7:
+            if interval<=[8000,16667,33334,50000,100000,250000,500000][index]:
+                bin=index
+                break
+        frame_bins[bin]+=1
+        frames+=1
+    previous_frame=now
+    return false
+
+func live_sfx_count() -> int:
+    var count := 0
+    var voices := root.find_children("*","AudioStreamPlayer",true,false)
+    voices.append_array(root.find_children("*","AudioStreamPlayer2D",true,false))
+    for voice in voices:
+        var bus := String(voice.bus)
+        if (bus=="UI" or bus.begins_with("SFX")) and voice.has_stream_playback():count+=1
+    return count
+
+func settle(duration: float) -> void:
+    await create_timer(duration).timeout
+
+func remember_actors() -> void:
+    for actor in get_nodes_in_group("enemy"):
+        retired_actors.append(weakref(actor))
+
+func observe_defeat(_id: String,_boss: bool,_kind: String) -> void:
+    observed_defeats+=1
+
+func visit(region_id: String) -> void:
+    var path := ROUTES.config_path(region_id)
+    var config: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(path))
+    var start := Vector2(float(config.player_start[0]),float(config.player_start[1]))
+    scene._close_overlays()
+    remember_actors()
+    profile_operation = "travel:" + region_id
+    await scene._travel_world_async(path,start)
+    ui_profiles.append_array(scene.ui_profile.duplicate(true))
+    transition_profiles.append(scene.world_loader.last_transition.duplicate(true))
+    profile_operation = "settle:" + region_id
+    transitions+=1
+    check(String(scene.config.id)==region_id and not scene.world_loading,"requested region published: "+region_id)
+    scene.player.debug_invulnerable=true
+    await settle(0.8)
+    check(is_instance_valid(scene.audio_director.explore_player) and scene.audio_director.explore_player.has_stream_playback(),"production region exploration music owns real playback")
+    var survivors := 0
+    for reference in retired_actors:
+        if reference.get_ref()!=null: survivors+=1
+    check(survivors==0,"previous region enemies released after transition: "+region_id)
+    retired_actors.clear()
+    for operation in ["_toggle_map","_toggle_backpack","_toggle_audio_settings"]:
+        profile_operation = "ui:" + operation
+        scene.call(operation)
+        await settle(0.12)
+        check(scene.player.ui_input_locked,"live overlay locks input: "+operation)
+        ui_opens+=1
+        scene._close_overlays()
+    check(not scene.player.ui_input_locked,"overlay closure releases player input")
+    for child in scene.get_children():
+        if child is Area2D and String(child.get_meta("kind",""))=="npc":
+            profile_operation = "dialogue"
+            scene._show_dialogue(child,"巡礼压力验证：同一段未读完的文字。".repeat(8))
+            await settle(0.15)
+            scene._close_overlays()
+            dialogue_opens+=1
+            break
+    # Place at one authored enemy to drive real AI, animations and hit effects.
+    # Invulnerability is deliberate for reproducible lifecycle churn only.
+    for actor in get_nodes_in_group("enemy"):
+        if actor.is_boss: continue
+        profile_operation = "enemy_combat"
+        actor.died.connect(observe_defeat)
+        scene.player.global_position=actor.global_position+Vector2(-58,0)
+        scene.player.velocity=Vector2.ZERO
+        scene.player.facing=1
+        if scene.player._can_start_action():
+            scene.player._start_attack(&"attack_1")
+            attack_inputs+=1
+        await settle(0.65)
+        if is_instance_valid(actor) and actor.hp>0:actor.take_hit(99,1)
+        break
+    scene._play_sfx("ui_menu_confirm")
+    await settle(0.3)
+    scene.player.global_position=start
+    scene.player.velocity=Vector2.ZERO
+    await settle(0.5)
+    check(live_sfx_count()<=AUDIO.MAX_GLOBAL_VOICES,"audio admission remains bounded")
+    check(AUDIO._explore_resume.size()<=AUDIO.MAX_EXPLORE_BOOKMARKS,"music bookmarks remain bounded")
+    check(scene.ui_shell.dialogue_reading._entries.size()<=64,"reading bookmarks remain bounded")
+    check(scene.pending_sfx_players.is_empty(),"deferred sound players settle")
+
+func kill_and_respawn() -> void:
+    scene._close_overlays()
+    scene.player.debug_invulnerable=false
+    scene.player.arrival_guard_timer=0.0
+    scene.player.hurt_timer=0.0
+    scene.player.take_damage(999,scene.player.global_position+Vector2(100,0),false)
+    await process_frame
+    check(scene.player.death_timer>0.0,"lethal damage enters normal death timer")
+    var deadline := Time.get_ticks_msec()+10000
+    while scene.player.death_timer>0.0 and Time.get_ticks_msec()<deadline:await process_frame
+    await settle(0.4)
+    check(scene.player.hp==scene.player.max_hp and scene.player.death_timer<=0.0,"normal timer respawns at checkpoint")
+    scene.player.debug_invulnerable=true
+    deaths+=1
+
+func node_counts(node: Node, counts: Dictionary) -> void:
+    var kind := node.get_class()
+    counts[kind]=int(counts.get(kind,0))+1
+    for child in node.get_children():node_counts(child,counts)
+
+func sample() -> void:
+    var memory := OS.get_static_memory_usage()
+    var textures := int(Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED))
+    peak_memory=maxi(peak_memory,memory)
+    peak_texture_memory=maxi(peak_texture_memory,textures)
+    var orphans := int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
+    var types := {}
+    node_counts(root,types)
+    var row := {"node_types":types,"cycle":cycle,"measured":cycle>2,"elapsed_seconds":float(Time.get_ticks_msec()-measured_start)/1000.0 if measured_start>0 else 0.0,
+        "region":String(scene.config.id),"memory_bytes":memory,"texture_bytes":textures,
+        "nodes":int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)),"resources":int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)),
+        "orphans":orphans,"voices":live_sfx_count(),"stream_cache":AUDIO._stream_cache.size(),
+        "music_bookmarks":AUDIO._explore_resume.size(),"reading_bookmarks":scene.ui_shell.dialogue_reading._entries.size()}
+    check(AUDIO._explore_resume.size()>=6,"all six outgoing region music phrases were retained")
+    if cycle==2:previous_orphans=orphans
+    if cycle>2:check(orphans<=previous_orphans,"no accumulating orphan nodes after warmup")
+    samples.append(row)
+    print("RUNTIME_SOAK_SAMPLE "+JSON.stringify(row))
+
+func run() -> void:
+    check(is_finite(seconds) and seconds>=1.0 and not output.is_empty() and not save_path.is_empty(),"explicit valid duration, result and isolated save paths required")
+    if not failures.is_empty():await finish();return
+    initial_orphans=int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
+    profile_operation = "load_world"
+    var boot_started := Time.get_ticks_usec()
+    var packed := load("res://scenes/World.tscn")
+    boot_timings["packed_scene_load_usec"] = Time.get_ticks_usec() - boot_started
+    profile_operation = "instantiate_world"
+    boot_started = Time.get_ticks_usec()
+    scene = packed.instantiate()
+    scene.set_script(load("C:/Users/Administrator/.codex/worktrees/upgrade-runtime-soak/Crimson-Thread-Pilgrimage/output/ctp_ui_profile_world.gd"))
+    scene.world_mode = true
+    boot_timings["scene_instantiate_usec"] = Time.get_ticks_usec() - boot_started
+    scene.world_save_path=save_path
+    scene.world_resume=false
+    profile_operation = "attach_world"
+    var attach_started := Time.get_ticks_usec()
+    root.add_child(scene)
+    boot_timings["attach_world_usec"] = Time.get_ticks_usec() - attach_started
+    profile_operation = "initial_world_wait"
+    # Same 15-second publication boundary, with subclass-aware observation.
+    var ready_deadline := Time.get_ticks_msec()+15000
+    while not scene.initial_region_ready and Time.get_ticks_msec()<ready_deadline: await process_frame
+    check(scene.initial_region_ready,"profiled World publishes within original ready deadline")
+    if not failures.is_empty(): await finish();return
+    current_scene=scene
+    ui_profiles.append_array(scene.ui_profile.duplicate(true))
+    await visit(REGIONS[1])
+    await finish()
+    return
+    while failures.is_empty():
+        cycle+=1
+        # Same anchor, same ordering, two entire six-region cache warmup cycles.
+        for region_id in REGIONS:
+            await visit(region_id)
+            if not failures.is_empty():break
+        if not failures.is_empty():break
+        await kill_and_respawn()
+        await visit(REGIONS[0])
+        await settle(1.0)
+        sample()
+        if cycle==2:measured_start=Time.get_ticks_msec()
+        if cycle>2 and float(Time.get_ticks_msec()-measured_start)/1000.0>=seconds:break
+    await finish()
+
+func finish() -> void:
+    if is_instance_valid(scene):
+        remember_actors()
+        scene.queue_free()
+    for node in root.get_children():
+        if node is AudioStreamPlayer and String(node.name).begins_with("PersistentSfx_"):
+            RETIRE.retire_tree(node)
+            node.queue_free()
+    await process_frame
+    await process_frame
+    for reference in retired_actors:check(reference.get_ref()==null,"final region actor released")
+    retired_actors.clear()
+    var drained := await RETIRE.drain(self,3000)
+    check(drained and live_sfx_count()==0,"all scene audio playback and leases retire")
+    var final_orphans := int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
+    check(final_orphans<=initial_orphans,"all owned orphan nodes released at final teardown")
+    if final_orphans>initial_orphans:Node.print_orphan_nodes()
+    var result := {"ui_profiles":ui_profiles,"boot_timings":boot_timings,"frame_context":frame_context,"transition_profiles":transition_profiles,"schema":1,"scope":"lifecycle stress with explicit travel/focus/invulnerability/kill fixtures; not natural gameplay acceptance",
+        "requested_seconds":seconds,"measured_seconds":float(Time.get_ticks_msec()-measured_start)/1000.0 if measured_start>0 else 0.0,
+        "warmup_cycles":2,"cycles":cycle,"transitions":transitions,"deaths":deaths,"ui_opens":ui_opens,"dialogue_opens":dialogue_opens,
+        "attack_inputs":attack_inputs,"observed_defeats":observed_defeats,"frames":frames,"frame_bins_usec":[8000,16667,33334,50000,100000,250000,500000],"frame_bin_counts":frame_bins,"frame_max_usec":frame_max_usec,
+        "peak_static_memory_bytes":peak_memory,"peak_texture_memory_bytes":peak_texture_memory,"audio_drained":drained,"remaining_voices":live_sfx_count(),"initial_orphans":initial_orphans,"final_orphans":final_orphans,
+        "samples":samples,"failures":failures}
+    if not output.is_empty():
+        var file := FileAccess.open(output,FileAccess.WRITE)
+        check(file!=null,"metrics file can be written")
+        if file!=null:file.store_string(JSON.stringify(result,"  "))
+    print("RUNTIME_SOAK_%s cycles=%d transitions=%d seconds=%.2f failures=%d" % ["PASS" if failures.is_empty() else "FAIL",cycle,transitions,float(result.measured_seconds),failures.size()])
+    call_deferred("quit",0 if failures.is_empty() else 1)

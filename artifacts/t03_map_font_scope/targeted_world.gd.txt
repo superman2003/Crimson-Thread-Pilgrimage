@@ -1,0 +1,35 @@
+extends "res://scripts/main_level.gd"
+var ui_profile: Array[Dictionary] = []
+var _ui_phase := "other"
+func _record_ui(label: String,start: int) -> void:
+    ui_profile.append({"region":String(config.get("id","")),"method":label,"usec":Time.get_ticks_usec()-start})
+func _build_map_overlay() -> void:
+    _ui_phase="map"
+    var start:=Time.get_ticks_usec()
+    super._build_map_overlay()
+    _record_ui("map_total",start)
+    _ui_phase="other"
+func _build_wish_board_overlay() -> void:
+    var start:=Time.get_ticks_usec()
+    super._build_wish_board_overlay()
+    _record_ui("wish_board",start)
+func _load_texture_resource(path: String) -> Texture2D:
+    var cached := ResourceLoader.has_cached(path)
+    var start:=Time.get_ticks_usec()
+    var result: Texture2D=super._load_texture_resource(path)
+    ui_profile.append({"region":String(config.get("id","")),"method":"texture:"+path,"phase":_ui_phase,"cached":cached,"usec":Time.get_ticks_usec()-start})
+    return result
+func _setup_cartography() -> void:
+    var start:=Time.get_ticks_usec()
+    CARTOGRAPHY_UI.setup(self)
+    _record_ui("cartography_shop",start)
+    start=Time.get_ticks_usec()
+    DEATH_RECALL.setup(self)
+    _record_ui("death_recall",start)
+    start=Time.get_ticks_usec()
+    MAP_PLAYER_PINS.setup(self)
+    _record_ui("map_pin_controls",start)
+func _build_interface_step(method: String,args: Array=[]) -> void:
+    var start:=Time.get_ticks_usec()
+    super._build_interface_step(method,args)
+    _record_ui("interface:"+method,start)
