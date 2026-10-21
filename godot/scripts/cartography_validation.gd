@@ -101,7 +101,11 @@ func run() -> void:
     check(quill_button.visible and quill_button.disabled and compass_button.visible,"seller offers both survey tools and refuses the quill one coin short")
     scene.currency_count=RUNTIME.tool_price("quill")+RUNTIME.tool_price("compass")
     RUNTIME.open_shop(scene,stall)
-    dialog.custom_action.emit("quill")
+    if not await _keyboard_quill_purchase(scene, dialog, quill_button, stall):
+        scene.free()
+        await process_frame
+        quit(1)
+        return
     check(JOURNAL.has_quill(scene.story_flags) and scene.currency_count==RUNTIME.tool_price("compass") and not quill_button.visible,"real shop sells the quill once at its price")
     dialog.custom_action.emit("compass")
     check(scene.build_system.state.unlocked_passives.has("compass") and scene.currency_count==0 and not compass_button.visible,"real shop sells the compass once at its price")
@@ -215,3 +219,41 @@ func run() -> void:
     for suffix in ["",".tmp",".bak"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
     print("CARTOGRAPHY checks=%d failures=%d fixture_positioning=true" % [checks,failures])
     call_deferred("quit",1 if failures else 0)
+
+func _modal_key_event(dialog: Window, code: Key, pressed: bool) -> void:
+    var event:=InputEventKey.new()
+    event.keycode=code
+    event.physical_keycode=code
+    event.window_id=dialog.get_window_id() if dialog.visible and not dialog.is_embedded() else root.get_window_id()
+    event.pressed=pressed
+    Input.parse_input_event(event)
+    Input.flush_buffered_events()
+
+func _modal_key(dialog: Window, code: Key) -> void:
+    _modal_key_event(dialog,code,true)
+    for unused in 3: await process_frame
+    _modal_key_event(dialog,code,false)
+    for unused in 3: await process_frame
+
+func _keyboard_quill_purchase(scene: Node, dialog: ConfirmationDialog, quill: Button, stall: Area2D) -> bool:
+    # Actors are positioned/stopped by this component fixture; the real Main
+    # process and native dialog must both see the ordinary keyboard events.
+    scene.set_process(true)
+    for unused in 12:
+        if quill.has_focus() or not dialog.visible or scene.active_overlay!="cartographer":break
+        await _modal_key(dialog,KEY_TAB)
+    check(dialog.visible and scene.active_overlay=="cartographer","native seller retains Tab instead of opening the backpack")
+    check(quill.has_focus(),"ordinary Tab navigation reaches the quill button")
+    if dialog.visible and quill.has_focus():await _modal_key(dialog,KEY_ENTER)
+    if JOURNAL.has_quill(scene.story_flags):
+        _modal_key_event(dialog,KEY_F9,true)
+        for unused in 3:await process_frame
+        check(dialog.visible and scene.active_overlay=="cartographer" and not scene.new_journey_dialog.visible,"seller keeps native focus while the new-journey key is held")
+        await _modal_key(dialog,KEY_ESCAPE)
+        for unused in 3:await process_frame
+        check(scene.active_overlay.is_empty() and not scene.new_journey_dialog.visible,"closing seller does not replay the held new-journey key")
+        _modal_key_event(dialog,KEY_F9,false)
+        for unused in 3:await process_frame
+        RUNTIME.open_shop(scene,stall)
+    scene.set_process(false)
+    return dialog.visible and scene.active_overlay=="cartographer" and JOURNAL.has_quill(scene.story_flags)

@@ -1,7 +1,6 @@
 extends SceneTree
-## Navigation acceptance uses live Player input and collision physics only.
-## Fixed-input three-region replay; damage enabled, no grants, teleports or state repair.
-## This is automated input playback, not a full campaign or unfamiliar-player assessment.
+## Damage-enabled input playback: earned map/quill, shrine charting and returns.
+## No grants, position writes, damage suppression or state repair. Not a human playtest.
 const SAVE := "user://test_world_damage_route.json"
 var scene: Node
 var failures := 0
@@ -18,11 +17,23 @@ var last_inventory: Dictionary = {}
 var combat_enabled := false
 var damage_events := 0
 var heals := 0
+var purchases := 0
+const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
+const SHOP_RUNTIME := preload("res://scripts/cartography_runtime.gd")
 
 func _initialize() -> void:
     call_deferred("_run")
 
 func _run() -> void:
+    for arg in OS.get_cmdline_user_args():
+        if String(arg).begins_with("--damage-restart-proof="):
+            var restart_proof: Variant = JSON.parse_string(String(arg).trim_prefix("--damage-restart-proof="))
+            if not restart_proof is Dictionary:
+                _check(false,"restart proof must be a JSON object")
+                quit(1)
+                return
+            await _verify_process_restart(restart_proof)
+            return
     for suffix in ["", ".tmp", ".bak"]:
         if FileAccess.file_exists(SAVE + suffix):
             DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
@@ -33,8 +44,10 @@ func _run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     await _tick(15)
-    _check(scene.currency_count == 0, "fresh route starts with no currency")
-    _check(not scene.inventory_counts.has("silk_wall_grip"), "fresh route starts without wall grip")
+    _check(scene.currency_count==0,"fresh route starts without currency")
+    _check(not scene.inventory_counts.has("silk_wall_grip"),"fresh route starts without wall grip")
+    _check(not SHOP_RUNTIME.owns_tool(scene,"quill") and not SHOP_RUNTIME.owns_tool(scene,"compass"),"fresh route has neither paid survey tool")
+    _check(not SHOP_RUNTIME.shows_position(scene),"route uses no compass or navigation-assist position")
     _check(not scene.inventory_counts.has("double_thread_jump"), "fresh start lacks double jump")
     await _walk(Vector2(410,3400), "initial lift")
     await _interact("moss_salt_lift_lower", "demo_ch01_moss_bell_court", Vector2(4850,610))
@@ -73,6 +86,27 @@ func _run() -> void:
     _check(bool(scene.story_flags.get("world_shortcut_salt_return", false)), "salt return shortcut persists after regional lift")
     await _interact("moss_salt_shortcut_lower", "demo_ch01_moss_bell_court", Vector2(5340,520))
     _check(scene.inventory_counts.has("double_thread_jump") and scene.inventory_counts.has("testimony_returned_name"), "ability and reward retained on shortcut return")
+    await _interact("moss_salt_shortcut_upper", "demo_ch01_moss_bell_court", Vector2(200,3360))
+    for p in [Vector2(640,3452),Vector2(870,3532),Vector2(1130,3612),Vector2(1420,3692),Vector2(1790,3752)]:
+        await _walk(p,"return to canal without a purchased map")
+    await _interact("moss_rain_pipe", "demo_ch02_rain_foundry_canal", Vector2(330,720))
+    for p in [Vector2(620,812),Vector2(960,880),Vector2(1270,836),Vector2(1420,836),Vector2(1700,920),Vector2(1640,920)]:
+        await _walk(p,"canal cartographer return",false,p.x in [1420.0,1700.0])
+    await _buy_map_and_quill()
+    for p in [Vector2(2040,1000),Vector2(2320,1080),Vector2(2540,1160),Vector2(2730,1160),Vector2(2990,1240)]:
+        await _walk(p,"first mapped canal shrine",false,p.x==2730.0)
+    var pending_before: int=preload("res://scripts/pilgrimage_cartography.gd").pending_count(scene.story_flags)
+    _check(pending_before>0,"natural travel has pending notes before resting")
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_ch02_aqueduct","F rests at the authored aqueduct shrine")
+    _check(preload("res://scripts/pilgrimage_cartography.gd").pending_count(scene.story_flags)==0,"purchased quill charts actual travel notes at rest")
+    _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"normal shrine restores health and energy")
+    await _inspect_map_without_position()
+    var saved_wallet: int=scene.currency_count
+    var earned_inventory: Dictionary=scene.inventory_counts.duplicate(true)
+    var charted: Dictionary=JOURNAL.region(scene.story_flags,"demo_ch02_rain_foundry_canal").charted.duplicate(true)
+    _check(not charted.is_empty(),"actual travel produced charted canal notes")
+    var proof := {"pid":OS.get_process_id(),"region":String(scene.config.id),"checkpoint":String(scene.active_save_point_id),"wallet":saved_wallet,"inventory":earned_inventory,"charted":charted}
     _release()
     scene.queue_free()
     await process_frame
@@ -85,14 +119,19 @@ func _run() -> void:
     await _tick(15)
     _check(scene.inventory_counts.has("testimony_returned_name") and scene.inventory_counts.has("double_thread_jump"), "restart restores earned ability and unique testimony")
     _check(bool(scene.story_flags.get("world_shortcut_salt_return", false)), "restart restores permanent salt shortcut")
-    _check(str(scene.config.id) == "demo_ch01_moss_bell_court" and scene.player.position.x < 500, "restart restores last region at its remembered bell shrine")
-    _check(damage_events>0 and heals>0, "replay includes real damage and paid-energy healing")
-    _check(deaths==0, "three-region replay completes without death or state repair")
+    _check(str(scene.config.id) == "demo_ch02_rain_foundry_canal" and scene.player.position.distance_to(Vector2(2990,1200))<90, "restart restores canal at the actual rested shrine")
+    _check(preload("res://scripts/pilgrimage_cartography.gd").owned(scene.story_flags,String(scene.config.id)) and preload("res://scripts/pilgrimage_cartography.gd").has_quill(scene.story_flags),"restart retains paid map and quill")
+    _check(scene.currency_count==saved_wallet,"restart retains the earned wallet after actual purchases")
+    _check(scene.inventory_counts==earned_inventory,"World recreation retains all earned item counts")
+    _check(damage_events>0 and heals>0,"journey includes actual damage and energy-paid healing")
+    _check(purchases==2,"both paid purchases were confirmed by inventory and price changes")
+    _check(deaths==0,"damage-enabled return completes without death or state repair")
     _release()
     scene.queue_free()
     scene=null
     for unused in 10: await process_frame
-    print("WORLD_DAMAGE_ROUTE_PLAYBACK steps=%d physics_frames=%d damage_events=%d heals=%d deaths=%d failures=%d damage_suppression=false" % [steps,frames,damage_events,heals,deaths,failures])
+    print("DAMAGE_ROUTE_RESTART_PROOF "+JSON.stringify(proof))
+    print("WORLD_DAMAGE_ROUTE_PLAYBACK steps=%d physics_frames=%d damage_events=%d heals=%d deaths=%d purchases=%d charted=true failures=%d damage_suppression=false" % [steps,frames,damage_events,heals,deaths,purchases,failures])
     quit(0 if failures == 0 else 1)
 
 func _tick(count: int = 1) -> void:
@@ -102,8 +141,8 @@ func _tick(count: int = 1) -> void:
         frames += 1
         if is_instance_valid(scene) and is_instance_valid(scene.player):
             assert(not scene.player.debug_invulnerable)
-            if not scene.world_loading and String(scene.config.id) == last_region and scene.player.hp < last_hp:
-                damage_events += 1
+            if not scene.world_loading and String(scene.config.id)==last_region and scene.player.hp<last_hp:
+                damage_events+=1
             if scene.player.hp != last_hp or String(scene.config.id) != last_region or scene.currency_count != last_wallet or scene.inventory_counts != last_inventory:
                 print("DAMAGE_ROUTE_STATE ",JSON.stringify({"frame":frames,"region":String(scene.config.id),"position":[scene.player.position.x,scene.player.position.y],"hp":scene.player.hp,"energy":scene.player.energy,"wallet":scene.currency_count,"passage":scene.world_passage.active,"loading":scene.world_loading,"phase":scene.world_loader.phase,"inventory":scene.inventory_counts}))
                 if scene.player.hp==0:deaths+=1
@@ -126,6 +165,15 @@ func _walk(target: Vector2, label: String, obstruction: bool = false, immediate_
         Input.action_press("jump")
         jump_hold = 45
     for frame in range(700):
+        if scene.world_passage.active:
+            if target.distance_to(scene.world_passage.source_point)<90:
+                _release()
+                print("WALK %s deliberately entered its authored mouth" % label)
+                return
+            _check(false,"unexpected automatic passage during local walk: " + String(scene.world_passage.route.get("id","")))
+            quit(1)
+            await process_frame
+            return
         var player: CharacterBody2D = scene.player
         var dx: float = target.x - player.global_position.x
         var rise: float = player.global_position.y - target.y
@@ -160,6 +208,10 @@ func _walk(target: Vector2, label: String, obstruction: bool = false, immediate_
             if (rise > 25 and absf(dx)<165) or (gap and absf(dx)>50) or (player.is_on_wall() and absf(dx)>30):
                 Input.action_press("jump")
                 jump_hold = 45
+        elif player.wall_grip_unlocked and player.is_on_wall() and absf(dx)>30 and player.hurt_timer<=0:
+            Input.action_press("jump")
+            jump_hold=30
+            print("DAMAGE_ROUTE_WALL_JUMP ",player.global_position)
         elif player.double_jump_unlocked and rise > 50 and player.velocity.y > -100 and player.air_jump_available and jump_hold == 0 and jump_rearm == 0:
             Input.action_press("jump")
             jump_hold = 35
@@ -171,6 +223,7 @@ func _walk(target: Vector2, label: String, obstruction: bool = false, immediate_
         if frame % 150 == 149:
             print("WALK pending %s target=%s position=%s velocity=%s floor=%s" % [label,str(target),str(player.global_position),str(player.velocity),str(player.is_on_floor())])
     _release()
+    print("DAMAGE_ROUTE_BLOCKED overlay=%s floor=%s wall=%s velocity=%s jump=%s heal=%s attack=%s" % [scene.active_overlay,scene.player.is_on_floor(),scene.player.is_on_wall(),scene.player.velocity,Input.is_action_pressed("jump"),scene.player.heal_timer,scene.player.attack_timer])
     _check(false,"route failed: %s target=%s actual=%s" % [label,str(target),str(scene.player.global_position)])
     quit(1)
     await process_frame
@@ -271,5 +324,117 @@ func _recover() -> void:
     for frame in 90:
         if scene.player.heal_timer<=0:break
         await _tick()
-    if scene.player.hp>before_hp and scene.player.energy<before_energy: heals+=1
+    if scene.player.hp>before_hp and scene.player.energy<before_energy:heals+=1
     print("DAMAGE_ROUTE_HEAL_COMPLETED ",JSON.stringify({"frame":frames,"before_hp":before_hp,"after_hp":scene.player.hp,"before_energy":before_energy,"after_energy":scene.player.energy}))
+
+func _world_interact() -> void:
+    _release()
+    await _tick(3)
+    Input.action_press("interact")
+    await process_frame
+    await _tick(3)
+    Input.action_release("interact")
+    await process_frame
+    await _tick(4)
+
+func _key(code: int, dialog: Window) -> void:
+    var event:=InputEventKey.new()
+    event.keycode=code
+    event.physical_keycode=code
+    event.window_id=dialog.get_window_id() if dialog.visible and not dialog.is_embedded() else root.get_window_id()
+    event.pressed=true
+    Input.parse_input_event(event)
+    Input.flush_buffered_events()
+    await process_frame
+    await process_frame
+    event=event.duplicate()
+    event.pressed=false
+    Input.parse_input_event(event)
+    Input.flush_buffered_events()
+    await process_frame
+    await process_frame
+
+func _buy_map_and_quill() -> void:
+    const CARTOGRAPHY=preload("res://scripts/pilgrimage_cartography.gd")
+    const SHOP=preload("res://scripts/cartography_runtime.gd")
+    var before: int=scene.currency_count
+    _check(before>=40 and not CARTOGRAPHY.owned(scene.story_flags,String(scene.config.id)) and not CARTOGRAPHY.has_quill(scene.story_flags),"earned route income funds the previously missed map and quill")
+    await _world_interact()
+    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    _check(dialog.visible and dialog.get_ok_button().has_focus(),"F opens seller with an affordable map selected")
+    await _key(KEY_ENTER,dialog)
+    await _tick(4)
+    _check(CARTOGRAPHY.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==before-30,"Enter buys the canal map at its real price")
+    if CARTOGRAPHY.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==before-30:purchases+=1
+    await _world_interact()
+    var quill: Button=dialog.find_child("MapSellerQuill",true,false)
+    for attempt in 12:
+        if quill.has_focus():break
+        await _key(KEY_TAB,dialog)
+    _check(quill.has_focus(),"Tab navigation reaches the affordable quill button")
+    await _key(KEY_ENTER,dialog)
+    await _tick(4)
+    _check(CARTOGRAPHY.has_quill(scene.story_flags) and scene.currency_count==before-40,"Enter buys the quill with earned currency")
+    if CARTOGRAPHY.has_quill(scene.story_flags) and scene.currency_count==before-40:purchases+=1
+    _check(not SHOP.owns_tool(scene,"compass"),"route has not granted or bought a compass")
+    print("DAMAGE_ROUTE_PURCHASE wallet_before=%d wallet_after=%d navigation_assist=%s" % [before,scene.currency_count,str(scene.ui_shell.get_accessibility("navigation_assist",false))])
+    await _key(KEY_ESCAPE,dialog)
+    await _tick(6)
+    _check(String(scene.active_overlay).is_empty(),"Escape returns from seller to normal exploration")
+    if failures>0:
+        quit(1)
+        await process_frame
+
+func _inspect_map_without_position() -> void:
+    _release()
+    Input.action_press("map")
+    await process_frame
+    await _tick(3)
+    Input.action_release("map")
+    await process_frame
+    _check(scene.active_overlay=="map" and scene.map_panel.visible,"normal map input opens the purchased region")
+    _check(scene.map_draw_root.get_node_or_null("SurveyPlayerMarker")==null and scene.map_text.text.contains("无罗盘"),"purchased map renders without a position marker")
+    Input.action_press("close_overlay")
+    await process_frame
+    await _tick(3)
+    Input.action_release("close_overlay")
+    await process_frame
+    _check(scene.active_overlay.is_empty() and not scene.player.ui_input_locked,"normal close input returns to exploration")
+
+func _verify_process_restart(proof: Dictionary) -> void:
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(OS.get_process_id()!=int(proof.get("pid",-1)),"restart uses a different engine process")
+    _check(String(scene.config.id)==String(proof.region) and String(scene.active_save_point_id)==String(proof.checkpoint),"fresh engine process restores the actual rested region and checkpoint")
+    _check(scene.player.position.distance_to(Vector2(2990,1200))<90,"fresh process resumes at the rested aqueduct shrine")
+    _check(scene.currency_count==int(proof.wallet),"fresh process restores the exact earned wallet after payment")
+    _check(_inventory_matches(scene.inventory_counts,proof.inventory),"fresh process restores every earned item count")
+    _check(JOURNAL.owned(scene.story_flags,String(proof.region)) and JOURNAL.has_quill(scene.story_flags),"fresh process restores the paid canal map and quill")
+    var charted: Dictionary=JOURNAL.region(scene.story_flags,String(proof.region)).charted
+    var retained: bool=not proof.charted.is_empty()
+    for key in proof.charted:
+        retained=retained and bool(charted.get(key,false))
+    _check(retained,"fresh process retains all charted travel notes")
+    _check(bool(scene.story_flags.get("world_shortcut_salt_return",false)),"fresh process restores the unlocked salt return shortcut")
+    _check(not SHOP_RUNTIME.owns_tool(scene,"compass") and not SHOP_RUNTIME.shows_position(scene),"fresh process has no unearned compass or position assist")
+    await _inspect_map_without_position()
+    _release()
+    scene.queue_free()
+    scene=null
+    for unused in 10:await process_frame
+    print("WORLD_DAMAGE_ROUTE_PROCESS_RESTART failures=%d pid=%d" % [failures,OS.get_process_id()])
+    quit(0 if failures==0 else 1)
+
+func _inventory_matches(actual: Dictionary, serialized: Dictionary) -> bool:
+    # JSON decodes numeric counts as floats. Compare every key and exact value
+    # without weakening the check through truncation or adding missing items.
+    if actual.size()!=serialized.size():return false
+    for key in actual:
+        if not serialized.has(key) or typeof(serialized[key]) not in [TYPE_INT,TYPE_FLOAT]:return false
+        if actual[key]!=serialized[key]:return false
+    return true

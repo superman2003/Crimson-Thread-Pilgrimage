@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replay a damage-enabled three-region input route against frozen sources.
+"""Replay an earned map/quill journey and verify a fresh engine process restart.
 
 This optional real-GL playback is separate from the default component suites.
 It is not a campaign completion, human usability test or frame-rate benchmark.
@@ -21,7 +21,8 @@ from software_gl import software_gl
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = 'godot/scripts/world_damage_route_playback.gd'
-MARKER = r'^WORLD_DAMAGE_ROUTE_PLAYBACK steps=\d+ physics_frames=\d+ damage_events=[1-9]\d* heals=[1-9]\d* deaths=0 failures=0 damage_suppression=false$'
+MARKER = r'^WORLD_DAMAGE_ROUTE_PLAYBACK steps=\d+ physics_frames=\d+ damage_events=[1-9]\d* heals=[1-9]\d* deaths=0 purchases=2 charted=true failures=0 damage_suppression=false$'
+RESTART_MARKER = r'^WORLD_DAMAGE_ROUTE_PROCESS_RESTART failures=0 pid=(\d+)$'
 
 
 def freeze():
@@ -48,7 +49,9 @@ def main():
     (logs / 'playback.gd.txt').write_bytes((ROOT / SCRIPT).read_bytes())
     (logs / 'runner.py.txt').write_bytes(Path(__file__).read_bytes())
     started = time.monotonic()
-    code, timed_out = None, False
+    code, restart_code, timed_out = None, None, False
+    restart_command = None
+    proof = None
     display = nullcontext({}) if args.native_gl else software_gl(logs / 'display')
     with tempfile.TemporaryDirectory(prefix='pilgrimage-damage-route-') as scratch, display as renderer_env:
         env = dict(os.environ, **renderer_env, XDG_DATA_HOME=scratch)
@@ -59,20 +62,47 @@ def main():
                 code = subprocess.run(command, env=env, stdout=output, stderr=subprocess.STDOUT, timeout=180, check=False).returncode
             except subprocess.TimeoutExpired:
                 timed_out = True
+        first_output = (logs / 'runtime.log').read_text(encoding='utf-8', errors='replace')
+        first_plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', first_output)
+        proof_line = re.search(r'^DAMAGE_ROUTE_RESTART_PROOF (\{.*\})$', first_plain, re.MULTILINE)
+        if proof_line:
+            try:
+                proof = json.loads(proof_line.group(1))
+            except json.JSONDecodeError:
+                proof = None
+        # Retain the original total 180-second deadline across both processes.
+        # No restart can turn a failed first leg into accepted evidence.
+        if code == 0 and not re.search(r'^\s*(?:SCRIPT ERROR:|ERROR:)', first_plain, re.MULTILINE) and re.search(MARKER, first_plain, re.MULTILINE) and isinstance(proof, dict):
+            remaining = 180 - (time.monotonic() - started)
+            if remaining <= 0:
+                timed_out = True
+            else:
+                restart_command = command + ['--', '--damage-restart-proof=' + json.dumps(proof, ensure_ascii=False, separators=(',', ':'))]
+                with (logs / 'restart.log').open('w', encoding='utf-8') as output:
+                    try:
+                        restart_code = subprocess.run(restart_command, env=env, stdout=output, stderr=subprocess.STDOUT, timeout=remaining, check=False).returncode
+                    except subprocess.TimeoutExpired:
+                        timed_out = True
     after = freeze()
     (logs / 'source-after.json').write_text(json.dumps(after, indent=2)+'\n', encoding='utf-8')
-    output = (logs / 'runtime.log').read_text(encoding='utf-8', errors='replace')
+    restart_output = (logs / 'restart.log').read_text(encoding='utf-8', errors='replace') if restart_command else ''
+    output = first_output + '\n' + restart_output
     plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
     errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', plain, re.MULTILINE)
     marker = re.search(MARKER, plain, re.MULTILINE)
+    restart_marker = re.search(RESTART_MARKER, re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', restart_output), re.MULTILINE)
+    restart_observation = re.search(r'^WORLD_DAMAGE_ROUTE_PROCESS_RESTART failures=\d+ pid=(\d+)$', re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', restart_output), re.MULTILINE)
+    different_process = bool(restart_observation and proof and int(restart_observation.group(1)) != int(proof.get('pid', -1)))
     result = dict(date=datetime.datetime.now().astimezone().isoformat(),
                   head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                   command=command, seconds=round(time.monotonic()-started, 2), timeout_seconds=180,
-                  exit=code, timed_out=timed_out, engine_errors=errors,
+                  exit=code, restart_exit=restart_code, restart_command=restart_command,
+                  different_process=different_process, timed_out=timed_out, engine_errors=errors,
                   objectdb_warnings=plain.count('ObjectDB instances leaked'),
                   source_files=len(before), source_unchanged=before == after,
                   completion=marker.group(0) if marker else None,
-                  passed=code == 0 and not timed_out and not errors and bool(marker) and before == after)
+                  restart_completion=restart_marker.group(0) if restart_marker else None,
+                  passed=code == 0 and restart_code == 0 and different_process and not timed_out and not errors and bool(marker) and before == after)
     (logs / 'verification.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result['passed'] else 1
