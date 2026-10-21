@@ -310,6 +310,13 @@ var last_attack_id := ""
 const MAX_SIMULTANEOUS_ATTACKERS := 2
 const ATTACKER_COORDINATION_RADIUS := 560.0
 const TARGET_MEMORY_SECONDS := 2.4
+## B01 species roles (original_creature_combat.json tactical_role). Most roles
+## keep the shared decision layer; ambush, alarm and guard change who engages,
+## who is told and where a lost target is searched for.
+const TACTICAL_ROLES := ["patrol", "ambush", "guard", "ranged", "aerial", "alarm", "boss"]
+const AMBUSH_TRIGGER_RANGE := 150.0
+const ALARM_RADIUS := 420.0
+const ALARM_COOLDOWN := 8.0
 const ATTACK_ROLES := {
     "anti_air": ["nova", "fan", "projectile", "mortar"],
     "counter": ["guard", "retreat", "feint", "blink", "melee", "combo"],
@@ -323,6 +330,10 @@ var attack_repeat_count := 0
 var waiting_for_turn := false
 var last_seen_position := Vector2.ZERO
 var memory_timer := 0.0
+var tactical_role := "patrol"
+var alarm_cooldown := 0.0
+## Allies told by this actor's most recent alarm (diagnostic, not gameplay).
+var alarm_alerted := 0
 var patrol_direction := 1
 var patrol_pause_timer := 0.0
 var recent_hit_times: Array[float] = []
@@ -498,6 +509,8 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
+    tactical_role = "boss" if is_boss else String(ai_profile.get("tactical_role", "patrol"))
+    if not TACTICAL_ROLES.has(tactical_role): tactical_role = "patrol"
 
 
 func _apply_elite_profile(elite: Dictionary) -> void:
@@ -649,6 +662,8 @@ func get_ai_debug_state() -> Dictionary:
         "attack_desire_threshold": _attack_desire_threshold(),
         "last_player_command": last_player_command,
         "last_ai_decision": last_ai_decision,
+        "tactical_role": tactical_role,
+        "alarm_alerted": alarm_alerted,
         "last_attack_id": last_attack_id,
         "reads_player_commands": true,
         "command_read_count": command_read_count,
@@ -672,6 +687,7 @@ func _tick_timers(delta: float) -> void:
     contact_timer = maxf(0.0, contact_timer - delta)
     ai_clock += delta
     memory_timer = maxf(0.0, memory_timer - delta)
+    alarm_cooldown = maxf(0.0, alarm_cooldown - delta)
     poise_timer = maxf(0.0, poise_timer - delta)
     poise_cooldown = maxf(0.0, poise_cooldown - delta)
     backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
@@ -782,6 +798,9 @@ func reset_for_respawn() -> void:
     boss_reposition_target_x = spawn_position.x
     engage_announced = false
     boss_phase_shift_played = false
+    memory_timer = 0.0
+    alarm_cooldown = 0.0
+    alarm_alerted = 0
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -854,7 +873,9 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
             global_position.x += step
         return
     var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
-    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range) and _has_line_of_sight(target)
+    var tracking := memory_timer > 0.0
+    var engage_range := _fresh_engage_range(aggro_range) if not tracking else aggro_range
+    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, engage_range) and _has_line_of_sight(target)
     if engaged and not engage_announced:
         _announce_engagement()
     _update_attack_desire(delta, target, engaged)
@@ -863,6 +884,8 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
         _return_to_spawn(delta)
         return
     if engaged:
+        if not tracking and tactical_role == "alarm" and alarm_cooldown <= 0.0:
+            _raise_alarm(target)
         last_seen_position = target.global_position
         memory_timer = TARGET_MEMORY_SECONDS
         if _try_start_attack(target):
@@ -871,10 +894,68 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
         return
     waiting_for_turn = false
     if memory_timer > 0.0 and not is_boss:
+        if tactical_role == "guard":
+            # A guard does not leave its post to search; it resumes watch.
+            _return_to_post(delta, "hold_post")
+            return
         _investigate(delta)
+        return
+    if tactical_role == "ambush":
+        _return_to_post(delta, "lurk")
         return
     last_ai_decision = "patrol"
     _patrol(delta)
+
+
+## An ambusher reveals itself only once the player is close; after that, and
+## for every role while tracking, the species' ordinary aggro range applies.
+func _fresh_engage_range(aggro_range: float) -> float:
+    if tactical_role != "ambush":
+        return aggro_range
+    return minf(aggro_range, float(ai_profile.get("ambush_trigger_range", AMBUSH_TRIGGER_RANGE)))
+
+
+## Ambushers and guards wait at their spawn instead of patrolling or searching.
+func _return_to_post(delta: float, waiting_decision: String) -> void:
+    var dx := spawn_position.x - global_position.x
+    if locomotion == "stationary" or absf(dx) <= 6.0:
+        last_ai_decision = waiting_decision
+        _set_enemy_animation("idle")
+        return
+    last_ai_decision = "return_post"
+    direction = -1 if dx < 0.0 else 1
+    _set_sprite_flip(direction < 0)
+    position.x += direction * minf(absf(dx), _movement_speed() * 0.6 * delta)
+    _clamp_movement_bounds()
+    _set_enemy_animation("walk")
+
+
+## Bells, horns and banners tell nearby idle allies where the player was seen.
+## Allies still need their own line of sight to engage and keep their leash.
+func _raise_alarm(target: CharacterBody2D) -> void:
+    alarm_cooldown = ALARM_COOLDOWN
+    alarm_alerted = 0
+    for node in get_tree().get_nodes_in_group("enemy"):
+        if node == self or not is_instance_valid(node) or node.is_queued_for_deletion() or not node.has_method("hear_alarm"):
+            continue
+        if node.has_method("world_residency_active") and not node.world_residency_active():
+            continue
+        if (node as Node2D).global_position.distance_to(global_position) > ALARM_RADIUS:
+            continue
+        if node.hear_alarm(target.global_position):
+            alarm_alerted += 1
+
+
+func hear_alarm(seen_at: Vector2) -> bool:
+    if is_boss or dying or memory_timer > 0.0 or state in ["windup", "active", "recover"]:
+        return false
+    # Search toward the call, but only to the edge of this actor's own territory.
+    last_seen_position = seen_at
+    if leash_radius > 0.0:
+        var reach := maxf(0.0, leash_radius - 20.0)
+        last_seen_position.x = clampf(seen_at.x, spawn_position.x - reach, spawn_position.x + reach)
+    memory_timer = TARGET_MEMORY_SECONDS
+    return true
 
 
 func _investigate(delta: float) -> void:
