@@ -1,5 +1,9 @@
 # 升级任务台账：以可玩验收为完成标准
 
+## 2026-10-21：正常收入购图、补绘与完整进程重启（T04 子项）
+
+修复同帧起跳误入自动管道，以及商店 Tab 焦点被背包快捷键抢走／关闭后回放按住 F9 的问题。新档开启伤害：能力与证词回访后以沿路 48 碎钱支付渠图 30＋绘针 10，继续到钟龛补绘 7 条笔记并打开无定位地图；42 步、4 次扣血、4 次耗能疗伤、0 死亡。完整退出后用另一 Godot 进程读档，钱包 24、全部物品／地图／补绘／捷径恢复；8682 份源冻结一致，两个进程零 ERROR／泄漏警告。错误预期钱包与小数材料数均被拒绝。六区、多顺序、多契印及人工验收仍待完成，不关闭 T04。见[本批报告](report/20261021_t04_cartography_journey.md)。
+
 ## 2026-10-21：headless 下后台纹理加载就地执行，消除 Dummy 渲染器 RID 竞争（T03 子项）
 
 导出包 headless 启动检查偶发 `Initializing already initialized RID`：Godot 4.6.1 Dummy 渲染器的纹理 RID 表不是线程安全的，后台纹理任务与主线程同时建纹理会损坏它。`BackgroundResourceJob` 与 `PlayerArtWarmJob` 在 headless 时改为调用方就地加载并按原所有者约定交出结果，GL 下仍走后台线程。新增默认套件 `background_texture_contention`：去掉修复时 headless 4/4 失败，修复后 headless 5/5、真实 GL 2/2 通过；相关预热、退出与启动预算套件两种渲染器均通过。见[报告](report/20261021_t03_headless_texture_race.md)。

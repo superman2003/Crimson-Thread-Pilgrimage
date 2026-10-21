@@ -1,0 +1,1 @@
+此目录保留输入原型的失败和诊断输出。diagnostic_buy 系列从同一份既有旅途副本开始，仅用于定位路径、商店焦点和危险区跳跃，不是新档验收。09/10 为新档探索失败记录。prototype runner 的 source_before/after 只涵盖其中列出的五份文件，不代替最终全项目冻结记录；正式证据见 final_native_02。原始 gzip 字节的 SHA256 见 manifest.json。
