@@ -1,0 +1,26 @@
+import pathlib,subprocess,os,json,time,hashlib,re,datetime
+root=pathlib.Path.cwd();out=root/'artifacts/u04_pin_boundaries';engine=pathlib.Path(os.environ['TEMP'])/'ctp-godot-4.6.1/Godot_v4.6.1-stable_win64.exe'
+sources=['godot/scripts/map_player_pins_runtime.gd','godot/scripts/map_pin_layout_checks.gd','godot/scripts/survey_map_knowledge_validation.gd']
+markers=json.loads((root/'tools/godot_suite_success_markers.json').read_text(encoding='utf-8'))
+def hashes():return {f:hashlib.sha256((root/f).read_bytes()).hexdigest() for f in sources}
+def run(key,args,marker,negative=False):
+ folder=out/key;folder.mkdir(exist_ok=True);start=time.monotonic();before=hashes();print('Running '+key,flush=True)
+ with (folder/'runtime.log').open('w',encoding='utf-8') as log:
+  r=subprocess.run([str(engine),'--path',str(root/'godot'),'--audio-driver','Dummy','--position','-32000,-32000',*args],stdout=log,stderr=subprocess.STDOUT,timeout=180,creationflags=subprocess.CREATE_NO_WINDOW)
+ text=(folder/'runtime.log').read_text(encoding='utf-8');errors=re.findall(r'^\s*(?:ERROR:|SCRIPT ERROR:).*$',text,re.M)
+ if negative:
+  accepted=('real Label rectangles','visible real-font rectangles','every far label','actually generate leaders')
+  good=r.returncode==1 and bool(errors) and not any('SCRIPT ERROR:' in x for x in errors) and all(any(s in x for s in accepted) for x in errors) and bool(re.search(r'^SURVEY_MAP_KNOWLEDGE checks=\d+ failures=[1-9]\d*$',text,re.M))
+ else:good=r.returncode==0 and not errors and bool(re.search(marker,text,re.M))
+ result={'date':datetime.datetime.now().astimezone().isoformat(),'base':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'uncommitted_source':True,'engine':'Godot 4.6.1 Windows native NVIDIA GL','seconds':round(time.monotonic()-start,2),'exit':r.returncode,'passed':good,'expected_rejection':negative,'engine_errors':errors,'objectdb_warnings':text.count('ObjectDB instances leaked'),'sources_sha256':before}
+ (folder/'verification.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');assert hashes()==before,'sources changed while running'
+ print({k:result[k] for k in ['seconds','exit','passed','expected_rejection','objectdb_warnings']},flush=True)
+ if not good:print(text[-6000:],flush=True);raise RuntimeError(key+' failed')
+runtime=root/sources[0];fixed=runtime.read_bytes();fixed_sha=hashlib.sha256(fixed).hexdigest();baseline=subprocess.check_output(['git','show','61b9ec8e7472f95ba5b8da56c97007a9829556ce:'+sources[0]])
+try:
+ runtime.write_bytes(baseline)
+ run('mutation_old_final_helper',['--script','res://scripts/survey_map_knowledge_validation.gd'],None,True)
+finally:
+ runtime.write_bytes(fixed)
+ assert hashlib.sha256(runtime.read_bytes()).hexdigest()==fixed_sha
+ (out/'old_final_restored.json').write_text(json.dumps({'restored_sha256':fixed_sha,'baseline_sha256':hashlib.sha256(baseline).hexdigest(),'restored_byte_for_byte':True},indent=2)+'\n',encoding='utf-8')
