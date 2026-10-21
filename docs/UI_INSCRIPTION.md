@@ -40,4 +40,4 @@ godot --path godot --script res://scripts/capture_inscription_ui.gd -- --capture
 
 截图使用隔离的展示进度，预置获得、配装、碎钱与部分补绘房间；不代表自然游玩获得或通关结果，不读取玩家主存档。截图脚本结束时删除展示存档。
 
-验证：资源导入（recovery mode，不加载编辑器插件）、`ui_redesign`、`ui_world_integration`、`ui_build_accessibility`、`input_prompt`、`seal_ui`、`build_slots_ui`、`world_map`、`inventory_map`、`cartography`。`build_slots_ui` 在真实 OpenGL 渲染下验证；无图形后端的 Godot 4.6 在其截图步骤会报告空纹理。
+验证使用 Godot 4.6.1：两次资源导入（recovery mode，不加载编辑器插件）、`global_font`（217 项）、`ui_redesign`、`ui_world_integration`、`ui_build_accessibility`、`input_prompt`、`settings_remap`、`seal_ui`、`build_slots_ui`、`world_map`、`map_player_pins`、`survey_map_knowledge`、`artisan_crafts`、`save_recovery`、`cartography`。`build_slots_ui` 和 `cartography` 在真实 OpenGL 渲染下通过，后者共 4,229 项；无图形后端的截图步骤可能报告空纹理。12 张预览均已在当前分支实机重新采集，捕获脚本退出成功，无引擎报错。

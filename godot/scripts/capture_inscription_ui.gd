@@ -39,7 +39,9 @@ func capture() -> void:
     world.set_process(false)
     for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
     for table in ["crests","skills","tools","passives"]:
-        for item in world.build_system.catalog[table].values():world.story_flags[String(item.unlock_flag)]=true
+        for item in world.build_system.catalog[table].values():
+            var flag := String(item.get("unlock_flag",""))
+            if not flag.is_empty():world.story_flags[flag]=true
     world._sync_player_build()
     world.build_system.select_skill("cleave",0)
     world.build_system.select_skill("needle",1)
