@@ -88,7 +88,7 @@ func resource_job_lifecycle() -> void:
             break
         var result: Dictionary = worker.take()
         var loaded := result.get("resource") as Resource
-        check(not bool(result.get("worker_is_main", true)), "resource decoding runs off main thread")
+        check(bool(result.get("worker_is_main", true)) != RESOURCE_JOB.off_thread_loading_safe(), "resource decoding runs off main thread, or inline under the headless Dummy renderer")
         check(loaded != null and loaded.get_meta("payload") == PackedInt32Array([3, 5, 8]), "claimed resource preserves actual payload")
         check(worker._thread == null and worker.take().is_empty(), "completed thread joined exactly once")
     check(worker.start(PATH, "", ResourceLoader.CACHE_MODE_IGNORE) == OK, "start owner teardown fixture")

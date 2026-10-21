@@ -1,5 +1,9 @@
 # 升级任务台账：以可玩验收为完成标准
 
+## 2026-10-21：headless 下后台纹理加载就地执行，消除 Dummy 渲染器 RID 竞争（T03 子项）
+
+导出包 headless 启动检查偶发 `Initializing already initialized RID`：Godot 4.6.1 Dummy 渲染器的纹理 RID 表不是线程安全的，后台纹理任务与主线程同时建纹理会损坏它。`BackgroundResourceJob` 与 `PlayerArtWarmJob` 在 headless 时改为调用方就地加载并按原所有者约定交出结果，GL 下仍走后台线程。新增默认套件 `background_texture_contention`：去掉修复时 headless 4/4 失败，修复后 headless 5/5、真实 GL 2/2 通过；相关预热、退出与启动预算套件两种渲染器均通过。见[报告](report/20261021_t03_headless_texture_race.md)。
+
 ## 2026-10-21：密集图钉纸内布局与真实落点引线（U04 子项）
 
 六区 639 组合法密集图钉基线中，实际字体有 128 组文字框出界；现在按真实尺寸排布并限制在地图纸内，超距号码以细引线指向原投影点。区域／总览与普通／旧大编号共 2,556 组、最终四套原生 GL 断言通过，两种反向检查会拒绝；退出警告仍保留。#166 的旅记分类与敌人记录已回填，46 项最终验收不关闭。见[本批报告与真实画面](report/20261021_u04_pin_boundaries.md)。
