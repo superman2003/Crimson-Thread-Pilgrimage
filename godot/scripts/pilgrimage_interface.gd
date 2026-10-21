@@ -136,6 +136,16 @@ func bind(runtime: Node) -> void:
 static func build_steps() -> Array[String]:
     return ["_build_hud", "_build_bag", "_build_dialogue", "_build_settings", "_build_build_panel"]
 
+## Inscribed title artwork is 1-2 MB per image. Each region rebuilds the UI
+## shell, and freeing the old one released these textures, so every transition
+## decoded them from disk again (~30 ms each; T03). Keep one shared copy.
+static var _inscription_marks: Dictionary = {}
+
+static func inscription_mark(id: String) -> Texture2D:
+    if not _inscription_marks.has(id):
+        _inscription_marks[id] = load("res://assets/ui/inscription/v2/%s.png" % id)
+    return _inscription_marks[id]
+
 static func survey_font() -> FontFile:
     # Keep the zoomable map's glyph cache across region-owned HUD lifetimes.
     # The shared font retains no level, node or signal references.
@@ -185,9 +195,12 @@ func finish_bind() -> void:
     set_process(true)
     set_process_input(true)
 
+## Styles and geometry are set while the control is outside the tree (cheap:
+## no text to shape yet); text is assigned only after it joins the tree. Text
+## shaped outside the tree costs ~4 ms per control, which made each region's UI
+## rebuild stall for 100+ ms in one loading step (T03).
 func _label(parent: Node, text: String, position_value: Vector2, size_value: Vector2, font_size: int=18, tint: Color=IVORY) -> Label:
     var label:=Label.new()
-    label.text=text
     label.position=position_value
     label.size=size_value
     label.add_theme_font_size_override("font_size",font_size)
@@ -198,6 +211,7 @@ func _label(parent: Node, text: String, position_value: Vector2, size_value: Vec
     label.add_theme_color_override("font_color",tint)
     label.mouse_filter=Control.MOUSE_FILTER_IGNORE
     parent.add_child(label)
+    label.text=text
     return label
 
 func _style(tint: Color, border: Color, width: int=1) -> StyleBoxFlat:
@@ -231,7 +245,6 @@ func _tab_style(selected: bool) -> StyleBoxFlat:
 
 func _button(parent: Node, text: String, position_value: Vector2, size_value: Vector2, action: Callable) -> Button:
     var button:=INSCRIBED_BUTTON.new()
-    button.text=text
     button.position=position_value
     button.size=size_value
     button.add_theme_font_size_override("font_size",17)
@@ -246,6 +259,7 @@ func _button(parent: Node, text: String, position_value: Vector2, size_value: Ve
     button.focus_mode=Control.FOCUS_ALL
     button.pressed.connect(action)
     parent.add_child(button)
+    button.text=text
     return button
 
 func _panel(parent: Node, title: String, position_value: Vector2, size_value: Vector2) -> ColorRect:
@@ -260,7 +274,7 @@ func _panel(parent: Node, title: String, position_value: Vector2, size_value: Ve
     var marks := {"契印与构筑":["seal","行装与构筑"],"巡礼行囊":["inventory","器物与旧物"],"设置与无障碍":["settings","声音与无障碍"]}
     if marks.has(title):
         var mark: Array=marks[title]
-        var title_mark:=_icon(root,load("res://assets/ui/inscription/v2/%s.png" % mark[0]),Vector2(26,5),Vector2(166,82))
+        var title_mark:=_icon(root,inscription_mark(String(mark[0])),Vector2(26,5),Vector2(166,82))
         title_mark.name="InscribedTitle"
         var subtitle:=_label(root,String(mark[1]),Vector2(198,24),Vector2(310,28),18,GOLD)
         subtitle.name="InscriptionSubtitle"
@@ -541,7 +555,7 @@ func refresh_inventory() -> void:
     finish_inventory_refresh()
 
 func begin_inventory_refresh() -> void:
-    (bag.get_node("InscribedTitle") as TextureRect).texture=load("res://assets/ui/inscription/v2/%s.png" % ("journal" if bag_category=="旅记" else "inventory"))
+    (bag.get_node("InscribedTitle") as TextureRect).texture=inscription_mark("journal" if bag_category=="旅记" else "inventory")
     (bag.get_node("InscriptionSubtitle") as Label).text="证词与心愿" if bag_category=="旅记" else "器物与旧物"
     for node in bag_grid.get_children():
         bag_grid.remove_child(node)
@@ -786,6 +800,7 @@ func _accessibility_slider(key: String, title: String, point: Vector2, minimum: 
 
 func _accessibility_toggle(key: String, title: String, point: Vector2) -> void:
     var toggle:=CheckButton.new()
+    settings.add_child(toggle)
     toggle.text=title
     toggle.position=point
     toggle.size=Vector2(206,35)
@@ -794,7 +809,6 @@ func _accessibility_toggle(key: String, title: String, point: Vector2) -> void:
         accessibility[key]=value
         _save_accessibility()
         _apply_accessibility())
-    settings.add_child(toggle)
 
 func get_accessibility(key: String, fallback: Variant=null) -> Variant:
     return accessibility.get(key,fallback)
