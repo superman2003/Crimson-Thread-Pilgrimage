@@ -8,7 +8,7 @@
 - 所有实时文字：`godot/assets/fonts/GlobalTypeface.otf`，默认是「缝名刻宋 / Feng Ming Inscription」。菜单、正文、地点、数字、对话、小字提示全部统一，不保留原先正文黑体的例外。
 - 新建控件：继承项目默认字体主题；地图仍使用同一字库的 MSDF 缓存，字幕大小和速度设置保留。
 
-这是派生字体、项目专用字标和 UI 组件的实现；缝名刻宋在开源宋体的曲线字形上加入斜向刻痕，并非从零绘制的完整中文字库。字体遵循 SIL OFL 1.1，随附许可证与来源指纹，见 `THIRD_PARTY_NOTICES.md` 和 `godot/assets/fonts/FengMingInscription.json`。
+这是派生字体、项目专用字标和 UI 组件的实现；缝名刻宋保留上游完整的 44,777 个 Unicode 字符，在中文曲线字形上加入斜向刻痕，并补齐 3 个项目符号，共 44,780 个字符。字库不再按项目现有文本裁剪；字体遵循 SIL OFL 1.1，随附许可证、完整字符范围与来源指纹，见 `THIRD_PARTY_NOTICES.md` 和 `godot/assets/fonts/FengMingInscription.json`。
 
 字标与字体可用以下命令重新生成，需要 fontTools 和上游原始 OTF：
 
@@ -40,4 +40,4 @@ godot --path godot --script res://scripts/capture_inscription_ui.gd -- --capture
 
 截图使用隔离的展示进度，预置获得、配装、碎钱与部分补绘房间；不代表自然游玩获得或通关结果，不读取玩家主存档。截图脚本结束时删除展示存档。
 
-验证使用 Godot 4.6.1：两次资源导入（recovery mode，不加载编辑器插件）、`global_font`（217 项）、`ui_redesign`、`ui_world_integration`、`ui_build_accessibility`、`input_prompt`、`settings_remap`、`seal_ui`、`build_slots_ui`、`world_map`、`map_player_pins`、`survey_map_knowledge`、`artisan_crafts`、`save_recovery`、`cartography`。`build_slots_ui` 和 `cartography` 在真实 OpenGL 渲染下通过，后者共 4,229 项；无图形后端的截图步骤可能报告空纹理。12 张预览均已在当前分支实机重新采集，捕获脚本退出成功，无引擎报错。
+验证使用 Godot 4.6.1：两次资源导入（recovery mode，不加载编辑器插件）、`global_font`、`ui_redesign`、`ui_world_integration`、`ui_build_accessibility`、`input_prompt`、`settings_remap`、`seal_ui`、`build_slots_ui`、`world_map`、`map_player_pins`、`survey_map_knowledge`、`artisan_crafts`、`save_recovery`、`cartography`。`build_slots_ui` 和 `cartography` 在真实 OpenGL 渲染下通过，后者共 4,229 项；无图形后端的截图步骤可能报告空纹理。12 张界面预览的采集方式不变。完整字库的补充截图、字符检查和回归结果位于 `artifacts/inscription_font_full/`；字体实机截图可用 `tools/capture_inscription_font.gd` 复现。

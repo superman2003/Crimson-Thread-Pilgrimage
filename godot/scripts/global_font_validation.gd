@@ -26,12 +26,17 @@ func run() -> void:
     root.add_child(plain)
     check(plain.get_theme_font("font").get_font_name()==FONT.get_font_name(),"New controls inherit the project-wide font without manual overrides")
     plain.free()
+    check(not FONT.allow_system_fallback,"Bundled fonts cover all game text without borrowing installed fonts")
+    check(FONT.get_supported_chars().length()>=44780,"The font retains the full upstream Unicode repertoire")
+    for text in ["创墟迥旌沫笛龘靐齉麤爨灪籲鸞繁體简体↩⊣🔒"]:
+        for index in text.length():check(FONT.has_char(text.unicode_at(index)),"Full font covers "+text[index])
     var world: Node=load("res://scenes/World.tscn").instantiate()
     world.world_resume=false
     world.world_save_path="user://global_font_validation.json"
     root.add_child(world)
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
     inspect_fonts(world.ui_shell)
+    check(world.ui_shell.display_font()==FONT,"HUD and body text share the primary resource instead of a duplicate same-font fallback")
     for text in ["契印行囊旅记地图绯线巡礼","名字不会因为被抹去就从未存在","0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"]:
         for index in text.length():check(FONT.has_char(text.unicode_at(index)),"The actual font covers "+text[index])
     check(world.ui_shell.survey_font().get_font_name()==FONT.get_font_name(),"Map MSDF cache uses the same typeface")

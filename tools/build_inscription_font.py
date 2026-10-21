@@ -7,6 +7,7 @@ are involved, and every existing game character remains searchable/editable.
 """
 from __future__ import annotations
 import json
+import hashlib
 from pathlib import Path
 from fontTools.pens.basePen import BasePen
 from fontTools.pens.areaPen import AreaPen
@@ -42,17 +43,25 @@ class Outline(BasePen):
                 if a[1]<=y<b[1] and cross>0:winding+=1
                 if b[1]<=y<a[1] and cross<0:winding-=1
         return winding!=0
+    def spans(self, y):
+        crossings=[]
+        for contour in self.contours:
+            for a,b in zip(contour,contour[1:]+contour[:1]):
+                if a[1]<=y<b[1] or b[1]<=y<a[1]:
+                    crossings.append((a[0]+(y-a[1])*(b[0]-a[0])/(b[1]-a[1]),1 if b[1]>a[1] else -1))
+        winding=0
+        start=None
+        result=[]
+        for x,direction in sorted(crossings):
+            previous=winding
+            winding+=direction
+            if previous==0 and winding!=0:start=x
+            elif previous!=0 and winding==0 and x-start>=35:result.append((start,x))
+        return result
 
 def incision(outline, seed):
     for y in [330+(seed%5)*39,570-(seed%3)*45,220]:
-        spans=[]
-        start=None
-        for x in range(50,951,5):
-            inside=outline.contains(x,y)
-            if inside and start is None:start=x
-            if not inside and start is not None:
-                if x-start>=35:spans.append((start,x))
-                start=None
+        spans=outline.spans(y)
         for a,b in spans[seed%max(1,len(spans)):]+spans[:seed%max(1,len(spans))]:
             x=(a+b)*.5
             triangle=[(x-9,y-12),(x+11,y+13),(x-5,y-12)]
@@ -60,16 +69,75 @@ def incision(outline, seed):
             if all(outline.contains(px,py) for px,py in triangle):return triangle
     return None
 
+def unicode_ranges(codepoints):
+    ranges=[]
+    for code in sorted(codepoints):
+        if ranges and code==ranges[-1][1]+1:ranges[-1][1]=code
+        else:ranges.append([code,code])
+    return ranges
+
+def add_ui_symbols(font):
+    """Three native monochrome symbols absent from Noto Serif CJK.
+
+    Keep map return/closed-route markers and the lock in this same font instead
+    of depending on OS emoji or other installed fonts.
+    """
+    cff=font['CFF '].cff
+    table=cff.topDictIndex[0]
+    order=font.getGlyphOrder()
+    names=set(order)
+    private=table.FDArray[0].Private
+    for code in (0x21a9,0x22a3,0x1f512):
+        if code in font.getBestCmap():continue
+        cid=next(value for value in range(1,65536) if f'cid{value:05d}' not in names)
+        name=f'cid{cid:05d}'
+        pen=T2CharStringPen(1000-getattr(private,'nominalWidthX',0),None)
+        def polygon(points):
+            pen.moveTo(points[0])
+            for point in points[1:]:pen.lineTo(point)
+            pen.closePath()
+        def rectangle(x,y,w,h,reverse=False):
+            points=[(x,y),(x+w,y),(x+w,y+h),(x,y+h)]
+            polygon(points[::-1] if reverse else points)
+        if code==0x21a9:
+            polygon([(120,360),(350,590),(350,430),(720,430),(720,700),(790,700),(790,360),(350,360),(350,200)])
+        elif code==0x22a3:
+            rectangle(700,100,65,650)
+            rectangle(200,390,500,65)
+        else:
+            rectangle(250,80,500,360)
+            rectangle(320,150,360,220,True)
+            pen.moveTo((330,440));pen.lineTo((330,620))
+            pen.curveTo((330,850),(670,850),(670,620));pen.lineTo((670,440));pen.lineTo((610,440));pen.lineTo((610,620))
+            pen.curveTo((610,765),(390,765),(390,620));pen.lineTo((390,440));pen.closePath()
+        charstring=pen.getCharString(private,cff.GlobalSubrs)
+        table.CharStrings.charStrings[name]=len(table.CharStrings.charStringsIndex)
+        table.CharStrings.charStringsIndex.append(charstring)
+        table.charset.append(name)
+        table.FDSelect.gidArray.append(0)
+        order.append(name)
+        names.add(name)
+        font['hmtx'].metrics[name]=(1000,0)
+        if 'vmtx' in font:font['vmtx'].metrics[name]=(1000,880)
+        for cmap in font['cmap'].tables:
+            if cmap.isUnicode() and (cmap.format==12 or cmap.format==4 and code<=0xffff):cmap.cmap[code]=name
+    font.setGlyphOrder(order)
+    font['maxp'].numGlyphs=len(order)
+
 def main():
-    source=ROOT/'godot/assets/fonts/PilgrimageSerif.otf'
-    output=ROOT/'godot/assets/fonts/FengMingInscription.otf'
+    source=ROOT/'tmp/inscription/PilgrimageSerif.otf'
+    output=ROOT/'tools/font_assets/FengMingInscription.otf'
     font=TTFont(source,recalcTimestamp=False)
+    source_codepoints=set(font.getBestCmap())
+    add_ui_symbols(font)
     glyphs=font.getGlyphSet()
     cff=font['CFF '].cff
     table=cff.topDictIndex[0]
     edited=0
+    processed=set()
     for code,name in font.getBestCmap().items():
-        if code<0x2e80 or code>0x9fff:continue
+        if not (0x2e80<=code<=0x9fff or 0x20000<=code<=0x323af) or name in processed:continue
+        processed.add(name)
         trace=Outline(glyphs)
         glyphs[name].draw(trace)
         cut=incision(trace,code)
@@ -90,17 +158,21 @@ def main():
         shape.closePath()
         table.CharStrings[name]=pen.getCharString(private,cff.GlobalSubrs)
         edited+=1
-    names={1:'Feng Ming Inscription',2:'Regular',3:'FengMingInscription-Regular-2.0',4:'Feng Ming Inscription Regular',6:'FengMingInscription-Regular'}
+    names={1:'Feng Ming Inscription',2:'Regular',3:'FengMingInscription-Regular-3.0',4:'Feng Ming Inscription Regular',6:'FengMingInscription-Regular'}
     for item in font['name'].names:
         if item.nameID in names:item.string=names[item.nameID].encode(item.getEncoding())
     cff.fontNames=['FengMingInscription-Regular']
     table.FamilyName='Feng Ming Inscription'
     table.FullName='Feng Ming Inscription Regular'
+    output.parent.mkdir(parents=True,exist_ok=True)
     font.save(output)
-    manifest={'name':'缝名刻宋 / Feng Ming Inscription','source':'PilgrimageSerif.otf (Noto Serif CJK SC derivative)',
+    assert source_codepoints <= set(TTFont(output).getBestCmap()), 'A full Unicode font is required'
+    manifest={'name':'缝名刻宋 / Feng Ming Inscription','source':'Full Noto Serif CJK SC Unicode repertoire (via tmp/inscription/PilgrimageSerif.otf)',
               'license':'SIL OFL 1.1','characters':len(font.getBestCmap()),'inscribed_characters':edited,
+              'upstream_characters':len(source_codepoints),'required_unicode_ranges':unicode_ranges(font.getBestCmap()),
+              'font_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),
               'note':'Real OpenType font: original Beziers plus restrained diagonal counters; raster lettering remains decorative artwork.'}
-    output.with_suffix('.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    (ROOT/'godot/assets/fonts/FengMingInscription.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(f'Built {output.name}: {edited} incised Chinese characters; {len(font.getBestCmap())} supported characters')
 
 if __name__=='__main__':main()

@@ -10,9 +10,17 @@ on:
       - 'godot/scripts/global_typography.gd'
       - 'godot/scripts/global_font_validation.gd'
       - 'godot/scripts/pilgrimage_*.gd'
+      - 'godot/**/*.gd'
+      - 'godot/**/*.json'
+      - 'godot/**/*.tscn'
+      - 'godot/**/*.tres'
       - 'godot/project.godot'
       - 'tools/*global_font*.py'
       - 'tools/build_inscription*.py'
+      - 'tools/*font_coverage.py'
+      - 'tools/font_assets/**'
+      - 'src/**'
+      - 'index.html'
       - 'package.json'
 
 permissions:

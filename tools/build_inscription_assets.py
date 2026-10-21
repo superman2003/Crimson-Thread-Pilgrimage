@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""Build the game's redistributable serif subset and outlined inscription marks.
+"""Build a full-Unicode serif source and outlined inscription marks.
 
 Source: notofonts/noto-cjk, Serif/OTF/SimplifiedChinese/NotoSerifCJKsc-Regular.otf.
-Pass the upstream OTF as the first argument. fontTools is required. The subset
-keeps the upstream outlines; the project lettering adds vector cuts and thread.
+Pass the upstream OTF as the first argument. fontTools is required. Every
+upstream Unicode character is retained, independently of current game text.
 """
 from __future__ import annotations
 
 import hashlib
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -19,7 +18,7 @@ from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "godot/assets/ui/inscription"
-FONT_OUT = ROOT / "godot/assets/fonts/PilgrimageSerif.otf"
+FONT_OUT = ROOT / "tmp/inscription/PilgrimageSerif.otf"
 WORDS = {"pilgrimage": "绯线巡礼", "seal": "契印", "inventory": "行囊",
          "journal": "旅记", "map": "地图", "settings": "设定"}
 
@@ -57,24 +56,20 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     for name, word in WORDS.items():
         (OUT / f"{name}.svg").write_text(wordmark(font, word), encoding="utf-8")
-    # Text content from runtime sources, plus Latin, numerals, and punctuation.
-    # Font fallback in Godot covers characters introduced by future content.
-    chars = set(chr(value) for value in range(32, 127))
-    chars.update(''.join(WORDS.values()))
-    for folder, directories, files in os.walk(ROOT / "godot"):
-        directories[:]=[name for name in directories if name not in (".godot","addons")]
-        for name in files:
-            path=Path(folder)/name
-            if path.suffix in (".gd",".json",".tscn"):
-                chars.update(path.read_text(encoding="utf-8-sig", errors="replace"))
+    codepoints = set(font.getBestCmap())
     options = subset.Options()
+    # The SC outlines already select the Chinese forms. Drop only unencoded
+    # regional locl alternates to leave room below OpenType's 65,535-glyph limit
+    # for project UI symbols. This does not remove any Unicode character.
+    options.layout_features = [feature for feature in options.layout_features if feature != "locl"]
     options.name_IDs = [0, 1, 2, 3, 4, 5, 6, 13, 14]
     options.name_legacy = True
     options.name_languages = [0x409]
     options.recalc_timestamp = False
     job = subset.Subsetter(options=options)
-    job.populate(unicodes=[ord(c) for c in chars])
+    job.populate(unicodes=codepoints)
     job.subset(font)
+    assert set(font.getBestCmap()) == codepoints, "Full upstream Unicode coverage must be retained"
     for entry in font["name"].names:
         names = {1: "Pilgrimage Serif", 2: "Regular", 3: "PilgrimageSerif-Regular-1.0",
                  4: "Pilgrimage Serif Regular", 6: "PilgrimageSerif-Regular"}
@@ -85,12 +80,14 @@ def main() -> None:
         cff.fontNames = ["PilgrimageSerif-Regular"]
         cff.topDictIndex[0].FamilyName = "Pilgrimage Serif"
         cff.topDictIndex[0].FullName = "Pilgrimage Serif Regular"
+    FONT_OUT.parent.mkdir(parents=True, exist_ok=True)
     font.save(FONT_OUT)
     manifest = {"upstream": "https://github.com/notofonts/noto-cjk/blob/main/Serif/OTF/SimplifiedChinese/NotoSerifCJKsc-Regular.otf",
                 "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
-                "font": "PilgrimageSerif.otf", "license": "SIL OFL 1.1",
+                "font": "tmp/inscription/PilgrimageSerif.otf (build intermediate, not exported)", "license": "SIL OFL 1.1",
                 "glyphs": len(font.getBestCmap()), "wordmarks": WORDS,
-                "note": "Renamed serif subset with unchanged source outlines; project lettering adds cuts, eyelets, and red thread in SVG."}
+                "coverage": "Every Unicode character from the full upstream font; never reduced to current project strings.",
+                "note": "Renamed full-Unicode serif with unchanged source outlines; unencoded regional alternates omitted, project lettering adds cuts, eyelets, and red thread in SVG."}
     (OUT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding="utf-8")
     print(f'Built {len(WORDS)} vector marks; {manifest["glyphs"]} serif characters, {FONT_OUT.stat().st_size:,} bytes')
 

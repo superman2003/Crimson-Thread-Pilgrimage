@@ -58,6 +58,33 @@ class FontSwitchTests(unittest.TestCase):
         self.font.write_bytes(b'\x89PNG\r\n')
         with self.assertRaises(ValueError):switch.apply(self.root,self.font)
         self.assertFalse((self.root/'tmp/font_switch_backups').exists())
+    def test_multiple_font_changes_restore_the_initial_baseline(self):
+        original={p.relative_to(self.root):p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
+        switch.apply(self.root,self.font)
+        other=self.root/'other.otf'
+        other.write_bytes(b'OTTOsecond-font')
+        switch.apply(self.root,other)
+        self.assertEqual(switch.restore(self.root),0)
+        for name,data in original.items():self.assertEqual((self.root/name).read_bytes(),data)
+        self.assertFalse((self.root/'godot/assets/fonts/GlobalTypeface.otf').exists())
+        self.assertFalse((self.root/'tmp/font_switch_backups/latest.json').exists())
+    def test_repaired_new_bypass_does_not_orphan_the_initial_backup(self):
+        original=(self.root/'godot/scripts/ui.gd').read_bytes()
+        switch.apply(self.root,self.font)
+        self.write('godot/scripts/new_label.gd','var font=preload("res://assets/fonts/OtherFont.ttf")\n')
+        added=(self.root/'godot/scripts/new_label.gd').read_bytes()
+        switch.apply(self.root,self.font)
+        self.assertEqual(switch.restore(self.root),0)
+        self.assertEqual((self.root/'godot/scripts/ui.gd').read_bytes(),original)
+        self.assertEqual((self.root/'godot/scripts/new_label.gd').read_bytes(),added)
+        self.assertFalse((self.root/'godot/assets/fonts/GlobalTypeface.otf').exists())
+    def test_switching_again_cannot_hide_later_manual_edits(self):
+        switch.apply(self.root,self.font)
+        edited=self.root/'godot/scripts/ui.gd'
+        edited.write_text(edited.read_text()+'# later gameplay edit\n')
+        self.font.write_bytes(b'OTTOsecond-font')
+        with self.assertRaises(ValueError):switch.apply(self.root,self.font)
+        self.assertIn('# later gameplay edit',edited.read_text())
     def test_backup_path_cannot_escape_workspace(self):
         with self.assertRaises(ValueError):switch.local(self.root,'../outside.gd')
 

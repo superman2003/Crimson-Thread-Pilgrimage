@@ -35,11 +35,11 @@ artifacts/seal_world/*.png -filter -diff -merge -text
 artifacts/ui_redesign/*.jpg -filter -diff -merge -text
 
 # Inscription typography, authored UI materials and native review captures.
-godot/assets/fonts/PilgrimageSerif.otf -filter -diff -merge -text
-godot/assets/fonts/FengMingInscription.otf -filter -diff -merge -text
 godot/assets/fonts/GlobalTypeface.otf -filter -diff -merge -text
+tools/font_assets/FengMingInscription.otf -filter -diff -merge -text
 godot/assets/ui/inscription/**/*.png -filter -diff -merge -text
 artifacts/inscription_ui_v2/*.png -filter -diff -merge -text
+artifacts/inscription_font_full/*.png -filter -diff -merge -text
 
 # Small rendered review images remain directly browsable on GitHub.
 artifacts/ch01_rooms/*.jpg -filter -diff -merge

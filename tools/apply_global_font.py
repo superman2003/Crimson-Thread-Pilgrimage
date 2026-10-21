@@ -103,18 +103,31 @@ def apply(root,font):
     if not plan:
         print('Already applied. All text uses the shared font. No new backup needed.')
         return 0
-    entries=[]
+    folder=root/'tmp/font_switch_backups'
+    latest=folder/'latest.json'
+    baseline={}
+    if latest.exists():
+        previous=local(folder,json.loads(latest.read_text(encoding='utf-8'))['backup'])
+        baseline={item['path']:item for item in json.loads(previous.read_text(encoding='utf-8'))['entries']}
+        for item in baseline.values():
+            path=local(root,item['path'])
+            if not path.exists() or digest(path.read_bytes())!=item['applied_sha256']:
+                raise ValueError('File changed since the last apply; preserve or restore that edit before switching fonts: '+item['path'])
     for path,data in plan.items():
-        entries.append({'path':path.relative_to(root).as_posix(),'before':base64.b64encode(path.read_bytes()).decode() if path.exists() else None,'applied_sha256':digest(data)})
-    backup=root/'tmp/font_switch_backups'/datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ.json')
+        name=path.relative_to(root).as_posix()
+        baseline[name]={'path':name,'before':baseline[name]['before'] if name in baseline else base64.b64encode(path.read_bytes()).decode() if path.exists() else None,'applied_sha256':digest(data)}
+    entries=list(baseline.values())
+    # Rollback this application only; the persistent restore snapshot retains the
+    # first pre-application contents across font A -> font B and bypass repairs.
+    rollback={path:path.read_bytes() if path.exists() else None for path in plan}
+    backup=folder/datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ.json')
     snapshot={'version':1,'font':str(font),'entries':entries}
     atomic(backup,json.dumps(snapshot,ensure_ascii=False,indent=2).encode('utf-8'))
     try:
         for path,data in plan.items():atomic(path,data)
     except OSError:
-        for item in entries:
-            path=local(root,item['path'])
-            if item['before'] is not None:atomic(path,base64.b64decode(item['before']))
+        for path,before in rollback.items():
+            if before is not None:atomic(path,before)
             elif path.exists():path.unlink()
         raise
     atomic(backup.parent/'latest.json',json.dumps({'backup':backup.name}).encode())
@@ -174,7 +187,7 @@ def main():
     parser.add_argument('--font',type=Path,help='Optional .otf/.ttf file; defaults to the bundled Feng Ming Inscription font')
     args=parser.parse_args()
     try:
-        if args.action=='apply':return apply(ROOT,(args.font or ROOT/'godot/assets/fonts/FengMingInscription.otf').resolve())
+        if args.action=='apply':return apply(ROOT,(args.font or ROOT/'tools/font_assets/FengMingInscription.otf').resolve())
         if args.action=='check':return check(ROOT)
         return restore(ROOT)
     except (OSError,ValueError,KeyError) as error:

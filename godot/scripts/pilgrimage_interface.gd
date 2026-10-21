@@ -3,9 +3,7 @@ extends Control
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
-const DISPLAY_FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
-static var _display_font: FontFile
 static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
 const IVORY := Color("e8d7b8")
@@ -147,10 +145,9 @@ static func survey_font() -> FontFile:
     return _survey_font
 
 static func display_font() -> FontFile:
-    if _display_font==null:
-        _display_font=DISPLAY_FONT.duplicate()
-        _display_font.fallbacks=[FONT]
-    return _display_font
+    # A duplicate with this same font as its own fallback produced different
+    # glyph-cache pixels before/after opening the map. Share the primary font.
+    return FONT
 
 func begin_bind(runtime: Node) -> void:
     construction_complete=false

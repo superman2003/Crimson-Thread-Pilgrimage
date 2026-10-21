@@ -9,6 +9,7 @@
 ```powershell
 npm run font:apply
 npm run font:check
+npm run font:coverage
 npm run font:restore
 ```
 
@@ -18,12 +19,16 @@ npm run font:restore
 python tools/apply_global_font.py apply --font "C:/Fonts/你的字体.otf"
 ```
 
-还原也可以双击根目录 **`一键还原字体.cmd`**。备份位于本地 `tmp/font_switch_backups/`；重复应用相同字体不会产生重复改动或覆盖原备份。还原前会完整核对文件内容，如果应用后又编辑了相关代码，脚本会停止还原并列出冲突文件，保留后续改动。
+还原也可以双击根目录 **`一键还原字体.cmd`**。备份位于本地 `tmp/font_switch_backups/`；重复应用相同字体不会产生重复改动。连续从字体 A 换成字体 B、或修复新加控件的字体引用后，仍保留第一次应用前的基线，一次还原即可回到最初状态。还原和再次换字体前都会核对已管理文件；手动修改过的内容会停止操作并报告冲突，保留后续改动。
 
 统一入口是 `godot/assets/fonts/GlobalTypeface.otf` 和 `godot/assets/ui/global_typeface.tres`。`GlobalTypography` 自动加载节点在运行时为根窗口安装统一主题，避免编辑器首次导入前提前加载字库。脚本同时清理散落在场景与脚本中的字体覆盖以及默认字体绕过；新建控件也会继承。切换后在 Godot 编辑器中自动导入更新的字体；导出运行版需要重新导出。
 
-当前默认字库为 **缝名刻宋 / Feng Ming Inscription**：一个真实 OpenType 文件，在 Noto Serif CJK SC 的字形轮廓上加入克制的斜向针刻。按最新 main 的文本重新构建后包含 1,908 个字符，1,767 个中文字符带刻痕，不是把文字替换成图片。字库来源、修改和 SIL OFL 1.1 许可证随项目保留。新增剧情如果用到当前子集之外的汉字，需要重新扩充字库，或通过脚本切换到覆盖更全的字库。
+当前默认字库为 **缝名刻宋 / Feng Ming Inscription**：真实 OpenType 字体，保留完整 Noto Serif CJK SC 的 **44,777 个 Unicode 字符**，再内置返回箭头、封闭路线标记和锁形 3 个界面符号，共 **44,780 个字符**。包含简繁中文、上游收录的生僻字与扩展区、日文、韩文、拉丁文、标点和数字；覆盖原版 Noto Sans SC 的全部字符。所有中文字符使用同一套针刻生成规则，不再按当前剧情裁剪。字库来源、修改和 SIL OFL 1.1 许可证随项目保留。
+
+主字体已关闭系统字体后备。`font:coverage` 直接读取字体 cmap，核对完整字符清单，并扫描全部 Godot 运行源文件和 `index.html`、`src/` 网页文字；缺字会列出字符、Unicode 编码和文件行号并使 CI 失败。完整字库仍有明确的 Unicode 收录范围，不声称覆盖世界上所有文字或所有 emoji；将来加入上游范围外的语言或符号，需要随资源一起补充。
+
+运行包只保留 `GlobalTypeface.otf` 这份新字体。默认字库的开发备份移到 `tools/font_assets/FengMingInscription.otf`，供一键切回默认字体使用；构建中间字体位于忽略的 `tmp/inscription/`。旧版 Noto Sans SC 留在仓库供历史回退，导出过滤器不打包它。
 
 大标题的骨片纹理、穿线和旧铜纸面另外作为装饰美术存在，不影响文字主题的一键切换。
 
-验证：字体脚本 6 项单元测试；真实 World 运行字体继承与覆盖检查 217 项；全新缓存的最小项目导入与运行继承验证；现有布局、无障碍、输入提示、按键重映射、装备、存档和地图回归。
+验证入口：`npm run test:font`（安全替换与连续还原、网页和游戏缺字门禁）、Godot `global_font`（关闭系统后备后的真实字体与控件继承）、现有布局、输入提示和地图回归。
