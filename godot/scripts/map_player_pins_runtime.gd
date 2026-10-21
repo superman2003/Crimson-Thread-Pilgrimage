@@ -108,11 +108,35 @@ static func refresh(level: Node) -> void:
         marker.set_meta("map_anchor", anchor)
         level.map_draw_root.add_child(marker)
         markers.append(marker)
-    declutter(markers)
+    declutter(markers, Rect2(Vector2.ZERO, level.map_draw_root.size))
+    _add_leaders(markers, level.map_draw_root)
     toolbar.get_node("PinCurrent").disabled = level.world_save_blocked or not PINS.allowed(level.story_flags, String(level.config.id), level.config, level.player.global_position)
     toolbar.get_node("PinDelete").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     level.map_text.text += "    右键标记 · 上方按钮支持手柄"
+
+## Crowded edge labels may need to exceed the preferred drift. Thin leaders
+## preserve the actual per-pin locations without moving the map or saved pins.
+static func _add_leaders(markers: Array[Label], host: Control) -> void:
+    for marker in markers:
+        if not marker.visible: continue
+        var anchors := represented(marker)
+        var ids: Array = [int(marker.get_meta("pin_id"))]
+        ids.append_array(marker.get_meta("joined_pins", []))
+        for index in anchors.size():
+            var anchor: Vector2 = anchors[index]
+            var end := marker.position + LABEL_ORIGIN
+            if anchor.distance_to(end) <= MAX_DRIFT: continue
+            var leader := Line2D.new()
+            leader.name = "PlayerMapPinLeader_" + str(ids[index])
+            leader.points = PackedVector2Array([anchor, end])
+            leader.width = 1.0
+            leader.default_color = Color(0.45, 0.35, 0.25, 0.6)
+            leader.antialiased = true
+            leader.set_meta("pin_id", ids[index])
+            leader.set_meta("label_id", int(marker.get_meta("pin_id")))
+            host.add_child(leader)
+            host.move_child(leader, marker.get_index())
 
 const LABEL_ORIGIN := Vector2(8, 12)
 const CLUSTER_RADIUS := 24.0
@@ -121,12 +145,12 @@ const CLUSTER_STEP := 30.0
 ## Pins from nearby rooms (or neighbouring regions on the world overview) can
 ## project onto almost the same point. Each label keeps its true anchor in
 ## metadata and is placed at the nearest free spot around it: candidates are
-## tried ring by ring out to MAX_DRIFT, so a number never sits more than
-## MAX_DRIFT from its pin. Pins with fewer neighbours are placed first, so an
-## isolated pin keeps its exact projected position.
+## tried ring by ring out to the preferred MAX_DRIFT. The paper bounds take
+## precedence in an impossible crowd, with leaders back to the true anchors. Pins with fewer neighbours are placed first, so an
+## isolated pin keeps its exact position unless its label would leave the paper.
 const MAX_DRIFT := 62.0
 
-static func declutter(markers: Array[Label]) -> void:
+static func declutter(markers: Array[Label], paper: Rect2 = Rect2()) -> void:
     var neighbours := {}
     for marker in markers:
         var anchor: Vector2 = marker.get_meta("map_anchor")
@@ -146,22 +170,26 @@ static func declutter(markers: Array[Label]) -> void:
     # because an increasingly wide row happens to cover it.
     var groups: Array[Label] = ordered
     for attempt in markers.size():
-        if _layout(groups): return
+        if _layout(groups, paper): return
         var pair := _nearest_merge(groups)
         # Too crowded to keep every number near its pin: a farther number is
         # still readable, an overlap is not, so merge the nearest pair anyway.
         if pair.is_empty(): pair = _nearest_merge(groups, false)
-        if pair.is_empty(): return
+        if pair.is_empty():
+            # All numbers now share one label. If no near placement exists,
+            # readability inside the paper wins over the preferred drift.
+            _layout(groups, paper, false)
+            return
         _join(groups[pair[0]], groups[pair[1]])
         groups.remove_at(pair[1])
 
-static func _layout(groups: Array[Label]) -> bool:
-    var placed: Array[Label] = []
+static func _layout(groups: Array[Label], paper: Rect2, near_only: bool = true) -> bool:
+    var placed: Array[Rect2] = []
     for marker in groups:
-        var spot: Variant = _free_spot(marker, placed)
+        var spot: Variant = _free_spot(marker, placed, paper, near_only)
         if spot == null: return false
         marker.position = spot
-        placed.append(marker)
+        placed.append(_label_rect(marker, marker.position))
     return true
 
 static func _nearest_merge(groups: Array[Label], bounded: bool = true) -> Array[int]:
@@ -213,28 +241,31 @@ static func _join(host: Label, marker: Label) -> void:
     marker.set_meta("joined_into", int(host.get_meta("pin_id", -1)))
 
 ## The nearest free candidate around the centre of every pin the label shows,
-## within MAX_DRIFT of each of them; null when none is free.
-static func _free_spot(marker: Label, placed: Array) -> Variant:
+## respecting the preferred drift unless this is the final crowded fallback;
+## null when none is free.
+static func _free_spot(marker: Label, placed: Array, paper: Rect2, near_only: bool) -> Variant:
     var anchors := represented(marker)
     var center := Vector2.ZERO
     for anchor in anchors: center += anchor
     center /= anchors.size()
+    var size := _label_rect(marker, Vector2.ZERO).size
     for offset in _candidate_offsets():
-        var point: Vector2 = center + offset
+        var position: Vector2 = center + offset - LABEL_ORIGIN
+        if paper.has_area(): position = position.clamp(paper.position, paper.end - size)
+        var point := position + LABEL_ORIGIN
         var near := true
-        for anchor in anchors:
+        for anchor in (anchors if near_only else []):
             if point.distance_to(anchor) > MAX_DRIFT:
                 near = false
                 break
         if not near: continue
-        var rect := _label_rect(marker, point - LABEL_ORIGIN)
+        var rect := Rect2(position, size)
         var clear := true
         for other in placed:
-            if other == marker or not other.visible: continue
-            if rect.intersects(_label_rect(other, other.position)):
+            if rect.intersects(other):
                 clear = false
                 break
-        if clear: return point - LABEL_ORIGIN
+        if clear: return position
     return null
 
 ## Offsets around a pin, nearest first, never farther than MAX_DRIFT.
@@ -247,7 +278,10 @@ static func _candidate_offsets() -> Array[Vector2]:
     return offsets
 
 static func _label_rect(marker: Label, position: Vector2) -> Rect2:
-    return Rect2(position, Vector2(maxf(CLUSTER_STEP, _text_width(marker) + 6.0), 26.0 * marker.text.split("\n").size()))
+    # Label includes the actual font height and inter-line spacing immediately,
+    # including after joining numbers, before the next Control layout pass.
+    var minimum := marker.get_combined_minimum_size()
+    return Rect2(position, Vector2(maxf(CLUSTER_STEP, minimum.x + 6.0), maxf(26.0, minimum.y)))
 
 ## A fresh Label has no layout yet, so measure its text with its own font.
 static func _text_width(label: Label) -> float:
