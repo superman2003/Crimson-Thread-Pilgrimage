@@ -1,0 +1,69 @@
+extends SceneTree
+const UI=preload("res://scripts/map_player_pins_runtime.gd")
+const JOURNAL=preload("res://scripts/pilgrimage_cartography.gd")
+const PINS=preload("res://scripts/map_player_pins.gd")
+var fixture_path=""
+var out=""
+func _initialize():
+    for arg in OS.get_cmdline_user_args():
+        if arg.begins_with("--fixture="):fixture_path=arg.trim_prefix("--fixture=")
+        if arg.begins_with("--output="):out=arg.trim_prefix("--output=")
+    call_deferred("run")
+func run():
+    root.size=Vector2i(1280,720)
+    var cases=JSON.parse_string(FileAccess.get_file_as_string(fixture_path))
+    var scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_save_path="user://pin_edge_visual.json"
+    scene.world_resume=false
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    scene.set_process(false)
+    scene.player.set_physics_process(false)
+    for actor in get_nodes_in_group("enemy"):actor.process_mode=Node.PROCESS_MODE_DISABLED
+    scene._toggle_map()
+    var base_flags=scene.story_flags.duplicate(true)
+    var layer=CanvasLayer.new()
+    layer.layer=110
+    root.add_child(layer)
+    var banner=Label.new()
+    banner.position=Vector2(200,4)
+    banner.add_theme_font_size_override("font_size",13)
+    layer.add_child(banner)
+    DirAccess.make_dir_recursive_absolute(out)
+    var rows=[]
+    for fixture in cases:
+        assert(fixture.region==String(scene.config.id))
+        scene.story_flags=base_flags.duplicate(true)
+        var journal=JOURNAL.region(scene.story_flags,fixture.region)
+        journal.owned=true
+        for room in scene.config.map_rooms:journal.charted[String(room.id)]=true
+        scene.story_flags[PINS.KEY]=fixture.records.duplicate(true)
+        scene.world_map_view=false
+        scene.survey_map_view.reset()
+        scene._refresh_map_overlay()
+        banner.text="SYNTHETIC CHARTED MAP / PAUSED ACTORS / "+String(fixture.key).to_upper()
+        for frame in 4:await process_frame
+        await RenderingServer.frame_post_draw
+        var image=root.get_texture().get_image()
+        var name=String(fixture.key)+".webp"
+        assert(image.get_size()==Vector2i(1280,720))
+        assert(image.save_webp(out.path_join(name),true,0.88)==OK)
+        var labels=[]
+        var leaders=[]
+        for child in scene.map_draw_root.get_children():
+            if child is Label and child.name.begins_with("PlayerMapPin_"):
+                labels.append({"text":child.text,"visible":child.visible,"position":[child.position.x,child.position.y],"size":[child.size.x,child.size.y],"minimum":[child.get_combined_minimum_size().x,child.get_combined_minimum_size().y],"anchor":[child.get_meta("map_anchor").x,child.get_meta("map_anchor").y]})
+            if child is Line2D and child.name.begins_with("PlayerMapPinLeader_"):
+                leaders.append({"pin_id":child.get_meta("pin_id"),"points":[[child.points[0].x,child.points[0].y],[child.points[1].x,child.points[1].y]]})
+        rows.append({"key":fixture.key,"file":name,"sha256":FileAccess.get_sha256(out.path_join(name)),"labels":labels,"leaders":leaders})
+    var hashes={}
+    for file in ["main_level.gd","map_player_pins_runtime.gd","survey_map_view.gd","pilgrimage_interface.gd"]:hashes[file]=FileAccess.get_sha256("res://scripts/"+file)
+    var f=FileAccess.open(out.path_join("manifest.json"),FileAccess.WRITE)
+    f.store_string(JSON.stringify({"sources_sha256":hashes,"captures":rows,"size":[1280,720],"zoom":1,"region":String(scene.config.id),"charting_fixture":true,"paused_actors":true,"natural_exploration":false,"physical_controller":false},"  "))
+    f.close()
+    layer.free()
+    scene.free()
+    await process_frame
+    for suffix in ["",".bak",".tmp"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://pin_edge_visual.json"+suffix))
+    print("PIN_EDGE_VISUAL_PASS captures=",rows.size())
+    quit(0)
