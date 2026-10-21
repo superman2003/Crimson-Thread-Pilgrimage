@@ -17,7 +17,8 @@ GROUPS={
  ('drainage_descent','ruin','rd_run rd_step sl_lock_a sl_lock_b shrine_floor_a'),
  ('pipe_tunnel','tunnel','cf'),('gear_aqueduct','bridge','gg_w gg_c1 gg_c2 hub_balcony_e'),
  ('pump_west_bank','soil','hub_floor_w'),('pump_east_bank','soil','hub_floor_e'),
- ('smith_approach','ruin','ra_a ra_b fs_floor'),('scissor_forge','arena','boss_floor')],
+ # Keep the spillway shaft open under its one-way metal crossing.
+ ('smith_west','ruin','ra_a'),('forge_landing','ruin','fs_floor'),('scissor_forge','arena','boss_floor')],
 'salt_archive':[
  ('archive_street','ruin','gate_porch gate_lantern_step spine_run_a spine_book_step spine_run_b spine_tall_shelf'),
  ('candle_arcade','tunnel','candle_floor candle_east_walk candle_gap_stand'),

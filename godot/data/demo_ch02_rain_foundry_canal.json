@@ -5781,7 +5781,7 @@
           6
         ]
       },
-      "terrain_id": "terrain_smith_approach_0_0",
+      "terrain_id": "terrain_smith_west_0_0",
       "terrain_flat_span": [
         4060,
         4400
@@ -5796,8 +5796,8 @@
         38
       ],
       "color": "17262b",
-      "material": "wet_metal",
-      "collision_role": "floor",
+      "material": "sluice_bridge",
+      "collision_role": "one_way",
       "route_role": "main",
       "route_order": 64,
       "safe_landing": true,
@@ -5810,12 +5810,7 @@
           10,
           2
         ]
-      },
-      "terrain_id": "terrain_smith_approach_0_0",
-      "terrain_flat_span": [
-        4500,
-        4757.99
-      ]
+      }
     },
     {
       "id": "fs_floor",
@@ -5841,9 +5836,9 @@
           4
         ]
       },
-      "terrain_id": "terrain_smith_approach_0_0",
+      "terrain_id": "terrain_forge_landing_0_0",
       "terrain_flat_span": [
-        4822.01,
+        4820,
         5140
       ]
     },
@@ -10151,7 +10146,7 @@
       ]
     },
     {
-      "id": "terrain_smith_approach_0_0",
+      "id": "terrain_smith_west_0_0",
       "kind": "ruin",
       "surface": [
         [
@@ -10161,17 +10156,24 @@
         [
           4400,
           3760
-        ],
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "ra_a"
+      ]
+    },
+    {
+      "id": "terrain_forge_landing_0_0",
+      "kind": "ruin",
+      "surface": [
         [
-          4500,
-          3800
-        ],
-        [
-          4757.99,
-          3800
-        ],
-        [
-          4822.01,
+          4820,
           3760
         ],
         [
@@ -10186,8 +10188,6 @@
         1
       ],
       "platform_ids": [
-        "ra_a",
-        "ra_b",
         "fs_floor"
       ]
     },
