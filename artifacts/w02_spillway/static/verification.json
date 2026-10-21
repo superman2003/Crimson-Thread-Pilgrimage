@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-21T17:59:27.980210+08:00",
+  "results": [
+    {
+      "name": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "builder_compile",
+      "command": [
+        "python",
+        "-m",
+        "py_compile",
+        "tools/build_chapter_terrain.py"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "authored_generator_syntax",
+      "command": [
+        "node",
+        "--check",
+        "tools/handcraft_ch02_boxgarden.mjs"
+      ],
+      "exit": 0
+    }
+  ]
+}

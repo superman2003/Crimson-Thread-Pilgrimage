@@ -1,0 +1,97 @@
+{
+  "scope": "Retained unsuccessful diagnosis and route-driver attempts; no failed run counted as acceptance",
+  "records": [
+    {
+      "name": "loop_attempt_01",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: leap blocked: waterwheel return across live gap at (4613.631, 4477.996)",
+        "ERROR: leap blocked: earned double jump above revenge ambush at (4574.868, 4109.963)",
+        "ERROR: route failed: upper spillway return target=(4735.0, 3834.0) actual=(3246.924, 1119.118)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "loop_attempt_02",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: leap blocked: earned double jump above revenge ambush at (4567.955, 4109.963)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "loop_attempt_03",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: leap blocked: silt chest and leech crossing at (4522.36, 4529.924)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "loop_fixed_01",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: route failed: upper spillway return target=(4535.0, 3742.0) actual=(3246.925, 1045.618)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "loop_fixed_02",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: route failed: upper spillway return target=(4735.0, 3650.0) actual=(4741.847, 3711.925)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "loop_fixed_03",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: route failed: upper spillway return target=(4735.0, 3650.0) actual=(4741.847, 3776.772)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "loop_fixed_04",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: route failed: suspended causeway west landing target=(4530.0, 3800.0) actual=(4537.047, 3741.998)"
+      ],
+      "scope": "real-input continuation from the earned #180 checkpoint"
+    },
+    {
+      "name": "positioned_jump_fixture_01",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: positioned fixture double jump reaches above the next same-column step"
+      ],
+      "scope": "positioned World jump fixture, not route acceptance"
+    },
+    {
+      "name": "positioned_jump_fixture_02",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: positioned fixture double jump reaches above the next same-column step"
+      ],
+      "scope": "positioned World jump fixture, not route acceptance"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-21T18:12:55.472264+08:00",
+  "head": "2fe6c53edd171b03b92c9b84597863f4227ef141",
+  "default_suites": 128,
+  "narrative_suites": 4,
+  "results": [
+    {
+      "name": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "python_compile",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "py_compile",
+        "tools/build_chapter_terrain.py",
+        "tools/run_waterwheel_route.py"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "authored_generator_syntax",
+      "command": [
+        "node",
+        "--check",
+        "tools/handcraft_ch02_boxgarden.mjs"
+      ],
+      "exit": 0
+    }
+  ]
+}
