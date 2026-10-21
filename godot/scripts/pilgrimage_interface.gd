@@ -1840,7 +1840,7 @@ func _process(delta: float) -> void:
     # Interaction is shown at the object by WorldWayfinding.
     prompt.visible=false
     prompt.text=""
-    var actor: Node=level.boss_actor
+    var actor: Node=level.boss_actor if is_instance_valid(level.boss_actor) else null
     var show_boss: bool = actor!=null and is_instance_valid(actor) and not level.demo_complete and level.active_overlay==""
     boss_name.visible=show_boss
     boss_bar.visible=show_boss

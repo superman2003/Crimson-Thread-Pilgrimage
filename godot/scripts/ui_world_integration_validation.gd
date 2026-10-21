@@ -66,6 +66,7 @@ func run() -> void:
     main._close_overlays()
     await preload("res://scripts/journal_records_validation.gd").new().run(main,self,check)
     preload("res://scripts/combat_hud_readiness_validation.gd").new().run(main,check)
+    await boss_hud_retirement(main)
     main._toggle_audio_settings()
     await process_frame
     ui._process(0.0)
@@ -92,3 +93,28 @@ func run() -> void:
     for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_world_integration_validation.json"+suffix))
     print("UI_WORLD_INTEGRATION_VALIDATION_%s failures=%d" % ["PASS" if failures==0 else "FAIL",failures])
     quit(1 if failures else 0)
+
+## Component fixture: production Boss death and its normal dissolve, not a
+## natural boss clear. Keep the freed reference until the HUD has used it.
+func boss_hud_retirement(main: Node) -> void:
+    main._close_overlays()
+    main._spawn_boss()
+    var actor: Node=main.boss_actor
+    actor.set_physics_process(false)
+    var ui: Control=main.ui_shell
+    ui._process(0.0)
+    check(ui.boss_bar.visible and ui.boss_name.visible and ui.boss_bar.value==actor.hp,"Boss HUD reads the actual live actor")
+    actor.take_hit(actor.hp,1)
+    ui._process(0.0)
+    check(main.demo_complete and not ui.boss_bar.visible and not ui.boss_name.visible,"Boss defeat hides its HUD during the original dissolve")
+    for frame in 120:
+        await physics_frame
+        await process_frame
+        if not is_instance_valid(actor):break
+    check(not is_instance_valid(main.boss_actor),"Production dissolve leaves the actual freed Boss reference in the fixture")
+    var reward: String=String(main.config.boss.get("reward_item","crown_splinter"))
+    main.story_flags["ui_pin_"+reward]=true
+    ui.pinned.text="before retired Boss refresh"
+    ui._process(0.0)
+    check(not ui.boss_bar.visible and not ui.boss_name.visible,"Boss HUD remains hidden after its actor is freed")
+    check(ui.pinned.text=="旅记 · "+main._item_display_name(reward),"HUD continues to refresh the journal after Boss retirement")
