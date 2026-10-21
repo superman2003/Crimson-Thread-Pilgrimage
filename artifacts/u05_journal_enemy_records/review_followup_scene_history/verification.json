@@ -1,0 +1,48 @@
+{
+  "engine": "Godot 4.6.1 Windows native GL",
+  "results": [
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 6.62,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "scene_history",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 19.88,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "ui_redesign",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 6.55,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": []
+    },
+    {
+      "suite": "inventory_map",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 4.11,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ]
+    }
+  ],
+  "base_main": "af210f7f",
+  "filter_integration_checks": 9,
+  "campaign": "passed; proof craft, enemy journal and scene history validators retained",
+  "workflow_checks": 5,
+  "ci": "pending on updated PR"
+}

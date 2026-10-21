@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-20",
+  "base": "bc18d8757306b25071bf1939bd7b3851896d0441",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 7.05,
+      "markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_redesign",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.27,
+      "markers": [
+        "UI_REDESIGN_VALIDATION_PASS checks=30 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "inventory_map",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.39,
+      "markers": [
+        "PASS: combat clear unlocks boss route",
+        "PASS: boss drops unique material",
+        "PASS: Esc closes overlays",
+        "INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=2 currency=38"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "narrative_outcomes",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.22,
+      "markers": [
+        "NARRATIVE_GROUP reward_transactions checks=170 failures=0",
+        "NARRATIVE_GROUP variable_quest_order checks=180 failures=0",
+        "NARRATIVE_GROUP ending_world_phase checks=187 failures=0",
+        "NARRATIVE_OUTCOMES checks=9751 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 4.81,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.61,
+      "markers": [
+        "SAVE PRODUCT PASS: 37 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

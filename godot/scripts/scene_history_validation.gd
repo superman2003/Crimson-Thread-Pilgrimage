@@ -186,6 +186,11 @@ func run() -> void:
     check(String(scene.ui_shell.bag_grid.get_child(0).text).contains("主线"),"main progress stays first even after all environment notes are recorded")
     var filters: Variant=scene.ui_shell.get("journal_filter_buttons")
     if filters is Dictionary and filters.has("enemy"):
+        var history_keys: Array[String]=[]
+        for entry in entries:history_keys.append("evidence:"+HISTORY.FLAG_PREFIX+String(entry.id))
+        var displayed_keys: Array[String]=[]
+        for button in scene.ui_shell.bag_grid.get_children():displayed_keys.append(String(button.get_meta("journal_key","")))
+        check(history_keys.all(func(key):return displayed_keys.has(key)),"all filter preserves all twelve environment records under evidence identities")
         filters.enemy.pressed.emit()
         check(scene.ui_shell.bag_grid.get_child_count()==0,"enemy filter does not include environment notes")
         filters.evidence.pressed.emit()
@@ -193,8 +198,30 @@ func run() -> void:
         for button in scene.ui_shell.bag_grid.get_children():
             if String(button.text).begins_with(String(first.title)):note_found=true
         check(note_found,"evidence filter includes reached physical observations")
+        for filter_id in ["main","quest","ending"]:
+            filters[filter_id].pressed.emit()
+            var history_visible := false
+            for button in scene.ui_shell.bag_grid.get_children():
+                if history_keys.has(String(button.get_meta("journal_key",""))):history_visible=true
+            check(not history_visible,"%s filter excludes environment evidence notes" % filter_id)
+        filters.evidence.pressed.emit()
+        await frames(1)
+        var remembered: Dictionary=entries.back()
+        var remembered_key := "evidence:"+HISTORY.FLAG_PREFIX+String(remembered.id)
+        for button in scene.ui_shell.bag_grid.get_children():
+            if String(button.get_meta("journal_key",""))==remembered_key:button.grab_focus()
+        check(scene.ui_shell.bag_name.text==String(remembered.title) and scene.ui_shell.journal_memory.get("evidence","")==remembered_key,"observation selection stores record_kind:id rather than its title or row")
+        filters.main.pressed.emit()
+        filters.evidence.pressed.emit()
+        await frames(1)
+        check(scene.ui_shell.bag_name.text==String(remembered.title) and String(scene.ui_shell.bag_grid.get_child(scene.ui_shell.journal_selection).get_meta("journal_key",""))==remembered_key,"returning to evidence restores the selected environment note by identity")
+        scene._close_overlays()
+        scene._toggle_backpack()
+        scene.ui_shell.bag_category="旅记"
+        scene.ui_shell.refresh_inventory()
+        check(scene.ui_shell.bag_name.text==String(remembered.title),"closing and reopening the journal preserves the evidence observation selection")
         filters.all.pressed.emit()
-        print("SCENE_HISTORY_FILTER_INTEGRATION checks=2")
+        print("SCENE_HISTORY_FILTER_INTEGRATION checks=9")
     scene._close_overlays()
     scene._release_region_audio()
     scene.queue_free()

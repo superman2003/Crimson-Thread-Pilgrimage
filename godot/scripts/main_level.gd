@@ -6811,6 +6811,11 @@ func _show_dialogue(area: Area2D, line: String) -> void:
 
 
 func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
+    # Defeat is a production encounter, unlike offscreen residency/prewarming.
+    # The existing final save persists this flag with rewards, no extra write.
+    if world_mode:
+        var journal_flag := preload("res://scripts/enemy_journal.gd").flag_for(kind)
+        if not journal_flag.is_empty():story_flags[journal_flag]=true
     if is_boss:
         if demo_complete:
             return
