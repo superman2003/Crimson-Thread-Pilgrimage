@@ -9,6 +9,8 @@ on:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'
       - 'tools/test_release_builder.py'
+      - 'tools/audit_export_contents.py'
+      - 'tools/test_export_audit.py'
       - 'tools/release_engine_licenses.gd'
       - 'godot/**'
       - 'LICENSE'
@@ -20,6 +22,8 @@ on:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'
       - 'tools/test_release_builder.py'
+      - 'tools/audit_export_contents.py'
+      - 'tools/test_export_audit.py'
       - 'tools/release_engine_licenses.gd'
       - 'godot/**'
       - 'LICENSE'
@@ -61,6 +65,10 @@ jobs:
           python-version: '3.11'
       - name: Run release gate regression tests
         run: python tools/test_release_builder.py
+      - name: Audit exported scripts and scenes against runtime references
+        run: |
+          python tools/test_export_audit.py
+          python tools/audit_export_contents.py
       - name: Hydrate project assets, including addon themes
         run: git lfs pull --include='godot/**'
       - name: Install verified Godot editor and matching release template
