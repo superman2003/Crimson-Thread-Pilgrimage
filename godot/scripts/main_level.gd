@@ -1084,8 +1084,7 @@ func _process(_delta: float) -> void:
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
         _void_respawn()
     if player != null and is_instance_valid(player):
-        if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position):
-            last_safe_ground = player.global_position
+        _update_safe_ground()
         _update_room_visit()
         _notice_hidden_route_clues()
         _notice_ending_aftermath()
@@ -7803,6 +7802,31 @@ func restore_save_backup(index: int = 0) -> bool:
     chapter_transitioning = true
     _defer_region_call("_replace_with_save_slot", [slot, path])
     return true
+
+## G02: the return knot is left at the last place the player stood on
+## permanent terrain. A lift basket travels away, and ability gates or fragile
+## floors can be opened later, so standing on them never moves the knot there.
+func _update_safe_ground() -> void:
+    if player == null or not is_instance_valid(player):
+        return
+    if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position) and _standing_on_permanent_floor():
+        last_safe_ground = player.global_position
+
+
+func _standing_on_permanent_floor() -> bool:
+    for index in range(player.get_slide_collision_count() - 1, -1, -1):
+        var collision := player.get_slide_collision(index)
+        if collision.get_normal().dot(Vector2.UP) < 0.7:
+            continue
+        # AnimatableBody2D (lift baskets) is a StaticBody2D subclass that moves.
+        var body := collision.get_collider() as StaticBody2D
+        if body == null or not is_instance_valid(body) or body is AnimatableBody2D:
+            return false
+        if body.is_in_group("fragile_terrain") or body.is_in_group("phase_gate") or locked_gate_bodies.values().has(body):
+            return false
+        return true
+    return false
+
 
 func _ground_is_hazardous(position_value: Vector2) -> bool:
     for hazard in config.get("hazards", []):
