@@ -933,7 +933,7 @@ func _show_loading_canvas(host: Node) -> void:
     loading_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     loading_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     loading_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    loading_label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+    loading_label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
     loading_label.add_theme_font_size_override("font_size", 22)
     loading_canvas.add_child(loading_label)
     loading_label.text = "正在接通旧路…\nEsc 返回来路"
