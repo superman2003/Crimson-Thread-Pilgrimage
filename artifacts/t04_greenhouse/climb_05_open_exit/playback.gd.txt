@@ -1,0 +1,142 @@
+extends "res://scripts/world_archive_lower_playback.gd"
+## Real-input continuation from the actually earned beeswax checkpoint.
+const CLIMB_SAVE := "user://test_world_greenhouse_climb.json"
+const BEESWAX_SEED := "res://../artifacts/t04_greenhouse/earned_beeswax_seed.json"
+func _run() -> void:
+    var bytes:=FileAccess.get_file_as_bytes(BEESWAX_SEED)
+    _check(not bytes.is_empty(),"normally earned beeswax seed exists")
+    if bytes.is_empty():quit(1);return
+    for suffix in ["", ".bak", ".tmp"]:
+        if FileAccess.file_exists(CLIMB_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(CLIMB_SAVE+suffix))
+    var file:=FileAccess.open(CLIMB_SAVE,FileAccess.WRITE)
+    _check(file!=null,"private greenhouse climb save can be written")
+    if file==null:quit(1);return
+    file.store_buffer(bytes)
+    file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=CLIMB_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(String(scene.config.id)=="demo_ch04_broken_string_greenhouse" and scene.active_save_point_id=="save_hidden_upper_respite" and scene.currency_count==203,"restores actual beeswax checkpoint")
+    _check(not scene.player.thorn_downstrike_unlocked and not scene.inventory_counts.has("thorn_downstrike"),"thorn downstrike has not been granted")
+    if not await _walk_without_jump(Vector2(5305,2300)):await _finish();return
+    for point in [Vector2(5475,2210),Vector2(5320,2098),Vector2(5555,2000)]:
+        if not await _leap(point,20,"lower vine ascent"):await _finish();return
+        if point.y==2098:
+            if not await _vine_bee_duel():await _finish();return
+        elif not await _clear_nearby():await _finish();return
+    if not await _clear_nearby():await _finish();return
+    for point in [Vector2(5310,1900),Vector2(5520,1795),Vector2(5295,1678),Vector2(5545,1570),Vector2(5320,1462),Vector2(5555,1360)]:
+        if not await _leap(point,20,"upper vine ascent"):await _finish();return
+        if not await _clear_nearby():await _finish();return
+    trace_ceiling=true
+    if not await _leap(Vector2(5360,1186),20,"actual trellis landing"):await _finish();return
+    trace_ceiling=false
+    if not await _clear_nearby():await _finish();return
+    if not await _leap(Vector2(5050,1120),35,"trellis western bank"):await _finish();return
+    if not await _leap(Vector2(4795,1006),20,"trellis rise"):await _finish();return
+    if not await _leap(Vector2(4590,892),20,"safe side of the canopy string"):await _finish();return
+    if not await _leap(Vector2(4250,928),35,"canopy eastern walk"):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _walk_without_jump(Vector2(4060,928)):await _finish();return
+    if not await _leap(Vector2(3770,882),35,"canopy western takeoff"):await _finish();return
+    for point in [Vector2(3605,1054),Vector2(3760,1164),Vector2(3560,1274),Vector2(3750,1384),Vector2(3565,1494)]:
+        if not await _walk_without_jump(point):await _finish();return
+    if not await _crown_takeoff():await _finish();return
+    if not await _leap(Vector2(3260,1292),20,"jump to the safe side of the crown clapper"):await _finish();return
+    if not await _leap(Vector2(3060,1162),20,"crown top before the tree heart"):await _finish();return
+    if not await _walk_without_jump(Vector2(2770,1602)):await _finish();return
+    if not await _walk_without_jump(Vector2(2730,1602)):await _finish();return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_ch04_lower_loop","normal F rests at the actual tree heart shrine")
+    if not await _walk_without_jump(Vector2(2790,1602)):await _finish();return
+    await _world_interact()
+    _check(scene.inventory_counts.get("testimony_04",0)==1,"normal F collects the actual fourth testimony")
+    if not await _walk_without_jump(Vector2(2830,1602)):await _finish();return
+    _check(scene.inventory_counts.get("thorn_downstrike",0)==1 and scene.player.thorn_downstrike_unlocked,"normal collision earns thorn downstrike")
+    if not await _clear_nearby():await _finish();return
+    if not await _walk_without_jump(Vector2(2730,1602)):await _finish();return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_ch04_lower_loop" and scene.player.hp==scene.player.max_hp,"normal tree heart rest after the earned ability")
+    if failures==0:
+        var seed:=FileAccess.open("user://test_world_greenhouse_heart_earned_seed.json",FileAccess.WRITE)
+        _check(seed!=null,"earned tree heart checkpoint can be archived")
+        if seed!=null:
+            seed.store_buffer(FileAccess.get_file_as_bytes(CLIMB_SAVE))
+            seed.close()
+            print("GREENHOUSE_HEART_EARNED_SEED ",ProjectSettings.globalize_path("user://test_world_greenhouse_heart_earned_seed.json"))
+    await _finish()
+
+func _crown_takeoff() -> bool:
+    steps+=1
+    _release()
+    for frame in 90:
+        var dx: float=3510-scene.player.position.x
+        if absf(dx)<5 and scene.player.is_on_floor():
+            _release()
+            print("GREENHOUSE_CROWN_TAKEOFF ",scene.player.position)
+            return true
+        _axis(signf(dx) if absf(dx)>3 else 0)
+        await _tick()
+    _release()
+    _check(false,"cannot approach the actual crown takeoff")
+    return false
+
+func _finish() -> void:
+    _release()
+    _check(deaths==0,"greenhouse vine and heart route survives without death")
+    print("GREENHOUSE_CLIMB_STATE ",JSON.stringify({"position":str(scene.player.position),"hp":scene.player.hp,"energy":scene.player.energy,"wallet":scene.currency_count,"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id}))
+    print("WORLD_GREENHOUSE_CLIMB steps=%d failures=%d damage_events=%d heals=%d deaths=%d damage_suppression=false earned_checkpoint=true" % [steps,failures,damage_events,heals,deaths])
+    scene.queue_free()
+    scene=null
+    for unused in 10:await process_frame
+    quit(0 if failures==0 else 1)
+
+func _vine_bee_duel() -> bool:
+    steps+=1
+    _release()
+    await _tick(3)
+    if not await _walk_without_jump(Vector2(5350,2098)):return false
+    var before_wallet: int=scene.currency_count
+    var before_pollen: int=scene.inventory_counts.get("pollen_wax",0)
+    var cost: int=int(scene.build_system.selected_skill().get("energy_cost",999))
+    scene.player.skill_cast.connect(func(id: String):print("GREENHOUSE_BEE_SKILL ",JSON.stringify({"id":id,"position":str(scene.player.position),"energy":scene.player.energy})))
+    var jump_at := -100
+    var skill_at := -100
+    for frame in 600:
+        var bee: Node2D
+        for candidate in get_nodes_in_group("enemy"):
+            if is_instance_valid(candidate) and candidate.get("spawn_id")=="E06" and candidate.get("hp")!=null and candidate.hp>0:bee=candidate
+        if bee==null:
+            _release()
+            Input.action_release("skill_1")
+            for settle in 120:
+                await _tick()
+                if scene.player.is_on_floor() and scene.player.attack_timer<=0 and scene.player.hurt_timer<=0:break
+            await _recover()
+            _check(scene.currency_count==before_wallet+8 and scene.inventory_counts.get("pollen_wax",0)==before_pollen+1,"actual vine bee awards its normal income and material")
+            print("GREENHOUSE_VINE_BEE_CLEARED ",scene.player.position)
+            return failures==0
+        var player: CharacterBody2D=scene.player
+        var dx: float=5340-player.position.x
+        _axis(signf(dx) if absf(dx)>10 else (1.0 if player.facing<0 else 0.0))
+        if frame-jump_at>=35 and Input.is_action_pressed("jump"):Input.action_release("jump")
+        if absf(player.position.y-bee.position.y)>90 and player.is_on_floor() and player.attack_timer<=0 and player.hurt_timer<=0 and not Input.is_action_pressed("jump"):
+            Input.action_press("jump")
+            jump_at=frame
+            await process_frame
+        if frame-skill_at>=2 and Input.is_action_pressed("skill_1"):Input.action_release("skill_1")
+        if absf(player.position.y-bee.position.y)<80 and absf(player.position.x-bee.position.x)<120 and player.attack_timer<=0 and player.hurt_timer<=0 and player.skill_cooldown<=0 and player.energy>=cost and frames%20>=5:
+            Input.action_press("skill_1")
+            skill_at=frame
+            await process_frame
+        await _tick()
+        if frame%90==89:print("GREENHOUSE_BEE_DUEL ",JSON.stringify({"player":str(player.position),"bee":str(bee.position),"bee_hp":bee.hp,"hp":player.hp}))
+        if deaths>0:break
+    _release()
+    Input.action_release("skill_1")
+    _check(false,"actual vine bee duel did not finish")
+    return false

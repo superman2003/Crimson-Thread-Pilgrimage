@@ -190,6 +190,7 @@ func room_views() -> void:
     world.player.respawn_at(Vector2(5110, 762))
     check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "dome_approach", "Actual respawn signal restores the dome rest before rendering")
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the dome rest")
+    await vine_exit_jumps(world)
     var next_path := "res://data/demo_ch05_obsidian_pilgrim_road.json"
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
@@ -202,3 +203,50 @@ func room_views() -> void:
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+## Positioned production geometry fixture. Actors and region scheduling are
+## paused; only the actual Player physics runs. This is not natural traversal.
+func vine_exit_jumps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Vine exit fixture uses ordinary jumps without extra climbing abilities")
+    player.global_position=Vector2(5480,1360)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Vine exit fixture stands on the actual ninth vine")
+    var hp: int=player.hp
+    for point in [Vector2(5350,1252),Vector2(5360,1186)]:
+        if not await vine_exit_jump(world,point):
+            pause_world(world)
+            return
+    check(player.hp==hp,"Ordinary vine exit jumps preserve health with actors paused")
+    pause_world(world)
+
+func vine_exit_jump(world: Node,target: Vector2) -> bool:
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    await frames(3)
+    Input.action_press("jump")
+    for frame in 100:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        for action in ["move_left","move_right"]:
+            if Input.is_action_pressed(action):Input.action_release(action)
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if frame>5 and player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["jump","move_left","move_right"]:
+                if Input.is_action_pressed(action):Input.action_release(action)
+            check(true,"Production ordinary jump reaches vine exit "+str(target))
+            return true
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    check(false,"Production ordinary vine exit jump blocked at %s toward %s" % [world.player.position,target])
+    return false
