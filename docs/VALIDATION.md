@@ -1,5 +1,9 @@
 # Upgrade validation
 
+## B01 support enemy (2026-10-22)
+
+`enemy_tactical_roles` now covers 263 assertions, including channel timing, one-HP healing, interruption/cooldown, UI pause, sight/height/range, challenge isolation and actual residency suspension/reactivation. `optional_challenges` verifies automatic healing by the authored military-grave pair in the production World. It is a positioned, invulnerable fixture, not a natural T04 playthrough. Set `B01_SUPPORT_CAPTURE` to an absolute `.webp` path under a real GL run to capture the channel. Evidence and remaining warnings are in [the batch report](report/20261022_b01_support_enemy.md).
+
 ## Commands
 
 ```sh

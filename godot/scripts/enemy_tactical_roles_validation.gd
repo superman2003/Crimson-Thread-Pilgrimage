@@ -12,6 +12,11 @@ var checks := 0
 var failures := 0
 var stage: Node2D
 var target: CharacterBody2D
+class CombatTarget extends CharacterBody2D:
+    var ui_input_locked := false
+    var damage_events := 0
+    func take_damage(_amount: int, _origin: Vector2, _blockable := true) -> void:
+        damage_events += 1
 
 func _initialize() -> void:
     call_deferred("run")
@@ -28,7 +33,7 @@ func spawn(kind: String, id: String, at: Vector2, boss := false, extra := {}) ->
     var species: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PROFILE_PATH)).get(kind, {})
     var data := {"id": id, "kind": kind, "hp": 6, "damage": 1, "patrol": 80.0}
     data.merge(extra, true)
-    enemy.configure(data, "", boss, species)
+    enemy.configure(data, String(data.get("sprite", "")), boss, species)
     enemy.position = at
     stage.add_child(enemy)
     enemy.set_physics_process(false)
@@ -59,7 +64,7 @@ func clear_stage() -> void:
 func run() -> void:
     stage = Node2D.new()
     root.add_child(stage)
-    target = CharacterBody2D.new()
+    target = CombatTarget.new()
     target.add_to_group("player")
     stage.add_child(target)
     await process_frame
@@ -68,6 +73,7 @@ func run() -> void:
     await _alarm()
     await _occlusion_and_disengage()
     await _guard_post()
+    await _support()
     _ambush_placement()
     print("ENEMY_TACTICAL_ROLES checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
@@ -229,6 +235,119 @@ func _guard_post() -> void:
     sentinel.memory_timer = 0.0
     step(sentinel, null, 20)
     check(sentinel.last_ai_decision == "hold_post" and absf(sentinel.global_position.x - 300.0) <= 6.0, "the guard keeps its post after its memory expires")
+    await clear_stage()
+
+func _support() -> void:
+    var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/demo_ch05_obsidian_pilgrim_road.json"))
+    var pair: Array = []
+    for challenge in config.optional_challenges:
+        if challenge.id == "ch05_war_graves_trial": pair = challenge.enemies
+    # This is the existing military-grave optional encounter, not a new spawn.
+    check(pair.size() == 2, "the authored grave encounter supplies a spear fighter and flag bearer")
+    if pair.size() != 2: return
+    var spear_data: Dictionary = pair[0]
+    var flag_data: Dictionary = pair[1]
+    check(flag_data.kind == "ash_banner_imp" and config.ai_profiles.ash_banner_imp.tactical_role == "support", "the authored optional encounter uses the production support profile")
+    var donor := spawn(flag_data.kind, flag_data.id, Vector2(flag_data.position[0], flag_data.position[1]), false, flag_data)
+    var ally := spawn(spear_data.kind, spear_data.id, Vector2(spear_data.position[0], spear_data.position[1]), false, spear_data)
+    target.position = donor.position + Vector2(130, 0)
+    ally.hp = 1
+    ally.set_meta("optional_challenge_id", "different_challenge")
+    check(not donor._support_ally_valid(ally), "support cannot heal across optional challenge boundaries")
+    ally.remove_meta("optional_challenge_id")
+    await physics_frame
+    step(donor, target)
+    check(donor.state == "support" and ally.hp == 1, "the flag bearer channels before mending its wounded elite companion")
+    check(donor.get_node_or_null("EnemySupportLink") != null and donor.support_target.get_ref() == ally, "a visible non-damaging link identifies the chosen ally")
+    for index in 4: donor._physics_process(0.1)
+    check(ally.hp == 1 and donor.state == "support", "support does not heal before its readable windup ends")
+    var remaining: float = donor.state_timer
+    var cooldown: float = donor.support_cooldown
+    target.ui_input_locked = true
+    donor._physics_process(2.0)
+    check(donor.state_timer == remaining and donor.support_cooldown == cooldown and ally.hp == 1, "UI pause freezes both support channel and cooldown")
+    target.ui_input_locked = false
+    for index in 6: donor._physics_process(0.1)
+    check(ally.hp == 2 and donor.state == "recover", "a completed support channel mends exactly one HP and leaves a recovery window")
+    check(donor.support_target == null and donor.windup_vfx == null and donor.owned_attack_effects.is_empty(), "release clears the weak target and link without spawning damage")
+    for index in 6: donor._physics_process(0.1)
+    donor.attack_desire = 2.0
+    donor._physics_process(0.1)
+    check(donor.state == "windup" and donor.last_attack_id in ["imp_flurry", "imp_retreat"], "during the eight-second support cooldown the flag bearer still uses its ordinary attacks")
+    check(ally.hp == 2 and donor.support_cooldown > 0.0, "the injured ally is not healed again on the next decision")
+    await clear_stage()
+    await _support_filters()
+    for reason in ["hit", "trip", "interference", "lure", "wall", "player_hidden", "range", "floor", "ally_retired", "source_retired", "suspend_resume", "freed", "ally_dead", "source_dead", "respawn"]:
+        await _support_cancel(reason)
+
+func _support_filters() -> void:
+    var donor := spawn("ash_banner_imp", "support_filters", Vector2(300, 300))
+    var ally := spawn("moss_larva", "support_healthy", Vector2(180, 300))
+    var other := spawn("ash_banner_imp", "support_other", Vector2(200, 300))
+    var boss := spawn("rust_crown_guardian", "support_boss", Vector2(180, 300), true)
+    donor.hp = 1
+    other.hp = 1
+    boss.hp = 1
+    target.position = Vector2(430, 300)
+    await physics_frame
+    check(not donor._support_ally_valid(donor) and not donor._support_ally_valid(other) and not donor._support_ally_valid(boss), "support excludes self, other supporters and bosses")
+    check(not donor._support_ally_valid(ally), "support does not waste a channel on full health")
+    ally.hp = 0
+    check(not donor._support_ally_valid(ally), "support cannot revive a zero-HP actor")
+    ally.hp = 1
+    var less_hurt := spawn("moss_larva", "support_less_hurt", Vector2(250, 300))
+    less_hurt.hp = 4
+    target.position = Vector2(5000, 300)
+    donor._physics_process(0.1)
+    check(donor.state != "support" and ally.hp == 1, "wounded allies do not start support out of combat")
+    target.position = Vector2(430, 300)
+    step(donor, target)
+    check(donor.state == "support" and donor.support_target.get_ref() == ally, "support prioritizes the most injured ally rather than the nearest")
+    donor._finish_support()
+    var foreign := Node2D.new()
+    stage.add_child(foreign)
+    ally.reparent(foreign)
+    check(not donor._support_ally_valid(ally), "support cannot cross a region host boundary")
+    await clear_stage()
+
+func _support_cancel(reason: String) -> void:
+    var donor := spawn("ash_banner_imp", "support_cancel_" + reason, Vector2(300, 300), false, {"elite": true})
+    var ally := spawn("moss_larva", "support_cancel_ally", Vector2(180, 300))
+    ally.hp = 1
+    target.position = Vector2(430, 300)
+    await physics_frame
+    step(donor, target)
+    check(donor.state == "support", reason + ": the channel actually began")
+    match reason:
+        "hit": donor.take_hit(1, 1)
+        "trip": donor.apply_trip(0.5)
+        "interference": donor.apply_target_interference(2.0)
+        "lure": donor.investigate_lure(Vector2(280, 300), 2.0)
+        "wall": wall(240)
+        "player_hidden": wall(375)
+        "range": ally.position.x = -500
+        "floor": ally.position.y += 120
+        "ally_retired": ally.set_meta("world_residency_active", false)
+        "source_retired": donor.set_meta("world_residency_active", false)
+        "suspend_resume":
+            var residency := preload("res://scripts/world_gameplay_residency.gd").new()
+            residency.adopt_enemy(donor)
+            residency._set_enemy_active(donor.spawn_id, false)
+            check(donor.process_mode == Node.PROCESS_MODE_DISABLED and donor.support_target == null, "residency cancels before disabling processing")
+            residency._set_enemy_active(donor.spawn_id, true)
+        "freed": ally.free()
+        "ally_dead": ally.take_hit(6, 1)
+        "source_dead": donor.take_hit(donor.max_hp, 1)
+        "respawn": donor.reset_for_respawn()
+    await physics_frame
+    await physics_frame
+    if reason != "respawn": donor._physics_process(1.0)
+    check(not is_instance_valid(ally) or ally.hp <= 1, reason + ": cancelled support never releases healing")
+    check(donor.state != "support" and donor.support_target == null and donor.windup_vfx == null, reason + ": channel target and cue are cleared")
+    if reason == "respawn":
+        check(donor.support_cooldown == 0.0, "respawn resets support cooldown")
+    else:
+        check(donor.support_cooldown > 0.0, reason + ": cancellation cannot bypass support cooldown")
     await clear_stage()
 
 func _ambush_placement() -> void:

@@ -313,10 +313,15 @@ const TARGET_MEMORY_SECONDS := 2.4
 ## B01 species roles (original_creature_combat.json tactical_role). Most roles
 ## keep the shared decision layer; ambush, alarm and guard change who engages,
 ## who is told and where a lost target is searched for.
-const TACTICAL_ROLES := ["patrol", "ambush", "guard", "ranged", "aerial", "alarm", "boss"]
+const TACTICAL_ROLES := ["patrol", "ambush", "guard", "ranged", "aerial", "alarm", "support", "boss"]
 const AMBUSH_TRIGGER_RANGE := 150.0
 const ALARM_RADIUS := 420.0
 const ALARM_COOLDOWN := 8.0
+const SUPPORT_RADIUS := 260.0
+const SUPPORT_WINDUP := 0.9
+const SUPPORT_COOLDOWN := 8.0
+var support_cooldown := 0.0
+var support_target: WeakRef
 const ATTACK_ROLES := {
     "anti_air": ["nova", "fan", "projectile", "mortar"],
     "counter": ["guard", "retreat", "feint", "blink", "melee", "combo"],
@@ -400,7 +405,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-    if dying or is_queued_for_deletion() or not world_residency_active():
+    if dying or is_queued_for_deletion():
+        return
+    if not world_residency_active():
+        if state == "support": _finish_support()
         return
     # UI pause must not depend on lure/interference target selection.
     var player_node := get_tree().get_first_node_in_group("player")
@@ -432,7 +440,9 @@ func _physics_process(delta: float) -> void:
     else:
         last_player_command = "none"
 
-    if state == "windup":
+    if state == "support":
+        _update_support(delta, target)
+    elif state == "windup":
         _update_windup(delta)
     elif state == "active":
         _update_active(delta)
@@ -666,6 +676,7 @@ func get_ai_debug_state() -> Dictionary:
         "last_ai_decision": last_ai_decision,
         "tactical_role": tactical_role,
         "alarm_alerted": alarm_alerted,
+        "support_cooldown": support_cooldown,
         "last_attack_id": last_attack_id,
         "reads_player_commands": true,
         "command_read_count": command_read_count,
@@ -690,6 +701,7 @@ func _tick_timers(delta: float) -> void:
     ai_clock += delta
     memory_timer = maxf(0.0, memory_timer - delta)
     alarm_cooldown = maxf(0.0, alarm_cooldown - delta)
+    support_cooldown = maxf(0.0, support_cooldown - delta)
     poise_timer = maxf(0.0, poise_timer - delta)
     poise_cooldown = maxf(0.0, poise_cooldown - delta)
     backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
@@ -720,7 +732,7 @@ func _set_flash_amount(amount: float) -> void:
 
 
 func _is_attack_state() -> bool:
-    return state == "windup" or state == "active" or state == "recover"
+    return state in ["windup", "active", "recover", "support"]
 
 
 func _clamp_to_arena() -> void:
@@ -804,6 +816,7 @@ func reset_for_respawn() -> void:
     alarm_cooldown = 0.0
     alarm_alerted = 0
     alarm_search = false
+    support_cooldown = 0.0
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -843,7 +856,7 @@ func _face_target(target: Node2D) -> void:
     _set_sprite_flip(direction < 0)
 
 
-func _has_line_of_sight(target: CharacterBody2D) -> bool:
+func _has_line_of_sight(target: CollisionObject2D) -> bool:
     if target == null or not is_instance_valid(target) or not is_inside_tree():
         return false
     if get_parent().has_method("_ensure_collision_segment"):
@@ -895,6 +908,8 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
             _raise_alarm(target)
         last_seen_position = target.global_position
         memory_timer = TARGET_MEMORY_SECONDS
+        if _try_start_support():
+            return
         if _try_start_attack(target):
             return
         _move_in_combat(delta, target)
@@ -957,7 +972,7 @@ func _raise_alarm(target: CharacterBody2D) -> void:
 
 
 func hear_alarm(seen_at: Vector2) -> bool:
-    if is_boss or dying or memory_timer > 0.0 or state in ["windup", "active", "recover"]:
+    if is_boss or dying or memory_timer > 0.0 or _is_attack_state():
         return false
     # Search toward the call, but only to the edge of this actor's own territory.
     last_seen_position = seen_at
@@ -967,6 +982,82 @@ func hear_alarm(seen_at: Vector2) -> bool:
     memory_timer = TARGET_MEMORY_SECONDS
     alarm_search = true
     return true
+
+
+## A flag bearer can mend one wounded ally while it sees the player. It keeps
+## its ordinary attacks when alone; support never heals a boss or another
+## supporter. A weak target and release-time checks prevent delayed cross-room
+## healing, resurrection and keeping retired actors alive.
+func _can_receive_support() -> bool:
+    return not is_boss and tactical_role != "support" and not dying and not is_queued_for_deletion() and world_residency_active() and hp > 0 and hp < max_hp
+
+
+func _support_ally_valid(ally: Area2D) -> bool:
+    return ally != null and ally != self and ally.get_parent() == get_parent() and ally.get_meta("optional_challenge_id", "") == get_meta("optional_challenge_id", "") and ally.has_method("_can_receive_support") and ally._can_receive_support() and global_position.distance_to(ally.global_position) <= SUPPORT_RADIUS and absf(global_position.y - ally.global_position.y) <= 90.0 and _has_line_of_sight(ally)
+
+
+func _try_start_support() -> bool:
+    if tactical_role != "support" or is_boss or support_cooldown > 0.0 or trip_timer > 0.0 or lure_timer > 0.0 or interference_timer > 0.0:
+        return false
+    var chosen: Area2D
+    var lowest_health := 1.0
+    var nearest := INF
+    for node in get_tree().get_nodes_in_group("enemy"):
+        var ally := node as Area2D
+        if not _support_ally_valid(ally): continue
+        var health := float(ally.hp) / float(ally.max_hp)
+        var distance := global_position.distance_squared_to(ally.global_position)
+        if health < lowest_health or (is_equal_approx(health, lowest_health) and distance < nearest):
+            chosen = ally
+            lowest_health = health
+            nearest = distance
+    if chosen == null: return false
+    _clear_telegraph()
+    support_target = weakref(chosen)
+    support_cooldown = SUPPORT_COOLDOWN  # interruptions still spend the attempt
+    state = "support"
+    state_timer = SUPPORT_WINDUP
+    last_ai_decision = "support:windup"
+    waiting_for_turn = false
+    _set_enemy_animation("attack", true)
+    _pose_sprite("windup")
+    _fit_animation_duration(SUPPORT_WINDUP)
+    var link := Line2D.new()
+    link.name = "EnemySupportLink"
+    link.width = 2.0
+    link.default_color = Color(0.48, 0.88, 0.75, 0.9)
+    VISUAL_POLICY.place_danger(link, true)
+    add_child(link)
+    windup_vfx = link
+    _update_support_link(chosen)
+    return true
+
+
+func _update_support_link(ally: Area2D) -> void:
+    if windup_vfx == null or not is_instance_valid(windup_vfx): return
+    var end := to_local(ally.global_position + Vector2(0, -54))
+    (windup_vfx as Line2D).points = PackedVector2Array([Vector2(0, -48), end, end + Vector2(-8, 0), end + Vector2(0, -10), end + Vector2(8, 0), end + Vector2(0, 10), end])
+
+
+func _update_support(delta: float, target: CharacterBody2D) -> void:
+    var ally := support_target.get_ref() as Area2D if support_target != null else null
+    var aggro_range := float(ai_profile.get("aggro_range", 300.0))
+    if not _support_ally_valid(ally) or target == null or not _target_inside_leash(target) or not _target_in_engage_window(target, aggro_range) or not _has_line_of_sight(target) or lure_timer > 0.0 or interference_timer > 0.0 or trip_timer > 0.0:
+        _finish_support()
+        return
+    _update_support_link(ally)
+    state_timer -= delta
+    if state_timer <= 0.0:
+        ally.hp = mini(ally.max_hp, ally.hp + 1)
+        _finish_support()
+
+
+func _finish_support() -> void:
+    _clear_telegraph()
+    state = "recover"
+    state_timer = 0.55
+    last_ai_decision = "support:recover"
+    _pose_sprite("recover")
 
 
 func _investigate(delta: float) -> void:
@@ -1871,6 +1962,7 @@ func _add_attack_type_signature(parent: Node2D, command: Dictionary, center: Vec
 
 
 func _clear_telegraph() -> void:
+    support_target = null
     if telegraph_tween != null and is_instance_valid(telegraph_tween) and telegraph_tween.is_valid():
         telegraph_tween.kill()
     telegraph_tween = null
