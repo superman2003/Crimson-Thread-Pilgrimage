@@ -18,12 +18,13 @@ class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 133)
+        self.assertEqual(len(all_suites), 136)
         self.assertIn("combat_visual_budget", DEFAULT_SUITES)
         self.assertIn("skill_branches", DEFAULT_SUITES)
         self.assertIn("artisan_crafts", DEFAULT_SUITES)
         self.assertIn("survey_room_segments", DEFAULT_SUITES)
         self.assertIn("save_recovery", DEFAULT_SUITES)
+        self.assertIn("death_cache_placement", DEFAULT_SUITES)
         self.assertIn("ending_aftermath", DEFAULT_SUITES)
         self.assertIn("settings_remap", DEFAULT_SUITES)
         self.assertIn("tool_practice", DEFAULT_SUITES)
@@ -32,6 +33,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("hidden_routes", DEFAULT_SUITES)
         self.assertIn("expanded_character_motion", DEFAULT_SUITES)
         self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
+        self.assertIn("enemy_tactical_roles", DEFAULT_SUITES)
         self.assertIn("character_art_prewarm", DEFAULT_SUITES)
         self.assertIn("texture_request_exit", DEFAULT_SUITES)
         self.assertIn("background_texture_contention", DEFAULT_SUITES)
@@ -48,6 +50,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
         self.assertIn("player_motion_continuity", DEFAULT_SUITES)
         self.assertIn("player_melee_feedback", DEFAULT_SUITES)
+        self.assertIn("spike_pogo", DEFAULT_SUITES)
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)
         self.assertEqual(len(all_suites), len(set(all_suites)))

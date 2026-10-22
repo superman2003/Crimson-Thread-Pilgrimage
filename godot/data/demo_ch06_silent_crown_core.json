@@ -838,6 +838,7 @@
     "echo_moss_larva": {
       "locomotion": "ground",
       "combat_identity": "潜壳长扑，迟发回声落点",
+      "tactical_role": "ambush",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -894,6 +895,7 @@
     "echo_waterwheel_knight": {
       "locomotion": "ground",
       "combat_identity": "回声盾反击，交替快慢波",
+      "tactical_role": "guard",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -949,6 +951,7 @@
     "echo_contract_scribe": {
       "locomotion": "flight",
       "combat_identity": "悬浮封印师，低位纸页与脚下封圈",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1010,6 +1013,7 @@
     "echo_thorn_sentinel": {
       "locomotion": "stationary",
       "combat_identity": "双环荆针，间隔根刺留下穿行空隙",
+      "tactical_role": "guard",
       "move_speed": 62,
       "aggro_range": 440,
       "preferred_range": 230,
@@ -1069,6 +1073,7 @@
     "echo_pilgrim_commander_minor": {
       "locomotion": "ground",
       "combat_identity": "长枪连段与军旗落阵，攻后停顿明显",
+      "tactical_role": "alarm",
       "move_speed": 48,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -1126,6 +1131,7 @@
     "isotope_lumen": {
       "locomotion": "flight",
       "combat_identity": "微光环弹与延迟聚光，弹体可以斩回",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1184,6 +1190,7 @@
     "silent_crown_core": {
       "locomotion": "ground",
       "combat_identity": "钥戟压迫、回旋钥阵；半血后冠门封线与轮波",
+      "tactical_role": "boss",
       "move_speed": 66,
       "aggro_range": 780,
       "preferred_range": 145,
@@ -1291,6 +1298,7 @@
     "falling_clapper": {
       "locomotion": "flight",
       "combat_identity": "高悬钟舌先标记俯冲，再放低位钟浪",
+      "tactical_role": "aerial",
       "move_speed": 35,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1347,6 +1355,7 @@
     "delayed_shadow": {
       "locomotion": "flight",
       "combat_identity": "闪位后的迟发影刃，位置预警保留到出手",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -3131,6 +3140,9 @@
     {
       "id": "E04",
       "kind": "echo_moss_larva",
+      "encounter_profile": {
+        "tactical_role": "patrol"
+      },
       "position": [
         4760,
         1412
