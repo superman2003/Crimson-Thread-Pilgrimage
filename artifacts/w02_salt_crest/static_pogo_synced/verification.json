@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-22T11:25:28.601112+08:00",
+  "head": "daf04f8ceaba49917514f24002e2b9a1c05f64b2",
+  "integration_target": "1660adf83ccc8065c28816226a318c9cd2e56d08",
+  "results": [
+    {
+      "check": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "seconds": 11.42,
+      "exit": 0
+    },
+    {
+      "check": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "seconds": 3.3,
+      "exit": 0
+    },
+    {
+      "check": "pycompile",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "py_compile",
+        "tools/run_archive_ascent.py",
+        "tools/build_chapter_terrain.py"
+      ],
+      "seconds": 0.12,
+      "exit": 0
+    }
+  ]
+}

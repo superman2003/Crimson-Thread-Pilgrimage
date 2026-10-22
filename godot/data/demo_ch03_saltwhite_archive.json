@@ -2200,8 +2200,8 @@
         36
       ],
       "color": "2b2820",
-      "material": "salt_marble",
-      "collision_role": "floor",
+      "material": "vellum_bridge",
+      "collision_role": "one_way",
       "route_role": "main",
       "route_order": 29,
       "safe_landing": true,
@@ -2214,12 +2214,7 @@
           10,
           1
         ]
-      },
-      "terrain_id": "terrain_crest_walk_0_0",
-      "terrain_flat_span": [
-        4620,
-        5040
-      ]
+      }
     },
     {
       "id": "crest_east_walk",
@@ -2245,7 +2240,7 @@
           3
         ]
       },
-      "terrain_id": "terrain_crest_walk_0_0",
+      "terrain_id": "terrain_crest_east_0_0",
       "terrain_flat_span": [
         5150,
         5390
@@ -4832,17 +4827,9 @@
       ]
     },
     {
-      "id": "terrain_crest_walk_0_0",
+      "id": "terrain_crest_east_0_0",
       "kind": "ruin",
       "surface": [
-        [
-          4620,
-          880
-        ],
-        [
-          5040,
-          880
-        ],
         [
           5150,
           922
@@ -4859,7 +4846,6 @@
         1
       ],
       "platform_ids": [
-        "crest_deck",
         "crest_east_walk"
       ]
     },

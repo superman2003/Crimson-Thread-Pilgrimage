@@ -23,7 +23,8 @@ GROUPS={
  ('archive_street','ruin','gate_porch gate_lantern_step spine_run_a spine_book_step spine_run_b spine_tall_shelf'),
  ('candle_arcade','tunnel','candle_floor candle_east_walk candle_gap_stand'),
  ('inverted_gallery','bridge','inv_gallery_a inv_page_step inv_gallery_b inv_east_shelf'),
- ('crest_walk','ruin','crest_deck crest_east_walk'),('salt_basin','soil','sg_run_a sg_run_b sg_run_c'),
+ # The stair shaft rises through the hanging crest deck from below.
+ ('crest_east','ruin','crest_east_walk'),('salt_basin','soil','sg_run_a sg_run_b sg_run_c'),
  ('judgement_approach','ruin','index_run_a boss_threshold'),('mantis_court','arena','mantis_floor'),
  ('archive_exit','ruin','exit_dock dock_step dock_walk')],
 'string_greenhouse':[
