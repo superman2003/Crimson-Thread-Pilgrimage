@@ -1019,6 +1019,9 @@ func _try_start_support() -> bool:
     state_timer = SUPPORT_WINDUP
     last_ai_decision = "support:windup"
     waiting_for_turn = false
+    # Directional clips read attack_direction while channeling; face the ally.
+    _face_target(chosen)
+    attack_direction = direction
     _set_enemy_animation("attack", true)
     _pose_sprite("windup")
     _fit_animation_duration(SUPPORT_WINDUP)

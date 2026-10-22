@@ -303,6 +303,7 @@ func _support_filters() -> void:
     target.position = Vector2(430, 300)
     step(donor, target)
     check(donor.state == "support" and donor.support_target.get_ref() == ally, "support prioritizes the most injured ally rather than the nearest")
+    check(donor.direction == -1 and donor.attack_direction == -1, "the channel faces the ally behind it, not the player or a stale attack side")
     donor._finish_support()
     var foreign := Node2D.new()
     stage.add_child(foreign)
