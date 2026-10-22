@@ -20,7 +20,7 @@
 
 ## 验证
 
-- `enemy_tactical_roles`：原有 184 项保留，最终 263 项通过。覆盖实际军墓配置、引导时序、只回一格、普通攻击兼容、冷却、暂停、受击／绊倒／干扰／诱饵、双方视线、距离／高度、跨挑战／宿主、死亡／释放、休眠恢复和复活。
+- `enemy_tactical_roles`：原有 184 项保留，最终 263 项通过。覆盖实际军墓配置、引导时序、只回一格、普通攻击兼容、冷却、暂停、受击／绊倒／干扰／诱饵、双方视线、距离／高度、跨挑战／宿主、死亡／释放、休眠恢复和复活。 审查补丁 0b7fd2f8 另加 1 项：引导开始时转向受治疗的同伴（方向动画不再沿用上一次攻击方向），合计 264 项。
 - `optional_challenges`：354 项通过（包含可选截图检查），新增正式 World 的自动治疗和不发放货币断言。其余首清、不可刷奖励、离房中止与读档检查保留。
 - 最终整合 10 套真实 GL：上述两套，以及 `enemy_ai_behavior`、`enemy_encounter_roles`、`enemy_lifecycle_regression`、`enemy_effect_lifetime`、`combat_visual_budget`、`obsidian_experience`、`world_enemy_residency`、`world_interaction_residency`。
 - 两种反向检查分别移除实际加血、冷却准入，均由行为断言拒绝；保留失败日志，随后恢复原文件。不是靠解析错误触发失败。

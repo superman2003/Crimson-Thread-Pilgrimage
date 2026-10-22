@@ -2,7 +2,7 @@
 
 ## B01 support enemy (2026-10-22)
 
-`enemy_tactical_roles` now covers 263 assertions, including channel timing, one-HP healing, interruption/cooldown, UI pause, sight/height/range, challenge isolation and actual residency suspension/reactivation. `optional_challenges` verifies automatic healing by the authored military-grave pair in the production World. It is a positioned, invulnerable fixture, not a natural T04 playthrough. Set `B01_SUPPORT_CAPTURE` to an absolute `.webp` path under a real GL run to capture the channel. Evidence and remaining warnings are in [the batch report](report/20261022_b01_support_enemy.md).
+`enemy_tactical_roles` now covers 264 assertions, including channel timing and facing, one-HP healing, interruption/cooldown, UI pause, sight/height/range, challenge isolation and actual residency suspension/reactivation. `optional_challenges` verifies automatic healing by the authored military-grave pair in the production World. It is a positioned, invulnerable fixture, not a natural T04 playthrough. Set `B01_SUPPORT_CAPTURE` to an absolute `.webp` path under a real GL run to capture the channel. Evidence and remaining warnings are in [the batch report](report/20261022_b01_support_enemy.md).
 
 ## Commands
 
@@ -44,6 +44,8 @@ The optional `python tools/run_archive_lower.py --engine /path/to/godot --native
 The optional `python tools/run_judge_route.py --engine /path/to/godot --native-gl --log-dir /tmp/judge-route` continues from the hash-checked, normally earned #191 index save. Its nine real-input steps cover the full-health judge, all four active moves, an actual earned guard block, victory and return to the shrine with damage enabled. A separate engine process verifies exact victory income/items, checkpoint, charted notes and persisted Boss defeat. Both processes have strict 180-second timeouts and source/runner/generator/seed freezes. This remains one-build checkpoint continuation, not a fresh campaign, human assessment or FPS test. See [the judge report](report/20261022_t04_salt_judge.md).
 
 The optional `python tools/run_greenhouse_route.py --engine /path/to/godot --native-gl --log-dir /tmp/greenhouse-route` continues from the hash-checked, normally earned #192 judge save. Its 65 actual-input steps cover the archive exit, paid greenhouse map, lower garden, free vine ascent, naturally earned downstrike and testimony, tree heart rest and no-position map. A second engine process verifies the checkpoint, exact wallet/items, charted notes and persisted ability; each process has a strict 180-second timeout and frozen sources/runner/generators/seed. This remains one-build checkpoint continuation, not a fresh campaign, human assessment or FPS test. See [the greenhouse trellis report](report/20261022_w02_greenhouse_trellis.md).
+
+The optional `python tools/run_greenhouse_vault.py --engine /path/to/godot --native-gl --log-dir /tmp/greenhouse-vault` continues from the hash-checked, normally earned #193 tree heart save. Its ten actual-input steps cover the root vault descent, real downstrike damage on the guardian, normal lever interaction and shrine return with damage enabled. A separate engine process verifies the checkpoint, exact wallet/items, charted notes and persisted lever. Both processes have strict 180-second timeouts and frozen sources/runner/generators/seed. This is one-build checkpoint continuation, not a fresh campaign, human assessment or FPS test. See [the root vault report](report/20261022_w02_greenhouse_vault.md).
 
 ## Outstanding product acceptance
 
