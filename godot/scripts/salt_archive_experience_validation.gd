@@ -191,6 +191,7 @@ func room_views() -> void:
     world.player.respawn_at(Vector2(5180, 2606))
     check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "index_passage", "Actual respawn signal restores the index rest before rendering")
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the index rest")
+    await crest_climb(world)
     world._travel_world("res://data/demo_ch04_broken_string_greenhouse.json", Vector2(330, 1740))
     pause_world(world)
     check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16 and world.player.room_camera.current.id == "west_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving archive replaces its limits with greenhouse framing")
@@ -201,3 +202,61 @@ func room_views() -> void:
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+## Positioned production geometry fixture, actors paused and no extra abilities.
+func crest_climb(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Crest fixture has no extra climbing abilities")
+    player.global_position=Vector2(4815,1088)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    world.set_physics_process(true)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Crest fixture starts on the actual second stair")
+    var hp: int=player.hp
+    for point in [Vector2(5007,982),Vector2(4830,880)]:
+        if not await crest_jump(world,point):
+            pause_world(world)
+            return
+        if point.y==982:await crest_capture(world,"below_crest")
+    for frame in 70:
+        if absf(player.position.x-4700)<12:break
+        Input.action_press("move_left")
+        await frames(1)
+    Input.action_release("move_left")
+    await frames(3)
+    check(player.is_on_floor() and absf(player.position.x-4700)<20 and absf(player.position.y-880)<8,"Thin crest crossing supports walking to the unchanged shrine")
+    check(player.hp==hp,"Normal crest ascent and shrine approach preserve health")
+    await crest_capture(world,"crest_shrine")
+    pause_world(world)
+
+func crest_jump(world: Node,target: Vector2) -> bool:
+    for action in ["jump","move_left","move_right"]:Input.action_release(action)
+    await frames(3)
+    Input.action_press("jump")
+    for frame in 100:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        Input.action_release("move_left")
+        Input.action_release("move_right")
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if frame>5 and player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["jump","move_left","move_right"]:Input.action_release(action)
+            check(true,"Production single jump reaches crest "+str(target))
+            return true
+    for action in ["jump","move_left","move_right"]:Input.action_release(action)
+    check(false,"Production crest jump blocked at %s toward %s" % [world.player.position,target])
+    return false
+
+func crest_capture(world: Node,label: String) -> void:
+    if not "--crest-capture" in OS.get_cmdline_user_args():return
+    world.player.reset_camera_after_arrival()
+    await RenderingServer.frame_post_draw
+    DirAccess.make_dir_recursive_absolute("res://../artifacts/w02_salt_crest")
+    root.get_texture().get_image().save_png("res://../artifacts/w02_salt_crest/"+label+".png")
