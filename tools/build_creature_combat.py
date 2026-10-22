@@ -12,7 +12,7 @@ def attack(id,name,kind,reach=180,windup=.45,active=.24,recover=.5,**kw):
     result.update(kw);return result
 
 def profile(motion,identity,attacks,**kw):
-    result=dict(locomotion=motion,combat_identity=identity,move_speed=62,aggro_range=440 if motion=='stationary' else 300,
+    result=dict(locomotion=motion,combat_identity=identity,tactical_role=None,move_speed=62,aggro_range=440 if motion=='stationary' else 300,
         preferred_range=230 if motion=='stationary' else (135 if motion=='flight' else 66),
         attack_desire_threshold=.58,attack_desire_gain=1.1,aggro_vertical_tolerance=220 if motion=='flight' else 140,
         leash_radius=300,attacks=attacks)
@@ -182,6 +182,15 @@ PROFILES.update({
  A('key_gate','冠门封线','beam',reach=700,windup=1.15,beam_length=720,radius=18,hazard_life=.42,animation='phase',phase=2,cooldown=4.8,recover=1),
  A('key_rings','钥环震地','wave',reach=680,windup=.95,shot_count=4,projectile_speed=190,speed_step=80,radius=23,animation='phase',phase=2,recover=1.1)],phase_name='冠门审判')
 })
+
+# B01 species roles. Unlisted creatures follow their locomotion: flyers are
+# aerial, stationary casters ranged, walkers patrol; bosses keep tactical AI.
+ROLES={'drain_leech':'ambush','salt_bookmite':'ambush','echo_moss_larva':'ambush','vine_crawler':'ambush',
+    'spore_bellmaker':'alarm','silent_bugbler':'alarm','echo_pilgrim_commander_minor':'alarm',
+    'gear_sentinel':'guard','echo_waterwheel_knight':'guard','thorn_sentinel':'guard','echo_thorn_sentinel':'guard'}
+for kind,entry in PROFILES.items():
+    entry['tactical_role']=ROLES.get(kind) or ('boss' if entry.get('tactical_ai') else
+        {'flight':'aerial','stationary':'ranged'}.get(entry['locomotion'],'patrol'))
 
 def main():
     (DATA/'original_creature_combat.json').write_text(json.dumps(PROFILES,ensure_ascii=False,indent=2)+'\n')
