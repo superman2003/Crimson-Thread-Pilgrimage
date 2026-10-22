@@ -259,6 +259,7 @@ var room_camera := ROOM_CAMERA.new()
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
+const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
 
@@ -347,6 +348,8 @@ const RUN_ATTACK_MIN_SPEED_RATIO := 0.5
 # the upward slash's small hop must not swap poses mid-swing.
 var attack_started_grounded := true
 var enemy_contact_guard_timer: float = 0.0
+## Seconds a spike bounce keeps hazard contact from dealing damage.
+var hazard_pogo_guard_timer: float = 0.0
 var hit_targets: Dictionary = {}
 var attack_pogo_paid := false
 var feel: Node = null
@@ -490,6 +493,7 @@ func _physics_process(delta: float) -> void:
     skill_cooldown = maxf(0.0, skill_cooldown - delta)
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
+    hazard_pogo_guard_timer = maxf(0.0, hazard_pogo_guard_timer - delta)
     var input_axis := _move_axis()
     _sample_action_input(delta)
 
@@ -1382,6 +1386,28 @@ func _apply_attack_hits() -> void:
                 attack_pogo_paid = true
             _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack)
+    _try_hazard_pogo(attack_rect)
+
+
+## A downslash that meets static spikes bounces like an enemy hit, but awards no
+## thread and no hit feedback. Terrain between the player and spikes blocks it.
+func _try_hazard_pogo(attack_rect: Rect2) -> void:
+    if attack_pogo_paid or current_attack == &"hook_throw" or current_attack_direction.y <= 0.5:
+        return
+    for node in get_tree().get_nodes_in_group(HAZARD_POGO.GROUP):
+        if not is_instance_valid(node) or not node is Node2D or not node.is_inside_tree():
+            continue
+        var surface: Rect2 = HAZARD_POGO.surface_rect(node)
+        if surface.size == Vector2.ZERO or not attack_rect.intersects(surface):
+            continue
+        var contact := Vector2(clampf(global_position.x, surface.position.x, surface.end.x), surface.position.y + 1.0)
+        if not _attack_line_clear(contact):
+            continue
+        _apply_downslash_bounce(contact)
+        attack_pogo_paid = true
+        hazard_pogo_guard_timer = HAZARD_POGO.CONTACT_GRACE
+        _spawn_hit_confirm_vfx(contact, current_attack)
+        return
 
 
 ## 命中反馈分档（规格 §2.1/§2.2）：hitstop + trauma + 击杀闪帧。
