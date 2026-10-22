@@ -1,0 +1,83 @@
+{
+  "scope": "Keep early deaths and input-timing failures separate from final accepted gameplay. All combat behavior changes were playback inputs; production Boss/player data unchanged.",
+  "pre_sync_two_process_run": "final_natural_01",
+  "pre_sync_base": "4cbc62d89547e26bc4eaffefdc88e28ce85eda2d",
+  "records": [
+    {
+      "path": "attempt_01",
+      "role": "unsuccessful input diagnosis; never acceptance",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: actual inputs defeat the full-health judge",
+        "ERROR: judge naturally uses boss_mantis_flurry",
+        "ERROR: normal judge victory awards one mark and thirty fragments",
+        "ERROR: actual victory persists and removes the arena lock",
+        "ERROR: judge route survives without death"
+      ]
+    },
+    {
+      "path": "attempt_02",
+      "role": "unsuccessful input diagnosis; never acceptance",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: actual inputs defeat the full-health judge",
+        "ERROR: normal judge victory awards one mark and thirty fragments",
+        "ERROR: actual victory persists and removes the arena lock",
+        "ERROR: judge route survives without death"
+      ]
+    },
+    {
+      "path": "attempt_03",
+      "role": "unsuccessful input diagnosis; never acceptance",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: actual inputs defeat the full-health judge",
+        "ERROR: normal judge victory awards one mark and thirty fragments",
+        "ERROR: actual victory persists and removes the arena lock",
+        "ERROR: judge route survives without death"
+      ]
+    },
+    {
+      "path": "attempt_04_input_trace",
+      "role": "unsuccessful input diagnosis; never acceptance",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: actual inputs defeat the full-health judge",
+        "ERROR: normal judge victory awards one mark and thirty fragments",
+        "ERROR: actual victory persists and removes the arena lock",
+        "ERROR: judge route survives without death"
+      ]
+    },
+    {
+      "path": "attempt_05_guarded_release",
+      "role": "unsuccessful input diagnosis; never acceptance",
+      "passed": false,
+      "exit": 1,
+      "source_unchanged": true,
+      "engine_errors": [
+        "ERROR: actual inputs defeat the full-health judge",
+        "ERROR: normal judge victory awards one mark and thirty fragments",
+        "ERROR: actual victory persists and removes the arena lock",
+        "ERROR: judge route survives without death"
+      ]
+    },
+    {
+      "path": "attempt_06_raised_crossover",
+      "role": "prototype success before final two-process check",
+      "passed": true,
+      "exit": 0,
+      "source_unchanged": true,
+      "engine_errors": []
+    }
+  ],
+  "accepted_two_process_run": "final_main_01",
+  "accepted_base": "8cfcccbe1cc7945716f272290eaa3b47adb01cdb"
+}

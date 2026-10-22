@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-22T12:21:22.914587+08:00",
+  "head": "4cbc62d89547e26bc4eaffefdc88e28ce85eda2d",
+  "source_files": 8746,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "seal_combat",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/seal_combat_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 16.08,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "SEAL_COMBAT_VALIDATION PASS checks=194 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "ui_world_integration",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/ui_world_integration_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 4.78,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0",
+      "objectdb_warnings": 1,
+      "passed": true
+    }
+  ]
+}
