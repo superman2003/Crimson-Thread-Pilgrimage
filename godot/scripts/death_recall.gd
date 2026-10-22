@@ -30,10 +30,11 @@ static func setup(level: Node) -> void:
     dialog.theme.set_font("title_font", "Window", preload("res://assets/fonts/GlobalTypeface.otf"))
     dialog.get_label().autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     dialog.get_label().custom_minimum_size = Vector2(430, 90)
+    # Join the tree before any text: shaping outside it costs ~4 ms per string.
+    level.add_child(dialog)
     dialog.title = "钟龛 · 召回归途结"
     dialog.ok_button_text = "召回"
     dialog.cancel_button_text = "亲自去取"
-    level.add_child(dialog)
     var host: WeakRef = weakref(level)
     dialog.confirmed.connect(func():
         var owner: Variant = host.get_ref()

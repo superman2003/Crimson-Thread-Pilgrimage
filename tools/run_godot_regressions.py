@@ -21,9 +21,9 @@ DEFAULT_SUITES = (
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
     'combat generated_runtime chapter_registry story_guidance chinese_story metsys '
     'player_upgrade_regression build_system world_upgrade world_workshop_group_one world_workshop_group_two world_ability_acquisition upgrade_integration save_product '
-    'ui_build_accessibility ui_world_integration ui_redesign global_font '
+    'ui_build_accessibility ui_world_integration ui_redesign global_font ui_text_order '
     'seal_system seal_combat seal_ui seal_acceptance seal_acquisition seal_presentation seal_identity world_prepare_budget world_save_candidate map_player_pins world_preflight_budget world_config_background world_catalog_background world_startup_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression input_prompt player_action_buffer player_motion_continuity player_layered_idle player_melee_feedback camera_focus room_camera_stability first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience '
-    'world_startup_budget world_variant_copy survey_map_knowledge survey_room_segments ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush '
+    'world_startup_budget world_variant_copy survey_map_knowledge survey_room_segments ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush death_cache_placement '
     'melee_recovery spike_pogo combat_resource_cycle build_slots build_transaction_runtime enemy_encounter_roles enemy_ai_behavior enemy_tactical_roles build_slots_ui narrative_outcomes skill_branches artisan_crafts tool_practice shrine_exit_probe shrine_exit_routes hidden_routes save_recovery ending_aftermath settings_remap scene_history'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
