@@ -188,6 +188,8 @@ func _set_enemy_active(id: String, active: bool) -> void:
 	else:
 		# Keep the actor in its canonical group for resets, saves and state cleanup;
 		# attack/target consumers consult the residency flag before acting on it.
+		if String(actor.get("state")) == "support" and actor.has_method("_finish_support"):
+			actor._finish_support()
 		actor.monitoring = false
 		actor.monitorable = false
 		actor.hide()

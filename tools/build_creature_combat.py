@@ -111,7 +111,7 @@ PROFILES={
 'kneeling_crossbowman':profile('stationary','跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线',[
  A('crossbow_burst','锁线三矢','fan',reach=580,shot_count=3,spread=.15,projectile_speed=350,skin='thorn',windup=1),
  A('crossbow_low','贴地重矢','projectile',reach=440,projectile_speed=300,radius=12,skin='thorn',windup=.8)]),
-'ash_banner_imp':profile('ground','短身旗枪连击，跃后退刺',[
+'ash_banner_imp':profile('ground','举旗引导为附近受伤同伴回一格；击中可打断，独处仍用旗枪连击与退刺',[
  A('imp_flurry','旗枪三连','combo',reach=160,windup=.42,active=.55,lunge_speed=95,hit_width=98,recover=.55),
  A('imp_retreat','回旗退刺','retreat',reach=145,windup=.45,active=.3,retreat_speed=165,hit_width=110)]),
 'obsidian_bellwheel':profile('ground','钟轮冲身，双向低波逼迫起跳',[
@@ -186,6 +186,7 @@ PROFILES.update({
 # B01 species roles. Unlisted creatures follow their locomotion: flyers are
 # aerial, stationary casters ranged, walkers patrol; bosses keep tactical AI.
 ROLES={'drain_leech':'ambush','salt_bookmite':'ambush','echo_moss_larva':'ambush','vine_crawler':'ambush',
+    'ash_banner_imp':'support',
     'spore_bellmaker':'alarm','silent_bugbler':'alarm','echo_pilgrim_commander_minor':'alarm',
     'gear_sentinel':'guard','echo_waterwheel_knight':'guard','thorn_sentinel':'guard','echo_thorn_sentinel':'guard'}
 for kind,entry in PROFILES.items():

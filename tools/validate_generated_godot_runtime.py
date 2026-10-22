@@ -669,7 +669,7 @@ def validate_main_level_runtime_contract() -> None:
     required_snippets = [
         "locked_gate_bodies",
         "unlocked_abilities",
-        "func _refresh_ability_gates()",
+        "func _refresh_ability_gates(play_unlock_sfx: bool = false)",
         "func _unlock_ability_gate",
         "func _debug_collect_all_abilities()",
         "opened_shortcuts",
