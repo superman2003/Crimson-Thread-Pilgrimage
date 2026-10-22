@@ -1,10 +1,10 @@
 {
-  "scope": "Preserved evidence; accepted final run and pre-sync diagnostics are distinguished by baseline_scope.json. Gzip is lossless; hashes include original bytes.",
+  "scope": "Preserved evidence; final integration is final_pogo_synced_01, bound by integration_scope.json. Earlier baselines remain explicitly identified. Gzip original hashes included.",
   "files": [
     {
       "path": "baseline_scope.json",
-      "bytes": 414,
-      "sha256": "9024b9748d44733a081b3ef6b2d13459a0ddb745d816202fa1a2dbf80447aae4"
+      "bytes": 463,
+      "sha256": "2c3c6ca43e3278aeb08ad58fd1f898b54c3de8cd4d09ea3a92adadc0f1b3ffb0"
     },
     {
       "path": "below_crest.png",
@@ -404,6 +404,72 @@
       "sha256": "f292890bbcd1fbe6596de6d9db3274da234803162073b5b23b5c2863a11f07ff"
     },
     {
+      "path": "final_pogo_synced_01/playback.gd.txt.gz",
+      "bytes": 3534,
+      "sha256": "f01e5b4d72ac53083c3e216483aef691d4081bdc2d8e155cae87bded70135703",
+      "uncompressed_bytes": 11708,
+      "uncompressed_sha256": "85fefcc94e4ba787b3e560e39df4c589ea2f7b9678648a9fccbabcf6a392083d"
+    },
+    {
+      "path": "final_pogo_synced_01/restart-proof.json",
+      "bytes": 768,
+      "sha256": "41c636e39abeb1b9d8eaf51bf36586a4896933a8c2b80f23c18e90ad3eaeda2c"
+    },
+    {
+      "path": "final_pogo_synced_01/restart.log.gz",
+      "bytes": 891,
+      "sha256": "d18e6e9651d85427dff6b9af0f21ca1fe143de946dd476072c9f0f86608ed4fc",
+      "uncompressed_bytes": 1399,
+      "uncompressed_sha256": "e7fd03cc64165907200d8f44f726fb4a5f2f74102cb19f4d97732bcecdd1aa73"
+    },
+    {
+      "path": "final_pogo_synced_01/runner.py.txt.gz",
+      "bytes": 2631,
+      "sha256": "f0408f2f99d22a5fb4e06728499351b28a106953ae2f54245881c44adc92e0c9",
+      "uncompressed_bytes": 7174,
+      "uncompressed_sha256": "52dc9a075bdd6774f39626d9d45b5de1952efcae9a6b034c7ec070ec8b9afeb8"
+    },
+    {
+      "path": "final_pogo_synced_01/runtime.gd.txt.gz",
+      "bytes": 4409,
+      "sha256": "ae3ec7fb8bd549cc94212a10f2d579585b9b18ccffada06ceedd01929a017823",
+      "uncompressed_bytes": 16486,
+      "uncompressed_sha256": "c7e66899514763ea88063f88e7c25dff3e8ff114189cd9e4415b5363094ced93"
+    },
+    {
+      "path": "final_pogo_synced_01/runtime.log.gz",
+      "bytes": 3872,
+      "sha256": "88568065c410cd2878c64cb94c094c5b2ba887888ddfaac5fa530445d9450f5f",
+      "uncompressed_bytes": 16784,
+      "uncompressed_sha256": "1cfc7f8e2b7f3ea4b07a770c0a019ecb98503db5e82dcfb2cf23270d8d4a2c5f"
+    },
+    {
+      "path": "final_pogo_synced_01/source-after.json.gz",
+      "bytes": 362496,
+      "sha256": "56893b57d207163bc8cb2b8984cebbc8eed602e36515e26633c9c201ed2c8385",
+      "uncompressed_bytes": 1415363,
+      "uncompressed_sha256": "eb7817e1714c21270d021155c2463ad9fb48600809e1fa54c85d4c5d11c31cf1"
+    },
+    {
+      "path": "final_pogo_synced_01/source-before.json.gz",
+      "bytes": 362496,
+      "sha256": "56893b57d207163bc8cb2b8984cebbc8eed602e36515e26633c9c201ed2c8385",
+      "uncompressed_bytes": 1415363,
+      "uncompressed_sha256": "eb7817e1714c21270d021155c2463ad9fb48600809e1fa54c85d4c5d11c31cf1"
+    },
+    {
+      "path": "final_pogo_synced_01/source.diff.gz",
+      "bytes": 3668,
+      "sha256": "8308ba64f009fba288ec4cc59dad9915e2b41281f46e7907d5c36f353aea4d22",
+      "uncompressed_bytes": 10754,
+      "uncompressed_sha256": "5c34250d18de15b0f4af472e58c3f2606aeb5f8f756b2924188c4b0348e3f13a"
+    },
+    {
+      "path": "final_pogo_synced_01/verification.json",
+      "bytes": 2836,
+      "sha256": "5f398ac07a56d36945bf7e8d2d4debccde6498b218761457e6b216a39ed715e9"
+    },
+    {
       "path": "final_roles_synced_01/playback.gd.txt.gz",
       "bytes": 3534,
       "sha256": "f01e5b4d72ac53083c3e216483aef691d4081bdc2d8e155cae87bded70135703",
@@ -546,6 +612,11 @@
       "sha256": "4ab5b07bf1ef8f01e7041a127e614b96f36842786dd86c4a518e737b90337e8d"
     },
     {
+      "path": "integration_scope.json",
+      "bytes": 475,
+      "sha256": "6e5e0c3cec36726b2425c6006921d8572f27d47ebbea7ebfc53c6d3ce5347db6"
+    },
+    {
       "path": "negative_old_crest/restoration.json",
       "bytes": 419,
       "sha256": "3378bb5253d59e118602270d3e94dc8c2d74636672c1e552e688b1e7bc44b62b"
@@ -629,6 +700,39 @@
       "sha256": "de12a9236fd5426f9427c7d5ce3fc85827653195ffbb27377a1c2abe35e2cf5b",
       "uncompressed_bytes": 544,
       "uncompressed_sha256": "83c32c92a1ec31f59ce32653ca093229607a0ebef4498bde469f49cfce03c9b2"
+    },
+    {
+      "path": "related_pogo_synced_01/salt_archive_experience.log.gz",
+      "bytes": 550,
+      "sha256": "2b8c80c5444289a6c8e4f152667480a480c34f0628af960f02858fef8bb7e730",
+      "uncompressed_bytes": 668,
+      "uncompressed_sha256": "a99e97f869f0a059952220824e6b065512b8df0306261e3d9c819479d50a32e1"
+    },
+    {
+      "path": "related_pogo_synced_01/source-after.json.gz",
+      "bytes": 362267,
+      "sha256": "233e799417d47f976ce07801d37c08e670be41bfa0b8c6934a731a3ae7b1bca1",
+      "uncompressed_bytes": 1414940,
+      "uncompressed_sha256": "96589bf195b9ceeec7172b31571fcbcb5aff6eeaab6ea01465d4621fc35f36b6"
+    },
+    {
+      "path": "related_pogo_synced_01/source-before.json.gz",
+      "bytes": 362267,
+      "sha256": "233e799417d47f976ce07801d37c08e670be41bfa0b8c6934a731a3ae7b1bca1",
+      "uncompressed_bytes": 1414940,
+      "uncompressed_sha256": "96589bf195b9ceeec7172b31571fcbcb5aff6eeaab6ea01465d4621fc35f36b6"
+    },
+    {
+      "path": "related_pogo_synced_01/spike_pogo.log.gz",
+      "bytes": 282,
+      "sha256": "954a4cd3b3649948f22080b9de9f780776d6320fc4ef7e9de2d027ab6dbcb8d2",
+      "uncompressed_bytes": 336,
+      "uncompressed_sha256": "f30085867b7817cf340387ac946526464dd3c6a2fe845d1619c9784fe0e30770"
+    },
+    {
+      "path": "related_pogo_synced_01/verification.json",
+      "bytes": 1735,
+      "sha256": "344c157643e718f1fba2f1cd1b45ab6b6202b58c95439a830e4d0d16eaf1d1cd"
     },
     {
       "path": "related_roles_synced_01/cave_route_walk.log.gz",
@@ -836,8 +940,8 @@
     },
     {
       "path": "seed_provenance.json",
-      "bytes": 734,
-      "sha256": "45664c81f1eb99fce61ad6c1d7bb9e87446619bffc082e8eb951a3aea0f704c3"
+      "bytes": 937,
+      "sha256": "4a0e001abd4507c1c35822e075d259e65033a7e7a02c078628e016dbb39978b2"
     },
     {
       "path": "static/campaign.log.gz",
@@ -864,6 +968,32 @@
       "path": "static/verification.json",
       "bytes": 712,
       "sha256": "6b1032b64b61203fb5afb102378b7ff9a7873adff68b9d5619a1dfb1e35ab4b8"
+    },
+    {
+      "path": "static_pogo_synced/campaign.log.gz",
+      "bytes": 1035,
+      "sha256": "025049d74045b4c449f54558401c759db4d05cabc8abafb53d54fba0cb173e67",
+      "uncompressed_bytes": 2563,
+      "uncompressed_sha256": "f10fdc7f6b358a333976b9e5f306e1f2c9ac5b008bc1adb66b2e97f9621a4607"
+    },
+    {
+      "path": "static_pogo_synced/npm_test.log.gz",
+      "bytes": 1359,
+      "sha256": "9036fd429e72eead6d98596aade630889aceade15bb8da0984cd1e1910a6279f",
+      "uncompressed_bytes": 6399,
+      "uncompressed_sha256": "1e5ba332024817e04464d47d82460365266d25918a98511d7161190f560b329a"
+    },
+    {
+      "path": "static_pogo_synced/pycompile.log.gz",
+      "bytes": 20,
+      "sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "uncompressed_bytes": 0,
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "static_pogo_synced/verification.json",
+      "bytes": 851,
+      "sha256": "5c8f5f65c08ac5121e5950e904f62e78a782636b61af4d44fda77e444e755140"
     },
     {
       "path": "static_roles_synced/campaign.log.gz",

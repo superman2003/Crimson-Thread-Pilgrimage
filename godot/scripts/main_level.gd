@@ -6,6 +6,7 @@ const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
 const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
 const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
 const CAVE_LIFT_SCRIPT := preload("res://scripts/cave_lift.gd")
+const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 var ui_shell: Control
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
@@ -4825,6 +4826,7 @@ func _hazard(data: Dictionary) -> void:
     rectangle.size = rect.size
     shape.shape = rectangle
     area.add_child(shape)
+    HAZARD_POGO.mark(area, String(data.get("kind", "spikes")), rect.size)
 
     var sprite := Sprite2D.new()
     sprite.texture = load(SPRITES.get(String(data.get("kind", "spikes")), SPRITES["spikes"]))
@@ -6070,6 +6072,8 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
     if world_loading:
         return
     if body == player:
+        if area.is_in_group(HAZARD_POGO.GROUP) and float(player.get("hazard_pogo_guard_timer")) > 0.0:
+            return
         player.take_damage(int(area.get_meta("damage", 1)), area.global_position, false)
         _toast(String(area.get_meta("message", "Trap hit.")))
         _refresh_hud()
