@@ -1,0 +1,79 @@
+{
+  "accepted_natural": "final_natural_02",
+  "accepted_positioned_fixture": "final_fixture_01",
+  "scope": "Preserve every unsuccessful diagnosis and distinguish prototype replay from final two-process result",
+  "records": [
+    {
+      "path": "diagnostics/attempt_01",
+      "role": "unsuccessful input diagnosis; not acceptance",
+      "passed": false,
+      "exit": 1,
+      "engine_errors": [
+        "ERROR: leap blocked: cross the crest clapper to the chute lip at (5239.63, 921.9252)",
+        "ERROR: lower archive continuation survives"
+      ]
+    },
+    {
+      "path": "diagnostics/attempt_02",
+      "role": "unsuccessful input diagnosis; not acceptance",
+      "passed": false,
+      "exit": 1,
+      "engine_errors": [
+        "ERROR: normal shelf landing collects archive testimony",
+        "ERROR: leap blocked: index passage eastern bank at (5014.575, 2491.925)"
+      ]
+    },
+    {
+      "path": "diagnostics/attempt_03",
+      "role": "unsuccessful input diagnosis; not acceptance",
+      "passed": false,
+      "exit": 1,
+      "engine_errors": [
+        "ERROR: leap blocked: jump over the spore chest and upper shelf to index rest at (4775.743, 2631.646)"
+      ]
+    },
+    {
+      "path": "diagnostics/attempt_04",
+      "role": "unsuccessful input diagnosis; not acceptance",
+      "passed": false,
+      "exit": 1,
+      "engine_errors": [
+        "ERROR: leap blocked: jump over the spore chest and upper shelf to index rest at (5042.926, 2630.961)"
+      ]
+    },
+    {
+      "path": "diagnostics/attempt_05_old_clearance",
+      "role": "unsuccessful input diagnosis; not acceptance",
+      "passed": false,
+      "exit": 1,
+      "engine_errors": [
+        "ERROR: leap blocked: single jump onto the index shrine platform at (5042.999, 2639.994)"
+      ]
+    },
+    {
+      "path": "diagnostics/attempt_06_fixed_clearance",
+      "role": "prototype without independent restart",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": []
+    },
+    {
+      "path": "negative_old_clearance",
+      "role": "initial old geometry fixture; expected failure"
+    },
+    {
+      "path": "fixed_clearance_01",
+      "role": "failed far-takeoff fixture, not acceptance"
+    },
+    {
+      "path": "fixture_depth24_diagnostic",
+      "role": "failed far-takeoff positioned diagnostic, actors paused; not acceptance"
+    },
+    {
+      "path": "negative_old_final",
+      "role": "final adjacent-takeoff old-data rejection, expected failure"
+    }
+  ],
+  "earlier_accepted_natural": "final_natural_01",
+  "final_runner_help_corrected": "The documented seed is the earned crest checkpoint; final_natural_02 binds the exact submitted runner."
+}

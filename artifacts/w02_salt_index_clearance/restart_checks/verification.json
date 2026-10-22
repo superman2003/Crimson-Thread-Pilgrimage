@@ -1,0 +1,173 @@
+{
+  "head": "5aeb62f970fec6445685c0848705e641e9b29ae1",
+  "source_files": 8742,
+  "source_unchanged": true,
+  "results": [
+    {
+      "case": "correct",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--position",
+        "-32000,-32000",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_archive_lower_playback.gd",
+        "--",
+        "--archive-lower-restart-proof={\"charted\":{\"atrium_shaft@0\":true,\"atrium_shaft@1\":true,\"candle_mezzanine\":true,\"crest_bridge\":true,\"index_passage\":true,\"inverse_page_gallery\":true,\"mezz_reading_ledges\":true,\"salt_gatehouse\":true,\"sealed_stacks\":true,\"spine_chute\":true,\"wax_seal_vault\":true,\"white_spine_hall\":true},\"checkpoint\":\"save_late_runback\",\"inventory\":{\"bell_guard\":1,\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":16,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_03\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11,\"worker_badge\":1},\"pid\":27100,\"region\":\"demo_ch03_saltwhite_archive\",\"wallet\":156}"
+      ],
+      "seconds": 4.41,
+      "exit": 0,
+      "timed_out": false,
+      "errors": [],
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "case": "wrong_wallet",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--position",
+        "-32000,-32000",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_archive_lower_playback.gd",
+        "--",
+        "--archive-lower-restart-proof={\"charted\":{\"atrium_shaft@0\":true,\"atrium_shaft@1\":true,\"candle_mezzanine\":true,\"crest_bridge\":true,\"index_passage\":true,\"inverse_page_gallery\":true,\"mezz_reading_ledges\":true,\"salt_gatehouse\":true,\"sealed_stacks\":true,\"spine_chute\":true,\"wax_seal_vault\":true,\"white_spine_hall\":true},\"checkpoint\":\"save_late_runback\",\"inventory\":{\"bell_guard\":1,\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":16,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_03\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11,\"worker_badge\":1},\"pid\":27100,\"region\":\"demo_ch03_saltwhite_archive\",\"wallet\":157}"
+      ],
+      "seconds": 4.36,
+      "exit": 1,
+      "timed_out": false,
+      "errors": [
+        "ERROR: index restart retains exact normal combat income"
+      ],
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "case": "fractional_count",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--position",
+        "-32000,-32000",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_archive_lower_playback.gd",
+        "--",
+        "--archive-lower-restart-proof={\"charted\":{\"atrium_shaft@0\":true,\"atrium_shaft@1\":true,\"candle_mezzanine\":true,\"crest_bridge\":true,\"index_passage\":true,\"inverse_page_gallery\":true,\"mezz_reading_ledges\":true,\"salt_gatehouse\":true,\"sealed_stacks\":true,\"spine_chute\":true,\"wax_seal_vault\":true,\"white_spine_hall\":true},\"checkpoint\":\"save_late_runback\",\"inventory\":{\"bell_guard\":1,\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":16,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_03\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11.5,\"worker_badge\":1},\"pid\":27100,\"region\":\"demo_ch03_saltwhite_archive\",\"wallet\":156}"
+      ],
+      "seconds": 4.58,
+      "exit": 1,
+      "timed_out": false,
+      "errors": [
+        "ERROR: index restart retains every exact earned item count"
+      ],
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "case": "missing_pid",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--position",
+        "-32000,-32000",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_archive_lower_playback.gd",
+        "--",
+        "--archive-lower-restart-proof={\"charted\":{\"atrium_shaft@0\":true,\"atrium_shaft@1\":true,\"candle_mezzanine\":true,\"crest_bridge\":true,\"index_passage\":true,\"inverse_page_gallery\":true,\"mezz_reading_ledges\":true,\"salt_gatehouse\":true,\"sealed_stacks\":true,\"spine_chute\":true,\"wax_seal_vault\":true,\"white_spine_hall\":true},\"checkpoint\":\"save_late_runback\",\"inventory\":{\"bell_guard\":1,\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":16,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_03\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11,\"worker_badge\":1},\"region\":\"demo_ch03_saltwhite_archive\",\"wallet\":156}"
+      ],
+      "seconds": 4.53,
+      "exit": 1,
+      "timed_out": false,
+      "errors": [
+        "ERROR: index checkpoint opens in a different process"
+      ],
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "case": "missing_note",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--position",
+        "-32000,-32000",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_archive_lower_playback.gd",
+        "--",
+        "--archive-lower-restart-proof={\"charted\":{\"atrium_shaft@1\":true,\"candle_mezzanine\":true,\"crest_bridge\":true,\"index_passage\":true,\"inverse_page_gallery\":true,\"mezz_reading_ledges\":true,\"salt_gatehouse\":true,\"sealed_stacks\":true,\"spine_chute\":true,\"wax_seal_vault\":true,\"white_spine_hall\":true},\"checkpoint\":\"save_late_runback\",\"inventory\":{\"bell_guard\":1,\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":16,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_03\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11,\"worker_badge\":1},\"pid\":27100,\"region\":\"demo_ch03_saltwhite_archive\",\"wallet\":156}"
+      ],
+      "seconds": 4.47,
+      "exit": 1,
+      "timed_out": false,
+      "errors": [
+        "ERROR: index restart retains all actual charted archive notes"
+      ],
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "case": "wrong_checkpoint",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--position",
+        "-32000,-32000",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_archive_lower_playback.gd",
+        "--",
+        "--archive-lower-restart-proof={\"charted\":{\"atrium_shaft@0\":true,\"atrium_shaft@1\":true,\"candle_mezzanine\":true,\"crest_bridge\":true,\"index_passage\":true,\"inverse_page_gallery\":true,\"mezz_reading_ledges\":true,\"salt_gatehouse\":true,\"sealed_stacks\":true,\"spine_chute\":true,\"wax_seal_vault\":true,\"white_spine_hall\":true},\"checkpoint\":\"save_ch03_lower_loop\",\"inventory\":{\"bell_guard\":1,\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":16,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_03\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11,\"worker_badge\":1},\"pid\":27100,\"region\":\"demo_ch03_saltwhite_archive\",\"wallet\":156}"
+      ],
+      "seconds": 4.28,
+      "exit": 1,
+      "timed_out": false,
+      "errors": [
+        "ERROR: restart retains the actual region and index checkpoint"
+      ],
+      "objectdb_warnings": 0,
+      "passed": true
+    }
+  ]
+}
