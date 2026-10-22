@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-22T11:50:51.545244+08:00",
+  "head": "5aeb62f970fec6445685c0848705e641e9b29ae1",
+  "results": [
+    {
+      "check": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "seconds": 10.84,
+      "exit": 0
+    },
+    {
+      "check": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "seconds": 3.02,
+      "exit": 0
+    },
+    {
+      "check": "pycompile",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "py_compile",
+        "tools/run_archive_lower.py"
+      ],
+      "seconds": 0.12,
+      "exit": 0
+    }
+  ]
+}

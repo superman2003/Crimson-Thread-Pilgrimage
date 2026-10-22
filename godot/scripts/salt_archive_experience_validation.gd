@@ -192,6 +192,7 @@ func room_views() -> void:
     check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "index_passage", "Actual respawn signal restores the index rest before rendering")
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the index rest")
     await crest_climb(world)
+    await index_shrine_access(world)
     world._travel_world("res://data/demo_ch04_broken_string_greenhouse.json", Vector2(330, 1740))
     pause_world(world)
     check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16 and world.player.room_camera.current.id == "west_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving archive replaces its limits with greenhouse framing")
@@ -260,3 +261,23 @@ func crest_capture(world: Node,label: String) -> void:
     await RenderingServer.frame_post_draw
     DirAccess.make_dir_recursive_absolute("res://../artifacts/w02_salt_crest")
     root.get_texture().get_image().save_png("res://../artifacts/w02_salt_crest/"+label+".png")
+
+## Positioned geometry check for the shrine step beneath the stacks exit shelf.
+func index_shrine_access(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Index shrine fixture needs only an ordinary jump")
+    player.global_position=Vector2(5040,2640)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    world.set_physics_process(true)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Index shrine fixture stands on the actual passage floor")
+    var hp: int=player.hp
+    if await crest_jump(world,Vector2(5180,2606)):
+        check(player.hp==hp,"Ordinary index shrine approach preserves health")
+    pause_world(world)
