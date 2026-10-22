@@ -22,8 +22,8 @@ static func setup(level: Node) -> void:
     kinds.name = "PinKind"
     kinds.size = Vector2(96, 34)
     kinds.focus_mode = Control.FOCUS_ALL
-    for index in PINS.KINDS.size(): kinds.add_item(PINS.SYMBOLS[index] + " " + PINS.NAMES[index], index)
     toolbar.add_child(kinds)
+    for index in PINS.KINDS.size(): kinds.add_item(PINS.SYMBOLS[index] + " " + PINS.NAMES[index], index)
     var add_button: Button = level.ui_shell._button(toolbar, "标记当前位置", Vector2(102, 0), Vector2(140, 34), func():
         _dispatch(host_ref, toolbar_ref, view_ref, "add"))
     add_button.name = "PinCurrent"
@@ -50,8 +50,8 @@ static func setup(level: Node) -> void:
     status.size = Vector2(1108, 17)
     status.add_theme_font_size_override("font_size", 12)
     status.add_theme_color_override("font_color", Color("e7ad7f"))
-    status.text = "右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
     level.map_panel.add_child(status)
+    status.text = "右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
 
 ## Weak captures matter before the guard: Godot reports an engine error when
 ## invoking a lambda whose captured Node was freed, even if it checks liveness.

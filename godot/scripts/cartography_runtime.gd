@@ -24,11 +24,12 @@ static func setup(level: Node) -> void:
     dialog.theme.set_stylebox("panel","AcceptDialog",frame)
     dialog.get_label().autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     dialog.get_label().custom_minimum_size=Vector2(450,130)
+    # Join the tree before any text: shaping outside it costs ~4 ms per string.
+    level.add_child(dialog)
     dialog.title=String(area.get_meta("label","地图NPC"))+" · 本区地图"
     dialog.dialog_text=String(seller.get("note",""))+"\n\n本区地图：%d枚松脂碎钱" % seller_price(seller)
     dialog.ok_button_text="购买底图"
     dialog.cancel_button_text="暂不购买"
-    level.add_child(dialog)
     var talk := dialog.add_button("交谈",true,"talk")
     talk.name="MapSellerTalk"
     # Every seller stocks the two survey tools until the player owns them, so
