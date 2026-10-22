@@ -1,0 +1,59 @@
+{
+  "scope": "Old and patched cave generators rebuild six temporary copies; only the authored upper greenhouse dock changes style/role. Production data never rewritten.",
+  "head": "dfb1c998c2745c69707bd4135f3e2a7951fddd8f",
+  "previous_builder_sha256": "2bd006e7e4636fd20b7a95af7347e286141826b85efea5eb1be525d23d6625da",
+  "builder_sha256": "d1f24cb9b7929653c5508ba93b3f04361c84aa3589eba6636f7b7c0410dba8e3",
+  "production_sha256": {
+    "demo_ch01_moss_bell_court.json": "6e2cb3242b8453ed76eb40afc4ac037fe63eaa7551bc87ba349e16acf46d2144",
+    "demo_ch02_rain_foundry_canal.json": "aab2e5b344eb8eb7c260b4fd515974730affa2616673b715793adce9655b7a0a",
+    "demo_ch03_saltwhite_archive.json": "0905c2c76e3da0a2826d6c82ee093a1e4ed0bc7ce8e45d187825a511df1ee824",
+    "demo_ch04_broken_string_greenhouse.json": "4c60b66869095a28094dfcdca22d44021f567e20e392efc744f265d8d1ad43e8",
+    "demo_ch05_obsidian_pilgrim_road.json": "83b328e7f7c6272780cf453d69d1042fa38eb387c23054d0b04165f62615a55a",
+    "demo_ch06_silent_crown_core.json": "c7c3dcfb4d0803468066205031f4276927ced8eecae50e25485a047d875833af"
+  },
+  "production_unchanged": true,
+  "results": [
+    {
+      "chapter": "demo_ch01_moss_bell_court.json",
+      "only_expected_changes": [],
+      "otherwise_exact": true
+    },
+    {
+      "chapter": "demo_ch02_rain_foundry_canal.json",
+      "only_expected_changes": [],
+      "otherwise_exact": true
+    },
+    {
+      "chapter": "demo_ch03_saltwhite_archive.json",
+      "only_expected_changes": [],
+      "otherwise_exact": true
+    },
+    {
+      "chapter": "demo_ch04_broken_string_greenhouse.json",
+      "only_expected_changes": [
+        {
+          "id": "cave_dock_1",
+          "before": {
+            "material": "greenhouse_loam",
+            "collision_role": "floor"
+          },
+          "after": {
+            "material": "glassvine_bridge",
+            "collision_role": "one_way"
+          }
+        }
+      ],
+      "otherwise_exact": true
+    },
+    {
+      "chapter": "demo_ch05_obsidian_pilgrim_road.json",
+      "only_expected_changes": [],
+      "otherwise_exact": true
+    },
+    {
+      "chapter": "demo_ch06_silent_crown_core.json",
+      "only_expected_changes": [],
+      "otherwise_exact": true
+    }
+  ]
+}
