@@ -191,6 +191,7 @@ func room_views() -> void:
     check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "dome_approach", "Actual respawn signal restores the dome rest before rendering")
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the dome rest")
     await vine_exit_jumps(world)
+    await root_vault_steps(world)
     var next_path := "res://data/demo_ch05_obsidian_pilgrim_road.json"
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
@@ -229,7 +230,7 @@ func vine_exit_jumps(world: Node) -> void:
     check(player.hp==hp,"Ordinary vine exit jumps preserve health with actors paused")
     pause_world(world)
 
-func vine_exit_jump(world: Node,target: Vector2) -> bool:
+func vine_exit_jump(world: Node,target: Vector2,label: String="vine exit") -> bool:
     for action in ["jump","move_left","move_right"]:
         if Input.is_action_pressed(action):Input.action_release(action)
     await frames(3)
@@ -244,9 +245,67 @@ func vine_exit_jump(world: Node,target: Vector2) -> bool:
         if frame>5 and player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
             for action in ["jump","move_left","move_right"]:
                 if Input.is_action_pressed(action):Input.action_release(action)
-            check(true,"Production ordinary jump reaches vine exit "+str(target))
+            check(true,"Production ordinary jump reaches "+label+" "+str(target))
             return true
     for action in ["jump","move_left","move_right"]:
         if Input.is_action_pressed(action):Input.action_release(action)
-    check(false,"Production ordinary vine exit jump blocked at %s toward %s" % [world.player.position,target])
+    check(false,"Production ordinary %s jump blocked at %s toward %s" % [label,world.player.position,target])
+    return false
+
+## Production root-vault shaft fixture; actors remain paused and harmless.
+## The positioned fixture exercises ordinary movement, not natural exploration.
+func root_vault_steps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Root vault fixture uses ordinary movement without extra climbing abilities")
+    player.global_position=Vector2(2750,1602)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Root vault fixture stands on the actual tree heart")
+    var hp: int=player.hp
+    for target in [Vector2(2560,1732),Vector2(2730,1856)]:
+        if not await root_vault_walk(world,target):
+            pause_world(world)
+            return
+    if not await root_vault_walk(world,Vector2(2656,1856)):
+        pause_world(world)
+        return
+    if not await vine_exit_jump(world,Vector2(2550,1732),"root vault lower step return"):
+        pause_world(world)
+        return
+    if not await root_vault_walk(world,Vector2(2590,1732)):
+        pause_world(world)
+        return
+    if not await vine_exit_jump(world,Vector2(2770,1602),"tree heart return"):
+        pause_world(world)
+        return
+    check(player.hp==hp,"Ordinary root vault descent and return preserve health with actors paused")
+    pause_world(world)
+
+func root_vault_walk(world: Node,target: Vector2) -> bool:
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    await frames(3)
+    for frame in 150:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        for action in ["move_left","move_right"]:
+            if Input.is_action_pressed(action):Input.action_release(action)
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["move_left","move_right"]:
+                if Input.is_action_pressed(action):Input.action_release(action)
+            check(true,"Production ordinary root vault walk reaches "+str(target))
+            return true
+    for action in ["move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    check(false,"Production root vault drop blocked at %s toward %s" % [world.player.position,target])
     return false

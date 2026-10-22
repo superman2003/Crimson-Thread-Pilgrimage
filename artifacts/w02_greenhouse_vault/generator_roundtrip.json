@@ -1,0 +1,46 @@
+{
+  "production_unchanged": true,
+  "production_sha256": {
+    "demo_ch01_moss_bell_court.json": "6e2cb3242b8453ed76eb40afc4ac037fe63eaa7551bc87ba349e16acf46d2144",
+    "demo_ch02_rain_foundry_canal.json": "aab2e5b344eb8eb7c260b4fd515974730affa2616673b715793adce9655b7a0a",
+    "demo_ch03_saltwhite_archive.json": "0905c2c76e3da0a2826d6c82ee093a1e4ed0bc7ce8e45d187825a511df1ee824",
+    "demo_ch04_broken_string_greenhouse.json": "dbd72f9a9e33621181d17cc46e1d2f464de3c648bb5decf8a87dc94a3623a493",
+    "demo_ch05_obsidian_pilgrim_road.json": "83b328e7f7c6272780cf453d69d1042fa38eb387c23054d0b04165f62615a55a",
+    "demo_ch06_silent_crown_core.json": "c7c3dcfb4d0803468066205031f4276927ced8eecae50e25485a047d875833af"
+  },
+  "results": [
+    {
+      "chapter": "demo_ch01_moss_bell_court.json",
+      "changed_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch02_rain_foundry_canal.json",
+      "changed_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch03_saltwhite_archive.json",
+      "changed_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch04_broken_string_greenhouse.json",
+      "changed_top_level_fields": [
+        "platforms",
+        "cave_world"
+      ],
+      "cave_world_changed_fields": [
+        "solid_rects",
+        "outlines"
+      ],
+      "generated_fixed_sha256": "6fc7b6de45632175d5715d417854dcc14de23f932af13a3177c7f931d74bde07",
+      "note": "Authored width is retained; derived cave geometry follows its changed protected footprint. A generated-data runtime regression is recorded separately."
+    },
+    {
+      "chapter": "demo_ch05_obsidian_pilgrim_road.json",
+      "changed_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch06_silent_crown_core.json",
+      "changed_top_level_fields": []
+    }
+  ]
+}
