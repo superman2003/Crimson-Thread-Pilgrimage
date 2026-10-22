@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-22T12:19:49.006731+08:00",
+  "head": "4cbc62d89547e26bc4eaffefdc88e28ce85eda2d",
+  "results": [
+    {
+      "check": "npm_test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "seconds": 9.83,
+      "exit": 0
+    },
+    {
+      "check": "campaign",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:campaign"
+      ],
+      "seconds": 2.75,
+      "exit": 0
+    },
+    {
+      "check": "pycompile",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "py_compile",
+        "tools/run_judge_route.py"
+      ],
+      "seconds": 0.11,
+      "exit": 0
+    }
+  ]
+}
