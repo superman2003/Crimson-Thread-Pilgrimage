@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_key_cleave.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "9a3c7f57a7cf2081b711ddc928382cbfda23aa886cced32635244bc26944520e",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_key_cleave.txt",
+  "prompt_sha256": "d2a277b5ad8d2ffd7796ad7c71263113fc0091c26d42668fdf1c3e854b03d367",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        508,
+        512
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        37,
+        73,
+        473,
+        470
+      ],
+      "fully_transparent_pixels": 154482
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        508,
+        0,
+        1023,
+        512
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        545,
+        63,
+        988,
+        479
+      ],
+      "fully_transparent_pixels": 135522
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1023,
+        0,
+        1536,
+        512
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1058,
+        59,
+        1498,
+        485
+      ],
+      "fully_transparent_pixels": 118949
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        512,
+        518,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        29,
+        555,
+        486,
+        988
+      ],
+      "fully_transparent_pixels": 109842
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        518,
+        512,
+        1029,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        545,
+        545,
+        1005,
+        979
+      ],
+      "fully_transparent_pixels": 90118
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1029,
+        512,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1053,
+        558,
+        1514,
+        984
+      ],
+      "fully_transparent_pixels": 82463
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/silent_crown_core.png",
+      "sha256": "f0e361da4a07021f1de34700f2bf75bcd5ff9989e2e24be24478b74a58266819"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 warning cels: right-facing angular brass key teeth and pale slit reflections in a short dark crown ribbon. Stepped silhouette, no readable rune, caster or impact explosion. Runtime anchor, bounds, timing and readability remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

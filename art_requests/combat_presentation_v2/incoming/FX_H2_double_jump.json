@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_double_jump.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "e7f531496298848740395d633cadf2557db385cd76cebf7f4c436e0e9cd652b3",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_double_jump.txt",
+  "prompt_sha256": "1d2cbab790aa9cce9aec6d7502c4ca674cc2f789d0797ce98803b9ef592a01ae",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "feet",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        470,
+        553
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        124,
+        270,
+        381,
+        452
+      ],
+      "fully_transparent_pixels": 231928
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        470,
+        0,
+        1010,
+        553
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        546,
+        163,
+        993,
+        496
+      ],
+      "fully_transparent_pixels": 227228
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1010,
+        0,
+        1536,
+        553
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1033,
+        101,
+        1526,
+        487
+      ],
+      "fully_transparent_pixels": 190070
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        553,
+        521,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        17,
+        616,
+        499,
+        983
+      ],
+      "fully_transparent_pixels": 146846
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        521,
+        553,
+        1016,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        543,
+        664,
+        1007,
+        987
+      ],
+      "fully_transparent_pixels": 172114
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1016,
+        553,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1032,
+        699,
+        1517,
+        964
+      ],
+      "fully_transparent_pixels": 220305
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: paired moth-wing silk fans unfurl around an open centre, then fray downward. No creature or character. Runtime foot registration remains pending.",
+    "runtime_acceptance": "pending"
+  }
+}
