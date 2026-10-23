@@ -1,0 +1,53 @@
+{
+  "source_unchanged": true,
+  "cases": [
+    {
+      "case": "wallet",
+      "exit": 1,
+      "errors": [
+        "ERROR: obsidian restart retains exact victory income without a duplicate reward"
+      ],
+      "passed": true
+    },
+    {
+      "case": "fractional_count",
+      "exit": 1,
+      "errors": [
+        "ERROR: obsidian restart retains every exact earned item count"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing_pid",
+      "exit": 1,
+      "errors": [
+        "ERROR: obsidian checkpoint opens in a different process"
+      ],
+      "passed": true
+    },
+    {
+      "case": "missing_chart",
+      "exit": 1,
+      "errors": [
+        "ERROR: obsidian restart retains all actually charted notes"
+      ],
+      "passed": true
+    },
+    {
+      "case": "checkpoint",
+      "exit": 1,
+      "errors": [
+        "ERROR: obsidian restart retains the actual region and checkpoint"
+      ],
+      "passed": true
+    },
+    {
+      "case": "build",
+      "exit": 1,
+      "errors": [
+        "ERROR: restart preserves exact equipped build and remaining consumables"
+      ],
+      "passed": true
+    }
+  ]
+}
