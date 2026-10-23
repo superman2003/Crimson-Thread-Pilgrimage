@@ -1,0 +1,55 @@
+[
+  {
+    "case": "wallet",
+    "exit": 1,
+    "errors": [
+      "ERROR: root vault restart retains exact earned income\r",
+      "ERROR: west restart retains exact build state\r"
+    ],
+    "passed": false
+  },
+  {
+    "case": "inventory",
+    "exit": 1,
+    "errors": [
+      "ERROR: root vault restart retains every exact earned item count\r",
+      "ERROR: west restart retains exact build state\r"
+    ],
+    "passed": false
+  },
+  {
+    "case": "pid",
+    "exit": 1,
+    "errors": [
+      "ERROR: root vault checkpoint opens in a different process\r",
+      "ERROR: west restart retains exact build state\r"
+    ],
+    "passed": false
+  },
+  {
+    "case": "charted",
+    "exit": 1,
+    "errors": [
+      "ERROR: west restart retains exact build state\r",
+      "ERROR: root vault restart retains all actually charted notes\r"
+    ],
+    "passed": false
+  },
+  {
+    "case": "checkpoint",
+    "exit": 1,
+    "errors": [
+      "ERROR: root vault restart retains actual region and checkpoint\r",
+      "ERROR: west restart retains exact build state\r"
+    ],
+    "passed": false
+  },
+  {
+    "case": "build_state",
+    "exit": 1,
+    "errors": [
+      "ERROR: west restart retains exact build state\r"
+    ],
+    "passed": true
+  }
+]
