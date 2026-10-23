@@ -21,7 +21,7 @@ LIFTS = [
 ]
 # The upper greenhouse gallery crosses the free vine exit. Its hanging dock
 # follows the trellis surface so climbing from below remains possible.
-HANGING_DOCKS = {(4, 1)}
+HANGING_DOCKS = {(4, 1), (5, 1)}
 
 
 def rectangle(values):
@@ -38,6 +38,15 @@ def build(path, number):
     for p in plats.values():
         x, y, w, _ = p['rect']
         protected.append(box(x - 38, y - 260, x + w + 38, y + 3) if p.get('collision_role')!='ceiling' else box(x,y,x+w,y+1))
+    # The descending cart-road seam needs the same overhead clearance as its
+    # landings. Upper scree bulk otherwise leaves a 32px wall in this gap.
+    if number == 5:
+        for left_id, right_id in [('base_cart_stand', 'base_run_b'),
+                                  ('base_run_b', 'base_shrine_step')]:
+            left = plats[left_id]['rect']
+            right = plats[right_id]['rect']
+            protected.append(box(left[0]+left[2]-38, min(left[1],right[1])-260,
+                                 right[0]+38, max(left[1],right[1])+3))
     for key in ['enemy_spawns', 'npcs', 'save_points', 'collectibles', 'interactives']:
         for obj in d.get(key, []):
             if 'position' not in obj: continue

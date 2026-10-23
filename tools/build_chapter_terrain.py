@@ -101,6 +101,8 @@ def build(path):
             for pi,(surface,owners) in enumerate(parts):
                 tid=f'terrain_{group_id}_{ci}_{pi}'
                 depth=140 if kind=='arena' else (72 if kind=='bridge' else 104)
+                if theme=='obsidian_pilgrim' and group_id=='lower_scree' and any(p['id']=='lsw_rise_a' for p,f in owners):
+                    depth=18  # 90px headroom above the lower road (2716-2608-18).
                 results.append({'id':tid,'kind':kind,'surface':surface,'depth':depth,
                     'texture_variants':[0,3,1,2] if kind=='soil' else ([4,2,1] if kind in ['ruin','bridge','arena'] else [3,1,5]),
                     'platform_ids':[p['id'] for p,f in owners]})
