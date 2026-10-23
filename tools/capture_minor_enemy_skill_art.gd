@@ -115,6 +115,9 @@ func run() -> void:
                 actor.platform_max_x=base.x+780
                 stage.add_child(actor)
                 actor.set_physics_process(false)
+                # Normal AI calls _face_target before committing an attack.
+                # This frozen gallery sets the facing explicitly instead.
+                actor._set_sprite_flip(actor.direction < 0)
                 actor._begin_attack(command)
                 freeze_effects(actor)
                 actors.append(actor)
@@ -162,6 +165,7 @@ func extra_actor(stage: Node2D, kind: String, profile: Dictionary, point: Vector
     actor.position=point
     stage.add_child(actor)
     actor.set_physics_process(false)
+    actor._set_sprite_flip(direction < 0)
     return actor
 
 func capture_extras(kind: String,profiles: Dictionary) -> void:

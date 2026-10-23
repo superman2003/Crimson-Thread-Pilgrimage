@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_rust_diver.png",
+  "kind": "rust_diver",
+  "image_sha256": "0fb4fd707213b214e4a09a5ff254e37bafb321ca3e9fb6d03f485e70538c2045",
+  "prompt_sha256": "4d09d43c4ebe63a13180c6892199ed4b1e9cb955ece196ea96db61af65ad3322",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/rust_diver.png",
+  "reference_sha256": "6871de195efc48fe65bfbad1bc0e6dba4b854e9bc9588ff3dc3a5c5661ab49ce",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "diver_vault_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        521,
+        340
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        115,
+        59,
+        421,
+        297
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "diver_vault_warning",
+      "rect_xyxy": [
+        521,
+        0,
+        1028,
+        340
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        622,
+        58,
+        929,
+        300
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "diver_vault_warning",
+      "rect_xyxy": [
+        1028,
+        0,
+        1536,
+        340
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1131,
+        58,
+        1439,
+        301
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "diver_vault_execution",
+      "rect_xyxy": [
+        0,
+        340,
+        503,
+        683
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        65,
+        441,
+        465,
+        649
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "diver_vault_execution",
+      "rect_xyxy": [
+        503,
+        340,
+        1042,
+        683
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        543,
+        379,
+        1000,
+        643
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "diver_vault_execution",
+      "rect_xyxy": [
+        1042,
+        340,
+        1536,
+        683
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1086,
+        406,
+        1486,
+        628
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "diver_splash_warning",
+      "rect_xyxy": [
+        0,
+        683,
+        534,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        105,
+        764,
+        403,
+        955
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "diver_splash_warning",
+      "rect_xyxy": [
+        534,
+        683,
+        1018,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        613,
+        729,
+        918,
+        956
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "diver_splash_warning",
+      "rect_xyxy": [
+        1018,
+        683,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1120,
+        717,
+        1432,
+        957
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????/??/??????????????????????????",
+    "rows_reviewed": [
+      "diver_vault_warning",
+      "diver_vault_execution",
+      "diver_splash_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

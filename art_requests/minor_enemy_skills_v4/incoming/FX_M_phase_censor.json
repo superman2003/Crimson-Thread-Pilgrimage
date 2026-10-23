@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_phase_censor.png",
+  "kind": "phase_censor",
+  "image_sha256": "6753e34cc92c0c8d1081be72b6d3c8da638f5c50ad1299bb90657a89606ee8b6",
+  "prompt_sha256": "6f13908b30bd56df71e3e4aee0f3620926ca67eb85465f804e7cbc2b25dec8ea",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/phase_censor.png",
+  "reference_sha256": "34a7f86e5df414a9e145c2fbbf23755fd1196114b1cda8bb84a3b1fd7fd326f8",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "censor_blink_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        506,
+        356
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        89,
+        72,
+        414,
+        314
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "censor_blink_warning",
+      "rect_xyxy": [
+        506,
+        0,
+        1016,
+        356
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        600,
+        72,
+        926,
+        313
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "censor_blink_warning",
+      "rect_xyxy": [
+        1016,
+        0,
+        1536,
+        356
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1112,
+        72,
+        1438,
+        313
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "censor_blink_execution",
+      "rect_xyxy": [
+        0,
+        356,
+        492,
+        681
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        82,
+        402,
+        453,
+        639
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "censor_blink_execution",
+      "rect_xyxy": [
+        492,
+        356,
+        1048,
+        681
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        534,
+        397,
+        1021,
+        646
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "censor_blink_execution",
+      "rect_xyxy": [
+        1048,
+        356,
+        1536,
+        681
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1075,
+        407,
+        1448,
+        639
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "censor_fan_warning",
+      "rect_xyxy": [
+        0,
+        681,
+        512,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        154,
+        720,
+        380,
+        970
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "censor_fan_warning",
+      "rect_xyxy": [
+        512,
+        681,
+        1024,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        659,
+        720,
+        896,
+        970
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "censor_fan_warning",
+      "rect_xyxy": [
+        1024,
+        681,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1168,
+        720,
+        1407,
+        970
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "????????/????????????????????????????",
+    "rows_reviewed": [
+      "censor_blink_warning",
+      "censor_blink_execution",
+      "censor_fan_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}
