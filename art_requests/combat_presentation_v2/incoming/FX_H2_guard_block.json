@@ -1,0 +1,149 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_guard_block.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "cb5316c9465189ec39a1edac7a415949f28c2720587e93935bb190f9565d42bd",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_guard_block.txt",
+  "prompt_sha256": "9694e9b63150657451c4d0d2268259a65c683c65b83482d94102b1fafb2dd192",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "front",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        490,
+        519
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        275,
+        170,
+        466,
+        374
+      ],
+      "fully_transparent_pixels": 216078
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        490,
+        0,
+        1046,
+        519
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        720,
+        156,
+        989,
+        402
+      ],
+      "fully_transparent_pixels": 221480
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1046,
+        0,
+        1536,
+        519
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1103,
+        107,
+        1494,
+        449
+      ],
+      "fully_transparent_pixels": 153704
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        519,
+        576,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        180,
+        590,
+        521,
+        922
+      ],
+      "fully_transparent_pixels": 212000
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        576,
+        519,
+        1003,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        670,
+        622,
+        987,
+        931
+      ],
+      "fully_transparent_pixels": 160953
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1003,
+        519,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1226,
+        673,
+        1454,
+        844
+      ],
+      "fully_transparent_pixels": 236679
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_guard.png",
+      "sha256": "5f35f456e4f8b08894adecff5c0253c01fa2a1a0c8b4341ef3b4122bd18d13e8"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2; blunt cloth-and-brass recoil progressing to loose fragments, visibly softer than the perfect-parry flare; no character or scenery.",
+    "runtime_acceptance": "pending"
+  }
+}

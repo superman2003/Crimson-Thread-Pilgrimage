@@ -7,6 +7,7 @@ Run with --check to verify the generated documents without changing files.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -215,6 +216,19 @@ def collect():
     for source in copies.values():
         if not source.is_file():
             raise FileNotFoundError(source)
+        with source.open('rb') as stream:
+            if stream.read(8) != b'\x89PNG\r\n\x1a\n':
+                raise ValueError(f'Reference is not hydrated PNG data: {source}; run git lfs checkout for this source before building briefs')
+    for request in requests:
+        source = HERE / 'incoming' / request['file']
+        if source.is_file():
+            request['status'] = 'source_saved_pending_review'
+            metadata = source.with_suffix('.json')
+            if metadata.is_file():
+                record = read(metadata)
+                current = record.get('image_sha256') == hashlib.sha256(source.read_bytes()).hexdigest()
+                if current and not record.get('measured_issues') and record.get('visual_review', {}).get('status') == 'source_reviewed':
+                    request['status'] = 'source_reviewed_runtime_pending'
     return requests, copies, bosses
 
 
@@ -228,7 +242,7 @@ def generate_files(requests, bosses):
     files["requests.json"] = json.dumps(payload, ensure_ascii=False, indent=2)+"\n"
     md = [f"""# 主角动作特效与 Boss 技能预警出图清单（v2）
 
-2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**本次只交付出图清单、逐张提示词与参考图，尚未生成图片、尚未接入游戏。**
+2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**清单与提示词已完成，素材分批绘制中，尚未接入游戏。** 源图与逐张检查记录见 [交付目录](incoming/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
 
 新增 **{len(requests)} 张、{total} 格**：主角 {len(hero)} 张、当前六个 Boss 的 {len(warnings)} 招预警 {len(warnings)} 张、Boss 专属施法／转阶段蓄势 {len(charges)} 张。每项完整英文提示词在 `prompts/`，结构化数量、布局、引用和真实招式参数在 [requests.json](requests.json)。
 
@@ -282,7 +296,7 @@ def generate_files(requests, bosses):
         md.append(f"- **通用施法／转阶段蓄势** · `{charge['file']}`，6 格，[完整提示词](prompts/{Path(charge['file']).stem}.txt)。与地面／光束预警分层，挂在 Boss 身上；不把施法点光晕冒充地面命中范围。现有转阶段保留人物 `phase` 动画，外层蓄势素材接到 `battle_phase`／`phase_pause` 状态，播放进度以该状态时长为准。\n\n")
     md.append("""## 状态与验收
 
-- 本目录 `needs_generation` 代表尚未出图，不代表“已生成”或“已接入”。v1 源图有独立交付状态；两批互不覆盖。
+- 本目录 `needs_generation` 代表尚未出图；`source_saved_pending_review` 代表已保存、待检查；`source_reviewed_runtime_pending` 代表源图基础检查通过、仍待运行时接入验收。v1 源图有独立交付状态；两批互不覆盖。
 - 出图验收：逐格清点、有真 alpha、无串格、材质有可见变化、固定锚点与大小。预警不得混入生效格；缩到真实游戏尺寸后仍能凭材质分辨，深浅背景都可读。
 - 接入验收：分别截格挡起手／普通挡击／完美格挡；六 Boss 每招至少取起始预警、临出手、生效、取消四状态，并叠真实判定核对。确认切区／死亡／打断会清掉随身和地面预警，暂停／UI 锁定时不偷跑播放。
 - 这是一批美术任务书，未执行游戏运行时验收；不得把提示词数量当作游戏视觉已经修复。
@@ -294,7 +308,13 @@ def generate_files(requests, bosses):
         md.append(f"- `{source_hook(path, token)}` — `{token.removeprefix('func ')}`\n")
     md.append("\n在仓库根目录运行 `python -X utf8 art_requests/combat_presentation_v2/build_list.py --check`，核对 24 招完整覆盖、参考文件与已生成清单／提示词无漂移。不带 `--check` 可按当前配置重新生成本目录；不会修改运行时代码或替换 `incoming/` 原始图。\n")
     files["README.md"] = "".join(md)
-    files["incoming/README.md"] = "# 待交付源图\n\n本目录目前没有 v2 特效源图。请按 [任务书](../README.md) 将原始 PNG、实际提示词 `.txt`、检查记录 `.json` 同名放入。逐张预写提示词在 `../prompts/`；它们不代表已生成图。不要在此目录混入 v1 已交付的 39 张。\n"
+    saved = [r for r in requests if r['status'] != 'needs_generation']
+    incoming = [f"# 素材源图交付\n\n已保存 **{len(saved)}／{len(requests)} 张、{sum(r['frame_count'] for r in saved)}／{total} 格**。通过内置 imagegen 按 [PR #202](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202) 制作；原始 PNG 字节保持不变，未缩放、重排或切帧。尚未接入游戏。\n\n每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格；锚点对齐、警戒范围、光束接缝和实机缩小后的辨识度继续待验收。完整进度见 [delivery_status.json](delivery_status.json)。\n\n"]
+    for r in saved:
+        stem = Path(r['file']).stem
+        incoming.append(f"- [{r['file']}]({r['file']}) — {r['name']}，{r['frame_count']} 格；[实际提示词]({stem}.txt)、[检查记录]({stem}.json)，`{r['status']}`。\n")
+    incoming.append("\n使用 `python -X utf8 art_requests/combat_presentation_v2/inspect_sources.py` 更新检查记录；加 `--check` 可校验记录未漂移。检查脚本只读取图片，不修改像素。逐张预写任务提示词在 `../prompts/`；不要混入 v1 已交付的 39 张。\n")
+    files["incoming/README.md"] = ''.join(incoming)
     return files
 
 
