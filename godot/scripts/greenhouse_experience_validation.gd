@@ -192,6 +192,7 @@ func room_views() -> void:
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the dome rest")
     await vine_exit_jumps(world)
     await root_vault_steps(world)
+    await crown_return_jumps(world)
     var next_path := "res://data/demo_ch05_obsidian_pilgrim_road.json"
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
@@ -309,3 +310,27 @@ func root_vault_walk(world: Node,target: Vector2) -> bool:
         if Input.is_action_pressed(action):Input.action_release(action)
     check(false,"Production root vault drop blocked at %s toward %s" % [world.player.position,target])
     return false
+
+## Positioned production return to the canopy, with ordinary jumps only.
+func crown_return_jumps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Crown return fixture uses ordinary jumps without extra climbing abilities")
+    player.global_position=Vector2(3660,1054)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Crown return fixture stands on the actual fifth rising vine")
+    var hp: int=player.hp
+    for target in [Vector2(3770,948),Vector2(3770,882)]:
+        if not await vine_exit_jump(world,target,"crown return"):
+            pause_world(world)
+            return
+    check(player.hp==hp,"Ordinary crown return reaches the canopy without damage with actors paused")
+    pause_world(world)

@@ -1,0 +1,34 @@
+{
+  "final": "supporting_main",
+  "scope": "Pre-sync diagnostics and failures remain archived. The fresh-main full route and independent restart are authoritative; partial dome seeds are diagnostic.",
+  "runs": [
+    {
+      "path": "fixed_01/verification.json",
+      "passed": true
+    },
+    {
+      "path": "generated_fixed/verification.json",
+      "passed": true
+    },
+    {
+      "path": "negative_old_01/verification.json",
+      "passed": false
+    },
+    {
+      "path": "static/verification.json",
+      "passed": true
+    },
+    {
+      "path": "static_main/verification.json",
+      "passed": true
+    },
+    {
+      "path": "supporting_01/verification.json",
+      "passed": true
+    },
+    {
+      "path": "supporting_main/verification.json",
+      "passed": true
+    }
+  ]
+}
