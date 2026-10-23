@@ -38,6 +38,7 @@ func _run() -> void:
     scene.queue_free()
     scene=null
     for unused in 10:await process_frame
+    for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_obsidian_dock_clearance.json"+suffix))
     quit(0 if failures==0 else 1)
 
 func _near_foe() -> Node2D:

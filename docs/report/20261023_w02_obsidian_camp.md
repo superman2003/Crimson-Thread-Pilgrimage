@@ -43,3 +43,5 @@ python tools/run_obsidian_earned.py --engine /path/to/godot --native-gl --log-di
 局部夹具可用 `--headless --path godot --script res://scripts/obsidian_road_clearance_validation.gd`（或 dock 文件），旧数据通过 `-- --clearance-config=res://../artifacts/t04_obsidian_route/blocked_road/old-data.json` 指定。所有夹具使用独立私人存档。
 
 正常营地种子为 `earned_camp_seed.json`，其 SHA 与实际 native 回放／新PID证明绑定在 `seed_provenance.json`，供后续塔顶、灯影门、军墓与首领续跑。当前仅证明以上已走路线；六区新档、全回环、探索顺序、多构筑／契印、人工理解与实听、性能和最终发布继续 OPEN。
+
+审查补丁：两个定位碰撞夹具已登记为默认回归 `obsidian_road_clearance`、`obsidian_dock_clearance`（默认 137→139 套，marker 与契约同步），CI 每次都会运行；退出前清理各自的私人存档。用归档旧数据 `blocked_road/old-data.json` 运行时两套均失败（下路坡道、轴梯上端），修复数据通过，合计约 27 秒。
