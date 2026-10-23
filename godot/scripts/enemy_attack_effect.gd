@@ -1,6 +1,8 @@
 extends Node2D
 
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
+var boss_command_id := ""
 
 const WARNING_ALPHA_MIN := 0.45
 const WARNING_ALPHA_MAX := 0.75
@@ -147,6 +149,13 @@ func _hits_player(center: Vector2) -> bool:
     return center.distance_to(global_position)<radius+23
 
 func _draw() -> void:
+    if age < arm_delay and BOSS_SKILL_ART.draw_hazard_warning(self):
+        # Authored material is the main cue; the fine edge retains exact range.
+        if effect_kind == "beam":
+            _draw_beam_channel_outline(_beam_channel_corners(),Color(.98,.8,.46,.9),1.2)
+        elif effect_kind == "pool":
+            draw_arc(Vector2.ZERO,radius,0,TAU,32,Color(.98,.8,.46,.8),1.2,true)
+        return
     if effect_kind in ["wave","eruption"]:
         var family := TERRAIN_ART.family_for(effect_kind,skin,owner_actor)
         var frame := TERRAIN_ART.frame_for(effect_kind,age,arm_delay)

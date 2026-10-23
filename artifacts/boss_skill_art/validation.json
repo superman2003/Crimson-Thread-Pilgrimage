@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-23",
+  "results": {
+    "boss_skill_art": {
+      "result": "pass",
+      "renderer": "native OpenGL 3.3 NVIDIA RTX 5060",
+      "log": "validation_logs/boss_skill_art.out.txt"
+    },
+    "enemy_effect_lifetime": {
+      "result": "pass",
+      "renderer": "native OpenGL 3.3 NVIDIA RTX 5060",
+      "log": "validation_logs/enemy_effect_lifetime.out.txt"
+    },
+    "combat_visual_budget": {
+      "result": "pass",
+      "renderer": "native OpenGL 3.3 NVIDIA RTX 5060",
+      "log": "validation_logs/combat_visual_budget.out.txt"
+    },
+    "enemy_visibility": {
+      "result": "pass",
+      "renderer": "native OpenGL 3.3 NVIDIA RTX 5060",
+      "log": "validation_logs/enemy_visibility.out.txt"
+    },
+    "enemy_lifecycle_regression": {
+      "result": "pass",
+      "renderer": "headless",
+      "log": "validation_logs/enemy_lifecycle_regression.txt"
+    },
+    "boss_trial": {
+      "result": "pass",
+      "renderer": "headless",
+      "log": "validation_logs/boss_trial.txt"
+    },
+    "combat": {
+      "result": "pass",
+      "renderer": "headless",
+      "log": "validation_logs/combat.txt"
+    },
+    "world_startup_budget": {
+      "result": "pass",
+      "renderer": "headless",
+      "log": "validation_logs/world_startup_budget.txt"
+    },
+    "character_art_prewarm": {
+      "result": "pass",
+      "renderer": "headless",
+      "log": "validation_logs/character_art_prewarm.txt"
+    },
+    "source_art": {
+      "new_sheets": 12,
+      "new_cels": 72,
+      "warning_sheets_connected": 24,
+      "charge_sheets_connected": 6,
+      "runtime_atlases": 6,
+      "atlas_rebuild_check": "pass",
+      "v2_brief_and_source_check": "pass"
+    },
+    "npm_test": {
+      "result": "pass",
+      "environment": "Windows PYTHONUTF8=1"
+    }
+  }
+}
