@@ -1,0 +1,58 @@
+extends SceneTree
+## All newly authored cave roads, both directions, with real floor physics.
+var failures := 0
+var traversals := 0
+
+func _initialize() -> void:
+    call_deferred("_run")
+
+func _run() -> void:
+    for id in ["demo_ch01_moss_bell_court","demo_ch02_rain_foundry_canal","demo_ch03_saltwhite_archive","demo_ch04_broken_string_greenhouse","demo_ch05_obsidian_pilgrim_road","demo_ch06_silent_crown_core"]:
+        var scene: Node=load("res://scenes/Main.tscn").instantiate()
+        scene.config_path="res://data/"+String(id)+".json"
+        root.add_child(scene)
+        await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+        await physics_frame
+        scene.player.set_physics_process(false)
+        for actor in get_nodes_in_group("enemy"):actor.set_physics_process(false)
+        var probes: Array=[]
+        for terrain in scene.chapter_terrain.landforms:
+            if not terrain.get("cave_walk_link",false):continue
+            var a:=Vector2(float(terrain.surface[0][0]),float(terrain.surface[0][1]))
+            var b:=Vector2(float(terrain.surface[-1][0]),float(terrain.surface[-1][1]))
+            for direction in [1,-1]:
+                var probe:=CharacterBody2D.new()
+                probe.collision_layer=0;probe.collision_mask=1
+                probe.floor_snap_length=18;probe.floor_constant_speed=true
+                var collision:=CollisionShape2D.new()
+                var shape:=RectangleShape2D.new();shape.size=Vector2(30,80)
+                collision.shape=shape;collision.position=Vector2(0,-40)
+                probe.add_child(collision);scene.add_child(probe)
+                probe.global_position=Vector2(a.x+4,a.y-2) if direction==1 else Vector2(b.x-4,b.y-2)
+                probes.append({"actor":probe,"a":a,"b":b,"direction":direction,"id":terrain.id,"done":false,"air_frames":0})
+        for frame in range(190):
+            await physics_frame
+            for data in probes:
+                if data.done:continue
+                var probe: CharacterBody2D=data.actor
+                probe.velocity=Vector2(int(data.direction)*240,probe.velocity.y+1850.0/60)
+                probe.move_and_slide()
+                if frame>4 and not probe.is_on_floor():data.air_frames+=1
+                var crossed: bool=probe.global_position.x>data.b.x-5 if data.direction==1 else probe.global_position.x<data.a.x+5
+                if crossed and probe.is_on_floor():data.done=true
+        for data in probes:
+            traversals+=1
+            if not data.done or int(data.air_frames)>4:
+                failures+=1
+                push_error(String(id)+" "+String(data.id)+" direction="+str(data.direction)+" blocked or leaves ground: "+str(data.actor.global_position))
+        # Negative control keeps final drain and non-vacuous assertion.
+        # Negative control: omit tree-in playback capture.
+        scene.queue_free()
+        await process_frame
+    if not await preload("res://scripts/audio_retirement.gd").drain(self):
+        failures += 1
+    if DisplayServer.get_name() != "headless" and preload("res://scripts/audio_retirement.gd").observed == 0:
+        push_error("Cave audio retirement must observe real playback before scene removal")
+        failures += 1
+    print("CAVE_ROUTE_WALK_VALIDATION traversals=%d failures=%d"%[traversals,failures])
+    quit(0 if failures==0 else 1)

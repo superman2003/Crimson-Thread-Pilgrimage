@@ -27,6 +27,7 @@ func _run() -> void:
     _validate_room_fallback()
     for config_path in CONFIG_PATHS:
         await _validate_chapter(String(config_path))
+    _assert(await preload("res://scripts/audio_retirement.gd").drain(self), "chapter fixture releases audio playback before exit")
     if failures == 0:
         print("CHAPTER_ROUTE_REGRESSION_PASS chapters=6 checks=%d" % checks)
         quit(0)
@@ -180,6 +181,7 @@ func _validate_chapter(config_path: String) -> void:
             if String(interactive.get("kind", "")) == "chapter_exit":
                 await _validate_transition(scene, String(interactive.get("next_config_path", "")))
                 return
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene)
     scene.queue_free()
     await process_frame
 
@@ -221,6 +223,7 @@ func _validate_transition(scene: Node, next_path: String) -> void:
     scene._add_inventory_item("echo_hook", 1, false)
     scene.story_flags["route_regression_carried"] = true
     var expected_currency := int(scene.currency_count)
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene)
     scene._transition_to_next_chapter(next_path)
     var next_scene: Node = null
     for child in root.get_children():
@@ -239,6 +242,7 @@ func _validate_transition(scene: Node, next_path: String) -> void:
         _assert(int(next_scene.inventory_counts.get("echo_hook", 0)) == 1, next_path + " carries acquired abilities without duplicates")
         _assert(int(next_scene.currency_count) == expected_currency, next_path + " carries currency")
         _assert(bool(next_scene.story_flags.get("route_regression_carried", false)), next_path + " carries story flags")
+        preload("res://scripts/audio_retirement.gd").retire_tree(next_scene)
         next_scene.queue_free()
     await process_frame
 
