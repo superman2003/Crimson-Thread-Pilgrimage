@@ -56,3 +56,7 @@ T04 still requires a new save, damage enabled, six-region completion using multi
 T03 still requires sustained sessions on the supported hardware: repeated cross-region travel, memory and frame-time sampling, heavy combat effects, audio cleanup and controller input. Current lifetime regressions detect stale effects/Tweens but do not establish a performance budget.
 
 T05 still requires building the final distribution, launching it independently of the editor, checking the available entry points, menus, settings, resources, endings and known issues. CI checks source/runtime regressions; it does not itself certify the release package.
+
+## Fixture audio exit (2026-10-23)
+
+`python tools/run_exit_lifetime.py --engine /path/to/godot --native-gl --log-dir /tmp/exit-lifetime` freezes tracked Godot/tools inputs, keeps per-suite source/logs and fails all warnings, engine errors, missing markers or 180-second timeouts. Native three-suite positive and omitted-capture negative evidence is in [the report](report/20261023_t03_fixture_audio_exit.md). Headless disables chapter music and is not audio-exit evidence.
