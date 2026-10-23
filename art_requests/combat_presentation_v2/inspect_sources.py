@@ -32,10 +32,11 @@ def registered_sources():
             entries += [command[key] for key in ('warning', 'execution') if key in command]
         for entry in entries:
             result[Path(entry['source']).name] = entry['sha256']
-    guard = root / 'godot/assets/vfx/player_guard/manifest.json'
-    if guard.is_file():
-        for entry in json.loads(guard.read_text(encoding='utf-8')).get('sources', {}).values():
-            result[Path(entry['path']).name] = entry['sha256']
+    for family in ('player_guard', 'player_heal'):
+        manifest = root / f'godot/assets/vfx/{family}/manifest.json'
+        if manifest.is_file():
+            for entry in json.loads(manifest.read_text(encoding='utf-8')).get('sources', {}).values():
+                result[Path(entry['path']).name] = entry['sha256']
     return result
 
 
