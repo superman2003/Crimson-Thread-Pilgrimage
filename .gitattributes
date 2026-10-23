@@ -182,3 +182,8 @@ tools/run_greenhouse_west.py -text whitespace=cr-at-eol
 artifacts/g02_earned_death/** -text whitespace=cr-at-eol
 artifacts/t04_obsidian_route/*.png -filter -diff -merge -text
 artifacts/t04_obsidian_route/** -text
+
+godot/assets/vfx/player_guard/*.png -filter -diff -merge -text
+
+artifacts/v04_guard_material/** -text whitespace=cr-at-eol
+artifacts/v04_guard_material/**/*.png -filter -diff -merge -text
