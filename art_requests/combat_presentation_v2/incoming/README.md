@@ -2,14 +2,14 @@
 
 已保存 **52／52 张、320／320 格**。通过内置 imagegen 按 PR #202／#203 制作；这里保留原始 PNG 字节。运行时另建图集，不覆盖源图。
 
-每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格。已登记接入 **33 张**，仍待接入 **19 张**；完整进度见 [delivery_status.json](delivery_status.json)，Boss 逐招接入与验证见 [v3](../../boss_execution_v3/README.md)。源图检查记录本身不代表实机验收。
+每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格。已登记接入 **36 张**，仍待接入 **16 张**；完整进度见 [delivery_status.json](delivery_status.json)，Boss 逐招接入与验证见 [v3](../../boss_execution_v3/README.md)。源图检查记录本身不代表实机验收。
 
 - [FX_H2_guard_raise.png](FX_H2_guard_raise.png) — 格挡起手／护幕，6 格；[实际提示词](FX_H2_guard_raise.txt)、[检查记录](FX_H2_guard_raise.json)，`runtime_connected`。
 - [FX_H2_guard_block.png](FX_H2_guard_block.png) — 普通挡击，6 格；[实际提示词](FX_H2_guard_block.txt)、[检查记录](FX_H2_guard_block.json)，`runtime_connected`。
 - [FX_H2_guard_perfect.png](FX_H2_guard_perfect.png) — 完美格挡，6 格；[实际提示词](FX_H2_guard_perfect.txt)、[检查记录](FX_H2_guard_perfect.json)，`runtime_connected`。
-- [FX_H2_heal_channel.png](FX_H2_heal_channel.png) — 缝补蓄力，8 格；[实际提示词](FX_H2_heal_channel.txt)、[检查记录](FX_H2_heal_channel.json)，`source_reviewed_runtime_pending`。
-- [FX_H2_heal_complete.png](FX_H2_heal_complete.png) — 缝补完成，6 格；[实际提示词](FX_H2_heal_complete.txt)、[检查记录](FX_H2_heal_complete.json)，`source_reviewed_runtime_pending`。
-- [FX_H2_heal_interrupt.png](FX_H2_heal_interrupt.png) — 缝补被打断，6 格；[实际提示词](FX_H2_heal_interrupt.txt)、[检查记录](FX_H2_heal_interrupt.json)，`source_reviewed_runtime_pending`。
+- [FX_H2_heal_channel.png](FX_H2_heal_channel.png) — 缝补蓄力，8 格；[实际提示词](FX_H2_heal_channel.txt)、[检查记录](FX_H2_heal_channel.json)，`runtime_connected`。
+- [FX_H2_heal_complete.png](FX_H2_heal_complete.png) — 缝补完成，6 格；[实际提示词](FX_H2_heal_complete.txt)、[检查记录](FX_H2_heal_complete.json)，`runtime_connected`。
+- [FX_H2_heal_interrupt.png](FX_H2_heal_interrupt.png) — 缝补被打断，6 格；[实际提示词](FX_H2_heal_interrupt.txt)、[检查记录](FX_H2_heal_interrupt.json)，`runtime_connected`。
 - [FX_H2_double_jump.png](FX_H2_double_jump.png) — 二段跳丝翼，6 格；[实际提示词](FX_H2_double_jump.txt)、[检查记录](FX_H2_double_jump.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_dash_ribbon.png](FX_H2_dash_ribbon.png) — 冲刺收线轨迹，6 格；[实际提示词](FX_H2_dash_ribbon.txt)、[检查记录](FX_H2_dash_ribbon.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_hook_head.png](FX_H2_hook_head.png) — 回声钩头，6 格；[实际提示词](FX_H2_hook_head.txt)、[检查记录](FX_H2_hook_head.json)，`source_reviewed_runtime_pending`。

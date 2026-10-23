@@ -193,3 +193,6 @@ artifacts/v04_guard_material/**/*.png -filter -diff -merge -text
 # Boss skill runtime atlases and native GPU evidence are directly reviewable.
 godot/assets/vfx/boss_skills/*.png -filter -diff -merge -text
 artifacts/boss_skill_art/*.webp -filter -diff -merge -text
+godot/assets/vfx/player_heal/*.png -filter -diff -merge -text
+artifacts/v04_heal_material/** -text whitespace=cr-at-eol
+artifacts/v04_heal_material/**/*.png -filter -diff -merge -text
