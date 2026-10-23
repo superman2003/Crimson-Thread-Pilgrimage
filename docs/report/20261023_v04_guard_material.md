@@ -14,7 +14,7 @@ Q和ward起手改用朝前半护幕：0/1/2起手→3持盾→4/5收势；持盾
 
 ## 验证与证据
 
-新增默认 `player_guard_art`，默认含叙事合计140套；runner成功正则与合同数量同步。最终CPU `final_cpu_04`：guard113/0、player_state_cleanup、ui_build_accessibility全通过且零ERROR/warning。最终native `final_native_04`：guard113/0、截图fixture failures0，两PID源码及seed共13项冻结前后相同、每个进程严格180秒上限。另 `final_native_02` 的既有seal_combat194/0（内含player_skill_art254/0）、combat_visual_budget均干净通过；这两套之后没有生产改动，无重复运行挑选绿灯。
+新增默认 `player_guard_art`，默认含叙事合计140套；runner成功正则与合同数量同步。最终CPU `final_cpu_04`：guard113/0、player_state_cleanup、ui_build_accessibility全通过且零ERROR/warning。最终native `final_native_04`：guard113/0、截图fixture failures0，两PID源码及seed共13项冻结前后相同、每个进程严格180秒上限。另 `final_native_02` 的既有seal_combat194/0（内含player_skill_art254/0）、combat_visual_budget均干净通过；该两套为native02历史基线；后续新guard helper恢复60层等，最终04的guard及05的World覆盖这些变化，未称这两套在最后源上全部重测，也未为挑选绿灯重复运行。
 
 验证定位生产Player，直接damage检查前/后侧、普通/完美、不可挡和返还；Q、ward和墙跳/反向动作通过实际Input调用。它是机制/渲染组件夹具，不是自然流程。旧表现反向fixture保留相同生产Player，仅恢复三个原 `_ability_ring(46/56/64, THREAD_T3_CORE)` 调用；`negative_legacy_03`真实exit1、17个表现断言失败，基本保护/伤害规则仍可通过。退役pending0。默认runner合同31项（1执行、30需环境项跳过）通过；atlas重建字节相同。
 
