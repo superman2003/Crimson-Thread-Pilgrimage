@@ -1,0 +1,149 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_heal_interrupt.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "ddb37a5fb79c37762ece94a83b30521dd3eedb4aafbc7794ed196ae56e5cd4aa",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_heal_interrupt.txt",
+  "prompt_sha256": "524d60066842c29d9ed3e78a226f47e3275f19f19c86880302724c6e93c8e601",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "body",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        509,
+        521
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        155,
+        170,
+        363,
+        363
+      ],
+      "fully_transparent_pixels": 230795
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        509,
+        0,
+        998,
+        521
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        626,
+        107,
+        913,
+        441
+      ],
+      "fully_transparent_pixels": 192986
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        998,
+        0,
+        1536,
+        521
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1084,
+        85,
+        1486,
+        466
+      ],
+      "fully_transparent_pixels": 197135
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        521,
+        527,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        64,
+        577,
+        457,
+        971
+      ],
+      "fully_transparent_pixels": 184607
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        527,
+        521,
+        1042,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        597,
+        595,
+        946,
+        951
+      ],
+      "fully_transparent_pixels": 212213
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1042,
+        521,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1152,
+        632,
+        1426,
+        916
+      ],
+      "fully_transparent_pixels": 227751
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_heal.png",
+      "sha256": "bf5893510912562b08e28ab7735bc7b35aa8f53efcd6881c02c6403a44bb3335"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: torn crimson knot and loose ivory stitches separate and fall, distinct from healing success. No healed knot closure, character or scenery.",
+    "runtime_acceptance": "pending"
+  }
+}

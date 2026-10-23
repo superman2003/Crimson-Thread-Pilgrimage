@@ -1,0 +1,149 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_heal_complete.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "a56a26be9d65a469678a887f2b5a0ce8e8667b319545514de211868d1cbd6658",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_heal_complete.txt",
+  "prompt_sha256": "3ca91dc99e1fcdb7916ba7acb83c28de2d1f3a6ed35a0ac4fb0be21a1ef9e052",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "body",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        511,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        169,
+        228,
+        356,
+        427
+      ],
+      "fully_transparent_pixels": 218071
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        511,
+        0,
+        995,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        637,
+        150,
+        910,
+        450
+      ],
+      "fully_transparent_pixels": 165257
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        995,
+        0,
+        1536,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1070,
+        51,
+        1499,
+        454
+      ],
+      "fully_transparent_pixels": 136261
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        503,
+        548,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        89,
+        551,
+        467,
+        963
+      ],
+      "fully_transparent_pixels": 173855
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        548,
+        503,
+        1054,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        629,
+        583,
+        948,
+        955
+      ],
+      "fully_transparent_pixels": 174416
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1054,
+        503,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1185,
+        634,
+        1399,
+        967
+      ],
+      "fully_transparent_pixels": 196724
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_heal.png",
+      "sha256": "bf5893510912562b08e28ab7735bc7b35aa8f53efcd6881c02c6403a44bb3335"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: a compact ivory knot opens into upward crimson silk fibres and soft motes before dispersing. No character or damaging impact; source layout visually checked.",
+    "runtime_acceptance": "pending"
+  }
+}
