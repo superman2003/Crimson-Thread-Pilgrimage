@@ -19,7 +19,8 @@ const LEGACY := {
     "silent_bugbler": {"metal":"chime"},
     "falling_clapper": {"metal":"chime"},
     "rain_censer_mote": {"pollen":"incense"},
-    "broken_string_gardener": {"pollen":"seed"}
+    "broken_string_gardener": {"pollen":"seed"},
+    "silent_pilgrim_commander": {"thorn":"blade"}
 }
 
 static func family_for(skin: String, owner_node: Node = null) -> String:

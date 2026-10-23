@@ -1,0 +1,144 @@
+{
+  "schema": "boss-execution-source-v3",
+  "image": "FX_X_moss_scythe.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/boss_execution_v3/README.md",
+  "image_sha256": "d441dc35ac7cc59aa8780fc2e16aeb16943395f2d8e56537b6fa04d00147315d",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_X_moss_scythe.txt",
+  "prompt_sha256": "e792a075dffb5b66b1e349782bb89760be49ed0a053fa4bcf451427b98767b91",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      512,
+      512
+    ],
+    "canvas_size": [
+      1536,
+      1024
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "See godot/assets/vfx/boss_skills/manifest.json for measured per-cel registration and scale.",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        500,
+        542
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        146,
+        172,
+        430,
+        400
+      ],
+      "fully_transparent_pixels": 223519
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        500,
+        0,
+        1007,
+        542
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        571,
+        138,
+        957,
+        443
+      ],
+      "fully_transparent_pixels": 195707
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1007,
+        0,
+        1536,
+        542
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1063,
+        102,
+        1513,
+        487
+      ],
+      "fully_transparent_pixels": 172546
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        542,
+        559,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        93,
+        596,
+        508,
+        932
+      ],
+      "fully_transparent_pixels": 172772
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        559,
+        542,
+        1066,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        610,
+        650,
+        993,
+        910
+      ],
+      "fully_transparent_pixels": 169763
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1066,
+        542,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1192,
+        690,
+        1421,
+        849
+      ],
+      "fully_transparent_pixels": 199319
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "../combat_presentation_v2/refs/rust_crown_guardian.png",
+      "sha256": "cc92592e7ae23b9f1f6a042a99afe6eb3b2a51c5e686f38fa98be8014514d0ab"
+    }
+  ],
+  "usage": "Source QA only. Original PNG bytes retained. Actual runtime atlas registration and visual/regression evidence are recorded separately in art_requests/boss_execution_v3/README.md.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "date": "2026-10-23",
+    "notes": "Inspected generated six-cel sheet: material follows the referenced boss, active contours differ from anticipation, no characters or scenery, six distinct release/follow-through cels. Selected sources pass alpha and measured gutter checks.",
+    "runtime_acceptance": "pending"
+  }
+}
