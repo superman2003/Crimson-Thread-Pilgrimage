@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
 const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
@@ -695,6 +696,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
     respawn_reveal_timer = 0.0
     _set_death_visibility(1.0)
@@ -1083,7 +1085,7 @@ func _try_guard() -> bool:
     guard_refunded = false
     ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
     _play(&"guard")
-    _ability_ring(46.0, THREAD_T3_CORE)
+    GUARD_ART.start(self)
     return true
 
 
@@ -1231,7 +1233,7 @@ func _apply_special_skill() -> void:
         guard_timer = minf(0.65, float(active_skill.get("duration", 0.5)))
         guard_initial_duration = guard_timer
         guard_refunded = false
-        _ability_ring(56.0, THREAD_T3_CORE)
+        GUARD_ART.start(self)
     elif id == "shockwave" or kind == "shockwave":
         cast_tool({"kind": "wave", "damage": attack_damage, "range": attack_range, "duration": 0.8, "stagger": active_skill.get("stagger", 0.0), "skill_effect": true})
     elif kind == "control":
@@ -2128,8 +2130,9 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
         guard_timer = 0.0
         hurt_timer = 0.12
-        _ability_ring(64.0, THREAD_T3_CORE)
+        GUARD_ART.blocked(self, perfect)
         return
+    GUARD_ART.clear(self)
     line_stacks = 0
     line_expiry = 0.0
     _interrupt_heal()
@@ -2566,4 +2569,5 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
