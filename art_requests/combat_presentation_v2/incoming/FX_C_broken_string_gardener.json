@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_C_broken_string_gardener.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "46cd875ec96aa1ff30a3bd99978e95d3749984362a72a06df95982a76d47c897",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_C_broken_string_gardener.txt",
+  "prompt_sha256": "a65a2277c03235cd600579f8d5ef21e132301ca3fde5846c698e96c7c42d91c0",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        526,
+        515
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        53,
+        41,
+        501,
+        491
+      ],
+      "fully_transparent_pixels": 126386
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        526,
+        0,
+        1020,
+        515
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        546,
+        45,
+        994,
+        492
+      ],
+      "fully_transparent_pixels": 103346
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1020,
+        0,
+        1536,
+        515
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1046,
+        48,
+        1494,
+        495
+      ],
+      "fully_transparent_pixels": 110731
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        515,
+        524,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        53,
+        538,
+        501,
+        987
+      ],
+      "fully_transparent_pixels": 110183
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        524,
+        515,
+        1025,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        546,
+        537,
+        995,
+        991
+      ],
+      "fully_transparent_pixels": 92100
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1025,
+        515,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1050,
+        543,
+        1493,
+        990
+      ],
+      "fully_transparent_pixels": 99450
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/broken_string_gardener.png",
+      "sha256": "2212526912785e31ffb39ecbdf4960bf14bd67fe85225d525c15381daf62c9b5"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 local charge cels: copper-root spiral, folded leaves and orange husks gather into a hollow crest, no distant cage boundary or caster. Runtime anchor, bounds and timing remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

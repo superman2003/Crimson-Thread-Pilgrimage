@@ -1,0 +1,149 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_hook_latch.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "bd95777851e7b2d768a978e6937b7c7d4818d0a31655292a6ae55e0f4a3de5f4",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_hook_latch.txt",
+  "prompt_sha256": "e55c68ad8bf4c09e87dbb3f4b9fff69d2dc27d8caad23955ddde01babaf453ca",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        505,
+        532
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        166,
+        154,
+        391,
+        354
+      ],
+      "fully_transparent_pixels": 240198
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        505,
+        0,
+        992,
+        532
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        618,
+        119,
+        957,
+        436
+      ],
+      "fully_transparent_pixels": 200856
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        992,
+        0,
+        1536,
+        532
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1035,
+        41,
+        1508,
+        503
+      ],
+      "fully_transparent_pixels": 175181
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        532,
+        488,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        34,
+        560,
+        485,
+        984
+      ],
+      "fully_transparent_pixels": 156906
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        488,
+        532,
+        1032,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        593,
+        599,
+        975,
+        939
+      ],
+      "fully_transparent_pixels": 220906
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1032,
+        532,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1093,
+        614,
+        1421,
+        924
+      ],
+      "fully_transparent_pixels": 227053
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_hook_throw.png",
+      "sha256": "5dfc26b1e2c36115e4ef83c11d15011854240881d16ba449b8a24cd06cac8885"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: small silk contact gathers into a tight knot and releases into loose curls. No target object, caster or scenery.",
+    "runtime_acceptance": "pending"
+  }
+}

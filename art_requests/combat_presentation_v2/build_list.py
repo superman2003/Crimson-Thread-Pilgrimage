@@ -237,12 +237,14 @@ def generate_files(requests, bosses):
     warnings = [r for r in requests if r["group"] == "boss_warning"]
     charges = [r for r in requests if r["group"] == "boss_charge"]
     total = sum(r["frame_count"] for r in requests)
+    complete = all(r['status'] == 'source_reviewed_runtime_pending' for r in requests)
+    progress = f"全部 {len(requests)} 张源图已交付并通过基础检查" if complete else "清单与提示词已完成，素材已开始分批交付"
     files = {"prompts/"+Path(r["file"]).stem+".txt": r["prompt"] for r in requests}
     payload = dict(version=2, audited_on="2026-10-23", scope="briefs_only_no_generated_art_no_runtime_changes", total_sheets=len(requests), total_frames=total, bosses=bosses, requests=requests)
     files["requests.json"] = json.dumps(payload, ensure_ascii=False, indent=2)+"\n"
     md = [f"""# 主角动作特效与 Boss 技能预警出图清单（v2）
 
-2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**清单与提示词已完成，素材已开始分批交付，尚未接入游戏。** 源图与逐张检查记录见 [交付目录](incoming/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
+2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**{progress}，尚未接入游戏。** 源图与逐张检查记录见 [交付目录](incoming/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
 
 新增 **{len(requests)} 张、{total} 格**：主角 {len(hero)} 张、当前六个 Boss 的 {len(warnings)} 招预警 {len(warnings)} 张、Boss 专属施法／转阶段蓄势 {len(charges)} 张。每项完整英文提示词在 `prompts/`，结构化数量、布局、引用和真实招式参数在 [requests.json](requests.json)。
 
@@ -299,7 +301,7 @@ def generate_files(requests, bosses):
 - 本目录 `needs_generation` 代表尚未出图；`source_saved_pending_review` 代表已保存、待检查；`source_reviewed_runtime_pending` 代表源图基础检查通过、仍待运行时接入验收。v1 源图有独立交付状态；两批互不覆盖。
 - 出图验收：逐格清点、有真 alpha、无串格、材质有可见变化、固定锚点与大小。预警不得混入生效格；缩到真实游戏尺寸后仍能凭材质分辨，深浅背景都可读。
 - 接入验收：分别截格挡起手／普通挡击／完美格挡；六 Boss 每招至少取起始预警、临出手、生效、取消四状态，并叠真实判定核对。确认切区／死亡／打断会清掉随身和地面预警，暂停／UI 锁定时不偷跑播放。
-- 这是一批美术任务书，未执行游戏运行时验收；不得把提示词数量当作游戏视觉已经修复。
+- 源图交付与基础检查独立记录，未执行游戏运行时验收；不得把提示词或源图数量当作游戏视觉已经修复。
 
 ## 源码定位与复核
 
