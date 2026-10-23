@@ -1,6 +1,8 @@
 extends Node2D
 
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
+var boss_command_id := ""
 const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
 var minor_command_id := ""
 
@@ -149,7 +151,8 @@ func _hits_player(center: Vector2) -> bool:
     return center.distance_to(global_position)<radius+23
 
 func _draw() -> void:
-    if age < arm_delay and MINOR_SKILL_ART.draw_hazard_warning(self):
+    if age < arm_delay and (BOSS_SKILL_ART.draw_hazard_warning(self) or MINOR_SKILL_ART.draw_hazard_warning(self)):
+        # Authored material is the main cue; the fine edge retains exact range.
         if effect_kind == "beam":
             _draw_beam_channel_outline(_beam_channel_corners(),Color(.98,.8,.46,.9),1.2)
         elif effect_kind == "pool":

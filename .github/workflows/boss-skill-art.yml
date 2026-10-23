@@ -1,0 +1,68 @@
+name: Boss skill material art
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/boss-skill-art.yml'
+      - 'godot/assets/vfx/boss_skills/**'
+      - 'godot/scripts/boss_skill_art*.gd'
+      - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/enemy_attack_effect.gd'
+      - 'tools/build_boss_skill_art.py'
+      - 'tools/capture_boss_skill_art.gd'
+      - 'art_requests/boss_execution_v3/**'
+      - 'art_requests/combat_presentation_v2/incoming/FX_T_*'
+      - 'art_requests/combat_presentation_v2/incoming/FX_C_*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: boss-skill-art-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the PR head and hydrate runtime and selected source art
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**,art_requests/boss_execution_v3/incoming/*.png,art_requests/combat_presentation_v2/incoming/FX_T_*.png,art_requests/combat_presentation_v2/incoming/FX_C_*.png'
+      - name: Verify runtime atlases reproduce all 42 selected sources
+        run: |
+          python3 -m pip install 'Pillow>=10,<13'
+          python3 tools/build_boss_skill_art.py --check
+      - name: Install Godot and real software GL
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Import resources with strict diagnostics
+        run: |
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/boss-skill-logs/import"
+      - name: Verify every command, timing, collision, cancellation and budgets
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --software-gl --suite boss_skill_art --suite enemy_effect_lifetime \
+            --suite enemy_lifecycle_regression --suite combat_visual_budget \
+            --suite enemy_visibility --suite boss_trial --suite combat \
+            --suite world_startup_budget --suite character_art_prewarm \
+            --log-dir "$RUNNER_TEMP/boss-skill-logs"
+      - name: Preserve validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: boss-skill-art-logs
+          path: ${{ runner.temp }}/boss-skill-logs
+          if-no-files-found: ignore

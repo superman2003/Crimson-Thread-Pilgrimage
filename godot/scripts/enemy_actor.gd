@@ -4,6 +4,8 @@ const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
+const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
+var boss_skill_texture: Texture2D
 const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
 var minor_skill_texture: Texture2D
 var locomotion := "ground"
@@ -146,6 +148,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.steering=float(command.get("steering",0))
     effect.impact_pool=bool(command.get("impact_pool",false))
     effect.owner_actor=self
+    effect.boss_command_id=String(command.get("id","")) if BOSS_SKILL_ART.matches(self,command) else ""
     effect.minor_command_id=String(command.get("id","")) if MINOR_SKILL_ART.matches(self,command) else ""
     # Freed Object references cannot be converted to a typed lambda argument.
     # Prune in place, retaining the typed array and never dereferencing stale nodes.
@@ -195,6 +198,7 @@ func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
             var delay: float = (float(command.get("windup",.6)) if warning else 0.0)+float(command.get("warning",.65))+i*(.12 if type=="rootline" else 0.0)
             _effect("eruption" if type=="rootline" else "pool",Vector2(x,floor_y-5),Vector2.ZERO,command,delay,float(command.get("hazard_life",.7)))
     elif type=="blink":
+        BOSS_SKILL_ART.spawn_departure(self,command)
         MINOR_SKILL_ART.spawn_departure(self,command)
         var x := attack_target.x-attack_direction*float(command.get("blink_offset",115))
         global_position.x=clampf(x,platform_min_x,platform_max_x)
@@ -394,6 +398,7 @@ func prepare_presentation() -> void:
     if presentation_prepared: return
     _build_shape()
     _build_sprite()
+    if is_boss: boss_skill_texture = BOSS_SKILL_ART.texture_for(kind)
     MINOR_SKILL_ART.prepare(self)
     presentation_prepared = true
 
@@ -431,6 +436,7 @@ func _physics_process(delta: float) -> void:
         pose_loop_animation = ""
         _set_enemy_animation("phase", true)
         _fit_animation_duration(phase_pause)
+        BOSS_SKILL_ART.spawn_phase(self)
         if get_parent().has_method("_toast"):
             get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
     if phase_pause>0:
@@ -1842,6 +1848,7 @@ func _try_damage_player(command: Dictionary) -> void:
 
 func _show_telegraph(command: Dictionary) -> void:
     _clear_telegraph()
+    if BOSS_SKILL_ART.matches(self, command): return
     if MINOR_SKILL_ART.ready_for(self,command): return
     if original_visual:
         return
@@ -1978,6 +1985,7 @@ func _add_attack_type_signature(parent: Node2D, command: Dictionary, center: Vec
 
 
 func _clear_telegraph() -> void:
+    BOSS_SKILL_ART.clear(self)
     MINOR_SKILL_ART.clear(self)
     support_target = null
     if telegraph_tween != null and is_instance_valid(telegraph_tween) and telegraph_tween.is_valid():
@@ -2543,6 +2551,7 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
         windup_vfx_tween = tween
 
 func _spawn_windup_vfx(command: Dictionary) -> void:
+    if BOSS_SKILL_ART.spawn(self, command, "warning"): return
     if MINOR_SKILL_ART.spawn(self,command,"warning"): return
     if original_visual:
         _original_attack_arc(command, true)
@@ -2587,6 +2596,7 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
 
 
 func _spawn_attack_burst_vfx(command: Dictionary) -> void:
+    if BOSS_SKILL_ART.spawn(self, command, "execution"): return
     if MINOR_SKILL_ART.spawn(self,command,"execution"): return
     if original_visual:
         _original_attack_arc(command, false)

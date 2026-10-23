@@ -1,0 +1,45 @@
+Godot Engine v4.6.stable.official.89cea1439 - https://godotengine.org
+
+PASS: ai profile table exists
+PASS: moss_larva has an ai profile
+PASS: moss_larva has two distinct authored attacks
+PASS: moss_larva retains its distinct attack mechanics
+PASS: bronze_moth has an ai profile
+PASS: bronze_moth has two distinct authored attacks
+PASS: bronze_moth retains its distinct attack mechanics
+PASS: spore_bellmaker has an ai profile
+PASS: spore_bellmaker has two distinct authored attacks
+PASS: spore_bellmaker retains its distinct attack mechanics
+PASS: gear_sentinel has an ai profile
+PASS: gear_sentinel has two distinct authored attacks
+PASS: gear_sentinel retains its distinct attack mechanics
+PASS: boss has four distinct authored attacks
+PASS: boss retains ground, projectile and phase mechanics
+PASS: left mouse is bound to player attack
+PASS: right mouse is bound to healing
+PASS: L is bound to skill
+PASS: E is reserved for traversal phase
+PASS: F is bound to interaction
+PASS: enemy runtime uses open gothicvania visual
+PASS: player slash hits enemy hurtbox
+PASS: slash hit grants energy
+PASS: left slash hits enemy on left side
+PASS: up slash hits enemy above player
+PASS: down slash hits enemy below player
+PASS: down slash bounces player upward after hit
+PASS: enemy body contact is ignored during player slash
+PASS: enemy body contact damages player after slash guard ends
+PASS: hook attack hits at extended range
+PASS: L skill spends energy and deals 2 damage
+PASS: L skill consumes energy and does not refund on its own hit
+PASS: right mouse heal starts while grounded and idle
+PASS: heal reserves 60 energy until completion
+PASS: right mouse heal restores 1 HP after channel completes
+PASS: enemy ai reads player command state
+PASS: enemy ai samples player commands
+PASS: enemy ai exposes active attack range
+PASS: enemy ai reads player slash command
+PASS: ai enemy remains active during combat validation
+PASS: enemy attack desire starts an active command
+PASS: enemy command ai can damage the player
+COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true
