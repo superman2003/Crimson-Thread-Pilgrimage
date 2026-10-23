@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
@@ -704,6 +705,7 @@ func _reset_traversal_state() -> void:
     _clear_action_buffer()
     _stop_grapple()
     _interrupt_heal()
+    HEAL_ART.clear(self)
     _stop_phase()
     guard_timer = 0.0
     guard_cooldown = 0.0
@@ -998,6 +1000,7 @@ func _try_heal() -> bool:
     # A payment listener may cancel, change build, or begin a newer channel.
     if heal_reservation_generation != reservation_generation or heal_timer <= 0.0:
         return false
+    HEAL_ART.start(self)
     _seal_present("heal", "prepare")
     _play_sfx("heal", -5.0)
     _play(&"heal")
@@ -1020,7 +1023,7 @@ func _update_heal(delta: float) -> void:
         heal_cooldown = 0.4
         # Settle the paid build before HP listeners can replace that build.
         _seal_heal_completed()
-        _spawn_heal_effect()
+        HEAL_ART.completed(self)
         hp_changed.emit(hp)
         heal_state_changed.emit("completed")
 
@@ -1035,6 +1038,7 @@ func _interrupt_heal() -> void:
         heal_cooldown = maxf(heal_cooldown, 0.3)
         var practice_refund := mini(refund, heal_reserved_practice)
         heal_reserved_practice = 0
+        HEAL_ART.interrupted(self)
         gain_energy(refund)
         # A refund of practice thread stays practice thread.
         practice_energy = mini(energy, practice_energy + practice_refund)
@@ -2569,5 +2573,6 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    HEAL_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
