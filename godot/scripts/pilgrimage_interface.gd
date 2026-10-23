@@ -317,6 +317,44 @@ func _fit_viewport() -> void:
 func _install_theme(target: Theme) -> void:
     target.set_color("font_color","Label",IVORY)
     target.set_color("font_color","Button",IVORY)
+    target.set_color("default_color","RichTextLabel",IVORY)
+    target.set_color("title_color","Window",IVORY)
+    target.set_font("title_font","Window",display_font())
+    for state in ["embedded_border","embedded_unfocused_border"]:
+        # Keep the engine's title/close-button margins and hit geometry.
+        var window_style := ThemeDB.get_default_theme().get_stylebox(state,"Window").duplicate() as StyleBoxFlat
+        if window_style != null:
+            window_style.bg_color = Color("101f20")
+            window_style.border_color = Color("101f20")
+            window_style.shadow_color = Color(GOLD,0.5)
+            window_style.shadow_size = 1
+            target.set_stylebox(state,"Window",window_style)
+    target.set_font_size("font_size","Button",17)
+    target.set_color("font_hover_color","Button",IVORY)
+    target.set_color("font_pressed_color","Button",IVORY)
+    target.set_color("font_focus_color","Button",IVORY)
+    target.set_color("font_disabled_color","Button",MUTED.darkened(0.3))
+    # Native dialog buttons share the shell's ink/copper palette. Unlike the
+    # inscribed buttons they have no drawn chrome, so their focus border must
+    # live in the style itself rather than the transparent _style default.
+    for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+        var background := Color("101f20")
+        var border := GOLD.darkened(0.4)
+        if state == "hover" or state == "pressed":
+            background = Color("302220")
+            border = RED
+        elif state == "disabled":
+            background = Color("182025")
+            border = Color("303c3d")
+        elif state == "focus":
+            background = Color(0,0,0,0)
+            border = GOLD
+        var button_style := _style(background,border,2 if state == "focus" else 1)
+        button_style.border_color = border
+        target.set_stylebox(state,"Button",button_style)
+        # Theme lookup tries this theme's Button entry before the engine's
+        # CheckButton one, so pin settings toggles to their default chrome.
+        target.set_stylebox(state,"CheckButton",ThemeDB.get_default_theme().get_stylebox(state,"CheckButton"))
     target.set_stylebox("panel","TooltipPanel",_style(Color("152229"),GOLD))
     target.set_color("font_color","TooltipLabel",IVORY)
     target.set_font_size("font_size","TooltipLabel",16)

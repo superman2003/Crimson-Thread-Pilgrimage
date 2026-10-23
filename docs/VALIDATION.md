@@ -60,3 +60,7 @@ T05 still requires building the final distribution, launching it independently o
 ## Fixture audio exit (2026-10-23)
 
 `python tools/run_exit_lifetime.py --engine /path/to/godot --native-gl --log-dir /tmp/exit-lifetime` freezes tracked Godot/tools inputs, keeps per-suite source/logs and fails all warnings, engine errors, missing markers or 180-second timeouts. Native three-suite positive and omitted-capture negative evidence is in [the report](report/20261023_t03_fixture_audio_exit.md). Headless disables chapter music and is not audio-exit evidence.
+
+## Shared dialog theme (2026-10-23)
+
+`python tools/run_ui_consistency.py --engine /path/to/godot --native-gl --capture --suite ui_redesign --log-dir /tmp/dialog-theme` captures actual confirmation and long-history dialogs at 1280×720 and 960×540. The existing UI suite checks native focus and theme inheritance. Frozen original-theme negative and final native/CPU results, including unassigned earlier exit warnings, are documented in [the report](report/20261023_u01_dialog_theme.md).
