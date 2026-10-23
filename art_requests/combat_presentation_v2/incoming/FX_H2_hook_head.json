@@ -1,0 +1,149 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_hook_head.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "cfb5c23c3a0e0c179a9b6d7ed3569e768eef626c19d63541d35629f6db5039fd",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_hook_head.txt",
+  "prompt_sha256": "5c97bd865e448ac3c2be3e7a4acb3ef53f843fee9487ad044b946ec48418648b",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        507,
+        512
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        71,
+        216,
+        436,
+        365
+      ],
+      "fully_transparent_pixels": 228115
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        507,
+        0,
+        1022,
+        512
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        581,
+        206,
+        949,
+        364
+      ],
+      "fully_transparent_pixels": 217416
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1022,
+        0,
+        1536,
+        512
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1095,
+        202,
+        1462,
+        361
+      ],
+      "fully_transparent_pixels": 212913
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        512,
+        526,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        65,
+        686,
+        455,
+        867
+      ],
+      "fully_transparent_pixels": 219111
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        526,
+        512,
+        1040,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        583,
+        714,
+        947,
+        867
+      ],
+      "fully_transparent_pixels": 216480
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1040,
+        512,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1093,
+        727,
+        1461,
+        864
+      ],
+      "fully_transparent_pixels": 220445
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_hook_throw.png",
+      "sha256": "5dfc26b1e2c36115e4ef83c11d15011854240881d16ba449b8a24cd06cac8885"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: right-pointing ivory/brass needle hook, fixed silhouette with moving glint and a short tied crimson loop. No target or character. Rotation and attachment to the real rope remain runtime work.",
+    "runtime_acceptance": "pending"
+  }
+}
