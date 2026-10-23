@@ -1,0 +1,1903 @@
+{
+  "version": 2,
+  "audited_on": "2026-10-23",
+  "scope": "briefs_only_no_generated_art_no_runtime_changes",
+  "total_sheets": 52,
+  "total_frames": 320,
+  "bosses": [
+    {
+      "kind": "rust_crown_guardian",
+      "name": "苔钟守母",
+      "source": "godot/data/demo_ch01_boss_trial.json",
+      "manifest": "res://assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json",
+      "phase_threshold": 0.55,
+      "command_ids": [
+        "boss_moss_scythe",
+        "boss_moss_stamp",
+        "boss_moss_spores",
+        "boss_moss_roots"
+      ]
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "name": "绯线执剪者",
+      "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+      "manifest": "res://assets/sprites/bosses/boss_02_crimson_thread_scissor_apostle/manifest.json",
+      "phase_threshold": 0.55,
+      "command_ids": [
+        "boss_shears_close",
+        "boss_shears_thread",
+        "boss_shears_knots",
+        "boss_shears_turn"
+      ]
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "name": "灰冠螳将",
+      "source": "godot/data/demo_ch03_saltwhite_archive.json",
+      "manifest": "res://assets/sprites/bosses/boss_03_ash_crowned_mantis_warlord/manifest.json",
+      "phase_threshold": 0.55,
+      "command_ids": [
+        "boss_mantis_guard",
+        "boss_mantis_lunge",
+        "boss_mantis_overhead",
+        "boss_mantis_flurry"
+      ]
+    },
+    {
+      "kind": "broken_string_gardener",
+      "name": "铜根主教",
+      "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+      "manifest": "res://assets/sprites/bosses/boss_04_copperroot_bishop/manifest.json",
+      "phase_threshold": 0.55,
+      "command_ids": [
+        "boss_bishop_staff",
+        "boss_bishop_seeds",
+        "boss_bishop_roots",
+        "boss_bishop_cage"
+      ]
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "name": "镜池新娘",
+      "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+      "manifest": "res://assets/sprites/bosses/boss_05_mirrorpool_bride/manifest.json",
+      "phase_threshold": 0.55,
+      "command_ids": [
+        "boss_bride_crescent",
+        "boss_bride_mirror",
+        "boss_bride_pools",
+        "boss_bride_dash"
+      ]
+    },
+    {
+      "kind": "silent_crown_core",
+      "name": "百钥看门人",
+      "source": "godot/data/demo_ch06_silent_crown_core.json",
+      "manifest": "res://assets/sprites/bosses/boss_06_hundred_key_gatekeeper/manifest.json",
+      "phase_threshold": 0.55,
+      "command_ids": [
+        "boss_key_cleave",
+        "boss_key_return",
+        "boss_key_gate",
+        "boss_key_rings"
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "file": "FX_H2_guard_raise.png",
+      "name": "格挡起手／护幕",
+      "group": "hero",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "front",
+      "playback": "guard",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_guard.png"
+      ],
+      "runtime_hook": "_try_guard; _apply_special_skill defense（ward）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_guard.png.\nThe effect: A narrow curved half-shield of interwoven old-brass filaments and pale silk, braced on the RIGHT side. A few crimson knots bind its rim; a small bell-shaped notch identifies the bell guard. It has layered painted material and a clearly open back, never a complete circle or a plain line. Do not paint a physical shield or a character.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nContact origin is x=50%, y=50%; guard material occupies the RIGHT side of this origin. Main material stays inside x=45..85%, y=15..85%. The left side is open.\nCel 1: First guard threads gather on the RIGHT.\nCel 2: The half-shield braces, still opening.\nCel 3: Full braced guard; open back, no all-around coverage.\nCel 4: Second held guard pose with small material tension change; can alternate with frame 3.\nCel 5: Guard begins retracting toward the hand-side anchor.\nCel 6: Last small curling threads retract, nearly clear.\n"
+    },
+    {
+      "file": "FX_H2_guard_block.png",
+      "name": "普通挡击",
+      "group": "hero",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "front",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_guard.png"
+      ],
+      "runtime_hook": "take_damage: blockable and guard_timer; perfect=false",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_guard.png.\nThe effect: A blunt impact dent in a woven brass-and-silk half-shield on the right, followed by a short sideways shower of dull copper chips and loose silk. Broad soft recoil, clearly less sharp and bright than a perfect parry. No full circular shockwave.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nContact origin is x=50%, y=50%; guard material occupies the RIGHT side of this origin. Main material stays inside x=45..85%, y=15..85%. The left side is open.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_guard_perfect.png",
+      "name": "完美格挡",
+      "group": "hero",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "front",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_guard.png"
+      ],
+      "runtime_hook": "take_damage: perfect=true（首0.14秒）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_guard.png.\nThe effect: A precise ivory needle-point contact flare on the right, snapping crimson knots and a short angular crown of brass chips. A crisp white-gold contact core, two hooked silk tongues and a restrained bell resonance halo made of broken engraved fragments. Visibly different from the softer ordinary block; no screen-filling white flash.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nContact origin is x=50%, y=50%; guard material occupies the RIGHT side of this origin. Main material stays inside x=45..85%, y=15..85%. The left side is open.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_heal_channel.png",
+      "name": "缝补蓄力",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 8,
+      "requested_layout": {
+        "columns": 4,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1536,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "channel",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_heal.png"
+      ],
+      "runtime_hook": "_try_heal; heal_timer; heal_state_changed started",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_heal.png.\nThe effect: Fine crimson sewing threads wind UPWARD around an empty body-shaped space, drawing pale silk stitches together. A small warm ivory knot pulses near the centre, with several hand-painted wisps. No body, no floating health icon, no concentric geometric circles.\nExactly 8 cels in a 4-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Gather frame 1, compact but visible.\nCel 2: Gather frame 2, reach the full footprint.\nCel 3: Sustained loop frame 1 of 4; frame 6 can return to frame 3 without a jump.\nCel 4: Sustained loop frame 2 of 4; frame 6 can return to frame 3 without a jump.\nCel 5: Sustained loop frame 3 of 4; frame 6 can return to frame 3 without a jump.\nCel 6: Sustained loop frame 4 of 4; frame 6 can return to frame 3 without a jump.\nCel 7: Release frame 1: material loosens.\nCel 8: Release frame 2: last sparse fibres clear away.\n"
+    },
+    {
+      "file": "FX_H2_heal_complete.png",
+      "name": "缝补完成",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_heal.png"
+      ],
+      "runtime_hook": "_update_heal: successful completion; heal_state_changed",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_heal.png.\nThe effect: The last crimson stitch closes into a tiny ivory knot and releases a compact upward fan of soft silk fibres and muted brass motes. Calm successful completion, not an explosion or a damage hit.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_heal_interrupt.png",
+      "name": "缝补被打断",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_heal.png"
+      ],
+      "runtime_hook": "_interrupt_heal（仅已有缝补时触发）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_heal.png.\nThe effect: A partially sewn crimson knot tears apart; interrupted pale stitches sag and unravel downward in two ragged strands. Dark red and dim ivory, distinctly different from successful healing. No health pickup or successful completion flash.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_double_jump.png",
+      "name": "二段跳丝翼",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "feet",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "_spawn_double_jump_vfx",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: Two small symmetrical moth-wing-shaped fans of crimson silk unfurl to either side under an empty centre and then shed loose fibres downward. Layered torn-silk membranes, pale inner strands and a dark ink rim; no insect or body.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_dash_ribbon.png",
+      "name": "冲刺收线轨迹",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "_spawn_dash_trail（角色残影继续复用当前角色帧）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A horizontal crimson silk wake pointing RIGHT, with three tapered textured ribbons, a narrow ivory inner filament and a few torn fibres. Strong travelling direction; the trailing left end frays. This is only the material of a motion trail, without a character or a copied silhouette.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_hook_head.png",
+      "name": "回声钩头",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "loop",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_hook_throw.png"
+      ],
+      "runtime_hook": "_try_start_grapple; _spawn_hook_trail_vfx: HookTipVfx",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_hook_throw.png.\nThe effect: A small RIGHT-pointing hooked sewing needle of worn ivory and old brass, crimson thread tied through its eye. A curved tactile hook silhouette with a pale cutting tip; subtle glint changes only, consistent shape and scale. No rope extending across the cel.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Small glint/flutter loop frame 1 of 6, constant object shape and anchor; frame 6 leads back to frame 1.\nCel 2: Small glint/flutter loop frame 2 of 6, constant object shape and anchor; frame 6 leads back to frame 1.\nCel 3: Small glint/flutter loop frame 3 of 6, constant object shape and anchor; frame 6 leads back to frame 1.\nCel 4: Small glint/flutter loop frame 4 of 6, constant object shape and anchor; frame 6 leads back to frame 1.\nCel 5: Small glint/flutter loop frame 5 of 6, constant object shape and anchor; frame 6 leads back to frame 1.\nCel 6: Small glint/flutter loop frame 6 of 6, constant object shape and anchor; frame 6 leads back to frame 1.\n"
+    },
+    {
+      "file": "FX_H2_hook_cord.png",
+      "name": "回声钩绳纹理",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 4,
+      "requested_layout": {
+        "columns": 2,
+        "rows": 2,
+        "cel_size": [
+          512,
+          384
+        ],
+        "canvas_size": [
+          1024,
+          768
+        ]
+      },
+      "anchor": "tile",
+      "playback": "tile",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_hook_throw.png"
+      ],
+      "runtime_hook": "_try_start_grapple: grapple_line（随真实两端铺纹理）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_hook_throw.png.\nThe effect: A horizontal length of taut twisted crimson silk cord with a thin pale spiral strand. It extends exactly from LEFT tile edge to RIGHT tile edge at the same vertical level; the pattern and alpha must join seamlessly along the horizontal axis. Animate a small glint travelling right. No knots, hooks, caps or dangling ends inside this repeating tile.\nExactly 4 cels in a 2-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1024x768 px; every cell 512x384 px.\nTile centreline stays at 50% cell height. Continuous material joins LEFT to RIGHT with matching alpha and texture. Keep the top and bottom 20% of each cell transparent.\nCel 1: Seamless cord loop frame 1 of 4, a glint advances RIGHT; frame 4 leads back to frame 1. Identical tile edge alpha and alignment.\nCel 2: Seamless cord loop frame 2 of 4, a glint advances RIGHT; frame 4 leads back to frame 1. Identical tile edge alpha and alignment.\nCel 3: Seamless cord loop frame 3 of 4, a glint advances RIGHT; frame 4 leads back to frame 1. Identical tile edge alpha and alignment.\nCel 4: Seamless cord loop frame 4 of 4, a glint advances RIGHT; frame 4 leads back to frame 1. Identical tile edge alpha and alignment.\n"
+    },
+    {
+      "file": "FX_H2_hook_latch.png",
+      "name": "钩索命中／收回",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_hook_throw.png"
+      ],
+      "runtime_hook": "钩索有效挂接、收回边界；_stop_grapple",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_hook_throw.png.\nThe effect: An ivory hook-contact prick gathers crimson silk into a tight knot, then loosens into a small retracting curl. Fine brass flecks and tactile silk fibres. Empty centre, no hook target, scenery or character.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_downstrike.png",
+      "name": "荆针下砸落地",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "thorn_downstrike: traversal_downstrike_active 落地分支",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A downward needle strike hits the ground baseline, splitting a short jagged crown of dark thorn chips and crimson fibres to both sides. A pale ivory point at the impact centre; low curling dust and a few sharp thorn splinters. Not a large circular shockwave. No drawn ground slab.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_phase.png",
+      "name": "灯相进入／维持／退出",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 8,
+      "requested_layout": {
+        "columns": 4,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1536,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "phase",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_phase.png"
+      ],
+      "runtime_hook": "_update_phase; phase_active; _stop_phase",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_phase.png.\nThe effect: A thin translucent blue-grey lantern veil with irregular torn-silk edges surrounds an EMPTY human-sized space. Muted cold light, a few ivory fibres and sparse crimson stitches. Entry gathers the veil, its middle breathes quietly, exit unravels it. No ghost character, lantern prop, magic circle or opaque smoke wall.\nExactly 8 cels in a 4-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Entry frame 1: effect gathers visibly.\nCel 2: Entry frame 2: silhouette becomes established.\nCel 3: Middle progression frame 1 of 4, visibly changing silk contours.\nCel 4: Middle progression frame 2 of 4, visibly changing silk contours.\nCel 5: Middle progression frame 3 of 4, visibly changing silk contours.\nCel 6: Middle progression frame 4 of 4, visibly changing silk contours.\nCel 7: Exit frame 1: main material breaks into strands.\nCel 8: Exit frame 2: strands almost entirely clear.\n"
+    },
+    {
+      "file": "FX_H2_resonance.png",
+      "name": "王冠共鸣",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 8,
+      "requested_layout": {
+        "columns": 4,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1536,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "channel",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png",
+        "refs/hero_resonance.png"
+      ],
+      "runtime_hook": "_try_resonance; _apply_special_skill: resonance",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png, refs/hero_resonance.png.\nThe effect: A radial pulse of separated worn brass crown fragments and ivory bell-silk waves opens around an empty centre. Small crimson joins between pieces, dark engraved rims, a readable circular extent made from broken ornament and textured sound ribbons rather than a bare circle. Keep the central character space open.\nExactly 8 cels in a 4-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Gather frame 1, compact but visible.\nCel 2: Gather frame 2, reach the full footprint.\nCel 3: Sustained loop frame 1 of 4; frame 6 can return to frame 3 without a jump.\nCel 4: Sustained loop frame 2 of 4; frame 6 can return to frame 3 without a jump.\nCel 5: Sustained loop frame 3 of 4; frame 6 can return to frame 3 without a jump.\nCel 6: Sustained loop frame 4 of 4; frame 6 can return to frame 3 without a jump.\nCel 7: Release frame 1: material loosens.\nCel 8: Release frame 2: last sparse fibres clear away.\n"
+    },
+    {
+      "file": "FX_H2_skill_slash.png",
+      "name": "技能重斩／交叉斩",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "_spawn_skill_slash_vfx; cleave/crosscut 的有效帧",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A broad curved sword smear pointing RIGHT, formed from layered crimson silk and a pale ivory leading edge. Two distinct crossing strands near the centre can support a crosscut. Hand-painted torn taper, dark contour, short brass splinters, empty interior. No blade or character. Retain a concise silhouette at small size.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_hurt_snap.png",
+      "name": "受伤断线",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "_spawn_thread_snap_vfx",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: Five short crimson silk strands snap away from an empty contact centre, their torn ivory fibres curling and losing tension. Sparse dark red flecks, no blood spray, no full-body silhouette and no circular ring.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_land.png",
+      "name": "落地尘絮",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "_spawn_land_vfx（轻重落地可调数量与缩放）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A low sideways puff of brown-grey dust mixed with short pale silk fibres, opening left and right from the ground baseline. Painterly clumps with dark contours and thin transparent gaps. No green laser line, no ground slab and no character.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_wall_grip.png",
+      "name": "蹬墙／攀附擦丝",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "contact",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "wall_sliding 进入、蹬墙离开；silk_wall_grip",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A small right-facing contact tuft of crimson silk clinging to an invisible vertical surface, with several pale fibres scraping downward and tiny dark grit fragments. The wall side is RIGHT; do not draw the wall. Modest scale, no large smoke plume.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_death_unweave.png",
+      "name": "死亡散线",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 8,
+      "requested_layout": {
+        "columns": 4,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1536,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "phase",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "take_damage: hp<=0; death_timer（保留角色死亡姿势）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A loose cocoon of crimson silk collapses around an EMPTY body-shaped space, then unweaves into falling dark red ribbons and pale frayed fibres. Melancholy and restrained, no corpse, no human silhouette, no gore, no successful healing knot.\nExactly 8 cels in a 4-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Entry frame 1: effect gathers visibly.\nCel 2: Entry frame 2: silhouette becomes established.\nCel 3: Middle progression frame 1 of 4, visibly changing silk contours.\nCel 4: Middle progression frame 2 of 4, visibly changing silk contours.\nCel 5: Middle progression frame 3 of 4, visibly changing silk contours.\nCel 6: Middle progression frame 4 of 4, visibly changing silk contours.\nCel 7: Exit frame 1: main material breaks into strands.\nCel 8: Exit frame 2: strands almost entirely clear.\n"
+    },
+    {
+      "file": "FX_H2_respawn_weave.png",
+      "name": "复活织回",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 8,
+      "requested_layout": {
+        "columns": 4,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1536,
+          768
+        ]
+      },
+      "anchor": "body",
+      "playback": "phase",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "respawn_reveal_timer; _set_death_visibility",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: Crimson threads rise from an empty ground baseline and weave a loose open cocoon around an EMPTY body-shaped centre; a few pale ivory stitches settle inward, then the outer silk clears away. A quiet reconstruction effect, no character, no corpse, no flat circular halo.\nExactly 8 cels in a 4-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Entry frame 1: effect gathers visibly.\nCel 2: Entry frame 2: silhouette becomes established.\nCel 3: Middle progression frame 1 of 4, visibly changing silk contours.\nCel 4: Middle progression frame 2 of 4, visibly changing silk contours.\nCel 5: Middle progression frame 3 of 4, visibly changing silk contours.\nCel 6: Middle progression frame 4 of 4, visibly changing silk contours.\nCel 7: Exit frame 1: main material breaks into strands.\nCel 8: Exit frame 2: strands almost entirely clear.\n"
+    },
+    {
+      "file": "FX_H2_blade_trace.png",
+      "name": "普通挥刀材质",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "player_melee_feedback.gd: spawn_swing（沿实测刀根／刀尖贴合）",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A short tapered ivory blade smear with fine crimson silk grain and an uneven dark ink rim. A curved narrow wedge with an open transparent interior, broad at the right cutting edge and fraying to the left. No weapon or character, no huge crescent spanning a whole hitbox. This image supplies material to a short weapon-following trace.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_H2_hit_spark.png",
+      "name": "近战命中碎屑",
+      "group": "hero",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "contact",
+      "playback": "burst",
+      "topology": null,
+      "refs": [
+        "refs/hero_idle.png"
+      ],
+      "runtime_hook": "player_melee_feedback.gd: spawn_hit; enemy_actor.gd: HitSpark",
+      "boss_kind": null,
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/hero_idle.png.\nThe effect: A compact RIGHT-facing ivory contact notch breaks into a few old-brass chips and crimson silk ends, a crisp tiny centre with a dark ink rim. Directional and short-lived; no circular halo or screen flash. Material-neutral so enemy-specific chips can be tinted in the game.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nCel 1: Compact readable onset at the contact anchor.\nCel 2: Effect opens with clearly changed hand-drawn contours.\nCel 3: Peak material shape with the strongest readable silhouette.\nCel 4: Material separates into a few larger fibres or fragments.\nCel 5: Fragments thin and move outward or retract according to the effect brief.\nCel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.\n"
+    },
+    {
+      "file": "FX_T_moss_scythe.png",
+      "name": "苔钟守母·苔镰横扫预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/rust_crown_guardian.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "rust_crown_guardian",
+      "command": {
+        "id": "boss_moss_scythe",
+        "name": "苔镰横扫",
+        "type": "melee",
+        "windup": 0.68,
+        "active": 0.24,
+        "recover": 0.7,
+        "hit_width": 210,
+        "hit_height": 105,
+        "offset": 100
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/rust_crown_guardian.png.\nThe effect: A low curved rake of pale scythe-edge light intertwined with hanging moss fibres and a few tiny white flower motes. The leading edge is on the RIGHT, with broken old-brass bell engravings near the base. Anticipatory and translucent, no completed slash impact.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_moss_stamp.png",
+      "name": "苔钟守母·钟冠重压预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/rust_crown_guardian.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "rust_crown_guardian",
+      "command": {
+        "id": "boss_moss_stamp",
+        "name": "钟冠重压",
+        "type": "wave",
+        "windup": 1.05,
+        "active": 0.24,
+        "recover": 1.05,
+        "radius": 23,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "shot_count": 2,
+        "projectile_speed": 230
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/rust_crown_guardian.png.\nThe effect: A squat downward bell-pressure motif: three nested broken bronze bell shoulders press toward a jagged moss root tuft under the caster. Low weight and gathering force, not a moving damaging wave.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_moss_spores.png",
+      "name": "苔钟守母·守庭孢子预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/rust_crown_guardian.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "rust_crown_guardian",
+      "command": {
+        "id": "boss_moss_spores",
+        "name": "守庭孢子",
+        "type": "fan",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.8,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "shot_count": 5,
+        "spread": 0.85,
+        "projectile_speed": 185
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/rust_crown_guardian.png.\nThe effect: Five small tightly closed green spore buds gather around a short right-facing muzzle of moss fibres. Pale-yellow inner pollen, tiny ivory hairs, all buds remain near the source; do not draw a full fan trajectory or launched projectiles.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_moss_roots.png",
+      "name": "苔钟守母·根冠苏醒预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "eruption",
+      "refs": [
+        "refs/rust_crown_guardian.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "rust_crown_guardian",
+      "command": {
+        "id": "boss_moss_roots",
+        "name": "根冠苏醒",
+        "type": "rootline",
+        "windup": 1.1,
+        "active": 0.24,
+        "recover": 1.1,
+        "phase": 2,
+        "radius": 25,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "warning": 0.72,
+        "shot_count": 5,
+        "spacing": 98,
+        "hazard_life": 0.55
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/rust_crown_guardian.png.\nThe effect: A mound-shaped pre-eruption crack of intertwined moss roots, pinhead white flowers and dim pale sap. Root tips stay curled UNDER the crack. Low tension and rising dust grains, no tall spikes or erupted roots yet.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nSide-view ground cue. Its horizontal danger footprint must stay fixed in all frames, even when interior wisps move. Do not draw the eventual risen hazard in a warning.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_C_rust_crown_guardian.png",
+      "name": "苔钟守母·施法／转阶段蓄势",
+      "group": "boss_charge",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/rust_crown_guardian.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _physics_process: battle_phase 与 phase_pause",
+      "boss_kind": "rust_crown_guardian",
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/rust_crown_guardian.png.\nThe effect: A compact gathering crest of worn bronze bell ribs, hanging moss fibres, three tiny white flowers and pale sap motes. An empty centre and a heavy downward hanging shape, preparing the matriarch's remote root magic.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_shears_close.png",
+      "name": "绯线执剪者·合剪夹击预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/sunken_hammer_smith.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "sunken_hammer_smith",
+      "command": {
+        "id": "boss_shears_close",
+        "name": "合剪夹击",
+        "type": "melee",
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.8,
+        "hit_width": 230,
+        "hit_height": 115,
+        "offset": 105
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/sunken_hammer_smith.png.\nThe effect: Two short crossing scissor-shaped silk tensions in faded crimson, bordered by tiny tarnished-brass hinge fragments. Pale inner thread, sharp cutting direction to the RIGHT. An anticipatory crossed pattern, not a finished hit or a physical pair of scissors.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_shears_thread.png",
+      "name": "绯线执剪者·绯线封路预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          256
+        ],
+        "canvas_size": [
+          1536,
+          512
+        ]
+      },
+      "anchor": "tile",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "beam",
+      "refs": [
+        "refs/sunken_hammer_smith.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "sunken_hammer_smith",
+      "command": {
+        "id": "boss_shears_thread",
+        "name": "绯线封路",
+        "type": "beam",
+        "windup": 1.0,
+        "active": 0.24,
+        "recover": 0.8,
+        "radius": 15,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "beam_length": 650,
+        "hazard_life": 0.42
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/sunken_hammer_smith.png.\nThe effect: Parallel stretched crimson filaments with tiny dark brass staples and frayed ivory highlights, making a woven narrow threatening corridor. Restrained warm warning glint, no active burning beam. Repeating horizontal weave; avoid a lone clean laser stroke.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x512 px; every cell 512x256 px.\nTile centreline stays at 50% cell height. Continuous material joins LEFT to RIGHT with matching alpha and texture. Keep the top and bottom 20% of each cell transparent.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nDraw one repeating warning corridor material tile, horizontal to the RIGHT; no caps, perspective vanishing point or thick terminal blob. Runtime tiles then clips the visible lane to the real obstruction-truncated length and width.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_shears_knots.png",
+      "name": "绯线执剪者·断线结阵预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "pool",
+      "refs": [
+        "refs/sunken_hammer_smith.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "sunken_hammer_smith",
+      "command": {
+        "id": "boss_shears_knots",
+        "name": "断线结阵",
+        "type": "pool",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.5,
+        "radius": 31,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "warning": 0.75,
+        "shot_count": 3,
+        "spacing": 116,
+        "hazard_life": 1.25
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/sunken_hammer_smith.png.\nThe effect: A low intricate crimson knotwork nest with small tarnished-brass staples, a translucent empty centre and tight pale silk tendrils tucked inward. The danger perimeter is formed by woven knotted material, not a bare drawn circle. No risen trap or snaring victim yet.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nSide-view ground cue. Its horizontal danger footprint must stay fixed in all frames, even when interior wisps move. Do not draw the eventual risen hazard in a warning.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_shears_turn.png",
+      "name": "绯线执剪者·跃转双剪预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/sunken_hammer_smith.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "sunken_hammer_smith",
+      "command": {
+        "id": "boss_shears_turn",
+        "name": "跃转双剪",
+        "type": "vault",
+        "windup": 0.75,
+        "active": 0.85,
+        "recover": 1.05,
+        "phase": 2,
+        "hit_width": 190,
+        "hit_height": 140,
+        "offset": 48
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/sunken_hammer_smith.png.\nThe effect: Two asymmetrical curled crimson ribbon feathers gather into an upward-turning scissor flourish near the caster, with a small dull brass hinge glint. A compact preparation for a vault, not a predicted landing target or a full flight arc.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_C_sunken_hammer_smith.png",
+      "name": "绯线执剪者·施法／转阶段蓄势",
+      "group": "boss_charge",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/sunken_hammer_smith.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _physics_process: battle_phase 与 phase_pause",
+      "boss_kind": "sunken_hammer_smith",
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/sunken_hammer_smith.png.\nThe effect: A compact knot of taut crimson silk loops and tiny tarnished brass scissor-hinge flakes, pale tension at the crossed centre. The two unequal trailing ribbons curl inward, preparing a distant thread trap or beam.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_mantis_guard.png",
+      "name": "灰冠螳将·交刃反击预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "front",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "guard",
+      "refs": [
+        "refs/saltwhite_contract_judge.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_guard",
+        "name": "交刃反击",
+        "type": "guard",
+        "windup": 0.9,
+        "active": 0.32,
+        "recover": 0.72,
+        "hit_width": 200,
+        "hit_height": 70,
+        "offset": 95
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/saltwhite_contract_judge.png.\nThe effect: Two layered interlocking ash-grey mantis-blade ridges form a small RIGHT-facing defensive wedge, worn bone edges and a dim ember at the joint. Angular solid chitin textures, open back. Distinct defensive anticipation, no all-around invulnerability circle.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nContact origin is x=50%, y=50%; guard material occupies the RIGHT side of this origin. Main material stays inside x=45..85%, y=15..85%. The left side is open.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_mantis_lunge.png",
+      "name": "灰冠螳将·灰冠长突预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/saltwhite_contract_judge.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_lunge",
+        "name": "灰冠长突",
+        "type": "lunge",
+        "windup": 0.72,
+        "active": 0.52,
+        "recover": 0.85,
+        "hit_width": 185,
+        "hit_height": 58,
+        "offset": 90
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/saltwhite_contract_judge.png.\nThe effect: A long low mantis-lance tension made of overlapping ash-grey chitin shards, pointed bone tips and fine drifting ash. Narrow and right-facing with one assertive tip, visibly different from an overhead cut or multi-hit fan. No clean HUD arrow.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_mantis_overhead.png",
+      "name": "灰冠螳将·冠刃下劈预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/saltwhite_contract_judge.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_overhead",
+        "name": "冠刃下劈",
+        "type": "melee",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 1,
+        "hit_width": 155,
+        "hit_height": 160,
+        "offset": 48
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/saltwhite_contract_judge.png.\nThe effect: An overhead hooked mantis-blade tension descends toward the RIGHT, layered charred chitin and pale bone with a sparse falling ash tail. Clearly high-to-low, different from the flat lunge; no completed ground impact.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_mantis_flurry.png",
+      "name": "灰冠螳将·左右三连斩预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/saltwhite_contract_judge.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_flurry",
+        "name": "左右三连斩",
+        "type": "combo",
+        "windup": 0.7,
+        "active": 0.82,
+        "recover": 1.1,
+        "phase": 2,
+        "hit_width": 190,
+        "hit_height": 110,
+        "offset": 48
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/saltwhite_contract_judge.png.\nThe effect: Three staggered short hooked chitin-blade tensions overlap on the RIGHT in a comb-like rhythm, pale worn edges and separate ash wisps. Visible repeated-cut character without multiple opaque blades filling the whole area. No completed strikes.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_C_saltwhite_contract_judge.png",
+      "name": "灰冠螳将·施法／转阶段蓄势",
+      "group": "boss_charge",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/saltwhite_contract_judge.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _physics_process: battle_phase 与 phase_pause",
+      "boss_kind": "saltwhite_contract_judge",
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/saltwhite_contract_judge.png.\nThe effect: A compact defensive crown of overlapping ash-grey chitin ridges and pale worn mantis edges. A few falling ember-grey ash flakes, a sharp asymmetric wedge. No circular aura or actual crown prop.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bishop_staff.png",
+      "name": "铜根主教·根杖敲击预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/broken_string_gardener.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "broken_string_gardener",
+      "command": {
+        "id": "boss_bishop_staff",
+        "name": "根杖敲击",
+        "type": "melee",
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.8,
+        "hit_width": 180,
+        "hit_height": 125,
+        "offset": 48
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/broken_string_gardener.png.\nThe effect: A crozier-shaped curling copper root gesture leans RIGHT, with pale bark highlights and tiny orange seed-husk flecks. A bent woody preparation arc, no staff prop, no character and no finished shockwave.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bishop_seeds.png",
+      "name": "铜根主教·藤种布道预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/broken_string_gardener.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "broken_string_gardener",
+      "command": {
+        "id": "boss_bishop_seeds",
+        "name": "藤种布道",
+        "type": "fan",
+        "windup": 0.95,
+        "active": 0.24,
+        "recover": 0.5,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "shot_count": 5,
+        "spread": 0.68,
+        "projectile_speed": 160
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/broken_string_gardener.png.\nThe effect: Three closed orange seed husks and curled copper-green tendrils gather in a tight right-facing crozier-head cluster. Faint pale pollen but no launched seeds or full fan of trajectories. Use the bishop's orange pods, not generic green spores.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bishop_roots.png",
+      "name": "铜根主教·循地根刺预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "eruption",
+      "refs": [
+        "refs/broken_string_gardener.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "broken_string_gardener",
+      "command": {
+        "id": "boss_bishop_roots",
+        "name": "循地根刺",
+        "type": "rootline",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.5,
+        "radius": 26,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "warning": 0.68,
+        "shot_count": 4,
+        "spacing": 110,
+        "hazard_life": 0.72
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/broken_string_gardener.png.\nThe effect: A dry branching copper-root fissure with pale bark ridges, curled amber buds and tiny green leaf scraps. All tips remain coiled at the ground baseline, ready to erupt. Distinct from the matriarch's wet moss-root crack; no tall active thorn.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nSide-view ground cue. Its horizontal danger footprint must stay fixed in all frames, even when interior wisps move. Do not draw the eventual risen hazard in a warning.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bishop_cage.png",
+      "name": "铜根主教·交错根笼预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "pool",
+      "refs": [
+        "refs/broken_string_gardener.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "broken_string_gardener",
+      "command": {
+        "id": "boss_bishop_cage",
+        "name": "交错根笼",
+        "type": "pool",
+        "windup": 1.15,
+        "active": 0.24,
+        "recover": 1.2,
+        "phase": 2,
+        "radius": 34,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "warning": 0.9,
+        "shot_count": 4,
+        "spacing": 120,
+        "hazard_life": 1.6
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/broken_string_gardener.png.\nThe effect: A flattened woven ring of copper roots and folded green leaves with tight orange buds at several joints. The centre stays transparent; fragile bark texture defines the full boundary. All cage ribs are folded down, not trapping anything yet.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nSide-view ground cue. Its horizontal danger footprint must stay fixed in all frames, even when interior wisps move. Do not draw the eventual risen hazard in a warning.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_C_broken_string_gardener.png",
+      "name": "铜根主教·施法／转阶段蓄势",
+      "group": "boss_charge",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/broken_string_gardener.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _physics_process: battle_phase 与 phase_pause",
+      "boss_kind": "broken_string_gardener",
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/broken_string_gardener.png.\nThe effect: A compact spiral of copper roots and small orange seed husks, pale bark highlights and two folded green leaves. Crozier-like curling asymmetry and quiet growing tension, preparing remote root or cage magic.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bride_crescent.png",
+      "name": "镜池新娘·镜杖弧扫预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/silent_pilgrim_commander.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_crescent",
+        "name": "镜杖弧扫",
+        "type": "melee",
+        "windup": 0.6,
+        "active": 0.24,
+        "recover": 0.65,
+        "hit_width": 215,
+        "hit_height": 100,
+        "offset": 48
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_pilgrim_commander.png.\nThe effect: A delicate right-facing silver crescent anticipation made of fractured mirror flakes and thin dark veiling ribbons. Cold ivory glints, muted violet-grey edges, shallow reflection ripples, no generic golden slash and no finished hit.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bride_mirror.png",
+      "name": "镜池新娘·镜像侧刺预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/silent_pilgrim_commander.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_mirror",
+        "name": "镜像侧刺",
+        "type": "blink",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.7,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "projectile_speed": 290
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_pilgrim_commander.png.\nThe effect: Two offset narrow broken-mirror fragments wrapped in a small black-violet bridal veil curl at the caster. A split pale glint suggests imminent displacement. No character silhouette, decoy, destination target or full route line.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bride_pools.png",
+      "name": "镜池新娘·镜池迟影预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "ground",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "pool",
+      "refs": [
+        "refs/silent_pilgrim_commander.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_pools",
+        "name": "镜池迟影",
+        "type": "pool",
+        "windup": 0.75,
+        "active": 0.24,
+        "recover": 0.5,
+        "radius": 36,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "warning": 1.2,
+        "shot_count": 3,
+        "spacing": 135,
+        "hazard_life": 0.65
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_pilgrim_commander.png.\nThe effect: A low circular mirrorpool mosaic made of irregular silver-grey reflective shards and black-violet veil lace. Translucent dark centre, clear ragged silver perimeter, a few still inward ripples. No actual floor, standing water scenery or risen damaging splash.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is at x=50%, y=80% of every cell. Ground plane is only an invisible baseline; all material stays above it except sparse loose fibres. Main material fits inside x=15..85%, y=15..80%.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nSide-view ground cue. Its horizontal danger footprint must stay fixed in all frames, even when interior wisps move. Do not draw the eventual risen hazard in a warning.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_bride_dash.png",
+      "name": "镜池新娘·月镜掠袭预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/silent_pilgrim_commander.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_dash",
+        "name": "月镜掠袭",
+        "type": "vault",
+        "windup": 0.65,
+        "active": 0.75,
+        "recover": 0.9,
+        "phase": 2,
+        "hit_width": 175,
+        "hit_height": 90,
+        "offset": 48
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_pilgrim_commander.png.\nThe effect: A compact upward-curled ivory veil and three slanted mirror flakes draw tight at the caster's trailing side, preparing a vaulting dash. Quiet violet-grey dust; no flight parabola, landing target or launched attack.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_C_silent_pilgrim_commander.png",
+      "name": "镜池新娘·施法／转阶段蓄势",
+      "group": "boss_charge",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/silent_pilgrim_commander.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _physics_process: battle_phase 与 phase_pause",
+      "boss_kind": "silent_pilgrim_commander",
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_pilgrim_commander.png.\nThe effect: A compact hollow mirror fragment framed with torn black-violet bridal veil, cold ivory edge glints and a few dust-like silver shards. Offset reflections, no human image inside, preparing a remote mirrorpool or a phase transition.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_key_cleave.png",
+      "name": "百钥看门人·百钥重劈预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "sweep",
+      "refs": [
+        "refs/silent_crown_core.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "silent_crown_core",
+      "command": {
+        "id": "boss_key_cleave",
+        "name": "百钥重劈",
+        "type": "melee",
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 0.9,
+        "hit_width": 245,
+        "hit_height": 130,
+        "offset": 115
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_crown_core.png.\nThe effect: An angular right-facing cleave anticipation made of tarnished brass key teeth, bone-white slit highlights and a short dark crown ribbon. Distinct stepped key silhouette, no legible rune, physical weapon or full hit explosion.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_key_return.png",
+      "name": "百钥看门人·回旋钥阵预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/silent_crown_core.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "silent_crown_core",
+      "command": {
+        "id": "boss_key_return",
+        "name": "回旋钥阵",
+        "type": "fan",
+        "windup": 1.0,
+        "active": 0.24,
+        "recover": 0.5,
+        "radius": 13,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "shot_count": 4,
+        "spread": 0.58,
+        "projectile_speed": 260
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_crown_core.png.\nThe effect: Three tiny key-tooth glints fold around a small open old-brass keyhole motif at the caster's right. Fine pale metal dust, tightly grouped before release, no launched keys or guaranteed return-path line.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_key_gate.png",
+      "name": "百钥看门人·冠门封线预警",
+      "group": "boss_warning",
+      "status": "source_reviewed_runtime_pending",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          256
+        ],
+        "canvas_size": [
+          1536,
+          512
+        ]
+      },
+      "anchor": "tile",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "beam",
+      "refs": [
+        "refs/silent_crown_core.png"
+      ],
+      "runtime_hook": "enemy_attack_effect.gd: _draw age<arm_delay + enemy_actor.gd: _effect",
+      "boss_kind": "silent_crown_core",
+      "command": {
+        "id": "boss_key_gate",
+        "name": "冠门封线",
+        "type": "beam",
+        "windup": 1.15,
+        "active": 0.24,
+        "recover": 1,
+        "phase": 2,
+        "radius": 18,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "beam_length": 720,
+        "hazard_life": 0.42
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_crown_core.png.\nThe effect: A narrow horizontal woven lane of repeated worn brass gate teeth and pale keyhole slit fragments, bound by a dim crimson filament. Crisp aged metal texture with a dark rim, visibly a gate mechanism rather than the scissor boss's silk lane. No active burning beam.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1536x512 px; every cell 512x256 px.\nTile centreline stays at 50% cell height. Continuous material joins LEFT to RIGHT with matching alpha and texture. Keep the top and bottom 20% of each cell transparent.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nDraw one repeating warning corridor material tile, horizontal to the RIGHT; no caps, perspective vanishing point or thick terminal blob. Runtime tiles then clips the visible lane to the real obstruction-truncated length and width.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_T_key_rings.png",
+      "name": "百钥看门人·钥环震地预警",
+      "group": "boss_warning",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/silent_crown_core.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _original_attack_arc(warning=true)",
+      "boss_kind": "silent_crown_core",
+      "command": {
+        "id": "boss_key_rings",
+        "name": "钥环震地",
+        "type": "wave",
+        "windup": 0.95,
+        "active": 0.24,
+        "recover": 1.1,
+        "phase": 2,
+        "radius": 23,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "shot_count": 4,
+        "projectile_speed": 190
+      },
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_crown_core.png.\nThe effect: Two compressed low shoulders of segmented brass key teeth press outward from the caster, pale slit highlights between dark crown fragments. A gathering bell-gate pressure, not two moving damaging rings or the whole arena filled with circles.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    },
+    {
+      "file": "FX_C_silent_crown_core.png",
+      "name": "百钥看门人·施法／转阶段蓄势",
+      "group": "boss_charge",
+      "status": "needs_generation",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          384,
+          384
+        ],
+        "canvas_size": [
+          1152,
+          768
+        ]
+      },
+      "anchor": "center",
+      "playback": "windup_0_to_1_hold_last",
+      "topology": "source",
+      "refs": [
+        "refs/silent_crown_core.png"
+      ],
+      "runtime_hook": "enemy_actor.gd: _spawn_windup_vfx / _physics_process: battle_phase 与 phase_pause",
+      "boss_kind": "silent_crown_core",
+      "command": null,
+      "prompt": "Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.\nReference file(s): refs/silent_crown_core.png.\nThe effect: A compact half-crown assembled from worn brass key teeth and bone-white slit reflections, a few dim crimson binding fibres and dark aged metal. Uneven broken silhouette, no readable runes, preparing the gatekeeper's remote beam or phase shift.\nExactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.\nEffect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.\nThis is ANTICIPATION ONLY. No damaging active projectile, impact, tall erupted spike, completed slash or generic featureless circle/line. Full warning boundary must stay legible throughout; intensify inner texture without expanding the outer footprint. No blinking to invisible and no fade-out inside the warning sheet. Readability must also come from shape/material, not colour alone.\nA small LOCAL charge cue at the caster, not a promise of a whole projectile path, a landing position or a damaging area. No arena-scale cone, arrow or range disc.\nCel 1: Warning begins immediately readable, fully outlined material footprint already present; no invisible first frame.\nCel 2: Inner material gathers, same fixed outer bounds and anchor.\nCel 3: More concentrated texture and a few restrained motes, same footprint.\nCel 4: Stronger inner tension, clearly still anticipation, same footprint.\nCel 5: Near release; brightest restrained inner detail, entire boundary remains legible.\nCel 6: Hold at full warning tension, same footprint. NO active hit, blast, eruption or fading away.\n"
+    }
+  ]
+}
