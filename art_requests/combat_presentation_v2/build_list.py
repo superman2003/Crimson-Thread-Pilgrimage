@@ -242,7 +242,7 @@ def generate_files(requests, bosses):
     files["requests.json"] = json.dumps(payload, ensure_ascii=False, indent=2)+"\n"
     md = [f"""# 主角动作特效与 Boss 技能预警出图清单（v2）
 
-2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**清单与提示词已完成，素材分批绘制中，尚未接入游戏。** 源图与逐张检查记录见 [交付目录](incoming/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
+2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**清单与提示词已完成，素材已开始分批交付，尚未接入游戏。** 源图与逐张检查记录见 [交付目录](incoming/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
 
 新增 **{len(requests)} 张、{total} 格**：主角 {len(hero)} 张、当前六个 Boss 的 {len(warnings)} 招预警 {len(warnings)} 张、Boss 专属施法／转阶段蓄势 {len(charges)} 张。每项完整英文提示词在 `prompts/`，结构化数量、布局、引用和真实招式参数在 [requests.json](requests.json)。
 
