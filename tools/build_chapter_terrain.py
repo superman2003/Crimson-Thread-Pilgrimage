@@ -30,7 +30,7 @@ GROUPS={
 'string_greenhouse':[
  ('entry_root','soil','gate_floor'),
  ('garden_floor','soil','south_run_a south_bed_b south_run_c south_bed_d south_run_e south_bed_f south_run_g south_bed_h south_run_i'),
- ('wax_bank','ruin','bw_step bw_floor'),('canopy_east','bridge','canopy_e_c canopy_e_b canopy_e_a'),
+ ('wax_bank','ruin','bw_step bw_floor'),('canopy_east','bridge','canopy_e_b canopy_e_a'),
  ('canopy_west','bridge','canopy_w_c canopy_w_b canopy_w_a'),('garden_heart','soil','heart_floor'),
  ('root_vault','tunnel','vault_floor'),('broken_spoke','ruin','spoke_run_b spoke_run_a'),
  ('bishop_approach','ruin','overlook_walk boss_threshold'),('root_dome','arena','dome_floor')],

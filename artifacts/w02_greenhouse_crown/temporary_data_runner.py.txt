@@ -1,0 +1,19 @@
+from pathlib import Path
+import subprocess,sys,json,hashlib
+root=Path(__file__).resolve().parents[1]
+data=root/'godot/data/demo_ch04_broken_string_greenhouse.json'
+fixed=data.read_bytes();rows=[]
+try:
+ for label,path,expected in [('generated_fixed','output/greenhouse_crown_generated.json',0)]:
+  raw=(root/path).read_bytes();data.write_bytes(raw)
+  code=subprocess.run([sys.executable,str(root/'output/run_greenhouse_crown_suites.py'),label,'greenhouse_experience'],cwd=root).returncode
+  result=json.loads((root/'artifacts/w02_greenhouse_crown'/label/'verification.json').read_text(encoding='utf-8'))
+  suite=result['results'][0]
+  correct=code==expected and result['source_unchanged'] and (suite['passed'] if expected==0 else len(suite['engine_errors'])==1 and 'Production ordinary crown return jump blocked' in suite['engine_errors'][0])
+  rows.append(dict(case=label,data_sha256=hashlib.sha256(raw).hexdigest(),expected_exit=expected,actual_exit=code,passed=correct))
+finally:
+ data.write_bytes(fixed)
+result=dict(fixed_data_restored=data.read_bytes()==fixed,fixed_data_sha256=hashlib.sha256(fixed).hexdigest(),results=rows)
+base=root/'artifacts/w02_greenhouse_crown';(base/'temporary_data_verification.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n');(base/'temporary_data_runner.py.txt').write_bytes(Path(__file__).read_bytes())
+print(result,flush=True)
+sys.exit(0 if result['fixed_data_restored'] and len(rows)==1 and all(x['passed'] for x in rows) else 1)

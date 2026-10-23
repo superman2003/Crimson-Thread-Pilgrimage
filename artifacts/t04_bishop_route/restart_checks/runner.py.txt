@@ -1,0 +1,36 @@
+import copy,gzip,hashlib,json,pathlib,re,subprocess,sys,time
+root=pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(root/'tools'))
+from run_bishop_route import sources
+out=root/'artifacts/t04_bishop_route/restart_checks';out.mkdir(exist_ok=True)
+proof=json.loads((root/'artifacts/t04_bishop_route/final_natural_01/restart-proof.json').read_text(encoding='utf-8'))
+command=json.loads((root/'artifacts/t04_bishop_route/final_natural_01/verification.json').read_text(encoding='utf-8'))['command']
+cases={}
+for name in ['control','wrong_wallet','fractional_count','missing_pid','missing_notes','wrong_checkpoint','missing_mark']:
+ p=copy.deepcopy(proof)
+ if name=='wrong_wallet':p['wallet']+=1
+ if name=='fractional_count':p['inventory']['pollen_wax']+=0.5
+ if name=='missing_pid':p.pop('pid')
+ if name=='missing_notes':p.pop('charted')
+ if name=='wrong_checkpoint':p['checkpoint']='save_hidden_upper_respite'
+ if name=='missing_mark':p['inventory'].pop('silent_mark_greenhouse')
+ cases[name]=p
+before=sources();before['output/run_bishop_restart_checks.py']=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
+(out/'runner.py.txt').write_bytes(pathlib.Path(__file__).read_bytes())
+results=[]
+for name,p in cases.items():
+ cmd=command+['--','--bishop-restart-proof='+json.dumps(p,separators=(',',':'))]
+ start=time.monotonic();code=None;timeout=False
+ path=out/(name+'.log')
+ with path.open('w',encoding='utf-8') as f:
+  try:code=subprocess.run(cmd,stdout=f,stderr=subprocess.STDOUT,timeout=180).returncode
+  except subprocess.TimeoutExpired:timeout=True
+ raw=path.read_bytes();s=raw.decode('utf-8',errors='replace');errors=re.findall(r'^\s*(?:ERROR:|SCRIPT ERROR:).*$',s,re.M)
+ expected=0 if name=='control' else 1
+ ok=code==expected and not timeout and len(errors)==expected and ('WORLD_BISHOP_ROUTE_RESTART failures=%d pid_changed=true'%expected) in s
+ item=dict(case=name,proof=p,exit=code,timed_out=timeout,seconds=round(time.monotonic()-start,2),engine_errors=errors,objectdb_warnings=s.count('ObjectDB instances leaked'),passed=ok);results.append(item);print({k:item[k] for k in ['case','exit','seconds','engine_errors','passed']},flush=True)
+ (out/(name+'.log.gz')).write_bytes(gzip.compress(raw,mtime=0));assert gzip.decompress((out/(name+'.log.gz')).read_bytes())==raw;path.unlink()
+after=sources();after['output/run_bishop_restart_checks.py']=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
+for name,v in [('before',before),('after',after)]: (out/('source-'+name+'.json.gz')).write_bytes(gzip.compress((json.dumps(v,indent=2)+'\n').encode(),mtime=0))
+(out/'verification.json').write_text(json.dumps(dict(source_unchanged=before==after,source_files=len(before),timeout_seconds=180,results=results),indent=2)+'\n',encoding='utf-8')
+sys.exit(0 if before==after and all(r['passed'] for r in results) else 1)

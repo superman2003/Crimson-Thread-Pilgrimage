@@ -1,0 +1,336 @@
+extends SceneTree
+## Real production camera/actors with positioned fixtures; not a natural chapter clear.
+const PATH := "res://data/demo_ch04_broken_string_greenhouse.json"
+const SAVE_PATH := "user://greenhouse_experience.json"
+var checks := 0
+var failures: Array[String] = []
+var capture := false
+
+func _initialize() -> void:
+    capture = "--capture" in OS.get_cmdline_user_args()
+    call_deferred("run")
+
+func check(ok: bool, label: String) -> void:
+    checks += 1
+    if not ok: failures.append(label)
+
+func frames(count: int = 3) -> void:
+    for i in count:
+        await physics_frame
+        await process_frame
+
+func pause_world(world: Node) -> void:
+    world.set_process(false)
+    world.set_physics_process(false)
+    world.player.set_physics_process(false)
+    world.player.feel = null
+    for enemy in get_nodes_in_group("enemy"):
+        enemy.set_physics_process(false)
+
+func run() -> void:
+    root.size = Vector2i(1280, 720)
+    await encounters()
+    await room_views()
+    for action in ["attack", "move_left", "move_right", "heal"]:
+        Input.action_release(action)
+    await frames()
+    for failure in failures: push_error(failure)
+    print("GREENHOUSE_EXPERIENCE checks=%d failures=%d fixture_scope=positioned_camera_and_live_local_combat" % [checks, failures.size()])
+    call_deferred("quit", 0 if failures.is_empty() else 1)
+
+func encounters() -> void:
+    var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+    var stage := Node2D.new()
+    root.add_child(stage)
+    var floor_body := StaticBody2D.new()
+    var collision := CollisionShape2D.new()
+    var rectangle := RectangleShape2D.new()
+    rectangle.size = Vector2(9000, 20)
+    collision.shape = rectangle
+    floor_body.position = Vector2(4000, 2650)
+    floor_body.add_child(collision)
+    stage.add_child(floor_body)
+    var player = load("res://scenes/Player.tscn").instantiate()
+    stage.add_child(player)
+    player.feel = null
+    player.global_position = Vector2(3000, 2640)
+    await frames(15)
+    check(player.is_on_floor(), "Encounter fixture has physical floor contact")
+    # Same configure contract as direct spawn and tree-out residency prefabs.
+    for eid in ["E05", "E12", "E11"]:
+        player.respawn_at(Vector2(4950 if eid == "E05" else (2440 if eid == "E12" else 4000), 2640))
+        await frames(4)
+        var spawn: Dictionary = {}
+        for record in data.enemy_spawns:
+            if record.id == eid: spawn = record
+        var enemy := Area2D.new()
+        enemy.set_script(load("res://scripts/enemy_actor.gd"))
+        enemy.configure(spawn, String(spawn.sprite), false, data.ai_profiles[spawn.kind])
+        enemy.position = Vector2(spawn.position[0], 2600)
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+        check(enemy.ai_commands.size() == 2, eid + " retains both species attacks")
+        check(int(enemy.ai_commands[0].damage) > 0 and int(enemy.ai_commands[1].damage) > 0, eid + " keeps damage enabled")
+        if eid != "E11":
+            player.global_position = Vector2(4950 if eid == "E05" else (2440 if eid == "E12" else 4000), 2640)
+            player.velocity = Vector2.ZERO
+            var hp_before: int = player.hp
+            enemy.set_physics_process(true)
+            await frames(180)
+            check(not enemy.engage_announced and player.hp == hp_before, eid + " does not initiate combat at the NPC's horizontal position: player=%s enemy=%s spawn=%s leash=%s engaged=%s hp=%d->%d" % [player.global_position, enemy.global_position, enemy.spawn_position, enemy.leash_radius, enemy.engage_announced, hp_before, player.hp])
+            check(absf(enemy.global_position.x - enemy.spawn_position.x) <= enemy.leash_radius + 1, eid + " patrol stays in its authored territory")
+        else:
+            check(minf(enemy.ai_commands[0].recover, enemy.ai_commands[1].recover) > player.heal_duration + 0.15, "Tree-heart hunter offers recovery after net and pounce")
+            player.global_position = Vector2(enemy.global_position.x + 65, 2640)
+            player.hurt_timer = 0
+            var hp_before: int = player.hp
+            enemy.set_physics_process(true)
+            var windup := false
+            for tick in 180:
+                await frames(1)
+                if enemy.state == "windup":
+                    windup = true
+                    break
+            check(windup, "Tree-heart hunter naturally starts its attack when approached")
+            await frames(80)
+            check(player.hp < hp_before, "Retained hunter attack actually damages the production Player")
+        enemy.queue_free()
+        await frames(8)
+    stage.queue_free()
+    await frames(6)
+
+func room_views() -> void:
+    for suffix in ["", ".bak", ".tmp"]:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+    var world = load("res://scenes/World.tscn").instantiate()
+    world.world_resume = false
+    world.world_save_path = SAVE_PATH
+    root.add_child(world)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
+    current_scene = world
+    await frames(8)
+    pause_world(world)
+    var player_id: int = world.player.get_instance_id()
+    var camera: Camera2D = world.player.get_node("Camera2D")
+    var camera_id := camera.get_instance_id()
+    world._travel_world(PATH, Vector2(330, 1740))
+    pause_world(world)
+    await frames(4)
+    check(world.config.id == "demo_ch04_broken_string_greenhouse", "Production World loads the greenhouse")
+    check(world.config.chapter_name == "断弦温室" and String(world.config.map_title).begins_with("断弦温室"), "HUD and map use the campaign's region name")
+    check(not world.win_label.visible, "Region arrival never occupies the persistent ending banner")
+    world._show_chapter_entry_message() # Inspect the actual adapter before nearby signs replace the toast.
+    check(world.toast_label.text == "断弦温室", "Greenhouse arrival uses its player-facing region name")
+    check(world.player.get_instance_id() == player_id and camera.get_instance_id() == camera_id, "Arrival preserves Player and Camera instances")
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16, "All 16 original greenhouse rooms have authored camera ranges")
+    check(not world.player.debug_invulnerable, "Production waiting fixtures keep ordinary damage rules")
+    for encounter in [["E05", Vector2(4950, 2300)], ["E05", Vector2(5100, 2300)], ["E11", Vector2(3090, 1602)], ["E11", Vector2(2750, 1602)], ["E12", Vector2(2440, 1982)], ["E14", Vector2(5110, 762)]]:
+        var actor: Area2D = null
+        for candidate in get_nodes_in_group("enemy"):
+            if candidate.get_parent() == world and candidate.spawn_id == encounter[0]:
+                actor = candidate
+        check(actor != null, String(encounter[0]) + " production actor exists")
+        if actor == null: continue
+        world.player.global_position = encounter[1]
+        world.player.arrival_guard_timer = 0.0
+        world.player.hurt_timer = 0.0
+        world.player.enemy_contact_guard_timer = 0.0
+        world.player.reset_camera_after_arrival()
+        world._warm_arrival_cave()
+        world._warm_arrival_terrain()
+        world._warm_arrival_platforms()
+        world.world_gameplay_residency.warm_enemy_arrival(world, world.player.global_position)
+        pause_world(world)
+        var hp_before: int = world.player.hp
+        actor.set_physics_process(true)
+        await frames(90)
+        check(not actor.engage_announced, String(encounter[0]) + " does not engage at the actual library NPC/rest position")
+        check(world.player.hp == hp_before, String(encounter[0]) + " production waiting fixture has no new damage")
+        actor.set_physics_process(false)
+    var zoom := camera.zoom
+    var half := Vector2(root.size) / zoom * 0.5
+    for room in world.config.map_rooms:
+        if not room.has("camera_bounds"): continue # Upgrade workshops remain a separate task.
+        var rect := Rect2(room.layout_rect[0], room.layout_rect[1], room.layout_rect[2], room.layout_rect[3])
+        for point in [rect.get_center(), rect.position + Vector2(40, 70), rect.end - Vector2(40, 70)]:
+            world.player.global_position = point
+            world.player.reset_camera_after_arrival()
+            var screen := Rect2(camera.get_screen_center_position() - half, half * 2)
+            check(screen.has_point(point + Vector2(0, -40)) and screen.has_point(point + Vector2(0, 15)), String(room.id) + " body and footing visible at " + str(point))
+            check(camera.limit_left < camera.limit_right and camera.limit_top < camera.limit_bottom, String(room.id) + " ordered camera limits")
+    check(camera.zoom == zoom, "Room framing preserves the player's configured zoom")
+    for shaft in [["vine_ascent", Vector2(5450, 1450), Vector2(5450, 2200)], ["tree_crown", Vector2(3400, 1000), Vector2(3400, 1500)]]:
+        world.player.global_position = shaft[1]
+        world.player.reset_camera_after_arrival()
+        var top := camera.get_screen_center_position().y
+        world.player.global_position = shaft[2]
+        world.player.reset_camera_after_arrival()
+        check(camera.get_screen_center_position().y - top > 350, String(shaft[0]) + " follows the shaft instead of fixing its full-height center")
+    for sample in [["entry", Vector2(330, 1780)], ["beeswax", Vector2(5050, 2300)], ["tree_heart", Vector2(2820, 1602)], ["vine_ascent", Vector2(5510, 1795)], ["dome_rest", Vector2(5110, 762)]]:
+        world.player.global_position = sample[1]
+        world.player.reset_camera_after_arrival()
+        world._warm_arrival_cave()
+        world._warm_arrival_terrain()
+        world._warm_arrival_platforms()
+        world.world_gameplay_residency.warm_enemy_arrival(world, world.player.global_position)
+        pause_world(world)
+        await frames(12)
+        if capture:
+            world.ui_shell.toast.text = ""
+            await RenderingServer.frame_post_draw
+            DirAccess.make_dir_recursive_absolute("res://../artifacts/greenhouse")
+            root.get_texture().get_image().save_png("res://../artifacts/greenhouse/" + String(sample[0]) + ".png")
+    world.player.global_position = Vector2(5930, 832)
+    world.player.reset_camera_after_arrival()
+    world._set_boss_arena_locked(true)
+    check(world.player.camera_focus.active_lock == "boss_arena", "Greenhouse Boss seal overrides exploration framing")
+    world._set_boss_arena_locked(false)
+    check(world.player.camera_focus.active_lock == "exploration_room", "Seal release restores greenhouse room framing")
+    world._set_boss_arena_locked(true)
+    world.player.respawn_at(Vector2(5110, 762))
+    check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "dome_approach", "Actual respawn signal restores the dome rest before rendering")
+    check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the dome rest")
+    await vine_exit_jumps(world)
+    await root_vault_steps(world)
+    await crown_return_jumps(world)
+    var next_path := "res://data/demo_ch05_obsidian_pilgrim_road.json"
+    var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
+    world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
+    pause_world(world)
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 14 and world.player.room_camera.current.id == "ravine_gate" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving greenhouse selects the obsidian entry and replaces its room limits")
+    world._travel_world(PATH, Vector2(330, 1740))
+    pause_world(world)
+    check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 16 and world.player.room_camera.current.id == "west_gate", "Returning rebuilds greenhouse framing without stale locks")
+    world.queue_free()
+    await frames(6)
+    for suffix in ["", ".bak", ".tmp"]:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+## Positioned production geometry fixture. Actors and region scheduling are
+## paused; only the actual Player physics runs. This is not natural traversal.
+func vine_exit_jumps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Vine exit fixture uses ordinary jumps without extra climbing abilities")
+    player.global_position=Vector2(5480,1360)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Vine exit fixture stands on the actual ninth vine")
+    var hp: int=player.hp
+    for point in [Vector2(5350,1252),Vector2(5360,1186)]:
+        if not await vine_exit_jump(world,point):
+            pause_world(world)
+            return
+    check(player.hp==hp,"Ordinary vine exit jumps preserve health with actors paused")
+    pause_world(world)
+
+func vine_exit_jump(world: Node,target: Vector2,label: String="vine exit") -> bool:
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    await frames(3)
+    Input.action_press("jump")
+    for frame in 100:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        for action in ["move_left","move_right"]:
+            if Input.is_action_pressed(action):Input.action_release(action)
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if frame>5 and player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["jump","move_left","move_right"]:
+                if Input.is_action_pressed(action):Input.action_release(action)
+            check(true,"Production ordinary jump reaches "+label+" "+str(target))
+            return true
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    check(false,"Production ordinary %s jump blocked at %s toward %s" % [label,world.player.position,target])
+    return false
+
+## Production root-vault shaft fixture; actors remain paused and harmless.
+## The positioned fixture exercises ordinary movement, not natural exploration.
+func root_vault_steps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Root vault fixture uses ordinary movement without extra climbing abilities")
+    player.global_position=Vector2(2750,1602)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Root vault fixture stands on the actual tree heart")
+    var hp: int=player.hp
+    for target in [Vector2(2560,1732),Vector2(2730,1856)]:
+        if not await root_vault_walk(world,target):
+            pause_world(world)
+            return
+    if not await root_vault_walk(world,Vector2(2656,1856)):
+        pause_world(world)
+        return
+    if not await vine_exit_jump(world,Vector2(2550,1732),"root vault lower step return"):
+        pause_world(world)
+        return
+    if not await root_vault_walk(world,Vector2(2590,1732)):
+        pause_world(world)
+        return
+    if not await vine_exit_jump(world,Vector2(2770,1602),"tree heart return"):
+        pause_world(world)
+        return
+    check(player.hp==hp,"Ordinary root vault descent and return preserve health with actors paused")
+    pause_world(world)
+
+func root_vault_walk(world: Node,target: Vector2) -> bool:
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    await frames(3)
+    for frame in 150:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        for action in ["move_left","move_right"]:
+            if Input.is_action_pressed(action):Input.action_release(action)
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["move_left","move_right"]:
+                if Input.is_action_pressed(action):Input.action_release(action)
+            check(true,"Production ordinary root vault walk reaches "+str(target))
+            return true
+    for action in ["move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    check(false,"Production root vault drop blocked at %s toward %s" % [world.player.position,target])
+    return false
+
+## Positioned production return to the canopy, with ordinary jumps only.
+func crown_return_jumps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Crown return fixture uses ordinary jumps without extra climbing abilities")
+    player.global_position=Vector2(3660,1054)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Crown return fixture stands on the actual fifth rising vine")
+    var hp: int=player.hp
+    for target in [Vector2(3770,948),Vector2(3770,882)]:
+        if not await vine_exit_jump(world,target,"crown return"):
+            pause_world(world)
+            return
+    check(player.hp==hp,"Ordinary crown return reaches the canopy without damage with actors paused")
+    pause_world(world)

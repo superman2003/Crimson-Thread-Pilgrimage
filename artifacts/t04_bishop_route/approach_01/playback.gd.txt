@@ -1,0 +1,60 @@
+extends "res://scripts/world_greenhouse_vault_playback.gd"
+## Actual-input climb from the normally earned vault return checkpoint.
+const BISHOP_SAVE := "user://test_world_greenhouse_bishop.json"
+const VAULT_SEED := "res://../artifacts/t04_greenhouse_vault/earned_vault_seed.json"
+func _run() -> void:
+    var bytes:=FileAccess.get_file_as_bytes(VAULT_SEED)
+    _check(not bytes.is_empty(),"normally earned vault return seed exists")
+    if bytes.is_empty():quit(1);return
+    for suffix in ["", ".bak", ".tmp"]:
+        if FileAccess.file_exists(BISHOP_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(BISHOP_SAVE+suffix))
+    var file:=FileAccess.open(BISHOP_SAVE,FileAccess.WRITE)
+    _check(file!=null,"private bishop save can be written")
+    if file==null:quit(1);return
+    file.store_buffer(bytes)
+    file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=BISHOP_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(scene.active_save_point_id=="save_ch04_lower_loop" and scene.currency_count==243 and scene.boss_unlocked,"restores actual vault lever and tree heart checkpoint")
+    if not await _walk_without_jump(Vector2(3170,1602)):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _walk_without_jump(Vector2(3315,1632)):await _finish();return
+    trace_ceiling=true
+    if not await _leap(Vector2(3560,1494),20,"tree crown return onto first rising vine"):await _finish();return
+    for target in [Vector2(3750,1384),Vector2(3570,1274),Vector2(3770,1164),Vector2(3595,1054),Vector2(3770,948)]:
+        if not await _leap(target,20,"tree crown rising vine"):await _finish();return
+    trace_ceiling=false
+    if not await _leap(Vector2(3770,882),999,"single jump back to the actual canopy"):await _finish();return
+    if not await _leap(Vector2(4190,928),35,"canopy eastern bank"):await _finish();return
+    if not await _vine_bee_duel("E08",4240,-1):await _finish();return
+    if not await _walk_without_jump(Vector2(4280,928)):await _finish();return
+    if not await _leap(Vector2(4590,892),35,"safe landing beyond the canopy clapper"):await _finish();return
+    if not await _leap(Vector2(4820,806),20,"dome rising vine"):await _finish();return
+    if not await _leap(Vector2(5110,762),20,"actual dome shrine deck"):await _finish();return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_late_runback" and scene.player.hp==scene.player.max_hp,"normal F rests at the actually reached dome shrine")
+    await _inspect_map_without_position()
+    if failures==0:
+        var earned:=FileAccess.open("user://test_world_greenhouse_dome_earned_seed.json",FileAccess.WRITE)
+        _check(earned!=null,"actually earned dome shrine can be archived")
+        if earned!=null:
+            earned.store_buffer(FileAccess.get_file_as_bytes(BISHOP_SAVE))
+            earned.close()
+            print("GREENHOUSE_DOME_EARNED_SEED ",ProjectSettings.globalize_path("user://test_world_greenhouse_dome_earned_seed.json"))
+    await _finish()
+
+func _finish() -> void:
+    _release()
+    Input.action_release("skill_1")
+    _check(deaths==0,"bishop approach survives without death")
+    print("BISHOP_APPROACH_STATE ",JSON.stringify({"position":str(scene.player.position),"hp":scene.player.hp,"energy":scene.player.energy,"wallet":scene.currency_count,"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id}))
+    print("WORLD_BISHOP_APPROACH steps=%d failures=%d damage_events=%d heals=%d deaths=%d damage_suppression=false earned_checkpoint=true" % [steps,failures,damage_events,heals,deaths])
+    scene.queue_free()
+    scene=null
+    for unused in 10:await process_frame
+    quit(0 if failures==0 else 1)
