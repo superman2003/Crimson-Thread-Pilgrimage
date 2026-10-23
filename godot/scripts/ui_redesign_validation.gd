@@ -62,6 +62,11 @@ func _dialog_theme(world: Node,ui: Control) -> void:
         check(button.get_theme_stylebox("hover") is StyleBoxFlat and button.get_theme_stylebox("pressed") is StyleBoxFlat,"Native confirmation uses ink hover and pressed styles")
     cancel.grab_focus()
     check(cancel.has_focus(),"Native cancel remains keyboard reachable")
+    var toggles: Array=ui.settings.find_children("*","CheckButton",true,false)
+    check(not toggles.is_empty(),"Settings page has accessibility toggles")
+    for toggle in toggles:
+        for state in ["normal","hover","pressed","focus"]:
+            check(toggle.get_theme_stylebox(state) == ThemeDB.get_default_theme().get_stylebox(state,"CheckButton"),"Native dialog chrome does not box settings toggle "+state)
     await _capture_dialog(world.new_journey_dialog,"new_journey")
     world.new_journey_dialog.hide()
     ui._show_journey_history()

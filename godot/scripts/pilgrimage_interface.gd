@@ -352,6 +352,9 @@ func _install_theme(target: Theme) -> void:
         var button_style := _style(background,border,2 if state == "focus" else 1)
         button_style.border_color = border
         target.set_stylebox(state,"Button",button_style)
+        # Theme lookup tries this theme's Button entry before the engine's
+        # CheckButton one, so pin settings toggles to their default chrome.
+        target.set_stylebox(state,"CheckButton",ThemeDB.get_default_theme().get_stylebox(state,"CheckButton"))
     target.set_stylebox("panel","TooltipPanel",_style(Color("152229"),GOLD))
     target.set_color("font_color","TooltipLabel",IVORY)
     target.set_font_size("font_size","TooltipLabel",16)
