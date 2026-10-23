@@ -37,6 +37,7 @@ func run() -> void:
     ui._process(0.0)
     check(not ui.modal_shade.visible and ui.hud_card.visible and ui.tactical_cards[0].visible,"Closing restores combat HUD")
     check(not world.player.ui_input_locked,"Closing returns player controls")
+    await _dialog_theme(world,ui)
     await _reading_resume(world,ui)
     preload("res://scripts/audio_retirement.gd").retire_tree(world)
     world.free()
@@ -45,6 +46,51 @@ func run() -> void:
     for suffix in ["",".tmp",".bak"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_redesign_validation.json"+suffix))
     print("UI_REDESIGN_VALIDATION_%s checks=%d failures=%d" % ["PASS" if failures==0 else "FAIL",checks,failures])
     quit(1 if failures else 0)
+
+func _dialog_theme(world: Node,ui: Control) -> void:
+    world._close_overlays()
+    world.new_journey_dialog.popup_centered()
+    await process_frame
+    var confirm: Button = world.new_journey_dialog.get_ok_button()
+    var cancel: Button = world.new_journey_dialog.get_cancel_button()
+    check(world.new_journey_dialog.get_theme_stylebox("embedded_border").bg_color == Color("101f20"),"Native dialog title frame uses shell ink")
+    for button in [confirm,cancel]:
+        check(button.get_theme_color("font_color") == ui.IVORY,"Native dialog uses shell body color")
+        check(button.get_theme_font_size("font_size") == 17,"Native dialog uses shell button scale")
+        var focus: StyleBox = button.get_theme_stylebox("focus")
+        check(focus is StyleBoxFlat and focus.border_color == ui.GOLD and focus.border_width_top >= 2,"Native confirmation has a visible copper keyboard focus")
+        check(button.get_theme_stylebox("hover") is StyleBoxFlat and button.get_theme_stylebox("pressed") is StyleBoxFlat,"Native confirmation uses ink hover and pressed styles")
+    cancel.grab_focus()
+    check(cancel.has_focus(),"Native cancel remains keyboard reachable")
+    var toggles: Array=ui.settings.find_children("*","CheckButton",true,false)
+    check(not toggles.is_empty(),"Settings page has accessibility toggles")
+    for toggle in toggles:
+        for state in ["normal","hover","pressed","focus"]:
+            check(toggle.get_theme_stylebox(state) == ThemeDB.get_default_theme().get_stylebox(state,"CheckButton"),"Native dialog chrome does not box settings toggle "+state)
+    await _capture_dialog(world.new_journey_dialog,"new_journey")
+    world.new_journey_dialog.hide()
+    ui._show_journey_history()
+    await process_frame
+    check(ui.journey_history_text.get_theme_color("default_color") == ui.IVORY,"Old journey body uses shell ivory")
+    for argument in OS.get_cmdline_user_args():
+        if argument.begins_with("--u01-capture="):
+            ui.journey_history_text.text = "旧旅途阅读展示：记录只供浏览，返回后继续当前旅途。\n停留：盐白书库 · 已访房间与碎钱仍保留。\n".repeat(24)
+    await _capture_dialog(ui.journey_history_dialog,"old_journey")
+    ui.journey_history_dialog.hide()
+    ui._journey_history_closed()
+
+func _capture_dialog(dialog: Window,stem: String) -> void:
+    for argument in OS.get_cmdline_user_args():
+        if not argument.begins_with("--u01-capture="):continue
+        var destination: String = argument.trim_prefix("--u01-capture=")
+        DirAccess.make_dir_recursive_absolute(destination)
+        for dimensions in [Vector2i(1280,720),Vector2i(960,540)]:
+            root.size = dimensions
+            dialog.popup_centered()
+            for frame in 4:await process_frame
+            await RenderingServer.frame_post_draw
+            var path: String = destination.path_join("%s_%dx%d.webp" % [stem,dimensions.x,dimensions.y])
+            check(root.get_texture().get_image().save_webp(path) == OK,"Save actual dialog capture")
 
 func _reading_resume(world: Node,ui: Control) -> void:
     var speaker:=Area2D.new()
