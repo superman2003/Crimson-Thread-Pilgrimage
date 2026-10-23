@@ -1044,7 +1044,8 @@ func _process(_delta: float) -> void:
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         _spawn_normal_enemies()
-        if boss_unlocked and not demo_complete and not boss_spawned:
+        # World encounters start at the manual bell gate, including after death.
+        if not world_mode and boss_unlocked and not demo_complete and not boss_spawned:
             _spawn_boss()
         _refresh_hud()
     if Input.is_action_just_pressed("close_overlay"):

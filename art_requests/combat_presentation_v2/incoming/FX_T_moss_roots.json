@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_moss_roots.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "8b4dbfa6f0a4a5ba371222eedf93c081ee889b92d98f0267ce78e3f8e511eaa0",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_moss_roots.txt",
+  "prompt_sha256": "75c673e979f3aa9e8e62ca71f9fbdb8ad622ecbd17b5b063a06561080aa1fadd",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "ground",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        514,
+        504
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        27,
+        203,
+        496,
+        456
+      ],
+      "fully_transparent_pixels": 170435
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        514,
+        0,
+        1026,
+        504
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        536,
+        177,
+        1006,
+        455
+      ],
+      "fully_transparent_pixels": 155300
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1026,
+        0,
+        1536,
+        504
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1048,
+        185,
+        1517,
+        456
+      ],
+      "fully_transparent_pixels": 161677
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        504,
+        519,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        27,
+        676,
+        496,
+        950
+      ],
+      "fully_transparent_pixels": 161777
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        519,
+        504,
+        1026,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        536,
+        663,
+        1006,
+        950
+      ],
+      "fully_transparent_pixels": 150522
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1026,
+        504,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1048,
+        657,
+        1517,
+        950
+      ],
+      "fully_transparent_pixels": 150465
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/rust_crown_guardian.png",
+      "sha256": "cc92592e7ae23b9f1f6a042a99afe6eb3b2a51c5e686f38fa98be8014514d0ab"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 distinct cels in 3x2. Fixed moss-root perimeter with tiny white flowers, interior cracks and curled low root tension; no caster or active tall spikes. This is a material warning decal, not terrain geometry. Side-view registration and vertical eruption bounds remain runtime acceptance work.",
+    "runtime_acceptance": "pending"
+  }
+}

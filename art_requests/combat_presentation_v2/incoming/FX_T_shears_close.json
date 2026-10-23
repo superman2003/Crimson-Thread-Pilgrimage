@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_shears_close.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "fb88c7eceae2390f5b3fda1bde5c493f3973cac911382044dadd5191a9c1e766",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_shears_close.txt",
+  "prompt_sha256": "87e29b6b92c4db7cd7ca319d4196e0f11edbaace56301f77a8a1632ad192f0ce",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        522,
+        516
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        39,
+        97,
+        482,
+        459
+      ],
+      "fully_transparent_pixels": 194234
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        522,
+        0,
+        1029,
+        516
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        564,
+        90,
+        983,
+        462
+      ],
+      "fully_transparent_pixels": 172305
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1029,
+        0,
+        1536,
+        516
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1074,
+        86,
+        1492,
+        453
+      ],
+      "fully_transparent_pixels": 161756
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        516,
+        519,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        32,
+        577,
+        491,
+        959
+      ],
+      "fully_transparent_pixels": 153684
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        519,
+        516,
+        1031,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        552,
+        576,
+        999,
+        970
+      ],
+      "fully_transparent_pixels": 138774
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1031,
+        516,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1065,
+        574,
+        1509,
+        970
+      ],
+      "fully_transparent_pixels": 135704
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/sunken_hammer_smith.png",
+      "sha256": "e1b4201b9ac2c452eee20abf3f88be452b42c945fe285ec0627114a78acd096c"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 warning cels: crossed crimson and ivory silk tensions with brass hinge details; distinct X preparation, no finished impact or caster. Runtime bounds and timing remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

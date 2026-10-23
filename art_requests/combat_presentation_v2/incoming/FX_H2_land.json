@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_land.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "15d93defdd8fc38d1ed25ac11dcf087fab3e78c85e9de42be7aa44db3497eb9b",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_land.txt",
+  "prompt_sha256": "5f59778086dc88c44758fa0d5867dd55d1258bd5a8e344b2cf00d868ecdd77a5",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "ground",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        484,
+        543
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        146,
+        320,
+        365,
+        451
+      ],
+      "fully_transparent_pixels": 237160
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        484,
+        0,
+        1003,
+        543
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        575,
+        288,
+        953,
+        452
+      ],
+      "fully_transparent_pixels": 223749
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1003,
+        0,
+        1536,
+        543
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1050,
+        226,
+        1491,
+        452
+      ],
+      "fully_transparent_pixels": 203440
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        543,
+        520,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        45,
+        652,
+        488,
+        909
+      ],
+      "fully_transparent_pixels": 158250
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        520,
+        543,
+        1023,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        554,
+        699,
+        985,
+        908
+      ],
+      "fully_transparent_pixels": 182208
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1023,
+        543,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1066,
+        752,
+        1485,
+        908
+      ],
+      "fully_transparent_pixels": 211758
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: low brown-grey dust clumps with pale fibres opening sideways then dissipating, no slab or character. Ground contact anchor still requires registration.",
+    "runtime_acceptance": "pending"
+  }
+}
