@@ -108,7 +108,9 @@ func _run() -> void:
     await _reset()
     player._start_attack(&"attack_1")
     player.strike_count = 0
-    player.attack_timer = 0.08
+    # Still inside the active frames: the recovery (where a dash would cut the
+    # swing at once, see melee_recovery) has not started yet.
+    player.attack_timer = 0.2
     Input.action_press("attack")
     await _frames(1)
     Input.action_release("attack")
