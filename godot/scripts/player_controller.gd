@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
 const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
@@ -540,6 +541,7 @@ func _physics_process(delta: float) -> void:
         wall_sliding = false
         _play(&"wall_slide")
         _play_sfx("jump", -6.0)
+        MOVEMENT_ART.wall_jump(self, jump_wall_dir)
 
     elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
         ability_action.emit("double_thread_jump", global_position, Vector2.UP)
@@ -550,7 +552,7 @@ func _physics_process(delta: float) -> void:
         wall_sliding = false
         _play(&"jump_start")
         _play_sfx("jump", -6.0, 1.16)
-        _spawn_double_jump_vfx()
+        MOVEMENT_ART.double_jump(self)
 
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
@@ -602,8 +604,9 @@ func _physics_process(delta: float) -> void:
         pogo_chain = 0
         air_jump_available = true
         _play_land_sfx(fall_speed)
-        _spawn_land_vfx()
+        MOVEMENT_ART.land(self, fall_speed)
     _update_wall_slide_audio()
+    MOVEMENT_ART.wall_state(self)
     _update_footsteps(delta)
     _update_camera(delta)
     _update_animation(input_axis)
@@ -697,6 +700,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    MOVEMENT_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
     respawn_reveal_timer = 0.0
@@ -2592,6 +2596,7 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    MOVEMENT_ART.clear(self)
     HEAL_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)

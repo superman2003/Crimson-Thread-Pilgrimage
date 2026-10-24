@@ -2,7 +2,7 @@
 
 已保存 **52／52 张、320／320 格**。通过内置 imagegen 按 PR #202／#203 制作；这里保留原始 PNG 字节。运行时另建图集，不覆盖源图。
 
-每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格。已登记接入 **36 张**，仍待接入 **16 张**；完整进度见 [delivery_status.json](delivery_status.json)，Boss 逐招接入与验证见 [v3](../../boss_execution_v3/README.md)。源图检查记录本身不代表实机验收。
+每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格。已登记接入 **39 张**，仍待接入 **13 张**；完整进度见 [delivery_status.json](delivery_status.json)，Boss 逐招接入与验证见 [v3](../../boss_execution_v3/README.md)。源图检查记录本身不代表实机验收。
 
 - [FX_H2_guard_raise.png](FX_H2_guard_raise.png) — 格挡起手／护幕，6 格；[实际提示词](FX_H2_guard_raise.txt)、[检查记录](FX_H2_guard_raise.json)，`runtime_connected`。
 - [FX_H2_guard_block.png](FX_H2_guard_block.png) — 普通挡击，6 格；[实际提示词](FX_H2_guard_block.txt)、[检查记录](FX_H2_guard_block.json)，`runtime_connected`。
@@ -10,7 +10,7 @@
 - [FX_H2_heal_channel.png](FX_H2_heal_channel.png) — 缝补蓄力，8 格；[实际提示词](FX_H2_heal_channel.txt)、[检查记录](FX_H2_heal_channel.json)，`runtime_connected`。
 - [FX_H2_heal_complete.png](FX_H2_heal_complete.png) — 缝补完成，6 格；[实际提示词](FX_H2_heal_complete.txt)、[检查记录](FX_H2_heal_complete.json)，`runtime_connected`。
 - [FX_H2_heal_interrupt.png](FX_H2_heal_interrupt.png) — 缝补被打断，6 格；[实际提示词](FX_H2_heal_interrupt.txt)、[检查记录](FX_H2_heal_interrupt.json)，`runtime_connected`。
-- [FX_H2_double_jump.png](FX_H2_double_jump.png) — 二段跳丝翼，6 格；[实际提示词](FX_H2_double_jump.txt)、[检查记录](FX_H2_double_jump.json)，`source_reviewed_runtime_pending`。
+- [FX_H2_double_jump.png](FX_H2_double_jump.png) — 二段跳丝翼，6 格；[实际提示词](FX_H2_double_jump.txt)、[检查记录](FX_H2_double_jump.json)，`runtime_connected`。
 - [FX_H2_dash_ribbon.png](FX_H2_dash_ribbon.png) — 冲刺收线轨迹，6 格；[实际提示词](FX_H2_dash_ribbon.txt)、[检查记录](FX_H2_dash_ribbon.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_hook_head.png](FX_H2_hook_head.png) — 回声钩头，6 格；[实际提示词](FX_H2_hook_head.txt)、[检查记录](FX_H2_hook_head.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_hook_cord.png](FX_H2_hook_cord.png) — 回声钩绳纹理，4 格；[实际提示词](FX_H2_hook_cord.txt)、[检查记录](FX_H2_hook_cord.json)，`source_reviewed_runtime_pending`。
@@ -20,8 +20,8 @@
 - [FX_H2_resonance.png](FX_H2_resonance.png) — 王冠共鸣，8 格；[实际提示词](FX_H2_resonance.txt)、[检查记录](FX_H2_resonance.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_skill_slash.png](FX_H2_skill_slash.png) — 技能重斩／交叉斩，6 格；[实际提示词](FX_H2_skill_slash.txt)、[检查记录](FX_H2_skill_slash.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_hurt_snap.png](FX_H2_hurt_snap.png) — 受伤断线，6 格；[实际提示词](FX_H2_hurt_snap.txt)、[检查记录](FX_H2_hurt_snap.json)，`source_reviewed_runtime_pending`。
-- [FX_H2_land.png](FX_H2_land.png) — 落地尘絮，6 格；[实际提示词](FX_H2_land.txt)、[检查记录](FX_H2_land.json)，`source_reviewed_runtime_pending`。
-- [FX_H2_wall_grip.png](FX_H2_wall_grip.png) — 蹬墙／攀附擦丝，6 格；[实际提示词](FX_H2_wall_grip.txt)、[检查记录](FX_H2_wall_grip.json)，`source_reviewed_runtime_pending`。
+- [FX_H2_land.png](FX_H2_land.png) — 落地尘絮，6 格；[实际提示词](FX_H2_land.txt)、[检查记录](FX_H2_land.json)，`runtime_connected`。
+- [FX_H2_wall_grip.png](FX_H2_wall_grip.png) — 蹬墙／攀附擦丝，6 格；[实际提示词](FX_H2_wall_grip.txt)、[检查记录](FX_H2_wall_grip.json)，`runtime_connected`。
 - [FX_H2_death_unweave.png](FX_H2_death_unweave.png) — 死亡散线，8 格；[实际提示词](FX_H2_death_unweave.txt)、[检查记录](FX_H2_death_unweave.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_respawn_weave.png](FX_H2_respawn_weave.png) — 复活织回，8 格；[实际提示词](FX_H2_respawn_weave.txt)、[检查记录](FX_H2_respawn_weave.json)，`source_reviewed_runtime_pending`。
 - [FX_H2_blade_trace.png](FX_H2_blade_trace.png) — 普通挥刀材质，6 格；[实际提示词](FX_H2_blade_trace.txt)、[检查记录](FX_H2_blade_trace.json)，`source_reviewed_runtime_pending`。

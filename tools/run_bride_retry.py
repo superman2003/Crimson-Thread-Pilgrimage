@@ -1,0 +1,33 @@
+"""Actual Bride retry continuation from the normally earned mirror shrine."""
+from pathlib import Path
+import argparse,hashlib,json,gzip,os,subprocess,time,re,shutil
+from run_damage_route import freeze
+r=Path(__file__).resolve().parents[1]
+def sources():
+ d=freeze()
+ for n in ['godot/scripts/world_bride_retry_playback.gd','tools/run_bride_retry.py','tools/verify_bride_retry_proofs.py','tools/build_chapter_terrain.py','tools/build_cave_world.py','artifacts/t04_obsidian_tower/earned_mirror_seed.json']:
+  d[n]=hashlib.sha256((r/n).read_bytes()).hexdigest()
+ return d
+p=argparse.ArgumentParser();p.add_argument('--log-dir',type=Path,required=True);p.add_argument('--phase',choices=['death','retry','chain'],default='death');p.add_argument('--native-gl',action='store_true');a=p.parse_args();a.log_dir.mkdir(parents=True,exist_ok=True);before=sources();assert before['artifacts/t04_obsidian_tower/earned_mirror_seed.json']=='5ac89dd500d23d4aa7c8fd7cb59cd92ae9c932f19d1dcf981688e148dfe73f68'
+for n in ['godot/scripts/world_bride_retry_playback.gd','tools/run_bride_retry.py','tools/verify_bride_retry_proofs.py']:(a.log_dir/(Path(n).name+'.txt')).write_bytes((r/n).read_bytes())
+c=[str(Path(os.environ['TEMP'])/'ctp-godot-4.6.1/Godot_v4.6.1-stable_win64.exe'),*(['--position','-32000,-32000'] if a.native_gl else ['--headless']),'--audio-driver','Dummy','--rendering-method','gl_compatibility','--fixed-fps','60','--path',str(r/'godot'),'--script',str(r/'godot/scripts/world_bride_retry_playback.gd')]
+def run(args,name,marker):
+ t=time.monotonic()
+ with (a.log_dir/name).open('wb') as f:
+  try:code=subprocess.run(c+['--']+args,stdout=f,stderr=subprocess.STDOUT,timeout=180).returncode
+  except subprocess.TimeoutExpired:code=-1
+ text=(a.log_dir/name).read_text(encoding='utf-8',errors='replace');text=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',text);errors=re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$',text,re.M);m=re.search(marker,text,re.M)
+ return {'exit':code,'seconds':round(time.monotonic()-t,2),'timeout':180,'errors':errors,'warnings':text.count('ObjectDB instances leaked'),'completion':m[0] if m else None,'passed':code==0 and not errors and bool(m) and 'ObjectDB instances leaked' not in text},text
+started=time.monotonic();phases=[]
+for phase in (['death','retry'] if a.phase=='chain' else [a.phase]):
+ entry,text=run(['--bride-phase='+phase],phase+'.log',r'^WORLD_C05_BRIDE phase='+phase+r' failures=0 deaths='+('1' if phase=='death' else '0')+r' damage_suppression=false$');entry['phase']=phase;phases.append(entry)
+ if not entry['passed']:break
+ matches=re.findall(r'^BRIDE_RESTART_PROOF (.+)$',text,re.M)
+ if not matches:entry['passed']=False;break
+ proof=json.loads(matches[-1]);(a.log_dir/(phase+'-proof.json')).write_text(json.dumps(proof,indent=2)+'\n',encoding='utf-8')
+ path=re.findall(r'^BRIDE_EARNED_SEED (.+)$',text,re.M)[-1].strip();shutil.copyfile(path,a.log_dir/(phase+'-seed.json'))
+ restart,_=run(['--bride-restart-proof='+json.dumps(proof,separators=(',',':'))],phase+'-restart.log',r'^WORLD_C05_BRIDE_RESTART failures=0 pid_changed=true$');entry['restart']=restart
+ if not restart['passed']:entry['passed']=False;break
+after=sources()
+for label,data in [('before',before),('after',after)]:(a.log_dir/f'source-{label}.json.gz').write_bytes(gzip.compress(json.dumps(data,indent=2).encode(),mtime=0))
+v={'phases':phases,'seconds':round(time.monotonic()-started,2),'source_files':len(before),'source_unchanged':before==after,'passed':all(x['passed'] for x in phases) and len(phases)==(2 if a.phase=='chain' else 1) and before==after};(a.log_dir/'verification.json').write_text(json.dumps(v,indent=2)+'\n',encoding='utf-8');print(json.dumps(v,indent=2));raise SystemExit(0 if v['passed'] else 1)

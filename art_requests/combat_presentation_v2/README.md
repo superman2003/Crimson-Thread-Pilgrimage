@@ -1,6 +1,6 @@
 # 主角动作特效与 Boss 技能预警出图清单（v2）
 
-2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**全部 52 张源图已交付并通过基础检查；其中 36 张已登记运行时接入，16 张仍待接入。** 源图交付完成不代表所有技能特效完成。本次补漏与逐招接入见 [Boss 生效特效与预警接入](../boss_execution_v3/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
+2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**全部 52 张源图已交付并通过基础检查；其中 39 张已登记运行时接入，13 张仍待接入。** 源图交付完成不代表所有技能特效完成。本次补漏与逐招接入见 [Boss 生效特效与预警接入](../boss_execution_v3/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
 
 新增 **52 张、320 格**：主角 22 张、当前六个 Boss 的 24 招预警 24 张、Boss 专属施法／转阶段蓄势 6 张。每项完整英文提示词在 `prompts/`，结构化数量、布局、引用和真实招式参数在 [requests.json](requests.json)。
 
@@ -342,14 +342,14 @@
 
 ## 源码定位与复核
 
-- `godot/scripts/player_controller.gd:1081` — `_try_guard`
-- `godot/scripts/player_controller.gd:1170` — `_ability_ring`
-- `godot/scripts/player_controller.gd:1938` — `_spawn_heal_effect`
-- `godot/scripts/player_controller.gd:2114` — `take_damage`
-- `godot/scripts/enemy_actor.gd:161` — `_spawn_command_effects`
-- `godot/scripts/enemy_actor.gd:1837` — `_show_telegraph`
-- `godot/scripts/enemy_actor.gd:2488` — `_original_attack_arc`
-- `godot/scripts/enemy_attack_effect.gd:151` — `_draw`
-- `godot/scripts/enemy_attack_effect.gd:142` — `_hits_player`
+- `godot/scripts/player_controller.gd:1085` — `_try_guard`
+- `godot/scripts/player_controller.gd:1174` — `_ability_ring`
+- `godot/scripts/player_controller.gd:1942` — `_spawn_heal_effect`
+- `godot/scripts/player_controller.gd:2118` — `take_damage`
+- `godot/scripts/enemy_actor.gd:164` — `_spawn_command_effects`
+- `godot/scripts/enemy_actor.gd:1849` — `_show_telegraph`
+- `godot/scripts/enemy_actor.gd:2502` — `_original_attack_arc`
+- `godot/scripts/enemy_attack_effect.gd:153` — `_draw`
+- `godot/scripts/enemy_attack_effect.gd:144` — `_hits_player`
 
 在仓库根目录运行 `python -X utf8 art_requests/combat_presentation_v2/build_list.py --check`，核对 24 招完整覆盖、参考文件与已生成清单／提示词无漂移。不带 `--check` 可按当前配置重新生成本目录；不会修改运行时代码或替换 `incoming/` 原始图。

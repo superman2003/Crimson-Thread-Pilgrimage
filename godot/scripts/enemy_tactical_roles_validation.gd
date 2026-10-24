@@ -258,7 +258,8 @@ func _support() -> void:
     await physics_frame
     step(donor, target)
     check(donor.state == "support" and ally.hp == 1, "the flag bearer channels before mending its wounded elite companion")
-    check(donor.get_node_or_null("EnemySupportLink") != null and donor.support_target.get_ref() == ally, "a visible non-damaging link identifies the chosen ally")
+    var support_cue := donor.get_node_or_null("MinorEnemySupportChannel") if donor.get_node_or_null("MinorEnemySupportChannel") != null else donor.get_node_or_null("EnemySupportLink")
+    check(support_cue != null and donor.support_target.get_ref() == ally, "a visible non-damaging material connection identifies the chosen ally")
     for index in 4: donor._physics_process(0.1)
     check(ally.hp == 1 and donor.state == "support", "support does not heal before its readable windup ends")
     var remaining: float = donor.state_timer

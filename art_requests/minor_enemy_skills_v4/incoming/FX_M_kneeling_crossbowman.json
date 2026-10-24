@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_kneeling_crossbowman.png",
+  "kind": "kneeling_crossbowman",
+  "image_sha256": "4c9e518148611d918fec75315e966757ecd5be66c2b1bee6bd61bf7bcffcdc1c",
+  "prompt_sha256": "8750fcc2564da65bd7c1e6cc10db68ba58cfbd440995b5703002e73ebffff2c5",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/kneeling_crossbowman.png",
+  "reference_sha256": "3ad3eba2cc811a99fcd9735429691bd1b057f402685ff643c1493f5095258e54",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "crossbow_burst_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        520,
+        552
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        61,
+        165,
+        481,
+        478
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "crossbow_burst_warning",
+      "rect_xyxy": [
+        520,
+        0,
+        1025,
+        552
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        560,
+        167,
+        994,
+        474
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "crossbow_burst_warning",
+      "rect_xyxy": [
+        1025,
+        0,
+        1536,
+        552
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1056,
+        167,
+        1473,
+        479
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "crossbow_low_warning",
+      "rect_xyxy": [
+        0,
+        552,
+        527,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        67,
+        686,
+        492,
+        872
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "crossbow_low_warning",
+      "rect_xyxy": [
+        527,
+        552,
+        1016,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        563,
+        694,
+        994,
+        865
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "crossbow_low_warning",
+      "rect_xyxy": [
+        1016,
+        552,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1039,
+        703,
+        1474,
+        863
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "?????????????????????????????????????",
+    "rows_reviewed": [
+      "crossbow_burst_warning",
+      "crossbow_low_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

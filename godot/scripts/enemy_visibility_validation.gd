@@ -1,6 +1,7 @@
 extends SceneTree
 ## Exercise real physics occlusion and warning cleanup independently of assets.
 const ENEMY_SCRIPT := preload("res://scripts/enemy_actor.gd")
+const MINOR_ART := preload("res://scripts/minor_enemy_skill_art.gd")
 var failures := 0
 var checks := 0
 
@@ -107,8 +108,13 @@ func _run() -> void:
         var signature: Line2D = null
         if is_instance_valid(enemy.telegraph):
             signature = enemy.telegraph.get_node_or_null("AttackTypeSignature") as Line2D
-        _assert(signature != null and signature.points.size() >= 2, "authored windup gets a compact type signature: " + String(entry[2]))
-        _assert(enemy.windup_vfx != null and is_instance_valid(enemy.windup_vfx), "authored windup outline is tracked for cleanup: " + String(entry[2]))
+        var material_warning := _material_warning(enemy)
+        var uses_material := MINOR_ART.ready_for(enemy,authored)
+        if uses_material:
+            _assert(material_warning != null and enemy.telegraph == null and enemy.windup_vfx == null,"registered windup uses authored material: " + String(entry[2]))
+        else:
+            _assert(signature != null and signature.points.size() >= 2, "unregistered fixture windup gets a compact type signature: " + String(entry[2]))
+            _assert(enemy.windup_vfx != null and is_instance_valid(enemy.windup_vfx), "fallback windup outline is tracked for cleanup: " + String(entry[2]))
         if signature != null and is_instance_valid(enemy.telegraph):
             var min_x := INF
             var min_y := INF
@@ -127,10 +133,12 @@ func _run() -> void:
         var original_type_mark: Line2D = null
         if is_instance_valid(enemy.windup_vfx):
             original_type_mark = enemy.windup_vfx.get_node_or_null("AttackTypeSignature") as Line2D
-        _assert(original_type_mark != null, "original-visual windup has type marker: " + String(entry[2]))
+        var original_material := _material_warning(enemy)
+        _assert(original_material != null if uses_material else original_type_mark != null, "original-visual windup has registered material or fallback marker: " + String(entry[2]))
         enemy._clear_telegraph()
         await _frames(1)
         _assert(not is_instance_valid(original_type_mark), "original-visual type marker cleans up: " + String(entry[2]))
+        if uses_material:_assert(not is_instance_valid(original_material),"original-visual authored material cleans up: " + String(entry[2]))
         enemy.original_visual = false
 
     var shockwave_fixture: Dictionary = authored_commands[0].duplicate(true) if not authored_commands.is_empty() else command.duplicate(true)
@@ -171,17 +179,21 @@ func _run() -> void:
         var interrupted_fill: Polygon2D = enemy.telegraph
         var interrupted_signature := interrupted_fill.get_node_or_null("AttackTypeSignature") as Line2D if is_instance_valid(interrupted_fill) else null
         var interrupted_outline: Line2D = enemy.windup_vfx
+        var interrupted_material := _material_warning(enemy)
         enemy.take_hit(1, -1)
         await _frames(2)
         _assert(not is_instance_valid(interrupted_fill) and not is_instance_valid(interrupted_signature) and not is_instance_valid(interrupted_outline), "hit interruption removes both warning layers")
+        _assert(not is_instance_valid(interrupted_material),"hit interruption removes authored warning material")
         _assert(enemy.get_node_or_null("EnemyWindupVfx") == null, "hit interruption leaves no fading windup outline")
 
         enemy._begin_attack(melee_command)
         var tripped_fill: Polygon2D = enemy.telegraph
         var tripped_outline: Line2D = enemy.windup_vfx
+        var tripped_material := _material_warning(enemy)
         enemy.apply_trip(0.4)
         await _frames(2)
         _assert(not is_instance_valid(tripped_fill) and not is_instance_valid(tripped_outline), "trip interruption removes both warning layers")
+        _assert(not is_instance_valid(tripped_material),"trip interruption removes authored warning material")
 
         var aoe_command: Dictionary = authored_commands[2]
         enemy._begin_attack(aoe_command)
@@ -216,6 +228,11 @@ func _frames(count: int) -> void:
     for index in range(count):
         await physics_frame
         await process_frame
+
+func _material_warning(actor: Node) -> Node2D:
+    for child in actor.get_children():
+        if child.get_meta("minor_enemy_skill_art","")=="warning" and not child.is_queued_for_deletion():return child as Node2D
+    return null
 
 func _authored_attack(path: String, profile_id: String, attack_id: String) -> Dictionary:
     var source := FileAccess.get_file_as_string(path)

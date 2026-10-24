@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_valve_crawler.png",
+  "kind": "valve_crawler",
+  "image_sha256": "cffc137f7c032931a1fc55f3ef42ea9b43cf8f768134fe928f9e1b8aad1792b8",
+  "prompt_sha256": "533a31f6ef78d0c22ef15d5ac82e75c02eb50ab8ccc9893c00e09aacfd551a06",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/valve_crawler.png",
+  "reference_sha256": "42a72669f3c047b89e8a41b5f42e2d5c50468cd8231852989e02a99910d15822",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "valve_roll_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        517,
+        337
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        53,
+        113,
+        472,
+        270
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "valve_roll_warning",
+      "rect_xyxy": [
+        517,
+        0,
+        1023,
+        337
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        562,
+        102,
+        982,
+        276
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "valve_roll_warning",
+      "rect_xyxy": [
+        1023,
+        0,
+        1536,
+        337
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1065,
+        96,
+        1483,
+        279
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "valve_roll_execution",
+      "rect_xyxy": [
+        0,
+        337,
+        520,
+        692
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        44,
+        413,
+        517,
+        611
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "valve_roll_execution",
+      "rect_xyxy": [
+        520,
+        337,
+        1034,
+        692
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        524,
+        392,
+        1025,
+        639
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "valve_roll_execution",
+      "rect_xyxy": [
+        1034,
+        337,
+        1536,
+        692
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1044,
+        433,
+        1507,
+        604
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "valve_vent_warning",
+      "rect_xyxy": [
+        0,
+        692,
+        512,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        29,
+        755,
+        499,
+        909
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "valve_vent_warning",
+      "rect_xyxy": [
+        512,
+        692,
+        1024,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        534,
+        753,
+        1007,
+        912
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "valve_vent_warning",
+      "rect_xyxy": [
+        1024,
+        692,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1041,
+        750,
+        1507,
+        921
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????/???????????????????????",
+    "rows_reviewed": [
+      "valve_roll_warning",
+      "valve_roll_execution",
+      "valve_vent_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

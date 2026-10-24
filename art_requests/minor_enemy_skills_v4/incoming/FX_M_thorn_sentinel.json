@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_thorn_sentinel.png",
+  "kind": "thorn_sentinel",
+  "image_sha256": "a7bad4441c6f1a9c1a2afb3a20b7f337aaf8525e4db8e846d80c9cf37e6082d1",
+  "prompt_sha256": "264fe3cc3f9c5d068d3c51f82c1da47f4e92a4c7aee1bd132f65a6830b746c16",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/thorn_sentinel.png",
+  "reference_sha256": "382ba567a1b26b0ca7a51127272e9ebd81b919ff38a0428c79bc4f144a592d8c",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "thorn_ring_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        534,
+        507
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        91,
+        187,
+        489,
+        503
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "thorn_ring_warning",
+      "rect_xyxy": [
+        534,
+        0,
+        1028,
+        507
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        581,
+        185,
+        981,
+        502
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "thorn_ring_warning",
+      "rect_xyxy": [
+        1028,
+        0,
+        1536,
+        507
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1077,
+        184,
+        1470,
+        501
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "thorn_wall_warning",
+      "rect_xyxy": [
+        0,
+        507,
+        519,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        31,
+        773,
+        508,
+        887
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "thorn_wall_warning",
+      "rect_xyxy": [
+        519,
+        507,
+        1016,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        530,
+        771,
+        1006,
+        894
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "thorn_wall_warning",
+      "rect_xyxy": [
+        1016,
+        507,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1027,
+        768,
+        1510,
+        898
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "????????????????????????????????",
+    "rows_reviewed": [
+      "thorn_ring_warning",
+      "thorn_wall_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}
