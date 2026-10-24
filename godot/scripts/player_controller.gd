@@ -257,6 +257,10 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const ABILITY_ART := preload("res://scripts/player_ability_art.gd")
+const HOOK_ART := preload("res://scripts/player_hook_art.gd")
+const DASH_ART := preload("res://scripts/player_dash_art.gd")
+const HURT_ART := preload("res://scripts/player_hurt_art.gd")
 const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
 const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
@@ -605,6 +609,7 @@ func _physics_process(delta: float) -> void:
         air_jump_available = true
         _play_land_sfx(fall_speed)
         MOVEMENT_ART.land(self, fall_speed)
+        ABILITY_ART.downstrike(self)
     _update_wall_slide_audio()
     MOVEMENT_ART.wall_state(self)
     _update_footsteps(delta)
@@ -665,6 +670,7 @@ func _try_start_grapple() -> bool:
     _play(&"hook_throw")
     _play_sfx("hook_latch", -6.0)
     _play_sfx("hook_reel", -8.0)
+    HOOK_ART.attached(self)
     return true
 
 
@@ -691,6 +697,7 @@ func _update_grapple(delta: float) -> void:
 
 
 func _stop_grapple(recover: bool = false) -> void:
+    HOOK_ART.stopped(self, recover)
     grapple_timer = 0.0
     grapple_recovery_timer = GRAPPLE_RECOVERY_TIME if recover else 0.0
     grapple_anchor = null
@@ -700,6 +707,10 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    ABILITY_ART.clear(self)
+    HOOK_ART.clear(self)
+    DASH_ART.clear(self)
+    HURT_ART.clear(self)
     MOVEMENT_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
@@ -1126,6 +1137,7 @@ func _try_resonance() -> bool:
     skill_effect_started = false
     ability_action.emit("crown_resonance", global_position, Vector2(facing, 0))
     _ability_ring(160.0, THREAD_T3_CORE)
+    ABILITY_ART.resonance(self)
     return true
 
 
@@ -1154,6 +1166,7 @@ func _update_phase(delta: float) -> void:
         _sync_phase_gates()
         ability_action.emit("lantern_phase", global_position, Vector2(facing, 0))
         _ability_ring(54.0, Color(0.5, 0.7, 1.0, 0.9))
+        ABILITY_ART.phase_enter(self)
 
 
 func _sync_phase_gates() -> void:
@@ -1179,6 +1192,7 @@ func _phase_position_clear() -> bool:
 
 
 func _stop_phase() -> void:
+    ABILITY_ART.phase_stop(self)
     if phase_active and is_inside_tree() and not _phase_position_clear():
         global_position = phase_safe_position
         velocity = Vector2.ZERO
@@ -1392,6 +1406,7 @@ func _apply_attack_hits() -> void:
                 # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
                 hook_latch_played = true
                 _play_sfx("hook_latch", -6.0)
+                HOOK_ART.latch(self, hurtbox.get_center())
                 # ch2 beat `echo_hook`（manifest ch02_beat_02）：雨铸运河钩击命中后
                 # 叠一拍水声回响（金属声后接水面回声，采样内已含节拍延迟）。
                 if footstep_material == "copper":
@@ -1787,39 +1802,7 @@ func _spawn_dash_ghost() -> void:
 
 ## 冲刺线迹（规格 §2.3）：起点→终点一条 T2 主线，结束后从尾端收回（收线律）。
 func _spawn_dash_trail() -> void:
-    var parent_node := get_parent()
-    if parent_node == null:
-        return
-    var from := dash_start_position + Vector2(0.0, -34.0)
-    var to := global_position + Vector2(0.0, -34.0)
-    if from.distance_to(to) < 24.0:
-        return
-    var trail := Line2D.new()
-    trail.name = "DashTrailVfx"
-    trail.width = 3.0
-    trail.default_color = THREAD_T2_CORE
-    trail.z_index = 56
-    trail.points = PackedVector2Array([from, to])
-    var glow := Line2D.new()
-    glow.name = "DashTrailGlow"
-    glow.width = 3.0 * 2.6
-    glow.default_color = THREAD_T2_GLOW
-    glow.z_index = 55
-    glow.points = PackedVector2Array([from, to])
-    var glow_material := CanvasItemMaterial.new()
-    glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-    glow.material = glow_material
-    if not VISUAL_POLICY.attach_secondary_batch(parent_node, [trail, glow], &"motion", self): return
-    var tween := trail.create_tween()
-    tween.tween_method(func(t: float) -> void:
-        var retracted := PackedVector2Array([from.lerp(to, t), to])
-        if is_instance_valid(trail):
-            trail.points = retracted
-        if is_instance_valid(glow):
-            glow.points = retracted
-    , 0.0, 1.0, 0.20)
-    tween.finished.connect(Callable(trail, "queue_free"))
-    tween.finished.connect(Callable(glow, "queue_free"))
+    DASH_ART.finished(self)
 
 
 func _should_play_sfx() -> bool:
@@ -2025,31 +2008,7 @@ func _make_glow_twin(line: Line2D, width_ratio: float, glow_color: Color) -> Lin
 
 
 func _spawn_hook_trail_vfx() -> void:
-    var trail := Line2D.new()
-    trail.name = "HookTrailVfx"
-    trail.width = 3.0
-    trail.default_color = Color(0.50, 1.0, 0.95, 0.88)
-    trail.z_index = 58
-    trail.points = PackedVector2Array([
-        Vector2(16.0 * facing, -46.0),
-        Vector2(70.0 * facing, -54.0),
-        Vector2(145.0 * facing, -38.0)
-    ])
-    var hook_tip := Polygon2D.new()
-    hook_tip.name = "HookTipVfx"
-    hook_tip.polygon = PackedVector2Array([
-        Vector2(150.0 * facing, -38.0),
-        Vector2(128.0 * facing, -50.0),
-        Vector2(132.0 * facing, -27.0)
-    ])
-    hook_tip.color = Color(0.68, 1.0, 0.86, 0.86)
-    hook_tip.z_index = 59
-    if not VISUAL_POLICY.attach_secondary_batch(self, [trail, hook_tip], &"state", self): return
-    var tween := trail.create_tween()
-    tween.tween_property(trail, "modulate:a", 0.0, 0.22)
-    tween.parallel().tween_property(hook_tip, "modulate:a", 0.0, 0.22)
-    tween.finished.connect(Callable(trail, "queue_free"))
-    tween.finished.connect(Callable(hook_tip, "queue_free"))
+    HOOK_ART.combat(self)
 
 
 func _spawn_skill_slash_vfx() -> void:
@@ -2160,6 +2119,9 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         GUARD_ART.blocked(self, perfect)
         return
     GUARD_ART.clear(self)
+    ABILITY_ART.clear(self)
+    HOOK_ART.clear(self)
+    DASH_ART.clear(self)
     line_stacks = 0
     line_expiry = 0.0
     _interrupt_heal()
@@ -2175,7 +2137,6 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     hp_changed.emit(hp)
     # P0 生死攸关音：声部抢占最高优先级。
     _play_sfx("hurt", -6.0, 1.0, "", 0)
-    _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
         bell_pressure = 0
         heal_speed_timer = 0.0
@@ -2185,6 +2146,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             if enemy.has_method("clear_salt_mark"):
                 enemy.clear_salt_mark()
         death_timer = 0.9
+        HURT_ART.died(self)
         respawn_reveal_timer = 0.0
         _set_death_visibility(1.0)
         velocity = Vector2.ZERO
@@ -2197,6 +2159,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             _black_frame(global_position, 3)
         _play(&"death")
         return
+    HURT_ART.hurt(self, source_position)
     if feel != null:
         feel.hitstop(110.0)
         _add_trauma(0.45)
@@ -2332,6 +2295,7 @@ func _hard_respawn() -> void:
     _play(&"idle")
     respawn_reveal_timer = RESPAWN_REVEAL_SECONDS
     _set_death_visibility(0.0)
+    HURT_ART.respawned(self)
 
 
 func restore_at_save_point() -> void:
@@ -2596,6 +2560,10 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    ABILITY_ART.clear(self)
+    HOOK_ART.clear(self)
+    DASH_ART.clear(self)
+    HURT_ART.clear(self)
     MOVEMENT_ART.clear(self)
     HEAL_ART.clear(self)
     GUARD_ART.clear(self)
