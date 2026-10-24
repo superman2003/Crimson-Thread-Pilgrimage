@@ -12,9 +12,9 @@ EXPECTED = {
     'passives': {'reflux': ('工匠线轴', 2), 'spur': ('盐页书签', 2), 'shell': ('铜背扣', 2), 'stride': ('巡礼鞋结', 1), 'mender': ('静钟碎片', 1), 'needlecase': ('余声针匣', 2), 'compass': ('钟骨罗盘', 1)},
 }
 
+LEGACY_TRAVEL_PASSIVES = {'quiet_sole': '静靴', 'damp_knot': '防潮线结'}
+
 CRAFTED_PASSIVES = {'tide_reel': 'craft_tide_reel', 'wax_stitch': 'craft_wax_stitch', 'ash_ring': 'craft_ash_ring', 'crown_pendant': 'craft_crown_pendant'}
-# Found relics that become accessories when their own item is held (E03).
-RELIC_PASSIVES = {'quiet_sole': 'quiet_sole'}
 
 def validate(data: dict) -> list[str]:
     errors = []
@@ -24,7 +24,7 @@ def validate(data: dict) -> list[str]:
     events = data.get('events', {})
     for section, expected in EXPECTED.items():
         rows = data.get(section, {})
-        check(set(rows) == set(expected) | (set(CRAFTED_PASSIVES) | set(RELIC_PASSIVES) if section == 'passives' else set()), f'{section}: exact original and crafted membership')
+        check(set(rows) == set(expected) | ((set(CRAFTED_PASSIVES) | set(LEGACY_TRAVEL_PASSIVES)) if section == 'passives' else set()), f'{section}: exact original, crafted and legacy reward membership')
         for key, (name, number) in expected.items():
             row = rows.get(key, {})
             check(row.get('name') == name, f'{section}/{key}: display name')
@@ -37,6 +37,20 @@ def validate(data: dict) -> list[str]:
                 icon = row.get('icon', '')
                 check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{section}/{key}: icon exists')
                 check(any(key in event.get(section, []) for event in events.values()), f'{section}/{key}: reachable event registry')
+    # Legacy chapter rewards unlock from the real inventory item, not a fabricated event.
+    for key, name in LEGACY_TRAVEL_PASSIVES.items():
+        row = data.get('passives', {}).get(key, {})
+        check(row.get('name') == name and row.get('unlock_item') == key, f'{key}: original name and inventory unlock identity')
+        check(row.get('family') == 'travel_accessory' and row.get('cost') == 1, f'{key}: one-capacity independent travel accessory')
+        check(row.get('modifiers') == {'hazard_trigger_mult': -0.2}, f'{key}: only the promised trap trigger reduction')
+        check(row.get('group') == 'trap_trigger_reduction', f'{key}: same-effect rewards cannot stack')
+        check(all(row.get(field) for field in ('description', 'source', 'unlock_hint', 'risk', 'synergy')), f'{key}: readable source and equipment tradeoff')
+        other_name = LEGACY_TRAVEL_PASSIVES['damp_knot' if key == 'quiet_sole' else 'quiet_sole']
+        check(other_name in row.get('risk', '') and '互斥' in row.get('risk', ''), f'{key}: mutual exclusion names the other original reward')
+        icon = row.get('icon', '')
+        check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{key}: original-style vector icon exists')
+        for crest, crest_row in data.get('crests', {}).items():
+            check(all(key in slot.get('compatible', []) for slot in crest_row.get('slot_layout', {}).get('travel_accessory', [])), f'{key}: compatible with {crest} travel slots')
     for key, recipe_id in CRAFTED_PASSIVES.items():
         item = data.get('passives', {}).get(key, {})
         recipe = data.get('recipes', {}).get(recipe_id, {})
@@ -44,13 +58,6 @@ def validate(data: dict) -> list[str]:
         check(bool(recipe.get('requires_items')) and bool(recipe.get('artisan')), f'{key}: requires a proof and named artisan')
         check(item.get('cost') in (1, 2) and item.get('family') in ('combat_accessory', 'travel_accessory'), f'{key}: typed and bounded accessory cost')
         check(bool(item.get('source')) and bool(item.get('unlock_hint')) and bool(item.get('risk')), f'{key}: discoverable source and tradeoff')
-        icon = item.get('icon', '')
-        check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{key}: native vector icon exists')
-    for key, item_id in RELIC_PASSIVES.items():
-        item = data.get('passives', {}).get(key, {})
-        check(item.get('unlock_item') == item_id and not item.get('craft_recipe'), f'{key}: found relic is its only source')
-        check(item.get('cost') in (1, 2) and item.get('family') in ('combat_accessory', 'travel_accessory'), f'{key}: typed and bounded accessory cost')
-        check(bool(item.get('modifiers')) and bool(item.get('source')) and bool(item.get('unlock_hint')) and bool(item.get('risk')), f'{key}: discoverable source, effect and tradeoff')
         icon = item.get('icon', '')
         check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{key}: native vector icon exists')
     for key, row in data.get('skills', {}).items():
@@ -92,10 +99,10 @@ def validate(data: dict) -> list[str]:
     return errors
 
 def main() -> int:
-    data = json.loads((ROOT / 'godot/data/build_catalog.json').read_text())
+    data = json.loads((ROOT / 'godot/data/build_catalog.json').read_text(encoding='utf-8'))
     errors = validate(data)
     for error in errors: print('FAIL: ' + error)
-    print(f'SEAL_CATALOG {"FAIL" if errors else "PASS"}: 3 seals, 6 skills, 4 tools, 11 adornments; errors={len(errors)}')
+    print(f'SEAL_CATALOG {"FAIL" if errors else "PASS"}: 3 seals, 6 skills, 4 tools, {len(data.get("passives", {}))} adornments; errors={len(errors)}')
     return bool(errors)
 
 if __name__ == '__main__':
