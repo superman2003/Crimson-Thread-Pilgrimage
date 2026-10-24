@@ -71,6 +71,9 @@ def build(path):
         selected.sort(key=lambda p:p['rect'][0]); chunks=[];chunk=[]
         for p in selected:
             x,y,w,h=p['rect'];left,right=x,x+w
+            # Preserve the authored 110px drop slot between the crown rain banks.
+            if chunk and theme=='silent_crown' and group_id=='echo_canal' and p['id']=='rain_wheel_stand':
+                chunks.append(chunk);chunk=[]
             if chunk:
                 previous=chunk[-1]; px,py,pw,_=previous['rect']
                 gap=x-(px+pw);rise=abs(y-py)
@@ -106,6 +109,13 @@ def build(path):
                 results.append({'id':tid,'kind':kind,'surface':surface,'depth':depth,
                     'texture_variants':[0,3,1,2] if kind=='soil' else ([4,2,1] if kind in ['ruin','bridge','arena'] else [3,1,5]),
                     'platform_ids':[p['id'] for p,f in owners]})
+                if theme=='silent_crown' and group_id=='echo_canal' and any(p['id']=='rain_pool_floor' for p,f in owners):
+                    # A short thin outflow lip keeps 90px clearance above the lower step.
+                    edge=surface[-1][0]; level=surface[-1][1]
+                    surface[-1][0]=edge-64
+                    results.append({'id':tid+'_outflow_lip','kind':kind,
+                        'surface':[[edge-64,level],[edge,level]],'depth':30,
+                        'texture_variants':[0,3,1,2],'platform_ids':[]})
                 for p,f in owners:p['terrain_id']=tid;p['terrain_flat_span']=[round(f[0],2),round(f[2],2)]
     d['terrain']=results
     d['terrain_design']={'view':'orthographic_side_2d','max_ramp_degrees':32,'route_kinds':['ground','slope','tunnel','bridge','basin','vertical_climb'],
