@@ -26,6 +26,7 @@ HUD 左上的绯线条只有填充和“40 / 100”数字。治疗要 60、当�
 - 反向检查：去掉每帧刷新，6 项失败；刻度忽略当前绯线一律点亮，2 项失败。
 - CI typography-and-ui 同组 12 套（`global_font`、`ui_redesign`、`ui_world_integration`、`ui_build_accessibility`、`input_prompt`、`settings_remap`、`build_slots_ui`、`seal_ui`、`world_map`、`map_player_pins`、`artisan_crafts`、`save_recovery`）以及 `ui_text_order`、`seal_combat` 在真实 GL 下：`global_font` 241、`ui_redesign` 70、`ui_world_integration`、`ui_build_accessibility`、`input_prompt` 36、`settings_remap` 23、`build_slots_ui` 37、`seal_ui` 31、`world_map` 673、`artisan_crafts` 92、`save_recovery` 35、`ui_text_order` 9、`seal_combat` 194 通过，零 ERROR。`world_map`／`artisan_crafts` 首轮与其它进程并发时 World 15 秒内未就绪，单独重跑通过。`map_player_pins` 本机有 5 项真实右键缩放／平移断言失败；把两个 UI 文件换回 main 版本同样是这 5 项失败，属本机离屏窗口的鼠标环境问题，与本批无关，以 CI typography-and-ui 结果为准。
 - 合约测试、`npm test`、`npm run test:campaign` 通过。
+- 首次推送后 CI 的三组 focused-regressions 在 `ui_build_accessibility` 报 SCRIPT ERROR：该套的 MockPlayer 没有 `heal_energy_cost`。本地首轮只统计了以 `ERROR` 开头的行，漏看了 `SCRIPT ERROR`。现改为属性存在时才读取（夹具无治疗费用时不画治疗刻度），并用 runner 的引擎错误门禁重跑 12 套 UI 套件：11 套通过，`build_slots_ui` 仅有 Dummy 渲染器截图的已知纹理错误（真实 GL 下零错误）。
 
 ## 边界
 

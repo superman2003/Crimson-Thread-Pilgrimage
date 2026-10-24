@@ -2202,7 +2202,8 @@ func _ending_status_label(entry: Dictionary) -> String:
 ## U03: the thread meter itself says whether a heal and the active thread art
 ## are affordable. Dormant or empty active skill slots draw no cost mark.
 func _refresh_thread_thresholds(player: Node) -> void:
-    var heal_cost:=int(player.heal_energy_cost)
+    # UI fixtures drive the HUD with lightweight players that have no heal cost.
+    var heal_cost:=int(player.get("heal_energy_cost")) if "heal_energy_cost" in player else 0
     var skill_cost:=0
     var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
     if system!=null and system.has_method("selected_skill"):
