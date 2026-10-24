@@ -7,8 +7,8 @@
 | 1 | U06 改键 | 失焦／离开设置的退路，防止松开扳机误绑定 | 已上传 [#231](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/231)；[报告](report/20261024_u06_remap_lifecycle.md) |
 | 2 | E05 构筑 | 八套方案、旧自定义名称、覆盖确认与删除事务 | 已上传 [#232](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/232)；[报告](report/20261024_e05_loadout_management.md) |
 | 3 | U04 多层地图 | 已知邻室的上／下／相近高度，区域图与世界图共用 | 已上传 [#233](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/233)；[报告](report/20261024_u04_map_height.md) |
-| 4 | U04 图钉 | 查看已知图钉，跨区只切地图，不写进度 | 本地通过，待上传；[报告](report/20261024_u04_pin_view.md) |
-| 5 | U05 旅记 | 长文阅读与分类导航的实际缺口 | 待核对现有实现 |
+| 4 | U04 图钉 | 查看已知图钉，跨区只切地图，不写进度 | 已上传 [#234](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/234)；[报告](report/20261024_u04_pin_view.md) |
+| 5 | U05 旅记 | 键盘／肩键翻页、首尾、会话书签与文本更新退路 | 本地通过，待上传；[报告](report/20261024_u05_journal_reading.md) |
 | 6 | T01 教学 | 可回看的操作／资源规则 | 待核对现有实现 |
 | 7 | N03 主角表达 | 关键能力获得后的短回应，不中断探索 | 待核对现有实现 |
 | 8 | T03／T05 | 新检出的冷启动编辑器／发布边界 | 待核对现有实现 |
