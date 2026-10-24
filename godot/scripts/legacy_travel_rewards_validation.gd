@@ -103,8 +103,11 @@ func run() -> void:
     world.ui_shell._show_build_detail(build.catalog.passives.quiet_sole.merged({"id":"quiet_sole"}))
     check(world.ui_shell.build_heading.text == "静靴" and world.ui_shell.build_detail.text.contains("与防潮线结互斥"),"production quiet detail explains the same group conflict")
     if not output.is_empty() and DisplayServer.get_name() != "headless":
-        world.ui_shell._show_build_detail(damp_entry);world.ui_shell.build_panel.visible = true
+        world.ui_shell.build_selection = "damp_knot"
+        world._toggle_build()
+        world.ui_shell._show_build_detail(damp_entry)
         await RenderingServer.frame_post_draw
+        check(world.active_overlay == "build" and world.ui_shell.build_panel.is_visible_in_tree(),"production build panel remains visible for native capture")
         check(root.get_texture().get_image().save_png(output.path_join("damp_build_detail.png")) == OK,"native production UI evidence captured")
     await retire(world)
     # Production Player and hazard factory in an isolated floor fixture.
