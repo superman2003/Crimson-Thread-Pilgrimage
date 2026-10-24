@@ -25,9 +25,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -54,6 +54,7 @@ func _run() -> void:
         if failures>0:await finish_order();return
         if order_stage == "canal_aqueduct":await canal_aqueduct()
         elif order_stage == "archive_obsidian_camp":await archive_obsidian_camp()
+        elif order_stage == "camp_prepare":await camp_prepare()
         else:
             _check(scene.active_save_point_id=="save_ch05_lower_loop" and int(scene.inventory_counts.get("lantern_phase",0))==1,"independent production World restores naturally earned camp and phase")
             _check(scene.world_state.data.regions.get("demo_ch04_broken_string_greenhouse",{}).get("visited_rooms",{}).is_empty(),"independent disk restore still records C5 before first C4")
@@ -324,3 +325,72 @@ func finish_order() -> void:
     _check(await RETIREMENT.drain(self),"owned audio playback retires after stage")
     print("SECOND_ORDER_STAGE stage=%s steps=%d physics_frames=%d damage_events=%d heals=%d deaths=%d failures=%d" % [order_stage,steps,frames,damage_events,heals,deaths,failures])
     quit(1 if failures else 0)
+
+func order_click(control: Control) -> void:
+    _check(is_instance_valid(control) and control.is_visible_in_tree(),"actual visible control is available")
+    if failures>0:return
+    var point: Vector2=root.get_final_transform() * (control.get_global_transform_with_canvas() * (control.size*.5))
+    print("SECOND_ORDER_UI_INPUT ",control.name," ",control.get_global_rect()," window=",root.get_window_id()," viewport=",root.get_visible_rect()," size=",root.size," transform=",root.get_final_transform()," point=",point)
+    var motion:=InputEventMouseMotion.new();motion.window_id=root.get_window_id();motion.position=point;motion.global_position=point
+    Input.parse_input_event(motion);Input.flush_buffered_events();await process_frame
+    var event:=InputEventMouseButton.new();event.window_id=root.get_window_id();event.position=point;event.global_position=point;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=true
+    Input.parse_input_event(event);Input.flush_buffered_events();await process_frame
+    event=event.duplicate();event.pressed=false;Input.parse_input_event(event);Input.flush_buffered_events()
+    await process_frame;await process_frame;await _tick(4)
+func order_build_entry(id: String,save_button: bool=false) -> Button:
+    for node in scene.ui_shell.build_grid.get_children():
+        if node is Button and String(node.get_meta("build_id",""))==id and String(node.text).begins_with("保存为")==save_button:return node
+    return null
+func order_capture(label: String) -> void:
+    if DisplayServer.get_name()=="headless" or order_output.is_empty():return
+    await process_frame;await process_frame
+    var image:=root.get_texture().get_image()
+    _check(image!=null and image.save_png(order_output.path_join(label+".png"))==OK,"native visible UI screenshot "+label)
+func order_record_build(label: String) -> void:
+    var entries: Array=[]
+    for child in scene.ui_shell.build_grid.get_children():
+        if child is Button:entries.append({"id":child.get_meta("build_id",""),"text":child.text,"disabled":child.disabled,"tooltip":child.tooltip_text})
+    print("SECOND_ORDER_BUILD_UI "+JSON.stringify({"label":label,"category":scene.ui_shell.build_category,"family":scene.ui_shell.build_family,"summary":scene.ui_shell.build_summary.text,"detail":scene.ui_shell.build_detail.text,"entries":entries,"build":scene.build_system.serialize(),"wallet":scene.currency_count,"inventory":scene.inventory_counts}))
+func camp_prepare() -> void:
+    var before:=snapshot()
+    await _key(KEY_B,root)
+    _check(scene.ui_shell.build_panel.visible,"physical B opens build UI at the actually earned camp shrine")
+    if failures>0:return
+    order_record_build("original camp crest restrictions")
+    await order_capture("camp_crest_restrictions")
+    await order_click(scene.ui_shell.build_tabs[5])
+    order_record_build("original empty loadout restrictions")
+    await order_click(order_build_entry("巡礼方案 1",true))
+    _check(scene.build_system.serialize().loadouts.has("巡礼方案 1"),"actual UI saves the original earned build")
+    await order_click(scene.ui_shell.build_tabs[3])
+    await order_click(scene.ui_shell.family_selector_buttons[1])
+    order_record_build("real inventory travel options before selection")
+    var stride:=order_build_entry("stride")
+    _check(stride!=null and not stride.disabled,"original default-unlocked stride is a legal alternative; no new reward claim")
+    if failures>0:return
+    await order_click(stride)
+    order_record_build("legally equipped default stride")
+    await order_capture("camp_equipped_stride")
+    _check(scene.build_system.serialize().passives.has("stride"),"actual travel slot UI equips stride at the real shrine")
+    _check(same_json(scene.inventory_counts,before.inventory) and scene.currency_count==before.wallet and scene.player.hp==before.hp and scene.player.energy==before.energy,"free legal equip does not grant inventory currency or resource refill")
+    await order_click(scene.ui_shell.build_tabs[5])
+    await order_click(order_build_entry("巡礼方案 2",true))
+    _check(scene.build_system.serialize().loadouts.has("巡礼方案 2"),"actual UI saves the distinct stride scheme")
+    await order_capture("camp_two_schemes")
+    await _key(KEY_B,root)
+    _check(not scene.ui_shell.build_panel.visible,"physical B closes build UI")
+    if failures>0:return
+    if not await order_walk_only(Vector2(500,1910)):return
+    await _world_interact()
+    _check(scene.active_overlay=="dialogue" and scene.dialogue_name_label.text=="盲钟骑士","real F starts actual camp NPC dialogue")
+    if failures>0:return
+    print("SECOND_ORDER_REAL_DIALOGUE "+JSON.stringify({"speaker":scene.dialogue_name_label.text,"line":scene.dialogue_text_label.text}))
+    for i in 3:await _world_interact()
+    print("SECOND_ORDER_REAL_DIALOGUE "+JSON.stringify({"speaker":scene.dialogue_name_label.text,"line":scene.dialogue_text_label.text}))
+    await _key(KEY_ESCAPE,root)
+    await _tick(6)
+    _check(String(scene.active_overlay).is_empty(),"actual Escape closes read camp dialogue")
+    if not await order_walk_only(Vector2(190,1910)):return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_ch05_lower_loop" and scene.player.hp==scene.player.max_hp,"real camp rest commits normal UI build and dialogue progress")
+    if failures==0:export_checkpoint("actual earned camp -> physical B legal default stride UI/loadout -> actual blind knight F conversation -> normal F rest")
