@@ -15,8 +15,6 @@ EXPECTED = {
 LEGACY_TRAVEL_PASSIVES = {'quiet_sole': '静靴', 'damp_knot': '防潮线结'}
 
 CRAFTED_PASSIVES = {'tide_reel': 'craft_tide_reel', 'wax_stitch': 'craft_wax_stitch', 'ash_ring': 'craft_ash_ring', 'crown_pendant': 'craft_crown_pendant'}
-# Found relics that become accessories when their own item is held (E03).
-RELIC_PASSIVES = {'quiet_sole': 'quiet_sole'}
 
 def validate(data: dict) -> list[str]:
     errors = []
@@ -26,7 +24,7 @@ def validate(data: dict) -> list[str]:
     events = data.get('events', {})
     for section, expected in EXPECTED.items():
         rows = data.get(section, {})
-        check(set(rows) == set(expected) | ((set(CRAFTED_PASSIVES) | set(LEGACY_TRAVEL_PASSIVES) | set(RELIC_PASSIVES)) if section == 'passives' else set()), f'{section}: exact original, crafted and legacy reward membership')
+        check(set(rows) == set(expected) | ((set(CRAFTED_PASSIVES) | set(LEGACY_TRAVEL_PASSIVES)) if section == 'passives' else set()), f'{section}: exact original, crafted and legacy reward membership')
         for key, (name, number) in expected.items():
             row = rows.get(key, {})
             check(row.get('name') == name, f'{section}/{key}: display name')
@@ -60,13 +58,6 @@ def validate(data: dict) -> list[str]:
         check(bool(recipe.get('requires_items')) and bool(recipe.get('artisan')), f'{key}: requires a proof and named artisan')
         check(item.get('cost') in (1, 2) and item.get('family') in ('combat_accessory', 'travel_accessory'), f'{key}: typed and bounded accessory cost')
         check(bool(item.get('source')) and bool(item.get('unlock_hint')) and bool(item.get('risk')), f'{key}: discoverable source and tradeoff')
-        icon = item.get('icon', '')
-        check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{key}: native vector icon exists')
-    for key, item_id in RELIC_PASSIVES.items():
-        item = data.get('passives', {}).get(key, {})
-        check(item.get('unlock_item') == item_id and not item.get('craft_recipe'), f'{key}: found relic is its only source')
-        check(item.get('cost') in (1, 2) and item.get('family') in ('combat_accessory', 'travel_accessory'), f'{key}: typed and bounded accessory cost')
-        check(bool(item.get('modifiers')) and bool(item.get('source')) and bool(item.get('unlock_hint')) and bool(item.get('risk')), f'{key}: discoverable source, effect and tradeoff')
         icon = item.get('icon', '')
         check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{key}: native vector icon exists')
     for key, row in data.get('skills', {}).items():
