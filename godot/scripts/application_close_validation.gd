@@ -27,9 +27,13 @@ func _add_voice(container: Node, spatial: bool) -> void:
 
 func _run() -> void:
     CLOSE.install(self)
+    # A second install before the deferred join must not queue another owner.
+    CLOSE.install(self)
+    await process_frame
     var owner := root.get_node(NodePath(CLOSE.OWNER_NAME))
     CLOSE.install(self)
-    _check(root.get_node(NodePath(CLOSE.OWNER_NAME)) == owner, "one owner across repeated World installation")
+    await process_frame
+    _check(root.get_node(NodePath(CLOSE.OWNER_NAME)) == owner and root.get_children().filter(func(child): return child.name.begins_with(CLOSE.OWNER_NAME)).size() == 1, "one owner across repeated World installation")
     _check(not auto_accept_quit and not paused and not owner.closing, "only explicit OS close starts shutdown")
     var container := Node.new()
     root.add_child(container)
