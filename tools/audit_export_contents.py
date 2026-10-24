@@ -3,22 +3,26 @@
 
 Starting at the main scene and autoloads, follow every literal res:// path in
 scripts, scenes, resources and JSON data, plus class_name identifiers. For each
-export preset:
-  * a reachable script or scene must not be excluded (the release would break);
+explicit all_resources export preset:
+  * any reachable resource must not be excluded (the release would break);
   * an unreachable script or scene must be excluded (no test fixtures, replays,
     probes or capture scenes in the player's package);
   * every reachable res:// file must exist.
-Dynamic paths built at runtime are reported so they can be reviewed by hand.
+Empty, malformed, incomplete or unsupported presets fail closed. Filter matching
+follows Godot's case-insensitive * / ? rules, with or without the res:// prefix.
+Dynamic script paths built at runtime are reported for manual review; constructed
+asset paths, binary resource dependencies and export plugins are not simulated.
 """
 from __future__ import annotations
 import argparse
-import fnmatch
+import configparser
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REFERENCE = re.compile(r'res://[A-Za-z0-9_./-]+\.(?:gdshader|tscn|tres|json|res|gd)(?![A-Za-z0-9_])')
+REFERENCE = re.compile(r'res://[A-Za-z0-9_./-]+\.(?:gdshaderinc|gdshader|tscn|tres|json|res|gd|png|webp|jpe?g|svg|ogg|wav|ttf|otf|cfg|txt|md|csv)(?![A-Za-z0-9_])')
+TEXT_RESOURCES = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc', '.cfg'}
 # Built paths for code or scenes cannot be followed statically; assets and data
 # built from region ids are shipped wholesale by the include filter.
 DYNAMIC = re.compile(r'"res://(?:scripts|scenes)/[^"]*(?:%s|%d)[^"]*"|load\(\s*"res://(?:scripts|scenes)/[^"]*"\s*\+')
@@ -26,7 +30,10 @@ DYNAMIC = re.compile(r'"res://(?:scripts|scenes)/[^"]*(?:%s|%d)[^"]*"|load\(\s*"
 
 def project_roots(godot: Path) -> set[str]:
     text = (godot / 'project.godot').read_text(encoding='utf-8')
-    roots = {re.search(r'run/main_scene="(res://[^"]+)"', text).group(1)}
+    main = re.search(r'^run/main_scene="(res://[^"]+)"', text, re.M)
+    if main is None:
+        raise ValueError('project.godot must declare a res:// main scene')
+    roots = {main.group(1)}
     if '[autoload]' in text:
         section = text.split('[autoload]', 1)[1].split('\n[', 1)[0]
         roots.update(re.findall(r'"\*?(res://[^"]+)"', section))
@@ -59,39 +66,81 @@ def reachable(godot: Path) -> tuple[set[str], list[str], list[str]]:
         if not path.is_file():
             missing.append(resource)
             continue
+        # Images, audio, fonts and binary resources are leaves, not source text.
+        if path.suffix not in TEXT_RESOURCES:
+            continue
         text = path.read_text(encoding='utf-8', errors='replace')
         todo.extend(REFERENCE.findall(text))
         if path.suffix == '.gd' and DYNAMIC.search(text):
             dynamic.append(resource)
-        for name, script in classes.items():
-            if script != resource and re.search(r'\b%s\b' % name, text):
-                todo.append(script)
+        if path.suffix == '.gd':
+            for name, script in classes.items():
+                if script != resource and re.search(r'\b%s\b' % name, text):
+                    todo.append(script)
     return seen, sorted(set(missing)), sorted(dynamic)
 
 
 def presets(godot: Path) -> list[tuple[str, list[str]]]:
-    text = (godot / 'export_presets.cfg').read_text(encoding='utf-8')
+    # ConfigFile strings used by these presets share JSON's quoting/escapes.
+    # Refuse unsupported export modes rather than treating them as all_resources.
+    config = configparser.ConfigParser(interpolation=None, strict=True)
+    config.read_string((godot / 'export_presets.cfg').read_text(encoding='utf-8'))
     result = []
-    for block in re.split(r'\n(?=\[preset\.\d+\]\n)', text):
-        name = re.search(r'^name="([^"]*)"', block, re.M)
-        excludes = re.search(r'^exclude_filter="([^"]*)"', block, re.M)
-        if name and excludes is not None:
-            result.append((name.group(1), [item for item in excludes.group(1).split(',') if item]))
+    for section in config.sections():
+        if re.fullmatch(r'preset\.\d+\.options', section):
+            continue
+        if not re.fullmatch(r'preset\.\d+', section):
+            raise ValueError(f'unsupported export section: {section}')
+        values = {}
+        for field in ('name', 'export_filter', 'exclude_filter'):
+            raw = config.get(section, field, raw=True, fallback=None)
+            if raw is None:
+                raise ValueError(f'{section}: missing {field}')
+            values[field] = json.loads(raw)
+            if not isinstance(values[field], str):
+                raise ValueError(f'{section}: {field} must be a quoted string')
+        name = values['name']
+        if not name.strip() or name in [item[0] for item in result]:
+            raise ValueError(f'{section}: empty or duplicate preset name: {name!r}')
+        if values['export_filter'] != 'all_resources':
+            raise ValueError(f'{name}: unsupported export_filter: {values["export_filter"]}')
+        result.append((name, [item.strip() for item in values['exclude_filter'].split(',') if item.strip()]))
+    if not result:
+        raise ValueError('no export presets declared')
     return result
+
+
+def filter_matches(resource: str, patterns: list[str]) -> bool:
+    # Godot 4.6.1 _edit_files_with_filter uses String.matchn on both forms.
+    # Unlike Python fnmatch, only * and ? are special; ? cannot match a dot.
+    for pattern in patterns:
+        expression = ''.join('.*' if ch == '*' else '[^.]' if ch == '?' else re.escape(ch)
+                             for ch in pattern)
+        if any(re.fullmatch(expression, path, re.I) is not None
+               for path in (resource, resource.removeprefix('res://'))):
+            return True
+    return False
 
 
 def audit(root: Path) -> dict:
     godot = root / 'godot'
-    seen, missing, dynamic = reachable(godot)
+    report = {'reachable': [], 'reachable_resources': [], 'dynamic_loaders': [], 'presets': {}, 'errors': []}
+    try:
+        export_presets = presets(godot)
+        seen, missing, dynamic = reachable(godot)
+    except (OSError, ValueError, configparser.Error) as error:
+        report['errors'].append(f'invalid audit configuration: {error}')
+        return report
     candidates = sorted('res://' + path.relative_to(godot).as_posix() for path in godot.rglob('*')
                         if path.suffix in ('.gd', '.tscn') and '.godot' not in path.parts and 'addons' not in path.parts)
     errors = [f'missing runtime reference: {item}' for item in missing]
     errors.extend(f'script or scene path is built dynamically, review export by hand: {item}' for item in dynamic)
-    report = {'reachable': sorted(item for item in seen if item in candidates), 'dynamic_loaders': dynamic, 'presets': {}}
-    for name, patterns in presets(godot):
+    report.update(reachable=sorted(item for item in seen if item in candidates),
+                  reachable_resources=sorted(seen), dynamic_loaders=dynamic)
+    for name, patterns in export_presets:
         def excluded(item: str) -> bool:
-            return any(fnmatch.fnmatch(item[len('res://'):], pattern) for pattern in patterns)
-        broken = [item for item in candidates if item in seen and excluded(item)]
+            return filter_matches(item, patterns)
+        broken = sorted(item for item in seen if excluded(item))
         shipped = [item for item in candidates if item not in seen and not excluded(item)]
         errors.extend(f'{name}: runtime file excluded from export: {item}' for item in broken)
         errors.extend(f'{name}: development-only file shipped: {item}' for item in shipped)
