@@ -65,6 +65,7 @@ func run() -> void:
     check(ui.bag_description.text.length()>0,"Journal selection supplies readable clue or task phase")
     main._close_overlays()
     await preload("res://scripts/journal_records_validation.gd").new().run(main,self,check)
+    await preload("res://scripts/protagonist_voice_validation.gd").new().run(main,self,check)
     preload("res://scripts/combat_hud_readiness_validation.gd").new().run(main,check)
     await boss_hud_retirement(main)
     main._toggle_audio_settings()

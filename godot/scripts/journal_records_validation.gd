@@ -16,7 +16,7 @@ func run(main: Node,tree: SceneTree,check: Callable) -> void:
     ui.refresh_inventory()
     await tree.process_frame
     check.call(ui.bag_grid.get_child_count()==0 and ui.bag_name.text=="尚无敌人记录","empty enemy category explains discovery without listing future enemies")
-    check.call(ui.journal_filters.visible and ui.journal_filter_buttons.size()==7 and ui.journal_filter_buttons.has("guide"),"real journal retains six original filters and adds the field guide")
+    check.call(ui.journal_filters.visible and ui.journal_filter_buttons.size()==8 and ui.journal_filter_buttons.has("guide") and ui.journal_filter_buttons.has("voice"),"real journal retains six original filters and adds guide and earned voice")
     var contained := true
     for button in ui.journal_filter_buttons.values():contained=contained and ui.bag.get_global_rect().encloses(button.get_global_rect())
     check.call(contained and ui.bag_scroll.position.y>=ui.journal_filters.position.y+ui.journal_filters.size.y,"filter controls fit the scaled panel above the scrolling records")

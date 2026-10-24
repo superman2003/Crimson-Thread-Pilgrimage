@@ -9,8 +9,8 @@
 | 3 | U04 多层地图 | 已知邻室的上／下／相近高度，区域图与世界图共用 | 已上传 [#233](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/233)；[报告](report/20261024_u04_map_height.md) |
 | 4 | U04 图钉 | 查看已知图钉，跨区只切地图，不写进度 | 已上传 [#234](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/234)；[报告](report/20261024_u04_pin_view.md) |
 | 5 | U05 旅记 | 键盘／肩键翻页、首尾、会话书签与文本更新退路 | 已上传 [#235](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/235)；[报告](report/20261024_u05_journal_reading.md) |
-| 6 | T01 教学 | 四篇手册，读取当前按键／疗伤报价，沿用召回门槛 | 本地通过，待上传；[报告](report/20261024_t01_field_guide.md) |
-| 7 | N03 主角表达 | 关键能力获得后的短回应，不中断探索 | 待核对现有实现 |
+| 6 | T01 教学 | 四篇手册，读取当前按键／疗伤报价，沿用召回门槛 | 已上传 [#236](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/236)；[报告](report/20261024_t01_field_guide.md) |
+| 7 | N03 主角表达 | 已持有八能力的短自述，库存推导，无探索弹窗 | 本地通过，待上传；[报告](report/20261024_n03_earned_voice.md) |
 | 8 | T03／T05 | 新检出的冷启动编辑器／发布边界 | 待核对现有实现 |
 
 计划允许按已证明缺口调整，不能把已有功能重新开发以凑数。每批记录实际输入、回归结果与未验证边界；远端 CI 和合并状态分别记录。
