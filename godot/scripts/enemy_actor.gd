@@ -2387,6 +2387,35 @@ func _pose_scale(command: Dictionary, key: String, fallback: Vector2) -> Vector2
     return Vector2(float(value[0]), float(value[1]))
 
 
+## S03: terrain between this actor and the player muffles its one-shots, using
+## the same sight ray as the AI. Danger and confirm cues (voice priority 0:
+## wind-ups, roars, phase shifts, kill confirms) stay clearly audible.
+const SFX_OCCLUSION_DB := 10.0
+const SFX_DANGER_OCCLUSION_DB := 4.0
+
+func _sfx_listener() -> CollisionObject2D:
+    var nearest: CollisionObject2D = null
+    var nearest_distance := INF
+    for node in get_tree().get_nodes_in_group("player"):
+        var candidate := node as CollisionObject2D
+        if candidate == null or not candidate.is_inside_tree():
+            continue
+        var distance := global_position.distance_squared_to(candidate.global_position)
+        if distance < nearest_distance:
+            nearest = candidate
+            nearest_distance = distance
+    return nearest
+
+func _sfx_occluded() -> bool:
+    var listener := _sfx_listener()
+    return listener != null and not _has_line_of_sight(listener)
+
+func _sfx_volume(volume_db: float, voice_priority: int) -> float:
+    if not _sfx_occluded():
+        return volume_db
+    return volume_db - (SFX_DANGER_OCCLUSION_DB if voice_priority <= 0 else SFX_OCCLUSION_DB)
+
+
 func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 1.0, voice_priority: int = 1) -> void:
     if not _should_play_sfx():
         return
@@ -2404,7 +2433,8 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 
     # 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFXEnemy 子总线，缺席时回落 SFX/Master。
     player_node.bus = _sfx_bus_name()
     player_node.stream = stream
-    player_node.volume_db = volume_db
+    player_node.volume_db = _sfx_volume(volume_db, voice_priority)
+    player_node.set_meta("authored_volume_db", volume_db)
     player_node.pitch_scale = pitch_scale
     player_node.max_distance = 900.0
     add_child(player_node)
@@ -2561,7 +2591,7 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     player_node.name = "Sfx_" + audio_key
     player_node.bus = _sfx_bus_name()
     player_node.stream = stream
-    player_node.volume_db = volume_db
+    player_node.volume_db = _sfx_volume(volume_db, 1)
     player_node.max_distance = 900.0
     host.add_child(player_node)
     player_node.global_position = global_position
