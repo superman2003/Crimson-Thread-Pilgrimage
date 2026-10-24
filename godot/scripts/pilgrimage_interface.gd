@@ -29,6 +29,7 @@ var build_art: Control
 var build_art_caption: Label
 var tactical_signatures: Array[String]=["","","",""]
 var thread_bar: ProgressBar
+var thread_thresholds: Control
 var currency: Label
 var currency_emblem: TextureRect
 var location: Label
@@ -427,6 +428,11 @@ func _build_hud() -> void:
     hud_card.add_child(thread_bar)
     thread_bar.update_minimum_size()
     thread_bar.size=Vector2(224,5)
+    thread_thresholds=CHROME.new()
+    thread_thresholds.kind="thresholds"
+    thread_thresholds.position=Vector2(80,81)
+    thread_thresholds.size=Vector2(224,13)
+    hud_card.add_child(thread_thresholds)
     currency_emblem=_icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
     currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),21,GOLD)
     location_rule=CHROME.new()
@@ -1889,6 +1895,7 @@ func _process(delta: float) -> void:
         thread_bar.max_value=player.max_energy
         thread_bar.value=player.energy
         energy_status.text="%d / %d" % [int(player.energy),int(player.max_energy)]
+        _refresh_thread_thresholds(player)
         _refresh_combat_status(player)
     tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
     if tutorial_hint.visible:
@@ -2191,6 +2198,25 @@ func _ending_status_label(entry: Dictionary) -> String:
     if bool(entry.get("available",false)):return "可以选择"
     if String(entry.get("status",""))=="closed":return "已关闭"
     return "准备中"
+
+## U03: the thread meter itself says whether a heal and the active thread art
+## are affordable. Dormant or empty active skill slots draw no cost mark.
+func _refresh_thread_thresholds(player: Node) -> void:
+    var heal_cost:=int(player.heal_energy_cost)
+    var skill_cost:=0
+    var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
+    if system!=null and system.has_method("selected_skill"):
+        var skill: Dictionary=system.selected_skill()
+        if not skill.is_empty():skill_cost=maxi(0,int(skill.get("energy_cost",0)))
+    var energy:=int(player.energy)
+    var maximum:=maxi(1,int(player.max_energy))
+    if thread_thresholds.energy!=energy or thread_thresholds.heal_cost!=heal_cost or thread_thresholds.skill_cost!=skill_cost or thread_thresholds.maximum!=maximum:
+        thread_thresholds.energy=energy
+        thread_thresholds.heal_cost=heal_cost
+        thread_thresholds.skill_cost=skill_cost
+        thread_thresholds.maximum=maximum
+        thread_thresholds.queue_redraw()
+
 
 func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dictionary:
     var cost := maxi(0, int(item.get("energy_cost", 0)))
