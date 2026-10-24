@@ -2,6 +2,42 @@ extends RefCounted
 ## Pure knowledge and map-marker rules shared by regional and world maps.
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 
+static func public_room(room: Dictionary) -> bool:
+	return String(room.get("kind","")) not in ["secret","reward","treasure","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
+
+## Describes map height, never the player's location or whether a door is open.
+static func room_context(config: Dictionary, flags: Dictionary, region: String, room_id: String) -> String:
+	var journals: Variant=flags.get(JOURNAL.KEY,{})
+	if not journals is Dictionary:return ""
+	var journal: Variant=journals.get(region,{})
+	if not journal is Dictionary or not journal.get("owned") is bool or not journal.owned:return ""
+	var notes: Variant=journal.get("charted",{})
+	if not notes is Dictionary:notes={}
+	var known: Dictionary={}
+	for room in config.get("map_rooms",[]):
+		var id:=String(room.get("id",""))
+		var charted:=false
+		for key in notes:
+			if key is String and (key==id or key.begins_with(id+"@")) and notes[key] is bool and notes[key]:charted=true
+		if public_room(room) or charted:known[id]=room
+	if not known.has(room_id):return ""
+	var source: Dictionary=known[room_id]
+	var source_rect:=_room_rect(source)
+	var parts: Array[String]=[String(source.get("name",room_id))]
+	var seen: Dictionary={}
+	for link in config.get("connections",[]):
+		var a:=String(link.get("from",""))
+		var b:=String(link.get("to",""))
+		var target:=b if a==room_id else a if b==room_id else ""
+		if target==room_id or not known.has(target) or seen.has(target):continue
+		seen[target]=true
+		var rect:=_room_rect(known[target])
+		if rect.size==Vector2.ZERO or source_rect.size==Vector2.ZERO:continue
+		var difference:=rect.get_center().y-source_rect.get_center().y
+		var direction:="↑ 图上较高" if difference < -64.0 else "↓ 图上较低" if difference > 64.0 else "↔ 相近高度"
+		parts.append(direction+"："+String(known[target].get("name",target)))
+	return " · ".join(parts)+"\n邻接不表示道路已开放；门与捷径状态请看各自标记。"
+
 static func owner_room(config: Dictionary, area: Rect2) -> Dictionary:
 	var center := area.get_center()
 	var best: Dictionary = {}
