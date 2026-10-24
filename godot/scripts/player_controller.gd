@@ -333,6 +333,11 @@ var dash_timer: float = 0.0
 var dash_cooldown: float = 0.0
 var land_timer: float = 0.0
 var attack_timer: float = 0.0
+## C01: jump/dash may cut a nail swing's recovery, but the rest of that
+## recovery is still owed before the next strike (attack, hook throw, art).
+var attack_cancel_lock := 0.0
+## Diagnostic: swings whose recovery was cut by a jump or dash.
+var recovery_cancel_count := 0
 var hurt_timer: float = 0.0
 var death_timer: float = 0.0
 # Presentation only: do not add a gameplay lock or change the 0.9-second death.
@@ -499,6 +504,7 @@ func _physics_process(delta: float) -> void:
     land_timer = maxf(0.0, land_timer - delta)
     grapple_recovery_timer = maxf(0.0, grapple_recovery_timer - delta)
     skill_cooldown = maxf(0.0, skill_cooldown - delta)
+    attack_cancel_lock = maxf(0.0, attack_cancel_lock - delta)
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
     hazard_pogo_guard_timer = maxf(0.0, hazard_pogo_guard_timer - delta)
@@ -525,14 +531,17 @@ func _physics_process(delta: float) -> void:
         _stop_grapple()
     if Input.is_action_just_pressed("jump"):
         grapple_recovery_timer = 0.0
-    if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+    var recovery_open := attack_timer <= 0.0 or _attack_recovery_cancelable()
+    if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
+        _cancel_attack_recovery()
         velocity.y = jump_velocity
         coyote_timer = 0.0
         jump_buffer_timer = 0.0
         _play(&"jump_start")
         _play_sfx("jump", -6.0)
-    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
         # 蹬墙跳：离墙水平 420 / 垂直 -640，播 wall_slide 帧。
+        _cancel_attack_recovery()
         var jump_wall_dir := signi(-get_wall_normal().x)
         wall_jump_lock = 0.16
         ability_action.emit("silk_wall_grip", global_position, Vector2(-jump_wall_dir, -1))
@@ -548,7 +557,8 @@ func _physics_process(delta: float) -> void:
         _play_sfx("jump", -6.0)
         MOVEMENT_ART.wall_jump(self, jump_wall_dir)
 
-    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
+        _cancel_attack_recovery()
         ability_action.emit("double_thread_jump", global_position, Vector2.UP)
         air_jump_available = false
         velocity.y = double_jump_velocity
@@ -573,10 +583,10 @@ func _physics_process(delta: float) -> void:
 
     if _consume_action_input(&"attack"):
         pass
-    elif Input.is_action_just_pressed("hook") and _can_start_action():
+    elif Input.is_action_just_pressed("hook") and _can_start_action() and attack_cancel_lock <= 0.0:
         if not _try_start_grapple():
             _start_attack(&"hook_throw")
-    elif Input.is_action_just_pressed("skill_1") and _can_start_action():
+    elif Input.is_action_just_pressed("skill_1") and _can_start_action() and attack_cancel_lock <= 0.0:
         _try_skill_burst()
 
     if heal_timer > 0.0 or guard_timer > 0.0:
@@ -735,6 +745,7 @@ func _reset_traversal_state() -> void:
     dash_timer = 0.0
     dash_cooldown = 0.0
     attack_timer = 0.0
+    attack_cancel_lock = 0.0
     land_timer = 0.0
     ground_motion_x = 0.0
     ground_motion_speed = 0.0
@@ -865,9 +876,17 @@ func _sample_action_input(delta: float) -> void:
 
 
 func _consume_action_input(action: StringName) -> bool:
-    if buffered_action != action or not _can_start_action(action == &"dash"):
+    if buffered_action != action:
         return false
-    if action == &"dash" and (not dash_unlocked or dash_cooldown > 0.0):
+    var dash := action == &"dash"
+    if not _can_start_action(dash, dash):
+        return false
+    if dash and (not dash_unlocked or dash_cooldown > 0.0):
+        return false
+    if not dash and attack_cancel_lock > 0.0:
+        # The buffered swing waits out the cut recovery instead of being lost,
+        # even when that recovery is longer than the input buffer.
+        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
         return false
     var direction := buffered_direction
     # Consume before any signal/callback can re-enter action handling.
@@ -878,8 +897,28 @@ func _consume_action_input(action: StringName) -> bool:
     if action == &"attack":
         _start_attack(&"attack_1", true, direction)
     else:
+        _cancel_attack_recovery()
         _start_dash()
     return true
+
+
+## A plain nail swing (not a hook throw or thread art) commits through its
+## wind-up and active frames; only its recovery may be cut.
+func _attack_recovery_cancelable() -> bool:
+    if attack_timer <= 0.0 or not active_skill.is_empty() or current_attack not in [&"attack_1", &"attack_2"]:
+        return false
+    return attack_duration - attack_timer > attack_windup + attack_active_time
+
+
+func _cancel_attack_recovery() -> void:
+    if attack_timer <= 0.0:
+        return
+    attack_cancel_lock = attack_timer
+    recovery_cancel_count += 1
+    attack_timer = 0.0
+    attack_shape.disabled = true
+    traversal_downstrike_active = false
+    run_attack_pose = false
 
 
 func _start_dash() -> void:
@@ -899,10 +938,10 @@ func _start_dash() -> void:
     _play_sfx("dash", -7.0)
 
 
-func _can_start_action(allow_grapple: bool = false) -> bool:
+func _can_start_action(allow_grapple: bool = false, allow_recovery_cancel: bool = false) -> bool:
     if get_parent().has_method("_walking_world_passage") and get_parent()._walking_world_passage():
         return false
-    return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
+    return death_timer <= 0.0 and hurt_timer <= 0.0 and (attack_timer <= 0.0 or (allow_recovery_cancel and _attack_recovery_cancelable())) and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
 
 ## Read-only HUD query; shares the real action gate, including traversal handoff.
 func get_cast_readiness(skill_id: String = "") -> Dictionary:
@@ -911,6 +950,8 @@ func get_cast_readiness(skill_id: String = "") -> Dictionary:
     if not _can_start_action():
         return {"available":false, "text":"动作中", "detail":"当前动作或界面结束后可用。"}
     if not skill_id.is_empty():
+        if attack_cancel_lock > 0.0:
+            return {"available":false, "text":"收势", "detail":"取消的挥针仍在收势。"}
         if skill_cooldown > 0.0:
             return {"available":false, "text":"%.1fs" % skill_cooldown, "detail":"上一招仍在收势。"}
         if skill_id == "shockwave" and not is_on_floor():
@@ -927,7 +968,7 @@ func _try_skill_burst() -> void:
 
 
 func cast_selected_skill(slot: int = -1) -> bool:
-    if not _can_start_action() or skill_cooldown > 0.0:
+    if not _can_start_action() or skill_cooldown > 0.0 or attack_cancel_lock > 0.0:
         return false
     var payload: Dictionary
     if build_system != null and build_system.has_method("try_cast"):
@@ -1085,6 +1126,7 @@ func apply_build_stats(stats: Dictionary) -> void:
     heal_stability_timer = 0.0
     status_resist_timer = 0.0
     attack_timer = 0.0
+    attack_cancel_lock = 0.0
     active_skill.clear()
     for enemy in get_tree().get_nodes_in_group("enemy"):
         if enemy.has_method("clear_salt_mark"):
