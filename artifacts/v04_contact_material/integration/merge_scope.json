@@ -1,0 +1,1650 @@
+{
+  "remote_original_222": "d212d8dff5de3f0a701c464cbbc6721371e66d9e",
+  "dependency": "354bc5cca08a8792780c8f1455bedfeb43ce0e67",
+  "main": "fb7a7d5017b6f587607403ad3117428a1f3e4757",
+  "dependency_merge": "8c465bc5",
+  "main_merge": "fc8402e8",
+  "conflict_resolution": "Only tools/test_regression_runner.py count: retain all assertions and all suites;149+contact+quiet+legacy+wish=153. Main merge has identical tree.",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/README.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/baseline01.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/baseline02.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/catalog_before.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/catalog_final.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/charm_audit.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/cpu_results.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_cpu/build_slots.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_cpu/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_cpu/legacy_travel_rewards.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_cpu/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_cpu/spike_pogo.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_cpu/wish_reward_atomic.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native/damp_build_detail.png",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native/damp_build_detail.png.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native/legacy_inventory_fixture.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native/loadout_saved_world.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native_no_effect_reverse/damp_build_detail.png.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native_no_effect_reverse/legacy_inventory_fixture.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native_no_effect_reverse/loadout_saved_world.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/final_native_no_effect_reverse/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/first_frozen_cpu/build_slots.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/first_frozen_cpu/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/first_frozen_cpu/legacy_travel_rewards.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/first_frozen_cpu/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/first_frozen_cpu/spike_pogo.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/first_frozen_cpu/wish_reward_atomic.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_native/damp_build_detail.png.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_native/legacy_inventory_fixture.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_native/loadout_saved_world.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_native/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_native_results.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_reverse/damp_build_detail.png.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_reverse/legacy_inventory_fixture.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_reverse/loadout_saved_world.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_reverse/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_source_after.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/hidden_panel_source_before.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/icon_import.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/icon_import.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/implementation01.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/implementation02/build_slots.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/implementation02/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/implementation02/legacy_travel_rewards.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/native_results.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/runner_contract.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/scope_delta.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/seed_provenance.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/source_after.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/source_before.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/static_scope_after.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_legacy_travel/static_scope_before.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cache_restoration.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/permanent_capacity.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/player_movement_art.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/source_after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/source_before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/permanent_capacity.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/player_movement_art.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/source_after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/source_before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__data__build_catalog.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__data__item_lore.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__build_system.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__permanent_capacity_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__permanent_capacity_world_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__player_controller.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__godot_suite_success_markers.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__run_godot_regressions.py.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__run_permanent_capacity.py.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__test_regression_runner.py.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/manifest.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/earned_capacity.png",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/earned_capacity_save.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/expected.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/permanent_capacity.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/permanent_capacity_world_pickup.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/permanent_capacity_world_restart.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/restored_capacity.png",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/source_after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/native/source_before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/earned_capacity_save.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/expected.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/permanent_capacity.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/permanent_capacity_world_pickup.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/permanent_capacity_world_restart.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/source_after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/source_before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/README.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_catalog_fix/before.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_catalog_fix/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_catalog_fix/npm_campaign.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_catalog_fix/npm_test.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_count_fix/after.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_count_fix/before.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/ci_count_fix/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic01/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic02/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic03/build_slots.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic03/build_slots_ui.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic03/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic03/build_transaction_runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic03/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic03/spike_pogo.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic04/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/diagnostic05/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/earned_return_seed.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/build_slots.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/build_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/build_transaction_runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/seal_system.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/spike_pogo.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/upgrade_integration.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_cpu/world_state.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_native/build_slots_ui.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_native/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_native/results.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_native_reverse/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/final_native_reverse/result.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/leak_probe.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/legacy_no_effect_reverse/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/minor_cache_provenance.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/native_precheck/build_slots_ui.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/native_precheck/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/source_after.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/e03_quiet_sole/source_before.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/README.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/baseline01.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/baseline02.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/baseline03.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/baseline04.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/cpu_results.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/build_transaction_runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/permanent_capacity.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/quiet_sole_traps.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/save_recovery.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/tests_verify_narrative_runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/tests_verify_narrative_ui.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_cpu/wish_reward_atomic.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_native.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/final_native_legacy_reverse.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/implementation01.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/implementation02.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/legacy_topic.gd.txt.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/movement_cache.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/native_results.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/related01/build_transaction_runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/related01/save_recovery.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/related01/tests_verify_narrative_runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/related01/tests_verify_narrative_ui.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/related01/wish_reward_atomic.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/runner_contract.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/source_after.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/n02_wish_atomic/source_before.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/cpu_01/before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/cpu_01/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/cpu_01/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__data__build_catalog.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__audio_director.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__audio_retirement.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__build_system.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__player_controller.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__quiet_sole_traps_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/godot__tests__fixtures__quiet_sole_earned_return.json.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/index.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/finalsource/tools__run_quiet_sole_audio.py.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/manifest.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_baseline_01/after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_baseline_01/before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_baseline_01/main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_baseline_01/quiet_sole_traps_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_baseline_01/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_baseline_01/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/quiet_sole_traps_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/quiet_sole_traps_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/after.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/before.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/quiet_sole_traps_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/result.json",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/runtime.log.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/original_main_level.gd.gz",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "artifacts/t03_quiet_sole_audio/original_quiet_sole_traps_validation.gd.gz",
+      "kind": "test/tool"
+    },
+    {
+      "path": "docs/UPGRADE_COMPLETION_CHECKLIST.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "docs/UPGRADE_PROGRESS.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "docs/UPGRADE_TASK_LEDGER.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "docs/report/20261024_e03_permanent_capacity.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "docs/report/20261024_quiet_sole_catalog_contract.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "docs/report/20261024_t03_quiet_sole_audio.md",
+      "kind": "upstream evidence/docs"
+    },
+    {
+      "path": "godot/assets/ui/seals/damp_knot.svg",
+      "kind": "production"
+    },
+    {
+      "path": "godot/assets/ui/seals/damp_knot.svg.import",
+      "kind": "production"
+    },
+    {
+      "path": "godot/assets/ui/seals/quiet_sole.svg",
+      "kind": "production"
+    },
+    {
+      "path": "godot/data/build_catalog.json",
+      "kind": "production"
+    },
+    {
+      "path": "godot/scripts/build_slots_ui_validation.gd",
+      "kind": "test/tool"
+    },
+    {
+      "path": "godot/scripts/build_system_validation.gd",
+      "kind": "test/tool"
+    },
+    {
+      "path": "godot/scripts/legacy_travel_rewards_validation.gd",
+      "kind": "test/tool"
+    },
+    {
+      "path": "godot/scripts/main_level.gd",
+      "kind": "production"
+    },
+    {
+      "path": "godot/scripts/pilgrimage_interface.gd",
+      "kind": "production"
+    },
+    {
+      "path": "godot/scripts/quiet_sole_traps_validation.gd",
+      "kind": "test/tool"
+    },
+    {
+      "path": "godot/scripts/wish_reward_atomic_validation.gd",
+      "kind": "test/tool"
+    },
+    {
+      "path": "godot/tests/fixtures/quiet_sole_earned_return.json",
+      "kind": "test/tool"
+    },
+    {
+      "path": "tools/godot_suite_success_markers.json",
+      "kind": "test/tool"
+    },
+    {
+      "path": "tools/run_godot_regressions.py",
+      "kind": "test/tool"
+    },
+    {
+      "path": "tools/run_permanent_capacity.py",
+      "kind": "test/tool"
+    },
+    {
+      "path": "tools/run_quiet_sole_audio.py",
+      "kind": "test/tool"
+    },
+    {
+      "path": "tools/test_regression_runner.py",
+      "kind": "test/tool"
+    },
+    {
+      "path": "tools/validate_seal_catalog.py",
+      "kind": "test/tool"
+    }
+  ],
+  "later_remote_222": "fc0bcc9097959d3a6fab088f84a4196b77e0f1ec",
+  "later_main": "a1d9434e3fc2d6d69adde66323a1fb5dd1e5940e",
+  "later_remote_merge": "f885146e0ff0e5fd514e72ae5985b0728afee3dc",
+  "later_main_merge": "4d09d665eb0e0220084f968a5a9decd3b43507ce",
+  "later_conflict": "Only test count153 vs155; keep155 and all suites/assertions; merge latestmain has identical tree.",
+  "final_changed_paths": [
+    ".gitattributes",
+    "artifacts/e03_legacy_travel/README.md",
+    "artifacts/e03_legacy_travel/baseline01.log.gz",
+    "artifacts/e03_legacy_travel/baseline02.log.gz",
+    "artifacts/e03_legacy_travel/catalog_before.log.gz",
+    "artifacts/e03_legacy_travel/catalog_final.log.gz",
+    "artifacts/e03_legacy_travel/charm_audit.json.gz",
+    "artifacts/e03_legacy_travel/cpu_results.json.gz",
+    "artifacts/e03_legacy_travel/final_cpu/build_slots.log.gz",
+    "artifacts/e03_legacy_travel/final_cpu/build_system.log.gz",
+    "artifacts/e03_legacy_travel/final_cpu/legacy_travel_rewards.log.gz",
+    "artifacts/e03_legacy_travel/final_cpu/quiet_sole_traps.log.gz",
+    "artifacts/e03_legacy_travel/final_cpu/spike_pogo.log.gz",
+    "artifacts/e03_legacy_travel/final_cpu/wish_reward_atomic.log.gz",
+    "artifacts/e03_legacy_travel/final_native/damp_build_detail.png",
+    "artifacts/e03_legacy_travel/final_native/damp_build_detail.png.gz",
+    "artifacts/e03_legacy_travel/final_native/legacy_inventory_fixture.json.gz",
+    "artifacts/e03_legacy_travel/final_native/loadout_saved_world.json.gz",
+    "artifacts/e03_legacy_travel/final_native/runtime.log.gz",
+    "artifacts/e03_legacy_travel/final_native_no_effect_reverse/damp_build_detail.png.gz",
+    "artifacts/e03_legacy_travel/final_native_no_effect_reverse/legacy_inventory_fixture.json.gz",
+    "artifacts/e03_legacy_travel/final_native_no_effect_reverse/loadout_saved_world.json.gz",
+    "artifacts/e03_legacy_travel/final_native_no_effect_reverse/runtime.log.gz",
+    "artifacts/e03_legacy_travel/first_frozen_cpu/build_slots.log.gz",
+    "artifacts/e03_legacy_travel/first_frozen_cpu/build_system.log.gz",
+    "artifacts/e03_legacy_travel/first_frozen_cpu/legacy_travel_rewards.log.gz",
+    "artifacts/e03_legacy_travel/first_frozen_cpu/quiet_sole_traps.log.gz",
+    "artifacts/e03_legacy_travel/first_frozen_cpu/spike_pogo.log.gz",
+    "artifacts/e03_legacy_travel/first_frozen_cpu/wish_reward_atomic.log.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_native/damp_build_detail.png.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_native/legacy_inventory_fixture.json.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_native/loadout_saved_world.json.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_native/runtime.log.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_native_results.json.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_reverse/damp_build_detail.png.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_reverse/legacy_inventory_fixture.json.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_reverse/loadout_saved_world.json.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_reverse/runtime.log.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_source_after.json.gz",
+    "artifacts/e03_legacy_travel/hidden_panel_source_before.json.gz",
+    "artifacts/e03_legacy_travel/icon_import.json.gz",
+    "artifacts/e03_legacy_travel/icon_import.log.gz",
+    "artifacts/e03_legacy_travel/implementation01.log.gz",
+    "artifacts/e03_legacy_travel/implementation02/build_slots.log.gz",
+    "artifacts/e03_legacy_travel/implementation02/build_system.log.gz",
+    "artifacts/e03_legacy_travel/implementation02/legacy_travel_rewards.log.gz",
+    "artifacts/e03_legacy_travel/index.json",
+    "artifacts/e03_legacy_travel/native_results.json.gz",
+    "artifacts/e03_legacy_travel/runner_contract.log.gz",
+    "artifacts/e03_legacy_travel/scope_delta.json.gz",
+    "artifacts/e03_legacy_travel/seed_provenance.json.gz",
+    "artifacts/e03_legacy_travel/source_after.json.gz",
+    "artifacts/e03_legacy_travel/source_before.json.gz",
+    "artifacts/e03_legacy_travel/static_scope_after.json.gz",
+    "artifacts/e03_legacy_travel/static_scope_before.json.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cache_restoration.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/permanent_capacity.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/player_movement_art.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/result.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/source_after.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu/source_before.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/permanent_capacity.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/player_movement_art.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/result.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/source_after.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/cpu_fixed/source_before.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__data__build_catalog.json.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__data__item_lore.json.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__build_system.gd.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__main_level.gd.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__permanent_capacity_validation.gd.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__permanent_capacity_world_validation.gd.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/godot__scripts__player_controller.gd.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/index.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__godot_suite_success_markers.json.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__run_godot_regressions.py.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__run_permanent_capacity.py.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/finalsource/tools__test_regression_runner.py.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/manifest.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/earned_capacity.png",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/earned_capacity_save.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/expected.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/permanent_capacity.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/permanent_capacity_world_pickup.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/permanent_capacity_world_restart.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/restored_capacity.png",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/result.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/source_after.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/native/source_before.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/earned_capacity_save.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/expected.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/permanent_capacity.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/permanent_capacity_world_pickup.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/permanent_capacity_world_restart.log.gz",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/result.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/source_after.json",
+    "artifacts/e03_permanent_capacity/integrated_8f692a/whole_cpu/source_before.json",
+    "artifacts/e03_quiet_sole/README.md",
+    "artifacts/e03_quiet_sole/ci_catalog_fix/before.log.gz",
+    "artifacts/e03_quiet_sole/ci_catalog_fix/index.json",
+    "artifacts/e03_quiet_sole/ci_catalog_fix/npm_campaign.log.gz",
+    "artifacts/e03_quiet_sole/ci_catalog_fix/npm_test.log.gz",
+    "artifacts/e03_quiet_sole/ci_count_fix/after.log.gz",
+    "artifacts/e03_quiet_sole/ci_count_fix/before.log.gz",
+    "artifacts/e03_quiet_sole/ci_count_fix/index.json",
+    "artifacts/e03_quiet_sole/diagnostic01/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic02/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic03/build_slots.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic03/build_slots_ui.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic03/build_system.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic03/build_transaction_runtime.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic03/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic03/spike_pogo.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic04/build_system.log.gz",
+    "artifacts/e03_quiet_sole/diagnostic05/build_system.log.gz",
+    "artifacts/e03_quiet_sole/earned_return_seed.json.gz",
+    "artifacts/e03_quiet_sole/final_cpu/build_slots.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/build_system.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/build_transaction_runtime.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/seal_system.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/spike_pogo.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/upgrade_integration.log.gz",
+    "artifacts/e03_quiet_sole/final_cpu/world_state.log.gz",
+    "artifacts/e03_quiet_sole/final_native/build_slots_ui.log.gz",
+    "artifacts/e03_quiet_sole/final_native/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/final_native/results.json.gz",
+    "artifacts/e03_quiet_sole/final_native_reverse/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/final_native_reverse/result.json.gz",
+    "artifacts/e03_quiet_sole/index.json",
+    "artifacts/e03_quiet_sole/leak_probe.log.gz",
+    "artifacts/e03_quiet_sole/legacy_no_effect_reverse/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/minor_cache_provenance.json.gz",
+    "artifacts/e03_quiet_sole/native_precheck/build_slots_ui.log.gz",
+    "artifacts/e03_quiet_sole/native_precheck/quiet_sole_traps.log.gz",
+    "artifacts/e03_quiet_sole/source_after.json.gz",
+    "artifacts/e03_quiet_sole/source_before.json.gz",
+    "artifacts/n02_wish_atomic/README.md",
+    "artifacts/n02_wish_atomic/baseline01.log.gz",
+    "artifacts/n02_wish_atomic/baseline02.log.gz",
+    "artifacts/n02_wish_atomic/baseline03.log.gz",
+    "artifacts/n02_wish_atomic/baseline04.log.gz",
+    "artifacts/n02_wish_atomic/cpu_results.json.gz",
+    "artifacts/n02_wish_atomic/final_cpu/build_transaction_runtime.log.gz",
+    "artifacts/n02_wish_atomic/final_cpu/permanent_capacity.log.gz",
+    "artifacts/n02_wish_atomic/final_cpu/quiet_sole_traps.log.gz",
+    "artifacts/n02_wish_atomic/final_cpu/save_recovery.log.gz",
+    "artifacts/n02_wish_atomic/final_cpu/tests_verify_narrative_runtime.log.gz",
+    "artifacts/n02_wish_atomic/final_cpu/tests_verify_narrative_ui.log.gz",
+    "artifacts/n02_wish_atomic/final_cpu/wish_reward_atomic.log.gz",
+    "artifacts/n02_wish_atomic/final_native.log.gz",
+    "artifacts/n02_wish_atomic/final_native_legacy_reverse.log.gz",
+    "artifacts/n02_wish_atomic/implementation01.log.gz",
+    "artifacts/n02_wish_atomic/implementation02.log.gz",
+    "artifacts/n02_wish_atomic/index.json",
+    "artifacts/n02_wish_atomic/legacy_topic.gd.txt.gz",
+    "artifacts/n02_wish_atomic/movement_cache.json.gz",
+    "artifacts/n02_wish_atomic/native_results.json.gz",
+    "artifacts/n02_wish_atomic/related01/build_transaction_runtime.log.gz",
+    "artifacts/n02_wish_atomic/related01/save_recovery.log.gz",
+    "artifacts/n02_wish_atomic/related01/tests_verify_narrative_runtime.log.gz",
+    "artifacts/n02_wish_atomic/related01/tests_verify_narrative_ui.log.gz",
+    "artifacts/n02_wish_atomic/related01/wish_reward_atomic.log.gz",
+    "artifacts/n02_wish_atomic/runner_contract.log.gz",
+    "artifacts/n02_wish_atomic/source_after.json.gz",
+    "artifacts/n02_wish_atomic/source_before.json.gz",
+    "artifacts/t03_quiet_sole_audio/cpu_01/before.json",
+    "artifacts/t03_quiet_sole_audio/cpu_01/result.json",
+    "artifacts/t03_quiet_sole_audio/cpu_01/runtime.log.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__data__build_catalog.json.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__audio_director.gd.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__audio_retirement.gd.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__build_system.gd.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__main_level.gd.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__player_controller.gd.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__scripts__quiet_sole_traps_validation.gd.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/godot__tests__fixtures__quiet_sole_earned_return.json.gz",
+    "artifacts/t03_quiet_sole_audio/finalsource/index.json",
+    "artifacts/t03_quiet_sole_audio/finalsource/tools__run_quiet_sole_audio.py.gz",
+    "artifacts/t03_quiet_sole_audio/manifest.json",
+    "artifacts/t03_quiet_sole_audio/native_baseline_01/after.json",
+    "artifacts/t03_quiet_sole_audio/native_baseline_01/before.json",
+    "artifacts/t03_quiet_sole_audio/native_baseline_01/main_level.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_baseline_01/quiet_sole_traps_validation.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_baseline_01/result.json",
+    "artifacts/t03_quiet_sole_audio/native_baseline_01/runtime.log.gz",
+    "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/after.json",
+    "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/before.json",
+    "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/main_level.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/quiet_sole_traps_validation.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/result.json",
+    "artifacts/t03_quiet_sole_audio/native_capture_rollback_01/runtime.log.gz",
+    "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/after.json",
+    "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/before.json",
+    "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/main_level.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/quiet_sole_traps_validation.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/result.json",
+    "artifacts/t03_quiet_sole_audio/native_fixed_negative_01/runtime.log.gz",
+    "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/after.json",
+    "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/before.json",
+    "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/main_level.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/quiet_sole_traps_validation.gd.gz",
+    "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/result.json",
+    "artifacts/t03_quiet_sole_audio/native_fixed_positive_01/runtime.log.gz",
+    "artifacts/t03_quiet_sole_audio/original_main_level.gd.gz",
+    "artifacts/t03_quiet_sole_audio/original_quiet_sole_traps_validation.gd.gz",
+    "artifacts/t03_window_close/published/manifest.json",
+    "artifacts/t03_window_close/published/payloads/0000.gz",
+    "artifacts/t03_window_close/published/payloads/0001.gz",
+    "artifacts/t03_window_close/published/payloads/0002.gz",
+    "artifacts/t03_window_close/published/payloads/0003.gz",
+    "artifacts/t03_window_close/published/payloads/0004.gz",
+    "artifacts/t03_window_close/published/payloads/0005.gz",
+    "artifacts/t03_window_close/published/payloads/0006.gz",
+    "artifacts/t03_window_close/published/payloads/0007.gz",
+    "artifacts/t03_window_close/published/payloads/0008.gz",
+    "artifacts/t03_window_close/published/payloads/0009.gz",
+    "artifacts/t03_window_close/published/payloads/0010.gz",
+    "artifacts/t03_window_close/published/payloads/0011.gz",
+    "artifacts/t03_window_close/published/payloads/0012.gz",
+    "artifacts/t03_window_close/published/payloads/0013.gz",
+    "artifacts/t03_window_close/published/payloads/0014.gz",
+    "artifacts/t03_window_close/published/payloads/0015.gz",
+    "artifacts/t03_window_close/published/payloads/0016.gz",
+    "artifacts/t03_window_close/published/payloads/0017.gz",
+    "artifacts/t03_window_close/published/payloads/0018.gz",
+    "artifacts/t03_window_close/published/payloads/0019.gz",
+    "artifacts/t03_window_close/published/payloads/0020.gz",
+    "artifacts/t03_window_close/published/payloads/0021.gz",
+    "artifacts/t03_window_close/published/payloads/0022.gz",
+    "artifacts/t03_window_close/published/payloads/0023.gz",
+    "artifacts/t03_window_close/published/payloads/0024.gz",
+    "artifacts/t03_window_close/published/payloads/0025.gz",
+    "artifacts/t03_window_close/published/payloads/0026.gz",
+    "artifacts/t03_window_close/published/payloads/0027.gz",
+    "artifacts/t03_window_close/published/payloads/0028.gz",
+    "artifacts/t03_window_close/published/payloads/0029.gz",
+    "artifacts/t03_window_close/published/payloads/0030.gz",
+    "artifacts/t03_window_close/published/payloads/0031.gz",
+    "artifacts/t03_window_close/published/payloads/0032.gz",
+    "artifacts/t03_window_close/published/payloads/0033.gz",
+    "artifacts/t03_window_close/published/payloads/0034.gz",
+    "artifacts/t03_window_close/published/payloads/0035.gz",
+    "artifacts/t03_window_close/published/payloads/0036.gz",
+    "artifacts/t03_window_close/published/payloads/0037.gz",
+    "artifacts/t03_window_close/published/payloads/0038.gz",
+    "artifacts/t03_window_close/published/payloads/0039.gz",
+    "artifacts/t03_window_close/published/payloads/0040.gz",
+    "artifacts/t03_window_close/published/payloads/0041.gz",
+    "artifacts/t03_window_close/published/payloads/0042.gz",
+    "artifacts/t03_window_close/published/payloads/0043.gz",
+    "artifacts/t03_window_close/published/payloads/0044.gz",
+    "artifacts/t03_window_close/published/payloads/0045.gz",
+    "artifacts/t03_window_close/published/payloads/0046.gz",
+    "artifacts/t03_window_close/published/payloads/0047.gz",
+    "artifacts/t03_window_close/published/payloads/0048.gz",
+    "artifacts/t03_window_close/published/payloads/0049.gz",
+    "artifacts/t03_window_close/published/payloads/0050.gz",
+    "artifacts/t03_window_close/published/payloads/0051.gz",
+    "artifacts/t03_window_close/published/payloads/0052.gz",
+    "artifacts/t03_window_close/published/payloads/0053.gz",
+    "artifacts/t03_window_close/published/payloads/0054.gz",
+    "artifacts/t03_window_close/published/payloads/0055.gz",
+    "artifacts/t03_window_close/published/payloads/0056.gz",
+    "artifacts/t03_window_close/published/payloads/0057.gz",
+    "artifacts/t03_window_close/published/payloads/0058.gz",
+    "artifacts/t03_window_close/published/payloads/0059.gz",
+    "artifacts/t03_window_close/published/payloads/0060.gz",
+    "artifacts/t03_window_close/published/payloads/0061.gz",
+    "artifacts/t03_window_close/published/payloads/0062.gz",
+    "artifacts/t03_window_close/published/payloads/0063.gz",
+    "artifacts/t03_window_close/published/payloads/0064.gz",
+    "artifacts/t03_window_close/published/payloads/0065.gz",
+    "artifacts/t03_window_close/published/payloads/0066.gz",
+    "artifacts/t03_window_close/published/payloads/0067.gz",
+    "artifacts/t03_window_close/published/payloads/0068.gz",
+    "artifacts/t03_window_close/published/payloads/0069.gz",
+    "artifacts/t03_window_close/published/payloads/0070.gz",
+    "artifacts/t03_window_close/published/payloads/0071.gz",
+    "artifacts/t03_window_close/published/payloads/0072.gz",
+    "artifacts/t03_window_close/published/payloads/0073.gz",
+    "artifacts/t03_window_close/published/payloads/0074.gz",
+    "artifacts/t04_crown_entry/cable_approach_01/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/cable_approach_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/cable_approach_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/cable_approach_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/cable_approach_01/verification.json",
+    "artifacts/t04_crown_entry/cable_approach_01/verify_bride_retry_proofs.py.txt",
+    "artifacts/t04_crown_entry/cable_approach_01/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/cable_approach_02/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/cable_approach_02/runtime.log.gz",
+    "artifacts/t04_crown_entry/cable_approach_02/source-after.json.gz",
+    "artifacts/t04_crown_entry/cable_approach_02/source-before.json.gz",
+    "artifacts/t04_crown_entry/cable_approach_02/verification.json",
+    "artifacts/t04_crown_entry/cable_approach_02/verify_bride_retry_proofs.py.txt",
+    "artifacts/t04_crown_entry/cable_approach_02/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/earned_restore_image/capture.gd",
+    "artifacts/t04_crown_entry/earned_restore_image/lower_shrine.png",
+    "artifacts/t04_crown_entry/earned_restore_image/runtime.log.gz",
+    "artifacts/t04_crown_entry/earned_restore_image/verification.json",
+    "artifacts/t04_crown_entry/east_approach_01/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_approach_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_approach_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_approach_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_approach_01/verification.json",
+    "artifacts/t04_crown_entry/east_approach_01/verify_bride_retry_proofs.py.txt",
+    "artifacts/t04_crown_entry/east_approach_01/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_approach_02/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_approach_02/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_approach_02/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_approach_02/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_approach_02/verification.json",
+    "artifacts/t04_crown_entry/east_approach_02/verify_bride_retry_proofs.py.txt",
+    "artifacts/t04_crown_entry/east_approach_02/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_approach_03/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_approach_03/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_approach_03/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_approach_03/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_approach_03/verification.json",
+    "artifacts/t04_crown_entry/east_approach_03/verify_bride_retry_proofs.py.txt",
+    "artifacts/t04_crown_entry/east_approach_03/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_01/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_01/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_01/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_02/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_02/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_02/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_02/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_02/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_02/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_03/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_03/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_03/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_03/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_03/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_03/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_04/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_04/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_04/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_04/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_04/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_04/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_05/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_05/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_05/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_05/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_05/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_05/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_06/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_06/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_06/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_06/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_06/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_06/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/east_candidate_07/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/east_candidate_07/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/east_candidate_07/runtime.log.gz",
+    "artifacts/t04_crown_entry/east_candidate_07/source-after.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_07/source-before.json.gz",
+    "artifacts/t04_crown_entry/east_candidate_07/verification.json",
+    "artifacts/t04_crown_entry/east_candidate_07/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/final_causal_lip_old_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_causal_lip_old_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_causal_lip_old_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_causal_lip_old_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_causal_lip_old_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_causal_lip_old_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_causal_slot_fixed_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_causal_slot_fixed_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_causal_slot_fixed_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_causal_slot_fixed_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_causal_slot_fixed_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_causal_slot_fixed_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_causal_slot_old_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_causal_slot_old_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_causal_slot_old_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_causal_slot_old_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_causal_slot_old_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_causal_slot_old_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_cpu_01/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/final_cpu_01/restart-proof.json",
+    "artifacts/t04_crown_entry/final_cpu_01/restart.log.gz",
+    "artifacts/t04_crown_entry/final_cpu_01/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/final_cpu_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_cpu_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_cpu_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_cpu_01/verification.json",
+    "artifacts/t04_crown_entry/final_cpu_01/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/final_cpu_01/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/final_cpu_02/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/final_cpu_02/restart-proof.json",
+    "artifacts/t04_crown_entry/final_cpu_02/restart.log.gz",
+    "artifacts/t04_crown_entry/final_cpu_02/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/final_cpu_02/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_cpu_02/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_cpu_02/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_cpu_02/verification.json",
+    "artifacts/t04_crown_entry/final_cpu_02/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/final_cpu_02/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/final_lf_lip_old_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_lf_lip_old_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_lf_lip_old_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_lf_lip_old_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_lf_lip_old_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_lf_lip_old_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_lf_slot_fixed_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_lf_slot_fixed_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_lf_slot_fixed_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_lf_slot_fixed_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_lf_slot_fixed_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_lf_slot_fixed_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_lf_slot_old_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_lf_slot_old_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_lf_slot_old_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_lf_slot_old_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_lf_slot_old_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_lf_slot_old_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_lip_old_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_lip_old_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_lip_old_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_lip_old_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_lip_old_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_lip_old_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_lip_old_native/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_lip_old_native/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_lip_old_native/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_lip_old_native/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_lip_old_native/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_lip_old_native/verification.json",
+    "artifacts/t04_crown_entry/final_native_01/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/final_native_01/restart-proof.json",
+    "artifacts/t04_crown_entry/final_native_01/restart.log.gz",
+    "artifacts/t04_crown_entry/final_native_01/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/final_native_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_native_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_native_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_native_01/verification.json",
+    "artifacts/t04_crown_entry/final_native_01/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/final_native_01/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/final_negative_cpu/boss_defeated.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/boss_unlocked.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/build.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/cache.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/charted.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/checkpoint.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/energy.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/hp.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/inventory.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/max_hp.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/owned.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/pending.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/pid.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/region.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/regions.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/shortcuts.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/spawn.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/story.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_negative_cpu/wallet.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/boss_defeated.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/boss_unlocked.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/build.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/cache.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/charted.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/checkpoint.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/energy.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/hp.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/inventory.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/max_hp.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/owned.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/pending.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/pid.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/region.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/regions.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/shortcuts.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/spawn.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/story.log.gz",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/verification.json",
+    "artifacts/t04_crown_entry/final_negative_cpu_02/wallet.log.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_slot_fixed_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_slot_fixed_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_slot_fixed_native/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_slot_fixed_native/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_slot_fixed_native/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_native/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_native/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_slot_fixed_native/verification.json",
+    "artifacts/t04_crown_entry/final_slot_old_cpu/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_slot_old_cpu/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_slot_old_cpu/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_slot_old_cpu/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_slot_old_cpu/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_slot_old_cpu/verification.json",
+    "artifacts/t04_crown_entry/final_slot_old_native/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/final_slot_old_native/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/final_slot_old_native/runtime.log.gz",
+    "artifacts/t04_crown_entry/final_slot_old_native/source-after.json.gz",
+    "artifacts/t04_crown_entry/final_slot_old_native/source-before.json.gz",
+    "artifacts/t04_crown_entry/final_slot_old_native/verification.json",
+    "artifacts/t04_crown_entry/isolated_generator/build_chapter_terrain.old.py",
+    "artifacts/t04_crown_entry/isolated_generator/candidate/demo_ch01_moss_bell_court.json",
+    "artifacts/t04_crown_entry/isolated_generator/candidate/demo_ch02_rain_foundry_canal.json",
+    "artifacts/t04_crown_entry/isolated_generator/candidate/demo_ch03_saltwhite_archive.json",
+    "artifacts/t04_crown_entry/isolated_generator/candidate/demo_ch04_broken_string_greenhouse.json",
+    "artifacts/t04_crown_entry/isolated_generator/candidate/demo_ch05_obsidian_pilgrim_road.json",
+    "artifacts/t04_crown_entry/isolated_generator/candidate/demo_ch06_silent_crown_core.json",
+    "artifacts/t04_crown_entry/isolated_generator/candidate_lip.demo_ch06.json",
+    "artifacts/t04_crown_entry/isolated_generator/comparison.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/candidate/demo_ch01_moss_bell_court.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/candidate/demo_ch02_rain_foundry_canal.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/candidate/demo_ch03_saltwhite_archive.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/candidate/demo_ch04_broken_string_greenhouse.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/candidate/demo_ch05_obsidian_pilgrim_road.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/candidate/demo_ch06_silent_crown_core.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/comparison.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/old/demo_ch01_moss_bell_court.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/old/demo_ch02_rain_foundry_canal.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/old/demo_ch03_saltwhite_archive.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/old/demo_ch04_broken_string_greenhouse.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/old/demo_ch05_obsidian_pilgrim_road.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/old/demo_ch06_silent_crown_core.json",
+    "artifacts/t04_crown_entry/isolated_generator/final/rebuild.log.gz",
+    "artifacts/t04_crown_entry/isolated_generator/geometry-delta.json",
+    "artifacts/t04_crown_entry/isolated_generator/geometry-provenance-final.json",
+    "artifacts/t04_crown_entry/isolated_generator/old/demo_ch01_moss_bell_court.json",
+    "artifacts/t04_crown_entry/isolated_generator/old/demo_ch02_rain_foundry_canal.json",
+    "artifacts/t04_crown_entry/isolated_generator/old/demo_ch03_saltwhite_archive.json",
+    "artifacts/t04_crown_entry/isolated_generator/old/demo_ch04_broken_string_greenhouse.json",
+    "artifacts/t04_crown_entry/isolated_generator/old/demo_ch05_obsidian_pilgrim_road.json",
+    "artifacts/t04_crown_entry/isolated_generator/old/demo_ch06_silent_crown_core.json",
+    "artifacts/t04_crown_entry/isolated_generator/prepare_gbk_failure.json",
+    "artifacts/t04_crown_entry/isolated_generator/prepare_number_failure.json",
+    "artifacts/t04_crown_entry/isolated_generator/published-delta.json",
+    "artifacts/t04_crown_entry/isolated_generator/published.demo_ch06.json",
+    "artifacts/t04_crown_entry/isolated_generator/published_final_lf.demo_ch06.json",
+    "artifacts/t04_crown_entry/isolated_generator/published_lip.demo_ch06.json",
+    "artifacts/t04_crown_entry/lip_candidate_01/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/lip_candidate_01/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/lip_candidate_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/lip_candidate_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/lip_candidate_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/lip_candidate_01/verification.json",
+    "artifacts/t04_crown_entry/lip_old_01/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/lip_old_01/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/lip_old_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/lip_old_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/lip_old_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/lip_old_01/verification.json",
+    "artifacts/t04_crown_entry/main_d380_imports.json",
+    "artifacts/t04_crown_entry/manifest.json",
+    "artifacts/t04_crown_entry/negative_cpu_01/boss_defeated.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/boss_unlocked.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/build.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/cache.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/charted.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/checkpoint.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/energy.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/hp.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/inventory.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/max_hp.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/owned.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/pending.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/pid.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/region.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/regions.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/shortcuts.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/spawn.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/story.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_01/verification.json",
+    "artifacts/t04_crown_entry/negative_cpu_01/wallet.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/boss_defeated.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/boss_unlocked.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/build.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/cache.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/charted.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/checkpoint.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/energy.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/hp.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/inventory.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/max_hp.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/owned.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/pending.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/pid.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/region.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/regions.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/shortcuts.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/spawn.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/story.log.gz",
+    "artifacts/t04_crown_entry/negative_cpu_02/verification.json",
+    "artifacts/t04_crown_entry/negative_cpu_02/wallet.log.gz",
+    "artifacts/t04_crown_entry/npm-campaign-final.log.gz",
+    "artifacts/t04_crown_entry/npm-test-final.log.gz",
+    "artifacts/t04_crown_entry/npm-test-initial-count-failure.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_01/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_01/verification.json",
+    "artifacts/t04_crown_entry/proof_cpu_01/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_01/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/proof_cpu_02/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_02/runtime.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_02/source-after.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_02/source-before.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_02/verification.json",
+    "artifacts/t04_crown_entry/proof_cpu_02/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_02/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/proof_cpu_03/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_03/runtime.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_03/source-after.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_03/source-before.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_03/verification.json",
+    "artifacts/t04_crown_entry/proof_cpu_03/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_03/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/proof_cpu_04/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/proof_cpu_04/restart-proof.json",
+    "artifacts/t04_crown_entry/proof_cpu_04/restart.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_04/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_04/runtime.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_04/source-after.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_04/source-before.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_04/verification.json",
+    "artifacts/t04_crown_entry/proof_cpu_04/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_04/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/proof_cpu_05/earned_lower_seed.json",
+    "artifacts/t04_crown_entry/proof_cpu_05/restart-proof.json",
+    "artifacts/t04_crown_entry/proof_cpu_05/restart.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_05/run_crown_entry.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_05/runtime.log.gz",
+    "artifacts/t04_crown_entry/proof_cpu_05/source-after.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_05/source-before.json.gz",
+    "artifacts/t04_crown_entry/proof_cpu_05/verification.json",
+    "artifacts/t04_crown_entry/proof_cpu_05/verify_crown_entry_proofs.py.txt",
+    "artifacts/t04_crown_entry/proof_cpu_05/world_crown_entry_playback.gd.txt",
+    "artifacts/t04_crown_entry/related_c1_c2_imports.json",
+    "artifacts/t04_crown_entry/related_c1_c2_imports_corrected.json",
+    "artifacts/t04_crown_entry/related_cpu_01/crown_rain_slot.log.gz",
+    "artifacts/t04_crown_entry/related_cpu_01/silent_crown_experience.log.gz",
+    "artifacts/t04_crown_entry/related_cpu_02/crown_rain_slot.log.gz",
+    "artifacts/t04_crown_entry/related_cpu_02/silent_crown_experience.log.gz",
+    "artifacts/t04_crown_entry/related_cpu_final/crown_rain_slot.log.gz",
+    "artifacts/t04_crown_entry/related_cpu_final/silent_crown_experience.log.gz",
+    "artifacts/t04_crown_entry/seed_provenance.json",
+    "artifacts/t04_crown_entry/slot_candidate_03/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/slot_candidate_03/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/slot_candidate_03/runtime.log.gz",
+    "artifacts/t04_crown_entry/slot_candidate_03/source-after.json.gz",
+    "artifacts/t04_crown_entry/slot_candidate_03/source-before.json.gz",
+    "artifacts/t04_crown_entry/slot_candidate_03/verification.json",
+    "artifacts/t04_crown_entry/slot_old_01/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/slot_old_01/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/slot_old_01/runtime.log.gz",
+    "artifacts/t04_crown_entry/slot_old_01/source-after.json.gz",
+    "artifacts/t04_crown_entry/slot_old_01/source-before.json.gz",
+    "artifacts/t04_crown_entry/slot_old_01/verification.json",
+    "artifacts/t04_crown_entry/slot_old_02/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/slot_old_02/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/slot_old_02/runtime.log.gz",
+    "artifacts/t04_crown_entry/slot_old_02/source-after.json.gz",
+    "artifacts/t04_crown_entry/slot_old_02/source-before.json.gz",
+    "artifacts/t04_crown_entry/slot_old_02/verification.json",
+    "artifacts/t04_crown_entry/slot_old_03/crown_rain_slot_validation.gd.txt",
+    "artifacts/t04_crown_entry/slot_old_03/run_crown_slot.py.txt",
+    "artifacts/t04_crown_entry/slot_old_03/runtime.log.gz",
+    "artifacts/t04_crown_entry/slot_old_03/source-after.json.gz",
+    "artifacts/t04_crown_entry/slot_old_03/source-before.json.gz",
+    "artifacts/t04_crown_entry/slot_old_03/verification.json",
+    "artifacts/t04_crown_entry/static-checks.json",
+    "docs/UPGRADE_COMPLETION_CHECKLIST.md",
+    "docs/UPGRADE_PROGRESS.md",
+    "docs/UPGRADE_TASK_LEDGER.md",
+    "docs/report/20261024_e03_permanent_capacity.md",
+    "docs/report/20261024_quiet_sole_catalog_contract.md",
+    "docs/report/20261024_t03_quiet_sole_audio.md",
+    "docs/report/20261024_t03_window_close.md",
+    "docs/report/20261024_t04_crown_entry.md",
+    "godot/assets/ui/seals/damp_knot.svg",
+    "godot/assets/ui/seals/damp_knot.svg.import",
+    "godot/assets/ui/seals/quiet_sole.svg",
+    "godot/data/build_catalog.json",
+    "godot/data/demo_ch06_silent_crown_core.json",
+    "godot/scripts/application_close.gd",
+    "godot/scripts/application_close_validation.gd",
+    "godot/scripts/build_slots_ui_validation.gd",
+    "godot/scripts/build_system_validation.gd",
+    "godot/scripts/crown_rain_slot_validation.gd",
+    "godot/scripts/legacy_travel_rewards_validation.gd",
+    "godot/scripts/main_level.gd",
+    "godot/scripts/pilgrimage_interface.gd",
+    "godot/scripts/quiet_sole_traps_validation.gd",
+    "godot/scripts/window_close_probe.gd",
+    "godot/scripts/wish_reward_atomic_validation.gd",
+    "godot/scripts/world_crown_entry_playback.gd",
+    "godot/tests/fixtures/quiet_sole_earned_return.json",
+    "tools/build_chapter_terrain.py",
+    "tools/godot_suite_success_markers.json",
+    "tools/probe_window_close.py",
+    "tools/run_crown_entry.py",
+    "tools/run_crown_slot.py",
+    "tools/run_godot_regressions.py",
+    "tools/run_permanent_capacity.py",
+    "tools/run_quiet_sole_audio.py",
+    "tools/test_regression_runner.py",
+    "tools/validate_seal_catalog.py",
+    "tools/verify_crown_entry_proofs.py"
+  ]
+}
