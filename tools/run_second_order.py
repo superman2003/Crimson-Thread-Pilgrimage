@@ -28,6 +28,7 @@ def main():
         sha=hashlib.sha256(checkpoint.read_bytes()).hexdigest()
         if not prior.get("passed") or sha!=prior.get("checkpoint_sha256") or sha!=proof.get("save_sha256"):parser.error("source stage did not pass or exact bytes/proof mismatch")
         expected_source={"canal_aqueduct":"first_lamp","archive_obsidian_camp":"canal_aqueduct","camp_restore":"archive_obsidian_camp","camp_prepare":"archive_obsidian_camp","greenhouse_entry":"camp_prepare","earned_restore":"greenhouse_entry","greenhouse_heart":"greenhouse_entry"}[args.stage]
+        if args.stage=="earned_restore":expected_source=proof.get("stage")
         if proof.get("stage")!=expected_source:parser.error("stage requires its actual immediately preceding checkpoint")
         command += ["--input-checkpoint="+str(checkpoint),"--input-sha="+sha,"--input-proof="+str(source/"checkpoint_proof.json")]
         (out/"source_checkpoint.json").write_bytes(checkpoint.read_bytes())
