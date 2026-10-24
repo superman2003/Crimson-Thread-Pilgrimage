@@ -213,3 +213,6 @@ tools/verify_earned_dash_proofs.py -text whitespace=cr-at-eol
 artifacts/t04_bride_retry/** -text whitespace=cr-at-eol
 artifacts/e03_permanent_capacity/** -text whitespace=cr-at-eol
 artifacts/e03_permanent_capacity/**/*.png -filter -diff -merge -text
+
+# Native evidence for the original damp-knot travel reward.
+artifacts/e03_legacy_travel/**/*.png -filter -diff -merge -text
