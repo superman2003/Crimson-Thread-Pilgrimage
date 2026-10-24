@@ -25,9 +25,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -56,6 +56,7 @@ func _run() -> void:
         elif order_stage == "archive_obsidian_camp":await archive_obsidian_camp()
         elif order_stage == "camp_prepare":await camp_prepare()
         elif order_stage == "greenhouse_entry":await greenhouse_entry()
+        elif order_stage == "greenhouse_heart":await greenhouse_heart()
         elif order_stage=="earned_restore":
             _check(same_json(scene.story_flags,parent_proof.flags) and scene.player.max_hp==int(parent_proof.max_hp) and scene.player.max_energy==int(parent_proof.max_energy),"independent production World restores exact earned flags and resource limits")
         else:
@@ -454,3 +455,98 @@ func greenhouse_entry() -> void:
     _check(scene.active_save_point_id=="save_late_runback" and scene.player.hp==scene.player.max_hp,"normal dome shrine rest after first C4 entry")
     _check(scene.build_system.serialize().passives.has("stride") and not scene.player.dash_unlocked,"alternate legal equipment persists across the real region change")
     if failures==0:export_checkpoint("actual stride camp -> C5 original guide quoted map/quill purchases -> original C5-C4 slag portal -> first C4 dome shrine")
+
+func order_flying_duel(spawn_id: String="E06",hold_x: float=5340,direction: int=1) -> bool:
+    steps+=1
+    _release()
+    await _tick(3)
+    if not await order_walk_only(Vector2(hold_x+10,2098 if spawn_id=="E06" else 928)):return false
+    var before_wallet: int=scene.currency_count
+    var before_pollen: int=scene.inventory_counts.get("pollen_wax",0)
+    var cost: int=int(scene.build_system.selected_skill().get("energy_cost",999))
+    scene.player.skill_cast.connect(func(id: String):print("GREENHOUSE_BEE_SKILL ",JSON.stringify({"id":id,"position":str(scene.player.position),"energy":scene.player.energy})))
+    var jump_at := -100
+    var skill_at := -100
+    for frame in 600:
+        var bee: Node2D
+        for candidate in get_nodes_in_group("enemy"):
+            if is_instance_valid(candidate) and candidate.get("spawn_id")==spawn_id and candidate.get("hp")!=null and candidate.hp>0:bee=candidate
+        if bee==null:
+            _release()
+            Input.action_release("skill_1")
+            for settle in 120:
+                await _tick()
+                if scene.player.is_on_floor() and scene.player.attack_timer<=0 and scene.player.hurt_timer<=0:break
+            await _recover()
+            _check(scene.currency_count==before_wallet+8 and scene.inventory_counts.get("pollen_wax",0)==before_pollen+1,"actual vine bee awards its normal income and material")
+            print("GREENHOUSE_VINE_BEE_CLEARED ",scene.player.position)
+            return failures==0
+        var player: CharacterBody2D=scene.player
+        var dx: float=hold_x-player.position.x
+        _axis(signf(dx) if absf(dx)>10 else (float(direction) if player.facing!=direction else 0.0))
+        if frame-jump_at>=35 and Input.is_action_pressed("jump"):Input.action_release("jump")
+        if absf(player.position.y-bee.position.y)>90 and player.is_on_floor() and player.attack_timer<=0 and player.hurt_timer<=0 and not Input.is_action_pressed("jump"):
+            Input.action_press("jump")
+            jump_at=frame
+            await process_frame
+        if frame-skill_at>=2 and Input.is_action_pressed("skill_1"):Input.action_release("skill_1")
+        if absf(player.position.y-bee.position.y)<80 and absf(player.position.x-bee.position.x)<120 and player.attack_timer<=0 and player.hurt_timer<=0 and player.skill_cooldown<=0 and player.energy>=cost and frames%20>=5:
+            Input.action_press("skill_1")
+            skill_at=frame
+            await process_frame
+        await _tick()
+        if frame%90==89:print("GREENHOUSE_BEE_DUEL ",JSON.stringify({"player":str(player.position),"bee":str(bee.position),"bee_hp":bee.hp,"hp":player.hp}))
+        if deaths>0:break
+    _release()
+    Input.action_release("skill_1")
+    _check(false,"actual vine bee duel did not finish")
+    return false
+
+func order_precise_interact(id: String, x: float) -> bool:
+    steps+=1
+    _release()
+    for frame in 240:
+        var dx: float=x-scene.player.position.x
+        Input.action_release("move_left")
+        Input.action_release("move_right")
+        if absf(dx)>1:
+            Input.action_press("move_right" if dx>0 else "move_left",clampf(absf(dx)/60.0,0.08,1.0))
+        await _tick()
+        if absf(dx)<2 and absf(scene.player.velocity.x)<8:
+            _release()
+            await _tick(15)
+            var target: Area2D=scene.interaction_target()
+            if target!=null and String(target.name)==id:
+                print("GREENHOUSE_INTERACTION ",JSON.stringify({"id":id,"position":str(scene.player.position)}))
+                await _world_interact()
+                _check(not _transition_busy(),"tree heart interaction does not enter the adjacent workshop")
+                return failures==0
+            print("GREENHOUSE_INTERACTION_PENDING ",str(scene.player.position)," target=",target.name if target!=null else "none")
+    _release()
+    _check(false,"cannot aim the normal tree heart interaction at "+id)
+    return false
+
+
+func greenhouse_heart() -> void:
+    _check(scene.active_save_point_id=="save_late_runback" and not scene.player.thorn_downstrike_unlocked,"continues actual first greenhouse shrine before its original thorn pickup")
+    for point in [Vector2(4820,806),Vector2(4590,892),Vector2(4280,928)]:
+        if not await order_leap(point,35,"normal dome return into original tree canopy"):return
+    if not await order_flying_duel("E08",4280,-1):return
+    if not await order_walk_only(Vector2(4060,928)):return
+    if not await order_leap(Vector2(3770,882),35,"original canopy western takeoff"):return
+    for point in [Vector2(3605,1054),Vector2(3760,1164),Vector2(3560,1274),Vector2(3750,1384),Vector2(3565,1494),Vector2(3315,1632)]:
+        if not await order_walk_only(point):return
+    if not await order_leap(Vector2(3150,1602),999,"ordinary original tree heart entrance"):return
+    if not await order_walk_only(Vector2(3060,1602)):return
+    if not await order_clear():return
+    if not await order_walk_only(Vector2(2730,1602)):return
+    if not await order_precise_interact("save_ch04_lower_loop",2750):return
+    if not await order_walk_only(Vector2(2790,1602)):return
+    if not await order_precise_interact("col_testimony_04",2770):return
+    _check(int(scene.inventory_counts.get("testimony_04",0))==1,"normal F reads and collects the authored fourth testimony")
+    if not await order_walk_only(Vector2(2830,1602)):return
+    _check(int(scene.inventory_counts.get("thorn_downstrike",0))==1 and scene.player.thorn_downstrike_unlocked,"original automatic physical pickup earns permanent thorn downstrike after C5")
+    if not await order_walk_only(Vector2(2730,1602)):return
+    if not await order_precise_interact("save_ch04_lower_loop",2750):return
+    _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"actual tree heart shrine refills by normal rest")
+    if failures==0:export_checkpoint("actual second-order C4 dome -> original canopy and tree heart -> real fourth testimony/thorn pickups -> normal tree heart rest")
