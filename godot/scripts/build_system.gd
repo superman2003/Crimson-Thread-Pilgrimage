@@ -599,6 +599,12 @@ func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
         "active_tool_slot": state.active_tool_slot, "equipped_families": state.equipped_families.duplicate(true)}
     return _ok()
 
+func delete_loadout(name: String, at_bell: bool = true) -> Dictionary:
+    if not at_bell:return _fail("请在钟龛管理构筑方案")
+    if not state.loadouts.has(name):return _fail("方案不存在")
+    state.loadouts.erase(name)
+    return _ok({"reason":"已删除构筑方案；当前装备不变。"})
+
 ## Read-only quote using the same validator and profile as an actual restore.
 func preview_loadout(name: String, at_bell: bool = true) -> Dictionary:
     if not state.loadouts.has(name): return _fail("方案尚未保存")

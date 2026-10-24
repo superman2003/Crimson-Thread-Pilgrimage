@@ -172,8 +172,10 @@ func _run() -> void:
     _check(ui.build_detail.text.contains("容量比较") and ui.build_summary.text.contains("旅行饰品 0/1"),"Accessory preview compares cost and real typed-family counts")
     _check(accessory_option.disabled==false,"Compatible unlocked accessory can be selected")
     await process_frame
-    var fixture_image:=ui.get_viewport().get_texture().get_image()
-    if fixture_image!=null:fixture_image.save_png(ProjectSettings.globalize_path("user://build_slots_ui_validation_fixture.png"))
+    # Dummy has no viewport texture; all layout/input assertions still run.
+    if DisplayServer.get_name()!="headless":
+        var fixture_image:=ui.get_viewport().get_texture().get_image()
+        if fixture_image!=null:fixture_image.save_png(ProjectSettings.globalize_path("user://build_slots_ui_validation_fixture.png"))
     fixture_label.queue_free()
     ui.family_selector_buttons[1].pressed.emit()
     _check(ui.build_family=="travel_accessory" and ui.build_grid.get_child_count()==1,"Travel accessory selector shows only its own family options")
@@ -236,7 +238,26 @@ func _run() -> void:
     await process_frame
     _check(ui.build_detail.text.contains("方案尚未保存") and ui.build_detail.text.contains("不清空冷却"),"Empty plan focus explains resource preservation and permits saving")
     save_second.pressed.emit()
+    _check(ui.loadout_dialog.visible and runtime.last_action!="save_loadout","Overwriting a saved plan requires an explicit confirmation")
+    _check(ui.loadout_dialog.gui_get_focus_owner()==ui.loadout_dialog.get_cancel_button(),"Overwrite dialog defaults to keeping the old plan")
+    ui.loadout_dialog.get_cancel_button().pressed.emit()
+    _check(ui.pending_loadout_action.is_empty(),"Cancelling overwrite clears the pending operation")
+    save_second.pressed.emit()
+    ui.loadout_dialog.confirmed.emit()
+    ui.loadout_dialog.hide()
     _check(runtime.last_action=="save_loadout" and runtime.last_id=="巡礼方案 2","Save row dispatch keeps the focused plan identity")
+    _check(ui._loadout_names(runtime.build_system.snapshot).size()==8 and ui._loadout_names(runtime.build_system.snapshot).has("巡礼方案 8"),"All eight backend slots are reachable from the UI")
+    runtime.build_system.snapshot.loadouts=["旧旅途自定义名称"]
+    var names:=ui._loadout_names(runtime.build_system.snapshot)
+    _check(names.size()==8 and names.has("旧旅途自定义名称"),"Custom names from old saves remain visible without exceeding eight rows")
+    runtime.build_system.snapshot.loadouts=["巡礼方案 2"]
+    ui._request_loadout_change("delete_loadout","巡礼方案 2")
+    _check(ui.loadout_dialog.dialog_text.contains("当前装备") and ui.pending_loadout_action=="delete_loadout","Deletion explains that current equipment is retained")
+    runtime.build_system.snapshot.at_workstation=false
+    var previous_calls:=runtime.action_calls.size()
+    ui._confirm_loadout_change()
+    _check(runtime.action_calls.size()==previous_calls,"Leaving the shrine before confirming cannot delete a plan")
+    ui.loadout_dialog.hide()
     runtime.free()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(SETTINGS_PATH))
     await process_frame
