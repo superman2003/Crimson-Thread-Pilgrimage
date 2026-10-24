@@ -1708,6 +1708,7 @@ func _show_build_detail(entry: Dictionary) -> void:
         if not projected.is_empty():
             lines.append("生命上限：%d → %d" % [int(level.player.max_hp),int(projected.get("max_hp",level.player.max_hp))])
             lines.append("绯线上限：%d → %d" % [int(level.player.max_energy),int(projected.get("max_energy",level.player.max_energy))])
+            lines.append("陷阱触发宽高：%d%% → %d%%" % [int(round(float(level.player.build_profile.get("hazard_trigger_mult",1.0))*100)),int(round(float(projected.get("hazard_trigger_mult",1.0))*100))])
         lines.append("恢复不补充生命、绯线或次数，不清空冷却；超出新上限的生命与绯线会截断。")
     if entry.has("mechanism_unlocked") and not bool(entry.mechanism_unlocked):lines.append("\n◇ 专属机制尚未修复：基础战斗与永久探索能力仍可使用，完成来源委托后启用。")
     if entry.has("slots"):

@@ -4823,8 +4823,10 @@ func _hazard(data: Dictionary) -> void:
 
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
-    rectangle.size = rect.size
+    shape.name = "TriggerShape"
+    rectangle.size = rect.size * _hazard_trigger_multiplier()
     shape.shape = rectangle
+    area.set_meta("hazard_authored_size", rect.size)
     area.add_child(shape)
     HAZARD_POGO.mark(area, String(data.get("kind", "spikes")), rect.size)
 
@@ -7498,6 +7500,27 @@ func _sync_player_build() -> void:
         if profile != applied_build_profile:
             player.apply_build_stats(profile)
             applied_build_profile = profile.duplicate(true)
+            _sync_hazard_trigger_sizes()
+
+## Only trap triggers change. Player collision, enemy attacks and the authored
+## spike pogo surface retain their original geometry.
+func _hazard_trigger_multiplier() -> float:
+    if not is_instance_valid(player):return 1.0
+    var profile: Variant = player.get("build_profile")
+    if not profile is Dictionary:return 1.0
+    return clampf(float(profile.get("hazard_trigger_mult", 1.0)), 0.5, 1.0)
+
+func _sync_hazard_trigger_sizes() -> void:
+    var multiplier := _hazard_trigger_multiplier()
+    for child in get_children():
+        if not child is Area2D or not child.has_meta("hazard_authored_size"):continue
+        var shape := child.get_node_or_null("TriggerShape") as CollisionShape2D
+        if shape == null or not shape.shape is RectangleShape2D:continue
+        var authored: Vector2 = child.get_meta("hazard_authored_size")
+        var size := authored * multiplier
+        if not shape.shape.size.is_equal_approx(size):
+            # Pickups may sync progress inside a physics body-entered callback.
+            shape.shape.set_deferred("size", size)
 
 func _bind_build_inputs() -> void:
     var bindings := {"skill_cycle": [KEY_C, JOY_AXIS_TRIGGER_LEFT],
