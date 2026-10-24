@@ -7804,7 +7804,9 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
         "equip_passive", "passive":
             result = build_system.equip_passive(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整铭饰"}
         "save_loadout":
-            result = build_system.save_loadout(id)
+            result = build_system.save_loadout(id, _near_workstation())
+        "delete_loadout":
+            result = build_system.delete_loadout(id, _near_workstation())
         "restore_loadout", "load_loadout":
             result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
         "resupply_tools", "paid_resupply":

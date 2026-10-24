@@ -141,6 +141,17 @@ func _run() -> void:
 		and _tool_effect_count() == effect_count_before + 1,
 		"successful tool use spends exactly one charge for one effect")
 
+	# E05: plan management is durable and uses the same rollback path as crafts.
+	var plan_id:="事务删除方案"
+	_check(scene.perform_build_action("save_loadout",plan_id).get("ok",false),"real shrine saves a named plan")
+	var plans_before: Dictionary=build.serialize()
+	scene.world_save_failure_injected_for_validation=true
+	_check(not scene.perform_build_action("delete_loadout",plan_id).get("ok",false) and build.serialize()==plans_before,"failed plan deletion restores the exact saved plan")
+	scene.world_save_failure_injected_for_validation=false
+	_check(scene.perform_build_action("delete_loadout",plan_id).get("ok",false) and not build.state.loadouts.has(plan_id),"successful deletion is persisted through the production transaction")
+	player.global_position=Vector2(70000,70000)
+	plans_before=build.serialize()
+	_check(not scene.perform_build_action("save_loadout","道路方案").get("ok",false) and build.serialize()==plans_before,"production action rejects saving plans away from a shrine")
 	_finish()
 
 func _find_area(kind: String, id: String) -> Area2D:

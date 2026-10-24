@@ -1,5 +1,11 @@
 # Crimson Thread Pilgrimage / 绯线巡礼
 
+## 升级进度（2026-10-24 开工快照）
+
+![46 项最终验收与当前子项证据](docs/gallery/upgrade_progress.svg)
+
+[进度图说明与下一批范围](docs/gallery/20261024_upgrade_progress.md) · [任务台账](docs/UPGRADE_TASK_LEDGER.md) · [最终验收清单](docs/UPGRADE_COMPLETION_CHECKLIST.md)
+
 ## 当前版本实机画面（2026-10-15）
 
 以下图片重新运行 **main `03b4919` 的 Godot 4.6.1 / World.tscn** 截取，展示当前 HUD、分类行囊、四类装备槽、付费战具补给与地图。此前首页仍引用 10 月 11 日的静态截图，现在以本次实机取样替换。后续未合入的 PR 不计入这组图片。

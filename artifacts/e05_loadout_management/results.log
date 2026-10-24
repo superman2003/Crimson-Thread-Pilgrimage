@@ -1,0 +1,30 @@
+Running build_system
+FAIL: build_system: exit=1 engine_errors=1 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+ERROR: Deleted plan stays deleted after serialization
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://scripts/build_system_validation.gd:161)
+Running build_slots_ui
+FAIL: build_slots_ui: exit=1 engine_errors=2 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+ERROR: Parameter "t" is null.
+   at: texture_2d_get (./servers/rendering/dummy/storage/texture_storage.h:106)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/build_slots_ui_validation.gd:175)
+ERROR: Overwrite dialog defaults to keeping the old plan
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/build_slots_ui_validation.gd:262)
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=44 failures=1 capture=user://build_slots_ui_validation_fixture.png
+Running build_transaction_runtime
+PASS: build_transaction_runtime
+坠落损失一格生命，绯线带你回到钟龛。能量保持当前值。
+按 F 休息，恢复状态并记录归途。
+Running input_settings_regression
+PASS: input_settings_regression
+
+INPUT_SETTINGS_REGRESSION checks=91 failures=0
+GODOT_REGRESSIONS suites=4 failures=2

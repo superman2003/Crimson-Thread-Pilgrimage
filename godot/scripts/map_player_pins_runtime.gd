@@ -31,11 +31,16 @@ static func setup(level: Node) -> void:
     var list := OptionButton.new()
     list.name = "PinList"
     list.position = Vector2(248, 0)
-    list.size = Vector2(218, 34)
+    list.size = Vector2(150, 34)
     list.clip_text = true
     list.focus_mode = Control.FOCUS_ALL
     toolbar.add_child(list)
-    var delete_button: Button = level.ui_shell._button(toolbar, "删除图钉", Vector2(472, 0), Vector2(92, 34), func():
+    var locate_button: Button = level.ui_shell._button(toolbar,"查看图钉",Vector2(404,0),Vector2(76,34),func():
+        _dispatch(host_ref,toolbar_ref,view_ref,"locate"))
+    locate_button.name="PinLocate"
+    locate_button.add_theme_font_size_override("font_size",13)
+    locate_button.tooltip_text="把已知图钉移到视野内；跨区图钉使用世界图，不移动角色。"
+    var delete_button: Button = level.ui_shell._button(toolbar, "删除图钉", Vector2(486, 0), Vector2(92, 34), func():
         _dispatch(host_ref, toolbar_ref, view_ref, "delete"))
     delete_button.name = "PinDelete"
     delete_button.tooltip_text = "删除列表中选中的自定义图钉。"
@@ -63,8 +68,11 @@ static func _dispatch(host_ref: WeakRef, toolbar_ref: WeakRef, view_ref: WeakRef
     match action:
         "add": add_current(level)
         "delete": delete_selected(level)
+        "locate": locate_selected(level)
         "point": add_at_content(level, point)
-        "selection": toolbar.get_node("PinDelete").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
+        "selection":
+            toolbar.get_node("PinDelete").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
+            toolbar.get_node("PinLocate").disabled = toolbar.get_node("PinList").get_selected_id() <= 0
 
 static func _owns(level: Variant, toolbar: Control, view: Control) -> bool:
     return is_instance_valid(level) and level.is_inside_tree() and not level.is_queued_for_deletion() and is_instance_valid(toolbar) and toolbar.is_inside_tree() and not toolbar.is_queued_for_deletion() and is_instance_valid(view) and view.is_inside_tree() and not view.is_queued_for_deletion() and toolbar.get_parent() == level.map_panel and toolbar == level.map_panel.get_node_or_null("PlayerPinToolbar") and view.get_parent() == level.map_panel and view == level.survey_map_view
@@ -112,6 +120,7 @@ static func refresh(level: Node) -> void:
     _add_leaders(markers, level.map_draw_root)
     toolbar.get_node("PinCurrent").disabled = level.world_save_blocked or not PINS.allowed(level.story_flags, String(level.config.id), level.config, level.player.global_position)
     toolbar.get_node("PinDelete").disabled = level.world_save_blocked or list.get_selected_id() <= 0
+    toolbar.get_node("PinLocate").disabled = list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     level.map_text.text += "    右键标记 · 上方按钮支持手柄"
 
@@ -314,6 +323,7 @@ static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs:
     list.clear()
     for index in ids.size():
         list.add_item(labels[index], ids[index])
+        list.set_item_tooltip(index,labels[index])
         if ids[index] == selected: list.select(index)
 
 static func project(level: Node, region: String, point: Vector2) -> Vector2:
@@ -365,6 +375,21 @@ static func delete_selected(level: Node) -> Dictionary:
     if level.world_save_blocked: return _blocked(level)
     var list: OptionButton = level.map_panel.get_node("PlayerPinToolbar/PinList")
     return _commit(level, PINS.remove(level.story_flags, configurations(level), list.get_selected_id()))
+
+static func locate_selected(level: Node) -> Dictionary:
+    if not _editable(level):return {"ok":false,"reason":"请在当前地图中查看。"}
+    var list: OptionButton=level.map_panel.get_node("PlayerPinToolbar/PinList")
+    var selected:=list.get_selected_id()
+    for record in PINS.visible(level.story_flags,configurations(level)):
+        if int(record.id)!=selected:continue
+        if not level.world_map_view and record.region_id!=String(level.config.id):
+            level.world_map_view=true
+            level._refresh_map_overlay()
+        var point:=project(level,record.region_id,Vector2(record.position[0],record.position[1]))
+        if not level.survey_map_view.center_on(point):return {"ok":false,"reason":"图钉位置无法显示。"}
+        _notify(level,"正在查看图钉 %d；角色与旅途进度不变。" % selected)
+        return {"ok":true,"id":selected}
+    return {"ok":false,"reason":"请选择一个已知图钉。"}
 
 static func _blocked(level: Node) -> Dictionary:
     var result := {"ok": false, "reason": "归途记录暂停写入，暂不能修改图钉。"}
