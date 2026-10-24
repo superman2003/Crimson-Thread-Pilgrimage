@@ -6,6 +6,7 @@ const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
 static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
+const HUD_OCCLUSION := preload("res://scripts/hud_occlusion.gd")
 const IVORY := Color("e8d7b8")
 const GOLD := Color("bca07a")
 const MUTED := Color("a2b3aa")
@@ -18,6 +19,8 @@ var hud_crest: TextureRect
 var health_glyphs: Control
 var modal_shade: ColorRect
 var tactical_cards: Array[Panel]=[]
+## U03: per-group HUD alpha while the fight is behind it ("top" / "tactical").
+var hud_group_alpha := {"top":1.0,"tactical":1.0}
 var tactical_icons: Array[TextureRect]=[]
 var tactical_names: Array[Label]=[]
 var tactical_values: Array[Label]=[]
@@ -1984,6 +1987,7 @@ func _process(delta: float) -> void:
         energy_status.text="%d / %d" % [int(player.energy),int(player.max_energy)]
         _refresh_thread_thresholds(player)
         _refresh_combat_status(player)
+        _refresh_hud_occlusion(delta)
     tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
     if tutorial_hint.visible:
         tutorial_hint.text="%s 跳跃   /   %s 普攻   /   %s 治疗" % [_short_binding("jump"),_short_binding("attack"),_short_binding("heal")]
@@ -2338,6 +2342,21 @@ func _ending_status_label(entry: Dictionary) -> String:
     if bool(entry.get("available",false)):return "可以选择"
     if String(entry.get("status",""))=="closed":return "已关闭"
     return "准备中"
+
+func _hud_groups() -> Dictionary:
+    return {"top":[hud_card,mechanism_status,healing_status,healing_bar,pinned],"tactical":tactical_cards}
+
+## The player, enemies and their attacks take priority over HUD chrome: a group
+## with any of them behind it on screen fades until the space is clear again.
+func _refresh_hud_occlusion(delta: float) -> void:
+    var occupants:=HUD_OCCLUSION.occupant_rects(level) if level.active_overlay=="" else ([] as Array[Rect2])
+    var groups:=_hud_groups()
+    for key in groups:
+        var faded:=HUD_OCCLUSION.covered(HUD_OCCLUSION.group_rect(groups[key]),occupants)
+        var alpha:=HUD_OCCLUSION.step_alpha(float(hud_group_alpha.get(key,1.0)),faded,delta)
+        hud_group_alpha[key]=alpha
+        for item in groups[key]:
+            if is_instance_valid(item):(item as CanvasItem).modulate.a=alpha
 
 ## U03: the thread meter itself says whether a heal and the active thread art
 ## are affordable. Dormant or empty active skill slots draw no cost mark.
