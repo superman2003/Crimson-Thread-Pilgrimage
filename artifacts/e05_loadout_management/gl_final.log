@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/run_godot_regressions.py", line 138, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/run_godot_regressions.py", line 87, in main
+    with display as renderer_env:
+         ^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/software_gl.py", line 36, in software_gl
+    raise RuntimeError('Xvfb exited during startup')
+RuntimeError: Xvfb exited during startup

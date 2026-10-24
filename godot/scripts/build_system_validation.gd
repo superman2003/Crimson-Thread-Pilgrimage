@@ -25,7 +25,16 @@ func _loadout_quotes() -> void:
     model.state.loadouts.bad.crest = "unknown"
     before = model.serialize()
     _check(not model.preview_loadout("bad").ok and model.preview_loadout("bad").reason.contains("契印") and model.serialize() == before, "incompatible plan reports the actual restore validator reason")
+    model.state.loadouts.erase("bad")
     _check(model.restore_loadout("saved").ok and model.profile() == saved_profile and model.state.tool_counts.shard == 1 and is_equal_approx(model.cooldowns.cleave,.42), "accepted restore matches quote and preserves stock/cooldown")
+    before=model.serialize()
+    _check(not model.delete_loadout("saved",false).ok and model.serialize()==before,"Road cannot delete a plan")
+    _check(not model.delete_loadout("missing").ok and model.serialize()==before,"Unknown plan deletion is read-only")
+    _check(model.delete_loadout("saved").ok and not model.state.loadouts.has("saved"),"Shrine deletion releases exactly the named saved slot")
+    before.loadouts.erase("saved")
+    _check(model.serialize()==before,"Deleting a plan preserves equipment stock and cooldown")
+    var roundtrip:=BUILD.new()
+    _check(roundtrip.restore(JSON.parse_string(JSON.stringify(model.serialize()))).ok and not roundtrip.state.loadouts.has("saved"),"Deleted plan stays deleted after serialization")
 
 func _initialize() -> void:
     var build := BUILD.new()
