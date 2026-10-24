@@ -66,6 +66,7 @@ func run() -> void:
     main._close_overlays()
     await preload("res://scripts/journal_records_validation.gd").new().run(main,self,check)
     preload("res://scripts/combat_hud_readiness_validation.gd").new().run(main,check)
+    preload("res://scripts/hud_occlusion_checks.gd").new().run(main,check)
     await boss_hud_retirement(main)
     main._toggle_audio_settings()
     await process_frame
