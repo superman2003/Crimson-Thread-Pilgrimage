@@ -5,8 +5,8 @@
 | 批次 | 台账方向 | 本批目标 | 状态／证据 |
 | --- | --- | --- | --- |
 | 1 | U06 改键 | 失焦／离开设置的退路，防止松开扳机误绑定 | 已上传 [#231](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/231)；[报告](report/20261024_u06_remap_lifecycle.md) |
-| 2 | E05 构筑 | 八套方案、旧自定义名称、覆盖确认与删除事务 | 本地通过，待上传；[报告](report/20261024_e05_loadout_management.md) |
-| 3 | U04 多层地图 | 已知房间的高度关系与图例 | 待核对现有实现 |
+| 2 | E05 构筑 | 八套方案、旧自定义名称、覆盖确认与删除事务 | 已上传 [#232](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/232)；[报告](report/20261024_e05_loadout_management.md) |
+| 3 | U04 多层地图 | 已知邻室的上／下／相近高度，区域图与世界图共用 | 本地三套 GL 与 npm 门禁通过，待上传；[报告](report/20261024_u04_map_height.md) |
 | 4 | U04 图钉 | 键鼠／手柄远端图钉导航与安全退路 | 待核对现有实现 |
 | 5 | U05 旅记 | 长文阅读与分类导航的实际缺口 | 待核对现有实现 |
 | 6 | T01 教学 | 可回看的操作／资源规则 | 待核对现有实现 |

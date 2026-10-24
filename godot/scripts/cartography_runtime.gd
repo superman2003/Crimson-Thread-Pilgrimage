@@ -118,7 +118,7 @@ static func shows_position(level: Node) -> bool:
 static func seller_price(seller: Dictionary) -> int:
     return int(seller.get("price", JOURNAL.PRICE))
 static func public_room(room: Dictionary) -> bool:
-    return String(room.get("kind","")) not in ["secret","reward","treasure","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
+    return KNOWLEDGE.public_room(room)
 static func region_bounds(level: Node) -> Rect2:
     # Visibility never changes the coordinate frame. Reserve space for every
     # authored room without emitting its outline, label or connections.
@@ -196,6 +196,7 @@ static func exclude_pocket(polygon: PackedVector2Array, pocket: Rect2) -> Array[
             result.append_array(Geometry2D.intersect_polygons(polygon,rect_polygon(slab)))
     return result
 static func paper(level: Node, enabled: bool) -> void:
+    if enabled:preload("res://scripts/map_room_context.gd").setup(level)
     var art: TextureRect=level.map_panel.get_node("MapBackgroundArt")
     art.texture=load("res://assets/ui/cartography/survey_paper.svg") if enabled else level._load_texture_resource(level._theme_map_background_texture())
     art.modulate=Color.WHITE if enabled else Color(1,1,1,0.07)
@@ -267,7 +268,7 @@ static func render(level: Node) -> void:
                     surface.terrain.append_array(Geometry2D.intersect_polygons(points,rect_polygon(part)))
         outline.set_meta("charted_sections",parts.size())
         outline.mouse_filter=Control.MOUSE_FILTER_PASS
-        outline.tooltip_text=level._room_name(room_id)
+        preload("res://scripts/map_room_context.gd").bind_room(level,outline,level.config,id,room_id)
         outline.set_meta("charted",detailed)
         host.add_child(outline)
     surface.prepare()

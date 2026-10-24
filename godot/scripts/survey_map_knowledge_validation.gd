@@ -26,6 +26,20 @@ func check(ok: bool, label: String) -> void:
 func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
+	var height_config:={"map_rooms":[{"id":"middle","name":"中庭","layout_rect":[0,400,200,200]},{"id":"upper","name":"上廊","layout_rect":[300,0,200,200]},{"id":"lower","name":"下库","layout_rect":[300,800,200,200]},{"id":"side","name":"横廊","layout_rect":[500,400,200,200]},{"id":"hidden","name":"未发现密室","kind":"secret","layout_rect":[600,800,100,100]}],"connections":[{"from":"middle","to":"upper"},{"from":"lower","to":"middle"},{"from":"middle","to":"side"},{"from":"middle","to":"hidden"},{"from":"middle","to":"upper"}]}
+	var height_flags: Dictionary={}
+	check(KNOWLEDGE.room_context(height_config,height_flags,"r","middle").is_empty(),"unpurchased map cannot reveal height context")
+	var height_journal:=JOURNAL.region(height_flags,"r")
+	height_journal.owned=true
+	var description:=KNOWLEDGE.room_context(height_config,height_flags,"r","middle")
+	check(description.contains("↑ 图上较高：上廊") and description.contains("↓ 图上较低：下库") and description.contains("↔ 相近高度：横廊"),"height context distinguishes upper lower and same-height neighbours in either edge direction")
+	check(not description.contains("未发现密室") and KNOWLEDGE.room_context(height_config,height_flags,"r","hidden").is_empty(),"height context withholds undiscovered secret identities")
+	check(description.count("上廊")==1 and description.contains("不表示道路已开放"),"duplicate edges are deduplicated and never promise passage")
+	height_journal.charted["hidden"]=true
+	check(KNOWLEDGE.room_context(height_config,height_flags,"r","middle").contains("未发现密室"),"charted secret may join known height context")
+	var unchanged:=height_flags.duplicate(true)
+	KNOWLEDGE.room_context(height_config,height_flags,"r","middle")
+	check(height_flags==unchanged,"describing map height never repairs or writes the journal")
 	var config := {"map_rooms":[
 		{"id":"hall", "layout_rect":[0,0,1000,1000]},
 		{"id":"inner", "kind":"secret", "layout_rect":[200,200,200,200]}],
@@ -266,6 +280,11 @@ func run() -> void:
 	journal.charted[String(room.id)] = true
 	scene._refresh_map_overlay()
 	check(marker_assertions(scene.map_draw_root,"local",region_id,"hazard:"+hazard_id,true).is_empty(),"real local component emits charted hazard marker")
+	var context: Label=scene.map_panel.get_node_or_null("MapRoomContext")
+	var room_control: Control=scene.map_draw_root.get_node("SurveyRoom_"+String(room.id))
+	room_control.focus_entered.emit()
+	check(context!=null and context.text.contains(String(room.get("name",room.id))) and room_control.focus_mode==Control.FOCUS_ALL,"keyboard room focus exposes height context in the actual local map")
+	check(Rect2(Vector2.ZERO,scene.map_panel.size).encloses(context.get_rect()) and not context.get_rect().intersects(scene.survey_map_view.get_rect()),"fixed map caption stays inside panel above the map viewport")
 	var ability_marker: Label = scene.map_draw_root.get_node_or_null("SurveyGate_"+ability_gate_id)
 	var action_marker: Label = scene.map_draw_root.get_node_or_null("SurveyGate_"+action_gate_id)
 	check(ability_marker!=null and ability_marker.text=="▣","real local component renders locked ability gate")
@@ -305,6 +324,9 @@ func run() -> void:
 	var world_shortcut: Label = scene.map_draw_root.get_node_or_null("WorldShortcut_"+region_id+"_"+shortcut_id)
 	check(world_shortcut != null and world_shortcut.text == "⇆","real world atlas reads the region's live shortcut state")
 	check(marker_assertions(scene.map_draw_root,"world",region_id,"hazard:"+hazard_id,true).is_empty(),"real world atlas emits same charted regional hazard")
+	var atlas_room: Control=scene.map_draw_root.get_node("WorldSurvey_"+region_id+"_"+String(room.id))
+	atlas_room.mouse_entered.emit()
+	check(context.text.contains(String(room.get("name",room.id))) and atlas_room.tooltip_text.contains("邻接"),"world atlas uses the same height context without consulting player location")
 	var world_ability: Label = scene.map_draw_root.get_node_or_null("WorldGate_"+region_id+"_"+ability_gate_id)
 	var world_action: Label = scene.map_draw_root.get_node_or_null("WorldGate_"+region_id+"_"+action_gate_id)
 	check(world_ability!=null and world_ability.text=="▢" and world_action!=null and world_action.text=="▢","real world atlas reads that region's live ability and action state")
