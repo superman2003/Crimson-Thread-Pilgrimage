@@ -18,11 +18,12 @@ class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 147)
+        self.assertEqual(len(all_suites), 148)
         self.assertIn("quiet_sole_traps", DEFAULT_SUITES)
         self.assertIn("wish_reward_atomic", DEFAULT_SUITES)
         self.assertIn("permanent_capacity", DEFAULT_SUITES)
         self.assertIn("boss_skill_art", DEFAULT_SUITES)
+        self.assertIn("player_hurt_art", DEFAULT_SUITES)
         self.assertIn("player_movement_art", DEFAULT_SUITES)
         self.assertIn("player_heal_art", DEFAULT_SUITES)
         self.assertIn("player_guard_art", DEFAULT_SUITES)

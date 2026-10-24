@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const HURT_ART := preload("res://scripts/player_hurt_art.gd")
 const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
 const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
@@ -700,6 +701,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    HURT_ART.clear(self)
     MOVEMENT_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
@@ -2175,7 +2177,6 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     hp_changed.emit(hp)
     # P0 生死攸关音：声部抢占最高优先级。
     _play_sfx("hurt", -6.0, 1.0, "", 0)
-    _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
         bell_pressure = 0
         heal_speed_timer = 0.0
@@ -2185,6 +2186,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             if enemy.has_method("clear_salt_mark"):
                 enemy.clear_salt_mark()
         death_timer = 0.9
+        HURT_ART.died(self)
         respawn_reveal_timer = 0.0
         _set_death_visibility(1.0)
         velocity = Vector2.ZERO
@@ -2197,6 +2199,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             _black_frame(global_position, 3)
         _play(&"death")
         return
+    HURT_ART.hurt(self, source_position)
     if feel != null:
         feel.hitstop(110.0)
         _add_trauma(0.45)
@@ -2332,6 +2335,7 @@ func _hard_respawn() -> void:
     _play(&"idle")
     respawn_reveal_timer = RESPAWN_REVEAL_SECONDS
     _set_death_visibility(0.0)
+    HURT_ART.respawned(self)
 
 
 func restore_at_save_point() -> void:
@@ -2596,6 +2600,7 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    HURT_ART.clear(self)
     MOVEMENT_ART.clear(self)
     HEAL_ART.clear(self)
     GUARD_ART.clear(self)
