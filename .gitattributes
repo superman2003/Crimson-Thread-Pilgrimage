@@ -200,3 +200,5 @@ art_requests/minor_enemy_skills_v4/incoming/*.txt -text whitespace=cr-at-eol,-bl
 # Boss skill runtime atlases and native GPU evidence are directly reviewable.
 godot/assets/vfx/boss_skills/*.png -filter -diff -merge -text
 artifacts/boss_skill_art/*.webp -filter -diff -merge -text
+
+artifacts/t04_bride_retry/** -text whitespace=cr-at-eol
