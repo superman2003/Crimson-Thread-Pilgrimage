@@ -7,7 +7,7 @@
 ## 先纠正上次遗漏
 
 - [v1 攻击特效](../attack_effects_v1/README.md) 的 39 张／288 格已经交付源图，其中敌人弹体、地面陷阱、地波／根刺、光束已由对应 `*_art.gd` 接入。这份 v2 清单补预警、格挡等随身效果；Boss 近战／位移生效特效的 12 张缺项另见 v3，不能以 v2 清单完成冒充全技能完成。
-- 主角 `guard` 已有 4 张人物姿势，问题在外层护幕和受击反馈：起草清单时起手、普通挡击、完美格挡曾复用 `_ability_ring`；现已按[格挡接入报告](../../docs/report/20261023_v04_guard_material.md)分别接入。本批不重画人物，而是分别补 3 套可辨认的效果；普通挡击不能冒用完美格挡的成功闪光。
+- 主角 `guard` 已有 4 张人物姿势，问题在外层护幕和受击反馈：起手、普通挡击、完美格挡目前复用 `_ability_ring`。本批不重画人物，而是分别补 3 套可辨认的效果；普通挡击不能冒用完美格挡的成功闪光。
 - **预警也要素材。** 代码负责位置、方向、范围、遮挡裁切、前摇进度和取消清理；贴图负责材质、轮廓、动画和 Boss 主题。细边界可辅助精确读范围，主体不能仍只是一条线或一个圈。
 - 按当前六章真正生成的 Boss 核对，共 24 招。仓库虽有 20 套 Boss 资源，余下 14 套没有在这六章中启用；这里不虚称完成 20 个可战斗 Boss。
 - `kind` 是旧内部键，不一定等于人物身份。例如 `sunken_hammer_smith` 当前显示“绯线执剪者”，不能照旧键画锤子；应以所附正式 Boss 概念图为准。
@@ -342,14 +342,14 @@
 
 ## 源码定位与复核
 
-- `godot/scripts/player_controller.gd:1081` — `_try_guard`
-- `godot/scripts/player_controller.gd:1170` — `_ability_ring`
-- `godot/scripts/player_controller.gd:1938` — `_spawn_heal_effect`
-- `godot/scripts/player_controller.gd:2114` — `take_damage`
-- `godot/scripts/enemy_actor.gd:161` — `_spawn_command_effects`
-- `godot/scripts/enemy_actor.gd:1837` — `_show_telegraph`
-- `godot/scripts/enemy_actor.gd:2488` — `_original_attack_arc`
-- `godot/scripts/enemy_attack_effect.gd:151` — `_draw`
-- `godot/scripts/enemy_attack_effect.gd:142` — `_hits_player`
+- `godot/scripts/player_controller.gd:1085` — `_try_guard`
+- `godot/scripts/player_controller.gd:1174` — `_ability_ring`
+- `godot/scripts/player_controller.gd:1942` — `_spawn_heal_effect`
+- `godot/scripts/player_controller.gd:2118` — `take_damage`
+- `godot/scripts/enemy_actor.gd:164` — `_spawn_command_effects`
+- `godot/scripts/enemy_actor.gd:1849` — `_show_telegraph`
+- `godot/scripts/enemy_actor.gd:2502` — `_original_attack_arc`
+- `godot/scripts/enemy_attack_effect.gd:153` — `_draw`
+- `godot/scripts/enemy_attack_effect.gd:144` — `_hits_player`
 
 在仓库根目录运行 `python -X utf8 art_requests/combat_presentation_v2/build_list.py --check`，核对 24 招完整覆盖、参考文件与已生成清单／提示词无漂移。不带 `--check` 可按当前配置重新生成本目录；不会修改运行时代码或替换 `incoming/` 原始图。
