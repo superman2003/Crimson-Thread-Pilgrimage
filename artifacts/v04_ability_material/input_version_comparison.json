@@ -1,0 +1,23 @@
+{
+  "old_runs": [
+    "cpu_02",
+    "reverse_02",
+    "native_01"
+  ],
+  "old_input_count": 31,
+  "new_runs": [
+    "cpu_03_world_capture",
+    "native_02_world_capture"
+  ],
+  "changed_inputs": [
+    "godot/scripts/player_resonance_world_validation.gd"
+  ],
+  "unchanged_input_count": 30,
+  "production_asset_and_component_inputs_identical": true,
+  "old_bundle": "native_01_inputs.tar.gz",
+  "old_bundle_gzip_sha256": "0c900f676bbd4e5f4bc9e3322c013bcc66c652fd45b93842674540f98da03403",
+  "old_bundle_raw_tar_bytes": 1873920,
+  "old_bundle_raw_tar_sha256": "95b620e0e5334b2be7edf9bbe7ded27b27d2e7602433f23600a2b61bca83f580",
+  "gzip_mtime": 0,
+  "reason": "Only the independent R World fixture adds normal Input walking away from the NPC for visible evidence. It was hashed but not executed in component/camp/old regression runs."
+}

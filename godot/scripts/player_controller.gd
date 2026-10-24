@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const ABILITY_ART := preload("res://scripts/player_ability_art.gd")
 const HOOK_ART := preload("res://scripts/player_hook_art.gd")
 const DASH_ART := preload("res://scripts/player_dash_art.gd")
 const HURT_ART := preload("res://scripts/player_hurt_art.gd")
@@ -608,6 +609,7 @@ func _physics_process(delta: float) -> void:
         air_jump_available = true
         _play_land_sfx(fall_speed)
         MOVEMENT_ART.land(self, fall_speed)
+        ABILITY_ART.downstrike(self)
     _update_wall_slide_audio()
     MOVEMENT_ART.wall_state(self)
     _update_footsteps(delta)
@@ -705,6 +707,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
     DASH_ART.clear(self)
     HURT_ART.clear(self)
@@ -1134,6 +1137,7 @@ func _try_resonance() -> bool:
     skill_effect_started = false
     ability_action.emit("crown_resonance", global_position, Vector2(facing, 0))
     _ability_ring(160.0, THREAD_T3_CORE)
+    ABILITY_ART.resonance(self)
     return true
 
 
@@ -1162,6 +1166,7 @@ func _update_phase(delta: float) -> void:
         _sync_phase_gates()
         ability_action.emit("lantern_phase", global_position, Vector2(facing, 0))
         _ability_ring(54.0, Color(0.5, 0.7, 1.0, 0.9))
+        ABILITY_ART.phase_enter(self)
 
 
 func _sync_phase_gates() -> void:
@@ -1187,6 +1192,7 @@ func _phase_position_clear() -> bool:
 
 
 func _stop_phase() -> void:
+    ABILITY_ART.phase_stop(self)
     if phase_active and is_inside_tree() and not _phase_position_clear():
         global_position = phase_safe_position
         velocity = Vector2.ZERO
@@ -2113,6 +2119,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         GUARD_ART.blocked(self, perfect)
         return
     GUARD_ART.clear(self)
+    ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
     DASH_ART.clear(self)
     line_stacks = 0
@@ -2553,6 +2560,7 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
     DASH_ART.clear(self)
     HURT_ART.clear(self)
