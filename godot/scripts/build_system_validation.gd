@@ -51,7 +51,11 @@ func _initialize() -> void:
         _check(build.unlock_event("tool_" + id + "_found").ok, "tool event " + id)
     for id in build.catalog.passives:
         var recipe_id := String(build.catalog.passives[id].get("craft_recipe",""))
-        if recipe_id.is_empty():
+        var relic := String(build.catalog.passives[id].get("unlock_item", ""))
+        if not relic.is_empty():
+            build.sync_progress({relic: 1})
+            _check(build.state.unlocked_passives.has(id), "relic source " + id)
+        elif recipe_id.is_empty():
             _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
         else:
             var recipe: Dictionary=build.catalog.recipes[recipe_id]

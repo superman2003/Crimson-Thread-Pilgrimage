@@ -1307,21 +1307,25 @@ func player_world_position() -> Vector2:
     return WORLD_COORDINATES.to_world(String(config.get("id", "")), player.global_position)
 
 
+func _prepare_world_checkpoint(global_snapshot: Dictionary) -> Dictionary:
+    var region_id := String(config.get("id", ""))
+    return world_state.prepare_checkpoint(region_id, {
+        "collected_ids": world_collected_ids, "opened_shortcuts": opened_shortcuts,
+        "visited_rooms": visited_rooms, "boss_defeated": demo_complete,
+        "boss_unlocked": boss_unlocked, "shortcut_open": shortcut_open,
+        "bell_count": bell_count, "checkpoint": active_spawn,
+        "checkpoint_id": active_save_point_id}, global_snapshot)
+
+
 func _save_world() -> bool:
     world_save_capture_ok = false
     if not world_mode:
         return true
     if world_loading or world_state == null or player == null:
         return false
-    var region_id := String(config.get("id", ""))
-    var prepared: Dictionary = world_state.prepare_checkpoint(region_id, {
-        "collected_ids": world_collected_ids, "opened_shortcuts": opened_shortcuts,
-        "visited_rooms": visited_rooms, "boss_defeated": demo_complete,
-        "boss_unlocked": boss_unlocked, "shortcut_open": shortcut_open,
-        "bell_count": bell_count, "checkpoint": active_spawn,
-        "checkpoint_id": active_save_point_id}, {
+    var prepared := _prepare_world_checkpoint({
         "inventory_counts": inventory_counts, "currency": currency_count,
-        "story_flags": story_flags, "current_region": region_id,
+        "story_flags": story_flags, "current_region": String(config.get("id", "")),
         "entry": active_spawn, "hp": player.hp, "energy": maxi(0, player.energy - int(player.get("practice_energy") if player.get("practice_energy") != null else 0)),
         "build_state": build_system.serialize() if build_system != null else {}})
     if not prepared.ok:
@@ -4825,8 +4829,10 @@ func _hazard(data: Dictionary) -> void:
 
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
-    rectangle.size = rect.size
+    shape.name = "TriggerShape"
+    rectangle.size = rect.size * _hazard_trigger_multiplier()
     shape.shape = rectangle
+    area.set_meta("hazard_authored_size", rect.size)
     area.add_child(shape)
     HAZARD_POGO.mark(area, String(data.get("kind", "spikes")), rect.size)
 
@@ -6760,6 +6766,110 @@ func _chapter_story_id() -> String:
     return String(config.get("id", ""))
 
 
+## A zero/negative/fractional key is not an offering. JSON whole-number floats
+## remain compatible with legacy in-memory inventories; booleans are rejected.
+func wish_offering_available(item_id: String) -> bool:
+    var count: Variant = inventory_counts.get(item_id, 0)
+    return not item_id.is_empty() and (count is int or count is float) and is_finite(float(count)) and float(count) >= 1.0 and floor(float(count)) == float(count)
+
+## Include a fully read final line in a wish's candidate, rather than saving
+## dialogue first and risking a durable completed quest without its reward.
+func _wish_dialogue_candidate(area: Area2D, flags: Dictionary, wallet: int) -> Dictionary:
+    if not is_instance_valid(area) or active_overlay != "dialogue" or dialogue_text_label == null or bool(area.get_meta("world_line_committed", false)):
+        return {"flags":flags,"currency":wallet}
+    if dialogue_text_label.visible_characters >= 0 and dialogue_text_label.visible_characters < dialogue_text_label.text.length():
+        return {"flags":flags,"currency":wallet}
+    var state := String(area.get_meta("dialogue_state", "repeat"))
+    var indices: Dictionary = area.get_meta("dialogue_state_indices", {}).duplicate(true)
+    var index := int(area.get_meta("world_displayed_index", -1))
+    indices[state] = index + 1
+    if state == "first_meet" and index + 1 >= int(area.get_meta("world_displayed_total", 0)):
+        flags["npc_met_%s" % String(area.get_meta("npc_id", area.name))] = true
+    if bool(flags.get("quest_bring_names_rewarded", false)):
+        flags["reward_returned_names_claimed"] = true
+    var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(area.get_meta("world_dialogue_result", {}), index, flags)
+    for flag in completion.flags:flags[String(flag)] = true
+    wallet += int(completion.rewards.get("currency", 0))
+    if bool(flags.get("reward_returned_names_claimed", false)):
+        flags["quest_bring_names_rewarded"] = true
+    return {"flags":flags,"currency":wallet,"indices":indices}
+
+## Prepare a privately owned checkpoint without invoking inventory/story helpers:
+## those helpers may save recursively, apply Player stats, or announce rewards.
+## Publish inventory, unlocks and capacities only after the one durable write.
+func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
+    var failure := {"ok":false,"reason":"归途记录未能写入；本次心愿尚未确认，请重试。"}
+    if not world_mode or world_loading or world_state == null or player == null or build_system == null or world_save_blocked:
+        return failure
+    var next_counts := inventory_counts.duplicate(true)
+    var next_flags := story_flags.duplicate(true)
+    var dialogue := _wish_dialogue_candidate(area, next_flags, currency_count)
+    next_flags = dialogue.flags
+    var next_currency := int(dialogue.currency)
+    var complete_flag := String(quest.get("complete_flag", ""))
+    var delivered := not complete_flag.is_empty() and not bool(next_flags.get(complete_flag, false)) and wish_offering_available(String(quest.get("item", "")))
+    var reward := ""
+    if delivered:
+        var required := String(quest.get("item", ""))
+        if bool(quest.get("consume", false)):
+            next_counts[required] = int(next_counts[required]) - 1
+            if int(next_counts[required]) == 0:next_counts.erase(required)
+        reward = String(quest.get("reward", ""))
+        if not reward.is_empty():next_counts[reward] = int(next_counts.get(reward, 0)) + 1
+        next_flags[complete_flag] = true
+        if reward.begins_with("testimony_"):
+            var all_testimonies := true
+            for index in range(1, 7):
+                if float(next_counts.get("testimony_%02d" % index, 0)) < 1.0:all_testimonies = false
+            if all_testimonies:next_flags["true_ending_testimony_complete"] = true
+        if world_narrative != null:
+            for flag in world_narrative.evaluate_progress(next_counts, next_flags).get("grant_flags", []):
+                next_flags[String(flag)] = true
+    elif not bool(next_flags.get(complete_flag, false)):
+        var accept_flag := String(quest.get("accept_flag", ""))
+        if not accept_flag.is_empty():next_flags[accept_flag] = true
+    for wish in _wish_board_entries():
+        var target := String(wish.get("target_flag", ""))
+        var claim := _wish_claim_flag(wish)
+        if not target.is_empty() and bool(next_flags.get(target, false)) and not bool(next_flags.get(claim, false)):
+            next_flags[claim] = true
+            next_currency += maxi(0, int(wish.get("reward_currency", 0)))
+    if next_counts == inventory_counts and next_flags == story_flags and next_currency == currency_count:
+        if dialogue.has("indices"):area.set_meta("dialogue_state_indices", dialogue.indices)
+        return {"ok":true,"delivered":false}
+    var next_build = build_system.get_script().new()
+    if not next_build.restore(build_system.serialize()).ok:return failure
+    next_build.sync_progress(next_counts, String(config.get("id", "")), next_flags)
+    var prepared := _prepare_world_checkpoint({"inventory_counts":next_counts,"story_flags":next_flags,"currency":next_currency,
+        "current_region":String(config.get("id", "")),"entry":active_spawn,"hp":player.hp,
+        "energy":maxi(0, player.energy - player.practice_energy),"build_state":next_build.serialize()})
+    if not prepared.ok:return failure
+    if world_save_failure_injected_for_validation or not world_state.write_candidate(prepared.candidate, world_save_path):return failure
+    var testimony_completed := not bool(story_flags.get("true_ending_testimony_complete", false)) and bool(next_flags.get("true_ending_testimony_complete", false))
+    # No live gameplay object has been touched before this point.
+    world_state.data = prepared.candidate
+    inventory_counts = next_counts
+    story_flags = next_flags
+    currency_count = next_currency
+    inventory_materials.clear()
+    inventory_relics.clear()
+    inventory_tools.clear()
+    for item_id in inventory_counts:
+        match String(_item_data(String(item_id)).get("category", "Materials")):
+            "Materials":inventory_materials[item_id] = int(inventory_counts[item_id])
+            "Relics":inventory_relics.append(item_id)
+            "Tools":inventory_tools.append(item_id)
+    build_system.restore(next_build.serialize())
+    if dialogue.has("indices"):area.set_meta("dialogue_state_indices", dialogue.indices)
+    _sync_player_build()
+    _apply_world_npc_state(area)
+    if testimony_completed:_play_sfx("ui_testimony_complete", -4.0)
+    if delivered and not reward.is_empty():_toast("收入行囊 · " + _item_display_name(reward))
+    _refresh_wish_board_overlay()
+    _refresh_hud()
+    return {"ok":true,"delivered":delivered}
+
+
 func _set_story_flag(flag: String) -> void:
     if flag.is_empty():
         return
@@ -7500,6 +7610,27 @@ func _sync_player_build() -> void:
         if profile != applied_build_profile:
             player.apply_build_stats(profile)
             applied_build_profile = profile.duplicate(true)
+            _sync_hazard_trigger_sizes()
+
+## Only trap triggers change. Player collision, enemy attacks and the authored
+## spike pogo surface retain their original geometry.
+func _hazard_trigger_multiplier() -> float:
+    if not is_instance_valid(player):return 1.0
+    var profile: Variant = player.get("build_profile")
+    if not profile is Dictionary:return 1.0
+    return clampf(float(profile.get("hazard_trigger_mult", 1.0)), 0.5, 1.0)
+
+func _sync_hazard_trigger_sizes() -> void:
+    var multiplier := _hazard_trigger_multiplier()
+    for child in get_children():
+        if not child is Area2D or not child.has_meta("hazard_authored_size"):continue
+        var shape := child.get_node_or_null("TriggerShape") as CollisionShape2D
+        if shape == null or not shape.shape is RectangleShape2D:continue
+        var authored: Vector2 = child.get_meta("hazard_authored_size")
+        var size := authored * multiplier
+        if not shape.shape.size.is_equal_approx(size):
+            # Pickups may sync progress inside a physics body-entered callback.
+            shape.shape.set_deferred("size", size)
 
 func _bind_build_inputs() -> void:
     var bindings := {"skill_cycle": [KEY_C, JOY_AXIS_TRIGGER_LEFT],
