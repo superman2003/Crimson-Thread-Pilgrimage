@@ -1046,6 +1046,16 @@ func _interrupt_heal() -> void:
 
 
 func apply_build_stats(stats: Dictionary) -> void:
+    # Finding a capacity reward is not an equipment change. Keep the current
+    # attack/channel/guard and its original reservation; do not refill on pickup.
+    if not build_profile.is_empty():
+        var capacity_only := build_profile.duplicate(true)
+        capacity_only["max_hp"] = stats.get("max_hp", max_hp)
+        capacity_only["max_energy"] = stats.get("max_energy", max_energy)
+        if capacity_only == stats and (max_hp != int(capacity_only.max_hp) or max_energy != int(capacity_only.max_energy)):
+            build_profile = stats.duplicate(true)
+            _apply_capacity_limits(stats)
+            return
     # Settle the old channel under its original cost/loss and capacity first.
     _interrupt_heal()
     _clear_action_buffer()
@@ -1074,6 +1084,15 @@ func apply_build_stats(stats: Dictionary) -> void:
     energy = mini(energy, max_energy)
     guard_timer = 0.0
     _stop_phase()
+    hp_changed.emit(hp)
+    energy_changed.emit(energy, max_energy)
+
+
+func _apply_capacity_limits(stats: Dictionary) -> void:
+    max_hp = maxi(1, int(stats.get("max_hp", max_hp)))
+    max_energy = maxi(1, int(stats.get("max_energy", max_energy)))
+    hp = mini(hp, max_hp)
+    energy = mini(energy, max_energy)
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 

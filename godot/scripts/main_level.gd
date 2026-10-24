@@ -2270,6 +2270,8 @@ func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true
         var progress: Dictionary = world_narrative.evaluate_progress(inventory_counts, story_flags)
         for flag in progress.get("grant_flags", []):
             story_flags[String(flag)] = true
+    if build_system != null and build_system.catalog.get("permanent_upgrades", {}).has(item_id):
+        _sync_player_build()
     if announce:
         _toast("收入行囊 · " + _item_display_name(item_id))
     if active_overlay == "backpack":
