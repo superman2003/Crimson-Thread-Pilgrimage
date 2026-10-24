@@ -14,6 +14,7 @@ const LEGACY := {
     "root_cage_hunter": {"thorn":"net"},
     "wax_bee": {"thorn":"stinger"},
     "phase_censor": {"thorn":"blade"},
+    "delayed_shadow": {"thorn":"blade"},
     "kneeling_crossbowman": {"thorn":"bolt"},
     "pipe_thrower": {"metal":"slug"},
     "silent_bugbler": {"metal":"chime"},

@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_spore_bellmaker.png",
+  "kind": "spore_bellmaker",
+  "image_sha256": "b173df58766fc76deebea4c491979b5e80662f37d6101ad2f0b5581fc97609cf",
+  "prompt_sha256": "35cea2d73753f78c9d357392ef54f2d36d36171779d6fdff00be6960e02b9c63",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/spore_bellmaker.png",
+  "reference_sha256": "aaaffca92be6c99b4caa6543962125141afa6fa137a463206eaa145904ea4db8",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "bell_spores_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        525,
+        523
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        92,
+        132,
+        449,
+        412
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "bell_spores_warning",
+      "rect_xyxy": [
+        525,
+        0,
+        1016,
+        523
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        604,
+        128,
+        961,
+        412
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "bell_spores_warning",
+      "rect_xyxy": [
+        1016,
+        0,
+        1536,
+        523
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1116,
+        128,
+        1473,
+        412
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "bell_fungus_warning",
+      "rect_xyxy": [
+        0,
+        523,
+        512,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        27,
+        583,
+        486,
+        934
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "bell_fungus_warning",
+      "rect_xyxy": [
+        512,
+        523,
+        1024,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        539,
+        583,
+        998,
+        934
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "bell_fungus_warning",
+      "rect_xyxy": [
+        1024,
+        523,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1051,
+        583,
+        1510,
+        934
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????????????????????????????????",
+    "rows_reviewed": [
+      "bell_spores_warning",
+      "bell_fungus_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

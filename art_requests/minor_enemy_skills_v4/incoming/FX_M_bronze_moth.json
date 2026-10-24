@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_bronze_moth.png",
+  "kind": "bronze_moth",
+  "image_sha256": "3f79e95a4d442461f07b5aebffe21d3260cc1ded2d3e67526fcf0c5a469f2d07",
+  "prompt_sha256": "aac7b81a1b5cc73d581591b56bff8e08374263e864765cfae974e4ca616e063b",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/bronze_moth.png",
+  "reference_sha256": "489e98912fc2170b7f76a5a4e693ca3fca229685d33a5d002398e9647a435fa9",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "moth_dive_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        516,
+        346
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        96,
+        39,
+        430,
+        322
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "moth_dive_warning",
+      "rect_xyxy": [
+        516,
+        0,
+        1030,
+        346
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        606,
+        39,
+        943,
+        324
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "moth_dive_warning",
+      "rect_xyxy": [
+        1030,
+        0,
+        1536,
+        346
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1119,
+        38,
+        1454,
+        325
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "moth_dive_execution",
+      "rect_xyxy": [
+        0,
+        346,
+        513,
+        694
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        75,
+        376,
+        467,
+        655
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "moth_dive_execution",
+      "rect_xyxy": [
+        513,
+        346,
+        1054,
+        694
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        561,
+        370,
+        1027,
+        668
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "moth_dive_execution",
+      "rect_xyxy": [
+        1054,
+        346,
+        1536,
+        694
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1083,
+        393,
+        1500,
+        653
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "moth_dust_warning",
+      "rect_xyxy": [
+        0,
+        694,
+        519,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        137,
+        727,
+        407,
+        962
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "moth_dust_warning",
+      "rect_xyxy": [
+        519,
+        694,
+        1038,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        649,
+        724,
+        919,
+        964
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "moth_dust_warning",
+      "rect_xyxy": [
+        1038,
+        694,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1160,
+        723,
+        1430,
+        964
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "???????/??/?????????????????????",
+    "rows_reviewed": [
+      "moth_dive_warning",
+      "moth_dive_execution",
+      "moth_dust_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}
