@@ -184,6 +184,8 @@ func begin_bind(runtime: Node) -> void:
     _load_accessibility()
 
 func finish_bind() -> void:
+    if settings!=null and not settings.visibility_changed.is_connected(_remap_visibility_changed):
+        settings.visibility_changed.connect(_remap_visibility_changed)
     if not get_viewport().size_changed.is_connected(_fit_viewport):
         get_viewport().size_changed.connect(_fit_viewport)
     if not get_viewport().gui_focus_changed.is_connected(_remember_gui_focus):
@@ -997,8 +999,22 @@ func _reset_bindings() -> void:
     remap_status.text="已恢复全部默认按键；声音、字幕与画面设置不变。"
 
 func _begin_remap(action: String) -> void:
+    if not REMAPPABLE_ACTIONS.has(action) or settings==null or not settings.is_visible_in_tree():return
     remap_target=action
     remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc 取消。" % REMAPPABLE_ACTIONS[action]
+
+func _cancel_remap(reason: String) -> void:
+    if remap_target.is_empty():return
+    remap_target=""
+    remap_capture_frame=Engine.get_process_frames()
+    if is_instance_valid(remap_status):remap_status.text=reason
+
+func _remap_visibility_changed() -> void:
+    if not settings.is_visible_in_tree():_cancel_remap("已离开设置，重映射已取消。")
+
+func _notification(what: int) -> void:
+    if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
+        _cancel_remap("窗口已失去焦点，重映射已取消；原绑定保留。")
 
 func _refresh_remap_labels() -> void:
     for action in remap_buttons:

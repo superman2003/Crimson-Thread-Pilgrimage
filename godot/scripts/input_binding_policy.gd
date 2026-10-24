@@ -20,6 +20,9 @@ static func normalize(value: Variant) -> InputEvent:
         event.pressure = 0.0
     elif event is InputEventJoypadMotion:
         if event.axis < 0 or event.axis >= JOY_AXIS_MAX or not is_finite(event.axis_value) or absf(event.axis_value) < 0.5:return null
+        # Some controllers report released triggers as -1. Capturing that rest
+        # position would leave the action held down whenever the trigger is up.
+        if event.axis in [JOY_AXIS_TRIGGER_LEFT, JOY_AXIS_TRIGGER_RIGHT] and event.axis_value < 0.0:return null
         event.axis_value = 1.0 if event.axis_value > 0 else -1.0
     else:return null
     event.device = -1
