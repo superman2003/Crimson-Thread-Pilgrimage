@@ -1,0 +1,707 @@
+{
+  "schema": "player-hurt-runtime-v1",
+  "cell": 192,
+  "families": [
+    "hurt_snap",
+    "death_unweave",
+    "respawn_weave"
+  ],
+  "sources": {
+    "hurt_snap": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_hurt_snap.png",
+      "sha256": "f556f0b60d54179ff7262d0dd6f3e7fe6db20a9922a75e8e967d9b89e02f328b",
+      "sidecar_sha256": "2e9794550e69c5d47aceb25d87646edd2f442bb3b0f4110394d3982747a7c050",
+      "anchor_slot": [
+        96,
+        96
+      ],
+      "scale": 0.3378119001919386,
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            488,
+            488
+          ],
+          "source_crop": [
+            152,
+            156,
+            381,
+            396
+          ],
+          "source_anchor": [
+            244.0,
+            244.0
+          ],
+          "atlas_rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            65,
+            66,
+            77,
+            81
+          ]
+        },
+        {
+          "source_cell": [
+            488,
+            0,
+            1015,
+            488
+          ],
+          "source_crop": [
+            564,
+            62,
+            970,
+            436
+          ],
+          "source_anchor": [
+            751.5,
+            244.0
+          ],
+          "atlas_rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            225,
+            35,
+            137,
+            126
+          ]
+        },
+        {
+          "source_cell": [
+            1015,
+            0,
+            1536,
+            488
+          ],
+          "source_crop": [
+            1058,
+            22,
+            1536,
+            466
+          ],
+          "source_anchor": [
+            1275.5,
+            244.0
+          ],
+          "atlas_rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            407,
+            21,
+            161,
+            150
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            488,
+            547,
+            1024
+          ],
+          "source_crop": [
+            50,
+            509,
+            518,
+            962
+          ],
+          "source_anchor": [
+            273.5,
+            756.0
+          ],
+          "atlas_rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            596,
+            13,
+            158,
+            153
+          ]
+        },
+        {
+          "source_cell": [
+            547,
+            488,
+            1074,
+            1024
+          ],
+          "source_crop": [
+            577,
+            550,
+            1025,
+            934
+          ],
+          "source_anchor": [
+            810.5,
+            756.0
+          ],
+          "atlas_rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            785,
+            26,
+            151,
+            130
+          ]
+        },
+        {
+          "source_cell": [
+            1074,
+            488,
+            1536,
+            1024
+          ],
+          "source_crop": [
+            1171,
+            602,
+            1482,
+            870
+          ],
+          "source_anchor": [
+            1305.0,
+            756.0
+          ],
+          "atlas_rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1011,
+            44,
+            105,
+            91
+          ]
+        }
+      ]
+    },
+    "death_unweave": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_death_unweave.png",
+      "sha256": "02aaa930cf817e3e2835a12e479a6f963a20296152b98921265c3db07e285b75",
+      "sidecar_sha256": "881a2b4456fece017f7237faf33f22133a46d878fc64e2fb95833c9104546e35",
+      "anchor_slot": [
+        96,
+        96
+      ],
+      "scale": 0.42718446601941745,
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            463,
+            458
+          ],
+          "source_crop": [
+            28,
+            49,
+            430,
+            431
+          ],
+          "source_anchor": [
+            231.5,
+            229.0
+          ],
+          "atlas_rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            9,
+            211,
+            172,
+            163
+          ]
+        },
+        {
+          "source_cell": [
+            463,
+            0,
+            880,
+            458
+          ],
+          "source_crop": [
+            496,
+            37,
+            832,
+            432
+          ],
+          "source_anchor": [
+            671.5,
+            229.0
+          ],
+          "atlas_rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            213,
+            206,
+            144,
+            169
+          ]
+        },
+        {
+          "source_cell": [
+            880,
+            0,
+            1328,
+            458
+          ],
+          "source_crop": [
+            929,
+            39,
+            1287,
+            433
+          ],
+          "source_anchor": [
+            1104.0,
+            229.0
+          ],
+          "atlas_rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            405,
+            207,
+            153,
+            168
+          ]
+        },
+        {
+          "source_cell": [
+            1328,
+            0,
+            1774,
+            458
+          ],
+          "source_crop": [
+            1371,
+            44,
+            1753,
+            435
+          ],
+          "source_anchor": [
+            1551.0,
+            229.0
+          ],
+          "atlas_rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            595,
+            209,
+            163,
+            167
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            458,
+            454,
+            887
+          ],
+          "source_crop": [
+            38,
+            486,
+            421,
+            857
+          ],
+          "source_anchor": [
+            227.0,
+            672.5
+          ],
+          "atlas_rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            783,
+            208,
+            164,
+            158
+          ]
+        },
+        {
+          "source_cell": [
+            454,
+            458,
+            891,
+            887
+          ],
+          "source_crop": [
+            490,
+            494,
+            852,
+            861
+          ],
+          "source_anchor": [
+            672.5,
+            672.5
+          ],
+          "atlas_rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            978,
+            212,
+            155,
+            157
+          ]
+        },
+        {
+          "source_cell": [
+            891,
+            458,
+            1345,
+            887
+          ],
+          "source_crop": [
+            931,
+            484,
+            1299,
+            866
+          ],
+          "source_anchor": [
+            1118.0,
+            672.5
+          ],
+          "atlas_rect": [
+            1152,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1168,
+            207,
+            157,
+            163
+          ]
+        },
+        {
+          "source_cell": [
+            1345,
+            458,
+            1774,
+            887
+          ],
+          "source_crop": [
+            1393,
+            496,
+            1726,
+            854
+          ],
+          "source_anchor": [
+            1559.5,
+            672.5
+          ],
+          "atlas_rect": [
+            1344,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1369,
+            213,
+            142,
+            153
+          ]
+        }
+      ]
+    },
+    "respawn_weave": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_respawn_weave.png",
+      "sha256": "7faaed7bef4258146a151d5f45e73896e63fd3353130810566e71cbe9d62462d",
+      "sidecar_sha256": "31b84bd7ee8de6fbec720afb08909743b4f289a2ed000b7392db94c5cc108a35",
+      "anchor_slot": [
+        96,
+        96
+      ],
+      "scale": 0.40835266821345706,
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            449,
+            447
+          ],
+          "source_crop": [
+            45,
+            57,
+            404,
+            432
+          ],
+          "source_anchor": [
+            224.5,
+            223.5
+          ],
+          "atlas_rect": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            23,
+            412,
+            147,
+            153
+          ]
+        },
+        {
+          "source_cell": [
+            449,
+            0,
+            884,
+            447
+          ],
+          "source_crop": [
+            499,
+            26,
+            839,
+            428
+          ],
+          "source_anchor": [
+            666.5,
+            223.5
+          ],
+          "atlas_rect": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            220,
+            399,
+            139,
+            164
+          ]
+        },
+        {
+          "source_cell": [
+            884,
+            0,
+            1340,
+            447
+          ],
+          "source_crop": [
+            929,
+            8,
+            1297,
+            435
+          ],
+          "source_anchor": [
+            1112.0,
+            223.5
+          ],
+          "atlas_rect": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            405,
+            392,
+            150,
+            174
+          ]
+        },
+        {
+          "source_cell": [
+            1340,
+            0,
+            1774,
+            447
+          ],
+          "source_crop": [
+            1380,
+            17,
+            1720,
+            430
+          ],
+          "source_anchor": [
+            1557.0,
+            223.5
+          ],
+          "atlas_rect": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            600,
+            396,
+            139,
+            169
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            447,
+            452,
+            887
+          ],
+          "source_crop": [
+            15,
+            471,
+            425,
+            869
+          ],
+          "source_anchor": [
+            226.0,
+            667.0
+          ],
+          "atlas_rect": [
+            768,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            778,
+            400,
+            167,
+            163
+          ]
+        },
+        {
+          "source_cell": [
+            452,
+            447,
+            904,
+            887
+          ],
+          "source_crop": [
+            480,
+            462,
+            861,
+            867
+          ],
+          "source_anchor": [
+            678.0,
+            667.0
+          ],
+          "atlas_rect": [
+            960,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            975,
+            396,
+            156,
+            165
+          ]
+        },
+        {
+          "source_cell": [
+            904,
+            447,
+            1344,
+            887
+          ],
+          "source_crop": [
+            948,
+            467,
+            1286,
+            862
+          ],
+          "source_anchor": [
+            1124.0,
+            667.0
+          ],
+          "atlas_rect": [
+            1152,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1176,
+            398,
+            138,
+            161
+          ]
+        },
+        {
+          "source_cell": [
+            1344,
+            447,
+            1774,
+            887
+          ],
+          "source_crop": [
+            1404,
+            513,
+            1715,
+            847
+          ],
+          "source_anchor": [
+            1559.0,
+            667.0
+          ],
+          "atlas_rect": [
+            1344,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1377,
+            417,
+            127,
+            136
+          ]
+        }
+      ]
+    }
+  }
+}
