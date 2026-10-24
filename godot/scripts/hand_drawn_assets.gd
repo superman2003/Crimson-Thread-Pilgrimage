@@ -27,6 +27,10 @@ static func character_manifests(kind: String, data: Dictionary) -> Array[String]
         var path := character_manifest("original_creatures", String(data.get("kind", "moss_larva")))
         if not FileAccess.file_exists(path): path = String(data.get("sprite", ""))
         if not path.is_empty(): result.append(path)
+        var skill_manifest := "res://assets/vfx/minor_enemy_skills/manifest.json"
+        if FileAccess.file_exists(skill_manifest):
+            var skill_path := String(manifest(skill_manifest).get("creatures", {}).get(String(data.get("kind", "")), {}).get("texture", ""))
+            if not skill_path.is_empty(): result.append(skill_path)
     return result
 
 static func atlas_paths(path: String) -> Array[String]:

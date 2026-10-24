@@ -6,6 +6,8 @@ const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
 const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
 var boss_skill_texture: Texture2D
+const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
+var minor_skill_texture: Texture2D
 var locomotion := "ground"
 var flight_clock := 0.0
 var hover_height := 0.0
@@ -147,6 +149,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.impact_pool=bool(command.get("impact_pool",false))
     effect.owner_actor=self
     effect.boss_command_id=String(command.get("id","")) if BOSS_SKILL_ART.matches(self,command) else ""
+    effect.minor_command_id=String(command.get("id","")) if MINOR_SKILL_ART.matches(self,command) else ""
     # Freed Object references cannot be converted to a typed lambda argument.
     # Prune in place, retaining the typed array and never dereferencing stale nodes.
     for index in range(owned_attack_effects.size() - 1, -1, -1):
@@ -196,6 +199,7 @@ func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
             _effect("eruption" if type=="rootline" else "pool",Vector2(x,floor_y-5),Vector2.ZERO,command,delay,float(command.get("hazard_life",.7)))
     elif type=="blink":
         BOSS_SKILL_ART.spawn_departure(self,command)
+        MINOR_SKILL_ART.spawn_departure(self,command)
         var x := attack_target.x-attack_direction*float(command.get("blink_offset",115))
         global_position.x=clampf(x,platform_min_x,platform_max_x)
         var target := _target_player()
@@ -395,6 +399,7 @@ func prepare_presentation() -> void:
     _build_shape()
     _build_sprite()
     if is_boss: boss_skill_texture = BOSS_SKILL_ART.texture_for(kind)
+    MINOR_SKILL_ART.prepare(self)
     presentation_prepared = true
 
 func _ready() -> void:
@@ -1031,6 +1036,7 @@ func _try_start_support() -> bool:
     _set_enemy_animation("attack", true)
     _pose_sprite("windup")
     _fit_animation_duration(SUPPORT_WINDUP)
+    if MINOR_SKILL_ART.start_support(self): return true
     var link := Line2D.new()
     link.name = "EnemySupportLink"
     link.width = 2.0
@@ -1058,6 +1064,7 @@ func _update_support(delta: float, target: CharacterBody2D) -> void:
     state_timer -= delta
     if state_timer <= 0.0:
         ally.hp = mini(ally.max_hp, ally.hp + 1)
+        MINOR_SKILL_ART.release_support(self,ally)
         _finish_support()
 
 
@@ -1802,13 +1809,9 @@ func _update_recover(delta: float) -> void:
         _pose_sprite("idle")
 
 
-func _try_damage_player(command: Dictionary) -> void:
-    if attack_has_hit or dying or is_queued_for_deletion() or not world_residency_active():
-        return
-    var target := _target_player()
-    if target == null or target.is_queued_for_deletion() or (target.get("ui_input_locked") == true) or not _has_line_of_sight(target):
-        return
-
+func contact_attack_rect(command: Dictionary) -> Rect2:
+    # Shared by the contact strike and its attached material. Artwork never
+    # changes reach or creates a separate travelling damage object.
     var attack_type := String(command.get("type", "melee"))
     var dir := attack_direction if _is_attack_state() else direction
     var center := global_position + Vector2(dir * float(command.get("offset", 44.0)), float(command.get("offset_y",-26.0)))
@@ -1825,7 +1828,16 @@ func _try_damage_player(command: Dictionary) -> void:
     elif attack_type == "feint":
         center = global_position + Vector2(dir * float(command.get("offset", 54.0)), -34.0)
         size = Vector2(float(command.get("hit_width", 104.0)), float(command.get("hit_height", 72.0)))
-    var attack_rect := Rect2(center - size * 0.5, size)
+    return Rect2(center - size * 0.5, size)
+
+
+func _try_damage_player(command: Dictionary) -> void:
+    if attack_has_hit or dying or is_queued_for_deletion() or not world_residency_active():
+        return
+    var target := _target_player()
+    if target == null or target.is_queued_for_deletion() or (target.get("ui_input_locked") == true) or not _has_line_of_sight(target):
+        return
+    var attack_rect := contact_attack_rect(command)
     var player_rect := Rect2(target.global_position - Vector2(24.0, 84.0), Vector2(48.0, 88.0))
     if attack_rect.intersects(player_rect):
         attack_has_hit = true
@@ -1837,6 +1849,7 @@ func _try_damage_player(command: Dictionary) -> void:
 func _show_telegraph(command: Dictionary) -> void:
     _clear_telegraph()
     if BOSS_SKILL_ART.matches(self, command): return
+    if MINOR_SKILL_ART.ready_for(self,command): return
     if original_visual:
         return
     var attack_type := String(command.get("type", "melee"))
@@ -1973,6 +1986,7 @@ func _add_attack_type_signature(parent: Node2D, command: Dictionary, center: Vec
 
 func _clear_telegraph() -> void:
     BOSS_SKILL_ART.clear(self)
+    MINOR_SKILL_ART.clear(self)
     support_target = null
     if telegraph_tween != null and is_instance_valid(telegraph_tween) and telegraph_tween.is_valid():
         telegraph_tween.kill()
@@ -2538,6 +2552,7 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
 
 func _spawn_windup_vfx(command: Dictionary) -> void:
     if BOSS_SKILL_ART.spawn(self, command, "warning"): return
+    if MINOR_SKILL_ART.spawn(self,command,"warning"): return
     if original_visual:
         _original_attack_arc(command, true)
         return
@@ -2582,6 +2597,7 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
 
 func _spawn_attack_burst_vfx(command: Dictionary) -> void:
     if BOSS_SKILL_ART.spawn(self, command, "execution"): return
+    if MINOR_SKILL_ART.spawn(self,command,"execution"): return
     if original_visual:
         _original_attack_arc(command, false)
         return
