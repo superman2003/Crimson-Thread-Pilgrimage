@@ -2,10 +2,13 @@ extends SceneTree
 ## B01 species roles on production enemy actors: ambush reveal range and post,
 ## alarm calls bounded by radius/territory/cooldown, wall occlusion and chase
 ## disengage, guards holding post, and authored ambushers away from arrivals.
+## Role cues: reveal/alarm/support sounds and rings, the reveal hold, and calm
+## posts not counting as combat for the music layer.
 ## Fixture target and walls; decisions, sight rays and movement are production.
 const ENEMY := preload("res://scripts/enemy_actor.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const PROFILE_PATH := "res://data/original_creature_combat.json"
+const AUDIO_DIRECTOR := preload("res://scripts/audio_director.gd")
 const REGIONS := ["demo_ch01_moss_bell_court", "demo_ch02_rain_foundry_canal", "demo_ch03_saltwhite_archive", "demo_ch04_broken_string_greenhouse", "demo_ch05_obsidian_pilgrim_road", "demo_ch06_silent_crown_core"]
 const AMBUSH_ENTRANCE_CLEARANCE := 240.0
 var checks := 0
@@ -74,6 +77,7 @@ func run() -> void:
     await _occlusion_and_disengage()
     await _guard_post()
     await _support()
+    await _role_cues()
     _ambush_placement()
     print("ENEMY_TACTICAL_ROLES checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
@@ -280,6 +284,100 @@ func _support() -> void:
     await _support_filters()
     for reason in ["hit", "trip", "interference", "lure", "wall", "player_hidden", "range", "floor", "ally_retired", "source_retired", "suspend_resume", "freed", "ally_dead", "source_dead", "respawn"]:
         await _support_cancel(reason)
+
+func cue_rings(enemy: Node, ring_name: String) -> int:
+    var count := 0
+    for child in enemy.get_children():
+        if child.name.begins_with(ring_name) and not child.is_queued_for_deletion(): count += 1
+    return count
+
+func _role_cues() -> void:
+    var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/audio_visual_manifest.json")).sfx_catalog
+    for cue in ["ambush_reveal", "alarm_call", "support_mend"]:
+        var path := String(ENEMY.SFX.get("role_" + cue, ""))
+        var stream := AudioStreamOggVorbis.load_from_file(path) if FileAccess.file_exists(path) else null
+        check(stream != null and stream.get_length() >= 0.3 and stream.get_length() <= 1.0, cue + ": the cue has its own short generated sound")
+        var entry: Dictionary = manifest.get("enemy_" + cue, {})
+        check(entry.get("status") == "wired" and entry.get("path") == path and entry.get("runtime_key") == "role_" + cue, cue + ": the AV manifest lists the wired cue")
+    # Ambush reveal: one cue and a short hold before the ambusher may act.
+    var bookmite := spawn("salt_bookmite", "cue_bookmite", Vector2(300, 300))
+    target.position = Vector2(520, 300)
+    await physics_frame
+    step(bookmite, target, 5)
+    check(bookmite.role_cue_counts.is_empty() and not bookmite.combat_engaged(), "a lurking ambusher makes no cue and is calm for the music layer")
+    target.position = Vector2(420, 300)
+    await physics_frame
+    bookmite.attack_desire = 2.0
+    step(bookmite, target)
+    check(int(bookmite.role_cue_counts.get("ambush_reveal", 0)) == 1 and cue_rings(bookmite, "EnemyAmbushRevealCue") == 1, "revealing plays the ambush cue and draws one burst")
+    check(bookmite.last_ai_decision == "ambush:reveal" and bookmite.state == "patrol" and bookmite.combat_engaged(), "the revealed ambusher holds instead of striking on the same frame")
+    check(bookmite.direction == 1, "the reveal faces the player")
+    var held := true
+    var acted := false
+    for index in 8:
+        bookmite._physics_process(0.05)
+        if bookmite.state == "windup" and index < 6: held = false
+        if bookmite.last_ai_decision != "ambush:reveal": acted = true
+    check(held and acted, "the hold lasts about a third of a second, then ordinary combat resumes")
+    check(int(bookmite.role_cue_counts.get("ambush_reveal", 0)) == 1, "tracking does not repeat the reveal cue")
+    bookmite.state = "patrol"
+    bookmite.memory_timer = 0.0
+    target.position = Vector2(5000, 300)
+    step(bookmite, null, 60)
+    target.position = Vector2(420, 300)
+    await physics_frame
+    step(bookmite, target)
+    check(int(bookmite.role_cue_counts.get("ambush_reveal", 0)) == 2, "an ambusher back at its post reveals again with a fresh cue")
+    await clear_stage()
+    # Alarm: the caller rings once per cooldown; told allies stay quiet.
+    var bell := spawn("spore_bellmaker", "cue_bell", Vector2(200, 300))
+    var ally := spawn("moss_larva", "cue_ally", Vector2(0, 300))
+    target.position = Vector2(260, 300)
+    await physics_frame
+    step(bell, target)
+    check(int(bell.role_cue_counts.get("alarm_call", 0)) == 1 and cue_rings(bell, "EnemyAlarmCue") == 2, "an alarm plays its call and draws two widening rings")
+    check(ally.memory_timer > 0.0 and ally.role_cue_counts.is_empty(), "allies hearing the call do not raise cues of their own")
+    bell.memory_timer = 0.0
+    step(bell, target)
+    check(int(bell.role_cue_counts.get("alarm_call", 0)) == 1, "the call cue follows the alarm cooldown")
+    await clear_stage()
+    # Support: the channel begins with its cue.
+    var donor := spawn("ash_banner_imp", "cue_donor", Vector2(300, 300))
+    var hurt := spawn("moss_larva", "cue_hurt", Vector2(180, 300))
+    hurt.hp = 1
+    target.position = Vector2(430, 300)
+    await physics_frame
+    step(donor, target)
+    check(donor.state == "support" and int(donor.role_cue_counts.get("support_mend", 0)) == 1, "a support channel starts with its own sound")
+    await clear_stage()
+    await _calm_music_layer()
+
+func _calm_music_layer() -> void:
+    var lurker := spawn("salt_bookmite", "calm_lurker", Vector2(300, 300))
+    var sentinel := spawn("gear_sentinel", "calm_sentinel", Vector2(-300, 300))
+    var larva := spawn("moss_larva", "calm_larva", Vector2(300, 900))
+    target.position = Vector2(5000, 300)
+    step(lurker, null, 5)
+    step(sentinel, null, 5)
+    check(lurker.last_ai_decision == "lurk" and sentinel.last_ai_decision == "hold_post", "fixture enemies wait at their posts")
+    var director: Node = AUDIO_DIRECTOR.new()
+    director.autoplay_enabled = false
+    director.runtime_player = target
+    director._tick_combat_layer(0.25, [lurker, sentinel])
+    check(not director.combat_active, "lurking ambushers and guards at post do not start combat music")
+    sentinel.global_position.x = -260.0
+    sentinel.memory_timer = 0.0
+    step(sentinel, null)
+    check(sentinel.last_ai_decision == "return_post", "the guard walks back to its post")
+    director._tick_combat_layer(0.25, [sentinel])
+    check(not director.combat_active, "returning to a post is calm")
+    target.position = Vector2(420, 900)
+    await physics_frame
+    step(larva, target)
+    director._tick_combat_layer(0.25, [lurker, sentinel, larva])
+    check(director.combat_active, "an engaged enemy still starts combat music")
+    director.free()
+    await clear_stage()
 
 func _support_filters() -> void:
     var donor := spawn("ash_banner_imp", "support_filters", Vector2(300, 300))

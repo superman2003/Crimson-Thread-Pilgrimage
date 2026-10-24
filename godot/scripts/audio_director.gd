@@ -458,8 +458,8 @@ func _tick_shrine_lullaby() -> void:
         start_lullaby()
 
 
-## 战斗层轮询：0.25s 一拍读取敌人 last_ai_decision（patrol/return 之外即视为
-## 交战），离战 4s 冷静期才收层（防抽泵）。
+## 战斗层轮询：0.25s 一拍读取敌人 combat_engaged()（巡逻、回位、蛰伏、守点之外
+## 即视为交战；旧接口按 last_ai_decision 的 patrol/return 判定），离战 4s 冷静期才收层（防抽泵）。
 func _tick_combat_layer(tick: float, enemies: Array) -> void:
     var engaged := false
     for enemy_variant in enemies:
@@ -471,7 +471,9 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
         if typeof(decision_value) != TYPE_STRING:
             continue
         var decision := String(decision_value)
-        if not decision.is_empty() and decision != "patrol" and decision != "return":
+        # Lurking ambushers and guards at their post are calm, not combat.
+        var in_combat := bool(enemy_node.combat_engaged()) if enemy_node.has_method("combat_engaged") else decision != "patrol" and decision != "return"
+        if not decision.is_empty() and in_combat:
             engaged = true
             # An encounter has one quiet material voice accent, never one per poll.
             if not combat_active:
