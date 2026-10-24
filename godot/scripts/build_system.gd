@@ -9,6 +9,8 @@ const FAMILY_NAMES := {"tool": "战具", "combat_accessory": "战斗饰件", "tr
 var catalog: Dictionary = {}
 var state: Dictionary = {}
 var cooldowns: Dictionary = {}
+## Derived from world inventory, never saved in a loadout or added repeatedly.
+var permanent_stats: Dictionary = {}
 
 func _init() -> void:
     var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(CATALOG_PATH))
@@ -17,6 +19,7 @@ func _init() -> void:
     reset()
 
 func reset() -> void:
+    permanent_stats.clear()
     state = {"version": 3, "crest": "crimson", "skill": "cleave", "tool": "shard",
         "skills": ["cleave", ""], "tools": ["shard", ""], "active_skill_slot": 0, "active_tool_slot": 0,
         "equipped_families": {"tool": ["shard", ""], "combat_accessory": ["", "", ""],
@@ -45,6 +48,13 @@ func _unlock(field: String, id: String) -> void:
         state[field].append(id)
 
 func sync_progress(inventory_counts: Dictionary, _region_id: String = "", story_flags: Dictionary = {}) -> void:
+    permanent_stats.clear()
+    for item_id in catalog.get("permanent_upgrades", {}):
+        var count: Variant = inventory_counts.get(item_id, 0)
+        if not _counter(count, 1000000): continue
+        var upgrade: Dictionary = catalog.permanent_upgrades[item_id]
+        var stat := String(upgrade.stat)
+        permanent_stats[stat] = int(permanent_stats.get(stat, 0)) + int(count) * int(upgrade.amount)
     # No region or permanent exploration ability grants equipment. Dialogue and relics do.
     var tables := {"crests": "unlocked_crests", "skills": "unlocked_skills", "tools": "unlocked_tools", "passives": "unlocked_passives"}
     for table in tables:
@@ -336,6 +346,8 @@ func profile() -> Dictionary:
     result.heal_energy_cost = int(result.heal_cost)
     result.status_resist_duration = 3.0 if state.passives.has("mender") else 0.0
     result.guard_refund = 0 # Perfect guards build pressure, never create free energy loops.
+    for stat in permanent_stats:
+        result[stat] = int(result.get(stat, 0)) + int(permanent_stats[stat])
     return result
 
 func stats() -> Dictionary:
@@ -597,6 +609,7 @@ func preview_loadout(name: String, at_bell: bool = true) -> Dictionary:
     var candidate = get_script().new()
     candidate.state = state.duplicate(true)
     candidate.cooldowns = cooldowns.duplicate(true)
+    candidate.permanent_stats = permanent_stats.duplicate()
     var result: Dictionary = candidate.restore_loadout(name, true)
     if not bool(result.get("ok", false)): return result
     return _ok({"can_restore": at_bell, "reason": "" if at_bell else "请在钟龛恢复构筑",

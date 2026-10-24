@@ -197,8 +197,19 @@ artifacts/v04_heal_material/**/*.png -filter -diff -merge -text
 godot/assets/vfx/minor_enemy_skills/*.png -filter -diff -merge -text
 artifacts/minor_enemy_skill_art/*.webp -filter -diff -merge -text
 art_requests/minor_enemy_skills_v4/incoming/*.txt -text whitespace=cr-at-eol,-blank-at-eof
+godot/assets/vfx/player_movement/*.png -filter -diff -merge -text
+artifacts/v04_movement_material/** -text whitespace=cr-at-eol
+artifacts/v04_movement_material/**/*.png -filter -diff -merge -text
 # Boss skill runtime atlases and native GPU evidence are directly reviewable.
 godot/assets/vfx/boss_skills/*.png -filter -diff -merge -text
 artifacts/boss_skill_art/*.webp -filter -diff -merge -text
 
+artifacts/w03_earned_dash/** -text whitespace=cr-at-eol
+artifacts/w03_earned_dash/**/*.png -filter -diff -merge -text
+
+godot/scripts/world_earned_dash_return_playback.gd -text whitespace=cr-at-eol
+tools/run_earned_dash_return.py -text whitespace=cr-at-eol
+tools/verify_earned_dash_proofs.py -text whitespace=cr-at-eol
 artifacts/t04_bride_retry/** -text whitespace=cr-at-eol
+artifacts/e03_permanent_capacity/** -text whitespace=cr-at-eol
+artifacts/e03_permanent_capacity/**/*.png -filter -diff -merge -text

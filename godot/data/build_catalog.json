@@ -1,5 +1,9 @@
 {
   "version": 2,
+  "permanent_upgrades": {
+    "heart_knot": {"stat": "max_hp", "amount": 1},
+    "energy_spindle": {"stat": "max_energy", "amount": 20}
+  },
   "crests": {
     "crimson": {
       "name": "缝名契印",
@@ -92,7 +96,8 @@
               "spur",
               "needlecase",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ]
           },
           {
@@ -101,7 +106,8 @@
               "spur",
               "stride",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ],
             "requires_mechanism": "crimson"
           },
@@ -111,7 +117,8 @@
               "stride",
               "needlecase",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ],
             "requires_mechanism": "crimson",
             "requires_part": "travel_clasp"
@@ -229,7 +236,8 @@
               "needlecase",
               "stride",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ]
           },
           {
@@ -238,7 +246,8 @@
               "needlecase",
               "spur",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ],
             "requires_mechanism": "bell"
           },
@@ -248,7 +257,8 @@
               "stride",
               "needlecase",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ],
             "requires_mechanism": "bell",
             "requires_part": "travel_clasp"
@@ -367,7 +377,8 @@
               "stride",
               "needlecase",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ]
           },
           {
@@ -376,7 +387,8 @@
               "stride",
               "spur",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ]
           },
           {
@@ -385,7 +397,8 @@
               "spur",
               "needlecase",
               "compass",
-              "ash_ring"
+              "ash_ring",
+              "quiet_sole"
             ],
             "requires_mechanism": "salt",
             "requires_part": "travel_clasp"
@@ -982,6 +995,22 @@
       "risk": "普攻回能提高10%，治疗准备时间增加12%；与工匠线轴、逆潮线轴互斥。",
       "synergy": "效果只在装备后计算；不改变永久探索能力。",
       "family": "combat_accessory"
+    },
+    "quiet_sole": {
+      "name": "静靴",
+      "description": "陷阱触发宽高缩小20%；不降低命中后的伤害。",
+      "cost": 1,
+      "group": "",
+      "modifiers": {
+        "hazard_trigger_mult": -0.2
+      },
+      "unlock_item": "quiet_sole",
+      "icon": "res://assets/ui/seals/quiet_sole.svg",
+      "source": "苔钟庭·织线暗室的原静靴遗物。",
+      "unlock_hint": "取得静靴后，在钟龛将它装入行旅饰件槽。",
+      "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击。",
+      "synergy": "卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹。",
+      "family": "travel_accessory"
     }
   },
   "recipes": {
