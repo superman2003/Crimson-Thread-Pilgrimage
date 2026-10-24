@@ -539,14 +539,16 @@ func _build_bag() -> void:
     journal_filters.add_theme_constant_override("separation",9)
     journal_filters.visible=false
     bag.add_child(journal_filters)
-    for pair in [["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"]]:
+    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"]]
+    var filter_width:=floorf((645.0-(filters.size()-1)*9.0)/filters.size())
+    for pair in filters:
         var filter_id:=String(pair[0])
-        var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(100,28),func():
+        var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(filter_width,28),func():
             journal_filter=filter_id
             journal_selection=0
             bag_scroll.scroll_vertical=0
             refresh_inventory())
-        filter_button.custom_minimum_size=Vector2(100,28)
+        filter_button.custom_minimum_size=Vector2(filter_width,28)
         filter_button.add_theme_font_size_override("font_size",13)
         journal_filter_buttons[filter_id]=filter_button
     bag_grid=GridContainer.new()
@@ -2139,7 +2141,13 @@ func _refresh_journal() -> void:
         return
     var narrative: Variant=level.get("world_narrative")
     if narrative==null:return
-    var records: Array=preload("res://scripts/scene_history.gd").records(level.story_flags)
+    var guide_bindings: Dictionary={}
+    for action in ["jump","attack","heal","skill_1","interact","map"]:guide_bindings[action]=_short_binding(action)
+    var heal: Dictionary={}
+    if is_instance_valid(level.player) and level.player.has_method("get_combat_ui_state"):heal=level.player.get_combat_ui_state().get("heal",{})
+    var recall:=preload("res://scripts/death_recall.gd")
+    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES)
+    records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
@@ -2194,6 +2202,7 @@ func _refresh_journal() -> void:
         var status:="已发现" if bool(entry.get("acquired",false)) else "待发现"
         if entry.record_kind=="quest":status="已完成" if String(entry.get("status",""))=="complete" else "进行中"
         elif entry.record_kind=="main":status="主线"
+        elif entry.record_kind=="guide":status="可回看"
         elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
         var button:=_button(bag_grid,title+"\n"+status,Vector2.ZERO,Vector2(309,74),func():_show_journal_record(entry))
@@ -2221,6 +2230,9 @@ func _show_journal_record(entry: Dictionary) -> void:
         lines.append(String(entry.get("text","")))
         lines.append("\n地点："+String(entry.get("place","")))
         lines.append("\n环境见闻保留了观察，不计入六区原始证词。")
+    elif String(entry.get("record_kind",""))=="guide":
+        bag_category_label.text="操作手册 · 当前规则"
+        lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
         var ready:=bool(entry.get("available",false))
