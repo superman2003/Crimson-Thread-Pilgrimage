@@ -1,0 +1,43 @@
+extends "res://scripts/world_obsidian_tower_playback.gd"
+## Positioned collision fixture only, never earned exploration evidence.
+func _run() -> void:
+    var path: String="res://data/demo_ch06_silent_crown_core.json"
+    for arg in OS.get_cmdline_user_args():
+        if arg.begins_with("--slot-config="):path=arg.trim_prefix("--slot-config=")
+    scene=load("res://scenes/Main.tscn").instantiate()
+    scene.config_path=path
+    scene.world_save_path="user://test_crown_rain_slot_fixture.json"
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    _check(String(scene.config.id)=="demo_ch06_silent_crown_core","positioned fixture loads the exact requested C6 data")
+    scene.set_process(false)
+    scene.set_physics_process(false)
+    combat_enabled=false
+    for enemy in get_nodes_in_group("enemy"):
+        enemy.set_process(false)
+        enemy.set_physics_process(false)
+        enemy.set_collision_layer_value(3,false)
+    for hazard in scene.find_children("ch06_hazard*","Area2D",true,false):hazard.monitoring=false
+    scene.player.double_jump_unlocked=false
+    scene.player.wall_grip_unlocked=false
+    scene.player.position=Vector2(4815,1180)
+    scene.player.velocity=Vector2.ZERO
+    scene.cave_world.warm_collision_focus(scene.player.position)
+    await _tick(20)
+    if await _leap(Vector2(5050,1128),999,"ordinary jump preserves both upper rain banks"):
+        if await _walk_without_jump(Vector2(4950,1300)):
+            _check(absf(scene.player.position.y-1300)<4,"authored 110px slot permits actual lower out-step landing")
+            if await _leap(Vector2(4820,1180),999,"ordinary return from out-step to west rain bank"):
+                _check(absf(scene.player.position.y-1180)<4,"ordinary return preserves the upper route")
+    print("CROWN_RAIN_SLOT failures=",failures)
+    _release()
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene)
+    scene.queue_free()
+    for unused in 10:await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear()
+    preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
+    _check(await preload("res://scripts/audio_retirement.gd").drain(self),"rain slot fixture retires audio")
+    quit(0 if failures==0 else 1)
+func _near_foe() -> Node2D:
+    return null

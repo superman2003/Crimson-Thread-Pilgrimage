@@ -1,0 +1,73 @@
+extends "res://scripts/world_obsidian_tower_playback.gd"
+## Normal earned Bride victory -> physical cable descent -> crown causeway.
+const CROWN_ENTRY_SAVE := "user://test_world_c06_earned_entry.json"
+const CROWN_ENTRY_SEED := "res://../artifacts/t04_bride_retry/earned_bride_seed.json"
+func _run() -> void:
+    for suffix in ["", ".bak", ".tmp"]:
+        if FileAccess.file_exists(CROWN_ENTRY_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(CROWN_ENTRY_SAVE+suffix))
+    var file:=FileAccess.open(CROWN_ENTRY_SAVE,FileAccess.WRITE)
+    file.store_buffer(FileAccess.get_file_as_bytes(CROWN_ENTRY_SEED))
+    file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=CROWN_ENTRY_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(scene.currency_count==435 and scene.demo_complete and scene.inventory_counts.get("thread_dash",0)==0,"earned full Bride victory restores without unearned dash")
+    var route: Array=[
+        ["leap",4490,656,20,"physical mirror threshold after actual victory"],
+        ["fight"],
+        ["walk",4560,656],
+        ["leap",4790,700,999,"ordinary jump through defeated Bride gate"],
+        ["walk",5315,700],
+        ["leap",5550,850,999,"ordinary jump onto first cable landing"],
+        ["walk",5780,1140],
+        ["walk",5580,1440],
+        ["walk",5810,1745],
+        ["walk",5600,2050],
+        ["walk",5820,2355],
+        ["walk",5610,2650],
+        ["fight"],
+        ["walk",5730,2650],
+        ["leap",6000,2724,20,"normal cable base to silent gate approach"],
+        ["walk",6110,2724],
+        ["leap",6330,2680,999,"ordinary jump to silent gate step"],
+        ["leap",6650,2722,20,"actual exit dock"],
+    ]
+    for action in route:
+        var ok:=true
+        if action[0]=="leap":ok=await _leap(Vector2(action[1],action[2]),action[3],action[4])
+        elif action[0]=="walk":ok=await _walk_without_jump(Vector2(action[1],action[2]))
+        else:ok=await _clear_nearby()
+        if not ok:await _finish();return
+    await _crown_exit()
+    await _finish()
+func _crown_exit() -> void:
+    steps+=1
+    await _world_interact()
+    if scene.world_passage.active:
+        _axis(signf(scene.world_passage.destination_point.x-scene.world_passage.source_point.x))
+        for frame in 3600:
+            await _tick()
+            if not scene.world_passage.active:break
+        _release()
+    for frame in 2000:
+        if not _transition_busy():break
+        await process_frame
+    await _tick(15)
+    _check(String(scene.config.id)=="demo_ch06_silent_crown_core","actual crown causeway enters C6")
+    print("CROWN_ENTRY_STATE ",JSON.stringify({"position":str(scene.player.position),"wallet":scene.currency_count,"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id}))
+func _finish() -> void:
+    _release()
+    Input.action_release("skill_1")
+    _check(deaths==0,"actual crown entry survives without death")
+    print("WORLD_C06_ENTRY steps=%d failures=%d deaths=%d damage_suppression=false"%[steps,failures,deaths])
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene)
+    scene.queue_free()
+    for unused in 10:await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear()
+    preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
+    _check(await preload("res://scripts/audio_retirement.gd").drain(self),"crown entry fixture retires audio")
+    quit(0 if failures==0 else 1)
