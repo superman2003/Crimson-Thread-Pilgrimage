@@ -175,6 +175,21 @@ func _world() -> void:
     _check(toolbar.get_global_transform_with_canvas()==toolbar_before and marker.get_global_transform_with_canvas().get_scale().x>1.0, "zoom transforms map content while fixed toolbar remains in screen space")
     await _right(A, second)
     _check(_count() == 2 and _records()[1].kind == "warning" and Vector2(_records()[1].position[0], _records()[1].position[1]).distance_to(second) < 1.0, "real right mouse inverse zoom/pan stores the chosen local point and type")
+    var locate_list: OptionButton=toolbar.get_node("PinList")
+    locate_list.select(2)
+    locate_list.item_selected.emit(2)
+    var unchanged_flags: Dictionary=level.story_flags.duplicate(true)
+    var unchanged_pose: Vector2=level.player.global_position
+    var unchanged_disk:=FileAccess.get_file_as_bytes(SAVE)
+    toolbar.get_node("PinLocate").pressed.emit()
+    var located_point: Vector2=UI.project(level,A,second)*level.survey_map_view.zoom+level.map_draw_root.position
+    _check(Rect2(Vector2.ZERO,level.survey_map_view.size).has_point(located_point) and level.survey_map_view.zoom>=2.0,"focused known pin can be brought into the regional viewport")
+    _check(level.story_flags==unchanged_flags and level.player.global_position==unchanged_pose and FileAccess.get_file_as_bytes(SAVE)==unchanged_disk,"viewing a pin writes no progress save or player coordinates")
+    var toolbar_bounds:=Rect2(Vector2.ZERO,toolbar.size)
+    _check(toolbar_bounds.encloses(toolbar.get_node("PinLocate").get_rect()) and not toolbar.get_node("PinLocate").get_rect().intersects(toolbar.get_node("PinDelete").get_rect()),"new locate control fits the fixed toolbar without overlapping delete")
+    # The following pre-existing popup journey deliberately starts on prompt 0.
+    locate_list.select(0)
+    locate_list.item_selected.emit(0)
     var signal_count := {"value": 0}
     var count_secondary := func(_point: Vector2): signal_count.value += 1
     level.survey_map_view.secondary_pressed.connect(count_secondary)
@@ -228,6 +243,7 @@ func _world() -> void:
     _check(is_same(level.story_flags[PINS.KEY], original_key) and is_same(level.world_state.data, state) and FileAccess.get_file_as_bytes(SAVE) == disk and level.map_panel.get_node("PlayerPinStatus").text.contains("暂停"), "blocked modification rejects before touching memory or disk")
     var blocked_add := UI.add_current(level)
     _check(not blocked_add.ok and String(blocked_add.reason).contains("暂停") and is_same(level.story_flags[PINS.KEY], original_key) and is_same(level.world_state.data, state) and FileAccess.get_file_as_bytes(SAVE) == disk, "blocked current-position addition rejects before touching pin ownership, checkpoint or disk")
+    _check(UI.locate_selected(level).ok and FileAccess.get_file_as_bytes(SAVE)==disk,"read-only pin viewing remains available when saving is blocked")
     level.world_save_blocked = false
     level._refresh_map_overlay()
     level.world_map_view = true
@@ -246,6 +262,14 @@ func _world() -> void:
     _check(_count() == 3 and _records()[2].region_id == B and Vector2(_records()[2].position[0], _records()[2].position[1]).distance_to(point_b) < 1.0, "world overview right click inverts world origin plus zoom and pan to the correct region")
     marker = level.map_draw_root.get_node_or_null("PlayerMapPin_3")
     _check(marker != null and (marker.get_meta("map_anchor") as Vector2).distance_to(UI.project(level, B, point_b)) < 0.01 and (marker.position + Vector2(8, 12)).distance_to(marker.get_meta("map_anchor")) < 64.0, "world pin uses the same fixed projection as the atlas")
+    level.world_map_view=false
+    level._refresh_map_overlay()
+    locate_list=toolbar.get_node("PinList")
+    for index in locate_list.item_count:
+        if locate_list.get_item_id(index)==3:locate_list.select(index)
+    unchanged_flags=level.story_flags.duplicate(true)
+    _check(UI.locate_selected(level).ok and level.world_map_view and level.config.id==A,"viewing a remote pin opens only the atlas and keeps the current region")
+    _check(level.story_flags==unchanged_flags,"cross-region pin viewing never grants map knowledge")
     for record in _records():
         var displayed: Label = level.map_draw_root.get_node("PlayerMapPin_" + str(record.id))
         var item_text := ""
@@ -269,6 +293,7 @@ func _world() -> void:
     old_toolbar.get_node("PinCurrent").pressed.emit()
     old_view.secondary_pressed.emit(UI.project(level, B, point_b + Vector2(60, 0)))
     old_toolbar.get_node("PinDelete").pressed.emit()
+    old_toolbar.get_node("PinLocate").pressed.emit()
     _check(level.story_flags[PINS.KEY] == pin_value and _toolbar() != old_toolbar and level.survey_map_view != old_view, "retained old buttons and view cannot mutate the new region journal")
     old_toolbar.free()
     old_view.free()
@@ -297,6 +322,7 @@ func _world() -> void:
     level.survey_map_view.secondary_pressed.emit(Vector2(200, 200))
     _toolbar().get_node("PinCurrent").pressed.emit()
     _check(level.story_flags[PINS.KEY] == closed_before, "closed map cannot accept lingering control events")
+    _check(not UI.locate_selected(level).ok,"closed map rejects a stale locate command")
     var freed_toolbar := _toolbar()
     var freed_view: Control = level.survey_map_view
     level.map_panel.remove_child(freed_toolbar)

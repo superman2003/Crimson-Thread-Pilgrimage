@@ -35,6 +35,16 @@ func magnify(factor: float, anchor: Vector2 = Vector2.INF) -> void:
     clamp_pan()
 func clamp_pan() -> void:
     content.position = content.position.clamp(size - content.size * zoom, Vector2.ZERO)
+
+func center_on(point: Vector2, minimum_zoom: float=2.0) -> bool:
+    if content==null or not point.is_finite() or not is_finite(minimum_zoom) or minimum_zoom<1.0 or minimum_zoom>4.0:return false
+    if not Rect2(Vector2.ZERO,content.size).has_point(point):return false
+    _cancel_navigation()
+    zoom=maxf(zoom,minimum_zoom)
+    content.scale=Vector2.ONE*zoom
+    content.position=size*0.5-point*zoom
+    clamp_pan()
+    return true
 func _gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton:
         if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
