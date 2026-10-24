@@ -701,13 +701,25 @@ func show_speaker(area: Area2D) -> void:
     dialogue_quest_button.text="询问心愿"
     if not quest.is_empty():
         var required:=String(quest.get("item",""))
-        if level.inventory_counts.has(required) and not bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
+        if level.wish_offering_available(required) and not bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
             dialogue_quest_button.text="交付信物"
     var sprite:=area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
     if sprite!=null:sprite.play("talk")
 
 func _topic(key: String) -> void:
     if not is_instance_valid(dialogue_area):return
+    if level.world_mode and key == "wish":
+        var topics: Dictionary = dialogue_area.get_meta("dialogue_topics", {})
+        var quest: Dictionary = topics.get("quest", {})
+        var result: Dictionary = level.perform_wish_topic(quest, dialogue_area)
+        if not bool(result.get("ok", false)):
+            level._toast(String(result.get("reason", "心愿尚未确认，请重试。")))
+            return
+        dialogue_area.set_meta("world_line_committed", true)
+        dialogue_area.set_meta("world_displayed_index", -1)
+        var line := String(quest.get("thanks", "我会记住你带回的消息。")) if bool(result.get("delivered", false)) else String(topics.get(key, "你若愿意听，我们就再坐一会儿。"))
+        level._show_dialogue(dialogue_area, line)
+        return
     if level.world_mode:
         level._commit_world_dialogue()
         # A route/wish answer is not an unread final line from the story round.
@@ -720,7 +732,7 @@ func _topic(key: String) -> void:
         if not quest.is_empty():
             var required:=String(quest.get("item",""))
             var flag:=String(quest.get("complete_flag",""))
-            if level.inventory_counts.has(required) and not bool(level.story_flags.get(flag,false)):
+            if level.wish_offering_available(required) and not bool(level.story_flags.get(flag,false)):
                 level._set_story_flag(flag)
                 if bool(quest.get("consume",false)):
                     level.inventory_counts[required]=int(level.inventory_counts[required])-1
