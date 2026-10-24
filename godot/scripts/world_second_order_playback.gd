@@ -25,9 +25,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -53,7 +53,10 @@ func _run() -> void:
         _check(scene.player.hp==int(parent_proof.hp) and scene.player.energy==int(parent_proof.energy) and not scene.player.debug_invulnerable,"source HP and thread restore with damage enabled")
         if failures>0:await finish_order();return
         if order_stage == "canal_aqueduct":await canal_aqueduct()
-        else:await archive_obsidian_camp()
+        elif order_stage == "archive_obsidian_camp":await archive_obsidian_camp()
+        else:
+            _check(scene.active_save_point_id=="save_ch05_lower_loop" and int(scene.inventory_counts.get("lantern_phase",0))==1,"independent production World restores naturally earned camp and phase")
+            _check(scene.world_state.data.regions.get("demo_ch04_broken_string_greenhouse",{}).get("visited_rooms",{}).is_empty(),"independent disk restore still records C5 before first C4")
         await finish_order()
         return
     _check(scene.initial_region_ready and String(scene.config.id)=="demo_ch01_moss_bell_court","new game starts in original C1")
