@@ -47,9 +47,10 @@ func run(tree: SceneTree) -> int:
     var ghosts := arena.get_children().filter(func(item): return item != player)
     var marked := live(tree, &"motion")
     if not marked.is_empty(): marked[0].queue_free()
-    player.dash_start_position = Vector2(-100, 0)
-    player._spawn_dash_trail()
-    check(count_units(tree, &"motion") == 11, "two-piece dash trail does not partially claim one remaining slot")
+    # The dash ribbon is now one authored node; keep the multi-piece batch rule.
+    var pair: Array[Node2D] = [Node2D.new(), Node2D.new()]
+    check(not POLICY.attach_secondary_batch(arena, pair, &"motion", player), "two-piece motion accent is rejected as a whole")
+    check(count_units(tree, &"motion") == 11, "two-piece motion accent does not partially claim one remaining slot")
     var second = load("res://scenes/Player.tscn").instantiate()
     second.set_script(QuietPlayer)
     arena.add_child(second)
@@ -57,6 +58,9 @@ func run(tree: SceneTree) -> int:
     second.set_process(false)
     for attempt in 30: second._spawn_land_vfx()
     check(count_units(tree, &"motion") == 12, "another player shares the same scene budget and reuses a queued slot")
+    player.dash_start_position = Vector2(-100, 0)
+    player._spawn_dash_trail()
+    check(count_units(tree, &"motion") == 12 and arena.get_node_or_null("PlayerDashRibbon") == null, "one-piece dash ribbon respects a full motion pool")
     for attempt in 40:
         player._spawn_double_jump_vfx()
         player._spawn_heal_effect()

@@ -655,6 +655,7 @@ const DEATH_RECALL := preload("res://scripts/death_recall.gd")
 const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
 
 func _ready() -> void:
+    preload("res://scripts/application_close.gd").install(get_tree())
     _apply_cmdline_config_override()
     _prepare_world_start()
     if world_mode:

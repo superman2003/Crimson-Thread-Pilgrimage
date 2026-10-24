@@ -44,7 +44,7 @@ def validate(data: dict) -> list[str]:
         check(row.get('family') == 'travel_accessory' and row.get('cost') == 1, f'{key}: one-capacity independent travel accessory')
         check(row.get('modifiers') == {'hazard_trigger_mult': -0.2}, f'{key}: only the promised trap trigger reduction')
         check(row.get('group') == 'trap_trigger_reduction', f'{key}: same-effect rewards cannot stack')
-        check(all(row.get(field) for field in ('source', 'unlock_hint', 'risk', 'synergy')), f'{key}: readable source and equipment tradeoff')
+        check(all(row.get(field) for field in ('description', 'source', 'unlock_hint', 'risk', 'synergy')), f'{key}: readable source and equipment tradeoff')
         other_name = LEGACY_TRAVEL_PASSIVES['damp_knot' if key == 'quiet_sole' else 'quiet_sole']
         check(other_name in row.get('risk', '') and '互斥' in row.get('risk', ''), f'{key}: mutual exclusion names the other original reward')
         icon = row.get('icon', '')
