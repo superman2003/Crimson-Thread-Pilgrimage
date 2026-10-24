@@ -214,5 +214,14 @@ artifacts/t04_bride_retry/** -text whitespace=cr-at-eol
 artifacts/e03_permanent_capacity/** -text whitespace=cr-at-eol
 artifacts/e03_permanent_capacity/**/*.png -filter -diff -merge -text
 
+godot/assets/vfx/player_hurt/*.png -filter -diff -merge -text
+artifacts/v04_hurt_material/** -text whitespace=cr-at-eol
+artifacts/v04_hurt_material/**/*.png -filter -diff -merge -text
+
+godot/assets/vfx/player_dash/*.png -filter -diff -merge -text
+artifacts/v04_dash_material/** -text whitespace=cr-at-eol
+artifacts/v04_dash_material/**/*.png -filter -diff -merge -text
+
+godot/assets/vfx/player_hook/*.png -filter -diff -merge -text
 # Native evidence for the original damp-knot travel reward.
 artifacts/e03_legacy_travel/**/*.png -filter -diff -merge -text
