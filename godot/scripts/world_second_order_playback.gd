@@ -12,6 +12,8 @@ var order_input_proof := ""
 var parent_proof: Dictionary = {}
 var order_air_down_target := ""
 var order_conversations := 0
+var order_thorn_actions := 0
+var order_vault_hits := 0
 var order_spear_approach := false
 var order_spear_cast := false
 var order_spear_cast_frame := -100
@@ -25,9 +27,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -54,6 +56,12 @@ func _run() -> void:
         if failures>0:await finish_order();return
         if order_stage == "canal_aqueduct":await canal_aqueduct()
         elif order_stage == "archive_obsidian_camp":await archive_obsidian_camp()
+        elif order_stage == "camp_prepare":await camp_prepare()
+        elif order_stage == "greenhouse_entry":await greenhouse_entry()
+        elif order_stage == "greenhouse_heart":await greenhouse_heart()
+        elif order_stage == "root_crown_lower":await root_crown_lower()
+        elif order_stage=="earned_restore":
+            _check(same_json(scene.story_flags,parent_proof.flags) and scene.player.max_hp==int(parent_proof.max_hp) and scene.player.max_energy==int(parent_proof.max_energy),"independent production World restores exact earned flags and resource limits")
         else:
             _check(scene.active_save_point_id=="save_ch05_lower_loop" and int(scene.inventory_counts.get("lantern_phase",0))==1,"independent production World restores naturally earned camp and phase")
             _check(scene.world_state.data.regions.get("demo_ch04_broken_string_greenhouse",{}).get("visited_rooms",{}).is_empty(),"independent disk restore still records C5 before first C4")
@@ -214,11 +222,11 @@ func order_clear() -> bool:
         combat_enabled=true;await _tick()
         if scene.player.hp<=0:break
     combat_enabled=false;_release();_check(false,"actual route duel did not finish");return false
-func order_walk_only(target: Vector2) -> bool:
+func order_walk_only(target: Vector2, actual_surface: bool=false) -> bool:
     steps+=1;_release();await _tick(3)
     for frame in 480:
         var delta: Vector2=target-scene.player.position
-        if absf(delta.x)<16 and absf(delta.y)<8 and scene.player.is_on_floor():
+        if absf(delta.x)<16 and (actual_surface or absf(delta.y)<8) and scene.player.is_on_floor():
             _release();print("SECOND_ORDER_WALK reached ",scene.player.position);return true
         _axis(signf(delta.x) if absf(delta.x)>8 else 0);await _tick()
         if frame%90==89:print("SECOND_ORDER_WALK pending ",scene.player.position," target=",target)
@@ -273,6 +281,7 @@ func same_json(actual: Variant,expected: Variant) -> bool:
         return true
     return actual==expected
 func order_ability_observed(id: String,origin: Vector2,direction: Vector2) -> void:
+    if id=="thorn_downstrike":order_thorn_actions+=1
     print("SECOND_ORDER_ABILITY_EVENT "+JSON.stringify({"id":id,"frame":frames,"origin":str(origin),"direction":str(direction)}))
 func _tick(count: int=1) -> void:
     for unused in count:
@@ -324,3 +333,340 @@ func finish_order() -> void:
     _check(await RETIREMENT.drain(self),"owned audio playback retires after stage")
     print("SECOND_ORDER_STAGE stage=%s steps=%d physics_frames=%d damage_events=%d heals=%d deaths=%d failures=%d" % [order_stage,steps,frames,damage_events,heals,deaths,failures])
     quit(1 if failures else 0)
+
+func order_click(control: Control) -> void:
+    _check(is_instance_valid(control) and control.is_visible_in_tree(),"actual visible control is available")
+    if failures>0:return
+    var point: Vector2=root.get_final_transform() * (control.get_global_transform_with_canvas() * (control.size*.5))
+    print("SECOND_ORDER_UI_INPUT ",control.name," ",control.get_global_rect()," window=",root.get_window_id()," viewport=",root.get_visible_rect()," size=",root.size," transform=",root.get_final_transform()," point=",point)
+    var motion:=InputEventMouseMotion.new();motion.window_id=root.get_window_id();motion.position=point;motion.global_position=point
+    Input.parse_input_event(motion);Input.flush_buffered_events();await process_frame
+    var event:=InputEventMouseButton.new();event.window_id=root.get_window_id();event.position=point;event.global_position=point;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=true
+    Input.parse_input_event(event);Input.flush_buffered_events();await process_frame
+    event=event.duplicate();event.pressed=false;Input.parse_input_event(event);Input.flush_buffered_events()
+    await process_frame;await process_frame;await _tick(4)
+func order_build_entry(id: String,save_button: bool=false) -> Button:
+    for node in scene.ui_shell.build_grid.get_children():
+        if node is Button and String(node.get_meta("build_id",""))==id and String(node.text).begins_with("保存为")==save_button:return node
+    return null
+func order_capture(label: String,window: Window=null) -> void:
+    if DisplayServer.get_name()=="headless" or order_output.is_empty():return
+    await process_frame;await process_frame
+    var image:=window.get_texture().get_image() if window!=null and window.visible and not window.is_embedded() else root.get_texture().get_image()
+    _check(image!=null and image.save_png(order_output.path_join(label+".png"))==OK,"native visible UI screenshot "+label)
+func order_record_build(label: String) -> void:
+    var entries: Array=[]
+    for child in scene.ui_shell.build_grid.get_children():
+        if child is Button:entries.append({"id":child.get_meta("build_id",""),"text":child.text,"disabled":child.disabled,"tooltip":child.tooltip_text})
+    print("SECOND_ORDER_BUILD_UI "+JSON.stringify({"label":label,"category":scene.ui_shell.build_category,"family":scene.ui_shell.build_family,"summary":scene.ui_shell.build_summary.text,"detail":scene.ui_shell.build_detail.text,"entries":entries,"build":scene.build_system.serialize(),"wallet":scene.currency_count,"inventory":scene.inventory_counts}))
+func camp_prepare() -> void:
+    var before:=snapshot()
+    await _key(KEY_B,root)
+    _check(scene.ui_shell.build_panel.visible,"physical B opens build UI at the actually earned camp shrine")
+    if failures>0:return
+    order_record_build("original camp crest restrictions")
+    await order_capture("camp_crest_restrictions")
+    await order_click(scene.ui_shell.build_tabs[5])
+    order_record_build("original empty loadout restrictions")
+    await order_click(order_build_entry("巡礼方案 1",true))
+    _check(scene.build_system.serialize().loadouts.has("巡礼方案 1"),"actual UI saves the original earned build")
+    await order_click(scene.ui_shell.build_tabs[3])
+    await order_click(scene.ui_shell.family_selector_buttons[1])
+    order_record_build("real inventory travel options before selection")
+    var stride:=order_build_entry("stride")
+    _check(stride!=null and not stride.disabled,"original default-unlocked stride is a legal alternative; no new reward claim")
+    if failures>0:return
+    await order_click(stride)
+    order_record_build("legally equipped default stride")
+    await order_capture("camp_equipped_stride")
+    _check(scene.build_system.serialize().passives.has("stride"),"actual travel slot UI equips stride at the real shrine")
+    _check(same_json(scene.inventory_counts,before.inventory) and scene.currency_count==before.wallet and scene.player.hp==before.hp and scene.player.energy==before.energy,"free legal equip does not grant inventory currency or resource refill")
+    await order_click(scene.ui_shell.build_tabs[5])
+    await order_click(order_build_entry("巡礼方案 2",true))
+    _check(scene.build_system.serialize().loadouts.has("巡礼方案 2"),"actual UI saves the distinct stride scheme")
+    await order_capture("camp_two_schemes")
+    await _key(KEY_B,root)
+    _check(not scene.ui_shell.build_panel.visible,"physical B closes build UI")
+    if failures>0:return
+    if not await order_walk_only(Vector2(500,1910)):return
+    await _world_interact()
+    _check(scene.active_overlay=="dialogue" and scene.dialogue_name_label.text=="盲钟骑士","real F starts actual camp NPC dialogue")
+    if failures>0:return
+    print("SECOND_ORDER_REAL_DIALOGUE "+JSON.stringify({"speaker":scene.dialogue_name_label.text,"line":scene.dialogue_text_label.text}))
+    for i in 3:await _world_interact()
+    print("SECOND_ORDER_REAL_DIALOGUE "+JSON.stringify({"speaker":scene.dialogue_name_label.text,"line":scene.dialogue_text_label.text}))
+    await _key(KEY_ESCAPE,root)
+    await _tick(6)
+    _check(String(scene.active_overlay).is_empty(),"actual Escape closes read camp dialogue")
+    if not await order_walk_only(Vector2(190,1910)):return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_ch05_lower_loop" and scene.player.hp==scene.player.max_hp,"real camp rest commits normal UI build and dialogue progress")
+    if failures==0:export_checkpoint("actual earned camp -> physical B legal default stride UI/loadout -> actual blind knight F conversation -> normal F rest")
+
+func greenhouse_entry() -> void:
+    _check(scene.build_system.serialize().passives.has("stride") and not scene.player.dash_unlocked,"continues the actual equipped stride scheme without permanent dash")
+    for point in [Vector2(640,1978),Vector2(900,2072),Vector2(710,2712)]:
+        if not await order_walk_only(point):return
+    if not await order_leap(Vector2(530,2760),999,"normal jump past the archive walk mouth to the ravine guide"):return
+    var candidates: Array=[]
+    for child in scene.get_children():
+        if child is Area2D and scene.player.position.distance_to(child.position)<260:candidates.append({"id":str(child.name),"position":str(child.position),"kind":child.get_meta("kind",""),"visible":child.is_visible_in_tree(),"global":str(child.global_position),"distance":scene.player.global_position.distance_to(child.global_position)})
+    print("SECOND_ORDER_GUIDE_NEARBY "+JSON.stringify({"player":str(scene.player.position),"global_player":str(scene.player.global_position),"can_interact":scene._can_interact_with_world(),"loading":scene.world_loading,"passage_route":scene.world_passage.route,"transitioning":scene.chapter_transitioning,"death_timer":scene.player.death_timer,"overlay":scene.active_overlay,"target":str(scene.interaction_target()),"candidates":candidates}))
+    await _world_interact()
+    print("SECOND_ORDER_GUIDE_F_RESULT ",scene.config.id," overlay=",scene.active_overlay," target=",scene.interaction_target())
+    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    _check(dialog.visible and not dialog.get_ok_button().disabled,"F opens the original C5 guide shop with earned funds")
+    if failures>0:return
+    var expression:=RegEx.new();expression.compile("本区地图：([0-9]+)枚")
+    var price_match:=expression.search(dialog.dialog_text)
+    _check(price_match!=null,"actual visible local map quote includes its price")
+    if failures>0:return
+    var map_price:=int(price_match.get_string(1))
+    var wallet:int=scene.currency_count
+    print("SECOND_ORDER_ACTUAL_SHOP_QUOTE "+JSON.stringify({"dialog":dialog.dialog_text,"wallet":wallet,"map_price":map_price}))
+    await order_capture("obsidian_actual_map_quote",dialog)
+    await _key(KEY_ENTER,dialog);await _tick(4)
+    _check(JOURNAL.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==wallet-map_price,"actual Enter buys this guide map at its visible quote")
+    if failures>0:return
+    await _world_interact()
+    var quill: Button=dialog.find_child("MapSellerQuill",true,false)
+    expression.compile("· ([0-9]+)枚")
+    price_match=expression.search(quill.text)
+    _check(quill.visible and not quill.disabled and price_match!=null,"visible affordable quill has its actual own quote")
+    if failures>0:return
+    var quill_price:=int(price_match.get_string(1))
+    print("SECOND_ORDER_ACTUAL_QUILL_QUOTE "+JSON.stringify({"text":quill.text,"price":quill_price,"wallet":scene.currency_count}))
+    for attempt in 16:
+        if quill.has_focus():break
+        await _key(KEY_TAB,dialog)
+    _check(quill.has_focus(),"actual modal Tab reaches quoted quill")
+    if failures>0:return
+    await _key(KEY_ENTER,dialog);await _tick(4)
+    _check(JOURNAL.has_quill(scene.story_flags) and scene.currency_count==wallet-map_price-quill_price,"actual Enter pays quoted quill cost from earned wallet")
+    _check(not SHOP_RUNTIME.owns_tool(scene,"compass") and not SHOP_RUNTIME.shows_position(scene),"no compass or player-position aid is granted with the purchases")
+    await _key(KEY_ESCAPE,dialog);await _tick(6)
+    await _walk(Vector2(440,2760),"normal approach to actual eastern slag walk mouth")
+    if failures>0:return
+    await _interact("world_5_4_back","demo_ch04_broken_string_greenhouse",Vector2(7140,752))
+    if failures>0:return
+    _check(int(scene.inventory_counts.get("lantern_phase",0))==1 and not scene.world_state.data.regions.get("demo_ch05_obsidian_pilgrim_road",{}).get("visited_rooms",{}).is_empty(),"first C4 entry follows the same new game's earned C5 phase and exploration")
+    for point in [Vector2(7070,792),Vector2(6740,744),Vector2(6450,788),Vector2(6170,832),Vector2(5710,832),Vector2(5490,794),Vector2(5380,794),Vector2(5110,762)]:
+        if not await order_leap(point,35,"real first C4 entry from original eastern slag passage"):return
+        if point.x==5490.0:
+            if not await order_hold_duel("E14",5490):return
+            if not await order_clear():return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_late_runback" and scene.player.hp==scene.player.max_hp,"normal dome shrine rest after first C4 entry")
+    _check(scene.build_system.serialize().passives.has("stride") and not scene.player.dash_unlocked,"alternate legal equipment persists across the real region change")
+    if failures==0:export_checkpoint("actual stride camp -> C5 original guide quoted map/quill purchases -> original C5-C4 slag portal -> first C4 dome shrine")
+
+func order_flying_duel(spawn_id: String="E06",hold_x: float=5340,direction: int=1) -> bool:
+    steps+=1
+    _release()
+    await _tick(3)
+    if not await order_walk_only(Vector2(hold_x+10,2098 if spawn_id=="E06" else 928)):return false
+    var before_wallet: int=scene.currency_count
+    var before_pollen: int=scene.inventory_counts.get("pollen_wax",0)
+    var cost: int=int(scene.build_system.selected_skill().get("energy_cost",999))
+    scene.player.skill_cast.connect(func(id: String):print("GREENHOUSE_BEE_SKILL ",JSON.stringify({"id":id,"position":str(scene.player.position),"energy":scene.player.energy})))
+    var jump_at := -100
+    var skill_at := -100
+    for frame in 600:
+        var bee: Node2D
+        for candidate in get_nodes_in_group("enemy"):
+            if is_instance_valid(candidate) and candidate.get("spawn_id")==spawn_id and candidate.get("hp")!=null and candidate.hp>0:bee=candidate
+        if bee==null:
+            _release()
+            Input.action_release("skill_1")
+            for settle in 120:
+                await _tick()
+                if scene.player.is_on_floor() and scene.player.attack_timer<=0 and scene.player.hurt_timer<=0:break
+            await _recover()
+            _check(scene.currency_count==before_wallet+8 and scene.inventory_counts.get("pollen_wax",0)==before_pollen+1,"actual vine bee awards its normal income and material")
+            print("GREENHOUSE_VINE_BEE_CLEARED ",scene.player.position)
+            return failures==0
+        var player: CharacterBody2D=scene.player
+        var dx: float=hold_x-player.position.x
+        _axis(signf(dx) if absf(dx)>10 else (float(direction) if player.facing!=direction else 0.0))
+        if frame-jump_at>=35 and Input.is_action_pressed("jump"):Input.action_release("jump")
+        if absf(player.position.y-bee.position.y)>90 and player.is_on_floor() and player.attack_timer<=0 and player.hurt_timer<=0 and not Input.is_action_pressed("jump"):
+            Input.action_press("jump")
+            jump_at=frame
+            await process_frame
+        if frame-skill_at>=2 and Input.is_action_pressed("skill_1"):Input.action_release("skill_1")
+        if absf(player.position.y-bee.position.y)<80 and absf(player.position.x-bee.position.x)<120 and player.attack_timer<=0 and player.hurt_timer<=0 and player.skill_cooldown<=0 and player.energy>=cost and frames%20>=5:
+            Input.action_press("skill_1")
+            skill_at=frame
+            await process_frame
+        await _tick()
+        if frame%90==89:print("GREENHOUSE_BEE_DUEL ",JSON.stringify({"player":str(player.position),"bee":str(bee.position),"bee_hp":bee.hp,"hp":player.hp}))
+        if deaths>0:break
+    _release()
+    Input.action_release("skill_1")
+    _check(false,"actual vine bee duel did not finish")
+    return false
+
+func order_precise_interact(id: String, x: float) -> bool:
+    steps+=1
+    _release()
+    for frame in 240:
+        var dx: float=x-scene.player.position.x
+        Input.action_release("move_left")
+        Input.action_release("move_right")
+        if absf(dx)>1:
+            Input.action_press("move_right" if dx>0 else "move_left",clampf(absf(dx)/60.0,0.08,1.0))
+        await _tick()
+        if absf(dx)<2 and absf(scene.player.velocity.x)<8:
+            _release()
+            await _tick(15)
+            var target: Area2D=scene.interaction_target()
+            if target!=null and String(target.name)==id:
+                print("GREENHOUSE_INTERACTION ",JSON.stringify({"id":id,"position":str(scene.player.position)}))
+                await _world_interact()
+                _check(not _transition_busy(),"tree heart interaction does not enter the adjacent workshop")
+                return failures==0
+            print("GREENHOUSE_INTERACTION_PENDING ",str(scene.player.position)," target=",target.name if target!=null else "none")
+    _release()
+    _check(false,"cannot aim the normal tree heart interaction at "+id)
+    return false
+
+
+func greenhouse_heart() -> void:
+    _check(scene.active_save_point_id=="save_late_runback" and not scene.player.thorn_downstrike_unlocked,"continues actual first greenhouse shrine before its original thorn pickup")
+    for point in [Vector2(4820,806),Vector2(4590,892),Vector2(4280,928)]:
+        if not await order_leap(point,35,"normal dome return into original tree canopy"):return
+    if not await order_flying_duel("E08",4280,-1):return
+    if not await order_walk_only(Vector2(4060,928)):return
+    if not await order_leap(Vector2(3770,882),35,"original canopy western takeoff"):return
+    for point in [Vector2(3605,1054),Vector2(3760,1164),Vector2(3560,1274),Vector2(3750,1384),Vector2(3565,1494),Vector2(3315,1632)]:
+        if not await order_walk_only(point):return
+    if not await order_leap(Vector2(3150,1602),999,"ordinary original tree heart entrance"):return
+    if not await order_walk_only(Vector2(3060,1602)):return
+    if not await order_clear():return
+    if not await order_walk_only(Vector2(2730,1602)):return
+    if not await order_precise_interact("save_ch04_lower_loop",2750):return
+    if not await order_walk_only(Vector2(2790,1602)):return
+    if not await order_precise_interact("col_testimony_04",2770):return
+    _check(int(scene.inventory_counts.get("testimony_04",0))==1,"normal F reads and collects the authored fourth testimony")
+    if not await order_walk_only(Vector2(2830,1602)):return
+    _check(int(scene.inventory_counts.get("thorn_downstrike",0))==1 and scene.player.thorn_downstrike_unlocked,"original automatic physical pickup earns permanent thorn downstrike after C5")
+    if not await order_walk_only(Vector2(2730,1602)):return
+    if not await order_precise_interact("save_ch04_lower_loop",2750):return
+    _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"actual tree heart shrine refills by normal rest")
+    if failures==0:export_checkpoint("actual second-order C4 dome -> original canopy and tree heart -> real fourth testimony/thorn pickups -> normal tree heart rest")
+
+func order_vault_hunter() -> bool:
+    steps+=1
+    _release()
+    await _tick(3)
+    var target: Node2D
+    for actor in get_nodes_in_group("enemy"):
+        if is_instance_valid(actor) and actor.get("spawn_id")=="E12":target=actor
+    _check(target!=null,"actual root vault hunter is present")
+    if target==null:return false
+    var wallet: int=scene.currency_count
+    var pollen: int=scene.inventory_counts.get("pollen_wax",0)
+    var prior_hp: int=target.hp
+    Input.action_press("jump")
+    for frame in 600:
+        var player: CharacterBody2D=scene.player
+        if not is_instance_valid(target) or target.hp<=0:
+            _release()
+            Input.action_release("aim_down")
+            _check(order_vault_hits>0 and order_thorn_actions>0,"actual downstrike damages the root vault hunter")
+            _check(scene.currency_count==wallet+8 and scene.inventory_counts.get("pollen_wax",0)==pollen+1,"root vault hunter awards normal income and material")
+            await order_settled_recover()
+            return failures==0
+        var dx: float=target.position.x-player.position.x
+        _axis(signf(dx) if absf(dx)>12 else 0)
+        if frame>34 and Input.is_action_pressed("jump"):Input.action_release("jump")
+        Input.action_press("aim_down")
+        if not player.is_on_floor() and player.position.y>target.position.y-125 and player.position.y<target.position.y and player.attack_timer<=0 and player.hurt_timer<=0 and absf(dx)<70:
+            Input.action_press("attack")
+            attack_pressed_frame=frames
+            await process_frame
+        await _tick()
+        if is_instance_valid(target) and target.hp<prior_hp:
+            if order_thorn_actions>0 and player.current_attack_direction.y>0.5:order_vault_hits+=prior_hp-target.hp
+            prior_hp=target.hp
+            print("GREENHOUSE_VAULT_HUNTER ",JSON.stringify({"hp":target.hp,"player":str(player.position),"direction":str(player.current_attack_direction),"order_thorn_actions":order_thorn_actions,"downstrike_damage":order_vault_hits}))
+        if player.is_on_floor() and player.attack_timer<=0 and player.hurt_timer<=0 and frame%45==0:
+            Input.action_press("jump")
+            await process_frame
+        if deaths>0:break
+    _release()
+    Input.action_release("aim_down")
+    _check(false,"actual downstrike vault duel did not finish")
+    return false
+
+func order_crown_flyer(spawn_id: String) -> bool:
+    steps+=1
+    _release()
+    combat_enabled=false
+    var jumped_at: int=-1000
+    var doubled:=false
+    for frame in 900:
+        var foe: Node2D=null
+        for actor in get_nodes_in_group("enemy"):
+            if is_instance_valid(actor) and actor.spawn_id==spawn_id and actor.hp>0:foe=actor;break
+        if foe==null:
+            _release();Input.action_release("aim_up");await order_settled_recover();print("CROWN_FLYER_DEFEATED ",spawn_id);return true
+        var p: CharacterBody2D=scene.player
+        var dx: float=foe.position.x-p.position.x
+        _axis(signf(dx) if absf(dx)>80 or p.facing!=signi(dx) else 0)
+        if foe.position.y<p.position.y-75 and p.is_on_floor() and p.hurt_timer<=0 and p.attack_timer<=0 and frame-jumped_at>80:
+            Input.action_press("jump");jumped_at=frame;doubled=false;await process_frame
+        if frame-jumped_at==17:Input.action_release("jump");await process_frame
+        if frame-jumped_at>=20 and frame-jumped_at<40 and not doubled and p.air_jump_available and p.hurt_timer<=0 and p.attack_timer<=0:
+            Input.action_press("jump");doubled=true;await process_frame
+        if frame-jumped_at==55:Input.action_release("jump")
+        var normal_floor_attack: bool=p.is_on_floor() and foe.position.y>=p.position.y-75
+        if (normal_floor_attack or frame-jumped_at>=22) and absf(dx)<110 and absf(foe.position.y-p.position.y)<110 and p.hurt_timer<=0 and p.attack_timer<=0:
+            _axis(signf(dx))
+            if foe.position.y<p.position.y-40:Input.action_press("aim_up")
+            else:Input.action_release("aim_up")
+            Input.action_press("attack");attack_pressed_frame=frames
+            print("SECOND_ORDER_CROWN_REAL_ATTACK ",spawn_id," player=",p.position," foe=",foe.position," up=",Input.is_action_pressed("aim_up"))
+        await _tick()
+        if frame%90==89:print("SECOND_ORDER_CROWN_FLYER ",JSON.stringify({"id":spawn_id,"player":str(p.position),"velocity":str(p.velocity),"floor":p.is_on_floor(),"wall":p.is_on_wall(),"air_available":p.air_jump_available,"foe":str(foe.position),"foe_hp":foe.hp,"attack":p.attack_timer,"jump":Input.is_action_pressed("jump")}))
+        if p.hp<=0:break
+    _release();Input.action_release("aim_up");_check(false,"actual crown flyer "+spawn_id+" falls to existing normal double-jump attacks");return false
+
+func order_settled_recover() -> void:
+    _release()
+    for frame in 90:
+        if scene.player.is_on_floor() and scene.player._can_start_action():break
+        await _tick()
+    await _recover()
+func root_crown_lower() -> void:
+    _check(scene.active_save_point_id=="save_ch04_lower_loop" and scene.player.thorn_downstrike_unlocked and int(scene.inventory_counts.get("lantern_phase",0))==1,"continues its own earned thorn and earlier C5 phase at the real heart shrine")
+    if not await order_walk_only(Vector2(2560,1732)):return
+    if not await order_walk_only(Vector2(2730,1856)):return
+    if not await order_vault_hunter():return
+    if not await order_walk_only(Vector2(2600,1982)):return
+    await _world_interact()
+    _check(bool(scene.opened_shortcuts.get("ch04_west_spoke_shortcut",false)) and scene.boss_unlocked,"actual F opens original root vault lever after normal combat")
+    if failures>0:return
+    if not await order_walk_only(Vector2(2400,1982)):return
+    await _interact("upgrade_greenhouse_crown_branch_a","demo_ch06_silent_crown_core",Vector2(4615,1540))
+    if failures>0:return
+    _check(not int(scene.inventory_counts.get("crown_resonance",0))>0,"alternate root-pipe entry has not falsely granted the forecourt resonance")
+    order_air_down_target="E03"
+    if not await order_leap(Vector2(4400,1580),35,"original root-pipe string shelf beyond the spore chest"):return
+    order_air_down_target="";Input.action_release("aim_down")
+    if not await order_hold_duel("E03",4400):return
+    await order_settled_recover()
+    for point in [Vector2(4130,1712)]:
+        if not await order_leap(point,20,"normal crown eastern ring from its alternate branch"):return
+    if not await order_crown_flyer("E05"):return
+    if not await order_walk_only(Vector2(3730,1810)):return
+    if not await order_leap(Vector2(3450,1876),20,"normal eastern ring scribe platform"):return
+    if not await order_crown_flyer("E06"):return
+    if not await order_walk_only(Vector2(3355,1876)):return
+    if not await order_leap(Vector2(3130,1930),20,"real jump beyond original ring bell gap"):return
+    for point in [Vector2(2850,2080),Vector2(3010,2360),Vector2(2850,2640),Vector2(2700,2900)]:
+        if not await order_walk_only(point):return
+    if not await order_precise_interact("ch06_silent_crown_core_shortcut_lever",2830):return
+    if not await order_precise_interact("save_ch06_lower_loop",2570):return
+    _check(scene.active_save_point_id=="save_ch06_lower_loop" and scene.player.hp==scene.player.max_hp,"first actual second-order C6 lower-loop shrine rest")
+    if failures==0:export_checkpoint("own fresh C1-C2-C3-C5-C4 thorn -> original phase prerequisite root pipe -> actual C6 lower ring and lever -> normal lower-loop rest")

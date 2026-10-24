@@ -55,6 +55,11 @@ def build(path, number):
     for obj in [d['boss'], {'position': d['player_start']}, {'position': d.get('boss_checkpoint', d['player_start'])}]:
         if not isinstance(obj['position'], list): continue
         x, y = obj['position']; protected.append(box(x-180, y-320, x+180, y+45))
+    if number == 6:
+        # The existing final-door slope needs rider-height air between its two anchors.
+        rest,threshold=plats['throne_rest_b']['rect'],plats['boss_threshold']['rect']
+        ax,ay=rest[0]+rest[2],rest[1];bx,by=threshold[0],threshold[1]
+        protected.append(Polygon([(ax,ay-100),(bx,by-100),(bx,by+3),(ax,ay+3)]))
     gates = unary_union([rectangle(g['rect']).buffer(10) for g in d.get('locked_gates', [])])
     ordered = sorted([p for p in plats.values() if p.get('route_order') is not None], key=lambda p:p['route_order'])
     links = []
