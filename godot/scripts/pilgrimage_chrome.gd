@@ -4,6 +4,10 @@ var kind := "frame"
 var hp := 0
 var maximum := 1
 var seal_id := "crimson"
+## kind "thresholds": marks on the thread meter (U03). Costs of 0 draw nothing.
+var energy := 0
+var heal_cost := 0
+var skill_cost := 0
 const FOLIO := preload("res://assets/ui/inscription/v2/folio.png")
 const NEEDLE := preload("res://assets/ui/inscription/v2/needle_seal.svg")
 const COPPER := Color("b29168")
@@ -59,10 +63,35 @@ func _health() -> void:
             draw_polyline(PackedVector2Array([center+Vector2(-3,-8),center+Vector2(3,-2),center+Vector2(-2,4),center+Vector2(3,10)]),INK,2,true)
     _thread(PackedVector2Array([previous,previous+Vector2(12,4),previous+Vector2(23,1)]))
 
+func threshold_state() -> Dictionary:
+    return {"heal_lit":heal_cost>0 and energy>=heal_cost,"skill_lit":skill_cost>0 and energy>=skill_cost,
+        "heal_x":size.x*float(heal_cost)/maxf(1.0,float(maximum)),"skill_x":size.x*float(skill_cost)/maxf(1.0,float(maximum))}
+
+## Heal threshold as a notch through the meter, the active thread art's cost as
+## a diamond above it; each lights once the current thread pays for it.
+func _thresholds() -> void:
+    var span := maxf(1.0,float(maximum))
+    var mid := size.y*.5+2.0
+    if heal_cost>0:
+        var x := clampf(size.x*float(heal_cost)/span,1.0,size.x-1.0)
+        var lit: bool = threshold_state().heal_lit
+        draw_line(Vector2(x,mid-5),Vector2(x,mid+5),BONE if lit else Color(COPPER,.5),1.6 if lit else 1.0,true)
+    if skill_cost>0:
+        var x := clampf(size.x*float(skill_cost)/span,3.0,size.x-3.0)
+        var c := Vector2(x,mid-6)
+        var diamond := PackedVector2Array([c+Vector2(0,-3.5),c+Vector2(2.6,0),c+Vector2(0,3.5),c+Vector2(-2.6,0)])
+        var lit: bool = threshold_state().skill_lit
+        if lit:draw_colored_polygon(diamond,THREAD)
+        diamond.append(diamond[0])
+        draw_polyline(diamond,THREAD if lit else Color(COPPER,.6),.8,true)
+
 func _draw() -> void:
     if size.x<4 or size.y<4:return
     if kind=="health":
         _health()
+        return
+    if kind=="thresholds":
+        _thresholds()
         return
     if kind=="seal_art":
         if seal_id=="crimson":
