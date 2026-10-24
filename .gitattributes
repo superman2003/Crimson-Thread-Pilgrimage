@@ -204,4 +204,10 @@ artifacts/v04_movement_material/**/*.png -filter -diff -merge -text
 godot/assets/vfx/boss_skills/*.png -filter -diff -merge -text
 artifacts/boss_skill_art/*.webp -filter -diff -merge -text
 
+artifacts/w03_earned_dash/** -text whitespace=cr-at-eol
+artifacts/w03_earned_dash/**/*.png -filter -diff -merge -text
+
+godot/scripts/world_earned_dash_return_playback.gd -text whitespace=cr-at-eol
+tools/run_earned_dash_return.py -text whitespace=cr-at-eol
+tools/verify_earned_dash_proofs.py -text whitespace=cr-at-eol
 artifacts/t04_bride_retry/** -text whitespace=cr-at-eol
