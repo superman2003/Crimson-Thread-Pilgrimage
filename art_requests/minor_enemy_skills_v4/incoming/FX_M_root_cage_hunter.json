@@ -1,0 +1,239 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_root_cage_hunter.png",
+  "kind": "root_cage_hunter",
+  "image_sha256": "f8c101ca18975f030488cd4db3a4fcaa742960a12fa530ac4b04a035f5174d7d",
+  "prompt_sha256": "451a6ee629694cc80d1b8e0359fe96e8f88de45d5284e145caba662fe2aeb5cd",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 12,
+  "layout": [
+    3,
+    4
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/root_cage_hunter.png",
+  "reference_sha256": "0353480f88080215f2b66a44e87e0cb8279c4cbbbf9b70c24d31f822cc6dba2f",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "cage_net_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        546,
+        254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        213,
+        49,
+        466,
+        239
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "cage_net_warning",
+      "rect_xyxy": [
+        546,
+        0,
+        993,
+        254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        645,
+        49,
+        904,
+        239
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "cage_net_warning",
+      "rect_xyxy": [
+        993,
+        0,
+        1536,
+        254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1079,
+        48,
+        1382,
+        241
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "cage_pounce_warning",
+      "rect_xyxy": [
+        0,
+        254,
+        555,
+        507
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        215,
+        270,
+        485,
+        499
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "cage_pounce_warning",
+      "rect_xyxy": [
+        555,
+        254,
+        999,
+        507
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        651,
+        270,
+        915,
+        498
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "cage_pounce_warning",
+      "rect_xyxy": [
+        999,
+        254,
+        1536,
+        507
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1086,
+        270,
+        1351,
+        499
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "cage_pounce_execution",
+      "rect_xyxy": [
+        0,
+        507,
+        546,
+        741
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        154,
+        523,
+        516,
+        728
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "cage_pounce_execution",
+      "rect_xyxy": [
+        546,
+        507,
+        1028,
+        741
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        578,
+        522,
+        980,
+        733
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "cage_pounce_execution",
+      "rect_xyxy": [
+        1028,
+        507,
+        1536,
+        741
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1076,
+        553,
+        1403,
+        716
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "animation": "cage_elite_snare_warning",
+      "rect_xyxy": [
+        0,
+        741,
+        554,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        200,
+        752,
+        481,
+        986
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "animation": "cage_elite_snare_warning",
+      "rect_xyxy": [
+        554,
+        741,
+        1001,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        641,
+        752,
+        927,
+        983
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "animation": "cage_elite_snare_warning",
+      "rect_xyxy": [
+        1001,
+        741,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1078,
+        748,
+        1372,
+        987
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????????/??????????????????????",
+    "rows_reviewed": [
+      "cage_net_warning",
+      "cage_pounce_warning",
+      "cage_pounce_execution",
+      "cage_elite_snare_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

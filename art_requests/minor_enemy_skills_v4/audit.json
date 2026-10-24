@@ -1,0 +1,5762 @@
+{
+  "schema": "minor-enemy-skill-audit-v4",
+  "audited_on": "2026-10-23",
+  "baseline_commit": "ea33475cac405d2b8bbc2f2a14624c798bdd3de7",
+  "scope": "Actually enabled ordinary enemies in six campaign runtime configs, including elite commands and non-attack support/secondary hazards. Bosses excluded.",
+  "sources": [
+    "godot/data/original_creature_combat.json",
+    "godot/data/campaign_chapters.json",
+    "godot/data/world_routes.json",
+    "godot/scripts/enemy_actor.gd",
+    "godot/scripts/enemy_attack_effect.gd",
+    "godot/scripts/projectile_art.gd",
+    "godot/scripts/ground_hazard_art.gd",
+    "godot/scripts/terrain_attack_art.gd",
+    "godot/scripts/beam_art.gd",
+    "art_requests/attack_effects_v1/build_list.py"
+  ],
+  "summary": {
+    "ordinary_species": 40,
+    "chapter_spawns": 85,
+    "base_commands": 80,
+    "elite_commands": 10,
+    "total_commands": 90,
+    "commands_with_actor_warning_missing": 90,
+    "commands_with_dedicated_execution_missing": 40,
+    "blink_commands_with_additional_execution_missing": 2,
+    "ranged_or_area_commands_with_source_art": 50,
+    "ground_or_beam_commands_with_location_warning_missing": 19,
+    "additional_skills_and_secondary_hazards": 3,
+    "non_hostile_training_unique_ids": 2
+  },
+  "species": [
+    {
+      "kind": "moss_larva",
+      "name": "苔钟幼虫",
+      "concept": "a squat moss covered caterpillar with a dark teal segmented belly, four tiny hooked feet and a weathered bronze bell shell",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/moss_larva.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/moss_larva/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E01",
+          "elite": false,
+          "encounter_role": "first_readable_duel",
+          "encounter_attack_overrides": [
+            {
+              "id": "larva_snap",
+              "name": "抬头咬击",
+              "type": "melee",
+              "range": 85,
+              "windup": 0.55,
+              "active": 0.24,
+              "recover": 1.15,
+              "cooldown": 2.3,
+              "hit_width": 66,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "抬头咬击",
+              "blockable": true,
+              "start_cooldown": 0.8
+            },
+            {
+              "id": "larva_curl",
+              "name": "蜷壳扑身",
+              "type": "lunge",
+              "range": 120,
+              "windup": 0.75,
+              "active": 0.18,
+              "recover": 1.25,
+              "cooldown": 2.8,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "蜷壳扑身",
+              "lunge_speed": 140,
+              "blockable": true,
+              "start_cooldown": 2.0
+            }
+          ]
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E02",
+          "elite": false,
+          "encounter_role": "hub_far_bank_guard",
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E08",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E11",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "larva_snap",
+        "larva_curl"
+      ]
+    },
+    {
+      "kind": "spore_bellmaker",
+      "name": "孢铃匠",
+      "concept": "a lean fungal beetle artisan with a hood of ochre spores, a small handbell and crooked wooden spore staff",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/spore_bellmaker.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/spore_bellmaker/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E04",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E05",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E10",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "bell_spores",
+        "bell_fungus"
+      ]
+    },
+    {
+      "kind": "bronze_moth",
+      "name": "铜翼蛾",
+      "concept": "a hovering moth with velvety dark teal wings bordered by aged bronze filigree and a small glowing amber face",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/bronze_moth.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/bronze_moth/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E03",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E07",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "moth_dive",
+        "moth_dust"
+      ]
+    },
+    {
+      "kind": "gear_sentinel",
+      "name": "齿轮哨卫",
+      "concept": "a compact clockwork beetle guard with tarnished bronze plate armor, a toothed gear shield and a short spear",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/gear_sentinel.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/gear_sentinel/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E06",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E14",
+          "elite": true,
+          "encounter_role": "terrace_guard_before_respite",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "gear_guard",
+        "gear_spear",
+        "gear_elite_spin"
+      ]
+    },
+    {
+      "kind": "corridor_heavy",
+      "name": "钟壳重卫",
+      "concept": "a broad hunched arthropod in layered mossy stone armor, carrying a heavy cracked bell hammer",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/corridor_heavy.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/corridor_heavy/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E09",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E13",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "heavy_roll",
+        "heavy_stamp",
+        "heavy_elite_quake"
+      ]
+    },
+    {
+      "kind": "bellroot_acolyte",
+      "name": "铃根侍徒",
+      "concept": "a thin mantid acolyte in draped root fiber robes, branch antlers and a dangling ritual bell",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/bellroot_acolyte.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/bellroot_acolyte/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch01_moss_bell_court.json",
+          "id": "E12",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "root_staff",
+        "root_bell_wave"
+      ]
+    },
+    {
+      "kind": "drain_leech",
+      "name": "渠底蛭",
+      "concept": "a low slithering armored leech with wet charcoal blue segments, rust red jaw plates and tiny brass sensory whiskers",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/drain_leech.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/drain_leech/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E01",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E10",
+          "elite": false,
+          "encounter_role": "ladder_foot_ambusher",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "leech_drain",
+        "leech_leap"
+      ]
+    },
+    {
+      "kind": "pipe_thrower",
+      "name": "管弹投手",
+      "concept": "a wiry insect canal worker with a patched slate blue apron, rust copper shell and a small iron pipe held for throwing",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/pipe_thrower.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/pipe_thrower/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E02",
+          "elite": false,
+          "encounter_role": "artillery_after_clapper",
+          "encounter_attack_overrides": [
+            {
+              "id": "pipe_mortar",
+              "name": "管弹曲射",
+              "type": "mortar",
+              "range": 510,
+              "windup": 0.8,
+              "active": 0.24,
+              "recover": 0.85,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "管弹曲射",
+              "shot_count": 3,
+              "gravity": 540,
+              "projectile_speed": 185,
+              "skin": "metal",
+              "impact_pool": true,
+              "blockable": false,
+              "start_cooldown": 0.9
+            },
+            {
+              "id": "pipe_backblast",
+              "name": "近身蒸汽反喷",
+              "type": "beam",
+              "range": 145,
+              "windup": 0.65,
+              "active": 0.24,
+              "recover": 0.85,
+              "cooldown": 3.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "近身蒸汽反喷",
+              "beam_length": 160,
+              "radius": 17,
+              "hazard_life": 0.38,
+              "blockable": false,
+              "start_cooldown": 1.6
+            }
+          ]
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E09",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E15",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "pipe_mortar",
+        "pipe_backblast"
+      ]
+    },
+    {
+      "kind": "waterwheel_knight",
+      "name": "水轮骑士",
+      "concept": "a broad beetle knight in riveted gunmetal armor carrying a circular waterwheel shield and blunt poleaxe",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/waterwheel_knight.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/waterwheel_knight/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E06",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E11",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E14",
+          "elite": false,
+          "encounter_role": "wall_grip_trial_recovery_window",
+          "encounter_attack_overrides": [
+            {
+              "id": "wheel_charge",
+              "name": "轮盾推进",
+              "type": "lunge",
+              "range": 260,
+              "windup": 0.7,
+              "active": 0.4,
+              "recover": 1.15,
+              "cooldown": 2.1,
+              "hit_width": 124,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "轮盾推进",
+              "lunge_speed": 250,
+              "blockable": true,
+              "start_cooldown": 0.9
+            },
+            {
+              "id": "wheel_return",
+              "name": "返轮刃",
+              "type": "projectile",
+              "range": 410,
+              "windup": 0.75,
+              "active": 0.24,
+              "recover": 1.15,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "返轮刃",
+              "returning": true,
+              "projectile_speed": 270,
+              "skin": "wheel",
+              "radius": 17,
+              "blockable": true,
+              "start_cooldown": 1.6
+            }
+          ]
+        }
+      ],
+      "command_ids": [
+        "wheel_charge",
+        "wheel_return",
+        "wheel_elite_ride"
+      ]
+    },
+    {
+      "kind": "rust_diver",
+      "name": "锈潜者",
+      "concept": "a squat beetle diver with a worn bronze diving bell helmet, green algae seams and rope bound iron armor",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/rust_diver.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/rust_diver/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E07",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E08",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E13",
+          "elite": false,
+          "encounter_role": "west_well_guard_away_from_smith",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "diver_vault",
+        "diver_splash"
+      ]
+    },
+    {
+      "kind": "bell_mote",
+      "name": "铃光蛾",
+      "concept": "a tiny floating bell shaped insect with a rounded oxidized brass shell, two translucent blue fin wings and warm slit eyes",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/bell_mote.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/bell_mote/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E04",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E12",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "mote_seek",
+        "mote_peck"
+      ]
+    },
+    {
+      "kind": "valve_crawler",
+      "name": "阀壳爬虫",
+      "concept": "a low crab like mechanical insect with an iron valve wheel shell and six jointed copper legs",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/valve_crawler.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/valve_crawler/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E03",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "valve_roll",
+        "valve_vent"
+      ]
+    },
+    {
+      "kind": "rain_censer_mote",
+      "name": "雨香灰灵",
+      "concept": "a hovering pointed beetle censer with a perforated copper abdomen, smoky blue membranes and hanging chain feelers",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/rain_censer_mote.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/rain_censer_mote/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch02_rain_foundry_canal.json",
+          "id": "E05",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "censer_rain",
+        "censer_cloud"
+      ]
+    },
+    {
+      "kind": "salt_bookmite",
+      "name": "盐页螨",
+      "concept": "a small crawling paper louse with a thick folded book carapace, salt crystals along its spine and reddish wax eyes",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/salt_bookmite.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/salt_bookmite/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E01",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E03",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E10",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "book_burrow",
+        "book_bite"
+      ]
+    },
+    {
+      "kind": "index_scribe",
+      "name": "索引书吏",
+      "concept": "a slender insect archivist in chalk ivory parchment robes with a narrow ink black mask and a long quill staff",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/index_scribe.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/index_scribe/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E02",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E06",
+          "elite": false,
+          "encounter_role": "reading_gallery_east_scribe",
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E09",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "index_pages",
+        "index_seal"
+      ]
+    },
+    {
+      "kind": "page_duelist",
+      "name": "页刃斗士",
+      "concept": "a graceful mantid sword fighter with folded ivory paper coat tails, crimson wax seals and a sharp needle rapier",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/page_duelist.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/page_duelist/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E04",
+          "elite": false,
+          "encounter_role": "candle_mezzanine_readable_duel",
+          "encounter_attack_overrides": [
+            {
+              "id": "page_feint",
+              "name": "虚晃退刺",
+              "type": "feint",
+              "range": 135,
+              "windup": 0.48,
+              "active": 0.26,
+              "recover": 1.05,
+              "cooldown": 2.1,
+              "hit_width": 118,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "虚晃退刺",
+              "blockable": false,
+              "start_cooldown": 0.8
+            },
+            {
+              "id": "page_combo",
+              "name": "双段追刺",
+              "type": "combo",
+              "range": 225,
+              "windup": 0.62,
+              "active": 0.55,
+              "recover": 1.15,
+              "cooldown": 2.1,
+              "hit_width": 128,
+              "hit_height": 70,
+              "offset": 75,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "双段追刺",
+              "lunge_speed": 175,
+              "blockable": false,
+              "start_cooldown": 1.6
+            }
+          ]
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E07",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E14",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "page_feint",
+        "page_combo",
+        "page_elite_flurry"
+      ]
+    },
+    {
+      "kind": "wax_lancer",
+      "name": "蜡枪卫",
+      "concept": "an amber wax armored hornet soldier with a tall candle lance, drip shaped armor and dark burgundy scarf",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/wax_lancer.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/wax_lancer/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E05",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E12",
+          "elite": false,
+          "encounter_role": "court_approach_lancer",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "wax_charge",
+        "wax_high"
+      ]
+    },
+    {
+      "kind": "erasure_bailiff",
+      "name": "删页执行官",
+      "concept": "a heavy pale shell beetle enforcer with an ink black face, weathered contract seals and a broad stone cleaver",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/erasure_bailiff.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/erasure_bailiff/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E11",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E13",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "bailiff_cleave",
+        "bailiff_erase",
+        "bailiff_elite_sweep"
+      ]
+    },
+    {
+      "kind": "summoned_page",
+      "name": "召唤书页",
+      "concept": "a hovering origami like parchment moth creature with articulated folded paper wings, ink sigils and a wax red core",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/summoned_page.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/summoned_page/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch03_saltwhite_archive.json",
+          "id": "E08",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "page_orbit",
+        "page_skim"
+      ]
+    },
+    {
+      "kind": "vine_crawler",
+      "name": "藤蔓爬虫",
+      "concept": "a low bark armored snail beetle with a broad leaf shell, coiled vine antennae and tiny ochre flower buds",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/vine_crawler.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E01",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E03",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E09",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "vine_bite",
+        "vine_roots"
+      ]
+    },
+    {
+      "kind": "root_cage_hunter",
+      "name": "根笼猎手",
+      "concept": "a stalking wooden mantid with a cage of bent roots around its torso, green leaf armor and hooked forearms",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/root_cage_hunter.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E02",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E11",
+          "elite": false,
+          "encounter_role": "heart_hunter_between_respite_points",
+          "encounter_attack_overrides": [
+            {
+              "id": "cage_net",
+              "name": "根网投掷",
+              "type": "projectile",
+              "range": 360,
+              "windup": 0.7,
+              "active": 0.24,
+              "recover": 1.1,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "根网投掷",
+              "projectile_speed": 220,
+              "skin": "thorn",
+              "radius": 14,
+              "snare": 1.2,
+              "blockable": true,
+              "start_cooldown": 0.8
+            },
+            {
+              "id": "cage_pounce",
+              "name": "根笼扑刺",
+              "type": "vault",
+              "range": 280,
+              "windup": 0.55,
+              "active": 0.6,
+              "recover": 1.2000000000000002,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "根笼扑刺",
+              "jump_height": 100,
+              "lunge_speed": 290,
+              "blockable": false,
+              "start_cooldown": 1.5
+            }
+          ]
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E12",
+          "elite": false,
+          "encounter_role": "vault_hunter_away_from_prisoner",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "cage_net",
+        "cage_pounce",
+        "cage_elite_snare"
+      ]
+    },
+    {
+      "kind": "wax_bee",
+      "name": "蜡蜂",
+      "concept": "a hovering beeswax colored bee with fine dark green chitin plates, translucent pale wings and a honey amber abdomen",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/wax_bee.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/wax_bee/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E06",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E08",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E10",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "bee_dive",
+        "bee_stingers"
+      ]
+    },
+    {
+      "kind": "thorn_sentinel",
+      "name": "荆棘哨卫",
+      "concept": "a sturdy beetle guard in bark and thorn plate armor with a leaf shield and a serrated thorn blade",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/thorn_sentinel.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E04",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E14",
+          "elite": false,
+          "encounter_role": "dome_threshold_sentinel",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "thorn_ring",
+        "thorn_wall"
+      ]
+    },
+    {
+      "kind": "pollen_lutist",
+      "name": "花粉琴师",
+      "concept": "a tall grasshopper musician in a dark green leaf cloak carrying a rounded seedpod lute with pale silk strings",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/pollen_lutist.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E07",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E13",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "pollen_arcs",
+        "pollen_spots"
+      ]
+    },
+    {
+      "kind": "thorn_bloom_mote",
+      "name": "刺花微灵",
+      "concept": "a hovering spiny rose seedpod insect with dusty pink petals, dark green thorns and a warm gold pollen core",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/thorn_bloom_mote.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch04_broken_string_greenhouse.json",
+          "id": "E05",
+          "elite": false,
+          "encounter_role": "south_exit_bloom",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "bloom_seeds",
+        "bloom_needle"
+      ]
+    },
+    {
+      "kind": "obsidian_spearman",
+      "name": "黑曜枪兵",
+      "concept": "a tall insect warrior in cracked volcanic black armor, a faded wine red cloak and a long obsidian spear",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/obsidian_spearman.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/obsidian_spearman/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E01",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E06",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E12",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "obsidian_thrust",
+        "obsidian_raise",
+        "obsidian_elite_impale"
+      ]
+    },
+    {
+      "kind": "phase_censor",
+      "name": "灯影审察者",
+      "concept": "a slender moth censor with a crescent porcelain visor, violet ash robes and a dark censer wand",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/phase_censor.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/phase_censor/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E05",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E09",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E14",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "censor_blink",
+        "censor_fan"
+      ]
+    },
+    {
+      "kind": "pilgrim_chariot",
+      "name": "巡礼战车",
+      "concept": "a low broad crab shaped armored pilgrim with two heavy stone wheel shells and rust red hanging banners",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/pilgrim_chariot.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/pilgrim_chariot/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E02",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E13",
+          "elite": false,
+          "encounter_role": "mirror_threshold_guard",
+          "encounter_attack_overrides": [
+            {
+              "id": "chariot_charge",
+              "name": "巡礼战车",
+              "type": "lunge",
+              "range": 380,
+              "windup": 0.95,
+              "active": 0.65,
+              "recover": 1.15,
+              "cooldown": 2.1,
+              "hit_width": 158,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "巡礼战车",
+              "lunge_speed": 350,
+              "blockable": true
+            },
+            {
+              "id": "chariot_caltrops",
+              "name": "灰钉阵",
+              "type": "pool",
+              "range": 380,
+              "windup": 0.8,
+              "active": 0.24,
+              "recover": 1.2,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "灰钉阵",
+              "shot_count": 3,
+              "spacing": 90,
+              "radius": 28,
+              "warning": 0.8,
+              "hazard_life": 2.1,
+              "blockable": false
+            }
+          ]
+        }
+      ],
+      "command_ids": [
+        "chariot_charge",
+        "chariot_caltrops",
+        "chariot_elite_drift"
+      ]
+    },
+    {
+      "kind": "silent_bugbler",
+      "name": "无声号手",
+      "concept": "a solemn beetle musician in weathered charcoal armor holding an old brass bugle wrapped in mute grey bandages",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/silent_bugbler.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/silent_bugbler/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E03",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E10",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "bugle_volley",
+        "bugle_pulse"
+      ]
+    },
+    {
+      "kind": "kneeling_crossbowman",
+      "name": "跪弩手",
+      "concept": "a crouching locust soldier in dark basalt armor with a carved bone crossbow and wine red hood",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/kneeling_crossbowman.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/kneeling_crossbowman/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E08",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E11",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "crossbow_burst",
+        "crossbow_low"
+      ]
+    },
+    {
+      "kind": "ash_banner_imp",
+      "name": "灰旗小鬼",
+      "concept": "a small nimble ash grey beetle imp carrying a ragged black banner edged with red silk",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/ash_banner_imp.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/ash_banner_imp/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E04",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "imp_flurry",
+        "imp_retreat"
+      ]
+    },
+    {
+      "kind": "obsidian_bellwheel",
+      "name": "黑曜钟轮",
+      "concept": "a compact wheel backed insect with a circular cracked obsidian shrine shell and tiny ember orange eyes",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/obsidian_bellwheel.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/obsidian_bellwheel/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch05_obsidian_pilgrim_road.json",
+          "id": "E07",
+          "elite": false,
+          "encounter_role": "camp_exit_guard",
+          "encounter_attack_overrides": [
+            {
+              "id": "bellwheel_roll",
+              "name": "黑钟滚撞",
+              "type": "lunge",
+              "range": 330,
+              "windup": 0.7,
+              "active": 0.55,
+              "recover": 1.2,
+              "cooldown": 2.1,
+              "hit_width": 130,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "黑钟滚撞",
+              "lunge_speed": 300,
+              "blockable": true,
+              "start_cooldown": 0.9
+            },
+            {
+              "id": "bellwheel_waves",
+              "name": "双向钟涟",
+              "type": "wave",
+              "range": 390,
+              "windup": 0.82,
+              "active": 0.24,
+              "recover": 1.1,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "双向钟涟",
+              "shot_count": 2,
+              "projectile_speed": 265,
+              "radius": 19,
+              "blockable": false,
+              "start_cooldown": 1.5
+            }
+          ]
+        }
+      ],
+      "command_ids": [
+        "bellwheel_roll",
+        "bellwheel_waves"
+      ]
+    },
+    {
+      "kind": "echo_waterwheel_knight",
+      "name": "回声水轮骑士",
+      "concept": "an ivory porcelain beetle knight with a silver crown helmet, engraved wheel shield and fine crimson silk joints",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/echo_waterwheel_knight.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E01",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E09",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E14",
+          "elite": false,
+          "encounter_role": "boss_door_guard",
+          "encounter_attack_overrides": [
+            {
+              "id": "echo_wheel_guard",
+              "name": "回声盾反",
+              "type": "guard",
+              "range": 180,
+              "windup": 0.8,
+              "active": 0.3,
+              "recover": 1.15,
+              "cooldown": 2.1,
+              "hit_width": 142,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "回声盾反",
+              "blockable": false,
+              "start_cooldown": 0.9
+            },
+            {
+              "id": "echo_wheel_wave",
+              "name": "快慢双轮波",
+              "type": "wave",
+              "range": 450,
+              "windup": 0.9,
+              "active": 0.24,
+              "recover": 1.1,
+              "cooldown": 2.1,
+              "hit_width": 90,
+              "hit_height": 70,
+              "offset": 48,
+              "damage": 1,
+              "telegraph": "c99558",
+              "vertical_tolerance": 190,
+              "animation": "attack",
+              "desire_cost": 0.7,
+              "mechanic": "快慢双轮波",
+              "shot_count": 4,
+              "projectile_speed": 190,
+              "speed_step": 65,
+              "blockable": false,
+              "start_cooldown": 1.5
+            }
+          ]
+        }
+      ],
+      "command_ids": [
+        "echo_wheel_guard",
+        "echo_wheel_wave",
+        "echo_wheel_elite"
+      ]
+    },
+    {
+      "kind": "echo_moss_larva",
+      "name": "回声苔虫",
+      "concept": "a squat pale porcelain larva with carved ivory shell segments, dark navy underside and crimson stitched cracks",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/echo_moss_larva.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E02",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E04",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E11",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "echo_larva_burrow",
+        "echo_larva_mark"
+      ]
+    },
+    {
+      "kind": "echo_thorn_sentinel",
+      "name": "回声荆棘哨卫",
+      "concept": "an ivory thorn armored beetle with silver leaf shield and a red silk thorn blade",
+      "locomotion": "stationary",
+      "reference": "art_requests/creature_attacks_v1/refs/echo_thorn_sentinel.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/echo_thorn_sentinel/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E03",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E12",
+          "elite": false,
+          "encounter_role": "camp_turret",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "echo_thorn_double",
+        "echo_thorn_roots"
+      ]
+    },
+    {
+      "kind": "echo_contract_scribe",
+      "name": "回声契约书吏",
+      "concept": "a slender silver parchment insect scribe with a smooth porcelain mask and a dark red hanging contract scroll",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/echo_contract_scribe.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/echo_contract_scribe/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E06",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        },
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E10",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "echo_scribe_pages",
+        "echo_scribe_seals"
+      ]
+    },
+    {
+      "kind": "falling_clapper",
+      "name": "坠落钟舌",
+      "concept": "a hovering heavy oval beetle with a bronze bell clapper abdomen, pale shell crown and sharp ivory claw tips",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/falling_clapper.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/falling_clapper/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E05",
+          "elite": false,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "clapper_fall",
+        "clapper_wave"
+      ]
+    },
+    {
+      "kind": "delayed_shadow",
+      "name": "迟影",
+      "concept": "a thin dark navy moth shade with a blank ivory mask, elongated limbs and trailing crimson scarf ribbons",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/delayed_shadow.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/delayed_shadow/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E07",
+          "elite": false,
+          "encounter_role": "ring_zigzag_ambusher",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "shadow_blink",
+        "shadow_echo"
+      ]
+    },
+    {
+      "kind": "echo_pilgrim_commander_minor",
+      "name": "回声巡礼副统",
+      "concept": "a mid sized porcelain insect officer with a crimson crest, silver spear and layered crown plate armor",
+      "locomotion": "ground",
+      "reference": "art_requests/creature_attacks_v1/refs/echo_pilgrim_commander_minor.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/echo_pilgrim_commander_minor/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E08",
+          "elite": true,
+          "encounter_role": null,
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "minor_lances",
+        "minor_banner",
+        "minor_elite_rally"
+      ]
+    },
+    {
+      "kind": "isotope_lumen",
+      "name": "微光异体",
+      "concept": "a hovering jelly moth with a pale luminous core, delicate ivory shell ribs and radiating crimson silk filaments",
+      "locomotion": "flight",
+      "reference": "art_requests/creature_attacks_v1/refs/isotope_lumen.png",
+      "runtime_manifest": "godot/assets/sprites/original_creatures/isotope_lumen/manifest.json",
+      "spawns": [
+        {
+          "source": "godot/data/demo_ch06_silent_crown_core.json",
+          "id": "E13",
+          "elite": false,
+          "encounter_role": "ring_exit_sniper",
+          "encounter_attack_overrides": []
+        }
+      ],
+      "command_ids": [
+        "lumen_orbits",
+        "lumen_focus"
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "id": "larva_snap",
+      "kind": "moss_larva",
+      "name": "抬头咬击",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "larva_snap",
+        "name": "抬头咬击",
+        "type": "melee",
+        "range": 85,
+        "windup": 0.25,
+        "active": 0.24,
+        "recover": 0.55,
+        "cooldown": 2.1,
+        "hit_width": 66,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "抬头咬击",
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "larva_curl",
+      "kind": "moss_larva",
+      "name": "蜷壳扑身",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "larva_curl",
+        "name": "蜷壳扑身",
+        "type": "lunge",
+        "range": 190,
+        "windup": 0.65,
+        "active": 0.32,
+        "recover": 0.8,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "蜷壳扑身",
+        "lunge_speed": 260,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bell_spores",
+      "kind": "spore_bellmaker",
+      "name": "孢子扇射",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bell_spores",
+        "name": "孢子扇射",
+        "type": "fan",
+        "range": 460,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "孢子扇射",
+        "shot_count": 3,
+        "spread": 0.5,
+        "projectile_speed": 190,
+        "skin": "spore",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_spore"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_spore.png"
+      ],
+      "runtime_family_before": "spore",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bell_fungus",
+      "kind": "spore_bellmaker",
+      "name": "菌圈落点",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bell_fungus",
+        "name": "菌圈落点",
+        "type": "pool",
+        "range": 420,
+        "windup": 0.45,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 4,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "菌圈落点",
+        "radius": 45,
+        "warning": 0.85,
+        "hazard_life": 1.8,
+        "skin": "spore",
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_fungus"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_fungus.png"
+      ],
+      "runtime_family_before": "fungus",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "moth_dive",
+      "kind": "bronze_moth",
+      "name": "铜翼俯冲",
+      "type": "dive",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "moth_dive",
+        "name": "铜翼俯冲",
+        "type": "dive",
+        "range": 260,
+        "windup": 0.6,
+        "active": 0.55,
+        "recover": 0.9,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "铜翼俯冲",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "moth_dust",
+      "kind": "bronze_moth",
+      "name": "翼粉弧射",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "moth_dust",
+        "name": "翼粉弧射",
+        "type": "fan",
+        "range": 340,
+        "windup": 0.45,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "翼粉弧射",
+        "shot_count": 3,
+        "spread": 0.72,
+        "projectile_speed": 170,
+        "skin": "pollen",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_pollen"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_pollen.png"
+      ],
+      "runtime_family_before": "pollen",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "gear_guard",
+      "kind": "gear_sentinel",
+      "name": "架盾反突",
+      "type": "guard",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "gear_guard",
+        "name": "架盾反突",
+        "type": "guard",
+        "range": 160,
+        "windup": 0.7,
+        "active": 0.25,
+        "recover": 0.7,
+        "cooldown": 2.1,
+        "hit_width": 115,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "架盾反突",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_guard",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "gear_spear",
+      "kind": "gear_sentinel",
+      "name": "齿矛长刺",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "gear_spear",
+        "name": "齿矛长刺",
+        "type": "melee",
+        "range": 160,
+        "windup": 0.48,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 150,
+        "hit_height": 42,
+        "offset": 76,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "齿矛长刺",
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "gear_elite_spin",
+      "kind": "gear_sentinel",
+      "name": "齿轮旋矛",
+      "type": "combo",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "gear_elite_spin",
+        "name": "齿轮旋矛",
+        "type": "combo",
+        "range": 220,
+        "windup": 0.75,
+        "active": 0.7,
+        "recover": 0.8,
+        "cooldown": 3.6,
+        "hit_width": 150,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "齿轮旋矛",
+        "blockable": false,
+        "elite_only": true,
+        "lunge_speed": 150
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "heavy_roll",
+      "kind": "corridor_heavy",
+      "name": "钟壳滚撞",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "heavy_roll",
+        "name": "钟壳滚撞",
+        "type": "lunge",
+        "range": 330,
+        "windup": 0.8,
+        "active": 0.55,
+        "recover": 1.1,
+        "cooldown": 2.1,
+        "hit_width": 125,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "钟壳滚撞",
+        "lunge_speed": 300,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "heavy_stamp",
+      "kind": "corridor_heavy",
+      "name": "重壳震地",
+      "type": "wave",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "heavy_stamp",
+        "name": "重壳震地",
+        "type": "wave",
+        "range": 240,
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 1,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "重壳震地",
+        "shot_count": 2,
+        "projectile_speed": 200,
+        "radius": 20,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_quake"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_quake.png"
+      ],
+      "runtime_family_before": "quake",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "heavy_elite_quake",
+      "kind": "corridor_heavy",
+      "name": "连环震地",
+      "type": "wave",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "heavy_elite_quake",
+        "name": "连环震地",
+        "type": "wave",
+        "range": 320,
+        "windup": 1.0,
+        "active": 0.24,
+        "recover": 1.1,
+        "cooldown": 3.6,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "连环震地",
+        "blockable": false,
+        "elite_only": true,
+        "shot_count": 3,
+        "projectile_speed": 210,
+        "radius": 22
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_quake"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_quake.png"
+      ],
+      "runtime_family_before": "quake",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "root_staff",
+      "kind": "bellroot_acolyte",
+      "name": "铃杖敲击",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "root_staff",
+        "name": "铃杖敲击",
+        "type": "melee",
+        "range": 120,
+        "windup": 0.55,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 118,
+        "hit_height": 100,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "铃杖敲击",
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "root_bell_wave",
+      "kind": "bellroot_acolyte",
+      "name": "贴地双钟波",
+      "type": "wave",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "root_bell_wave",
+        "name": "贴地双钟波",
+        "type": "wave",
+        "range": 400,
+        "windup": 0.72,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "贴地双钟波",
+        "shot_count": 2,
+        "projectile_speed": 210,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_chime"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_chime.png"
+      ],
+      "runtime_family_before": "chime",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "leech_drain",
+      "kind": "drain_leech",
+      "name": "吸血咬",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "leech_drain",
+        "name": "吸血咬",
+        "type": "melee",
+        "range": 88,
+        "windup": 0.35,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 48,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "吸血咬",
+        "leech": true,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "leech_leap",
+      "kind": "drain_leech",
+      "name": "渠虫弧跃",
+      "type": "vault",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "leech_leap",
+        "name": "渠虫弧跃",
+        "type": "vault",
+        "range": 215,
+        "windup": 0.55,
+        "active": 0.65,
+        "recover": 0.8,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "渠虫弧跃",
+        "jump_height": 105,
+        "lunge_speed": 210,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "pipe_mortar",
+      "kind": "pipe_thrower",
+      "name": "管弹曲射",
+      "type": "mortar",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "pipe_mortar",
+        "name": "管弹曲射",
+        "type": "mortar",
+        "range": 510,
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "管弹曲射",
+        "shot_count": 3,
+        "gravity": 540,
+        "projectile_speed": 185,
+        "skin": "metal",
+        "impact_pool": true,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_slug",
+        "A_slag"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_slug.png",
+        "art_requests/attack_effects_v1/incoming/FX_A_slag.png"
+      ],
+      "runtime_family_before": "slug",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "secondary_impact_pool_warning"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "pipe_backblast",
+      "kind": "pipe_thrower",
+      "name": "近身蒸汽反喷",
+      "type": "beam",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "pipe_backblast",
+        "name": "近身蒸汽反喷",
+        "type": "beam",
+        "range": 145,
+        "windup": 0.65,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 3.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "近身蒸汽反喷",
+        "beam_length": 160,
+        "radius": 17,
+        "hazard_life": 0.38,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "B_steam"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_B_steam.png"
+      ],
+      "runtime_family_before": "steam",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "beam_corridor",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "wheel_charge",
+      "kind": "waterwheel_knight",
+      "name": "轮盾推进",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "wheel_charge",
+        "name": "轮盾推进",
+        "type": "lunge",
+        "range": 260,
+        "windup": 0.7,
+        "active": 0.4,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 124,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "轮盾推进",
+        "lunge_speed": 250,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "wheel_return",
+      "kind": "waterwheel_knight",
+      "name": "返轮刃",
+      "type": "projectile",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "wheel_return",
+        "name": "返轮刃",
+        "type": "projectile",
+        "range": 410,
+        "windup": 0.75,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "返轮刃",
+        "returning": true,
+        "projectile_speed": 270,
+        "skin": "wheel",
+        "radius": 17,
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_wheel"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_wheel.png"
+      ],
+      "runtime_family_before": "wheel",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "wheel_elite_ride",
+      "kind": "waterwheel_knight",
+      "name": "轮盾滚袭",
+      "type": "lunge",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "wheel_elite_ride",
+        "name": "轮盾滚袭",
+        "type": "lunge",
+        "range": 380,
+        "windup": 0.8,
+        "active": 0.65,
+        "recover": 0.9,
+        "cooldown": 3.6,
+        "hit_width": 130,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "轮盾滚袭",
+        "blockable": false,
+        "elite_only": true,
+        "lunge_speed": 330
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "diver_vault",
+      "kind": "rust_diver",
+      "name": "锈枪跃刺",
+      "type": "vault",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "diver_vault",
+        "name": "锈枪跃刺",
+        "type": "vault",
+        "range": 280,
+        "windup": 0.55,
+        "active": 0.75,
+        "recover": 0.85,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "锈枪跃刺",
+        "jump_height": 135,
+        "lunge_speed": 250,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "diver_splash",
+      "kind": "rust_diver",
+      "name": "潜盔涌浪",
+      "type": "wave",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "diver_splash",
+        "name": "潜盔涌浪",
+        "type": "wave",
+        "range": 370,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "潜盔涌浪",
+        "shot_count": 2,
+        "projectile_speed": 200,
+        "radius": 16,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_surge"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_surge.png"
+      ],
+      "runtime_family_before": "surge",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "mote_seek",
+      "kind": "bell_mote",
+      "name": "缓追钟珠",
+      "type": "projectile",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "mote_seek",
+        "name": "缓追钟珠",
+        "type": "projectile",
+        "range": 400,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "缓追钟珠",
+        "projectile_speed": 150,
+        "steering": 135,
+        "skin": "light",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_light"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_light.png"
+      ],
+      "runtime_family_before": "light",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "mote_peck",
+      "kind": "bell_mote",
+      "name": "铃蛾扑击",
+      "type": "dive",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "mote_peck",
+        "name": "铃蛾扑击",
+        "type": "dive",
+        "range": 190,
+        "windup": 0.48,
+        "active": 0.5,
+        "recover": 0.7,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "铃蛾扑击",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "valve_roll",
+      "kind": "valve_crawler",
+      "name": "阀轮滚撞",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "valve_roll",
+        "name": "阀轮滚撞",
+        "type": "lunge",
+        "range": 240,
+        "windup": 0.7,
+        "active": 0.4,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "阀轮滚撞",
+        "lunge_speed": 200,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "valve_vent",
+      "kind": "valve_crawler",
+      "name": "排汽横扫",
+      "type": "beam",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "valve_vent",
+        "name": "排汽横扫",
+        "type": "beam",
+        "range": 280,
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "排汽横扫",
+        "beam_length": 300,
+        "radius": 13,
+        "hazard_life": 0.4,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "B_steam"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_B_steam.png"
+      ],
+      "runtime_family_before": "steam",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "beam_corridor",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "censer_rain",
+      "kind": "rain_censer_mote",
+      "name": "雨香落弹",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "censer_rain",
+        "name": "雨香落弹",
+        "type": "fan",
+        "range": 370,
+        "windup": 0.75,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "雨香落弹",
+        "shot_count": 4,
+        "spread": 0.64,
+        "projectile_speed": 185,
+        "gravity": 130,
+        "skin": "pollen",
+        "snare": 0.55,
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_incense"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_incense.png"
+      ],
+      "runtime_family_before": "incense",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "censer_cloud",
+      "kind": "rain_censer_mote",
+      "name": "香灰落圈",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "censer_cloud",
+        "name": "香灰落圈",
+        "type": "pool",
+        "range": 300,
+        "windup": 0.45,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 4,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "香灰落圈",
+        "radius": 48,
+        "warning": 0.65,
+        "hazard_life": 1.6,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_haze"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_haze.png"
+      ],
+      "runtime_family_before": "haze",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "book_burrow",
+      "kind": "salt_bookmite",
+      "name": "伏书钻咬",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "book_burrow",
+        "name": "伏书钻咬",
+        "type": "lunge",
+        "range": 220,
+        "windup": 0.75,
+        "active": 0.38,
+        "recover": 0.85,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "伏书钻咬",
+        "lunge_speed": 260,
+        "burrow": true,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "book_bite",
+      "kind": "salt_bookmite",
+      "name": "啮页咬",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "book_bite",
+        "name": "啮页咬",
+        "type": "melee",
+        "range": 80,
+        "windup": 0.28,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 62,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "啮页咬",
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "index_pages",
+      "kind": "index_scribe",
+      "name": "索引页扇",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "index_pages",
+        "name": "索引页扇",
+        "type": "fan",
+        "range": 500,
+        "windup": 0.65,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "索引页扇",
+        "shot_count": 3,
+        "spread": 0.35,
+        "projectile_speed": 245,
+        "skin": "page",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_page"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_page.png"
+      ],
+      "runtime_family_before": "page",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "index_seal",
+      "kind": "index_scribe",
+      "name": "落点封印",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "index_seal",
+        "name": "落点封印",
+        "type": "pool",
+        "range": 460,
+        "windup": 0.45,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 3.8,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "落点封印",
+        "warning": 0.8,
+        "radius": 37,
+        "hazard_life": 1.25,
+        "snare": 0.9,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_seal"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_seal.png"
+      ],
+      "runtime_family_before": "seal",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "page_feint",
+      "kind": "page_duelist",
+      "name": "虚晃退刺",
+      "type": "feint",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "page_feint",
+        "name": "虚晃退刺",
+        "type": "feint",
+        "range": 135,
+        "windup": 0.48,
+        "active": 0.26,
+        "recover": 0.38,
+        "cooldown": 2.1,
+        "hit_width": 118,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "虚晃退刺",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "page_combo",
+      "kind": "page_duelist",
+      "name": "双段追刺",
+      "type": "combo",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "page_combo",
+        "name": "双段追刺",
+        "type": "combo",
+        "range": 225,
+        "windup": 0.62,
+        "active": 0.55,
+        "recover": 0.7,
+        "cooldown": 2.1,
+        "hit_width": 128,
+        "hit_height": 70,
+        "offset": 75,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "双段追刺",
+        "lunge_speed": 175,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "page_elite_flurry",
+      "kind": "page_duelist",
+      "name": "千页连刺",
+      "type": "combo",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "page_elite_flurry",
+        "name": "千页连刺",
+        "type": "combo",
+        "range": 260,
+        "windup": 0.7,
+        "active": 0.8,
+        "recover": 0.8,
+        "cooldown": 3.6,
+        "hit_width": 140,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "千页连刺",
+        "blockable": false,
+        "elite_only": true,
+        "lunge_speed": 190
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "wax_charge",
+      "kind": "wax_lancer",
+      "name": "熔蜡冲枪",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "wax_charge",
+        "name": "熔蜡冲枪",
+        "type": "lunge",
+        "range": 330,
+        "windup": 0.82,
+        "active": 0.6,
+        "recover": 0.95,
+        "cooldown": 2.1,
+        "hit_width": 145,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "熔蜡冲枪",
+        "lunge_speed": 300,
+        "trail": true,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution",
+        "secondary_trail_ground_warning",
+        "secondary_trail_ground_active"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "wax_high",
+      "kind": "wax_lancer",
+      "name": "挑枪截空",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "wax_high",
+        "name": "挑枪截空",
+        "type": "melee",
+        "range": 150,
+        "windup": 0.45,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 100,
+        "hit_height": 150,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "挑枪截空",
+        "offset_y": -74,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bailiff_cleave",
+      "kind": "erasure_bailiff",
+      "name": "断页大刀",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bailiff_cleave",
+        "name": "断页大刀",
+        "type": "melee",
+        "range": 175,
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 1,
+        "cooldown": 2.1,
+        "hit_width": 175,
+        "hit_height": 110,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "断页大刀",
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bailiff_erase",
+      "kind": "erasure_bailiff",
+      "name": "擦除直线",
+      "type": "beam",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bailiff_erase",
+        "name": "擦除直线",
+        "type": "beam",
+        "range": 430,
+        "windup": 1.1,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 4,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "擦除直线",
+        "beam_length": 455,
+        "radius": 18,
+        "hazard_life": 0.36,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "B_erase"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_B_erase.png"
+      ],
+      "runtime_family_before": "erase",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "beam_corridor",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bailiff_elite_sweep",
+      "kind": "erasure_bailiff",
+      "name": "断契回斩",
+      "type": "melee",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "bailiff_elite_sweep",
+        "name": "断契回斩",
+        "type": "melee",
+        "range": 230,
+        "windup": 1.0,
+        "active": 0.3,
+        "recover": 1.1,
+        "cooldown": 3.6,
+        "hit_width": 260,
+        "hit_height": 70,
+        "offset": 0,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "断契回斩",
+        "blockable": false,
+        "elite_only": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "page_orbit",
+      "kind": "summoned_page",
+      "name": "环页散刃",
+      "type": "nova",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "page_orbit",
+        "name": "环页散刃",
+        "type": "nova",
+        "range": 270,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "环页散刃",
+        "shot_count": 5,
+        "projectile_speed": 160,
+        "skin": "page",
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_page"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_page.png"
+      ],
+      "runtime_family_before": "page",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "page_skim",
+      "kind": "summoned_page",
+      "name": "折页俯掠",
+      "type": "dive",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "page_skim",
+        "name": "折页俯掠",
+        "type": "dive",
+        "range": 240,
+        "windup": 0.5,
+        "active": 0.55,
+        "recover": 0.7,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "折页俯掠",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "vine_bite",
+      "kind": "vine_crawler",
+      "name": "藤口咬",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "vine_bite",
+        "name": "藤口咬",
+        "type": "melee",
+        "range": 92,
+        "windup": 0.42,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 82,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "藤口咬",
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "vine_roots",
+      "kind": "vine_crawler",
+      "name": "三段根刺",
+      "type": "rootline",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "vine_roots",
+        "name": "三段根刺",
+        "type": "rootline",
+        "range": 320,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "三段根刺",
+        "shot_count": 3,
+        "spacing": 85,
+        "warning": 0.55,
+        "hazard_life": 0.5,
+        "radius": 24,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "R_roots"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_R_roots.png"
+      ],
+      "runtime_family_before": "roots",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_eruption",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "cage_net",
+      "kind": "root_cage_hunter",
+      "name": "根网投掷",
+      "type": "projectile",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "cage_net",
+        "name": "根网投掷",
+        "type": "projectile",
+        "range": 360,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "根网投掷",
+        "projectile_speed": 220,
+        "skin": "thorn",
+        "radius": 14,
+        "snare": 1.2,
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_net"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_net.png"
+      ],
+      "runtime_family_before": "net",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "cage_pounce",
+      "kind": "root_cage_hunter",
+      "name": "根笼扑刺",
+      "type": "vault",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "cage_pounce",
+        "name": "根笼扑刺",
+        "type": "vault",
+        "range": 280,
+        "windup": 0.55,
+        "active": 0.6,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "根笼扑刺",
+        "jump_height": 100,
+        "lunge_speed": 290,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "cage_elite_snare",
+      "kind": "root_cage_hunter",
+      "name": "根笼囚网",
+      "type": "pool",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "cage_elite_snare",
+        "name": "根笼囚网",
+        "type": "pool",
+        "range": 420,
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.7,
+        "cooldown": 3.6,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "根笼囚网",
+        "blockable": false,
+        "elite_only": true,
+        "shot_count": 2,
+        "spacing": 110,
+        "radius": 34,
+        "warning": 0.8,
+        "hazard_life": 1.4,
+        "snare": 0.8
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_snare"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_snare.png"
+      ],
+      "runtime_family_before": "snare",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bee_dive",
+      "kind": "wax_bee",
+      "name": "蜡蜂刺冲",
+      "type": "dive",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bee_dive",
+        "name": "蜡蜂刺冲",
+        "type": "dive",
+        "range": 280,
+        "windup": 0.62,
+        "active": 0.48,
+        "recover": 0.85,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "蜡蜂刺冲",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bee_stingers",
+      "kind": "wax_bee",
+      "name": "双针连射",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bee_stingers",
+        "name": "双针连射",
+        "type": "fan",
+        "range": 400,
+        "windup": 0.65,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "双针连射",
+        "shot_count": 2,
+        "spread": 0.22,
+        "projectile_speed": 310,
+        "skin": "thorn",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_stinger"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_stinger.png"
+      ],
+      "runtime_family_before": "stinger",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "thorn_ring",
+      "kind": "thorn_sentinel",
+      "name": "荆针轮射",
+      "type": "nova",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "thorn_ring",
+        "name": "荆针轮射",
+        "type": "nova",
+        "range": 400,
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "荆针轮射",
+        "shot_count": 6,
+        "projectile_speed": 185,
+        "skin": "thorn",
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_thorn"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_thorn.png"
+      ],
+      "runtime_family_before": "thorn",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "thorn_wall",
+      "kind": "thorn_sentinel",
+      "name": "根墙封路",
+      "type": "rootline",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "thorn_wall",
+        "name": "根墙封路",
+        "type": "rootline",
+        "range": 380,
+        "windup": 0.45,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 4,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "根墙封路",
+        "shot_count": 3,
+        "spacing": 90,
+        "warning": 0.8,
+        "radius": 24,
+        "hazard_life": 0.75,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "R_roots"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_R_roots.png"
+      ],
+      "runtime_family_before": "roots",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_eruption",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "pollen_arcs",
+      "kind": "pollen_lutist",
+      "name": "弦音花粉",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "pollen_arcs",
+        "name": "弦音花粉",
+        "type": "fan",
+        "range": 440,
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "弦音花粉",
+        "shot_count": 4,
+        "spread": 0.6,
+        "projectile_speed": 145,
+        "skin": "pollen",
+        "snare": 0.85,
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_pollen"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_pollen.png"
+      ],
+      "runtime_family_before": "pollen",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "pollen_spots",
+      "kind": "pollen_lutist",
+      "name": "错位花粉圈",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "pollen_spots",
+        "name": "错位花粉圈",
+        "type": "pool",
+        "range": 400,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "错位花粉圈",
+        "shot_count": 2,
+        "spacing": 105,
+        "radius": 36,
+        "warning": 0.95,
+        "hazard_life": 1.5,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_haze"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_haze.png"
+      ],
+      "runtime_family_before": "haze",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bloom_seeds",
+      "kind": "thorn_bloom_mote",
+      "name": "花种落刺",
+      "type": "rootline",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bloom_seeds",
+        "name": "花种落刺",
+        "type": "rootline",
+        "range": 340,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "花种落刺",
+        "shot_count": 2,
+        "spacing": 80,
+        "targeted": true,
+        "warning": 0.7,
+        "radius": 25,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "R_roots"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_R_roots.png"
+      ],
+      "runtime_family_before": "roots",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_eruption",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bloom_needle",
+      "kind": "thorn_bloom_mote",
+      "name": "花蕊针",
+      "type": "projectile",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bloom_needle",
+        "name": "花蕊针",
+        "type": "projectile",
+        "range": 340,
+        "windup": 0.5,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "花蕊针",
+        "projectile_speed": 240,
+        "skin": "thorn",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_thorn"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_thorn.png"
+      ],
+      "runtime_family_before": "thorn",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "obsidian_thrust",
+      "kind": "obsidian_spearman",
+      "name": "黑曜直刺",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "obsidian_thrust",
+        "name": "黑曜直刺",
+        "type": "lunge",
+        "range": 240,
+        "windup": 0.6,
+        "active": 0.3,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 172,
+        "hit_height": 42,
+        "offset": 82,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "黑曜直刺",
+        "lunge_speed": 230,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "obsidian_raise",
+      "kind": "obsidian_spearman",
+      "name": "抬枪截空",
+      "type": "melee",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "obsidian_raise",
+        "name": "抬枪截空",
+        "type": "melee",
+        "range": 120,
+        "windup": 0.6,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 95,
+        "hit_height": 150,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "抬枪截空",
+        "offset_y": -80,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "obsidian_elite_impale",
+      "kind": "obsidian_spearman",
+      "name": "跃空贯地",
+      "type": "vault",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "obsidian_elite_impale",
+        "name": "跃空贯地",
+        "type": "vault",
+        "range": 320,
+        "windup": 0.7,
+        "active": 0.75,
+        "recover": 1.0,
+        "cooldown": 3.6,
+        "hit_width": 110,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "跃空贯地",
+        "blockable": false,
+        "elite_only": true,
+        "jump_height": 160,
+        "lunge_speed": 280
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "censor_blink",
+      "kind": "phase_censor",
+      "name": "侧移弯刃",
+      "type": "blink",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "censor_blink",
+        "name": "侧移弯刃",
+        "type": "blink",
+        "range": 320,
+        "windup": 0.8,
+        "active": 0.32,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "侧移弯刃",
+        "blink_offset": 115,
+        "skin": "thorn",
+        "projectile_speed": 245,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_blade"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_blade.png"
+      ],
+      "runtime_family_before": "blade",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "local_departure_burst",
+        "local_arrival_burst"
+      ],
+      "additional_active_missing": true
+    },
+    {
+      "id": "censor_fan",
+      "kind": "phase_censor",
+      "name": "审灯三刃",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "censor_fan",
+        "name": "审灯三刃",
+        "type": "fan",
+        "range": 420,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "审灯三刃",
+        "shot_count": 3,
+        "spread": 0.42,
+        "projectile_speed": 200,
+        "skin": "thorn",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_blade"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_blade.png"
+      ],
+      "runtime_family_before": "blade",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "chariot_charge",
+      "kind": "pilgrim_chariot",
+      "name": "巡礼战车",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "chariot_charge",
+        "name": "巡礼战车",
+        "type": "lunge",
+        "range": 380,
+        "windup": 0.95,
+        "active": 0.65,
+        "recover": 1.15,
+        "cooldown": 2.1,
+        "hit_width": 158,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "巡礼战车",
+        "lunge_speed": 350,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "chariot_caltrops",
+      "kind": "pilgrim_chariot",
+      "name": "灰钉阵",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "chariot_caltrops",
+        "name": "灰钉阵",
+        "type": "pool",
+        "range": 380,
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "灰钉阵",
+        "shot_count": 3,
+        "spacing": 90,
+        "radius": 28,
+        "warning": 0.8,
+        "hazard_life": 2.1,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_caltrops"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_caltrops.png"
+      ],
+      "runtime_family_before": "caltrops",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "chariot_elite_drift",
+      "kind": "pilgrim_chariot",
+      "name": "回转战车",
+      "type": "lunge",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "chariot_elite_drift",
+        "name": "回转战车",
+        "type": "lunge",
+        "range": 460,
+        "windup": 1.0,
+        "active": 0.8,
+        "recover": 1.0,
+        "cooldown": 3.6,
+        "hit_width": 135,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "回转战车",
+        "blockable": false,
+        "elite_only": true,
+        "lunge_speed": 360
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bugle_volley",
+      "kind": "silent_bugbler",
+      "name": "无声号阵",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bugle_volley",
+        "name": "无声号阵",
+        "type": "fan",
+        "range": 540,
+        "windup": 0.95,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "无声号阵",
+        "shot_count": 5,
+        "spread": 0.6,
+        "projectile_speed": 250,
+        "skin": "metal",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_chime"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_chime.png"
+      ],
+      "runtime_family_before": "chime",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bugle_pulse",
+      "kind": "silent_bugbler",
+      "name": "号口震波",
+      "type": "wave",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bugle_pulse",
+        "name": "号口震波",
+        "type": "wave",
+        "range": 230,
+        "windup": 0.65,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "号口震波",
+        "shot_count": 2,
+        "projectile_speed": 205,
+        "radius": 19,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_chime"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_chime.png"
+      ],
+      "runtime_family_before": "chime",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "crossbow_burst",
+      "kind": "kneeling_crossbowman",
+      "name": "锁线三矢",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "crossbow_burst",
+        "name": "锁线三矢",
+        "type": "fan",
+        "range": 580,
+        "windup": 1,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "锁线三矢",
+        "shot_count": 3,
+        "spread": 0.15,
+        "projectile_speed": 350,
+        "skin": "thorn",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_bolt"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_bolt.png"
+      ],
+      "runtime_family_before": "bolt",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "crossbow_low",
+      "kind": "kneeling_crossbowman",
+      "name": "贴地重矢",
+      "type": "projectile",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "crossbow_low",
+        "name": "贴地重矢",
+        "type": "projectile",
+        "range": 440,
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "贴地重矢",
+        "projectile_speed": 300,
+        "radius": 12,
+        "skin": "thorn",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_bolt"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_bolt.png"
+      ],
+      "runtime_family_before": "bolt",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "imp_flurry",
+      "kind": "ash_banner_imp",
+      "name": "旗枪三连",
+      "type": "combo",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "imp_flurry",
+        "name": "旗枪三连",
+        "type": "combo",
+        "range": 160,
+        "windup": 0.42,
+        "active": 0.55,
+        "recover": 0.55,
+        "cooldown": 2.1,
+        "hit_width": 98,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "旗枪三连",
+        "lunge_speed": 95,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "imp_retreat",
+      "kind": "ash_banner_imp",
+      "name": "回旗退刺",
+      "type": "retreat",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "imp_retreat",
+        "name": "回旗退刺",
+        "type": "retreat",
+        "range": 145,
+        "windup": 0.45,
+        "active": 0.3,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 110,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "回旗退刺",
+        "retreat_speed": 165,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bellwheel_roll",
+      "kind": "obsidian_bellwheel",
+      "name": "黑钟滚撞",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bellwheel_roll",
+        "name": "黑钟滚撞",
+        "type": "lunge",
+        "range": 330,
+        "windup": 0.7,
+        "active": 0.55,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 130,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "黑钟滚撞",
+        "lunge_speed": 300,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "bellwheel_waves",
+      "kind": "obsidian_bellwheel",
+      "name": "双向钟涟",
+      "type": "wave",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "bellwheel_waves",
+        "name": "双向钟涟",
+        "type": "wave",
+        "range": 390,
+        "windup": 0.82,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "双向钟涟",
+        "shot_count": 2,
+        "projectile_speed": 265,
+        "radius": 19,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_chime"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_chime.png"
+      ],
+      "runtime_family_before": "chime",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_wheel_guard",
+      "kind": "echo_waterwheel_knight",
+      "name": "回声盾反",
+      "type": "guard",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_wheel_guard",
+        "name": "回声盾反",
+        "type": "guard",
+        "range": 180,
+        "windup": 0.8,
+        "active": 0.3,
+        "recover": 0.7,
+        "cooldown": 2.1,
+        "hit_width": 142,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "回声盾反",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_guard",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_wheel_wave",
+      "kind": "echo_waterwheel_knight",
+      "name": "快慢双轮波",
+      "type": "wave",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_wheel_wave",
+        "name": "快慢双轮波",
+        "type": "wave",
+        "range": 450,
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "快慢双轮波",
+        "shot_count": 4,
+        "projectile_speed": 190,
+        "speed_step": 65,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "W_chime"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_W_chime.png"
+      ],
+      "runtime_family_before": "chime",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_wheel_elite",
+      "kind": "echo_waterwheel_knight",
+      "name": "回响双轮",
+      "type": "projectile",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_wheel_elite",
+        "name": "回响双轮",
+        "type": "projectile",
+        "range": 440,
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 0.7,
+        "cooldown": 3.6,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "回响双轮",
+        "blockable": false,
+        "elite_only": true,
+        "shot_count": 2,
+        "spread": 0.35,
+        "returning": true,
+        "projectile_speed": 260,
+        "skin": "wheel",
+        "radius": 17
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_wheel"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_wheel.png"
+      ],
+      "runtime_family_before": "wheel",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_larva_burrow",
+      "kind": "echo_moss_larva",
+      "name": "回声潜扑",
+      "type": "lunge",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_larva_burrow",
+        "name": "回声潜扑",
+        "type": "lunge",
+        "range": 260,
+        "windup": 0.7,
+        "active": 0.42,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "回声潜扑",
+        "lunge_speed": 290,
+        "burrow": true,
+        "blockable": true
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_larva_mark",
+      "kind": "echo_moss_larva",
+      "name": "迟发苔音",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_larva_mark",
+        "name": "迟发苔音",
+        "type": "pool",
+        "range": 300,
+        "windup": 0.6,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "迟发苔音",
+        "radius": 39,
+        "warning": 1.15,
+        "hazard_life": 0.55,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_fungus"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_fungus.png"
+      ],
+      "runtime_family_before": "fungus",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_thorn_double",
+      "kind": "echo_thorn_sentinel",
+      "name": "双环荆针",
+      "type": "nova",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_thorn_double",
+        "name": "双环荆针",
+        "type": "nova",
+        "range": 470,
+        "windup": 1,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "双环荆针",
+        "shot_count": 10,
+        "projectile_speed": 200,
+        "skin": "thorn",
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_thorn"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_thorn.png"
+      ],
+      "runtime_family_before": "thorn",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_thorn_roots",
+      "kind": "echo_thorn_sentinel",
+      "name": "间隔根刺",
+      "type": "rootline",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_thorn_roots",
+        "name": "间隔根刺",
+        "type": "rootline",
+        "range": 430,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "间隔根刺",
+        "shot_count": 4,
+        "spacing": 92,
+        "radius": 22,
+        "warning": 0.85,
+        "hazard_life": 0.6,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "R_roots"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_R_roots.png"
+      ],
+      "runtime_family_before": "roots",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_eruption",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_scribe_pages",
+      "kind": "echo_contract_scribe",
+      "name": "冠页斜射",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_scribe_pages",
+        "name": "冠页斜射",
+        "type": "fan",
+        "range": 430,
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "冠页斜射",
+        "shot_count": 3,
+        "spread": 0.3,
+        "projectile_speed": 225,
+        "skin": "page",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_page"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_page.png"
+      ],
+      "runtime_family_before": "page",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "echo_scribe_seals",
+      "kind": "echo_contract_scribe",
+      "name": "双落印",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "echo_scribe_seals",
+        "name": "双落印",
+        "type": "pool",
+        "range": 420,
+        "windup": 0.6,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "双落印",
+        "shot_count": 2,
+        "spacing": 135,
+        "radius": 30,
+        "warning": 0.9,
+        "hazard_life": 1.05,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_seal"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_seal.png"
+      ],
+      "runtime_family_before": "seal",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "clapper_fall",
+      "kind": "falling_clapper",
+      "name": "标记落锤",
+      "type": "dive",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "clapper_fall",
+        "name": "标记落锤",
+        "type": "dive",
+        "range": 300,
+        "windup": 0.95,
+        "active": 0.48,
+        "recover": 1.15,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "标记落锤",
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "clapper_wave",
+      "kind": "falling_clapper",
+      "name": "钟浪斜射",
+      "type": "fan",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "clapper_wave",
+        "name": "钟浪斜射",
+        "type": "fan",
+        "range": 360,
+        "windup": 0.75,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "钟浪斜射",
+        "shot_count": 3,
+        "spread": 0.52,
+        "projectile_speed": 210,
+        "skin": "metal",
+        "blockable": true
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_chime"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_chime.png"
+      ],
+      "runtime_family_before": "chime",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "shadow_blink",
+      "kind": "delayed_shadow",
+      "name": "迟影侧刺",
+      "type": "blink",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "shadow_blink",
+        "name": "迟影侧刺",
+        "type": "blink",
+        "range": 370,
+        "windup": 0.95,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "迟影侧刺",
+        "blink_offset": 135,
+        "projectile_speed": 270,
+        "skin": "thorn",
+        "blockable": false
+      },
+      "active_before": "authored_blade_exists_but_wrong_runtime_mapping",
+      "existing_source_families": [
+        "P_blade"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_blade.png"
+      ],
+      "runtime_family_before": "thorn",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation",
+        "local_departure_burst",
+        "local_arrival_burst"
+      ],
+      "additional_active_missing": true
+    },
+    {
+      "id": "shadow_echo",
+      "kind": "delayed_shadow",
+      "name": "影落封圈",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "shadow_echo",
+        "name": "影落封圈",
+        "type": "pool",
+        "range": 390,
+        "windup": 0.55,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "影落封圈",
+        "radius": 36,
+        "warning": 1.2,
+        "hazard_life": 0.6,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_shadow"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_shadow.png"
+      ],
+      "runtime_family_before": "shadow",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "minor_lances",
+      "kind": "echo_pilgrim_commander_minor",
+      "name": "巡礼三枪",
+      "type": "combo",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "minor_lances",
+        "name": "巡礼三枪",
+        "type": "combo",
+        "range": 260,
+        "windup": 0.75,
+        "active": 0.7,
+        "recover": 0.95,
+        "cooldown": 2.1,
+        "hit_width": 165,
+        "hit_height": 70,
+        "offset": 83,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "巡礼三枪",
+        "lunge_speed": 175,
+        "blockable": false
+      },
+      "active_before": "procedural_missing_execution",
+      "existing_source_families": [],
+      "existing_source_files": [],
+      "runtime_family_before": null,
+      "missing_execution": true,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "facing_attack_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "active_execution"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "minor_banner",
+      "kind": "echo_pilgrim_commander_minor",
+      "name": "军旗落阵",
+      "type": "rootline",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "minor_banner",
+        "name": "军旗落阵",
+        "type": "rootline",
+        "range": 440,
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "军旗落阵",
+        "shot_count": 4,
+        "spacing": 88,
+        "radius": 22,
+        "warning": 0.7,
+        "hazard_life": 0.6,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "R_spears"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_R_spears.png"
+      ],
+      "runtime_family_before": "spears",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_eruption",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "minor_elite_rally",
+      "kind": "echo_pilgrim_commander_minor",
+      "name": "号令枪阵",
+      "type": "rootline",
+      "elite_only": true,
+      "enabled": true,
+      "parameters": {
+        "id": "minor_elite_rally",
+        "name": "号令枪阵",
+        "type": "rootline",
+        "range": 520,
+        "windup": 0.95,
+        "active": 0.24,
+        "recover": 0.8,
+        "cooldown": 3.6,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 2,
+        "telegraph": "e0503c",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.9,
+        "mechanic": "号令枪阵",
+        "blockable": false,
+        "elite_only": true,
+        "shot_count": 6,
+        "spacing": 82,
+        "radius": 22,
+        "warning": 0.7,
+        "hazard_life": 0.6
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "R_spears"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_R_spears.png"
+      ],
+      "runtime_family_before": "spears",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_eruption",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "lumen_orbits",
+      "kind": "isotope_lumen",
+      "name": "光核环弹",
+      "type": "nova",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "lumen_orbits",
+        "name": "光核环弹",
+        "type": "nova",
+        "range": 380,
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "光核环弹",
+        "shot_count": 7,
+        "projectile_speed": 145,
+        "skin": "light",
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "P_light"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_P_light.png"
+      ],
+      "runtime_family_before": "light",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "local_charge",
+      "requirements": [
+        "actor_anticipation"
+      ],
+      "additional_active_missing": false
+    },
+    {
+      "id": "lumen_focus",
+      "kind": "isotope_lumen",
+      "name": "延迟聚光",
+      "type": "pool",
+      "elite_only": false,
+      "enabled": true,
+      "parameters": {
+        "id": "lumen_focus",
+        "name": "延迟聚光",
+        "type": "pool",
+        "range": 400,
+        "windup": 0.6,
+        "active": 0.24,
+        "recover": 0.5,
+        "cooldown": 2.1,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "damage": 1,
+        "telegraph": "c99558",
+        "vertical_tolerance": 190,
+        "animation": "attack",
+        "desire_cost": 0.7,
+        "mechanic": "延迟聚光",
+        "radius": 48,
+        "warning": 1.0,
+        "hazard_life": 0.8,
+        "blockable": false
+      },
+      "active_before": "authored_runtime_connected",
+      "existing_source_families": [
+        "A_focus"
+      ],
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_focus.png"
+      ],
+      "runtime_family_before": "focus",
+      "missing_execution": false,
+      "actor_warning_before": "procedural_line_or_arc",
+      "warning_topology": "ground_footprint",
+      "requirements": [
+        "actor_anticipation",
+        "hazard_warning_at_exact_runtime_location"
+      ],
+      "additional_active_missing": false
+    }
+  ],
+  "extras": [
+    {
+      "id": "wax_charge_trail",
+      "kind": "wax_lancer",
+      "origin_command": "wax_charge",
+      "trigger": "trail true: every .16s during active",
+      "effect_kind": "pool",
+      "before": "no ground family mapping; procedural pool and warning",
+      "missing": [
+        "ground_warning",
+        "active_wax_pool"
+      ],
+      "parameters": {
+        "arm_delay": 0.35,
+        "hazard_life": 1.1,
+        "radius": 11,
+        "skin": "thorn"
+      },
+      "runtime_hook": "enemy_actor.gd:_update_active trail / enemy_attack_effect.gd:_draw"
+    },
+    {
+      "id": "pipe_mortar_impact_pool",
+      "kind": "pipe_thrower",
+      "origin_command": "pipe_mortar",
+      "trigger": "mortar projectile wall/terrain impact",
+      "effect_kind": "pool",
+      "before": "active slag authored; warning procedural",
+      "existing_source_files": [
+        "art_requests/attack_effects_v1/incoming/FX_A_slag.png"
+      ],
+      "missing": [
+        "ground_warning"
+      ],
+      "parameters": {
+        "arm_delay": 0.55,
+        "duration": 1.4,
+        "radius": 32,
+        "skin": "metal"
+      },
+      "runtime_hook": "enemy_attack_effect.gd:impact_pool branch"
+    },
+    {
+      "id": "ash_banner_support",
+      "kind": "ash_banner_imp",
+      "origin_command": null,
+      "trigger": "support tactical role near an injured non-support ally",
+      "before": "plain Line2D from banner imp to ally; no success artwork",
+      "missing": [
+        "support_channel_link",
+        "support_completion"
+      ],
+      "runtime_hook": "enemy_actor.gd:_try_start_support/_update_support/_finish_support",
+      "parameters": {
+        "heal": 1,
+        "windup": 0.9,
+        "radius": 260.0
+      },
+      "notes": "No hostile damage. Must disappear immediately on interrupt, death, residency loss or invalid ally; do not imply successful healing until HP changes."
+    }
+  ],
+  "runtime_mapping_defects": [
+    {
+      "kind": "delayed_shadow",
+      "command": "shadow_blink",
+      "from": "thorn",
+      "to": "blade",
+      "evidence": "v1 source brief P_blade explicitly lists shadow_blink; projectile_art.LEGACY does not translate delayed_shadow/thorn."
+    },
+    {
+      "kind": "wax_lancer",
+      "command": "wax_charge secondary trail",
+      "from": "empty ground family",
+      "to": "new wax pool family",
+      "evidence": "trail spawns pool with thorn skin but no GROUND_ART.LEGACY wax_lancer entry exists."
+    }
+  ],
+  "non_hostile_training_appendix": [
+    {
+      "training_id": "tool_training_mine",
+      "region": "demo_ch02_rain_foundry_canal",
+      "command": {
+        "id": "practice_shove",
+        "name": "练习轻推",
+        "type": "melee",
+        "range": 70,
+        "windup": 0.6,
+        "active": 0.2,
+        "recover": 0.8,
+        "cooldown": 2.0,
+        "hit_width": 80,
+        "hit_height": 70,
+        "offset": 40,
+        "damage": 0,
+        "telegraph": "c99558",
+        "vertical_tolerance": 120,
+        "animation": "attack",
+        "desire_cost": 0.6,
+        "blockable": true
+      },
+      "hostile": false,
+      "before": "procedural_unmapped",
+      "source": "godot/data/world_routes.json:tool_training_plan"
+    },
+    {
+      "training_id": "tool_training_fog",
+      "region": "demo_ch03_saltwhite_archive",
+      "command": {
+        "id": "practice_beam",
+        "name": "练习光束",
+        "type": "beam",
+        "range": 440,
+        "windup": 1.0,
+        "active": 0.24,
+        "recover": 0.6,
+        "cooldown": 2.4,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 40,
+        "damage": 0,
+        "telegraph": "c99558",
+        "vertical_tolerance": 160,
+        "animation": "attack",
+        "desire_cost": 0.6,
+        "beam_length": 440,
+        "radius": 16,
+        "hazard_life": 0.3,
+        "blockable": true
+      },
+      "hostile": false,
+      "before": "procedural_unmapped",
+      "source": "godot/data/world_routes.json:tool_training_plan"
+    },
+    {
+      "training_id": "tool_training_lure",
+      "region": "demo_ch04_broken_string_greenhouse",
+      "command": {
+        "id": "practice_shove",
+        "name": "练习轻推",
+        "type": "melee",
+        "range": 70,
+        "windup": 0.6,
+        "active": 0.2,
+        "recover": 0.8,
+        "cooldown": 2.0,
+        "hit_width": 80,
+        "hit_height": 70,
+        "offset": 40,
+        "damage": 0,
+        "telegraph": "c99558",
+        "vertical_tolerance": 120,
+        "animation": "attack",
+        "desire_cost": 0.6,
+        "blockable": true
+      },
+      "hostile": false,
+      "before": "procedural_unmapped",
+      "source": "godot/data/world_routes.json:tool_training_plan"
+    }
+  ],
+  "exclusions": [
+    {
+      "topic": "summoned_page",
+      "reason": "Despite the internal name, it is a directly placed CH03 E08 enemy; no summon skill is implemented."
+    },
+    {
+      "topic": "ordinary contact damage",
+      "reason": "Body contact damage is not a timed skill with a windup and does not need a fake telegraph."
+    },
+    {
+      "topic": "inactive Boss resources",
+      "reason": "Boss art is outside the ordinary-enemy audit."
+    }
+  ]
+}
