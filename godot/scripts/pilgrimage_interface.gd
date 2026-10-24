@@ -114,6 +114,10 @@ var journal_filter := "all"
 var journal_filter_buttons: Dictionary = {}
 var journal_filters: HBoxContainer
 var journal_memory: Dictionary = {}
+var journal_reading := preload("res://scripts/journal_reading.gd").new()
+var journal_reading_key := ""
+var journal_reading_text := ""
+var journal_restore_pending := false
 var bag_scroll: ScrollContainer
 var construction_complete := false
 var inventory_build_selection := ""
@@ -568,6 +572,7 @@ func _build_bag() -> void:
     bag_description.add_theme_color_override("default_color",IVORY)
     bag_description.scroll_active=true
     bag.add_child(bag_description)
+    bag.visibility_changed.connect(_journal_bag_visibility_changed)
     bag_pin=_button(bag,"钉在旅记",Vector2(738,533),Vector2(330,35),_pin_item)
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(645,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
@@ -598,6 +603,13 @@ func refresh_inventory() -> void:
     finish_inventory_refresh()
 
 func begin_inventory_refresh() -> void:
+    _remember_journal_scroll()
+    if bag_category!="旅记":
+        journal_reading_key=""
+        journal_restore_pending=false
+    if bag_pin!=null:
+        bag_pin.text="PgUp/PgDn · LB/RB 翻页" if bag_category=="旅记" else "钉在旅记"
+        bag_pin.tooltip_text="Home 到开头，End 到末尾；切换记录后保留本次阅读位置。" if bag_category=="旅记" else ""
     (bag.get_node("InscribedTitle") as TextureRect).texture=inscription_mark("journal" if bag_category=="旅记" else "inventory")
     (bag.get_node("InscriptionSubtitle") as Label).text="证词与心愿" if bag_category=="旅记" else "器物与旧物"
     for node in bag_grid.get_children():
@@ -1065,6 +1077,17 @@ func _input(event: InputEvent) -> void:
             remap_status.text="已保存「%s」的新输入；其余设备的绑定继续可用。" % REMAPPABLE_ACTIONS[action]
             get_viewport().set_input_as_handled()
         return
+    if bag.visible and bag_category=="旅记":
+        var step:=0
+        if event is InputEventKey and event.pressed and not event.echo:
+            var key: int=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+            step={KEY_PAGEUP:-1,KEY_PAGEDOWN:1,KEY_HOME:-2,KEY_END:2}.get(key,0)
+        elif event is InputEventJoypadButton and event.pressed:
+            step=-1 if event.button_index==JOY_BUTTON_LEFT_SHOULDER else 1 if event.button_index==JOY_BUTTON_RIGHT_SHOULDER else 0
+        if step!=0:
+            _scroll_journal(step)
+            get_viewport().set_input_as_handled()
+            return
     if bag.visible and event is InputEventKey and event.pressed and event.physical_keycode in [KEY_UP,KEY_DOWN]:
         # Main polls these keys to move bag selection; consume GUI navigation
         # so one key never advances both the gameplay selection and focus.
@@ -2108,7 +2131,7 @@ func _refresh_journal() -> void:
     bag_name.text="六区旅途记录"
     bag_category_label.text="旅途记录"
     bag_icon.texture=ART.item("moss_lens")
-    bag_description.text="按分类查看主线、委托、证词、已击败敌人与结局；只显示旅途中已知的内容。"
+    if journal_reading_key.is_empty():bag_description.text="按分类查看主线、委托、证词、已击败敌人与结局；只显示旅途中已知的内容。"
     for filter_id in journal_filter_buttons:journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",_tab_style(filter_id==journal_filter))
     for tab in bag_tabs:tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     if not bool(level.get("world_mode")):
@@ -2159,6 +2182,8 @@ func _refresh_journal() -> void:
         if String(records[index].get("record_kind",""))+":"+String(records[index].get("id",""))==remembered:journal_selection=index
     journal_selection=clampi(journal_selection,0,maxi(0,records.size()-1))
     if records.is_empty():
+        journal_reading_key=""
+        journal_restore_pending=false
         bag_name.text="尚无敌人记录" if journal_filter=="enemy" else "这一分类暂无记录"
         bag_description.text="击败后会留下战斗笔记；未交战的敌人不会提前列出。" if journal_filter=="enemy" else "继续探索并与人物交谈，已知的记录会保存在这里。"
     var selected_button: Button
@@ -2188,6 +2213,7 @@ func _refresh_journal() -> void:
         if selected_button!=null and bag.visible:selected_button.grab_focus()
 
 func _show_journal_record(entry: Dictionary) -> void:
+    _remember_journal_scroll()
     bag_name.text=String(entry.get("title",entry.get("id","")))
     var lines: Array[String]=[]
     if bool(entry.get("history_note",false)):
@@ -2246,7 +2272,39 @@ func _show_journal_record(entry: Dictionary) -> void:
                 lines.append(String(witness.get("text","")))
             for connection in entry.get("connections",[]):
                 lines.append("\n互证："+String(connection))
-    bag_description.text="\n".join(lines)
+    var text:="\n".join(lines)
+    var key:=String(entry.get("record_kind",""))+":"+String(entry.get("id",""))
+    if journal_reading_key==key and bag_description.text==text:return
+    bag_description.text=text
+    journal_reading_key=key if bag.is_visible_in_tree() else ""
+    journal_reading_text=text
+    journal_restore_pending=not journal_reading_key.is_empty()
+    call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text))
+
+func _remember_journal_scroll(force: bool=false) -> void:
+    if bag_description==null or journal_reading_key.is_empty() or journal_restore_pending:return
+    if force or bag.is_visible_in_tree():journal_reading.capture(journal_reading_key,journal_reading_text,bag_description.get_v_scroll_bar().value)
+
+func _journal_bag_visibility_changed() -> void:
+    if not bag.is_visible_in_tree():
+        _remember_journal_scroll(true)
+        journal_reading_key=""
+        journal_restore_pending=false
+
+func _restore_journal_scroll(key: String, text: String, offset: float) -> void:
+    await get_tree().process_frame
+    if is_inside_tree() and bag.is_visible_in_tree() and journal_reading_key==key and bag_description.text==text:
+        var bar:=bag_description.get_v_scroll_bar()
+        bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
+        journal_restore_pending=false
+
+func _scroll_journal(step: int) -> void:
+    if bag_description==null:return
+    var bar:=bag_description.get_v_scroll_bar()
+    var maximum:=maxf(bar.min_value,bar.max_value-bar.page)
+    if absi(step)==2:bar.value=bar.min_value if step<0 else maximum
+    else:bar.value=clampf(bar.value+step*maxf(64.0,bag_description.size.y*0.8),bar.min_value,maximum)
+    _remember_journal_scroll()
 
 func _ending_status_label(entry: Dictionary) -> String:
     if bool(entry.get("chosen",false)):return "已选择"
