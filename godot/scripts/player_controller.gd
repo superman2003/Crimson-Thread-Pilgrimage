@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
 const ABILITY_ART := preload("res://scripts/player_ability_art.gd")
 const HOOK_ART := preload("res://scripts/player_hook_art.gd")
 const DASH_ART := preload("res://scripts/player_dash_art.gd")
@@ -707,6 +708,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    CONTACT_ART.clear_player(self)
     ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
     DASH_ART.clear(self)
@@ -1398,6 +1400,7 @@ func _apply_attack_hits() -> void:
         if attack_rect.intersects(hurtbox) and _attack_line_clear(hurtbox.get_center()):
             hit_targets[id] = true
             var target_hp_before := int(node.get("hp"))
+            var contact_call: int = int(node.contact_visual_call_serial()) + 1 if node.has_method("contact_visual_call_serial") else -1
             node.take_hit(attack_damage, _attack_hit_direction())
             var accepted := is_instance_valid(node) and int(node.get("hp")) < target_hp_before
             if not accepted:
@@ -1429,7 +1432,7 @@ func _apply_attack_hits() -> void:
                 _apply_downslash_bounce(node.global_position)
                 attack_pogo_paid = true
             _trigger_hit_feedback(killed)
-            _spawn_hit_confirm_vfx(node.global_position, current_attack)
+            _spawn_hit_confirm_vfx(node.global_position, current_attack, node, contact_call)
     _try_hazard_pogo(attack_rect)
 
 
@@ -2012,6 +2015,13 @@ func _spawn_hook_trail_vfx() -> void:
 
 
 func _spawn_skill_slash_vfx() -> void:
+    if CONTACT_ART.supported_slash(self):
+        CONTACT_ART.skill_slash(self)
+    else:
+        _spawn_legacy_skill_slash_vfx()
+
+
+func _spawn_legacy_skill_slash_vfx() -> void:
     var burst := Line2D.new()
     burst.name = "SkillSlashVfx"
     burst.width = 7.0
@@ -2060,8 +2070,8 @@ func _spawn_skill_slash_vfx() -> void:
     tween.finished.connect(Callable(ring, "queue_free"))
 
 
-func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName) -> void:
-    MELEE_FEEDBACK.spawn_hit(get_parent() as Node2D, world_position + Vector2(0.0, -28.0), current_attack_direction, animation, _accessibility())
+func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName, receiver: Node2D = null, contact_call: int = -1) -> void:
+    MELEE_FEEDBACK.spawn_hit(get_parent() as Node2D, world_position + Vector2(0.0, -28.0), current_attack_direction, animation, _accessibility(), receiver, contact_call, self)
 
 
 func _spawn_land_vfx() -> void:
@@ -2119,6 +2129,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         GUARD_ART.blocked(self, perfect)
         return
     GUARD_ART.clear(self)
+    CONTACT_ART.clear_player(self)
     ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
     DASH_ART.clear(self)
@@ -2560,6 +2571,7 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    CONTACT_ART.clear_player(self)
     ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
     DASH_ART.clear(self)

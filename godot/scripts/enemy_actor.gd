@@ -1,5 +1,6 @@
 extends Area2D
 
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
@@ -553,7 +554,12 @@ func _apply_elite_profile(elite: Dictionary) -> void:
         visual_scale *= float(elite.get("visual_scale_mult", 1.0))
 
 
+func contact_visual_call_serial() -> int:
+    return int(get_meta(CONTACT_ART.CALL_META, 0))
+
+
 func take_hit(amount: int, hit_direction: int) -> void:
+    var contact_call := CONTACT_ART.begin_receiver_call(self)
     if dying or is_queued_for_deletion() or not world_residency_active() or amount <= 0:
         return
     if bool(ai_profile.get("front_guard",false)) and String(active_attack.get("type",""))=="guard" and state in ["windup","active"] and hit_direction==-direction:
@@ -565,7 +571,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
         _play_sfx("hit_kill", -5.0, 1.0, 0)
     else:
         _play_sfx(_hit_tier_key(), -6.0)
-    _spawn_hit_spark(hit_direction)
+    _spawn_hit_spark(hit_direction, contact_call)
     var armored := not is_boss and hp - amount > 0 and _hit_is_armored()
     if not armored:
         pose_loop_animation = ""
@@ -783,6 +789,7 @@ func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
 func reset_for_respawn() -> void:
     if dying or is_queued_for_deletion():
         return
+    CONTACT_ART.clear_receiver(self)
     _cancel_attack_effects()
     _clear_telegraph()
     for tween in combat_tweens:
@@ -2716,24 +2723,11 @@ static func _load_stream_direct(path: String, looped: bool = false) -> AudioStre
     return load(path) as AudioStream
 
 
-func _spawn_hit_spark(hit_direction: int) -> void:
-    var spark := Line2D.new()
-    spark.name = "HitSpark"
-    spark.width = 4.0 if is_boss else 3.0
-    spark.default_color = Color(1.0, 0.957, 0.902, 0.95)
-    var x := 24.0 * -hit_direction
-    spark.points = PackedVector2Array([
-        Vector2(x, -30.0),
-        Vector2(x + 28.0 * hit_direction, -48.0),
-        Vector2(x + 7.0 * hit_direction, -22.0),
-        Vector2(x + 34.0 * hit_direction, -12.0)
-    ])
-    if not VISUAL_POLICY.attach_contact(self, spark):
-        return
-    var tween := _combat_tween()
-    tween.tween_property(spark, "scale", Vector2(1.55, 1.55), 0.16)
-    tween.parallel().tween_property(spark, "modulate:a", 0.0, 0.16)
-    tween.finished.connect(Callable(spark, "queue_free"))
+func _spawn_hit_spark(hit_direction: int, contact_call: int = -1) -> void:
+    if contact_call < 0:
+        contact_call = CONTACT_ART.begin_receiver_call(self)
+    CONTACT_ART.receiver_hit(self, hit_direction, contact_call)
+
 
 func _cancel_attack_effects() -> void:
     for effect in owned_attack_effects:
@@ -2755,6 +2749,7 @@ func _cancel_unarmed_attack_effects() -> void:
             owned_attack_effects.remove_at(index)
 
 func _exit_tree() -> void:
+    CONTACT_ART.clear_receiver(self)
     _clear_telegraph()
     _cancel_attack_effects()
 

@@ -4,6 +4,7 @@ extends RefCounted
 ## effect assets or combat geometry live here.
 ## The brief blade smear follows the rendered weapon, never the hitbox envelope.
 
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 const SOURCE_SIZE := Vector2(384.0, 384.0)
@@ -60,6 +61,8 @@ static func spawn_swing(owner_node: Node2D, sprite: AnimatedSprite2D, active_sec
         return null
     var trace := BladeTrace.new()
     trace.name = "AttackSlashVfx"
+    trace.set_meta("delivered_blade_art", true)
+    trace.set_meta("contact_player_id", owner_node.get_instance_id())
     trace.weapon_sprite = sprite
     trace.lifetime = minf(TRACE_SECONDS, active_seconds)
     trace.reduced_flash = not bool(preferences.get("flash_enabled", true))
@@ -71,11 +74,17 @@ static func spawn_swing(owner_node: Node2D, sprite: AnimatedSprite2D, active_sec
     return trace
 
 
-static func spawn_hit(parent_node: Node2D, world_position: Vector2, direction: Vector2, animation: StringName, preferences: Dictionary = {}) -> Node2D:
+static func spawn_hit(parent_node: Node2D, world_position: Vector2, direction: Vector2, animation: StringName, preferences: Dictionary = {}, receiver: Node2D = null, contact_call: int = -1, effect_owner: Node = null) -> Node2D:
     if not is_instance_valid(parent_node):
         return null
+    if is_instance_valid(receiver) and contact_call >= 0:
+        return CONTACT_ART.refine_receiver(receiver, contact_call, world_position, direction, animation, preferences)
     var contact := ContactNick.new()
     contact.name = "HitConfirmVfx"
+    contact.set_meta("delivered_contact_art", true)
+    if is_instance_valid(effect_owner):
+        contact.set_meta("contact_player_id", effect_owner.get_instance_id())
+        contact.owner_ref = weakref(effect_owner)
     contact.strike_direction = direction.normalized() if not direction.is_zero_approx() else Vector2.RIGHT
     contact.length = 16.0 if animation == &"attack_2" else 11.0
     contact.reduced_flash = not bool(preferences.get("flash_enabled", true))
@@ -160,21 +169,22 @@ class BladeTrace extends Node2D:
     func _draw() -> void:
         if blade.size() != 2 or prior_blade.size() != 2:
             return
+        var material_frame := CONTACT_ART.frame_index(age, lifetime, reduced_flash)
         var fade := clampf(1.0 - age / maxf(lifetime, 0.001), 0.0, 1.0)
         var root_point := blade[0].lerp(blade[1], 0.18)
         var tip := blade[1]
         var edge_color := Color(0.75, 0.70, 0.63, 0.24 * fade) if reduced_flash else Color(0.95, 0.90, 0.78, 0.56 * fade)
         if absf(sweep) >= ARC_MIN_RADIANS:
             _draw_arc(fade)
-            draw_line(root_point.lerp(tip, 0.30), tip, edge_color, 0.85, true)
+            CONTACT_ART.paint_line(self, material_frame, root_point.lerp(tip, 0.30), tip, 0.85, edge_color)
             return
         # Only the last fraction of the measured motion remains visible. No
         # expanding ellipse, additive halo, screen flash, or particle cloud.
         var tail_tip := tip.lerp(prior_blade[1], 0.22 * fade)
         var tail_root := root_point.lerp(prior_blade[0].lerp(prior_blade[1], 0.18), 0.09 * fade)
         if absf((tip - root_point).cross(tail_tip - root_point)) > 0.25:
-            draw_colored_polygon(PackedVector2Array([root_point, tip, tail_tip, tail_root]), Color(0.70, 0.58, 0.49, 0.27 * fade))
-        draw_line(root_point.lerp(tip, 0.30), tip, edge_color, 0.85, true)
+            CONTACT_ART.paint_polygon(self, 1, material_frame, PackedVector2Array([root_point, tip, tail_tip, tail_root]), PackedColorArray([Color(0.70, 0.58, 0.49, 0.27 * fade)]), PackedVector2Array([Vector2(0,0),Vector2(1,0),Vector2(1,1),Vector2(0,1)]))
+        CONTACT_ART.paint_line(self, material_frame, root_point.lerp(tip, 0.30), tip, 0.85, edge_color)
 
     func _draw_arc(fade: float) -> void:
         # A flat band swept around the grip between the wind-up blade and the
@@ -192,11 +202,12 @@ class BladeTrace extends Node2D:
             var a1 := Vector2.from_angle(sweep_from + sweep * t1)
             var c0 := Color(tint, strength * t0 * t0)
             var c1 := Color(tint, strength * t1 * t1)
-            draw_polygon(PackedVector2Array([pivot + a0 * inner, pivot + a0 * outer, pivot + a1 * outer, pivot + a1 * inner]),
-                PackedColorArray([Color(c0, c0.a * 0.35), c0, c1, Color(c1, c1.a * 0.35)]))
+            CONTACT_ART.paint_polygon(self, 1, CONTACT_ART.frame_index(age, lifetime, reduced_flash), PackedVector2Array([pivot + a0 * inner, pivot + a0 * outer, pivot + a1 * outer, pivot + a1 * inner]),
+                PackedColorArray([Color(c0, c0.a * 0.35), c0, c1, Color(c1, c1.a * 0.35)]), PackedVector2Array([Vector2(t0,1),Vector2(t0,0),Vector2(t1,0),Vector2(t1,1)]))
 
 
 class ContactNick extends Node2D:
+    var owner_ref: WeakRef
     var strike_direction := Vector2.RIGHT
     var length := 11.0
     var reduced_flash := false
@@ -206,6 +217,12 @@ class ContactNick extends Node2D:
     func _process(delta: float) -> void:
         if is_queued_for_deletion():
             return
+        if owner_ref != null:
+            var owner_node: Node = owner_ref.get_ref()
+            if not is_instance_valid(owner_node) or owner_node.is_queued_for_deletion():
+                visible = false
+                queue_free()
+                return
         if not is_finite(length) or length <= 0.0 or not strike_direction.is_finite():
             queue_free()
             return
@@ -222,8 +239,4 @@ class ContactNick extends Node2D:
         queue_redraw()
 
     func _draw() -> void:
-        var fade := clampf(1.0 - age / CONTACT_SECONDS, 0.0, 1.0)
-        var axis := strike_direction.rotated(0.65)
-        var normal := axis.orthogonal()
-        var color := Color(0.74, 0.60, 0.50, 0.46 * fade) if reduced_flash else Color(0.96, 0.88, 0.70, 0.76 * fade)
-        draw_colored_polygon(PackedVector2Array([-axis * length * 0.55, normal * 1.35, axis * length * 0.45, -normal * 0.85]), color)
+        CONTACT_ART.paint_contact(self, age, CONTACT_SECONDS, strike_direction, length, reduced_flash)
