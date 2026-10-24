@@ -33,3 +33,9 @@ The first frozen CPU/native pass used `f781b29b`: text assertions were correct, 
 The small original-style vector icon was imported in an isolated minimal Godot project at the identical resource path, then only its generated import/cache files were copied into this checkout. The exact command, raw SVG/import/cache hashes and import output are archived; the main project was not mass-reimported.
 
 `index.json` records every archived raw/compressed length and SHA-256; gzip members all have mtime zero. The positive native PNG is also committed directly for review. Earlier PR210/213/215 evidence remains unchanged, and this branch does not claim those pending branches have merged into main.
+
+## Final standalone catalog contract
+
+A subsequent catalog audit found the old standalone Python validator still required exactly the seven original and four crafted accessories (11), so it rejected even the previously added quiet sole. `catalog_before.log.gz` preserves that single membership failure. Commit `6b1cb5dd` changes only this standalone Python contract: both original travel reward identities, real inventory unlocks, one-capacity travel family, exact trap-only modifier, mutual-exclusion group/text, icons and crest slot compatibility are now checked. It reports 13 accessories and passes without adding fabricated unlock events.
+
+`static_scope_before.json.gz` and `static_scope_after.json.gz` independently freeze all 9,125 inputs around that static validation and match exactly. `scope_delta.json.gz` proves the sole difference from the earlier runtime-frozen input set is `tools/validate_seal_catalog.py`; all production and runtime-test inputs remain identical to the successful native/CPU freeze. No additional Godot runs were needed for this standalone Python validator correction.
