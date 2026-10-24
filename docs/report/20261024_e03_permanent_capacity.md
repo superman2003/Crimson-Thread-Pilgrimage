@@ -27,3 +27,12 @@ World 直接读取已发布营地原存档 SHA `91adadb812a80bece39b0b23920c306a
 本批没有把上述缓存问题、夹具比较问题或后续零 warning 说成生产音频泄漏修复；音频退休 pending0 不证明整体长期稳定。未修复静靴等旧铭饰，也不自动合并 main。自然取得后的多构筑难度、完整六区两种顺序、长期性能和人工验收继续待办。
 
 重放：`python tools/run_permanent_capacity.py --engine <Godot4.6.1> --output artifacts/e03_permanent_capacity/replay_unique`，加 `--native` 进行原生 GL 验证；每次使用新日志目录。
+
+
+## 外部串入后整合复验
+
+PR212 后由外部提交 `8f692a610be0f42fa528afc7be13081aac786dde` 串入 main208、209／210 证据及211移动素材，默认合同累计145。根代理取回精确Git对象，仅快进本地PR分支，没有合并main；核对容量规则、Main库存接入均未被改写，Player差量为移动素材生命周期。原先 `final_native_01` 仍只证明原6ce提交范围。
+
+新增 `integrated_8f692a` 保存该整合源码加运行器修正的独立证据：896项定义／源码输入前后相同，容量35项及movement91项CPU正确完成；完整容量CPU三PID与native三PID均通过。native为3.344／5.297／5.094秒，零ERROR／warning，World仍精确显示并恢复5/7、100/120及287钱包。11项实际发布输入另存raw gzip，子目录独立manifest；不把这轮说成重新跑了全部145套。原四套资源／存档关联回归仍按原报告范围记载，没有因等待CI重复运行。
+
+整合首轮把 `--output` 传给headless movement组件，后者会等待渲染帧导致180秒超时（容量35已通过，movement未完成）；该失败原文保留。运行器改为只在native或本批World保存夹具传出图参数，之后CPU movement91/0正确结束；没有修改生产机制或移动组件来迎合检查。该运行器是原批次之后的工具修正，原11项冻结原文不回写。

@@ -27,6 +27,7 @@ class MockNarrative extends RefCounted:
         return {"quests":[],"entries":[evidence],"known_entries":[evidence],"endings":endings}
 
 class MockPlayer extends Node:
+    var build_profile: Dictionary={"hazard_trigger_mult": 1.0}
     var hp:=5
     var max_hp:=8
     var energy:=70
@@ -230,6 +231,7 @@ func _run() -> void:
     await process_frame
     _check(ui.build_selection=="巡礼方案 2" and ui.build_heading.text=="巡礼方案 2","Controller focus on a save row previews that same plan")
     _check(ui.build_detail.text.contains("可以恢复") and ui.build_detail.text.contains("生命上限：8 → 6") and ui.build_detail.text.contains("绯线上限：100 → 120"),"Plan detail shows actual restore conditions and capacity changes")
+    _check(ui.build_detail.text.contains("陷阱触发宽高：100% → 100%"), "Plan detail exposes trap trigger percentage")
     save_first.grab_focus()
     await process_frame
     _check(ui.build_detail.text.contains("方案尚未保存") and ui.build_detail.text.contains("不清空冷却"),"Empty plan focus explains resource preservation and permits saving")

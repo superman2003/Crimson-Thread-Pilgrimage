@@ -35,7 +35,11 @@ def main():
         command = [args.engine, '--path', str(ROOT / 'godot'), '--audio-driver', 'Dummy', '--fixed-fps', '60']
         command += ['--position', '-32000,-32000', '--rendering-method', 'gl_compatibility'] if args.native else ['--headless']
         script = 'permanent_capacity_world' if suite.startswith('permanent_capacity_world_') else suite
-        command += ['--script', 'res://scripts/'+script+'_validation.gd', '--', '--output='+str(output)]
+        command += ['--script', 'res://scripts/'+script+'_validation.gd']
+        # Other fixtures interpret --output as a request to wait for a rendered
+        # screenshot. Headless runs have no frame_post_draw signal.
+        if script == 'permanent_capacity_world' or args.native:
+            command += ['--', '--output='+str(output)]
         if script == 'permanent_capacity_world': command += ['--capacity-phase='+suite.rsplit('_',1)[1]]
         start = time.monotonic(); timed_out = False
         private_appdata = output / 'private_appdata' / suite
