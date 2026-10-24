@@ -23,8 +23,8 @@
   - 判定帧也允许取消：8 项失败。
   - 欠账期间不延长输入缓冲：1 项失败（欠账长于缓冲时这一刀被吞掉）。
 - `player_action_buffer` 的“新冲刺替换待处理普攻”探针原把剩余挥针设为 0.08 秒，按新规则已处于收招段，冲刺会立即取消而不再留在缓冲里（1 项失败）。现把探针放回判定帧内（剩余 0.2 秒），保留“最新指令替换”的原意，32 项通过；该探针在旧控制器上会因冲刺要等整刀结束、0.1 秒缓冲先过期而失败，两种规则无法用同一数值兼容，这是本批唯一改动的既有断言。
-- 相关套件：VERIFY_SUITES
-- 合约测试、`npm test`、`npm run test:campaign`：VERIFY_NPM
+- 相关套件（runner，`--fixed-fps` 按 runner 列表）：`player_motion_continuity`、`player_melee_feedback`、`spike_pogo`、`combat_resource_cycle`、`ability_movement`、`hero_animation`、`combat`、`player_state_cleanup`、`player_upgrade_regression`、`seal_identity`、`seal_system`、`seal_acceptance`、`skill_branches`、`build_transaction_runtime`、`player_dash_art`、`player_movement_art`、`input_settings_regression`、`world_ability_acquisition` 通过。真实 GL：`seal_combat` 194、`build_slots_ui` 37、`combat_visual_budget` 44、`tool_practice` 98、`player_layered_idle` 212、`melee_recovery` 56、`player_action_buffer` 32，均零 ERROR。`tool_practice` 与 `player_layered_idle` 在 headless 下因需要真实 GL 读回而不出完成标记，GL 下通过。
+- 合约测试、`npm test`、`npm run test:campaign` 通过；合并 #226 后的 main 上 `melee_recovery` 与合约测试复跑通过。
 
 ## 边界
 
