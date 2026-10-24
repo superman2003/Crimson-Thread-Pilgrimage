@@ -98,6 +98,8 @@ func _run() -> void:
 	air_target.queue_free()
 	await _frames(2)
 
+	await _recovery_cancel(player)
+
 	# Each crest shares the same heal reservation behavior: movement interrupts
 	# the channel, no healing is applied, and the authored interruption loss is
 	# charged against the prepaid reservation.
@@ -128,6 +130,102 @@ func _run() -> void:
 		return
 	print("MELEE_RECOVERY_VALIDATION_PASS checks=%d terrain_occlusion=true accepted_hit_rewards=true rejected_hit_pogo=false heal_interrupts=3" % checks)
 	quit(0)
+
+
+func _until(condition: Callable, limit: int = 40) -> bool:
+	for _index in limit:
+		if condition.call():
+			return true
+		await _frames(1)
+	return condition.call()
+
+
+## Held for two physics ticks, like the other movement probes: a press made
+## from a resumed coroutine is observed by the player on the following tick.
+func _tap(action: String) -> void:
+	Input.action_press(action)
+	await _frames(2)
+	Input.action_release(action)
+
+
+## C01 cancel cost: wind-up and active frames commit the swing; only its
+## recovery yields to jump or dash, and the cut recovery is still owed before
+## the next strike, so cancelling never swings faster than standing still.
+func _recovery_cancel(player: CharacterBody2D) -> void:
+	player._reset_traversal_state()
+	player.global_position = Vector2(100, 180)
+	player.velocity = Vector2.ZERO
+	player.dash_unlocked = true
+	player.energy = 100
+	player.skill_cooldown = 0.0
+	await _frames(4)
+	_check(player.is_on_floor(), "cancel probe starts grounded")
+	var in_active := func() -> bool:
+		var elapsed: float = player.attack_duration - player.attack_timer
+		return player.attack_timer > 0.0 and elapsed >= player.attack_windup and elapsed <= player.attack_windup + player.attack_active_time * 0.5
+	var in_recovery := func() -> bool:
+		return player.attack_timer > 0.0 and player._attack_recovery_cancelable()
+	var tick := 1.0 / float(Engine.physics_ticks_per_second)
+
+	Input.action_press("attack")
+	var started := await _until(func() -> bool: return player.attack_timer > 0.0, 4)
+	Input.action_release("attack")
+	var start_frame := Engine.get_physics_frames()
+	_check(started and player.current_attack == &"attack_1", "cancel probe swing starts from real input")
+	_check(await _until(in_active), "cancel probe reaches the active frames")
+	await _tap("jump")
+	_check(player.jump_buffer_timer > 0.0, "the active-frame jump press was observed")
+	_check(player.attack_timer > 0.0 and player.velocity.y >= 0.0 and player.recovery_cancel_count == 0, "a jump during the active frames does not cut the committed swing")
+	# Drop that early press so the recovery press below is measured alone.
+	player.jump_buffer_timer = 0.0
+	_check(await _until(in_recovery), "cancel probe reaches the recovery")
+	_check(player.is_on_floor() and player.velocity.y >= 0.0, "the swing is still grounded when its recovery opens")
+	var recovery_left: float = player.attack_timer
+	await _tap("jump")
+	_check(player.attack_timer == 0.0 and player.velocity.y < 0.0 and player.recovery_cancel_count == 1, "a jump in the recovery cuts the swing and leaves the ground")
+	_check(player.attack_cancel_lock > 0.0 and player.attack_cancel_lock <= recovery_left, "the cut recovery is owed as a strike lock")
+	await _tap("attack")
+	_check(player.attack_timer == 0.0 and player.buffered_action == &"attack", "a swing pressed while the recovery is owed waits instead of starting")
+	_check(not player.cast_selected_skill() and String(player.get_cast_readiness("thread_burst").get("text", "")) == "收势", "thread arts also wait out the owed recovery")
+	_check(await _until(func() -> bool: return player.attack_timer > 0.0, 12), "the buffered swing starts once the owed recovery is paid")
+	var cadence := float(Engine.get_physics_frames() - start_frame) * tick
+	_check(cadence >= player.attack_duration - tick * 1.5, "jump-cancelling never swings faster than the uncancelled cadence (%.3fs >= %.3fs)" % [cadence, player.attack_duration])
+
+	await _until(func() -> bool: return player.attack_timer <= 0.0 and player.is_on_floor(), 90)
+	# A heavier swing can owe more than the 0.10s input buffer; the press still lands.
+	player.attack_cancel_lock = 0.2
+	await _tap("attack")
+	_check(player.attack_timer == 0.0, "a swing pressed under a long owed recovery waits")
+	_check(await _until(func() -> bool: return player.attack_timer > 0.0, 20) and player.attack_cancel_lock == 0.0, "a press under an owed recovery longer than the input buffer is kept until it is paid")
+	await _until(func() -> bool: return player.attack_timer <= 0.0 and player.is_on_floor(), 90)
+	player._reset_traversal_state()
+	await _frames(2)
+	Input.action_press("attack")
+	await _until(func() -> bool: return player.attack_timer > 0.0, 4)
+	Input.action_release("attack")
+	await _until(in_active)
+	await _tap("dash")
+	_check(player.buffered_action == &"dash", "the active-frame dash press was observed")
+	_check(player.dash_timer == 0.0 and player.attack_timer > 0.0, "a dash during the active frames does not cut the committed swing")
+	player._clear_action_buffer()
+	await _until(in_recovery)
+	var start_x: float = player.global_position.x
+	await _tap("dash")
+	_check(player.dash_timer > 0.0 and player.attack_timer == 0.0 and player.recovery_cancel_count == 2, "a dash in the recovery cuts the swing")
+	await _frames(3)
+	_check(player.global_position.x > start_x + 20.0, "the cancelling dash actually moves the player")
+
+	await _until(func() -> bool: return player.dash_timer <= 0.0 and player.is_on_floor(), 90)
+	player._reset_traversal_state()
+	await _frames(2)
+	player._start_attack(&"hook_throw")
+	await _until(func() -> bool: return player.attack_duration - player.attack_timer > player.attack_windup + player.attack_active_time and player.attack_timer > 0.0)
+	await _tap("jump")
+	_check(player.jump_buffer_timer > 0.0 and player.attack_timer > 0.0 and player.velocity.y >= 0.0 and player.recovery_cancel_count == 2, "a hook throw keeps its full recovery")
+	await _until(func() -> bool: return player.attack_timer <= 0.0 and player.is_on_floor(), 90)
+	player._reset_traversal_state()
+	_check(player.attack_cancel_lock == 0.0, "traversal reset clears an owed recovery")
+	await _frames(2)
 
 
 func _input_attack(player: CharacterBody2D, start: Vector2, face: int, down: bool) -> void:
