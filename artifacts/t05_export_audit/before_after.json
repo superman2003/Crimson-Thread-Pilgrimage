@@ -1,0 +1,86 @@
+{
+  "baseline_commit": "93365331bc8d0bcf588244c2000c43df7be16f04",
+  "baseline_tool_sha256": "ac63ac295fdd20fce292ecc599c1601e545ba9c10da80a658fed5b0443d92c7d",
+  "cases": [
+    {
+      "case": "empty_presets",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "invalid audit configuration: no export presets declared"
+      ]
+    },
+    {
+      "case": "missing_exclude",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "invalid audit configuration: preset.0: missing exclude_filter"
+      ]
+    },
+    {
+      "case": "shader_excluded",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "Linux x86_64: runtime file excluded from export: res://shaders/glow.gdshader"
+      ]
+    },
+    {
+      "case": "json_excluded",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "Linux x86_64: runtime file excluded from export: res://data/runtime.json"
+      ]
+    },
+    {
+      "case": "asset_excluded",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "Linux x86_64: runtime file excluded from export: res://images/icon.png"
+      ]
+    },
+    {
+      "case": "uppercase_script_excluded",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "Linux x86_64: runtime file excluded from export: res://scripts/kit.gd"
+      ]
+    },
+    {
+      "case": "prefixed_script_excluded",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "Linux x86_64: runtime file excluded from export: res://scripts/kit.gd"
+      ]
+    },
+    {
+      "case": "whitespace_script_excluded",
+      "expected_failure": true,
+      "old_errors": [],
+      "new_errors": [
+        "Linux x86_64: runtime file excluded from export: res://scripts/kit.gd"
+      ]
+    },
+    {
+      "case": "question_dot_valid",
+      "expected_failure": false,
+      "old_errors": [
+        "Linux x86_64: runtime file excluded from export: res://scripts/kit.gd"
+      ],
+      "new_errors": []
+    },
+    {
+      "case": "bracket_literal_valid",
+      "expected_failure": false,
+      "old_errors": [
+        "Linux x86_64: runtime file excluded from export: res://scripts/kit.gd"
+      ],
+      "new_errors": []
+    }
+  ]
+}

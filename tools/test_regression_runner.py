@@ -292,6 +292,29 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
             self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
 
+    def test_crown_jump_fixtures_run_on_the_fixed_simulation_clock(self):
+        # Both fixtures replay frame-stepped jumps; a loaded CI host must not
+        # change the simulated arc (a double jump fell short of the shelf).
+        markers = {'crown_rain_slot': 'CROWN_RAIN_SLOT checks=12 failures=0',
+                   'crown_vault_door': 'CROWN_VAULT_DOOR checks=12 failures=0'}
+        for suite, marker in markers.items():
+            with self.subTest(suite=suite), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                engine = root / 'fake-godot'
+                captured = root / 'args'
+                engine.write_text(
+                    '#!' + sys.executable + '\nimport sys\n'
+                    + f'print({marker!r})\n'
+                    + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+                )
+                engine.chmod(0o755)
+                logs = root / 'logs'
+                logs.mkdir()
+                run_suites(str(engine), [suite], 2, logs, root / 'scratch', False, {})
+                arguments = captured.read_text().splitlines()
+                self.assertIn('--fixed-fps', arguments)
+                self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
+
     def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
         for marker in [
             'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true',
