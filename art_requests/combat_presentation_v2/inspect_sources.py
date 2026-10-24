@@ -20,6 +20,26 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def registered_sources():
+    """Report runtime linkage separately from the historical source QA records."""
+    root = HERE.parents[1]
+    result = {}
+    boss = root / 'godot/assets/vfx/boss_skills/manifest.json'
+    if boss.is_file():
+        data = json.loads(boss.read_text(encoding='utf-8'))
+        entries = list(data.get('charges', {}).values())
+        for command in data.get('commands', {}).values():
+            entries += [command[key] for key in ('warning', 'execution') if key in command]
+        for entry in entries:
+            result[Path(entry['source']).name] = entry['sha256']
+    for family in ('player_guard', 'player_heal'):
+        manifest = root / f'godot/assets/vfx/{family}/manifest.json'
+        if manifest.is_file():
+            for entry in json.loads(manifest.read_text(encoding='utf-8')).get('sources', {}).values():
+                result[Path(entry['path']).name] = entry['sha256']
+    return result
+
+
 def separators(alpha, count, horizontal):
     size = alpha.height if horizontal else alpha.width
     step = size / count
@@ -99,10 +119,14 @@ def main():
     args = parser.parse_args()
     requests = json.loads((HERE/'requests.json').read_text(encoding='utf-8'))['requests']
     results = [result for request in requests if (result := inspect(request))]
+    registered = registered_sources()
+    connected = [r['image'] for r in results if registered.get(r['image']) == r['image_sha256']]
     summary = dict(expected_sheets=len(requests), expected_frames=sum(r['frame_count'] for r in requests), saved_sheets=len(results), saved_frames=sum(r['requested_frames'] for r in results),
                    pending=[r['file'] for r in requests if not (HERE/'incoming'/r['file']).is_file()],
                    measured_issues={r['image']:r['measured_issues'] for r in results if r['measured_issues']},
-                   visual_review_pending=[r['image'] for r in results if r.get('visual_review',{}).get('status') != 'source_reviewed'], runtime_import='not_started')
+                   visual_review_pending=[r['image'] for r in results if r.get('visual_review',{}).get('status') != 'source_reviewed'],
+                   runtime_import='complete' if len(connected) == len(requests) else 'partial' if connected else 'not_started',
+                   runtime_connected=connected, runtime_pending=[r['file'] for r in requests if r['file'] not in connected])
     output = {'incoming/'+Path(r['image']).stem+'.json':r for r in results}
     output['incoming/delivery_status.json'] = summary
     for name, data in output.items():

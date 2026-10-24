@@ -229,6 +229,9 @@ def collect():
                 current = record.get('image_sha256') == hashlib.sha256(source.read_bytes()).hexdigest()
                 if current and not record.get('measured_issues') and record.get('visual_review', {}).get('status') == 'source_reviewed':
                     request['status'] = 'source_reviewed_runtime_pending'
+                    from inspect_sources import registered_sources
+                    if registered_sources().get(request['file']) == record['image_sha256']:
+                        request['status'] = 'runtime_connected'
     return requests, copies, bosses
 
 
@@ -237,20 +240,21 @@ def generate_files(requests, bosses):
     warnings = [r for r in requests if r["group"] == "boss_warning"]
     charges = [r for r in requests if r["group"] == "boss_charge"]
     total = sum(r["frame_count"] for r in requests)
-    complete = all(r['status'] == 'source_reviewed_runtime_pending' for r in requests)
+    complete = all(r['status'] in ('source_reviewed_runtime_pending', 'runtime_connected') for r in requests)
+    connected = sum(r['status'] == 'runtime_connected' for r in requests)
     progress = f"全部 {len(requests)} 张源图已交付并通过基础检查" if complete else "清单与提示词已完成，素材已开始分批交付"
     files = {"prompts/"+Path(r["file"]).stem+".txt": r["prompt"] for r in requests}
-    payload = dict(version=2, audited_on="2026-10-23", scope="briefs_only_no_generated_art_no_runtime_changes", total_sheets=len(requests), total_frames=total, bosses=bosses, requests=requests)
+    payload = dict(version=2, audited_on="2026-10-23", scope="source_delivery_with_separate_runtime_linkage", total_sheets=len(requests), total_frames=total, bosses=bosses, requests=requests)
     files["requests.json"] = json.dumps(payload, ensure_ascii=False, indent=2)+"\n"
     md = [f"""# 主角动作特效与 Boss 技能预警出图清单（v2）
 
-2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**{progress}，尚未接入游戏。** 源图与逐张检查记录见 [交付目录](incoming/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
+2026-10-23 按本地当前源码、主角实际动画清单、六章 Boss 配置和正式 Boss 资源登记核对。**{progress}；其中 {connected} 张已登记运行时接入，{len(requests)-connected} 张仍待接入。** 源图交付完成不代表所有技能特效完成。本次补漏与逐招接入见 [Boss 生效特效与预警接入](../boss_execution_v3/README.md)，机器可读进度见 [delivery_status.json](incoming/delivery_status.json)。
 
 新增 **{len(requests)} 张、{total} 格**：主角 {len(hero)} 张、当前六个 Boss 的 {len(warnings)} 招预警 {len(warnings)} 张、Boss 专属施法／转阶段蓄势 {len(charges)} 张。每项完整英文提示词在 `prompts/`，结构化数量、布局、引用和真实招式参数在 [requests.json](requests.json)。
 
 ## 先纠正上次遗漏
 
-- [v1 攻击特效](../attack_effects_v1/README.md) 的 39 张／288 格已经交付源图，**运行时仍未接入**；不要重复出图。这批补上 v1 排除的预警、格挡等随身效果与近战材质。
+- [v1 攻击特效](../attack_effects_v1/README.md) 的 39 张／288 格已经交付源图，其中敌人弹体、地面陷阱、地波／根刺、光束已由对应 `*_art.gd` 接入。这份 v2 清单补预警、格挡等随身效果；Boss 近战／位移生效特效的 12 张缺项另见 v3，不能以 v2 清单完成冒充全技能完成。
 - 主角 `guard` 已有 4 张人物姿势，问题在外层护幕和受击反馈：起手、普通挡击、完美格挡目前复用 `_ability_ring`。本批不重画人物，而是分别补 3 套可辨认的效果；普通挡击不能冒用完美格挡的成功闪光。
 - **预警也要素材。** 代码负责位置、方向、范围、遮挡裁切、前摇进度和取消清理；贴图负责材质、轮廓、动画和 Boss 主题。细边界可辅助精确读范围，主体不能仍只是一条线或一个圈。
 - 按当前六章真正生成的 Boss 核对，共 24 招。仓库虽有 20 套 Boss 资源，余下 14 套没有在这六章中启用；这里不虚称完成 20 个可战斗 Boss。
@@ -298,7 +302,7 @@ def generate_files(requests, bosses):
         md.append(f"- **通用施法／转阶段蓄势** · `{charge['file']}`，6 格，[完整提示词](prompts/{Path(charge['file']).stem}.txt)。与地面／光束预警分层，挂在 Boss 身上；不把施法点光晕冒充地面命中范围。现有转阶段保留人物 `phase` 动画，外层蓄势素材接到 `battle_phase`／`phase_pause` 状态，播放进度以该状态时长为准。\n\n")
     md.append("""## 状态与验收
 
-- 本目录 `needs_generation` 代表尚未出图；`source_saved_pending_review` 代表已保存、待检查；`source_reviewed_runtime_pending` 代表源图基础检查通过、仍待运行时接入验收。v1 源图有独立交付状态；两批互不覆盖。
+- 本目录 `needs_generation` 代表尚未出图；`source_saved_pending_review` 代表已保存、待检查；`source_reviewed_runtime_pending` 代表源图基础检查通过、仍待接入；`runtime_connected` 代表运行时清单登记的源图哈希相符，实机与回归结果见 v3 文档。v1 源图有独立交付状态；各批互不覆盖。
 - 出图验收：逐格清点、有真 alpha、无串格、材质有可见变化、固定锚点与大小。预警不得混入生效格；缩到真实游戏尺寸后仍能凭材质分辨，深浅背景都可读。
 - 接入验收：分别截格挡起手／普通挡击／完美格挡；六 Boss 每招至少取起始预警、临出手、生效、取消四状态，并叠真实判定核对。确认切区／死亡／打断会清掉随身和地面预警，暂停／UI 锁定时不偷跑播放。
 - 源图交付与基础检查独立记录，未执行游戏运行时验收；不得把提示词或源图数量当作游戏视觉已经修复。
@@ -311,7 +315,7 @@ def generate_files(requests, bosses):
     md.append("\n在仓库根目录运行 `python -X utf8 art_requests/combat_presentation_v2/build_list.py --check`，核对 24 招完整覆盖、参考文件与已生成清单／提示词无漂移。不带 `--check` 可按当前配置重新生成本目录；不会修改运行时代码或替换 `incoming/` 原始图。\n")
     files["README.md"] = "".join(md)
     saved = [r for r in requests if r['status'] != 'needs_generation']
-    incoming = [f"# 素材源图交付\n\n已保存 **{len(saved)}／{len(requests)} 张、{sum(r['frame_count'] for r in saved)}／{total} 格**。通过内置 imagegen 按 [PR #202](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202) 制作；原始 PNG 字节保持不变，未缩放、重排或切帧。尚未接入游戏。\n\n每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格；锚点对齐、警戒范围、光束接缝和实机缩小后的辨识度继续待验收。完整进度见 [delivery_status.json](delivery_status.json)。\n\n"]
+    incoming = [f"# 素材源图交付\n\n已保存 **{len(saved)}／{len(requests)} 张、{sum(r['frame_count'] for r in saved)}／{total} 格**。通过内置 imagegen 按 PR #202／#203 制作；这里保留原始 PNG 字节。运行时另建图集，不覆盖源图。\n\n每张附实际使用的提示词 `.txt` 与检查记录 `.json`。实际图幅可能与提示词要求不同，按检查记录的 `frames[].rect_xyxy` 切格。已登记接入 **{connected} 张**，仍待接入 **{len(requests)-connected} 张**；完整进度见 [delivery_status.json](delivery_status.json)，Boss 逐招接入与验证见 [v3](../../boss_execution_v3/README.md)。源图检查记录本身不代表实机验收。\n\n"]
     for r in saved:
         stem = Path(r['file']).stem
         incoming.append(f"- [{r['file']}]({r['file']}) — {r['name']}，{r['frame_count']} 格；[实际提示词]({stem}.txt)、[检查记录]({stem}.json)，`{r['status']}`。\n")
