@@ -576,3 +576,7 @@ PR #27 CI第77次59套通过、world_streaming一套失败，GL四步通过；�
 ## 2026-10-23：V02/V04 缝补三素材
 
 已接入8格channel/6格complete/6格interrupt，绑定真实预约generation、疗伤timer和成功/取消结算，不改三契印数值或资源规则。默认95项、同源相关CPU五套、原生107项/12张三契印组件图与原camp真实受伤后正常H三图通过；旧无素材行为反向19项失败。World只覆盖crimson、组件不冒充三契印自然流程，46项最终验收与混战舒适度仍OPEN。见[本批报告](report/20261023_v04_heal_material.md)。
+
+## 2026-10-24：T04/G02 镜池新娘实际重试
+
+镜前真实seed继续Boss伤害死一次，397→199＋198结；新PID精确证明后正常F找回，8个控制步骤返门手动F完整22HP、四招实际active、胜利回龛再新PID精确恢复435钱包／25种物品／完整构筑，无突进。最终main5f原生四PID均零ERROR／warning，早期native01未归因退出warning与失败保留；无生产参数修改，46项最终验收继续OPEN。见[本批报告](report/20261024_t04_bride_retry.md)。
