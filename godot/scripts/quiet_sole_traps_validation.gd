@@ -4,11 +4,14 @@ const BUILD = preload("res://scripts/build_system.gd")
 const LEVEL = preload("res://scripts/main_level.gd")
 const PLAYER = preload("res://scenes/Player.tscn")
 const POGO = preload("res://scripts/hazard_pogo.gd")
+const RETIREMENT = preload("res://scripts/audio_retirement.gd")
+const AUDIO = preload("res://scripts/audio_director.gd")
 var failures := 0
 var checks := 0
 var level: Node2D
 var player: CharacterBody2D
 var build: RefCounted
+var capture_audio := true
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -24,6 +27,7 @@ func _frames(count: int) -> void:
         await process_frame
 
 func _run() -> void:
+    capture_audio = not OS.get_cmdline_user_args().has("--skip-fixture-audio-retirement")
     # Exact earned W03 return save; no inventory grants are synthesized here.
     var seed := FileAccess.get_file_as_string("res://tests/fixtures/quiet_sole_earned_return.json")
     var save_path := "user://quiet_sole_legacy_%d.json" % OS.get_process_id()
@@ -40,8 +44,10 @@ func _run() -> void:
     _check(int(world.inventory_counts.get("quiet_sole", 0)) == 1, "earned legacy relic restored")
     _check(world.build_system.state.unlocked_passives.has("quiet_sole"), "legacy inventory unlocks actual accessory")
     _check(is_equal_approx(float(world.player.build_profile.get("hazard_trigger_mult", 1)), 1), "holding relic alone has no effect")
-    world.queue_free()
-    await _frames(4)
+    await _release_owned([world], "legacy World")
+    for suffix in ["", ".bak", ".tmp", ".previous"]:
+        if FileAccess.file_exists(save_path + suffix):
+            DirAccess.remove_absolute(ProjectSettings.globalize_path(save_path + suffix))
     # Add script after entering tree: use production factory and sync methods,
     # while deliberately omitting chapter generation for this component fixture.
     level = Node2D.new()
@@ -131,12 +137,26 @@ func _run() -> void:
     var restored = BUILD.new()
     _check(restored.restore(build.serialize()).ok and is_equal_approx(float(restored.profile().get("hazard_trigger_mult", 1)), 0.8), "serialized actual equipment restores modifier")
     Input.action_release("move_right")
-    level.queue_free()
-    player.queue_free()
-    floor_body.queue_free()
-    await _frames(3)
+    await _release_owned([level, player, floor_body], "component")
     print("QUIET_SOLE_TRAPS checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
+
+func _release_owned(nodes: Array, label: String) -> void:
+    var observed_before: int = RETIREMENT.observed
+    var captured := 0
+    for node in nodes:
+        if is_instance_valid(node) and capture_audio:
+            captured += RETIREMENT.retire_tree(node)
+    for node in nodes:
+        if is_instance_valid(node):node.queue_free()
+    await _frames(1)
+    # The fixture ends the sole scene owner's intentional stream cache lifetime.
+    # Weak pending retirement records remain intact until their objects expire.
+    AUDIO._stream_cache.clear()
+    AUDIO._npc_voice_cache.clear()
+    _check(await RETIREMENT.drain(self), label + " observable audio retirement")
+    if label == "legacy World" and DisplayServer.get_name() != "headless":
+        _check(captured > 0 and RETIREMENT.observed > observed_before, "native fixture captured owned World playback inside tree")
 
 func _hazard(id: String, rect: Array) -> Area2D:
     level._hazard({"id": id, "kind": "spikes", "rect": rect, "damage": 1})
