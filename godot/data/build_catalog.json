@@ -1,5 +1,15 @@
 {
   "version": 2,
+  "permanent_upgrades": {
+    "heart_knot": {
+      "stat": "max_hp",
+      "amount": 1
+    },
+    "energy_spindle": {
+      "stat": "max_energy",
+      "amount": 20
+    }
+  },
   "crests": {
     "crimson": {
       "name": "缝名契印",
@@ -93,7 +103,8 @@
               "needlecase",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ]
           },
           {
@@ -103,7 +114,8 @@
               "stride",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ],
             "requires_mechanism": "crimson"
           },
@@ -114,7 +126,8 @@
               "needlecase",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ],
             "requires_mechanism": "crimson",
             "requires_part": "travel_clasp"
@@ -233,7 +246,8 @@
               "stride",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ]
           },
           {
@@ -243,7 +257,8 @@
               "spur",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ],
             "requires_mechanism": "bell"
           },
@@ -254,7 +269,8 @@
               "needlecase",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ],
             "requires_mechanism": "bell",
             "requires_part": "travel_clasp"
@@ -374,7 +390,8 @@
               "needlecase",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ]
           },
           {
@@ -384,7 +401,8 @@
               "spur",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ]
           },
           {
@@ -394,7 +412,8 @@
               "needlecase",
               "compass",
               "ash_ring",
-              "quiet_sole"
+              "quiet_sole",
+              "damp_knot"
             ],
             "requires_mechanism": "salt",
             "requires_part": "travel_clasp"
@@ -996,7 +1015,7 @@
       "name": "静靴",
       "description": "陷阱触发宽高缩小20%；不降低命中后的伤害。",
       "cost": 1,
-      "group": "",
+      "group": "trap_trigger_reduction",
       "modifiers": {
         "hazard_trigger_mult": -0.2
       },
@@ -1004,8 +1023,24 @@
       "icon": "res://assets/ui/seals/quiet_sole.svg",
       "source": "苔钟庭·织线暗室的原静靴遗物。",
       "unlock_hint": "取得静靴后，在钟龛将它装入行旅饰件槽。",
-      "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击。",
-      "synergy": "卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹。",
+      "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击；与防潮线结互斥。",
+      "synergy": "卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹；不能与防潮线结叠加。",
+      "family": "travel_accessory"
+    },
+    "damp_knot": {
+      "name": "防潮线结",
+      "description": "锈泵修女编的防潮线结，装备后陷阱触发宽高缩小20%；不降低命中后的伤害。",
+      "cost": 1,
+      "group": "trap_trigger_reduction",
+      "modifiers": {
+        "hazard_trigger_mult": -0.2
+      },
+      "unlock_item": "damp_knot",
+      "icon": "res://assets/ui/seals/damp_knot.svg",
+      "source": "铸雨渠·水轮内部，冲刺门后；雨铸匠柳接受旧工人徽章的原心愿奖励。",
+      "unlock_hint": "取得原防潮线结后，在钟龛将它装入行旅饰件槽。",
+      "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击；与静靴互斥。",
+      "synergy": "持有不装备不生效；卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹；不能与静靴叠加。",
       "family": "travel_accessory"
     }
   },

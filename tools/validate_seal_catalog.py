@@ -12,7 +12,7 @@ EXPECTED = {
     'passives': {'reflux': ('工匠线轴', 2), 'spur': ('盐页书签', 2), 'shell': ('铜背扣', 2), 'stride': ('巡礼鞋结', 1), 'mender': ('静钟碎片', 1), 'needlecase': ('余声针匣', 2), 'compass': ('钟骨罗盘', 1)},
 }
 
-LEGACY_TRAVEL_PASSIVES = {'quiet_sole': '静靴'}
+LEGACY_TRAVEL_PASSIVES = {'quiet_sole': '静靴', 'damp_knot': '防潮线结'}
 
 CRAFTED_PASSIVES = {'tide_reel': 'craft_tide_reel', 'wax_stitch': 'craft_wax_stitch', 'ash_ring': 'craft_ash_ring', 'crown_pendant': 'craft_crown_pendant'}
 
@@ -37,13 +37,16 @@ def validate(data: dict) -> list[str]:
                 icon = row.get('icon', '')
                 check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{section}/{key}: icon exists')
                 check(any(key in event.get(section, []) for event in events.values()), f'{section}/{key}: reachable event registry')
-    # These real chapter relics unlock from inventory, not fabricated events.
+    # Legacy chapter rewards unlock from the real inventory item, not a fabricated event.
     for key, name in LEGACY_TRAVEL_PASSIVES.items():
         row = data.get('passives', {}).get(key, {})
         check(row.get('name') == name and row.get('unlock_item') == key, f'{key}: original name and inventory unlock identity')
         check(row.get('family') == 'travel_accessory' and row.get('cost') == 1, f'{key}: one-capacity independent travel accessory')
         check(row.get('modifiers') == {'hazard_trigger_mult': -0.2}, f'{key}: only the promised trap trigger reduction')
+        check(row.get('group') == 'trap_trigger_reduction', f'{key}: same-effect rewards cannot stack')
         check(all(row.get(field) for field in ('description', 'source', 'unlock_hint', 'risk', 'synergy')), f'{key}: readable source and equipment tradeoff')
+        other_name = LEGACY_TRAVEL_PASSIVES['damp_knot' if key == 'quiet_sole' else 'quiet_sole']
+        check(other_name in row.get('risk', '') and '互斥' in row.get('risk', ''), f'{key}: mutual exclusion names the other original reward')
         icon = row.get('icon', '')
         check(icon.startswith('res://') and (ROOT / 'godot' / icon.removeprefix('res://')).is_file(), f'{key}: original-style vector icon exists')
         for crest, crest_row in data.get('crests', {}).items():
