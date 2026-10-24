@@ -12,7 +12,7 @@ def freeze():
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine",required=True)
-    parser.add_argument("--stage",choices=["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare"],required=True)
+    parser.add_argument("--stage",choices=["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore"],required=True)
     parser.add_argument("--output",type=Path,required=True)
     parser.add_argument("--native-gl",action="store_true")
     parser.add_argument("--source",type=Path,help="preceding accepted stage output directory; only its exact earned checkpoint is copied")
@@ -22,12 +22,12 @@ def main():
     env=dict(os.environ,APPDATA=str(appdata),LOCALAPPDATA=str(local))
     renderer=["--display-driver","windows","--rendering-method","gl_compatibility"] if args.native_gl else ["--headless"]
     command=[args.engine,*renderer,"--audio-driver","Dummy","--fixed-fps","60","--path",str(ROOT/"godot"),"--script","res://scripts/world_second_order_playback.gd","--","--order-stage="+args.stage,"--output="+str(out)]
-    if args.stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare"]:
+    if args.stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore"]:
         if args.source is None:parser.error("continuation requires preceding real stage output")
         source=args.source.resolve();prior=json.loads((source/"result.json").read_text(encoding="utf-8"));proof=json.loads((source/"checkpoint_proof.json").read_text(encoding="utf-8"));checkpoint=source/"earned_checkpoint.json"
         sha=hashlib.sha256(checkpoint.read_bytes()).hexdigest()
         if not prior.get("passed") or sha!=prior.get("checkpoint_sha256") or sha!=proof.get("save_sha256"):parser.error("source stage did not pass or exact bytes/proof mismatch")
-        expected_source={"canal_aqueduct":"first_lamp","archive_obsidian_camp":"canal_aqueduct","camp_restore":"archive_obsidian_camp","camp_prepare":"archive_obsidian_camp"}[args.stage]
+        expected_source={"canal_aqueduct":"first_lamp","archive_obsidian_camp":"canal_aqueduct","camp_restore":"archive_obsidian_camp","camp_prepare":"archive_obsidian_camp","greenhouse_entry":"camp_prepare","earned_restore":"greenhouse_entry"}[args.stage]
         if proof.get("stage")!=expected_source:parser.error("stage requires its actual immediately preceding checkpoint")
         command += ["--input-checkpoint="+str(checkpoint),"--input-sha="+sha,"--input-proof="+str(source/"checkpoint_proof.json")]
         (out/"source_checkpoint.json").write_bytes(checkpoint.read_bytes())
@@ -40,12 +40,14 @@ def main():
         with (out/"runtime.log").open("wb") as log:code=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,timeout=180,env=env).returncode
     except subprocess.TimeoutExpired:timed_out=True
     except OSError as error:launch_error=str(error)
+    for private in appdata.rglob("second_order_*.json*"):
+        target=out/"private_save"/private.name;target.parent.mkdir(exist_ok=True);target.write_bytes(private.read_bytes())
     after=freeze();(out/"source_after.json").write_text(json.dumps(after,indent=2)+"\n",encoding="utf-8")
     log=(out/"runtime.log").read_text(encoding="utf-8",errors="replace")
     errors=re.findall(r"^(?:SCRIPT ERROR:|ERROR:).*",log,re.M);warnings=re.findall(r"^WARNING:.*",log,re.M)
     marker=re.search(r"^SECOND_ORDER_STAGE stage="+args.stage+r" .* failures=0$",log,re.M)
     checkpoint=out/"earned_checkpoint.json"
     result={"head":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT).decode().strip(),"stage":args.stage,"exit":code,"timed_out":timed_out,"launch_error":launch_error,"errors":errors,"warnings":warnings,"source_unchanged":before==after,"source_files":len(before),"completion":marker.group(0) if marker else None,"checkpoint_sha256":hashlib.sha256(checkpoint.read_bytes()).hexdigest() if checkpoint.exists() else None}
-    result["passed"]=code==0 and not launch_error and not timed_out and not errors and not warnings and before==after and bool(marker) and (args.stage in ["probe","camp_restore","camp_prepare"] or checkpoint.exists())
+    result["passed"]=code==0 and not launch_error and not timed_out and not errors and not warnings and before==after and bool(marker) and (args.stage in ["probe","camp_restore","camp_prepare","greenhouse_entry","earned_restore"] or checkpoint.exists())
     (out/"result.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8");print(json.dumps(result,indent=2));return 0 if result["passed"] else 1
 if __name__=="__main__":raise SystemExit(main())

@@ -25,9 +25,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -55,6 +55,9 @@ func _run() -> void:
         if order_stage == "canal_aqueduct":await canal_aqueduct()
         elif order_stage == "archive_obsidian_camp":await archive_obsidian_camp()
         elif order_stage == "camp_prepare":await camp_prepare()
+        elif order_stage == "greenhouse_entry":await greenhouse_entry()
+        elif order_stage=="earned_restore":
+            _check(same_json(scene.story_flags,parent_proof.flags) and scene.player.max_hp==int(parent_proof.max_hp) and scene.player.max_energy==int(parent_proof.max_energy),"independent production World restores exact earned flags and resource limits")
         else:
             _check(scene.active_save_point_id=="save_ch05_lower_loop" and int(scene.inventory_counts.get("lantern_phase",0))==1,"independent production World restores naturally earned camp and phase")
             _check(scene.world_state.data.regions.get("demo_ch04_broken_string_greenhouse",{}).get("visited_rooms",{}).is_empty(),"independent disk restore still records C5 before first C4")
@@ -215,11 +218,11 @@ func order_clear() -> bool:
         combat_enabled=true;await _tick()
         if scene.player.hp<=0:break
     combat_enabled=false;_release();_check(false,"actual route duel did not finish");return false
-func order_walk_only(target: Vector2) -> bool:
+func order_walk_only(target: Vector2, actual_surface: bool=false) -> bool:
     steps+=1;_release();await _tick(3)
     for frame in 480:
         var delta: Vector2=target-scene.player.position
-        if absf(delta.x)<16 and absf(delta.y)<8 and scene.player.is_on_floor():
+        if absf(delta.x)<16 and (actual_surface or absf(delta.y)<8) and scene.player.is_on_floor():
             _release();print("SECOND_ORDER_WALK reached ",scene.player.position);return true
         _axis(signf(delta.x) if absf(delta.x)>8 else 0);await _tick()
         if frame%90==89:print("SECOND_ORDER_WALK pending ",scene.player.position," target=",target)
@@ -341,10 +344,10 @@ func order_build_entry(id: String,save_button: bool=false) -> Button:
     for node in scene.ui_shell.build_grid.get_children():
         if node is Button and String(node.get_meta("build_id",""))==id and String(node.text).begins_with("保存为")==save_button:return node
     return null
-func order_capture(label: String) -> void:
+func order_capture(label: String,window: Window=null) -> void:
     if DisplayServer.get_name()=="headless" or order_output.is_empty():return
     await process_frame;await process_frame
-    var image:=root.get_texture().get_image()
+    var image:=window.get_texture().get_image() if window!=null and window.visible and not window.is_embedded() else root.get_texture().get_image()
     _check(image!=null and image.save_png(order_output.path_join(label+".png"))==OK,"native visible UI screenshot "+label)
 func order_record_build(label: String) -> void:
     var entries: Array=[]
@@ -394,3 +397,60 @@ func camp_prepare() -> void:
     await _world_interact()
     _check(scene.active_save_point_id=="save_ch05_lower_loop" and scene.player.hp==scene.player.max_hp,"real camp rest commits normal UI build and dialogue progress")
     if failures==0:export_checkpoint("actual earned camp -> physical B legal default stride UI/loadout -> actual blind knight F conversation -> normal F rest")
+
+func greenhouse_entry() -> void:
+    _check(scene.build_system.serialize().passives.has("stride") and not scene.player.dash_unlocked,"continues the actual equipped stride scheme without permanent dash")
+    for point in [Vector2(640,1978),Vector2(900,2072),Vector2(710,2712)]:
+        if not await order_walk_only(point):return
+    if not await order_leap(Vector2(530,2760),999,"normal jump past the archive walk mouth to the ravine guide"):return
+    var candidates: Array=[]
+    for child in scene.get_children():
+        if child is Area2D and scene.player.position.distance_to(child.position)<260:candidates.append({"id":str(child.name),"position":str(child.position),"kind":child.get_meta("kind",""),"visible":child.is_visible_in_tree(),"global":str(child.global_position),"distance":scene.player.global_position.distance_to(child.global_position)})
+    print("SECOND_ORDER_GUIDE_NEARBY "+JSON.stringify({"player":str(scene.player.position),"global_player":str(scene.player.global_position),"can_interact":scene._can_interact_with_world(),"loading":scene.world_loading,"passage_route":scene.world_passage.route,"transitioning":scene.chapter_transitioning,"death_timer":scene.player.death_timer,"overlay":scene.active_overlay,"target":str(scene.interaction_target()),"candidates":candidates}))
+    await _world_interact()
+    print("SECOND_ORDER_GUIDE_F_RESULT ",scene.config.id," overlay=",scene.active_overlay," target=",scene.interaction_target())
+    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    _check(dialog.visible and not dialog.get_ok_button().disabled,"F opens the original C5 guide shop with earned funds")
+    if failures>0:return
+    var expression:=RegEx.new();expression.compile("本区地图：([0-9]+)枚")
+    var price_match:=expression.search(dialog.dialog_text)
+    _check(price_match!=null,"actual visible local map quote includes its price")
+    if failures>0:return
+    var map_price:=int(price_match.get_string(1))
+    var wallet:int=scene.currency_count
+    print("SECOND_ORDER_ACTUAL_SHOP_QUOTE "+JSON.stringify({"dialog":dialog.dialog_text,"wallet":wallet,"map_price":map_price}))
+    await order_capture("obsidian_actual_map_quote",dialog)
+    await _key(KEY_ENTER,dialog);await _tick(4)
+    _check(JOURNAL.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==wallet-map_price,"actual Enter buys this guide map at its visible quote")
+    if failures>0:return
+    await _world_interact()
+    var quill: Button=dialog.find_child("MapSellerQuill",true,false)
+    expression.compile("· ([0-9]+)枚")
+    price_match=expression.search(quill.text)
+    _check(quill.visible and not quill.disabled and price_match!=null,"visible affordable quill has its actual own quote")
+    if failures>0:return
+    var quill_price:=int(price_match.get_string(1))
+    print("SECOND_ORDER_ACTUAL_QUILL_QUOTE "+JSON.stringify({"text":quill.text,"price":quill_price,"wallet":scene.currency_count}))
+    for attempt in 16:
+        if quill.has_focus():break
+        await _key(KEY_TAB,dialog)
+    _check(quill.has_focus(),"actual modal Tab reaches quoted quill")
+    if failures>0:return
+    await _key(KEY_ENTER,dialog);await _tick(4)
+    _check(JOURNAL.has_quill(scene.story_flags) and scene.currency_count==wallet-map_price-quill_price,"actual Enter pays quoted quill cost from earned wallet")
+    _check(not SHOP_RUNTIME.owns_tool(scene,"compass") and not SHOP_RUNTIME.shows_position(scene),"no compass or player-position aid is granted with the purchases")
+    await _key(KEY_ESCAPE,dialog);await _tick(6)
+    await _walk(Vector2(440,2760),"normal approach to actual eastern slag walk mouth")
+    if failures>0:return
+    await _interact("world_5_4_back","demo_ch04_broken_string_greenhouse",Vector2(7140,752))
+    if failures>0:return
+    _check(int(scene.inventory_counts.get("lantern_phase",0))==1 and not scene.world_state.data.regions.get("demo_ch05_obsidian_pilgrim_road",{}).get("visited_rooms",{}).is_empty(),"first C4 entry follows the same new game's earned C5 phase and exploration")
+    for point in [Vector2(7070,792),Vector2(6740,744),Vector2(6450,788),Vector2(6170,832),Vector2(5710,832),Vector2(5490,794),Vector2(5380,794),Vector2(5110,762)]:
+        if not await order_leap(point,35,"real first C4 entry from original eastern slag passage"):return
+        if point.x==5490.0:
+            if not await order_hold_duel("E14",5490):return
+            if not await order_clear():return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_late_runback" and scene.player.hp==scene.player.max_hp,"normal dome shrine rest after first C4 entry")
+    _check(scene.build_system.serialize().passives.has("stride") and not scene.player.dash_unlocked,"alternate legal equipment persists across the real region change")
+    if failures==0:export_checkpoint("actual stride camp -> C5 original guide quoted map/quill purchases -> original C5-C4 slag portal -> first C4 dome shrine")
