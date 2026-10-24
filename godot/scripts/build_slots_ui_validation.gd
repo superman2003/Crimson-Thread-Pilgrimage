@@ -258,6 +258,58 @@ func _run() -> void:
     ui._confirm_loadout_change()
     _check(runtime.action_calls.size()==previous_calls,"Leaving the shrine before confirming cannot delete a plan")
     ui.loadout_dialog.hide()
+    ui.bag.show()
+    ui.bag_category="旅记"
+    var long_a:={"record_kind":"quest","id":"reading_a","title":"长记录甲","description":"长段落：针线记录旅途。\n".repeat(80),"steps":[]}
+    var long_b:={"record_kind":"quest","id":"reading_b","title":"长记录乙","description":"另一份长记录。\n".repeat(80),"steps":[]}
+    ui._show_journal_record(long_a)
+    await process_frame
+    await process_frame
+    var reading_bar: VScrollBar=ui.bag_description.get_v_scroll_bar()
+    reading_bar.value=150
+    var saved_offset:=reading_bar.value
+    ui._show_journal_record(long_b)
+    await process_frame
+    await process_frame
+    ui._show_journal_record(long_a)
+    ui._show_journal_record(long_a) # repeated focus before deferred layout
+    await process_frame
+    await process_frame
+    _check(saved_offset>0 and is_equal_approx(reading_bar.value,saved_offset),"Returning to a long journal entry restores its own reading position across repeated focus")
+    var page:=InputEventKey.new()
+    page.physical_keycode=KEY_PAGEDOWN
+    page.pressed=true
+    ui._input(page)
+    _check(reading_bar.value>saved_offset,"PageDown scrolls journal details without changing the selected record")
+    var shoulder:=InputEventJoypadButton.new()
+    shoulder.button_index=JOY_BUTTON_LEFT_SHOULDER
+    shoulder.pressed=true
+    ui._input(shoulder)
+    _check(is_equal_approx(reading_bar.value,saved_offset),"Controller LB reverses one journal page")
+    page.physical_keycode=KEY_HOME
+    ui._input(page)
+    _check(reading_bar.value==0,"Home reaches the start of a long journal record")
+    page.physical_keycode=KEY_END
+    ui._input(page)
+    _check(reading_bar.value>saved_offset and is_equal_approx(reading_bar.value,reading_bar.max_value-reading_bar.page),"End reaches the final journal page")
+    reading_bar.value=saved_offset
+    ui.bag.hide()
+    ui.bag.show()
+    ui._show_journal_record(long_a)
+    await process_frame
+    await process_frame
+    _check(is_equal_approx(reading_bar.value,saved_offset),"Closing and reopening the bag retains a journal bookmark")
+    long_a.description+="新线索。"
+    ui._show_journal_record(long_a)
+    await process_frame
+    await process_frame
+    _check(reading_bar.value==0,"Changed quest content starts at the top instead of reusing an obsolete offset")
+    _check(ui.bag_pin.disabled and ui.bag_pin.text.contains("LB/RB") and ui.bag_pin.tooltip_text.contains("Home"),"Journal reuses its inactive pin footer for reading shortcuts without adding overlapping controls")
+    var bounded:=preload("res://scripts/journal_reading.gd").new()
+    for index in 80:bounded.capture(str(index),"text",float(index))
+    _check(bounded.bookmarks.size()==64 and bounded.resume("0","text")==0 and bounded.resume("79","text")==79,"Session bookmarks evict old entries at a fixed memory bound")
+    bounded.capture("bad","text",NAN)
+    _check(not bounded.bookmarks.has("bad"),"Non-finite offsets cannot enter reading state")
     runtime.free()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(SETTINGS_PATH))
     await process_frame

@@ -32,6 +32,7 @@ var build_art: Control
 var build_art_caption: Label
 var tactical_signatures: Array[String]=["","","",""]
 var thread_bar: ProgressBar
+var thread_thresholds: Control
 var currency: Label
 var currency_emblem: TextureRect
 var location: Label
@@ -117,6 +118,10 @@ var journal_filter := "all"
 var journal_filter_buttons: Dictionary = {}
 var journal_filters: HBoxContainer
 var journal_memory: Dictionary = {}
+var journal_reading := preload("res://scripts/journal_reading.gd").new()
+var journal_reading_key := ""
+var journal_reading_text := ""
+var journal_restore_pending := false
 var bag_scroll: ScrollContainer
 var construction_complete := false
 var inventory_build_selection := ""
@@ -435,6 +440,11 @@ func _build_hud() -> void:
     hud_card.add_child(thread_bar)
     thread_bar.update_minimum_size()
     thread_bar.size=Vector2(224,5)
+    thread_thresholds=CHROME.new()
+    thread_thresholds.kind="thresholds"
+    thread_thresholds.position=Vector2(80,81)
+    thread_thresholds.size=Vector2(224,13)
+    hud_card.add_child(thread_thresholds)
     currency_emblem=_icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
     currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),21,GOLD)
     location_rule=CHROME.new()
@@ -538,14 +548,16 @@ func _build_bag() -> void:
     journal_filters.add_theme_constant_override("separation",9)
     journal_filters.visible=false
     bag.add_child(journal_filters)
-    for pair in [["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"]]:
+    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["voice","自述"]]
+    var filter_width:=floorf((645.0-(filters.size()-1)*9.0)/filters.size())
+    for pair in filters:
         var filter_id:=String(pair[0])
-        var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(100,28),func():
+        var filter_button:=_button(journal_filters,String(pair[1]),Vector2.ZERO,Vector2(filter_width,28),func():
             journal_filter=filter_id
             journal_selection=0
             bag_scroll.scroll_vertical=0
             refresh_inventory())
-        filter_button.custom_minimum_size=Vector2(100,28)
+        filter_button.custom_minimum_size=Vector2(filter_width,28)
         filter_button.add_theme_font_size_override("font_size",13)
         journal_filter_buttons[filter_id]=filter_button
     bag_grid=GridContainer.new()
@@ -571,6 +583,7 @@ func _build_bag() -> void:
     bag_description.add_theme_color_override("default_color",IVORY)
     bag_description.scroll_active=true
     bag.add_child(bag_description)
+    bag.visibility_changed.connect(_journal_bag_visibility_changed)
     bag_pin=_button(bag,"钉在旅记",Vector2(738,533),Vector2(330,35),_pin_item)
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(645,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
@@ -601,6 +614,13 @@ func refresh_inventory() -> void:
     finish_inventory_refresh()
 
 func begin_inventory_refresh() -> void:
+    _remember_journal_scroll()
+    if bag_category!="旅记":
+        journal_reading_key=""
+        journal_restore_pending=false
+    if bag_pin!=null:
+        bag_pin.text="PgUp/PgDn · LB/RB 翻页" if bag_category=="旅记" else "钉在旅记"
+        bag_pin.tooltip_text="Home 到开头，End 到末尾；切换记录后保留本次阅读位置。" if bag_category=="旅记" else ""
     (bag.get_node("InscribedTitle") as TextureRect).texture=inscription_mark("journal" if bag_category=="旅记" else "inventory")
     (bag.get_node("InscriptionSubtitle") as Label).text="证词与心愿" if bag_category=="旅记" else "器物与旧物"
     for node in bag_grid.get_children():
@@ -1068,6 +1088,17 @@ func _input(event: InputEvent) -> void:
             remap_status.text="已保存「%s」的新输入；其余设备的绑定继续可用。" % REMAPPABLE_ACTIONS[action]
             get_viewport().set_input_as_handled()
         return
+    if bag.visible and bag_category=="旅记":
+        var step:=0
+        if event is InputEventKey and event.pressed and not event.echo:
+            var key: int=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+            step={KEY_PAGEUP:-1,KEY_PAGEDOWN:1,KEY_HOME:-2,KEY_END:2}.get(key,0)
+        elif event is InputEventJoypadButton and event.pressed:
+            step=-1 if event.button_index==JOY_BUTTON_LEFT_SHOULDER else 1 if event.button_index==JOY_BUTTON_RIGHT_SHOULDER else 0
+        if step!=0:
+            _scroll_journal(step)
+            get_viewport().set_input_as_handled()
+            return
     if bag.visible and event is InputEventKey and event.pressed and event.physical_keycode in [KEY_UP,KEY_DOWN]:
         # Main polls these keys to move bag selection; consume GUI navigation
         # so one key never advances both the gameplay selection and focus.
@@ -1954,6 +1985,7 @@ func _process(delta: float) -> void:
         thread_bar.max_value=player.max_energy
         thread_bar.value=player.energy
         energy_status.text="%d / %d" % [int(player.energy),int(player.max_energy)]
+        _refresh_thread_thresholds(player)
         _refresh_combat_status(player)
         _refresh_hud_occlusion(delta)
     tutorial_hint.visible=bool(accessibility.get("tutorial_hints",true)) and level.active_overlay==""
@@ -2112,7 +2144,7 @@ func _refresh_journal() -> void:
     bag_name.text="六区旅途记录"
     bag_category_label.text="旅途记录"
     bag_icon.texture=ART.item("moss_lens")
-    bag_description.text="按分类查看主线、委托、证词、已击败敌人与结局；只显示旅途中已知的内容。"
+    if journal_reading_key.is_empty():bag_description.text="按分类查看主线、委托、证词、已击败敌人与结局；只显示旅途中已知的内容。"
     for filter_id in journal_filter_buttons:journal_filter_buttons[filter_id].add_theme_stylebox_override("normal",_tab_style(filter_id==journal_filter))
     for tab in bag_tabs:tab.add_theme_stylebox_override("normal",_tab_style(tab.text==bag_category))
     if not bool(level.get("world_mode")):
@@ -2120,7 +2152,14 @@ func _refresh_journal() -> void:
         return
     var narrative: Variant=level.get("world_narrative")
     if narrative==null:return
-    var records: Array=preload("res://scripts/scene_history.gd").records(level.story_flags)
+    var guide_bindings: Dictionary={}
+    for action in ["jump","attack","heal","skill_1","interact","map"]:guide_bindings[action]=_short_binding(action)
+    var heal: Dictionary={}
+    if is_instance_valid(level.player) and level.player.has_method("get_combat_ui_state"):heal=level.player.get_combat_ui_state().get("heal",{})
+    var recall:=preload("res://scripts/death_recall.gd")
+    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES)
+    records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
+    records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
@@ -2163,8 +2202,13 @@ func _refresh_journal() -> void:
         if String(records[index].get("record_kind",""))+":"+String(records[index].get("id",""))==remembered:journal_selection=index
     journal_selection=clampi(journal_selection,0,maxi(0,records.size()-1))
     if records.is_empty():
+        journal_reading_key=""
+        journal_restore_pending=false
         bag_name.text="尚无敌人记录" if journal_filter=="enemy" else "这一分类暂无记录"
         bag_description.text="击败后会留下战斗笔记；未交战的敌人不会提前列出。" if journal_filter=="enemy" else "继续探索并与人物交谈，已知的记录会保存在这里。"
+        if journal_filter=="voice":
+            bag_name.text="尚无自述"
+            bag_description.text="获得新的永久能力后，这里会留下一句旅途自述。"
     var selected_button: Button
     for record_index in records.size():
         var value: Variant=records[record_index]
@@ -2173,6 +2217,8 @@ func _refresh_journal() -> void:
         var status:="已发现" if bool(entry.get("acquired",false)) else "待发现"
         if entry.record_kind=="quest":status="已完成" if String(entry.get("status",""))=="complete" else "进行中"
         elif entry.record_kind=="main":status="主线"
+        elif entry.record_kind=="guide":status="可回看"
+        elif entry.record_kind=="voice":status="旅途自述"
         elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
         var button:=_button(bag_grid,title+"\n"+status,Vector2.ZERO,Vector2(309,74),func():_show_journal_record(entry))
@@ -2192,6 +2238,7 @@ func _refresh_journal() -> void:
         if selected_button!=null and bag.visible:selected_button.grab_focus()
 
 func _show_journal_record(entry: Dictionary) -> void:
+    _remember_journal_scroll()
     bag_name.text=String(entry.get("title",entry.get("id","")))
     var lines: Array[String]=[]
     if bool(entry.get("history_note",false)):
@@ -2199,6 +2246,12 @@ func _show_journal_record(entry: Dictionary) -> void:
         lines.append(String(entry.get("text","")))
         lines.append("\n地点："+String(entry.get("place","")))
         lines.append("\n环境见闻保留了观察，不计入六区原始证词。")
+    elif String(entry.get("record_kind",""))=="voice":
+        bag_category_label.text="自述 · 获得能力之后"
+        lines.append(String(entry.get("description","")))
+    elif String(entry.get("record_kind",""))=="guide":
+        bag_category_label.text="操作手册 · 当前规则"
+        lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
         var ready:=bool(entry.get("available",false))
@@ -2250,7 +2303,39 @@ func _show_journal_record(entry: Dictionary) -> void:
                 lines.append(String(witness.get("text","")))
             for connection in entry.get("connections",[]):
                 lines.append("\n互证："+String(connection))
-    bag_description.text="\n".join(lines)
+    var text:="\n".join(lines)
+    var key:=String(entry.get("record_kind",""))+":"+String(entry.get("id",""))
+    if journal_reading_key==key and bag_description.text==text:return
+    bag_description.text=text
+    journal_reading_key=key if bag.is_visible_in_tree() else ""
+    journal_reading_text=text
+    journal_restore_pending=not journal_reading_key.is_empty()
+    call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text))
+
+func _remember_journal_scroll(force: bool=false) -> void:
+    if bag_description==null or journal_reading_key.is_empty() or journal_restore_pending:return
+    if force or bag.is_visible_in_tree():journal_reading.capture(journal_reading_key,journal_reading_text,bag_description.get_v_scroll_bar().value)
+
+func _journal_bag_visibility_changed() -> void:
+    if not bag.is_visible_in_tree():
+        _remember_journal_scroll(true)
+        journal_reading_key=""
+        journal_restore_pending=false
+
+func _restore_journal_scroll(key: String, text: String, offset: float) -> void:
+    await get_tree().process_frame
+    if is_inside_tree() and bag.is_visible_in_tree() and journal_reading_key==key and bag_description.text==text:
+        var bar:=bag_description.get_v_scroll_bar()
+        bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
+        journal_restore_pending=false
+
+func _scroll_journal(step: int) -> void:
+    if bag_description==null:return
+    var bar:=bag_description.get_v_scroll_bar()
+    var maximum:=maxf(bar.min_value,bar.max_value-bar.page)
+    if absi(step)==2:bar.value=bar.min_value if step<0 else maximum
+    else:bar.value=clampf(bar.value+step*maxf(64.0,bag_description.size.y*0.8),bar.min_value,maximum)
+    _remember_journal_scroll()
 
 func _ending_status_label(entry: Dictionary) -> String:
     if bool(entry.get("chosen",false)):return "已选择"
@@ -2272,6 +2357,25 @@ func _refresh_hud_occlusion(delta: float) -> void:
         hud_group_alpha[key]=alpha
         for item in groups[key]:
             if is_instance_valid(item):(item as CanvasItem).modulate.a=alpha
+
+## U03: the thread meter itself says whether a heal and the active thread art
+## are affordable. Dormant or empty active skill slots draw no cost mark.
+func _refresh_thread_thresholds(player: Node) -> void:
+    # UI fixtures drive the HUD with lightweight players that have no heal cost.
+    var heal_cost:=int(player.get("heal_energy_cost")) if "heal_energy_cost" in player else 0
+    var skill_cost:=0
+    var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
+    if system!=null and system.has_method("selected_skill"):
+        var skill: Dictionary=system.selected_skill()
+        if not skill.is_empty():skill_cost=maxi(0,int(skill.get("energy_cost",0)))
+    var energy:=int(player.energy)
+    var maximum:=maxi(1,int(player.max_energy))
+    if thread_thresholds.energy!=energy or thread_thresholds.heal_cost!=heal_cost or thread_thresholds.skill_cost!=skill_cost or thread_thresholds.maximum!=maximum:
+        thread_thresholds.energy=energy
+        thread_thresholds.heal_cost=heal_cost
+        thread_thresholds.skill_cost=skill_cost
+        thread_thresholds.maximum=maximum
+        thread_thresholds.queue_redraw()
 
 
 func _skill_readiness(item: Dictionary, remaining: float, active: bool) -> Dictionary:

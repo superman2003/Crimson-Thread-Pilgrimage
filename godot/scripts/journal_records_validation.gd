@@ -16,10 +16,28 @@ func run(main: Node,tree: SceneTree,check: Callable) -> void:
     ui.refresh_inventory()
     await tree.process_frame
     check.call(ui.bag_grid.get_child_count()==0 and ui.bag_name.text=="尚无敌人记录","empty enemy category explains discovery without listing future enemies")
-    check.call(ui.journal_filters.visible and ui.journal_filter_buttons.size()==6,"real journal exposes six record filters")
+    check.call(ui.journal_filters.visible and ui.journal_filter_buttons.size()==8 and ui.journal_filter_buttons.has("guide") and ui.journal_filter_buttons.has("voice"),"real journal retains six original filters and adds guide and earned voice")
     var contained := true
     for button in ui.journal_filter_buttons.values():contained=contained and ui.bag.get_global_rect().encloses(button.get_global_rect())
     check.call(contained and ui.bag_scroll.position.y>=ui.journal_filters.position.y+ui.journal_filters.size.y,"filter controls fit the scaled panel above the scrolling records")
+    var guide_flags: Dictionary=main.story_flags.duplicate(true)
+    var guide_hp: int=main.player.hp
+    var guide_energy: int=main.player.energy
+    ui.journal_filter_buttons.guide.pressed.emit()
+    await tree.process_frame
+    check.call(ui.bag_grid.get_child_count()==4 and ui.bag_category_label.text.contains("操作手册"),"field-guide filter opens four complete teaching notes through production controls")
+    var guide_text: String=ui.bag_description.text
+    var quote: Dictionary=main.player.get_heal_readiness()
+    check.call(guide_text.contains("消耗 %d 绯线" % int(quote.cost)) and guide_text.contains("恢复 %d 生命" % int(quote.amount)),"teaching note quotes the actual current Player recovery values")
+    check.call(main.story_flags==guide_flags and main.player.hp==guide_hp and main.player.energy==guide_energy,"reading teaching notes grants no progress or resources")
+    var guide:=preload("res://scripts/field_guide.gd")
+    var catalogue: Dictionary=main.build_system.catalog
+    for crest in catalogue.crests.values():
+        var sample:={"cost":crest.heal_cost,"amount":crest.heal_amount,"duration":crest.heal_duration}
+        var rows: Array=guide.records(sample,{"heal":"自定义疗伤键"})
+        check.call(String(rows[0].description).contains("消耗 %d 绯线" % int(crest.heal_cost)) and String(rows[0].description).contains("恢复 %d 生命" % int(crest.heal_amount)) and String(rows[0].description).contains("自定义疗伤键"),"field guide accepts each canonical crest's distinct recovery quote and rebound input")
+    check.call(not String(guide.records({},{} ,false)[3].description).contains("召回") and String(guide.records({},{} ,true)[3].description).contains("六成"),"late recall teaching appears only after its existing unlock rule")
+    check.call(String(guide.records({"cost":NAN,"amount":1,"duration":1.0},{})[0].description).contains("当前提示"),"malformed recovery values use explanatory text instead of invented numbers")
     ui.journal_filter_buttons.evidence.pressed.emit()
     await tree.process_frame
     var only_evidence := true

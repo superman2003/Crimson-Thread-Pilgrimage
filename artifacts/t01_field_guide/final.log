@@ -1,0 +1,13 @@
+Running ui_world_integration
+PASS: ui_world_integration
+按 F 休息，恢复状态并记录归途。
+UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0
+Running build_slots_ui
+PASS: build_slots_ui
+
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=54 failures=0 capture=user://build_slots_ui_validation_fixture.png
+Running combat_resource_cycle
+PASS: combat_resource_cycle
+AUDIO_RETIREMENT pending=0 elapsed_msec=42 observed=15 retired=5
+COMBAT_RESOURCE_CYCLE checks=149 failures=0 crests=3 actual_input=true
+GODOT_REGRESSIONS suites=3 failures=0
