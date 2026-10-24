@@ -176,6 +176,7 @@ func _run() -> void:
     motion.axis_value = NAN
     _check(ui._normalized_binding(motion)==null,"Non-finite controller axis is rejected")
     _test_binding_recovery(ui)
+    _test_capture_lifecycle(ui)
     ui.settings.hide()
     _check(not ui.is_remapping_input(),"Hidden settings never hold the input capture gate")
     for action in original_events:
@@ -306,3 +307,42 @@ func _test_binding_recovery(ui: Control) -> void:
     _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER),"heal"),"Same axis direction cannot shadow a fixed gameplay action")
     InputMap.erase_action("remap_policy_probe")
     for action in before:_set_events(action,before[action])
+
+func _test_capture_lifecycle(ui: Control) -> void:
+    _binding_defaults()
+    ui._begin_remap("heal")
+    var original: Array=InputMap.action_get_events("heal")
+    var saved:=FileAccess.get_file_as_bytes(PATH)
+    ui.notification(Node.NOTIFICATION_APPLICATION_FOCUS_OUT)
+    _check(ui.remap_target.is_empty() and ui.remap_status.text.contains("失去焦点"),"Window focus loss cancels capture with an explanation")
+    _check(InputMap.action_get_events("heal")==original and FileAccess.get_file_as_bytes(PATH)==saved,"Focus cancellation changes neither bindings nor preference bytes")
+    ui._begin_remap("heal")
+    ui.settings.hide()
+    _check(ui.remap_target.is_empty(),"Closing settings cancels immediately without waiting for another input")
+    ui.settings.show()
+    _check(ui.remap_target.is_empty(),"Reopening settings does not resume abandoned capture")
+    ui._begin_remap("not_an_action")
+    _check(ui.remap_target.is_empty(),"Unknown action cannot start capture")
+    for axis in [JOY_AXIS_TRIGGER_LEFT,JOY_AXIS_TRIGGER_RIGHT]:
+        var event:=InputEventJoypadMotion.new()
+        event.axis=axis
+        event.device=7
+        event.axis_value=-1.0
+        ui._begin_remap("heal")
+        ui._input(event)
+        _check(ui.remap_target=="heal" and ui._normalized_binding(event)==null,"Released trigger is not a new binding: %d" % axis)
+        event.axis_value=0.9
+        ui._input(event)
+        _check(ui.remap_target.is_empty() and InputMap.event_is_action(event,"heal"),"Deliberate positive trigger press remains bindable: %d" % axis)
+        _binding_defaults()
+        event.axis_value=-1.0
+        _load_bindings(ui,{"heal":[event]})
+        _check(InputMap.event_is_action(_joy(JOY_BUTTON_LEFT_SHOULDER),"heal"),"Legacy resting-trigger binding preserves working default: %d" % axis)
+    var stick:=InputEventJoypadMotion.new()
+    stick.axis=JOY_AXIS_LEFT_X
+    stick.axis_value=-1.0
+    _check(ui._normalized_binding(stick)!=null,"Negative stick direction is still valid")
+    ui.settings.hide()
+    ui._begin_remap("heal")
+    _check(ui.remap_target.is_empty(),"Hidden settings cannot start capture")
+    ui.settings.show()
