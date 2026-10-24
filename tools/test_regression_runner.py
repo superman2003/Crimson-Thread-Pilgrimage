@@ -18,12 +18,15 @@ class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 151)
+        self.assertEqual(len(all_suites), 155)
         self.assertIn("legacy_travel_rewards", DEFAULT_SUITES)
+        self.assertIn("application_close", DEFAULT_SUITES)
         self.assertIn("quiet_sole_traps", DEFAULT_SUITES)
         self.assertIn("wish_reward_atomic", DEFAULT_SUITES)
         self.assertIn("permanent_capacity", DEFAULT_SUITES)
         self.assertIn("boss_skill_art", DEFAULT_SUITES)
+        self.assertIn("player_contact_art", DEFAULT_SUITES)
+        self.assertIn("player_ability_art", DEFAULT_SUITES)
         self.assertIn("player_dash_art", DEFAULT_SUITES)
         self.assertIn("player_hook_art", DEFAULT_SUITES)
         self.assertIn("player_hurt_art", DEFAULT_SUITES)
@@ -40,6 +43,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("g02_respawn", DEFAULT_SUITES)
         self.assertIn("obsidian_road_clearance", DEFAULT_SUITES)
         self.assertIn("obsidian_dock_clearance", DEFAULT_SUITES)
+        self.assertIn("crown_rain_slot", DEFAULT_SUITES)
         self.assertIn("ending_aftermath", DEFAULT_SUITES)
         self.assertIn("settings_remap", DEFAULT_SUITES)
         self.assertIn("tool_practice", DEFAULT_SUITES)
