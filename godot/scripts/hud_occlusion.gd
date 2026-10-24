@@ -31,8 +31,12 @@ static func occupant_rects(level: Node) -> Array[Rect2]:
 		var effects: Variant = enemy.get("owned_attack_effects")
 		if effects is Array:
 			for effect_node in effects:
+				# Owners may still list effects that were already freed; never
+				# cast a freed reference.
+				if not is_instance_valid(effect_node):
+					continue
 				var effect := effect_node as Node2D
-				if is_instance_valid(effect) and effect.is_inside_tree() and not effect.is_queued_for_deletion():
+				if effect != null and effect.is_inside_tree() and not effect.is_queued_for_deletion():
 					rects.append(canvas * effect_rect(effect))
 	return rects
 

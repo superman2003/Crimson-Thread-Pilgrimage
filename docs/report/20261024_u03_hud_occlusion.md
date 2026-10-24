@@ -22,10 +22,11 @@ HUD 有两组固定在画面上的卡片：左上的生命／绯线卡及其下�
 
 ## 验证
 
-- 新增 `hud_occlusion_checks.gd`，接入 `ui_world_integration`（正式 World，按实际镜头反算位置）：两组都有真实屏幕范围；后方无内容时保持不透明；真实敌人放到左上组后方，第一帧开始淡出而非瞬间消失、最终整组（卡片、治疗行）为 30%，左下组不受影响；敌人离开后恢复；敌方攻击效果放到左下组后方（其主人不在附近）也会让左下组淡出；打开地图后恢复；移除攻击效果后恢复；光束覆盖整段长度。
+- 新增 `hud_occlusion_checks.gd`（12 项），接入 `ui_world_integration`（正式 World，按实际镜头反算位置）：两组都有真实屏幕范围；后方无内容时保持不透明；真实敌人放到左上组后方，第一帧开始淡出而非瞬间消失、最终整组（卡片、治疗行）为 30%，左下组不受影响；敌人离开后恢复；敌方攻击效果放到左下组后方（其主人不在附近）也会让左下组淡出；打开地图后恢复；移除攻击效果后恢复；光束覆盖整段长度。
 - 反向检查三组，均为行为断言失败：去掉每帧刷新 3 项；不计攻击效果 1 项；任一组被挡就两组一起淡 1 项。
 - 相关套件：runner 引擎错误门禁（含 SCRIPT ERROR）下 `ui_world_integration`、`ui_redesign`、`global_font`、`input_prompt`、`settings_remap`、`seal_ui`、`save_recovery`、`ui_text_order`、`ui_build_accessibility` 通过；真实 GL 下 `ui_world_integration`、`build_slots_ui` 37、`world_map` 673、`artisan_crafts` 92、`ui_redesign` 70 通过，零 ERROR／SCRIPT ERROR。
 - 合约测试、`npm test`、`npm run test:campaign` 通过。
+- 首次 CI 的完整回归在 `tool_practice` 与 `world_route_walk` 报 `SCRIPT ERROR: Trying to cast a freed object`：敌人的 `owned_attack_effects` 可能仍列着已释放的效果，原代码先 `as Node2D` 再判断有效性。现改为先 `is_instance_valid` 再转型，并在检查中加入“已释放仍在列表里的效果被跳过”一项（换回旧写法时该检查触发 6 次同样的 SCRIPT ERROR）。两套在真实 GL 下复跑零错误；本地 `world_route_walk` 另一次 Ogg 解码错误是本工作树三个提示音只剩 LFS 指针所致，拉取后复跑通过。
 
 ## 边界
 

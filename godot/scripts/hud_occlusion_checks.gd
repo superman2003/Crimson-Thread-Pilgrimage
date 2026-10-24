@@ -61,8 +61,12 @@ func run(main: Node, check: Callable) -> void:
     settle(ui)
     check.call(ui.hud_group_alpha.tactical == 1.0, "an open overlay restores the HUD it covers")
     main._close_overlays()
-    enemy.owned_attack_effects.erase(bolt)
+    # An owner can still list an effect after it was freed (CI hit this in
+    # tool_practice and world_route_walk); the HUD must skip it without error.
     bolt.free()
+    settle(ui)
+    check.call(ui.hud_group_alpha.tactical == 1.0 and enemy.owned_attack_effects.size() > 0, "a freed attack effect still listed by its owner is skipped")
+    enemy.owned_attack_effects.clear()
     settle(ui)
     check.call(ui.hud_group_alpha.tactical == 1.0, "a removed attack effect no longer fades the cards")
     var beam: Node2D = EFFECT.new()
