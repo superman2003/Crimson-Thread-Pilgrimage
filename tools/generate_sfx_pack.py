@@ -38,7 +38,10 @@ License of all output: project-generated (CC0).
 """
 from __future__ import annotations
 
+import argparse
 import math
+import os
+import shutil
 import subprocess
 import wave
 import zlib
@@ -51,7 +54,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SFX_ROOT = ROOT / "godot" / "assets" / "audio" / "sfx"
 OUT_DIR = SFX_ROOT / "generated"
 PREVIEW = ROOT / "output" / "audio_preview" / "sfx_sampler.wav"
-FFMPEG = "C:/Users/Administrator/Desktop/ffmpeg-8.0.1-essentials_build/bin/ffmpeg.exe"
+FFMPEG = os.environ.get("CTP_FFMPEG") or shutil.which("ffmpeg") or "C:/Users/Administrator/Desktop/ffmpeg-8.0.1-essentials_build/bin/ffmpeg.exe"
 
 D3, D4, D5, D6 = 146.83, 293.66, 587.33, 1174.66
 A3, A4, A5 = 220.0, 440.0, 880.0
@@ -512,6 +515,41 @@ def r_elite_ritual_start() -> np.ndarray:
     return x
 
 
+def r_enemy_ambush_reveal() -> np.ndarray:
+    """伏击现身：枯丛猛地撕开 + 低线绷断，短而干，提示近身来袭。"""
+    rng = rng_for("enemy_ambush_reveal")
+    x = silence(0.45)
+    rip = bandpass(noise(0.22, rng), linramp(0.22, 2400.0, 700.0), 1.1) * expdecay(0.22, 0.07)
+    place(x, rip, 0.0)
+    place(x, np.tanh(pluck(D4, 0.32, 0.09, 1.0, rng=rng) * 1.8), 0.015, 0.8)
+    place(x, sine(linramp(0.12, 120.0, 60.0), 0.12) * expdecay(0.12, 0.04), 0.0, 0.7)
+    return x
+
+
+def r_enemy_alarm_call() -> np.ndarray:
+    """报警：两记急促降B铜铃叠短号低鸣，远处同伴循声而来。"""
+    rng = rng_for("enemy_alarm_call")
+    x = silence(0.95)
+    for at in (0.0, 0.2):
+        place(x, bell(BB4, 0.6, bright=1.3, damp=1.6, strike=0.8, rng=rng), at, 0.8)
+    dur = 0.6
+    fr = 116.54 * (1.0 + 0.012 * np.sin(2 * math.pi * 5.5 * t_axis(dur)))
+    horn = sine(fr, dur) + sine(fr * 2.0, dur, 0.5) + sine(fr * 3.0, dur, 0.3)
+    horn = np.tanh(horn * 1.4) * np.sin(np.linspace(0, math.pi, n_of(dur))) ** 0.7
+    place(x, horn, 0.08, 0.55)
+    return x
+
+
+def r_enemy_support_mend() -> np.ndarray:
+    """支援引导：旗布簌响托着缓升的暗色线音（D4→降B4），与玩家疗伤的明亮钟对区分。"""
+    rng = rng_for("enemy_support_mend")
+    dur = 0.9
+    swell = np.sin(np.linspace(0, math.pi, n_of(dur))) ** 1.2
+    rise = sine(linramp(dur, D4, BB4), dur, 0.5) + sine(linramp(dur, D4 * 1.5, BB4 * 1.5), dur, 0.18)
+    flutter = bandpass(noise(dur, rng), 520.0, 0.9) * (0.6 + 0.4 * np.sin(2 * math.pi * 9.0 * t_axis(dur)))
+    return rise * swell + flutter * linramp(dur, 0.2, 0.7) * 0.6
+
+
 def r_boss_windup_light() -> np.ndarray:
     rng = rng_for("boss_windup_light")
     dur = 0.5
@@ -885,6 +923,10 @@ PACK = [
     # (peak -6 dB; tap crest keeps active RMS around -23, close to the -24 aim)
     ("enemy_death_silent", "enemy_death_silent.ogg", r_death_silent, False, 0.5, None),
     ("elite_ritual_start", "elite_ritual_start.ogg", r_elite_ritual_start, False, 0.68, None),
+    # B01 role cues: ambush reveal, alarm call and support channel (enemy_actor._role_cue)
+    ("enemy_ambush_reveal", "enemy_ambush_reveal.ogg", r_enemy_ambush_reveal, False, 0.62, None),
+    ("enemy_alarm_call", "enemy_alarm_call.ogg", r_enemy_alarm_call, False, 0.66, None),
+    ("enemy_support_mend", "enemy_support_mend.ogg", r_enemy_support_mend, False, 0.55, None),
     ("boss_windup_light", "boss_windup_light.ogg", r_boss_windup_light, False, 0.6, None),
     # review 3a: -6.3 dB active RMS was the loudest file in the library -> -12
     ("boss_windup_lethal", "boss_windup_lethal.ogg", r_boss_windup_lethal, False, 0.7, -12.0),
@@ -994,6 +1036,10 @@ def write_ogg(path: Path, samples: np.ndarray, peak: float,
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--only", nargs="+", metavar="FILE",
+                        help="render only these output files (e.g. enemy_alarm_call.ogg); skips the sampler")
+    only = set(parser.parse_args().only or [])
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     PREVIEW.parent.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -1001,6 +1047,8 @@ def main() -> None:
     total_bytes = 0
     jobs = [(OUT_DIR, entry) for entry in PACK] + [(SFX_ROOT, entry) for entry in CORE_PACK]
     for out_dir, (event_key, file_name, builder, is_loop, peak, rms_db) in jobs:
+        if only and file_name not in only:
+            continue
         x = np.asarray(builder(), dtype=float)
         if not is_loop:
             x = edge_fade(x, 0.005)
@@ -1015,6 +1063,13 @@ def main() -> None:
         rows.append((event_key, file_name, dur, float(np.max(np.abs(x))),
                      active_rms_db(x), is_loop, size))
 
+    missing = only - set(rendered)
+    assert not missing, f"unknown --only files: {sorted(missing)}"
+    if only:
+        print(f"generated {len(rows)} ogg files (--only; sampler skipped)")
+        for event_key, file_name, dur, peak, arms, is_loop, size in rows:
+            print(f"{event_key:<26} {file_name:<32} {dur:>6.2f} {peak:>5.2f} {arms:>6.1f} {str(is_loop):>5} {size:>8}")
+        return
     gap = silence(0.3)
     sampler = np.concatenate(
         [np.concatenate([rendered[name], gap]) for name in SAMPLER_FILES]

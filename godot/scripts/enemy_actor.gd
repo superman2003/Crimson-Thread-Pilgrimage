@@ -232,6 +232,10 @@ const SFX := {
     "boss_windup_lethal": "res://assets/audio/sfx/generated/boss_windup_lethal.ogg",
     # 精英遭遇仪式起手（encounter_role 含 elite 的敌人首次进战）。
     "elite_ritual_start": "res://assets/audio/sfx/generated/elite_ritual_start.ogg",
+    # B01 职责提示：伏击现身、报警、支援引导各有专属声音（_role_cue）。
+    "role_ambush_reveal": "res://assets/audio/sfx/generated/enemy_ambush_reveal.ogg",
+    "role_alarm_call": "res://assets/audio/sfx/generated/enemy_alarm_call.ogg",
+    "role_support_mend": "res://assets/audio/sfx/generated/enemy_support_mend.ogg",
     # 章节 beat 叠层（audio_visual_manifest chapter beats）：章节条件按敌人材质
     # （death_sfx_key，main_level 按章节 art theme 写入）或 boss kind 判定。
     "ch02_beat_water_hammer": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg",
@@ -330,6 +334,13 @@ const SUPPORT_RADIUS := 260.0
 const SUPPORT_WINDUP := 0.9
 const SUPPORT_COOLDOWN := 8.0
 var support_cooldown := 0.0
+## A revealed ambusher holds this long before moving or striking.
+const AMBUSH_REVEAL_HOLD := 0.35
+var reveal_hold := 0.0
+## Waiting at a post or lurking is not combat; the music layer reads this.
+const CALM_DECISIONS := ["patrol", "return", "lurk", "hold_post", "return_post"]
+## Role cues raised by this actor (diagnostic; audio is skipped headless).
+var role_cue_counts := {}
 var support_target: WeakRef
 const ATTACK_ROLES := {
     "anti_air": ["nova", "fan", "projectile", "mortar"],
@@ -719,6 +730,7 @@ func _tick_timers(delta: float) -> void:
     memory_timer = maxf(0.0, memory_timer - delta)
     alarm_cooldown = maxf(0.0, alarm_cooldown - delta)
     support_cooldown = maxf(0.0, support_cooldown - delta)
+    reveal_hold = maxf(0.0, reveal_hold - delta)
     poise_timer = maxf(0.0, poise_timer - delta)
     poise_cooldown = maxf(0.0, poise_cooldown - delta)
     backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
@@ -835,6 +847,8 @@ func reset_for_respawn() -> void:
     alarm_alerted = 0
     alarm_search = false
     support_cooldown = 0.0
+    reveal_hold = 0.0
+    role_cue_counts.clear()
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -922,10 +936,19 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
         _return_to_spawn(delta)
         return
     if engaged:
+        if not tracking and tactical_role == "ambush":
+            _role_cue("ambush_reveal")
+            reveal_hold = AMBUSH_REVEAL_HOLD
         if not tracking and tactical_role == "alarm" and alarm_cooldown <= 0.0:
             _raise_alarm(target)
         last_seen_position = target.global_position
         memory_timer = TARGET_MEMORY_SECONDS
+        if reveal_hold > 0.0:
+            # The reveal itself is the tell: face the player, then act.
+            last_ai_decision = "ambush:reveal"
+            _face_target(target)
+            _set_enemy_animation("idle")
+            return
         if _try_start_support():
             return
         if _try_start_attack(target):
@@ -978,6 +1001,7 @@ func _return_to_post(delta: float, waiting_decision: String) -> void:
 func _raise_alarm(target: CharacterBody2D) -> void:
     alarm_cooldown = ALARM_COOLDOWN
     alarm_alerted = 0
+    _role_cue("alarm_call")
     for node in get_tree().get_nodes_in_group("enemy"):
         if node == self or not is_instance_valid(node) or node.is_queued_for_deletion() or not node.has_method("hear_alarm"):
             continue
@@ -1043,6 +1067,7 @@ func _try_start_support() -> bool:
     _set_enemy_animation("attack", true)
     _pose_sprite("windup")
     _fit_animation_duration(SUPPORT_WINDUP)
+    _role_cue("support_mend")
     if MINOR_SKILL_ART.start_support(self): return true
     var link := Line2D.new()
     link.name = "EnemySupportLink"
@@ -2433,6 +2458,44 @@ func _hit_tier_key() -> String:
 
 ## 首次进战宣告：Boss 开场吼 / 精英（encounter_role 含 elite）仪式起手；
 ## 手工章节 enemy_spawns 无 encounter_role → 空串静默，仅普通巡逻音。
+## Each B01 role transition has its own sound. Reveal and alarm also draw a
+## short ring on the warning layer (once per engagement, never budget-culled):
+## a jagged burst for a reveal, two widening rings for a call.
+func _role_cue(cue: String) -> void:
+    role_cue_counts[cue] = int(role_cue_counts.get(cue, 0)) + 1
+    _play_sfx("role_" + cue, -8.0 if cue == "alarm_call" else -10.0, 1.0, 1)
+    if cue == "support_mend":
+        return
+    var reveal := cue == "ambush_reveal"
+    for index in (1 if reveal else 2):
+        var ring := Line2D.new()
+        ring.name = "EnemyAmbushRevealCue" if reveal else ("EnemyAlarmCue" if index == 0 else "EnemyAlarmCueEcho")
+        var points := PackedVector2Array()
+        var steps := 16 if reveal else 28
+        for step in steps + 1:
+            var angle := TAU * float(step) / float(steps)
+            var radius := (34.0 if step % 2 == 0 else 22.0) if reveal else 30.0
+            points.append(Vector2(cos(angle), sin(angle)) * radius)
+        ring.points = points
+        ring.position = Vector2(0, -48)
+        ring.width = 3.0 if reveal else 2.0
+        ring.default_color = Color(0.96, 0.32, 0.28, 0.95) if reveal else Color(1.0, 0.82, 0.42, 0.9)
+        VISUAL_POLICY.place_danger(ring, true)
+        add_child(ring)
+        var tween := _combat_tween()
+        var life := 0.4 if reveal else 0.55
+        tween.tween_interval(0.2 * index)
+        tween.tween_property(ring, "scale", Vector2.ONE * (1.5 if reveal else 3.2), life)
+        # Hold full strength first so the cue reads, then fade.
+        tween.parallel().tween_property(ring, "modulate:a", 0.0, life * 0.6).set_delay(life * 0.4)
+        tween.tween_callback(ring.queue_free)
+
+
+## Music/alert layer contract: an actor waiting at a post is not in combat.
+func combat_engaged() -> bool:
+    return not CALM_DECISIONS.has(last_ai_decision)
+
+
 func _announce_engagement() -> void:
     engage_announced = true
     if is_boss:
