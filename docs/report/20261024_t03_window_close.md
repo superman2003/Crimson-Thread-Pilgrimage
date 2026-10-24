@@ -28,3 +28,22 @@
 本批验证 Windows 主窗口关闭。其它主动 `SceneTree.quit()` 夹具仍由各自所有者负责退役；本批没有宣称覆盖强制结束进程、崩溃或整轮长时间游玩。T03/T05及全部46项最终验收继续 OPEN；未合并 main。
 
 证据入口：`artifacts/t03_window_close/published/manifest.json`，每项记录原路径、原始长度/SHA256、gzip 长度/SHA256；payload gzip mtime=0。最终直接输入哈希见归档的 `published-inputs.json`。
+
+## 已发表依赖整合后的独立复验
+
+外部维护随后将已发表的受伤、突进/钩索、能力素材、N02许愿事务、防潮线结、第六区雨槽及夹具收尾合入本PR，形成 `44ffc12593cfaf10303451b0cee2ef77ce658a29`。该确切树另登记154套，包含本退出套件；未包含随后PR222的最后三项接触材质，不能将本轮称为该材质或最终发行验收。原始fc183及9124输入证据仍为上述历史范围。
+
+本轮为新增4张atlas与防潮图标复制5份已校验导入缓存，PNG源字节严格相同、导入设置LF规范后相同；SVG原工作副本只有换行差异，已在运行前恢复为当前Git对象原字节，再与来源核对。缓存SHA、原/目标元数据SHA和该唯一换行恢复均归档。第一次选定的单一来源没有可匹配图标，未启动引擎；随后扩大到已有验证工作树来源，未改素材或生产逻辑。
+
+9166项Godot/tools输入在每轮运行前后相同，8项直接输入的原始字节与该发表树逐项一致。5套CPU终态（application_close12、quiet24、wish34、legacy36、capacity35）25.328秒，全零ERROR/warning；两道完整npm门及运行器合同通过（Windows实际1项/跳过30项）。三组新的独立原生窗口退出也均exit0、零ERROR/warning：ready PID35708/8.953秒，暂停双关闭PID38600/9.437秒，启动任务pending时双关闭PID24804/9.515秒。源、原始日志、结果及缓存来历见 `artifacts/t03_window_close/integrated_44/manifest.json`，不以新范围覆盖早期结果。
+
+## 默认项目入口漏测与延迟安装修正
+
+上述World夹具是在树初始化后实例化场景，未覆盖引擎加载默认主场景时根节点仍在添加子节点的边界。首次实现的 `root.add_child(owner)` 会在真实项目入口失败并遗留未挂载节点；此前World夹具通过不能证明实际默认入口通过。外部已发表 `207f247554cb3152e469348b1c8caff31b1e1c21` 将加入改为 deferred，并用根metadata占位，拒绝同一idle之前重复排队；默认回归增加加入前/加入后的重复安装检查。已以普通merge保留该外部修订及44整合父链。
+
+新增 `tools/probe_project_close.py` 完全不传 `--script`，由引擎自己加载 `project.godot` 指定的World。探针观察既有生产探索提示后，只向自有PID窗口发真实WM_CLOSE；从私有APPDATA中的引擎日志确认隔离生效，并从生产退役输出验证实际播放释放，未注入测试准备状态。两次进程都保持9167项输入书签一致，控制结束后关闭脚本原字节精确恢复。
+
+- 即时安装反向：仅换回44发表的关闭脚本，PID4048/9.625秒，进程exit0但验证exit1。实际3条ERROR为root busy、未在树内节点取路径、1资源仍在使用，另1个ObjectDB warning；泄漏类是Node/GDScript/GDScriptNativeClass，本次没有把它误报为先前夹具的12个Ogg实例。未出现关闭完成标记。
+- 延迟安装正向：PID39644/10.360秒，真实默认入口exit0，零ERROR/warning，观察3个播放、退役6个播放器，pending0（1ms），恰好一次完成标记。7项直接输入原始字节与最终发布索引逐项相同。更新的默认退出12项与完整两道npm门另验通过，9167项书签不变。
+
+原始证据见 `artifacts/t03_window_close/project_entry/manifest.json`。44的5套标准CPU运行中，继承的runner把quiet/wish/legacy三名连成一个字符串，未对这三套启用固定时钟；这些CPU结果保留其实际默认时钟范围，不能称固定60Hz。专用窗口与默认项目入口的原生命令均明确传了fixed60，不受此列表缺陷影响；该三名拆分由后续第六区批次发表。本批未因此回填或改写历史运行记录，46项最终验收仍OPEN。
