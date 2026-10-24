@@ -126,7 +126,7 @@ static func render(level: Node) -> void:
             outline.set_meta("region_id", id)
             outline.set_meta("room_id", room_id)
             outline.set_meta("charted", detailed)
-            outline.tooltip_text = String(room.get("name", room_id)) if detailed or SURVEY.public_room(room) else ""
+            preload("res://scripts/map_room_context.gd").bind_room(level,outline,data,id,room_id)
             host.add_child(outline)
         surface.prepare()
         # Every region is evaluated against its own config. Ability inventory

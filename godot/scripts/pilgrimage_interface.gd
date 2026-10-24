@@ -78,6 +78,9 @@ var build_summary: Label
 var build_tabs: Array[Button]=[]
 var build_category := "契印"
 var build_selection := ""
+var loadout_dialog: ConfirmationDialog
+var pending_loadout_action := ""
+var pending_loadout_name := ""
 var build_assign_slot := 0
 var build_slot_buttons: Array[Button]=[]
 var build_family := "combat_accessory"
@@ -187,6 +190,8 @@ func begin_bind(runtime: Node) -> void:
     _load_accessibility()
 
 func finish_bind() -> void:
+    if settings!=null and not settings.visibility_changed.is_connected(_remap_visibility_changed):
+        settings.visibility_changed.connect(_remap_visibility_changed)
     if not get_viewport().size_changed.is_connected(_fit_viewport):
         get_viewport().size_changed.connect(_fit_viewport)
     if not get_viewport().gui_focus_changed.is_connected(_remember_gui_focus):
@@ -1000,8 +1005,22 @@ func _reset_bindings() -> void:
     remap_status.text="已恢复全部默认按键；声音、字幕与画面设置不变。"
 
 func _begin_remap(action: String) -> void:
+    if not REMAPPABLE_ACTIONS.has(action) or settings==null or not settings.is_visible_in_tree():return
     remap_target=action
     remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc 取消。" % REMAPPABLE_ACTIONS[action]
+
+func _cancel_remap(reason: String) -> void:
+    if remap_target.is_empty():return
+    remap_target=""
+    remap_capture_frame=Engine.get_process_frames()
+    if is_instance_valid(remap_status):remap_status.text=reason
+
+func _remap_visibility_changed() -> void:
+    if not settings.is_visible_in_tree():_cancel_remap("已离开设置，重映射已取消。")
+
+func _notification(what: int) -> void:
+    if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
+        _cancel_remap("窗口已失去焦点，重映射已取消；原绑定保留。")
 
 func _refresh_remap_labels() -> void:
     for action in remap_buttons:
@@ -1524,8 +1543,7 @@ func refresh_build() -> void:
                 for recipe in entries:(own if String(recipe.get("artisan",""))==here else rest).append(recipe)
                 entries=own+rest
         "构筑":
-            for i in 3:
-                var id:="巡礼方案 %d" % (i+1)
+            for id in _loadout_names(snapshot):
                 var loadouts: Array=snapshot.get("loadouts",[])
                 entries.append({"id":id,"name":id,"description":"保存当前契印、技能、战具和铭饰。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
     for tab in build_tabs:tab.add_theme_stylebox_override("normal",_tab_style(String(tab.get_meta("build_category",""))==build_category))
@@ -1600,7 +1618,7 @@ func refresh_build() -> void:
             var preview:=_loadout_quote(id)
             button.disabled=not bool(preview.get("can_restore",false))
             button.tooltip_text=String(preview.get("reason","可在钟龛恢复"))
-            var save:=_button(build_grid,"保存为「%s」" % id,Vector2.ZERO,Vector2(563,36),func():_perform_build_action("save_loadout",name_value))
+            var save:=_button(build_grid,("覆盖" if bool(entry.get("exists",false)) else "保存为")+"「%s」" % id,Vector2.ZERO,Vector2(563,36),func():_request_loadout_change("save_loadout",name_value))
             save.custom_minimum_size=Vector2(563,36)
             save.set_meta("build_id",id)
             save.focus_entered.connect(func():
@@ -1609,6 +1627,10 @@ func refresh_build() -> void:
             save.mouse_entered.connect(func():_show_build_detail(entry))
             if first==button and button.disabled:first=save
             button.text="恢复「%s」%s" % [id,"" if bool(entry.get("exists",false)) else " · 尚未保存"]
+            if bool(entry.get("exists",false)):
+                var remove:=_button(build_grid,"删除「%s」" % id,Vector2.ZERO,Vector2(563,30),func():_request_loadout_change("delete_loadout",name_value))
+                remove.custom_minimum_size=Vector2(563,30)
+                remove.set_meta("loadout_delete",id)
     if first!=null:
         var current_focus:=get_viewport().gui_get_focus_owner()
         if build_panel.visible and (current_focus==null or not build_panel.is_ancestor_of(current_focus)):first.grab_focus()
@@ -1617,6 +1639,46 @@ func refresh_build() -> void:
                 _show_build_detail(value)
                 return
         _show_build_detail(entries[0])
+
+func _loadout_names(snapshot: Dictionary) -> Array[String]:
+    var result: Array[String]=[]
+    for name in snapshot.get("loadouts",[]):
+        if name is String and not result.has(name):result.append(name)
+    for index in 8:
+        var name:="巡礼方案 %d" % (index+1)
+        if result.size()<8 and not result.has(name):result.append(name)
+    result.sort()
+    return result
+
+func _request_loadout_change(action: String, name: String) -> void:
+    if not build_panel.is_visible_in_tree() or build_category!="构筑":return
+    if not _is_at_build_workstation(_build_snapshot()):return
+    var exists: bool=_build_snapshot().get("loadouts",[]).has(name)
+    if action=="save_loadout" and not exists:
+        _perform_build_action(action,name)
+        return
+    if not exists or action not in ["save_loadout","delete_loadout"]:return
+    if loadout_dialog==null:
+        loadout_dialog=ConfirmationDialog.new()
+        add_child(loadout_dialog)
+        loadout_dialog.confirmed.connect(_confirm_loadout_change)
+        loadout_dialog.canceled.connect(func():pending_loadout_action="";pending_loadout_name="")
+    pending_loadout_action=action
+    pending_loadout_name=name
+    loadout_dialog.title="覆盖构筑方案" if action=="save_loadout" else "删除构筑方案"
+    loadout_dialog.dialog_text=("用当前装备覆盖「%s」？旧方案将被替换。" if action=="save_loadout" else "删除「%s」？当前装备、资源和其它方案保留。") % name
+    loadout_dialog.get_ok_button().text="确认覆盖" if action=="save_loadout" else "确认删除"
+    loadout_dialog.get_cancel_button().text="保留原方案"
+    loadout_dialog.popup_centered(Vector2i(500,160))
+    loadout_dialog.get_cancel_button().grab_focus()
+
+func _confirm_loadout_change() -> void:
+    var action:=pending_loadout_action
+    var name:=pending_loadout_name
+    pending_loadout_action=""
+    pending_loadout_name=""
+    if not build_panel.is_visible_in_tree() or build_category!="构筑" or not _is_at_build_workstation(_build_snapshot()):return
+    if action in ["save_loadout","delete_loadout"]:_perform_build_action(action,name)
 
 func _entry_equipped_slots(snapshot: Dictionary, id: String) -> String:
     var family_id:=_build_family_for_page()
