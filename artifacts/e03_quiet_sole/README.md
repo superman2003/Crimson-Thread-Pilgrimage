@@ -23,3 +23,8 @@ All failed diagnostics remain archived. Diagnostic01 reached a missing-key scrip
 A prior native precheck had an unclassified ObjectDB exit warning. The same-final reverse reproduced it under verbose logging, identifying twelve Ogg audio/playback instances, while both final positive native runs were clean. This intermittent audio retirement warning is retained and is not claimed fixed or causally attributed to quiet sole. The core suite does not capture images. No hazard-damage or invulnerability behavior was changed to suppress it. The separate damp-knot promise remains future work; it was not remapped to a different accessory.
 
 Archive index entries give uncompressed size/SHA-256 and gzip size/SHA-256. Every gzip member uses mtime 0. Decompress relative to this folder to inspect the original logs and manifests.
+
+
+## Subsequent runner count correction
+
+The original 6d5ee6bd source registered 144 suites but left the runner contract at 143. The existing Python contract actually failed on this mismatch; the isolated `ci_count_fix` logs preserve that failure and the corrected 31-test run (one executed, thirty platform skips). The expected count is now 144 and explicitly requires quiet_sole_traps. This changes no gameplay, fixture or completion marker; the earlier frozen engine evidence continues to describe its original source, not a rerun of this later static assertion.
