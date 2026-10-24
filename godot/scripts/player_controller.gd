@@ -257,6 +257,7 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
 const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
@@ -540,6 +541,7 @@ func _physics_process(delta: float) -> void:
         wall_sliding = false
         _play(&"wall_slide")
         _play_sfx("jump", -6.0)
+        MOVEMENT_ART.wall_jump(self, jump_wall_dir)
 
     elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
         ability_action.emit("double_thread_jump", global_position, Vector2.UP)
@@ -550,7 +552,7 @@ func _physics_process(delta: float) -> void:
         wall_sliding = false
         _play(&"jump_start")
         _play_sfx("jump", -6.0, 1.16)
-        _spawn_double_jump_vfx()
+        MOVEMENT_ART.double_jump(self)
 
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
@@ -602,8 +604,9 @@ func _physics_process(delta: float) -> void:
         pogo_chain = 0
         air_jump_available = true
         _play_land_sfx(fall_speed)
-        _spawn_land_vfx()
+        MOVEMENT_ART.land(self, fall_speed)
     _update_wall_slide_audio()
+    MOVEMENT_ART.wall_state(self)
     _update_footsteps(delta)
     _update_camera(delta)
     _update_animation(input_axis)
@@ -697,6 +700,7 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    MOVEMENT_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)
     respawn_reveal_timer = 0.0
@@ -1046,6 +1050,16 @@ func _interrupt_heal() -> void:
 
 
 func apply_build_stats(stats: Dictionary) -> void:
+    # Finding a capacity reward is not an equipment change. Keep the current
+    # attack/channel/guard and its original reservation; do not refill on pickup.
+    if not build_profile.is_empty():
+        var capacity_only := build_profile.duplicate(true)
+        capacity_only["max_hp"] = stats.get("max_hp", max_hp)
+        capacity_only["max_energy"] = stats.get("max_energy", max_energy)
+        if capacity_only == stats and (max_hp != int(capacity_only.max_hp) or max_energy != int(capacity_only.max_energy)):
+            build_profile = stats.duplicate(true)
+            _apply_capacity_limits(stats)
+            return
     # Settle the old channel under its original cost/loss and capacity first.
     _interrupt_heal()
     _clear_action_buffer()
@@ -1074,6 +1088,15 @@ func apply_build_stats(stats: Dictionary) -> void:
     energy = mini(energy, max_energy)
     guard_timer = 0.0
     _stop_phase()
+    hp_changed.emit(hp)
+    energy_changed.emit(energy, max_energy)
+
+
+func _apply_capacity_limits(stats: Dictionary) -> void:
+    max_hp = maxi(1, int(stats.get("max_hp", max_hp)))
+    max_energy = maxi(1, int(stats.get("max_energy", max_energy)))
+    hp = mini(hp, max_hp)
+    energy = mini(energy, max_energy)
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 
@@ -2573,6 +2596,7 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
 
 
 func _exit_tree() -> void:
+    MOVEMENT_ART.clear(self)
     HEAL_ART.clear(self)
     GUARD_ART.clear(self)
     VISUAL_POLICY.clear_secondary(self)

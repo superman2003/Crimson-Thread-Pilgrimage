@@ -1,0 +1,46 @@
+{
+  "phases": [
+    {
+      "exit": 0,
+      "seconds": 16.28,
+      "timeout": 180,
+      "errors": [],
+      "warnings": 0,
+      "completion": "WORLD_C05_BRIDE phase=death failures=0 deaths=1 damage_suppression=false",
+      "passed": true,
+      "phase": "death",
+      "restart": {
+        "exit": 0,
+        "seconds": 5.09,
+        "timeout": 180,
+        "errors": [],
+        "warnings": 0,
+        "completion": "WORLD_C05_BRIDE_RESTART failures=0 pid_changed=true",
+        "passed": true
+      }
+    },
+    {
+      "exit": 0,
+      "seconds": 42.92,
+      "timeout": 180,
+      "errors": [],
+      "warnings": 0,
+      "completion": "WORLD_C05_BRIDE phase=retry failures=0 deaths=0 damage_suppression=false",
+      "passed": true,
+      "phase": "retry",
+      "restart": {
+        "exit": 0,
+        "seconds": 5.3,
+        "timeout": 180,
+        "errors": [],
+        "warnings": 0,
+        "completion": "WORLD_C05_BRIDE_RESTART failures=0 pid_changed=true",
+        "passed": true
+      }
+    }
+  ],
+  "seconds": 74.97,
+  "source_files": 8761,
+  "source_unchanged": true,
+  "passed": true
+}
